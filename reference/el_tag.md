@@ -1,4 +1,4 @@
-# Element UI Tag
+# Element Plus Tag
 
 Creates a styled tag/chip component. Tracks click and close events as
 Shiny inputs.
@@ -16,6 +16,7 @@ el_tag(
   color = NULL,
   hit = FALSE,
   disable_transitions = FALSE,
+  round = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -44,7 +45,8 @@ el_tag(
 
 - size:
 
-  Tag size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - effect:
 
@@ -61,6 +63,10 @@ el_tag(
 - disable_transitions:
 
   Disable the zoom-in-center animation. Default `FALSE`.
+
+- round:
+
+  Whether Tag is rounded. Element Plus's `round` (boolean).
 
 - width:
 
@@ -103,15 +109,15 @@ An `htmltools` tagList with a Vue-managed tag component.
 el_tag("tag1", "Success", type = "success")
 #> <div id="tag1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="tag1_container" style="display: contents">
-#>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
+#>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round">{{label}}</el-tag>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Success","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag1_closed', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Success","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag1_closed', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
 el_tag("tag2", "Closable", closable = TRUE)
 #> <div id="tag2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="tag2_container" style="display: contents">
-#>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
+#>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round">{{label}}</el-tag>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag2_closed', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag2_closed', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
 ```

@@ -1,4 +1,4 @@
-# Update Element UI Autocomplete
+# Update Element Plus Autocomplete
 
 Server-side update for
 [`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md).

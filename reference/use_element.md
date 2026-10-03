@@ -34,9 +34,9 @@ use_element(
 
 - offline:
 
-  Serve Element UI from the copy bundled with this package rather than
+  Serve Element Plus from the copy bundled with this package rather than
   the unpkg CDN. See
-  [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md).
+  [`element_plus_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_plus_dependency.md).
 
 - dev:
 
@@ -46,16 +46,16 @@ use_element(
 
 - locale:
 
-  Language for Element UI's built-in text. English by default, or
+  Language for Element Plus's built-in text. English by default, or
   `getOption("shiny.element.locale")` when set. See
   [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md).
 
 - size, z_index:
 
-  Element's global config, as `Vue.use(Element, {size, zIndex})` sets
-  it: the size of every component not given one of its own (`"medium"`,
-  `"small"` or `"mini"`), and the z-index its popups start from (2000 by
-  default). `NULL` leaves Element's default.
+  Element Plus's global config, as `app.use()` gives it: the size of
+  every component not given one of its own (`"large"`, `"default"` or
+  `"small"`), and the z-index its popups start from (2000 by default).
+  `NULL` leaves Element's default.
 
 - layout_css:
 

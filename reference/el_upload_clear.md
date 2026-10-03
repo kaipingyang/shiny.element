@@ -1,4 +1,4 @@
-# Clear an Element UI Upload's file list
+# Clear an Element Plus Upload's file list
 
 Empties the list of chosen files, as you would after a form is
 submitted. It does not undo an upload that has already happened.

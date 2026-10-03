@@ -1,6 +1,6 @@
-# Generate a `<template>` tag for Vue/Element UI slot usage
+# Generate a `<template>` tag for Vue/Element Plus slot usage
 
-Generate a `<template>` tag for Vue/Element UI slot usage
+Generate a `<template>` tag for Vue/Element Plus slot usage
 
 ## Usage
 
@@ -35,11 +35,11 @@ template("Hello World")
 
 # With slot name
 template("Custom content", slot = "header")
-#> <template slot="header">Custom content</template>
+#> <template v-slot:header>Custom content</template>
 
 # With HTML tag content
 template(shiny::tags$a(href = "https://posit.co", "Posit"), slot = "footer")
-#> <template slot="footer"><a href="https://posit.co">Posit</a></template>
+#> <template v-slot:footer><a href="https://posit.co">Posit</a></template>
 
 # Combine multiple tags
 template(
@@ -47,7 +47,7 @@ template(
   shiny::tags$span("B"),
   slot = "extra"
 )
-#> <template slot="extra"><span>A</span><span>B</span></template>
+#> <template v-slot:extra><span>A</span><span>B</span></template>
 
 # Custom dateCell slot with check mark (Unicode)
 template(
@@ -56,10 +56,10 @@ template(
     "{{ data.day.split('-').slice(1).join('-') }}",
     shiny::tags$span("\u2714\ufe0f", `v-if` = "data.isSelected")
   ),
-  slot = "dateCell",
+  slot = "date-cell",
   scope = "{date, data}"
 )
-#> <template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? &#39;is-selected&#39; : &#39;&#39;">
+#> <template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? &#39;is-selected&#39; : &#39;&#39;">
 #>   {{ data.day.split('-').slice(1).join('-') }}
 #>   <span v-if="data.isSelected">✔️</span>
 #> </p></template>

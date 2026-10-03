@@ -1,4 +1,4 @@
-# Update Element UI Dialog
+# Update Element Plus Dialog
 
 Server-side update for
 [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md).

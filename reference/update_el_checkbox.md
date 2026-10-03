@@ -1,4 +1,4 @@
-# Update Element UI Checkbox
+# Update Element Plus Checkbox
 
 Server-side update for
 [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md).

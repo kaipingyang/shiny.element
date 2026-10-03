@@ -1,4 +1,4 @@
-# Element UI Input Number
+# Element Plus Input Number
 
 A numeric input with increment/decrement buttons.
 
@@ -27,6 +27,16 @@ el_input_number(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  align = NULL,
+  aria_label = NULL,
+  disabled_scientific = NULL,
+  formatter = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  readonly = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -65,7 +75,8 @@ el_input_number(
 
 - size:
 
-  Component size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - disabled:
 
@@ -129,6 +140,56 @@ el_input_number(
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
 
+- align:
+
+  Alignment for the inner input text. Element Plus's `align` ('left' \|
+  'center' \| 'right').
+
+- aria_label:
+
+  Same as `aria-label` in native input. Element Plus's `aria-label`
+  (string).
+
+- disabled_scientific:
+
+  Disables input of scientific notation (e.g. 'e'). Element Plus's
+  `disabled-scientific` (boolean).
+
+- formatter:
+
+  Specifies the format of the value presented in the input. Element
+  Plus's `formatter` ((value: string) =\> string).
+
+- inputmode:
+
+  Same as `inputmode` in native input. Element Plus's `inputmode`
+  (string).
+
+- parser:
+
+  Specifies the value extracted from the formatted input. Element Plus's
+  `parser` ((value: string) =\> string).
+
+- readonly:
+
+  Same as `readonly` in native input. Element Plus's `readonly`
+  (boolean).
+
+- tabindex:
+
+  Same as `tabindex` in native input. Element Plus's `tabindex` (string
+  / number).
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
+- value_on_clear:
+
+  Value should be set when input box is cleared. Element Plus's
+  `value-on-clear` (number / null / 'min' \| 'max').
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -171,15 +232,15 @@ Callable with
 el_input_number("n1", value = 5, min = 0, max = 100)
 #> <div id="n1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="n1_container" style="display: contents">
-#>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :size="size === null ? undefined : size" :precision="precision === null ? undefined : precision" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :name="name === null ? undefined : name" @blur="elEmitBlur" @focus="elEmitFocus"></el-input-number>
+#>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :size="size === null ? undefined : size" :precision="precision === null ? undefined : precision" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :name="name === null ? undefined : name" @blur="elEmitBlur" @focus="elEmitFocus" :align="align === null ? undefined : align" :aria-label="ariaLabel === null ? undefined : ariaLabel" :disabled-scientific="disabledScientific === null ? undefined : disabledScientific" :formatter="formatter === null ? undefined : formatter" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :readonly="readonly === null ? undefined : readonly" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-input-number>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":5,"min":0,"max":100,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":null,"placeholder":null,"label":null,"name":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('n1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('n1', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":5,"min":0,"max":100,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":null,"placeholder":null,"label":null,"name":null,"align":null,"ariaLabel":null,"disabledScientific":null,"formatter":null,"inputmode":null,"parser":null,"readonly":null,"tabindex":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('n1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('n1', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 el_input_number("n2", value = 1.5, step = 0.5, precision = 1)
 #> <div id="n2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="n2_container" style="display: contents">
-#>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :size="size === null ? undefined : size" :precision="precision === null ? undefined : precision" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :name="name === null ? undefined : name" @blur="elEmitBlur" @focus="elEmitFocus"></el-input-number>
+#>   <el-input-number v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" :size="size === null ? undefined : size" :precision="precision === null ? undefined : precision" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :name="name === null ? undefined : name" @blur="elEmitBlur" @focus="elEmitFocus" :align="align === null ? undefined : align" :aria-label="ariaLabel === null ? undefined : ariaLabel" :disabled-scientific="disabledScientific === null ? undefined : disabledScientific" :formatter="formatter === null ? undefined : formatter" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :readonly="readonly === null ? undefined : readonly" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-input-number>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":1,"placeholder":null,"label":null,"name":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('n2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('n2', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":1,"placeholder":null,"label":null,"name":null,"align":null,"ariaLabel":null,"disabledScientific":null,"formatter":null,"inputmode":null,"parser":null,"readonly":null,"tabindex":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('n2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('n2', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
 ```

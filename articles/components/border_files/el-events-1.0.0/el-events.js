@@ -8,6 +8,77 @@
   var se = window.shinyElement = window.shinyElement || {};
   var sv = window.shinyVue = window.shinyVue || {};
 
+  // Every component is an app of its own in Vue 3, so Element Plus -- with
+  // the page's config: locale, size, z-index -- and its icons are installed
+  // on each. Element's z-index counter is shared between them all.
+  // The services -- message, notification, message box, loading -- under
+  // the names the feedback handler calls them by
+  if (window.ElementPlus && !window.ELEMENT) {
+    window.ELEMENT = {
+      Message: ElementPlus.ElMessage, Notification: ElementPlus.ElNotification,
+      MessageBox: ElementPlus.ElMessageBox, Loading: ElementPlus.ElLoading
+    };
+  }
+
+  sv.install = function (app) {
+    if (!window.ElementPlus) return;
+    var cfg = window.shinyElementConfig || {};
+    var opts = {};
+    if (cfg.locale) opts.locale = cfg.locale;
+    if (cfg.size) opts.size = cfg.size;
+    if (cfg.zIndex) opts.zIndex = cfg.zIndex;
+    app.use(window.ElementPlus, opts);
+    // The page's size, for markup around a component -- its form item --
+    // to follow as Element Plus's own components do
+    app.config.globalProperties.$ELEMENT = { size: cfg.size || '' };
+    var icons = window.ElementPlusIconsVue || {};
+    Object.keys(icons).forEach(function (name) {
+      if (name.charAt(0) !== name.charAt(0).toUpperCase()) return;
+      app.component(name, icons[name]);
+      // Element UI's class names, el-icon-arrow-right, reach the same icon
+      // when given to an icon prop
+      app.component('el-icon-' + name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase(), icons[name]);
+    });
+    // Element UI names Element Plus spells differently
+    var legacy = { 'user-solid': 'UserFilled', 'star-on': 'StarFilled', 'star-off': 'Star',
+                   's-tools': 'Tools', 'more': 'MoreFilled', 'error': 'CircleCloseFilled',
+                   'success': 'CircleCheckFilled', 'warning': 'WarningFilled',
+                   'info': 'InfoFilled', 'question': 'QuestionFilled' };
+    Object.keys(legacy).forEach(function (old) {
+      if (icons[legacy[old]]) app.component('el-icon-' + old, icons[legacy[old]]);
+    });
+  };
+
+  // el_icon(): an <i class="el-icon" data-el-icon="Search">, drawn here with
+  // the icon's SVG wherever it is on the page -- inside a component or not,
+  // and in any UI the server renders later.
+  se.fillIcons = function (scope) {
+    var icons = window.ElementPlusIconsVue;
+    if (!icons || !window.Vue || !Vue.render) return;
+    (scope || document).querySelectorAll('i[data-el-icon]').forEach(function (el) {
+      var name = el.getAttribute('data-el-icon');
+      if (el._elIcon === name && el.querySelector('svg')) return;
+      if (!icons[name]) return;
+      Vue.render(Vue.h(icons[name]), el);
+      el._elIcon = name;
+    });
+  };
+  if (typeof document !== 'undefined') {
+    var queued = false;
+    var fill = function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; se.fillIcons(document); });
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fill);
+    else fill();
+    if (typeof MutationObserver !== 'undefined') {
+      new MutationObserver(function (records) {
+        for (var i = 0; i < records.length; i++) if (records[i].addedNodes.length) { fill(); return; }
+      }).observe(document.documentElement, { childList: true, subtree: true });
+    }
+  }
+
   // A validation message from shinyvalidate, drawn as Element draws a
   // failed el-form rule: the control framed in red, the message under it.
   // Element's rules hang off .el-form-item.is-error. A labelled component is
@@ -15,7 +86,7 @@
   // in its content, under the control; an unlabelled one has the host take
   // the classes, which generates no box, but descendant selectors match.
   function formItem(host) {
-    return host.querySelector(':scope > .el-form-item') || host;
+    return host.querySelector(':scope > .el-form-item, :scope > [data-shiny-vue-root] > .el-form-item') || host;
   }
   function messageParent(item, host) {
     return item === host ? host : item.querySelector(':scope > .el-form-item__content');
@@ -23,6 +94,11 @@
   sv.setInvalid = function (host, message) {
     var item = formItem(host), where = messageParent(item, host);
     item.classList.add('el-form-item', 'is-error');
+    // Element Plus frames a failed control from within the item's content
+    // (.el-form-item.is-error .el-form-item__content .el-input__wrapper); an
+    // unlabelled component's root box stands in for it
+    var root = host.querySelector(':scope > [data-shiny-vue-root]');
+    if (item === host && root) root.classList.add('el-form-item__content');
     // A message given with `error` is the page's first state; as in Element,
     // validation replaces it
     var own = where.querySelector(':scope > .el-form-item__error:not([data-shiny-vue-invalid])');
@@ -44,6 +120,8 @@
     var item = formItem(host), where = messageParent(item, host);
     item.classList.remove('is-error');
     if (item === host) item.classList.remove('el-form-item');
+    var root = host.querySelector(':scope > [data-shiny-vue-root]');
+    if (item === host && root) root.classList.remove('el-form-item__content');
     // The message given with `error` goes too: the field has been judged
     // since, and passed
     where.querySelectorAll(':scope > .el-form-item__error').forEach(function (e) {
@@ -85,7 +163,7 @@
     return rows[i - 1];
   };
   sv.refs.file = function(name, vm, target) {
-    var files = (target && target.uploadFiles) || [];
+    var files = vm.fileList || (target && target.uploadFiles) || [];
     for (var i = 0; i < files.length; i++) if (files[i].name === name) return files[i];
     return undefined;
   };

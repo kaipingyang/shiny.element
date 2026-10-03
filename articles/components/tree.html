@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="tree_files/vue-2.7.14/vue.min.js"></script><link href="tree_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="tree_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="tree_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="tree_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="tree_files/el-events-1.0.0/el-events.js"></script><script src="tree_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="tree_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="tree_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="tree_files/vue-3.5.43/vue.global.prod.js"></script><link href="tree_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="tree_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="tree_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="tree_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="tree_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="tree_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="tree_files/el-events-1.0.0/el-events.js"></script><script src="tree_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="tree_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,14 +187,15 @@
 
     
     
-<p>Display a set of data with hierarchies. Nodes are
-<code>list(id =, label =, children =)</code>;
-<code><a href="../../reference/df_to_tree_data.html">df_to_tree_data()</a></code> builds them from a data frame.
-<code>input$&lt;id&gt;</code> is the key of the node last clicked,
-<code>input$&lt;id&gt;_checked</code> the keys checked.</p>
+<p>Display a set of data with hierarchies.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Basic tree structure.</p>
+<p>Nodes are <code>list(id =, label =, children =)</code>;
+<code><a href="../../reference/df_to_tree_data.html">df_to_tree_data()</a></code> builds them from a data frame.
+<code>input$&lt;id&gt;</code> is the key of the node last clicked,
+<code>input$&lt;id&gt;_checked</code> the keys checked.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -173,35 +208,51 @@
 <div class="el-demo">
   <div id="basic-basic" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-basic_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop"></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1","children":[{"id":9,"label":"Level three 1-1-1"}]}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level two 2-1"},{"id":6,"label":"Level two 2-2"}]},{"id":3,"label":"Level one 3","children":[{"id":7,"label":"Level two 3-1"},{"id":8,"label":"Level two 3-2"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('basic-basic_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-basic_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-basic_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1","children":[{"id":9,"label":"Level three 1-1-1"}]}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level two 2-1"},{"id":6,"label":"Level two 2-2"}]},{"id":3,"label":"Level one 3","children":[{"id":7,"label":"Level two 3-1"},{"id":8,"label":"Level two 3-2"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-basic', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('basic-basic_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-basic_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-basic_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="selectable">Selectable<a class="anchor" aria-label="anchor" href="#selectable"></a>
 </h2>
-<p><code>show_checkbox</code> adds a box to every node.</p>
+<p>Used for node selection.</p>
+<p>This example also shows how to load node data asynchronously.</p>
+<p>With <code>lazy = TRUE</code> each node’s children come from the
+server, asked for through <code>input$&lt;id&gt;_load</code> and
+answered with <code><a href="../../reference/el_load_children.html">el_load_children()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"pick"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"id"</span>, default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"r1"</span>, label <span class="op">=</span> <span class="st">"Region 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Area A"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Area B"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"r2"</span>, label <span class="op">=</span> <span class="st">"Region 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="selectable-pick" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="selectable-pick_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop"></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":"r1","label":"Region 1","children":[{"id":"a","label":"Area A"},{"id":"b","label":"Area B"}]},{"id":"r2","label":"Region 2"}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('selectable-pick', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('selectable-pick_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('selectable-pick_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"selectable-pick_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
-</div>
-</div>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"zones"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"id"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">zones_load</span>, <span class="op">{</span></span>
+<span>    <span class="va">q</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">zones_load</span></span>
+<span>    <span class="va">kids</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">q</span><span class="op">$</span><span class="va">level</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"region1"</span>, label <span class="op">=</span> <span class="st">"Region"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"region2"</span>, label <span class="op">=</span> <span class="st">"Region2"</span><span class="op">)</span><span class="op">)</span></span>
+<span>            <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">q</span><span class="op">$</span><span class="va">level</span> <span class="op">&gt;</span> <span class="fl">3</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>            <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">q</span><span class="op">$</span><span class="va">key</span>, <span class="st">"-"</span>, <span class="va">i</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"zone"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_load_children.html">el_load_children</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"zones"</span>, request <span class="op">=</span> <span class="va">q</span>, children <span class="op">=</span> <span class="va">kids</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/tree-selectable.png" alt="The selectable example, running" style="max-width: 100%"><blockquote>
+<p><strong>Warning</strong></p>
+<p>When using show-checkbox, since <code>check-on-click-leaf</code> is
+true by default, last tree children’s can be checked by clicking their
+nodes.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="custom-leaf-node-in-lazy-mode">Custom leaf node in lazy mode<a class="anchor" aria-label="anchor" href="#custom-leaf-node-in-lazy-mode"></a>
 </h2>
-<p>With <code>lazy = TRUE</code> each node’s children come from the
-server, asked for through <code>input$&lt;id&gt;_load</code> and
-answered with <code><a href="../../reference/el_load_children.html">el_load_children()</a></code>;
-<code>is_leaf_field</code> names the field that says a node has
-none.</p>
+<p>A node’s data is not fetched until it is clicked, so the Tree cannot
+predict whether a node is a leaf node. That’s why a drop-down button is
+added to each node, and if it is a leaf node, the drop-down button will
+disappear when clicked. That being said, you can also tell the Tree in
+advance whether the node is a leaf node, avoiding the render of the
+drop-down button before a leaf node.</p>
+<p><code>is_leaf_field</code> names the field that says a node has no
+children, so it draws no expand arrow.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"zones"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"id"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                      is_leaf_field <span class="op">=</span> <span class="st">"leaf"</span><span class="op">)</span><span class="op">)</span></span>
@@ -217,30 +268,58 @@ none.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tree-lazy.png" alt="The lazy example, running" style="max-width: 100%">
+<img src="../../shots/tree-custom-leaf.png" alt="The custom-leaf example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="lazy-loading-multiple-times">Lazy loading multiple times<a class="anchor" aria-label="anchor" href="#lazy-loading-multiple-times"></a>
+</h2>
+<p>When lazily loading node data remotely, lazy loading may sometimes
+fail. In this case, you can call reject to keep the node status as is
+and allow remote loading to continue.</p>
+<blockquote>
+<p><strong>In R</strong></p>
+<p>Upstream, a failed load calls <code>reject()</code> so the node can
+be loaded again. In R the server answers every
+<code>input$&lt;id&gt;_load</code>; to let a node retry, answer it later
+– the node keeps spinning until <code><a href="../../reference/el_load_children.html">el_load_children()</a></code>
+comes.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="disabled-checkbox">Disabled checkbox<a class="anchor" aria-label="anchor" href="#disabled-checkbox"></a>
 </h2>
+<p>The checkbox of a node can be set as disabled.</p>
+<p>In the example, ‘disabled’ property is declared in defaultProps, and
+some nodes are set as ‘disabled:true’. The corresponding checkboxes are
+disabled and can’t be clicked.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"dis"</span>, show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"id"</span>, default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level three 3-1-1"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Level three 3-1-2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"Level two 2-2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">6</span>, label <span class="op">=</span> <span class="st">"Level three 3-2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">7</span>, label <span class="op">=</span> <span class="st">"Level three 3-2-2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="disabled-dis" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="disabled-dis_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop"></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":3,"label":"Level two 2-1","children":[{"id":4,"label":"Level three 3-1-1"},{"id":5,"label":"Level three 3-1-2","disabled":true}]},{"id":2,"label":"Level two 2-2","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('disabled-dis_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('disabled-dis_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"disabled-dis_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":3,"label":"Level two 2-1","children":[{"id":4,"label":"Level three 3-1-1"},{"id":5,"label":"Level three 3-1-2","disabled":true}]},{"id":2,"label":"Level two 2-2","disabled":true,"children":[{"id":6,"label":"Level three 3-2-1"},{"id":7,"label":"Level three 3-2-2","disabled":true}]}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('disabled-dis', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('disabled-dis_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('disabled-dis_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"disabled-dis_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="default-expanded-and-default-checked">Default expanded and default checked<a class="anchor" aria-label="anchor" href="#default-expanded-and-default-checked"></a>
 </h2>
-<p><code>expanded</code> and <code>checked</code> are Element’s
+<p>Tree nodes can be initially expanded or checked</p>
+<p>Use <code>default-expanded-keys</code> and
+<code>default-checked-keys</code> to set initially expanded and
+initially checked nodes respectively. Note that for them to work,
+<code>node-key</code> is required. Its value is the name of a key in the
+data object, and the value of that key should be unique across the whole
+tree.</p>
+<p><code>expanded</code> and <code>checked</code> are Element Plus’s
 <code>default-expanded-keys</code> and <code>default-checked-keys</code>
 – renamed, since <code>update_el_tree(checked =)</code> changes them
 later.</p>
@@ -252,20 +331,23 @@ later.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Level one 3"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">7</span>, label <span class="op">=</span> <span class="st">"Level two 3-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">8</span>, label <span class="op">=</span> <span class="st">"Level two 3-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="defaults-defs" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="defaults-defs_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop"></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level two 2-1"},{"id":6,"label":"Level two 2-2"}]},{"id":3,"label":"Level one 3","children":[{"id":7,"label":"Level two 3-1"},{"id":8,"label":"Level two 3-2"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[2,3],"checkedKeys":[5],"emptyText":null,"current":"","checked":[5],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('defaults-defs', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('defaults-defs_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('defaults-defs_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"defaults-defs_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+  <div id="default-state-defs" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="default-state-defs_container" style="display: contents">
+  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level two 2-1"},{"id":6,"label":"Level two 2-2"}]},{"id":3,"label":"Level one 3","children":[{"id":7,"label":"Level two 3-1"},{"id":8,"label":"Level two 3-2"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[2,3],"checkedKeys":[5],"emptyText":null,"current":"","checked":[5],"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('default-state-defs', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('default-state-defs_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('default-state-defs_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"default-state-defs_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="checking-tree-nodes">Checking tree nodes<a class="anchor" aria-label="anchor" href="#checking-tree-nodes"></a>
 </h2>
+<p>This example shows how to get and set checked nodes. They both can be
+done in two approaches: node and key. If you are taking the key
+approach, <code>node-key</code> is required.</p>
 <p><code>update_el_tree(checked =)</code> sets them;
-<code><a href="../../reference/el_call.html">el_call()</a></code> runs Element’s <code>getCheckedKeys()</code>,
-<code>setCheckedKeys()</code> and the rest, a value coming back as
-<code>input$&lt;id&gt;_get_checked_keys</code>.</p>
+<code><a href="../../reference/el_call.html">el_call()</a></code> runs Element Plus’s
+<code>getCheckedKeys()</code>, <code>setCheckedKeys()</code> and the
+rest.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -285,39 +367,71 @@ later.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tree-checking.png" alt="The checking example, running" style="max-width: 100%">
+<img src="../../shots/tree-checking-tree.png" alt="The checking-tree example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="custom-node-content">Custom node content<a class="anchor" aria-label="anchor" href="#custom-node-content"></a>
 </h2>
+<p>The content of tree nodes can be customized, so you can add icons or
+buttons as you will</p>
+<p>There are two ways to customize template for tree nodes:
+<code>render-content</code> and scoped slot. Use
+<code>render-content</code> to assign a render function that returns the
+content of tree nodes. See Vue’s documentation for a detailed
+introduction of render functions. If you prefer scoped slot, you’ll have
+access to <code>node</code> and <code>data</code> in the scope, standing
+for the TreeNode object and node data of the current node respectively.
+Note that the <code>render-content</code> demo can’t run in JSFiddle
+because it doesn’t support JSX syntax. In a real project,
+<code>render-content</code> will work if relevant dependencies are
+correctly configured.</p>
 <p>The default slot, scoped with <code>node</code> and
 <code>data</code>, draws each node.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"cus"</span>, node_key <span class="op">=</span> <span class="st">"id"</span>, default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>, expand_on_click_node <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Level two 1-2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"flex: 1; display: flex; justify-content: space-between; padding-right: 8px"</span>,</span>
 <span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ node.label }}"</span><span class="op">)</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"text"</span>, size <span class="op">=</span> <span class="st">"mini"</span>, <span class="st">"Append"</span><span class="op">)</span>,</span>
-<span>                <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"text"</span>, size <span class="op">=</span> <span class="st">"mini"</span>, <span class="st">"Delete"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>link <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span>, size <span class="op">=</span> <span class="st">"small"</span>, <span class="st">"Append"</span><span class="op">)</span>,</span>
+<span>                <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>link <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"danger"</span>, size <span class="op">=</span> <span class="st">"small"</span>, <span class="st">"Delete"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    scope <span class="op">=</span> <span class="st">"{ node, data }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="custom-cus" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="custom-cus_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop"><template slot-scope="{ node, data }"><span style="flex: 1; display: flex; justify-content: space-between; padding-right: 8px">
+  <div id="customized-node-cus" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customized-node-cus_container" style="display: contents">
+  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"><template v-slot:default="{ node, data }"><span style="flex: 1; display: flex; justify-content: space-between; padding-right: 8px">
   <span>{{ node.label }}</span>
   <span>
-    <el-button type="text" size="mini">Append</el-button>
-    <el-button type="text" size="mini">Delete</el-button>
+    <el-button link="TRUE" type="primary" size="small">Append</el-button>
+    <el-button link="TRUE" type="danger" size="small">Delete</el-button>
   </span>
 </span></template></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":false,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('custom-cus', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('custom-cus_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('custom-cus_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"custom-cus_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"},{"id":5,"label":"Level two 1-2"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":false,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('customized-node-cus_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('customized-node-cus_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"customized-node-cus_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
+<h2 id="custom-node-class">Custom node class<a class="anchor" aria-label="anchor" href="#custom-node-class"></a>
+</h2>
+<p>The class of tree nodes can be customized</p>
+<p>. Use <code>props.class</code> to build class name of nodes.</p>
+<blockquote>
+<p><strong>In R</strong></p>
+<p>Upstream builds each node’s class with <code>props.class</code>. In
+R, style nodes with the default slot: give the <code>&lt;span&gt;</code>
+a class from the node’s data, as
+<code>:class="data.isPenultimate ? 'is-penultimate' : ''"</code>.</p>
+</blockquote>
+</div>
+<div class="section level2">
 <h2 id="tree-node-filtering">Tree node filtering<a class="anchor" aria-label="anchor" href="#tree-node-filtering"></a>
 </h2>
+<p>Tree nodes can be filtered</p>
+<p>Invoke the <code>filter</code> method of the Tree instance to filter
+tree nodes. Its parameter is the filtering keyword. Note that for it to
+work, <code>filter-node-method</code> is required, and its value is the
+filtering method.</p>
 <p><code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code> keeps the nodes whose label contains the text;
 give <code>filter_node_method</code> to decide otherwise.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -337,22 +451,26 @@ give <code>filter_node_method</code> to decide otherwise.</p>
 <div class="section level2">
 <h2 id="accordion">Accordion<a class="anchor" aria-label="anchor" href="#accordion"></a>
 </h2>
+<p>Only one node among the same level can be expanded at one time.</p>
 <p>Only one node of a level open at a time.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"acc"</span>, accordion <span class="op">=</span> <span class="cn">TRUE</span>, node_key <span class="op">=</span> <span class="st">"id"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"Level one 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="st">"Level one 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Level two 2-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"Level one 3"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">6</span>, label <span class="op">=</span> <span class="st">"Level two 3-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="accordion-acc" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="accordion-acc_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop"></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level two 2-1"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":true,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('accordion-acc_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('accordion-acc_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"accordion-acc_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level two 2-1"}]},{"id":3,"label":"Level one 3","children":[{"id":6,"label":"Level two 3-1"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":true,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('accordion-acc', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('accordion-acc_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('accordion-acc_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"accordion-acc_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="draggable">Draggable<a class="anchor" aria-label="anchor" href="#draggable"></a>
 </h2>
+<p>You can drag and drop Tree nodes by adding a <code>draggable</code>
+attribute.</p>
 <p><code>draggable</code> lets nodes be dragged; <code>allow_drag</code>
 and <code>allow_drop</code>, <code><a href="../../reference/JS.html">JS()</a></code> functions, say which and
 where, and <code>input$&lt;id&gt;_node_drop</code> reports where one
@@ -368,14 +486,15 @@ landed.</p>
 <div class="el-demo">
   <div id="draggable-drag" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="draggable-drag_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :icon-class="iconClass === null ? undefined : iconClass" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop"></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":3,"label":"Level one 3","children":[{"id":7,"label":"Level two 3-1"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"iconClass":null,"lazy":null,"draggable":true,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":"function(dragging, drop, type) {\n  return drop.data.label !== 'Level two 3-1' || type !== 'inner';\n}"},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('draggable-drag_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('draggable-drag_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"draggable-drag_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.data.allowDrop","options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":3,"label":"Level one 3","children":[{"id":7,"label":"Level two 3-1"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"lazy":null,"draggable":true,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":"function(dragging, drop, type) {\n  return drop.data.label !== 'Level two 3-1' || type !== 'inner';\n}","checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_over', [v]); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('draggable-drag', 'node_drop', [v]); }","elLoad":"function(node, resolve) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('draggable-drag_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('draggable-drag_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"draggable-drag_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"evals":["options.data.allowDrop","options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
@@ -401,16 +520,18 @@ landed.</p>
 <td><code>data</code></td>
 <td><code>data</code></td>
 <td>tree data</td>
-<td>array</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>1</sup></a><code>Array&lt;{[key: string]: any}&gt;</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
 <td><code>empty-text</code></td>
 <td><code>empty_text</code></td>
 <td>text displayed when data is void</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>2</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
@@ -418,102 +539,109 @@ landed.</p>
 <td><code>node_key</code></td>
 <td>unique identity key name for nodes, its value should be unique
 across the whole tree</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>3</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>props</code></td>
-<td><code>label_field, children_field, disabled_field, is_leaf_field</code></td>
-<td>configuration options, see the following table</td>
-<td>object</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
 <td><code>render-after-expand</code></td>
 <td><code>render_after_expand</code></td>
 <td>whether to render child nodes only after a parent node is expanded
 for the first time</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>load</code></td>
 <td><code>load</code></td>
 <td>method for loading subtree data, only works when <code>lazy</code>
 is true</td>
-<td>function(node, resolve)</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>5</sup></a><code>(node, resolve, reject) =&gt; void</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>render-content</code></td>
 <td><code>render_content</code></td>
 <td>render function for tree node</td>
-<td>Function(h, { node, data, store }</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>6</sup></a><code>(h, { node, data, store }) =&gt; void</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>highlight-current</code></td>
 <td><code>highlight_current</code></td>
 <td>whether current node is highlighted</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="odd">
-<td><code>default-expand-all</code></td>
-<td><code>default_expand_all</code></td>
-<td>whether to expand all nodes by default</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
+<td><code>default-expand-all</code></td>
+<td><code>default_expand_all</code></td>
+<td>whether to expand all nodes by default</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="odd">
 <td><code>expand-on-click-node</code></td>
 <td><code>expand_on_click_node</code></td>
 <td>whether to expand or collapse node when clicking on the node, if
 false, then expand or collapse node only when clicking on the arrow
 icon.</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>check-on-click-node</code></td>
 <td><code>check_on_click_node</code></td>
 <td>whether to check or uncheck node when clicking on the node, if
 false, the node can only be checked or unchecked by clicking on the
 checkbox.</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
 <td>false</td>
+</tr>
+<tr class="odd">
+<td><code>check-on-click-leaf</code></td>
+<td><code>check_on_click_leaf</code></td>
+<td>whether to check or uncheck node when clicking on leaf node (last
+children).</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>11</sup></a></td>
+<td></td>
+<td>true</td>
 </tr>
 <tr class="even">
 <td><code>auto-expand-parent</code></td>
 <td><code>auto_expand_parent</code></td>
 <td>whether to expand father node when a child node is expanded</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>12</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="odd">
 <td><code>default-expanded-keys</code></td>
 <td><code>expanded</code></td>
 <td>array of keys of initially expanded nodes</td>
-<td>array</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>13</sup></a><code>Array&lt;string \\| number&gt;</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
 <td><code>show-checkbox</code></td>
 <td><code>show_checkbox</code></td>
 <td>whether node is selectable</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>14</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
@@ -522,24 +650,29 @@ checkbox.</td>
 <td>whether checked state of a node not affects its father and child
 nodes when <code>show-checkbox</code> is <code>true</code>
 </td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
 <td><code>default-checked-keys</code></td>
 <td><code>checked</code></td>
 <td>array of keys of initially checked nodes</td>
-<td>array</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>16</sup></a><code>Array&lt;string \\| number&gt;</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
 <td><code>current-node-key</code></td>
 <td><code>current_node_key</code></td>
 <td>key of initially selected node</td>
-<td>string, number</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>17</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>18</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
@@ -547,8 +680,10 @@ nodes when <code>show-checkbox</code> is <code>true</code>
 <td><code>filter_node_method</code></td>
 <td>this function will be executed on each node when use filter method.
 if return <code>false</code>, tree node will be hidden.</td>
-<td>Function(value, data, node)</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>19</sup></a><code>(value, data, node) =&gt; boolean</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
@@ -556,41 +691,44 @@ if return <code>false</code>, tree node will be hidden.</td>
 <td><code>accordion</code></td>
 <td>whether only one node among the same level can be expanded at one
 time</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
 <td><code>indent</code></td>
 <td><code>indent</code></td>
 <td>horizontal indentation of nodes in adjacent levels in pixels</td>
-<td>number</td>
-<td>—</td>
-<td>16</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
+<td>18</td>
 </tr>
 <tr class="odd">
-<td><code>icon-class</code></td>
-<td><code>icon_class</code></td>
-<td>custome tree node icon</td>
-<td>string</td>
-<td>-</td>
-<td>-</td>
+<td><code>icon</code></td>
+<td><code>icon</code></td>
+<td>custom tree node icon component</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>23</sup></a>
+</td>
+<td></td>
+<td>—</td>
 </tr>
 <tr class="even">
 <td><code>lazy</code></td>
 <td><code>lazy</code></td>
 <td>whether to lazy load leaf node, used with <code>load</code>
 attribute</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>24</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
 <td><code>draggable</code></td>
 <td><code>draggable</code></td>
 <td>whether enable tree nodes drag and drop</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
@@ -598,8 +736,10 @@ attribute</td>
 <td><code>allow_drag</code></td>
 <td>this function will be executed before dragging a node. If
 <code>false</code> is returned, the node can not be dragged</td>
-<td>Function(node)</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>26</sup></a><code>(node) =&gt; boolean</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
@@ -611,133 +751,11 @@ at the target node. <code>type</code> has three possible values: ‘prev’
 (inserting the dragging node before the target node), ‘inner’ (inserting
 the dragging node to the target node) and ‘next’ (inserting the dragging
 node after the target node)</td>
-<td>Function(draggingNode, dropNode, type)</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>27</sup></a><code>(draggingNode, dropNode, type) =&gt; boolean</code>
+</td>
+<td></td>
 <td>—</td>
-<td>—</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="method">Method<a class="anchor" aria-label="anchor" href="#method"></a>
-</h3>
-<table class="table">
-<colgroup>
-<col width="20%">
-<col width="26%">
-<col width="53%">
-</colgroup>
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>filter</code></td>
-<td><code>el_call(session, id, "filter")</code></td>
-<td>filter all tree nodes, filtered nodes will be hidden</td>
-</tr>
-<tr class="even">
-<td><code>updateKeyChildren</code></td>
-<td><code>el_call(session, id, "updateKeyChildren")</code></td>
-<td>set new data to node, only works when <code>node-key</code> is
-assigned</td>
-</tr>
-<tr class="odd">
-<td><code>getCheckedNodes</code></td>
-<td><code>el_call(session, id, "getCheckedNodes")</code></td>
-<td>If the node can be selected (<code>show-checkbox</code> is
-<code>true</code>), it returns the currently selected array of
-nodes</td>
-</tr>
-<tr class="even">
-<td><code>setCheckedNodes</code></td>
-<td><code>el_call(session, id, "setCheckedNodes")</code></td>
-<td>set certain nodes to be checked, only works when
-<code>node-key</code> is assigned</td>
-</tr>
-<tr class="odd">
-<td><code>getCheckedKeys</code></td>
-<td><code>el_call(session, id, "getCheckedKeys")</code></td>
-<td>If the node can be selected (<code>show-checkbox</code> is
-<code>true</code>), it returns the currently selected array of node’s
-keys</td>
-</tr>
-<tr class="even">
-<td><code>setCheckedKeys</code></td>
-<td><code>el_call(session, id, "setCheckedKeys")</code></td>
-<td>set certain nodes to be checked, only works when
-<code>node-key</code> is assigned</td>
-</tr>
-<tr class="odd">
-<td><code>setChecked</code></td>
-<td><code>el_call(session, id, "setChecked")</code></td>
-<td>set node to be checked or not, only works when <code>node-key</code>
-is assigned</td>
-</tr>
-<tr class="even">
-<td><code>getHalfCheckedNodes</code></td>
-<td><code>el_call(session, id, "getHalfCheckedNodes")</code></td>
-<td>If the node can be selected (<code>show-checkbox</code> is
-<code>true</code>), it returns the currently half selected array of
-nodes</td>
-</tr>
-<tr class="odd">
-<td><code>getHalfCheckedKeys</code></td>
-<td><code>el_call(session, id, "getHalfCheckedKeys")</code></td>
-<td>If the node can be selected (<code>show-checkbox</code> is
-<code>true</code>), it returns the currently half selected array of
-node’s keys</td>
-</tr>
-<tr class="even">
-<td><code>getCurrentKey</code></td>
-<td><code>el_call(session, id, "getCurrentKey")</code></td>
-<td>return the highlight node’s key (null if no node is
-highlighted)</td>
-</tr>
-<tr class="odd">
-<td><code>getCurrentNode</code></td>
-<td><code>el_call(session, id, "getCurrentNode")</code></td>
-<td>return the highlight node’s data (null if no node is
-highlighted)</td>
-</tr>
-<tr class="even">
-<td><code>setCurrentKey</code></td>
-<td><code>el_call(session, id, "setCurrentKey")</code></td>
-<td>set highlighted node by key, only works when <code>node-key</code>
-is assigned</td>
-</tr>
-<tr class="odd">
-<td><code>setCurrentNode</code></td>
-<td><code>el_call(session, id, "setCurrentNode")</code></td>
-<td>set highlighted node, only works when <code>node-key</code> is
-assigned</td>
-</tr>
-<tr class="even">
-<td><code>getNode</code></td>
-<td><code>el_call(session, id, "getNode")</code></td>
-<td>get node by data or key</td>
-</tr>
-<tr class="odd">
-<td><code>remove</code></td>
-<td><code>el_call(session, id, "remove")</code></td>
-<td>remove a node, only works when node-key is assigned</td>
-</tr>
-<tr class="even">
-<td><code>append</code></td>
-<td><code>el_call(session, id, "append")</code></td>
-<td>append a child node to a given node in the tree</td>
-</tr>
-<tr class="odd">
-<td><code>insertBefore</code></td>
-<td><code>el_call(session, id, "insertBefore")</code></td>
-<td>insert a node before a given node in the tree</td>
-</tr>
-<tr class="even">
-<td><code>insertAfter</code></td>
-<td><code>el_call(session, id, "insertAfter")</code></td>
-<td>insert a node after a given node in the tree</td>
 </tr>
 </tbody>
 </table>
@@ -825,7 +843,36 @@ assigned</td>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>custom content for tree nodes</td>
+</tr>
+<tr class="even">
+<td><code>empty</code></td>
+<td><code>slots = list(empty = )</code></td>
+<td>custom content when data is empty</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

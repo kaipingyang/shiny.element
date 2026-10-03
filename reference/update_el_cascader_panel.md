@@ -1,4 +1,4 @@
-# Update Element UI Cascader Panel
+# Update Element Plus Cascader Panel
 
 Server-side update for
 [`el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md).

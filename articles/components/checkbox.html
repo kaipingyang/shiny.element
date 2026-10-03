@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="checkbox_files/vue-2.7.14/vue.min.js"></script><link href="checkbox_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="checkbox_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="checkbox_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="checkbox_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="checkbox_files/el-events-1.0.0/el-events.js"></script><script src="checkbox_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="checkbox_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="checkbox_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="checkbox_files/vue-3.5.43/vue.global.prod.js"></script><link href="checkbox_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="checkbox_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="checkbox_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="checkbox_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="checkbox_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="checkbox_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="checkbox_files/el-events-1.0.0/el-events.js"></script><script src="checkbox_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="checkbox_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,148 +187,241 @@
 
     
     
-<p>A group of options for multiple choices. <code><a href="../../reference/el_checkbox.html">el_checkbox()</a></code>
-is one box, <code>TRUE</code> or <code>FALSE</code>, as
-<code><a href="https://rdrr.io/pkg/shiny/man/checkboxInput.html" class="external-link">checkboxInput()</a></code>; <code><a href="../../reference/el_checkbox_group.html">el_checkbox_group()</a></code> reports
-the values ticked, as <code><a href="https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html" class="external-link">checkboxGroupInput()</a></code>.</p>
+<p>A group of options for multiple choices.</p>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p><code>label</code> act as <code>value</code> has been
+<strong>deprecated</strong>, <code>label</code> is used only as display
+text, this action <strong>will be</strong> removed in 3.0.0, consider
+switching to new API.</p>
+</blockquote>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>New API <code>value</code> has been added in 2.6.0, the examples in
+the document all use the <code>value</code>. If you are using a version
+<strong>less than</strong> 2.6.0 and using <code>checkbox-group</code>,
+please refer to:</p>
+</blockquote>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Checkbox can be used alone to switch between two states.</p>
+<p>Define <code>v-model</code>(bind variable) in
+<code>el-checkbox</code>. The default value is a <code>Boolean</code>
+for single <code>checkbox</code>, and it becomes <code>true</code> when
+selected. Content inside the <code>el-checkbox</code> tag will become
+the description following the button of the checkbox.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"option"</span>, <span class="st">"Option"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 8px 0"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb1"</span>, <span class="st">"Option 1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb2"</span>, <span class="st">"Option 2"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb3"</span>, <span class="st">"Option 1"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb4"</span>, <span class="st">"Option 2"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb5"</span>, <span class="st">"Option 1"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cb6"</span>, <span class="st">"Option 2"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-option" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-option_container" style="display: contents">
-  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Option","indeterminate":null,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div style="margin: 8px 0">
+    <div id="basic-cb1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-cb1_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Option 1","indeterminate":null,"disabled":null,"border":null,"size":"large","trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
+    <div id="basic-cb2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-cb2_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option 2","indeterminate":null,"disabled":null,"border":null,"size":"large","trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+  <div style="margin: 8px 0">
+    <div id="basic-cb3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-cb3_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option 1","indeterminate":null,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="basic-cb4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-cb4_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option 2","indeterminate":null,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+  <div style="margin: 8px 0">
+    <div id="basic-cb5" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-cb5_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option 1","indeterminate":null,"disabled":null,"border":null,"size":"small","trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="basic-cb6" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-cb6_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option 2","indeterminate":null,"disabled":null,"border":null,"size":"small","trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="disabled-state">Disabled state<a class="anchor" aria-label="anchor" href="#disabled-state"></a>
+<h2 id="disabled-state">Disabled State<a class="anchor" aria-label="anchor" href="#disabled-state"></a>
 </h2>
+<p>Disabled state for checkbox.</p>
+<p>Set the <code>disabled</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"d1"</span>, <span class="st">"Option"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"d2"</span>, <span class="st">"Option"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbd1"</span>, <span class="st">"Disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbd2"</span>, <span class="st">"Not disabled"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="disabled-d1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="disabled-d1_container" style="display: contents">
-  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option","indeterminate":null,"disabled":true,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="disabled-cbd1" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="disabled-cbd1_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Disabled","indeterminate":null,"disabled":true,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
-  <div id="disabled-d2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="disabled-d2_container" style="display: contents">
-  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Option","indeterminate":null,"disabled":true,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="disabled-cbd2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="disabled-cbd2_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Not disabled","indeterminate":null,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="checkbox-group">Checkbox group<a class="anchor" aria-label="anchor" href="#checkbox-group"></a>
 </h2>
+<p>It is used for multiple checkboxes which are bound in one group, and
+indicates whether one option is selected by checking if it is
+checked.</p>
+<p><code>checkbox-group</code> element can manage multiple checkboxes in
+one group by using <code>v-model</code> which is bound as an
+<code>Array</code>. Inside the <code>el-checkbox</code> element,
+<code>value</code> is the value of the checkbox. If no content is nested
+in that tag, <code>label</code> will be rendered as the description
+following the button of the checkbox. <code>value</code> also
+corresponds with the element values in the array. It is selected if the
+specified value exists in the array, and vice versa.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"list"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"selected and disabled"</span>, <span class="st">"Option A"</span><span class="op">)</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option A"</span>, label <span class="op">=</span> <span class="st">"Option A"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option B"</span>, label <span class="op">=</span> <span class="st">"Option B"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option C"</span>, label <span class="op">=</span> <span class="st">"Option C"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"disabled"</span>, label <span class="op">=</span> <span class="st">"disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"selected and disabled"</span>, label <span class="op">=</span> <span class="st">"selected and disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbg"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Value selected and disabled"</span>, <span class="st">"Value A"</span><span class="op">)</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"Value A"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"Value B"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option C"</span>, value <span class="op">=</span> <span class="st">"Value C"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"disabled"</span>, value <span class="op">=</span> <span class="st">"Value disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"selected and disabled"</span>, value <span class="op">=</span> <span class="st">"Value selected and disabled"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="group-list" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="group-list_container" style="display: contents">
-  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+  <div id="grouping-cbg" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="grouping-cbg_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
   </el-checkbox-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["selected and disabled","Option A"],"options":[{"value":"Option A","label":"Option A"},{"value":"Option B","label":"Option B"},{"value":"Option C","label":"Option C"},{"value":"disabled","label":"disabled","disabled":true},{"value":"selected and disabled","label":"selected and disabled","disabled":true}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('group-list', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Value selected and disabled","Value A"],"options":[{"label":"Option A","value":"Value A"},{"label":"Option B","value":"Value B"},{"label":"Option C","value":"Value C"},{"label":"disabled","value":"Value disabled","disabled":true},{"label":"selected and disabled","value":"Value selected and disabled","disabled":true}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('grouping-cbg', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="options-attribute">Options attribute<a class="anchor" aria-label="anchor" href="#options-attribute"></a>
+</h2>
+<p>Shortcut from basic <code>el-checkbox-group</code> usage. You can
+customize the alias of the <code>options</code> through the
+<code>props</code> attribute.</p>
+<p>Choices given in fields of other names, mapped with
+<code>props</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbo"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Value A"</span><span class="op">)</span>,</span>
+<span>  props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"name"</span>, value <span class="op">=</span> <span class="st">"id"</span>, disabled <span class="op">=</span> <span class="st">"unable"</span><span class="op">)</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"Value A"</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"Value B"</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option C"</span>, value <span class="op">=</span> <span class="st">"Value C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="options-cbo" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="options-cbo_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
+  </el-checkbox-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Value A"],"options":[{"label":"Option A","value":"Value A"},{"label":"Option B","value":"Value B"},{"label":"Option C","value":"Value C"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":{"label":"name","value":"id","disabled":"unable"},"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('options-cbo', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="indeterminate">Indeterminate<a class="anchor" aria-label="anchor" href="#indeterminate"></a>
 </h2>
-<p>The “check all” box above a group: half-ticked while some are, kept
-in step from the server.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"Check all"</span>, indeterminate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 15px 0"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cities"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="va">cities</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">all</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/update_el_checkbox_group.html">update_el_checkbox_group</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"cities"</span>, selected <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">all</span><span class="op">)</span><span class="op">)</span> <span class="va">cities</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cities</span>, <span class="op">{</span></span>
-<span>    <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cities</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../../reference/update_el_checkbox.html">update_el_checkbox</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"all"</span>, value <span class="op">=</span> <span class="va">n</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span>,</span>
-<span>                       indeterminate <span class="op">=</span> <span class="va">n</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="va">n</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span>, ignoreNULL <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/checkbox-indeterminate.png" alt="The indeterminate example, running" style="max-width: 100%">
-</div>
-<div class="section level2">
-<h2 id="minimum-maximum-items-checked">Minimum / maximum items checked<a class="anchor" aria-label="anchor" href="#minimum-maximum-items-checked"></a>
-</h2>
+<p>The <code>indeterminate</code> property can help you to achieve a
+‘check all’ effect.</p>
+<p>“Check all” ticks the group from the server, as Element Plus’s demo
+does in its handler:
+<code>observeEvent(input$all, update_el_checkbox_group(...))</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"limited"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span>,</span>
-<span>                  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"Check all"</span>, indeterminate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cities"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span>,</span>
+<span>                    selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="minmax-limited" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="minmax-limited_container" style="display: contents">
-  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+  <div id="intermediate-all" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="intermediate-all_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Check all","indeterminate":true,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  <div id="intermediate-cities" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="intermediate-cities_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
   </el-checkbox-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai","Beijing"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":null,"min":1,"max":2,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('minmax-limited', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai","Beijing"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('intermediate-cities', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="minimum-maximum-items-checked">Minimum / Maximum items checked<a class="anchor" aria-label="anchor" href="#minimum-maximum-items-checked"></a>
+</h2>
+<p>The <code>min</code> and <code>max</code> properties can help you to
+limit the number of checked items.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cities_lim"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span>,</span>
+<span>                  selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span><span class="op">)</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="limitation-cities_lim" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="limitation-cities_lim_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
+  </el-checkbox-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai","Beijing"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":null,"min":1,"max":2,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('limitation-cities_lim', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="button-style">Button style<a class="anchor" aria-label="anchor" href="#button-style"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>Checkbox with button styles.</p>
+<p>You just need to change <code>el-checkbox</code> element into
+<code>el-checkbox-button</code> element. We also provide
+<code>size</code> attribute.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Shanghai"</span>, <span class="st">"Beijing"</span>, <span class="st">"Guangzhou"</span>, <span class="st">"Shenzhen"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"default"</span>, <span class="st">"medium"</span>, <span class="st">"small"</span>, <span class="st">"mini"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 12px"</span>, <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"cb_"</span>, <span class="va">s</span><span class="op">)</span>, choices <span class="op">=</span> <span class="va">cities</span>,</span>
-<span>    selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">s</span> <span class="op">!=</span> <span class="st">"default"</span><span class="op">)</span> <span class="va">s</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb1"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb2"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb3"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"cbb4"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"Shanghai"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>                    disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="margin-bottom: 12px">
-    <div id="button-cb_default" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="button-cb_default_container" style="display: contents">
-  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+  <div style="display: grid; gap: 16px">
+    <div id="button-style-cbb1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="button-style-cbb1_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-checkbox-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox-button>
   </el-checkbox-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-cb_default', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":"large","min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-style-cbb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
-  </div>
-  <div style="margin-bottom: 12px">
-    <div id="button-cb_medium" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="button-cb_medium_container" style="display: contents">
-  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+    <div id="button-style-cbb2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="button-style-cbb2_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-checkbox-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox-button>
   </el-checkbox-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":"medium","min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-cb_medium', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-style-cbb2', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
-  </div>
-  <div style="margin-bottom: 12px">
-    <div id="button-cb_small" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="button-cb_small_container" style="display: contents">
-  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+    <div id="button-style-cbb3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="button-style-cbb3_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-checkbox-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox-button>
   </el-checkbox-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":"small","min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-cb_small', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":"small","min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-style-cbb3', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
-  </div>
-  <div style="margin-bottom: 12px">
-    <div id="button-cb_mini" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="button-cb_mini_container" style="display: contents">
-  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+    <div id="button-style-cbb4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="button-style-cbb4_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-checkbox-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox-button>
   </el-checkbox-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":false,"size":"mini","min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-cb_mini', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Shanghai"],"options":[{"value":"Shanghai","label":"Shanghai"},{"value":"Beijing","label":"Beijing"},{"value":"Guangzhou","label":"Guangzhou"},{"value":"Shenzhen","label":"Shenzhen"}],"disabled":true,"size":"small","min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-style-cbb4', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
   </div>
 </div>
@@ -302,35 +429,44 @@ in step from the server.</p>
 <div class="section level2">
 <h2 id="with-borders">With borders<a class="anchor" aria-label="anchor" href="#with-borders"></a>
 </h2>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"Option1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"b2"</span>, <span class="st">"Option2"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"b3"</span>, selected <span class="op">=</span> <span class="st">"Option1"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option1"</span>, label <span class="op">=</span> <span class="st">"Option1"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Option2"</span>, label <span class="op">=</span> <span class="st">"Option2"</span>, border <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>border</code> attribute adds a border to Checkboxes.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 16px"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr1"</span>, <span class="st">"Option1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr2"</span>, <span class="st">"Option2"</span>, size <span class="op">=</span> <span class="st">"large"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr3"</span>, <span class="st">"Option1"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr4"</span>, <span class="st">"Option2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="border-b1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="border-b1_container" style="display: contents">
-  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Option1","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div style="margin-top: 16px">
+    <div id="with-border-cbr1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-border-cbr1_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Option1","indeterminate":null,"disabled":null,"border":true,"size":"large","trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
-  <div id="border-b2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="border-b2_container" style="display: contents">
-  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option2","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+    <div id="with-border-cbr2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-border-cbr2_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option2","indeterminate":null,"disabled":null,"border":true,"size":"large","trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
-  <div id="border-b3" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="border-b3_container" style="display: contents">
-  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
-    <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
-  </el-checkbox-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Option1"],"options":[{"value":"Option1","label":"Option1","border":true},{"value":"Option2","label":"Option2","border":true,"disabled":true}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('border-b3', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+  </div>
+  <div style="margin-top: 16px">
+    <div id="with-border-cbr3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-border-cbr3_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Option1","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
+    <div id="with-border-cbr4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-border-cbr4_container" style="display: contents">
+  <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Option2","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="checkbox-attributes">Checkbox Attributes<a class="anchor" aria-label="anchor" href="#checkbox-attributes"></a>
 </h3>
@@ -353,87 +489,188 @@ in step from the server.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>el_checkbox(value =)</code></td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>binding value</td>
-<td>string / number / boolean</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>1</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>2</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>3</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>label</code></td>
-<td><code>el_checkbox(label =)</code></td>
+<td><code>value</code></td>
+<td><code>el_checkbox(value =)</code></td>
 <td>value of the Checkbox when used inside a
 <code>checkbox-group</code>
 </td>
-<td>string / number / boolean</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>5</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>6</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>7</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
-<td><code>true-label</code></td>
-<td><code>el_checkbox(true_label =)</code></td>
-<td>value of the Checkbox if it’s checked</td>
-<td>string / number</td>
-<td>—</td>
+<td><code>label</code></td>
+<td><code>el_checkbox(label =)</code></td>
+<td>label of the Checkbox when used inside a
+<code>checkbox-group</code>. If there’s no value, <code>label</code>
+will act as <code>value</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>8</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>9</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>10</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>11</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>false-label</code></td>
-<td><code>el_checkbox(false_label =)</code></td>
-<td>value of the Checkbox if it’s not checked</td>
-<td>string / number</td>
-<td>—</td>
+<td><code>true-value</code></td>
+<td><code>el_checkbox(true_value =)</code></td>
+<td>value of the Checkbox if it’s checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>12</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>13</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
+<td><code>false-value</code></td>
+<td><code>el_checkbox(false_value =)</code></td>
+<td>value of the Checkbox if it’s not checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>14</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>15</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
 <td><code>disabled</code></td>
 <td><code>el_checkbox(disabled =)</code></td>
 <td>whether the Checkbox is disabled</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td><code>border</code></td>
-<td><code>el_checkbox(border =)</code></td>
-<td>whether to add a border around Checkbox</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
-<td><code>size</code></td>
-<td><code>el_checkbox(size =)</code></td>
-<td>size of the Checkbox, only works when <code>border</code> is
-true</td>
-<td>string</td>
-<td>medium / small / mini</td>
-<td>—</td>
+<td><code>border</code></td>
+<td><code>el_checkbox(border =)</code></td>
+<td>whether to add a border around Checkbox</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>17</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 <tr class="even">
-<td><code>name</code></td>
-<td><code>el_checkbox(name =)</code></td>
-<td>native ‘name’ attribute</td>
-<td>string</td>
-<td>—</td>
+<td><code>size</code></td>
+<td><code>el_checkbox(size =)</code></td>
+<td>size of the Checkbox</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>18</sup></a><code>'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
 <td><code>checked</code></td>
-<td><code>el_checkbox(checked =)</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>if the Checkbox is checked</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
 <td><code>indeterminate</code></td>
 <td><code>el_checkbox(indeterminate =)</code></td>
-<td>same as <code>indeterminate</code> in native checkbox</td>
-<td>boolean</td>
-<td>—</td>
+<td>Set indeterminate state, only responsible for style control</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
 <td>false</td>
+</tr>
+<tr class="odd">
+<td><code>validate-event</code></td>
+<td><code>el_checkbox(validate_event =)</code></td>
+<td>whether to trigger form validation</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td><code>tabindex</code></td>
+<td><code>el_checkbox(tabindex =)</code></td>
+<td>input tabindex</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>23</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>id</code></td>
+<td>
+<code>id</code>, the Shiny input’s</td>
+<td>input id</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>24</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>aria-controls</code></td>
+<td><code>el_checkbox(aria_controls =)</code></td>
+<td>same as <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls" class="external-link">aria-controls</a>,
+takes effect when <code>indeterminate</code> is <code>true</code>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>aria-label</code></td>
+<td><code>el_checkbox(aria_label =)</code></td>
+<td>native <code>aria-label</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>true-label</code></td>
+<td><code>el_checkbox(true_label =)</code></td>
+<td>value of the Checkbox if it’s checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>27</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>28</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>false-label</code></td>
+<td><code>el_checkbox(false_label =)</code></td>
+<td>value of the Checkbox if it’s not checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>29</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>30</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>controls</code></td>
+<td><code>el_checkbox(controls =)</code></td>
+<td>same as <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-controls" class="external-link">aria-controls</a>,
+takes effect when <code>indeterminate</code> is <code>true</code>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>31</sup></a></td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
@@ -461,7 +698,23 @@ true</td>
 </table>
 </div>
 <div class="section level3">
-<h3 id="checkbox-group-attributes">Checkbox-group Attributes<a class="anchor" aria-label="anchor" href="#checkbox-group-attributes"></a>
+<h3 id="checkbox-slots">Checkbox Slots<a class="anchor" aria-label="anchor" href="#checkbox-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="checkboxgroup-attributes">CheckboxGroup Attributes<a class="anchor" aria-label="anchor" href="#checkboxgroup-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -482,66 +735,137 @@ true</td>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>selected (or value)</code></td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>binding value</td>
-<td>array</td>
-<td>—</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>32</sup></a><code>string[] \\| number[]</code>
+</td>
+<td></td>
+<td>[]</td>
 </tr>
 <tr class="even">
 <td><code>size</code></td>
 <td><code>el_checkbox(size =)</code></td>
-<td>size of checkbox buttons or bordered checkboxes</td>
-<td>string</td>
-<td>medium / small / mini</td>
+<td>size of checkbox</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>33</sup></a><code>'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
 <td><code>disabled</code></td>
 <td><code>el_checkbox(disabled =)</code></td>
 <td>whether the nesting checkboxes are disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>34</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
 <td><code>min</code></td>
 <td><code>el_checkbox_group(min =)</code></td>
 <td>minimum number of checkbox checked</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>35</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
 <td><code>max</code></td>
 <td><code>el_checkbox_group(max =)</code></td>
 <td>maximum number of checkbox checked</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>36</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
+<td><code>aria-label</code></td>
+<td><code>el_checkbox(aria_label =)</code></td>
+<td>native <code>aria-label</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>37</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
 <td><code>text-color</code></td>
 <td><code>el_checkbox_group(text_color =)</code></td>
 <td>font color when button is active</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>38</sup></a></td>
+<td></td>
 <td>#ffffff</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>fill</code></td>
 <td><code>el_checkbox_group(fill =)</code></td>
 <td>border and background color when button is active</td>
-<td>string</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>39</sup></a></td>
+<td></td>
+<td>#409eff</td>
+</tr>
+<tr class="odd">
+<td><code>tag</code></td>
+<td><code>el_checkbox_group(tag =)</code></td>
+<td>element tag of the checkbox group</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>40</sup></a></td>
+<td></td>
+<td>div</td>
+</tr>
+<tr class="even">
+<td><code>validate-event</code></td>
+<td><code>el_checkbox(validate_event =)</code></td>
+<td>whether to trigger form validation</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>41</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td><code>label</code></td>
+<td><code>el_checkbox(label =)</code></td>
+<td>native <code>aria-label</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>42</sup></a></td>
+<td></td>
 <td>—</td>
-<td>#409EFF</td>
+</tr>
+<tr class="even">
+<td><code>options</code></td>
+<td><code>el_checkbox_group(options =)</code></td>
+<td>data of the options, the key of <code>value</code> and
+<code>label</code> and <code>disabled</code> can be customize by
+<code>props</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>43</sup></a><code>Array&lt;{[key: string]: any}&gt;</code>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>props</code></td>
+<td><code>el_checkbox_group(props =)</code></td>
+<td>configuration options</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>44</sup></a><code>{ value?: string, label?: string, disabled?: string}</code>
+</td>
+<td></td>
+<td><code>{value: 'value', label: 'label', disabled: 'disabled'}</code></td>
+</tr>
+<tr class="even">
+<td><code>type</code></td>
+<td><code>el_checkbox_group(type =)</code></td>
+<td>component type to render options (e.g. <code>'button'</code>)</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>45</sup></a><code>'checkbox' \\| 'button'</code>
+</td>
+<td></td>
+<td>‘checkbox’</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="checkbox-group-events">Checkbox-group Events<a class="anchor" aria-label="anchor" href="#checkbox-group-events"></a>
+<h3 id="checkboxgroup-events">CheckboxGroup Events<a class="anchor" aria-label="anchor" href="#checkboxgroup-events"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -563,7 +887,23 @@ true</td>
 </table>
 </div>
 <div class="section level3">
-<h3 id="checkbox-button-attributes">Checkbox-button Attributes<a class="anchor" aria-label="anchor" href="#checkbox-button-attributes"></a>
+<h3 id="checkboxgroup-slots">CheckboxGroup Slots<a class="anchor" aria-label="anchor" href="#checkboxgroup-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="checkboxbutton-attributes">CheckboxButton Attributes<a class="anchor" aria-label="anchor" href="#checkboxbutton-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -584,59 +924,117 @@ true</td>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>label</code></td>
-<td><code>el_checkbox(label =)</code></td>
+<td><code>value</code></td>
+<td><code>el_checkbox(value =)</code></td>
 <td>value of the checkbox when used inside a
 <code>checkbox-group</code>
 </td>
-<td>string / number / boolean</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>46</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>47</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>48</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>49</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>true-label</code></td>
-<td><code>el_checkbox(true_label =)</code></td>
-<td>value of the checkbox if it’s checked</td>
-<td>string / number</td>
-<td>—</td>
+<td><code>label</code></td>
+<td><code>el_checkbox(label =)</code></td>
+<td>label of the checkbox when used inside a
+<code>checkbox-group</code>. If there’s no value, <code>label</code>
+will act as <code>value</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>50</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>51</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>52</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>53</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
-<td><code>false-label</code></td>
-<td><code>el_checkbox(false_label =)</code></td>
-<td>value of the checkbox if it’s not checked</td>
-<td>string / number</td>
-<td>—</td>
+<td><code>true-value</code></td>
+<td><code>el_checkbox(true_value =)</code></td>
+<td>value of the checkbox if it’s checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>54</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>55</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
+<td><code>false-value</code></td>
+<td><code>el_checkbox(false_value =)</code></td>
+<td>value of the checkbox if it’s not checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>56</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>57</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
 <td><code>disabled</code></td>
 <td><code>el_checkbox(disabled =)</code></td>
 <td>whether the checkbox is disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>58</sup></a></td>
+<td></td>
 <td>false</td>
-</tr>
-<tr class="odd">
-<td><code>name</code></td>
-<td><code>el_checkbox(name =)</code></td>
-<td>native ‘name’ attribute</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
 </tr>
 <tr class="even">
 <td><code>checked</code></td>
-<td><code>el_checkbox(checked =)</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>if the checkbox is checked</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>59</sup></a></td>
+<td></td>
 <td>false</td>
+</tr>
+<tr class="odd">
+<td><code>true-label</code></td>
+<td><code>el_checkbox(true_label =)</code></td>
+<td>value of the checkbox if it’s checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>60</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>61</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>false-label</code></td>
+<td><code>el_checkbox(false_label =)</code></td>
+<td>value of the checkbox if it’s not checked</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>62</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>63</sup></a>
+</td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="checkboxbutton-slots">CheckboxButton Slots<a class="anchor" aria-label="anchor" href="#checkboxbutton-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

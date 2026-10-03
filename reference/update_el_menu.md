@@ -1,6 +1,6 @@
-# Update an Element UI Menu
+# Update an Element Plus Menu
 
-Update an Element UI Menu
+Update an Element Plus Menu
 
 ## Usage
 

@@ -1,4 +1,4 @@
-# Update Element UI Collapse
+# Update Element Plus Collapse
 
 Server-side update for
 [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md).

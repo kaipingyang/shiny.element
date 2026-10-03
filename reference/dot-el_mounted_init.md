@@ -1,6 +1,6 @@
 # Build a Vue `mounted` hook that reports initial values to Shiny
 
-Element UI components only emit `@change` on user interaction, and Vue
+Element Plus components only emit `@change` on user interaction, and Vue
 `watch` handlers do not fire on mount. Without this hook the
 corresponding `input$<id>` stays `NULL` until the user first touches the
 component, unlike standard Shiny inputs which report their value

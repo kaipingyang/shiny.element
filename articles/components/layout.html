@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="layout_files/vue-2.7.14/vue.min.js"></script><link href="layout_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="layout_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="layout_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="layout_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="layout_files/el-events-1.0.0/el-events.js"></script><script src="layout_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="layout_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="layout_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="layout_files/vue-3.5.43/vue.global.prod.js"></script><link href="layout_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="layout_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="layout_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="layout_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="layout_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="layout_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="layout_files/el-events-1.0.0/el-events.js"></script><script src="layout_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="layout_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,64 +187,91 @@
 
     
     
-<p>Quickly and easily create layouts with the basic 24-column grid:
-<code><a href="../../reference/el_row.html">el_row()</a></code> holds <code><a href="../../reference/el_col.html">el_col()</a></code>s, each
-<code>span</code>ning some of the 24.</p>
+<p>Quickly and easily create layouts with the basic 24-column.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>The component uses flex layout by default, no need to set
+<code>type="flex"</code> manually.</p>
+<p>Please note that the parent container should avoid using
+<code>inline</code> related styles, which will cause the component to
+not fill up its width.</p>
+<p>The basic unit of a column is 1, with a maximum of 24 and a minimum
+of 0.</p>
+</blockquote>
 <div class="section level2">
 <h2 id="basic-layout">Basic layout<a class="anchor" aria-label="anchor" href="#basic-layout"></a>
 </h2>
-<p><code>span</code> is how many of the 24 columns a column takes.</p>
+<p>Create basic grid layout using columns.</p>
+<p>With <code>row</code> and <code>col</code>, we can easily manipulate
+the layout using the <code>span</code> attribute.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">shade</span> <span class="op">=</span> <span class="st">"#d3dce6"</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"background: %s; border-radius: 4px; min-height: 36px; margin-bottom: 20px"</span>, <span class="va">shade</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">24</span>, <span class="fu">cell</span><span class="op">(</span><span class="st">"#99a9bf"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="fu">cell</span><span class="op">(</span><span class="st">"#e5e9f2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu">cell</span><span class="op">(</span><span class="st">"#e5e9f2"</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="fu">cell</span><span class="op">(</span><span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span><span class="op">)</span> <span class="st">"#d3dce6"</span> <span class="kw">else</span> <span class="st">"#e5e9f2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dark</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"grid-content"</span>,</span>
+<span>  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"border-radius: 4px; min-height: 36px; background: %s"</span>,</span>
+<span>                  <span class="kw">if</span> <span class="op">(</span><span class="va">dark</span><span class="op">)</span> <span class="st">"#99a9bf"</span> <span class="kw">else</span> <span class="st">"#d3dce6"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">24</span>, <span class="fu">cell</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="fu">cell</span><span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu">cell</span><span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="fu">cell</span><span class="op">(</span><span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div class="el-row">
+  <div class="el-row" style="margin-bottom: 20px">
     <div class="el-col el-col-24">
-      <div style="background: #99a9bf; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
     </div>
   </div>
-  <div class="el-row">
+  <div class="el-row" style="margin-bottom: 20px">
     <div class="el-col el-col-12">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-12">
-      <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
     </div>
   </div>
-  <div class="el-row">
+  <div class="el-row" style="margin-bottom: 20px">
     <div class="el-col el-col-8">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-8">
-      <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
     </div>
     <div class="el-col el-col-8">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
-  <div class="el-row">
+  <div class="el-row" style="margin-bottom: 20px">
+    <div class="el-col el-col-6">
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
+    </div>
+  </div>
+  <div class="el-row" style="margin-bottom: 20px">
     <div class="el-col el-col-4">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-4">
-      <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
     </div>
     <div class="el-col el-col-4">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-4">
-      <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
     </div>
     <div class="el-col el-col-4">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-4">
-      <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div class="grid-content" style="border-radius: 4px; min-height: 36px; background: #99a9bf"></div>
     </div>
   </div>
 </div>
@@ -218,23 +279,25 @@
 <div class="section level2">
 <h2 id="column-spacing">Column spacing<a class="anchor" aria-label="anchor" href="#column-spacing"></a>
 </h2>
-<p><code>gutter</code> puts space between the columns, in pixels.</p>
+<p>Column spacing is supported.</p>
+<p>Row provides <code>gutter</code> attribute to specify spacings
+between columns, and its default value is 0.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"background: #d3dce6; border-radius: 4px; min-height: 36px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"border-radius: 4px; min-height: 36px; background: #d3dce6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-row" style="margin-left:-10px; margin-right:-10px">
     <div class="el-col el-col-6">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-6">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-6">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-6">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
 </div>
@@ -242,45 +305,48 @@
 <div class="section level2">
 <h2 id="hybrid-layout">Hybrid layout<a class="anchor" aria-label="anchor" href="#hybrid-layout"></a>
 </h2>
-<p>Any mix of spans that adds up to 24 in a row.</p>
+<p>Form a more complex hybrid layout by combining the basic 1/24
+columns.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">16</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>       <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">16</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"border-radius: 4px; min-height: 36px; background: #d3dce6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>,</span>
+<span>         <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">16</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>,</span>
+<span>         <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">8</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">16</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">4</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div class="el-row" style="margin-left:-10px; margin-right:-10px">
+  <div class="el-row" style="margin-left:-10px; margin-right:-10px; margin-bottom: 20px">
     <div class="el-col el-col-16" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-8" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+  </div>
+  <div class="el-row" style="margin-left:-10px; margin-right:-10px; margin-bottom: 20px">
+    <div class="el-col el-col-8" style="padding-left:10px; padding-right:10px">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-8" style="padding-left:10px; padding-right:10px">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-4" style="padding-left:10px; padding-right:10px">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-4" style="padding-left:10px; padding-right:10px">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
   <div class="el-row" style="margin-left:-10px; margin-right:-10px">
-    <div class="el-col el-col-8" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
-    </div>
-    <div class="el-col el-col-8" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
-    </div>
     <div class="el-col el-col-4" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
-    </div>
-    <div class="el-col el-col-4" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
-    </div>
-  </div>
-  <div class="el-row" style="margin-left:-10px; margin-right:-10px">
-    <div class="el-col el-col-4" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-16" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-4" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
 </div>
@@ -288,32 +354,37 @@
 <div class="section level2">
 <h2 id="column-offset">Column offset<a class="anchor" aria-label="anchor" href="#column-offset"></a>
 </h2>
-<p><code>offset</code> moves a column right by that many columns.</p>
+<p>You can specify column offsets.</p>
+<p>You can specify the number of column offset by setting the value of
+<code>offset</code> attribute of Col.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"border-radius: 4px; min-height: 36px; background: #d3dce6"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>,</span>
+<span>         <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>,</span>
+<span>         <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="va">cell</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">20</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, offset <span class="op">=</span> <span class="fl">6</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div class="el-row" style="margin-left:-10px; margin-right:-10px">
+  <div class="el-row" style="margin-left:-10px; margin-right:-10px; margin-bottom: 20px">
     <div class="el-col el-col-6" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-6 el-col-offset-6" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
-  <div class="el-row" style="margin-left:-10px; margin-right:-10px">
+  <div class="el-row" style="margin-left:-10px; margin-right:-10px; margin-bottom: 20px">
     <div class="el-col el-col-6 el-col-offset-6" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-6 el-col-offset-6" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
   <div class="el-row" style="margin-left:-10px; margin-right:-10px">
     <div class="el-col el-col-12 el-col-offset-6" style="padding-left:10px; padding-right:10px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
 </div>
@@ -321,113 +392,112 @@
 <div class="section level2">
 <h2 id="alignment">Alignment<a class="anchor" aria-label="anchor" href="#alignment"></a>
 </h2>
-<p><code>type = "flex"</code> lays the row out with flexbox;
-<code>justify</code> places the columns – <code>"start"</code>,
-<code>"center"</code>, <code>"end"</code>, <code>"space-between"</code>
-or <code>"space-around"</code>.</p>
+<p>Default use the flex layout to make flexible alignment of
+columns.</p>
+<p>You can define the layout of child elements by setting
+<code>justify</code> attribute with start, center, end, space-between,
+space-around or space-evenly.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">s</span> <span class="op">=</span> <span class="st">"#d3dce6"</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"background: %s; border-radius: 4px; min-height: 36px"</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start"</span>, <span class="st">"center"</span>, <span class="st">"end"</span>, <span class="st">"space-between"</span>, <span class="st">"space-around"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"background: #f9fafc; margin-bottom: 20px"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"flex"</span>, justify <span class="op">=</span> <span class="va">j</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="st">"#e5e9f2"</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">rows</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">light</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"border-radius: 4px; min-height: 36px; background: %s"</span>,</span>
+<span>                                                         <span class="kw">if</span> <span class="op">(</span><span class="va">light</span><span class="op">)</span> <span class="st">"#e5e9f2"</span> <span class="kw">else</span> <span class="st">"#d3dce6"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start"</span>, <span class="st">"center"</span>, <span class="st">"end"</span>, <span class="st">"space-between"</span>, <span class="st">"space-around"</span>, <span class="st">"space-evenly"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>justify <span class="op">=</span> <span class="va">j</span>, style <span class="op">=</span> <span class="st">"margin-bottom: 20px; background: #f9fafc"</span>, <span class="fu">cols</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="background: #f9fafc; margin-bottom: 20px">
-    <div class="el-row el-row--flex">
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
+  <div class="el-row" style="margin-bottom: 20px; background: #f9fafc">
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
-  <div style="background: #f9fafc; margin-bottom: 20px">
-    <div class="el-row el-row--flex is-justify-center">
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
+  <div class="el-row" style="margin-bottom: 20px; background: #f9fafc">
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
-  <div style="background: #f9fafc; margin-bottom: 20px">
-    <div class="el-row el-row--flex is-justify-end">
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
+  <div class="el-row" style="margin-bottom: 20px; background: #f9fafc">
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
-  <div style="background: #f9fafc; margin-bottom: 20px">
-    <div class="el-row el-row--flex is-justify-space-between">
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
+  <div class="el-row" style="margin-bottom: 20px; background: #f9fafc">
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
-  <div style="background: #f9fafc; margin-bottom: 20px">
-    <div class="el-row el-row--flex is-justify-space-around">
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px"></div>
-      </div>
-      <div class="el-col el-col-6">
-        <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
-      </div>
+  <div class="el-row" style="margin-bottom: 20px; background: #f9fafc">
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+  </div>
+  <div class="el-row" style="margin-bottom: 20px; background: #f9fafc">
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
+    </div>
+    <div class="el-col el-col-6">
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
   </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="responsive-layout">Responsive layout<a class="anchor" aria-label="anchor" href="#responsive-layout"></a>
+<h2 id="responsive-layout">Responsive Layout<a class="anchor" aria-label="anchor" href="#responsive-layout"></a>
 </h2>
-<p>Five breakpoints, after Bootstrap’s: <code>xs</code> (&lt;768px),
-<code>sm</code> (≥768px), <code>md</code> (≥992px), <code>lg</code>
-(≥1200px) and <code>xl</code> (≥1920px), each a span – or a list of
-<code>span</code>, <code>offset</code>, <code>push</code> and
-<code>pull</code>.</p>
+<p>Taking example by Bootstrap’s responsive design, five breakpoints are
+preset: xs, sm, md, lg and xl.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">s</span> <span class="op">=</span> <span class="st">"#d3dce6"</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"background: %s; border-radius: 4px; min-height: 36px"</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">cell</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">light</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"border-radius: 4px; min-height: 36px; background: %s"</span>,</span>
+<span>                                                         <span class="kw">if</span> <span class="op">(</span><span class="va">light</span><span class="op">)</span> <span class="st">"#e5e9f2"</span> <span class="kw">else</span> <span class="st">"#d3dce6"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>xs <span class="op">=</span> <span class="fl">8</span>, sm <span class="op">=</span> <span class="fl">6</span>, md <span class="op">=</span> <span class="fl">4</span>, lg <span class="op">=</span> <span class="fl">3</span>, xl <span class="op">=</span> <span class="fl">1</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>xs <span class="op">=</span> <span class="fl">4</span>, sm <span class="op">=</span> <span class="fl">6</span>, md <span class="op">=</span> <span class="fl">8</span>, lg <span class="op">=</span> <span class="fl">9</span>, xl <span class="op">=</span> <span class="fl">11</span>, <span class="fu">cell</span><span class="op">(</span><span class="st">"#e5e9f2"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>xs <span class="op">=</span> <span class="fl">4</span>, sm <span class="op">=</span> <span class="fl">6</span>, md <span class="op">=</span> <span class="fl">8</span>, lg <span class="op">=</span> <span class="fl">9</span>, xl <span class="op">=</span> <span class="fl">11</span>, <span class="fu">cell</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>xs <span class="op">=</span> <span class="fl">4</span>, sm <span class="op">=</span> <span class="fl">6</span>, md <span class="op">=</span> <span class="fl">8</span>, lg <span class="op">=</span> <span class="fl">9</span>, xl <span class="op">=</span> <span class="fl">11</span>, <span class="fu">cell</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>xs <span class="op">=</span> <span class="fl">8</span>, sm <span class="op">=</span> <span class="fl">6</span>, md <span class="op">=</span> <span class="fl">4</span>, lg <span class="op">=</span> <span class="fl">3</span>, xl <span class="op">=</span> <span class="fl">1</span>, <span class="fu">cell</span><span class="op">(</span><span class="st">"#e5e9f2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>xs <span class="op">=</span> <span class="fl">8</span>, sm <span class="op">=</span> <span class="fl">6</span>, md <span class="op">=</span> <span class="fl">4</span>, lg <span class="op">=</span> <span class="fl">3</span>, xl <span class="op">=</span> <span class="fl">1</span>, <span class="fu">cell</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-row" style="margin-left:-5px; margin-right:-5px">
     <div class="el-col el-col-24 el-col-xs-8 el-col-sm-6 el-col-md-4 el-col-lg-3 el-col-xl-1" style="padding-left:5px; padding-right:5px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-24 el-col-xs-4 el-col-sm-6 el-col-md-8 el-col-lg-9 el-col-xl-11" style="padding-left:5px; padding-right:5px">
-      <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
     </div>
     <div class="el-col el-col-24 el-col-xs-4 el-col-sm-6 el-col-md-8 el-col-lg-9 el-col-xl-11" style="padding-left:5px; padding-right:5px">
-      <div style="background: #d3dce6; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #d3dce6"></div>
     </div>
     <div class="el-col el-col-24 el-col-xs-8 el-col-sm-6 el-col-md-4 el-col-lg-3 el-col-xl-1" style="padding-left:5px; padding-right:5px">
-      <div style="background: #e5e9f2; border-radius: 4px; min-height: 36px"></div>
+      <div style="border-radius: 4px; min-height: 36px; background: #e5e9f2"></div>
     </div>
   </div>
 </div>
@@ -435,30 +505,49 @@ or <code>"space-around"</code>.</p>
 <div class="section level2">
 <h2 id="utility-classes-for-hiding-elements">Utility classes for hiding elements<a class="anchor" aria-label="anchor" href="#utility-classes-for-hiding-elements"></a>
 </h2>
-<p>Element’s <code>display.css</code> is loaded with the package:
-<code>hidden-xs-only</code>, <code>hidden-sm-and-up</code>,
-<code>hidden-md-and-down</code> and the rest hide any tag at those
-widths.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"hidden-sm-and-down"</span>, <span class="st">"Shown on a medium screen and wider"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"hidden-md-and-up"</span>, <span class="st">"Shown below a medium screen"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div class="hidden-sm-and-down">Shown on a medium screen and wider</div>
-  <div class="hidden-md-and-up">Shown below a medium screen</div>
-</div>
-<p>The classes, each in <code>-only</code>, <code>-and-up</code> and
-<code>-and-down</code> forms where they make sense:
-<code>hidden-xs-only</code>, <code>hidden-sm-and-up</code>,
-<code>hidden-sm-only</code>, <code>hidden-sm-and-down</code>,
-<code>hidden-md-and-up</code>, <code>hidden-md-only</code>,
-<code>hidden-md-and-down</code>, <code>hidden-lg-and-up</code>,
-<code>hidden-lg-only</code>, <code>hidden-lg-and-down</code>,
-<code>hidden-xl-only</code>.</p>
+<p>Additionally, Element Plus provides a series of classes for hiding
+elements under certain conditions. These classes can be added to any DOM
+elements or custom components. You need to import the following CSS file
+to use these classes:</p>
+<p>The classes are:</p>
+<ul>
+<li>
+<code>hidden-xs-only</code> - hide when on extra small viewports
+only</li>
+<li>
+<code>hidden-sm-only</code> - hide when on small viewports only</li>
+<li>
+<code>hidden-sm-and-down</code> - hide when on small viewports and
+down</li>
+<li>
+<code>hidden-sm-and-up</code> - hide when on small viewports and
+up</li>
+<li>
+<code>hidden-md-only</code> - hide when on medium viewports
+only</li>
+<li>
+<code>hidden-md-and-down</code> - hide when on medium viewports and
+down</li>
+<li>
+<code>hidden-md-and-up</code> - hide when on medium viewports and
+up</li>
+<li>
+<code>hidden-lg-only</code> - hide when on large viewports only</li>
+<li>
+<code>hidden-lg-and-down</code> - hide when on large viewports and
+down</li>
+<li>
+<code>hidden-lg-and-up</code> - hide when on large viewports and
+up</li>
+<li>
+<code>hidden-xl-only</code> - hide when on extra large viewports
+only</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="row-attributes">Row Attributes<a class="anchor" aria-label="anchor" href="#row-attributes"></a>
 </h3>
@@ -484,43 +573,55 @@ widths.</p>
 <td><code>gutter</code></td>
 <td><code>el_row(gutter =)</code></td>
 <td>grid spacing</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td><code>type</code></td>
-<td><code>el_row(type =)</code></td>
-<td>layout mode, you can use flex, works in modern browsers</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
 <td><code>justify</code></td>
 <td><code>el_row(justify =)</code></td>
 <td>horizontal alignment of flex layout</td>
-<td>string</td>
-<td>start/end/center/space-around/space-between</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>2</sup></a><code>'start' \\| 'end' \\| 'center' \\| 'space-around' \\| 'space-between' \\| 'space-evenly'</code>
+</td>
+<td></td>
 <td>start</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>align</code></td>
 <td><code>el_row(align =)</code></td>
 <td>vertical alignment of flex layout</td>
-<td>string</td>
-<td>top/middle/bottom</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>3</sup></a><code>'top' \\| 'middle' \\| 'bottom'</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>tag</code></td>
 <td><code>el_row(tag =)</code></td>
 <td>custom element tag</td>
-<td>string</td>
-<td>*</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>div</td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="row-slots">Row Slots<a class="anchor" aria-label="anchor" href="#row-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
 </table>
 </div>
 <div class="section level3">
@@ -548,32 +649,32 @@ widths.</p>
 <td><code>span</code></td>
 <td><code>el_col(span =)</code></td>
 <td>number of column the grid spans</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
 <td>24</td>
 </tr>
 <tr class="even">
 <td><code>offset</code></td>
 <td><code>el_col(offset =)</code></td>
 <td>number of spacing on the left side of the grid</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>6</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="odd">
 <td><code>push</code></td>
 <td><code>el_col(push =)</code></td>
 <td>number of columns that grid moves to the right</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="even">
 <td><code>pull</code></td>
 <td><code>el_col(pull =)</code></td>
 <td>number of columns that grid moves to the left</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="odd">
@@ -582,8 +683,11 @@ widths.</p>
 <td>
 <code>&lt;768px</code> Responsive columns or column props
 object</td>
-<td>number/object (e.g. {span: 4, offset: 4})</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>9</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>10</sup></a><code>{span?: number, offset?: number, pull?: number, push?: number}</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
@@ -591,8 +695,11 @@ object</td>
 <td><code>el_col(sm =)</code></td>
 <td>
 <code>≥768px</code> Responsive columns or column props object</td>
-<td>number/object (e.g. {span: 4, offset: 4})</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>11</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>12</sup></a><code>{span?: number, offset?: number, pull?: number, push?: number}</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
@@ -600,8 +707,11 @@ object</td>
 <td><code>el_col(md =)</code></td>
 <td>
 <code>≥992px</code> Responsive columns or column props object</td>
-<td>number/object (e.g. {span: 4, offset: 4})</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>13</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>14</sup></a><code>{span?: number, offset?: number, pull?: number, push?: number}</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
@@ -609,8 +719,11 @@ object</td>
 <td><code>el_col(lg =)</code></td>
 <td>
 <code>≥1200px</code> Responsive columns or column props object</td>
-<td>number/object (e.g. {span: 4, offset: 4})</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>15</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>16</sup></a><code>{span?: number, offset?: number, pull?: number, push?: number}</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
@@ -618,22 +731,42 @@ object</td>
 <td><code>el_col(xl =)</code></td>
 <td>
 <code>≥1920px</code> Responsive columns or column props object</td>
-<td>number/object (e.g. {span: 4, offset: 4})</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>17</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>18</sup></a><code>{span?: number, offset?: number, pull?: number, push?: number}</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
 <td><code>tag</code></td>
 <td><code>el_row(tag =)</code></td>
 <td>custom element tag</td>
-<td>string</td>
-<td>*</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
 <td>div</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="col-slots">Col Slots<a class="anchor" aria-label="anchor" href="#col-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

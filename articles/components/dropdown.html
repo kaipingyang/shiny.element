@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="dropdown_files/vue-2.7.14/vue.min.js"></script><link href="dropdown_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="dropdown_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="dropdown_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="dropdown_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="dropdown_files/el-events-1.0.0/el-events.js"></script><script src="dropdown_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="dropdown_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="dropdown_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="dropdown_files/vue-3.5.43/vue.global.prod.js"></script><link href="dropdown_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="dropdown_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="dropdown_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="dropdown_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="dropdown_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="dropdown_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="dropdown_files/el-events-1.0.0/el-events.js"></script><script src="dropdown_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="dropdown_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,213 +187,417 @@
 
     
     
-<p>Toggleable menu for displaying lists of links and actions.
-<code>input$&lt;id&gt;</code> is the <code>command</code> of the item
-chosen, as an event.</p>
+<p>Toggleable menu for displaying lists of links and actions.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Hover on the dropdown menu to unfold it for more actions.</p>
+<p>The triggering element is rendered by the default <code>slot</code>,
+and the dropdown part is rendered by the <code>slot</code> named
+<code>dropdown</code>. By default, dropdown list shows when you hover on
+the triggering element without having to click it.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"basic"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"d"</span>, label <span class="op">=</span> <span class="st">"Action 4"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"e"</span>, label <span class="op">=</span> <span class="st">"Action 5"</span>, divided <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"d"</span>, label <span class="op">=</span> <span class="st">"Action 4"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"e"</span>, label <span class="op">=</span> <span class="st">"Action 5"</span>, divided <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-basic" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-basic_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+  <div id="basic-usage-dd" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-dd_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
     <span class="el-dropdown-link">
       Dropdown List
-      <i class="el-icon-arrow-down el-icon--right"></i>
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
     </span>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-      <el-dropdown-item :command="&quot;c&quot;">Action 3</el-dropdown-item>
-      <el-dropdown-item :command="&quot;d&quot;" :disabled="true">Action 4</el-dropdown-item>
-      <el-dropdown-item :command="&quot;e&quot;" :divided="true">Action 5</el-dropdown-item>
-    </el-dropdown-menu>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+        <el-dropdown-item :command="&quot;c&quot;">Action 3</el-dropdown-item>
+        <el-dropdown-item :command="&quot;d&quot;" :disabled="true">Action 4</el-dropdown-item>
+        <el-dropdown-item :command="&quot;e&quot;" :divided="true">Action 5</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('basic-basic', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('basic-basic', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-basic', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-basic_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('basic-usage-dd', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('basic-usage-dd', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-usage-dd', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-usage-dd_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
+<h2 id="placement">Placement<a class="anchor" aria-label="anchor" href="#placement"></a>
+</h2>
+<p>Support 6 placements.</p>
+<p>Set <code>placement</code> property to make dropdown appear in
+different locations.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"The Action 1st"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"The Action 2nd"</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"The Action 3rd"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top-start"</span>, <span class="st">"top"</span>, <span class="st">"top-end"</span>, <span class="st">"bottom-start"</span>, <span class="st">"bottom"</span>, <span class="st">"bottom-end"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"dd_"</span>, <span class="va">p</span><span class="op">)</span>, placement <span class="op">=</span> <span class="va">p</span>, items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>                trigger_label <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"ddb_"</span>, <span class="va">p</span><span class="op">)</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: flex; flex-wrap: wrap; gap: 16px">
+    <div id="placements-dd_top-start" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placements-dd_top-start_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      <div id="placements-ddb_top-start" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placements-ddb_top-start_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"top-start","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+    
+    <template v-slot:dropdown><el-dropdown-menu><el-dropdown-item :command='"1"'>The Action 1st</el-dropdown-item><el-dropdown-item :command='"2"'>The Action 2nd</el-dropdown-item><el-dropdown-item :command='"3"'>The Action 3rd</el-dropdown-item></el-dropdown-menu></template>
+</div>
+      <script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"top-start","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('placements-dd_top-start', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('placements-dd_top-start', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_top-start', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_top-start_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div>
+    <div id="placements-dd_top" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placements-dd_top_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      <div id="placements-ddb_top" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placements-ddb_top_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"top","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+    
+    <template v-slot:dropdown><el-dropdown-menu><el-dropdown-item :command='"1"'>The Action 1st</el-dropdown-item><el-dropdown-item :command='"2"'>The Action 2nd</el-dropdown-item><el-dropdown-item :command='"3"'>The Action 3rd</el-dropdown-item></el-dropdown-menu></template>
+</div>
+      <script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"top","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('placements-dd_top', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('placements-dd_top', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_top', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_top_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script></main>
+</div>
+    <div id="placements-dd_top-end" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placements-dd_top-end_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      <div id="placements-ddb_top-end" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placements-ddb_top-end_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"top-end","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+    
+    <template v-slot:dropdown><el-dropdown-menu><el-dropdown-item :command='"1"'>The Action 1st</el-dropdown-item><el-dropdown-item :command='"2"'>The Action 2nd</el-dropdown-item><el-dropdown-item :command='"3"'>The Action 3rd</el-dropdown-item></el-dropdown-menu></template>
+</div>
+      <script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"top-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('placements-dd_top-end', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('placements-dd_top-end', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_top-end', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_top-end_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script><div id="placements-dd_bottom-start" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placements-dd_bottom-start_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      <div id="placements-ddb_bottom-start" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placements-ddb_bottom-start_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"bottom-start","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+    
+    <template v-slot:dropdown><el-dropdown-menu><el-dropdown-item :command='"1"'>The Action 1st</el-dropdown-item><el-dropdown-item :command='"2"'>The Action 2nd</el-dropdown-item><el-dropdown-item :command='"3"'>The Action 3rd</el-dropdown-item></el-dropdown-menu></template><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-start","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('placements-dd_bottom-start', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('placements-dd_bottom-start', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_bottom-start', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_bottom-start_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script><div id="placements-dd_bottom" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placements-dd_bottom_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      <div id="placements-ddb_bottom" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placements-ddb_bottom_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"bottom","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+    
+    <template v-slot:dropdown><el-dropdown-menu><el-dropdown-item :command='"1"'>The Action 1st</el-dropdown-item><el-dropdown-item :command='"2"'>The Action 2nd</el-dropdown-item><el-dropdown-item :command='"3"'>The Action 3rd</el-dropdown-item></el-dropdown-menu></template><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('placements-dd_bottom', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('placements-dd_bottom', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_bottom', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_bottom_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script><div id="placements-dd_bottom-end" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placements-dd_bottom-end_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      <div id="placements-ddb_bottom-end" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placements-ddb_bottom-end_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"bottom-end","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+    
+    <template v-slot:dropdown><el-dropdown-menu><el-dropdown-item :command='"1"'>The Action 1st</el-dropdown-item><el-dropdown-item :command='"2"'>The Action 2nd</el-dropdown-item><el-dropdown-item :command='"3"'>The Action 3rd</el-dropdown-item></el-dropdown-menu></template><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('placements-dd_bottom-end', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('placements-dd_bottom-end', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_bottom-end', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placements-dd_bottom-end_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script><div class="section level2">
 <h2 id="triggering-element">Triggering element<a class="anchor" aria-label="anchor" href="#triggering-element"></a>
 </h2>
-<p><code>split_button</code> splits the trigger into a button and an
-arrow.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"btn"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"splt"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Use the button to trigger the dropdown list.</p>
+<p>Use <code>split-button</code> to split the triggering element into a
+button group with the left button being a normal button and right one
+the actual triggering target. If you wanna insert a separator line
+between item three and item four, just add the <code>divided</code>
+attribute to item four.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_btn"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger_label <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"dd_btn_t"</span>, <span class="st">"Dropdown List"</span>,</span>
+<span>              type <span class="op">=</span> <span class="st">"primary"</span>, icon <span class="op">=</span> <span class="st">"ArrowDown"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_split"</span>, items <span class="op">=</span> <span class="va">items</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>              trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="split-btn" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="split-btn_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+  <div style="display: flex; gap: 16px">
+    <div id="triggering-element-dd_btn" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="triggering-element-dd_btn_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
     <span class="el-dropdown-link">
-      Dropdown List
-      <i class="el-icon-arrow-down el-icon--right"></i>
-    </span>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
-  </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":"primary","size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('split-btn', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('split-btn', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('split-btn', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('split-btn_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+      <div id="triggering-element-dd_btn_t" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="triggering-element-dd_btn_t_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Dropdown List","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":"ArrowDown","count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="split-splt" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="split-splt_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+    
+    <template v-slot:dropdown><el-dropdown-menu><el-dropdown-item :command='"a"'>Action 1</el-dropdown-item><el-dropdown-item :command='"b"'>Action 2</el-dropdown-item><el-dropdown-item :command='"c"'>Action 3</el-dropdown-item></el-dropdown-menu></template>
+</div>
+      <script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('triggering-element-dd_btn', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('triggering-element-dd_btn', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('triggering-element-dd_btn', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('triggering-element-dd_btn_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div>
+    <div id="triggering-element-dd_split" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="triggering-element-dd_split_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
     Dropdown List
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+        <el-dropdown-item :command="&quot;c&quot;">Action 3</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('split-splt', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('split-splt', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('split-splt', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('split-splt_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('triggering-element-dd_split', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('triggering-element-dd_split', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('triggering-element-dd_split', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('triggering-element-dd_split_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
-</div>
-</div>
+  </div>
+
+
 <div class="section level2">
 <h2 id="how-to-trigger">How to trigger<a class="anchor" aria-label="anchor" href="#how-to-trigger"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"hover"</span>, trigger_label <span class="op">=</span> <span class="st">"hover to trigger"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span>, icon <span class="op">=</span> <span class="st">"el-icon-plus"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span>, icon <span class="op">=</span> <span class="st">"el-icon-circle-plus"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"click"</span>, trigger_label <span class="op">=</span> <span class="st">"click to trigger"</span>, trigger <span class="op">=</span> <span class="st">"click"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span>, icon <span class="op">=</span> <span class="st">"el-icon-plus"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span>, icon <span class="op">=</span> <span class="st">"el-icon-circle-plus"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Click the triggering element or hover on it.</p>
+<p>Use the attribute <code>trigger</code>. By default, it is
+<code>hover</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span>, icon <span class="op">=</span> <span class="st">"Plus"</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span>, icon <span class="op">=</span> <span class="st">"CirclePlusFilled"</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span>, icon <span class="op">=</span> <span class="st">"CirclePlus"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"hover to trigger"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_hover"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"click to trigger"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_click"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger <span class="op">=</span> <span class="st">"click"</span>,</span>
+<span>                                                    trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"right click to trigger"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_ctx"</span>, items <span class="op">=</span> <span class="va">items</span>, trigger <span class="op">=</span> <span class="st">"contextmenu"</span>,</span>
+<span>                                                          trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="trigger-hover" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="trigger-hover_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+  <div style="display: flex; gap: 40px">
+    <div>hover to trigger</div>
+    <div id="how-to-trigger-dd_hover" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="how-to-trigger-dd_hover_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
     <span class="el-dropdown-link">
-      hover to trigger
-      <i class="el-icon-arrow-down el-icon--right"></i>
+      Dropdown List
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
     </span>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;" icon="el-icon-plus">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;" icon="el-icon-circle-plus">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;" icon="Plus">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;" icon="CirclePlusFilled">Action 2</el-dropdown-item>
+        <el-dropdown-item :command="&quot;c&quot;" icon="CirclePlus">Action 3</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('trigger-hover', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('trigger-hover', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trigger-hover', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trigger-hover_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('how-to-trigger-dd_hover', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('how-to-trigger-dd_hover', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('how-to-trigger-dd_hover', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('how-to-trigger-dd_hover_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
-  <div id="trigger-click" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="trigger-click_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+    <div>click to trigger</div>
+    <div id="how-to-trigger-dd_click" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="how-to-trigger-dd_click_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
     <span class="el-dropdown-link">
-      click to trigger
-      <i class="el-icon-arrow-down el-icon--right"></i>
+      Dropdown List
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
     </span>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;" icon="el-icon-plus">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;" icon="el-icon-circle-plus">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;" icon="Plus">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;" icon="CirclePlusFilled">Action 2</el-dropdown-item>
+        <el-dropdown-item :command="&quot;c&quot;" icon="CirclePlus">Action 3</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"click","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('trigger-click', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('trigger-click', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trigger-click', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trigger-click_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"click","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('how-to-trigger-dd_click', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('how-to-trigger-dd_click', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('how-to-trigger-dd_click', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('how-to-trigger-dd_click_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
+    <div>right click to trigger</div>
+    <div id="how-to-trigger-dd_ctx" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="how-to-trigger-dd_ctx_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      Dropdown List
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
+    </span>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;" icon="Plus">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;" icon="CirclePlusFilled">Action 2</el-dropdown-item>
+        <el-dropdown-item :command="&quot;c&quot;" icon="CirclePlus">Action 3</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"contextmenu","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('how-to-trigger-dd_ctx', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('how-to-trigger-dd_ctx', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('how-to-trigger-dd_ctx', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('how-to-trigger-dd_ctx_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="menu-hiding-behavior">Menu hiding behavior<a class="anchor" aria-label="anchor" href="#menu-hiding-behavior"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"stay"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, hide_on_click <span class="op">=</span> <span class="cn">FALSE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Use <code>hide-on-click</code> to define if menu closes on
+clicking.</p>
+<p>By default menu will close when you click on menu items, and it can
+be turned off by setting hide-on-click to false.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_keep"</span>, hide_on_click <span class="op">=</span> <span class="cn">FALSE</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="hide-stay" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="hide-stay_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+  <div id="menu-hiding-behavior-dd_keep" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="menu-hiding-behavior-dd_keep_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
     <span class="el-dropdown-link">
       Dropdown List
-      <i class="el-icon-arrow-down el-icon--right"></i>
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
     </span>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+        <el-dropdown-item :command="&quot;c&quot;">Action 3</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":false,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('hide-stay', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('hide-stay', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('hide-stay', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('hide-stay_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":false,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('menu-hiding-behavior-dd_keep', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('menu-hiding-behavior-dd_keep', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('menu-hiding-behavior-dd_keep', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('menu-hiding-behavior-dd_keep_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="command-event">Command event<a class="anchor" aria-label="anchor" href="#command-event"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"cmd"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"chosen"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">chosen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cmd</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dropdown-command.png" alt="The command example, running" style="max-width: 100%">
+<p>Clicking each dropdown item fires an event whose parameter is
+assigned by each item.</p>
+<p>The item clicked is <code>input$&lt;id&gt;</code>, its
+<code>command</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_cmd"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"c"</span>, label <span class="op">=</span> <span class="st">"Action 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="command-event-dd_cmd" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="command-event-dd_cmd_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      Dropdown List
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
+    </span>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+        <el-dropdown-item :command="&quot;c&quot;">Action 3</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('command-event-dd_cmd', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('command-event-dd_cmd', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('command-event-dd_cmd', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('command-event-dd_cmd_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="dropdown-methods">Dropdown methods<a class="anchor" aria-label="anchor" href="#dropdown-methods"></a>
+</h2>
+<p>You can open or close the dropdown menu by manually use
+<code>handleOpen</code> or <code>handleClose</code></p>
+<p><code>el_call(session, "dd_m", "handleOpen")</code> opens it from the
+server; <code>"handleClose"</code> closes it.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"dd_m"</span>, trigger <span class="op">=</span> <span class="st">"contextmenu"</span>, trigger_label <span class="op">=</span> <span class="st">"Dropdown List"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="dropdown-methods-dd_m" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="dropdown-methods-dd_m_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    <span class="el-dropdown-link">
+      Dropdown List
+      <el-icon class="el-icon--right"><arrow-down /></el-icon>
+    </span>
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"contextmenu","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('dropdown-methods-dd_m', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('dropdown-methods-dd_m', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dropdown-methods-dd_m', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dropdown-methods-dd_m_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>Besides default size, Dropdown component provides three additional
+sizes for you to choose among different scenarios.</p>
+<p>Use attribute <code>size</code> to set additional sizes with
+<code>large</code>, <code>default</code> or <code>small</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Action 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Action 2"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"s1"</span>, trigger_label <span class="op">=</span> <span class="st">"Default"</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"s2"</span>, trigger_label <span class="op">=</span> <span class="st">"Medium"</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"medium"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"s3"</span>, trigger_label <span class="op">=</span> <span class="st">"Small"</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"s4"</span>, trigger_label <span class="op">=</span> <span class="st">"Mini"</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"mini"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"dd_s_"</span>, <span class="va">s</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">s</span>, split_button <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>                trigger_label <span class="op">=</span> <span class="va">s</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="sizes-s1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="sizes-s1_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
-    Default
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
+  <div style="display: flex; gap: 16px">
+    <div id="sizes-dd_s_large" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-dd_s_large_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    large
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('sizes-s1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('sizes-s1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s1', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":"large","showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('sizes-dd_s_large', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('sizes-dd_s_large', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-dd_s_large', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-dd_s_large_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
-  <div id="sizes-s2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="sizes-s2_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
-    Medium
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
+    <div id="sizes-dd_s_default" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-dd_s_default_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    default
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":"medium","showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('sizes-s2', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('sizes-s2', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s2', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s2_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":"default","showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('sizes-dd_s_default', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('sizes-dd_s_default', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-dd_s_default', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-dd_s_default_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
-  <div id="sizes-s3" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="sizes-s3_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
-    Small
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
+    <div id="sizes-dd_s_small" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-dd_s_small_container" style="display: contents">
+  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
+    small
+    <template v-slot:dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
+        <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":"small","showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('sizes-s3', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('sizes-s3', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s3', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s3_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":"small","showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('sizes-dd_s_small', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('sizes-dd_s_small', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-dd_s_small', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-dd_s_small_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 </div>
-  <div id="sizes-s4" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="sizes-s4_container" style="display: contents">
-  <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
-    Mini
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :command="&quot;a&quot;">Action 1</el-dropdown-item>
-      <el-dropdown-item :command="&quot;b&quot;">Action 2</el-dropdown-item>
-    </el-dropdown-menu>
-  </el-dropdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":true,"count":0,"type":"primary","size":"mini","showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('sizes-s4', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('sizes-s4', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s4', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sizes-s4_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+  </div>
 </div>
 </div>
+<div class="section level2">
+<h2 id="virtual-triggering">Virtual triggering<a class="anchor" aria-label="anchor" href="#virtual-triggering"></a>
+</h2>
+<p>Sometimes we want to render the dropdown on some other trigger
+element, we can separate the trigger and the content.</p>
+<blockquote>
+<p><strong>In R</strong></p>
+<p>Element Plus’s virtual trigger takes a DOM element from the page’s
+own script; in R, put the trigger in <code>trigger_label</code>
+instead.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="dropdown-attributes">Dropdown Attributes<a class="anchor" aria-label="anchor" href="#dropdown-attributes"></a>
 </h3>
@@ -386,85 +624,235 @@ arrow.</p>
 <td><code>type</code></td>
 <td>menu button type, refer to <code>Button</code> Component, only works
 when <code>split-button</code> is true</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>1</sup></a><code>'' \\| 'default' \\| 'primary' \\| 'success' \\| 'warning' \\| 'info' \\| 'danger' \\| 'text' (deprecated)</code>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>size</code></td>
 <td><code>size</code></td>
 <td>menu size, also works on the split button</td>
-<td>string</td>
-<td>medium / small / mini</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>2</sup></a><code>'' \\| 'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
+<td>’’</td>
+</tr>
+<tr class="odd">
+<td><code>button-props</code></td>
+<td><code>button_props</code></td>
+<td>props for the button component, refer to <a href="./button.html#button-attributes">Button Attributes</a>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>3</sup></a></td>
+<td></td>
 <td>—</td>
+</tr>
+<tr class="even">
+<td><code>max-height</code></td>
+<td><code>max_height</code></td>
+<td>the max height of menu</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>5</sup></a>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
 <td><code>split-button</code></td>
 <td><code>split_button</code></td>
 <td>whether a button group is displayed</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>6</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+<td>whether to disable</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="odd">
 <td><code>placement</code></td>
 <td><code>placement</code></td>
 <td>placement of pop menu</td>
-<td>string</td>
-<td>top/top-start/top-end/bottom/bottom-start/bottom-end</td>
-<td>bottom-end</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>8</sup></a><code>'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end'</code>
+</td>
+<td></td>
+<td>bottom</td>
+</tr>
+<tr class="even">
+<td><code>effect</code></td>
+<td><code>effect</code></td>
+<td>Tooltip theme, built-in theme: <code>dark</code> /
+<code>light</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>9</sup></a><code>'dark' \\| 'light'</code> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>10</sup></a>
+</td>
+<td></td>
+<td>light</td>
 </tr>
 <tr class="odd">
 <td><code>trigger</code></td>
 <td><code>trigger</code></td>
 <td>how to trigger</td>
-<td>string</td>
-<td>hover/click</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>11</sup></a><code>'click' \\| 'hover' \\| 'contextmenu'</code>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>12</sup></a><code>Array&lt;'click' \\| 'hover' \\| 'contextmenu'&gt;</code>
+</td>
+<td></td>
 <td>hover</td>
 </tr>
 <tr class="even">
+<td><code>trigger-keys</code></td>
+<td><code>trigger_keys</code></td>
+<td>specify which keys on the keyboard can trigger when pressed</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>13</sup></a><code>string[]</code>
+</td>
+<td></td>
+<td><code>['Enter', 'Space', 'ArrowDown', 'NumpadEnter']</code></td>
+</tr>
+<tr class="odd">
+<td><code>virtual-triggering</code></td>
+<td><code>virtual_triggering</code></td>
+<td>indicates whether virtual triggering is enabled</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>14</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>virtual-ref</code></td>
+<td><code>virtual_ref</code></td>
+<td>indicates the reference element to which the dropdown is
+attached</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;HTMLElement&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
 <td><code>hide-on-click</code></td>
 <td><code>hide_on_click</code></td>
 <td>whether to hide menu after clicking menu-item</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td><code>show-arrow</code></td>
+<td><code>show_arrow</code></td>
+<td>whether the tooltip content has an arrow</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>17</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="odd">
 <td><code>show-timeout</code></td>
 <td><code>show_timeout</code></td>
-<td>Delay time before show a dropdown (only works when trigger is
+<td>delay time before show a dropdown (only works when trigger is
 <code>hover</code>)</td>
-<td>number</td>
-<td>—</td>
-<td>250</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>18</sup></a></td>
+<td></td>
+<td>150</td>
 </tr>
 <tr class="even">
 <td><code>hide-timeout</code></td>
 <td><code>hide_timeout</code></td>
-<td>Delay time before hide a dropdown (only works when trigger is
+<td>delay time before hide a dropdown (only works when trigger is
 <code>hover</code>)</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
 <td>150</td>
 </tr>
 <tr class="odd">
+<td><code>role</code></td>
+<td><code>role</code></td>
+<td>the ARIA role attribute for the dropdown menu. Depending on the use
+case, you may want to change this to ‘navigation’</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>20</sup></a><code>'dialog' \\| 'grid' \\| 'group' \\| 'listbox' \\| 'menu' \\| 'navigation' \\| 'tooltip' \\| 'tree'</code>
+</td>
+<td></td>
+<td>menu</td>
+</tr>
+<tr class="even">
 <td><code>tabindex</code></td>
 <td><code>tabindex</code></td>
 <td>
 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex" class="external-link">tabindex</a>
 of Dropdown</td>
-<td>number</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>21</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a>
+</td>
+<td></td>
 <td>0</td>
 </tr>
+<tr class="odd">
+<td><code>popper-class</code></td>
+<td><code>popper_class</code></td>
+<td>custom class name for Dropdown’s dropdown</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>23</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>24</sup></a>
+</td>
+<td></td>
+<td>’’</td>
+</tr>
 <tr class="even">
-<td><code>disabled</code></td>
-<td><code>disabled</code></td>
-<td>whether the Dropdown is disabled</td>
-<td>boolean</td>
+<td><code>popper-style</code></td>
+<td><code>popper_style</code></td>
+<td>custom style for Dropdown’s dropdown</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>25</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>26</sup></a>
+</td>
+<td></td>
 <td>—</td>
-<td>false</td>
+</tr>
+<tr class="odd">
+<td><code>popper-options</code></td>
+<td><code>popper_options</code></td>
+<td>
+<a href="https://popper.js.org/docs/v2/" class="external-link">popper.js</a>
+parameters</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>27</sup></a></td>
+<td></td>
+<td><code>{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}</code></td>
+</tr>
+<tr class="even">
+<td><code>teleported</code></td>
+<td><code>teleported</code></td>
+<td>whether the dropdown popup is teleported to the body</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>28</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td><code>append-to</code></td>
+<td><code>append_to</code></td>
+<td>which element the dropdown CONTENT appends to</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;CSSSelector&lt;/p&gt;"><sup>29</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;HTMLElement&lt;/p&gt;"><sup>30</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>persistent</code></td>
+<td><code>persistent</code></td>
+<td>when dropdown inactive and <code>persistent</code> is
+<code>false</code> , dropdown menu will be destroyed</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>31</sup></a></td>
+<td></td>
+<td>true</td>
 </tr>
 </tbody>
 </table>
@@ -483,12 +871,21 @@ of Dropdown</td>
 <th>In R</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr class="odd">
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>content of Dropdown. Notice: Must be a valid html dom element (ex.
+<code>&lt;span&gt;, &lt;button&gt; etc.</code>) or
+<code>el-component</code>, to attach the trigger listener</td>
+</tr>
+<tr class="even">
 <td><code>dropdown</code></td>
 <td><code>slots = list(dropdown = )</code></td>
 <td>content of the Dropdown Menu, usually a
 <code>&lt;el-dropdown-menu&gt;</code> element</td>
-</tr></tbody>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="section level3">
@@ -515,18 +912,64 @@ left button is clicked</td>
 <tr class="even">
 <td><code>command</code></td>
 <td>one of the component’s inputs – see its reference page</td>
-<td>triggers when a dropdown item is clicked</td>
+<td>triggers when a dropdown item is clicked, the parameters is the
+command dispatched from the dropdown item</td>
 </tr>
 <tr class="odd">
 <td><code>visible-change</code></td>
 <td><code>input$&lt;id&gt;_visible_change</code></td>
-<td>triggers when the dropdown appears/disappears</td>
+<td>triggers when the dropdown appears/disappears, the param is true
+when it appears, and false otherwise</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="dropdown-menu-item-attributes">Dropdown Menu Item Attributes<a class="anchor" aria-label="anchor" href="#dropdown-menu-item-attributes"></a>
+<h3 id="dropdown-exposes">Dropdown Exposes<a class="anchor" aria-label="anchor" href="#dropdown-exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>handleOpen</code></td>
+<td><code>el_call(session, id, "handleOpen")</code></td>
+<td>open the dropdown menu</td>
+</tr>
+<tr class="even">
+<td><code>handleClose</code></td>
+<td><code>el_call(session, id, "handleClose")</code></td>
+<td>close the dropdown menu</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="dropdown-menu-slots">Dropdown-Menu Slots<a class="anchor" aria-label="anchor" href="#dropdown-menu-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>content of Dropdown Menu</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="dropdown-item-attributes">Dropdown-Item Attributes<a class="anchor" aria-label="anchor" href="#dropdown-item-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -552,16 +995,20 @@ left button is clicked</td>
 </td>
 <td>a command to be dispatched to Dropdown’s <code>command</code>
 callback</td>
-<td>string/number/object</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>32</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>33</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>34</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
 <td><code>disabled</code></td>
 <td><code>disabled</code></td>
 <td>whether the item is disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>35</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
@@ -569,30 +1016,57 @@ callback</td>
 <td>item field <code>divided</code>
 </td>
 <td>whether a divider is displayed</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>36</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
 <td><code>icon</code></td>
 <td>item field <code>icon</code>
 </td>
-<td>icon class name</td>
-<td>string</td>
-<td>—</td>
+<td>custom icon</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>37</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>38</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="dropdown-item-slots">Dropdown-Item Slots<a class="anchor" aria-label="anchor" href="#dropdown-item-slots"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize of Dropdown Item</td>
+</tr>
+<tr class="even">
+<td><code>icon</code></td>
+<td><code>slots = list(icon = )</code></td>
+<td>custom icon, it will override the icon prop</td>
+</tr>
+</tbody>
+</table>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside>
 </div>
 
-
-
-    <footer><div class="pkgdown-footer-left">
+  <aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside><footer><div class="pkgdown-footer-left">
   <p>Developed by Kaiping Yang.</p>
 </div>
 
@@ -601,11 +1075,5 @@ callback</td>
 </div>
 
     </footer>
-</div>
-
-
-
-
-
-  </body>
+</body>
 </html>

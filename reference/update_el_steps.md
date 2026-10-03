@@ -1,6 +1,6 @@
-# Update Element UI Steps
+# Update Element Plus Steps
 
-Update Element UI Steps
+Update Element Plus Steps
 
 ## Usage
 

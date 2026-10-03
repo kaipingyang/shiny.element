@@ -1,4 +1,4 @@
-# Update Element UI Breadcrumb
+# Update Element Plus Breadcrumb
 
 Server-side update for
 [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md).

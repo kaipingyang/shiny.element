@@ -1,139 +1,214 @@
 # Layout
 
-Quickly and easily create layouts with the basic 24-column grid:
-[`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md)
-holds
-[`el_col()`](https://kaipingyang.github.io/shiny.element/reference/el_col.md)s,
-each `span`ning some of the 24.
+Quickly and easily create layouts with the basic 24-column.
+
+> **Tip**
+>
+> The component uses flex layout by default, no need to set
+> `type="flex"` manually.
+>
+> Please note that the parent container should avoid using `inline`
+> related styles, which will cause the component to not fill up its
+> width.
+>
+> The basic unit of a column is 1, with a maximum of 24 and a minimum of
+> 0.
 
 ## Basic layout
 
-`span` is how many of the 24 columns a column takes.
+Create basic grid layout using columns.
+
+With `row` and `col`, we can easily manipulate the layout using the
+`span` attribute.
 
 ``` r
 
-cell <- function(shade = "#d3dce6") {
-  tags$div(style = sprintf("background: %s; border-radius: 4px; min-height: 36px; margin-bottom: 20px", shade))
-}
-el_row(el_col(span = 24, cell("#99a9bf")))
-el_row(el_col(span = 12, cell()), el_col(span = 12, cell("#e5e9f2")))
-el_row(el_col(span = 8, cell()), el_col(span = 8, cell("#e5e9f2")), el_col(span = 8, cell()))
-el_row(lapply(1:6, function(i) el_col(span = 4, cell(if (i %% 2) "#d3dce6" else "#e5e9f2"))))
+cell <- function(dark = FALSE) tags$div(class = "grid-content",
+  style = sprintf("border-radius: 4px; min-height: 36px; background: %s",
+                  if (dark) "#99a9bf" else "#d3dce6"))
+row <- function(...) el_row(style = "margin-bottom: 20px", ...)
+tagList(
+  row(el_col(span = 24, cell(TRUE))),
+  row(lapply(1:2, function(i) el_col(span = 12, cell(i == 2)))),
+  row(lapply(1:3, function(i) el_col(span = 8, cell(i == 2)))),
+  row(lapply(1:4, function(i) el_col(span = 6, cell(i %% 2 == 0)))),
+  row(lapply(1:6, function(i) el_col(span = 4, cell(i %% 2 == 0)))))
 ```
 
 ## Column spacing
 
-`gutter` puts space between the columns, in pixels.
+Column spacing is supported.
+
+Row provides `gutter` attribute to specify spacings between columns, and
+its default value is 0.
 
 ``` r
 
-cell <- function() tags$div(style = "background: #d3dce6; border-radius: 4px; min-height: 36px")
-el_row(gutter = 20, lapply(1:4, function(i) el_col(span = 6, cell())))
+cell <- tags$div(style = "border-radius: 4px; min-height: 36px; background: #d3dce6")
+el_row(gutter = 20, lapply(1:4, function(i) el_col(span = 6, cell)))
 ```
 
 ## Hybrid layout
 
-Any mix of spans that adds up to 24 in a row.
+Form a more complex hybrid layout by combining the basic 1/24 columns.
 
 ``` r
 
-cell <- function() tags$div(style = "background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px")
-el_row(gutter = 20, el_col(span = 16, cell()), el_col(span = 8, cell()))
-el_row(gutter = 20, el_col(span = 8, cell()), el_col(span = 8, cell()),
-       el_col(span = 4, cell()), el_col(span = 4, cell()))
-el_row(gutter = 20, el_col(span = 4, cell()), el_col(span = 16, cell()), el_col(span = 4, cell()))
+cell <- tags$div(style = "border-radius: 4px; min-height: 36px; background: #d3dce6")
+tagList(
+  el_row(gutter = 20, style = "margin-bottom: 20px",
+         el_col(span = 16, cell), el_col(span = 8, cell)),
+  el_row(gutter = 20, style = "margin-bottom: 20px",
+         el_col(span = 8, cell), el_col(span = 8, cell), el_col(span = 4, cell), el_col(span = 4, cell)),
+  el_row(gutter = 20, el_col(span = 4, cell), el_col(span = 16, cell), el_col(span = 4, cell)))
 ```
 
 ## Column offset
 
-`offset` moves a column right by that many columns.
+You can specify column offsets.
+
+You can specify the number of column offset by setting the value of
+`offset` attribute of Col.
 
 ``` r
 
-cell <- function() tags$div(style = "background: #d3dce6; border-radius: 4px; min-height: 36px; margin-bottom: 20px")
-el_row(gutter = 20, el_col(span = 6, cell()), el_col(span = 6, offset = 6, cell()))
-el_row(gutter = 20, el_col(span = 6, offset = 6, cell()), el_col(span = 6, offset = 6, cell()))
-el_row(gutter = 20, el_col(span = 12, offset = 6, cell()))
+cell <- tags$div(style = "border-radius: 4px; min-height: 36px; background: #d3dce6")
+tagList(
+  el_row(gutter = 20, style = "margin-bottom: 20px",
+         el_col(span = 6, cell), el_col(span = 6, offset = 6, cell)),
+  el_row(gutter = 20, style = "margin-bottom: 20px",
+         el_col(span = 6, offset = 6, cell), el_col(span = 6, offset = 6, cell)),
+  el_row(gutter = 20, el_col(span = 12, offset = 6, cell)))
 ```
 
 ## Alignment
 
-`type = "flex"` lays the row out with flexbox; `justify` places the
-columns – `"start"`, `"center"`, `"end"`, `"space-between"` or
-`"space-around"`.
+Default use the flex layout to make flexible alignment of columns.
+
+You can define the layout of child elements by setting `justify`
+attribute with start, center, end, space-between, space-around or
+space-evenly.
 
 ``` r
 
-cell <- function(s = "#d3dce6") tags$div(style = sprintf("background: %s; border-radius: 4px; min-height: 36px", s))
-rows <- lapply(c("start", "center", "end", "space-between", "space-around"), function(j)
-  tags$div(style = "background: #f9fafc; margin-bottom: 20px",
-    el_row(type = "flex", justify = j,
-      el_col(span = 6, cell()), el_col(span = 6, cell("#e5e9f2")), el_col(span = 6, cell()))))
-tagList(rows)
+cell <- function(light = FALSE) tags$div(style = sprintf("border-radius: 4px; min-height: 36px; background: %s",
+                                                         if (light) "#e5e9f2" else "#d3dce6"))
+cols <- function() list(el_col(span = 6, cell()), el_col(span = 6, cell(TRUE)), el_col(span = 6, cell()))
+tagList(lapply(c("start", "center", "end", "space-between", "space-around", "space-evenly"), function(j)
+  el_row(justify = j, style = "margin-bottom: 20px; background: #f9fafc", cols())))
 ```
 
-## Responsive layout
+## Responsive Layout
 
-Five breakpoints, after Bootstrap’s: `xs` (\<768px), `sm` (≥768px), `md`
-(≥992px), `lg` (≥1200px) and `xl` (≥1920px), each a span – or a list of
-`span`, `offset`, `push` and `pull`.
+Taking example by Bootstrap’s responsive design, five breakpoints are
+preset: xs, sm, md, lg and xl.
 
 ``` r
 
-cell <- function(s = "#d3dce6") tags$div(style = sprintf("background: %s; border-radius: 4px; min-height: 36px", s))
+cell <- function(light = FALSE) tags$div(style = sprintf("border-radius: 4px; min-height: 36px; background: %s",
+                                                         if (light) "#e5e9f2" else "#d3dce6"))
 el_row(gutter = 10,
   el_col(xs = 8, sm = 6, md = 4, lg = 3, xl = 1, cell()),
-  el_col(xs = 4, sm = 6, md = 8, lg = 9, xl = 11, cell("#e5e9f2")),
+  el_col(xs = 4, sm = 6, md = 8, lg = 9, xl = 11, cell(TRUE)),
   el_col(xs = 4, sm = 6, md = 8, lg = 9, xl = 11, cell()),
-  el_col(xs = 8, sm = 6, md = 4, lg = 3, xl = 1, cell("#e5e9f2")))
+  el_col(xs = 8, sm = 6, md = 4, lg = 3, xl = 1, cell(TRUE)))
 ```
 
 ## Utility classes for hiding elements
 
-Element’s `display.css` is loaded with the package: `hidden-xs-only`,
-`hidden-sm-and-up`, `hidden-md-and-down` and the rest hide any tag at
-those widths.
+Additionally, Element Plus provides a series of classes for hiding
+elements under certain conditions. These classes can be added to any DOM
+elements or custom components. You need to import the following CSS file
+to use these classes:
 
-``` r
+The classes are:
 
-tagList(
-  tags$div(class = "hidden-sm-and-down", "Shown on a medium screen and wider"),
-  tags$div(class = "hidden-md-and-up", "Shown below a medium screen"))
-```
-
-Shown on a medium screen and wider
-
-Shown below a medium screen
-
-The classes, each in `-only`, `-and-up` and `-and-down` forms where they
-make sense: `hidden-xs-only`, `hidden-sm-and-up`, `hidden-sm-only`,
-`hidden-sm-and-down`, `hidden-md-and-up`, `hidden-md-only`,
-`hidden-md-and-down`, `hidden-lg-and-up`, `hidden-lg-only`,
-`hidden-lg-and-down`, `hidden-xl-only`.
+- `hidden-xs-only` - hide when on extra small viewports only
+- `hidden-sm-only` - hide when on small viewports only
+- `hidden-sm-and-down` - hide when on small viewports and down
+- `hidden-sm-and-up` - hide when on small viewports and up
+- `hidden-md-only` - hide when on medium viewports only
+- `hidden-md-and-down` - hide when on medium viewports and down
+- `hidden-md-and-up` - hide when on medium viewports and up
+- `hidden-lg-only` - hide when on large viewports only
+- `hidden-lg-and-down` - hide when on large viewports and down
+- `hidden-lg-and-up` - hide when on large viewports and up
+- `hidden-xl-only` - hide when on extra large viewports only
 
 ## API
+
+Element Plus’s tables, and beside each entry where it is in R.
 
 ### Row Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `gutter` | `el_row(gutter =)` | grid spacing | number | — | 0 |
-| `type` | `el_row(type =)` | layout mode, you can use flex, works in modern browsers | string | — | — |
-| `justify` | `el_row(justify =)` | horizontal alignment of flex layout | string | start/end/center/space-around/space-between | start |
-| `align` | `el_row(align =)` | vertical alignment of flex layout | string | top/middle/bottom | — |
-| `tag` | `el_row(tag =)` | custom element tag | string | \* | div |
+| `gutter` | `el_row(gutter =)` | grid spacing | [^1] |  | 0 |
+| `justify` | `el_row(justify =)` | horizontal alignment of flex layout | [^2]`'start' \\| 'end' \\| 'center' \\| 'space-around' \\| 'space-between' \\| 'space-evenly'` |  | start |
+| `align` | `el_row(align =)` | vertical alignment of flex layout | [^3]`'top' \\| 'middle' \\| 'bottom'` |  | — |
+| `tag` | `el_row(tag =)` | custom element tag | [^4] |  | div |
+
+### Row Slots
+
+| Element   | In R            | Description               |
+|-----------|-----------------|---------------------------|
+| `default` | default content | customize default content |
 
 ### Col Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `span` | `el_col(span =)` | number of column the grid spans | number | — | 24 |
-| `offset` | `el_col(offset =)` | number of spacing on the left side of the grid | number | — | 0 |
-| `push` | `el_col(push =)` | number of columns that grid moves to the right | number | — | 0 |
-| `pull` | `el_col(pull =)` | number of columns that grid moves to the left | number | — | 0 |
-| `xs` | `el_col(xs =)` | `<768px` Responsive columns or column props object | number/object (e.g. {span: 4, offset: 4}) | — | — |
-| `sm` | `el_col(sm =)` | `≥768px` Responsive columns or column props object | number/object (e.g. {span: 4, offset: 4}) | — | — |
-| `md` | `el_col(md =)` | `≥992px` Responsive columns or column props object | number/object (e.g. {span: 4, offset: 4}) | — | — |
-| `lg` | `el_col(lg =)` | `≥1200px` Responsive columns or column props object | number/object (e.g. {span: 4, offset: 4}) | — | — |
-| `xl` | `el_col(xl =)` | `≥1920px` Responsive columns or column props object | number/object (e.g. {span: 4, offset: 4}) | — | — |
-| `tag` | `el_row(tag =)` | custom element tag | string | \* | div |
+| `span` | `el_col(span =)` | number of column the grid spans | [^5] |  | 24 |
+| `offset` | `el_col(offset =)` | number of spacing on the left side of the grid | [^6] |  | 0 |
+| `push` | `el_col(push =)` | number of columns that grid moves to the right | [^7] |  | 0 |
+| `pull` | `el_col(pull =)` | number of columns that grid moves to the left | [^8] |  | 0 |
+| `xs` | `el_col(xs =)` | `<768px` Responsive columns or column props object | [^9] / [^10]`{span?: number, offset?: number, pull?: number, push?: number}` |  | — |
+| `sm` | `el_col(sm =)` | `≥768px` Responsive columns or column props object | [^11] / [^12]`{span?: number, offset?: number, pull?: number, push?: number}` |  | — |
+| `md` | `el_col(md =)` | `≥992px` Responsive columns or column props object | [^13] / [^14]`{span?: number, offset?: number, pull?: number, push?: number}` |  | — |
+| `lg` | `el_col(lg =)` | `≥1200px` Responsive columns or column props object | [^15] / [^16]`{span?: number, offset?: number, pull?: number, push?: number}` |  | — |
+| `xl` | `el_col(xl =)` | `≥1920px` Responsive columns or column props object | [^17] / [^18]`{span?: number, offset?: number, pull?: number, push?: number}` |  | — |
+| `tag` | `el_row(tag =)` | custom element tag | [^19] |  | div |
+
+### Col Slots
+
+| Element   | In R            | Description               |
+|-----------|-----------------|---------------------------|
+| `default` | default content | customize default content |
+
+[^1]: number
+
+[^2]: enum
+
+[^3]: enum
+
+[^4]: string
+
+[^5]: number
+
+[^6]: number
+
+[^7]: number
+
+[^8]: number
+
+[^9]: number
+
+[^10]: object
+
+[^11]: number
+
+[^12]: object
+
+[^13]: number
+
+[^14]: object
+
+[^15]: number
+
+[^16]: object
+
+[^17]: number
+
+[^18]: object
+
+[^19]: string

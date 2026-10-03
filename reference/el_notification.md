@@ -1,4 +1,4 @@
-# Show Element UI Notification
+# Show Element Plus Notification
 
 Server-side function to show a desktop-corner notification popup.
 Requires
@@ -19,10 +19,15 @@ el_notification(
   position = "top-right",
   show_close = TRUE,
   offset = 0,
-  icon_class = NULL,
   custom_class = NULL,
   dangerously_use_html_string = FALSE,
-  id = NULL
+  id = NULL,
+  icon = NULL,
+  append_to = NULL,
+  z_index = NULL,
+  close_icon = NULL,
+  progress = NULL,
+  pause_on_hover = NULL
 )
 ```
 
@@ -64,10 +69,6 @@ el_notification(
 
   Distance from the corner edge in pixels. Default `0`.
 
-- icon_class:
-
-  Icon class to show instead of the one `type` implies.
-
 - custom_class:
 
   Extra class name.
@@ -83,6 +84,32 @@ el_notification(
   [`el_notification_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)
   can close it, `input$<id>_close` reports when it closes and
   `input$<id>_click` when it is clicked.
+
+- icon:
+
+  Icon to show instead of the one `type` implies, by name.
+
+- append_to:
+
+  CSS selector of the element it is appended to. Default `<body>`.
+
+- z_index:
+
+  Its z-index, instead of the next one Element Plus hands out.
+
+- close_icon:
+
+  The close button's icon, by name.
+
+- progress:
+
+  Show a bar counting down `duration`: `TRUE`, or a list of Element
+  Plus's progress options.
+
+- pause_on_hover:
+
+  Whether the countdown stops while the pointer is over it. Default
+  `TRUE`.
 
 ## Value
 

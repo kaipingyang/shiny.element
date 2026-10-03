@@ -1,4 +1,4 @@
-# Update Element UI Skeleton
+# Update Element Plus Skeleton
 
 Server-side update for
 [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md).

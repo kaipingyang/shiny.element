@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,12 @@
 
 
 
-<script src="icon_files/vue-2.7.14/vue.min.js"></script><link href="icon_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="icon_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="icon_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="icon_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="icon_files/el-events-1.0.0/el-events.js"></script><script src="icon_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="icon_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="icon_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="icon_files/vue-3.5.43/vue.global.prod.js"></script><link href="icon_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="icon_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="icon_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="icon_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="icon_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="icon_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="icon_files/el-events-1.0.0/el-events.js"></script><script src="icon_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="icon_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<link href="icon_files/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="icon_files/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,1168 +189,177 @@
 
     
     
-<p>Element provides a set of common icons. <code><a href="../../reference/el_icon.html">el_icon()</a></code> draws
-one by name; any component taking an <code>icon</code> takes its class,
-<code>"el-icon-edit"</code>.</p>
+<p>Element Plus provides a set of common icons: the SVG components of
+<code>@element-plus/icons-vue</code>, which this package bundles and
+registers. Each has a PascalCase name – <code>Edit</code>,
+<code>Search</code>, <code>CircleCloseFilled</code> – and
+<code><a href="../../reference/el_icon.html">el_icon()</a></code> draws one by that name. Any component argument
+that takes an icon (<code>icon</code>, <code>prefix_icon</code>,
+<code>suffix_icon</code>, …) takes the same names.</p>
+<p>Element UI’s class names still work: <code>"el-icon-edit"</code> and
+<code>"edit"</code> are read as <code>Edit</code>, and the few renamed
+upstream – <code>"el-icon-user-solid"</code> – as their new names
+(<code>UserFilled</code>).</p>
 <div class="section level2">
-<h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
+<h2 id="simple-usage">Simple Usage<a class="anchor" aria-label="anchor" href="#simple-usage"></a>
 </h2>
+<p><code>size</code> and <code>color</code> are <code>el-icon</code>’s
+own props.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"edit"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"share"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"delete"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"search"</span>, <span class="st">"Search"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, icon <span class="op">=</span> <span class="st">"el-icon-search"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, size <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, size <span class="op">=</span> <span class="fl">30</span>, color <span class="op">=</span> <span class="st">"#409efc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <i class="el-icon-edit" aria-hidden="true" role="img"></i>
-  <i class="el-icon-share" aria-hidden="true" role="img"></i>
-  <i class="el-icon-delete" aria-hidden="true" role="img"></i>
-  <div id="basic-search" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-search_container" style="display: contents">
-  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Search","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":"el-icon-search","count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+  <i class="el-icon" data-el-icon="Edit" style="font-size:30px;" aria-hidden="true" role="img"></i>
+  <i class="el-icon" data-el-icon="Edit" style="font-size:30px;--color:#409efc;" aria-hidden="true" role="img"></i>
 </div>
-</div>
-<p><code>el_icon(lib = "font-awesome")</code> draws a Font Awesome icon
-instead, through the fontawesome package.</p>
 </div>
 <div class="section level2">
-<h2 id="icons">Icons<a class="anchor" aria-label="anchor" href="#icons"></a>
+<h2 id="combined-with-el-icon">Combined with el-icon<a class="anchor" aria-label="anchor" href="#combined-with-el-icon"></a>
 </h2>
-<p>Every icon Element ships, by the name <code><a href="../../reference/el_icon.html">el_icon()</a></code>
-takes:</p>
+<p>An icon inherits the colour and size of the text around it, unless it
+is given its own; <code>class = "is-loading"</code> spins it.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">css</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"element-ui"</span>, <span class="st">"theme-chalk"</span>, <span class="st">"index.css"</span>,</span>
-<span>                             package <span class="op">=</span> <span class="st">"shiny.element"</span><span class="op">)</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/regmatches.html" class="external-link">regmatches</a></span><span class="op">(</span><span class="va">css</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gregexpr</a></span><span class="op">(</span><span class="st">"(?&lt;=\\.el-icon-)[a-z0-9-]+(?=:before)"</span>, <span class="va">css</span>, perl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">names</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="st">"width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px"</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">i</span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"el-icon-"</span>, <span class="va">n</span><span class="op">)</span>, style <span class="op">=</span> <span class="st">"font-size: 24px; display: block; margin: 16px 0 8px"</span><span class="op">)</span>,</span>
-<span>    <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"font-size: 20px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Edit"</span>, size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Share"</span>, color <span class="op">=</span> <span class="st">"#409efc"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Delete"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Loading"</span>, class <span class="op">=</span> <span class="st">"is-loading"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"search"</span>, <span class="st">"Search"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, icon <span class="op">=</span> <span class="st">"Search"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="display: flex; flex-wrap: wrap">
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-add-location" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      add-location
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-aim" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      aim
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-alarm-clock" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      alarm-clock
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-apple" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      apple
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-arrow-down" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      arrow-down
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-arrow-left" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      arrow-left
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-arrow-right" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      arrow-right
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-arrow-up" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      arrow-up
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-attract" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      attract
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-back" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      back
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-bangzhu" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      bangzhu
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-bank-card" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      bank-card
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-baseball" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      baseball
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-basketball" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      basketball
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-bell" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      bell
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-bicycle" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      bicycle
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-bottom" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      bottom
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-bottom-left" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      bottom-left
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-bottom-right" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      bottom-right
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-box" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      box
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-brush" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      brush
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-burger" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      burger
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-c-scale-to-original" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      c-scale-to-original
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-camera" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      camera
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-camera-solid" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      camera-solid
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-caret-bottom" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      caret-bottom
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-caret-left" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      caret-left
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-caret-right" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      caret-right
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-caret-top" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      caret-top
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-chat-dot-round" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      chat-dot-round
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-chat-dot-square" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      chat-dot-square
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-chat-line-round" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      chat-line-round
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-chat-line-square" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      chat-line-square
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-chat-round" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      chat-round
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-chat-square" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      chat-square
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-check" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      check
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-cherry" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      cherry
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-chicken" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      chicken
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-circle-check" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      circle-check
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-circle-close" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      circle-close
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-circle-plus" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      circle-plus
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-circle-plus-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      circle-plus-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-close" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      close
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-close-notification" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      close-notification
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-cloudy" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      cloudy
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-cloudy-and-sunny" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      cloudy-and-sunny
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-coffee" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      coffee
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-coffee-cup" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      coffee-cup
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-coin" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      coin
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-cold-drink" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      cold-drink
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-collection" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      collection
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-collection-tag" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      collection-tag
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-connection" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      connection
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-coordinate" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      coordinate
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-copy-document" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      copy-document
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-cpu" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      cpu
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-crop" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      crop
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-d-arrow-left" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      d-arrow-left
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-d-arrow-right" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      d-arrow-right
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-d-caret" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      d-caret
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-data-analysis" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      data-analysis
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-data-board" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      data-board
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-data-line" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      data-line
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-date" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      date
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-delete" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      delete
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-delete-location" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      delete-location
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-delete-solid" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      delete-solid
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-dessert" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      dessert
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-discount" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      discount
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-discover" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      discover
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-dish" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      dish
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-dish-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      dish-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-document" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      document
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-document-add" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      document-add
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-document-checked" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      document-checked
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-document-copy" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      document-copy
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-document-delete" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      document-delete
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-document-remove" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      document-remove
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-download" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      download
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-edit" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      edit
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-edit-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      edit-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-eleme" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      eleme
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-error" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      error
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-female" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      female
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-files" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      files
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-film" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      film
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-finished" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      finished
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-first-aid-kit" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      first-aid-kit
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-folder" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      folder
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-folder-add" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      folder-add
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-folder-checked" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      folder-checked
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-folder-delete" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      folder-delete
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-folder-opened" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      folder-opened
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-folder-remove" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      folder-remove
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-food" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      food
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-football" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      football
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-fork-spoon" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      fork-spoon
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-full-screen" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      full-screen
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-goblet" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      goblet
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-goblet-full" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      goblet-full
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-goblet-square" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      goblet-square
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-goblet-square-full" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      goblet-square-full
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-goods" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      goods
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-grape" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      grape
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-guide" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      guide
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-headset" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      headset
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-heavy-rain" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      heavy-rain
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-help" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      help
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-hot-water" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      hot-water
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-house" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      house
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-ice-cream" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      ice-cream
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-ice-cream-round" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      ice-cream-round
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-ice-cream-square" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      ice-cream-square
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-ice-drink" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      ice-drink
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-ice-tea" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      ice-tea
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-info" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      info
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-key" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      key
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-knife-fork" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      knife-fork
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-light-rain" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      light-rain
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-lightning" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      lightning
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-link" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      link
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-loading" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      loading
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-location" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      location
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-location-information" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      location-information
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-location-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      location-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-lock" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      lock
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-lollipop" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      lollipop
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-magic-stick" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      magic-stick
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-male" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      male
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-map-location" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      map-location
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-medal" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      medal
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-medal-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      medal-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-menu" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      menu
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-message" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      message
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-message-solid" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      message-solid
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-mic" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      mic
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-microphone" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      microphone
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-milk-tea" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      milk-tea
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-minus" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      minus
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-mobile" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      mobile
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-mobile-phone" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      mobile-phone
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-money" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      money
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-monitor" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      monitor
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-moon" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      moon
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-moon-night" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      moon-night
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-more" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      more
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-more-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      more-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-mouse" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      mouse
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-news" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      news
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-no-smoking" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      no-smoking
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-notebook-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      notebook-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-notebook-2" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      notebook-2
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-odometer" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      odometer
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-office-building" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      office-building
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-open" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      open
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-orange" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      orange
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-paperclip" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      paperclip
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-partly-cloudy" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      partly-cloudy
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-pear" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      pear
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-phone" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      phone
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-phone-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      phone-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-picture" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      picture
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-picture-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      picture-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-picture-outline-round" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      picture-outline-round
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-pie-chart" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      pie-chart
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-place" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      place
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-platform-eleme" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      platform-eleme
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-plus" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      plus
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-position" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      position
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-postcard" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      postcard
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-potato-strips" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      potato-strips
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-present" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      present
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-price-tag" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      price-tag
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-printer" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      printer
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-question" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      question
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-rank" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      rank
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-reading" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      reading
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-receiving" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      receiving
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-refresh" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      refresh
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-refresh-left" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      refresh-left
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-refresh-right" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      refresh-right
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-refrigerator" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      refrigerator
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-remove" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      remove
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-remove-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      remove-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-right" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      right
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-check" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-check
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-claim" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-claim
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-comment" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-comment
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-cooperation" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-cooperation
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-custom" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-custom
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-data" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-data
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-finance" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-finance
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-flag" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-flag
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-fold" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-fold
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-goods" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-goods
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-grid" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-grid
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-help" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-help
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-home" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-home
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-management" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-management
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-marketing" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-marketing
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-open" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-open
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-operation" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-operation
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-opportunity" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-opportunity
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-order" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-order
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-platform" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-platform
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-promotion" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-promotion
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-release" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-release
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-shop" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-shop
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-ticket" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-ticket
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-tools" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-tools
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-s-unfold" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      s-unfold
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-school" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      school
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-scissors" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      scissors
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-search" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      search
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sell" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sell
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-service" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      service
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-set-up" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      set-up
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-setting" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      setting
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-share" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      share
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-ship" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      ship
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-shopping-bag-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      shopping-bag-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-shopping-bag-2" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      shopping-bag-2
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-shopping-cart-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      shopping-cart-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-shopping-cart-2" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      shopping-cart-2
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-shopping-cart-full" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      shopping-cart-full
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-smoking" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      smoking
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-soccer" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      soccer
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sold-out" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sold-out
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sort" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sort
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sort-down" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sort-down
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sort-up" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sort-up
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-star-off" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      star-off
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-star-on" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      star-on
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-stopwatch" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      stopwatch
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-success" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      success
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sugar" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sugar
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-suitcase" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      suitcase
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-suitcase-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      suitcase-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sunny" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sunny
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sunrise" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sunrise
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sunrise-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sunrise-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-sunset" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      sunset
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-switch-button" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      switch-button
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-table-lamp" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      table-lamp
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-tableware" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      tableware
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-takeaway-box" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      takeaway-box
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-thumb" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      thumb
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-tickets" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      tickets
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-time" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      time
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-timer" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      timer
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-toilet-paper" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      toilet-paper
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-top" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      top
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-top-left" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      top-left
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-top-right" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      top-right
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-trophy" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      trophy
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-trophy-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      trophy-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-truck" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      truck
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-turn-off" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      turn-off
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-turn-off-microphone" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      turn-off-microphone
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-umbrella" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      umbrella
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-unlock" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      unlock
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-upload" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      upload
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-upload2" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      upload2
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-user" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      user
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-user-solid" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      user-solid
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-video-camera" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      video-camera
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-video-camera-solid" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      video-camera-solid
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-video-pause" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      video-pause
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-video-play" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      video-play
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-view" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      view
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-wallet" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      wallet
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-warning" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      warning
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-warning-outline" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      warning-outline
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-watch" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      watch
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-watch-1" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      watch-1
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-water-cup" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      water-cup
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-watermelon" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      watermelon
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-wind-power" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      wind-power
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-zoom-in" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      zoom-in
-    </div>
-    <div style="width: 120px; height: 90px; text-align: center; color: #606266; font-size: 12px">
-      <i class="el-icon-zoom-out" style="font-size: 24px; display: block; margin: 16px 0 8px"></i>
-      zoom-out
-    </div>
-  </div>
+  <p style="font-size: 20px">
+    <i class="el-icon" data-el-icon="Edit" style="font-size:20px;" aria-hidden="true" role="img"></i>
+    <i class="el-icon" data-el-icon="Share" style="--color:#409efc;" aria-hidden="true" role="img"></i>
+    <i class="el-icon" data-el-icon="Delete" aria-hidden="true" role="img"></i>
+    <i class="el-icon is-loading" data-el-icon="Loading" aria-hidden="true" role="img"></i>
+    </p>
+<div id="combined-search" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="combined-search_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Search","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":"Search","count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+  
 </div>
 </div>
+<div class="section level2">
+<h2 id="in-a-vue-template">In a Vue template<a class="anchor" aria-label="anchor" href="#in-a-vue-template"></a>
+</h2>
+<p>Inside a component’s slot or <code><a href="../../reference/template.html">template()</a></code>, write the icon
+as Element Plus does:
+<code>&lt;el-icon&gt;&lt;Edit /&gt;&lt;/el-icon&gt;</code>. Each icon is
+also registered as <code>el-icon-&lt;kebab-name&gt;</code>, so
+<code>&lt;el-icon-edit /&gt;</code> draws the bare SVG.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"tpl"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="st">"&lt;el-icon&gt;&lt;Upload /&gt;&lt;/el-icon&gt;&lt;span&gt;Upload&lt;/span&gt;"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="template-tpl" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="template-tpl_container" style="display: contents">
+  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">
+    {{label}}
+    <template ><el-icon><Upload /></el-icon><span>Upload</span></template>
+  </el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Button","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="other-libraries">Other libraries<a class="anchor" aria-label="anchor" href="#other-libraries"></a>
+</h2>
+<p><code>el_icon(lib = "font-awesome")</code> draws a Font Awesome icon
+instead, through the fontawesome package.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"r-project"</span>, lib <span class="op">=</span> <span class="st">"font-awesome"</span>, size <span class="op">=</span> <span class="fl">24</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"github"</span>, lib <span class="op">=</span> <span class="st">"font-awesome"</span>, size <span class="op">=</span> <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>
+  <i class="fab fa-github" role="presentation" aria-label="github icon"></i>
+</div>
+</div>
+<div class="section level2">
+<h2 id="icon-collection">Icon Collection<a class="anchor" aria-label="anchor" href="#icon-collection"></a>
+</h2>
+<p>Every icon of <code>@element-plus/icons-vue</code>, by the name
+<code><a href="../../reference/el_icon.html">el_icon()</a></code> takes:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">js</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"element-plus"</span>, <span class="st">"icons-vue.iife.min.js"</span>,</span>
+<span>                            package <span class="op">=</span> <span class="st">"shiny.element"</span><span class="op">)</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/regmatches.html" class="external-link">regmatches</a></span><span class="op">(</span><span class="va">js</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gregexpr</a></span><span class="op">(</span><span class="st">'(?&lt;=name:")[A-Z][A-Za-z0-9]*(?=")'</span>, <span class="va">js</span>, perl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">names</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;</span></span>
+<span><span class="st">             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);</span></span>
+<span><span class="st">             border-bottom: 1px solid var(--el-border-color); padding-top: 18px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="va">n</span>, size <span class="op">=</span> <span class="fl">22</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 8px"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)"></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
+</h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
+<div class="section level3">
+<h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
+</h3>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="14%">
+<col width="14%">
+<col width="38%">
+<col width="9%">
+<col width="14%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+<th>Type</th>
+<th>Accepted</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>color</code></td>
+<td><code>color</code></td>
+<td>SVG tag’s fill attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
+<td>inherit from color</td>
+</tr>
+<tr class="even">
+<td><code>size</code></td>
+<td><code>size</code></td>
+<td>SVG icon size, size x size</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>2</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>3</sup></a>
+</td>
+<td></td>
+<td>inherit from font size</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>Customize default content</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

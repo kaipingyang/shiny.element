@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="radio_files/vue-2.7.14/vue.min.js"></script><link href="radio_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="radio_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="radio_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="radio_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="radio_files/el-events-1.0.0/el-events.js"></script><script src="radio_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="radio_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="radio_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="radio_files/vue-3.5.43/vue.global.prod.js"></script><link href="radio_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="radio_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="radio_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="radio_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="radio_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="radio_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="radio_files/el-events-1.0.0/el-events.js"></script><script src="radio_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="radio_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,142 +187,201 @@
 
     
     
-<p>Single selection among multiple options. Element’s radios share a
-<code>v-model</code>; here they are always a group,
-<code><a href="../../reference/el_radio_group.html">el_radio_group()</a></code>, which reports the chosen value as
-<code>input$&lt;id&gt;</code> – as <code><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html" class="external-link">radioButtons()</a></code> does.</p>
+<p>Single selection among multiple options.</p>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p><code>label</code> act as <code>value</code> has been
+<strong>deprecated</strong>, <code>label</code> is used only as display
+text, this action <strong>will be</strong> removed in 3.0.0, consider
+switching to new API.</p>
+</blockquote>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>New API <code>value</code> has been added in 2.6.0, the examples in
+the document all use the <code>value</code>. If you are using a version
+<strong>less than</strong> 2.6.0, please refer to:</p>
+</blockquote>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Radio should not have too many options. Otherwise, use the Select
+component instead.</p>
+<p>Creating a radio component is easy, you just need to bind a variable
+to Radio’s <code>v-model</code>. It equals to the value of
+<code>value</code> of the chosen radio. The type of <code>value</code>
+is <code>String</code>, <code>Number</code> or <code>Boolean</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"pick"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option A"</span> <span class="op">=</span> <span class="st">"1"</span>, <span class="st">"Option B"</span> <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_l"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option 1"</span> <span class="op">=</span> <span class="st">"1"</span>, <span class="st">"Option 2"</span> <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"1"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_d"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option 1"</span> <span class="op">=</span> <span class="st">"1"</span>, <span class="st">"Option 2"</span> <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_s"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option 1"</span> <span class="op">=</span> <span class="st">"1"</span>, <span class="st">"Option 2"</span> <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"1"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_x"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option 1"</span> <span class="op">=</span> <span class="st">"1"</span>, <span class="st">"Option 2"</span> <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"1"</span>, size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>                 disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-pick" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-pick_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+  <div style="display: grid; gap: 12px">
+    <div id="basic-usage-rd_l" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-rd_l_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
   </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"value":"1","label":"Option A"},{"value":"2","label":"Option B"}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('basic-pick', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"value":"1","label":"Option 1"},{"value":"2","label":"Option 2"}],"disabled":false,"size":"large","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('basic-usage-rd_l', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
+    <div id="basic-usage-rd_d" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-rd_d_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"value":"1","label":"Option 1"},{"value":"2","label":"Option 2"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('basic-usage-rd_d', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+    <div id="basic-usage-rd_s" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-rd_s_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"value":"1","label":"Option 1"},{"value":"2","label":"Option 2"}],"disabled":false,"size":"small","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('basic-usage-rd_s', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+    <div id="basic-usage-rd_x" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-rd_x_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"value":"1","label":"Option 1"},{"value":"2","label":"Option 2"}],"disabled":true,"size":"small","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('basic-usage-rd_x', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="disabled">Disabled<a class="anchor" aria-label="anchor" href="#disabled"></a>
 </h2>
-<p>A choice can be disabled on its own, or the whole group.</p>
+<p><code>disabled</code> attribute is used to disable the radio.</p>
+<p>You just need to add the <code>disabled</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"one"</span>, selected <span class="op">=</span> <span class="st">"a"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"Option A"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"Option B"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"all"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option A"</span> <span class="op">=</span> <span class="st">"a"</span>, <span class="st">"Option B"</span> <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_dis"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option A"</span> <span class="op">=</span> <span class="st">"a"</span>, <span class="st">"Option B"</span> <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"a"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="disabled-one" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="disabled-one_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+  <div id="disabled-rd_dis" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="disabled-rd_dis_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
   </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"a","options":[{"value":"a","label":"Option A","disabled":true},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('disabled-one', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
-</div>
-  <div id="disabled-all" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="disabled-all_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
-    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
-  </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":true,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('disabled-all', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"a","options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":true,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('disabled-rd_dis', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="radio-button-group">Radio button group<a class="anchor" aria-label="anchor" href="#radio-button-group"></a>
+<h2 id="radio-group">Radio Group<a class="anchor" aria-label="anchor" href="#radio-group"></a>
 </h2>
-<p>Mutually exclusive options, laid out together.</p>
+<p>Suitable for choosing from some mutually exclusive options.</p>
+<p>Combine <code>el-radio-group</code> with <code>el-radio</code> to
+display a radio group. Bind a variable with <code>v-model</code> of
+<code>el-radio-group</code> element and set label value in
+<code>el-radio</code>. It also provides <code>change</code> event with
+the current value as its parameter.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"opt"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option A"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"Option B"</span> <span class="op">=</span> <span class="fl">6</span>, <span class="st">"Option C"</span> <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>, selected <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_group"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option A"</span> <span class="op">=</span> <span class="fl">3</span>, <span class="st">"Option B"</span> <span class="op">=</span> <span class="fl">6</span>, <span class="st">"Option C"</span> <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>, selected <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="group-opt" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="group-opt_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+  <div id="radio-group-rd_group" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="radio-group-rd_group_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
   </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"options":[{"value":3,"label":"Option A"},{"value":6,"label":"Option B"},{"value":9,"label":"Option C"}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('group-opt', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="button-style">Button style<a class="anchor" aria-label="anchor" href="#button-style"></a>
-</h2>
-<p><code>button = TRUE</code> draws the choices as joined buttons;
-<code>size</code> sets their size.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"New York"</span>, <span class="st">"Washington"</span>, <span class="st">"Los Angeles"</span>, <span class="st">"Chicago"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 12px"</span>, <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"b1"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"New York"</span>, button <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 12px"</span>, <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"b2"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"New York"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 12px"</span>, <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"b3"</span>, selected <span class="op">=</span> <span class="st">"New York"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span>,</span>
-<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"New York"</span>, label <span class="op">=</span> <span class="st">"New York"</span><span class="op">)</span>,</span>
-<span>                   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Washington"</span>, label <span class="op">=</span> <span class="st">"Washington"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>                   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Los Angeles"</span>, label <span class="op">=</span> <span class="st">"Los Angeles"</span><span class="op">)</span>,</span>
-<span>                   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"Chicago"</span>, label <span class="op">=</span> <span class="st">"Chicago"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"b4"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"New York"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"mini"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div style="margin-bottom: 12px">
-    <div id="button-b1" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="button-b1_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
-    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
-  </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"New York","options":[{"value":"New York","label":"New York"},{"value":"Washington","label":"Washington"},{"value":"Los Angeles","label":"Los Angeles"},{"value":"Chicago","label":"Chicago"}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-b1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
-</div>
-  </div>
-  <div style="margin-bottom: 12px">
-    <div id="button-b2" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="button-b2_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
-    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
-  </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"New York","options":[{"value":"New York","label":"New York"},{"value":"Washington","label":"Washington"},{"value":"Los Angeles","label":"Los Angeles"},{"value":"Chicago","label":"Chicago"}],"disabled":false,"size":"medium","fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-b2', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
-</div>
-  </div>
-  <div style="margin-bottom: 12px">
-    <div id="button-b3" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="button-b3_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
-    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
-  </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"New York","options":[{"value":"New York","label":"New York"},{"value":"Washington","label":"Washington","disabled":true},{"value":"Los Angeles","label":"Los Angeles"},{"value":"Chicago","label":"Chicago"}],"disabled":false,"size":"small","fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-b3', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
-</div>
-  </div>
-  <div id="button-b4" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="button-b4_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
-    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
-  </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"New York","options":[{"value":"New York","label":"New York"},{"value":"Washington","label":"Washington"},{"value":"Los Angeles","label":"Los Angeles"},{"value":"Chicago","label":"Chicago"}],"disabled":true,"size":"mini","fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('button-b4', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"options":[{"value":3,"label":"Option A"},{"value":6,"label":"Option B"},{"value":9,"label":"Option C"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('radio-group-rd_group', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="with-borders">With borders<a class="anchor" aria-label="anchor" href="#with-borders"></a>
 </h2>
-<p><code>border</code> is set on each choice, as Element sets it on each
-radio.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"bd"</span>, selected <span class="op">=</span> <span class="st">"1"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Option A"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Option B"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>border</code> attribute adds a border to Radios.</p>
+<p>A choice’s <code>border = TRUE</code> draws it bordered.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_b1"</span>, selected <span class="op">=</span> <span class="st">"1"</span>, size <span class="op">=</span> <span class="st">"large"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"1"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"2"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_b2"</span>, selected <span class="op">=</span> <span class="st">"1"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"1"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"2"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="border-bd" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="border-bd_container" style="display: contents">
-  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+  <div style="display: grid; gap: 12px">
+    <div id="with-borders-rd_b1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-borders-rd_b1_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
   </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"value":"1","label":"Option A","border":true},{"value":"2","label":"Option B","border":true}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('border-bd', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"label":"Option A","value":"1","border":true},{"label":"Option B","value":"2","border":true}],"disabled":false,"size":"large","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('with-borders-rd_b1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
+    <div id="with-borders-rd_b2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-borders-rd_b2_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"1","options":[{"label":"Option A","value":"1","border":true},{"label":"Option B","value":"2","border":true}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('with-borders-rd_b2', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="options-attribute">Options attribute<a class="anchor" aria-label="anchor" href="#options-attribute"></a>
+</h2>
+<p>Shortcut from basic <code>el-radio-group</code> usage. You can
+customize the alias of the <code>options</code> through the
+<code>props</code> attribute.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rd_opts"</span>, selected <span class="op">=</span> <span class="st">"Value A"</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"name"</span>, value <span class="op">=</span> <span class="st">"id"</span>, disabled <span class="op">=</span> <span class="st">"unable"</span><span class="op">)</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option A"</span>, value <span class="op">=</span> <span class="st">"Value A"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option B"</span>, value <span class="op">=</span> <span class="st">"Value B"</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Option C"</span>, value <span class="op">=</span> <span class="st">"Value C"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="options-rd_opts" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="options-rd_opts_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"Value A","options":[{"label":"Option A","value":"Value A"},{"label":"Option B","value":"Value B"},{"label":"Option C","value":"Value C"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":{"label":"name","value":"id","disabled":"unable"},"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('options-rd_opts', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="radio-button">Radio Button<a class="anchor" aria-label="anchor" href="#radio-button"></a>
+</h2>
+<p>Radio with button group visual effect.</p>
+<p>You just need to change <code>el-radio</code> element into
+<code>el-radio-button</code> element. You can also set the style of the
+button when it is active by using <code>fill</code> and
+<code>text-color</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"New York"</span>, <span class="st">"Washington"</span>, <span class="st">"Los Angeles"</span>, <span class="st">"Chicago"</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rdb1"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"New York"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rdb2"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"New York"</span>, button <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"rdb3"</span>, choices <span class="op">=</span> <span class="va">cities</span>, selected <span class="op">=</span> <span class="st">"New York"</span>, button <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: grid; gap: 12px">
+    <div id="radio-button-rdb1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="radio-button-rdb1_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"New York","options":[{"value":"New York","label":"New York"},{"value":"Washington","label":"Washington"},{"value":"Los Angeles","label":"Los Angeles"},{"value":"Chicago","label":"Chicago"}],"disabled":false,"size":"large","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('radio-button-rdb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+    <div id="radio-button-rdb2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="radio-button-rdb2_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"New York","options":[{"value":"New York","label":"New York"},{"value":"Washington","label":"Washington"},{"value":"Los Angeles","label":"Los Angeles"},{"value":"Chicago","label":"Chicago"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('radio-button-rdb2', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+    <div id="radio-button-rdb3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="radio-button-rdb3_container" style="display: contents">
+  <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"New York","options":[{"value":"New York","label":"New York"},{"value":"Washington","label":"Washington"},{"value":"Los Angeles","label":"Los Angeles"},{"value":"Chicago","label":"Chicago"}],"disabled":false,"size":"small","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('radio-button-rdb3', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="radio-attributes">Radio Attributes<a class="anchor" aria-label="anchor" href="#radio-attributes"></a>
 </h3>
@@ -311,53 +404,67 @@ radio.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>value</code></td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>binding value</td>
-<td>string / number / boolean</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>1</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>2</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>3</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>label</code></td>
-<td><code>label</code></td>
+<td><code>value</code></td>
+<td><code>value</code></td>
 <td>the value of Radio</td>
-<td>string / number / boolean</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>5</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>6</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
+<td><code>label</code></td>
+<td><code>label</code></td>
+<td>the label of Radio. If there’s no <code>value</code>,
+<code>label</code> will act as <code>value</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>7</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>8</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>9</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
 <td><code>disabled</code></td>
 <td><code>disabled</code></td>
 <td>whether Radio is disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>border</code></td>
 <td>field <code>border</code> of each of <code>choices</code>
 </td>
 <td>whether to add a border around Radio</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>11</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="odd">
-<td><code>size</code></td>
-<td><code>size</code></td>
-<td>size of the Radio, only works when <code>border</code> is true</td>
-<td>string</td>
-<td>medium / small / mini</td>
-<td>—</td>
-</tr>
 <tr class="even">
-<td><code>name</code></td>
-<td>field <code>name</code> of each of <code>choices</code>
+<td><code>size</code></td>
+<td><code>size</code></td>
+<td>size of the Radio</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>12</sup></a><code>'large' \\| 'default' \\| 'small'</code>
 </td>
-<td>native ‘name’ attribute</td>
-<td>string</td>
-<td>—</td>
+<td></td>
 <td>—</td>
 </tr>
 </tbody>
@@ -386,7 +493,23 @@ radio.</p>
 </table>
 </div>
 <div class="section level3">
-<h3 id="radio-group-attributes">Radio-group Attributes<a class="anchor" aria-label="anchor" href="#radio-group-attributes"></a>
+<h3 id="radio-slots">Radio Slots<a class="anchor" aria-label="anchor" href="#radio-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="radiogroup-attributes">RadioGroup Attributes<a class="anchor" aria-label="anchor" href="#radiogroup-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -407,50 +530,122 @@ radio.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>selected (or value)</code></td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>binding value</td>
-<td>string / number / boolean</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>13</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>14</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
 <td><code>size</code></td>
 <td><code>size</code></td>
 <td>the size of radio buttons or bordered radios</td>
-<td>string</td>
-<td>medium / small / mini</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
+<td>default</td>
 </tr>
 <tr class="odd">
 <td><code>disabled</code></td>
 <td><code>disabled</code></td>
 <td>whether the nesting radios are disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>17</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
+<td><code>validate-event</code></td>
+<td><code>validate_event</code></td>
+<td>whether to trigger form validation</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>18</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
 <td><code>text-color</code></td>
 <td><code>text_color</code></td>
 <td>font color when button is active</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
 <td>#ffffff</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>fill</code></td>
 <td><code>fill</code></td>
 <td>border and background color when button is active</td>
-<td>string</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
+<td>#409eff</td>
+</tr>
+<tr class="odd">
+<td><code>aria-label</code></td>
+<td><code>aria_label</code></td>
+<td>same as <code>aria-label</code> in RadioGroup</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
 <td>—</td>
-<td>#409EFF</td>
+</tr>
+<tr class="even">
+<td><code>id</code></td>
+<td>
+<code>id</code>, the Shiny input’s</td>
+<td>native <code>id</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>label</code></td>
+<td><code>label</code></td>
+<td>same as <code>aria-label</code> in RadioGroup</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>23</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>options</code></td>
+<td><code>options</code></td>
+<td>data of the options, the key of <code>value</code> and
+<code>label</code> and <code>disabled</code> can be customize by
+<code>props</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>24</sup></a><code>Array&lt;{[key: string]: any}&gt;</code>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>props</code></td>
+<td><code>props</code></td>
+<td>configuration options</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>25</sup></a><code>{ value?: string, label?: string, disabled?: string}</code>
+</td>
+<td></td>
+<td><code>{value: 'value', label: 'label', disabled: 'disabled'}</code></td>
+</tr>
+<tr class="even">
+<td><code>type</code></td>
+<td><code>type</code></td>
+<td>component type to render options (e.g. <code>'button'</code>)</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>26</sup></a><code>'radio' \\| 'button'</code>
+</td>
+<td></td>
+<td>‘radio’</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="radio-group-events">Radio-group Events<a class="anchor" aria-label="anchor" href="#radio-group-events"></a>
+<h3 id="radiogroup-events">RadioGroup Events<a class="anchor" aria-label="anchor" href="#radiogroup-events"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -472,7 +667,23 @@ radio.</p>
 </table>
 </div>
 <div class="section level3">
-<h3 id="radio-button-attributes">Radio-button Attributes<a class="anchor" aria-label="anchor" href="#radio-button-attributes"></a>
+<h3 id="radiogroup-slots">RadioGroup Slots<a class="anchor" aria-label="anchor" href="#radiogroup-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="radiobutton-attributes">RadioButton Attributes<a class="anchor" aria-label="anchor" href="#radiobutton-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -493,34 +704,60 @@ radio.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>label</code></td>
-<td><code>label</code></td>
-<td>the value of radio</td>
-<td>string / number</td>
-<td>—</td>
+<td><code>value</code></td>
+<td><code>value</code></td>
+<td>the value of Radio</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>27</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>28</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>29</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>disabled</code></td>
-<td><code>disabled</code></td>
-<td>whether radio is disabled</td>
-<td>boolean</td>
+<td><code>label</code></td>
+<td><code>label</code></td>
+<td>the label of Radio. If there’s no <code>value</code>,
+<code>label</code> will act as <code>value</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>30</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>31</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>32</sup></a>
+</td>
+<td></td>
 <td>—</td>
-<td>false</td>
 </tr>
 <tr class="odd">
-<td><code>name</code></td>
-<td>field <code>name</code> of each of <code>choices</code>
-</td>
-<td>native ‘name’ attribute</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+<td>whether Radio is disabled</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>33</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="radiobutton-slots">RadioButton Slots<a class="anchor" aria-label="anchor" href="#radiobutton-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

@@ -4,27 +4,34 @@ The dividing line that separates the content.
 
 ## Basic usage
 
+Divide the text of different paragraphs.
+
 ``` r
 
-tags$span("I sit at a desk and set up a box.")
-el_divider()
-tags$span("Sheet music, the sound of the night.")
+tags$div(
+  tags$span("I sit at a desk, wondering how to approach the vast ocean."),
+  el_divider(),
+  tags$span("I wonder how far the eyes can see, and how far the heart can feel."))
 ```
 
-I sit at a desk and set up a box.
+I sit at a desk, wondering how to approach the vast ocean.
 
-Sheet music, the sound of the night.
+I wonder how far the eyes can see, and how far the heart can feel.
 
 ## Custom content
 
+You can customize the content on the divider line.
+
 ``` r
 
-tags$span("What you are you do not see, what you see is your shadow.")
-el_divider(content = "Rabindranath Tagore", content_position = "left")
-tags$span("I cannot choose the best. The best chooses me.")
-el_divider(content = el_icon("mobile-phone"))
-tags$span("My wishes are fools, they shout across thy song, my Master.")
-el_divider(content = "Rabindranath Tagore", content_position = "right")
+tags$div(
+  tags$span("What you are you do not see, what you see is your shadow."),
+  el_divider(content_position = "left", "Rabindranath Tagore"),
+  tags$span("I cannot choose the best. The best chooses me."),
+  el_divider(el_icon("StarFilled")),
+  tags$span("My wishes are fools, they shout across thy song, my Master."),
+  el_divider(content_position = "right", "Rabindranath Tagore"),
+  tags$span("I cannot choose the best. The best chooses me."))
 ```
 
 What you are you do not see, what you see is your shadow.
@@ -37,11 +44,40 @@ My wishes are fools, they shout across thy song, my Master.
 
 Rabindranath Tagore
 
+I cannot choose the best. The best chooses me.
+
+## dashed line
+
+You can set the style of divider.
+
+``` r
+
+tags$div(
+  tags$span("What language is thine, O sea?"),
+  el_divider(border_style = "dashed"),
+  tags$span("The language of eternal question."),
+  el_divider(border_style = "dotted"),
+  tags$span("What language is thy answer, O sky?"),
+  el_divider(direction = "vertical", border_style = "dashed"),
+  tags$span("The language of eternal silence."))
+```
+
+What language is thine, O sea?
+
+The language of eternal question.
+
+What language is thy answer, O sky?
+
+The language of eternal silence.
+
 ## Vertical divider
 
 ``` r
 
-tags$span("Rain", el_divider(direction = "vertical"), "Home", el_divider(direction = "vertical"), "Grass")
+tags$div(
+  tags$span("Rain"), el_divider(direction = "vertical"),
+  tags$span("Home"), el_divider(direction = "vertical", border_style = "dashed"),
+  tags$span("Grass"))
 ```
 
 Rain
@@ -52,9 +88,24 @@ Grass
 
 ## API
 
-### Divider Attributes
+Element Plus’s tables, and beside each entry where it is in R.
+
+### Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `direction` | `direction` | Set divider’s direction | string | horizontal / vertical | horizontal |
-| `content-position` | `content_position` | customize the content on the divider line | String | left / right / center | center |
+| `direction` | `direction` | Set divider’s direction | [^1]`'horizontal' \\| 'vertical'` |  | horizontal |
+| `border-style` | `border_style` | Set the style of divider | [^2]`'none' \\| 'solid' \\| 'hidden' \\| 'dashed' \\| ...` [css/border-style](https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-style) |  | solid |
+| `content-position` | `content_position` | The position of the customized content on the divider line | [^3]`'left' \\| 'right' \\| 'center'` |  | center |
+
+### Slots
+
+| Element   | In R            | Description                            |
+|-----------|-----------------|----------------------------------------|
+| `default` | default content | Customized content on the divider line |
+
+[^1]: enum
+
+[^2]: enum
+
+[^3]: enum

@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>MessageBox • shiny.element</title>
+<title>Message • shiny.element</title>
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
-<meta property="og:title" content="MessageBox">
+<meta property="og:title" content="Message">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -141,7 +175,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>MessageBox</h1>
+      <h1>Message</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/kaipingyang/shiny.element/blob/main/vignettes/articles/components/message-box.Rmd" class="external-link"><code>vignettes/articles/components/message-box.Rmd</code></a></small>
@@ -150,108 +184,283 @@
 
     
     
-<p>Modal boxes that alert, confirm or ask. <code><a href="../../reference/el_message_box.html">el_message_box()</a></code>
-opens one from the server; the answer arrives as
-<code>input$&lt;id&gt;</code> – <code>"confirm"</code>,
-<code>"cancel"</code> or <code>"close"</code>, and for a prompt a list
-of <code>action</code> and <code>value</code>.</p>
+<p>A set of modal boxes simulating system message box, mainly for
+alerting information, confirm operations and prompting messages.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>By design MessageBox provides simulations of system’s
+<code>alert</code>, <code>confirm</code> and <code>prompt</code>，so
+it’s content should be simple. For more complicated contents, please use
+Dialog.</p>
+</blockquote>
 <div class="section level2">
 <h2 id="alert">Alert<a class="anchor" aria-label="anchor" href="#alert"></a>
 </h2>
+<p>Alert interrupts user operation until the user confirms.</p>
+<p>Open an alert by calling the <code>ElMessageBox.alert</code> method.
+It simulates the system’s <code>alert</code>, and cannot be closed by
+pressing ESC or clicking outside the box. In this example, two
+parameters <code>message</code> and <code>title</code> are received. It
+is worth mentioning that when the box is closed, it returns a
+<code>Promise</code> object for further processing. If you are not sure
+if your target browsers support <code>Promise</code>, you should import
+a third party polyfill or use callbacks instead like this example.</p>
+<p>The answer is <code>input$&lt;id&gt;</code>: <code>"confirm"</code>,
+<code>"cancel"</code> or <code>"close"</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Message Box"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"seen"</span>, message <span class="op">=</span> <span class="st">"This is a message"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Title"</span>, box_type <span class="op">=</span> <span class="st">"alert"</span>, confirm_button_text <span class="op">=</span> <span class="st">"OK"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>, <span class="st">"This is a message"</span>, title <span class="op">=</span> <span class="st">"Title"</span>,</span>
+<span>                                          box_type <span class="op">=</span> <span class="st">"alert"</span>, confirm_button_text <span class="op">=</span> <span class="st">"OK"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/message-box-alert.png" alt="The alert example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="confirm">Confirm<a class="anchor" aria-label="anchor" href="#confirm"></a>
 </h2>
+<p>Confirm is used to ask users’ confirmation.</p>
+<p>Call <code>ElMessageBox.confirm</code> method to open a confirm, and
+it simulates the system’s <code>confirm</code>. We can also highly
+customize Message Box by passing a third attribute <code>options</code>
+which is a literal object. The attribute <code>type</code> indicates the
+message type, and it’s value can be <code>primary</code>,
+<code>success</code>, <code>error</code>, <code>info</code> and
+<code>warning</code>. Note that the second attribute <code>title</code>
+must be a <code>string</code>, and if it is an <code>object</code>, it
+will be handled as the attribute <code>options</code>. Here we use
+<code>Promise</code> to handle further processing. <code>primary</code>
+has been added in 2.9.11.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"delete"</span>, <span class="st">"Delete the file"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"answer"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">delete</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"sure"</span>,</span>
-<span>    message <span class="op">=</span> <span class="st">"This will permanently delete the file. Continue?"</span>, title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
-<span>    type <span class="op">=</span> <span class="st">"warning"</span>, confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">answer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">sure</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>,</span>
+<span>    <span class="st">"proxy will permanently delete the file. Continue?"</span>, title <span class="op">=</span> <span class="st">"Warning"</span>, type <span class="op">=</span> <span class="st">"warning"</span>,</span>
+<span>    confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">answer</span>, <span class="fu"><a href="../../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Answer:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">answer</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/message-box-confirm.png" alt="The confirm example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="prompt">Prompt<a class="anchor" aria-label="anchor" href="#prompt"></a>
 </h2>
-<p><code>input_pattern</code> and <code>input_error_message</code> check
-what is typed.</p>
+<p>Prompt is used when user input is required.</p>
+<p>Call <code>ElMessageBox.prompt</code> method to open a prompt, and it
+simulates the system’s <code>prompt</code>. You can use
+<code>inputPattern</code> parameter to specify your own RegExp pattern.
+Use <code>inputValidator</code> to specify validation method, and it
+should return <code>Boolean</code> or <code>String</code>. Returning
+<code>false</code> or <code>String</code> means the validation has
+failed, and the string returned will be used as the
+<code>inputErrorMessage</code>. In addition, you can customize the
+placeholder of the input box with <code>inputPlaceholder</code>
+parameter.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"ask"</span>, <span class="st">"Change your email"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"email"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">ask</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"email"</span>, box_type <span class="op">=</span> <span class="st">"prompt"</span>,</span>
-<span>    message <span class="op">=</span> <span class="st">"Please input your e-mail"</span>, title <span class="op">=</span> <span class="st">"Tip"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"email"</span>, <span class="st">"Please input your e-mail"</span>, title <span class="op">=</span> <span class="st">"Tip"</span>,</span>
+<span>    box_type <span class="op">=</span> <span class="st">"prompt"</span>, confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span>,</span>
 <span>    input_pattern <span class="op">=</span> <span class="st">"[\\w!#$%&amp;'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?"</span>,</span>
 <span>    input_error_message <span class="op">=</span> <span class="st">"Invalid Email"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">email</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">email</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/message-box-prompt.png" alt="The prompt example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
-<h2 id="use-html-string">Use HTML string<a class="anchor" aria-label="anchor" href="#use-html-string"></a>
+<h2 id="use-vnode">Use VNode<a class="anchor" aria-label="anchor" href="#use-vnode"></a>
 </h2>
+<p><code>message</code> can be VNode.</p>
+<blockquote>
+<p><strong>In R</strong></p>
+<p>A VNode is a Vue render function’s; from R, send the message as HTML
+with <code>dangerously_use_html_string = TRUE</code>.</p>
+</blockquote>
+</div>
+<div class="section level2">
+<h2 id="use-vnode-with-action-handlers">Use VNode With Action Handlers<a class="anchor" aria-label="anchor" href="#use-vnode-with-action-handlers"></a>
+</h2>
+<p>You can receive <code>{ confirm, cancel, close }</code> as parameters
+in <code>message</code>, which allows custom content to trigger the same
+MessageBox actions programmatically and automatically close the
+instance.</p>
+<blockquote>
+<p><strong>In R</strong></p>
+<p>A VNode is a Vue render function’s; from R, send the message as HTML
+with <code>dangerously_use_html_string = TRUE</code>.</p>
+</blockquote>
+</div>
+<div class="section level2">
+<h2 id="customization">Customization<a class="anchor" aria-label="anchor" href="#customization"></a>
+</h2>
+<p>Can be customized to show various content.</p>
+<p>The three methods mentioned above are repackagings of the
+<code>ElMessageBox</code> method. This example calls
+<code>ElMessageBox</code> method directly using the
+<code>showCancelButton</code> attribute, which is used to indicate if a
+cancel button is displayed. Besides we can use
+<code>cancelButtonClass</code> to add a custom style and
+<code>cancelButtonText</code> to customize the button text (the confirm
+button also has these fields, and a complete list of fields can be found
+at the end of this documentation). This example also uses the
+<code>beforeClose</code> attribute. It is a method and will be triggered
+when the MessageBox instance will be closed, and its execution will stop
+the instance from closing. It has three parameters: <code>action</code>,
+<code>instance</code> and <code>done</code>. Using it enables you to
+manipulate the instance before it closes, e.g. activating
+<code>loading</code> for confirm button; you can invoke the
+<code>done</code> method to close the MessageBox instance (if
+<code>done</code> is not called inside <code>beforeClose</code>, the
+instance will not be closed).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"html"</span>, title <span class="op">=</span> <span class="st">"HTML String"</span>, box_type <span class="op">=</span> <span class="st">"alert"</span>,</span>
-<span>    message <span class="op">=</span> <span class="st">"&lt;strong&gt;This is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;"</span>, dangerously_use_html_string <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>, <span class="st">"This is a message"</span>, title <span class="op">=</span> <span class="st">"Title"</span>,</span>
+<span>    show_cancel_button <span class="op">=</span> <span class="cn">TRUE</span>, confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span>,</span>
+<span>    confirm_button_type <span class="op">=</span> <span class="st">"danger"</span>, button_size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-html.png" alt="The html example, running" style="max-width: 100%">
+<img src="../../shots/message-box-customization.png" alt="The customization example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="use-html-string">Use HTML String<a class="anchor" aria-label="anchor" href="#use-html-string"></a>
+</h2>
+<p><code>message</code> supports HTML string.</p>
+<p>Set <code>dangerouslyUseHTMLString</code> to true and
+<code>message</code> will be treated as an HTML string.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>, <span class="st">"&lt;strong&gt;proxy is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"HTML String"</span>, box_type <span class="op">=</span> <span class="st">"alert"</span>, dangerously_use_html_string <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/message-box-use-html.png" alt="The use-html example, running" style="max-width: 100%"><blockquote>
+<p><strong>Warning</strong></p>
+<p>Although <code>message</code> property supports HTML strings,
+dynamically rendering arbitrary HTML on your website can be very
+dangerous because it can easily lead to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" class="external-link">XSS
+attacks</a>. So when <code>dangerouslyUseHTMLString</code> is on, please
+make sure the content of <code>message</code> is trusted, and
+<strong>never</strong> assign <code>message</code> to user-provided
+content.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="distinguishing-cancel-and-close">Distinguishing cancel and close<a class="anchor" aria-label="anchor" href="#distinguishing-cancel-and-close"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"how"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<p>In some cases, clicking the cancel button and close button may have
+different meanings.</p>
+<p>By default, the parameters of Promise’s reject callback and
+<code>callback</code> are ‘cancel’ when the user cancels (clicking the
+cancel button) and closes (clicking the close button or mask layer,
+pressing the ESC key) the MessageBox. If
+<code>distinguishCancelAndClose</code> is set to true, the parameters of
+the above two operations are ‘cancel’ and ‘close’ respectively.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"leave"</span>,</span>
-<span>    message <span class="op">=</span> <span class="st">"You have unsaved changes, save and proceed?"</span>, title <span class="op">=</span> <span class="st">"Confirm"</span>,</span>
-<span>    distinguish_cancel_and_close <span class="op">=</span> <span class="cn">TRUE</span>, confirm_button_text <span class="op">=</span> <span class="st">"Save"</span>,</span>
-<span>    cancel_button_text <span class="op">=</span> <span class="st">"Discard Changes"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">how</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">leave</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>,</span>
+<span>    <span class="st">"You have unsaved changes, save and proceed?"</span>, title <span class="op">=</span> <span class="st">"Confirm"</span>,</span>
+<span>    distinguish_cancel_and_close <span class="op">=</span> <span class="cn">TRUE</span>, confirm_button_text <span class="op">=</span> <span class="st">"Save"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Discard Changes"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-distinguish.png" alt="The distinguish example, running" style="max-width: 100%">
+<img src="../../shots/message-box-distinguishable-close-cancel.png" alt="The distinguishable-close-cancel example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="centered-content">Centered content<a class="anchor" aria-label="anchor" href="#centered-content"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<p>Content of MessageBox can be centered.</p>
+<p>Setting <code>center</code> to <code>true</code> will center the
+content.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"centered"</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"warning"</span>,</span>
-<span>    message <span class="op">=</span> <span class="st">"This will permanently delete the file. Continue?"</span>, title <span class="op">=</span> <span class="st">"Warning"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>,</span>
+<span>    <span class="st">"proxy will permanently delete the file. Continue?"</span>, title <span class="op">=</span> <span class="st">"Warning"</span>, type <span class="op">=</span> <span class="st">"warning"</span>,</span>
+<span>    center <span class="op">=</span> <span class="cn">TRUE</span>, confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-center.png" alt="The center example, running" style="max-width: 100%">
+<img src="../../shots/message-box-centered-content.png" alt="The centered-content example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="customized-icon">Customized Icon<a class="anchor" aria-label="anchor" href="#customized-icon"></a>
+</h2>
+<p>The icon can be customized to any Vue component or <a href="https://vuejs.org/guide/extras/render-function.html" class="external-link">render
+function (JSX)</a>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>,</span>
+<span>    <span class="st">"Are you sure to delete this?"</span>, title <span class="op">=</span> <span class="st">"Warning"</span>, type <span class="op">=</span> <span class="st">"warning"</span>, icon <span class="op">=</span> <span class="st">"Delete"</span>,</span>
+<span>    confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/message-box-customized-icon.png" alt="The customized-icon example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="draggable">Draggable<a class="anchor" aria-label="anchor" href="#draggable"></a>
+</h2>
+<p>MessageBox can be draggable.</p>
+<p>Setting <code>draggable</code> to <code>true</code> allows user to
+drag MessageBox. Set <code>overflow</code> 2.5.4 to <code>true</code>
+can drag overflow the viewport.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"answer"</span>, <span class="st">"proxy will permanently delete the file. Continue?"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Warning"</span>, type <span class="op">=</span> <span class="st">"warning"</span>, draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>, cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/message-box-draggable.png" alt="The draggable example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="global-method">Global method<a class="anchor" aria-label="anchor" href="#global-method"></a>
+</h2>
+<p>If Element Plus is fully imported, it will add the following global
+methods for <code>app.config.globalProperties</code>:
+<code>$msgbox</code>, <code>$alert</code>, <code>$confirm</code> and
+<code>$prompt</code>. So in a Vue instance you can call
+<code>MessageBox</code> like what we did in this page. The parameters
+are:</p>
+<ul>
+<li><code>$msgbox(options)</code></li>
+<li>
+<code>$alert(message, title, options)</code> or
+<code>$alert(message, options)</code>
+</li>
+<li>
+<code>$confirm(message, title, options)</code> or
+<code>$confirm(message, options)</code>
+</li>
+<li>
+<code>$prompt(message, title, options)</code> or
+<code>$prompt(message, options)</code>
+</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="app-context-inheritance-2-0-4">App context inheritance &gt; 2.0.4<a class="anchor" aria-label="anchor" href="#app-context-inheritance-2-0-4"></a>
+</h2>
+<p>Now message box accepts a <code>context</code> as second (fourth if
+you are using message box variants) parameter of the message constructor
+which allows you to inject current app’s context to message which allows
+you to inherit all the properties of the app.</p>
+</div>
+<div class="section level2">
+<h2 id="local-import">Local import<a class="anchor" aria-label="anchor" href="#local-import"></a>
+</h2>
+<p>If you prefer importing <code>MessageBox</code> on demand:</p>
+<p>The corresponding methods are: <code>ElMessageBox</code>,
+<code>ElMessageBox.alert</code>, <code>ElMessageBox.confirm</code> and
+<code>ElMessageBox.prompt</code>. The parameters are the same as
+above.</p>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="options">Options<a class="anchor" aria-label="anchor" href="#options"></a>
 </h3>
@@ -274,250 +483,124 @@ what is typed.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td><code>autofocus</code></td>
+<td><code>autofocus</code></td>
+<td>auto focus when open MessageBox</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="even">
 <td><code>title</code></td>
 <td><code>title</code></td>
 <td>title of the MessageBox</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>2</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>message</code></td>
 <td><code>message</code></td>
 <td>content of the MessageBox</td>
-<td>string</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>3</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;VNode&lt;/p&gt;"><sup>4</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>5</sup></a><code>() =&gt; VNode</code> ^(2.2.17) / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>6</sup></a><code>({ confirm, cancel, close }) =&gt; VNode</code>
+^(2.14.0)</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>dangerouslyUseHTMLString</code></td>
 <td><code>dangerously_use_html_string</code></td>
 <td>whether <code>message</code> is treated as HTML string</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>type</code></td>
 <td><code>type</code></td>
 <td>message type, used for icon display</td>
-<td>string</td>
-<td>success / info / warning / error</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>8</sup></a><code>'primary' (2.9.11) \\| 'success' \\| 'info' \\| 'warning' \\| 'error'</code>
+</td>
+<td></td>
+<td>’’</td>
+</tr>
+<tr class="even">
+<td><code>icon</code></td>
+<td><code>icon</code></td>
+<td>custom icon component, overrides <code>type</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>9</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>10</sup></a>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
-<td><code>iconClass</code></td>
-<td><code>icon_class</code></td>
-<td>custom icon’s class, overrides <code>type</code>
+<td><code>closeIcon</code></td>
+<td><code>close_icon</code></td>
+<td>custom close icon component, default is Close</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>11</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>12</sup></a>
 </td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>customClass</code></td>
 <td><code>custom_class</code></td>
 <td>custom class name for MessageBox</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>callback</code></td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>13</sup></a></td>
 <td></td>
-<td>MessageBox closing callback if you don’t prefer Promise</td>
-<td>function(action), where action can be ‘confirm’, ‘cancel’ or
-‘close’, and <code>instance</code> is the MessageBox instance. You can
-access to that instance’s attributes and methods</td>
-<td>—</td>
-<td>—</td>
+<td>’’</td>
+</tr>
+<tr class="odd">
+<td><code>customStyle</code></td>
+<td><code>custom_style</code></td>
+<td>custom inline style for MessageBox</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;CSSProperties&lt;/p&gt;"><sup>14</sup></a></td>
+<td></td>
+<td>{}</td>
 </tr>
 <tr class="even">
-<td><code>showClose</code></td>
-<td><code>show_close</code></td>
-<td>whether to show close icon of MessageBox</td>
-<td>boolean</td>
-<td>—</td>
+<td><code>modal</code></td>
+<td><code>modal</code></td>
+<td>whether a mask is displayed</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="odd">
-<td><code>beforeClose</code></td>
-<td><code>before_close</code></td>
-<td>callback before MessageBox closes, and it will prevent MessageBox
-from closing</td>
-<td>function(action, instance, done), where <code>action</code> can be
-‘confirm’, ‘cancel’ or ‘close’; <code>instance</code> is the MessageBox
-instance, and you can access to that instance’s attributes and methods;
-<code>done</code> is for closing the instance</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="even">
-<td><code>distinguishCancelAndClose</code></td>
-<td><code>distinguish_cancel_and_close</code></td>
-<td>whether to distinguish canceling and closing the MessageBox</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="odd">
-<td><code>lockScroll</code></td>
-<td><code>lock_scroll</code></td>
-<td>whether to lock body scroll when MessageBox prompts</td>
-<td>boolean</td>
-<td>—</td>
-<td>true</td>
-</tr>
-<tr class="even">
-<td><code>showCancelButton</code></td>
-<td><code>show_cancel_button</code></td>
-<td>whether to show a cancel button</td>
-<td>boolean</td>
-<td>—</td>
-<td>false (true when called with confirm and prompt)</td>
-</tr>
-<tr class="odd">
-<td><code>showConfirmButton</code></td>
-<td><code>show_confirm_button</code></td>
-<td>whether to show a confirm button</td>
-<td>boolean</td>
-<td>—</td>
-<td>true</td>
-</tr>
-<tr class="even">
-<td><code>cancelButtonText</code></td>
-<td><code>cancel_button_text</code></td>
-<td>text content of cancel button</td>
+<td><code>modalClass</code></td>
+<td><code>modal_class</code></td>
+<td>custom class names for mask</td>
 <td>string</td>
-<td>—</td>
-<td>Cancel</td>
-</tr>
-<tr class="odd">
-<td><code>confirmButtonText</code></td>
-<td><code>confirm_button_text</code></td>
-<td>text content of confirm button</td>
-<td>string</td>
-<td>—</td>
-<td>OK</td>
-</tr>
-<tr class="even">
-<td><code>cancelButtonClass</code></td>
-<td><code>cancel_button_class</code></td>
-<td>custom class name of cancel button</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>confirmButtonClass</code></td>
-<td><code>confirm_button_class</code></td>
-<td>custom class name of confirm button</td>
-<td>string</td>
-<td>—</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>closeOnClickModal</code></td>
-<td><code>close_on_click_modal</code></td>
-<td>whether MessageBox can be closed by clicking the mask</td>
-<td>boolean</td>
-<td>—</td>
-<td>true (false when called with alert)</td>
-</tr>
-<tr class="odd">
-<td><code>closeOnPressEscape</code></td>
-<td><code>close_on_press_escape</code></td>
-<td>whether MessageBox can be closed by pressing the ESC</td>
-<td>boolean</td>
-<td>—</td>
-<td>true (false when called with alert)</td>
-</tr>
-<tr class="even">
-<td><code>closeOnHashChange</code></td>
-<td><code>close_on_hash_change</code></td>
-<td>whether to close MessageBox when hash changes</td>
-<td>boolean</td>
-<td>—</td>
-<td>true</td>
-</tr>
-<tr class="odd">
-<td><code>showInput</code></td>
-<td><code>show_input</code></td>
-<td>whether to show an input</td>
-<td>boolean</td>
-<td>—</td>
-<td>false (true when called with prompt)</td>
-</tr>
-<tr class="even">
-<td><code>inputPlaceholder</code></td>
-<td><code>input_placeholder</code></td>
-<td>placeholder of input</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>inputType</code></td>
-<td><code>input_type</code></td>
-<td>type of input</td>
-<td>string</td>
-<td>—</td>
-<td>text</td>
-</tr>
-<tr class="even">
-<td><code>inputValue</code></td>
-<td><code>input_value</code></td>
-<td>initial value of input</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>inputPattern</code></td>
-<td><code>input_pattern</code></td>
-<td>regexp for the input</td>
-<td>regexp</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="even">
-<td><code>inputValidator</code></td>
-<td><code>input_validator</code></td>
-<td>validation function for the input. Should returns a boolean or
-string. If a string is returned, it will be assigned to
-inputErrorMessage</td>
-<td>function</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>inputErrorMessage</code></td>
-<td><code>input_error_message</code></td>
-<td>error message when validation fails</td>
-<td>string</td>
-<td>—</td>
-<td>Illegal input</td>
-</tr>
-<tr class="even">
-<td><code>center</code></td>
-<td><code>center</code></td>
-<td>whether to align the content in center</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="odd">
-<td><code>roundButton</code></td>
-<td><code>round_button</code></td>
-<td>whether to use round button</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
+<td><code>callback</code></td>
+<td>`<code>input$&lt;id&gt;</code>, the
+answer<code>| MessageBox closing callback if you don't prefer Promise | ^[Function]</code>(value:
+string, action: Action) =&gt; any \</td>
+<td>(action: Action) =&gt;
+any<code>|  | null | |</code>showClose<code>|</code>show_close<code>| whether to show close icon of MessageBox | ^[boolean] |  | true | |</code>beforeClose<code>|</code>before_close<code>| callback before MessageBox closes, and it will prevent MessageBox from closing | ^[Function]</code>(action:
+Action, instance: MessageBoxState, done: () =&gt; void) =&gt;
+void<code>|  | null | |</code>distinguishCancelAndClose<code>|</code>distinguish_cancel_and_close<code>| whether to distinguish canceling and closing the MessageBox | ^[boolean] |  | false | |</code>lockScroll<code>|</code>lock_scroll<code>| whether to lock body scroll when MessageBox prompts | ^[boolean] |  | true | |</code>showCancelButton<code>|</code>show_cancel_button<code>| whether to show a cancel button | ^[boolean] |  | false (true when called with confirm and prompt) | |</code>showConfirmButton<code>|</code>show_confirm_button<code>| whether to show a confirm button | ^[boolean] |  | true | |</code>cancelButtonText<code>|</code>cancel_button_text<code>| text content of cancel button | ^[string] |  | Cancel | |</code>confirmButtonText<code>|</code>confirm_button_text<code>| text content of confirm button | ^[string] |  | OK | |</code>cancelButtonType<code>|</code>cancel_button_type<code>| type of cancel button | ^[enum]</code>‘primary’
+\</td>
+<td>‘success’ \</td>
+<td>‘warning’ \</td>
+<td>‘danger’ \</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

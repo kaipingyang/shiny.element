@@ -1,12 +1,15 @@
 # Tree
 
-Display a set of data with hierarchies. Nodes are
-`list(id =, label =, children =)`;
+Display a set of data with hierarchies.
+
+## Basic usage
+
+Basic tree structure.
+
+Nodes are `list(id =, label =, children =)`;
 [`df_to_tree_data()`](https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.md)
 builds them from a data frame. `input$<id>` is the key of the node last
 clicked, `input$<id>_checked` the keys checked.
-
-## Basic usage
 
 ``` r
 
@@ -22,21 +25,49 @@ el_tree("basic", data = levels, node_key = "id")
 
 ## Selectable
 
-`show_checkbox` adds a box to every node.
+Used for node selection.
 
-``` r
-
-el_tree("pick", show_checkbox = TRUE, node_key = "id", default_expand_all = TRUE, data = list(
-  list(id = "r1", label = "Region 1", children = list(list(id = "a", label = "Area A"), list(id = "b", label = "Area B"))),
-  list(id = "r2", label = "Region 2")))
-```
-
-## Custom leaf node in lazy mode
+This example also shows how to load node data asynchronously.
 
 With `lazy = TRUE` each node’s children come from the server, asked for
 through `input$<id>_load` and answered with
-[`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md);
-`is_leaf_field` names the field that says a node has none.
+[`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md).
+
+``` r
+
+ui <- el_page(el_tree("zones", lazy = TRUE, node_key = "id", show_checkbox = TRUE))
+
+server <- function(input, output, session) {
+  observeEvent(input$zones_load, {
+    q <- input$zones_load
+    kids <- if (q$level == 0) list(list(id = "region1", label = "Region"), list(id = "region2", label = "Region2"))
+            else if (q$level > 3) list()
+            else lapply(1:2, function(i) list(id = paste0(q$key, "-", i), label = paste0("zone", i)))
+    el_load_children(id = "zones", request = q, children = kids)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![The selectable example, running](../../shots/tree-selectable.png)
+
+> **Warning**
+>
+> When using show-checkbox, since `check-on-click-leaf` is true by
+> default, last tree children’s can be checked by clicking their nodes.
+
+## Custom leaf node in lazy mode
+
+A node’s data is not fetched until it is clicked, so the Tree cannot
+predict whether a node is a leaf node. That’s why a drop-down button is
+added to each node, and if it is a leaf node, the drop-down button will
+disappear when clicked. That being said, you can also tell the Tree in
+advance whether the node is a leaf node, avoiding the render of the
+drop-down button before a leaf node.
+
+`is_leaf_field` names the field that says a node has no children, so it
+draws no expand arrow.
 
 ``` r
 
@@ -56,9 +87,29 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![The lazy example, running](../../shots/tree-lazy.png)
+![The custom-leaf example, running](../../shots/tree-custom-leaf.png)
+
+## Lazy loading multiple times
+
+When lazily loading node data remotely, lazy loading may sometimes fail.
+In this case, you can call reject to keep the node status as is and
+allow remote loading to continue.
+
+> **In R**
+>
+> Upstream, a failed load calls `reject()` so the node can be loaded
+> again. In R the server answers every `input$<id>_load`; to let a node
+> retry, answer it later – the node keeps spinning until
+> [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
+> comes.
 
 ## Disabled checkbox
+
+The checkbox of a node can be set as disabled.
+
+In the example, ‘disabled’ property is declared in defaultProps, and
+some nodes are set as ‘disabled:true’. The corresponding checkboxes are
+disabled and can’t be clicked.
 
 ``` r
 
@@ -67,12 +118,22 @@ el_tree("dis", show_checkbox = TRUE, node_key = "id", default_expand_all = TRUE,
     list(id = 3, label = "Level two 2-1", children = list(
       list(id = 4, label = "Level three 3-1-1"),
       list(id = 5, label = "Level three 3-1-2", disabled = TRUE))),
-    list(id = 2, label = "Level two 2-2", disabled = TRUE)))))
+    list(id = 2, label = "Level two 2-2", disabled = TRUE, children = list(
+      list(id = 6, label = "Level three 3-2-1"),
+      list(id = 7, label = "Level three 3-2-2", disabled = TRUE)))))))
 ```
 
 ## Default expanded and default checked
 
-`expanded` and `checked` are Element’s `default-expanded-keys` and
+Tree nodes can be initially expanded or checked
+
+Use `default-expanded-keys` and `default-checked-keys` to set initially
+expanded and initially checked nodes respectively. Note that for them to
+work, `node-key` is required. Its value is the name of a key in the data
+object, and the value of that key should be unique across the whole
+tree.
+
+`expanded` and `checked` are Element Plus’s `default-expanded-keys` and
 `default-checked-keys` – renamed, since `update_el_tree(checked =)`
 changes them later.
 
@@ -88,10 +149,13 @@ el_tree("defs", show_checkbox = TRUE, node_key = "id", expanded = c(2, 3), check
 
 ## Checking tree nodes
 
+This example shows how to get and set checked nodes. They both can be
+done in two approaches: node and key. If you are taking the key
+approach, `node-key` is required.
+
 `update_el_tree(checked =)` sets them;
 [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
-runs Element’s `getCheckedKeys()`, `setCheckedKeys()` and the rest, a
-value coming back as `input$<id>_get_checked_keys`.
+runs Element Plus’s `getCheckedKeys()`, `setCheckedKeys()` and the rest.
 
 ``` r
 
@@ -115,25 +179,59 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![The checking example, running](../../shots/tree-checking.png)
+![The checking-tree example,
+running](../../shots/tree-checking-tree.png)
 
 ## Custom node content
+
+The content of tree nodes can be customized, so you can add icons or
+buttons as you will
+
+There are two ways to customize template for tree nodes:
+`render-content` and scoped slot. Use `render-content` to assign a
+render function that returns the content of tree nodes. See Vue’s
+documentation for a detailed introduction of render functions. If you
+prefer scoped slot, you’ll have access to `node` and `data` in the
+scope, standing for the TreeNode object and node data of the current
+node respectively. Note that the `render-content` demo can’t run in
+JSFiddle because it doesn’t support JSX syntax. In a real project,
+`render-content` will work if relevant dependencies are correctly
+configured.
 
 The default slot, scoped with `node` and `data`, draws each node.
 
 ``` r
 
 el_tree("cus", node_key = "id", default_expand_all = TRUE, expand_on_click_node = FALSE,
-  data = list(list(id = 1, label = "Level one 1", children = list(list(id = 4, label = "Level two 1-1")))),
+  data = list(list(id = 1, label = "Level one 1", children = list(
+    list(id = 4, label = "Level two 1-1"), list(id = 5, label = "Level two 1-2")))),
   slots = list(default = template(
     tags$span(style = "flex: 1; display: flex; justify-content: space-between; padding-right: 8px",
       tags$span("{{ node.label }}"),
-      tags$span(el$button(type = "text", size = "mini", "Append"),
-                el$button(type = "text", size = "mini", "Delete"))),
+      tags$span(el$button(link = TRUE, type = "primary", size = "small", "Append"),
+                el$button(link = TRUE, type = "danger", size = "small", "Delete"))),
     scope = "{ node, data }")))
 ```
 
+## Custom node class
+
+The class of tree nodes can be customized
+
+. Use `props.class` to build class name of nodes.
+
+> **In R**
+>
+> Upstream builds each node’s class with `props.class`. In R, style
+> nodes with the default slot: give the `<span>` a class from the node’s
+> data, as `:class="data.isPenultimate ? 'is-penultimate' : ''"`.
+
 ## Tree node filtering
+
+Tree nodes can be filtered
+
+Invoke the `filter` method of the Tree instance to filter tree nodes.
+Its parameter is the filtering keyword. Note that for it to work,
+`filter-node-method` is required, and its value is the filtering method.
 
 [`filter()`](https://rdrr.io/r/stats/filter.html) keeps the nodes whose
 label contains the text; give `filter_node_method` to decide otherwise.
@@ -157,16 +255,21 @@ shinyApp(ui, server)
 
 ## Accordion
 
+Only one node among the same level can be expanded at one time.
+
 Only one node of a level open at a time.
 
 ``` r
 
 el_tree("acc", accordion = TRUE, node_key = "id", data = list(
   list(id = 1, label = "Level one 1", children = list(list(id = 4, label = "Level two 1-1"))),
-  list(id = 2, label = "Level one 2", children = list(list(id = 5, label = "Level two 2-1")))))
+  list(id = 2, label = "Level one 2", children = list(list(id = 5, label = "Level two 2-1"))),
+  list(id = 3, label = "Level one 3", children = list(list(id = 6, label = "Level two 3-1")))))
 ```
 
 ## Draggable
+
+You can drag and drop Tree nodes by adding a `draggable` attribute.
 
 `draggable` lets nodes be dragged; `allow_drag` and `allow_drop`,
 [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
@@ -186,58 +289,37 @@ el_tree("drag", draggable = TRUE, node_key = "id", default_expand_all = TRUE,
 
 ## API
 
+Element Plus’s tables, and beside each entry where it is in R.
+
 ### Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `data` | `data` | tree data | array | — | — |
-| `empty-text` | `empty_text` | text displayed when data is void | string | — | — |
-| `node-key` | `node_key` | unique identity key name for nodes, its value should be unique across the whole tree | string | — | — |
-| `props` | `label_field, children_field, disabled_field, is_leaf_field` | configuration options, see the following table | object | — | — |
-| `render-after-expand` | `render_after_expand` | whether to render child nodes only after a parent node is expanded for the first time | boolean | — | true |
-| `load` | `load` | method for loading subtree data, only works when `lazy` is true | function(node, resolve) | — | — |
-| `render-content` | `render_content` | render function for tree node | Function(h, { node, data, store } | — | — |
-| `highlight-current` | `highlight_current` | whether current node is highlighted | boolean | — | false |
-| `default-expand-all` | `default_expand_all` | whether to expand all nodes by default | boolean | — | false |
-| `expand-on-click-node` | `expand_on_click_node` | whether to expand or collapse node when clicking on the node, if false, then expand or collapse node only when clicking on the arrow icon. | boolean | — | true |
-| `check-on-click-node` | `check_on_click_node` | whether to check or uncheck node when clicking on the node, if false, the node can only be checked or unchecked by clicking on the checkbox. | boolean | — | false |
-| `auto-expand-parent` | `auto_expand_parent` | whether to expand father node when a child node is expanded | boolean | — | true |
-| `default-expanded-keys` | `expanded` | array of keys of initially expanded nodes | array | — | — |
-| `show-checkbox` | `show_checkbox` | whether node is selectable | boolean | — | false |
-| `check-strictly` | `check_strictly` | whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true` | boolean | — | false |
-| `default-checked-keys` | `checked` | array of keys of initially checked nodes | array | — | — |
-| `current-node-key` | `current_node_key` | key of initially selected node | string, number | — | — |
-| `filter-node-method` | `filter_node_method` | this function will be executed on each node when use filter method. if return `false`, tree node will be hidden. | Function(value, data, node) | — | — |
-| `accordion` | `accordion` | whether only one node among the same level can be expanded at one time | boolean | — | false |
-| `indent` | `indent` | horizontal indentation of nodes in adjacent levels in pixels | number | — | 16 |
-| `icon-class` | `icon_class` | custome tree node icon | string | \- | \- |
-| `lazy` | `lazy` | whether to lazy load leaf node, used with `load` attribute | boolean | — | false |
-| `draggable` | `draggable` | whether enable tree nodes drag and drop | boolean | — | false |
-| `allow-drag` | `allow_drag` | this function will be executed before dragging a node. If `false` is returned, the node can not be dragged | Function(node) | — | — |
-| `allow-drop` | `allow_drop` | this function will be executed before the dragging node is dropped. If `false` is returned, the dragging node can not be dropped at the target node. `type` has three possible values: ‘prev’ (inserting the dragging node before the target node), ‘inner’ (inserting the dragging node to the target node) and ‘next’ (inserting the dragging node after the target node) | Function(draggingNode, dropNode, type) | — | — |
-
-### Method
-
-| Element | In R | Description |
-|----|----|----|
-| `filter` | `el_call(session, id, "filter")` | filter all tree nodes, filtered nodes will be hidden |
-| `updateKeyChildren` | `el_call(session, id, "updateKeyChildren")` | set new data to node, only works when `node-key` is assigned |
-| `getCheckedNodes` | `el_call(session, id, "getCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes |
-| `setCheckedNodes` | `el_call(session, id, "setCheckedNodes")` | set certain nodes to be checked, only works when `node-key` is assigned |
-| `getCheckedKeys` | `el_call(session, id, "getCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node’s keys |
-| `setCheckedKeys` | `el_call(session, id, "setCheckedKeys")` | set certain nodes to be checked, only works when `node-key` is assigned |
-| `setChecked` | `el_call(session, id, "setChecked")` | set node to be checked or not, only works when `node-key` is assigned |
-| `getHalfCheckedNodes` | `el_call(session, id, "getHalfCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes |
-| `getHalfCheckedKeys` | `el_call(session, id, "getHalfCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node’s keys |
-| `getCurrentKey` | `el_call(session, id, "getCurrentKey")` | return the highlight node’s key (null if no node is highlighted) |
-| `getCurrentNode` | `el_call(session, id, "getCurrentNode")` | return the highlight node’s data (null if no node is highlighted) |
-| `setCurrentKey` | `el_call(session, id, "setCurrentKey")` | set highlighted node by key, only works when `node-key` is assigned |
-| `setCurrentNode` | `el_call(session, id, "setCurrentNode")` | set highlighted node, only works when `node-key` is assigned |
-| `getNode` | `el_call(session, id, "getNode")` | get node by data or key |
-| `remove` | `el_call(session, id, "remove")` | remove a node, only works when node-key is assigned |
-| `append` | `el_call(session, id, "append")` | append a child node to a given node in the tree |
-| `insertBefore` | `el_call(session, id, "insertBefore")` | insert a node before a given node in the tree |
-| `insertAfter` | `el_call(session, id, "insertAfter")` | insert a node after a given node in the tree |
+| `data` | `data` | tree data | [^1]`Array<{[key: string]: any}>` |  | — |
+| `empty-text` | `empty_text` | text displayed when data is void | [^2] |  | — |
+| `node-key` | `node_key` | unique identity key name for nodes, its value should be unique across the whole tree | [^3] |  | — |
+| `render-after-expand` | `render_after_expand` | whether to render child nodes only after a parent node is expanded for the first time | [^4] |  | true |
+| `load` | `load` | method for loading subtree data, only works when `lazy` is true | [^5]`(node, resolve, reject) => void` |  | — |
+| `render-content` | `render_content` | render function for tree node | [^6]`(h, { node, data, store }) => void` |  | — |
+| `highlight-current` | `highlight_current` | whether current node is highlighted | [^7] |  | false |
+| `default-expand-all` | `default_expand_all` | whether to expand all nodes by default | [^8] |  | false |
+| `expand-on-click-node` | `expand_on_click_node` | whether to expand or collapse node when clicking on the node, if false, then expand or collapse node only when clicking on the arrow icon. | [^9] |  | true |
+| `check-on-click-node` | `check_on_click_node` | whether to check or uncheck node when clicking on the node, if false, the node can only be checked or unchecked by clicking on the checkbox. | [^10] |  | false |
+| `check-on-click-leaf` | `check_on_click_leaf` | whether to check or uncheck node when clicking on leaf node (last children). | [^11] |  | true |
+| `auto-expand-parent` | `auto_expand_parent` | whether to expand father node when a child node is expanded | [^12] |  | true |
+| `default-expanded-keys` | `expanded` | array of keys of initially expanded nodes | [^13]`Array<string \\| number>` |  | — |
+| `show-checkbox` | `show_checkbox` | whether node is selectable | [^14] |  | false |
+| `check-strictly` | `check_strictly` | whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true` | [^15] |  | false |
+| `default-checked-keys` | `checked` | array of keys of initially checked nodes | [^16]`Array<string \\| number>` |  | — |
+| `current-node-key` | `current_node_key` | key of initially selected node | [^17] / [^18] |  | — |
+| `filter-node-method` | `filter_node_method` | this function will be executed on each node when use filter method. if return `false`, tree node will be hidden. | [^19]`(value, data, node) => boolean` |  | — |
+| `accordion` | `accordion` | whether only one node among the same level can be expanded at one time | [^20] |  | false |
+| `indent` | `indent` | horizontal indentation of nodes in adjacent levels in pixels | [^21] |  | 18 |
+| `icon` | `icon` | custom tree node icon component | [^22] / [^23] |  | — |
+| `lazy` | `lazy` | whether to lazy load leaf node, used with `load` attribute | [^24] |  | false |
+| `draggable` | `draggable` | whether enable tree nodes drag and drop | [^25] |  | false |
+| `allow-drag` | `allow_drag` | this function will be executed before dragging a node. If `false` is returned, the node can not be dragged | [^26]`(node) => boolean` |  | — |
+| `allow-drop` | `allow_drop` | this function will be executed before the dragging node is dropped. If `false` is returned, the dragging node can not be dropped at the target node. `type` has three possible values: ‘prev’ (inserting the dragging node before the target node), ‘inner’ (inserting the dragging node to the target node) and ‘next’ (inserting the dragging node after the target node) | [^27]`(draggingNode, dropNode, type) => boolean` |  | — |
 
 ### Events
 
@@ -256,3 +338,64 @@ el_tree("drag", draggable = TRUE, node_key = "id", default_expand_all = TRUE,
 | `node-drag-over` | `input$<id>_node_drag_over` | triggers when dragging over a node (like mouseover event) |
 | `node-drag-end` | `input$<id>_node_drag_end` | triggers when dragging ends |
 | `node-drop` | `input$<id>_node_drop` | triggers after the dragging node is dropped |
+
+### Slots
+
+| Element   | In R                     | Description                       |
+|-----------|--------------------------|-----------------------------------|
+| `default` | default content          | custom content for tree nodes     |
+| `empty`   | `slots = list(empty = )` | custom content when data is empty |
+
+[^1]: array
+
+[^2]: string
+
+[^3]: string
+
+[^4]: boolean
+
+[^5]: Function
+
+[^6]: Function
+
+[^7]: boolean
+
+[^8]: boolean
+
+[^9]: boolean
+
+[^10]: boolean
+
+[^11]: boolean
+
+[^12]: boolean
+
+[^13]: array
+
+[^14]: boolean
+
+[^15]: boolean
+
+[^16]: array
+
+[^17]: string
+
+[^18]: number
+
+[^19]: Function
+
+[^20]: boolean
+
+[^21]: number
+
+[^22]: string
+
+[^23]: Component
+
+[^24]: boolean
+
+[^25]: boolean
+
+[^26]: Function
+
+[^27]: Function

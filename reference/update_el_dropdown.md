@@ -1,4 +1,4 @@
-# Update Element UI Dropdown
+# Update Element Plus Dropdown
 
 Server-side update for
 [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md).

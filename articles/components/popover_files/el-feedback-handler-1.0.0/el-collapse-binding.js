@@ -37,7 +37,7 @@
   }
 
   function headerOf(panel) {
-    return panel.querySelector(':scope > [role=tab] > .el-collapse-item__header');
+    return panel.querySelector(':scope > .el-collapse-item__header');
   }
 
   // Element's el-collapse-transition: the height runs from 0 to the
@@ -75,15 +75,16 @@
   }
 
   function setOpen(panel, open, animate) {
-    var tab    = panel.querySelector(':scope > [role=tab]');
     var header = headerOf(panel);
     var arrow  = panel.querySelector('.el-collapse-item__arrow');
     var wrap   = panel.querySelector(':scope > .el-collapse-item__wrap');
     var was = panel.classList.contains('is-active');
 
     panel.classList.toggle('is-active', open);
-    if (tab)    tab.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (header) header.classList.toggle('is-active', open);
+    if (header) {
+      header.setAttribute('aria-expanded', open ? 'true' : 'false');
+      header.classList.toggle('is-active', open);
+    }
     if (arrow)  arrow.classList.toggle('is-active', open);
     if (!wrap) return;
     wrap.setAttribute('aria-hidden', open ? 'false' : 'true');
@@ -116,9 +117,30 @@
       // raises this event for the subscription to pick up. Without it the
       // panels move and input$<id> keeps its old value.
       $(el).on('elCollapseChange.elCollapse', function() { callback(false); });
+      // Element's exposed setActiveNames(), reached with el_call()
+      el._elMethods = {
+        setActiveNames: function(names) {
+          binding.setValue(el, names == null ? [] : [].concat(names));
+          callback(false);
+        }
+      };
 
+      // before-collapse: a function that may return false, or a promise, to
+      // keep the panel as it is
+      var guard = el.getAttribute('data-before-collapse');
+      guard = guard ? eval('(' + guard + ')') : null;
       function toggle(panel) {
         if (panel.classList.contains('is-disabled')) return;
+        if (!guard) return flip(panel);
+        var r = guard(panel.getAttribute('data-el-name'));
+        if (r === false) return;
+        if (r && typeof r.then === 'function') {
+          r.then(function(ok) { if (ok !== false) flip(panel); }, function() {});
+          return;
+        }
+        flip(panel);
+      }
+      function flip(panel) {
         var opening = !panel.classList.contains('is-active');
         if (el.getAttribute('data-accordion') === 'true') {
           panels(el).forEach(function(p) { if (p !== panel) setOpen(p, false, true); });
@@ -126,7 +148,7 @@
         setOpen(panel, opening, true);
         callback(false);
       }
-      function panelOf(header) { return header.parentElement.parentElement; }
+      function panelOf(header) { return header.parentElement; }
       function own(header) { return panelOf(header).parentElement === el; }
 
       $(el).on('click.elCollapse', '.el-collapse-item__header', function(e) {

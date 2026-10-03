@@ -1,7 +1,7 @@
-# Element UI Button with Vue Instance
+# Element Plus Button with Vue Instance
 
-Creates an Element UI button with Vue instance, supporting all Element
-UI button variants including `plain`, `round`, `circle`, and `loading`
+Creates an Element Plus button with Vue instance, supporting all Element
+Plus button variants including `plain`, `round`, `circle`, and `loading`
 states.
 
 ## Usage
@@ -20,6 +20,15 @@ el_button(
   icon = NULL,
   native_type = "button",
   autofocus = FALSE,
+  auto_insert_space = NULL,
+  bg = NULL,
+  color = NULL,
+  dark = NULL,
+  dashed = NULL,
+  link = NULL,
+  loading_icon = NULL,
+  tag = NULL,
+  text = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -43,7 +52,8 @@ el_button(
 
 - size:
 
-  Button size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - plain:
 
@@ -83,6 +93,51 @@ el_button(
 - autofocus:
 
   Whether the button takes focus on page load. Default `FALSE`.
+
+- auto_insert_space:
+
+  Automatically insert a space between two chinese characters(this will
+  only take effect when the text length is 2 and all characters are in
+  Chinese.). Element Plus's `auto-insert-space` (boolean).
+
+- bg:
+
+  Determine whether the text button background color is always on.
+  Element Plus's `bg` (boolean).
+
+- color:
+
+  Custom button color, automatically calculate `hover` and `active`
+  color. Works with `link`/`text` buttons since. Element Plus's `color`
+  (string).
+
+- dark:
+
+  Dark mode, which automatically converts `color` to dark mode colors.
+  Element Plus's `dark` (boolean).
+
+- dashed:
+
+  Determine whether it's a dashed button. Element Plus's `dashed`
+  (boolean).
+
+- link:
+
+  Determine whether it's a link button. Element Plus's `link` (boolean).
+
+- loading_icon:
+
+  Customize loading icon component. Element Plus's `loading-icon`
+  (string / Component). An icon's name, such as `"Search"`.
+
+- tag:
+
+  Custom element tag. Element Plus's `tag` (string / Component). An
+  icon's name, such as `"Search"`.
+
+- text:
+
+  Determine whether it's a text button. Element Plus's `text` (boolean).
 
 - width:
 
@@ -124,9 +179,9 @@ clicked.
 el_button("btn_primary", "Primary", type = "primary")
 #> <div id="btn_primary" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="btn_primary_container" style="display: contents">
-#>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus">{{label}}</el-button>
+#>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #> </div>
 
 # Shiny app example

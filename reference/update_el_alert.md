@@ -1,4 +1,4 @@
-# Update Element UI Alert
+# Update Element Plus Alert
 
 Server-side update for
 [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md).

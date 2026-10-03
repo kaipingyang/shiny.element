@@ -1,4 +1,4 @@
-# Update Element UI Descriptions
+# Update Element Plus Descriptions
 
 Server-side update for
 [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md).

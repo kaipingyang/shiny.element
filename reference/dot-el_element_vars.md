@@ -21,4 +21,4 @@ differ from Element's, and whatever was given to
 
 ## Value
 
-A named character vector, names without the `$--` prefix.
+A named character vector, names without the `--el-` prefix.

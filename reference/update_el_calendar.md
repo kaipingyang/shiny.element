@@ -1,4 +1,4 @@
-# Update Element UI Calendar Component
+# Update Element Plus Calendar Component
 
 Send a message to update the calendar value, range, first day of week,
 or slot.
@@ -11,7 +11,6 @@ update_el_calendar(
   id,
   value = NULL,
   range = NULL,
-  first_day_of_week = NULL,
   label = NULL,
   error = NULL
 )
@@ -35,10 +34,6 @@ update_el_calendar(
 - range:
 
   New range (c("YYYY-MM-DD", "YYYY-MM-DD"))
-
-- first_day_of_week:
-
-  New first day of week (1~7)
 
 - label:
 

@@ -1,4 +1,4 @@
-# Element UI Card
+# Element Plus Card
 
 A card container with optional header and body. Supports `always`,
 `hover`, and `never` shadow modes.
@@ -6,7 +6,16 @@ A card container with optional header and body. Supports `always`,
 ## Usage
 
 ``` r
-el_card(..., header = NULL, body_style = NULL, shadow = "always")
+el_card(
+  ...,
+  header = NULL,
+  body_style = NULL,
+  shadow = "always",
+  footer = NULL,
+  header_class = NULL,
+  body_class = NULL,
+  footer_class = NULL
+)
 ```
 
 ## Arguments
@@ -21,11 +30,19 @@ el_card(..., header = NULL, body_style = NULL, shadow = "always")
 
 - body_style:
 
-  Inline CSS string for the card body. `NULL` for default.
+  CSS for the card body, a string or a named list. `NULL` for default.
 
 - shadow:
 
   Shadow display trigger: `"always"` (default), `"hover"`, or `"never"`.
+
+- footer:
+
+  Footer content (string or tag). `NULL` for no footer.
+
+- header_class, body_class, footer_class:
+
+  Extra class names for the header, the body and the footer.
 
 ## Value
 

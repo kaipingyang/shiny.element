@@ -1,9 +1,10 @@
-# Update Element UI Tooltip
+# Update Element Plus Tooltip
 
 Server-side update for
 [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md).
-Setting `value` only shows or hides the hint when the tooltip was
-created with `manual = TRUE`.
+Setting `visible` shows or hides the hint, which then stays as set:
+Element Plus's tooltip is controlled by its `visible` once that is
+given.
 
 ## Usage
 
@@ -13,7 +14,7 @@ update_el_tooltip(
   id,
   content = NULL,
   disabled = NULL,
-  value = NULL
+  visible = NULL
 )
 ```
 
@@ -28,7 +29,7 @@ update_el_tooltip(
 
   Tooltip ID (un-namespaced).
 
-- content, disabled, value:
+- content, disabled, visible:
 
   New values; `NULL` leaves one unchanged.
 

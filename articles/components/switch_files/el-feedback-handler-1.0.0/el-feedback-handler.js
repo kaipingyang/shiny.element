@@ -27,23 +27,25 @@
     if (id) Shiny.setInputValue(id + what, true, { priority: 'event' });
   }
 
+  // The options Element Plus takes, as R sent them: everything but the
+  // bridge's own keys, with functions turned back from source
+  function options(message, skip) {
+    var o = {};
+    Object.keys(message).forEach(function(k) {
+      if (k.charAt(0) === '.' || skip.indexOf(k) !== -1) return;
+      if (message[k] !== null && message[k] !== undefined) o[k] = message[k];
+    });
+    (message['.functions'] || []).forEach(function(k) { if (o[k]) o[k] = fn(o[k]); });
+    return o;
+  }
+
   Shiny.addCustomMessageHandler('elNotification', function(message) {
     if (!window.ELEMENT || !window.ELEMENT.Notification) return;
     var id = message.id;
-    var n = window.ELEMENT.Notification(clean({
-      title:     message.title    || '',
-      message:   message.message,
-      type:      message.type     || 'info',
-      duration:  message.duration !== undefined ? message.duration : 4500,
-      position:  message.position || 'top-right',
-      showClose: message.showClose !== undefined ? message.showClose : true,
-      offset:    message.offset   || 0,
-      iconClass: message.iconClass,
-      customClass: message.customClass,
-      dangerouslyUseHTMLString: message.dangerouslyUseHTMLString,
-      onClose:   function() { if (id) delete notifications[id]; report(id, '_close'); },
-      onClick:   function() { report(id, '_click'); }
-    }));
+    var o = options(message, ['id']);
+    o.onClose = function() { if (id) delete notifications[id]; report(id, '_close'); };
+    o.onClick = function() { report(id, '_click'); };
+    var n = window.ELEMENT.Notification(o);
     if (id) notifications[id] = n;
   });
 
@@ -71,38 +73,8 @@
   Shiny.addCustomMessageHandler('elMessageBox', function(message) {
     if (!window.ELEMENT || !window.ELEMENT.MessageBox) return;
 
-    var opts = {
-      title:                    message.title || '',
-      type:                     message.type || '',
-      confirmButtonText:        message.confirmButtonText,
-      cancelButtonText:         message.cancelButtonText,
-      showCancelButton:         message.showCancelButton,
-      showClose:                message.showClose,
-      dangerouslyUseHTMLString: message.dangerouslyUseHTMLString || false,
-      center:                   message.center || false,
-      roundButton:              message.roundButton || false,
-      customClass:              message.customClass,
-      iconClass:                message.iconClass,
-      closeOnClickModal:        message.closeOnClickModal,
-      closeOnPressEscape:       message.closeOnPressEscape,
-      inputPlaceholder:         message.inputPlaceholder,
-      inputValue:               message.inputValue,
-      inputPattern:             message.inputPattern ? new RegExp(message.inputPattern) : undefined,
-      inputErrorMessage:        message.inputErrorMessage,
-      inputType:                message.inputType,
-      inputValidator:           fn(message.inputValidator),
-      showInput:                message.showInput,
-      showConfirmButton:        message.showConfirmButton,
-      confirmButtonClass:       message.confirmButtonClass,
-      cancelButtonClass:        message.cancelButtonClass,
-      distinguishCancelAndClose: message.distinguishCancelAndClose,
-      lockScroll:               message.lockScroll,
-      closeOnHashChange:        message.closeOnHashChange,
-      beforeClose:              fn(message.beforeClose)
-    };
-    Object.keys(opts).forEach(function(k) {
-      if (opts[k] === undefined || opts[k] === null) delete opts[k];
-    });
+    var opts = options(message, ['id', 'boxType', 'message', 'title']);
+    if (opts.inputPattern) opts.inputPattern = new RegExp(opts.inputPattern);
 
     var box = message.boxType === 'prompt'
       ? window.ELEMENT.MessageBox.prompt(message.message, message.title, opts)
@@ -136,37 +108,19 @@
     }
 
     if (loadings[message.id]) loadings[message.id].close();
-    var opts = {
-      target:      message.target || document.body,
-      body:        message.body,
-      fullscreen:  message.fullscreen,
-      lock:        message.lock,
-      text:        message.text,
-      spinner:     message.spinner,
-      background:  message.background,
-      customClass: message.customClass
-    };
-    Object.keys(opts).forEach(function(k) {
-      if (opts[k] === undefined || opts[k] === null) delete opts[k];
-    });
+    var id = message.id;
+    var opts = options(message, ['id', 'close']);
+    if (!opts.target) opts.target = document.body;
+    opts.closed = function() { report(id, '_closed'); };
     loadings[message.id] = window.ELEMENT.Loading.service(opts);
   });
 
   Shiny.addCustomMessageHandler('elMessage', function(message) {
     if (!window.ELEMENT || !window.ELEMENT.Message) return;
     var id = message.id;
-    var m = window.ELEMENT.Message(clean({
-      message:   message.message,
-      type:      message.type      || 'info',
-      duration:  message.duration  !== undefined ? message.duration : 3000,
-      showClose: message.showClose || false,
-      center:    message.center    || false,
-      offset:    message.offset,
-      iconClass: message.iconClass,
-      customClass: message.customClass,
-      dangerouslyUseHTMLString: message.dangerouslyUseHTMLString,
-      onClose:   function() { if (id) delete messages[id]; report(id, '_close'); }
-    }));
+    var o = options(message, ['id']);
+    o.onClose = function() { if (id) delete messages[id]; report(id, '_close'); };
+    var m = window.ELEMENT.Message(o);
     if (id) messages[id] = m;
   });
 

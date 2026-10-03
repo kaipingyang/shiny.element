@@ -1,4 +1,4 @@
-# Update Element UI Image
+# Update Element Plus Image
 
 Server-side update for
 [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md).

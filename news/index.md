@@ -4,21 +4,69 @@
 
 First release.
 
+### Element Plus
+
+Built on Element Plus 2.14.7 and Vue 3.5, bundled; the development
+versions built on Element UI 2.15.14 and Vue 2.7 are tagged
+`v0.1.0-vue2`. The “Migration from Element UI” article lists what
+changed for code written for them. In short:
+
+- Each component is its own Vue application, made with
+  `Vue.createApp()`: one that fails to mount leaves the rest of the page
+  working, and a component Shiny removes is unmounted.
+- Every component Element Plus documents is wrapped – 1430 of its
+  attributes, 222 events, 116 methods and 233 slots, all of them – with
+  the components new in Element Plus:
+  [`el_input_otp()`](https://kaipingyang.github.io/shiny.element/reference/el_input_otp.md),
+  [`el_input_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_input_tag.md),
+  [`el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/el_segmented.md),
+  [`el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_select_v2.md),
+  [`el_mention()`](https://kaipingyang.github.io/shiny.element/reference/el_mention.md),
+  [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md),
+  [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md),
+  [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md),
+  [`el_color_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker_panel.md),
+  [`el_date_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker_panel.md),
+  [`el_check_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_check_tag.md),
+  [`el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md),
+  [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md),
+  [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/el_image_viewer.md),
+  [`el_countdown()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md),
+  [`el_affix()`](https://kaipingyang.github.io/shiny.element/reference/el_affix.md),
+  [`el_space()`](https://kaipingyang.github.io/shiny.element/reference/el_space.md),
+  [`el_scrollbar()`](https://kaipingyang.github.io/shiny.element/reference/el_scrollbar.md),
+  [`el_watermark()`](https://kaipingyang.github.io/shiny.element/reference/el_watermark.md),
+  [`el_text()`](https://kaipingyang.github.io/shiny.element/reference/el_text.md),
+  [`el_avatar_group()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar_group.md),
+  [`el_splitter()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter.md),
+  [`el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md).
+- Icons are Element Plus’s SVG components, by name (`"Search"`); Element
+  UI’s class names (`"el-icon-search"`) are read as the same icon.
+- Sizes are `"large"`, `"default"` and `"small"`; date formats are
+  day.js’s (`"YYYY-MM-DD"`), with Element UI’s tokens converted.
+- Themes are CSS variables set on the page: nothing compiled, no sass.
+- The default language is English, with Element Plus’s 67 locales
+  bundled.
+- The website follows element-plus.org: its overview, its component
+  groups and pages, each demo in R, its API tables beside the R names,
+  and its guides – design, installation, i18n, theming, dark mode,
+  custom defaults, transitions – from R.
+
 ### Documentation, after Element’s own
 
 The website follows Element’s documentation: a page per component, in
-Element’s groups and order (Basic, Form, Data, Notice, Navigation,
-Others), each with Element’s demos written in R – live where they need
-no server, a screenshot of the running app where they do – and Element’s
-API tables with where each attribute, event, method and slot is in R.
-The guides cover what Element’s documentation does not: forms and
-validation, Shiny integration (events, methods, modules, bookmarking,
-data from the server, components of your own), theming and languages,
-and what differs from Element in a browser.
+Element Plus’s groups and order (Basic, Configuration, Form, Data,
+Navigation, Feedback, Others), each with Element’s demos written in R –
+live where they need no server, a screenshot of the running app where
+they do – and Element’s API tables with where each attribute, event,
+method and slot is in R. The guides cover what Element’s documentation
+does not: forms and validation, Shiny integration (events, methods,
+modules, bookmarking, data from the server, components of your own),
+theming and languages, and what differs from Element in a browser.
 
 ### Components
 
-Every component Element UI 2.15.14 documents is wrapped, services
+Every component Element Plus 2.14.7 documents is wrapped, services
 included, with every documented attribute, event and slot reachable from
 R and every method callable by name – measured by `tools/api-coverage`,
 not counted by hand. Tabs, collapse, dialog and drawer are reimplemented
@@ -198,8 +246,8 @@ components – so the rest of Shiny reaches it as it reaches
 and `disable()`,
 [`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) (which
 destroys its Vue instance too), bookmarking, shinyvalidate, a test
-driver’s `set_inputs()`. Vue 2.7.14, the version Element UI 2 runs on,
-is bundled beside Element, and
+driver’s `set_inputs()`. Vue 3, the version Element Plus runs on, is
+bundled beside Element Plus, and
 [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
 marks JavaScript the way
 [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html) does,
@@ -290,11 +338,9 @@ integration article shows, needs no JavaScript.
   theme reach Element’s components too, with the tints and shades
   Element derives from each, and `el_theme(element =)` sets any of
   Element’s own theme variables – `list("border-radius-base" = "8px")`.
-  Element’s stylesheet is built for the theme as upstream builds one:
-  brand colours replaced in place, as its theme picker does, or its Sass
-  sources – bundled – compiled, as its theme tool does.
-  `use_element(theme =)` does the same elsewhere; its layout CSS
-  argument is now `layout_css`.
+  They are set as Element Plus’s CSS variables, as its theming guide
+  sets them. `use_element(theme =)` does the same elsewhere; its layout
+  CSS argument is now `layout_css`.
 - **A tree filters as it stands.**
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
   has a default `filter_node_method` – the label contains the text,
@@ -469,35 +515,24 @@ The answer arrives as `input$<id>_<method>` with the method name in
 snake_case. Each component’s help page lists what it accepts under
 “Element methods”.
 
-### Element UI 2.15.14, and English by default
-
-The bundled Element UI is 2.15.14, the last 2.x release; 2.13.2 was two
-minor versions behind. That brings
-[`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md),
-[`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md),
-[`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md),
-[`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md)
-and
-[`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md),
-and a handful of new props on existing components.
+### English by default
 
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
 and
 [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
-now load English for Element’s built-in text – placeholders, empty-table
-messages, date-picker buttons. Element’s own default is Simplified
-Chinese, which is what every page showed before. All 59 of Element’s
-locales are bundled
+load English for Element Plus’s built-in text – placeholders,
+empty-table messages, date-picker buttons. All 67 of its locales are
+bundled
 ([`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)),
-and `options(shiny.element.locale = "zh-CN")` sets one for a whole
+and `options(shiny.element.locale = "zh-cn")` sets one for a whole
 session.
 
 ### Design notes
 
-- Controls are Vue instances on a host carrying a Shiny input binding;
-  containers render as plain markup driven by bindings of their own, so
-  they can nest freely.
-- Element UI is bundled in `inst/element-ui/` rather than loaded from a
-  CDN, so apps work offline.
+- Controls are Vue applications on a host carrying a Shiny input
+  binding; containers render as plain markup driven by bindings of their
+  own, so they can nest freely.
+- Element Plus is bundled in `inst/element-plus/` and Vue in
+  `inst/vue3/` rather than loaded from a CDN, so apps work offline.
 - `el_page(dev = TRUE)` loads Vue’s development build, which surfaces
   template warnings in the browser console.

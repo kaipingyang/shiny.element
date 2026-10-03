@@ -1,6 +1,6 @@
-# Element UI Checkbox Group
+# Element Plus Checkbox Group
 
-Creates an Element UI checkbox group with Vue instance, supporting
+Creates an Element Plus checkbox group with Vue instance, supporting
 individual checkboxes or button-style variants.
 
 ## Usage
@@ -29,6 +29,11 @@ el_checkbox_group(
   slots = NULL,
   value = NULL,
   options = NULL,
+  aria_label = NULL,
+  props = NULL,
+  tag = NULL,
+  type = NULL,
+  validate_event = NULL,
   session = NULL
 )
 ```
@@ -57,7 +62,7 @@ el_checkbox_group(
 
 - size:
 
-  Size for button style only: `"medium"`, `"small"`, `"mini"`.
+  `"large"`, `"default"` or `"small"`.
 
 - min:
 
@@ -135,6 +140,29 @@ el_checkbox_group(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- aria_label:
+
+  Native `aria-label` attribute. Element Plus's `aria-label` (string).
+
+- props:
+
+  Configuration options. Element Plus's `props`
+  (`{ value?: string, label?: string, disabled?: string}`).
+
+- tag:
+
+  Element tag of the checkbox group. Element Plus's `tag` (string).
+
+- type:
+
+  Component type to render options (e.g. `'button'`). Element Plus's
+  `type` ('checkbox' \| 'button').
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
 - session:
 
   Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
@@ -157,11 +185,11 @@ el_checkbox_group(
 )
 #> <div id="cb1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cb1_container" style="display: contents">
-#>   <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+#>   <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
 #>     <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
 #>   </el-checkbox-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('cb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}],"disabled":false,"size":null,"min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('cb1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
 
 if (interactive()) {

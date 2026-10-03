@@ -1,4 +1,4 @@
-# Update Element UI Infinite Scroll
+# Update Element Plus Infinite Scroll
 
 Server-side update for
 [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md).

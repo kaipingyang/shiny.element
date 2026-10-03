@@ -1,90 +1,158 @@
 # Descriptions
 
-Display multiple fields in list form. `items` is a named vector or list
-– names the labels – or a list of `list(label =, content =)`.
+Display multiple fields in list form.
 
 ## Basic usage
 
 ``` r
 
-el_descriptions("user", title = "User Info", items = c(
-  Username = "kooriookami", Telephone = "18100000000", Place = "Suzhou",
-  Remarks = "School", Address = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou"))
+el_descriptions("desc", title = "User Info", items = list(
+  list(label = "Username", content = "kooriookami"),
+  list(label = "Telephone", content = "18100000000"),
+  list(label = "Place", content = "Suzhou"),
+  list(label = "Remarks", content = el_tag("desc_tag", "School", size = "small")),
+  list(label = "Address", content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province")))
 ```
 
 ## Sizes
 
 ``` r
 
-info <- c(Username = "kooriookami", Telephone = "18100000000", Place = "Suzhou")
-el_descriptions("d1", title = "Default", border = TRUE, items = info)
-el_descriptions("d2", title = "Medium", border = TRUE, size = "medium", items = info)
-el_descriptions("d3", title = "Small", border = TRUE, size = "small", items = info)
-el_descriptions("d4", title = "Mini", border = TRUE, size = "mini", items = info)
+items <- list(
+  list(label = tagList(el_icon("User"), " Username"), content = "kooriookami"),
+  list(label = tagList(el_icon("Iphone"), " Telephone"), content = "18100000000"),
+  list(label = tagList(el_icon("Location"), " Place"), content = "Suzhou"),
+  list(label = tagList(el_icon("OfficeBuilding"), " Address"),
+       content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"))
+tagList(lapply(c("large", "default", "small"), function(s)
+  el_descriptions(paste0("desc_", s), title = paste("With border,", s), column = 3,
+                  size = s, border = TRUE, items = items)))
 ```
 
-## Vertical list
+## Vertical List
 
 ``` r
 
-el_descriptions("v1", title = "Vertical list with border", direction = "vertical",
-                column = 4, border = TRUE, items = c(
-  Username = "kooriookami", Telephone = "18100000000", Place = "Suzhou", Remarks = "School"))
-```
-
-## Customized style
-
-Each item may carry `label_style`, `content_style`, `span` and class
-names; a `content` may be a component.
-
-``` r
-
-el_descriptions("st", title = "Customized style", border = TRUE, column = 3, items = list(
-  list(label = "Username", content = "kooriookami",
-       label_style = list(width = "120px"), content_style = list(color = "#409EFF")),
+el_descriptions("desc_v", title = "Vertical list with border", direction = "vertical",
+  column = 4, border = TRUE, items = list(
+  list(label = "Username", content = "kooriookami"),
   list(label = "Telephone", content = "18100000000"),
-  list(label = "Remarks", content = el_tag("school", "School", size = "small")),
-  list(label = "Address", content = "No.1188, Wuzhong Avenue", span = 3)))
+  list(label = "Place", content = "Suzhou", span = 2),
+  list(label = "Remarks", content = el_tag("desc_tag_v", "School", size = "small")),
+  list(label = "Address", content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province")))
+```
+
+## Rowspan
+
+``` r
+
+el_descriptions("desc_rs", title = "Width horizontal list", border = TRUE, items = list(
+  list(label = "Photo", rowspan = 2, width = 140, align = "center", content = el_image(
+    src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
+    alt = "A hamburger", fit = "cover", width = "100px")),
+  list(label = "Username", content = "kooriookami"),
+  list(label = "Place", content = "Suzhou"),
+  list(label = "Address", content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province")))
+```
+
+## Customized Style
+
+``` r
+
+tagList(
+  tags$style(".my-label { background: var(--el-color-success-light-9) !important; }
+              .my-content { background: var(--el-color-danger-light-9); }"),
+  el_descriptions("desc_style", title = "Customized style list", column = 3, border = TRUE, items = list(
+    list(label = "Username", label_align = "right", align = "center", label_class_name = "my-label",
+         class_name = "my-content", width = "150px", content = "kooriookami"),
+    list(label = "Telephone", label_align = "right", align = "center", content = "18100000000"),
+    list(label = "Place", label_align = "right", align = "center", content = "Suzhou"))))
 ```
 
 ## API
+
+Element Plus’s tables, and beside each entry where it is in R.
 
 ### Descriptions Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `border` | `border` | with or without border | boolean | — | false |
-| `column` | `column` | numbers of `Descriptions Item` in one line | number | — | 3 |
-| `direction` | `direction` | direction of list | string | vertical / horizontal | horizontal |
-| `size` | `size` | size of list | string | medium / small / mini | — |
-| `title` | `title` | title text, display on the top left | string | — | — |
-| `extra` | `extra` | extra text, display on the top right | string | — | — |
-| `colon` | `colon` | change default props colon value of Descriptions Item | boolean | — | true |
-| `labelClassName` | `label_class_name` | custom label class name | string | — | — |
-| `contentClassName` | `content_class_name` | custom content class name | string | — | — |
-| `labelStyle` | `label_style` | custom label style | object | — | — |
-| `contentStyle` | `content_style` | custom content style | object | — | — |
+| `border` | `border` | with or without border | [^1] |  | false |
+| `column` | `column` | numbers of `Descriptions Item` in one line | [^2] |  | 3 |
+| `direction` | `direction` | direction of list | [^3]`'vertical' \\| 'horizontal'` |  | horizontal |
+| `size` | `size` | size of list | [^4]`'' \\| 'large' \\| 'default' \\| 'small'` |  | — |
+| `title` | `title` | title text, display on the top left | [^5] |  | ’’ |
+| `extra` | `extra` | extra text, display on the top right | [^6] |  | ’’ |
+| `label-width` | `label_width` | label width of every column | [^7] / [^8] |  | — |
 
 ### Descriptions Slots
 
 | Element | In R | Description |
 |----|----|----|
+| `default` | default content | customize default content |
 | `title` | `slots = list(title = )` | custom title, display on the top left |
 | `extra` | `slots = list(extra = )` | custom extra area, display on the top right |
 
-### Descriptions Item Attributes
+### DescriptionsItem Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `label` | item field `label` | label text | string | — | — |
-| `span` | field `span` of each of `items` | colspan of column | number | — | 1 |
-| `labelClassName` | `label_class_name` | custom label class name | string | — | — |
-| `contentClassName` | `content_class_name` | custom content class name | string | — | — |
-| `labelStyle` | `label_style` | custom label style | object | — | — |
-| `contentStyle` | `content_style` | custom content style | object | — | — |
+| `label` | item field `label` | label text | [^9] |  | ’’ |
+| `span` | field `span` of each of `items` | colspan of column | [^10] |  | 1 |
+| `rowspan` | field `rowspan` of each of `items` | the number of rows a cell should span | [^11] |  | 1 |
+| `width` | `width` | column width, the width of the same column in different rows is set by the max value (If no `border`, width contains label and content) | [^12] / [^13] |  | ’’ |
+| `min-width` | field `min_width` of each of `items` | column minimum width, columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion (If no`border`, width contains label and content) | [^14] / [^15] |  | ’’ |
+| `label-width` | `label_width` | column label width, if not set, it will be the same as the width of the column. Higher priority than the `label-width` of `Descriptions` | [^16] / [^17] |  | — |
+| `align` | field `align` of each of `items` | column content alignment (If no `border`, effective for both label and content) | [^18]`'left' \\| 'center' \\| 'right'` |  | left |
+| `label-align` | field `label_align` of each of `items` | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute) | [^19]`'left' \\| 'center' \\| 'right'` |  | — |
+| `class-name` | field `class_name` of each of `items` | column content custom class name | [^20] |  | ’’ |
+| `label-class-name` | field `label_class_name` of each of `items` | column label custom class name | [^21] |  | ’’ |
 
-### Descriptions Item Slots
+### DescriptionsItem Slots
 
-| Element | In R                     | Description  |
-|---------|--------------------------|--------------|
-| `label` | `slots = list(label = )` | custom label |
+| Element   | In R                     | Description               |
+|-----------|--------------------------|---------------------------|
+| `default` | default content          | customize default content |
+| `label`   | `slots = list(label = )` | custom label              |
+
+[^1]: boolean
+
+[^2]: number
+
+[^3]: enum
+
+[^4]: enum
+
+[^5]: string
+
+[^6]: string
+
+[^7]: string
+
+[^8]: number
+
+[^9]: string
+
+[^10]: number
+
+[^11]: number
+
+[^12]: string
+
+[^13]: number
+
+[^14]: string
+
+[^15]: number
+
+[^16]: string
+
+[^17]: number
+
+[^18]: enum
+
+[^19]: enum
+
+[^20]: string
+
+[^21]: string

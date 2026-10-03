@@ -1,6 +1,6 @@
-# Collapse Handler Dependency Languages Element UI can use for its built-in text
+# Collapse Handler Dependency Languages Element Plus can use for its built-in text
 
-Collapse Handler Dependency Languages Element UI can use for its
+Collapse Handler Dependency Languages Element Plus can use for its
 built-in text
 
 ## Usage
@@ -19,13 +19,12 @@ which can be passed as `locale` to
 
 ``` r
 el_locales()
-#>  [1] "af-ZA"   "ar"      "az"      "bg"      "bn"      "ca"      "cs-CZ"  
-#>  [8] "da"      "de"      "ee"      "el"      "en"      "eo"      "es"     
-#> [15] "eu"      "fa"      "fi"      "fr"      "he"      "hr"      "hu"     
-#> [22] "hy-AM"   "id"      "is"      "it"      "ja"      "kg"      "km"     
-#> [29] "ko"      "ku"      "kz"      "lt"      "lv"      "mn"      "ms"     
-#> [36] "nb-NO"   "nl"      "pl"      "pt"      "pt-br"   "ro"      "ru-RU"  
-#> [43] "si"      "sk"      "sl"      "sr"      "sr-Latn" "sv-SE"   "sw"     
-#> [50] "ta"      "th"      "tk"      "tr-TR"   "ua"      "ug-CN"   "uz-UZ"  
-#> [57] "vi"      "zh-CN"   "zh-TW"  
+#>  [1] "af"    "ar"    "ar-eg" "az"    "bg"    "bn"    "ca"    "ckb"   "cs"   
+#> [10] "da"    "de"    "el"    "en"    "eo"    "es"    "et"    "eu"    "fa"   
+#> [19] "fi"    "fr"    "he"    "hi"    "hr"    "hu"    "hy-am" "id"    "it"   
+#> [28] "ja"    "kk"    "km"    "ko"    "ku"    "ky"    "lo"    "lt"    "lv"   
+#> [37] "mg"    "mn"    "ms"    "my"    "nb-no" "nl"    "no"    "pa"    "pl"   
+#> [46] "pt"    "pt-br" "ro"    "ru"    "sk"    "sl"    "sr"    "sv"    "sw"   
+#> [55] "ta"    "te"    "th"    "tk"    "tr"    "ug-cn" "uk"    "uz-uz" "vi"   
+#> [64] "zh-cn" "zh-hk" "zh-mo" "zh-tw"
 ```

@@ -1,8 +1,8 @@
-# Element UI Form
+# Element Plus Form
 
-A form that owns its state, the way Element UI intends: one Vue instance
-holding a `model` of all field values plus the validation rules, with
-async-validator running them on blur or change.
+A form that owns its state, the way Element Plus intends: one Vue
+instance holding a `model` of all field values plus the validation
+rules, with async-validator running them on blur or change.
 
 ## Usage
 
@@ -23,6 +23,9 @@ el_form(
   hide_required_asterisk = NULL,
   label_suffix = NULL,
   validate_on_rule_change = NULL,
+  require_asterisk_position = NULL,
+  scroll_into_view_options = NULL,
+  scroll_to_error = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -54,7 +57,8 @@ el_form(
 
 - size:
 
-  Control size: `"medium"`, `"small"` or `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - submit_label:
 
@@ -93,6 +97,22 @@ el_form(
 - validate_on_rule_change:
 
   Whether changing the rules triggers validation immediately.
+
+- require_asterisk_position:
+
+  Position of asterisk. Element Plus's `require-asterisk-position`
+  ('left' \| 'right').
+
+- scroll_into_view_options:
+
+  When validation fails, it scrolls to the first error item based on the
+  scrollIntoView option. scrollIntoView. Element Plus's
+  `scroll-into-view-options` (ScrollIntoViewOptions / boolean).
+
+- scroll_to_error:
+
+  When validation fails, scroll to the first error form entry. Element
+  Plus's `scroll-to-error` (boolean).
 
 - width:
 
@@ -172,12 +192,12 @@ el_form(
 )
 #> <div id="signup" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="signup_container" style="display: contents">
-#>   <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate">
-#>     <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
+#>   <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" :require-asterisk-position="requireAsteriskPosition === null ? undefined : requireAsteriskPosition" :scroll-into-view-options="scrollIntoViewOptions === null ? undefined : scrollIntoViewOptions" :scroll-to-error="scrollToError === null ? undefined : scrollToError">
+#>     <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage" :label-position="f.labelPosition" :validate-status="f.validateStatus" :for="f.for"><template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template v-slot:error="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
 #>     <el-form-item><el-button type="primary" @click="handleSubmit">{{ submitLabel }}</el-button></el-form-item>
 #>   </el-form>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","age":18,"city":""},"rules":{"name":[{"required":true,"message":"Name is required","trigger":"blur"}],"city":[{"required":true,"message":"Pick a city","trigger":"change"}]},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"age","label":"Age","tag":"el-input-number","props":{"min":0,"max":150}},{"prop":"city","label":"City","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Beijing","value":"bj","text":""},{"label":"Shanghai","value":"sh","text":""}]}],"labelWidth":"100px","labelPosition":"right","inline":false,"submitLabel":"Submit","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('signup', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"signup\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"signup\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","age":18,"city":""},"rules":{"name":[{"required":true,"message":"Name is required","trigger":"blur"}],"city":[{"required":true,"message":"Pick a city","trigger":"change"}]},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"age","label":"Age","tag":"el-input-number","props":{"min":0,"max":150}},{"prop":"city","label":"City","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Beijing","value":"bj","text":""},{"label":"Shanghai","value":"sh","text":""}]}],"labelWidth":"100px","labelPosition":"right","inline":false,"submitLabel":"Submit","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null,"requireAsteriskPosition":null,"scrollIntoViewOptions":null,"scrollToError":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('signup', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"signup\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"signup\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.model[k] = d.model[k]; }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.fields[i].error = d['.errors'][k] || ''; }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
 #> </div>
 
 if (interactive()) {

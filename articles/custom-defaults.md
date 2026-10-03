@@ -1,0 +1,59 @@
+# Custom Defaults
+
+Element Plus sets some defaults for every component – their size, where
+popups start stacking – when it is installed, and others for part of a
+page through `el-config-provider`.
+
+## Global
+
+`el_page(size =, z_index =)` passes both to
+`app.use(ElementPlus, { size, zIndex })` for every component on the
+page. `size` is `"large"`, `"default"` or `"small"`; a component’s own
+`size` overrides it.
+
+``` r
+
+ui <- el_page(size = "small",
+  el_button("a", "Small by default"), el_button("b", "Large", size = "large"),
+  el_input("c", placeholder = "Small too", width = "200px"))
+
+shinyApp(ui, function(input, output, session) {})
+```
+
+![The global example, running](../shots/custom-defaults-global.png)
+
+`use_element(size =, z_index =)` does the same on a page that is not an
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
+
+## ConfigProvider
+
+[`el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md)
+sets defaults for the components it holds: `size`, and Element Plus’s
+settings for buttons, links, dialogs and messages.
+
+``` r
+
+tagList(
+  el_config_provider(size = "large", button = list(autoInsertSpace = TRUE),
+    el_button("d", "确定", type = "primary"), el_button("e", "Large")),
+  tags$div(style = "margin-top: 12px",
+    el_button("f", "确定", type = "primary"), el_button("g", "Default")))
+```
+
+`message = list(max = 3)` caps how many messages show at once:
+
+``` r
+
+ui <- el_page(el_config_provider(message = list(max = 3),
+  el_button("toast", "Message")))
+
+server <- function(input, output, session) {
+  observeEvent(input$toast, el_message(message = paste("At", format(Sys.time(), "%X"))))
+}
+```
+
+## Responsive classes
+
+Element Plus’s `display.css` – `hidden-xs-only`, `hidden-md-and-up` and
+the rest – is loaded with it, for any tag:
+`tags$div(class = "hidden-sm-and-down", ...)`.

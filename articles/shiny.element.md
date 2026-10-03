@@ -1,10 +1,10 @@
 # Get started
 
-shiny.element brings Element UI 2.15.14 – its inputs, tables, trees,
+shiny.element brings Element Plus 2.14.7 – its inputs, tables, trees,
 menus, dialogs and the rest – to Shiny. Each component reports through
 `input$<id>` and is updated from the server, like any other Shiny input.
-Element UI and Vue 2.7 ship inside the package, so an app needs no
-network.
+Element Plus, its icons and Vue 3.5 ship inside the package, so an app
+needs no network.
 
 ## Installation
 
@@ -18,7 +18,8 @@ remotes::install_github("kaipingyang/shiny.element")
 ## Quick start
 
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
-is the page: it loads Vue and Element and gives the page Element’s look.
+is the page: it loads Vue and Element Plus and gives the page Element
+Plus’s look.
 
 ``` r
 
@@ -96,7 +97,10 @@ server <- function(input, output, session) {
   shinyvalidate, dates.
 - **Shiny integration** – events, methods, modules, bookmarking,
   shinyjs, data from the server, components of your own.
-- **Theming, sizes and languages** – Element’s colours and variables
-  from the page’s theme, sizes, locales.
+- **Theming**, **Internationalization**, **Dark Mode**, **Custom
+  Defaults**, **Built-in Transitions** – as in Element Plus’s own guide,
+  from R.
+- **Migration from Element UI** – what changed from shiny.element’s Vue
+  2 release.
 - **What works, and what does not** – where this differs from Element in
   a browser.

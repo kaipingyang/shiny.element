@@ -1,8 +1,8 @@
-# Element UI Slider Component
+# Element Plus Slider Component
 
-Creates an Element UI slider with Vue instance, supporting single value
-and range modes, marks, vertical orientation, and optional numeric input
-box.
+Creates an Element Plus slider with Vue instance, supporting single
+value and range modes, marks, vertical orientation, and optional numeric
+input box.
 
 ## Usage
 
@@ -22,7 +22,6 @@ el_slider(
   height = NULL,
   marks = NULL,
   label = NULL,
-  debounce = NULL,
   input_size = NULL,
   show_input_controls = NULL,
   tooltip_class = NULL,
@@ -34,6 +33,14 @@ el_slider(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  aria_label = NULL,
+  format_value_text = NULL,
+  persistent = NULL,
+  placement = NULL,
+  range_end_label = NULL,
+  range_start_label = NULL,
+  size = NULL,
+  validate_event = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -106,11 +113,6 @@ el_slider(
   name too – tied to it with `for` where the component has a native
   input that takes the id `<id>-input`, else with `aria-labelledby`.
 
-- debounce:
-
-  Debounce in ms while dragging, when `show_input = TRUE`. Default
-  `300`.
-
 - input_size:
 
   Size of the companion input when `show_input = TRUE`.
@@ -162,6 +164,45 @@ el_slider(
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
 
+- aria_label:
+
+  Native `aria-label` attribute. Element Plus's `aria-label` (string).
+
+- format_value_text:
+
+  Format to display the `aria-valuenow` attribute for screen readers.
+  Element Plus's `format-value-text` ((value: number) =\> string).
+
+- persistent:
+
+  When slider tooltip inactive and `persistent` is `false` , tooltip
+  will be destroyed. `persistent` always be `false` when `show-tooltip `
+  is `false`. Element Plus's `persistent` (boolean).
+
+- placement:
+
+  Position of Tooltip. Element Plus's `placement` (enum).
+
+- range_end_label:
+
+  When `range` is true, screen reader label for the end of the range.
+  Element Plus's `range-end-label` (string).
+
+- range_start_label:
+
+  When `range` is true, screen reader label for the start of the range.
+  Element Plus's `range-start-label` (string).
+
+- size:
+
+  Size of the slider wrapper, will not work in vertical mode. Element
+  Plus's `size` (” \| 'large' \| 'default' \| 'small').
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -197,18 +238,18 @@ An `htmltools` tagList with a Vue-managed slider component.
 el_slider("slider1", value = 30, min = 0, max = 100)
 #> <div id="slider1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slider1_container" style="display: contents">
-#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
+#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":30,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('slider1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":30,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('slider1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #> </div>
 
 # Range slider
 el_slider("slider2", value = c(20, 80), range = TRUE)
 #> <div id="slider2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slider2_container" style="display: contents">
-#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
+#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[20,80],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('slider2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[20,80],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('slider2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #> </div>
 
 # Vertical slider with marks
@@ -216,9 +257,9 @@ el_slider("slider3", value = 50, vertical = TRUE, height = "200px",
           marks = list("0" = "0km", "50" = "50km", "100" = "100km"))
 #> <div id="slider3" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="slider3_container" style="display: contents">
-#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
+#>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":{"0":"0km","50":"50km","100":"100km"},"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('slider3', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":{"0":"0km","50":"50km","100":"100km"},"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('slider3', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

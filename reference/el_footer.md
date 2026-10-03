@@ -1,6 +1,6 @@
-# Element UI Footer
+# Element Plus Footer
 
-Element UI Footer
+Element Plus Footer
 
 ## Usage
 
@@ -16,7 +16,7 @@ el_footer(..., height = "60px", style = NULL, class = NULL)
 
 - height:
 
-  Footer height. Defaults to `"60px"`, as in Element UI, which sets it
+  Footer height. Defaults to `"60px"`, as in Element Plus, which sets it
   inline rather than through the stylesheet.
 
 - style:

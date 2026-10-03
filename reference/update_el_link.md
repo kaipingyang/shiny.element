@@ -1,4 +1,4 @@
-# Update Element UI Link
+# Update Element Plus Link
 
 Server-side update for an
 [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)

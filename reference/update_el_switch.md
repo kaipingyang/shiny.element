@@ -1,4 +1,4 @@
-# Update Element UI Switch
+# Update Element Plus Switch
 
 Server-side update for
 [`el_switch()`](https://kaipingyang.github.io/shiny.element/reference/el_switch.md).

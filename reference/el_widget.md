@@ -32,7 +32,8 @@ el_widget(
   required = FALSE,
   error = NULL,
   show_message = TRUE,
-  inline_message = FALSE
+  inline_message = FALSE,
+  props = NULL
 )
 ```
 
@@ -60,7 +61,7 @@ el_widget(
 - dependency:
 
   htmlDependency objects to attach. Outside this package pass
-  [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md),
+  [`element_plus_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_plus_dependency.md),
   unless the page already loads it through
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   or
@@ -152,6 +153,12 @@ el_widget(
 
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
+
+- props:
+
+  Optional props from
+  [`.el_props()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_props.md):
+  bound on the root tag of `markup`, with their fields added to `data`.
 
 ## Value
 

@@ -1,4 +1,4 @@
-# Update Element UI Back to Top
+# Update Element Plus Back to Top
 
 Server-side update for
 [`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md).

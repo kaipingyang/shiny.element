@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="image_files/vue-2.7.14/vue.min.js"></script><link href="image_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="image_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="image_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="image_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="image_files/el-events-1.0.0/el-events.js"></script><script src="image_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="image_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="image_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="image_files/vue-3.5.43/vue.global.prod.js"></script><link href="image_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="image_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="image_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="image_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="image_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="image_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="image_files/el-events-1.0.0/el-events.js"></script><script src="image_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="image_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,59 +187,59 @@
 
     
     
-<p>Besides the native features of an img, lazy loading, a custom
-placeholder and failed content, and a full-screen preview.</p>
+<p>Besides the native features of img, support lazy load, custom
+placeholder and load failure, etc.</p>
 <div class="section level2">
-<h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
+<h2 id="basic-usage">Basic Usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
-<p><code>fit</code> is how the image fits its box, as CSS
-<code>object-fit</code>.</p>
+<p>Indicate how the image should be resized to fit its container by
+<code>fit</code>, same as native <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit" class="external-link">object-fit</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fill"</span>, <span class="st">"contain"</span>, <span class="st">"cover"</span>, <span class="st">"none"</span>, <span class="st">"scale-down"</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 20px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">fits</span>, <span class="kw">function</span><span class="op">(</span><span class="va">f</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="st">"text-align: center; font-size: 13px; color: #8492a6"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">f</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"img_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">f</span><span class="op">)</span><span class="op">)</span>, src <span class="op">=</span> <span class="st">"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"</span>, fit <span class="op">=</span> <span class="va">f</span>,</span>
-<span>                        width <span class="op">=</span> <span class="st">"100px"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 20px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fill"</span>, <span class="st">"contain"</span>, <span class="st">"cover"</span>, <span class="st">"none"</span>, <span class="st">"scale-down"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"text-align: center"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="va">f</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">url</span>, fit <span class="op">=</span> <span class="va">f</span>, alt <span class="op">=</span> <span class="va">f</span>, width <span class="op">=</span> <span class="st">"100px"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; gap: 20px">
-    <div style="text-align: center; font-size: 13px; color: #8492a6">
-      <div>fill</div>
-      <div id="basic-img_fill" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-img_fill_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100px"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"fill","alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-img_fill', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-img_fill', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+    <div style="text-align: center">
+      <div class="demonstration">fill</div>
+      <div id="basic-usage-el_image_a7019493-1306-4e26-82a3-c3ece0276b52" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_image_a7019493-1306-4e26-82a3-c3ece0276b52_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"fill","alt":"fill","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-usage-el_image_a7019493-1306-4e26-82a3-c3ece0276b52', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-usage-el_image_a7019493-1306-4e26-82a3-c3ece0276b52', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('basic-usage-el_image_a7019493-1306-4e26-82a3-c3ece0276b52', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('basic-usage-el_image_a7019493-1306-4e26-82a3-c3ece0276b52', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('basic-usage-el_image_a7019493-1306-4e26-82a3-c3ece0276b52', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
     </div>
-    <div style="text-align: center; font-size: 13px; color: #8492a6">
-      <div>contain</div>
-      <div id="basic-img_contain" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-img_contain_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100px"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"contain","alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-img_contain', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-img_contain', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+    <div style="text-align: center">
+      <div class="demonstration">contain</div>
+      <div id="basic-usage-el_image_a307c935-43b7-4476-a5f6-fc7ddae6df37" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_image_a307c935-43b7-4476-a5f6-fc7ddae6df37_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"contain","alt":"contain","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-usage-el_image_a307c935-43b7-4476-a5f6-fc7ddae6df37', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-usage-el_image_a307c935-43b7-4476-a5f6-fc7ddae6df37', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('basic-usage-el_image_a307c935-43b7-4476-a5f6-fc7ddae6df37', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('basic-usage-el_image_a307c935-43b7-4476-a5f6-fc7ddae6df37', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('basic-usage-el_image_a307c935-43b7-4476-a5f6-fc7ddae6df37', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
     </div>
-    <div style="text-align: center; font-size: 13px; color: #8492a6">
-      <div>cover</div>
-      <div id="basic-img_cover" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-img_cover_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100px"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"cover","alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-img_cover', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-img_cover', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+    <div style="text-align: center">
+      <div class="demonstration">cover</div>
+      <div id="basic-usage-el_image_59e4ec69-2f23-44c7-91ff-e637ae59f276" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_image_59e4ec69-2f23-44c7-91ff-e637ae59f276_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"cover","alt":"cover","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-usage-el_image_59e4ec69-2f23-44c7-91ff-e637ae59f276', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-usage-el_image_59e4ec69-2f23-44c7-91ff-e637ae59f276', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('basic-usage-el_image_59e4ec69-2f23-44c7-91ff-e637ae59f276', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('basic-usage-el_image_59e4ec69-2f23-44c7-91ff-e637ae59f276', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('basic-usage-el_image_59e4ec69-2f23-44c7-91ff-e637ae59f276', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
     </div>
-    <div style="text-align: center; font-size: 13px; color: #8492a6">
-      <div>none</div>
-      <div id="basic-img_none" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-img_none_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100px"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"none","alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-img_none', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-img_none', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+    <div style="text-align: center">
+      <div class="demonstration">none</div>
+      <div id="basic-usage-el_image_918d86fa-02cd-4abf-a7f7-2f348249f067" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_image_918d86fa-02cd-4abf-a7f7-2f348249f067_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"none","alt":"none","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-usage-el_image_918d86fa-02cd-4abf-a7f7-2f348249f067', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-usage-el_image_918d86fa-02cd-4abf-a7f7-2f348249f067', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('basic-usage-el_image_918d86fa-02cd-4abf-a7f7-2f348249f067', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('basic-usage-el_image_918d86fa-02cd-4abf-a7f7-2f348249f067', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('basic-usage-el_image_918d86fa-02cd-4abf-a7f7-2f348249f067', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
     </div>
-    <div style="text-align: center; font-size: 13px; color: #8492a6">
-      <div>scale-down</div>
-      <div id="basic-img_scale_down" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-img_scale_down_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100px"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"scale-down","alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-img_scale_down', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-img_scale_down', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+    <div style="text-align: center">
+      <div class="demonstration">scale-down</div>
+      <div id="basic-usage-el_image_187ed4e2-4a5b-49e7-902f-6895c1d171a6" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_image_187ed4e2-4a5b-49e7-902f-6895c1d171a6_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":"scale-down","alt":"scale-down","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('basic-usage-el_image_187ed4e2-4a5b-49e7-902f-6895c1d171a6', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('basic-usage-el_image_187ed4e2-4a5b-49e7-902f-6895c1d171a6', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('basic-usage-el_image_187ed4e2-4a5b-49e7-902f-6895c1d171a6', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('basic-usage-el_image_187ed4e2-4a5b-49e7-902f-6895c1d171a6', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('basic-usage-el_image_187ed4e2-4a5b-49e7-902f-6895c1d171a6', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
     </div>
   </div>
@@ -214,105 +248,219 @@ placeholder and failed content, and a full-screen preview.</p>
 <div class="section level2">
 <h2 id="placeholder">Placeholder<a class="anchor" aria-label="anchor" href="#placeholder"></a>
 </h2>
+<p>Custom placeholder content when image hasn’t loaded yet by
+<code>slot = placeholder</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="st">"ph"</span>, src <span class="op">=</span> <span class="st">"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"</span>, width <span class="op">=</span> <span class="st">"200px"</span>,</span>
-<span>         slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>placeholder <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Loading"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"dot"</span>, <span class="st">"..."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">src</span> <span class="op">&lt;-</span> <span class="st">"https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Default"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">src</span>, alt <span class="op">=</span> <span class="st">"Default"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Custom"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">src</span>, alt <span class="op">=</span> <span class="st">"Custom"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>placeholder <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"image-slot"</span>, <span class="st">"Loading"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"dot"</span>, <span class="st">"..."</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="placeholder-ph" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="placeholder-ph_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 200px">
-    <template slot="placeholder">
-      <div>
+  <div style="display: flex; gap: 40px">
+    <div>
+      <div class="demonstration">Default</div>
+      <div id="placeholder-el_image_6a9dbb58-ee0f-406a-9d59-f77f916eaf34" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placeholder-el_image_6a9dbb58-ee0f-406a-9d59-f77f916eaf34_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg","fit":null,"alt":"Default","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('placeholder-el_image_6a9dbb58-ee0f-406a-9d59-f77f916eaf34', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('placeholder-el_image_6a9dbb58-ee0f-406a-9d59-f77f916eaf34', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('placeholder-el_image_6a9dbb58-ee0f-406a-9d59-f77f916eaf34', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('placeholder-el_image_6a9dbb58-ee0f-406a-9d59-f77f916eaf34', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('placeholder-el_image_6a9dbb58-ee0f-406a-9d59-f77f916eaf34', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+    </div>
+    <div>
+      <div class="demonstration">Custom</div>
+      <div id="placeholder-el_image_e013b238-5c8f-44ee-8c9f-a29b09a40f12" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="placeholder-el_image_e013b238-5c8f-44ee-8c9f-a29b09a40f12_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate">
+    <template v-slot:placeholder>
+      <div class="image-slot">
         Loading
         <span class="dot">...</span>
       </div>
     </template>
   </el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('placeholder-ph', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('placeholder-ph', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg","fit":null,"alt":"Custom","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('placeholder-el_image_e013b238-5c8f-44ee-8c9f-a29b09a40f12', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('placeholder-el_image_e013b238-5c8f-44ee-8c9f-a29b09a40f12', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('placeholder-el_image_e013b238-5c8f-44ee-8c9f-a29b09a40f12', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('placeholder-el_image_e013b238-5c8f-44ee-8c9f-a29b09a40f12', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('placeholder-el_image_e013b238-5c8f-44ee-8c9f-a29b09a40f12', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
+    </div>
+  </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="load-failed">Load failed<a class="anchor" aria-label="anchor" href="#load-failed"></a>
+<h2 id="load-failed">Load Failed<a class="anchor" aria-label="anchor" href="#load-failed"></a>
 </h2>
+<p>Custom failed content when error occurs to image load by
+<code>slot = error</code> and <code>slot = viewer-error</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="st">"broken"</span>, src <span class="op">=</span> <span class="st">"no-such-image.png"</span>, width <span class="op">=</span> <span class="st">"200px"</span>,</span>
-<span>         slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>error <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; justify-content: center; align-items: center; height: 120px; background: #f5f7fa; color: #909399"</span>,</span>
-<span>                                       <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"picture-outline"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 8px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>alt <span class="op">=</span> <span class="st">"Default"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>alt <span class="op">=</span> <span class="st">"Custom"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>error <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"image-slot"</span>, <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Picture"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="failed-broken" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="failed-broken_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 200px">
-    <template slot="error">
-      <div style="display: flex; justify-content: center; align-items: center; height: 120px; background: #f5f7fa; color: #909399">
-        <i class="el-icon-picture-outline" aria-hidden="true" role="img"></i>
+  <div style="display: flex; gap: 8px">
+    <div id="load-failed-el_image_745cf1cd-ff94-4613-a35b-42d5cab9f36a" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="load-failed-el_image_745cf1cd-ff94-4613-a35b-42d5cab9f36a_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":null,"fit":null,"alt":"Default","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('load-failed-el_image_745cf1cd-ff94-4613-a35b-42d5cab9f36a', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('load-failed-el_image_745cf1cd-ff94-4613-a35b-42d5cab9f36a', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('load-failed-el_image_745cf1cd-ff94-4613-a35b-42d5cab9f36a', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('load-failed-el_image_745cf1cd-ff94-4613-a35b-42d5cab9f36a', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('load-failed-el_image_745cf1cd-ff94-4613-a35b-42d5cab9f36a', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+    <div id="load-failed-el_image_0267513c-b36c-4214-987a-564425af604e" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="load-failed-el_image_0267513c-b36c-4214-987a-564425af604e_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate">
+    <template v-slot:error>
+      <div class="image-slot">
+        <i class="el-icon" data-el-icon="Picture" aria-hidden="true" role="img"></i>
       </div>
     </template>
   </el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"no-such-image.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('failed-broken', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('failed-broken', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="lazy-load">Lazy load<a class="anchor" aria-label="anchor" href="#lazy-load"></a>
-</h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"pics"</span>, style <span class="op">=</span> <span class="st">"height: 300px; overflow-y: auto"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"lazy"</span>, <span class="va">i</span><span class="op">)</span>, src <span class="op">=</span> <span class="st">"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, scroll_container <span class="op">=</span> <span class="st">"#pics"</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="pics" style="height: 300px; overflow-y: auto">
-    <div id="lazy-lazy1" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="lazy-lazy1_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100%"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":true,"scrollContainer":"#pics","previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-lazy1', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-lazy1', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
-</div>
-    <div id="lazy-lazy2" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="lazy-lazy2_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100%"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":true,"scrollContainer":"#pics","previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-lazy2', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-lazy2', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
-</div>
-    <div id="lazy-lazy3" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="lazy-lazy3_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100%"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":true,"scrollContainer":"#pics","previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-lazy3', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-lazy3', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
-</div>
-    <div id="lazy-lazy4" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="lazy-lazy4_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100%"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":true,"scrollContainer":"#pics","previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-lazy4', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-lazy4', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
-</div>
-    <div id="lazy-lazy5" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="lazy-lazy5_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100%"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":true,"scrollContainer":"#pics","previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-lazy5', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-lazy5', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
-</div>
-    <div id="lazy-lazy6" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="lazy-lazy6_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100%"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":true,"scrollContainer":"#pics","previewSrcList":null,"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-lazy6', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-lazy6', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":null,"fit":null,"alt":"Custom","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('load-failed-el_image_0267513c-b36c-4214-987a-564425af604e', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('load-failed-el_image_0267513c-b36c-4214-987a-564425af604e', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('load-failed-el_image_0267513c-b36c-4214-987a-564425af604e', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('load-failed-el_image_0267513c-b36c-4214-987a-564425af604e', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('load-failed-el_image_0267513c-b36c-4214-987a-564425af604e', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
   </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="image-preview">Image preview<a class="anchor" aria-label="anchor" href="#image-preview"></a>
+<h2 id="lazy-load">Lazy Load<a class="anchor" aria-label="anchor" href="#lazy-load"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="st">"pre"</span>, src <span class="op">=</span> <span class="st">"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"</span>, width <span class="op">=</span> <span class="st">"100px"</span>, preview_src_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="st">"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"</span>, <span class="st">"https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Native <code>loading</code> has been supported since 2.2.3, you can
+use <code>loading = "lazy"</code> to replace
+<code>lazy = true</code>.</p>
+<p>If the current browser supports native lazy loading, the native lazy
+loading will be used first, otherwise will be implemented through
+scroll.</p>
+</blockquote>
+<p>Use lazy load by <code>lazy = true</code>. Image will load until
+scroll into view when set. You can indicate scroll container that adds
+scroll listener to by <code>scroll-container</code>. If undefined, will
+be the nearest parent container whose overflow property is auto or
+scroll.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">urls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://fuss10.elemecdn.com/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"</span>,</span>
+<span>  <span class="st">"1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"</span>, <span class="st">"0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"</span>,</span>
+<span>  <span class="st">"9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 400px; overflow-y: auto"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">urls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">u</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">u</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, alt <span class="op">=</span> <span class="st">"lazy"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="preview-pre" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="preview-pre_container" style="display: contents">
-  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :referrer-policy="referrerPolicy === null ? undefined : referrerPolicy" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" style="width: 100px"></el-image>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":["https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg","https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg"],"zIndex":null,"referrerPolicy":null,"initialIndex":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('preview-pre', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('preview-pre', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError"]}</script>
+  <div style="height: 400px; overflow-y: auto">
+    <div id="lazy-load-el_image_6b0375a2-5b41-48cd-8a56-18ff9befed43" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="lazy-load-el_image_6b0375a2-5b41-48cd-8a56-18ff9befed43_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","fit":null,"alt":"lazy","lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-load-el_image_6b0375a2-5b41-48cd-8a56-18ff9befed43', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-load-el_image_6b0375a2-5b41-48cd-8a56-18ff9befed43', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('lazy-load-el_image_6b0375a2-5b41-48cd-8a56-18ff9befed43', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('lazy-load-el_image_6b0375a2-5b41-48cd-8a56-18ff9befed43', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('lazy-load-el_image_6b0375a2-5b41-48cd-8a56-18ff9befed43', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+    <div id="lazy-load-el_image_07b59192-738b-42dc-8e5b-33288fcd5a50" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="lazy-load-el_image_07b59192-738b-42dc-8e5b-33288fcd5a50_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg","fit":null,"alt":"lazy","lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-load-el_image_07b59192-738b-42dc-8e5b-33288fcd5a50', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-load-el_image_07b59192-738b-42dc-8e5b-33288fcd5a50', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('lazy-load-el_image_07b59192-738b-42dc-8e5b-33288fcd5a50', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('lazy-load-el_image_07b59192-738b-42dc-8e5b-33288fcd5a50', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('lazy-load-el_image_07b59192-738b-42dc-8e5b-33288fcd5a50', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+    <div id="lazy-load-el_image_f9d3dbfd-f434-4179-befe-02e8aae9f9c5" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="lazy-load-el_image_f9d3dbfd-f434-4179-befe-02e8aae9f9c5_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg","fit":null,"alt":"lazy","lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-load-el_image_f9d3dbfd-f434-4179-befe-02e8aae9f9c5', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-load-el_image_f9d3dbfd-f434-4179-befe-02e8aae9f9c5', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('lazy-load-el_image_f9d3dbfd-f434-4179-befe-02e8aae9f9c5', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('lazy-load-el_image_f9d3dbfd-f434-4179-befe-02e8aae9f9c5', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('lazy-load-el_image_f9d3dbfd-f434-4179-befe-02e8aae9f9c5', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+    <div id="lazy-load-el_image_2a706aff-15b7-4b69-a007-9a1ec5aa4da2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="lazy-load-el_image_2a706aff-15b7-4b69-a007-9a1ec5aa4da2_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg","fit":null,"alt":"lazy","lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('lazy-load-el_image_2a706aff-15b7-4b69-a007-9a1ec5aa4da2', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('lazy-load-el_image_2a706aff-15b7-4b69-a007-9a1ec5aa4da2', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('lazy-load-el_image_2a706aff-15b7-4b69-a007-9a1ec5aa4da2', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('lazy-load-el_image_2a706aff-15b7-4b69-a007-9a1ec5aa4da2', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('lazy-load-el_image_2a706aff-15b7-4b69-a007-9a1ec5aa4da2', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="image-preview">Image Preview<a class="anchor" aria-label="anchor" href="#image-preview"></a>
+</h2>
+<p>allow big image preview by setting <code>previewSrcList</code> prop.
+You can initialize the position of the first picture previewed by
+<code>initial-index</code>. The default initial position is 0.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"</span></span>
+<span><span class="va">src_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://fuss10.elemecdn.com/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"</span>,</span>
+<span>  <span class="st">"1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"</span>, <span class="st">"0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">url</span>, alt <span class="op">=</span> <span class="st">"preview"</span>, fit <span class="op">=</span> <span class="st">"cover"</span>, width <span class="op">=</span> <span class="st">"100px"</span>, zoom_rate <span class="op">=</span> <span class="fl">1.2</span>,</span>
+<span>         max_scale <span class="op">=</span> <span class="fl">7</span>, min_scale <span class="op">=</span> <span class="fl">0.2</span>, preview_src_list <span class="op">=</span> <span class="va">src_list</span>, initial_index <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="image-preview-el_image_c292ab16-6ca5-46da-9f70-b969ee314bb9" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="image-preview-el_image_c292ab16-6ca5-46da-9f70-b969ee314bb9_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","fit":"cover","alt":"preview","lazy":null,"scrollContainer":null,"previewSrcList":["https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg","https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"],"zIndex":null,"initialIndex":1,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":7,"minScale":0.2,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":1.2},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('image-preview-el_image_c292ab16-6ca5-46da-9f70-b969ee314bb9', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('image-preview-el_image_c292ab16-6ca5-46da-9f70-b969ee314bb9', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('image-preview-el_image_c292ab16-6ca5-46da-9f70-b969ee314bb9', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('image-preview-el_image_c292ab16-6ca5-46da-9f70-b969ee314bb9', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('image-preview-el_image_c292ab16-6ca5-46da-9f70-b969ee314bb9', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="manually-open-preview">Manually Open Preview<a class="anchor" aria-label="anchor" href="#manually-open-preview"></a>
+</h2>
+<p><code>el_call(session, "pic", "showPreview")</code> opens the preview
+from the server; <code><a href="../../reference/el_image_viewer.html">el_image_viewer()</a></code> is the viewer alone,
+opened with <code><a href="../../reference/update_el_image_viewer.html">update_el_image_viewer()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span><span class="st">"pic"</span>, src <span class="op">=</span> <span class="va">url</span>, alt <span class="op">=</span> <span class="st">"preview"</span>, width <span class="op">=</span> <span class="st">"100px"</span>, preview_src_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_image_viewer.html">el_image_viewer</a></span><span class="op">(</span><span class="st">"viewer"</span>, url_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="manually-preview-pic" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="manually-preview-pic_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","fit":null,"alt":"preview","lazy":null,"scrollContainer":null,"previewSrcList":["https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"],"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('manually-preview-pic', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('manually-preview-pic', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('manually-preview-pic', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('manually-preview-pic', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('manually-preview-pic', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+  <div id="manually-preview-viewer" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="manually-preview-viewer_container" style="display: contents">
+  <el-image-viewer v-if="visible" @close="handleClose" @error="elEmitError" @switch="elEmitSwitch" @rotate="elEmitRotate" :url-list="urlList === null ? undefined : urlList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" :infinite="infinite === null ? undefined : infinite" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :teleported="teleported === null ? undefined : teleported" :zoom-rate="zoomRate === null ? undefined : zoomRate" :scale="scale === null ? undefined : scale" :min-scale="minScale === null ? undefined : minScale" :max-scale="maxScale === null ? undefined : maxScale" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :show-progress="showProgress === null ? undefined : showProgress"></el-image-viewer>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false,"urlList":["https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"],"zIndex":null,"initialIndex":null,"infinite":null,"hideOnClickModal":null,"teleported":null,"zoomRate":null,"scale":null,"minScale":null,"maxScale":null,"closeOnPressEscape":null,"showProgress":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('manually-preview-viewer', 'error', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('manually-preview-viewer', 'switch', arguments); }","elEmitRotate":"function() { window.shinyVue.emit('manually-preview-viewer', 'rotate', arguments); }","handleClose":"function() { this.visible = false; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('manually-preview-viewer_close', true, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitError","options.methods.elEmitSwitch","options.methods.elEmitRotate","options.methods.handleClose"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="custom-toolbar">Custom Toolbar<a class="anchor" aria-label="anchor" href="#custom-toolbar"></a>
+</h2>
+<p>Custom toolbar content by <code>toolbar</code> slot, starting from
+version 2.9.7, the slot has a new <code>setActiveItem</code> function,
+which can be switched according to the index.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">src_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://fuss10.elemecdn.com/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"</span>,</span>
+<span>  <span class="st">"1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">src_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, alt <span class="op">=</span> <span class="st">"preview"</span>, fit <span class="op">=</span> <span class="st">"cover"</span>, width <span class="op">=</span> <span class="st">"100px"</span>,</span>
+<span>  preview_src_list <span class="op">=</span> <span class="va">src_list</span>, show_progress <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>toolbar <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>    <span class="st">"&lt;el-icon @click=\"prev\"&gt;&lt;Back /&gt;&lt;/el-icon&gt;"</span>,</span>
+<span>    <span class="st">"&lt;el-icon @click=\"next\"&gt;&lt;Right /&gt;&lt;/el-icon&gt;"</span>,</span>
+<span>    <span class="st">"&lt;el-icon @click=\"setActiveItem(0)\"&gt;&lt;DArrowLeft /&gt;&lt;/el-icon&gt;"</span>,</span>
+<span>    <span class="st">"&lt;el-icon @click=\"actions('zoomOut')\"&gt;&lt;ZoomOut /&gt;&lt;/el-icon&gt;"</span>,</span>
+<span>    <span class="st">"&lt;el-icon @click=\"actions('zoomIn')\"&gt;&lt;ZoomIn /&gt;&lt;/el-icon&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    slot <span class="op">=</span> <span class="st">"toolbar"</span>, scope <span class="op">=</span> <span class="st">"{ actions, prev, next, setActiveItem }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="custom-toolbar-el_image_80ef49d5-06c9-4272-96cd-48e945e84111" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="custom-toolbar-el_image_80ef49d5-06c9-4272-96cd-48e945e84111_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"><template v-slot:toolbar="{ actions, prev, next, setActiveItem }"><el-icon @click="prev"><Back /></el-icon><el-icon @click="next"><Right /></el-icon><el-icon @click="setActiveItem(0)"><DArrowLeft /></el-icon><el-icon @click="actions('zoomOut')"><ZoomOut /></el-icon><el-icon @click="actions('zoomIn')"><ZoomIn /></el-icon></template></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","fit":"cover","alt":"preview","lazy":null,"scrollContainer":null,"previewSrcList":["https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"],"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":true,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('custom-toolbar-el_image_80ef49d5-06c9-4272-96cd-48e945e84111', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('custom-toolbar-el_image_80ef49d5-06c9-4272-96cd-48e945e84111', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('custom-toolbar-el_image_80ef49d5-06c9-4272-96cd-48e945e84111', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('custom-toolbar-el_image_80ef49d5-06c9-4272-96cd-48e945e84111', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('custom-toolbar-el_image_80ef49d5-06c9-4272-96cd-48e945e84111', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="custom-progress">Custom progress<a class="anchor" aria-label="anchor" href="#custom-progress"></a>
+</h2>
+<p>By setting the <code>show-progress</code> prop to control whether to
+display progress when previewing an image. After version 2.9.8, the
+progress content will be displayed as long as the <code>progress</code>
+slot is used.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">src_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"https://fuss10.elemecdn.com/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"</span>,</span>
+<span>  <span class="st">"1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span>src <span class="op">=</span> <span class="va">src_list</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, alt <span class="op">=</span> <span class="st">"preview"</span>, fit <span class="op">=</span> <span class="st">"cover"</span>, width <span class="op">=</span> <span class="st">"100px"</span>,</span>
+<span>  preview_src_list <span class="op">=</span> <span class="va">src_list</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>progress <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>
+<span>    <span class="st">"&lt;span&gt;{{ activeIndex + 1 }} / {{ total }}&lt;/span&gt;"</span><span class="op">)</span>,</span>
+<span>    slot <span class="op">=</span> <span class="st">"progress"</span>, scope <span class="op">=</span> <span class="st">"{ activeIndex, total }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="custom-progress-el_image_2a634cfe-b90f-407b-8858-eccd87dc1254" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="custom-progress-el_image_2a634cfe-b90f-407b-8858-eccd87dc1254_container" style="display: contents">
+  <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"><template v-slot:progress="{ activeIndex, total }"><span>{{ activeIndex + 1 }} / {{ total }}</span></template></el-image>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","fit":"cover","alt":"preview","lazy":null,"scrollContainer":null,"previewSrcList":["https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg","https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg"],"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('custom-progress-el_image_2a634cfe-b90f-407b-8858-eccd87dc1254', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('custom-progress-el_image_2a634cfe-b90f-407b-8858-eccd87dc1254', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('custom-progress-el_image_2a634cfe-b90f-407b-8858-eccd87dc1254', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('custom-progress-el_image_2a634cfe-b90f-407b-8858-eccd87dc1254', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('custom-progress-el_image_2a634cfe-b90f-407b-8858-eccd87dc1254', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
-<h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
+<h3 id="image-attributes">Image Attributes<a class="anchor" aria-label="anchor" href="#image-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -334,86 +482,193 @@ placeholder and failed content, and a full-screen preview.</p>
 <tbody>
 <tr class="odd">
 <td><code>src</code></td>
-<td><code>src</code></td>
-<td>Image source, same as native</td>
-<td>string</td>
-<td>—</td>
-<td>-</td>
+<td><code>el_image(src =)</code></td>
+<td>image source, same as native.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>fit</code></td>
-<td><code>fit</code></td>
-<td>Indicate how the image should be resized to fit its container, same
-as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit" class="external-link">object-fit</a>
+<td><code>el_image(fit =)</code></td>
+<td>indicate how the image should be resized to fit its container, same
+as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit" class="external-link">object-fit</a>.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>2</sup></a><code>'' \\| 'fill' \\| 'contain' \\| 'cover' \\| 'none' \\| 'scale-down'</code>
 </td>
-<td>string</td>
-<td>fill / contain / cover / none / scale-down</td>
-<td>-</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
-<td><code>alt</code></td>
-<td><code>alt</code></td>
-<td>Native alt</td>
-<td>string</td>
-<td>-</td>
-<td>-</td>
+<td><code>hide-on-click-modal</code></td>
+<td><code>el_image(hide_on_click_modal =)</code></td>
+<td>when enabling preview, use this flag to control whether clicking on
+backdrop can exit preview mode.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>3</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 <tr class="even">
-<td><code>referrer-policy</code></td>
-<td><code>referrer_policy</code></td>
-<td>Native referrerPolicy</td>
-<td>string</td>
-<td>-</td>
-<td>-</td>
+<td><code>loading</code></td>
+<td><code>el_image(loading =)</code></td>
+<td>Indicates how the browser should load the image, same as <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-loading" class="external-link">native</a>.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>4</sup></a><code>'eager' \\| 'lazy'</code>
+</td>
+<td></td>
+<td>—</td>
 </tr>
 <tr class="odd">
 <td><code>lazy</code></td>
-<td><code>lazy</code></td>
-<td>Whether to use lazy load</td>
-<td>boolean</td>
-<td>—</td>
+<td><code>el_image(lazy =)</code></td>
+<td>whether to use lazy load.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
 <td><code>scroll-container</code></td>
-<td><code>scroll_container</code></td>
-<td>The container to add scroll listener when using lazy load</td>
-<td>string / HTMLElement</td>
+<td><code>el_image(scroll_container =)</code></td>
+<td>the container to add scroll listener when using lazy load. By
+default, the container to add scroll listener when using lazy load.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>6</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>7</sup></a><code>HTMLElement</code>
+</td>
+<td></td>
 <td>—</td>
-<td>The nearest parent container whose overflow property is auto or
-scroll</td>
 </tr>
 <tr class="odd">
-<td><code>preview-src-list</code></td>
-<td><code>preview_src_list</code></td>
-<td>allow big image preview</td>
-<td>Array</td>
+<td><code>alt</code></td>
+<td><code>el_image(alt =)</code></td>
+<td>native attribute <code>alt</code>.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
 <td>—</td>
-<td>-</td>
 </tr>
 <tr class="even">
-<td><code>z-index</code></td>
-<td><code>z_index</code></td>
-<td>set image preview z-index</td>
-<td>Number</td>
+<td><code>referrerpolicy</code></td>
+<td><code>el_image(referrerpolicy =)</code></td>
+<td>native attribute <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/referrerPolicy" class="external-link">referrerPolicy</a>.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
 <td>—</td>
-<td>2000</td>
 </tr>
 <tr class="odd">
-<td><code>initial-index</code></td>
-<td><code>initial_index</code></td>
-<td>set image preview array index</td>
-<td>Number</td>
+<td><code>crossorigin</code></td>
+<td><code>el_image(crossorigin =)</code></td>
+<td>native attribute <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin" class="external-link">crossorigin</a>.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>10</sup></a><code>'' \\| 'anonymous' \\| 'use-credentials'</code>
+</td>
+<td></td>
 <td>—</td>
-<td>-</td>
+</tr>
+<tr class="even">
+<td><code>preview-src-list</code></td>
+<td><code>el_image(preview_src_list =)</code></td>
+<td>allow big image preview.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>11</sup></a><code>string[]</code>
+</td>
+<td></td>
+<td>[]</td>
+</tr>
+<tr class="odd">
+<td><code>z-index</code></td>
+<td><code>el_image(z_index =)</code></td>
+<td>set image preview z-index.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>12</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>initial-index</code></td>
+<td><code>el_image(initial_index =)</code></td>
+<td>initial preview image index, less than the length of
+<code>url-list</code>.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>13</sup></a></td>
+<td></td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><code>close-on-press-escape</code></td>
+<td><code>el_image(close_on_press_escape =)</code></td>
+<td>whether the image-viewer can be closed by pressing ESC.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>14</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td><code>preview-teleported</code></td>
+<td><code>el_image(preview_teleported =)</code></td>
+<td>whether to append image-viewer to body. A nested parent element
+attribute transform should have this attribute set to
+<code>true</code>.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td><code>infinite</code></td>
+<td><code>el_image(infinite =)</code></td>
+<td>whether the viewer preview is infinite.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td><code>zoom-rate</code></td>
+<td><code>el_image(zoom_rate =)</code></td>
+<td>the zoom rate of the image viewer zoom event.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>17</sup></a></td>
+<td></td>
+<td>1.2</td>
+</tr>
+<tr class="odd">
+<td><code>scale</code></td>
+<td><code>el_image(scale =)</code></td>
+<td>the preview image scale.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>18</sup></a></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><code>min-scale</code></td>
+<td><code>el_image(min_scale =)</code></td>
+<td>the min scale of the image viewer zoom event.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
+<td>0.2</td>
+</tr>
+<tr class="odd">
+<td><code>max-scale</code></td>
+<td><code>el_image(max_scale =)</code></td>
+<td>the max scale of the image viewer zoom event.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td><code>show-progress</code></td>
+<td><code>el_image(show_progress =)</code></td>
+<td>whether to display the preview image progress content.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="events">Events<a class="anchor" aria-label="anchor" href="#events"></a>
+<h3 id="image-events">Image Events<a class="anchor" aria-label="anchor" href="#image-events"></a>
 </h3>
 <table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
 <thead><tr class="header">
 <th>Element</th>
 <th>In R</th>
@@ -423,18 +678,34 @@ scroll</td>
 <tr class="odd">
 <td><code>load</code></td>
 <td><code>input$&lt;id&gt;_load</code></td>
-<td>Same as native load</td>
+<td>same as native load.</td>
 </tr>
 <tr class="even">
 <td><code>error</code></td>
 <td><code>input$&lt;id&gt;_error</code></td>
-<td>Same as native error</td>
+<td>same as native error.</td>
+</tr>
+<tr class="odd">
+<td><code>switch</code></td>
+<td><code>input$&lt;id&gt;_switch</code></td>
+<td>trigger when switching images.</td>
+</tr>
+<tr class="even">
+<td><code>close</code></td>
+<td><code>input$&lt;id&gt;_close</code></td>
+<td>trigger when clicking on close button or when
+<code>hide-on-click-modal</code> enabled clicking on backdrop.</td>
+</tr>
+<tr class="odd">
+<td><code>show</code></td>
+<td><code>input$&lt;id&gt;_show</code></td>
+<td>trigger when the viewer displays</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
+<h3 id="image-slots">Image Slots<a class="anchor" aria-label="anchor" href="#image-slots"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -451,17 +722,271 @@ scroll</td>
 <tr class="odd">
 <td><code>placeholder</code></td>
 <td><code>slots = list(placeholder = )</code></td>
-<td>Triggers when image load</td>
+<td>custom placeholder content when image hasn’t loaded yet.</td>
 </tr>
 <tr class="even">
 <td><code>error</code></td>
 <td><code>slots = list(error = )</code></td>
-<td>Triggers when image load failed</td>
+<td>custom image load failed content.</td>
+</tr>
+<tr class="odd">
+<td><code>viewer</code></td>
+<td><code>slots = list(viewer = )</code></td>
+<td>custom content when image preview.</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="image-exposes">Image Exposes<a class="anchor" aria-label="anchor" href="#image-exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>showPreview</code></td>
+<td><code>el_call(session, id, "showPreview")</code></td>
+<td>manually open preview big image</td>
+</tr></tbody>
+</table>
 </div>
+<div class="section level3">
+<h3 id="image-viewer-attributes">Image Viewer Attributes<a class="anchor" aria-label="anchor" href="#image-viewer-attributes"></a>
+</h3>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="14%">
+<col width="14%">
+<col width="38%">
+<col width="9%">
+<col width="14%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+<th>Type</th>
+<th>Accepted</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>url-list</code></td>
+<td><code>el_image_viewer(url_list =)</code></td>
+<td>preview link list.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>22</sup></a><code>string[]</code>
+</td>
+<td></td>
+<td>[]</td>
+</tr>
+<tr class="even">
+<td><code>z-index</code></td>
+<td><code>el_image(z_index =)</code></td>
+<td>preview backdrop z-index.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>23</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>24</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>initial-index</code></td>
+<td><code>el_image(initial_index =)</code></td>
+<td>the initial preview image index, less than or equal to the length of
+<code>url-list</code>.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><code>infinite</code></td>
+<td><code>el_image(infinite =)</code></td>
+<td>whether preview is infinite.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td><code>hide-on-click-modal</code></td>
+<td><code>el_image(hide_on_click_modal =)</code></td>
+<td>whether user can emit close event when clicking backdrop.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>27</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td><code>teleported</code></td>
+<td><code>el_image_viewer(teleported =)</code></td>
+<td>whether to append image itself to body. A nested parent element
+attribute transform should have this attribute set to
+<code>true</code>.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>28</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td><code>zoom-rate</code></td>
+<td><code>el_image(zoom_rate =)</code></td>
+<td>the zoom rate of the image viewer zoom event.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>29</sup></a></td>
+<td></td>
+<td>1.2</td>
+</tr>
+<tr class="even">
+<td><code>scale</code></td>
+<td><code>el_image(scale =)</code></td>
+<td>the preview image scale.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>30</sup></a></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><code>min-scale</code></td>
+<td><code>el_image(min_scale =)</code></td>
+<td>the min scale of the image viewer zoom event.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>31</sup></a></td>
+<td></td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td><code>max-scale</code></td>
+<td><code>el_image(max_scale =)</code></td>
+<td>the max scale of the image viewer zoom event.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>32</sup></a></td>
+<td></td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td><code>close-on-press-escape</code></td>
+<td><code>el_image(close_on_press_escape =)</code></td>
+<td>whether the image-viewer can be closed by pressing ESC.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>33</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td><code>show-progress</code></td>
+<td><code>el_image(show_progress =)</code></td>
+<td>whether to display the preview image progress content</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>34</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="image-viewer-events">Image Viewer Events<a class="anchor" aria-label="anchor" href="#image-viewer-events"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>close</code></td>
+<td><code>input$&lt;id&gt;_close</code></td>
+<td>trigger when clicking on close button or when
+<code>hide-on-click-modal</code> enabled clicking on backdrop.</td>
+</tr>
+<tr class="even">
+<td><code>error</code></td>
+<td><code>input$&lt;id&gt;_error</code></td>
+<td>same as native error.</td>
+</tr>
+<tr class="odd">
+<td><code>switch</code></td>
+<td><code>input$&lt;id&gt;_switch</code></td>
+<td>trigger when switching images.</td>
+</tr>
+<tr class="even">
+<td><code>rotate</code></td>
+<td><code>input$&lt;id&gt;_rotate</code></td>
+<td>trigger when rotating images.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="image-viewer-slots">Image Viewer Slots<a class="anchor" aria-label="anchor" href="#image-viewer-slots"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>custom content</td>
+</tr>
+<tr class="even">
+<td><code>progress</code></td>
+<td><code>slots = list(progress = )</code></td>
+<td>custom progress content (Priority is higher than
+<code>show-progress</code> prop)</td>
+</tr>
+<tr class="odd">
+<td><code>toolbar</code></td>
+<td><code>slots = list(toolbar = )</code></td>
+<td>custom toolbar content</td>
+</tr>
+<tr class="even">
+<td><code>viewer-error</code></td>
+<td><code>slots = list(viewer-error = )</code></td>
+<td>custom image load failed content.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="image-viewer-exposes">Image Viewer Exposes<a class="anchor" aria-label="anchor" href="#image-viewer-exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>setActiveItem</code></td>
+<td><code>el_call(session, id, "setActiveItem")</code></td>
+<td>manually switch image</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

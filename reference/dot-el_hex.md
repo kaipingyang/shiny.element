@@ -12,7 +12,7 @@ A colour, as hex
 
 - x:
 
-  A colour R or Sass can read.
+  A colour R can read.
 
 ## Value
 

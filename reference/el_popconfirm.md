@@ -1,4 +1,4 @@
-# Element UI Confirmation Bubble
+# Element Plus Confirmation Bubble
 
 A small confirmation prompt anchored to the element that triggers it,
 for actions that warrant a check but not a dialog.
@@ -17,9 +17,14 @@ el_popconfirm(
   icon = NULL,
   icon_color = NULL,
   hide_icon = NULL,
+  effect = NULL,
+  hide_after = NULL,
+  persistent = NULL,
+  teleported = NULL,
   width = NULL,
   slots = NULL,
-  session = NULL
+  session = NULL,
+  placement = NULL
 )
 ```
 
@@ -62,6 +67,26 @@ el_popconfirm(
 
   Whether to leave the icon out. Default `FALSE`.
 
+- effect:
+
+  Tooltip theme, built-in theme: `dark` / `light`. Element Plus's
+  `effect` ('dark' \| 'light' / string).
+
+- hide_after:
+
+  Delay of disappear, in millisecond. Element Plus's `hide-after`
+  (number).
+
+- persistent:
+
+  When popconfirm inactive and `persistent` is `false` , popconfirm will
+  be destroyed. Element Plus's `persistent` (boolean).
+
+- teleported:
+
+  Whether popconfirm is teleported to the body. Element Plus's
+  `teleported` (boolean).
+
 - width:
 
   Component width, as a CSS unit.
@@ -78,6 +103,12 @@ el_popconfirm(
 
   Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
   input; a session given here namespaces `id` once more, with a warning.
+
+- placement:
+
+  Where the popup goes: `"top"`, `"bottom-start"` and the rest of the
+  tooltip's placements. Passed through to its tooltip, as upstream
+  passes it. Default `"bottom"`.
 
 ## Value
 
@@ -101,13 +132,15 @@ el_popconfirm("del",
 )
 #> <div id="del" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="del_container" style="display: contents">
-#>   <el-popconfirm :title="pcTitle === null ? undefined : pcTitle" :confirm-button-text="pcConfirmButtonText === null ? undefined : pcConfirmButtonText" :cancel-button-text="pcCancelButtonText === null ? undefined : pcCancelButtonText" :confirm-button-type="pcConfirmButtonType === null ? undefined : pcConfirmButtonType" :cancel-button-type="pcCancelButtonType === null ? undefined : pcCancelButtonType" :icon="pcIcon === null ? undefined : pcIcon" :icon-color="pcIconColor === null ? undefined : pcIconColor" :hide-icon="pcHideIcon === null ? undefined : pcHideIcon" @confirm="handleConfirm" @cancel="handleCancel">
-#>     <span slot="reference">
-#>       <el-button type="danger">Delete</el-button>
-#>     </span>
+#>   <el-popconfirm :title="pcTitle === null ? undefined : pcTitle" :confirm-button-text="pcConfirmButtonText === null ? undefined : pcConfirmButtonText" :cancel-button-text="pcCancelButtonText === null ? undefined : pcCancelButtonText" :confirm-button-type="pcConfirmButtonType === null ? undefined : pcConfirmButtonType" :cancel-button-type="pcCancelButtonType === null ? undefined : pcCancelButtonType" :icon="pcIcon === null ? undefined : pcIcon" :icon-color="pcIconColor === null ? undefined : pcIconColor" :hide-icon="pcHideIcon === null ? undefined : pcHideIcon" @confirm="handleConfirm" @cancel="handleCancel" :effect="pcEffect === null ? undefined : pcEffect" :hide-after="pcHideAfter === null ? undefined : pcHideAfter" :persistent="pcPersistent === null ? undefined : pcPersistent" :teleported="pcTeleported === null ? undefined : pcTeleported" :placement="pcPlacement === null ? undefined : pcPlacement">
+#>     <template v-slot:reference>
+#>       <span>
+#>         <el-button type="danger">Delete</el-button>
+#>       </span>
+#>     </template>
 #>   </el-popconfirm>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null},"methods":{"handleConfirm":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleConfirm","options.methods.handleCancel"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"pcTitle":"Delete this row?","pcConfirmButtonText":null,"pcCancelButtonText":null,"pcConfirmButtonType":null,"pcCancelButtonType":null,"pcIcon":null,"pcIconColor":null,"pcHideIcon":null,"pcEffect":null,"pcHideAfter":null,"pcPersistent":null,"pcTeleported":null,"pcPlacement":null},"methods":{"handleConfirm":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_confirm', true, {priority: 'event'}); }","handleCancel":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('del_cancel', true, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleConfirm","options.methods.handleCancel"]}</script>
 #> </div>
 
 if (interactive()) {

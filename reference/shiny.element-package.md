@@ -1,8 +1,8 @@
-# shiny.element: 'Element UI' Components for 'Shiny'
+# shiny.element: 'Element Plus' Components for 'Shiny'
 
-'Element UI' ('Vue' 2) components for 'Shiny': forms, tables, trees,
+'Element Plus' ('Vue' 3) components for 'Shiny': forms, tables, trees,
 menus, dialogs and the rest, each reporting to the server and updated
-from it like any other 'Shiny' input. 'Element UI' and 'Vue' are
+from it like any other 'Shiny' input. 'Element Plus' and 'Vue' are
 bundled, so applications work offline.
 
 ## See also
@@ -25,8 +25,8 @@ Authors:
 
 Other contributors:
 
-- ElemeFE (Element UI library bundled in inst/element-ui, MIT licence)
-  \[contributor, copyright holder\]
+- Element Plus team (Element Plus and its icons, bundled in
+  inst/element-plus, MIT licence) \[contributor, copyright holder\]
 
-- Evan You (Vue library bundled in inst/vue, MIT licence) \[contributor,
-  copyright holder\]
+- Evan You (Vue library bundled in inst/vue3, MIT licence)
+  \[contributor, copyright holder\]

@@ -131,10 +131,10 @@
     var v = vertical(el);
     var prev = document.createElement('span');
     prev.className = 'el-tabs__nav-prev';
-    prev.innerHTML = '<i class="el-icon-arrow-' + (v ? 'up' : 'left') + '"></i>';
+    prev.innerHTML = '<i class="el-icon" data-el-icon="' + (v ? 'ArrowUp' : 'ArrowLeft') + '"></i>';
     var next = document.createElement('span');
     next.className = 'el-tabs__nav-next';
-    next.innerHTML = '<i class="el-icon-arrow-' + (v ? 'down' : 'right') + '"></i>';
+    next.innerHTML = '<i class="el-icon" data-el-icon="' + (v ? 'ArrowDown' : 'ArrowRight') + '"></i>';
     n.wrap.insertBefore(next, n.wrap.firstChild);
     n.wrap.insertBefore(prev, n.wrap.firstChild);
     prev.addEventListener('click', function() {
@@ -204,11 +204,12 @@
     if (result && typeof result.then === 'function') {
       result.then(function(ok) {
         if (ok === false) return;
-        show(el, name); if (done) done();
+        show(el, name); report(el, '_tab_change', name); if (done) done();
       }, function() {});
       return;
     }
     show(el, name);
+    report(el, '_tab_change', name);
     if (done) done();
   }
 
@@ -243,8 +244,9 @@
     item.className = 'el-tabs__item ' + pos + (closable ? ' is-closable' : '');
     item.appendChild(document.createTextNode(tab.label));
     if (closable) {
-      var x = document.createElement('span');
-      x.className = 'el-icon-close';
+      var x = document.createElement('i');
+      x.className = 'el-icon is-icon-close';
+      x.setAttribute('data-el-icon', 'Close');
       item.appendChild(x);
     }
     nav.appendChild(item);
@@ -287,7 +289,7 @@
 
         // The close button sits inside the tab, so a click on it would
         // otherwise select the tab on its way out.
-        if (e.target.classList.contains('el-icon-close')) {
+        if (e.target.closest && e.target.closest('.is-icon-close')) {
           e.stopPropagation();
           removeTab(el, name, callback);
           report(el, '_tab_remove', name);
@@ -306,7 +308,7 @@
         var k = e.keyCode, item = e.currentTarget;
         if (k === 46 || k === 8) {
           if (item.classList.contains('is-closable')) {
-            var x = item.querySelector('.el-icon-close');
+            var x = item.querySelector('.is-icon-close');
             if (x) { e.preventDefault(); x.click(); }
           }
           return;

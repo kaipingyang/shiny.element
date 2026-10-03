@@ -1,6 +1,6 @@
-# Element's dependency, with its stylesheet built for a theme
+# Element Plus's variables, set for a theme
 
-Element's dependency, with its stylesheet built for a theme
+Element Plus's variables, set for a theme
 
 ## Usage
 
@@ -17,4 +17,4 @@ Element's dependency, with its stylesheet built for a theme
 
 ## Value
 
-An htmlDependency, or `NULL` when nothing changes.
+An htmlDependency holding the `<style>`, or `NULL` when nothing changes.

@@ -1,6 +1,6 @@
-# Element UI Link
+# Element Plus Link
 
-A styled hyperlink that follows Element UI's design language.
+A styled hyperlink that follows Element Plus's design language.
 
 ## Usage
 
@@ -9,11 +9,12 @@ el_link(
   label = "Link",
   href = NULL,
   type = "default",
-  underline = TRUE,
+  underline = "hover",
   disabled = FALSE,
   icon = NULL,
   id = NULL,
-  ...
+  ...,
+  target = "_self"
 )
 ```
 
@@ -34,7 +35,9 @@ el_link(
 
 - underline:
 
-  Whether to underline on hover. Default `TRUE`.
+  When the link is underlined: `"hover"` (the default), `"always"` or
+  `"never"`. `TRUE` and `FALSE`, Element UI's form, are `"hover"` and
+  `"never"`.
 
 - disabled:
 
@@ -58,6 +61,10 @@ el_link(
   Additional HTML attributes passed to the `<a>` tag (a plain link
   only).
 
+- target:
+
+  Where the link opens, as an `<a>`'s `target`. Default `"_self"`.
+
 ## Value
 
 An `htmltools` `<a>` tag, or with an `id` a Shiny UI element.
@@ -72,25 +79,25 @@ reports it.
 
 ``` r
 el_link("Visit GitHub", href = "https://github.com", type = "primary")
-#> <a class="el-link el-link--primary is-underline" href="https://github.com">
-#>   <span class="el-link--inner">Visit GitHub</span>
+#> <a class="el-link el-link--primary is-hover-underline" href="https://github.com" target="_self">
+#>   <span class="el-link__inner">Visit GitHub</span>
 #> </a>
 el_link("Disabled", disabled = TRUE)
 #> <a class="el-link el-link--default is-disabled">
-#>   <span class="el-link--inner">Disabled</span>
+#>   <span class="el-link__inner">Disabled</span>
 #> </a>
 el_link("With icon", icon = "el-icon-edit", type = "success")
-#> <a class="el-link el-link--success is-underline">
-#>   <i class="el-icon-edit"></i>
-#>   <span class="el-link--inner">With icon</span>
+#> <a class="el-link el-link--success is-hover-underline">
+#>   <i class="el-icon" data-el-icon="Edit" aria-hidden="true" role="img"></i>
+#>   <span class="el-link__inner">With icon</span>
 #> </a>
 
 # An action link: input$more counts its clicks
 el_link("Show more", id = "more", type = "primary")
 #> <div id="more" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="more_container" style="display: contents">
-#>   <el-link :href="href === null ? undefined : href" :type="type" :underline="underline" :disabled="disabled" :icon="icon === null ? undefined : icon" @click="handleClick">{{ text }}</el-link>
+#>   <el-link :href="href === null ? undefined : href" :type="type" :target="target" :underline="underline" :disabled="disabled" :icon="icon === null ? undefined : icon" @click="handleClick">{{ text }}</el-link>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"text":"Show more","href":null,"type":"primary","underline":true,"disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"text":"Show more","href":null,"type":"primary","target":"_self","underline":"hover","disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","evals":["options.methods.handleClick"]}</script>
 #> </div>
 ```

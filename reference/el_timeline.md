@@ -1,4 +1,4 @@
-# Element UI Timeline
+# Element Plus Timeline
 
 A vertical sequence of events.
 
@@ -10,6 +10,7 @@ el_timeline(
   items = list(),
   reverse = FALSE,
   html = FALSE,
+  mode = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -27,8 +28,9 @@ el_timeline(
   A list of entries. Each is a list with `content` and optionally
   `timestamp`, `type` (`"primary"`, `"success"`, `"warning"`, `"danger"`
   or `"info"`), `color`, `size` (`"normal"` or `"large"`), `icon` (an
-  Element icon class) and `placement` (`"bottom"` or `"top"`, where the
-  timestamp goes).
+  icon's name), `placement` (`"bottom"` or `"top"`, where the timestamp
+  goes), `center` (centre the dot against the content) and `hollow`
+  (draw the dot hollow).
 
 - reverse:
 
@@ -39,6 +41,11 @@ el_timeline(
   Render each entry's `content` as HTML rather than text – a string of
   markup, or tags. Only use it with content you control: it goes through
   `v-html`, which does not escape anything.
+
+- mode:
+
+  Relative position of timeline and content. Element Plus's `mode`
+  ('start' \| 'alternate' \| 'alternate-reverse' \| 'end').
 
 - width:
 
@@ -85,11 +92,11 @@ el_timeline(
 )
 #> <div id="log" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
-#>   <el-timeline :reverse="reverse">
-#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+#>   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
+#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
 #>   </el-timeline>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 # Newest first, timestamps above each entry
@@ -102,10 +109,10 @@ el_timeline(
 )
 #> <div id="log" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
-#>   <el-timeline :reverse="reverse">
-#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+#>   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
+#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
 #>   </el-timeline>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true,"mode":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 ```

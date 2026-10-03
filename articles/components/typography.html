@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="typography_files/vue-2.7.14/vue.min.js"></script><link href="typography_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="typography_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="typography_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="typography_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="typography_files/el-events-1.0.0/el-events.js"></script><script src="typography_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="typography_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="typography_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="typography_files/vue-3.5.43/vue.global.prod.js"></script><link href="typography_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="typography_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="typography_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="typography_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="typography_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="typography_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="typography_files/el-events-1.0.0/el-events.js"></script><script src="typography_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="typography_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,77 +187,120 @@
 
     
     
-<p>Element unifies the font family, size and line height across its
-components. <code><a href="../../reference/el_theme.html">el_theme()</a></code> carries its font stack and 14px base
-size to the page, so Shiny’s own inputs and text match.</p>
+<p>We create a font convention to ensure the best presentation across
+different platforms.</p>
 <div class="section level2">
 <h2 id="font">Font<a class="anchor" aria-label="anchor" href="#font"></a>
 </h2>
+<p>Element Plus’s font stack, as the page draws it.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"font-size: 18px; color: #303133"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif"</span>,</span>
-<span>         <span class="st">"Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Helvetica Neue"</span>, <span class="st">"Helvetica"</span>, <span class="st">"PingFang SC"</span>, <span class="st">"Hiragino Sans GB"</span>, <span class="st">"Microsoft YaHei"</span>, <span class="st">"Arial"</span><span class="op">)</span>,</span>
+<span>         <span class="kw">function</span><span class="op">(</span><span class="va">f</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-family: '%s'; font-size: 18px"</span>, <span class="va">f</span><span class="op">)</span>, <span class="va">f</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="font-size: 18px; color: #303133">
-    <p style="font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif">Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif</p>
+  <div style="display: grid; gap: 12px">
+    <div style="font-family: 'Helvetica Neue'; font-size: 18px">Helvetica Neue</div>
+    <div style="font-family: 'Helvetica'; font-size: 18px">Helvetica</div>
+    <div style="font-family: 'PingFang SC'; font-size: 18px">PingFang SC</div>
+    <div style="font-family: 'Hiragino Sans GB'; font-size: 18px">Hiragino Sans GB</div>
+    <div style="font-family: 'Microsoft YaHei'; font-size: 18px">Microsoft YaHei</div>
+    <div style="font-family: 'Arial'; font-size: 18px">Arial</div>
   </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="font-convention">Font convention<a class="anchor" aria-label="anchor" href="#font-convention"></a>
+<h2 id="font-convention">Font Convention<a class="anchor" aria-label="anchor" href="#font-convention"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">level</span>, <span class="va">size</span>, <span class="va">text</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"padding: 6px 24px 6px 0"</span>, <span class="va">level</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-size: %s; padding: 6px 24px 6px 0"</span>, <span class="va">size</span><span class="op">)</span>, <span class="va">text</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">size</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"color: #303133"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Supplementary text"</span>, <span class="st">"12px"</span>, <span class="st">"Build with Element"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body (small)"</span>, <span class="st">"13px"</span>, <span class="st">"Build with Element"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body"</span>, <span class="st">"14px"</span>, <span class="st">"Build with Element"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Small title"</span>, <span class="st">"16px"</span>, <span class="st">"Build with Element"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Title"</span>, <span class="st">"18px"</span>, <span class="st">"Build with Element"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Main title"</span>, <span class="st">"20px"</span>, <span class="st">"Build with Element"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">level</span>, <span class="va">size</span>, <span class="va">var</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">level</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">size</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-size: var(%s)"</span>, <span class="va">var</span><span class="op">)</span>, <span class="st">"Build with Element"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"border-spacing: 20px 10px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Level"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Font Size"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Supplementary text"</span>, <span class="st">"12px Extra Small"</span>, <span class="st">"--el-font-size-extra-small"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body (small)"</span>, <span class="st">"13px Small"</span>, <span class="st">"--el-font-size-small"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body"</span>, <span class="st">"14px Base"</span>, <span class="st">"--el-font-size-base"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Small Title"</span>, <span class="st">"16px Medium"</span>, <span class="st">"--el-font-size-medium"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Title"</span>, <span class="st">"18px Large"</span>, <span class="st">"--el-font-size-large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Main Title"</span>, <span class="st">"20px Extra Large"</span>, <span class="st">"--el-font-size-extra-large"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <table style="color: #303133" class="table">
+  <table style="border-spacing: 20px 10px" class="table">
 <tr>
-<td style="padding: 6px 24px 6px 0">Supplementary text</td>
-      <td style="font-size: 12px; padding: 6px 24px 6px 0">Build with Element</td>
-      <td>12px</td>
+<th>Level</th>
+      <th>Font Size</th>
+      <th>Demo</th>
     </tr>
 <tr>
-<td style="padding: 6px 24px 6px 0">Body (small)</td>
-      <td style="font-size: 13px; padding: 6px 24px 6px 0">Build with Element</td>
-      <td>13px</td>
+<td>Supplementary text</td>
+      <td>12px Extra Small</td>
+      <td style="font-size: var(--el-font-size-extra-small)">Build with Element</td>
     </tr>
 <tr>
-<td style="padding: 6px 24px 6px 0">Body</td>
-      <td style="font-size: 14px; padding: 6px 24px 6px 0">Build with Element</td>
-      <td>14px</td>
+<td>Body (small)</td>
+      <td>13px Small</td>
+      <td style="font-size: var(--el-font-size-small)">Build with Element</td>
     </tr>
 <tr>
-<td style="padding: 6px 24px 6px 0">Small title</td>
-      <td style="font-size: 16px; padding: 6px 24px 6px 0">Build with Element</td>
-      <td>16px</td>
+<td>Body</td>
+      <td>14px Base</td>
+      <td style="font-size: var(--el-font-size-base)">Build with Element</td>
     </tr>
 <tr>
-<td style="padding: 6px 24px 6px 0">Title</td>
-      <td style="font-size: 18px; padding: 6px 24px 6px 0">Build with Element</td>
-      <td>18px</td>
+<td>Small Title</td>
+      <td>16px Medium</td>
+      <td style="font-size: var(--el-font-size-medium)">Build with Element</td>
     </tr>
 <tr>
-<td style="padding: 6px 24px 6px 0">Main title</td>
-      <td style="font-size: 20px; padding: 6px 24px 6px 0">Build with Element</td>
-      <td>20px</td>
+<td>Title</td>
+      <td>18px Large</td>
+      <td style="font-size: var(--el-font-size-large)">Build with Element</td>
+    </tr>
+<tr>
+<td>Main Title</td>
+      <td>20px Extra Large</td>
+      <td style="font-size: var(--el-font-size-extra-large)">Build with Element</td>
     </tr>
 </table>
 </div>
 </div>
 <div class="section level2">
-<h2 id="changing-it">Changing it<a class="anchor" aria-label="anchor" href="#changing-it"></a>
+<h2 id="font-line-height">Font Line Height<a class="anchor" aria-label="anchor" href="#font-line-height"></a>
 </h2>
-<p>The base size and every derived size are Element variables:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="fu"><a href="../../reference/el_theme.html">el_theme</a></span><span class="op">(</span>element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"font-size-base"</span> <span class="op">=</span> <span class="st">"13px"</span>,</span>
-<span>                                        <span class="st">"font-size-small"</span> <span class="op">=</span> <span class="st">"12px"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"line-height: 1"</span> <span class="op">=</span> <span class="st">"1"</span>, <span class="st">"line-height: 1.3"</span> <span class="op">=</span> <span class="st">"1.3"</span>, <span class="st">"line-height: 1.5"</span> <span class="op">=</span> <span class="st">"1.5"</span>,</span>
+<span>           <span class="st">"line-height: 1.7"</span> <span class="op">=</span> <span class="st">"1.7"</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 24px"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">lab</span>, <span class="va">lh</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"line-height: %s; width: 160px"</span>, <span class="va">lh</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="va">lab</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Build with Element Plus, a component library for developers."</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lines</span><span class="op">)</span>, <span class="va">lines</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: flex; gap: 24px">
+    <div style="line-height: 1; width: 160px">
+      <b>line-height: 1</b>
+      <p>Build with Element Plus, a component library for developers.</p>
+    </div>
+    <div style="line-height: 1.3; width: 160px">
+      <b>line-height: 1.3</b>
+      <p>Build with Element Plus, a component library for developers.</p>
+    </div>
+    <div style="line-height: 1.5; width: 160px">
+      <b>line-height: 1.5</b>
+      <p>Build with Element Plus, a component library for developers.</p>
+    </div>
+    <div style="line-height: 1.7; width: 160px">
+      <b>line-height: 1.7</b>
+      <p>Build with Element Plus, a component library for developers.</p>
+    </div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="font-family">Font-family<a class="anchor" aria-label="anchor" href="#font-family"></a>
+</h2>
+</div>
+<div class="section level2">
+<h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
+</h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -1,4 +1,4 @@
-# Update Element UI Badge
+# Update Element Plus Badge
 
 Server-side update for an
 [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md)

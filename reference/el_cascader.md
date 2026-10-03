@@ -1,4 +1,4 @@
-# Element UI Cascader
+# Element Plus Cascader
 
 Pick a path through nested options – a region, then a country, then a
 city – from a dropdown of side-by-side columns.
@@ -31,6 +31,27 @@ el_cascader(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  height = NULL,
+  item_size = NULL,
+  max_collapse_tags = NULL,
+  max_collapse_tags_tooltip_height = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_append_to_body = NULL,
+  popper_style = NULL,
+  show_checked_strategy = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -152,6 +173,115 @@ el_cascader(
 
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
+
+- clear_icon:
+
+  Custom clear icon component. Element Plus's `clear-icon` (string /
+  Component). An icon's name, such as `"Search"`.
+
+- collapse_tags_tooltip:
+
+  Whether show all selected tags when mouse hover text of collapse-tags.
+  To use this, `collapse-tags` must be true. Element Plus's
+  `collapse-tags-tooltip` (boolean).
+
+- effect:
+
+  Tooltip theme, built-in theme: `dark` / `light`. Element Plus's
+  `effect` ('dark' \| 'light' / string).
+
+- empty_values:
+
+  Empty values of component, see config-provider. Element Plus's
+  `empty-values` (array).
+
+- fallback_placements:
+
+  List of possible positions for Tooltip popper.js. Element Plus's
+  `fallback-placements` (`Placement[]`).
+
+- fit_input_width:
+
+  Whether the width of the suggestion panel is the same as the input, if
+  the value is `number`, then the width is fixed. Element Plus's
+  `fit-input-width` (boolean / number).
+
+- height:
+
+  Menu height for virtual scrolling (px). Element Plus's `height`
+  (number).
+
+- item_size:
+
+  Node height for virtual scrolling (px). Element Plus's `item-size`
+  (number).
+
+- max_collapse_tags:
+
+  The max tags number to be shown. To use this, `collapse-tags` must be
+  true. Element Plus's `max-collapse-tags` (number).
+
+- max_collapse_tags_tooltip_height:
+
+  Max height of collapse-tags tooltip. Element Plus's
+  `max-collapse-tags-tooltip-height` (string / number).
+
+- persistent:
+
+  When dropdown is inactive and `persistent` is `false`, dropdown will
+  be destroyed. Element Plus's `persistent` (boolean).
+
+- placement:
+
+  Position of dropdown. Element Plus's `placement` (enum).
+
+- popper_append_to_body:
+
+  Whether to append the popper menu to body. If the positioning of the
+  popper is wrong, you can try to set this prop to false. Element Plus's
+  `popper-append-to-body` (boolean).
+
+- popper_style:
+
+  Custom style for Cascader's dropdown and tags' tooltip. Element Plus's
+  `popper-style` (string / object).
+
+- show_checked_strategy:
+
+  Strategy for displaying checked nodes in multiple selection mode. Use
+  `parent` when you want things tidy. Use `child` when every single item
+  matters. Element Plus's `show-checked-strategy` ('parent' \| 'child').
+
+- tag_effect:
+
+  Tag effect. Element Plus's `tag-effect` ('light' \| 'dark' \|
+  'plain').
+
+- tag_type:
+
+  Tag type. Element Plus's `tag-type` ('success' \| 'info' \| 'warning'
+  \| 'danger').
+
+- teleported:
+
+  Whether cascader popup is teleported. Element Plus's `teleported`
+  (boolean).
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
+- value_on_clear:
+
+  Clear return value, see config-provider. Element Plus's
+  `value-on-clear` (string / number / boolean / Function). Give it as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md).
+
+- virtual_scroll:
+
+  Whether to enable virtual scrolling for large data. Element Plus's
+  `virtual-scroll` (boolean).
 
 - width:
 

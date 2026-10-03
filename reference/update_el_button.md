@@ -1,4 +1,4 @@
-# Update Element UI Button
+# Update Element Plus Button
 
 Server-side update for
 [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md).

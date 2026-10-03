@@ -1,4 +1,4 @@
-# Forward Element UI events to Shiny inputs
+# Forward Element Plus events to Shiny inputs
 
 Element's events carry different arguments each, some of them DOM nodes
 or native events that cannot be serialised. Rather than write a handler

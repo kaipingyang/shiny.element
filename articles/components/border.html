@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="border_files/vue-2.7.14/vue.min.js"></script><link href="border_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="border_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="border_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="border_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="border_files/el-events-1.0.0/el-events.js"></script><script src="border_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="border_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="border_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="border_files/vue-3.5.43/vue.global.prod.js"></script><link href="border_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="border_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="border_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="border_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="border_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="border_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="border_files/el-events-1.0.0/el-events.js"></script><script src="border_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="border_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,52 +187,121 @@
 
     
     
-<p>Element standardises the borders, radii and shadows its components
-use.</p>
+<p>We standardize the borders that can be used in buttons, cards,
+pop-ups and other components.</p>
 <div class="section level2">
 <h2 id="border-style">Border style<a class="anchor" aria-label="anchor" href="#border-style"></a>
 </h2>
+<p>There are few border styles to choose.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: inline-block; width: 200px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; padding: 8px"</span>, <span class="st">"Solid, 1px"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: inline-block; width: 200px; height: 60px; border: 2px dashed #DCDFE6; padding: 8px"</span>, <span class="st">"Dashed, 2px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">width</span>, <span class="va">style</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">width</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"width: 200px; height: 0; border-top: %s %s var(--el-border-color)"</span>,</span>
+<span>                                   <span class="va">width</span>, <span class="va">style</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demo-border"</span>, style <span class="op">=</span> <span class="st">"border-spacing: 30px 10px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"Name"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"Thickness"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Solid"</span>, <span class="st">"1px"</span>, <span class="st">"solid"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Dashed"</span>, <span class="st">"2px"</span>, <span class="st">"dashed"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="display: inline-block; width: 200px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; padding: 8px">Solid, 1px</div>
-  <div style="display: inline-block; width: 200px; height: 60px; border: 2px dashed #DCDFE6; padding: 8px">Dashed, 2px</div>
+  <table class="table demo-border" style="border-spacing: 30px 10px">
+<tr>
+<td>Name</td>
+      <td>Thickness</td>
+      <td>Demo</td>
+    </tr>
+<tr>
+<td>Solid</td>
+      <td>1px</td>
+      <td>
+        <div style="width: 200px; height: 0; border-top: 1px solid var(--el-border-color)"></div>
+      </td>
+    </tr>
+<tr>
+<td>Dashed</td>
+      <td>2px</td>
+      <td>
+        <div style="width: 200px; height: 0; border-top: 2px dashed var(--el-border-color)"></div>
+      </td>
+    </tr>
+</table>
 </div>
 </div>
 <div class="section level2">
 <h2 id="radius">Radius<a class="anchor" aria-label="anchor" href="#radius"></a>
 </h2>
+<p>There are few radius styles to choose.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">r</span>, <span class="va">label</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
-<span>  <span class="st">"display: inline-block; width: 160px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; border-radius: %s; padding: 8px"</span>, <span class="va">r</span><span class="op">)</span>, <span class="va">label</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"0"</span>, <span class="st">"No radius"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"2px"</span>, <span class="st">"Small, 2px"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"4px"</span>, <span class="st">"Large, 4px"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"20px"</span>, <span class="st">"Round, 20px"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">radius</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">code</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"border-radius: %s"</span>, <span class="va">radius</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"height: 40px; margin-top: 10px; border: 1px solid"</span>,</span>
+<span>                                 <span class="st">"var(--el-border-color); border-radius: %s"</span><span class="op">)</span>, <span class="va">radius</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span>gutter <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"No Radius"</span>, <span class="st">"0px"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Small Radius"</span>, <span class="st">"var(--el-border-radius-small)"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Large Radius"</span>, <span class="st">"var(--el-border-radius-base)"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="st">"Round Radius"</span>, <span class="st">"var(--el-border-radius-round)"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="display: inline-block; width: 160px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; border-radius: 0; padding: 8px">No radius</div>
-  <div style="display: inline-block; width: 160px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; border-radius: 2px; padding: 8px">Small, 2px</div>
-  <div style="display: inline-block; width: 160px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; border-radius: 4px; padding: 8px">Large, 4px</div>
-  <div style="display: inline-block; width: 160px; height: 60px; margin-right: 20px; border: 1px solid #DCDFE6; border-radius: 20px; padding: 8px">Round, 20px</div>
+  <div class="el-row" style="margin-left:-6px; margin-right:-6px">
+    <div class="el-col el-col-6" style="padding-left:6px; padding-right:6px">
+      <div>No Radius</div>
+      <code>border-radius: 0px</code>
+      <div style="height: 40px; margin-top: 10px; border: 1px solid var(--el-border-color); border-radius: 0px"></div>
+    </div>
+    <div class="el-col el-col-6" style="padding-left:6px; padding-right:6px">
+      <div>Small Radius</div>
+      <code>border-radius: var(--el-border-radius-small)</code>
+      <div style="height: 40px; margin-top: 10px; border: 1px solid var(--el-border-color); border-radius: var(--el-border-radius-small)"></div>
+    </div>
+    <div class="el-col el-col-6" style="padding-left:6px; padding-right:6px">
+      <div>Large Radius</div>
+      <code>border-radius: var(--el-border-radius-base)</code>
+      <div style="height: 40px; margin-top: 10px; border: 1px solid var(--el-border-color); border-radius: var(--el-border-radius-base)"></div>
+    </div>
+    <div class="el-col el-col-6" style="padding-left:6px; padding-right:6px">
+      <div>Round Radius</div>
+      <code>border-radius: var(--el-border-radius-round)</code>
+      <div style="height: 40px; margin-top: 10px; border: 1px solid var(--el-border-color); border-radius: var(--el-border-radius-round)"></div>
+    </div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="shadow">Shadow<a class="anchor" aria-label="anchor" href="#shadow"></a>
 </h2>
+<p>There are few shadow styles to choose.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: inline-block; width: 200px; height: 60px; margin-right: 20px; padding: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"</span>, <span class="st">"Basic shadow"</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: inline-block; width: 200px; height: 60px; padding: 8px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)"</span>, <span class="st">"Light shadow"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">shadow</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span>, <span class="va">var</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"text-align: center; margin: 0 20px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"width: 120px; height: 120px; box-shadow: var(%s)"</span>, <span class="va">var</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">code</span><span class="op">(</span><span class="va">var</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap"</span>,</span>
+<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Basic Shadow"</span>, <span class="st">"--el-box-shadow"</span><span class="op">)</span>, <span class="fu">shadow</span><span class="op">(</span><span class="st">"Light Shadow"</span>, <span class="st">"--el-box-shadow-light"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">shadow</span><span class="op">(</span><span class="st">"Lighter Shadow"</span>, <span class="st">"--el-box-shadow-lighter"</span><span class="op">)</span>, <span class="fu">shadow</span><span class="op">(</span><span class="st">"Dark Shadow"</span>, <span class="st">"--el-box-shadow-dark"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="display: inline-block; width: 200px; height: 60px; margin-right: 20px; padding: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">Basic shadow</div>
-  <div style="display: inline-block; width: 200px; height: 60px; padding: 8px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">Light shadow</div>
+  <div style="display: flex; flex-wrap: wrap">
+    <div style="text-align: center; margin: 0 20px">
+      <div style="width: 120px; height: 120px; box-shadow: var(--el-box-shadow)"></div>
+      <p>Basic Shadow</p>
+      <code>--el-box-shadow</code>
+    </div>
+    <div style="text-align: center; margin: 0 20px">
+      <div style="width: 120px; height: 120px; box-shadow: var(--el-box-shadow-light)"></div>
+      <p>Light Shadow</p>
+      <code>--el-box-shadow-light</code>
+    </div>
+    <div style="text-align: center; margin: 0 20px">
+      <div style="width: 120px; height: 120px; box-shadow: var(--el-box-shadow-lighter)"></div>
+      <p>Lighter Shadow</p>
+      <code>--el-box-shadow-lighter</code>
+    </div>
+    <div style="text-align: center; margin: 0 20px">
+      <div style="width: 120px; height: 120px; box-shadow: var(--el-box-shadow-dark)"></div>
+      <p>Dark Shadow</p>
+      <code>--el-box-shadow-dark</code>
+    </div>
+  </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="changing-them">Changing them<a class="anchor" aria-label="anchor" href="#changing-them"></a>
+<h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="fu"><a href="../../reference/el_theme.html">el_theme</a></span><span class="op">(</span>element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"border-radius-base"</span> <span class="op">=</span> <span class="st">"8px"</span>,</span>
-<span>                                        <span class="st">"border-color-base"</span> <span class="op">=</span> <span class="st">"#cbd5e1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

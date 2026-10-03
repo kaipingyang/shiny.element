@@ -1,4 +1,4 @@
-# Element UI Dropdown Menu
+# Element Plus Dropdown Menu
 
 A dropdown menu triggered by hover or click. Each menu item fires a
 command that is reported as a Shiny input.
@@ -20,6 +20,20 @@ el_dropdown(
   show_timeout = NULL,
   hide_timeout = NULL,
   tabindex = NULL,
+  append_to = NULL,
+  button_props = NULL,
+  effect = NULL,
+  max_height = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  role = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -71,7 +85,8 @@ el_dropdown(
 
 - size:
 
-  Component size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - split_button:
 
@@ -102,6 +117,75 @@ el_dropdown(
 - tabindex:
 
   Tab index of the dropdown trigger.
+
+- append_to:
+
+  Which element the dropdown CONTENT appends to. Element Plus's
+  `append-to` (CSSSelector / HTMLElement).
+
+- button_props:
+
+  Props for the button component, refer to Button Attributes. Element
+  Plus's `button-props` (object).
+
+- effect:
+
+  Tooltip theme, built-in theme: `dark` / `light`. Element Plus's
+  `effect` ('dark' \| 'light' / string).
+
+- max_height:
+
+  The max height of menu. Element Plus's `max-height` (string / number).
+
+- persistent:
+
+  When dropdown inactive and `persistent` is `false` , dropdown menu
+  will be destroyed. Element Plus's `persistent` (boolean).
+
+- popper_class:
+
+  Custom class name for Dropdown's dropdown. Element Plus's
+  `popper-class` (string / object).
+
+- popper_options:
+
+  Popper.js parameters. Element Plus's `popper-options` (object).
+
+- popper_style:
+
+  Custom style for Dropdown's dropdown. Element Plus's `popper-style`
+  (string / object).
+
+- role:
+
+  The ARIA role attribute for the dropdown menu. Depending on the use
+  case, you may want to change this to 'navigation'. Element Plus's
+  `role` (enum).
+
+- show_arrow:
+
+  Whether the tooltip content has an arrow. Element Plus's `show-arrow`
+  (boolean).
+
+- teleported:
+
+  Whether the dropdown popup is teleported to the body. Element Plus's
+  `teleported` (boolean).
+
+- trigger_keys:
+
+  Specify which keys on the keyboard can trigger when pressed. Element
+  Plus's `trigger-keys` (`string[]`).
+
+- virtual_ref:
+
+  Indicates the reference element to which the dropdown is attached.
+  Element Plus's `virtual-ref` (HTMLElement).
+
+- virtual_triggering:
+
+  Indicates whether virtual triggering is enabled. Element Plus's
+  `virtual-triggering` (boolean).
 
 - width:
 
@@ -148,18 +232,20 @@ el_dropdown("dd1", "Actions",
 )
 #> <div id="dd1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dd1_container" style="display: contents">
-#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange">
+#>   <el-dropdown :trigger="trigger" :hide-on-click="hideOnClick" :placement="placement" :disabled="disabled" :split-button="splitButton" @command="handleCommand" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :show-timeout="showTimeout === null ? undefined : showTimeout" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :tabindex="tabindex === null ? undefined : tabindex" @click="elEmitClick" @visible-change="elEmitVisibleChange" :append-to="appendTo === null ? undefined : appendTo" :button-props="buttonProps === null ? undefined : buttonProps" :effect="effect === null ? undefined : effect" :max-height="maxHeight === null ? undefined : maxHeight" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :role="role === null ? undefined : role" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" :trigger-keys="triggerKeys === null ? undefined : triggerKeys" :virtual-ref="virtualRef === null ? undefined : virtualRef" :virtual-triggering="virtualTriggering === null ? undefined : virtualTriggering">
 #>     <span class="el-dropdown-link">
 #>       Actions
-#>       <i class="el-icon-arrow-down el-icon--right"></i>
+#>       <el-icon class="el-icon--right"><arrow-down /></el-icon>
 #>     </span>
-#>     <el-dropdown-menu slot="dropdown">
-#>       <el-dropdown-item :command="&quot;edit&quot;" icon="el-icon-edit">Edit</el-dropdown-item>
-#>       <el-dropdown-item :command="&quot;copy&quot;" icon="el-icon-document">Copy</el-dropdown-item>
-#>       <el-dropdown-item :command="&quot;delete&quot;" :divided="true" icon="el-icon-delete">Delete</el-dropdown-item>
-#>     </el-dropdown-menu>
+#>     <template v-slot:dropdown>
+#>       <el-dropdown-menu>
+#>         <el-dropdown-item :command="&quot;edit&quot;" icon="Edit">Edit</el-dropdown-item>
+#>         <el-dropdown-item :command="&quot;copy&quot;" icon="Document">Copy</el-dropdown-item>
+#>         <el-dropdown-item :command="&quot;delete&quot;" :divided="true" icon="Delete">Delete</el-dropdown-item>
+#>       </el-dropdown-menu>
+#>     </template>
 #>   </el-dropdown>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1', cmd, {priority: 'event'}); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}</script>
 #> </div>
 ```

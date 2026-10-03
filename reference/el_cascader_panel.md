@@ -1,4 +1,4 @@
-# Element UI Cascader Panel
+# Element Plus Cascader Panel
 
 The panel of an
 [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
@@ -21,6 +21,9 @@ el_cascader_panel(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  height = NULL,
+  item_size = NULL,
+  virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -94,6 +97,21 @@ el_cascader_panel(
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
 
+- height:
+
+  Menu height for virtual scrolling (px). Element Plus's `height`
+  (number).
+
+- item_size:
+
+  Node height for virtual scrolling (px). Element Plus's `item-size`
+  (number).
+
+- virtual_scroll:
+
+  Whether to enable virtual scrolling for large data. Element Plus's
+  `virtual-scroll` (boolean).
+
 - width:
 
   Component width, as a CSS unit.
@@ -146,17 +164,17 @@ regions <- list(
 el_cascader_panel("where", options = regions, value = c("asia", "jp"))
 #> <div id="where" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
-#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
+#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange" @close="elEmitClose" :height="height === null ? undefined : height" :item-size="itemSize === null ? undefined : itemSize" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null},"methods":{"elEmitExpandChange":"function() { window.shinyVue.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange","options.computed.elProps"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null,"height":null,"itemSize":null,"virtualScroll":null},"methods":{"elEmitExpandChange":"function() { window.shinyVue.emit('where', 'expand_change', arguments); }","elEmitClose":"function() { window.shinyVue.emit('where', 'close', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.elEmitClose","options.methods.handleChange","options.computed.elProps"]}</script>
 #> </div>
 
 # Several at once
 el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
 #> <div id="where" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
-#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange"></el-cascader-panel>
+#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange" @close="elEmitClose" :height="height === null ? undefined : height" :item-size="itemSize === null ? undefined : itemSize" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true}},"methods":{"elEmitExpandChange":"function() { window.shinyVue.emit('where', 'expand_change', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.handleChange","options.computed.elProps"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true},"height":null,"itemSize":null,"virtualScroll":null},"methods":{"elEmitExpandChange":"function() { window.shinyVue.emit('where', 'expand_change', arguments); }","elEmitClose":"function() { window.shinyVue.emit('where', 'close', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitExpandChange","options.methods.elEmitClose","options.methods.handleChange","options.computed.elProps"]}</script>
 #> </div>
 ```

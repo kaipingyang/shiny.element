@@ -1,6 +1,6 @@
-# Update Element UI Table
+# Update Element Plus Table
 
-Update Element UI Table
+Update Element Plus Table
 
 ## Usage
 

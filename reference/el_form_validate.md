@@ -1,4 +1,4 @@
-# Validate an Element UI Form from the server
+# Validate an Element Plus Form from the server
 
 Runs the form's rules and reports the outcome the same way a submit
 does, so the same `observeEvent` handles both. Use it when the form has

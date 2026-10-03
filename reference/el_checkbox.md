@@ -1,4 +1,4 @@
-# Element UI Checkbox
+# Element Plus Checkbox
 
 One box, ticked or not – Shiny's
 [`shiny::checkboxInput()`](https://rdrr.io/pkg/shiny/man/checkboxInput.html),
@@ -20,6 +20,13 @@ el_checkbox(
   false_label = NULL,
   name = NULL,
   checked = NULL,
+  aria_controls = NULL,
+  aria_label = NULL,
+  controls = NULL,
+  false_value = NULL,
+  tabindex = NULL,
+  true_value = NULL,
+  validate_event = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -56,7 +63,8 @@ el_checkbox(
 
 - size:
 
-  `"medium"`, `"small"` or `"mini"`; only with `border = TRUE`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - true_label, false_label:
 
@@ -71,6 +79,39 @@ el_checkbox(
   Element's `checked`: tick the box when it is created, whatever `value`
   says. The same as `value = TRUE`, kept for code written from Element's
   documentation.
+
+- aria_controls:
+
+  Same as aria-controls, takes effect when `indeterminate` is `true`.
+  Element Plus's `aria-controls` (string).
+
+- aria_label:
+
+  Native `aria-label` attribute. Element Plus's `aria-label` (string).
+
+- controls:
+
+  Same as aria-controls, takes effect when `indeterminate` is `true`.
+  Element Plus's `controls` (string).
+
+- false_value:
+
+  Value of the Checkbox if it's not checked. Element Plus's
+  `false-value` (string / number).
+
+- tabindex:
+
+  Input tabindex. Element Plus's `tabindex` (string / number).
+
+- true_value:
+
+  Value of the Checkbox if it's checked. Element Plus's `true-value`
+  (string / number).
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
 
 - width:
 
@@ -101,25 +142,25 @@ A Shiny UI element.
 el_checkbox("agree", "I agree to the terms")
 #> <div id="agree" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="agree_container" style="display: contents">
-#>   <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
+#>   <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"I agree to the terms","indeterminate":null,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"I agree to the terms","indeterminate":null,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 
 # The "check all" box above a group
 el_checkbox("all", "Check all", indeterminate = TRUE)
 #> <div id="all" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="all_container" style="display: contents">
-#>   <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
+#>   <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Check all","indeterminate":true,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Check all","indeterminate":true,"disabled":null,"border":null,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 
 el_checkbox("remember", "Remember me", value = TRUE, border = TRUE)
 #> <div id="remember" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="remember_container" style="display: contents">
-#>   <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked"></el-checkbox>
+#>   <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Remember me","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Remember me","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 ```

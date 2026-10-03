@@ -1,6 +1,6 @@
-# Update an Element UI Upload
+# Update an Element Plus Upload
 
-Update an Element UI Upload
+Update an Element Plus Upload
 
 ## Usage
 

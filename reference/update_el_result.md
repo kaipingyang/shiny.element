@@ -1,4 +1,4 @@
-# Update Element UI Result
+# Update Element Plus Result
 
 Server-side update for
 [`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md).

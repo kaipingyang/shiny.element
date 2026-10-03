@@ -1,4 +1,4 @@
-# Element UI Skeleton
+# Element Plus Skeleton
 
 Grey placeholder shapes shown while content is on its way, then the
 content itself. In Shiny the usual pattern is to start with

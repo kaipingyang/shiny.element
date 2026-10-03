@@ -1,29 +1,36 @@
 # Tag
 
-Used for marking and selection. `input$<id>` counts clicks on the tag,
-and `input$<id>_closed` fires when its close button is pressed.
+Used for marking and selection.
 
 ## Basic usage
 
-``` r
-
-el_tag("t1", "Tag 1")
-el_tag("t2", "Tag 2", type = "success")
-el_tag("t3", "Tag 3", type = "info")
-el_tag("t4", "Tag 4", type = "warning")
-el_tag("t5", "Tag 5", type = "danger")
-```
-
-## Removable tag
+Use the `type` attribute to define Tag’s type. In addition, the `color`
+attribute can be used to set the background color of the Tag.
 
 ``` r
 
-el_tag("r1", "Closable", closable = TRUE)
-el_tag("r2", "Closable", closable = TRUE, type = "success")
-el_tag("r3", "Closable", closable = TRUE, type = "warning", disable_transitions = TRUE)
+types <- c("primary", "success", "info", "warning", "danger")
+tagList(lapply(types, function(t) el_tag(paste0("t_", t), paste("Tag", match(t, types)), type = t)))
 ```
 
-## Edit dynamically
+## Removable Tag
+
+`closable` attribute can be used to define a removable tag. It accepts a
+`Boolean`. By default the removal of Tag has a fading animation. If you
+don’t want to use it, you can set the `disable-transitions` attribute,
+which accepts a `Boolean`, to `true`. `close` event triggers when Tag is
+removed.
+
+``` r
+
+types <- c("primary", "success", "info", "warning", "danger")
+tagList(lapply(types, function(t) el_tag(paste0("r_", t), paste("Tag", match(t, types)), type = t,
+                                         closable = TRUE)))
+```
+
+## Edit Dynamically
+
+You can use the `close` event to add and remove tag dynamically.
 
 Tags the user adds and removes: the list lives on the server and is
 drawn with [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html).
@@ -57,19 +64,36 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![The dynamic example, running](../../shots/tag-dynamic.png)
+![The editable example, running](../../shots/tag-editable.png)
 
 ## Sizes
 
+Besides default size, Tag component provides three additional sizes for
+you to choose among different scenarios.
+
+Use attribute `size` to set additional sizes with `large`, `default` or
+`small`.
+
 ``` r
 
-el_tag("s1", "Default", closable = TRUE)
-el_tag("s2", "Medium", size = "medium", closable = TRUE)
-el_tag("s3", "Small", size = "small", closable = TRUE)
-el_tag("s4", "Mini", size = "mini", closable = TRUE)
+tagList(
+  el_tag("s1", "Large", size = "large"),
+  el_tag("s2", "Default"),
+  el_tag("s3", "Small", size = "small"),
+  tags$br(), tags$br(),
+  el_tag("s4", "Large", size = "large", closable = TRUE),
+  el_tag("s5", "Default", closable = TRUE),
+  el_tag("s6", "Small", size = "small", closable = TRUE))
 ```
 
+  
+  
+
 ## Theme
+
+Tag provide three different themes: `dark`、`light` and `plain`
+
+Using `effect` to change, default is `light`
 
 `effect` is `"dark"`, `"light"` (the default) or `"plain"`.
 
@@ -78,7 +102,7 @@ el_tag("s4", "Mini", size = "mini", closable = TRUE)
 types <- c("primary", "success", "info", "warning", "danger")
 tagList(lapply(c("dark", "light", "plain"), function(e) tags$div(style = "margin-bottom: 10px",
   tags$span(style = "display: inline-block; width: 50px", e),
-  lapply(types, function(t) el_tag(paste0(e, t), t, type = if (t != "primary") t, effect = e)))))
+  lapply(types, function(t) el_tag(paste0(e, t), t, type = t, effect = e)))))
 ```
 
 dark
@@ -87,23 +111,111 @@ light
 
 plain
 
+## Rounded
+
+Tag can also be rounded like button.
+
+``` r
+
+types <- c("primary", "success", "info", "warning", "danger")
+tagList(lapply(c("dark", "light", "plain"), function(e) tags$div(style = "margin-bottom: 10px",
+  lapply(types, function(t) el_tag(paste0("rd", e, t), t, type = t, effect = e, round = TRUE)))))
+```
+
+## Checkable Tag
+
+Sometimes because of the business needs, we might need checkbox like
+tag, but **button like checkbox** cannot meet our needs, here comes
+`check-tag`. You can use `type` prop in 2.5.4.
+
+basic check-tag usage, the API is rather simple.
+
+A tag that toggles, like a checkbox, is
+[`el_check_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_check_tag.md);
+it reports `input$<id>` as `TRUE` or `FALSE`.
+
+``` r
+
+tagList(
+  el_check_tag("ct1", "Checked", value = TRUE),
+  el_check_tag("ct2", "Toggle me"),
+  el_check_tag("ct3", "Disabled", disabled = TRUE),
+  tags$br(), tags$br(),
+  lapply(c("primary", "success", "info", "warning", "danger"), function(t)
+    el_check_tag(paste0("ctt", t), t, type = t, value = TRUE)))
+```
+
+  
+  
+
 ## API
 
-### Attributes
+Element Plus’s tables, and beside each entry where it is in R.
+
+### Tag Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `type` | `type` | component type | string | success/info/warning/danger | — |
-| `closable` | `closable` | whether Tag can be removed | boolean | — | false |
-| `disable-transitions` | `disable_transitions` | whether to disable animations | boolean | — | false |
-| `hit` | `hit` | whether Tag has a highlighted border | boolean | — | false |
-| `color` | `color` | background color of the Tag | string | — | — |
-| `size` | `size` | tag size | string | medium / small / mini | — |
-| `effect` | `effect` | component theme | string | dark / light / plain | light |
+| `type` | `el_tag(type =)` | type of Tag | [^1]`'primary' \\| 'success' \\| 'info' \\| 'warning' \\| 'danger'` |  | primary |
+| `closable` | `el_tag(closable =)` | whether Tag can be removed | [^2] |  | false |
+| `disable-transitions` | `el_tag(disable_transitions =)` | whether to disable animations | [^3] |  | false |
+| `hit` | `el_tag(hit =)` | whether Tag has a highlighted border | [^4] |  | false |
+| `color` | `el_tag(color =)` | background color of the Tag | [^5] |  | — |
+| `size` | `el_tag(size =)` | size of Tag | [^6]`'large' \\| 'default' \\| 'small'` |  | — |
+| `effect` | `el_tag(effect =)` | theme of Tag | [^7]`'dark' \\| 'light' \\| 'plain'` |  | light |
+| `round` | `el_tag(round =)` | whether Tag is rounded | [^8] |  | false |
 
-### Events
+### Tag Events
 
 | Element | In R | Description |
 |----|----|----|
 | `click` | one of the component’s inputs – see its reference page | triggers when Tag is clicked |
 | `close` | one of the component’s inputs – see its reference page | triggers when Tag is removed |
+
+### Tag Slots
+
+| Element   | In R            | Description               |
+|-----------|-----------------|---------------------------|
+| `default` | default content | customize default content |
+
+### CheckTag Attributes
+
+| Element | In R | Description | Type | Accepted | Default |
+|----|----|----|----|----|----|
+| `checked` | `value`; `input$<id>` | is checked | [^9] |  | false |
+| `disabled` | `el_check_tag(disabled =)` | whether the check-tag is disabled | [^10] |  | false |
+| `type` | `el_tag(type =)` | type of CheckTag | [^11]`'primary' \\| 'success' \\| 'info' \\| 'warning' \\| 'danger'` |  | primary |
+
+### CheckTag Events
+
+| Element  | In R                    | Description                        |
+|----------|-------------------------|------------------------------------|
+| `change` | `input$<id>`, the value | triggers when Check Tag is clicked |
+
+### CheckTag Slots
+
+| Element   | In R            | Description               |
+|-----------|-----------------|---------------------------|
+| `default` | default content | customize default content |
+
+[^1]: enum
+
+[^2]: boolean
+
+[^3]: boolean
+
+[^4]: boolean
+
+[^5]: string
+
+[^6]: enum
+
+[^7]: enum
+
+[^8]: boolean
+
+[^9]: boolean
+
+[^10]: boolean
+
+[^11]: enum

@@ -1,4 +1,4 @@
-# Update Element UI Time Picker
+# Update Element Plus Time Picker
 
 Server-side update for
 [`el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
@@ -14,7 +14,6 @@ update_el_time_picker(
   id,
   value = NULL,
   disabled = NULL,
-  picker_options = NULL,
   label = NULL,
   error = NULL
 )
@@ -24,7 +23,6 @@ update_el_time_select(
   id,
   value = NULL,
   disabled = NULL,
-  picker_options = NULL,
   label = NULL,
   error = NULL
 )
@@ -41,7 +39,7 @@ update_el_time_select(
 
   Picker ID (un-namespaced).
 
-- value, disabled, picker_options:
+- value, disabled:
 
   New values; `NULL` leaves one unchanged.
 

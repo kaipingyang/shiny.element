@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="switch_files/vue-2.7.14/vue.min.js"></script><link href="switch_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="switch_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="switch_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="switch_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="switch_files/el-events-1.0.0/el-events.js"></script><script src="switch_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="switch_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="switch_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="switch_files/vue-3.5.43/vue.global.prod.js"></script><link href="switch_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="switch_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="switch_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="switch_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="switch_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="switch_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="switch_files/el-events-1.0.0/el-events.js"></script><script src="switch_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="switch_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,79 +187,245 @@
 
     
     
-<p>Switch is used for switching between two opposing states;
-<code>input$&lt;id&gt;</code> is <code>TRUE</code> or
-<code>FALSE</code>, or the values given.</p>
+<p>Switch is used for switching between two opposing states.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Bind <code>v-model</code> to a <code>Boolean</code> typed variable.
+The <code>--el-switch-on-color</code> and
+<code>--el-switch-off-color</code> CSS variables decides the background
+color in two states.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"s1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"s2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_color <span class="op">=</span> <span class="st">"#13ce66"</span>, inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_color <span class="op">=</span> <span class="st">"#13ce66"</span>, inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-s1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-s1_container" style="display: contents">
-  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="basic-sw1" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-sw1_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
-  <div id="basic-s2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-s2_container" style="display: contents">
-  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"#13ce66","inactiveColor":"#ff4949","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="basic-sw2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-sw2_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"#13ce66","inactiveColor":"#ff4949","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px; align-items: center"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_l"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span>, active_text <span class="op">=</span> <span class="st">"Open"</span>, inactive_text <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_d"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Open"</span>, inactive_text <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_s"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span>, active_text <span class="op">=</span> <span class="st">"Open"</span>, inactive_text <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: flex; gap: 16px; align-items: center">
+    <div id="sizes-sw_l" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-sw_l_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"Open","inactiveText":"Close","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":"large","tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="sizes-sw_d" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-sw_d_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"Open","inactiveText":"Close","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="sizes-sw_s" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-sw_s_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"Open","inactiveText":"Close","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":"small","tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="text-description">Text description<a class="anchor" aria-label="anchor" href="#text-description"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"bill"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Pay by month"</span>, inactive_text <span class="op">=</span> <span class="st">"Pay by year"</span><span class="op">)</span></span></code></pre></div>
+<p>You can add <code>active-text</code> and <code>inactive-text</code>
+attribute to show texts. use <code>inline-prompt</code> attribute to
+control text is displayed inside dot.</p>
+<p>You can add <code>active-text</code> and <code>inactive-text</code>
+attribute to show texts.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 12px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_t1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Pay by month"</span>, inactive_text <span class="op">=</span> <span class="st">"Pay by year"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_t2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"Y"</span>, inactive_text <span class="op">=</span> <span class="st">"N"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_t3"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"是"</span>, inactive_text <span class="op">=</span> <span class="st">"否"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="text-bill" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="text-bill_container" style="display: contents">
-  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"Pay by month","inactiveText":"Pay by year","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div style="display: grid; gap: 12px">
+    <div id="text-description-sw_t1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="text-description-sw_t1_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"Pay by month","inactiveText":"Pay by year","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
+    <div id="text-description-sw_t2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="text-description-sw_t2_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"Y","inactiveText":"N","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":true,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="text-description-sw_t3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="text-description-sw_t3_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"是","inactiveText":"否","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":true,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="display-custom-icons">Display custom icons<a class="anchor" aria-label="anchor" href="#display-custom-icons"></a>
+</h2>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Use the <code>active-icon</code> and <code>inactive-icon</code>
+attribute to add icon. You can pass either string for the component name
+(registered in advance) or the component itself which is a SVG Vue
+component. Element Plus has provided a set of icon that you can find at
+<a href="icon.html">icon</a></p>
+</blockquote>
+<p>You can add <code>active-icon</code> and <code>inactive-icon</code>
+attribute to show icons. use <code>inline-prompt</code> attribute to
+control icon is displayed inside dot.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_i1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_icon <span class="op">=</span> <span class="st">"Check"</span>, inactive_icon <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_i2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, inline_prompt <span class="op">=</span> <span class="cn">TRUE</span>, active_icon <span class="op">=</span> <span class="st">"Check"</span>, inactive_icon <span class="op">=</span> <span class="st">"Close"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: flex; gap: 16px">
+    <div id="custom-icons-sw_i1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="custom-icons-sw_i1_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":"Check","ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":"Close","inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="custom-icons-sw_i2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="custom-icons-sw_i2_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":"Check","ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":"Close","inlinePrompt":true,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="extended-value-types">Extended value types<a class="anchor" aria-label="anchor" href="#extended-value-types"></a>
 </h2>
-<p><code>active_value</code> and <code>inactive_value</code> take
-numbers or text; <code>input$&lt;id&gt;</code> reports them.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"level"</span>, value <span class="op">=</span> <span class="st">"100"</span>, active_color <span class="op">=</span> <span class="st">"#13ce66"</span>, inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span>,</span>
-<span>          active_value <span class="op">=</span> <span class="st">"100"</span>, inactive_value <span class="op">=</span> <span class="st">"0"</span><span class="op">)</span></span></code></pre></div>
+<p>You can set <code>active-value</code> and <code>inactive-value</code>
+attributes. They both receive a <code>Boolean</code>,
+<code>String</code> or <code>Number</code> typed value.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ext"</span>, value <span class="op">=</span> <span class="st">"100"</span>, active_value <span class="op">=</span> <span class="st">"100"</span>, inactive_value <span class="op">=</span> <span class="st">"0"</span>,</span>
+<span>          active_color <span class="op">=</span> <span class="st">"#13ce66"</span>, inactive_color <span class="op">=</span> <span class="st">"#ff4949"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="values-level" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="values-level_container" style="display: contents">
-  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"100","disabled":false,"activeText":"","inactiveText":"","activeColor":"#13ce66","inactiveColor":"#ff4949","activeValue":"100","inactiveValue":"0","width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="extended-value-types-sw_ext" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="extended-value-types-sw_ext_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"100","disabled":false,"activeText":"","inactiveText":"","activeColor":"#13ce66","inactiveColor":"#ff4949","activeValue":"100","inactiveValue":"0","width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="disabled">Disabled<a class="anchor" aria-label="anchor" href="#disabled"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"d1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"d2"</span>, value <span class="op">=</span> <span class="cn">FALSE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Adding the <code>disabled</code> attribute disables Switch.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_dis1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_dis2"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="disabled-d1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="disabled-d1_container" style="display: contents">
-  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":true,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="disabled-sw_dis1" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="disabled-sw_dis1_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":true,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
-  <div id="disabled-d2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="disabled-d2_container" style="display: contents">
-  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":true,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="disabled-sw_dis2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="disabled-sw_dis2_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":true,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="loading">Loading<a class="anchor" aria-label="anchor" href="#loading"></a>
+</h2>
+<p>Setting the <code>loading</code> attribute to <code>true</code>
+indicates a loading state on the Switch.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ld1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ld2"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="loading-sw_ld1" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="loading-sw_ld1_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":true,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  <div id="loading-sw_ld2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="loading-sw_ld2_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":true,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="prevent-switching">Prevent switching<a class="anchor" aria-label="anchor" href="#prevent-switching"></a>
+</h2>
+<p>set the <code>before-change</code> property, If <code>false</code> is
+returned or a <code>Promise</code> is returned and then is rejected,
+will stop switching.</p>
+<p><code>before_change</code>, a <code><a href="../../reference/JS.html">JS()</a></code> function, may hold
+the switch – return <code>false</code>, or a promise.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_guard"</span>, before_change <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="prevent-switching-sw_guard" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="prevent-switching-sw_guard_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":"function() { return new Promise(function(r) { setTimeout(function() { r(true); }, 1000); }); }","borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.data.beforeChange","options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="custom-action-icon">Custom action icon<a class="anchor" aria-label="anchor" href="#custom-action-icon"></a>
+</h2>
+<p>You can add <code>active-action-icon</code> and
+<code>inactive-action-icon</code> attribute to show icons.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_ai1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_action_icon <span class="op">=</span> <span class="st">"View"</span>, inactive_action_icon <span class="op">=</span> <span class="st">"Hide"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: flex; gap: 16px">
+    <div id="custom-action-icon-sw_ai1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="custom-action-icon-sw_ai1_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":"View","activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":"Hide","inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="custom-action-slot">Custom action slot<a class="anchor" aria-label="anchor" href="#custom-action-slot"></a>
+</h2>
+<p>You can use <code>active-action</code> and
+<code>inactive-action</code> slot to customize action.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw_slot"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  `active-action` <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"custom-active-action"</span>, <span class="st">"T"</span><span class="op">)</span>,</span>
+<span>  `inactive-action` <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"custom-inactive-action"</span>, <span class="st">"F"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="custom-action-slot-sw_slot" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="custom-action-slot-sw_slot_container" style="display: contents">
+  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex">
+    <template v-slot:active-action>
+      <span class="custom-active-action">T</span>
+    </template>
+    <template v-slot:inactive-action>
+      <span class="custom-inactive-action">F</span>
+    </template>
+  </el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
@@ -248,112 +448,238 @@ numbers or text; <code>input$&lt;id&gt;</code> reports them.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>value</code></td>
-<td>binding value</td>
-<td>boolean / string / number</td>
-<td>—</td>
-<td>—</td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
+<td>binding value, it should be equivalent to either
+<code>active-value</code> or <code>inactive-value</code>, by default
+it’s <code>boolean</code> type</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>1</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>2</sup></a> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>3</sup></a>
+</td>
+<td></td>
+<td>false</td>
 </tr>
 <tr class="even">
 <td><code>disabled</code></td>
 <td><code>disabled</code></td>
 <td>whether Switch is disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>false</td>
+</tr>
+<tr class="odd">
+<td><code>loading</code></td>
+<td><code>loading</code></td>
+<td>whether Switch is in loading state</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td><code>size</code></td>
+<td><code>size</code></td>
+<td>size of Switch</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>6</sup></a><code>'' \\| 'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
 <td><code>width</code></td>
 <td><code>width</code></td>
 <td>width of Switch</td>
-<td>number</td>
-<td>—</td>
-<td>40</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>7</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>8</sup></a>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
-<td><code>active-icon-class</code></td>
-<td><code>active_icon_class</code></td>
-<td>class name of the icon displayed when in <code>on</code> state,
+<td><code>inline-prompt</code></td>
+<td><code>inline_prompt</code></td>
+<td>whether icon or text is displayed inside dot, only the first
+character will be rendered for text</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td><code>active-icon</code></td>
+<td><code>active_icon</code></td>
+<td>component of the icon displayed when in <code>on</code> state,
 overrides <code>active-text</code>
 </td>
-<td>string</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>10</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>11</sup></a>
+</td>
+<td></td>
 <td>—</td>
+</tr>
+<tr class="even">
+<td><code>inactive-icon</code></td>
+<td><code>inactive_icon</code></td>
+<td>component of the icon displayed when in <code>off</code> state,
+overrides <code>inactive-text</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>12</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>13</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
-<td><code>inactive-icon-class</code></td>
-<td><code>inactive_icon_class</code></td>
-<td>class name of the icon displayed when in <code>off</code> state,
-overrides <code>inactive-text</code>
+<td><code>active-action-icon</code></td>
+<td><code>active_action_icon</code></td>
+<td>component of the icon displayed in action when in <code>on</code>
+state</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>14</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>15</sup></a>
 </td>
-<td>string</td>
-<td>—</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
+<td><code>inactive-action-icon</code></td>
+<td><code>inactive_action_icon</code></td>
+<td>component of the icon displayed in action when in <code>off</code>
+state</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>16</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>17</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
 <td><code>active-text</code></td>
 <td><code>active_text</code></td>
 <td>text displayed when in <code>on</code> state</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>18</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>inactive-text</code></td>
 <td><code>inactive_text</code></td>
 <td>text displayed when in <code>off</code> state</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>active-value</code></td>
 <td><code>active_value</code></td>
 <td>switch value when in <code>on</code> state</td>
-<td>boolean / string / number</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>20</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>21</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>22</sup></a>
+</td>
+<td></td>
 <td>true</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>inactive-value</code></td>
 <td><code>inactive_value</code></td>
 <td>switch value when in <code>off</code> state</td>
-<td>boolean / string / number</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>23</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>24</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>25</sup></a>
+</td>
+<td></td>
 <td>false</td>
-</tr>
-<tr class="even">
-<td><code>active-color</code></td>
-<td><code>active_color</code></td>
-<td>background color when in <code>on</code> state</td>
-<td>string</td>
-<td>—</td>
-<td>#409EFF</td>
-</tr>
-<tr class="odd">
-<td><code>inactive-color</code></td>
-<td><code>inactive_color</code></td>
-<td>background color when in <code>off</code> state</td>
-<td>string</td>
-<td>—</td>
-<td>#C0CCDA</td>
-</tr>
-<tr class="even">
-<td><code>name</code></td>
-<td><code>name</code></td>
-<td>input name of Switch</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
 </tr>
 <tr class="odd">
 <td><code>validate-event</code></td>
 <td><code>validate_event</code></td>
 <td>whether to trigger form validation</td>
-<td>boolean</td>
-<td>-</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
 <td>true</td>
+</tr>
+<tr class="even">
+<td><code>before-change</code></td>
+<td><code>before_change</code></td>
+<td>before-change hook before the switch state changes. If
+<code>false</code> is returned or a <code>Promise</code> is returned and
+then is rejected, will stop switching</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>27</sup></a><code>() =&gt; Promise&lt;boolean&gt; \\| boolean</code>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>id</code></td>
+<td>
+<code>id</code>, the Shiny input’s</td>
+<td>id for input</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>28</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>tabindex</code></td>
+<td><code>tabindex</code></td>
+<td>tabindex for input</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>29</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>30</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>aria-label</code></td>
+<td><code>aria_label</code></td>
+<td>same as <code>aria-label</code> in native input</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>31</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>active-color</code></td>
+<td><code>active_color</code></td>
+<td>background color when in <code>on</code> state ( use CSS var
+<code>--el-switch-on-color</code> instead )</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>32</sup></a></td>
+<td></td>
+<td>’’</td>
+</tr>
+<tr class="odd">
+<td><code>inactive-color</code></td>
+<td><code>inactive_color</code></td>
+<td>background color when in <code>off</code> state ( use CSS var
+<code>--el-switch-off-color</code> instead )</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>33</sup></a></td>
+<td></td>
+<td>’’</td>
+</tr>
+<tr class="even">
+<td><code>border-color</code></td>
+<td><code>border_color</code></td>
+<td>border color of the switch ( use CSS var
+<code>--el-switch-border-color</code> instead )</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>34</sup></a></td>
+<td></td>
+<td>’’</td>
+</tr>
+<tr class="odd">
+<td><code>label</code></td>
+<td><code>label</code></td>
+<td>same as <code>aria-label</code> in native input</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>35</sup></a></td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
@@ -376,7 +702,45 @@ overrides <code>inactive-text</code>
 </table>
 </div>
 <div class="section level3">
-<h3 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a>
+<h3 id="switch-slots">Switch Slots<a class="anchor" aria-label="anchor" href="#switch-slots"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>active-action</code></td>
+<td><code>slots = list(active-action = )</code></td>
+<td>customize active action</td>
+</tr>
+<tr class="even">
+<td><code>inactive-action</code></td>
+<td><code>slots = list(inactive-action = )</code></td>
+<td>customize inactive action</td>
+</tr>
+<tr class="odd">
+<td><code>active</code></td>
+<td><code>slots = list(active = )</code></td>
+<td>customize active content</td>
+</tr>
+<tr class="even">
+<td><code>inactive</code></td>
+<td><code>slots = list(inactive = )</code></td>
+<td>customize inactive content</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="exposes">Exposes<a class="anchor" aria-label="anchor" href="#exposes"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -392,11 +756,12 @@ overrides <code>inactive-text</code>
 <tbody><tr class="odd">
 <td><code>focus</code></td>
 <td><code>el_call(session, id, "focus")</code></td>
-<td>focus the Switch component</td>
+<td>manual focus to the switch component</td>
 </tr></tbody>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

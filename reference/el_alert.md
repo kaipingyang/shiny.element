@@ -1,4 +1,4 @@
-# Element UI Alert
+# Element Plus Alert
 
 An inline alert banner with optional close button. Fires a Shiny input
 when the user closes it.

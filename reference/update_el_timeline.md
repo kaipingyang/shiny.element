@@ -1,6 +1,6 @@
-# Update an Element UI Timeline
+# Update an Element Plus Timeline
 
-Update an Element UI Timeline
+Update an Element Plus Timeline
 
 ## Usage
 

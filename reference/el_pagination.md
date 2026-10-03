@@ -1,6 +1,6 @@
-# Element UI Pagination Component
+# Element Plus Pagination Component
 
-Creates an Element UI pagination bar with page navigation, size
+Creates an Element Plus pagination bar with page navigation, size
 selector, jump-to-page input, and total count display.
 
 ## Usage
@@ -22,6 +22,14 @@ el_pagination(
   hide_on_single_page = NULL,
   page_count = NULL,
   popper_class = NULL,
+  append_size_to = NULL,
+  default_current_page = NULL,
+  default_page_size = NULL,
+  next_icon = NULL,
+  popper_style = NULL,
+  prev_icon = NULL,
+  size = NULL,
+  teleported = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -91,6 +99,48 @@ el_pagination(
 
   Extra class name for the page-size dropdown.
 
+- append_size_to:
+
+  Which element the size dropdown appends to. Element Plus's
+  `append-size-to` (string).
+
+- default_current_page:
+
+  Default initial value of current-page, not setting is the same as
+  setting 1. Element Plus's `default-current-page` (number).
+
+- default_page_size:
+
+  Default initial value of page size, not setting is the same as
+  setting 10. Element Plus's `default-page-size` (number).
+
+- next_icon:
+
+  Icon for the next button, has a lower priority than `next-text`.
+  Element Plus's `next-icon` (string / Component). An icon's name, such
+  as `"Search"`.
+
+- popper_style:
+
+  Custom style for the page size Select's dropdown. Element Plus's
+  `popper-style` (string / object).
+
+- prev_icon:
+
+  Icon for the prev button, has a lower priority than `prev-text`.
+  Element Plus's `prev-icon` (string / Component). An icon's name, such
+  as `"Search"`.
+
+- size:
+
+  Pagination size. Element Plus's `size` ('large' \| 'default' \|
+  'small').
+
+- teleported:
+
+  Whether Pagination select dropdown is teleported to the body. Element
+  Plus's `teleported` (boolean).
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -127,9 +177,9 @@ An `htmltools` tagList with a Vue-managed pagination component.
 el_pagination("pg1", total = 100)
 #> <div id="pg1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="pg1_container" style="display: contents">
-#>   <el-pagination :total="total" :page-size.sync="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass" @prev-click="elEmitPrevClick" @next-click="elEmitNextClick"></el-pagination>
+#>   <el-pagination :total="total" v-model:page-size="pageSize" v-model:current-page="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass" @prev-click="elEmitPrevClick" @next-click="elEmitNextClick" @change="elEmitChange" :append-size-to="appendSizeTo === null ? undefined : appendSizeTo" :default-current-page="defaultCurrentPage === null ? undefined : defaultCurrentPage" :default-page-size="defaultPageSize === null ? undefined : defaultPageSize" :next-icon="nextIcon === null ? undefined : nextIcon" :popper-style="popperStyle === null ? undefined : popperStyle" :prev-icon="prevIcon === null ? undefined : prevIcon" :size="size === null ? undefined : size" :teleported="teleported === null ? undefined : teleported"></el-pagination>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null},"methods":{"elEmitPrevClick":"function() { window.shinyVue.emit('pg1', 'prev_click', arguments); }","elEmitNextClick":"function() { window.shinyVue.emit('pg1', 'next_click', arguments); }","handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('pg1_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"pg1_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"evals":["options.methods.elEmitPrevClick","options.methods.elEmitNextClick","options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":100,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"total, sizes, prev, pager, next, jumper","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null,"appendSizeTo":null,"defaultCurrentPage":null,"defaultPageSize":null,"nextIcon":null,"popperStyle":null,"prevIcon":null,"size":null,"teleported":null},"methods":{"elEmitPrevClick":"function() { window.shinyVue.emit('pg1', 'prev_click', arguments); }","elEmitNextClick":"function() { window.shinyVue.emit('pg1', 'next_click', arguments); }","elEmitChange":"function() { window.shinyVue.emit('pg1', 'change', arguments); }","handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('pg1_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"pg1_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"evals":["options.methods.elEmitPrevClick","options.methods.elEmitNextClick","options.methods.elEmitChange","options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
 #> </div>
 
 # With custom page sizes and layout
@@ -142,9 +192,9 @@ el_pagination(
 )
 #> <div id="pg2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="pg2_container" style="display: contents">
-#>   <el-pagination :total="total" :page-size.sync="pageSize" :current-page.sync="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass" @prev-click="elEmitPrevClick" @next-click="elEmitNextClick"></el-pagination>
+#>   <el-pagination :total="total" v-model:page-size="pageSize" v-model:current-page="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange" :prev-text="prevText === null ? undefined : prevText" :next-text="nextText === null ? undefined : nextText" :hide-on-single-page="hideOnSinglePage === null ? undefined : hideOnSinglePage" :page-count="pageCount === null ? undefined : pageCount" :popper-class="popperClass === null ? undefined : popperClass" @prev-click="elEmitPrevClick" @next-click="elEmitNextClick" @change="elEmitChange" :append-size-to="appendSizeTo === null ? undefined : appendSizeTo" :default-current-page="defaultCurrentPage === null ? undefined : defaultCurrentPage" :default-page-size="defaultPageSize === null ? undefined : defaultPageSize" :next-icon="nextIcon === null ? undefined : nextIcon" :popper-style="popperStyle === null ? undefined : popperStyle" :prev-icon="prevIcon === null ? undefined : prevIcon" :size="size === null ? undefined : size" :teleported="teleported === null ? undefined : teleported"></el-pagination>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null},"methods":{"elEmitPrevClick":"function() { window.shinyVue.emit('pg2', 'prev_click', arguments); }","elEmitNextClick":"function() { window.shinyVue.emit('pg2', 'next_click', arguments); }","handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('pg2_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"pg2_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"evals":["options.methods.elEmitPrevClick","options.methods.elEmitNextClick","options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":500,"pageSize":20,"currentPage":1,"pageSizes":[10,20,50,100],"layout":"total, sizes, prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null,"appendSizeTo":null,"defaultCurrentPage":null,"defaultPageSize":null,"nextIcon":null,"popperStyle":null,"prevIcon":null,"size":null,"teleported":null},"methods":{"elEmitPrevClick":"function() { window.shinyVue.emit('pg2', 'prev_click', arguments); }","elEmitNextClick":"function() { window.shinyVue.emit('pg2', 'next_click', arguments); }","elEmitChange":"function() { window.shinyVue.emit('pg2', 'change', arguments); }","handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('pg2_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"pg2_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"evals":["options.methods.elEmitPrevClick","options.methods.elEmitNextClick","options.methods.elEmitChange","options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
 #> </div>
 
 # Shiny app example

@@ -1,10 +1,10 @@
-# Element UI Layout Row
+# Element Plus Layout Row
 
 Emits `<div class="el-row">` directly rather than an `<el-row>` custom
 tag. Nothing mounts a Vue instance over page-level markup, so a custom
 tag would never be compiled and would render as an unstyled inline
-element; the Element UI stylesheet is already loaded, so the class name
-is all that is needed.
+element; the Element Plus stylesheet is already loaded, so the class
+name is all that is needed.
 
 ## Usage
 

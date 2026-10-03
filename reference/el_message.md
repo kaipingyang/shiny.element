@@ -1,4 +1,4 @@
-# Show Element UI Message
+# Show Element Plus Message
 
 Server-side function to show a top-centre message toast. Requires
 [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
@@ -15,12 +15,16 @@ el_message(
   type = "info",
   duration = 3000,
   show_close = FALSE,
-  center = FALSE,
-  offset = 20,
-  icon_class = NULL,
+  offset = 16,
   custom_class = NULL,
   dangerously_use_html_string = FALSE,
-  id = NULL
+  id = NULL,
+  icon = NULL,
+  plain = NULL,
+  placement = NULL,
+  append_to = NULL,
+  grouping = NULL,
+  repeat_num = NULL
 )
 ```
 
@@ -49,17 +53,9 @@ el_message(
 
   Whether to show the close button. Default `FALSE`.
 
-- center:
-
-  Whether to centre the message text. Default `FALSE`.
-
 - offset:
 
-  Distance from the top of the window, in pixels.
-
-- icon_class:
-
-  Icon class to show instead of the one `type` implies.
+  Distance from the edge of the window, in pixels. Default `16`.
 
 - custom_class:
 
@@ -75,6 +71,32 @@ el_message(
   Name for this message, so
   [`el_message_close()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.md)
   can close it and `input$<id>_close` reports when it closes.
+
+- icon:
+
+  Icon to show instead of the one `type` implies, by name.
+
+- plain:
+
+  Whether it is drawn plain, without a background colour.
+
+- placement:
+
+  Where it appears: `"top"` (the default), `"top-left"`, `"top-right"`,
+  `"bottom"`, `"bottom-left"` or `"bottom-right"`.
+
+- append_to:
+
+  CSS selector of the element it is appended to. Default `<body>`.
+
+- grouping:
+
+  Whether identical messages shown together are merged into one, with a
+  count.
+
+- repeat_num:
+
+  The count a grouped message starts from.
 
 ## Value
 

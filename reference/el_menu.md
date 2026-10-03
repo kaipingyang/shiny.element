@@ -1,4 +1,4 @@
-# Element UI Menu
+# Element Plus Menu
 
 A navigation menu, vertical or horizontal, with submenus nested to any
 depth.
@@ -20,6 +20,16 @@ el_menu(
   menu_trigger = NULL,
   collapse_transition = NULL,
   router = NULL,
+  close_on_click_outside = NULL,
+  ellipsis = NULL,
+  ellipsis_icon = NULL,
+  hide_timeout = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_effect = NULL,
+  popper_offset = NULL,
+  popper_style = NULL,
+  show_timeout = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -36,11 +46,14 @@ el_menu(
 
   A list of items. Each is a list with `index` (the value reported when
   selected), `label` (or `title`, Element's name for it), and optionally
-  `icon` (an Element icon class such as `"el-icon-house"`), `disabled`,
-  `route` (for `router = TRUE`), or `children` for a submenu. A submenu
-  may also carry `popper_class`, `show_timeout`, `hide_timeout` and
-  `popper_append_to_body`. An item with `group = TRUE` becomes a titled
-  group of its `children` rather than a submenu.
+  `icon` (an icon's name, such as `"House"`), `disabled`, `route` (for
+  `router = TRUE`), or `children` for a submenu. A submenu may also
+  carry Element Plus's sub-menu props: `popper_class`, `popper_style`,
+  `show_timeout`, `hide_timeout`, `teleported`, `popper_offset`, and its
+  expand and collapse icons (`expand_close_icon`, `expand_open_icon`,
+  `collapse_close_icon`, `collapse_open_icon`). An item with
+  `group = TRUE` becomes a titled group of its `children` rather than a
+  submenu.
 
   Clicking an item reports `input$<id>` (the index selected) and
   `input$<id>_item_click` (the index clicked).
@@ -80,6 +93,58 @@ el_menu(
 - router:
 
   Whether to use vue-router mode, taking each index as a path.
+
+- close_on_click_outside:
+
+  Optional, whether menu is collapsed when clicking outside. Element
+  Plus's `close-on-click-outside` (boolean).
+
+- ellipsis:
+
+  Whether the menu is ellipsis (available only in horizontal mode).
+  Element Plus's `ellipsis` (boolean).
+
+- ellipsis_icon:
+
+  Custom ellipsis icon (available only in horizontal mode and ellipsis
+  is true). Element Plus's `ellipsis-icon` (string / Component). An
+  icon's name, such as `"Search"`.
+
+- hide_timeout:
+
+  Control timeout for all menus before hiding. Element Plus's
+  `hide-timeout` (number).
+
+- persistent:
+
+  When menu inactive and `persistent` is `false` , dropdown menu will be
+  destroyed. Element Plus's `persistent` (boolean).
+
+- popper_class:
+
+  Custom class name for all popup menus and titles' tooltips. Element
+  Plus's `popper-class` (string).
+
+- popper_effect:
+
+  Tooltip theme, built-in theme: `dark` / `light` when menu is
+  collapsed. Element Plus's `popper-effect` ('dark' \| 'light' /
+  string).
+
+- popper_offset:
+
+  Offset of the popper (effective for all submenus). Element Plus's
+  `popper-offset` (number).
+
+- popper_style:
+
+  Custom style for all popup menus and titles' tooltips. Element Plus's
+  `popper-style` (string / object).
+
+- show_timeout:
+
+  Control timeout for all menus before showing. Element Plus's
+  `show-timeout` (number).
 
 - width:
 
@@ -129,8 +194,8 @@ el_menu(
   id = "nav",
   active = "home",
   items = list(
-    list(index = "home", label = "Home", icon = "el-icon-house"),
-    list(index = "products", label = "Products", icon = "el-icon-goods",
+    list(index = "home", label = "Home", icon = "House"),
+    list(index = "products", label = "Products", icon = "Goods",
          children = list(
            list(index = "products-all", label = "All"),
            list(index = "products-new", label = "New")
@@ -140,14 +205,14 @@ el_menu(
 )
 #> <div id="nav" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="nav_container" style="display: contents">
-#>   <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose">
+#>   <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
 #>     <el-menu-item index="home" @click="elMenuItemClick(&quot;home&quot;)">
-#>       <i class="el-icon-house"></i>
+#>       <el-icon><House /></el-icon>
 #>       <span>Home</span>
 #>     </el-menu-item>
-#>     <el-submenu index="products">
-#>       <template slot="title">
-#>         <i class="el-icon-goods"></i>
+#>     <el-sub-menu index="products">
+#>       <template v-slot:title>
+#>         <el-icon><Goods /></el-icon>
 #>         <span>Products</span>
 #>       </template>
 #>       <el-menu-item index="products-all" @click="elMenuItemClick(&quot;products-all&quot;)">
@@ -156,13 +221,13 @@ el_menu(
 #>       <el-menu-item index="products-new" @click="elMenuItemClick(&quot;products-new&quot;)">
 #>         <span>New</span>
 #>       </el-menu-item>
-#>     </el-submenu>
+#>     </el-sub-menu>
 #>     <el-menu-item index="help" :disabled="true" @click="elMenuItemClick(&quot;help&quot;)">
 #>       <span>Help</span>
 #>     </el-menu-item>
 #>   </el-menu>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"home","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('nav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('nav', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('nav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('nav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"nav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"home","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('nav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('nav', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('nav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('nav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"nav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 #> </div>
 
 # Horizontal, as a top bar
@@ -171,7 +236,7 @@ el_menu(id = "topnav", mode = "horizontal", active = "a",
                      list(index = "b", label = "Two")))
 #> <div id="topnav" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="topnav_container" style="display: contents">
-#>   <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose">
+#>   <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
 #>     <el-menu-item index="a" @click="elMenuItemClick(&quot;a&quot;)">
 #>       <span>One</span>
 #>     </el-menu-item>
@@ -180,6 +245,6 @@ el_menu(id = "topnav", mode = "horizontal", active = "a",
 #>     </el-menu-item>
 #>   </el-menu>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"a","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('topnav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('topnav', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('topnav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('topnav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"topnav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"a","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('topnav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('topnav', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('topnav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('topnav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"topnav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 #> </div>
 ```

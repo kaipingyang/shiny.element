@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="breadcrumb_files/vue-2.7.14/vue.min.js"></script><link href="breadcrumb_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="breadcrumb_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="breadcrumb_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="breadcrumb_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="breadcrumb_files/el-events-1.0.0/el-events.js"></script><script src="breadcrumb_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="breadcrumb_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="breadcrumb_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="breadcrumb_files/vue-3.5.43/vue.global.prod.js"></script><link href="breadcrumb_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="breadcrumb_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="breadcrumb_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="breadcrumb_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="breadcrumb_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="breadcrumb_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="breadcrumb_files/el-events-1.0.0/el-events.js"></script><script src="breadcrumb_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="breadcrumb_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,46 +187,54 @@
 
     
     
-<p>Displays the location of the current page.
-<code>input$&lt;id&gt;</code> is the label clicked, so it can drive
-navigation in a Shiny app without routing.</p>
+<p>Displays the location of the current page, making it easier to
+browser back.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>In <code>el-breadcrumb</code>, each <code>el-breadcrumb-item</code>
+is a tag that stands for every level starting from homepage. This
+component has a <code>String</code> attribute <code>separator</code>,
+and it determines the separator. Its default value is ‘/’.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_breadcrumb.html">el_breadcrumb</a></span><span class="op">(</span><span class="st">"trail"</span>, separator <span class="op">=</span> <span class="st">"/"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"homepage"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion management"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion list"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion detail"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_breadcrumb.html">el_breadcrumb</a></span><span class="op">(</span><span class="st">"crumbs"</span>, separator <span class="op">=</span> <span class="st">"/"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"homepage"</span>, to <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion management"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion list"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion detail"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-trail" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-trail_container" style="display: contents">
-  <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-class="separatorClass === null ? undefined : separatorClass">
-    <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click.native="handleClick(item)">{{item.label}}</el-breadcrumb-item>
+  <div id="basic-crumbs" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-crumbs_container" style="display: contents">
+  <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-icon="separatorIcon === null ? undefined : separatorIcon">
+    <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click="handleClick(item)">{{item.label}}</el-breadcrumb-item>
   </el-breadcrumb>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":"/","separatorClass":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage","to":"/"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":"/","separatorIcon":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-crumbs', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="icon-separator">Icon separator<a class="anchor" aria-label="anchor" href="#icon-separator"></a>
 </h2>
+<p>Set <code>separator-icon</code> to use <code>svg icon</code> as the
+separator，it will cover <code>separator</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_breadcrumb.html">el_breadcrumb</a></span><span class="op">(</span><span class="st">"trail2"</span>, separator_class <span class="op">=</span> <span class="st">"el-icon-arrow-right"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"homepage"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion management"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_breadcrumb.html">el_breadcrumb</a></span><span class="op">(</span><span class="st">"crumbs_icon"</span>, separator_icon <span class="op">=</span> <span class="st">"ArrowRight"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"homepage"</span>, to <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion management"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion list"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion detail"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="icon-trail2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="icon-trail2_container" style="display: contents">
-  <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-class="separatorClass === null ? undefined : separatorClass">
-    <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click.native="handleClick(item)">{{item.label}}</el-breadcrumb-item>
+  <div id="icon-crumbs_icon" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="icon-crumbs_icon_container" style="display: contents">
+  <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-icon="separatorIcon === null ? undefined : separatorIcon">
+    <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click="handleClick(item)">{{item.label}}</el-breadcrumb-item>
   </el-breadcrumb>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":null,"separatorClass":"el-icon-arrow-right"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-trail2', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage","to":"/"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":null,"separatorIcon":"ArrowRight"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-crumbs_icon', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="breadcrumb-attributes">Breadcrumb Attributes<a class="anchor" aria-label="anchor" href="#breadcrumb-attributes"></a>
 </h3>
@@ -218,23 +260,42 @@ navigation in a Shiny app without routing.</p>
 <td><code>separator</code></td>
 <td><code>separator</code></td>
 <td>separator character</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
 <td>/</td>
 </tr>
 <tr class="even">
-<td><code>separator-class</code></td>
-<td><code>separator_class</code></td>
-<td>class name of icon separator</td>
-<td>string</td>
+<td><code>separator-icon</code></td>
+<td><code>separator_icon</code></td>
+<td>icon component of icon separator</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>2</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>3</sup></a>
+</td>
+<td></td>
 <td>—</td>
-<td>-</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="breadcrumb-item-attributes">Breadcrumb Item Attributes<a class="anchor" aria-label="anchor" href="#breadcrumb-item-attributes"></a>
+<h3 id="breadcrumb-slots">Breadcrumb Slots<a class="anchor" aria-label="anchor" href="#breadcrumb-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="breadcrumbitem-attributes">BreadcrumbItem Attributes<a class="anchor" aria-label="anchor" href="#breadcrumbitem-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -261,9 +322,12 @@ navigation in a Shiny app without routing.</p>
 <td>target route of the link, same as <code>to</code> of
 <code>vue-router</code>
 </td>
-<td>string/object</td>
-<td>—</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>5</sup></a><code>RouteLocationRaw</code>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>replace</code></td>
@@ -271,14 +335,31 @@ navigation in a Shiny app without routing.</p>
 </td>
 <td>if <code>true</code>, the navigation will not leave a history
 record</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>6</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="breadcrumbitem-slots">BreadcrumbItem Slots<a class="anchor" aria-label="anchor" href="#breadcrumbitem-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

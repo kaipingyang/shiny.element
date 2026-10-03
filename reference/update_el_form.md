@@ -1,6 +1,6 @@
-# Update an Element UI Form
+# Update an Element Plus Form
 
-Update an Element UI Form
+Update an Element Plus Form
 
 ## Usage
 

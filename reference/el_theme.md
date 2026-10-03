@@ -1,4 +1,4 @@
-# Element UI's look, as a Bootstrap theme
+# Element Plus's look, as a Bootstrap theme
 
 A
 [`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
@@ -27,11 +27,10 @@ el_theme(..., element = NULL, version = 5)
 
 - element:
 
-  Element's own theme variables, as a named list –
+  Element Plus's own theme variables, as a named list –
   `list("border-radius-base" = "8px", "font-size-base" = "13px")` – by
-  their names in theme-chalk's `common/var.scss`, without the `$--`.
-  Element's stylesheet is built with them, as Element's theme tool
-  builds a custom theme.
+  their CSS variable names without the `--el-`. They are set on the
+  page, as Element Plus's theming guide sets them.
 
 - version:
 
@@ -50,30 +49,27 @@ its components set no font of their own: they inherit one. Under a
 Bootswatch theme they inherit that theme's font instead of Element's,
 while Element's sizes and colours stay – a mix of the two looks.
 
-The values follow Element 2.15's `theme-chalk` variables:
+The values follow Element Plus's CSS variables:
 
-|  |  |  |
-|----|----|----|
-| Bootstrap | Element | value |
-| `primary` | `$--color-primary` | `#409EFF` |
-| `success` | `$--color-success` | `#67C23A` |
-| `warning` | `$--color-warning` | `#E6A23C` |
-| `danger` | `$--color-danger` | `#F56C6C` |
-| `info`, `secondary` | `$--color-info` | `#909399` |
-| `fg` | `$--color-text-primary` | `#303133` |
-| `border-color` | `$--border-color-base` | `#DCDFE6` |
-| `border-radius` | `$--border-radius-base` | `4px` |
-| `font-size-base` | `$--font-size-base` | `14px` |
-| input and button padding | `$--input-height`, `$--button-padding-*` | `40px` tall |
+|                     |                           |           |
+|---------------------|---------------------------|-----------|
+| Bootstrap           | Element Plus              | value     |
+| `primary`           | `--el-color-primary`      | `#409EFF` |
+| `success`           | `--el-color-success`      | `#67C23A` |
+| `warning`           | `--el-color-warning`      | `#E6A23C` |
+| `danger`            | `--el-color-danger`       | `#F56C6C` |
+| `info`, `secondary` | `--el-color-info`         | `#909399` |
+| `fg`                | `--el-text-color-primary` | `#303133` |
+| `border-color`      | `--el-border-color`       | `#DCDFE6` |
+| `border-radius`     | `--el-border-radius-base` | `4px`     |
+| `font-size-base`    | `--el-font-size-base`     | `14px`    |
 
 `primary`, `success`, `warning`, `danger` and `info` reach Element's
 components too, with the tints and shades Element derives from each, and
 so does anything given to `element`:
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
-builds Element's stylesheet for the theme. Brand colours alone are
-recoloured in place, as Element's own theme picker does; anything more
-compiles Element's Sass sources, bundled with the package, as its theme
-tool does – about a second, once per theme and R session.
+sets Element Plus's CSS variables for the theme, as its theming guide
+does – no build involved.
 
 Element puts white text on all five of its colours, some of which fall
 short of Bootstrap's default minimum contrast; left alone, Bootstrap

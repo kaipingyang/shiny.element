@@ -35,7 +35,7 @@
     if (typeof Node !== 'undefined' && x instanceof Node) return false;
     if (typeof Event !== 'undefined' && x instanceof Event) return false;
     if (typeof x === 'function') return false;
-    if (x._isVue || x.$options) return false;
+    if (x._isVue || x.$options || x.$ || x.__v_skip) return false;
     return true;
   }
 
@@ -47,7 +47,7 @@
     seen = seen || [];
     if (x === null || typeof x !== 'object') return x;
     if (depth >= MAX_DEPTH || seen.indexOf(x) !== -1) return undefined;
-    if (x._isVue || x.$el || x.$options) return undefined;
+    if (x._isVue || x.$el || x.$options || x.$ || x.__v_skip) return undefined;
     seen = seen.concat([x]);
     if (Array.isArray(x)) return x.map(function(v) { return plain(v, depth + 1, seen); });
     var out = {};
@@ -107,10 +107,33 @@
     if (!tpl || !opt) return null;
     var spec = JSON.parse(opt.textContent);
     revive(spec, spec.evals);
-    spec.options.template = tpl.textContent;
-    var vm = new Vue(spec.options);
-    vm.$mount();
-    host.appendChild(vm.$el);
+    var options = spec.options;
+    options.template = tpl.textContent;
+    // Vue 3: data is a function, and the lifecycle hooks have new names
+    var data = options.data || {};
+    options.data = function() { return data; };
+    if (options.beforeDestroy) { options.beforeUnmount = options.beforeDestroy; delete options.beforeDestroy; }
+    if (options.destroyed) { options.unmounted = options.destroyed; delete options.destroyed; }
+    var app = Vue.createApp(options);
+    // the component library installs itself on every app
+    if (typeof sv.install === 'function') sv.install(app);
+    // The app's root goes into a box of its own: Vue 3 owns its container
+    var box = document.createElement('div');
+    box.setAttribute('data-shiny-vue-root', '');
+    box.style.display = 'contents';
+    host.appendChild(box);
+    // One component that fails to compile or mount is reported, and the
+    // rest of the page carries on
+    var vm;
+    try {
+      vm = app.mount(box);
+    } catch (e) {
+      if (window.console) console.error('[shiny-vue] "' + host.id + '" could not be mounted: ' + e.message);
+      try { app.unmount(); } catch (e2) {}
+      if (box.parentNode) box.parentNode.removeChild(box);
+      return null;
+    }
+    host._shinyVueApp = app;
     vm._shinyVueHost = host;
     host._shinyVue = vm;
     host._shinyVueSpec = { input: spec.input || null, type: spec.type || null,
@@ -163,7 +186,8 @@
   function release(host) {
     if (host._shinyVueObserver) host._shinyVueObserver.disconnect();
     dropQuestions(host);
-    if (host._shinyVue) host._shinyVue.$destroy();
+    if (host._shinyVueApp) host._shinyVueApp.unmount();
+    host._shinyVueApp = null;
     host._shinyVue = null;
   }
   sv.release = release;
@@ -299,14 +323,42 @@
     if (vm.$refs && vm.$refs.el) return vm.$refs.el;
     var found = null;
     (function walk(node, depth) {
-      if (found || depth > 4 || !node.$children) return;
-      for (var i = 0; i < node.$children.length; i++) {
-        var child = node.$children[i];
-        if (!name || (child.$options || {}).name === name) { found = child; return; }
+      if (found || depth > 4) return;
+      var kids = children(node);
+      for (var i = 0; i < kids.length; i++) {
+        if (!name || kids[i].name === name) { found = kids[i]; return; }
       }
-      for (var j = 0; j < node.$children.length && !found; j++) walk(node.$children[j], depth + 1);
-    })(vm, 0);
-    return found || (vm.$children || [])[0] || null;
+      for (var j = 0; j < kids.length && !found; j++) walk(kids[j].instance, depth + 1);
+    })(vm.$, 0);
+    if (found) return publicOf(found.instance);
+    var first = children(vm.$)[0];
+    return first ? publicOf(first.instance) : null;
+  }
+  // Vue 3 has no $children: the component instances are found in the
+  // rendered tree, each with its component's name
+  function children(inst) {
+    var out = [];
+    (function walk(vnode) {
+      if (!vnode) return;
+      if (vnode.component) {
+        out.push({ instance: vnode.component,
+                   name: (vnode.type && (vnode.type.name || vnode.type.__name)) || '' });
+        return;
+      }
+      if (Array.isArray(vnode.children)) vnode.children.forEach(walk);
+    })(inst && inst.subTree);
+    return out;
+  }
+  // What a template ref would give: the exposed methods of a <script setup>
+  // component, the instance otherwise
+  function publicOf(inst) {
+    if (inst.exposed) {
+      if (!inst.exposeProxy) inst.exposeProxy = new Proxy(inst.exposed, {
+        get: function(t, k) { return k in t ? Vue.unref(t[k]) : inst.proxy[k]; }
+      });
+      return inst.exposeProxy;
+    }
+    return inst.proxy;
   }
 
   var SAFE_NAME = /^[A-Za-z][A-Za-z0-9_]*$/;

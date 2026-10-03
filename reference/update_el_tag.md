@@ -1,4 +1,4 @@
-# Update Element UI Tag
+# Update Element Plus Tag
 
 Server-side update for
 [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md).

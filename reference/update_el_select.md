@@ -1,4 +1,4 @@
-# Update Element UI Select
+# Update Element Plus Select
 
 Server-side update for
 [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md).

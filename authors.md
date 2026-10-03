@@ -4,23 +4,23 @@
 
 - **Kaiping Yang**. Author, maintainer.
 
-- **ElemeFE**. Contributor, copyright holder.  
-  Element UI library bundled in inst/element-ui, MIT licence
+- **Element Plus team**. Contributor, copyright holder.  
+  Element Plus and its icons, bundled in inst/element-plus, MIT licence
 
 - **Evan You**. Contributor, copyright holder.  
-  Vue library bundled in inst/vue, MIT licence
+  Vue library bundled in inst/vue3, MIT licence
 
 ## Citation
 
 Source:
 [`DESCRIPTION`](https://github.com/kaipingyang/shiny.element/blob/main/DESCRIPTION)
 
-Kaiping Yang (2026). *shiny.element: 'Element UI' Components for
+Kaiping Yang (2026). *shiny.element: 'Element Plus' Components for
 'Shiny'*. R package version 0.1.0,
 <https://kaipingyang.github.io/shiny.element/>.
 
     @Manual{,
-      title = {shiny.element: 'Element UI' Components for 'Shiny'},
+      title = {shiny.element: 'Element Plus' Components for 'Shiny'},
       author = {{Kaiping Yang}},
       year = {2026},
       note = {R package version 0.1.0},

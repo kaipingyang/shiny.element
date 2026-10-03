@@ -28,16 +28,24 @@ devtools::check()
 
 ## Architecture
 
-`shiny.element` wraps Element UI 2.15.14 (Vue 2) for Shiny. Vue 2.7.14
-and Element are bundled in `inst/vue` and `inst/element-ui`; there is no
+`shiny.element` wraps Element Plus 2.14.7 (Vue 3) for Shiny. Vue 3.5.43
+and Element Plus (with `@element-plus/icons-vue` 2.3.2 and its 67
+locales) are bundled in `inst/vue3` and `inst/element-plus`; there is no
 vueR and no htmlwidgets dependency
 ([`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
-in `R/js.R` marks JavaScript the same way).
+in `R/js.R` marks JavaScript the same way). The Vue 2 / Element UI
+version is tagged `v0.1.0-vue2`.
+
+Upstream sources for reference live in `.upstream/element-plus` (git
+clone of tag 2.14.7, gitignored; see `.upstream/README.md`). Its
+`docs/en-US/component/*.md` and `docs/examples/` are what the site
+replicates.
 
 ### Two kinds of component
 
-**Controls** (input, select, table, form, …) are Vue instances on a host
-element, built by
+**Controls** (input, select, table, form, …) are Vue apps on a host
+element – one `Vue.createApp()` each, Element Plus installed on each by
+`sv.install()` – built by
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
 (`R/el_widget.R`):
 
@@ -97,10 +105,10 @@ would recompile and detach the components inside.
   – [`shiny::fluidPage()`](https://rdrr.io/pkg/shiny/man/fluidPage.html)
   with
   [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)
-  (bslib), Vue, Element, the bridge, the locale, the global config
-  (`size`, `z_index`) and, when the theme changes Element’s colours,
-  Element’s stylesheet recoloured (`R/el_colors.R`, served as
-  `element-ui` 2.15.14.1).
+  (bslib), Vue, Element Plus, the bridge, the locale, the global config
+  (`size`, `z_index`) and, when the theme changes Element Plus’s
+  colours, a `<style>` of its CSS variables (`R/el_element_theme.R`,
+  dependency `element-plus-theme`).
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
   – the same for other page functions.
 - Every component also attaches what it needs, so it works on any page
@@ -179,10 +187,23 @@ deparses it instead of rendering.
 field its `update_*()` sends really exists in the Vue data — a mismatch
 is otherwise a silent no-op.
 
+### Documentation site
+
+The pkgdown site replicates element-plus.org. Component pages are
+generated: `tools/demos/<slug>.R` holds the R version of each upstream
+demo (`## name` blocks, `#'` prose, `#|` chunk options, `!skip` for
+prose-only), and `python tools/ep-pages.py [slug...]` writes
+`vignettes/articles/components/<slug>.Rmd` from upstream’s markdown and
+those demos (color, icon and the overview are hand-written /
+`tools/ep-overview.py`). `Rscript tools/article-shots.R [slug...]`
+screenshots and checks every example;
+`python tools/api-coverage.py --write-api` writes the API tables’ JSON
+with the R name of each entry.
+
 ## Lessons and gotchas
 
 `.claude/docs/lessons.md` records what was learned the hard way:
-architectural constraints that cannot be worked around, Element UI and
+architectural constraints that cannot be worked around, Element and
 Shiny behaviours that fail silently, and the verification habits that
 caught them. Read it before changing how components are built or
 rendered.

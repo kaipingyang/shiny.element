@@ -1,6 +1,6 @@
-# Update an Element UI Tree
+# Update an Element Plus Tree
 
-Update an Element UI Tree
+Update an Element Plus Tree
 
 ## Usage
 

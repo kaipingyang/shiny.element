@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="calendar_files/vue-2.7.14/vue.min.js"></script><link href="calendar_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="calendar_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="calendar_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="calendar_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="calendar_files/el-events-1.0.0/el-events.js"></script><script src="calendar_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="calendar_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="calendar_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="calendar_files/vue-3.5.43/vue.global.prod.js"></script><link href="calendar_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="calendar_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="calendar_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="calendar_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="calendar_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="calendar_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="calendar_files/el-events-1.0.0/el-events.js"></script><script src="calendar_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="calendar_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,12 +187,15 @@
 
     
     
-<p>Display dates. <code>input$&lt;id&gt;</code> is the date picked.</p>
+<p>Display date.</p>
 <div class="section level2">
 <h2 id="basic">Basic<a class="anchor" aria-label="anchor" href="#basic"></a>
 </h2>
+<p>Set <code>value</code> to specify the currently displayed month. If
+<code>value</code> is not specified, current month is displayed.
+<code>value</code> supports two-way binding.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, value <span class="op">=</span> <span class="st">"2026-03-15"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>
       .is-selected {
@@ -168,22 +205,21 @@
     </style>
 <div id="basic-cal" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-cal_container" style="display: contents">
-  <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-03-15","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+  <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":null,"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="custom-content">Custom content<a class="anchor" aria-label="anchor" href="#custom-content"></a>
+<h2 id="controller-type">Controller Type<a class="anchor" aria-label="anchor" href="#controller-type"></a>
 </h2>
-<p>The <code>dateCell</code> slot, scoped with <code>date</code> and
-<code>data</code>, draws each day.</p>
+<p>You can set the type of the controller for Calendar header. When
+setting <code>select</code>, you can use <code>formatter</code> to
+customize <code>label</code>.</p>
+<p><code>controller_type</code> set in R; Element Plus’s demo switches
+it with radio buttons.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cus"</span>, value <span class="op">=</span> <span class="st">"2026-03-15"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dateCell <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>    <span class="st">"&lt;p :class=\"data.isSelected ? 'is-selected' : ''\"&gt;"</span>,</span>
-<span>    <span class="st">"{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}&lt;/p&gt;"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  slot <span class="op">=</span> <span class="st">"dateCell"</span>, scope <span class="op">=</span> <span class="st">"{date, data}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_ctl"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, controller_type <span class="op">=</span> <span class="st">"select"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>
       .is-selected {
@@ -191,19 +227,48 @@
         font-weight: bold;
       }
     </style>
-<div id="custom-cus" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="custom-cus_container" style="display: contents">
-  <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}</p></template></el-calendar>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-03-15","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+<div id="controller-type-cal_ctl" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="controller-type-cal_ctl_container" style="display: contents">
+  <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":null,"controllerType":"select","formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="custom-content">Custom Content<a class="anchor" aria-label="anchor" href="#custom-content"></a>
+</h2>
+<p>Customize what is displayed in the calendar cell by setting
+<code>scoped-slot</code> named <code>date-cell</code>. In
+<code>scoped-slot</code> you can get the date (the date of the current
+cell), data (including the type, isSelected, day attribute). For
+details, please refer to the API documentation below.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_cell"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`date-cell` <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>  <span class="st">"&lt;p :class=\"data.isSelected ? 'is-selected' : ''\"&gt;"</span>,</span>
+<span>  <span class="st">"{{ data.day.split('-').slice(1).join('-') }} "</span>,</span>
+<span>  <span class="st">"{{ data.isSelected ? '✔️' : '' }}&lt;/p&gt;"</span><span class="op">)</span><span class="op">)</span>, slot <span class="op">=</span> <span class="st">"date-cell"</span>, scope <span class="op">=</span> <span class="st">"{ data }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>
+      .is-selected {
+        color: #1989FA;
+        font-weight: bold;
+      }
+    </style>
+<div id="customize-cal_cell" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customize-cal_cell_container" style="display: contents">
+  <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{ data }"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}</p></template></el-calendar>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":null,"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="range">Range<a class="anchor" aria-label="anchor" href="#range"></a>
 </h2>
-<p><code>range</code>, two dates, shows the weeks between them.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"rng"</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2026-03-04"</span>, <span class="st">"2026-03-24"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Set the <code>range</code> attribute to specify the display range of
+the calendar. Start time must be Monday, end time must be Sunday, and
+the time span cannot exceed two months.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_range"</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2019-03-04"</span>, <span class="st">"2019-03-24"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>
       .is-selected {
@@ -211,16 +276,57 @@
         font-weight: bold;
       }
     </style>
-<div id="range-rng" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="range-rng_container" style="display: contents">
-  <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","firstDayOfWeek":1,"range":["2026-03-04","2026-03-24"]},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+<div id="range-cal_range" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="range-cal_range_container" style="display: contents">
+  <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":["2019-03-04","2019-03-24"],"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
+<h2 id="customize-header">Customize header<a class="anchor" aria-label="anchor" href="#customize-header"></a>
+</h2>
+<p>The header’s buttons move the calendar with Element Plus’s
+<code>selectDate()</code>, called on the component’s ref.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_head"</span>, slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>header <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>  <span class="st">"&lt;span&gt;Custom header content&lt;/span&gt;&lt;span&gt;{{ date }}&lt;/span&gt;"</span>,</span>
+<span>  <span class="st">"&lt;el-button-group&gt;"</span>,</span>
+<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-year')\"&gt;Previous Year&lt;/el-button&gt;"</span>,</span>
+<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-month')\"&gt;Previous Month&lt;/el-button&gt;"</span>,</span>
+<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('today')\"&gt;Today&lt;/el-button&gt;"</span>,</span>
+<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-month')\"&gt;Next Month&lt;/el-button&gt;"</span>,</span>
+<span>  <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-year')\"&gt;Next Year&lt;/el-button&gt;"</span>,</span>
+<span>  <span class="st">"&lt;/el-button-group&gt;"</span><span class="op">)</span><span class="op">)</span>, slot <span class="op">=</span> <span class="st">"header"</span>, scope <span class="op">=</span> <span class="st">"{ date }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>
+      .is-selected {
+        color: #1989FA;
+        font-weight: bold;
+      }
+    </style>
+<div id="header-cal_head" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="header-cal_head_container" style="display: contents">
+  <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter">
+    <template v-slot:header="{ date }"><span>Custom header content</span><span>{{ date }}</span><el-button-group><el-button size="small" @click="$refs.el.selectDate('prev-year')">Previous Year</el-button><el-button size="small" @click="$refs.el.selectDate('prev-month')">Previous Month</el-button><el-button size="small" @click="$refs.el.selectDate('today')">Today</el-button><el-button size="small" @click="$refs.el.selectDate('next-month')">Next Month</el-button><el-button size="small" @click="$refs.el.selectDate('next-year')">Next Year</el-button></el-button-group></template>
+    <template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template>
+  </el-calendar>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":null,"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="localization">Localization<a class="anchor" aria-label="anchor" href="#localization"></a>
+</h2>
+<p>The default locale of is English, if you need to use other languages,
+please check <a href="https://element-plus.org/en-US/guide/i18n" class="external-link">Internationalization</a></p>
+<p>Note, date time locale (month name, first day of the week …) are also
+configured in localization.</p>
+</div>
+<div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
@@ -243,11 +349,13 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>value</code></td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>binding value</td>
-<td>Date/string/number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Date&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
@@ -256,23 +364,37 @@
 <td>time range, including start time and end time. Start time must be
 start day of week, end time must be end day of week, the time span
 cannot exceed two months.</td>
-<td>Array</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>2</sup></a><code>[Date, Date]</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
-<td><code>first-day-of-week</code></td>
-<td><code>first_day_of_week</code></td>
-<td>first day of week</td>
-<td>Number</td>
-<td>1 to 7</td>
-<td>1</td>
+<td><code>controller-type</code></td>
+<td><code>controller_type</code></td>
+<td>type of the controller for Calendar header</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>3</sup></a><code>'button' \\| 'select'</code>
+</td>
+<td></td>
+<td>button</td>
+</tr>
+<tr class="even">
+<td><code>formatter</code></td>
+<td><code>formatter</code></td>
+<td>format label when <code>controller-type</code> is ‘select’</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>4</sup></a><code>(value: number, type: 'year' \\| 'month') =&gt; string \\| number</code>
+</td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="datecell-scoped-slot-parameters">dateCell Scoped Slot Parameters<a class="anchor" aria-label="anchor" href="#datecell-scoped-slot-parameters"></a>
+<h3 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -287,24 +409,60 @@ cannot exceed two months.</td>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>date</code></td>
-<td><code>slots = list(date = )</code></td>
-<td>date the cell represents</td>
+<td><code>date-cell</code></td>
+<td><code>slots = list(date-cell = )</code></td>
+<td>
+<code>type</code> indicates which month the date belongs, optional
+values are prev-month, current-month, next-month;
+<code>isSelected</code> indicates whether the date is selected;
+<code>day</code> is the formatted date in the format
+<code>YYYY-MM-DD</code>; <code>date</code> is date the cell
+represents</td>
 </tr>
 <tr class="even">
-<td><code>data</code></td>
-<td><code>slots = list(data = )</code></td>
-<td>{ type, isSelected, day}. The <code>type</code> property indicates
-which month the date belongs, optional values are
-<code>prev-month</code>, <code>current-month</code>,
-<code>next-month</code>. The <code>isSelected</code> property indicates
-whether the date is selected. The <code>day</code> property is the
-formatted date in the format yyyy-MM-dd</td>
+<td><code>header</code></td>
+<td><code>slots = list(header = )</code></td>
+<td>content of the Calendar header</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="exposes">Exposes<a class="anchor" aria-label="anchor" href="#exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>pickDay</code></td>
+<td><code>el_call(session, id, "pickDay")</code></td>
+<td>select a specific date</td>
+</tr>
+<tr class="even">
+<td><code>selectDate</code></td>
+<td><code>el_call(session, id, "selectDate")</code></td>
+<td>select date</td>
+</tr>
+<tr class="odd">
+<td><code>calculateValidatedDateRange</code></td>
+<td><code>el_call(session, id, "calculateValidatedDateRange")</code></td>
+<td>Calculate the validate date range according to the start and end
+dates</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

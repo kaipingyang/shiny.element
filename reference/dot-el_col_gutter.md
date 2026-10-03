@@ -1,7 +1,8 @@
 # Add gutter padding to a column
 
-Element UI's Col reads `gutter` off its parent Row and emits the padding
-inline, so the same has to happen here rather than through a CSS class.
+Element Plus's Col reads `gutter` off its parent Row and emits the
+padding inline, so the same has to happen here rather than through a CSS
+class.
 
 ## Usage
 

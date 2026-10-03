@@ -1,4 +1,4 @@
-# Update Element UI Tabs
+# Update Element Plus Tabs
 
 Server-side update for
 [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md).

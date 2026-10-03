@@ -1,4 +1,4 @@
-# Element UI Back to Top
+# Element Plus Back to Top
 
 A button that appears once the page has been scrolled down, and returns
 it to the top when clicked.

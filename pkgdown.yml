@@ -2,7 +2,10 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  articles/components/affix: components/affix.html
   articles/components/alert: components/alert.html
+  articles/components/anchor: components/anchor.html
+  articles/components/autocomplete: components/autocomplete.html
   articles/components/avatar: components/avatar.html
   articles/components/backtop: components/backtop.html
   articles/components/badge: components/badge.html
@@ -15,14 +18,20 @@ articles:
   articles/components/cascader: components/cascader.html
   articles/components/checkbox: components/checkbox.html
   articles/components/collapse: components/collapse.html
+  articles/components/color-picker-panel: components/color-picker-panel.html
   articles/components/color-picker: components/color-picker.html
   articles/components/color: components/color.html
   articles/components: components.html
+  articles/components/config-provider: components/config-provider.html
   articles/components/container: components/container.html
+  articles/custom-defaults: custom-defaults.html
+  articles/dark-mode: dark-mode.html
   dashboards: dashboards.html
+  articles/components/date-picker-panel: components/date-picker-panel.html
   articles/components/date-picker: components/date-picker.html
   articles/components/datetime-picker: components/datetime-picker.html
   articles/components/descriptions: components/descriptions.html
+  articles/design: design.html
   articles/components/dialog: components/dialog.html
   articles/components/divider: components/divider.html
   articles/components/drawer: components/drawer.html
@@ -30,18 +39,23 @@ articles:
   articles/components/empty: components/empty.html
   articles/components/form: components/form.html
   forms: forms.html
+  articles/i18n: i18n.html
   articles/components/icon: components/icon.html
   articles/components/image: components/image.html
-  articles/components/infiniteScroll: components/infiniteScroll.html
+  articles/components/infinite-scroll: components/infinite-scroll.html
   articles/components/input-number: components/input-number.html
+  articles/components/input-otp: components/input-otp.html
+  articles/components/input-tag: components/input-tag.html
   articles/components/input: components/input.html
   articles/components/layout: components/layout.html
   limitations: limitations.html
   articles/components/link: components/link.html
   articles/components/loading: components/loading.html
+  articles/components/mention: components/mention.html
   articles/components/menu: components/menu.html
   articles/components/message-box: components/message-box.html
   articles/components/message: components/message.html
+  articles/migration: migration.html
   articles/components/notification: components/notification.html
   articles/components/page-header: components/page-header.html
   articles/components/pagination: components/pagination.html
@@ -51,26 +65,39 @@ articles:
   articles/components/radio: components/radio.html
   articles/components/rate: components/rate.html
   articles/components/result: components/result.html
+  articles/components/scrollbar: components/scrollbar.html
+  articles/components/segmented: components/segmented.html
+  articles/components/select-v2: components/select-v2.html
   articles/components/select: components/select.html
   shiny.element: shiny.element.html
   shiny: shiny.html
   articles/components/skeleton: components/skeleton.html
   articles/components/slider: components/slider.html
+  articles/components/space: components/space.html
+  articles/components/splitter: components/splitter.html
   articles/components/statistic: components/statistic.html
   articles/components/steps: components/steps.html
   articles/components/switch: components/switch.html
+  articles/components/table-v2: components/table-v2.html
   articles/components/table: components/table.html
   articles/components/tabs: components/tabs.html
   articles/components/tag: components/tag.html
+  articles/components/text: components/text.html
   articles/theming: theming.html
   articles/components/time-picker: components/time-picker.html
+  articles/components/time-select: components/time-select.html
   articles/components/timeline: components/timeline.html
   articles/components/tooltip: components/tooltip.html
+  articles/components/tour: components/tour.html
   articles/components/transfer: components/transfer.html
+  articles/transitions: transitions.html
+  articles/components/tree-select: components/tree-select.html
+  articles/components/tree-v2: components/tree-v2.html
   articles/components/tree: components/tree.html
   articles/components/typography: components/typography.html
   articles/components/upload: components/upload.html
-last_built: 2026-10-03T05:19Z
+  articles/components/watermark: components/watermark.html
+last_built: 2026-10-03T09:29Z
 urls:
   reference: https://kaipingyang.github.io/shiny.element/reference
   article: https://kaipingyang.github.io/shiny.element/articles

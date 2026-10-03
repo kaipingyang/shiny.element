@@ -1,12 +1,23 @@
-# Update Element UI Statistic
+# Update Element Plus Statistic
 
 Server-side update for
-[`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md).
+[`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
+and
+[`el_countdown()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md).
 
 ## Usage
 
 ``` r
 update_el_statistic(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL
+)
+
+update_el_countdown(
   session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
@@ -40,9 +51,6 @@ Called for its side effect; returns `NULL` invisibly.
 ``` r
 if (interactive()) {
   # inside a server function
-  observe({
-    invalidateLater(5000)
-    update_el_statistic(session, "users", value = count_active_users())
-  })
+  observe(update_el_statistic(session, "users", value = n_users()))
 }
 ```

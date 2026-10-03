@@ -1,6 +1,6 @@
-# Element UI Date Picker Component
+# Element Plus Date Picker Component
 
-Creates an Element UI date picker with Vue instance, supporting single
+Creates an Element Plus date picker with Vue instance, supporting single
 date, datetime, month, year, week, and date range selection modes.
 
 ## Usage
@@ -10,7 +10,7 @@ el_date_picker(
   id = NULL,
   value = NULL,
   type = "date",
-  value_format = "yyyy-MM-dd",
+  value_format = "YYYY-MM-DD",
   format = NULL,
   placeholder = NULL,
   start_placeholder = NULL,
@@ -20,7 +20,6 @@ el_date_picker(
   editable = TRUE,
   readonly = FALSE,
   range_separator = "-",
-  align = "left",
   size = NULL,
   name = NULL,
   prefix_icon = NULL,
@@ -29,7 +28,6 @@ el_date_picker(
   default_value = NULL,
   default_time = NULL,
   unlink_panels = NULL,
-  picker_options = NULL,
   validate_event = NULL,
   label = NULL,
   label_position = c("top", "left", "right"),
@@ -41,8 +39,28 @@ el_date_picker(
   inline_message = FALSE,
   width = NULL,
   slots = NULL,
-  append_to_body = NULL,
-  time_arrow_control = NULL,
+  arrow_control = NULL,
+  automatic_dropdown = NULL,
+  cell_class_name = NULL,
+  date_format = NULL,
+  disabled_date = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  shortcuts = NULL,
+  show_confirm = NULL,
+  show_footer = NULL,
+  show_now = NULL,
+  show_week_number = NULL,
+  single_panel = NULL,
+  teleported = NULL,
+  time_format = NULL,
+  value_on_clear = NULL,
   session = NULL
 )
 ```
@@ -66,13 +84,15 @@ el_date_picker(
 
 - value_format:
 
-  Format string returned to Shiny when a date is selected. Uses Element
-  UI format tokens (e.g., `"yyyy-MM-dd"`). Default `"yyyy-MM-dd"`.
+  Format string returned to Shiny when a date is selected, in day.js's
+  tokens, as Element Plus takes it (e.g., `"YYYY-MM-DD"`). Default
+  `"YYYY-MM-DD"`. Element UI's tokens – `"yyyy-MM-dd"`, `"timestamp"` –
+  are translated.
 
 - format:
 
-  Display format shown in the input box. Uses Element UI format tokens.
-  `NULL` (default) falls back to `value_format`.
+  Display format shown in the input box, in day.js's tokens. `NULL`
+  (default) falls back to `value_format`.
 
 - placeholder:
 
@@ -107,13 +127,10 @@ el_date_picker(
   Separator string displayed between start and end in range types.
   Default `"-"`.
 
-- align:
-
-  Input alignment: `"left"` (default), `"center"`, `"right"`.
-
 - size:
 
-  Input size: `"medium"`, `"small"` or `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - name:
 
@@ -142,10 +159,6 @@ el_date_picker(
 - unlink_panels:
 
   Whether the two panels of a range picker move independently.
-
-- picker_options:
-
-  Additional Element picker options, as a named list.
 
 - validate_event:
 
@@ -206,15 +219,121 @@ el_date_picker(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
-- append_to_body:
+- arrow_control:
 
-  Whether the picker panel is appended to `body`. Default `TRUE`;
-  `FALSE` keeps it inside a dialog or a scrolling container.
+  Whether to pick time using arrow buttons. Element Plus's
+  `arrow-control` (boolean).
 
-- time_arrow_control:
+- automatic_dropdown:
 
-  For `type = "datetime"`: whether the time is picked with arrow buttons
-  rather than by scrolling.
+  This prop decides if the date picker panel pops up when the input is
+  focused. (The default value will be set to false in version 3.0).
+  Element Plus's `automatic-dropdown` (boolean).
+
+- cell_class_name:
+
+  Set custom className. Element Plus's `cell-class-name` ((data: Date)
+  =\> string).
+
+- date_format:
+
+  Optional, format of the date displayed in input's inner panel. Element
+  Plus's `date-format` (string).
+
+- disabled_date:
+
+  A function determining if a date is disabled with that date as its
+  parameter. Should return a Boolean. Element Plus's `disabled-date`
+  ((data: Date) =\> boolean).
+
+- disabled_hours:
+
+  To specify the array of hours that cannot be selected. Element Plus's
+  `disabled-hours` ((role: string, comparingDate?: Dayjs) =\>
+  number\[\]).
+
+- disabled_minutes:
+
+  To specify the array of minutes that cannot be selected. Element
+  Plus's `disabled-minutes` ((hour: number, role: string,
+  comparingDate?: Dayjs) =\> number\[\]).
+
+- disabled_seconds:
+
+  To specify the array of seconds that cannot be selected. Element
+  Plus's `disabled-seconds` (Function). Give it as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md).
+
+- empty_values:
+
+  Empty values of component, see config-provider. Element Plus's
+  `empty-values` (array).
+
+- fallback_placements:
+
+  List of possible positions for Tooltip popper.js. Element Plus's
+  `fallback-placements` (`Placement[]`).
+
+- placement:
+
+  Position of dropdown. Element Plus's `placement`.
+
+- popper_options:
+
+  Customized popper option see more at popper.js. Element Plus's
+  `popper-options` (Partial).
+
+- popper_style:
+
+  Custom style for DatePicker's dropdown. Element Plus's `popper-style`
+  (string / object).
+
+- shortcuts:
+
+  An object array to set shortcut options. Element Plus's `shortcuts`
+  (`Array<{ text: string, value: Date | Function }>`). Give it as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md).
+
+- show_confirm:
+
+  Whether to show the confirm button. Element Plus's `show-confirm`
+  (boolean).
+
+- show_footer:
+
+  Whether to show footer where the date picker is one
+  `'dates' | 'months' | 'years' | 'quarters'`. Element Plus's
+  `show-footer` (boolean).
+
+- show_now:
+
+  Whether to show the now button. Element Plus's `show-now` (boolean).
+
+- show_week_number:
+
+  Show the week number besides the week. Element Plus's
+  `show-week-number` (boolean).
+
+- single_panel:
+
+  Show only one panel in range-picker. Element Plus's `single-panel`
+  (boolean).
+
+- teleported:
+
+  Whether date-picker dropdown is teleported to the body. Element Plus's
+  `teleported` (boolean).
+
+- time_format:
+
+  Optional, format of the time displayed in input's inner panel. Element
+  Plus's `time-format` (string).
+
+- value_on_clear:
+
+  Clear return value, see config-provider. Element Plus's
+  `value-on-clear` (string / number / boolean / Function). Give it as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md).
 
 - session:
 
@@ -249,18 +368,18 @@ format, so it is not converted.
 el_date_picker("dp1")
 #> <div id="dp1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dp1_container" style="display: contents">
-#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :picker-options="pickerOptions === null ? undefined : pickerOptions" :validate-event="validateEvent === null ? undefined : validateEvent" :append-to-body="appendToBody === null ? undefined : appendToBody" :time-arrow-control="timeArrowControl === null ? undefined : timeArrowControl" @blur="elEmitBlur" @focus="elEmitFocus"></el-date-picker>
+#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :validate-event="validateEvent === null ? undefined : validateEvent" @blur="elEmitBlur" @focus="elEmitFocus" @calendar-change="elEmitCalendarChange" @clear="elEmitClear" @panel-change="elEmitPanelChange" @visible-change="elEmitVisibleChange" :arrow-control="arrowControl === null ? undefined : arrowControl" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :cell-class-name="cellClassName === null ? undefined : cellClassName" :date-format="dateFormat === null ? undefined : dateFormat" :disabled-date="disabledDate === null ? undefined : disabledDate" :disabled-hours="disabledHours === null ? undefined : disabledHours" :disabled-minutes="disabledMinutes === null ? undefined : disabledMinutes" :disabled-seconds="disabledSeconds === null ? undefined : disabledSeconds" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :shortcuts="shortcuts === null ? undefined : shortcuts" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-footer="showFooter === null ? undefined : showFooter" :show-now="showNow === null ? undefined : showNow" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber" :single-panel="singlePanel === null ? undefined : singlePanel" :teleported="teleported === null ? undefined : teleported" :time-format="timeFormat === null ? undefined : timeFormat" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-date-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"date","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"pickerOptions":null,"validateEvent":null,"appendToBody":null,"timeArrowControl":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('dp1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('dp1', 'focus', arguments); }","handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"date","valueFormat":"YYYY-MM-DD","displayFormat":"YYYY-MM-DD","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('dp1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('dp1', 'focus', arguments); }","elEmitCalendarChange":"function() { window.shinyVue.emit('dp1', 'calendar_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('dp1', 'clear', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('dp1', 'panel_change', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('dp1', 'visible_change', arguments); }","handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitCalendarChange","options.methods.elEmitClear","options.methods.elEmitPanelChange","options.methods.elEmitVisibleChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Pre-filled with today's date
 el_date_picker("dp2", value = Sys.Date())
 #> <div id="dp2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dp2_container" style="display: contents">
-#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :picker-options="pickerOptions === null ? undefined : pickerOptions" :validate-event="validateEvent === null ? undefined : validateEvent" :append-to-body="appendToBody === null ? undefined : appendToBody" :time-arrow-control="timeArrowControl === null ? undefined : timeArrowControl" @blur="elEmitBlur" @focus="elEmitFocus"></el-date-picker>
+#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :validate-event="validateEvent === null ? undefined : validateEvent" @blur="elEmitBlur" @focus="elEmitFocus" @calendar-change="elEmitCalendarChange" @clear="elEmitClear" @panel-change="elEmitPanelChange" @visible-change="elEmitVisibleChange" :arrow-control="arrowControl === null ? undefined : arrowControl" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :cell-class-name="cellClassName === null ? undefined : cellClassName" :date-format="dateFormat === null ? undefined : dateFormat" :disabled-date="disabledDate === null ? undefined : disabledDate" :disabled-hours="disabledHours === null ? undefined : disabledHours" :disabled-minutes="disabledMinutes === null ? undefined : disabledMinutes" :disabled-seconds="disabledSeconds === null ? undefined : disabledSeconds" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :shortcuts="shortcuts === null ? undefined : shortcuts" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-footer="showFooter === null ? undefined : showFooter" :show-now="showNow === null ? undefined : showNow" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber" :single-panel="singlePanel === null ? undefined : singlePanel" :teleported="teleported === null ? undefined : teleported" :time-format="timeFormat === null ? undefined : timeFormat" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-date-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","type":"date","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"pickerOptions":null,"validateEvent":null,"appendToBody":null,"timeArrowControl":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('dp2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('dp2', 'focus', arguments); }","handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","type":"date","valueFormat":"YYYY-MM-DD","displayFormat":"YYYY-MM-DD","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","placeholder":null,"startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('dp2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('dp2', 'focus', arguments); }","elEmitCalendarChange":"function() { window.shinyVue.emit('dp2', 'calendar_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('dp2', 'clear', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('dp2', 'panel_change', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('dp2', 'visible_change', arguments); }","handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitCalendarChange","options.methods.elEmitClear","options.methods.elEmitPanelChange","options.methods.elEmitVisibleChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Date range picker
@@ -269,9 +388,9 @@ el_date_picker("dp3", type = "daterange",
                end_placeholder   = "End date")
 #> <div id="dp3" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dp3_container" style="display: contents">
-#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" :align="align" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :picker-options="pickerOptions === null ? undefined : pickerOptions" :validate-event="validateEvent === null ? undefined : validateEvent" :append-to-body="appendToBody === null ? undefined : appendToBody" :time-arrow-control="timeArrowControl === null ? undefined : timeArrowControl" @blur="elEmitBlur" @focus="elEmitFocus"></el-date-picker>
+#>   <el-date-picker v-model="value" :type="type" :value-format="valueFormat" :format="displayFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :start-placeholder="startPlaceholder === null ? undefined : startPlaceholder" :end-placeholder="endPlaceholder === null ? undefined : endPlaceholder" :size="size === null ? undefined : size" :name="name === null ? undefined : name" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :popper-class="popperClass === null ? undefined : popperClass" :default-value="defaultValue === null ? undefined : defaultValue" :default-time="defaultTime === null ? undefined : defaultTime" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :validate-event="validateEvent === null ? undefined : validateEvent" @blur="elEmitBlur" @focus="elEmitFocus" @calendar-change="elEmitCalendarChange" @clear="elEmitClear" @panel-change="elEmitPanelChange" @visible-change="elEmitVisibleChange" :arrow-control="arrowControl === null ? undefined : arrowControl" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :cell-class-name="cellClassName === null ? undefined : cellClassName" :date-format="dateFormat === null ? undefined : dateFormat" :disabled-date="disabledDate === null ? undefined : disabledDate" :disabled-hours="disabledHours === null ? undefined : disabledHours" :disabled-minutes="disabledMinutes === null ? undefined : disabledMinutes" :disabled-seconds="disabledSeconds === null ? undefined : disabledSeconds" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :shortcuts="shortcuts === null ? undefined : shortcuts" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-footer="showFooter === null ? undefined : showFooter" :show-now="showNow === null ? undefined : showNow" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber" :single-panel="singlePanel === null ? undefined : singlePanel" :teleported="teleported === null ? undefined : teleported" :time-format="timeFormat === null ? undefined : timeFormat" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-date-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"type":"daterange","valueFormat":"yyyy-MM-dd","displayFormat":"yyyy-MM-dd","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","align":"left","placeholder":null,"startPlaceholder":"Start date","endPlaceholder":"End date","size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"pickerOptions":null,"validateEvent":null,"appendToBody":null,"timeArrowControl":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('dp3', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('dp3', 'focus', arguments); }","handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"type":"daterange","valueFormat":"YYYY-MM-DD","displayFormat":"YYYY-MM-DD","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","placeholder":null,"startPlaceholder":"Start date","endPlaceholder":"End date","size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"defaultValue":null,"defaultTime":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('dp3', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('dp3', 'focus', arguments); }","elEmitCalendarChange":"function() { window.shinyVue.emit('dp3', 'calendar_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('dp3', 'clear', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('dp3', 'panel_change', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('dp3', 'visible_change', arguments); }","handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitCalendarChange","options.methods.elEmitClear","options.methods.elEmitPanelChange","options.methods.elEmitVisibleChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

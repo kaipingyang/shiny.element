@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="steps_files/vue-2.7.14/vue.min.js"></script><link href="steps_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="steps_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="steps_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="steps_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="steps_files/el-events-1.0.0/el-events.js"></script><script src="steps_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="steps_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="steps_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="steps_files/vue-3.5.43/vue.global.prod.js"></script><link href="steps_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="steps_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="steps_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="steps_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="steps_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="steps_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="steps_files/el-events-1.0.0/el-events.js"></script><script src="steps_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="steps_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,122 +187,142 @@
 
     
     
-<p>Guide the user through a process. <code>steps</code> is a list of
-<code>list(title =, description =, icon =, status =)</code>;
-<code>active</code> the step reached, 0-based, which
-<code><a href="../../reference/update_el_steps.html">update_el_steps()</a></code> moves.</p>
+<p>Guide the user to complete tasks in accordance with the process. Its
+steps can be set according to the actual application scenario and the
+number of the steps can’t be less than 2.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Simple step bar.</p>
+<p>Set <code>active</code> attribute with <code>Number</code> type,
+which indicates the index of steps and starts from 0. You can set
+<code>space</code> attribute when the width of the step needs to be
+fixed which accepts <code>Number</code> type. The unit of the
+<code>space</code> attribute is <code>px</code>. If not set, it is
+responsive. Setting the <code>finish-status</code> attribute can change
+the state of the steps that have been completed.</p>
+<p><code>update_el_steps(active =)</code> moves it, as the demo’s button
+does.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"wizard"</span>, active <span class="op">=</span> <span class="fl">0</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 12px"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"nxt"</span>, <span class="st">"Next step"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">nxt</span>, <span class="fu"><a href="../../reference/update_el_steps.html">update_el_steps</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"wizard"</span>, active <span class="op">=</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">wizard</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/steps-basic.png" alt="The basic example, running" style="max-width: 100%">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_basic"</span>, active <span class="op">=</span> <span class="fl">0</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="basic-st_basic" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-st_basic_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
+    <el-step title="Step 1"></el-step>
+    <el-step title="Step 2"></el-step>
+    <el-step title="Step 3"></el-step>
+  </el-steps>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('basic-st_basic', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="step-bar-that-contains-status">Step bar that contains status<a class="anchor" aria-label="anchor" href="#step-bar-that-contains-status"></a>
 </h2>
+<p>Shows the status of the step for each step.</p>
+<p>Use <code>title</code> attribute to set the name of the step, or
+override the attribute by using a named <code>slot</code>. We have
+listed all the slot names for you at the end of this page.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st"</span>, space <span class="op">=</span> <span class="fl">200</span>, active <span class="op">=</span> <span class="fl">1</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_status"</span>, active <span class="op">=</span> <span class="fl">1</span>, space <span class="op">=</span> <span class="fl">200</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Done"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Processing"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="status-st" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="status-st_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <div id="with-status-st_status" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="with-status-st_status_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
     <el-step title="Done"></el-step>
     <el-step title="Processing"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":200},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":200},"methods":{"elEmitChange":"function() { window.shinyVue.emit('with-status-st_status', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="center">Center<a class="anchor" aria-label="anchor" href="#center"></a>
 </h2>
+<p>Title and description can be centered.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"ce"</span>, active <span class="op">=</span> <span class="fl">2</span>, align_center <span class="op">=</span> <span class="cn">TRUE</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 4"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_center"</span>, active <span class="op">=</span> <span class="fl">2</span>, align_center <span class="op">=</span> <span class="cn">TRUE</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 4"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="center-ce" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="center-ce_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <div id="centered-st_center" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="centered-st_center_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
     <el-step title="Step 1" description="Some description"></el-step>
     <el-step title="Step 2" description="Some description"></el-step>
     <el-step title="Step 3" description="Some description"></el-step>
     <el-step title="Step 4" description="Some description"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":2,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":true,"simple":false,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":2,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":true,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('centered-st_center', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="step-bar-with-description">Step bar with description<a class="anchor" aria-label="anchor" href="#step-bar-with-description"></a>
 </h2>
+<p>There is description for each step.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"de"</span>, active <span class="op">=</span> <span class="fl">1</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_desc"</span>, active <span class="op">=</span> <span class="fl">1</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, description <span class="op">=</span> <span class="st">"Some description"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="description-de" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="description-de_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <div id="with-description-st_desc" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="with-description-st_desc_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
     <el-step title="Step 1" description="Some description"></el-step>
     <el-step title="Step 2" description="Some description"></el-step>
     <el-step title="Step 3" description="Some description"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('with-description-st_desc', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="step-bar-with-icon">Step bar with icon<a class="anchor" aria-label="anchor" href="#step-bar-with-icon"></a>
 </h2>
+<p>A variety of custom icons can be used in the step bar.</p>
+<p>The icon is set by the <code>icon</code> property. The types of icons
+can be found in the document for the Icon component. In addition, you
+can customize the icon through a named <code>slot</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"ic"</span>, active <span class="op">=</span> <span class="fl">1</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, icon <span class="op">=</span> <span class="st">"el-icon-edit"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, icon <span class="op">=</span> <span class="st">"el-icon-upload"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, icon <span class="op">=</span> <span class="st">"el-icon-picture"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_icon"</span>, active <span class="op">=</span> <span class="fl">1</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, icon <span class="op">=</span> <span class="st">"Edit"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, icon <span class="op">=</span> <span class="st">"Upload"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, icon <span class="op">=</span> <span class="st">"Picture"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="icon-ic" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="icon-ic_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
-    <el-step title="Step 1" icon="el-icon-edit"></el-step>
-    <el-step title="Step 2" icon="el-icon-upload"></el-step>
-    <el-step title="Step 3" icon="el-icon-picture"></el-step>
+  <div id="with-icon-st_icon" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="with-icon-st_icon_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
+    <el-step title="Step 1" icon="Edit"></el-step>
+    <el-step title="Step 2" icon="Upload"></el-step>
+    <el-step title="Step 3" icon="Picture"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('with-icon-st_icon', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="vertical-step-bar">Vertical step bar<a class="anchor" aria-label="anchor" href="#vertical-step-bar"></a>
 </h2>
+<p>Vertical step bars.</p>
+<p>You only need to set the <code>direction</code> attribute to
+<code>vertical</code> in the <code>el-steps</code> element.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 300px"</span>, <span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"ve"</span>, direction <span class="op">=</span> <span class="st">"vertical"</span>, active <span class="op">=</span> <span class="fl">1</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 300px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_vert"</span>, direction <span class="op">=</span> <span class="st">"vertical"</span>, active <span class="op">=</span> <span class="fl">1</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="height: 300px">
-    <div id="vertical-ve" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="vertical-ve_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+    <div id="vertical-st_vert" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="vertical-st_vert_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
     <el-step title="Step 1"></el-step>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"vertical","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"vertical","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('vertical-st_vert', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
 </div>
   </div>
 </div>
@@ -276,26 +330,43 @@
 <div class="section level2">
 <h2 id="simple-step-bar">Simple step bar<a class="anchor" aria-label="anchor" href="#simple-step-bar"></a>
 </h2>
+<p>Simple step bars, where <code>align-center</code>,
+<code>description</code>, <code>direction</code> and <code>space</code>
+will be ignored.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"si"</span>, active <span class="op">=</span> <span class="fl">1</span>, simple <span class="op">=</span> <span class="cn">TRUE</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, icon <span class="op">=</span> <span class="st">"el-icon-edit"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, icon <span class="op">=</span> <span class="st">"el-icon-upload"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, icon <span class="op">=</span> <span class="st">"el-icon-picture"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_simple"</span>, active <span class="op">=</span> <span class="fl">0</span>, simple <span class="op">=</span> <span class="cn">TRUE</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span>, icon <span class="op">=</span> <span class="st">"Edit"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span>, icon <span class="op">=</span> <span class="st">"UploadFilled"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span>, icon <span class="op">=</span> <span class="st">"Picture"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 20px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span><span class="st">"st_simple2"</span>, active <span class="op">=</span> <span class="fl">0</span>, finish_status <span class="op">=</span> <span class="st">"success"</span>, simple <span class="op">=</span> <span class="cn">TRUE</span>, steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="simple-si" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="simple-si_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
-    <el-step title="Step 1" icon="el-icon-edit"></el-step>
-    <el-step title="Step 2" icon="el-icon-upload"></el-step>
-    <el-step title="Step 3" icon="el-icon-picture"></el-step>
+  <div id="simple-st_simple" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="simple-st_simple_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
+    <el-step title="Step 1" icon="Edit"></el-step>
+    <el-step title="Step 2" icon="UploadFilled"></el-step>
+    <el-step title="Step 3" icon="Picture"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":true,"space":null},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":true,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('simple-st_simple', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
+</div>
+  <div style="margin-top: 20px"></div>
+  <div id="simple-st_simple2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="simple-st_simple2_container" style="display: contents">
+  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
+    <el-step title="Step 1"></el-step>
+    <el-step title="Step 2"></el-step>
+    <el-step title="Step 3"></el-step>
+  </el-steps>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":true,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('simple-st_simple2', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="steps-attributes">Steps Attributes<a class="anchor" aria-label="anchor" href="#steps-attributes"></a>
 </h3>
@@ -322,59 +393,105 @@
 <td><code>space</code></td>
 <td>the spacing of each step, will be responsive if omitted. Supports
 percentage.</td>
-<td>number / string</td>
-<td>—</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>1</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>2</sup></a>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>direction</code></td>
 <td><code>direction</code></td>
 <td>display direction</td>
-<td>string</td>
-<td>vertical/horizontal</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>3</sup></a><code>'vertical' \\| 'horizontal'</code>
+</td>
+<td></td>
 <td>horizontal</td>
 </tr>
 <tr class="odd">
 <td><code>active</code></td>
 <td><code>active</code></td>
 <td>current activation step</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="even">
 <td><code>process-status</code></td>
 <td><code>process_status</code></td>
 <td>status of current step</td>
-<td>string</td>
-<td>wait / process / finish / error / success</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>5</sup></a><code>'wait' \\| 'process' \\| 'finish' \\| 'error' \\| 'success'</code>
+</td>
+<td></td>
 <td>process</td>
 </tr>
 <tr class="odd">
 <td><code>finish-status</code></td>
 <td><code>finish_status</code></td>
 <td>status of end step</td>
-<td>string</td>
-<td>wait / process / finish / error / success</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>6</sup></a><code>'wait' \\| 'process' \\| 'finish' \\| 'error' \\| 'success'</code>
+</td>
+<td></td>
 <td>finish</td>
 </tr>
 <tr class="even">
 <td><code>align-center</code></td>
 <td><code>align_center</code></td>
 <td>center title and description</td>
-<td>boolean</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
 <td>—</td>
-<td>false</td>
 </tr>
 <tr class="odd">
 <td><code>simple</code></td>
 <td><code>simple</code></td>
 <td>whether to apply simple theme</td>
-<td>boolean</td>
-<td>-</td>
-<td>false</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="steps-events">Steps Events<a class="anchor" aria-label="anchor" href="#steps-events"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>change</code></td>
+<td><code>input$&lt;id&gt;_change</code></td>
+<td>triggers when the active step changes</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="steps-slots">Steps Slots<a class="anchor" aria-label="anchor" href="#steps-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
 </table>
 </div>
 <div class="section level3">
@@ -403,27 +520,29 @@ percentage.</td>
 <td>field <code>title</code> of each of <code>steps</code>
 </td>
 <td>step title</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>description</code></td>
 <td>field <code>description</code> of each of <code>steps</code>
 </td>
 <td>step description</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
 <td><code>icon</code></td>
 <td>field <code>icon</code> of each of <code>steps</code>
 </td>
-<td>step icon</td>
-<td>step icon’s class name. Icons can be passed via named slot as
-well</td>
-<td>string</td>
+<td>step custom icon. Icons can be passed via named slot as well</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>11</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>12</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
@@ -432,15 +551,17 @@ well</td>
 </td>
 <td>current status. It will be automatically set by Steps if not
 configured.</td>
-<td>wait / process / finish / error / success</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>13</sup></a><code>'' \\| 'wait' \\| 'process' \\| 'finish' \\| 'error' \\| 'success'</code>
+</td>
 <td></td>
-<td></td>
+<td>’’</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="step-slot">Step Slot<a class="anchor" aria-label="anchor" href="#step-slot"></a>
+<h3 id="step-slots">Step Slots<a class="anchor" aria-label="anchor" href="#step-slots"></a>
 </h3>
 <table class="table">
 <thead><tr class="header">
@@ -468,6 +589,7 @@ configured.</td>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

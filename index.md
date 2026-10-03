@@ -1,11 +1,12 @@
 # shiny.element
 
-Use [Element UI](https://element.eleme.io/) components in Shiny —
-inputs, tables, trees, dialogs, menus — each reporting through
-`input$<id>` and updatable from the server, like any other Shiny input.
+Use [Element Plus](https://element-plus.org/), the Vue 3 component
+library, in Shiny — inputs, tables, trees, dialogs, menus, every
+component it documents — each reporting through `input$<id>` and
+updatable from the server, like any other Shiny input.
 
-Element UI ships inside the package, so apps work without a network
-connection.
+Element Plus 2.14.7, its icons and Vue 3.5 ship inside the package, so
+apps work without a network connection.
 
 ## Installation
 
@@ -59,36 +60,38 @@ ui <- bslib::page_sidebar(
 ```
 
 [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)
-is the page’s look: a bslib theme carrying Element’s own colours, font
-and sizes, so Shiny’s
+is the page’s look: a bslib theme carrying Element Plus’s own colours,
+font and sizes, so Shiny’s
 [`actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html) or
 [`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html) sit beside
-Element components without clashing. It is
+Element Plus components without clashing. It is
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)’s
 default. `el_theme(primary = "#7c3aed")` changes the brand colour – on
-Element’s components as well as Bootstrap’s – and `el_theme(element =)`
-any of Element’s own theme variables; any
+Element Plus’s components as well as Bootstrap’s – and
+`el_theme(element =)` any of its CSS variables; any
 [`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
 replaces it, and `theme = NULL` leaves Shiny’s plain Bootstrap.
 
 ## Components
 
-The components follow Element’s own documentation, group by group:
+The components follow Element Plus’s own documentation, group by group:
 
 |  |  |
 |----|----|
-| **Basic** | [`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md) [`el_col()`](https://kaipingyang.github.io/shiny.element/reference/el_col.md) [`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md) [`el_icon()`](https://kaipingyang.github.io/shiny.element/reference/el_icon.md) [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md) [`el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md) [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md) |
-| **Form** | [`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md) [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md) [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md) [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md) [`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md) [`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md) [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md) [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md) [`el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md) [`el_switch()`](https://kaipingyang.github.io/shiny.element/reference/el_switch.md) [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md) [`el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md) [`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md) [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md) [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md) [`el_rate()`](https://kaipingyang.github.io/shiny.element/reference/el_rate.md) [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md) [`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md) [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md) |
-| **Data** | [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md) [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md) [`el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md) [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md) [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md) [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md) [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md) [`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md) [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md) [`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md) [`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md) |
-| **Notice** | [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md) [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md) [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md) [`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md) [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md) |
-| **Navigation** | [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md) [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md) [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md) [`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md) [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md) [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md) |
-| **Others** | [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md) [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md) [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md) [`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md) [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md) [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md) [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md) [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md) [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md) [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md) [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md) [`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md) [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md) [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md) [`el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md) |
+| **Basic** | [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md) [`el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md) [`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md) [`el_icon()`](https://kaipingyang.github.io/shiny.element/reference/el_icon.md) [`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md) [`el_col()`](https://kaipingyang.github.io/shiny.element/reference/el_col.md) [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md) [`el_text()`](https://kaipingyang.github.io/shiny.element/reference/el_text.md) [`el_scrollbar()`](https://kaipingyang.github.io/shiny.element/reference/el_scrollbar.md) [`el_space()`](https://kaipingyang.github.io/shiny.element/reference/el_space.md) [`el_splitter()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter.md) |
+| **Configuration** | [`el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md) |
+| **Form** | [`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md) [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md) [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md) [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md) [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md) [`el_color_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker_panel.md) [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md) [`el_date_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker_panel.md) [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md) [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md) [`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md) [`el_input_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_input_tag.md) [`el_input_otp()`](https://kaipingyang.github.io/shiny.element/reference/el_input_otp.md) [`el_mention()`](https://kaipingyang.github.io/shiny.element/reference/el_mention.md) [`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md) [`el_rate()`](https://kaipingyang.github.io/shiny.element/reference/el_rate.md) [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md) [`el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_select_v2.md) [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md) [`el_switch()`](https://kaipingyang.github.io/shiny.element/reference/el_switch.md) [`el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md) [`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md) [`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md) [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md) [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md) |
+| **Data** | [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md) [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md) [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md) [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md) [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md) [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md) [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md) [`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md) [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md) [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md) [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md) [`el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md) [`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md) [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md) [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md) [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md) [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md) [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md) [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md) [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md) [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md) [`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md) [`el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/el_segmented.md) |
+| **Navigation** | [`el_affix()`](https://kaipingyang.github.io/shiny.element/reference/el_affix.md) [`el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md) [`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md) [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md) [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md) [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md) [`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md) [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md) [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md) |
+| **Feedback** | [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md) [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md) [`el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md) [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md) [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md) [`el_message_box()`](https://kaipingyang.github.io/shiny.element/reference/el_message_box.md) [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md) [`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md) [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md) [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md) |
+| **Others** | [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md) [`el_watermark()`](https://kaipingyang.github.io/shiny.element/reference/el_watermark.md) |
 
 [Each has a
-page](https://kaipingyang.github.io/shiny.element/articles/components.html)
-with Element’s demos in R and Element’s API tables beside the R names.
+page](https://kaipingyang.github.io/shiny.element/articles/components.html),
+as on element-plus.org: its demos in R and its API tables beside the R
+names.
 
-![Buttons](https://kaipingyang.github.io/shiny.element/shots/button-basic.png)![Steps](https://kaipingyang.github.io/shiny.element/shots/steps-description.png)![Table](https://kaipingyang.github.io/shiny.element/shots/table-grouping.png)![Tree](https://kaipingyang.github.io/shiny.element/shots/tree-checking.png)
+![Buttons](https://kaipingyang.github.io/shiny.element/shots/button-basic.png)![Form](https://kaipingyang.github.io/shiny.element/shots/form-basic-form.png)![Table](https://kaipingyang.github.io/shiny.element/shots/table-fixed-column-and-group-header.png)![Tree](https://kaipingyang.github.io/shiny.element/shots/tree-checking-tree.png)
 
 `el_page(dev = TRUE)` loads Vue’s development build, which reports
 template errors in the browser console instead of failing silently. The
@@ -97,23 +100,31 @@ stays clean.
 
 ## Learn more
 
-- [Get
-  started](https://kaipingyang.github.io/shiny.element/articles/shiny.element.html)
+- [Installation & Quick
+  Start](https://kaipingyang.github.io/shiny.element/articles/shiny.element.html)
 - [Components](https://kaipingyang.github.io/shiny.element/articles/components.html)
-  – one page per Element component
+  – one page per Element Plus component
+- Element Plus’s guides from R:
+  [i18n](https://kaipingyang.github.io/shiny.element/articles/i18n.html),
+  [Theming](https://kaipingyang.github.io/shiny.element/articles/theming.html),
+  [Dark
+  Mode](https://kaipingyang.github.io/shiny.element/articles/dark-mode.html),
+  [Custom
+  Defaults](https://kaipingyang.github.io/shiny.element/articles/custom-defaults.html),
+  [Built-in
+  Transitions](https://kaipingyang.github.io/shiny.element/articles/transitions.html),
+  [Migration from Element
+  UI](https://kaipingyang.github.io/shiny.element/articles/migration.html)
 - [Forms and
   validation](https://kaipingyang.github.io/shiny.element/articles/forms.html),
   [Shiny
-  integration](https://kaipingyang.github.io/shiny.element/articles/shiny.html),
-  [Theming, sizes and
-  languages](https://kaipingyang.github.io/shiny.element/articles/theming.html)
+  integration](https://kaipingyang.github.io/shiny.element/articles/shiny.html)
 - [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.html)
-  – whole apps: Element’s own admin layout, a sales overview, an orders
-  admin page
+  – whole apps: an admin layout, a sales overview, an orders admin page
 - [Function
   reference](https://kaipingyang.github.io/shiny.element/reference/index.html)
 
 ## Licence
 
-MIT. The bundled Element UI distribution is MIT-licensed by ElemeFE; see
-`LICENSE.note`.
+MIT. The bundled Element Plus, its icons and Vue are MIT-licensed by
+their authors; see `LICENSE.note`.

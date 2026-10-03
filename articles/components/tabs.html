@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="tabs_files/vue-2.7.14/vue.min.js"></script><link href="tabs_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="tabs_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="tabs_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="tabs_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="tabs_files/el-events-1.0.0/el-events.js"></script><script src="tabs_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="tabs_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="tabs_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="tabs_files/vue-3.5.43/vue.global.prod.js"></script><link href="tabs_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="tabs_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="tabs_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="tabs_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="tabs_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="tabs_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="tabs_files/el-events-1.0.0/el-events.js"></script><script src="tabs_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="tabs_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <script src="tabs_files/el-tabs-binding-1.0.0/el-tabs-binding.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -154,13 +188,14 @@
     
     
 <p>Divide data collections which are related yet belong to different
-types. <code>tabs</code> is a list of
-<code>list(name =, label =, content =)</code>; the panes hold any Shiny
-UI, components included. <code>input$&lt;id&gt;</code> is the selected
-tab’s name.</p>
+types.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Basic and concise tabs.</p>
+<p>Tabs provide a selective card functionality. By default the first tab
+is selected as active, and you can activate any tab by setting the
+<code>value</code> attribute.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"basic"</span>, selected <span class="op">=</span> <span class="st">"first"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
@@ -192,30 +227,36 @@ tab’s name.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="card-style">Card style<a class="anchor" aria-label="anchor" href="#card-style"></a>
+<h2 id="card-style">Card Style<a class="anchor" aria-label="anchor" href="#card-style"></a>
 </h2>
+<p>Tabs styled as cards.</p>
+<p>Set <code>type</code> to <code>card</code> can get a card-styled
+tab.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"card"</span>, type <span class="op">=</span> <span class="st">"card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="card-card" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
+  <div id="card-style-card" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
     <div class="el-tabs__header is-top">
       <div class="el-tabs__nav-wrap is-top">
         <div class="el-tabs__nav-scroll">
           <div role="tablist" class="el-tabs__nav is-top">
-            <div id="card-card-tab-first" role="tab" aria-controls="card-card-pane-first" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="first">User</div>
-            <div id="card-card-tab-second" role="tab" aria-controls="card-card-pane-second" tabindex="-1" class="el-tabs__item is-top" data-el-name="second">Config</div>
-            <div id="card-card-tab-third" role="tab" aria-controls="card-card-pane-third" tabindex="-1" class="el-tabs__item is-top" data-el-name="third">Role</div>
+            <div id="card-style-card-tab-first" role="tab" aria-controls="card-style-card-pane-first" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="first">User</div>
+            <div id="card-style-card-tab-second" role="tab" aria-controls="card-style-card-pane-second" tabindex="-1" class="el-tabs__item is-top" data-el-name="second">Config</div>
+            <div id="card-style-card-tab-third" role="tab" aria-controls="card-style-card-pane-third" tabindex="-1" class="el-tabs__item is-top" data-el-name="third">Role</div>
+            <div id="card-style-card-tab-fourth" role="tab" aria-controls="card-style-card-pane-fourth" tabindex="-1" class="el-tabs__item is-top" data-el-name="fourth">Task</div>
           </div>
         </div>
       </div>
     </div>
     <div class="el-tabs__content">
-      <div role="tabpanel" id="card-card-pane-first" aria-labelledby="card-card-tab-first" class="el-tab-pane" data-el-name="first">User</div>
-      <div role="tabpanel" id="card-card-pane-second" aria-labelledby="card-card-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
-      <div role="tabpanel" id="card-card-pane-third" aria-labelledby="card-card-tab-third" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="third">Role</div>
+      <div role="tabpanel" id="card-style-card-pane-first" aria-labelledby="card-style-card-tab-first" class="el-tab-pane" data-el-name="first">User</div>
+      <div role="tabpanel" id="card-style-card-pane-second" aria-labelledby="card-style-card-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
+      <div role="tabpanel" id="card-style-card-pane-third" aria-labelledby="card-style-card-tab-third" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="third">Role</div>
+      <div role="tabpanel" id="card-style-card-pane-fourth" aria-labelledby="card-style-card-tab-fourth" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="fourth">Task</div>
     </div>
   </div>
 </div>
@@ -223,34 +264,33 @@ tab’s name.</p>
 <div class="section level2">
 <h2 id="border-card">Border card<a class="anchor" aria-label="anchor" href="#border-card"></a>
 </h2>
+<p>Border card tabs.</p>
+<p>Set <code>type</code> to <code>border-card</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"bc"</span>, type <span class="op">=</span> <span class="st">"border-card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"on"</span>, active_text <span class="op">=</span> <span class="st">"Live"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="border-bc" class="el-tabs el-tabs--top el-tabs--border-card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
+  <div id="border-card-bc" class="el-tabs el-tabs--top el-tabs--border-card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
     <div class="el-tabs__header is-top">
       <div class="el-tabs__nav-wrap is-top">
         <div class="el-tabs__nav-scroll">
           <div role="tablist" class="el-tabs__nav is-top">
-            <div id="border-bc-tab-first" role="tab" aria-controls="border-bc-pane-first" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="first">User</div>
-            <div id="border-bc-tab-second" role="tab" aria-controls="border-bc-pane-second" tabindex="-1" class="el-tabs__item is-top" data-el-name="second">Config</div>
-            <div id="border-bc-tab-third" role="tab" aria-controls="border-bc-pane-third" tabindex="-1" class="el-tabs__item is-top" data-el-name="third">Role</div>
+            <div id="border-card-bc-tab-first" role="tab" aria-controls="border-card-bc-pane-first" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="first">User</div>
+            <div id="border-card-bc-tab-second" role="tab" aria-controls="border-card-bc-pane-second" tabindex="-1" class="el-tabs__item is-top" data-el-name="second">Config</div>
+            <div id="border-card-bc-tab-third" role="tab" aria-controls="border-card-bc-pane-third" tabindex="-1" class="el-tabs__item is-top" data-el-name="third">Role</div>
+            <div id="border-card-bc-tab-fourth" role="tab" aria-controls="border-card-bc-pane-fourth" tabindex="-1" class="el-tabs__item is-top" data-el-name="fourth">Task</div>
           </div>
         </div>
       </div>
     </div>
     <div class="el-tabs__content">
-      <div role="tabpanel" id="border-bc-pane-first" aria-labelledby="border-bc-tab-first" class="el-tab-pane" data-el-name="first">
-        <div id="border-on" data-shiny-vue style="display: contents">
-          <script type="text/x-template" data-shiny-vue-template><div id="border-on_container" style="display: contents">
-  <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"Live","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
-</div>
-      </div>
-      <div role="tabpanel" id="border-bc-pane-second" aria-labelledby="border-bc-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
-      <div role="tabpanel" id="border-bc-pane-third" aria-labelledby="border-bc-tab-third" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="third">Role</div>
+      <div role="tabpanel" id="border-card-bc-pane-first" aria-labelledby="border-card-bc-tab-first" class="el-tab-pane" data-el-name="first">User</div>
+      <div role="tabpanel" id="border-card-bc-pane-second" aria-labelledby="border-card-bc-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
+      <div role="tabpanel" id="border-card-bc-pane-third" aria-labelledby="border-card-bc-tab-third" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="third">Role</div>
+      <div role="tabpanel" id="border-card-bc-pane-fourth" aria-labelledby="border-card-bc-tab-fourth" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="fourth">Task</div>
     </div>
   </div>
 </div>
@@ -258,59 +298,73 @@ tab’s name.</p>
 <div class="section level2">
 <h2 id="tab-position">Tab position<a class="anchor" aria-label="anchor" href="#tab-position"></a>
 </h2>
+<p>You can use <code>tab-position</code> attribute to set the tab’s
+position.</p>
+<p>You can choose from four directions:
+<code>tabPosition="left|right|top|bottom"</code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"pos"</span>, tab_position <span class="op">=</span> <span class="st">"left"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="position-pos" class="el-tabs el-tabs--left" data-el-tabs="true" data-position="left" data-carded="false" data-closable="false">
+  <div id="tab-position-pos" class="el-tabs el-tabs--left" data-el-tabs="true" data-position="left" data-carded="false" data-closable="false">
     <div class="el-tabs__header is-left">
       <div class="el-tabs__nav-wrap is-left">
         <div class="el-tabs__nav-scroll">
           <div role="tablist" class="el-tabs__nav is-left">
             <div class="el-tabs__active-bar is-left"></div>
-            <div id="position-pos-tab-first" role="tab" aria-controls="position-pos-pane-first" aria-selected="true" tabindex="0" class="el-tabs__item is-left is-active" data-el-name="first">User</div>
-            <div id="position-pos-tab-second" role="tab" aria-controls="position-pos-pane-second" tabindex="-1" class="el-tabs__item is-left" data-el-name="second">Config</div>
-            <div id="position-pos-tab-third" role="tab" aria-controls="position-pos-pane-third" tabindex="-1" class="el-tabs__item is-left" data-el-name="third">Role</div>
+            <div id="tab-position-pos-tab-first" role="tab" aria-controls="tab-position-pos-pane-first" aria-selected="true" tabindex="0" class="el-tabs__item is-left is-active" data-el-name="first">User</div>
+            <div id="tab-position-pos-tab-second" role="tab" aria-controls="tab-position-pos-pane-second" tabindex="-1" class="el-tabs__item is-left" data-el-name="second">Config</div>
+            <div id="tab-position-pos-tab-third" role="tab" aria-controls="tab-position-pos-pane-third" tabindex="-1" class="el-tabs__item is-left" data-el-name="third">Role</div>
+            <div id="tab-position-pos-tab-fourth" role="tab" aria-controls="tab-position-pos-pane-fourth" tabindex="-1" class="el-tabs__item is-left" data-el-name="fourth">Task</div>
           </div>
         </div>
       </div>
     </div>
     <div class="el-tabs__content">
-      <div role="tabpanel" id="position-pos-pane-first" aria-labelledby="position-pos-tab-first" class="el-tab-pane" data-el-name="first">User</div>
-      <div role="tabpanel" id="position-pos-pane-second" aria-labelledby="position-pos-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
-      <div role="tabpanel" id="position-pos-pane-third" aria-labelledby="position-pos-tab-third" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="third">Role</div>
+      <div role="tabpanel" id="tab-position-pos-pane-first" aria-labelledby="tab-position-pos-tab-first" class="el-tab-pane" data-el-name="first">User</div>
+      <div role="tabpanel" id="tab-position-pos-pane-second" aria-labelledby="tab-position-pos-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
+      <div role="tabpanel" id="tab-position-pos-pane-third" aria-labelledby="tab-position-pos-tab-third" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="third">Role</div>
+      <div role="tabpanel" id="tab-position-pos-pane-fourth" aria-labelledby="tab-position-pos-tab-fourth" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="fourth">Task</div>
     </div>
   </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="custom-tab">Custom tab<a class="anchor" aria-label="anchor" href="#custom-tab"></a>
+<h2 id="custom-tab">Custom Tab<a class="anchor" aria-label="anchor" href="#custom-tab"></a>
 </h2>
+<p>You can use named slot to customize the tab label content.</p>
 <p>A <code>label</code> may be markup.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"cus"</span>, type <span class="op">=</span> <span class="st">"border-card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"route"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"date"</span><span class="op">)</span>, <span class="st">" Route"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Route"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"config"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"route"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Calendar"</span><span class="op">)</span>, <span class="st">" Route"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Route"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"config"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"role"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"task"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="custom-cus" class="el-tabs el-tabs--top el-tabs--border-card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
+  <div id="custom-tab-cus" class="el-tabs el-tabs--top el-tabs--border-card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
     <div class="el-tabs__header is-top">
       <div class="el-tabs__nav-wrap is-top">
         <div class="el-tabs__nav-scroll">
           <div role="tablist" class="el-tabs__nav is-top">
-            <div id="custom-cus-tab-route" role="tab" aria-controls="custom-cus-pane-route" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="route">
-              <i class="el-icon-date" aria-hidden="true" role="img"></i>
+            <div id="custom-tab-cus-tab-route" role="tab" aria-controls="custom-tab-cus-pane-route" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="route">
+              <i class="el-icon" data-el-icon="Calendar" aria-hidden="true" role="img"></i>
                Route
             </div>
-            <div id="custom-cus-tab-config" role="tab" aria-controls="custom-cus-pane-config" tabindex="-1" class="el-tabs__item is-top" data-el-name="config">Config</div>
+            <div id="custom-tab-cus-tab-config" role="tab" aria-controls="custom-tab-cus-pane-config" tabindex="-1" class="el-tabs__item is-top" data-el-name="config">Config</div>
+            <div id="custom-tab-cus-tab-role" role="tab" aria-controls="custom-tab-cus-pane-role" tabindex="-1" class="el-tabs__item is-top" data-el-name="role">Role</div>
+            <div id="custom-tab-cus-tab-task" role="tab" aria-controls="custom-tab-cus-pane-task" tabindex="-1" class="el-tabs__item is-top" data-el-name="task">Task</div>
           </div>
         </div>
       </div>
     </div>
     <div class="el-tabs__content">
-      <div role="tabpanel" id="custom-cus-pane-route" aria-labelledby="custom-cus-tab-route" class="el-tab-pane" data-el-name="route">Route</div>
-      <div role="tabpanel" id="custom-cus-pane-config" aria-labelledby="custom-cus-tab-config" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="config">Config</div>
+      <div role="tabpanel" id="custom-tab-cus-pane-route" aria-labelledby="custom-tab-cus-tab-route" class="el-tab-pane" data-el-name="route">Route</div>
+      <div role="tabpanel" id="custom-tab-cus-pane-config" aria-labelledby="custom-tab-cus-tab-config" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="config">Config</div>
+      <div role="tabpanel" id="custom-tab-cus-pane-role" aria-labelledby="custom-tab-cus-tab-role" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="role">Role</div>
+      <div role="tabpanel" id="custom-tab-cus-pane-task" aria-labelledby="custom-tab-cus-tab-task" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="task">Task</div>
     </div>
   </div>
 </div>
@@ -318,7 +372,8 @@ tab’s name.</p>
 <div class="section level2">
 <h2 id="add-close-tab">Add &amp; close tab<a class="anchor" aria-label="anchor" href="#add-close-tab"></a>
 </h2>
-<p><code>editable = TRUE</code> adds Element’s close buttons and new-tab
+<p>Only card type Tabs support addable &amp; closeable.</p>
+<p><code>editable = TRUE</code> adds the close buttons and the new-tab
 button; the tabs close themselves, and a new one is the server’s to
 make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -336,12 +391,47 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tabs-editable.png" alt="The editable example, running" style="max-width: 100%">
+<img src="../../shots/tabs-dynamic-tabs.png" alt="The dynamic-tabs example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="customized-add-button-icon">Customized add button icon<a class="anchor" aria-label="anchor" href="#customized-add-button-icon"></a>
+</h2>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"icon"</span>, type <span class="op">=</span> <span class="st">"card"</span>, editable <span class="op">=</span> <span class="cn">TRUE</span>, add_icon <span class="op">=</span> <span class="st">"CirclePlus"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Tab 1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Tab 2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="customized-add-button-icon-icon" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="true">
+    <div class="el-tabs__header is-top">
+      <span class="el-tabs__new-tab" tabindex="0">
+        <i class="el-icon" data-el-icon="CirclePlus"></i>
+      </span>
+      <div class="el-tabs__nav-wrap is-top">
+        <div class="el-tabs__nav-scroll">
+          <div role="tablist" class="el-tabs__nav is-top">
+            <div id="customized-add-button-icon-icon-tab-1" role="tab" aria-controls="customized-add-button-icon-icon-pane-1" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active is-closable" data-el-name="1">
+              Tab 1
+              <i class="el-icon is-icon-close" data-el-icon="Close"></i>
+            </div>
+            <div id="customized-add-button-icon-icon-tab-2" role="tab" aria-controls="customized-add-button-icon-icon-pane-2" tabindex="-1" class="el-tabs__item is-top is-closable" data-el-name="2">
+              Tab 2
+              <i class="el-icon is-icon-close" data-el-icon="Close"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="el-tabs__content">
+      <div role="tabpanel" id="customized-add-button-icon-icon-pane-1" aria-labelledby="customized-add-button-icon-icon-tab-1" class="el-tab-pane" data-el-name="1">Tab 1 content</div>
+      <div role="tabpanel" id="customized-add-button-icon-icon-pane-2" aria-labelledby="customized-add-button-icon-icon-tab-2" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="2">Tab 2 content</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="customized-trigger-button-of-new-tab">Customized trigger button of new tab<a class="anchor" aria-label="anchor" href="#customized-trigger-button-of-new-tab"></a>
 </h2>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="st">"add tab"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"docs"</span>, type <span class="op">=</span> <span class="st">"card"</span>, closable <span class="op">=</span> <span class="cn">TRUE</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -357,11 +447,45 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tabs-trigger.png" alt="The trigger example, running" style="max-width: 100%">
+<img src="../../shots/tabs-customized-trigger.png" alt="The customized-trigger example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="default-value">Default value<a class="anchor" aria-label="anchor" href="#default-value"></a>
+</h2>
+<p><code>selected</code> opens a tab other than the first.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span><span class="st">"dv"</span>, selected <span class="op">=</span> <span class="st">"third"</span>, type <span class="op">=</span> <span class="st">"card"</span>, tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"first"</span>, label <span class="op">=</span> <span class="st">"User"</span>, content <span class="op">=</span> <span class="st">"User"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"second"</span>, label <span class="op">=</span> <span class="st">"Config"</span>, content <span class="op">=</span> <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"third"</span>, label <span class="op">=</span> <span class="st">"Role"</span>, content <span class="op">=</span> <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fourth"</span>, label <span class="op">=</span> <span class="st">"Task"</span>, content <span class="op">=</span> <span class="st">"Task"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="default-value-dv" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="false">
+    <div class="el-tabs__header is-top">
+      <div class="el-tabs__nav-wrap is-top">
+        <div class="el-tabs__nav-scroll">
+          <div role="tablist" class="el-tabs__nav is-top">
+            <div id="default-value-dv-tab-first" role="tab" aria-controls="default-value-dv-pane-first" tabindex="-1" class="el-tabs__item is-top" data-el-name="first">User</div>
+            <div id="default-value-dv-tab-second" role="tab" aria-controls="default-value-dv-pane-second" tabindex="-1" class="el-tabs__item is-top" data-el-name="second">Config</div>
+            <div id="default-value-dv-tab-third" role="tab" aria-controls="default-value-dv-pane-third" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active" data-el-name="third">Role</div>
+            <div id="default-value-dv-tab-fourth" role="tab" aria-controls="default-value-dv-pane-fourth" tabindex="-1" class="el-tabs__item is-top" data-el-name="fourth">Task</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="el-tabs__content">
+      <div role="tabpanel" id="default-value-dv-pane-first" aria-labelledby="default-value-dv-tab-first" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="first">User</div>
+      <div role="tabpanel" id="default-value-dv-pane-second" aria-labelledby="default-value-dv-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
+      <div role="tabpanel" id="default-value-dv-pane-third" aria-labelledby="default-value-dv-tab-third" class="el-tab-pane" data-el-name="third">Role</div>
+      <div role="tabpanel" id="default-value-dv-pane-fourth" aria-labelledby="default-value-dv-tab-fourth" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="fourth">Task</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="tabs-attributes">Tabs Attributes<a class="anchor" aria-label="anchor" href="#tabs-attributes"></a>
 </h3>
@@ -384,70 +508,105 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>selected</code></td>
-<td>binding value, name of the selected tab</td>
-<td>string</td>
+<td><code>model-value</code></td>
+<td>
+<code>selected</code>; <code>input$&lt;id&gt;</code>
+</td>
+<td>binding value, name of the selected tab, the default value is the
+name of first tab</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>1</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>2</sup></a>
+</td>
+<td></td>
 <td>—</td>
-<td>name of first tab</td>
 </tr>
 <tr class="even">
+<td><code>default-value</code></td>
+<td><code>selected</code></td>
+<td>The value of the tab that should be active when initially rendered.
+(avoid initial transition)</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>3</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>4</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
 <td><code>type</code></td>
 <td><code>type</code></td>
 <td>type of Tab</td>
-<td>string</td>
-<td>card/border-card</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>5</sup></a><code>'' \\| 'card' \\| 'border-card'</code>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>closable</code></td>
 <td><code>closable</code></td>
 <td>whether Tab is closable</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>6</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>addable</code></td>
 <td><code>addable</code></td>
 <td>whether Tab is addable</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>editable</code></td>
 <td><code>editable</code></td>
 <td>whether Tab is addable and closable</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>tab-position</code></td>
 <td><code>tab_position</code></td>
 <td>position of tabs</td>
-<td>string</td>
-<td>top/right/bottom/left</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>9</sup></a><code>'top' \\| 'right' \\| 'bottom' \\| 'left'</code>
+</td>
+<td></td>
 <td>top</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>stretch</code></td>
 <td><code>stretch</code></td>
 <td>whether width of tab automatically fits its container</td>
-<td>boolean</td>
-<td>-</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>before-leave</code></td>
 <td><code>before_leave</code></td>
 <td>hook function before switching tab. If <code>false</code> is
 returned or a <code>Promise</code> is returned and then is rejected,
 switching will be prevented</td>
-<td>Function(activeName, oldActiveName)</td>
-<td>—</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>11</sup></a><code>(activeName: TabPaneName, oldActiveName: TabPaneName) =&gt; Awaitable&lt;void \\| boolean&gt;</code>
+</td>
+<td></td>
+<td>() =&gt; true</td>
+</tr>
+<tr class="even">
+<td><code>tabindex</code></td>
+<td><code>(set by the tabs)</code></td>
+<td>tabs tabindex</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>12</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>13</sup></a>
+</td>
+<td></td>
+<td>0</td>
 </tr>
 </tbody>
 </table>
@@ -473,19 +632,52 @@ switching will be prevented</td>
 <td>triggers when a tab is clicked</td>
 </tr>
 <tr class="even">
+<td><code>tab-change</code></td>
+<td><code>input$&lt;id&gt;_tab_change</code></td>
+<td>triggers when <code>activeName</code> is changed</td>
+</tr>
+<tr class="odd">
 <td><code>tab-remove</code></td>
 <td><code>input$&lt;id&gt;_tab_remove</code></td>
 <td>triggers when tab-remove button is clicked</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>tab-add</code></td>
 <td><code>input$&lt;id&gt;_tab_add</code></td>
 <td>triggers when tab-add button is clicked</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>edit</code></td>
 <td><code>input$&lt;id&gt;_edit</code></td>
 <td>triggers when tab-add button or tab-remove is clicked</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="tabs-slots">Tabs Slots<a class="anchor" aria-label="anchor" href="#tabs-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr>
+<tr class="even">
+<td><code>add-icon</code></td>
+<td><code>slots = list(add-icon = )</code></td>
+<td>customize add button icon</td>
+</tr>
+<tr class="odd">
+<td><code>addIcon</code></td>
+<td><code>slots = list(addIcon = )</code></td>
+<td>customize add button icon</td>
 </tr>
 </tbody>
 </table>
@@ -516,51 +708,64 @@ switching will be prevented</td>
 <td>item field <code>label</code>
 </td>
 <td>title of the tab</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>14</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>disabled</code></td>
 <td>item field <code>disabled</code>
 </td>
 <td>whether Tab is disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
-<td><code>name</code></td>
-<td>item field <code>name</code>
-</td>
-<td>identifier corresponding to the name of Tabs, representing the alias
-of the tab-pane</td>
-<td>string</td>
-<td>—</td>
-<td>ordinal number of the tab-pane in the sequence, e.g. the first
-tab-pane is ‘1’</td>
-</tr>
-<tr class="even">
 <td><code>closable</code></td>
 <td><code>closable</code></td>
 <td>whether Tab is closable</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>lazy</code></td>
 <td>item field <code>lazy</code>
 </td>
 <td>whether Tab is lazily rendered</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>17</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="tab-pane-slots">Tab-pane Slots<a class="anchor" aria-label="anchor" href="#tab-pane-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>Tab-pane’s content</td>
+</tr>
+<tr class="even">
+<td><code>label</code></td>
+<td><code>slots = list(label = )</code></td>
+<td>Tab-pane’s label</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

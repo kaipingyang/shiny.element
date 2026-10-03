@@ -1,6 +1,6 @@
-# Element's theme variables, by name
+# Element Plus's theme variables, by name
 
-Element's theme variables, by name
+Element Plus's theme variables, by name
 
 ## Usage
 
@@ -10,4 +10,4 @@ Element's theme variables, by name
 
 ## Value
 
-Names, without the `$--` prefix.
+Names, without the `--el-` prefix.

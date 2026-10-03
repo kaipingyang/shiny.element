@@ -1,6 +1,6 @@
 # Declare a validation rule
 
-Builds one async-validator rule, the format Element UI's form expects.
+Builds one async-validator rule, the format Element Plus's form expects.
 
 ## Usage
 

@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="tooltip_files/vue-2.7.14/vue.min.js"></script><link href="tooltip_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="tooltip_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="tooltip_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="tooltip_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="tooltip_files/el-events-1.0.0/el-events.js"></script><script src="tooltip_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="tooltip_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="tooltip_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="tooltip_files/vue-3.5.43/vue.global.prod.js"></script><link href="tooltip_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="tooltip_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="tooltip_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="tooltip_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="tooltip_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="tooltip_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="tooltip_files/el-events-1.0.0/el-events.js"></script><script src="tooltip_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="tooltip_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,13 +187,20 @@
 
     
     
-<p>Display prompt information on hover. The trigger can be plain markup
-or a component – folded into the tooltip’s own Vue instance, so it keeps
-reporting its inputs.</p>
+<p>Display prompt information for mouse hover.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
-<p><code>placement</code> takes twelve positions.</p>
+<p>Tooltip has 9 placements.</p>
+<p>Use attribute <code>content</code> to set the display content when
+hover. The attribute <code>placement</code> determines the position of
+the tooltip. Its value is <code>[orientation]-[alignment]</code> with
+four orientations <code>top</code>, <code>left</code>,
+<code>right</code>, <code>bottom</code> and three alignments
+<code>start</code>, <code>end</code>, <code>null</code>, and the default
+alignment is null. Take <code>placement="left-end"</code> for example,
+Tooltip will display on the left of the element which you are hovering
+and the bottom of the tooltip aligns with the bottom of the element.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">places</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top-start"</span>, <span class="st">"top"</span>, <span class="st">"top-end"</span>, <span class="st">"left-start"</span>, <span class="st">"left"</span>, <span class="st">"left-end"</span>,</span>
 <span>            <span class="st">"right-start"</span>, <span class="st">"right"</span>, <span class="st">"right-end"</span>, <span class="st">"bottom-start"</span>, <span class="st">"bottom"</span>, <span class="st">"bottom-end"</span><span class="op">)</span></span>
@@ -170,87 +211,87 @@ reporting its inputs.</p>
   <div style="padding: 40px 80px">
     <div id="basic-tip_top_start" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_top_start_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>top-start</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"top-start prompts info","tipPlacement":"top-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"top-start prompts info","tipPlacement":"top-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_top_start', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_top_start', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_top_start', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_top_start', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_top" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_top_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>top</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"top prompts info","tipPlacement":"top","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"top prompts info","tipPlacement":"top","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_top', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_top', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_top', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_top', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_top_end" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_top_end_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>top-end</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"top-end prompts info","tipPlacement":"top-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"top-end prompts info","tipPlacement":"top-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_top_end', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_top_end', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_top_end', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_top_end', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_left_start" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_left_start_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>left-start</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"left-start prompts info","tipPlacement":"left-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"left-start prompts info","tipPlacement":"left-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_left_start', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_left_start', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_left_start', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_left_start', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_left" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_left_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>left</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"left prompts info","tipPlacement":"left","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"left prompts info","tipPlacement":"left","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_left', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_left', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_left', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_left', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_left_end" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_left_end_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>left-end</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"left-end prompts info","tipPlacement":"left-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"left-end prompts info","tipPlacement":"left-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_left_end', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_left_end', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_left_end', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_left_end', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_right_start" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_right_start_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>right-start</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"right-start prompts info","tipPlacement":"right-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"right-start prompts info","tipPlacement":"right-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_right_start', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_right_start', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_right_start', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_right_start', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_right" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_right_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>right</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"right prompts info","tipPlacement":"right","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"right prompts info","tipPlacement":"right","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_right', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_right', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_right', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_right', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_right_end" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_right_end_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>right-end</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"right-end prompts info","tipPlacement":"right-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"right-end prompts info","tipPlacement":"right-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_right_end', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_right_end', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_right_end', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_right_end', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_bottom_start" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_bottom_start_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>bottom-start</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"bottom-start prompts info","tipPlacement":"bottom-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"bottom-start prompts info","tipPlacement":"bottom-start","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_bottom_start', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_bottom_start', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_bottom_start', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_bottom_start', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_bottom" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_bottom_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>bottom</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"bottom prompts info","tipPlacement":"bottom","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"bottom prompts info","tipPlacement":"bottom","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_bottom', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_bottom', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_bottom', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_bottom', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
     <div id="basic-tip_bottom_end" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="basic-tip_bottom_end_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>bottom-end</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"bottom-end prompts info","tipPlacement":"bottom-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"bottom-end prompts info","tipPlacement":"bottom-end","tipEffect":"dark","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('basic-tip_bottom_end', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('basic-tip_bottom_end', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('basic-tip_bottom_end', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('basic-tip_bottom_end', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
   </div>
 </div>
@@ -258,39 +299,66 @@ reporting its inputs.</p>
 <div class="section level2">
 <h2 id="theme">Theme<a class="anchor" aria-label="anchor" href="#theme"></a>
 </h2>
+<p>Tooltip has two built-in themes: <code>dark</code> and
+<code>light</code>.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>To use customized theme, you will have to known where your tooltip is
+rendered into, if your tooltip is rendered into the root element, you
+will need to set the css rule globally.</p>
+<p>It is recommended that not using linear gradient background color
+when you using customized theme and showing the arrow at the same time,
+because the popup arrow and the content are two different elements, the
+popup arrow’s style needs to be set individually, and when it comes to
+the gradient background color, it might seem a little bit weird.</p>
+</blockquote>
+<p>Set <code>effect</code> to modify theme, and the default value is
+<code>dark</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"dark"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Dark"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Top center"</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"light"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Light"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Bottom center"</span>, placement <span class="op">=</span> <span class="st">"bottom"</span>, effect <span class="op">=</span> <span class="st">"light"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"dark"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Dark"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Top center"</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"light"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Light"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Bottom center"</span>, placement <span class="op">=</span> <span class="st">"bottom"</span>, effect <span class="op">=</span> <span class="st">"light"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"custom"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Customized theme"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Bottom center"</span>, effect <span class="op">=</span> <span class="st">"customized"</span>,</span>
+<span>             placement <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="theme-dark" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="theme-dark_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>Dark</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"Top center","tipPlacement":"top","tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"Top center","tipPlacement":"top","tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('theme-dark', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('theme-dark', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('theme-dark', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('theme-dark', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
   <div id="theme-light" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="theme-light_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>Light</el-button>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":"Bottom center","tipPlacement":"bottom","tipEffect":"light","tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"Bottom center","tipPlacement":"bottom","tipEffect":"light","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('theme-light', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('theme-light', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('theme-light', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('theme-light', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
+</div>
+  <div id="theme-custom" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="theme-custom_container" style="display: contents">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
+    <el-button>Customized theme</el-button>
+  </el-tooltip>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"Bottom center","tipPlacement":"bottom","tipEffect":"customized","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('theme-custom', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('theme-custom', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('theme-custom', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('theme-custom', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="more-content">More content<a class="anchor" aria-label="anchor" href="#more-content"></a>
+<h2 id="more-content">More Content<a class="anchor" aria-label="anchor" href="#more-content"></a>
 </h2>
-<p>The <code>content</code> slot takes markup.</p>
+<p>Display multiple lines of text and set their format.</p>
+<p>Override attribute <code>content</code> of <code>el-tooltip</code> by
+adding a slot named <code>content</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"multi"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Top center"</span><span class="op">)</span>, placement <span class="op">=</span> <span class="st">"top"</span>,</span>
 <span>           slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"multiple lines"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>, <span class="st">"second line"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="more-multi" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="more-multi_container" style="display: contents">
-  <el-tooltip v-model="tipValue" :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :open-delay="tipOpenDelay === null ? undefined : tipOpenDelay" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :visible-arrow="tipVisibleArrow === null ? undefined : tipVisibleArrow" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" :manual="tipManual === null ? undefined : tipManual" :tabindex="tipTabindex === null ? undefined : tipTabindex">
+  <div id="rich-content-multi" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="rich-content-multi_container" style="display: contents">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
     <el-button>Top center</el-button>
-    <template slot="content">
+    <template v-slot:content>
       <div>
         multiple lines
         <br/>
@@ -298,32 +366,170 @@ reporting its inputs.</p>
       </div>
     </template>
   </el-tooltip>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipValue":false,"tipContent":null,"tipPlacement":"top","tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipOpenDelay":null,"tipHideAfter":null,"tipEnterable":null,"tipVisibleArrow":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipManual":null,"tipTabindex":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":null,"tipPlacement":"top","tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('rich-content-multi', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('rich-content-multi', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('rich-content-multi', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('rich-content-multi', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="advanced-usage">Advanced usage<a class="anchor" aria-label="anchor" href="#advanced-usage"></a>
 </h2>
-<p><code>disabled</code> turns it off – here from a switch, through
-<code><a href="../../reference/update_el_tooltip.html">update_el_tooltip()</a></code>; <code>manual</code> hands showing and
-hiding to <code>update_el_tooltip(value =)</code>.</p>
+<p>In addition to basic usages, there are some attributes that allow you
+to customize your own:</p>
+<p><code>transition</code> attribute allows you to customize the
+animation in which the tooltip shows or hides, and the default value is
+el-fade-in-linear.</p>
+<p><code>disabled</code> attribute allows you to disable
+<code>tooltip</code>. You just need set it to <code>true</code>.</p>
+<p>In fact, Tooltip is an extension based on <a href="https://github.com/element-plus/element-plus/tree/dev/packages/components/popper" class="external-link">ElPopper</a>,
+you can use any attribute that are allowed in ElPopper.</p>
+<p>Turned on and off from the server,
+<code>update_el_tooltip(disabled =)</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"tip_on"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"tooltip on"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"adv"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"click the switch to turn me off"</span>,</span>
 <span>             placement <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tip_on</span>, <span class="fu"><a href="../../reference/update_el_tooltip.html">update_el_tooltip</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"adv"</span>, disabled <span class="op">=</span> <span class="op">!</span><span class="va">input</span><span class="op">$</span><span class="va">tip_on</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tooltip-advanced.png" alt="The advanced example, running" style="max-width: 100%">
+<img src="../../shots/tooltip-advanced-usage.png" alt="The advanced-usage example, running" style="max-width: 100%"><blockquote>
+<p><strong>Tip</strong></p>
+<p>The <code>router-link</code> component is not supported in tooltip,
+please use <code>vm.$router.push</code>.</p>
+<p>Disabled form elements are not supported for Tooltip, more
+information can be found at <a href="https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter" class="external-link">MDN</a>.
+You need to wrap the disabled form element with a container element for
+Tooltip to work.</p>
+</blockquote>
+</div>
+<div class="section level2">
+<h2 id="html-as-content">HTML as content<a class="anchor" aria-label="anchor" href="#html-as-content"></a>
+</h2>
+<p>The content attribute can be set to HTML string.</p>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>Although <code>content</code> property supports HTML strings,
+dynamically rendering arbitrary HTML on your website can be very
+dangerous because it can easily lead to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" class="external-link">XSS
+attacks</a>. So when <code>raw-content</code> is on, please make sure
+<code>content</code> is trusted, and <strong>never</strong> assign
+user-provided <code>content</code>.</p>
+</blockquote>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"html_tip"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"hover me"</span><span class="op">)</span>, raw_content <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>           content <span class="op">=</span> <span class="st">"&lt;span&gt;The content can be &lt;strong&gt;HTML&lt;/strong&gt;&lt;/span&gt;"</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="html-content-html_tip" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="html-content-html_tip_container" style="display: contents">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
+    <el-button>hover me</el-button>
+  </el-tooltip>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"<span>The content can be <strong>HTML<\/strong><\/span>","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":true,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('html-content-html_tip', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('html-content-html_tip', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('html-content-html_tip', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('html-content-html_tip', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="virtual-triggering">Virtual triggering<a class="anchor" aria-label="anchor" href="#virtual-triggering"></a>
+</h2>
+<p>Sometimes we want to render the tooltip on some other trigger
+element, we can separate the trigger and the content.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Virtual triggering tooltip is controlled component, so that you will
+have to control the visibility of the tooltip your own when this
+happens, <strong>YOU WILL NOT</strong> be able to close the tooltip by
+clicking somewhere else.</p>
+</blockquote>
+<blockquote>
+<p><strong>In R</strong></p>
+<p>A virtual trigger is a DOM element the page’s own script holds; in R,
+give the trigger itself.</p>
+</blockquote>
+</div>
+<div class="section level2">
+<h2 id="singleton">Singleton<a class="anchor" aria-label="anchor" href="#singleton"></a>
+</h2>
+<p>Tooltip can also be singleton, which means you can have multiple
+trigger with only one tooltip instance, this function is implemented
+based on <code>Virtual triggering</code></p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Known issue: when using singleton, the popup will be bouncing out
+from unexpected places</p>
+</blockquote>
+<blockquote>
+<p><strong>In R</strong></p>
+<p>Element Plus’s singleton tooltip moves one tooltip between triggers
+held by the page’s script; in R each trigger has a tooltip of its
+own.</p>
+</blockquote>
+</div>
+<div class="section level2">
+<h2 id="controlled">Controlled<a class="anchor" aria-label="anchor" href="#controlled"></a>
+</h2>
+<p>Tooltip can be controlled by the parent component, by using
+<code>:visible</code> you can implement two way binding.</p>
+<p>Shown and hidden from the server,
+<code>update_el_tooltip(visible =)</code>, and then stays as set.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"ctl"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, content <span class="op">=</span> <span class="st">"controlled"</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="controlled-ctl" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="controlled-ctl_container" style="display: contents">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
+    <el-button>Hover me</el-button>
+  </el-tooltip>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"controlled","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":true},"methods":{"elEmitShow":"function() { window.shinyVue.emit('controlled-ctl', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('controlled-ctl', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('controlled-ctl', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('controlled-ctl', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="animations">Animations<a class="anchor" aria-label="anchor" href="#animations"></a>
+</h2>
+<p>Tooltip can be customized animated, you can set the desired animation
+use <code>transition</code>.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Transition Classes, more information can be found at <a href="https://vuejs.org/guide/built-ins/transition.html#css-based-transitions" class="external-link">Vue
+Transition</a>.</p>
+</blockquote>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"anim"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"trigger me"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"I am an el-tooltip"</span>, transition <span class="op">=</span> <span class="st">"slide-fade"</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="animations-anim" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="animations-anim_container" style="display: contents">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
+    <el-button>trigger me</el-button>
+  </el-tooltip>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"I am an el-tooltip","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":"slide-fade","tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('animations-anim', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('animations-anim', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('animations-anim', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('animations-anim', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="use-the-append-to">Use the <code>append-to</code><a class="anchor" aria-label="anchor" href="#use-the-append-to"></a>
+</h2>
+<p>You must wait for the DOM to be mounted before using
+<code>targetElement</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tip-host"</span>, <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"app"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Appended to #tip-host"</span>,</span>
+<span>                                     append_to <span class="op">=</span> <span class="st">"#tip-host"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tip-host">
+    <div id="append-to-app" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="append-to-app_container" style="display: contents">
+  <el-tooltip :content="tipContent === null ? undefined : tipContent" :placement="tipPlacement === null ? undefined : tipPlacement" :effect="tipEffect === null ? undefined : tipEffect" :disabled="tipDisabled === null ? undefined : tipDisabled" :offset="tipOffset === null ? undefined : tipOffset" :hide-after="tipHideAfter === null ? undefined : tipHideAfter" :enterable="tipEnterable === null ? undefined : tipEnterable" :transition="tipTransition === null ? undefined : tipTransition" :popper-class="tipPopperClass === null ? undefined : tipPopperClass" :popper-options="tipPopperOptions === null ? undefined : tipPopperOptions" @show="elEmitShow" @hide="elEmitHide" @before-show="elEmitBeforeShow" @before-hide="elEmitBeforeHide" :append-to="tipAppendTo === null ? undefined : tipAppendTo" :aria-label="tipAriaLabel === null ? undefined : tipAriaLabel" :arrow-offset="tipArrowOffset === null ? undefined : tipArrowOffset" :auto-close="tipAutoClose === null ? undefined : tipAutoClose" :fallback-placements="tipFallbackPlacements === null ? undefined : tipFallbackPlacements" :focus-on-target="tipFocusOnTarget === null ? undefined : tipFocusOnTarget" :persistent="tipPersistent === null ? undefined : tipPersistent" :popper-style="tipPopperStyle === null ? undefined : tipPopperStyle" :raw-content="tipRawContent === null ? undefined : tipRawContent" :show-after="tipShowAfter === null ? undefined : tipShowAfter" :show-arrow="tipShowArrow === null ? undefined : tipShowArrow" :teleported="tipTeleported === null ? undefined : tipTeleported" :trigger-keys="tipTriggerKeys === null ? undefined : tipTriggerKeys" :virtual-ref="tipVirtualRef === null ? undefined : tipVirtualRef" :virtual-triggering="tipVirtualTriggering === null ? undefined : tipVirtualTriggering" :visible="tipVisible === null ? undefined : tipVisible">
+    <el-button>Hover me</el-button>
+  </el-tooltip>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"Appended to #tip-host","tipPlacement":null,"tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":"#tip-host","tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('append-to-app', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('append-to-app', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('append-to-app', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('append-to-app', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
+</div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
@@ -346,70 +552,97 @@ hiding to <code>update_el_tooltip(value =)</code>.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>effect</code></td>
-<td><code>effect</code></td>
-<td>Tooltip theme</td>
-<td>string</td>
-<td>dark/light</td>
-<td>dark</td>
+<td><code>append-to</code></td>
+<td><code>append_to</code></td>
+<td>Which element the tooltip CONTENT appends to</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;CSSSelector&lt;/p&gt;"><sup>1</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;HTMLElement&lt;/p&gt;"><sup>2</sup></a>
+</td>
+<td></td>
+<td>—</td>
 </tr>
 <tr class="even">
-<td><code>content</code></td>
-<td><code>content</code></td>
-<td>display content, can be overridden by <code>slot#content</code>
+<td><code>effect</code></td>
+<td><code>effect</code></td>
+<td>Tooltip theme, built-in theme: <code>dark</code> /
+<code>light</code>
 </td>
-<td>String</td>
-<td>—</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>3</sup></a><code>'dark' \\| 'light'</code>
+</td>
+<td></td>
+<td>dark</td>
+</tr>
+<tr class="odd">
+<td><code>content</code></td>
+<td><code>content</code></td>
+<td>Display content, can be overridden by <code>slot#content</code>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
+<td>’’</td>
+</tr>
+<tr class="even">
+<td><code>raw-content</code></td>
+<td><code>raw_content</code></td>
+<td>Whether <code>content</code> is treated as HTML string</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 <tr class="odd">
 <td><code>placement</code></td>
 <td><code>placement</code></td>
-<td>position of Tooltip</td>
-<td>string</td>
-<td>top/top-start/top-end/bottom/bottom-start/bottom-end/left/left-start/left-end/right/right-start/right-end</td>
+<td>Position of Tooltip</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>6</sup></a><code>'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'</code>
+</td>
+<td></td>
 <td>bottom</td>
 </tr>
 <tr class="even">
-<td><code>value</code></td>
-<td><code>update_el_tooltip(value =)</code></td>
-<td>visibility of Tooltip</td>
-<td>boolean</td>
+<td><code>fallback-placements</code></td>
+<td><code>fallback_placements</code></td>
+<td>List of possible positions for Tooltip <a href="https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements" class="external-link">popper.js</a>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>7</sup></a><code>Placement[]</code>
+</td>
+<td></td>
 <td>—</td>
-<td>false</td>
 </tr>
 <tr class="odd">
-<td><code>disabled</code></td>
-<td><code>disabled</code></td>
-<td>whether Tooltip is disabled</td>
-<td>boolean</td>
+<td><code>visible</code></td>
+<td><code>visible</code></td>
+<td>Visibility of Tooltip</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
 <td>—</td>
-<td>false</td>
 </tr>
 <tr class="even">
-<td><code>offset</code></td>
-<td><code>offset</code></td>
-<td>offset of the Tooltip</td>
-<td>number</td>
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+<td>Whether Tooltip is disabled</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
 <td>—</td>
-<td>0</td>
 </tr>
 <tr class="odd">
-<td><code>transition</code></td>
-<td><code>transition</code></td>
-<td>animation name</td>
-<td>string</td>
-<td>—</td>
-<td>el-fade-in-linear</td>
+<td><code>offset</code></td>
+<td><code>offset</code></td>
+<td>Offset of the Tooltip</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
+<td>12</td>
 </tr>
 <tr class="even">
-<td><code>visible-arrow</code></td>
-<td><code>visible_arrow</code></td>
-<td>whether an arrow is displayed. For more information, check <a href="https://github.com/element-component/vue-popper" class="external-link">Vue-popper</a>
-page</td>
-<td>boolean</td>
+<td><code>transition</code></td>
+<td><code>transition</code></td>
+<td>Animation name</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>11</sup></a></td>
+<td></td>
 <td>—</td>
-<td>true</td>
 </tr>
 <tr class="odd">
 <td><code>popper-options</code></td>
@@ -417,68 +650,277 @@ page</td>
 <td>
 <a href="https://popper.js.org/docs/v2/" class="external-link">popper.js</a>
 parameters</td>
-<td>Object</td>
-<td>refer to <a href="https://popper.js.org/docs/v2/" class="external-link">popper.js</a>
-doc</td>
-<td><code>{ boundariesElement: 'body', gpuAcceleration: false }</code></td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>12</sup></a>refer to <a href="https://popper.js.org/docs/v2/" class="external-link">popper.js</a> doc</td>
+<td></td>
+<td>{}</td>
 </tr>
 <tr class="even">
-<td><code>open-delay</code></td>
-<td><code>open_delay</code></td>
-<td>delay of appearance, in millisecond</td>
-<td>number</td>
-<td>—</td>
+<td><code>arrow-offset</code></td>
+<td><code>arrow_offset</code></td>
+<td>Controls the offset (padding) of the tooltip’s arrow relative to the
+popper.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>13</sup></a></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td><code>show-after</code></td>
+<td><code>show_after</code></td>
+<td>Delay of appearance, in millisecond, not valid in controlled
+mode</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>14</sup></a></td>
+<td></td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><code>show-arrow</code></td>
+<td><code>show_arrow</code></td>
+<td>Whether the tooltip content has an arrow</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td><code>hide-after</code></td>
+<td><code>hide_after</code></td>
+<td>Delay of disappear, in millisecond, not valid in controlled
+mode</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
+<td>200</td>
+</tr>
+<tr class="even">
+<td><code>auto-close</code></td>
+<td><code>auto_close</code></td>
+<td>Timeout in milliseconds to hide tooltip, not valid in controlled
+mode</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>17</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td><code>manual</code></td>
-<td><code>manual</code></td>
-<td>whether to control Tooltip manually. <code>mouseenter</code> and
-<code>mouseleave</code> won’t have effects if set to
-<code>true</code>
-</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="even">
 <td><code>popper-class</code></td>
 <td><code>popper_class</code></td>
-<td>custom class name for Tooltip’s popper</td>
-<td>string</td>
+<td>Custom class name for Tooltip’s popper</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>18</sup></a></td>
+<td></td>
 <td>—</td>
+</tr>
+<tr class="even">
+<td><code>popper-style</code></td>
+<td><code>popper_style</code></td>
+<td>Custom style for Tooltip’s popper</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>19</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>20</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
 <td><code>enterable</code></td>
 <td><code>enterable</code></td>
-<td>whether the mouse can enter the tooltip</td>
-<td>Boolean</td>
-<td>—</td>
+<td>Whether the mouse can enter the tooltip</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="even">
-<td><code>hide-after</code></td>
-<td><code>hide_after</code></td>
-<td>timeout in milliseconds to hide tooltip</td>
-<td>number</td>
-<td>—</td>
-<td>0</td>
+<td><code>teleported</code></td>
+<td><code>teleported</code></td>
+<td>Whether tooltip content is teleported, if <code>true</code> it will
+be teleported to where <code>append-to</code> sets</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>22</sup></a></td>
+<td></td>
+<td>true</td>
 </tr>
 <tr class="odd">
-<td><code>tabindex</code></td>
-<td><code>tabindex</code></td>
+<td><code>trigger</code></td>
+<td><code>trigger</code></td>
+<td>How should the tooltip be triggered (to show), not valid in
+controlled mode</td>
 <td>
-<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex" class="external-link">tabindex</a>
-of Tooltip</td>
-<td>number</td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>23</sup></a><code>'hover' \\| 'click' \\| 'focus' \\| 'contextmenu'</code>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>24</sup></a><code>Array&lt;'click' \\| 'focus' \\| 'hover' \\| 'contextmenu'&gt;</code>
+</td>
+<td></td>
+<td>hover</td>
+</tr>
+<tr class="even">
+<td><code>virtual-triggering</code></td>
+<td><code>virtual_triggering</code></td>
+<td>Indicates whether virtual triggering is enabled</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
 <td>—</td>
-<td>0</td>
+</tr>
+<tr class="odd">
+<td><code>virtual-ref</code></td>
+<td><code>virtual_ref</code></td>
+<td>Indicates the reference element to which the tooltip is
+attached</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;HTMLElement&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>trigger-keys</code></td>
+<td><code>trigger_keys</code></td>
+<td>When you click the mouse to focus on the trigger element, you can
+define a set of keyboard codes to control the display of tooltip through
+the keyboard, not valid in controlled mode</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Array&lt;/p&gt;"><sup>27</sup></a></td>
+<td></td>
+<td>[‘Enter’,‘Space’]</td>
+</tr>
+<tr class="odd">
+<td><code>persistent</code></td>
+<td><code>persistent</code></td>
+<td>When tooltip inactive and <code>persistent</code> is
+<code>false</code> , tooltip will be destroyed</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>28</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>aria-label</code></td>
+<td><code>aria_label</code></td>
+<td>Same as <code>aria-label</code>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>29</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>focus-on-target</code></td>
+<td><code>focus_on_target</code></td>
+<td>When triggering tooltips through hover, whether to focus the trigger
+element, which improves accessibility</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>30</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="events">Events<a class="anchor" aria-label="anchor" href="#events"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>before-show</code></td>
+<td><code>input$&lt;id&gt;_before_show</code></td>
+<td>Triggers before tooltip is shown. Passes trigger reason as
+argument.</td>
+</tr>
+<tr class="even">
+<td><code>show</code></td>
+<td><code>input$&lt;id&gt;_show</code></td>
+<td>Triggers when tooltip is shown. Passes trigger reason as
+argument.</td>
+</tr>
+<tr class="odd">
+<td><code>before-hide</code></td>
+<td><code>input$&lt;id&gt;_before_hide</code></td>
+<td>Triggers before tooltip is hidden. Passes trigger reason as
+argument.</td>
+</tr>
+<tr class="even">
+<td><code>hide</code></td>
+<td><code>input$&lt;id&gt;_hide</code></td>
+<td>Triggers when tooltip is hidden. Passes trigger reason as
+argument.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>Tooltip triggering &amp; reference element, only a single root
+element is accepted</td>
+</tr>
+<tr class="even">
+<td><code>content</code></td>
+<td><code>slots = list(content = )</code></td>
+<td>Customize content</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="exposes">Exposes<a class="anchor" aria-label="anchor" href="#exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>isFocusInsideContent</code></td>
+<td><code>el_call(session, id, "isFocusInsideContent")</code></td>
+<td>Validate current focus event is trigger inside
+el-tooltip-content</td>
+</tr>
+<tr class="even">
+<td><code>updatePopper</code></td>
+<td><code>el_call(session, id, "updatePopper")</code></td>
+<td>Update el-popper component instance</td>
+</tr>
+<tr class="odd">
+<td><code>onOpen</code></td>
+<td><code>el_call(session, id, "onOpen")</code></td>
+<td>Expose onOpen function to manage el-tooltip open state</td>
+</tr>
+<tr class="even">
+<td><code>onClose</code></td>
+<td><code>el_call(session, id, "onClose")</code></td>
+<td>Expose onClose function to manage el-tooltip open state</td>
+</tr>
+<tr class="odd">
+<td><code>hide</code></td>
+<td><code>el_call(session, id, "hide")</code></td>
+<td>Expose hide function</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

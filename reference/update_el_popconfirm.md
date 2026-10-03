@@ -1,4 +1,4 @@
-# Update Element UI Confirmation Bubble
+# Update Element Plus Confirmation Bubble
 
 Server-side update for
 [`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md).

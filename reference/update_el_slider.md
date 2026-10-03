@@ -1,4 +1,4 @@
-# Update Element UI Slider
+# Update Element Plus Slider
 
 Server-side update for
 [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md).

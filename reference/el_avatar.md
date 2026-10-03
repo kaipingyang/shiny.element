@@ -1,4 +1,4 @@
-# Element UI Avatar
+# Element Plus Avatar
 
 A user avatar, from an image, an icon, or text.
 
@@ -41,7 +41,8 @@ el_avatar(
 
 - size:
 
-  `"large"` (default), `"medium"`, `"small"`, or a number of pixels.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - shape:
 

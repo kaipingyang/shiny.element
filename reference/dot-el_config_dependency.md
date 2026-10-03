@@ -15,7 +15,7 @@ it.
 
 - size:
 
-  `"medium"`, `"small"`, `"mini"`, or `NULL`.
+  `"large"`, `"default"`, `"small"`, or `NULL`.
 
 - z_index:
 

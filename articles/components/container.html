@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="container_files/vue-2.7.14/vue.min.js"></script><link href="container_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="container_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="container_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="container_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="container_files/el-events-1.0.0/el-events.js"></script><script src="container_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="container_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="container_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="container_files/vue-3.5.43/vue.global.prod.js"></script><link href="container_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="container_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="container_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="container_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="container_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="container_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="container_files/el-events-1.0.0/el-events.js"></script><script src="container_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="container_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,47 +187,103 @@
 
     
     
-<p>Container components for scaffolding the basic structure of the page:
-<code><a href="../../reference/el_container.html">el_container()</a></code> holds <code><a href="../../reference/el_header.html">el_header()</a></code>,
-<code><a href="../../reference/el_aside.html">el_aside()</a></code>, <code><a href="../../reference/el_main.html">el_main()</a></code> and
-<code><a href="../../reference/el_footer.html">el_footer()</a></code>. A container holding a header or a footer lays
-its children out vertically, otherwise horizontally.</p>
+<p>Container components for scaffolding basic structure of the page:</p>
+<p><code>&lt;el-container&gt;</code>: wrapper container. When nested
+with a <code>&lt;el-header&gt;</code> or <code>&lt;el-footer&gt;</code>,
+all its child elements will be vertically arranged. Otherwise
+horizontally.</p>
+<p><code>&lt;el-header&gt;</code>: container for headers.</p>
+<p><code>&lt;el-aside&gt;</code>: container for side sections (usually a
+side nav).</p>
+<p><code>&lt;el-main&gt;</code>: container for main sections.</p>
+<p><code>&lt;el-footer&gt;</code>: container for footers.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>These components use flex for layout, so please make sure your
+browser supports it. Besides, <code>&lt;el-container&gt;</code>’s direct
+child elements have to be one or more of the latter four components. And
+father element of the latter four components must be a
+<code>&lt;el-container&gt;</code>.</p>
+</blockquote>
 <div class="section level2">
 <h2 id="common-layouts">Common layouts<a class="anchor" aria-label="anchor" href="#common-layouts"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">box</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">f</span>, <span class="va">...</span><span class="op">)</span> <span class="fu">f</span><span class="op">(</span><span class="va">...</span>, style <span class="op">=</span> <span class="st">"background: #e9eef3; text-align: center; line-height: 60px"</span><span class="op">)</span></span>
-<span><span class="va">hdr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="va">...</span>, style <span class="op">=</span> <span class="st">"background: #b3c0d1; text-align: center; line-height: 60px"</span><span class="op">)</span></span>
-<span><span class="va">side</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="va">...</span>, style <span class="op">=</span> <span class="st">"background: #d3dce6; text-align: center; line-height: 160px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu">hdr</span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="va">el_main</span>, <span class="st">"Main"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu">hdr</span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="va">el_main</span>, <span class="st">"Main"</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span>, style <span class="op">=</span> <span class="st">"background: #b3c0d1; text-align: center; line-height: 60px"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu">side</span><span class="op">(</span><span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="va">el_main</span>, <span class="st">"Main"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu">hdr</span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu">side</span><span class="op">(</span><span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/box.html" class="external-link">box</a></span><span class="op">(</span><span class="va">el_main</span>, <span class="st">"Main"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div class="el-container is-vertical">
-    <div class="el-header" style="height:60px; background: #b3c0d1; text-align: center; line-height: 60px">Header</div>
-    <div class="el-main" style="background: #e9eef3; text-align: center; line-height: 60px">Main</div>
+    <div class="el-header" style="height:60px">Header</div>
+    <div class="el-main">Main</div>
   </div>
-  <br><div class="el-container is-vertical">
-    <div class="el-header" style="height:60px; background: #b3c0d1; text-align: center; line-height: 60px">Header</div>
-    <div class="el-main" style="background: #e9eef3; text-align: center; line-height: 60px">Main</div>
-    <div class="el-footer" style="height:60px; background: #b3c0d1; text-align: center; line-height: 60px">Footer</div>
+</div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div class="el-container is-vertical">
+    <div class="el-header" style="height:60px">Header</div>
+    <div class="el-main">Main</div>
+    <div class="el-footer" style="height:60px">Footer</div>
   </div>
-  <br><div class="el-container">
-    <div class="el-aside" style="width:200px; background: #d3dce6; text-align: center; line-height: 160px">Aside</div>
-    <div class="el-main" style="background: #e9eef3; text-align: center; line-height: 60px">Main</div>
+</div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div class="el-container">
+    <div class="el-aside" style="width:200px">Aside</div>
+    <div class="el-main">Main</div>
+    <div class="el-aside" style="width:200px">Aside</div>
   </div>
-  <br><div class="el-container is-vertical">
-    <div class="el-header" style="height:60px; background: #b3c0d1; text-align: center; line-height: 60px">Header</div>
+</div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div class="el-container is-vertical">
+    <div class="el-header" style="height:60px">Header</div>
     <div class="el-container">
-      <div class="el-aside" style="width:200px; background: #d3dce6; text-align: center; line-height: 160px">Aside</div>
-      <div class="el-main" style="background: #e9eef3; text-align: center; line-height: 60px">Main</div>
+      <div class="el-aside" style="width:200px">Aside</div>
+      <div class="el-main">Main</div>
+    </div>
+  </div>
+</div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
+<span>               <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div class="el-container is-vertical">
+    <div class="el-header" style="height:60px">Header</div>
+    <div class="el-container">
+      <div class="el-aside" style="width:200px">Aside</div>
+      <div class="el-container is-vertical">
+        <div class="el-main">Main</div>
+        <div class="el-footer" style="height:60px">Footer</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div class="el-container">
+    <div class="el-aside" style="width:200px">Aside</div>
+    <div class="el-container is-vertical">
+      <div class="el-header" style="height:60px">Header</div>
+      <div class="el-main">Main</div>
+    </div>
+  </div>
+</div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>, <span class="st">"Aside"</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span><span class="st">"Header"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="st">"Main"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_footer.html">el_footer</a></span><span class="op">(</span><span class="st">"Footer"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div class="el-container">
+    <div class="el-aside" style="width:200px">Aside</div>
+    <div class="el-container is-vertical">
+      <div class="el-header" style="height:60px">Header</div>
+      <div class="el-main">Main</div>
+      <div class="el-footer" style="height:60px">Footer</div>
     </div>
   </div>
 </div>
@@ -201,86 +291,101 @@ its children out vertically, otherwise horizontally.</p>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>A page frame with a menu down the side, a toolbar on top and a table
-in the middle – the dashboard of the same name runs it whole.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Element UI's own "Container" example, rebuilt in R: a side menu, a header</span></span>
-<span><span class="co"># with a dropdown, and a table in the main area.</span></span>
-<span><span class="co">#</span></span>
-<span><span class="co">#   shiny::runApp(system.file("examples/dashboards/admin-layout", package = "shiny.element"))</span></span>
-<span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  date    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"2016-05-02"</span>, <span class="fl">20</span><span class="op">)</span>,</span>
-<span>  name    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Tom"</span>, <span class="fl">20</span><span class="op">)</span>,</span>
-<span>  address <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"No. 189, Grove St, Los Angeles"</span>, <span class="fl">20</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># One navigator: two titled groups and a nested submenu, as upstream has it</span></span>
-<span><span class="va">navigator</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span>, <span class="va">icon</span>, <span class="va">label</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">sub</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">i</span>, <span class="st">"-"</span>, <span class="va">n</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>, label <span class="op">=</span> <span class="va">label</span>, icon <span class="op">=</span> <span class="va">icon</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Group 1"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Group 2"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option 3"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option 4"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"4-1"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Option 4-1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 400px; border: 1px solid var(--el-border-color)"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"200px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"ctr_menu"</span>, active <span class="op">=</span> <span class="st">"1-1"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Navigator One"</span>, icon <span class="op">=</span> <span class="st">"Message"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-2"</span>, label <span class="op">=</span> <span class="st">"Option 2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"Option 1"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="st">"height: 500px; border: 1px solid #eee"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_aside.html">el_aside</a></span><span class="op">(</span></span>
-<span>      width <span class="op">=</span> <span class="st">"200px"</span>, style <span class="op">=</span> <span class="st">"background-color: rgb(238, 241, 246)"</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"nav"</span>, default_openeds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"3"</span><span class="op">)</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu">navigator</span><span class="op">(</span><span class="fl">1</span>, <span class="st">"el-icon-message"</span>, <span class="st">"Navigator One"</span><span class="op">)</span>,</span>
-<span>        <span class="fu">navigator</span><span class="op">(</span><span class="fl">2</span>, <span class="st">"el-icon-menu"</span>, <span class="st">"Navigator Two"</span><span class="op">)</span>,</span>
-<span>        <span class="fu">navigator</span><span class="op">(</span><span class="fl">3</span>, <span class="st">"el-icon-setting"</span>, <span class="st">"Navigator Three"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_container.html">el_container</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span></span>
-<span>        style <span class="op">=</span> <span class="st">"text-align: right; font-size: 12px; background-color: #B3C0D1;</span></span>
-<span><span class="st">                 color: #333; line-height: 60px"</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_dropdown.html">el_dropdown</a></span><span class="op">(</span><span class="st">"account"</span>,</span>
-<span>          trigger_label <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">i</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"el-icon-setting"</span>,</span>
-<span>                                 style <span class="op">=</span> <span class="st">"margin-right: 15px"</span><span class="op">)</span>,</span>
-<span>          items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"view"</span>, label <span class="op">=</span> <span class="st">"View"</span><span class="op">)</span>,</span>
-<span>                       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"add"</span>, label <span class="op">=</span> <span class="st">"Add"</span><span class="op">)</span>,</span>
-<span>                       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>command <span class="op">=</span> <span class="st">"delete"</span>, label <span class="op">=</span> <span class="st">"Delete"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Tom"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"people"</span>, data <span class="op">=</span> <span class="va">rows</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"date"</span>, label <span class="op">=</span> <span class="st">"Date"</span>, width <span class="op">=</span> <span class="st">"140"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, width <span class="op">=</span> <span class="st">"120"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"address"</span>, label <span class="op">=</span> <span class="st">"Address"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">nav</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Navigated to"</span>, <span class="va">input</span><span class="op">$</span><span class="va">nav</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">account</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Account:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">account</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"info"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/container-example.png" alt="The example example, running" style="max-width: 100%">
+<span>    <span class="fu"><a href="../../reference/el_header.html">el_header</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"text-align: right; font-size: 12px"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Tom"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_main.html">el_main</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_table.html">el_table</a></span><span class="op">(</span><span class="st">"ctr_tbl"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>      Date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"2016-05-02"</span>, <span class="fl">4</span><span class="op">)</span>, Name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Tom"</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>      Address <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"No. 189, Grove St, Los Angeles"</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div class="el-container" style="height: 400px; border: 1px solid var(--el-border-color)">
+    <div class="el-aside" style="width:200px">
+      <div id="example-ctr_menu" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="example-ctr_menu_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+    <el-sub-menu index="1">
+      <template v-slot:title>
+        <el-icon><Message /></el-icon>
+        <span>Navigator One</span>
+      </template>
+      <el-menu-item index="1-1" @click="elMenuItemClick(&quot;1-1&quot;)">
+        <span>Option 1</span>
+      </el-menu-item>
+      <el-menu-item index="1-2" @click="elMenuItemClick(&quot;1-2&quot;)">
+        <span>Option 2</span>
+      </el-menu-item>
+    </el-sub-menu>
+    <el-sub-menu index="2">
+      <template v-slot:title>
+        <el-icon><Menu /></el-icon>
+        <span>Navigator Two</span>
+      </template>
+      <el-menu-item index="2-1" @click="elMenuItemClick(&quot;2-1&quot;)">
+        <span>Option 1</span>
+      </el-menu-item>
+    </el-sub-menu>
+  </el-menu>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1-1","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('example-ctr_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('example-ctr_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"example-ctr_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div>
+    </div>
+    <div class="el-container is-vertical">
+      <div class="el-header" style="height:60px; text-align: right; font-size: 12px">
+        <span>Tom</span>
+      </div>
+      <div class="el-main">
+        <div id="example-ctr_tbl" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="example-ctr_tbl_container" style="display: contents">
+  <el-table :data="tableData" :border="border" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange" @select="elEmitSelect" @select-all="elEmitSelectAll" @cell-click="elEmitCellClick" @cell-dblclick="elEmitCellDblclick" @cell-mouse-enter="elEmitCellMouseEnter" @cell-mouse-leave="elEmitCellMouseLeave" @row-click="elEmitRowClick" @row-dblclick="elEmitRowDblclick" @row-contextmenu="elEmitRowContextmenu" @header-click="elEmitHeaderClick" @header-contextmenu="elEmitHeaderContextmenu" @header-dragend="elEmitHeaderDragend" @sort-change="elEmitSortChange" @filter-change="elEmitFilterChange" @current-change="elEmitCurrentChange" @expand-change="elEmitExpandChange" @cell-contextmenu="elEmitCellContextmenu" @scroll="elEmitScroll" :stripe="stripe === null ? undefined : stripe" :size="size === null ? undefined : size" :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :fit="fit === null ? undefined : fit" :show-header="showHeader === null ? undefined : showHeader" :highlight-current-row="highlightCurrentRow === null ? undefined : highlightCurrentRow" :current-row-key="currentRowKey === null ? undefined : currentRowKey" :row-key="rowKey === null ? undefined : rowKey" :empty-text="emptyText === null ? undefined : emptyText" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :expand-row-keys="expandRowKeys === null ? undefined : expandRowKeys" :default-sort="defaultSort === null ? undefined : defaultSort" :tooltip-effect="tooltipEffect === null ? undefined : tooltipEffect" :show-summary="showSummary === null ? undefined : showSummary" :sum-text="sumText === null ? undefined : sumText" :select-on-indeterminate="selectOnIndeterminate === null ? undefined : selectOnIndeterminate" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :tree-props="treeProps === null ? undefined : treeProps" :row-class-name="rowClassName === null ? undefined : rowClassName" :row-style="rowStyle === null ? undefined : rowStyle" :cell-class-name="cellClassName === null ? undefined : cellClassName" :cell-style="cellStyle === null ? undefined : cellStyle" :header-row-class-name="headerRowClassName === null ? undefined : headerRowClassName" :header-row-style="headerRowStyle === null ? undefined : headerRowStyle" :header-cell-class-name="headerCellClassName === null ? undefined : headerCellClassName" :header-cell-style="headerCellStyle === null ? undefined : headerCellStyle" :span-method="spanMethod === null ? undefined : spanMethod" :summary-method="summaryMethod === null ? undefined : summaryMethod" :load="load === null ? elLoad : load" :allow-drag-last-column="allowDragLastColumn === null ? undefined : allowDragLastColumn" :append-filter-panel-to="appendFilterPanelTo === null ? undefined : appendFilterPanelTo" :flexible="flexible === null ? undefined : flexible" :native-scrollbar="nativeScrollbar === null ? undefined : nativeScrollbar" :preserve-expanded-content="preserveExpandedContent === null ? undefined : preserveExpandedContent" :row-expandable="rowExpandable === null ? undefined : rowExpandable" :scrollbar-always-on="scrollbarAlwaysOn === null ? undefined : scrollbarAlwaysOn" :scrollbar-tabindex="scrollbarTabindex === null ? undefined : scrollbarTabindex" :show-overflow-tooltip="showOverflowTooltip === null ? undefined : showOverflowTooltip" :table-layout="tableLayout === null ? undefined : tableLayout" :tooltip-formatter="tooltipFormatter === null ? undefined : tooltipFormatter" :tooltip-options="tooltipOptions === null ? undefined : tooltipOptions">
+    <el-table-column v-if="selection" type="selection" width="55"></el-table-column>
+    <el-table-column v-for="col in (columns.length ? columns : autoColumns)" :key="col.prop || col.label" :prop="col.prop" :label="col.label" :width="col.width" :align="col.align" :header-align="col.headerAlign" :class-name="col.className" :label-class-name="col.labelClassName" :column-key="col.columnKey" :min-width="col.minWidth" :fixed="col.fixed" :resizable="col.resizable" :sortable="col.sortable" :sort-by="col.sortBy" :sort-orders="col.sortOrders" :show-overflow-tooltip="col.showOverflowTooltip" :filters="col.filters" :filtered-value="col.filteredValue" :filter-multiple="col.filterMultiple" :filter-placement="col.filterPlacement" :reserve-selection="col.reserveSelection" :index="col.index" :formatter="col.formatter" :filter-method="col.filterMethod" :filter-class-name="col.filterClassName" :tooltip-formatter="col.tooltipFormatter" :sort-method="col.sortMethod" :render-header="col.renderHeader" :selectable="col.selectable" :type="col.type">
+      <template v-slot:header="scope">
+        <span v-if="col.headerHtml" v-html="col.headerHtml"></span>
+        <span v-else>{{col.label}}</span>
+      </template>
+      <template v-slot:[col.filterIcon?'filter-icon':'no-filter-icon']><el-icon><component :is="col.filterIcon" /></el-icon></template>
+      <template v-slot:default="scope">
+        <template v-if="col.children &amp;&amp; col.children.length">
+          <el-table-column v-for="colx in col.children" :key="colx.prop || colx.label" :prop="colx.prop" :label="colx.label" :width="colx.width" :align="colx.align" :header-align="colx.headerAlign" :class-name="colx.className" :label-class-name="colx.labelClassName" :column-key="colx.columnKey" :min-width="colx.minWidth" :fixed="colx.fixed" :resizable="colx.resizable" :sortable="colx.sortable" :sort-by="colx.sortBy" :sort-orders="colx.sortOrders" :show-overflow-tooltip="colx.showOverflowTooltip" :filters="colx.filters" :filtered-value="colx.filteredValue" :filter-multiple="colx.filterMultiple" :filter-placement="colx.filterPlacement" :reserve-selection="colx.reserveSelection" :index="colx.index" :formatter="colx.formatter" :filter-method="colx.filterMethod" :filter-class-name="colx.filterClassName" :tooltip-formatter="colx.tooltipFormatter" :sort-method="colx.sortMethod" :render-header="colx.renderHeader" :selectable="colx.selectable" :type="colx.type">
+            <template v-slot:header="scope">
+              <span v-if="colx.headerHtml" v-html="colx.headerHtml"></span>
+              <span v-else>{{colx.label}}</span>
+            </template>
+            <template v-slot:[colx.filterIcon?'filter-icon':'no-filter-icon']><el-icon><component :is="colx.filterIcon" /></el-icon></template>
+            <template v-slot:default="scope">
+              <template v-if="colx.children &amp;&amp; colx.children.length">
+                <el-table-column v-for="colxx in colx.children" :key="colxx.prop || colxx.label" :prop="colxx.prop" :label="colxx.label" :width="colxx.width" :align="colxx.align" :header-align="colxx.headerAlign" :class-name="colxx.className" :label-class-name="colxx.labelClassName" :column-key="colxx.columnKey" :min-width="colxx.minWidth" :fixed="colxx.fixed" :resizable="colxx.resizable" :sortable="colxx.sortable" :sort-by="colxx.sortBy" :sort-orders="colxx.sortOrders" :show-overflow-tooltip="colxx.showOverflowTooltip" :filters="colxx.filters" :filtered-value="colxx.filteredValue" :filter-multiple="colxx.filterMultiple" :filter-placement="colxx.filterPlacement" :reserve-selection="colxx.reserveSelection" :index="colxx.index" :formatter="colxx.formatter" :filter-method="colxx.filterMethod" :filter-class-name="colxx.filterClassName" :tooltip-formatter="colxx.tooltipFormatter" :sort-method="colxx.sortMethod" :render-header="colxx.renderHeader" :selectable="colxx.selectable" :type="colxx.type">
+                  <template v-slot:header="scope">
+                    <span v-if="colxx.headerHtml" v-html="colxx.headerHtml"></span>
+                    <span v-else>{{colxx.label}}</span>
+                  </template>
+                  <template v-slot:[colxx.filterIcon?'filter-icon':'no-filter-icon']><el-icon><component :is="colxx.filterIcon" /></el-icon></template>
+                  <template v-slot:default="scope"></template>
+                </el-table-column>
+              </template>
+            </template>
+          </el-table-column>
+        </template>
+      </template>
+    </el-table-column>
+  </el-table>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tableData":[{"Date":"2016-05-02","Name":"Tom","Address":"No. 189, Grove St, Los Angeles"},{"Date":"2016-05-02","Name":"Tom","Address":"No. 189, Grove St, Los Angeles"},{"Date":"2016-05-02","Name":"Tom","Address":"No. 189, Grove St, Los Angeles"},{"Date":"2016-05-02","Name":"Tom","Address":"No. 189, Grove St, Los Angeles"}],"columns":[],"autoColumns":[{"prop":"Date","label":"Date","slot":"none"},{"prop":"Name","label":"Name","slot":"none"},{"prop":"Address","label":"Address","slot":"none"}],"border":false,"selection":false,"selected":[],"selectedRows":[],"loading":false,"stripe":null,"size":null,"height":null,"maxHeight":null,"fit":null,"showHeader":null,"highlightCurrentRow":null,"currentRowKey":null,"rowKey":null,"emptyText":null,"defaultExpandAll":null,"expandRowKeys":null,"defaultSort":null,"tooltipEffect":null,"showSummary":null,"sumText":null,"selectOnIndeterminate":null,"indent":null,"lazy":null,"treeProps":null,"rowClassName":null,"rowStyle":null,"cellClassName":null,"cellStyle":null,"headerRowClassName":null,"headerRowStyle":null,"headerCellClassName":null,"headerCellStyle":null,"spanMethod":null,"summaryMethod":null,"load":null,"allowDragLastColumn":null,"appendFilterPanelTo":null,"flexible":null,"nativeScrollbar":null,"preserveExpandedContent":null,"rowExpandable":null,"scrollbarAlwaysOn":null,"scrollbarTabindex":null,"showOverflowTooltip":null,"tableLayout":null,"tooltipFormatter":null,"tooltipOptions":null},"methods":{"elEmitSelect":"function() { var shape = function(selection, row) { var vm = this; return {rows: (selection || []).map(function(r) { return window.shinyElement.rowIndex(vm, r); }), row_index: window.shinyElement.rowIndex(vm, row)}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'select', [v]); }","elEmitSelectAll":"function() { var shape = function(selection) { var vm = this; return {rows: (selection || []).map(function(r) { return window.shinyElement.rowIndex(vm, r); })}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'select_all', [v]); }","elEmitCellClick":"function() { var shape = function(row, column) { var prop = window.shinyElement.colProp(column); return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: prop, value: row[prop]}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'cell_click', [v]); }","elEmitCellDblclick":"function() { var shape = function(row, column) { var prop = window.shinyElement.colProp(column); return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: prop, value: row[prop]}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'cell_dblclick', [v]); }","elEmitCellMouseEnter":"function() { var shape = function(row, column) { var prop = window.shinyElement.colProp(column); return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: prop, value: row[prop]}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'cell_mouse_enter', [v]); }","elEmitCellMouseLeave":"function() { var shape = function(row, column) { var prop = window.shinyElement.colProp(column); return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: prop, value: row[prop]}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'cell_mouse_leave', [v]); }","elEmitRowClick":"function() { var shape = function(row, column) { return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: window.shinyElement.colProp(column)}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'row_click', [v]); }","elEmitRowDblclick":"function() { var shape = function(row, column) { return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: window.shinyElement.colProp(column)}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'row_dblclick', [v]); }","elEmitRowContextmenu":"function() { var shape = function(row, column) { return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: window.shinyElement.colProp(column)}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'row_contextmenu', [v]); }","elEmitHeaderClick":"function() { var shape = function(column) { return {column: window.shinyElement.colProp(column), label: column.label}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'header_click', [v]); }","elEmitHeaderContextmenu":"function() { var shape = function(column) { return {column: window.shinyElement.colProp(column), label: column.label}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'header_contextmenu', [v]); }","elEmitHeaderDragend":"function() { var shape = function(newWidth, oldWidth, column) { return {column: window.shinyElement.colProp(column), width: newWidth, previous_width: oldWidth}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'header_dragend', [v]); }","elEmitSortChange":"function() { var shape = function(s) { return {column: s.prop, order: s.order}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'sort_change', [v]); }","elEmitFilterChange":"function() { window.shinyVue.emit('example-ctr_tbl', 'filter_change', arguments); }","elEmitCurrentChange":"function() { var shape = function(row, old) { return {row_index: window.shinyElement.rowIndex(this, row), row: row, previous_index: window.shinyElement.rowIndex(this, old)}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'current_change', [v]); }","elEmitExpandChange":"function() { var shape = function(row, expanded) { var vm = this; return {row_index: window.shinyElement.rowIndex(this, row), expanded: Array.isArray(expanded) ? expanded.map(function(r) { return window.shinyElement.rowIndex(vm, r); }) : expanded}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'expand_change', [v]); }","elEmitCellContextmenu":"function() { var shape = function(row, column) { var prop = window.shinyElement.colProp(column); return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: prop, value: row[prop]}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'cell_contextmenu', [v]); }","elEmitScroll":"function() { var shape = function(e) { var now = Date.now(); if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('example-ctr_tbl', 'scroll', [v]); }","elLoad":"function(row, treeNode, resolve) {\n  var key = this.rowKey && typeof this.rowKey === 'string' ? row[this.rowKey] : null;\n  window.shinyVue.ask('example-ctr_tbl_load', {key: key, row: row, level: treeNode ? treeNode.level : null}, this)\n    .then(function(children) { resolve(children || []); });\n}","rowAction":"function(name, scope) { var se = window.shinyElement; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('example-ctr_tbl_' + name, {row_index: se.rowIndex(this, scope.row), row: window.shinyVue.plain(scope.row)}, {priority: 'event'}); }","handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return self.tableData.indexOf(r) + 1; }); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('example-ctr_tbl_selected', self.selected); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('example-ctr_tbl_selected_rows', self.selectedRows); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"example-ctr_tbl_selected\", self.selected); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"example-ctr_tbl_selected_rows\", self.selectedRows); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitSelect","options.methods.elEmitSelectAll","options.methods.elEmitCellClick","options.methods.elEmitCellDblclick","options.methods.elEmitCellMouseEnter","options.methods.elEmitCellMouseLeave","options.methods.elEmitRowClick","options.methods.elEmitRowDblclick","options.methods.elEmitRowContextmenu","options.methods.elEmitHeaderClick","options.methods.elEmitHeaderContextmenu","options.methods.elEmitHeaderDragend","options.methods.elEmitSortChange","options.methods.elEmitFilterChange","options.methods.elEmitCurrentChange","options.methods.elEmitExpandChange","options.methods.elEmitCellContextmenu","options.methods.elEmitScroll","options.methods.elLoad","options.methods.rowAction","options.methods.handleSelectionChange","options.mounted"]}</script>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="container-attributes">Container Attributes<a class="anchor" aria-label="anchor" href="#container-attributes"></a>
 </h3>
@@ -305,10 +410,28 @@ in the middle – the dashboard of the same name runs it whole.</p>
 <td><code>direction</code></td>
 <td><code>el_container(direction =)</code></td>
 <td>layout direction for child elements</td>
-<td>string</td>
-<td>horizontal / vertical</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>1</sup></a><code>'horizontal' \\| 'vertical'</code>
+</td>
+<td></td>
 <td>vertical when nested with <code>el-header</code> or
 <code>el-footer</code>; horizontal otherwise</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="container-slots">Container Slots<a class="anchor" aria-label="anchor" href="#container-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
 </tr></tbody>
 </table>
 </div>
@@ -336,9 +459,25 @@ in the middle – the dashboard of the same name runs it whole.</p>
 <td><code>height</code></td>
 <td><code>el_header(height =)</code></td>
 <td>height of the header</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>2</sup></a></td>
+<td></td>
 <td>60px</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="header-slots">Header Slots<a class="anchor" aria-label="anchor" href="#header-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
 </tr></tbody>
 </table>
 </div>
@@ -366,9 +505,41 @@ in the middle – the dashboard of the same name runs it whole.</p>
 <td><code>width</code></td>
 <td><code>el_aside(width =)</code></td>
 <td>width of the side section</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>3</sup></a></td>
+<td></td>
 <td>300px</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="aside-slots">Aside Slots<a class="anchor" aria-label="anchor" href="#aside-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="main-slots">Main Slots<a class="anchor" aria-label="anchor" href="#main-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
 </tr></tbody>
 </table>
 </div>
@@ -396,13 +567,30 @@ in the middle – the dashboard of the same name runs it whole.</p>
 <td><code>height</code></td>
 <td><code>el_header(height =)</code></td>
 <td>height of the footer</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>60px</td>
 </tr></tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="footer-slots">Footer Slots<a class="anchor" aria-label="anchor" href="#footer-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

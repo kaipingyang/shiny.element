@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="form_files/vue-2.7.14/vue.min.js"></script><link href="form_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="form_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="form_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="form_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="form_files/el-events-1.0.0/el-events.js"></script><script src="form_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="form_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="form_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="form_files/vue-3.5.43/vue.global.prod.js"></script><link href="form_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="form_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="form_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="form_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="form_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="form_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="form_files/el-events-1.0.0/el-events.js"></script><script src="form_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="form_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,17 +187,21 @@
 
     
     
-<p>Form consists of inputs, radios, selects, checkboxes and so on; with
-it you can collect, verify and submit data. <code><a href="../../reference/el_form.html">el_form()</a></code> holds
-its fields, declared with <code><a href="../../reference/el_form_field.html">el_form_field()</a></code>, in one model,
-and reports it as <code>input$&lt;id&gt;</code>, with
-<code>input$&lt;id&gt;_valid</code> and
-<code>input$&lt;id&gt;_submit</code> when submitted. Its standalone
-counterparts – any input with a <code>label</code> – are in the forms
-article.</p>
+<p>Form consists of <code>input</code>, <code>radio</code>,
+<code>select</code>, <code>checkbox</code> and so on. With form, you can
+collect, verify and submit data.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>The component has been upgraded with a flex layout to replace the old
+float layout.</p>
+</blockquote>
 <div class="section level2">
-<h2 id="basic-form">Basic form<a class="anchor" aria-label="anchor" href="#basic-form"></a>
+<h2 id="basic-form">Basic Form<a class="anchor" aria-label="anchor" href="#basic-form"></a>
 </h2>
+<p>It includes all kinds of input items, such as <code>input</code>,
+<code>select</code>, <code>radio</code> and <code>checkbox</code>.</p>
+<p>In each <code>form</code> component, you need a
+<code>form-item</code> field to be the container of your input item.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"activity"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, submit_label <span class="op">=</span> <span class="st">"Create"</span>, reset_label <span class="op">=</span> <span class="st">"Cancel"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity name"</span><span class="op">)</span>,</span>
@@ -178,58 +216,88 @@ article.</p>
 <span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sponsor"</span>, <span class="st">"Venue"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"desc"</span>, <span class="st">"textarea"</span>, label <span class="op">=</span> <span class="st">"Activity form"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-activity" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-activity_container" style="display: contents">
-  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate">
-    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
+  <div id="basic-form-activity" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-form-activity_container" style="display: contents">
+  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" :require-asterisk-position="requireAsteriskPosition === null ? undefined : requireAsteriskPosition" :scroll-into-view-options="scrollIntoViewOptions === null ? undefined : scrollIntoViewOptions" :scroll-to-error="scrollToError === null ? undefined : scrollToError">
+    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage" :label-position="f.labelPosition" :validate-status="f.validateStatus" :for="f.for"><template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template v-slot:error="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
     <el-form-item><el-button type="primary" @click="handleSubmit">{{ submitLabel }}</el-button><el-button @click="handleReset">{{ resetLabel }}</el-button></el-form-item>
   </el-form>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","region":"","date":"","delivery":false,"type":[],"resource":"","desc":""},"rules":{},"fields":[{"prop":"name","label":"Activity name","tag":"el-input","props":[]},{"prop":"region","label":"Activity zone","tag":"el-select","props":{"placeholder":"please select your zone"},"optionTag":"el-option","options":[{"label":"Zone one","value":"shanghai","text":""},{"label":"Zone two","value":"beijing","text":""}]},{"prop":"date","label":"Activity time","tag":"el-date-picker","props":{"placeholder":"Pick a date"}},{"prop":"delivery","label":"Instant delivery","tag":"el-switch","props":[]},{"prop":"type","label":"Activity type","tag":"el-checkbox-group","props":[],"optionTag":"el-checkbox","options":[{"label":"Online activities","text":"Online activities"},{"label":"Promotion activities","text":"Promotion activities"},{"label":"Offline activities","text":"Offline activities"}]},{"prop":"resource","label":"Resources","tag":"el-radio-group","props":[],"optionTag":"el-radio","options":[{"label":"Sponsor","text":"Sponsor"},{"label":"Venue","text":"Venue"}]},{"prop":"desc","label":"Activity form","tag":"el-input","props":{"type":"textarea"}}],"labelWidth":"120px","labelPosition":"right","inline":false,"submitLabel":"Create","resetLabel":"Cancel","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('basic-activity', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-activity\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-activity\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","region":"","date":"","delivery":false,"type":[],"resource":"","desc":""},"rules":{},"fields":[{"prop":"name","label":"Activity name","tag":"el-input","props":[]},{"prop":"region","label":"Activity zone","tag":"el-select","props":{"placeholder":"please select your zone"},"optionTag":"el-option","options":[{"label":"Zone one","value":"shanghai","text":""},{"label":"Zone two","value":"beijing","text":""}]},{"prop":"date","label":"Activity time","tag":"el-date-picker","props":{"placeholder":"Pick a date"}},{"prop":"delivery","label":"Instant delivery","tag":"el-switch","props":[]},{"prop":"type","label":"Activity type","tag":"el-checkbox-group","props":[],"optionTag":"el-checkbox","options":[{"label":"Online activities","text":"Online activities"},{"label":"Promotion activities","text":"Promotion activities"},{"label":"Offline activities","text":"Offline activities"}]},{"prop":"resource","label":"Resources","tag":"el-radio-group","props":[],"optionTag":"el-radio","options":[{"label":"Sponsor","text":"Sponsor"},{"label":"Venue","text":"Venue"}]},{"prop":"desc","label":"Activity form","tag":"el-input","props":{"type":"textarea"}}],"labelWidth":"120px","labelPosition":"right","inline":false,"submitLabel":"Create","resetLabel":"Cancel","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null,"requireAsteriskPosition":null,"scrollIntoViewOptions":null,"scrollToError":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('basic-form-activity', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-form-activity\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-form-activity\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.model[k] = d.model[k]; }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.fields[i].error = d['.errors'][k] || ''; }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
 </div>
 </div>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p><a href="https://www.w3.org/MarkUp/html-spec/html-spec_8.html#SEC8.2" class="external-link">W3C</a>
+regulates that</p>
+<blockquote>
+<p><i>When there is only one single-line text input field in a form, the
+user agent should accept Enter in that field as a request to submit the
+form.</i></p>
+</blockquote>
+<p>To prevent this behavior, you can add <code>@submit.prevent</code> on
+<code>&lt;el-form&gt;</code>.</p>
+</blockquote>
 </div>
 <div class="section level2">
-<h2 id="inline-form">Inline form<a class="anchor" aria-label="anchor" href="#inline-form"></a>
+<h2 id="inline-form">Inline Form<a class="anchor" aria-label="anchor" href="#inline-form"></a>
 </h2>
+<p>When the vertical space is limited and the form is relatively simple,
+you can put it in one line.</p>
+<p>Set the <code>inline</code> attribute to <code>true</code> and the
+form will be inline.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"search"</span>, inline <span class="op">=</span> <span class="cn">TRUE</span>, submit_label <span class="op">=</span> <span class="st">"Query"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"user"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Approved by"</span>, placeholder <span class="op">=</span> <span class="st">"Approved by"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
 <span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="inline-search" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="inline-search_container" style="display: contents">
-  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate">
-    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
+  <div id="inline-form-search" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="inline-form-search_container" style="display: contents">
+  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" :require-asterisk-position="requireAsteriskPosition === null ? undefined : requireAsteriskPosition" :scroll-into-view-options="scrollIntoViewOptions === null ? undefined : scrollIntoViewOptions" :scroll-to-error="scrollToError === null ? undefined : scrollToError">
+    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage" :label-position="f.labelPosition" :validate-status="f.validateStatus" :for="f.for"><template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template v-slot:error="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
     <el-form-item><el-button type="primary" @click="handleSubmit">{{ submitLabel }}</el-button></el-form-item>
   </el-form>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"user":"","region":""},"rules":{},"fields":[{"prop":"user","label":"Approved by","tag":"el-input","props":{"placeholder":"Approved by"}},{"prop":"region","label":"Activity zone","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Zone one","value":"shanghai","text":""},{"label":"Zone two","value":"beijing","text":""}]}],"labelWidth":"100px","labelPosition":"right","inline":true,"submitLabel":"Query","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('inline-search', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"inline-search\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"inline-search\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"user":"","region":""},"rules":{},"fields":[{"prop":"user","label":"Approved by","tag":"el-input","props":{"placeholder":"Approved by"}},{"prop":"region","label":"Activity zone","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Zone one","value":"shanghai","text":""},{"label":"Zone two","value":"beijing","text":""}]}],"labelWidth":"100px","labelPosition":"right","inline":true,"submitLabel":"Query","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null,"requireAsteriskPosition":null,"scrollIntoViewOptions":null,"scrollToError":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('inline-form-search', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"inline-form-search\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"inline-form-search\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.model[k] = d.model[k]; }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.fields[i].error = d['.errors'][k] || ''; }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="alignment">Alignment<a class="anchor" aria-label="anchor" href="#alignment"></a>
 </h2>
+<p>Depending on your design, there are several different ways to align
+your label element.</p>
+<p>You can set <code>label-position</code> of <code>el-form-item</code>
+separately 2.7.7. If the value is empty, the <code>label-position</code>
+of <code>el-form</code> is used.</p>
+<p>The <code>label-position</code> attribute decides how labels align,
+it can be <code>top</code> or <code>left</code>. When set to
+<code>top</code>, labels will be placed at the top of the form
+field.</p>
 <p><code>label_position</code> puts the labels <code>"right"</code> (the
-default), <code>"left"</code> or on <code>"top"</code>.</p>
+default), <code>"left"</code> or on <code>"top"</code>; a field’s own
+<code>label_position</code> overrides it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"aligned"</span>, label_position <span class="op">=</span> <span class="st">"top"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="st">"360px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>, label_position <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity form"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="alignment-aligned" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="alignment-aligned_container" style="display: contents">
-  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" style="width: 360px"><el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item></el-form>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","region":"","type":""},"rules":{},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"region","label":"Activity zone","tag":"el-input","props":[]},{"prop":"type","label":"Activity form","tag":"el-input","props":[]}],"labelWidth":"100px","labelPosition":"top","inline":false,"submitLabel":"","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('alignment-aligned', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"alignment-aligned\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"alignment-aligned\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" :require-asterisk-position="requireAsteriskPosition === null ? undefined : requireAsteriskPosition" :scroll-into-view-options="scrollIntoViewOptions === null ? undefined : scrollIntoViewOptions" :scroll-to-error="scrollToError === null ? undefined : scrollToError" style="width: 360px"><el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage" :label-position="f.labelPosition" :validate-status="f.validateStatus" :for="f.for"><template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template v-slot:error="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item></el-form>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","region":"","type":""},"rules":{},"fields":[{"prop":"name","label":"Name","tag":"el-input","props":[]},{"prop":"region","label":"Activity zone","tag":"el-input","props":{},"labelPosition":"right"},{"prop":"type","label":"Activity form","tag":"el-input","props":[]}],"labelWidth":"100px","labelPosition":"top","inline":false,"submitLabel":"","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null,"requireAsteriskPosition":null,"scrollIntoViewOptions":null,"scrollToError":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('alignment-aligned', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"alignment-aligned\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"alignment-aligned\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.model[k] = d.model[k]; }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.fields[i].error = d['.errors'][k] || ''; }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="validation">Validation<a class="anchor" aria-label="anchor" href="#validation"></a>
 </h2>
-<p>Each field’s <code>rules</code>, from <code><a href="../../reference/el_rule.html">el_rule()</a></code>, run on
-blur or change and on submit.</p>
+<p>Form component allows you to verify your data, helping you find and
+correct errors.</p>
+<p>Just add the <code>rules</code> attribute for <code>Form</code>
+component, pass validation rules, and set <code>prop</code> attribute
+for <code>FormItem</code> as a specific key that needs to be validated.
+See more information at <a href="https://github.com/yiminghe/async-validator" class="external-link">async-validator</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"rules"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, submit_label <span class="op">=</span> <span class="st">"Create"</span>, reset_label <span class="op">=</span> <span class="st">"Reset"</span>,</span>
@@ -254,10 +322,12 @@ blur or change and on submit.</p>
 <img src="../../shots/form-validation.png" alt="The validation example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
-<h2 id="custom-validation-rules">Custom validation rules<a class="anchor" aria-label="anchor" href="#custom-validation-rules"></a>
+<h2 id="custom-validation-rules">Custom Validation Rules<a class="anchor" aria-label="anchor" href="#custom-validation-rules"></a>
 </h2>
-<p><code>el_rule(validator = JS(...))</code> is Element’s custom rule;
-<code>status_icon</code> marks each field’s verdict.</p>
+<p>This example shows how to customize your own validation rules to
+finish a two-factor password verification.</p>
+<p>Here we use <code>status-icon</code> to reflect validation result as
+an icon.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"account"</span>, status_icon <span class="op">=</span> <span class="cn">TRUE</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>,</span>
 <span>  submit_label <span class="op">=</span> <span class="st">"Submit"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
@@ -277,13 +347,18 @@ blur or change and on submit.</p>
 <span>    <span class="st">"}"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/form-custom.png" alt="The custom example, running" style="max-width: 100%">
+<img src="../../shots/form-custom-validation.png" alt="The custom-validation example, running" style="max-width: 100%"><blockquote>
+<p><strong>Tip</strong></p>
+<p>Custom validate callback function must be called. See more advanced
+usage at <a href="https://github.com/yiminghe/async-validator" class="external-link">async-validator</a>.</p>
+</blockquote>
 </div>
 <div class="section level2">
-<h2 id="delete-or-add-form-items-dynamically">Delete or add form items dynamically<a class="anchor" aria-label="anchor" href="#delete-or-add-form-items-dynamically"></a>
+<h2 id="adddelete-form-item">Add/Delete Form Item<a class="anchor" aria-label="anchor" href="#adddelete-form-item"></a>
 </h2>
-<p><code>update_el_form(fields =)</code> replaces the field list; what
-was entered stays.</p>
+<p>In addition to passing all validation rules at once on the form
+component, you can also pass the validation rules or delete rules on a
+single form field dynamically.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">domain</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"domain"</span>, <span class="va">i</span><span class="op">)</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Domain"</span>, <span class="va">i</span><span class="op">)</span>,</span>
 <span>  rules <span class="op">=</span> <span class="fu"><a href="../../reference/el_rule.html">el_rule</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span>, message <span class="op">=</span> <span class="st">"Domain can not be null"</span><span class="op">)</span><span class="op">)</span></span>
@@ -304,11 +379,14 @@ was entered stays.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/form-dynamic.png" alt="The dynamic example, running" style="max-width: 100%">
+<img src="../../shots/form-form-items.png" alt="The form-items example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
-<h2 id="number-validate">Number validate<a class="anchor" aria-label="anchor" href="#number-validate"></a>
+<h2 id="number-validate">Number Validate<a class="anchor" aria-label="anchor" href="#number-validate"></a>
 </h2>
+<p>Number Validate need a <code>.number</code> modifier added on the
+input <code>v-model</code> binding，it’s used to transform the string
+value to the number which is provided by Vue.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"aged"</span>, submit_label <span class="op">=</span> <span class="st">"Submit"</span>, label_width <span class="op">=</span> <span class="st">"100px"</span>, width <span class="op">=</span> <span class="st">"420px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Age"</span>, rules <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -317,33 +395,69 @@ was entered stays.</p>
 <span>            transform <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(v) { return Number(v); }"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/form-number.png" alt="The number example, running" style="max-width: 100%">
+<img src="../../shots/form-number-validate.png" alt="The number-validate example, running" style="max-width: 100%"><blockquote>
+<p><strong>Tip</strong></p>
+<p>When an <code>el-form-item</code> is nested in another
+<code>el-form-item</code>, its label width will be <code>0</code>. You
+can set <code>label-width</code> on that <code>el-form-item</code> if
+needed.</p>
+</blockquote>
 </div>
 <div class="section level2">
-<h2 id="size-control">Size control<a class="anchor" aria-label="anchor" href="#size-control"></a>
+<h2 id="size-control">Size Control<a class="anchor" aria-label="anchor" href="#size-control"></a>
 </h2>
-<p><code>size</code> sizes every control in the form; a field’s own
-<code>size</code> overrides it.</p>
+<p>All components in a Form inherit their <code>size</code> attribute
+from that Form. Similarly, FormItem also has a <code>size</code>
+attribute.</p>
+<p>Still you can fine tune each component’s <code>size</code> if you
+don’t want that component to inherit its size from From or FormItem.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"small"</span>, size <span class="op">=</span> <span class="st">"mini"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, submit_label <span class="op">=</span> <span class="st">"Create"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"small"</span>, size <span class="op">=</span> <span class="st">"small"</span>, label_width <span class="op">=</span> <span class="st">"120px"</span>, submit_label <span class="op">=</span> <span class="st">"Create"</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Activity name"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"region"</span>, <span class="st">"select"</span>, label <span class="op">=</span> <span class="st">"Activity zone"</span>,</span>
 <span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone one"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone two"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"resource"</span>, <span class="st">"radio-group"</span>, label <span class="op">=</span> <span class="st">"Resources"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sponsor"</span>, <span class="st">"Venue"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="size-small" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="size-small_container" style="display: contents">
-  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" style="width: 480px">
-    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage"><template slot="label"><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template slot="error" slot-scope="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
+  <div id="size-control-small" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="size-control-small_container" style="display: contents">
+  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" :require-asterisk-position="requireAsteriskPosition === null ? undefined : requireAsteriskPosition" :scroll-into-view-options="scrollIntoViewOptions === null ? undefined : scrollIntoViewOptions" :scroll-to-error="scrollToError === null ? undefined : scrollToError" style="width: 480px">
+    <el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage" :label-position="f.labelPosition" :validate-status="f.validateStatus" :for="f.for"><template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template v-slot:error="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item>
     <el-form-item><el-button type="primary" @click="handleSubmit">{{ submitLabel }}</el-button></el-form-item>
   </el-form>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","region":"","resource":""},"rules":{},"fields":[{"prop":"name","label":"Activity name","tag":"el-input","props":[]},{"prop":"region","label":"Activity zone","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Zone one","value":"shanghai","text":""},{"label":"Zone two","value":"beijing","text":""}]},{"prop":"resource","label":"Resources","tag":"el-radio-group","props":[],"optionTag":"el-radio","options":[{"label":"Sponsor","text":"Sponsor"},{"label":"Venue","text":"Venue"}]}],"labelWidth":"120px","labelPosition":"right","inline":false,"submitLabel":"Create","resetLabel":"","submitCount":0,"valid":false,"size":"mini","disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('size-small', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"size-small\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"size-small\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.$set(self.model, k, d.model[k]); }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.$set(self.fields[i], 'error', d['.errors'][k] || ''); }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"name":"","region":"","resource":""},"rules":{},"fields":[{"prop":"name","label":"Activity name","tag":"el-input","props":[]},{"prop":"region","label":"Activity zone","tag":"el-select","props":[],"optionTag":"el-option","options":[{"label":"Zone one","value":"shanghai","text":""},{"label":"Zone two","value":"beijing","text":""}]},{"prop":"resource","label":"Resources","tag":"el-radio-group","props":[],"optionTag":"el-radio","options":[{"label":"Sponsor","text":"Sponsor"},{"label":"Venue","text":"Venue"}]}],"labelWidth":"120px","labelPosition":"right","inline":false,"submitLabel":"Create","resetLabel":"","submitCount":0,"valid":false,"size":"small","disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null,"requireAsteriskPosition":null,"scrollIntoViewOptions":null,"scrollToError":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('size-control-small', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"size-control-small\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"size-control-small\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.model[k] = d.model[k]; }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.fields[i].error = d['.errors'][k] || ''; }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="accessibility">Accessibility<a class="anchor" aria-label="anchor" href="#accessibility"></a>
+</h2>
+<p>When only a single input (or related control such as select or
+checkbox) is inside of a <code>el-form-item</code>, the form item’s
+label will automatically be attached to that input. However, if multiple
+inputs are inside of the <code>el-form-item</code>, the form item will
+be assigned the <a href="https://www.w3.org/WAI/standards-guidelines/aria/" class="external-link">WAI-ARIA</a>
+role of <a href="https://www.w3.org/TR/wai-aria/#group" class="external-link">group</a>
+instead. In this case, it is your responsibility to assign assistive
+labels to the individual inputs.</p>
+<p>Each field’s label is tied to its control, so a screen reader
+announces it; a field with no label of its own takes
+<code>aria_label</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_form.html">el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"a11y"</span>, label_width <span class="op">=</span> <span class="st">"auto"</span>, submit_label <span class="op">=</span> <span class="cn">NULL</span>, width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"fullname"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Full name"</span>, placeholder <span class="op">=</span> <span class="st">"First and last name"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_form_field.html">el_form_field</a></span><span class="op">(</span><span class="st">"email"</span>, <span class="st">"input"</span>, label <span class="op">=</span> <span class="st">"Email"</span>, aria_label <span class="op">=</span> <span class="st">"Email address"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="accessibility-a11y" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="accessibility-a11y_container" style="display: contents">
+  <el-form :model="model" :rules="rules" ref="form" :label-width="labelWidth" :label-position="labelPosition" :inline="inline" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :show-message="showMessage === null ? undefined : showMessage" :inline-message="inlineMessage === null ? undefined : inlineMessage" :status-icon="statusIcon === null ? undefined : statusIcon" :hide-required-asterisk="hideRequiredAsterisk === null ? undefined : hideRequiredAsterisk" :label-suffix="labelSuffix === null ? undefined : labelSuffix" :validate-on-rule-change="validateOnRuleChange === null ? undefined : validateOnRuleChange" @validate="elEmitValidate" :require-asterisk-position="requireAsteriskPosition === null ? undefined : requireAsteriskPosition" :scroll-into-view-options="scrollIntoViewOptions === null ? undefined : scrollIntoViewOptions" :scroll-to-error="scrollToError === null ? undefined : scrollToError" style="width: 480px"><el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" :label="f.label" :required="f.required" :rules="f.rules" :error="f.error" :label-width="f.labelWidth" :size="f.size" :inline-message="f.inlineMessage" :show-message="f.showMessage" :label-position="f.labelPosition" :validate-status="f.validateStatus" :for="f.for"><template v-slot:label><span v-if="f.labelHtml" v-html="f.labelHtml"></span><span v-else>{{f.label}}</span></template><template v-slot:error="scope"><div class="el-form-item__error"><span v-if="f.errorHtml" v-html="f.errorHtml"></span><span v-else>{{scope.error}}</span></div></template><component :is="f.tag" v-model="model[f.prop]" v-bind="f.props"><template v-if="f.text">{{ f.text }}</template><component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" :label="o.label" :value="o.value">{{ o.text }}</component></component></el-form-item></el-form>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"model":{"fullname":"","email":""},"rules":{},"fields":[{"prop":"fullname","label":"Full name","tag":"el-input","props":{"placeholder":"First and last name"}},{"prop":"email","label":"Email","tag":"el-input","props":{"ariaLabel":"Email address"}}],"labelWidth":"auto","labelPosition":"right","inline":false,"submitLabel":"","resetLabel":"","submitCount":0,"valid":false,"size":null,"disabled":null,"showMessage":null,"inlineMessage":null,"statusIcon":null,"hideRequiredAsterisk":null,"labelSuffix":null,"validateOnRuleChange":null,"requireAsteriskPosition":null,"scrollIntoViewOptions":null,"scrollToError":null},"methods":{"elEmitValidate":"function() { window.shinyVue.emit('accessibility-a11y', 'validate', arguments); }","handleSubmit":"function() { var self = this; this.$refs.form.validate(function(ok) { self.submitCount++; self.valid = ok; window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"accessibility-a11y\" + '_valid', ok); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"accessibility-a11y\" + '_submit', self.submitCount); }); }","shinyVueReceive":"function(d) { var self = this, action = d['.action']; delete d['.action']; if (d.model) { Object.keys(d.model).forEach(function(k) { self.model[k] = d.model[k]; }); delete d.model; } if (d['.fields']) { var model = {}, rules = {}; d['.fields'].forEach(function(f) { model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; delete f.value; delete f.rules; }); self.model = model; self.rules = rules; self.fields = d['.fields']; delete d['.fields']; } if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { self.fields.forEach(function(f, i) { if (f.prop === k) self.fields[i].error = d['.errors'][k] || ''; }); }); delete d['.errors']; } if (action === 'validate') self.handleSubmit(); else if (action === 'reset') self.handleReset(); else if (action === 'clearValidate') { if (self.$refs.form) self.$refs.form.clearValidate(d.props || undefined); delete d.props; } return d; }","handleReset":"function() { this.$refs.form.resetFields(); }"}},"input":"model","rate":null,"type":null,"evals":["options.methods.elEmitValidate","options.methods.handleSubmit","options.methods.shinyVueReceive","options.methods.handleReset"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="form-attributes">Form Attributes<a class="anchor" aria-label="anchor" href="#form-attributes"></a>
 </h3>
@@ -370,157 +484,154 @@ was entered stays.</p>
 <td>
 <code>each field's</code>value<code>; update_el_form(model =)</code>
 </td>
-<td>data of form component</td>
-<td>object</td>
-<td>—</td>
+<td>Data of form component.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>1</sup></a><code>Record&lt;string, any&gt;</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
 <td><code>rules</code></td>
 <td><code>el_form_field(rules =)</code></td>
-<td>validation rules of form</td>
-<td>object</td>
-<td>—</td>
+<td>Validation rules of form.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>2</sup></a><code>FormRules</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
 <td><code>inline</code></td>
 <td><code>el_form(inline =)</code></td>
-<td>whether the form is inline</td>
-<td>boolean</td>
-<td>—</td>
+<td>Whether the form is inline.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>3</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
 <td><code>label-position</code></td>
 <td><code>el_form(label_position =)</code></td>
-<td>position of label. If set to ‘left’ or ‘right’,
-<code>label-width</code> prop is also required</td>
-<td>string</td>
-<td>left / right / top</td>
+<td>Position of label. If set to <code>'left'</code> or
+<code>'right'</code>, <code>label-width</code> prop is also
+required.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>4</sup></a><code>'left' \\| 'right' \\| 'top'</code>
+</td>
+<td></td>
 <td>right</td>
 </tr>
 <tr class="odd">
 <td><code>label-width</code></td>
 <td><code>el_form(label_width =)</code></td>
-<td>width of label, e.g. ‘50px’. All its direct child form items will
-inherit this value. Width <code>auto</code> is supported.</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td>Width of label, e.g. <code>'50px'</code>. All its direct child form
+items will inherit this value. <code>auto</code> is supported.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>5</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>6</sup></a>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>label-suffix</code></td>
 <td><code>el_form(label_suffix =)</code></td>
-<td>suffix of the label</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td>Suffix of the label.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
 <td><code>hide-required-asterisk</code></td>
 <td><code>el_form(hide_required_asterisk =)</code></td>
-<td>whether to hide a red asterisk (star) next to the required field
-label.</td>
-<td>boolean</td>
-<td>—</td>
+<td>Whether to hide required fields should have a red asterisk (star)
+beside their labels.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="even">
+<td><code>require-asterisk-position</code></td>
+<td><code>el_form(require_asterisk_position =)</code></td>
+<td>Position of asterisk.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>9</sup></a><code>'left' \\| 'right'</code>
+</td>
+<td></td>
+<td>left</td>
+</tr>
+<tr class="odd">
 <td><code>show-message</code></td>
 <td><code>el_form(show_message =)</code></td>
-<td>whether to show the error message</td>
-<td>boolean</td>
-<td>—</td>
+<td>Whether to show the error message.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>inline-message</code></td>
 <td><code>el_form(inline_message =)</code></td>
-<td>whether to display the error message inline with the form item</td>
-<td>boolean</td>
-<td>—</td>
+<td>Whether to display the error message inline with the form item.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>11</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>status-icon</code></td>
 <td><code>el_form(status_icon =)</code></td>
-<td>whether to display an icon indicating the validation result</td>
-<td>boolean</td>
-<td>—</td>
+<td>Whether to display an icon indicating the validation result.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>12</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>validate-on-rule-change</code></td>
 <td><code>el_form(validate_on_rule_change =)</code></td>
-<td>whether to trigger validation when the <code>rules</code> prop is
-changed</td>
-<td>boolean</td>
-<td>—</td>
+<td>Whether to trigger validation when the <code>rules</code> prop is
+changed.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>13</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>size</code></td>
 <td><code>el_form(size =)</code></td>
-<td>control the size of components in this form</td>
-<td>string</td>
-<td>medium / small / mini</td>
+<td>Control the size of components in this form.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>14</sup></a><code>'' \\| 'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>disabled</code></td>
 <td><code>el_form(disabled =)</code></td>
-<td>whether to disabled all components in this form. If set to true, it
-cannot be overridden by its inner components’ <code>disabled</code>
-prop</td>
-<td>boolean</td>
-<td>—</td>
+<td>Whether to disable all components in this form. Before ^(2.12.0), if
+set to <code>true</code>, it will override the <code>disabled</code>
+prop of the inner component. After ^(2.12.0), the configuration of the
+internal components takes precedence.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="form-methods">Form Methods<a class="anchor" aria-label="anchor" href="#form-methods"></a>
-</h3>
-<table class="table">
-<colgroup>
-<col width="20%">
-<col width="26%">
-<col width="53%">
-</colgroup>
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
 <tr class="odd">
-<td><code>validate</code></td>
-<td><code>el_call(session, id, "validate")</code></td>
-<td>validate the whole form. Takes a callback as a param. After
-validation, the callback will be executed with two params: a boolean
-indicating if the validation has passed, and an object containing all
-fields that fail the validation. Returns a promise if callback is
-omitted</td>
+<td><code>scroll-to-error</code></td>
+<td><code>el_form(scroll_to_error =)</code></td>
+<td>When validation fails, scroll to the first error form entry.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 <tr class="even">
-<td><code>validateField</code></td>
-<td><code>el_call(session, id, "validateField")</code></td>
-<td>validate one or several form items</td>
-</tr>
-<tr class="odd">
-<td><code>resetFields</code></td>
-<td><code>el_call(session, id, "resetFields")</code></td>
-<td>reset all the fields and remove validation result</td>
-</tr>
-<tr class="even">
-<td><code>clearValidate</code></td>
-<td><code>el_call(session, id, "clearValidate")</code></td>
-<td>clear validation message for certain fields. The parameter is prop
-name or an array of prop names of the form items whose validation
-messages will be removed. When omitted, all fields’ validation messages
-will be cleared</td>
+<td><code>scroll-into-view-options</code></td>
+<td><code>el_form(scroll_into_view_options =)</code></td>
+<td>When validation fails, it scrolls to the first error item based on
+the scrollIntoView option. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" class="external-link">scrollIntoView</a>.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>17</sup></a><code>ScrollIntoViewOptions</code> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>18</sup></a>
+</td>
+<td></td>
+<td>true</td>
 </tr>
 </tbody>
 </table>
@@ -547,7 +658,78 @@ will be cleared</td>
 </table>
 </div>
 <div class="section level3">
-<h3 id="form-item-attributes">Form-Item Attributes<a class="anchor" aria-label="anchor" href="#form-item-attributes"></a>
+<h3 id="form-slots">Form Slots<a class="anchor" aria-label="anchor" href="#form-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="form-exposes">Form Exposes<a class="anchor" aria-label="anchor" href="#form-exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>validate</code></td>
+<td><code>el_call(session, id, "validate")</code></td>
+<td>Validate the whole form. Receives a callback or returns
+<code>Promise</code>.</td>
+</tr>
+<tr class="even">
+<td><code>validateField</code></td>
+<td><code>el_call(session, id, "validateField")</code></td>
+<td>Validate specified fields.</td>
+</tr>
+<tr class="odd">
+<td><code>resetFields</code></td>
+<td><code>el_call(session, id, "resetFields")</code></td>
+<td>Reset specified fields and remove validation result.</td>
+</tr>
+<tr class="even">
+<td><code>scrollToField</code></td>
+<td><code>el_call(session, id, "scrollToField")</code></td>
+<td>Scroll to the specified fields.</td>
+</tr>
+<tr class="odd">
+<td><code>clearValidate</code></td>
+<td><code>el_call(session, id, "clearValidate")</code></td>
+<td>Clear validation messages for all or specified fields.</td>
+</tr>
+<tr class="even">
+<td><code>getField</code></td>
+<td><code>el_call(session, id, "getField")</code></td>
+<td>Get a field context.</td>
+</tr>
+<tr class="odd">
+<td><code>setInitialValues</code></td>
+<td><code>el_call(session, id, "setInitialValues")</code></td>
+<td>Set initial values for form fields. When <code>resetFields</code> is
+called, fields will reset to these values.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="formitem-attributes">FormItem Attributes<a class="anchor" aria-label="anchor" href="#formitem-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -570,122 +752,127 @@ will be cleared</td>
 <tr class="odd">
 <td><code>prop</code></td>
 <td><code>el_form_field(prop =)</code></td>
-<td>a key of <code>model</code>. In the use of validate and resetFields
-method, the attribute is required</td>
-<td>string</td>
+<td>A key of <code>model</code>. It could be a path of the property (e.g
+<code>a.b.0</code> or <code>['a', 'b', '0']</code>). In the use of
+<code>validate</code> and <code>resetFields</code> method, the attribute
+is required.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>19</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string[]&lt;/p&gt;"><sup>20</sup></a>
+</td>
 <td></td>
-<td></td>
+<td>—</td>
 </tr>
 <tr class="even">
 <td><code>label</code></td>
 <td><code>el_form_field(label =)</code></td>
-<td>label</td>
-<td>string</td>
-<td>—</td>
+<td>Label text.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="odd">
+<td><code>label-position</code></td>
+<td><code>el_form(label_position =)</code></td>
+<td>Position of item label. If set to <code>'left'</code> or
+<code>'right'</code>, <code>label-width</code> prop is also required.
+Default extend <code>label-position</code> of <code>form</code>.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>22</sup></a><code>'left' \\| 'right' \\| 'top'</code>
+</td>
+<td></td>
+<td>’’</td>
+</tr>
+<tr class="even">
 <td><code>label-width</code></td>
 <td><code>el_form(label_width =)</code></td>
-<td>width of label, e.g. ‘50px’. Width <code>auto</code> is
+<td>Width of label, e.g. <code>'50px'</code>. <code>'auto'</code> is
 supported.</td>
-<td>string</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>23</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>24</sup></a>
+</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>required</code></td>
 <td><code>el_form_field(required =)</code></td>
-<td>whether the field is required or not, will be determined by
-validation rules if omitted</td>
-<td>boolean</td>
+<td>Whether the field is required or not, will be determined by
+validation rules if omitted.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
 <td>—</td>
-<td>false</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>rules</code></td>
 <td><code>el_form_field(rules =)</code></td>
-<td>validation rules of form</td>
-<td>object</td>
-<td>—</td>
+<td>Validation rules of form, see the <a href="#formitemrule">following
+table</a>, more advanced usage at <a href="https://github.com/yiminghe/async-validator" class="external-link">async-validator</a>.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>26</sup></a><code>Arrayable&lt;FormItemRule&gt;</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>error</code></td>
 <td><code>el_form_field(error =)</code></td>
-<td>field error message, set its value and the field will validate error
-and show this message immediately</td>
-<td>string</td>
+<td>Field error message, set its value and the field will validate error
+and show this message immediately.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>27</sup></a></td>
+<td></td>
 <td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>show-message</code></td>
-<td><code>el_form(show_message =)</code></td>
-<td>whether to show the error message</td>
-<td>boolean</td>
-<td>—</td>
-<td>true</td>
 </tr>
 <tr class="even">
-<td><code>inline-message</code></td>
-<td><code>el_form(inline_message =)</code></td>
-<td>inline style validate message</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
+<td><code>show-message</code></td>
+<td><code>el_form(show_message =)</code></td>
+<td>Whether to show the error message.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>28</sup></a></td>
+<td></td>
+<td>true</td>
 </tr>
 <tr class="odd">
+<td><code>inline-message</code></td>
+<td><code>el_form(inline_message =)</code></td>
+<td>Inline style validate message.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>29</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="even">
 <td><code>size</code></td>
 <td><code>el_form(size =)</code></td>
-<td>control the size of components in this form-item</td>
-<td>string</td>
-<td>medium / small / mini</td>
-<td>-</td>
+<td>Control the size of components in this form-item.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>30</sup></a><code>'' \\| 'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>for</code></td>
+<td><code>el_form_field(for =)</code></td>
+<td>Same as for in native label.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>31</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>validate-status</code></td>
+<td><code>el_form_field(validate_status =)</code></td>
+<td>Validation state of formItem.</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>32</sup></a><code>'' \\| 'error' \\| 'validating' \\| 'success'</code>
+</td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="form-item-slot">Form-Item Slot<a class="anchor" aria-label="anchor" href="#form-item-slot"></a>
-</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td><code>label</code></td>
-<td><code>slots = list(label = )</code></td>
-<td>content of label</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="form-item-scoped-slot">Form-Item Scoped Slot<a class="anchor" aria-label="anchor" href="#form-item-scoped-slot"></a>
-</h3>
-<table class="table">
-<colgroup>
-<col width="20%">
-<col width="26%">
-<col width="53%">
-</colgroup>
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td><code>error</code></td>
-<td><code>slots = list(error = )</code></td>
-<td>Custom content to display validation message. The scope parameter is
-{ error }</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="form-item-methods">Form-Item Methods<a class="anchor" aria-label="anchor" href="#form-item-methods"></a>
+<h3 id="formitem-slots">FormItem Slots<a class="anchor" aria-label="anchor" href="#formitem-slots"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -700,19 +887,64 @@ and show this message immediately</td>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>resetField</code></td>
-<td><code>el_call(session, id, "resetField")</code></td>
-<td>reset current field and remove validation result</td>
+<td><code>default</code></td>
+<td>default content</td>
+<td>Content of Form Item.</td>
 </tr>
 <tr class="even">
+<td><code>label</code></td>
+<td><code>slots = list(label = )</code></td>
+<td>Custom content to display on label.</td>
+</tr>
+<tr class="odd">
+<td><code>error</code></td>
+<td><code>slots = list(error = )</code></td>
+<td>Custom content to display validation message.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="formitem-exposes">FormItem Exposes<a class="anchor" aria-label="anchor" href="#formitem-exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>validate</code></td>
+<td><code>el_call(session, id, "validate")</code></td>
+<td>Validate form item.</td>
+</tr>
+<tr class="even">
+<td><code>resetField</code></td>
+<td><code>el_call(session, id, "resetField")</code></td>
+<td>Reset current field and remove validation result.</td>
+</tr>
+<tr class="odd">
 <td><code>clearValidate</code></td>
 <td><code>el_call(session, id, "clearValidate")</code></td>
-<td>remove validation status of the field</td>
+<td>Remove validation status of the field.</td>
+</tr>
+<tr class="even">
+<td><code>setInitialValue</code></td>
+<td><code>el_call(session, id, "setInitialValue")</code></td>
+<td>Set initial value for this field. When <code>resetField</code> is
+called, the field will reset to this value.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

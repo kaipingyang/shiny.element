@@ -1,4 +1,4 @@
-# Update Element UI Transfer
+# Update Element Plus Transfer
 
 Server-side update for
 [`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md).

@@ -1,7 +1,7 @@
-# Element UI icon tag
+# Element Plus icon
 
-Creates an icon tag supporting Element UI icons, Font Awesome, or plain
-tags. Follows the same dispatch pattern as
+An icon from Element Plus's set, Font Awesome, or a plain tag. Follows
+the same dispatch pattern as
 [`shiny::icon()`](https://rdrr.io/pkg/shiny/man/icon.html), with
 accessibility attributes inspired by `bsicons::bs_icon()`.
 
@@ -14,8 +14,9 @@ el_icon(
   class = NULL,
   title = NULL,
   a11y = c("auto", "deco", "sem", "none"),
-  lib = c("element-ui", "font-awesome", "none"),
-  ...
+  lib = c("element-plus", "font-awesome", "none"),
+  ...,
+  color = NULL
 )
 ```
 
@@ -23,14 +24,15 @@ el_icon(
 
 - name:
 
-  Icon name. For `lib = "element-ui"`, the `el-icon-` prefix is optional
-  and will not be doubled (e.g. `"search"` and `"el-icon-search"` both
-  work). Names are lowercased and spaces replaced with `-`.
+  Icon name, as Element Plus spells it – `"Search"`, `"ArrowRight"` – or
+  in any of the forms that reach the same name: `"search"`,
+  `"arrow-right"`, `"arrow right"`, and Element UI's
+  `"el-icon-arrow-right"`.
 
 - size:
 
-  CSS size string (e.g. `"1.5em"`, `"20px"`). Applied as `font-size` on
-  the `<i>` tag. `NULL` (default) leaves the size unset.
+  CSS size string (e.g. `"1.5em"`, `"20px"`), as Element Plus's
+  `<el-icon size>`. `NULL` (default) follows the surrounding text.
 
 - class:
 
@@ -66,9 +68,9 @@ el_icon(
 
   Icon library. One of:
 
-  `"element-ui"` (default)
+  `"element-plus"` (default)
 
-  :   Renders `<i class="el-icon-{name}">`.
+  :   Element Plus's icon set.
 
   `"font-awesome"`
 
@@ -84,19 +86,30 @@ el_icon(
 
   Additional HTML attributes passed to the `<i>` tag.
 
+- color:
+
+  Icon colour, as Element Plus's `<el-icon color>`. `NULL` follows the
+  surrounding text.
+
 ## Value
 
 An `htmltools` tag object.
 
+## Details
+
+Element Plus's icons are SVG components (`@element-plus/icons-vue`,
+bundled): the tag is an `<i class="el-icon">` naming its icon, drawn by
+the page wherever it lands – inside a component or not.
+
 ## Examples
 
 ``` r
-el_icon("search")
-#> <i class="el-icon-search" aria-hidden="true" role="img"></i>
+el_icon("Search")
+#> <i class="el-icon" data-el-icon="Search" aria-hidden="true" role="img"></i>
 el_icon("edit", size = "1.5em")
-#> <i class="el-icon-edit" style="font-size:1.5em;" aria-hidden="true" role="img"></i>
-el_icon("delete", title = "Delete item")
-#> <i class="el-icon-delete" title="Delete item" aria-label="Delete item" role="img"></i>
+#> <i class="el-icon" data-el-icon="Edit" style="font-size:1.5em;" aria-hidden="true" role="img"></i>
+el_icon("Delete", title = "Delete item", color = "#f56c6c")
+#> <i class="el-icon" data-el-icon="Delete" style="--color:#f56c6c;" title="Delete item" aria-label="Delete item" role="img"></i>
 el_icon("close", a11y = "deco")
-#> <i class="el-icon-close" aria-hidden="true" role="img"></i>
+#> <i class="el-icon" data-el-icon="Close" aria-hidden="true" role="img"></i>
 ```

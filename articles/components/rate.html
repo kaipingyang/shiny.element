@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="rate_files/vue-2.7.14/vue.min.js"></script><link href="rate_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="rate_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="rate_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="rate_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="rate_files/el-events-1.0.0/el-events.js"></script><script src="rate_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="rate_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="rate_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="rate_files/vue-3.5.43/vue.global.prod.js"></script><link href="rate_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="rate_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="rate_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="rate_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="rate_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="rate_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="rate_files/el-events-1.0.0/el-events.js"></script><script src="rate_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="rate_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,73 +187,200 @@
 
     
     
-<p>Used for rating; <code>input$&lt;id&gt;</code> is the score.</p>
+<p>Used for rating</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
-<p><code>colors</code> colours the levels – three, or a list keyed by
-the thresholds.</p>
+<p>Rate divides rating scores into several levels and these levels can
+be distinguished by using different background colors. By default
+background colors are the same, but you can assign them an array with
+three element to reflect three levels using the <code>colors</code>
+attribute, and their two thresholds can be defined by
+<code>low-threshold</code> and <code>high-threshold</code>, or you can
+assign them with a object which key is the threshold between two levels
+and value is the corresponding color.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"r1"</span>, value <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"r2"</span>, value <span class="op">=</span> <span class="fl">4</span>, colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#99A9BF"</span>, <span class="st">"#F7BA2A"</span>, <span class="st">"#FF9900"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; gap: 40px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Default"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate1"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Color for different levels"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate2"</span>, colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#99A9BF"</span>, <span class="st">"#F7BA2A"</span>, <span class="st">"#FF9900"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-r1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-r1_container" style="display: contents">
-  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div style="display: flex; gap: 40px">
+    <div>
+      <div>Default</div>
+      <div id="basic-usage-rate1" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-rate1_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
-  <div id="basic-r2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-r2_container" style="display: contents">
-  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":4,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":["#99A9BF","#F7BA2A","#FF9900"],"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+    </div>
+    <div>
+      <div>Color for different levels</div>
+      <div id="basic-usage-rate2" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-rate2_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":["#99A9BF","#F7BA2A","#FF9900"],"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: grid; gap: 8px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_l"</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_d"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_s"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: grid; gap: 8px">
+    <div id="sizes-rate_l" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-rate_l_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":"large","voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="sizes-rate_d" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-rate_d_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="sizes-rate_s" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-rate_s_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":"small","voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="with-allow-half">With allow-half<a class="anchor" aria-label="anchor" href="#with-allow-half"></a>
+</h2>
+<p>Add attribute <code>allow-half</code> Half star allowed</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_half"</span>, allow_half <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="allow-half-rate_half" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="allow-half-rate_half_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="with-text">With text<a class="anchor" aria-label="anchor" href="#with-text"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rt"</span>, value <span class="op">=</span> <span class="fl">3</span>, show_text <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        texts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"oops"</span>, <span class="st">"disappointed"</span>, <span class="st">"normal"</span>, <span class="st">"good"</span>, <span class="st">"great"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Using text to indicate rating score</p>
+<p>Add attribute <code>show-text</code> to display text at the right of
+Rate. You can assign texts for different scores using
+<code>texts</code>. <code>texts</code> is an array whose length should
+be equal to the max score <code>max</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_text"</span>, show_text <span class="op">=</span> <span class="cn">TRUE</span>, texts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"oops"</span>, <span class="st">"disappointed"</span>, <span class="st">"normal"</span>, <span class="st">"good"</span>, <span class="st">"great"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="text-rt" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="text-rt_container" style="display: contents">
-  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":true,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["oops","disappointed","normal","good","great"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="text-rate_text" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="text-rate_text_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":false,"showText":true,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["oops","disappointed","normal","good","great"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="clearable">Clearable<a class="anchor" aria-label="anchor" href="#clearable"></a>
+</h2>
+<p>You can reset the value to <code>0</code> when you click at the same
+value again.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_clear"</span>, value <span class="op">=</span> <span class="fl">3</span>, clearable <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="clearable-rate_clear" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="clearable-rate_clear_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":true,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="more-icons">More icons<a class="anchor" aria-label="anchor" href="#more-icons"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"ri"</span>, value <span class="op">=</span> <span class="fl">3</span>, icon_classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"el-icon-sunny"</span>, <span class="st">"el-icon-cloudy"</span>, <span class="st">"el-icon-heavy-rain"</span><span class="op">)</span>,</span>
-<span>        void_icon_class <span class="op">=</span> <span class="st">"el-icon-moon-night"</span>, colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#99A9BF"</span>, <span class="st">"#F7BA2A"</span>, <span class="st">"#FF9900"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>You can use different icons to distinguish different rate
+components.</p>
+<p>You can customize icons by passing <code>icons</code> an array with
+three elements or a object which key is the threshold between two levels
+and value is the corresponding icon. In this example, we also use
+<code>void-icon</code> to set the icon if it is unselected.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_icons"</span>, icons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ChatRound"</span>, <span class="st">"ChatLineRound"</span>, <span class="st">"ChatDotRound"</span><span class="op">)</span>, void_icon <span class="op">=</span> <span class="st">"ChatRound"</span>,</span>
+<span>        colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#409eff"</span>, <span class="st">"#67c23a"</span>, <span class="st">"#FF9900"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="icons-ri" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="icons-ri_container" style="display: contents">
-  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":["#99A9BF","#F7BA2A","#FF9900"],"voidColor":null,"disabledVoidColor":null,"iconClasses":["el-icon-sunny","el-icon-cloudy","el-icon-heavy-rain"],"voidIconClass":"el-icon-moon-night","disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="more-icons-rate_icons" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="more-icons-rate_icons_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":["#409eff","#67c23a","#FF9900"],"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":["ChatRound","ChatLineRound","ChatDotRound"],"size":null,"voidIcon":"ChatRound"},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="read-only">Read-only<a class="anchor" aria-label="anchor" href="#read-only"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"ro"</span>, value <span class="op">=</span> <span class="fl">3.7</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, show_score <span class="op">=</span> <span class="cn">TRUE</span>, text_color <span class="op">=</span> <span class="st">"#ff9900"</span>,</span>
+<p>Read-only Rate is for displaying rating score. Half star is
+supported.</p>
+<p>Use attribute <code>disabled</code> to make the component read-only.
+Add <code>show-score</code> to display the rating score at the right
+side. Additionally, you can use attribute <code>score-template</code> to
+provide a score template. It must contain <code>{value}</code>, and
+<code>{value}</code> will be replaced with the rating score.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_rate.html">el_rate</a></span><span class="op">(</span><span class="st">"rate_ro"</span>, value <span class="op">=</span> <span class="fl">3.7</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, show_score <span class="op">=</span> <span class="cn">TRUE</span>, text_color <span class="op">=</span> <span class="st">"#ff9900"</span>,</span>
 <span>        score_template <span class="op">=</span> <span class="st">"{value} points"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="readonly-ro" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="readonly-ro_container" style="display: contents">
-  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3.7,"max":5,"disabled":true,"allowHalf":false,"showText":false,"showScore":true,"textColor":"#ff9900","scoreTemplate":"{value} points","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+  <div id="readonly-rate_ro" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="readonly-rate_ro_container" style="display: contents">
+  <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3.7,"max":5,"disabled":true,"allowHalf":false,"showText":false,"showScore":true,"textColor":"#ff9900","scoreTemplate":"{value} points","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="custom-styles">Custom styles<a class="anchor" aria-label="anchor" href="#custom-styles"></a>
+</h2>
+<p>Now you can set custom style for rate component. Use
+<code>css/scss</code> language to change the global or local color. We
+set some global color variables: <code>--el-rate-void-color</code>,
+<code>--el-rate-fill-color</code>,
+<code>--el-rate-disabled-void-color</code>,
+<code>--el-rate-text-color</code>. You can use like:
+<code>:root { --el-rate-void-color: red; --el-rate-fill-color: blue; }</code>.</p>
+<div class="section level3">
+<h3 id="default-variables">Default Variables<a class="anchor" aria-label="anchor" href="#default-variables"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Variable</th>
+<th>Default Color</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>–el-rate-void-color</td>
+<td>var(–el-border-color-darker)</td>
+</tr>
+<tr class="even">
+<td>–el-rate-fill-color</td>
+<td>#f7ba2a</td>
+</tr>
+<tr class="odd">
+<td>–el-rate-disabled-void-color</td>
+<td>var(–el-fill-color)</td>
+</tr>
+<tr class="even">
+<td>–el-rate-text-color</td>
+<td>var(–el-text-color-primary)</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
@@ -242,149 +403,208 @@ the thresholds.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>value</code></td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>binding value</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="even">
 <td><code>max</code></td>
 <td><code>max</code></td>
 <td>max rating score</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>2</sup></a></td>
+<td></td>
 <td>5</td>
 </tr>
 <tr class="odd">
+<td><code>size</code></td>
+<td><code>size</code></td>
+<td>size of Rate</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>3</sup></a><code>'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
 <td><code>disabled</code></td>
 <td><code>disabled</code></td>
 <td>whether Rate is read-only</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td><code>allow-half</code></td>
-<td><code>allow_half</code></td>
-<td>whether picking half start is allowed</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
+<td><code>allow-half</code></td>
+<td><code>allow_half</code></td>
+<td>whether picking half start is allowed</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="even">
 <td><code>low-threshold</code></td>
 <td><code>low_threshold</code></td>
 <td>threshold value between low and medium level. The value itself will
 be included in low level</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>6</sup></a></td>
+<td></td>
 <td>2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>high-threshold</code></td>
 <td><code>high_threshold</code></td>
 <td>threshold value between medium and high level. The value itself will
 be included in high level</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
 <td>4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>colors</code></td>
 <td><code>colors</code></td>
 <td>colors for icons. If array, it should have 3 elements, each of which
 corresponds with a score level, else if object, the key should be
 threshold value between two levels, and the value should be
 corresponding color</td>
-<td>array/object</td>
-<td>—</td>
-<td>[‘#F7BA2A’, ‘#F7BA2A’, ‘#F7BA2A’]</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>8</sup></a><code>string[]</code> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>9</sup></a><code>Record&lt;number, string&gt;</code>
+</td>
+<td></td>
+<td>[‘#f7ba2a’, ‘#f7ba2a’, ‘#f7ba2a’]</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>void-color</code></td>
 <td><code>void_color</code></td>
 <td>color of unselected icons</td>
-<td>string</td>
-<td>—</td>
-<td>#C6D1DE</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
+<td>#c6d1de</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>disabled-void-color</code></td>
 <td><code>disabled_void_color</code></td>
 <td>color of unselected read-only icons</td>
-<td>string</td>
-<td>—</td>
-<td>#EFF2F7</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>11</sup></a></td>
+<td></td>
+<td>#eff2f7</td>
 </tr>
-<tr class="even">
-<td><code>icon-classes</code></td>
-<td><code>icon_classes</code></td>
-<td>class names of icons. If array, ot should have 3 elements, each of
-which corresponds with a score level, else if object, the key should be
+<tr class="odd">
+<td><code>icons</code></td>
+<td><code>icons</code></td>
+<td>icon components. If array, it should have 3 elements, each of which
+corresponds with a score level, else if object, the key should be
 threshold value between two levels, and the value should be
-corresponding icon class</td>
-<td>array/object</td>
-<td>—</td>
-<td>[‘el-icon-star-on’, ‘el-icon-star-on’,‘el-icon-star-on’]</td>
-</tr>
-<tr class="odd">
-<td><code>void-icon-class</code></td>
-<td><code>void_icon_class</code></td>
-<td>class name of unselected icons</td>
-<td>string</td>
-<td>—</td>
-<td>el-icon-star-off</td>
+corresponding icon component</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>12</sup></a><code>string[] \\| Component[]</code> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>13</sup></a><code>Record&lt;number, string \\| Component&gt;</code>
+</td>
+<td></td>
+<td>[StarFilled, StarFilled, StarFilled]</td>
 </tr>
 <tr class="even">
-<td><code>disabled-void-icon-class</code></td>
-<td><code>disabled_void_icon_class</code></td>
-<td>class name of unselected read-only icons</td>
-<td>string</td>
-<td>—</td>
-<td>el-icon-star-on</td>
+<td><code>void-icon</code></td>
+<td><code>void_icon</code></td>
+<td>component of unselected icons</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>14</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>15</sup></a>
+</td>
+<td></td>
+<td>Star</td>
 </tr>
 <tr class="odd">
+<td><code>disabled-void-icon</code></td>
+<td><code>disabled_void_icon</code></td>
+<td>component of unselected read-only icons</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>16</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>17</sup></a>
+</td>
+<td></td>
+<td>StarFilled</td>
+</tr>
+<tr class="even">
 <td><code>show-text</code></td>
 <td><code>show_text</code></td>
 <td>whether to display texts</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>18</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>show-score</code></td>
 <td><code>show_score</code></td>
 <td>whether to display current score. show-score and show-text cannot be
 true at the same time</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>text-color</code></td>
 <td><code>text_color</code></td>
 <td>color of texts</td>
-<td>string</td>
-<td>—</td>
-<td>#1F2D3D</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>texts</code></td>
 <td><code>texts</code></td>
 <td>text array</td>
-<td>array</td>
-<td>—</td>
-<td>[‘极差’, ‘失望’, ‘一般’, ‘满意’, ‘惊喜’]</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>21</sup></a><code>string[]</code>
+</td>
+<td></td>
+<td>[‘Extremely bad’, ‘Disappointed’, ‘Fair’, ‘Satisfied’,
+‘Surprise’]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>score-template</code></td>
 <td><code>score_template</code></td>
 <td>score template</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a></td>
+<td></td>
 <td>{value}</td>
+</tr>
+<tr class="odd">
+<td><code>clearable</code></td>
+<td><code>clearable</code></td>
+<td>whether value can be reset to <code>0</code>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>23</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td><code>id</code></td>
+<td>
+<code>id</code>, the Shiny input’s</td>
+<td>native <code>id</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>24</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>aria-label</code></td>
+<td><code>aria_label</code></td>
+<td>same as <code>aria-label</code> in Rate</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>label</code></td>
+<td><code>label</code></td>
+<td>same as <code>aria-label</code> in Rate</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
@@ -411,7 +631,36 @@ true at the same time</td>
 </tr></tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="exposes">Exposes<a class="anchor" aria-label="anchor" href="#exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>setCurrentValue</code></td>
+<td><code>el_call(session, id, "setCurrentValue")</code></td>
+<td>set current value</td>
+</tr>
+<tr class="even">
+<td><code>resetCurrentValue</code></td>
+<td><code>el_call(session, id, "resetCurrentValue")</code></td>
+<td>reset current value</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

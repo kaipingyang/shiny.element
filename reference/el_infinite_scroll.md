@@ -1,4 +1,4 @@
-# Element UI Infinite Scroll
+# Element Plus Infinite Scroll
 
 A scrolling area that asks the server for more as the user nears the
 bottom. Element implements this as a directive rather than a component,

@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="slider_files/vue-2.7.14/vue.min.js"></script><link href="slider_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="slider_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="slider_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="slider_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="slider_files/el-events-1.0.0/el-events.js"></script><script src="slider_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="slider_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="slider_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="slider_files/vue-3.5.43/vue.global.prod.js"></script><link href="slider_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="slider_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="slider_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="slider_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="slider_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="slider_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="slider_files/el-events-1.0.0/el-events.js"></script><script src="slider_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="slider_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,121 +187,228 @@
 
     
     
-<p>Drag the slider within a fixed range. <code>input$&lt;id&gt;</code>
-is the value – or two values with <code>range = TRUE</code>.</p>
+<p>Drag the slider within a fixed range.</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>The current value is displayed when the slider is being dragged.</p>
+<p>Customize the initial value of the slider by setting the binding
+value.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"v1"</span>, value <span class="op">=</span> <span class="fl">0</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"v2"</span>, value <span class="op">=</span> <span class="fl">50</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"v3"</span>, value <span class="op">=</span> <span class="fl">36</span>, show_tooltip <span class="op">=</span> <span class="cn">FALSE</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"v4"</span>, value <span class="op">=</span> <span class="fl">48</span>, format_tooltip <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(v) { return v / 100; }"</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"v5"</span>, value <span class="op">=</span> <span class="fl">42</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Default value"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl1"</span>, value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Customized initial value"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl2"</span>, value <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hide Tooltip"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl3"</span>, value <span class="op">=</span> <span class="fl">36</span>, show_tooltip <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Format Tooltip"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl4"</span>, value <span class="op">=</span> <span class="fl">48</span>, format_tooltip <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(v) { return v / 100; }"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Disabled"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl5"</span>, value <span class="op">=</span> <span class="fl">42</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-v1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-v1_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-v1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+  <div style="max-width: 600px">
+    <span>Default value</span>
+    <div id="basic-usage-sl1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-sl1_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-usage-sl1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
-  <div id="basic-v2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-v2_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-v2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+    <span>Customized initial value</span>
+    <div id="basic-usage-sl2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-sl2_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-usage-sl2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
-  <div id="basic-v3" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-v3_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":36,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":false,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-v3', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+    <span>Hide Tooltip</span>
+    <div id="basic-usage-sl3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-sl3_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":36,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":false,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-usage-sl3', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
-  <div id="basic-v4" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-v4_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":48,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":"function(v) { return v / 100; }"},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-v4', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.data.formatTooltip","options.methods.elEmitInput","options.methods.handleChange"]}</script>
+    <span>Format Tooltip</span>
+    <div id="basic-usage-sl4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-sl4_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":48,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":"function(v) { return v / 100; }","ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-usage-sl4', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.data.formatTooltip","options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
-  <div id="basic-v5" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-v5_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":42,"min":0,"max":100,"step":1,"range":false,"disabled":true,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-v5', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+    <span>Disabled</span>
+    <div id="basic-usage-sl5" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-sl5_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":42,"min":0,"max":100,"step":1,"range":false,"disabled":true,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('basic-usage-sl5', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="discrete-values">Discrete values<a class="anchor" aria-label="anchor" href="#discrete-values"></a>
 </h2>
+<p>The options can be discrete.</p>
+<p>Set step size with the <code>step</code> attribute. You can display
+breakpoints by setting the <code>show-stops</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"d1"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"d2"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span>, show_stops <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Breakpoints not displayed"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sld1"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Breakpoints displayed"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sld2"</span>, value <span class="op">=</span> <span class="fl">0</span>, step <span class="op">=</span> <span class="fl">10</span>, show_stops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="discrete-d1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="discrete-d1_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":10,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('discrete-d1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+  <div style="max-width: 600px">
+    <span>Breakpoints not displayed</span>
+    <div id="discrete-values-sld1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="discrete-values-sld1_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":10,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('discrete-values-sld1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
-  <div id="discrete-d2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="discrete-d2_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":10,"range":false,"disabled":false,"showInput":false,"showStops":true,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('discrete-d2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+    <span>Breakpoints displayed</span>
+    <div id="discrete-values-sld2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="discrete-values-sld2_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":10,"range":false,"disabled":false,"showInput":false,"showStops":true,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('discrete-values-sld2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="slider-with-input-box">Slider with input box<a class="anchor" aria-label="anchor" href="#slider-with-input-box"></a>
 </h2>
+<p>Set value via a input box.</p>
+<p>Set the <code>show-input</code> attribute to display an input box on
+the right.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"withinput"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"500px"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_input"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"600px"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="input-withinput" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="input-withinput_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 500px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":true,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('input-withinput', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+  <div id="slider-with-input-box-sl_input" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="slider-with-input-box-sl_input_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent" style="width: 600px"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":true,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('slider-with-input-box-sl_input', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sls_l"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sls_d"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sls_s"</span>, value <span class="op">=</span> <span class="fl">0</span>, show_input <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="max-width: 600px">
+    <div id="sizes-sls_l" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-sls_l_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":true,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":"large","validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('sizes-sls_l', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+    <div id="sizes-sls_d" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-sls_d_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":true,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('sizes-sls_d', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+    <div id="sizes-sls_s" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="sizes-sls_s_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":true,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":"small","validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('sizes-sls_s', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+  </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="placement">Placement<a class="anchor" aria-label="anchor" href="#placement"></a>
+</h2>
+<p>You can custom tooltip placement.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"max-width: 600px; padding-top: 40px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp1"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp2"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp3"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"slp4"</span>, value <span class="op">=</span> <span class="fl">0</span>, placement <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="max-width: 600px; padding-top: 40px">
+    <div id="placement-slp1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placement-slp1_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":"top","rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('placement-slp1', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+    <div id="placement-slp2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placement-slp2_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":"bottom","rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('placement-slp2', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+    <div id="placement-slp3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placement-slp3_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":"right","rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('placement-slp3', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+    <div id="placement-slp4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placement-slp4_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":"left","rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('placement-slp4', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="range-selection">Range selection<a class="anchor" aria-label="anchor" href="#range-selection"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"rng"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span>, show_stops <span class="op">=</span> <span class="cn">TRUE</span>, max <span class="op">=</span> <span class="fl">10</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span></span></code></pre></div>
+<p>Selecting a range of values is supported.</p>
+<p>Setting the <code>range</code> attribute activates range mode, where
+the binding value is an array made up of two boundary values.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_range"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">8</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span>, show_stops <span class="op">=</span> <span class="cn">TRUE</span>, max <span class="op">=</span> <span class="fl">10</span>, width <span class="op">=</span> <span class="st">"600px"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="range-rng" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="range-rng_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 300px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[4,8],"min":0,"max":10,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":true,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('range-rng', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+  <div id="range-selection-sl_range" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="range-selection-sl_range_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent" style="width: 600px"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[4,8],"min":0,"max":10,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":true,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('range-selection-sl_range', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="vertical-mode">Vertical mode<a class="anchor" aria-label="anchor" href="#vertical-mode"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"vert"</span>, value <span class="op">=</span> <span class="fl">0</span>, vertical <span class="op">=</span> <span class="cn">TRUE</span>, height <span class="op">=</span> <span class="st">"200px"</span><span class="op">)</span></span></code></pre></div>
+<p>Setting the <code>vertical</code> attribute to <code>true</code>
+enables vertical mode. In vertical mode, the <code>height</code>
+attribute is required.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_vert"</span>, value <span class="op">=</span> <span class="fl">0</span>, vertical <span class="op">=</span> <span class="cn">TRUE</span>, height <span class="op">=</span> <span class="st">"200px"</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="vertical-vert" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="vertical-vert_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":null,"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('vertical-vert', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+  <div id="vertical-mode-sl_vert" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="vertical-mode-sl_vert_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":true,"height":"200px","marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('vertical-mode-sl_vert', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="show-marks">Show marks<a class="anchor" aria-label="anchor" href="#show-marks"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"mk"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"400px"</span>, marks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="st">"0"</span> <span class="op">=</span> <span class="st">"0°C"</span>, <span class="st">"8"</span> <span class="op">=</span> <span class="st">"8°C"</span>, <span class="st">"37"</span> <span class="op">=</span> <span class="st">"37°C"</span>,</span>
-<span>  <span class="st">"50"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989FA"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"50%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Setting this <code>marks</code> attribute can show mark on
+slider.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_marks"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">60</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span>, width <span class="op">=</span> <span class="st">"600px"</span>,</span>
+<span>          marks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"0"</span> <span class="op">=</span> <span class="st">"0°C"</span>, <span class="st">"8"</span> <span class="op">=</span> <span class="st">"8°C"</span>, <span class="st">"37"</span> <span class="op">=</span> <span class="st">"37°C"</span>,</span>
+<span>                       <span class="st">"50"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989FA"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"50%"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="marks-mk" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="marks-mk_container" style="display: contents">
-  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :debounce="debounce === null ? undefined : debounce" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" style="width: 400px"></el-slider>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[30,60],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":{"0":"0°C","8":"8°C","37":"37°C","50":{"style":{"color":"#1989FA"},"label":"50%"}},"label":null,"debounce":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('marks-mk', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+  <div id="show-marks-sl_marks" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="show-marks-sl_marks_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent" style="width: 600px"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[30,60],"min":0,"max":100,"step":1,"range":true,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":{"0":"0°C","8":"8°C","37":"37°C","50":{"style":{"color":"#1989FA"},"label":"50%"}},"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('show-marks-sl_marks', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="restrict-value">Restrict value<a class="anchor" aria-label="anchor" href="#restrict-value"></a>
+</h2>
+<p>Set <code>step="mark"</code> to restrict the slider value to
+marks.</p>
+<p><code>min</code> and <code>max</code> bound what can be picked.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_restrict"</span>, value <span class="op">=</span> <span class="fl">20</span>, min <span class="op">=</span> <span class="fl">10</span>, max <span class="op">=</span> <span class="fl">80</span>, width <span class="op">=</span> <span class="st">"600px"</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="restrict-value-sl_restrict" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="restrict-value-sl_restrict_container" style="display: contents">
+  <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent" style="width: 600px"></el-slider>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":20,"min":10,"max":80,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('restrict-value-sl_restrict', 'input', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
@@ -290,52 +431,63 @@ is the value – or two values with <code>range = TRUE</code>.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>value</code></td>
-<td><code>value</code></td>
+<td><code>model-value</code></td>
+<td>
+<code>value</code>; <code>input$&lt;id&gt;</code>
+</td>
 <td>binding value</td>
-<td>number</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>1</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>2</sup></a><code>number[]</code>
+</td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="even">
 <td><code>min</code></td>
 <td><code>min</code></td>
 <td>minimum value</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>3</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="odd">
 <td><code>max</code></td>
 <td><code>max</code></td>
 <td>maximum value</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>100</td>
 </tr>
 <tr class="even">
 <td><code>disabled</code></td>
 <td><code>disabled</code></td>
 <td>whether Slider is disabled</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
 <td><code>step</code></td>
 <td><code>step</code></td>
-<td>step size</td>
-<td>number</td>
-<td>—</td>
+<td>step size, can be a number or <code>'mark'</code> ^(2.13.6) to
+restrict values to marks. When set to <code>'mark'</code>, the
+<code>marks</code> attribute must be set</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>6</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>7</sup></a><code>'mark'</code>
+</td>
+<td></td>
 <td>1</td>
 </tr>
 <tr class="even">
 <td><code>show-input</code></td>
 <td><code>show_input</code></td>
 <td>whether to display an input box, works when <code>range</code> is
-false</td>
-<td>boolean</td>
-<td>—</td>
+false and <code>step</code> is not <code>'mark'</code>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
@@ -343,98 +495,174 @@ false</td>
 <td><code>show_input_controls</code></td>
 <td>whether to display control buttons when <code>show-input</code> is
 true</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="even">
-<td><code>input-size</code></td>
-<td><code>input_size</code></td>
-<td>size of the input box</td>
-<td>string</td>
-<td>large / medium / small / mini</td>
-<td>small</td>
+<td><code>size</code></td>
+<td><code>size</code></td>
+<td>size of the slider wrapper, will not work in vertical mode</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>10</sup></a><code>'' \\| 'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
+<td>default</td>
 </tr>
 <tr class="odd">
+<td><code>input-size</code></td>
+<td><code>input_size</code></td>
+<td>size of the input box, when set <code>size</code>, the default is
+the value of <code>size</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>11</sup></a><code>'' \\| 'large' \\| 'default' \\| 'small'</code>
+</td>
+<td></td>
+<td>default</td>
+</tr>
+<tr class="even">
 <td><code>show-stops</code></td>
 <td><code>show_stops</code></td>
 <td>whether to display breakpoints</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>12</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>show-tooltip</code></td>
 <td><code>show_tooltip</code></td>
 <td>whether to display tooltip value</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>13</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>format-tooltip</code></td>
 <td><code>format_tooltip</code></td>
 <td>format to display tooltip value</td>
-<td>function(value)</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>14</sup></a><code>(value: number) =&gt; number \\| string</code>
+</td>
+<td></td>
 <td>—</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>range</code></td>
 <td><code>range</code></td>
 <td>whether to select a range</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>vertical</code></td>
 <td><code>vertical</code></td>
 <td>vertical mode</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
-<td><code>height</code></td>
-<td><code>height</code></td>
-<td>Slider height, required in vertical mode</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
 <tr class="odd">
-<td><code>label</code></td>
-<td><code>label</code></td>
-<td>label for screen reader</td>
-<td>string</td>
-<td>—</td>
+<td><code>height</code></td>
+<td><code>height</code></td>
+<td>slider height, required in vertical mode</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>17</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>debounce</code></td>
-<td><code>debounce</code></td>
-<td>debounce delay when typing, in milliseconds, works when
-<code>show-input</code> is true</td>
-<td>number</td>
+<td><code>aria-label</code></td>
+<td><code>aria_label</code></td>
+<td>native <code>aria-label</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>18</sup></a></td>
+<td></td>
 <td>—</td>
-<td>300</td>
 </tr>
 <tr class="odd">
+<td><code>range-start-label</code></td>
+<td><code>range_start_label</code></td>
+<td>when <code>range</code> is true, screen reader label for the start
+of the range</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>range-end-label</code></td>
+<td><code>range_end_label</code></td>
+<td>when <code>range</code> is true, screen reader label for the end of
+the range</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>format-value-text</code></td>
+<td><code>format_value_text</code></td>
+<td>format to display the <code>aria-valuenow</code> attribute for
+screen readers</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>21</sup></a><code>(value: number) =&gt; string</code>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
 <td><code>tooltip-class</code></td>
 <td><code>tooltip_class</code></td>
 <td>custom class name for the tooltip</td>
-<td>string</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a></td>
+<td></td>
 <td>—</td>
-<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>placement</code></td>
+<td><code>placement</code></td>
+<td>position of Tooltip</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>23</sup></a><code>'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'</code>
+</td>
+<td></td>
+<td>top</td>
 </tr>
 <tr class="even">
 <td><code>marks</code></td>
 <td><code>marks</code></td>
-<td>marks， type of key must be <code>number</code> and must in closed
+<td>marks, type of key must be <code>number</code> and must in closed
 interval <code>[min, max]</code>, each mark can custom style</td>
-<td>object</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>24</sup></a><code>SliderMarks</code>
+</td>
+<td></td>
 <td>—</td>
+</tr>
+<tr class="odd">
+<td><code>validate-event</code></td>
+<td><code>validate_event</code></td>
+<td>whether to trigger form validation</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td><code>persistent</code></td>
+<td><code>persistent</code></td>
+<td>when slider tooltip inactive and <code>persistent</code> is
+<code>false</code> , tooltip will be destroyed. <code>persistent</code>
+always be <code>false</code> when <code>show-tooltip</code> is
+<code>false</code>
+</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td><code>label</code></td>
+<td><code>label</code></td>
+<td>native <code>aria-label</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>27</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 </tbody>
@@ -472,6 +700,7 @@ sliding)</td>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

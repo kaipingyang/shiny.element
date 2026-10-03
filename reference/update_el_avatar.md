@@ -1,4 +1,4 @@
-# Update Element UI Avatar
+# Update Element Plus Avatar
 
 Server-side update for
 [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md).

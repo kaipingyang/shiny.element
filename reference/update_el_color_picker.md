@@ -1,4 +1,4 @@
-# Update Element UI Color Picker
+# Update Element Plus Color Picker
 
 Server-side update for
 [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md).

@@ -1,4 +1,4 @@
-# Element UI Rate (Star Rating)
+# Element Plus Rate (Star Rating)
 
 A star-rating input. Supports half-stars, custom icons, and read-only
 display.
@@ -20,9 +20,6 @@ el_rate(
   colors = NULL,
   void_color = NULL,
   disabled_void_color = NULL,
-  icon_classes = NULL,
-  void_icon_class = NULL,
-  disabled_void_icon_class = NULL,
   low_threshold = NULL,
   high_threshold = NULL,
   label = NULL,
@@ -33,6 +30,12 @@ el_rate(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  aria_label = NULL,
+  clearable = NULL,
+  disabled_void_icon = NULL,
+  icons = NULL,
+  size = NULL,
+  void_icon = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -97,19 +100,6 @@ el_rate(
 
   Colour of unselected icons when `disabled = TRUE`.
 
-- icon_classes:
-
-  Icon classes for the three score levels, or a named list keyed by
-  threshold.
-
-- void_icon_class:
-
-  Icon class for unselected icons.
-
-- disabled_void_icon_class:
-
-  Icon class for unselected icons when `disabled = TRUE`.
-
 - low_threshold:
 
   Scores at or below this use the first colour and icon. Default `2`.
@@ -159,6 +149,39 @@ el_rate(
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
 
+- aria_label:
+
+  Same as `aria-label` in Rate. Element Plus's `aria-label` (string).
+
+- clearable:
+
+  Whether value can be reset to `0`. Element Plus's `clearable`
+  (boolean).
+
+- disabled_void_icon:
+
+  Component of unselected read-only icons. Element Plus's
+  `disabled-void-icon` (string / Component). An icon's name, such as
+  `"Search"`.
+
+- icons:
+
+  Icon components. If array, it should have 3 elements, each of which
+  corresponds with a score level, else if object, the key should be
+  threshold value between two levels, and the value should be
+  corresponding icon component. Element Plus's `icons`
+  (`string[] | Component[] / Record<number, string | Component>`). An
+  icon's name, such as `"Search"`.
+
+- size:
+
+  Size of Rate. Element Plus's `size` ('large' \| 'default' \| 'small').
+
+- void_icon:
+
+  Component of unselected icons. Element Plus's `void-icon` (string /
+  Component). An icon's name, such as `"Search"`.
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -193,15 +216,15 @@ An `htmltools` tagList with a Vue-managed rate component.
 el_rate("rate1", value = 3)
 #> <div id="rate1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="rate1_container" style="display: contents">
-#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
+#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 el_rate("rate2", allow_half = TRUE, show_score = TRUE)
 #> <div id="rate2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="rate2_container" style="display: contents">
-#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :icon-classes="iconClasses === null ? undefined : iconClasses" :void-icon-class="voidIconClass === null ? undefined : voidIconClass" :disabled-void-icon-class="disabledVoidIconClass === null ? undefined : disabledVoidIconClass" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold"></el-rate>
+#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":true,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"iconClasses":null,"voidIconClass":null,"disabledVoidIconClass":null,"lowThreshold":null,"highThreshold":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":true,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 ```

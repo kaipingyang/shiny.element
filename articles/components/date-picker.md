@@ -1,130 +1,411 @@
 # DatePicker
 
-Use Date Picker for date input. `input$<id>` is a `Date` – two for a
-range – as [`dateInput()`](https://rdrr.io/pkg/shiny/man/dateInput.html)
-gives one; another `type` or `value_format` reports the text the picker
-produces.
+Use Date Picker for date input.
 
-## Enter date
+## Enter Date
 
-`type` sets the measurement; `picker_options` carries Element’s
-`shortcuts` and `disabledDate`, written with
-[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md).
+Basic date picker measured by ‘day’.
+
+The measurement is determined by the `type` attribute. You can enable
+quick options via `shortcuts` property. The disabled date is set by
+`disabledDate`, which is a function.
 
 ``` r
 
-el_date_picker("d1", placeholder = "Pick a day")
-el_date_picker("d2", placeholder = "Pick a day", picker_options = list(
-  disabledDate = JS("function(time) { return time.getTime() > Date.now(); }"),
-  shortcuts = list(
-    list(text = "Today", onClick = JS("function(picker) { picker.$emit('pick', new Date()); }")),
-    list(text = "Yesterday", onClick = JS(
-      "function(picker) { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); picker.$emit('pick', d); }")))))
+el_row(
+  el_col(span = 12, tags$div("Default"),
+    el_date_picker("dp_default", placeholder = "Pick a day")),
+  el_col(span = 12, tags$div("Picker with quick options"),
+    el_date_picker("dp_quick", placeholder = "Pick a day", shortcuts = list(
+      list(text = "Today", value = JS("new Date()")),
+      list(text = "Yesterday", value = JS("(function() { var d = new Date(); d.setDate(d.getDate() - 1); return d; })()")),
+      list(text = "A week ago", value = JS("(function() { var d = new Date(); d.setDate(d.getDate() - 7); return d; })()"))),
+      disabled_date = JS("function(time) { return time.getTime() > Date.now(); }"))))
 ```
+
+Default
+
+Picker with quick options
 
 ## Other measurements
 
+You can choose week, month, year, quarter or multiple dates by extending
+the standard date picker component.
+
 ``` r
 
-el_date_picker("week", type = "week", format = "Week WW", value_format = "yyyy-WW", placeholder = "Pick a week")
-el_date_picker("month", type = "month", value_format = "yyyy-MM", placeholder = "Pick a month")
-el_date_picker("year", type = "year", value_format = "yyyy", placeholder = "Pick a year")
-el_date_picker("dates", type = "dates", placeholder = "Pick one or more dates")
+pick <- function(id, type, placeholder, format = NULL) tags$div(style = "margin-bottom: 12px",
+  tags$div(type), el_date_picker(id, type = type, placeholder = placeholder, format = format))
+tagList(
+  pick("dp_week", "week", "Pick a week", format = "[Week] ww"),
+  pick("dp_month", "month", "Pick a month"),
+  pick("dp_year", "year", "Pick a year"),
+  pick("dp_years", "years", "Pick years"),
+  pick("dp_months", "months", "Pick months"),
+  pick("dp_dates", "dates", "Pick one or more dates"))
 ```
 
-## Date range
+week
 
-`unlink_panels` lets the two months move on their own.
+month
+
+year
+
+years
+
+months
+
+dates
+
+## Date Range
+
+Picking a date range is supported.
+
+When in range mode, the left and right panels are linked by default. If
+you want the two panels to switch current months independently, you can
+use the `unlink-panels` attribute.
 
 ``` r
 
-el_date_picker("trip", type = "daterange", range_separator = "To", unlink_panels = TRUE,
-               start_placeholder = "Start date", end_placeholder = "End date")
+tagList(
+  el_date_picker("dp_range", type = "daterange", range_separator = "To",
+                 start_placeholder = "Start date", end_placeholder = "End date"),
+  el_date_picker("dp_range_quick", type = "daterange", unlink_panels = TRUE,
+                 range_separator = "To", start_placeholder = "Start date",
+                 end_placeholder = "End date", shortcuts = list(
+    list(text = "Last week", value = JS("(function() { var e = new Date(), s = new Date(); s.setTime(s.getTime() - 3600 * 1000 * 24 * 7); return [s, e]; })()")),
+    list(text = "Last month", value = JS("(function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 1); return [s, e]; })()")))))
 ```
 
-## Month range
+## Month Range
+
+Picking a month range is supported.
+
+When in range mode, the left and right panels are linked by default. If
+you want the two panels to switch current years independently, you can
+use the `unlink-panels` attribute.
 
 ``` r
 
-el_date_picker("quarter", type = "monthrange", value_format = "yyyy-MM", range_separator = "To",
+el_date_picker("dp_mrange", type = "monthrange", range_separator = "To",
                start_placeholder = "Start month", end_placeholder = "End month")
 ```
 
-## Default value
+## Year Range
 
-`default_value` is the month the panel opens on when nothing is picked.
+Picking a year range is supported.
 
-``` r
-
-el_date_picker("dv", placeholder = "Pick a date", default_value = "2010-10-01")
-```
-
-## Date formats
-
-`format` is what the box shows; `value_format` what `input$<id>` gets.
+When in range mode, the left and right panels are linked by default. If
+you want the two panels to switch years independently, you can use the
+`unlink-panels` attribute.
 
 ``` r
 
-el_date_picker("f1", value = "2026-03-15", format = "yyyy/MM/dd")
-el_date_picker("f2", value = "2026-03-15", format = "dd MMM yyyy", value_format = "timestamp")
+el_date_picker("dp_yrange", type = "yearrange", range_separator = "To",
+               start_placeholder = "Start Year", end_placeholder = "End Year")
 ```
 
-## Default time for start and end date
+## Quarter Range
+
+Picking a quarter range is supported.
+
+When in range mode, the left and right panels are linked by default. If
+you want the two panels to switch years independently, you can use the
+`unlink-panels` attribute.
 
 ``` r
 
-el_date_picker("dt", type = "daterange", value_format = "yyyy-MM-dd HH:mm:ss",
-               start_placeholder = "Start", end_placeholder = "End",
-               default_time = c("00:00:00", "23:59:59"))
+el_date_picker("dp_qrange", type = "quarterrange", range_separator = "To",
+               start_placeholder = "Start quarter", end_placeholder = "End quarter")
 ```
+
+## Single Panel
+
+By default date picker ranges have two panels. If you want one panel set
+the `single-panel` attribute.
+
+``` r
+
+el_date_picker("dp_single", type = "daterange", single_panel = TRUE,
+               start_placeholder = "Start date", end_placeholder = "End date")
+```
+
+## Default Value
+
+If user hasn’t picked a date, shows today’s calendar by default. You can
+use `default-value` to set another date. Its value should be parsable by
+`new Date()`.
+
+If type is `daterange`, `default-value` sets the left side calendar.
+
+``` r
+
+tagList(
+  el_date_picker("dp_dv1", type = "date", placeholder = "Pick a date", default_value = "2010-10-01"),
+  el_date_picker("dp_dv2", type = "daterange", start_placeholder = "Start Date",
+                 end_placeholder = "End Date", default_value = c("2010-09-01", "2010-10-01")))
+```
+
+## Date Formats
+
+Use `format` to control displayed text’s format in the input box. Use
+`value-format` to control binding value’s format.
+
+By default, the component accepts and emits a `Date` object.
+
+Check the list
+[here](https://day.js.org/docs/en/display/format#list-of-all-available-formats)
+of all available formats of Day.js.
+
+> **Warning**
+>
+> Pay attention to capitalization
+
+`value_format` is the value reported to Shiny; `format` what the input
+shows. Both in day.js’s tokens.
+
+``` r
+
+tagList(
+  tags$div("Emits Date object"),
+  el_date_picker("dp_fmt1", value = "2021-10-29", format = "YYYY/MM/DD"),
+  tags$div("Use value-format"),
+  el_date_picker("dp_fmt2", value = "2021-10-29", format = "YYYY/MM/DD", value_format = "x"))
+```
+
+Emits Date object
+
+Use value-format
+
+## Default time for start date and end date
+
+When picking a date range, you can assign the time part for start date
+and end date.
+
+By default, the time part of start date and end date are both
+`00:00:00`. Setting `default-time` can change their time respectively.
+It accepts an array of up to two Date objects. The first string sets the
+time for the start date, and the second for the end date.
+
+``` r
+
+el_date_picker("dp_dt", type = "daterange", start_placeholder = "Start date",
+               end_placeholder = "End date",
+               default_time = list(JS("new Date(2000, 1, 1, 12, 0, 0)"), JS("new Date(2000, 2, 1, 8, 0, 0)")))
+```
+
+## Set custom content of prefix
+
+The content of prefix can be customized.
+
+Setting `prefix-icon` to component which you import form other .vue or
+generated by the render function.
+
+``` r
+
+el_date_picker("dp_prefix", placeholder = "Pick a day", prefix_icon = "Calendar")
+```
+
+## Custom content
+
+The content of cell can be customized, in scoped-slot you can get the
+cell data. Note that the custom content structure should be consistent
+with the default structure, otherwise style misalignment may occur.
+
+``` r
+
+el_date_picker("dp_cell", placeholder = "Pick a day", slots = list(default = template(htmltools::HTML(
+  "<div class=\"cell\" :class=\"{ current: cell.isCurrent }\"><span class=\"cell__text\">{{ cell.text }}</span></div>"),
+  scope = "cell")))
+```
+
+## Custom icon
+
+Custom icons available with slots.
+
+``` r
+
+el_date_picker("dp_icons", placeholder = "Pick a day", slots = list(
+  `prev-month` = el_icon("CaretLeft"), `next-month` = el_icon("CaretRight"),
+  `prev-year` = el_icon("DArrowLeft"), `next-year` = el_icon("DArrowRight")))
+```
+
+For data details, please refer:
+
+## Localization
+
+The default locale of is English, if you need to use other languages,
+please check
+[Internationalization](https://element-plus.org/en-US/guide/i18n)
+
+Note, date time locale (month name, first day of the week …) are also
+configured in localization.
 
 ## API
+
+Element Plus’s tables, and beside each entry where it is in R.
 
 ### Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `value` | `value` | binding value | date(DatePicker) / array(DateRangePicker) | — | — |
-| `readonly` | `readonly` | whether DatePicker is read only | boolean | — | false |
-| `disabled` | `disabled` | whether DatePicker is disabled | boolean | — | false |
-| `size` | `size` | size of Input | string | large/small/mini | — |
-| `editable` | `editable` | whether the input is editable | boolean | — | true |
-| `clearable` | `clearable` | whether to show clear button | boolean | — | true |
-| `placeholder` | `placeholder` | placeholder in non-range mode | string | — | — |
-| `start-placeholder` | `start_placeholder` | placeholder for the start date in range mode | string | — | — |
-| `end-placeholder` | `end_placeholder` | placeholder for the end date in range mode | string | — | — |
-| `type` | `type` | type of the picker | string | year/month/date/dates/months/years/datetime/ week/datetimerange/daterange/ monthrange | date |
-| `format` | `format` | format of the displayed value in the input box | string | see [date formats](#id_/en-US/component/date-picker#date-formats) | yyyy-MM-dd |
-| `align` | `align` | alignment | left/center/right |  |  |
-| `popper-class` | `popper_class` | custom class name for DatePicker’s dropdown | string | — | — |
-| `picker-options` | `picker_options` | additional options, check the table below | object | — | {} |
-| `range-separator` | `range_separator` | range separator | string | — | ‘-’ |
-| `default-value` | `default_value` | optional, default date of the calendar | Date | anything accepted by `new Date()` | — |
-| `default-time` | `default_time` | optional, the time value to use when selecting date range | string\[\] | Array with length 2, each item is a string like `12:00:00`. The first item for the start date and then second item for the end date | — |
-| `value-format` | `value_format` | optional, format of binding value. If not specified, the binding value will be a Date object | string | see [date formats](#id_/en-US/component/date-picker#date-formats) | — |
-| `name` | `name` | same as `name` in native input | string | — | — |
-| `unlink-panels` | `unlink_panels` | unlink two date-panels in range-picker | boolean | — | false |
-| `prefix-icon` | `prefix_icon` | Custom prefix icon class | string | — | el-icon-date |
-| `clear-icon` | `clear_icon` | Custom clear icon class | string | — | el-icon-circle-close |
-| `validate-event` | `validate_event` | whether to trigger form validation | boolean | \- | true |
-| `append-to-body` | `append_to_body` | whether to append DatePicker itself to body | boolean | — | true |
+| `model-value` | `value`; `input$<id>` | binding value, if it is an `range` picker, the length of the array should be 2 | [^1] / [^2] / [^3] / [^4]`number[] \\| string[] \\| Date[]` |  | ’’ |
+| `readonly` | `readonly` | whether DatePicker is read only | [^5] |  | false |
+| `disabled` | `disabled` | whether DatePicker is disabled | [^6] |  | false |
+| `size` | `size` | size of Input | [^7]`'' \\| 'large' \\| 'default' \\| 'small'` |  | — |
+| `editable` | `editable` | whether the input is editable | [^8] |  | true |
+| `clearable` | `clearable` | whether to show clear button | [^9] |  | true |
+| `placeholder` | `placeholder` | placeholder in non-range mode | [^10] |  | ’’ |
+| `start-placeholder` | `start_placeholder` | placeholder for the start date in range mode | [^11] |  | — |
+| `end-placeholder` | `end_placeholder` | placeholder for the end date in range mode | [^12] |  | — |
+| `type` | `type` | type of the picker. `quarter`, `quarters`, and `quarterrange` are supported since ^(2.14.5) | [^13]`'year' \\| 'years' \\|'month' \\| 'months' \\| 'date' \\| 'dates' \\| 'datetime' \\| 'week' \\| 'quarter' \\| 'quarters' \\| 'datetimerange' \\| 'daterange' \\| 'monthrange' \\| 'yearrange' \\| 'quarterrange'` |  | date |
+| `format` | `format` | format of the displayed value in the input box | [^14] see [date formats](#date-formats) |  | YYYY-MM-DD |
+| `popper-class` | `popper_class` | custom class name for DatePicker’s dropdown | [^15] |  | — |
+| `popper-style` | `popper_style` | custom style for DatePicker’s dropdown | [^16] / [^17] |  | — |
+| `popper-options` | `popper_options` | Customized popper option see more at [popper.js](https://popper.js.org/docs/v2/) | [^18]`Partial<PopperOptions>` |  | {} |
+| `range-separator` | `range_separator` | range separator | [^19] |  | ‘-’ |
+| `default-value` | `default_value` | optional, default date of the calendar | [^20]`Date \\| [Date, Date]` |  | — |
+| `default-time` | `default_time` | optional, the time value to use when selecting date range | [^21]`Date \\| [Date, Date]` |  | — |
+| `value-format` | `value_format` | optional, format of binding value. If not specified, the binding value will be a Date object | [^22] see [date formats](#date-formats) |  | — |
+| `id` | `id`, the Shiny input’s | same as `id` in native input | [^23] / [^24]`[string, string]` |  | — |
+| `unlink-panels` | `unlink_panels` | unlink two date-panels in range-picker | [^25] |  | false |
+| `single-panel` | `single_panel` | show only one panel in range-picker | [^26] |  | false |
+| `prefix-icon` | `prefix_icon` | custom prefix icon component. By default, if the value of `type` is `TimeLikeType`, the value is `Clock`, else is `Calendar` | [^27] / [^28]`Component` |  | ’’ |
+| `clear-icon` | `clear_icon` | custom clear icon component | [^29] / [^30]`Component` |  | `CircleClose` |
+| `validate-event` | `validate_event` | whether to trigger form validation | [^31] |  | true |
+| `disabled-date` | `disabled_date` | a function determining if a date is disabled with that date as its parameter. Should return a Boolean | [^32]`(data: Date) => boolean` |  | — |
+| `shortcuts` | `shortcuts` | an object array to set shortcut options | [^33]`Array<{ text: string, value: Date \\| Function }>` |  | \[\] |
+| `cell-class-name` | `cell_class_name` | set custom className | [^34]`(data: Date) => string` |  | — |
+| `teleported` | `teleported` | whether date-picker dropdown is teleported to the body | [^35] |  | true |
+| `empty-values` | `empty_values` | empty values of component, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^36] |  | — |
+| `value-on-clear` | `value_on_clear` | clear return value, [see config-provider](https://kaipingyang.github.io/shiny.element/articles/components/config-provider.html#empty-values-configurations) | [^37] / [^38] / [^39] / [^40] |  | — |
+| `fallback-placements` | `fallback_placements` | list of possible positions for Tooltip [popper.js](https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) | [^41]`Placement[]` |  | \[‘bottom’, ‘top’, ‘right’, ‘left’\] |
+| `placement` | `placement` | position of dropdown | `Placement` |  | bottom |
+| `show-footer` | `show_footer` | whether to show footer where the date picker is one [^42]`'dates' \\| 'months' \\| 'years' \\| 'quarters'` | [^43] |  | true |
+| `show-confirm` | `show_confirm` | whether to show the confirm button | [^44] |  | true |
+| `show-week-number` | `show_week_number` | show the week number besides the week | [^45] |  | false |
+| `automatic-dropdown` | `automatic_dropdown` | this prop decides if the date picker panel pops up when the input is focused. (The default value will be set to false in version 3.0) | [^46] |  | true |
 
 ### Events
 
-| Element  | In R                    | Description                           |
-|----------|-------------------------|---------------------------------------|
-| `change` | `input$<id>`, the value | triggers when user confirms the value |
-| `blur`   | `input$<id>_blur`       | triggers when Input blurs             |
-| `focus`  | `input$<id>_focus`      | triggers when Input focuses           |
-
-### Methods
-
-| Element | In R                            | Description               |
-|---------|---------------------------------|---------------------------|
-| `focus` | `el_call(session, id, "focus")` | focus the Input component |
+| Element | In R | Description |
+|----|----|----|
+| `change` | `input$<id>`, the value | triggers when user confirms the value or click outside |
+| `blur` | `input$<id>_blur` | triggers when Input blurs |
+| `focus` | `input$<id>_focus` | triggers when Input focuses |
+| `clear` | `input$<id>_clear` | triggers when a clear button is clicked |
+| `calendar-change` | `input$<id>_calendar_change` | triggers when the calendar selected date is changed. Only for `range` |
+| `panel-change` | `input$<id>_panel_change` | triggers when the navigation button click. |
+| `visible-change` | `input$<id>_visible_change` | triggers when the DatePicker’s dropdown appears/disappears |
 
 ### Slots
 
 | Element | In R | Description |
 |----|----|----|
+| `default` | default content | custom cell content |
 | `range-separator` | `slots = list(range-separator = )` | custom range separator content |
+| `prev-month` | `slots = list(prev-month = )` | prev month icon |
+| `next-month` | `slots = list(next-month = )` | next month icon |
+| `prev-year` | `slots = list(prev-year = )` | prev year icon |
+| `next-year` | `slots = list(next-year = )` | next year icon |
+
+### Exposes
+
+| Element | In R | Description |
+|----|----|----|
+| `focus` | `el_call(session, id, "focus")` | focus the DatePicker component |
+| `blur` | `el_call(session, id, "blur")` | blur the DatePicker component |
+| `handleOpen` | `el_call(session, id, "handleOpen")` | open the DatePicker popper |
+| `handleClose` | `el_call(session, id, "handleClose")` | close the DatePicker popper |
+
+[^1]: number
+
+[^2]: string
+
+[^3]: Date
+
+[^4]: array
+
+[^5]: boolean
+
+[^6]: boolean
+
+[^7]: enum
+
+[^8]: boolean
+
+[^9]: boolean
+
+[^10]: string
+
+[^11]: string
+
+[^12]: string
+
+[^13]: enum
+
+[^14]: string
+
+[^15]: string
+
+[^16]: string
+
+[^17]: object
+
+[^18]: object
+
+[^19]: string
+
+[^20]: object
+
+[^21]: object
+
+[^22]: string
+
+[^23]: string
+
+[^24]: array
+
+[^25]: boolean
+
+[^26]: boolean
+
+[^27]: string
+
+[^28]: object
+
+[^29]: string
+
+[^30]: object
+
+[^31]: boolean
+
+[^32]: Function
+
+[^33]: array
+
+[^34]: Function
+
+[^35]: boolean
+
+[^36]: array
+
+[^37]: string
+
+[^38]: number
+
+[^39]: boolean
+
+[^40]: Function
+
+[^41]: array
+
+[^42]: enum
+
+[^43]: boolean
+
+[^44]: boolean
+
+[^45]: boolean
+
+[^46]: boolean

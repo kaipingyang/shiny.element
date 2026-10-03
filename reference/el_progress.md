@@ -1,6 +1,6 @@
-# Element UI Progress Component
+# Element Plus Progress Component
 
-Creates an Element UI progress bar. This is a display-only component;
+Creates an Element Plus progress bar. This is a display-only component;
 update it from the server with
 [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/update_el_progress.md).
 
@@ -19,9 +19,11 @@ el_progress(
   width = 126,
   stroke_linecap = NULL,
   slots = NULL,
-  define_back_color = NULL,
-  text_color = NULL,
   format = NULL,
+  duration = NULL,
+  indeterminate = NULL,
+  striped = NULL,
+  striped_flow = NULL,
   session = NULL
 )
 ```
@@ -80,18 +82,28 @@ el_progress(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
-- define_back_color:
-
-  Background colour of the track.
-
-- text_color:
-
-  Colour of the percentage text.
-
 - format:
 
   [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   function `function(percentage)` returning the text shown.
+
+- duration:
+
+  Control the animation duration of indeterminate progress or striped
+  flow progress. Element Plus's `duration` (number).
+
+- indeterminate:
+
+  Set indeterminate progress. Element Plus's `indeterminate` (boolean).
+
+- striped:
+
+  Stripe over the progress bar's color. Element Plus's `striped`
+  (boolean).
+
+- striped_flow:
+
+  Get the stripes to flow. Element Plus's `striped-flow` (boolean).
 
 - session:
 
@@ -109,27 +121,27 @@ An `htmltools` tagList with a Vue-managed progress component.
 el_progress("prog1", percentage = 60)
 #> <div id="prog1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="prog1_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 # Circle progress with success status
 el_progress("prog2", percentage = 100, type = "circle", status = "success")
 #> <div id="prog2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="prog2_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":100,"type":"circle","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 # Dashboard style with custom colour
 el_progress("prog3", percentage = 75, type = "dashboard", color = "#67C23A")
 #> <div id="prog3" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="prog3_container" style="display: contents">
-#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :define-back-color="defineBackColor === null ? undefined : defineBackColor" :text-color="textColor === null ? undefined : textColor" :format="format === null ? undefined : format"></el-progress>
+#>   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A","strokeLinecap":null,"defineBackColor":null,"textColor":null,"format":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":75,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#67C23A","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
 #> </div>
 
 # Shiny app example

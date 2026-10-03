@@ -136,7 +136,7 @@ orders_ui <- function(id) {
     el_select(ns("status"), choices = c("paid", "pending"), selected = "paid"),
     el_table(ns("rows"), data = data.frame(order = c(101, 102)), columns = list(
       list(prop = "order", label = "Order"),
-      list(label = "", cell = el$button(size = "mini",
+      list(label = "", cell = el$button(size = "small",
         "@click" = "rowAction('open', scope)", "Open")))),
     uiOutput(ns("more")),
     verbatimTextOutput(ns("seen"))
@@ -378,7 +378,7 @@ initials <- function(id, name, size = 48) {
     markup = el$avatar(":size" = "size", "{{ letters }}"),
     data   = list(size = size, letters = paste(substr(strsplit(name, " ")[[1]], 1, 1),
                                                collapse = "")),
-    dependency = element_ui_dependency()
+    dependency = element_plus_dependency()
   )
 }
 
@@ -403,7 +403,7 @@ number inputs, reported as one value:
   field names;
 - take `id` as given, so the caller wraps it in `ns()` inside a module;
 - pass
-  [`element_ui_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_ui_dependency.md)
+  [`element_plus_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_plus_dependency.md)
   unless the page is an
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
 
@@ -420,7 +420,7 @@ price_range_input <- function(id, value = c(0, 100), min = 0, max = 1000) {
                       "controls-position" = "right", size = "small")),
     data   = list(range = as.list(value), min = min, max = max),
     report = c(range = id),
-    dependency = element_ui_dependency()
+    dependency = element_plus_dependency()
   )
 }
 

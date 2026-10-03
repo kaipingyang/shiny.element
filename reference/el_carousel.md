@@ -1,4 +1,4 @@
-# Element UI Carousel
+# Element Plus Carousel
 
 A slideshow of items, horizontal or vertical.
 
@@ -18,6 +18,9 @@ el_carousel(
   type = NULL,
   loop = TRUE,
   direction = "horizontal",
+  card_scale = NULL,
+  motion_blur = NULL,
+  pause_on_hover = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -79,6 +82,20 @@ el_carousel(
 
   `"horizontal"` (default) or `"vertical"`.
 
+- card_scale:
+
+  When type is card, scaled size of secondary cards. Element Plus's
+  `card-scale` (number).
+
+- motion_blur:
+
+  Infuse dynamism and smoothness into the carousel. Element Plus's
+  `motion-blur` (boolean).
+
+- pause_on_hover:
+
+  Pause autoplay when hover. Element Plus's `pause-on-hover` (boolean).
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -133,7 +150,7 @@ el_carousel(
 )
 #> <div id="banner" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="banner_container" style="display: contents">
-#>   <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
+#>   <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
 #>     <el-carousel-item name="one">
 #>       <h3>First slide</h3>
 #>     </el-carousel-item>
@@ -145,7 +162,7 @@ el_carousel(
 #>     </el-carousel-item>
 #>   </el-carousel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('banner_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["one","two","three"],"active":0,"activeName":"one","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('banner_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"banner_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 #> </div>
 
 # Card layout, switching on click rather than hover
@@ -155,13 +172,13 @@ el_carousel(
 )
 #> <div id="cards" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cards_container" style="display: contents">
-#>   <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
+#>   <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
 #>     <el-carousel-item>Card 1</el-carousel-item>
 #>     <el-carousel-item>Card 2</el-carousel-item>
 #>     <el-carousel-item>Card 3</el-carousel-item>
 #>     <el-carousel-item>Card 4</el-carousel-item>
 #>   </el-carousel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":""},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cards_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cards_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 #> </div>
 ```

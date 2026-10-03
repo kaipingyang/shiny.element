@@ -1,6 +1,6 @@
-# Build one of the Element UI container parts
+# Build one of the Element Plus container parts
 
-Build one of the Element UI container parts
+Build one of the Element Plus container parts
 
 ## Usage
 
@@ -19,7 +19,7 @@ Build one of the Element UI container parts
 
 - class:
 
-  The Element UI class name, e.g. `"el-header"`.
+  The Element Plus class name, e.g. `"el-header"`.
 
 - children:
 

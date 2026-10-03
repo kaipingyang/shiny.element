@@ -1,4 +1,4 @@
-# Update Element UI Date Picker
+# Update Element Plus Date Picker
 
 Server-side update for
 [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md).

@@ -1,4 +1,4 @@
-# Update Element UI Rate
+# Update Element Plus Rate
 
 Server-side update for
 [`el_rate()`](https://kaipingyang.github.io/shiny.element/reference/el_rate.md).

@@ -1,15 +1,20 @@
 # Form
 
-Form consists of inputs, radios, selects, checkboxes and so on; with it
-you can collect, verify and submit data.
-[`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
-holds its fields, declared with
-[`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md),
-in one model, and reports it as `input$<id>`, with `input$<id>_valid`
-and `input$<id>_submit` when submitted. Its standalone counterparts –
-any input with a `label` – are in the forms article.
+Form consists of `input`, `radio`, `select`, `checkbox` and so on. With
+form, you can collect, verify and submit data.
 
-## Basic form
+> **Tip**
+>
+> The component has been upgraded with a flex layout to replace the old
+> float layout.
+
+## Basic Form
+
+It includes all kinds of input items, such as `input`, `select`, `radio`
+and `checkbox`.
+
+In each `form` component, you need a `form-item` field to be the
+container of your input item.
 
 ``` r
 
@@ -27,7 +32,24 @@ el_form(id = "activity", label_width = "120px", submit_label = "Create", reset_l
   el_form_field("desc", "textarea", label = "Activity form"))
 ```
 
-## Inline form
+> **Tip**
+>
+> [W3C](https://www.w3.org/MarkUp/html-spec/html-spec_8.html#SEC8.2)
+> regulates that
+>
+> > *When there is only one single-line text input field in a form, the
+> > user agent should accept Enter in that field as a request to submit
+> > the form.*
+>
+> To prevent this behavior, you can add `@submit.prevent` on
+> `<el-form>`.
+
+## Inline Form
+
+When the vertical space is limited and the form is relatively simple,
+you can put it in one line.
+
+Set the `inline` attribute to `true` and the form will be inline.
 
 ``` r
 
@@ -39,22 +61,36 @@ el_form(id = "search", inline = TRUE, submit_label = "Query",
 
 ## Alignment
 
+Depending on your design, there are several different ways to align your
+label element.
+
+You can set `label-position` of `el-form-item` separately 2.7.7. If the
+value is empty, the `label-position` of `el-form` is used.
+
+The `label-position` attribute decides how labels align, it can be `top`
+or `left`. When set to `top`, labels will be placed at the top of the
+form field.
+
 `label_position` puts the labels `"right"` (the default), `"left"` or on
-`"top"`.
+`"top"`; a field’s own `label_position` overrides it.
 
 ``` r
 
 el_form(id = "aligned", label_position = "top", submit_label = NULL, width = "360px",
   el_form_field("name", "input", label = "Name"),
-  el_form_field("region", "input", label = "Activity zone"),
+  el_form_field("region", "input", label = "Activity zone", label_position = "right"),
   el_form_field("type", "input", label = "Activity form"))
 ```
 
 ## Validation
 
-Each field’s `rules`, from
-[`el_rule()`](https://kaipingyang.github.io/shiny.element/reference/el_rule.md),
-run on blur or change and on submit.
+Form component allows you to verify your data, helping you find and
+correct errors.
+
+Just add the `rules` attribute for `Form` component, pass validation
+rules, and set `prop` attribute for `FormItem` as a specific key that
+needs to be validated. See more information at
+[async-validator](https://github.com/yiminghe/async-validator).
 
 ``` r
 
@@ -82,10 +118,12 @@ shinyApp(ui, server)
 
 ![The validation example, running](../../shots/form-validation.png)
 
-## Custom validation rules
+## Custom Validation Rules
 
-`el_rule(validator = JS(...))` is Element’s custom rule; `status_icon`
-marks each field’s verdict.
+This example shows how to customize your own validation rules to finish
+a two-factor password verification.
+
+Here we use `status-icon` to reflect validation result as an icon.
 
 ``` r
 
@@ -109,12 +147,20 @@ ui <- el_page(el_form(id = "account", status_icon = TRUE, label_width = "120px",
 shinyApp(ui, function(input, output, session) {})
 ```
 
-![The custom example, running](../../shots/form-custom.png)
+![The custom-validation example,
+running](../../shots/form-custom-validation.png)
 
-## Delete or add form items dynamically
+> **Tip**
+>
+> Custom validate callback function must be called. See more advanced
+> usage at
+> [async-validator](https://github.com/yiminghe/async-validator).
 
-`update_el_form(fields =)` replaces the field list; what was entered
-stays.
+## Add/Delete Form Item
+
+In addition to passing all validation rules at once on the form
+component, you can also pass the validation rules or delete rules on a
+single form field dynamically.
 
 ``` r
 
@@ -139,9 +185,13 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-![The dynamic example, running](../../shots/form-dynamic.png)
+![The form-items example, running](../../shots/form-form-items.png)
 
-## Number validate
+## Number Validate
+
+Number Validate need a `.number` modifier added on the input `v-model`
+binding，it’s used to transform the string value to the number which is
+provided by Vue.
 
 ``` r
 
@@ -154,50 +204,77 @@ ui <- el_page(el_form(id = "aged", submit_label = "Submit", label_width = "100px
 shinyApp(ui, function(input, output, session) {})
 ```
 
-![The number example, running](../../shots/form-number.png)
+![The number-validate example,
+running](../../shots/form-number-validate.png)
 
-## Size control
+> **Tip**
+>
+> When an `el-form-item` is nested in another `el-form-item`, its label
+> width will be `0`. You can set `label-width` on that `el-form-item` if
+> needed.
 
-`size` sizes every control in the form; a field’s own `size` overrides
-it.
+## Size Control
+
+All components in a Form inherit their `size` attribute from that Form.
+Similarly, FormItem also has a `size` attribute.
+
+Still you can fine tune each component’s `size` if you don’t want that
+component to inherit its size from From or FormItem.
 
 ``` r
 
-el_form(id = "small", size = "mini", label_width = "120px", submit_label = "Create", width = "480px",
+el_form(id = "small", size = "small", label_width = "120px", submit_label = "Create", width = "480px",
   el_form_field("name", "input", label = "Activity name"),
   el_form_field("region", "select", label = "Activity zone",
                 choices = c("Zone one" = "shanghai", "Zone two" = "beijing")),
   el_form_field("resource", "radio-group", label = "Resources", choices = c("Sponsor", "Venue")))
 ```
 
+## Accessibility
+
+When only a single input (or related control such as select or checkbox)
+is inside of a `el-form-item`, the form item’s label will automatically
+be attached to that input. However, if multiple inputs are inside of the
+`el-form-item`, the form item will be assigned the
+[WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/) role of
+[group](https://www.w3.org/TR/wai-aria/#group) instead. In this case, it
+is your responsibility to assign assistive labels to the individual
+inputs.
+
+Each field’s label is tied to its control, so a screen reader announces
+it; a field with no label of its own takes `aria_label`.
+
+``` r
+
+el_form(id = "a11y", label_width = "auto", submit_label = NULL, width = "480px",
+  el_form_field("fullname", "input", label = "Full name", placeholder = "First and last name"),
+  el_form_field("email", "input", label = "Email", aria_label = "Email address"))
+```
+
 ## API
+
+Element Plus’s tables, and beside each entry where it is in R.
 
 ### Form Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `model` | `each field's`value`; update_el_form(model =)` | data of form component | object | — | — |
-| `rules` | `el_form_field(rules =)` | validation rules of form | object | — | — |
-| `inline` | `el_form(inline =)` | whether the form is inline | boolean | — | false |
-| `label-position` | `el_form(label_position =)` | position of label. If set to ‘left’ or ‘right’, `label-width` prop is also required | string | left / right / top | right |
-| `label-width` | `el_form(label_width =)` | width of label, e.g. ‘50px’. All its direct child form items will inherit this value. Width `auto` is supported. | string | — | — |
-| `label-suffix` | `el_form(label_suffix =)` | suffix of the label | string | — | — |
-| `hide-required-asterisk` | `el_form(hide_required_asterisk =)` | whether to hide a red asterisk (star) next to the required field label. | boolean | — | false |
-| `show-message` | `el_form(show_message =)` | whether to show the error message | boolean | — | true |
-| `inline-message` | `el_form(inline_message =)` | whether to display the error message inline with the form item | boolean | — | false |
-| `status-icon` | `el_form(status_icon =)` | whether to display an icon indicating the validation result | boolean | — | false |
-| `validate-on-rule-change` | `el_form(validate_on_rule_change =)` | whether to trigger validation when the `rules` prop is changed | boolean | — | true |
-| `size` | `el_form(size =)` | control the size of components in this form | string | medium / small / mini | — |
-| `disabled` | `el_form(disabled =)` | whether to disabled all components in this form. If set to true, it cannot be overridden by its inner components’ `disabled` prop | boolean | — | false |
-
-### Form Methods
-
-| Element | In R | Description |
-|----|----|----|
-| `validate` | `el_call(session, id, "validate")` | validate the whole form. Takes a callback as a param. After validation, the callback will be executed with two params: a boolean indicating if the validation has passed, and an object containing all fields that fail the validation. Returns a promise if callback is omitted |
-| `validateField` | `el_call(session, id, "validateField")` | validate one or several form items |
-| `resetFields` | `el_call(session, id, "resetFields")` | reset all the fields and remove validation result |
-| `clearValidate` | `el_call(session, id, "clearValidate")` | clear validation message for certain fields. The parameter is prop name or an array of prop names of the form items whose validation messages will be removed. When omitted, all fields’ validation messages will be cleared |
+| `model` | `each field's`value`; update_el_form(model =)` | Data of form component. | [^1]`Record<string, any>` |  | — |
+| `rules` | `el_form_field(rules =)` | Validation rules of form. | [^2]`FormRules` |  | — |
+| `inline` | `el_form(inline =)` | Whether the form is inline. | [^3] |  | false |
+| `label-position` | `el_form(label_position =)` | Position of label. If set to `'left'` or `'right'`, `label-width` prop is also required. | [^4]`'left' \\| 'right' \\| 'top'` |  | right |
+| `label-width` | `el_form(label_width =)` | Width of label, e.g. `'50px'`. All its direct child form items will inherit this value. `auto` is supported. | [^5] / [^6] |  | ’’ |
+| `label-suffix` | `el_form(label_suffix =)` | Suffix of the label. | [^7] |  | ’’ |
+| `hide-required-asterisk` | `el_form(hide_required_asterisk =)` | Whether to hide required fields should have a red asterisk (star) beside their labels. | [^8] |  | false |
+| `require-asterisk-position` | `el_form(require_asterisk_position =)` | Position of asterisk. | [^9]`'left' \\| 'right'` |  | left |
+| `show-message` | `el_form(show_message =)` | Whether to show the error message. | [^10] |  | true |
+| `inline-message` | `el_form(inline_message =)` | Whether to display the error message inline with the form item. | [^11] |  | false |
+| `status-icon` | `el_form(status_icon =)` | Whether to display an icon indicating the validation result. | [^12] |  | false |
+| `validate-on-rule-change` | `el_form(validate_on_rule_change =)` | Whether to trigger validation when the `rules` prop is changed. | [^13] |  | true |
+| `size` | `el_form(size =)` | Control the size of components in this form. | [^14]`'' \\| 'large' \\| 'default' \\| 'small'` |  | — |
+| `disabled` | `el_form(disabled =)` | Whether to disable all components in this form. Before ^(2.12.0), if set to `true`, it will override the `disabled` prop of the inner component. After ^(2.12.0), the configuration of the internal components takes precedence. | [^15] |  | false |
+| `scroll-to-error` | `el_form(scroll_to_error =)` | When validation fails, scroll to the first error form entry. | [^16] |  | false |
+| `scroll-into-view-options` | `el_form(scroll_into_view_options =)` | When validation fails, it scrolls to the first error item based on the scrollIntoView option. [scrollIntoView](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView). | [^17]`ScrollIntoViewOptions` / [^18] |  | true |
 
 ### Form Events
 
@@ -205,35 +282,118 @@ el_form(id = "small", size = "mini", label_width = "120px", submit_label = "Crea
 |------------|-----------------------|-----------------------------------------|
 | `validate` | `input$<id>_validate` | triggers after a form item is validated |
 
-### Form-Item Attributes
+### Form Slots
+
+| Element   | In R            | Description               |
+|-----------|-----------------|---------------------------|
+| `default` | default content | customize default content |
+
+### Form Exposes
+
+| Element | In R | Description |
+|----|----|----|
+| `validate` | `el_call(session, id, "validate")` | Validate the whole form. Receives a callback or returns `Promise`. |
+| `validateField` | `el_call(session, id, "validateField")` | Validate specified fields. |
+| `resetFields` | `el_call(session, id, "resetFields")` | Reset specified fields and remove validation result. |
+| `scrollToField` | `el_call(session, id, "scrollToField")` | Scroll to the specified fields. |
+| `clearValidate` | `el_call(session, id, "clearValidate")` | Clear validation messages for all or specified fields. |
+| `getField` | `el_call(session, id, "getField")` | Get a field context. |
+| `setInitialValues` | `el_call(session, id, "setInitialValues")` | Set initial values for form fields. When `resetFields` is called, fields will reset to these values. |
+
+### FormItem Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `prop` | `el_form_field(prop =)` | a key of `model`. In the use of validate and resetFields method, the attribute is required | string |  |  |
-| `label` | `el_form_field(label =)` | label | string | — | — |
-| `label-width` | `el_form(label_width =)` | width of label, e.g. ‘50px’. Width `auto` is supported. | string | — | — |
-| `required` | `el_form_field(required =)` | whether the field is required or not, will be determined by validation rules if omitted | boolean | — | false |
-| `rules` | `el_form_field(rules =)` | validation rules of form | object | — | — |
-| `error` | `el_form_field(error =)` | field error message, set its value and the field will validate error and show this message immediately | string | — | — |
-| `show-message` | `el_form(show_message =)` | whether to show the error message | boolean | — | true |
-| `inline-message` | `el_form(inline_message =)` | inline style validate message | boolean | — | false |
-| `size` | `el_form(size =)` | control the size of components in this form-item | string | medium / small / mini | \- |
+| `prop` | `el_form_field(prop =)` | A key of `model`. It could be a path of the property (e.g `a.b.0` or `['a', 'b', '0']`). In the use of `validate` and `resetFields` method, the attribute is required. | [^19] / [^20] |  | — |
+| `label` | `el_form_field(label =)` | Label text. | [^21] |  | — |
+| `label-position` | `el_form(label_position =)` | Position of item label. If set to `'left'` or `'right'`, `label-width` prop is also required. Default extend `label-position` of `form`. | [^22]`'left' \\| 'right' \\| 'top'` |  | ’’ |
+| `label-width` | `el_form(label_width =)` | Width of label, e.g. `'50px'`. `'auto'` is supported. | [^23] / [^24] |  | — |
+| `required` | `el_form_field(required =)` | Whether the field is required or not, will be determined by validation rules if omitted. | [^25] |  | — |
+| `rules` | `el_form_field(rules =)` | Validation rules of form, see the [following table](#formitemrule), more advanced usage at [async-validator](https://github.com/yiminghe/async-validator). | [^26]`Arrayable<FormItemRule>` |  | — |
+| `error` | `el_form_field(error =)` | Field error message, set its value and the field will validate error and show this message immediately. | [^27] |  | — |
+| `show-message` | `el_form(show_message =)` | Whether to show the error message. | [^28] |  | true |
+| `inline-message` | `el_form(inline_message =)` | Inline style validate message. | [^29] |  | false |
+| `size` | `el_form(size =)` | Control the size of components in this form-item. | [^30]`'' \\| 'large' \\| 'default' \\| 'small'` |  | — |
+| `for` | `el_form_field(for =)` | Same as for in native label. | [^31] |  | — |
+| `validate-status` | `el_form_field(validate_status =)` | Validation state of formItem. | [^32]`'' \\| 'error' \\| 'validating' \\| 'success'` |  | — |
 
-### Form-Item Slot
-
-| Element | In R                     | Description      |
-|---------|--------------------------|------------------|
-| `label` | `slots = list(label = )` | content of label |
-
-### Form-Item Scoped Slot
+### FormItem Slots
 
 | Element | In R | Description |
 |----|----|----|
-| `error` | `slots = list(error = )` | Custom content to display validation message. The scope parameter is { error } |
+| `default` | default content | Content of Form Item. |
+| `label` | `slots = list(label = )` | Custom content to display on label. |
+| `error` | `slots = list(error = )` | Custom content to display validation message. |
 
-### Form-Item Methods
+### FormItem Exposes
 
 | Element | In R | Description |
 |----|----|----|
-| `resetField` | `el_call(session, id, "resetField")` | reset current field and remove validation result |
-| `clearValidate` | `el_call(session, id, "clearValidate")` | remove validation status of the field |
+| `validate` | `el_call(session, id, "validate")` | Validate form item. |
+| `resetField` | `el_call(session, id, "resetField")` | Reset current field and remove validation result. |
+| `clearValidate` | `el_call(session, id, "clearValidate")` | Remove validation status of the field. |
+| `setInitialValue` | `el_call(session, id, "setInitialValue")` | Set initial value for this field. When `resetField` is called, the field will reset to this value. |
+
+[^1]: object
+
+[^2]: object
+
+[^3]: boolean
+
+[^4]: enum
+
+[^5]: string
+
+[^6]: number
+
+[^7]: string
+
+[^8]: boolean
+
+[^9]: enum
+
+[^10]: boolean
+
+[^11]: boolean
+
+[^12]: boolean
+
+[^13]: boolean
+
+[^14]: enum
+
+[^15]: boolean
+
+[^16]: boolean
+
+[^17]: object
+
+[^18]: boolean
+
+[^19]: string
+
+[^20]: string\[\]
+
+[^21]: string
+
+[^22]: enum
+
+[^23]: string
+
+[^24]: number
+
+[^25]: boolean
+
+[^26]: object
+
+[^27]: string
+
+[^28]: boolean
+
+[^29]: boolean
+
+[^30]: enum
+
+[^31]: string
+
+[^32]: enum

@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>NavMenu • shiny.element</title>
+<title>Menu • shiny.element</title>
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
-<meta property="og:title" content="NavMenu">
+<meta property="og:title" content="Menu">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,14 +171,14 @@
 
 
 
-<script src="menu_files/vue-2.7.14/vue.min.js"></script><link href="menu_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="menu_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="menu_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="menu_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="menu_files/el-events-1.0.0/el-events.js"></script><script src="menu_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="menu_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="menu_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="menu_files/vue-3.5.43/vue.global.prod.js"></script><link href="menu_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="menu_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="menu_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="menu_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="menu_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="menu_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="menu_files/el-events-1.0.0/el-events.js"></script><script src="menu_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="menu_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>NavMenu</h1>
+      <h1>Menu</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/kaipingyang/shiny.element/blob/main/vignettes/articles/components/menu.Rmd" class="external-link"><code>vignettes/articles/components/menu.Rmd</code></a></small>
@@ -153,39 +187,44 @@
 
     
     
-<p>Menu that provides navigation for your website. <code>items</code>
-nests to any depth: an item is
-<code>list(index =, label =, icon =)</code>, with <code>children</code>
-it is a submenu, and with <code>group = TRUE</code> a group.
-<code>input$&lt;id&gt;</code> is the index chosen,
-<code>input$&lt;id&gt;_path</code> the indexes down to it;
-<code>active</code> is the current item, and
-<code><a href="../../reference/update_el_menu.html">update_el_menu()</a></code> moves it.</p>
+<p>Menu that provides navigation for your website.</p>
+<div class="tip">
+<p>If you want to override the default height of el-menu, you can use
+the following CSS:</p>
+</div>
 <div class="section level2">
 <h2 id="top-bar">Top bar<a class="anchor" aria-label="anchor" href="#top-bar"></a>
 </h2>
+<p>Top bar Menu can be used in a variety of scenarios.</p>
+<p>By default Menu is vertical, but you can change it to horizontal by
+setting the mode prop to ‘horizontal’. In addition, you can use the
+sub-menu component to create a second level menu. Menu provides
+<code>background-color</code>, <code>text-color</code> and
+<code>active-text-color</code> to customize the colors.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Processing Center"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Workspace"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Workspace"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-4"</span>, label <span class="op">=</span> <span class="st">"item four"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-3"</span>, label <span class="op">=</span> <span class="st">"item three"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-4"</span>, title <span class="op">=</span> <span class="st">"item four"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-4-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-4-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"Info"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Orders"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"top"</span>, mode <span class="op">=</span> <span class="st">"horizontal"</span>, active <span class="op">=</span> <span class="st">"1"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 20px"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"dark"</span>, mode <span class="op">=</span> <span class="st">"horizontal"</span>, active <span class="op">=</span> <span class="st">"1"</span>, items <span class="op">=</span> <span class="va">items</span>,</span>
-<span>        background_color <span class="op">=</span> <span class="st">"#545c64"</span>, text_color <span class="op">=</span> <span class="st">"#fff"</span>, active_text_color <span class="op">=</span> <span class="st">"#ffd04b"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"top_menu"</span>, active <span class="op">=</span> <span class="st">"1"</span>, mode <span class="op">=</span> <span class="st">"horizontal"</span>, ellipsis <span class="op">=</span> <span class="cn">FALSE</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 20px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"top_menu_dark"</span>, active <span class="op">=</span> <span class="st">"1"</span>, mode <span class="op">=</span> <span class="st">"horizontal"</span>, ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>          background_color <span class="op">=</span> <span class="st">"#545c64"</span>, text_color <span class="op">=</span> <span class="st">"#fff"</span>, active_text_color <span class="op">=</span> <span class="st">"#ffd04b"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="top-top" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="top-top_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose">
+  <div id="basic-top_menu" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-top_menu_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
       <span>Processing Center</span>
     </el-menu-item>
-    <el-submenu index="2">
-      <template slot="title">
+    <el-sub-menu index="2">
+      <template v-slot:title>
         <span>Workspace</span>
       </template>
       <el-menu-item index="2-1" @click="elMenuItemClick(&quot;2-1&quot;)">
@@ -194,8 +233,11 @@ it is a submenu, and with <code>group = TRUE</code> a group.
       <el-menu-item index="2-2" @click="elMenuItemClick(&quot;2-2&quot;)">
         <span>item two</span>
       </el-menu-item>
-      <el-submenu index="2-4">
-        <template slot="title">
+      <el-menu-item index="2-3" @click="elMenuItemClick(&quot;2-3&quot;)">
+        <span>item three</span>
+      </el-menu-item>
+      <el-sub-menu index="2-4">
+        <template v-slot:title>
           <span>item four</span>
         </template>
         <el-menu-item index="2-4-1" @click="elMenuItemClick(&quot;2-4-1&quot;)">
@@ -204,8 +246,8 @@ it is a submenu, and with <code>group = TRUE</code> a group.
         <el-menu-item index="2-4-2" @click="elMenuItemClick(&quot;2-4-2&quot;)">
           <span>item two</span>
         </el-menu-item>
-      </el-submenu>
-    </el-submenu>
+      </el-sub-menu>
+    </el-sub-menu>
     <el-menu-item index="3" :disabled="true" @click="elMenuItemClick(&quot;3&quot;)">
       <span>Info</span>
     </el-menu-item>
@@ -213,17 +255,17 @@ it is a submenu, and with <code>group = TRUE</code> a group.
       <span>Orders</span>
     </el-menu-item>
   </el-menu>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('top-top', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('top-top', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('top-top_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('top-top_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"top-top_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-top_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 </div>
   <div style="height: 20px"></div>
-  <div id="top-dark" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="top-dark_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose">
+  <div id="basic-top_menu_dark" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-top_menu_dark_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
       <span>Processing Center</span>
     </el-menu-item>
-    <el-submenu index="2">
-      <template slot="title">
+    <el-sub-menu index="2">
+      <template v-slot:title>
         <span>Workspace</span>
       </template>
       <el-menu-item index="2-1" @click="elMenuItemClick(&quot;2-1&quot;)">
@@ -232,8 +274,11 @@ it is a submenu, and with <code>group = TRUE</code> a group.
       <el-menu-item index="2-2" @click="elMenuItemClick(&quot;2-2&quot;)">
         <span>item two</span>
       </el-menu-item>
-      <el-submenu index="2-4">
-        <template slot="title">
+      <el-menu-item index="2-3" @click="elMenuItemClick(&quot;2-3&quot;)">
+        <span>item three</span>
+      </el-menu-item>
+      <el-sub-menu index="2-4">
+        <template v-slot:title>
           <span>item four</span>
         </template>
         <el-menu-item index="2-4-1" @click="elMenuItemClick(&quot;2-4-1&quot;)">
@@ -242,8 +287,8 @@ it is a submenu, and with <code>group = TRUE</code> a group.
         <el-menu-item index="2-4-2" @click="elMenuItemClick(&quot;2-4-2&quot;)">
           <span>item two</span>
         </el-menu-item>
-      </el-submenu>
-    </el-submenu>
+      </el-sub-menu>
+    </el-sub-menu>
     <el-menu-item index="3" :disabled="true" @click="elMenuItemClick(&quot;3&quot;)">
       <span>Info</span>
     </el-menu-item>
@@ -251,29 +296,73 @@ it is a submenu, and with <code>group = TRUE</code> a group.
       <span>Orders</span>
     </el-menu-item>
   </el-menu>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":"#545c64","textColor":"#fff","activeTextColor":"#ffd04b","path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('top-dark', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('top-dark', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('top-dark_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('top-dark_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"top-dark_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":"#545c64","textColor":"#fff","activeTextColor":"#ffd04b","path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu_dark', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu_dark', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_dark_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_dark_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-top_menu_dark_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="left-and-right">Left And Right<a class="anchor" aria-label="anchor" href="#left-and-right"></a>
+</h2>
+<p>You can make the menu items to the left or right.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"lr_menu"</span>, active <span class="op">=</span> <span class="st">"1"</span>, mode <span class="op">=</span> <span class="st">"horizontal"</span>, ellipsis <span class="op">=</span> <span class="cn">FALSE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"0"</span>, label <span class="op">=</span> <span class="st">"LOGO"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Processing Center"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Workspace"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="left-and-right-lr_menu" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="left-and-right-lr_menu_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+    <el-menu-item index="0" @click="elMenuItemClick(&quot;0&quot;)">
+      <span>LOGO</span>
+    </el-menu-item>
+    <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
+      <span>Processing Center</span>
+    </el-menu-item>
+    <el-sub-menu index="2">
+      <template v-slot:title>
+        <span>Workspace</span>
+      </template>
+      <el-menu-item index="2-1" @click="elMenuItemClick(&quot;2-1&quot;)">
+        <span>item one</span>
+      </el-menu-item>
+    </el-sub-menu>
+  </el-menu>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('left-and-right-lr_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('left-and-right-lr_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('left-and-right-lr_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('left-and-right-lr_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"left-and-right-lr_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="side-bar">Side bar<a class="anchor" aria-label="anchor" href="#side-bar"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"side"</span>, active <span class="op">=</span> <span class="st">"2"</span>, width <span class="op">=</span> <span class="st">"240px"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Navigator One"</span>, icon <span class="op">=</span> <span class="st">"el-icon-location"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Group One"</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<p>Vertical Menu with sub-menus.</p>
+<p>You can use the el-menu-item-group component to create a menu group,
+and the name of the group is determined by the title prop or a named
+slot.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Navigator One"</span>, icon <span class="op">=</span> <span class="st">"Location"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Group One"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-4"</span>, label <span class="op">=</span> <span class="st">"item four"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-4-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"el-icon-menu"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"Navigator Three"</span>, icon <span class="op">=</span> <span class="st">"el-icon-document"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Navigator Four"</span>, icon <span class="op">=</span> <span class="st">"el-icon-setting"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Group Two"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-3"</span>, label <span class="op">=</span> <span class="st">"item three"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-4"</span>, title <span class="op">=</span> <span class="st">"item four"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-4-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"Navigator Three"</span>, icon <span class="op">=</span> <span class="st">"Document"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Navigator Four"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">h5</span><span class="op">(</span><span class="st">"Default colors"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"v_menu"</span>, active <span class="op">=</span> <span class="st">"2"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">12</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">h5</span><span class="op">(</span><span class="st">"Custom colors"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"v_menu_dark"</span>, active <span class="op">=</span> <span class="st">"2"</span>, items <span class="op">=</span> <span class="va">items</span>,</span>
+<span>    background_color <span class="op">=</span> <span class="st">"#545c64"</span>, text_color <span class="op">=</span> <span class="st">"#fff"</span>, active_text_color <span class="op">=</span> <span class="st">"#ffd04b"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="side-side" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="side-side_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" style="width: 240px">
-    <el-submenu index="1">
-      <template slot="title">
-        <i class="el-icon-location"></i>
+  <div class="el-row">
+    <div class="el-col el-col-12">
+      <h5>Default colors</h5>
+      <div id="vertical-v_menu" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="vertical-v_menu_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+    <el-sub-menu index="1">
+      <template v-slot:title>
+        <el-icon><Location /></el-icon>
         <span>Navigator One</span>
       </template>
       <el-menu-item-group title="Group One">
@@ -284,58 +373,170 @@ it is a submenu, and with <code>group = TRUE</code> a group.
           <span>item two</span>
         </el-menu-item>
       </el-menu-item-group>
-      <el-submenu index="1-4">
-        <template slot="title">
+      <el-menu-item-group title="Group Two">
+        <el-menu-item index="1-3" @click="elMenuItemClick(&quot;1-3&quot;)">
+          <span>item three</span>
+        </el-menu-item>
+      </el-menu-item-group>
+      <el-sub-menu index="1-4">
+        <template v-slot:title>
           <span>item four</span>
         </template>
         <el-menu-item index="1-4-1" @click="elMenuItemClick(&quot;1-4-1&quot;)">
           <span>item one</span>
         </el-menu-item>
-      </el-submenu>
-    </el-submenu>
+      </el-sub-menu>
+    </el-sub-menu>
     <el-menu-item index="2" @click="elMenuItemClick(&quot;2&quot;)">
-      <i class="el-icon-menu"></i>
+      <el-icon><Menu /></el-icon>
       <span>Navigator Two</span>
     </el-menu-item>
     <el-menu-item index="3" :disabled="true" @click="elMenuItemClick(&quot;3&quot;)">
-      <i class="el-icon-document"></i>
+      <el-icon><Document /></el-icon>
       <span>Navigator Three</span>
     </el-menu-item>
     <el-menu-item index="4" @click="elMenuItemClick(&quot;4&quot;)">
-      <i class="el-icon-setting"></i>
+      <el-icon><Setting /></el-icon>
       <span>Navigator Four</span>
     </el-menu-item>
   </el-menu>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"2","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('side-side', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('side-side', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('side-side_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('side-side_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"side-side_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"2","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('vertical-v_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('vertical-v_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-v_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-v_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"vertical-v_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 </div>
+    </div>
+    <div class="el-col el-col-12">
+      <h5>Custom colors</h5>
+      <div id="vertical-v_menu_dark" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="vertical-v_menu_dark_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+    <el-sub-menu index="1">
+      <template v-slot:title>
+        <el-icon><Location /></el-icon>
+        <span>Navigator One</span>
+      </template>
+      <el-menu-item-group title="Group One">
+        <el-menu-item index="1-1" @click="elMenuItemClick(&quot;1-1&quot;)">
+          <span>item one</span>
+        </el-menu-item>
+        <el-menu-item index="1-2" @click="elMenuItemClick(&quot;1-2&quot;)">
+          <span>item two</span>
+        </el-menu-item>
+      </el-menu-item-group>
+      <el-menu-item-group title="Group Two">
+        <el-menu-item index="1-3" @click="elMenuItemClick(&quot;1-3&quot;)">
+          <span>item three</span>
+        </el-menu-item>
+      </el-menu-item-group>
+      <el-sub-menu index="1-4">
+        <template v-slot:title>
+          <span>item four</span>
+        </template>
+        <el-menu-item index="1-4-1" @click="elMenuItemClick(&quot;1-4-1&quot;)">
+          <span>item one</span>
+        </el-menu-item>
+      </el-sub-menu>
+    </el-sub-menu>
+    <el-menu-item index="2" @click="elMenuItemClick(&quot;2&quot;)">
+      <el-icon><Menu /></el-icon>
+      <span>Navigator Two</span>
+    </el-menu-item>
+    <el-menu-item index="3" :disabled="true" @click="elMenuItemClick(&quot;3&quot;)">
+      <el-icon><Document /></el-icon>
+      <span>Navigator Three</span>
+    </el-menu-item>
+    <el-menu-item index="4" @click="elMenuItemClick(&quot;4&quot;)">
+      <el-icon><Setting /></el-icon>
+      <span>Navigator Four</span>
+    </el-menu-item>
+  </el-menu>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"2","mode":"vertical","collapse":false,"uniqueOpened":false,"backgroundColor":"#545c64","textColor":"#fff","activeTextColor":"#ffd04b","path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('vertical-v_menu_dark', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('vertical-v_menu_dark', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-v_menu_dark_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-v_menu_dark_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"vertical-v_menu_dark_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div>
+    </div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="collapse">Collapse<a class="anchor" aria-label="anchor" href="#collapse"></a>
 </h2>
-<p><code>collapse</code> folds a vertical menu to its icons;
-<code>update_el_menu(collapse =)</code> toggles it.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"fold"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="st">"open"</span>, collapse <span class="op">=</span> <span class="st">"fold"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"open"</span>, button <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"nav"</span>, active <span class="op">=</span> <span class="st">"2"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Navigator One"</span>, icon <span class="op">=</span> <span class="st">"el-icon-location"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"el-icon-menu"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Navigator Four"</span>, icon <span class="op">=</span> <span class="st">"el-icon-setting"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">fold</span>, <span class="fu"><a href="../../reference/update_el_menu.html">update_el_menu</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"nav"</span>, collapse <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">fold</span> <span class="op">==</span> <span class="st">"fold"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/menu-collapse.png" alt="The collapse example, running" style="max-width: 100%">
+<p>Vertical Menu could be collapsed.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"col_menu"</span>, active <span class="op">=</span> <span class="st">"2"</span>, collapse <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, title <span class="op">=</span> <span class="st">"Navigator One"</span>, icon <span class="op">=</span> <span class="st">"Location"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"Navigator Three"</span>, icon <span class="op">=</span> <span class="st">"Document"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Navigator Four"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="collapse-col_menu" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="collapse-col_menu_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+    <el-sub-menu index="1">
+      <template v-slot:title>
+        <el-icon><Location /></el-icon>
+        <span>Navigator One</span>
+      </template>
+      <el-menu-item index="1-1" @click="elMenuItemClick(&quot;1-1&quot;)">
+        <span>item one</span>
+      </el-menu-item>
+      <el-menu-item index="1-2" @click="elMenuItemClick(&quot;1-2&quot;)">
+        <span>item two</span>
+      </el-menu-item>
+    </el-sub-menu>
+    <el-menu-item index="2" @click="elMenuItemClick(&quot;2&quot;)">
+      <el-icon><Menu /></el-icon>
+      <span>Navigator Two</span>
+    </el-menu-item>
+    <el-menu-item index="3" @click="elMenuItemClick(&quot;3&quot;)">
+      <el-icon><Document /></el-icon>
+      <span>Navigator Three</span>
+    </el-menu-item>
+    <el-menu-item index="4" @click="elMenuItemClick(&quot;4&quot;)">
+      <el-icon><Setting /></el-icon>
+      <span>Navigator Four</span>
+    </el-menu-item>
+  </el-menu>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"2","mode":"vertical","collapse":true,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('collapse-col_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('collapse-col_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('collapse-col_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('collapse-col_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"collapse-col_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="popper-offset">Popper Offset<a class="anchor" aria-label="anchor" href="#popper-offset"></a>
+</h2>
+<p>Submenu with popperOffset will override Menu’s
+<code>popper-offset</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"off_menu"</span>, mode <span class="op">=</span> <span class="st">"horizontal"</span>, popper_offset <span class="op">=</span> <span class="fl">16</span>, ellipsis <span class="op">=</span> <span class="cn">FALSE</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Processing Center"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, title <span class="op">=</span> <span class="st">"Workspace"</span>, popper_offset <span class="op">=</span> <span class="fl">8</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="popper-offset-off_menu" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="popper-offset-off_menu_container" style="display: contents">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+    <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
+      <span>Processing Center</span>
+    </el-menu-item>
+    <el-sub-menu index="2" :popper-offset="8">
+      <template v-slot:title>
+        <span>Workspace</span>
+      </template>
+      <el-menu-item index="2-1" @click="elMenuItemClick(&quot;2-1&quot;)">
+        <span>item one</span>
+      </el-menu-item>
+      <el-menu-item index="2-2" @click="elMenuItemClick(&quot;2-2&quot;)">
+        <span>item two</span>
+      </el-menu-item>
+    </el-sub-menu>
+  </el-menu>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":16,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('popper-offset-off_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('popper-offset-off_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('popper-offset-off_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('popper-offset-off_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"popper-offset-off_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
-<h3 id="menu-attribute">Menu Attribute<a class="anchor" aria-label="anchor" href="#menu-attribute"></a>
+<h3 id="menu-attributes">Menu Attributes<a class="anchor" aria-label="anchor" href="#menu-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -359,64 +560,73 @@ it is a submenu, and with <code>group = TRUE</code> a group.
 <td><code>mode</code></td>
 <td><code>mode</code></td>
 <td>menu display mode</td>
-<td>string</td>
-<td>horizontal / vertical</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>1</sup></a><code>'horizontal' \\| 'vertical'</code>
+</td>
+<td></td>
 <td>vertical</td>
 </tr>
 <tr class="even">
 <td><code>collapse</code></td>
 <td><code>collapse</code></td>
 <td>whether the menu is collapsed (available only in vertical mode)</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>2</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
-<td><code>background-color</code></td>
-<td><code>background_color</code></td>
-<td>background color of Menu (hex format)</td>
-<td>string</td>
-<td>—</td>
-<td>#ffffff</td>
+<td><code>ellipsis</code></td>
+<td><code>ellipsis</code></td>
+<td>whether the menu is ellipsis (available only in horizontal
+mode)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>3</sup></a></td>
+<td></td>
+<td>true</td>
 </tr>
 <tr class="even">
-<td><code>text-color</code></td>
-<td><code>text_color</code></td>
-<td>text color of Menu (hex format)</td>
-<td>string</td>
+<td><code>ellipsis-icon</code></td>
+<td><code>ellipsis_icon</code></td>
+<td>custom ellipsis icon (available only in horizontal mode and ellipsis
+is true)</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>4</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>5</sup></a>
+</td>
+<td></td>
 <td>—</td>
-<td>#303133</td>
 </tr>
 <tr class="odd">
-<td><code>active-text-color</code></td>
-<td><code>active_text_color</code></td>
-<td>text color of currently active menu item (hex format)</td>
-<td>string</td>
-<td>—</td>
-<td>#409EFF</td>
+<td><code>popper-offset</code></td>
+<td><code>popper_offset</code></td>
+<td>offset of the popper (effective for all submenus)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>6</sup></a></td>
+<td></td>
+<td>6</td>
 </tr>
 <tr class="even">
 <td><code>default-active</code></td>
 <td><code>active</code></td>
-<td>index of currently active menu</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td>index of active menu on page load</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
 <td><code>default-openeds</code></td>
 <td><code>default_openeds</code></td>
 <td>array that contains indexes of currently active sub-menus</td>
-<td>Array</td>
-<td>—</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;array&lt;/p&gt;"><sup>8</sup></a><code>string[]</code>
+</td>
+<td></td>
+<td>[]</td>
 </tr>
 <tr class="even">
 <td><code>unique-opened</code></td>
 <td><code>unique_opened</code></td>
 <td>whether only one sub-menu can be active</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
@@ -424,54 +634,119 @@ it is a submenu, and with <code>group = TRUE</code> a group.
 <td><code>menu_trigger</code></td>
 <td>how sub-menus are triggered, only works when <code>mode</code> is
 ‘horizontal’</td>
-<td>string</td>
-<td>hover / click</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>10</sup></a><code>'hover' \\| 'click'</code>
+</td>
+<td></td>
 <td>hover</td>
 </tr>
 <tr class="even">
 <td><code>router</code></td>
 <td><code>router</code></td>
 <td>whether <code>vue-router</code> mode is activated. If true, index
-will be used as ‘path’ to activate the route action</td>
-<td>boolean</td>
-<td>—</td>
+will be used as ‘path’ to activate the route action. Use with
+<code>default-active</code> to set the active item on load.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>11</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
 <tr class="odd">
 <td><code>collapse-transition</code></td>
 <td><code>collapse_transition</code></td>
 <td>whether to enable the collapse transition</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>12</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="menu-methods">Menu Methods<a class="anchor" aria-label="anchor" href="#menu-methods"></a>
-</h3>
-<table class="table">
-<colgroup>
-<col width="20%">
-<col width="26%">
-<col width="53%">
-</colgroup>
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
+<tr class="even">
+<td><code>popper-effect</code></td>
+<td><code>popper_effect</code></td>
+<td>Tooltip theme, built-in theme: <code>dark</code> /
+<code>light</code> when menu is collapsed</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>13</sup></a><code>'dark' \\| 'light'</code> / <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>14</sup></a>
+</td>
+<td></td>
+<td>dark</td>
+</tr>
 <tr class="odd">
-<td><code>open</code></td>
-<td><code>el_call(session, id, "open")</code></td>
-<td>open a specific sub-menu</td>
+<td><code>close-on-click-outside</code></td>
+<td><code>close_on_click_outside</code></td>
+<td>optional, whether menu is collapsed when clicking outside</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 <tr class="even">
-<td><code>close</code></td>
-<td><code>el_call(session, id, "close")</code></td>
-<td>close a specific sub-menu</td>
+<td><code>popper-class</code></td>
+<td><code>popper_class</code></td>
+<td>custom class name for all popup menus and titles’ tooltips</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>popper-style</code></td>
+<td><code>popper_style</code></td>
+<td>custom style for all popup menus and titles’ tooltips</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>17</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>18</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>show-timeout</code></td>
+<td><code>show_timeout</code></td>
+<td>control timeout for all menus before showing</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
+<td>300</td>
+</tr>
+<tr class="odd">
+<td><code>hide-timeout</code></td>
+<td><code>hide_timeout</code></td>
+<td>control timeout for all menus before hiding</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
+<td>300</td>
+</tr>
+<tr class="even">
+<td><code>background-color</code></td>
+<td><code>background_color</code></td>
+<td>background color of Menu (hex format) (use
+<code>--el-menu-bg-color</code> in a style class instead)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
+<td>#ffffff</td>
+</tr>
+<tr class="odd">
+<td><code>text-color</code></td>
+<td><code>text_color</code></td>
+<td>text color of Menu (hex format) ( use
+<code>--el-menu-text-color</code> in a style class instead)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a></td>
+<td></td>
+<td>#303133</td>
+</tr>
+<tr class="even">
+<td><code>active-text-color</code></td>
+<td><code>active_text_color</code></td>
+<td>text color of currently active menu item (hex format) ( use
+<code>--el-menu-active-color</code> in a style class instead)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>23</sup></a></td>
+<td></td>
+<td>#409eff</td>
+</tr>
+<tr class="odd">
+<td><code>persistent</code></td>
+<td><code>persistent</code></td>
+<td>when menu inactive and <code>persistent</code> is <code>false</code>
+, dropdown menu will be destroyed</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>24</sup></a></td>
+<td></td>
+<td>true</td>
 </tr>
 </tbody>
 </table>
@@ -510,6 +785,297 @@ will be used as ‘path’ to activate the route action</td>
 </table>
 </div>
 <div class="section level3">
+<h3 id="menu-slots">Menu Slots<a class="anchor" aria-label="anchor" href="#menu-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="menu-exposes">Menu Exposes<a class="anchor" aria-label="anchor" href="#menu-exposes"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>open</code></td>
+<td><code>el_call(session, id, "open")</code></td>
+<td>open a specific sub-menu, the param is index of the sub-menu to
+open</td>
+</tr>
+<tr class="even">
+<td><code>close</code></td>
+<td><code>el_call(session, id, "close")</code></td>
+<td>close a specific sub-menu, the param is index of the sub-menu to
+close</td>
+</tr>
+<tr class="odd">
+<td><code>handleResize</code></td>
+<td><code>el_call(session, id, "handleResize")</code></td>
+<td>manually trigger menu width recalculation</td>
+</tr>
+<tr class="even">
+<td><code>updateActiveIndex</code></td>
+<td><code>el_call(session, id, "updateActiveIndex")</code></td>
+<td>set index of active menu</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="submenu-attributes">SubMenu Attributes<a class="anchor" aria-label="anchor" href="#submenu-attributes"></a>
+</h3>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="14%">
+<col width="14%">
+<col width="38%">
+<col width="9%">
+<col width="14%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+<th>Type</th>
+<th>Accepted</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>index</code></td>
+<td>field <code>index</code> of each of <code>items</code>
+</td>
+<td>unique identification</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>popper-class</code></td>
+<td><code>popper_class</code></td>
+<td>custom class name for the popup menu</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>popper-style</code></td>
+<td><code>popper_style</code></td>
+<td>custom style for the popup menu</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>27</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>28</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>show-timeout</code></td>
+<td><code>show_timeout</code></td>
+<td>timeout before showing a sub-menu(inherit <code>show-timeout</code>
+of the menu by default.)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>29</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>hide-timeout</code></td>
+<td><code>hide_timeout</code></td>
+<td>timeout before hiding a sub-menu(inherit <code>hide-timeout</code>
+of the menu by default.)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>30</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>disabled</code></td>
+<td>field <code>disabled</code> of each of <code>items</code>
+</td>
+<td>whether the sub-menu is disabled</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>31</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td><code>teleported</code></td>
+<td>field <code>teleported</code> of each of <code>items</code>
+</td>
+<td>whether popup menu is teleported to the body, the default is true
+for the level one SubMenu, false for other SubMenus</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>32</sup></a></td>
+<td></td>
+<td>undefined</td>
+</tr>
+<tr class="even">
+<td><code>popper-offset</code></td>
+<td><code>popper_offset</code></td>
+<td>offset of the popper (overrides the <code>popper</code> of
+menu)</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>33</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>expand-close-icon</code></td>
+<td>field <code>expand_close_icon</code> of each of
+<code>items</code>
+</td>
+<td>Icon when menu are expanded and submenu are closed,
+<code>expand-close-icon</code> and <code>expand-open-icon</code> need to
+be passed together to take effect</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>34</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>35</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>expand-open-icon</code></td>
+<td>field <code>expand_open_icon</code> of each of
+<code>items</code>
+</td>
+<td>Icon when menu are expanded and submenu are opened,
+<code>expand-open-icon</code> and <code>expand-close-icon</code> need to
+be passed together to take effect</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>36</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>37</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>collapse-close-icon</code></td>
+<td>field <code>collapse_close_icon</code> of each of
+<code>items</code>
+</td>
+<td>Icon when menu are collapsed and submenu are closed,
+<code>collapse-close-icon</code> and <code>collapse-open-icon</code>
+need to be passed together to take effect</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>38</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>39</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>collapse-open-icon</code></td>
+<td>field <code>collapse_open_icon</code> of each of
+<code>items</code>
+</td>
+<td>Icon when menu are collapsed and submenu are opened,
+<code>collapse-open-icon</code> and <code>collapse-close-icon</code>
+need to be passed together to take effect</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>40</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Component&lt;/p&gt;"><sup>41</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="submenu-slots">SubMenu Slots<a class="anchor" aria-label="anchor" href="#submenu-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr>
+<tr class="even">
+<td><code>title</code></td>
+<td><code>slots = list(title = )</code></td>
+<td>customize title content</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="menu-item-attributes">Menu-Item Attributes<a class="anchor" aria-label="anchor" href="#menu-item-attributes"></a>
+</h3>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="14%">
+<col width="14%">
+<col width="38%">
+<col width="9%">
+<col width="14%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+<th>Type</th>
+<th>Accepted</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>index</code></td>
+<td>field <code>index</code> of each of <code>items</code>
+</td>
+<td>unique identification</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>42</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>route</code></td>
+<td>field <code>route</code> of each of <code>items</code>
+</td>
+<td>Vue Router Route Location Parameters</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>43</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;object&lt;/p&gt;"><sup>44</sup></a>
+</td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>disabled</code></td>
+<td>field <code>disabled</code> of each of <code>items</code>
+</td>
+<td>whether disabled</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>45</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
 <h3 id="menu-item-events">Menu-Item Events<a class="anchor" aria-label="anchor" href="#menu-item-events"></a>
 </h3>
 <table class="table">
@@ -526,143 +1092,36 @@ will be used as ‘path’ to activate the route action</td>
 <tbody><tr class="odd">
 <td><code>click</code></td>
 <td>one of the component’s inputs – see its reference page</td>
-<td>callback function when menu-item is clicked</td>
+<td>callback function when menu-item is clicked, the param is menu-item
+instance</td>
 </tr></tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="submenu-attribute">SubMenu Attribute<a class="anchor" aria-label="anchor" href="#submenu-attribute"></a>
+<h3 id="menu-item-slots">Menu-Item Slots<a class="anchor" aria-label="anchor" href="#menu-item-slots"></a>
 </h3>
-<table style="width:100%;" class="table">
-<colgroup>
-<col width="14%">
-<col width="14%">
-<col width="38%">
-<col width="9%">
-<col width="14%">
-<col width="9%">
-</colgroup>
+<table class="table">
 <thead><tr class="header">
 <th>Element</th>
 <th>In R</th>
 <th>Description</th>
-<th>Type</th>
-<th>Accepted</th>
-<th>Default</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>index</code></td>
-<td>field <code>index</code> of each of <code>items</code>
-</td>
-<td>unique identification</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
 </tr>
 <tr class="even">
-<td><code>popper-class</code></td>
-<td>field <code>popper_class</code> of each of <code>items</code>
-</td>
-<td>custom class name for the popup menu</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>show-timeout</code></td>
-<td>field <code>show_timeout</code> of each of <code>items</code>
-</td>
-<td>timeout before showing a sub-menu</td>
-<td>number</td>
-<td>—</td>
-<td>300</td>
-</tr>
-<tr class="even">
-<td><code>hide-timeout</code></td>
-<td>field <code>hide_timeout</code> of each of <code>items</code>
-</td>
-<td>timeout before hiding a sub-menu</td>
-<td>number</td>
-<td>—</td>
-<td>300</td>
-</tr>
-<tr class="odd">
-<td><code>disabled</code></td>
-<td>field <code>disabled</code> of each of <code>items</code>
-</td>
-<td>whether the sub-menu is disabled</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td><code>popper-append-to-body</code></td>
-<td>field <code>popper_append_to_body</code> of each of
-<code>items</code>
-</td>
-<td>whether to append the popup menu to body. If the positioning of the
-menu is wrong, you can try setting this prop</td>
-<td>boolean</td>
-<td>-</td>
-<td>level one Submenu: true / other Submenus: false</td>
+<td><code>title</code></td>
+<td><code>slots = list(title = )</code></td>
+<td>customize title content</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="menu-item-attribute">Menu-Item Attribute<a class="anchor" aria-label="anchor" href="#menu-item-attribute"></a>
-</h3>
-<table style="width:100%;" class="table">
-<colgroup>
-<col width="14%">
-<col width="14%">
-<col width="38%">
-<col width="9%">
-<col width="14%">
-<col width="9%">
-</colgroup>
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-<th>Type</th>
-<th>Accepted</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>index</code></td>
-<td>field <code>index</code> of each of <code>items</code>
-</td>
-<td>unique identification</td>
-<td>string/null</td>
-<td>—</td>
-<td>null</td>
-</tr>
-<tr class="even">
-<td><code>route</code></td>
-<td>field <code>route</code> of each of <code>items</code>
-</td>
-<td>Vue Router object</td>
-<td>object</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td><code>disabled</code></td>
-<td>field <code>disabled</code> of each of <code>items</code>
-</td>
-<td>whether disabled</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="menu-group-attribute">Menu-Group Attribute<a class="anchor" aria-label="anchor" href="#menu-group-attribute"></a>
+<h3 id="menu-item-group-attributes">Menu-Item-Group Attributes<a class="anchor" aria-label="anchor" href="#menu-item-group-attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -686,13 +1145,37 @@ menu is wrong, you can try setting this prop</td>
 <td>field <code>title</code> of each of <code>items</code>
 </td>
 <td>group title</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>46</sup></a></td>
+<td></td>
 <td>—</td>
 </tr></tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="menu-item-group-slots">Menu-Item-Group Slots<a class="anchor" aria-label="anchor" href="#menu-item-group-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr>
+<tr class="even">
+<td><code>title</code></td>
+<td><code>slots = list(title = )</code></td>
+<td>customize group title</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

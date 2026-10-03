@@ -1,6 +1,6 @@
-# Element UI Input with Vue Instance
+# Element Plus Input with Vue Instance
 
-Creates an Element UI input component (`<el-input>`) with a Vue
+Creates an Element Plus input component (`<el-input>`) with a Vue
 instance, supporting text, textarea, and password modes, plus clearable,
 prefix/suffix icons, word-limit display, and autosize textarea.
 
@@ -42,6 +42,14 @@ el_input(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  aria_label = NULL,
+  clear_icon = NULL,
+  count_graphemes = NULL,
+  formatter = NULL,
+  input_style = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  word_limit_position = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -68,7 +76,8 @@ el_input(
 
 - size:
 
-  Input size: `NULL`, `"medium"`, `"small"`, `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - disabled:
 
@@ -201,6 +210,52 @@ el_input(
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
 
+- aria_label:
+
+  Same as `aria-label` in native input. Element Plus's `aria-label`
+  (string).
+
+- clear_icon:
+
+  Custom clear icon component. Element Plus's `clear-icon` (string /
+  Component). An icon's name, such as `"Search"`.
+
+- count_graphemes:
+
+  Custom function to count graphemes; when set, native
+  `maxlength`/`minlength` constraints are bypassed. Component uses
+  `Intl.Segmenter` (Chrome 87+, Firefox 125+, Safari 14.1+) for proper
+  grapheme clustering; older browsers fall back to `Array.from()` for
+  code-point iteration. Element Plus's `count-graphemes` ((value:
+  string) =\> number).
+
+- formatter:
+
+  Specifies the format of the value presented input.(only works when
+  `type` is 'text'). Element Plus's `formatter` ((value: string \|
+  number) =\> string).
+
+- input_style:
+
+  The style of the input element or textarea element. Element Plus's
+  `input-style` (`string / CSSProperties | CSSProperties[] | string[]`).
+
+- inputmode:
+
+  Same as `inputmode` in native input. Element Plus's `inputmode`
+  (string).
+
+- parser:
+
+  Specifies the value extracted from formatter input.(only works when
+  `type` is 'text'). Element Plus's `parser` ((value: string) =\>
+  string).
+
+- word_limit_position:
+
+  Word count position, valid when `show-word-limit` is true. Element
+  Plus's `word-limit-position` ('inside' \| 'outside').
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -250,9 +305,9 @@ does, and after an
 el_input("name", placeholder = "Enter your name")
 #> <div id="name" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="name_container" style="display: contents">
-#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear"></el-input>
+#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" @compositionend="elEmitCompositionend" @compositionstart="elEmitCompositionstart" @compositionupdate="elEmitCompositionupdate" @keydown="elEmitKeydown" @mouseenter="elEmitMouseenter" @mouseleave="elEmitMouseleave" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :count-graphemes="countGraphemes === null ? undefined : countGraphemes" :formatter="formatter === null ? undefined : formatter" :input-style="inputStyle === null ? undefined : inputStyle" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :word-limit-position="wordLimitPosition === null ? undefined : wordLimitPosition"></el-input>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Enter your name","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('name', 'input', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('name', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('name', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('name', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Enter your name","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('name', 'input', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('name', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('name', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('name', 'clear', arguments); }","elEmitCompositionend":"function() { window.shinyVue.emit('name', 'compositionend', arguments); }","elEmitCompositionstart":"function() { window.shinyVue.emit('name', 'compositionstart', arguments); }","elEmitCompositionupdate":"function() { window.shinyVue.emit('name', 'compositionupdate', arguments); }","elEmitKeydown":"function() { window.shinyVue.emit('name', 'keydown', arguments); }","elEmitMouseenter":"function() { window.shinyVue.emit('name', 'mouseenter', arguments); }","elEmitMouseleave":"function() { window.shinyVue.emit('name', 'mouseleave', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.elEmitCompositionend","options.methods.elEmitCompositionstart","options.methods.elEmitCompositionupdate","options.methods.elEmitKeydown","options.methods.elEmitMouseenter","options.methods.elEmitMouseleave","options.methods.handleChange"]}</script>
 #> </div>
 
 # Clearable search input with icon
@@ -260,9 +315,9 @@ el_input("search", placeholder = "Search...",
          clearable = TRUE, prefix_icon = "el-icon-search")
 #> <div id="search" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="search_container" style="display: contents">
-#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear"></el-input>
+#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" @compositionend="elEmitCompositionend" @compositionstart="elEmitCompositionstart" @compositionupdate="elEmitCompositionupdate" @keydown="elEmitKeydown" @mouseenter="elEmitMouseenter" @mouseleave="elEmitMouseleave" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :count-graphemes="countGraphemes === null ? undefined : countGraphemes" :formatter="formatter === null ? undefined : formatter" :input-style="inputStyle === null ? undefined : inputStyle" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :word-limit-position="wordLimitPosition === null ? undefined : wordLimitPosition"></el-input>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Search...","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('search', 'input', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('search', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('search', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('search', 'clear', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":true,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":"el-icon-search","suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":"Search...","label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('search', 'input', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('search', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('search', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('search', 'clear', arguments); }","elEmitCompositionend":"function() { window.shinyVue.emit('search', 'compositionend', arguments); }","elEmitCompositionstart":"function() { window.shinyVue.emit('search', 'compositionstart', arguments); }","elEmitCompositionupdate":"function() { window.shinyVue.emit('search', 'compositionupdate', arguments); }","elEmitKeydown":"function() { window.shinyVue.emit('search', 'keydown', arguments); }","elEmitMouseenter":"function() { window.shinyVue.emit('search', 'mouseenter', arguments); }","elEmitMouseleave":"function() { window.shinyVue.emit('search', 'mouseleave', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.elEmitCompositionend","options.methods.elEmitCompositionstart","options.methods.elEmitCompositionupdate","options.methods.elEmitKeydown","options.methods.elEmitMouseenter","options.methods.elEmitMouseleave","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

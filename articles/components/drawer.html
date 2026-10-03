@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -150,84 +184,185 @@
 
     
     
-<p>A panel sliding in from an edge. <code>input$&lt;id&gt;</code> is
-whether it is open; <code>update_el_drawer(visible =)</code> opens and
-closes it, and focus goes back to what had it when it closes.</p>
+<p>Sometimes, <code>Dialog</code> does not always satisfy our
+requirements, let’s say you have a massive form, or you need space to
+display something like <code>terms &amp; conditions</code>,
+<code>Drawer</code> has almost identical API with <code>Dialog</code>,
+but it introduces different user experience.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Since v-model is natively supported for all components,
+<code>visible.sync</code> has been deprecated, use
+<code>v-model="visibilityBinding"</code> to control the visibility of
+the current drawer.</p>
+</blockquote>
 <div class="section level2">
-<h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
+<h2 id="basic-usage">Basic Usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
-<p><code>direction</code> is <code>"rtl"</code>, <code>"ltr"</code>,
-<code>"ttb"</code> or <code>"btt"</code>.</p>
+<p>Callout a temporary drawer, from multiple direction</p>
+<p>You must set <code>model-value</code> for <code>Drawer</code> like
+<code>Dialog</code> does to control the visibility of
+<code>Drawer</code> itself, it’s <code>boolean</code> type.
+<code>Drawer</code> has three parts: <code>title</code> &amp;
+<code>body</code> &amp; <code>footer</code>, the <code>title</code> is a
+named slot, you can also set the title through attribute named
+<code>title</code>, default to an empty string, the <code>body</code>
+part is the main area of <code>Drawer</code>, which contains user
+defined content. When opening, <code>Drawer</code> expand itself from
+the <strong>right corner to left</strong> which size is
+<strong>30%</strong> of the browser window by default. You can change
+that default behavior by setting <code>direction</code> and
+<code>size</code> attribute. This show case also demonstrated how to use
+the <code>before-close</code> API, check the Attribute section for more
+detail</p>
+<p>The direction set in R; Element Plus’s demo picks it with radios.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span><span class="st">"dir"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left to right"</span> <span class="op">=</span> <span class="st">"ltr"</span>, <span class="st">"right to left"</span> <span class="op">=</span> <span class="st">"rtl"</span>,</span>
-<span>                                    <span class="st">"top to bottom"</span> <span class="op">=</span> <span class="st">"ttb"</span>, <span class="st">"bottom to top"</span> <span class="op">=</span> <span class="st">"btt"</span><span class="op">)</span>, selected <span class="op">=</span> <span class="st">"rtl"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"open"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"hi"</span>, title <span class="op">=</span> <span class="st">"I am the title"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hi, there!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"drw"</span>, title <span class="op">=</span> <span class="st">"I am the title"</span>, direction <span class="op">=</span> <span class="st">"rtl"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hi, there!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"hi"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drw"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/drawer-basic.png" alt="The basic example, running" style="max-width: 100%">
+<img src="../../shots/drawer-basic-usage.png" alt="The basic-usage example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
-<h2 id="no-title">No title<a class="anchor" aria-label="anchor" href="#no-title"></a>
+<h2 id="no-title">No Title<a class="anchor" aria-label="anchor" href="#no-title"></a>
 </h2>
+<p>When you no longer need a title, you can remove it from the
+drawer.</p>
+<p>Set the <code>withHeader</code> attribute to <strong>false</strong>,
+you can remove the title from drawer, thus your drawer can have more
+space on screen. If you want to be accessible, make sure to set the
+<code>title</code> attribute.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"open"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"plain"</span>, with_header <span class="op">=</span> <span class="cn">FALSE</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hi there!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"open"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"drw"</span>, title <span class="op">=</span> <span class="st">"I am the title"</span>, with_header <span class="op">=</span> <span class="cn">FALSE</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hi there!"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"plain"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drw"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/drawer-notitle.png" alt="The notitle example, running" style="max-width: 100%">
+<img src="../../shots/drawer-no-title.png" alt="The no-title example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
-<h2 id="customization-content">Customization content<a class="anchor" aria-label="anchor" href="#customization-content"></a>
+<h2 id="customized-content">Customized Content<a class="anchor" aria-label="anchor" href="#customized-content"></a>
 </h2>
+<p>Like <code>Dialog</code>, <code>Drawer</code> can be used to display
+a multitude of diverse interactions.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open Drawer with nested form"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"form"</span>, title <span class="op">=</span> <span class="st">"I have a nested form inside!"</span>, size <span class="op">=</span> <span class="st">"40%"</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="st">"padding: 0 20px"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"area"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area 1"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Area 2"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
-<span>              label <span class="op">=</span> <span class="st">"Area"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"submit"</span>, <span class="st">"Submit"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open Drawer with nested form"</span>, text <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"drw"</span>, title <span class="op">=</span> <span class="st">"I have a nested form inside!"</span>, direction <span class="op">=</span> <span class="st">"ltr"</span>, size <span class="op">=</span> <span class="st">"40%"</span>,</span>
+<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"name"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"area"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Area1"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Area2"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
+<span>                label <span class="op">=</span> <span class="st">"Area"</span>, label_position <span class="op">=</span> <span class="st">"left"</span>, label_width <span class="op">=</span> <span class="st">"80px"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"submit"</span>, <span class="st">"Submit"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"form"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drw"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/drawer-custom.png" alt="The custom example, running" style="max-width: 100%">
+<img src="../../shots/drawer-customization-content.png" alt="The customization-content example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
-<h2 id="nested-drawer">Nested drawer<a class="anchor" aria-label="anchor" href="#nested-drawer"></a>
+<h2 id="customized-header">Customized Header<a class="anchor" aria-label="anchor" href="#customized-header"></a>
 </h2>
+<p>The <code>header</code> slot can be used to customize the area where
+the title is displayed. In order to maintain accessibility, use the
+<code>title</code> attribute in addition to using this slot, or use the
+<code>titleId</code> slot property to specify which element should be
+read out as the drawer title.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"open"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open Drawer with customized header"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"drw"</span>, show_close <span class="op">=</span> <span class="cn">FALSE</span>, content <span class="op">=</span> <span class="st">"This is drawer content."</span>,</span>
+<span>    title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"display: flex; justify-content: space-between; align-items: center"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"This is a custom header!"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"close"</span>, <span class="st">"Close"</span>, type <span class="op">=</span> <span class="st">"danger"</span>, icon <span class="op">=</span> <span class="st">"CircleCloseFilled"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drw"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">close</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drw"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/drawer-customization-header.png" alt="The customization-header example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="resizable-drawer">Resizable Drawer<a class="anchor" aria-label="anchor" href="#resizable-drawer"></a>
+</h2>
+<p>Try to drag the edge part.</p>
+<p>Set <code>resizable</code> to <code>true</code> to resize.</p>
+<p>Dragging the inner edge resizes it, reported as
+<code>input$&lt;id&gt;_resize</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"open"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"drw"</span>, title <span class="op">=</span> <span class="st">"Resizable drawer"</span>, resizable <span class="op">=</span> <span class="cn">TRUE</span>, content <span class="op">=</span> <span class="st">"Drag my left edge."</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drw"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/drawer-resizable.png" alt="The resizable example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="nested-drawer">Nested Drawer<a class="anchor" aria-label="anchor" href="#nested-drawer"></a>
+</h2>
+<p>You can also have multiple layer of <code>Drawer</code> just like
+<code>Dialog</code>.</p>
+<p>If you need multiple Drawer in different layer, you must set the
+<code>append-to-body</code> attribute to <strong>true</strong></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"open"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"outer"</span>, title <span class="op">=</span> <span class="st">"I'm outer Drawer"</span>, size <span class="op">=</span> <span class="st">"50%"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"inner_open"</span>, <span class="st">"Click me!"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"inner"</span>, title <span class="op">=</span> <span class="st">"I'm inner Drawer"</span>, append_to_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>              content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"_(:зゝ∠)_"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<span>              content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"_(:з)∠)_"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"outer"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">inner_open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"inner"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/drawer-nested.png" alt="The nested example, running" style="max-width: 100%">
+<img src="../../shots/drawer-nested-drawer.png" alt="The nested-drawer example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="modal">Modal<a class="anchor" aria-label="anchor" href="#modal"></a>
+</h2>
+<p>Setting <code>modal</code> to <code>false</code> will hide modal
+(overlay) of drawer.</p>
+<p>Starting from version 2.11.7, <code>modal-penetrable</code> attribute
+is added, which can be penetrable.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the modal Drawer"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span><span class="st">"drw"</span>, modal <span class="op">=</span> <span class="cn">FALSE</span>, modal_penetrable <span class="op">=</span> <span class="cn">TRUE</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"It's a modal Drawer"</span><span class="op">)</span>,</span>
+<span>            footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/update_el_drawer.html">update_el_drawer</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drw"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/drawer-modal.png" alt="The modal example, running" style="max-width: 100%"><blockquote>
+<p><strong>Tip</strong></p>
+<p>The content inside Drawer should be lazy rendered, which means that
+the content inside Drawer will not impact the initial render
+performance, therefore any DOM operation should be performed through
+<code>ref</code> or after <code>open</code> event emitted.</p>
+</blockquote>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Drawer provides an API called <code>destroy-on-close</code>, which is
+a flag variable that indicates should destroy the children content
+inside Drawer after Drawer was closed. You can use this API when you
+need your <code>mounted</code> life cycle to be called every time the
+Drawer opens.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
-<h3 id="drawer-attributes">Drawer Attributes<a class="anchor" aria-label="anchor" href="#drawer-attributes"></a>
+<h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -248,81 +383,138 @@ closes it, and focus goes back to what had it when it closes.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td><code>model-value</code></td>
+<td>
+<code>visible</code>; <code>input$&lt;id&gt;</code>
+</td>
+<td>Should Drawer be displayed</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="even">
 <td><code>append-to-body</code></td>
 <td><code>append_to_body</code></td>
 <td>Controls should Drawer be inserted to DocumentBody Element, nested
 Drawer must assign this param to <strong>true</strong>
 </td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>2</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
+<tr class="odd">
+<td><code>append-to</code></td>
+<td><code>append_to</code></td>
+<td>which element the Drawer appends to. Will override
+<code>append-to-body</code>
+</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;CSSSelector&lt;/p&gt;"><sup>3</sup></a> /
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;HTMLElement&lt;/p&gt;"><sup>4</sup></a>
+</td>
+<td></td>
+<td>body</td>
+</tr>
 <tr class="even">
+<td><code>lock-scroll</code></td>
+<td><code>lock_scroll</code></td>
+<td>whether scroll of body is disabled while Drawer is displayed</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
 <td><code>before-close</code></td>
 <td><code>before_close</code></td>
 <td>If set, closing procedure will be halted</td>
-<td>function(done), done is function type that accepts a boolean as
-parameter, calling done with true or without parameter will abort the
-close procedure</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Function&lt;/p&gt;"><sup>6</sup></a><code>(done: (cancel?: boolean) =&gt; void) =&gt; void(done is function type that accepts a boolean as parameter, calling done with true or without parameter will abort the close procedure)</code>
+</td>
+<td></td>
 <td>—</td>
-<td>—</td>
+</tr>
+<tr class="even">
+<td><code>close-on-click-modal</code></td>
+<td><code>close_on_click_modal</code></td>
+<td>whether the Drawer can be closed by clicking the mask</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>7</sup></a></td>
+<td></td>
+<td>true</td>
 </tr>
 <tr class="odd">
 <td><code>close-on-press-escape</code></td>
 <td><code>close_on_press_escape</code></td>
 <td>Indicates whether Drawer can be closed by pressing ESC</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>8</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="even">
-<td><code>custom-class</code></td>
-<td><code>custom_class</code></td>
-<td>Extra class names for Drawer</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><code>open-delay</code></td>
+<td><code>open_delay</code></td>
+<td>Time(milliseconds) before open</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
+<td>0</td>
 </tr>
 <tr class="odd">
+<td><code>close-delay</code></td>
+<td><code>close_delay</code></td>
+<td>Time(milliseconds) before close</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
+<td>0</td>
+</tr>
+<tr class="even">
 <td><code>destroy-on-close</code></td>
 <td><code>destroy_on_close</code></td>
 <td>Indicates whether children should be destroyed after Drawer
 closed</td>
-<td>boolean</td>
-<td>-</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>11</sup></a></td>
+<td></td>
 <td>false</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>modal</code></td>
 <td><code>modal</code></td>
 <td>Should show shadowing layer</td>
-<td>boolean</td>
-<td>—</td>
-<td>true</td>
-</tr>
-<tr class="odd">
-<td><code>modal-append-to-body</code></td>
-<td><code>modal_append_to_body</code></td>
-<td>Indicates should shadowing layer be insert into DocumentBody
-element</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>12</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="even">
+<td><code>modal-penetrable</code></td>
+<td><code>modal_penetrable</code></td>
+<td>whether the mask is penetrable. The modal attribute must be
+<code>false</code>.</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>13</sup></a></td>
+<td></td>
+<td>false</td>
+</tr>
+<tr class="odd">
 <td><code>direction</code></td>
 <td><code>direction</code></td>
 <td>Drawer’s opening direction</td>
-<td>Direction</td>
-<td>rtl / ltr / ttb / btt</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>14</sup></a><code>'rtl' \\| 'ltr' \\| 'ttb' \\| 'btt'</code>
+</td>
+<td></td>
 <td>rtl</td>
+</tr>
+<tr class="even">
+<td><code>resizable</code></td>
+<td><code>resizable</code></td>
+<td>enable resizable feature for Drawer</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>15</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 <tr class="odd">
 <td><code>show-close</code></td>
 <td><code>show_close</code></td>
 <td>Should show close button at the top right of Drawer</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>16</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="even">
@@ -333,90 +525,93 @@ property, otherwise it effects the height property, when size is
 <code>number</code> type, it describes the size by unit of pixels; when
 size is <code>string</code> type, it should be used with <code>x%</code>
 notation, other wise it will be interpreted to pixel unit</td>
-<td>number / string</td>
-<td>-</td>
-<td>‘30%’</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>17</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>18</sup></a>
+</td>
+<td></td>
+<td>30%</td>
 </tr>
 <tr class="odd">
 <td><code>title</code></td>
 <td><code>title</code></td>
 <td>Drawer’s title, can also be set by named slot, detailed descriptions
 can be found in the slot form</td>
-<td>string</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>19</sup></a></td>
+<td></td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code>visible</code></td>
-<td><code>visible</code></td>
-<td>Should Drawer be displayed, also support the <code>.sync</code>
-notation</td>
-<td>boolean</td>
-<td>—</td>
-<td>false</td>
-</tr>
-<tr class="odd">
-<td><code>wrapperClosable</code></td>
-<td><code>wrapper_closable</code></td>
-<td>Indicates whether user can close Drawer by clicking the shadowing
-layer.</td>
-<td>boolean</td>
-<td>-</td>
-<td>true</td>
-</tr>
-<tr class="even">
-<td><code>withHeader</code></td>
+<td><code>with-header</code></td>
 <td><code>with_header</code></td>
-<td>Flag that controls the header section’s existance, default to true,
+<td>Flag that controls the header section’s existence, default to true,
 when withHeader set to false, both <code>title attribute</code> and
 <code>title slot</code> won’t work</td>
-<td>boolean</td>
-<td>-</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>20</sup></a></td>
+<td></td>
 <td>true</td>
+</tr>
+<tr class="odd">
+<td><code>modal-class</code></td>
+<td><code>modal_class</code></td>
+<td>Extra class names for shadowing layer</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>21</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>header-class</code></td>
+<td><code>header_class</code></td>
+<td>custom class names for header wrapper</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>22</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>body-class</code></td>
+<td><code>body_class</code></td>
+<td>custom class names for body wrapper</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>23</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>footer-class</code></td>
+<td><code>footer_class</code></td>
+<td>custom class names for footer wrapper</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>24</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td><code>z-index</code></td>
+<td><code>z_index</code></td>
+<td>set z-index</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>25</sup></a></td>
+<td></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><code>header-aria-level</code></td>
+<td><code>header_aria_level</code></td>
+<td>header’s <code>aria-level</code> attribute</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>26</sup></a></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><code>custom-class</code></td>
+<td><code>custom_class</code></td>
+<td>Extra class names for Drawer</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>27</sup></a></td>
+<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="drawer-slot">Drawer Slot<a class="anchor" aria-label="anchor" href="#drawer-slot"></a>
-</h3>
-<table class="table">
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td><code>title</code></td>
-<td><code>slots = list(title = )</code></td>
-<td>Drawer Title Section</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="drawer-methods">Drawer Methods<a class="anchor" aria-label="anchor" href="#drawer-methods"></a>
-</h3>
-<table class="table">
-<colgroup>
-<col width="20%">
-<col width="26%">
-<col width="53%">
-</colgroup>
-<thead><tr class="header">
-<th>Element</th>
-<th>In R</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td><code>closeDrawer</code></td>
-<td><code>el_call(session, id, "closeDrawer")</code></td>
-<td>In order to close Drawer, this method will call
-<code>before-close</code>.</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level3">
-<h3 id="drawer-events">Drawer Events<a class="anchor" aria-label="anchor" href="#drawer-events"></a>
+<h3 id="events">Events<a class="anchor" aria-label="anchor" href="#events"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -450,10 +645,78 @@ when withHeader set to false, both <code>title attribute</code> and
 <td><code>input$&lt;id&gt;_closed</code></td>
 <td>Triggered after Drawer closing animation ended</td>
 </tr>
+<tr class="odd">
+<td><code>open-auto-focus</code></td>
+<td><code>input$&lt;id&gt;_open_auto_focus</code></td>
+<td>triggers after Drawer opens and content focused</td>
+</tr>
+<tr class="even">
+<td><code>close-auto-focus</code></td>
+<td><code>input$&lt;id&gt;_close_auto_focus</code></td>
+<td>triggers after Drawer closed and content focused</td>
+</tr>
+<tr class="odd">
+<td><code>resize-start</code></td>
+<td><code>input$&lt;id&gt;_resize_start</code></td>
+<td>Triggered when resizing starts (when <code>resizable</code> is
+enabled)</td>
+</tr>
+<tr class="even">
+<td><code>resize</code></td>
+<td><code>input$&lt;id&gt;_resize</code></td>
+<td>Triggered while resizing (when <code>resizable</code> is
+enabled)</td>
+</tr>
+<tr class="odd">
+<td><code>resize-end</code></td>
+<td><code>input$&lt;id&gt;_resize_end</code></td>
+<td>Triggered when resizing ends (when <code>resizable</code> is
+enabled)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="26%">
+<col width="53%">
+</colgroup>
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>Drawer’s Content</td>
+</tr>
+<tr class="even">
+<td><code>header</code></td>
+<td><code>slots = list(header = )</code></td>
+<td>Drawer header section; Replacing this removes the title, but does
+not remove the close button.</td>
+</tr>
+<tr class="odd">
+<td><code>footer</code></td>
+<td><code>slots = list(footer = )</code></td>
+<td>Drawer footer Section</td>
+</tr>
+<tr class="even">
+<td><code>title</code></td>
+<td><code>slots = list(title = )</code></td>
+<td>Works the same as the header slot. Use that instead.</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

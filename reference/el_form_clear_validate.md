@@ -1,4 +1,4 @@
-# Clear an Element UI Form's validation messages
+# Clear an Element Plus Form's validation messages
 
 Leaves the values alone and only removes the error state.
 

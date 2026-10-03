@@ -1,4 +1,4 @@
-# Update Element UI Drawer
+# Update Element Plus Drawer
 
 Server-side update for
 [`el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md).

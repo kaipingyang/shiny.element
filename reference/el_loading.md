@@ -1,4 +1,4 @@
-# Element UI Loading Mask
+# Element Plus Loading Mask
 
 Cover the page, or one element, while something is being worked out.
 Each mask is named, and stays until
@@ -18,7 +18,10 @@ el_loading(
   body = NULL,
   spinner = NULL,
   background = NULL,
-  custom_class = NULL
+  custom_class = NULL,
+  svg = NULL,
+  svg_view_box = NULL,
+  before_close = NULL
 )
 ```
 
@@ -66,9 +69,22 @@ el_loading(
 
   Extra class name.
 
+- svg, svg_view_box:
+
+  A spinner of your own, as SVG path markup and its `viewBox`.
+
+- before_close:
+
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  function returning whether the mask may close.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Shiny inputs
+
+- `input$<id>_closed` – fires once the mask has closed.
 
 ## Examples
 

@@ -1,4 +1,4 @@
-# Update Element UI Page Header
+# Update Element Plus Page Header
 
 Server-side update for
 [`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md).

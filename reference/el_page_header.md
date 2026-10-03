@@ -1,4 +1,4 @@
-# Element UI Page Header
+# Element Plus Page Header
 
 A page title with a back link.
 
@@ -9,6 +9,7 @@ el_page_header(
   id = NULL,
   title = NULL,
   content = NULL,
+  icon = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -28,6 +29,11 @@ el_page_header(
 - content:
 
   The page's own title, shown after the separator.
+
+- icon:
+
+  Icon component of page header. Element Plus's `icon` (string /
+  Component). An icon's name, such as `"Search"`.
 
 - width:
 
@@ -62,16 +68,16 @@ A Shiny UI element.
 el_page_header("hdr", content = "Sales for March")
 #> <div id="hdr" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="hdr_container" style="display: contents">
-#>   <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"></el-page-header>
+#>   <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack" :icon="icon === null ? undefined : icon"></el-page-header>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":null,"content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyVue.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":null,"content":"Sales for March","icon":null},"methods":{"elEmitBack":"function() { window.shinyVue.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
 #> </div>
 el_page_header("hdr", title = "All reports", content = "Sales for March")
 #> <div id="hdr" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="hdr_container" style="display: contents">
-#>   <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack"></el-page-header>
+#>   <el-page-header :title="title === null ? undefined : title" :content="content === null ? undefined : content" @back="elEmitBack" :icon="icon === null ? undefined : icon"></el-page-header>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"All reports","content":"Sales for March"},"methods":{"elEmitBack":"function() { window.shinyVue.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"All reports","content":"Sales for March","icon":null},"methods":{"elEmitBack":"function() { window.shinyVue.emit('hdr', 'back', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitBack"]}</script>
 #> </div>
 
 if (interactive()) {

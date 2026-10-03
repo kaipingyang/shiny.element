@@ -1,6 +1,6 @@
-# Update an Element UI Carousel
+# Update an Element Plus Carousel
 
-Update an Element UI Carousel
+Update an Element Plus Carousel
 
 ## Usage
 

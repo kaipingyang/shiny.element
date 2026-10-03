@@ -1,10 +1,9 @@
 # Vue, as bundled with the package
 
-Vue 2.7.14, the version Element UI 2 runs on, from `inst/vue`. The
-development build is versioned one step above the production one, so
-that when a page asks for it anywhere – `el_page(dev = TRUE)` –
-htmltools keeps it over the production copy every component brings,
-rather than loading Vue twice.
+Vue 3, the global build with the template compiler, from `inst/vue3`:
+components are compiled in the browser from their x-template. `dev` is
+kept for the argument's sake; the production build is the only one
+bundled.
 
 ## Usage
 
@@ -16,7 +15,7 @@ rather than loading Vue twice.
 
 - dev:
 
-  Load the development build, which reports template errors.
+  Unused.
 
 ## Value
 

@@ -30,94 +30,128 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
+    <li><a class="dropdown-item" href="../../articles/i18n.html">i18n</a></li>
+    <li><a class="dropdown-item" href="../../articles/migration.html">Migration from Element UI</a></li>
+    <li><a class="dropdown-item" href="../../articles/theming.html">Theming</a></li>
+    <li><a class="dropdown-item" href="../../articles/dark-mode.html">Dark Mode</a></li>
+    <li><a class="dropdown-item" href="../../articles/custom-defaults.html">Custom Defaults</a></li>
+    <li><a class="dropdown-item" href="../../articles/transitions.html">Built-in Transitions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Shiny</h6></li>
+    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
+    <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
+    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
+  </ul>
+</li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-components" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Components</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-components">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-component" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Component</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-component">
 <li><a class="dropdown-item" href="../../articles/components.html">Overview</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Basic</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/container.html">Container</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
     <li><a class="dropdown-item" href="../../articles/components/button.html">Button</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/border.html">Border</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color.html">Color</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/container.html">Layout Container</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/icon.html">Icon</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/layout.html">Layout</a></li>
     <li><a class="dropdown-item" href="../../articles/components/link.html">Link</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/text.html">Text</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/scrollbar.html">Scrollbar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/space.html">Space</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/splitter.html">Splitter</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/typography.html">Typography</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Configuration</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/config-provider.html">Config Provider</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Form</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/input-number.html">InputNumber</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/autocomplete.html">Autocomplete</a></li>
     <li><a class="dropdown-item" href="../../articles/components/cascader.html">Cascader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">TimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">DatePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTimePicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">ColorPicker</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/checkbox.html">Checkbox</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker-panel.html">Color Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/color-picker.html">Color Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker-panel.html">Date Picker Panel</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/date-picker.html">Date Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/datetime-picker.html">DateTime Picker</a></li>
     <li><a class="dropdown-item" href="../../articles/components/form.html">Form</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input.html">Input</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-number.html">Input Number</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-tag.html">Input Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/input-otp.html">Input OTP</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/mention.html">Mention</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/radio.html">Radio</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/rate.html">Rate</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select.html">Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/select-v2.html">Virtualized Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/slider.html">Slider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/switch.html">Switch</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-picker.html">Time Picker</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/time-select.html">Time Select</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/transfer.html">Transfer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-select.html">TreeSelect</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/upload.html">Upload</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Data</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/badge.html">Badge</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Notice</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/message-box.html">MessageBox</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/menu.html">NavMenu</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/page-header.html">PageHeader</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
-    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
     <li><a class="dropdown-item" href="../../articles/components/card.html">Card</a></li>
     <li><a class="dropdown-item" href="../../articles/components/carousel.html">Carousel</a></li>
     <li><a class="dropdown-item" href="../../articles/components/collapse.html">Collapse</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/calendar.html">Calendar</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/descriptions.html">Descriptions</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/empty.html">Empty</a></li>
     <li><a class="dropdown-item" href="../../articles/components/image.html">Image</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/infiniteScroll.html">InfiniteScroll</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/avatar.html">Avatar</a></li>
-    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
-  </ul>
-</li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
-<li><a class="dropdown-item" href="../../articles/forms.html">Forms and validation</a></li>
-    <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny integration</a></li>
-    <li><a class="dropdown-item" href="../../articles/theming.html">Theming, sizes and languages</a></li>
-    <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/infinite-scroll.html">Infinite Scroll</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/pagination.html">Pagination</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/progress.html">Progress</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/result.html">Result</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/skeleton.html">Skeleton</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table.html">Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/table-v2.html">Virtualized Table</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tag.html">Tag</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/timeline.html">Timeline</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tour.html">Tour</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree.html">Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tree-v2.html">Virtualized Tree</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/statistic.html">Statistic</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/segmented.html">Segmented</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="../../articles/limitations.html">What works, and what does not</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Navigation</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/affix.html">Affix</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/anchor.html">Anchor</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/backtop.html">Backtop</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/breadcrumb.html">Breadcrumb</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dropdown.html">Dropdown</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/menu.html">Menu</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/page-header.html">Page Header</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/steps.html">Steps</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tabs.html">Tabs</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Feedback</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/alert.html">Alert</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/dialog.html">Dialog</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/drawer.html">Drawer</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/loading.html">Loading</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message.html">Message</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/message-box.html">Message Box</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/notification.html">Notification</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popconfirm.html">Popconfirm</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/popover.html">Popover</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/tooltip.html">Tooltip</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Others</h6></li>
+    <li><a class="dropdown-item" href="../../articles/components/divider.html">Divider</a></li>
+    <li><a class="dropdown-item" href="../../articles/components/watermark.html">Watermark</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -137,10 +171,10 @@
 
 
 
-<script src="carousel_files/vue-2.7.14/vue.min.js"></script><link href="carousel_files/element-ui-2.15.14/theme-chalk/index.css" rel="stylesheet">
-<link href="carousel_files/element-ui-2.15.14/theme-chalk/display.css" rel="stylesheet">
-<script src="carousel_files/element-ui-2.15.14/index.js"></script><style>.el-table .el-table__expanded-cell[class*=cell]{padding:20px 50px}</style>
-<script src="carousel_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="carousel_files/el-events-1.0.0/el-events.js"></script><script src="carousel_files/element-ui-locale-en-2.15.14/locale/en.js"></script><script>if (window.ELEMENT && ELEMENT.locale && ELEMENT.lang && ELEMENT.lang['en']) { ELEMENT.locale(ELEMENT.lang['en']); }</script><script src="carousel_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="carousel_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="carousel_files/vue-3.5.43/vue.global.prod.js"></script><link href="carousel_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="carousel_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="carousel_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="carousel_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="carousel_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="carousel_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="carousel_files/el-events-1.0.0/el-events.js"></script><script src="carousel_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="carousel_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -153,172 +187,315 @@
 
     
     
-<p>Loop a series of images or texts in a limited space.
-<code>input$&lt;id&gt;</code> is the slide showing, 0-based, and
-<code>input$&lt;id&gt;_name</code> its name;
-<code>update_el_carousel(active =)</code> moves it.</p>
-<style>.el-carousel__item h3 { color: #475669; font-size: 18px; opacity: .75; line-height: 150px; margin: 0; text-align: center; }
-.el-carousel__item:nth-child(2n) { background: #99a9bf; } .el-carousel__item:nth-child(2n+1) { background: #d3dce6; }</style>
+<p>Loop a series of images or texts in a limited space</p>
 <div class="section level2">
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<p>Combine <code>el-carousel</code> with <code>el-carousel-item</code>,
+and you’ll get a carousel. Content of each slide is completely
+customizable, and you just need to place it inside
+<code>el-carousel-item</code> tag. By default the carousel switches when
+mouse hovers over an indicator. Set <code>trigger</code> to
+<code>click</code>, and the carousel switches only when an indicator is
+clicked.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="va">i</span><span class="op">)</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"c1"</span>, height <span class="op">=</span> <span class="st">"150px"</span>, items <span class="op">=</span> <span class="va">slides</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"c2"</span>, height <span class="op">=</span> <span class="st">"150px"</span>, trigger <span class="op">=</span> <span class="st">"click"</span>, items <span class="op">=</span> <span class="va">slides</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Switch when indicator is hovered (default)"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car1"</span>, height <span class="op">=</span> <span class="st">"150px"</span>, items <span class="op">=</span> <span class="fu">slides</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Switch when indicator is clicked"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car2"</span>, trigger <span class="op">=</span> <span class="st">"click"</span>, height <span class="op">=</span> <span class="st">"150px"</span>, items <span class="op">=</span> <span class="fu">slides</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-c1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-c1_container" style="display: contents">
-  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-    <el-carousel-item name="s1">
+  <span class="demonstration">Switch when indicator is hovered (default)</span>
+  <div id="basic-car1" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-car1_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
       <h3>1</h3>
     </el-carousel-item>
-    <el-carousel-item name="s2">
+    <el-carousel-item>
       <h3>2</h3>
     </el-carousel-item>
-    <el-carousel-item name="s3">
+    <el-carousel-item>
       <h3>3</h3>
     </el-carousel-item>
-    <el-carousel-item name="s4">
+    <el-carousel-item>
       <h3>4</h3>
     </el-carousel-item>
   </el-carousel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"150px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["s1","s2","s3","s4"],"active":0,"activeName":"s1"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-c1_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-c1_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"150px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-car1_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-car1_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 </div>
-  <div id="basic-c2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-c2_container" style="display: contents">
-  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-    <el-carousel-item name="s1">
+  <span class="demonstration">Switch when indicator is clicked</span>
+  <div id="basic-car2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-car2_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
       <h3>1</h3>
     </el-carousel-item>
-    <el-carousel-item name="s2">
+    <el-carousel-item>
       <h3>2</h3>
     </el-carousel-item>
-    <el-carousel-item name="s3">
+    <el-carousel-item>
       <h3>3</h3>
     </el-carousel-item>
-    <el-carousel-item name="s4">
+    <el-carousel-item>
       <h3>4</h3>
     </el-carousel-item>
   </el-carousel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"150px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["s1","s2","s3","s4"],"active":0,"activeName":"s1"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-c2_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-c2_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"150px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-car2_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-car2_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="motion-blur">Motion blur<a class="anchor" aria-label="anchor" href="#motion-blur"></a>
+</h2>
+<p>Add motion blur to infuse dynamism and smoothness into the
+carousel.</p>
+<p>Enabling motion blur enhances the dynamism and smoothness of the
+carousel. By default, the <code>motion-blur</code> parameter is set to
+<code>false</code>, activating this feature and providing a visually
+engaging experience.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Motion blur the switch (default)"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_mb"</span>, height <span class="op">=</span> <span class="st">"200px"</span>, motion_blur <span class="op">=</span> <span class="cn">TRUE</span>, items <span class="op">=</span> <span class="fu">slides</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Vertical effect"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_mbv"</span>, height <span class="op">=</span> <span class="st">"200px"</span>, direction <span class="op">=</span> <span class="st">"vertical"</span>, motion_blur <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>              autoplay <span class="op">=</span> <span class="cn">FALSE</span>, items <span class="op">=</span> <span class="fu">slides</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <span class="demonstration">Motion blur the switch (default)</span>
+  <div id="motion-blur-car_mb" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="motion-blur-car_mb_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
+      <h3>1</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>2</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>3</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>4</h3>
+    </el-carousel-item>
+  </el-carousel>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":true,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('motion-blur-car_mb_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"motion-blur-car_mb_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div>
+  <p class="demonstration">Vertical effect</p>
+  <div id="motion-blur-car_mbv" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="motion-blur-car_mbv_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
+      <h3>1</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>2</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>3</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>4</h3>
+    </el-carousel-item>
+  </el-carousel>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":false,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"vertical","indicatorPosition":null,"carouselType":null,"itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":true,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('motion-blur-car_mbv_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"motion-blur-car_mbv_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="indicators">Indicators<a class="anchor" aria-label="anchor" href="#indicators"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"ind"</span>, height <span class="op">=</span> <span class="st">"150px"</span>, indicator_position <span class="op">=</span> <span class="st">"outside"</span>,</span>
-<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="va">i</span><span class="op">)</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Indicators can be displayed outside the carousel</p>
+<p>The <code>indicator-position</code> attribute determines where the
+indicators are located. By default they are inside the carousel, and
+setting <code>indicator-position</code> to <code>outside</code> moves
+them outside; setting <code>indicator-position</code> to
+<code>none</code> hides the indicators.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_ind"</span>, indicator_position <span class="op">=</span> <span class="st">"outside"</span>,</span>
+<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="indicators-ind" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="indicators-ind_container" style="display: contents">
-  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-    <el-carousel-item name="s1">
+  <div id="indicator-car_ind" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="indicator-car_ind_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
       <h3>1</h3>
     </el-carousel-item>
-    <el-carousel-item name="s2">
+    <el-carousel-item>
       <h3>2</h3>
     </el-carousel-item>
-    <el-carousel-item name="s3">
+    <el-carousel-item>
       <h3>3</h3>
     </el-carousel-item>
-    <el-carousel-item name="s4">
+    <el-carousel-item>
       <h3>4</h3>
     </el-carousel-item>
   </el-carousel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"150px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":"outside","carouselType":null,"itemNames":["s1","s2","s3","s4"],"active":0,"activeName":"s1"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('indicators-ind_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"indicators-ind_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"300px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":"outside","carouselType":null,"itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('indicator-car_ind_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"indicator-car_ind_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="arrows">Arrows<a class="anchor" aria-label="anchor" href="#arrows"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"arr"</span>, height <span class="op">=</span> <span class="st">"150px"</span>, interval <span class="op">=</span> <span class="fl">5000</span>, arrow <span class="op">=</span> <span class="st">"always"</span>,</span>
-<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="va">i</span><span class="op">)</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>You can define when arrows are displayed</p>
+<p>The <code>arrow</code> attribute determines when arrows are
+displayed. By default they appear when mouse hovers over the carousel.
+Setting <code>arrow</code> to <code>always</code> or <code>never</code>
+shows/hides the arrows permanently.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_arrow"</span>, interval <span class="op">=</span> <span class="fl">5000</span>, arrow <span class="op">=</span> <span class="st">"always"</span>,</span>
+<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="arrows-arr" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="arrows-arr_container" style="display: contents">
-  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-    <el-carousel-item name="s1">
+  <div id="arrows-car_arrow" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="arrows-car_arrow_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
       <h3>1</h3>
     </el-carousel-item>
-    <el-carousel-item name="s2">
+    <el-carousel-item>
       <h3>2</h3>
     </el-carousel-item>
-    <el-carousel-item name="s3">
+    <el-carousel-item>
       <h3>3</h3>
     </el-carousel-item>
-    <el-carousel-item name="s4">
+    <el-carousel-item>
       <h3>4</h3>
     </el-carousel-item>
   </el-carousel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"150px","initialIndex":0,"autoplay":true,"interval":5000,"trigger":"hover","arrow":"always","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["s1","s2","s3","s4"],"active":0,"activeName":"s1"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('arrows-arr_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"arrows-arr_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"300px","initialIndex":0,"autoplay":true,"interval":5000,"trigger":"hover","arrow":"always","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('arrows-car_arrow_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"arrows-car_arrow_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="auto-height">Auto height<a class="anchor" aria-label="anchor" href="#auto-height"></a>
+</h2>
+<p>When the <code>height</code> of <code>carousel</code> is set to
+<code>auto</code>, the <code>carousel</code> height will be
+automatically set according to the height of the
+<code>carousel item</code></p>
+<p><code>height = "auto"</code> takes each slide’s own height.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_auto"</span>, height <span class="op">=</span> <span class="st">"auto"</span>, items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">h</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height: %dpx"</span>, <span class="va">h</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height %dpx"</span>, <span class="va">h</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="auto-height-car_auto" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="auto-height-car_auto_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
+      <h3 style="height: 100px">height 100px</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3 style="height: 200px">height 200px</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3 style="height: 300px">height 300px</h3>
+    </el-carousel-item>
+  </el-carousel>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"auto","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":null,"itemNames":["","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('auto-height-car_auto_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"auto-height-car_auto_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="card-mode">Card mode<a class="anchor" aria-label="anchor" href="#card-mode"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"cards"</span>, height <span class="op">=</span> <span class="st">"200px"</span>, type <span class="op">=</span> <span class="st">"card"</span>, interval <span class="op">=</span> <span class="fl">4000</span>,</span>
-<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="va">i</span><span class="op">)</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>When a page is wide enough but has limited height, you can activate
+card mode for carousels</p>
+<p>Setting <code>type</code> to <code>card</code> activates the card
+mode. Apart from the appearance, the biggest difference between card
+mode and common mode is that clicking the slides at both sides directly
+switches the carousel in card mode.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_card"</span>, interval <span class="op">=</span> <span class="fl">4000</span>, type <span class="op">=</span> <span class="st">"card"</span>, height <span class="op">=</span> <span class="st">"200px"</span>,</span>
+<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="card-cards" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="card-cards_container" style="display: contents">
-  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-    <el-carousel-item name="s1">
+  <div id="card-car_card" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="card-car_card_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
       <h3>1</h3>
     </el-carousel-item>
-    <el-carousel-item name="s2">
+    <el-carousel-item>
       <h3>2</h3>
     </el-carousel-item>
-    <el-carousel-item name="s3">
+    <el-carousel-item>
       <h3>3</h3>
     </el-carousel-item>
-    <el-carousel-item name="s4">
+    <el-carousel-item>
       <h3>4</h3>
     </el-carousel-item>
-    <el-carousel-item name="s5">
+    <el-carousel-item>
       <h3>5</h3>
     </el-carousel-item>
-    <el-carousel-item name="s6">
+    <el-carousel-item>
       <h3>6</h3>
     </el-carousel-item>
   </el-carousel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":4000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["s1","s2","s3","s4","s5","s6"],"active":0,"activeName":"s1"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('card-cards_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"card-cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":true,"interval":4000,"trigger":"hover","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('card-car_card_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"card-car_card_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="vertical">Vertical<a class="anchor" aria-label="anchor" href="#vertical"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"vert"</span>, height <span class="op">=</span> <span class="st">"200px"</span>, direction <span class="op">=</span> <span class="st">"vertical"</span>, autoplay <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>            items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="va">i</span><span class="op">)</span>, content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>By default, <code>direction</code> is <code>horizontal</code>. Let
+carousel be displayed in the vertical direction by setting
+<code>direction</code> to <code>vertical</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"normal vertical layout"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_v"</span>, height <span class="op">=</span> <span class="st">"200px"</span>, direction <span class="op">=</span> <span class="st">"vertical"</span>, autoplay <span class="op">=</span> <span class="cn">FALSE</span>, items <span class="op">=</span> <span class="fu">slides</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"card vertical layout"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span><span class="st">"car_vc"</span>, height <span class="op">=</span> <span class="st">"400px"</span>, direction <span class="op">=</span> <span class="st">"vertical"</span>, type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>              autoplay <span class="op">=</span> <span class="cn">FALSE</span>, items <span class="op">=</span> <span class="fu">slides</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="vertical-vert" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="vertical-vert_container" style="display: contents">
-  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange">
-    <el-carousel-item name="s1">
+  <p class="demonstration">normal vertical layout</p>
+  <div id="vertical-car_v" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="vertical-car_v_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
       <h3>1</h3>
     </el-carousel-item>
-    <el-carousel-item name="s2">
+    <el-carousel-item>
       <h3>2</h3>
     </el-carousel-item>
-    <el-carousel-item name="s3">
+    <el-carousel-item>
       <h3>3</h3>
     </el-carousel-item>
+    <el-carousel-item>
+      <h3>4</h3>
+    </el-carousel-item>
   </el-carousel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":false,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"vertical","indicatorPosition":null,"carouselType":null,"itemNames":["s1","s2","s3"],"active":0,"activeName":"s1"},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-vert_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"vertical-vert_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","initialIndex":0,"autoplay":false,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"vertical","indicatorPosition":null,"carouselType":null,"itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-car_v_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"vertical-car_v_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
+</div>
+  <p class="demonstration">card vertical layout</p>
+  <div id="vertical-car_vc" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="vertical-car_vc_container" style="display: contents">
+  <el-carousel ref="carousel" :height="height" :initial-index="initialIndex" :autoplay="autoplay" :interval="interval" :trigger="trigger" :arrow="arrow" :loop="loop" :direction="direction" :indicator-position="indicatorPosition === null ? undefined : indicatorPosition" :type="carouselType === null ? undefined : carouselType" @change="handleChange" :card-scale="carouselCardScale === null ? undefined : carouselCardScale" :motion-blur="carouselMotionBlur === null ? undefined : carouselMotionBlur" :pause-on-hover="carouselPauseOnHover === null ? undefined : carouselPauseOnHover">
+    <el-carousel-item>
+      <h3>1</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>2</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>3</h3>
+    </el-carousel-item>
+    <el-carousel-item>
+      <h3>4</h3>
+    </el-carousel-item>
+  </el-carousel>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"400px","initialIndex":0,"autoplay":false,"interval":3000,"trigger":"hover","arrow":"hover","loop":true,"direction":"vertical","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-car_vc_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"vertical-car_vc_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._elReport; self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
 </h2>
+<p>Element Plus’s tables, and beside each entry where it is in R.</p>
 <div class="section level3">
 <h3 id="carousel-attributes">Carousel Attributes<a class="anchor" aria-label="anchor" href="#carousel-attributes"></a>
 </h3>
@@ -344,81 +521,115 @@
 <td><code>height</code></td>
 <td><code>height</code></td>
 <td>height of the carousel</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>1</sup></a></td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="even">
 <td><code>initial-index</code></td>
 <td><code>initial_index</code></td>
 <td>index of the initially active slide (starting from 0)</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>2</sup></a></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr class="odd">
 <td><code>trigger</code></td>
 <td><code>trigger</code></td>
 <td>how indicators are triggered</td>
-<td>string</td>
-<td>hover/click</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>3</sup></a><code>'hover' \\| 'click'</code>
+</td>
+<td></td>
 <td>hover</td>
 </tr>
 <tr class="even">
 <td><code>autoplay</code></td>
 <td><code>autoplay</code></td>
 <td>whether automatically loop the slides</td>
-<td>boolean</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>4</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
 <tr class="odd">
 <td><code>interval</code></td>
 <td><code>interval</code></td>
 <td>interval of the auto loop, in milliseconds</td>
-<td>number</td>
-<td>—</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>5</sup></a></td>
+<td></td>
 <td>3000</td>
 </tr>
 <tr class="even">
 <td><code>indicator-position</code></td>
 <td><code>indicator_position</code></td>
 <td>position of the indicators</td>
-<td>string</td>
-<td>outside/none</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>6</sup></a><code>'' \\| 'none' \\| 'outside'</code>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
 <td><code>arrow</code></td>
 <td><code>arrow</code></td>
 <td>when arrows are shown</td>
-<td>string</td>
-<td>always/hover/never</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>7</sup></a><code>'always' \\| 'hover' \\| 'never'</code>
+</td>
+<td></td>
 <td>hover</td>
 </tr>
 <tr class="even">
 <td><code>type</code></td>
 <td><code>type</code></td>
 <td>type of the Carousel</td>
-<td>string</td>
-<td>card</td>
-<td>—</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>8</sup></a><code>'' \\| 'card'</code>
+</td>
+<td></td>
+<td>’’</td>
 </tr>
 <tr class="odd">
+<td><code>card-scale</code></td>
+<td><code>card_scale</code></td>
+<td>when type is card, scaled size of secondary cards</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>9</sup></a></td>
+<td></td>
+<td>0.83</td>
+</tr>
+<tr class="even">
 <td><code>loop</code></td>
 <td><code>loop</code></td>
 <td>display the items in loop</td>
-<td>boolean</td>
-<td>-</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>10</sup></a></td>
+<td></td>
 <td>true</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>direction</code></td>
 <td><code>direction</code></td>
 <td>display direction</td>
-<td>string</td>
-<td>horizontal/vertical</td>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>11</sup></a><code>'horizontal' \\| 'vertical'</code>
+</td>
+<td></td>
 <td>horizontal</td>
+</tr>
+<tr class="even">
+<td><code>pause-on-hover</code></td>
+<td><code>pause_on_hover</code></td>
+<td>pause autoplay when hover</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>12</sup></a></td>
+<td></td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td><code>motion-blur</code></td>
+<td><code>motion_blur</code></td>
+<td>infuse dynamism and smoothness into the carousel</td>
+<td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>13</sup></a></td>
+<td></td>
+<td>false</td>
 </tr>
 </tbody>
 </table>
@@ -441,12 +652,30 @@
 <td><code>change</code></td>
 <td>
 <code>input$&lt;id&gt;</code>, the value</td>
-<td>triggers when the active slide switches</td>
+<td>triggers when the active slide switches, it has two parameters, the
+one is the index of the new active slide, and other is index of the old
+active slide</td>
 </tr></tbody>
 </table>
 </div>
 <div class="section level3">
-<h3 id="carousel-methods">Carousel Methods<a class="anchor" aria-label="anchor" href="#carousel-methods"></a>
+<h3 id="carousel-slots">Carousel Slots<a class="anchor" aria-label="anchor" href="#carousel-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="carousel-exposes">Carousel Exposes<a class="anchor" aria-label="anchor" href="#carousel-exposes"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -463,7 +692,10 @@
 <tr class="odd">
 <td><code>setActiveItem</code></td>
 <td><code>el_call(session, id, "setActiveItem")</code></td>
-<td>manually switch slide</td>
+<td>manually switch slide, index of the slide to be switched to,
+starting from 0; or the <code>name</code> of corresponding
+<code>el-carousel-item</code>
+</td>
 </tr>
 <tr class="even">
 <td><code>prev</code></td>
@@ -498,30 +730,38 @@
 <th>Accepted</th>
 <th>Default</th>
 </tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>name</code></td>
-<td>item field <code>name</code>
-</td>
-<td>name of the item, can be used in <code>setActiveItem</code>
-</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-<tr class="even">
+<tbody><tr class="odd">
 <td><code>label</code></td>
 <td>item field <code>label</code>
 </td>
 <td>text content for the corresponding indicator</td>
-<td>string</td>
-<td>—</td>
-<td>—</td>
-</tr>
-</tbody>
+<td>
+<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>14</sup></a>
+/ <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>15</sup></a>
+</td>
+<td></td>
+<td>’’</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="carousel-item-slots">Carousel-Item Slots<a class="anchor" aria-label="anchor" href="#carousel-item-slots"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Element</th>
+<th>In R</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td><code>default</code></td>
+<td>default content</td>
+<td>customize default content</td>
+</tr></tbody>
 </table>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

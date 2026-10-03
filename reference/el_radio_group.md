@@ -1,6 +1,6 @@
-# Element UI Radio Group Component
+# Element Plus Radio Group Component
 
-Creates an Element UI `<el-radio-group>` component backed by a Vue
+Creates an Element Plus `<el-radio-group>` component backed by a Vue
 instance. Supports both standard radio buttons (`<el-radio>`) and
 button-style radios (`<el-radio-button>`).
 
@@ -28,6 +28,10 @@ el_radio_group(
   slots = NULL,
   value = NULL,
   options = NULL,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL,
   session = NULL
 )
 ```
@@ -56,8 +60,8 @@ el_radio_group(
 
 - size:
 
-  Component size: `NULL`, `"medium"`, `"small"`, or `"mini"`. Only
-  affects button-style radios (`button = TRUE`).
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page. Only affects button-style radios (`button = TRUE`).
 
 - button:
 
@@ -127,6 +131,26 @@ el_radio_group(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- aria_label:
+
+  Same as `aria-label` in RadioGroup. Element Plus's `aria-label`
+  (string).
+
+- props:
+
+  Configuration options. Element Plus's `props`
+  (`{ value?: string, label?: string, disabled?: string}`).
+
+- type:
+
+  Component type to render options (e.g. `'button'`). Element Plus's
+  `type` ('radio' \| 'button').
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
 - session:
 
   Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
@@ -151,11 +175,11 @@ el_radio_group("size",
 )
 #> <div id="size" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="size_container" style="display: contents">
-#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
 #>     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
 #>   </el-radio-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false,"size":null,"fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Button-style radio group
@@ -166,11 +190,11 @@ el_radio_group("theme",
 )
 #> <div id="theme" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="theme_container" style="display: contents">
-#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+#>   <el-radio-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
 #>     <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
 #>   </el-radio-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small","fill":null,"textColor":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('theme', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('theme', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

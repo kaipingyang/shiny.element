@@ -1,103 +1,178 @@
 # Progress
 
-Progress shows how far an operation has got;
-[`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/update_el_progress.md)
-moves it from the server.
+Progress is used to show the progress of current operation, and inform
+the user the current status.
 
 ## Linear progress bar
 
-`format`, a
-[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
-function, writes the text.
+Use `percentage` attribute to set the percentage. It’s **required** and
+must be between `0-100`. You can custom text format by setting `format`.
 
 ``` r
 
-tagList(lapply(list(
-  el_progress("p1", percentage = 50),
-  el_progress("p2", percentage = 100, format = JS("function(p) { return p === 100 ? 'Full' : p + '%'; }")),
-  el_progress("p3", percentage = 100, status = "success"),
-  el_progress("p4", percentage = 100, status = "warning"),
-  el_progress("p5", percentage = 50, status = "exception")),
-  function(x) tags$div(style = "width: 400px; margin-bottom: 12px", x)))
+tags$div(style = "max-width: 600px; display: grid; gap: 15px",
+  el_progress("pr1", percentage = 50), el_progress("pr2", percentage = 100, format = JS("function(p) { return p === 100 ? 'Full' : p + '%'; }")),
+  el_progress("pr3", percentage = 100, status = "success"), el_progress("pr4", percentage = 100, status = "warning"),
+  el_progress("pr5", percentage = 50, status = "exception"))
 ```
 
 ## Internal percentage
 
+In this case the percentage takes no additional space.
+
+`stroke-width` attribute decides the `width` of progress bar, and use
+`text-inside` attribute to put description inside the progress bar.
+
 ``` r
 
-tagList(lapply(list(
-  el_progress("i1", percentage = 70, text_inside = TRUE, stroke_width = 26),
-  el_progress("i2", percentage = 100, text_inside = TRUE, stroke_width = 24, status = "success"),
-  el_progress("i3", percentage = 80, text_inside = TRUE, stroke_width = 22, status = "warning"),
-  el_progress("i4", percentage = 50, text_inside = TRUE, stroke_width = 20, status = "exception")),
-  function(x) tags$div(style = "width: 400px; margin-bottom: 12px", x)))
+tags$div(style = "max-width: 600px; display: grid; gap: 15px",
+  el_progress("pri1", percentage = 70, text_inside = TRUE, stroke_width = 26),
+  el_progress("pri2", percentage = 100, text_inside = TRUE, stroke_width = 24, status = "success"),
+  el_progress("pri3", percentage = 80, text_inside = TRUE, stroke_width = 22, status = "warning"),
+  el_progress("pri4", percentage = 50, text_inside = TRUE, stroke_width = 20, status = "exception"))
 ```
 
 ## Custom color
 
-`color` is a colour, a
-[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
-function of the percentage, or a list of stops.
+You can use `color` attr to set the progress bar color. it accepts color
+string, function, or array.
 
 ``` r
 
-tagList(lapply(list(
-  el_progress("c1", percentage = 20, color = "#409eff"),
-  el_progress("c2", percentage = 50, color = JS(
-    "function(p) { return p < 30 ? '#909399' : p < 70 ? '#e6a23c' : '#67c23a'; }")),
-  el_progress("c3", percentage = 80, color = list(
-    list(color = "#f56c6c", percentage = 20), list(color = "#e6a23c", percentage = 40),
-    list(color = "#5cb87a", percentage = 60), list(color = "#1989fa", percentage = 80),
-    list(color = "#6f7ad3", percentage = 100)))),
-  function(x) tags$div(style = "width: 400px; margin-bottom: 12px", x)))
+tags$div(style = "max-width: 600px; display: grid; gap: 15px",
+  el_progress("prc1", percentage = 20, color = "#409eff"),
+  el_progress("prc2", percentage = 40, color = JS("function(p) { return p < 30 ? '#909399' : p < 70 ? '#e6a23c' : '#67c23a'; }")),
+  el_progress("prc3", percentage = 60, color = list(list(color = "#f56c6c", percentage = 20),
+    list(color = "#e6a23c", percentage = 40), list(color = "#5cb87a", percentage = 60),
+    list(color = "#1989fa", percentage = 80), list(color = "#6f7ad3", percentage = 100))))
 ```
 
 ## Circular progress bar
 
+You can specify `type` attribute to `circle` to use circular progress
+bar, and use `width` attribute to change the size of circle.
+
 ``` r
 
-el_progress("o1", type = "circle", percentage = 0)
-el_progress("o2", type = "circle", percentage = 25)
-el_progress("o3", type = "circle", percentage = 100, status = "success")
-el_progress("o4", type = "circle", percentage = 70, status = "warning")
-el_progress("o5", type = "circle", percentage = 50, status = "exception")
+tags$div(style = "display: flex; gap: 20px",
+  el_progress("prcl1", type = "circle", percentage = 0),
+  el_progress("prcl2", type = "circle", percentage = 25),
+  el_progress("prcl3", type = "circle", percentage = 100, status = "success"),
+  el_progress("prcl4", type = "circle", percentage = 70, status = "warning"),
+  el_progress("prcl5", type = "circle", percentage = 50, status = "exception"))
 ```
 
 ## Dashboard progress bar
 
+You also can specify `type` attribute to `dashboard` to use dashboard
+progress bar.
+
 ``` r
 
-ui <- el_page(el_progress("dash", type = "dashboard", percentage = 10),
-              el_button_group(el_button("minus", NULL, icon = "el-icon-minus"),
-                              el_button("plus", NULL, icon = "el-icon-plus")))
-
-server <- function(input, output, session) {
-  pct <- reactiveVal(10)
-  observeEvent(input$plus, pct(min(100, pct() + 10)))
-  observeEvent(input$minus, pct(max(0, pct() - 10)))
-  observe(update_el_progress(id = "dash", percentage = pct()))
-}
-
-shinyApp(ui, server)
+el_progress("prd", type = "dashboard", percentage = 70, color = list(
+  list(color = "#f56c6c", percentage = 20), list(color = "#e6a23c", percentage = 40),
+  list(color = "#5cb87a", percentage = 60), list(color = "#1989fa", percentage = 80),
+  list(color = "#6f7ad3", percentage = 100)))
 ```
 
-![The dashboard example, running](../../shots/progress-dashboard.png)
+## Customized content
+
+Use default slot to add customized content.
+
+``` r
+
+tags$div(style = "display: flex; gap: 20px; align-items: center",
+  el_progress("prx1", percentage = 50, slots = list(default = el_button("prx_b", "Content", text = TRUE))),
+  el_progress("prx2", type = "circle", percentage = 50, slots = list(default = template(htmltools::HTML(
+    "<span class=\"percentage-value\">{{ percentage }}%</span><span class=\"percentage-label\">Progressing</span>"),
+    scope = "{ percentage }"))))
+```
+
+## Indeterminate progress
+
+Use `indeterminate` attribute to set indeterminate progress, with
+`duration` to control the animation duration.
+
+``` r
+
+tags$div(style = "max-width: 600px; display: grid; gap: 15px",
+  el_progress("prin1", percentage = 50, indeterminate = TRUE),
+  el_progress("prin2", percentage = 100, format = JS("function() { return 'Full'; }"), indeterminate = TRUE),
+  el_progress("prin3", percentage = 100, status = "success", indeterminate = TRUE, duration = 5))
+```
+
+## Striped progress
+
+Use `striped` attribute to set striped progress. You can use
+`striped-flow` to get the stripes to flow, with `duration` to control
+the animation duration.
+
+``` r
+
+tags$div(style = "max-width: 600px; display: grid; gap: 15px",
+  el_progress("prs1", percentage = 50, stroke_width = 15, striped = TRUE),
+  el_progress("prs2", percentage = 30, stroke_width = 15, status = "warning", striped = TRUE, striped_flow = TRUE),
+  el_progress("prs3", percentage = 100, stroke_width = 15, status = "success", striped = TRUE,
+              striped_flow = TRUE, duration = 10))
+```
 
 ## API
+
+Element Plus’s tables, and beside each entry where it is in R.
 
 ### Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `percentage` | `percentage` | percentage, **required** | number | 0-100 | 0 |
-| `type` | `type` | the type of progress bar | string | line/circle/dashboard | line |
-| `stroke-width` | `stroke_width` | the width of progress bar | number | — | 6 |
-| `text-inside` | `text_inside` | whether to place the percentage inside progress bar, only works when `type` is ‘line’ | boolean | — | false |
-| `status` | `status` | the current status of progress bar | string | success/exception/warning | — |
-| `color` | `color` | background color of progress bar. Overrides `status` prop | string/function/array | — | ’’ |
-| `width` | `width` | the canvas width of circle progress bar | number | — | 126 |
-| `show-text` | `show_text` | whether to show percentage | boolean | — | true |
-| `stroke-linecap` | `stroke_linecap` | circle/dashboard type shape at the end path | string | butt/round/square | round |
-| `format` | `format` | custom text format | function(percentage) | — | — |
-| `define-back-color` | `define_back_color` | background color of progress bar (hex format) | string | — | — |
-| `text-color` | `text_color` | text color of progress bar (hex format) | string | — | — |
+| `percentage` | `percentage` | percentage | [^1]`(0-100)` |  | 0 |
+| `type` | `type` | the type of progress bar | [^2]`'line' \\| 'circle' \\| 'dashboard'` |  | line |
+| `stroke-width` | `stroke_width` | the width of progress bar | [^3] |  | 6 |
+| `text-inside` | `text_inside` | whether to place the percentage inside progress bar, only works when `type` is ‘line’ | [^4] |  | false |
+| `status` | `status` | the current status of progress bar | [^5]`'success' \\| 'exception' \\| 'warning'` |  | — |
+| `indeterminate` | `indeterminate` | set indeterminate progress | [^6] |  | false |
+| `duration` | `duration` | control the animation duration of indeterminate progress or striped flow progress | [^7] |  | 3 |
+| `color` | `color` | background color of progress bar. Overrides `status` prop | [^8] / [^9]`(percentage: number) => string` / [^10]`{ color: string; percentage: number }[]` |  | ’’ |
+| `width` | `width` | the canvas width of circle progress bar | [^11] |  | 126 |
+| `show-text` | `show_text` | whether to show percentage | [^12] |  | true |
+| `stroke-linecap` | `stroke_linecap` | circle/dashboard type shape at the end path | [^13]`'butt' \\| 'round' \\| 'square'` |  | round |
+| `format` | `format` | custom text format | [^14]`(percentage: number) => string` |  | — |
+| `striped` | `striped` | stripe over the progress bar’s color | [^15] |  | false |
+| `striped-flow` | `striped_flow` | get the stripes to flow | [^16] |  | false |
+
+### Slots
+
+| Element   | In R            | Description        |
+|-----------|-----------------|--------------------|
+| `default` | default content | Customized content |
+
+[^1]: number
+
+[^2]: enum
+
+[^3]: number
+
+[^4]: boolean
+
+[^5]: enum
+
+[^6]: boolean
+
+[^7]: number
+
+[^8]: string
+
+[^9]: function
+
+[^10]: Array
+
+[^11]: number
+
+[^12]: boolean
+
+[^13]: enum
+
+[^14]: Function
+
+[^15]: boolean
+
+[^16]: boolean

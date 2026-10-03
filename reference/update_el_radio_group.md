@@ -1,4 +1,4 @@
-# Update Element UI Radio Group
+# Update Element Plus Radio Group
 
 Server-side update for
 [`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md).

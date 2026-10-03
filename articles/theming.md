@@ -1,7 +1,11 @@
-# Theming, sizes and languages
+# Theming
 
-Element’s own development guide covers its theme, its languages and its
-built-in transitions; here they are from R.
+Element Plus is themed through CSS variables – `--el-color-primary` and
+some hundreds more – which its theming guide overrides on the page. Here
+[`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)
+does it, alongside the Bootstrap theme of the page around the
+components. Languages, dark mode, sizes for the whole page and the
+built-in transitions have guides of their own.
 
 ## Sizing
 
@@ -10,22 +14,23 @@ Shiny input – `"200px"`, `"50%"`, or a number meaning pixels. It lands
 on Element’s own markup, because the host element carries
 `display: contents` and generates no box of its own.
 
-`height` is only where Element gives it a meaning:
+`height` is only where Element Plus gives it a meaning:
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 fixes the header and scrolls the body,
 [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md)
 sizes a vertical track,
 [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
-sets the frame. Element sizes controls through `size` (`"medium"`,
-`"small"`, `"mini"`) rather than a height.
+sets the frame. Element Plus sizes controls through `size` (`"large"`,
+`"default"`, `"small"`) rather than a height.
 
 `el_page(size = "small")` sets that size for every component not given
-one of its own, as `Vue.use(Element, {size: "small"})` does upstream;
-`z_index` sets where Element’s popups start stacking.
+one of its own, as `app.use(ElementPlus, { size: "small" })` does
+upstream; `z_index` sets where Element’s popups start stacking.
 [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
-takes both too. Element’s responsive helper classes – `hidden-xs-only`,
-`hidden-md-and-up` and the rest of its `display.css` – are loaded with
-it, for any tag: `tags$div(class = "hidden-sm-and-down", ...)`.
+takes both too. Element Plus’s responsive helper classes –
+`hidden-xs-only`, `hidden-md-and-up` and the rest of its `display.css` –
+are loaded with it, for any tag:
+`tags$div(class = "hidden-sm-and-down", ...)`.
 
 ## The page around the components
 
@@ -78,15 +83,15 @@ shinyApp(ui, function(input, output, session) {})
 
 ![The theme-colors example, running](../shots/theming-theme-colors.png)
 
-Element’s other theme variables – its radii, sizes, greys, some five
-hundred in theme-chalk’s `common/var.scss` – go in
-`el_theme(element =)`, by name without the `$--`:
+Element Plus’s other variables – its radii, sizes, greys, the full list
+in its `theme-chalk` stylesheet – go in `el_theme(element =)`, by name
+without the `--el-`:
 
 ``` r
 
 theme <- el_theme(primary = "#0f766e", element = list(
   "border-radius-base" = "12px", "border-radius-small" = "8px",
-  "font-size-base" = "13px", "input-height" = "36px"))
+  "font-size-base" = "13px", "component-size" = "36px"))
 
 ui <- el_page(theme = theme,
   el_input("name", placeholder = "Rounder, smaller", width = "260px"),
@@ -99,48 +104,18 @@ shinyApp(ui, function(input, output, session) {})
 ![The theme-element example,
 running](../shots/theming-theme-element.png)
 
-Element’s stylesheet is built for the theme the way upstream builds one.
-Brand colours alone are replaced in the shipped stylesheet, as Element’s
-own theme picker does; anything more compiles Element’s Sass sources,
-bundled with the package, as its theme tool does – about a second, once
-per theme and R session. `use_element(theme =)` does the same on a page
-that is not an
+They are set on the page as CSS variables, as Element Plus’s theming
+guide sets them: nothing is compiled, and a theme costs nothing to
+switch. A brand colour brings its tints – `--el-color-primary-light-3`
+to `-light-9`, `-dark-2` – for the light page and for dark mode.
+`use_element(theme =)` does the same on a page that is not an
 [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
 
-## Languages
+## Further
 
-Element’s components have text of their own – a pagination control’s
-total, a date picker’s month names, a table’s “No Data”.
-`el_page(locale =)` sets the language, English by default;
-`options(shiny.element.locale =)` sets it for a session, and
-[`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)
-lists the 59 Element ships.
-
-``` r
-
-ui <- el_page(locale = "fr",
-  el_pagination("p", total = 100, layout = "total, prev, pager, next, jumper"),
-  el_date_picker("d", placeholder = NULL))
-
-shinyApp(ui, function(input, output, session) {})
-```
-
-![The i18n example, running](../shots/theming-i18n.png)
-
-Text you pass in is yours to translate.
-
-## Built-in transitions
-
-Element’s transitions – `el-fade-in-linear`, `el-fade-in`,
-`el-zoom-in-center`, `el-zoom-in-top`, `el-zoom-in-bottom` – are classes
-in its stylesheet, for Vue’s `<transition>` inside a component’s markup,
-and `el$collapse_transition()` animates a block’s height:
-
-``` r
-
-el_widget("fade", data = list(show = TRUE), dependency = element_ui_dependency(),
-  markup = htmltools::tags$div(
-    el$button("@click" = "show = !show", "Toggle"),
-    htmltools::tag("transition", list(name = "el-fade-in-linear",
-      htmltools::tags$div(`v-show` = "show", style = "margin-top: 12px; width: 200px; height: 100px; background: #409EFF; border-radius: 4px")))))
-```
+- Internationalization: `el_page(locale =)`.
+- Dark mode: Element Plus’s `html.dark`.
+- Custom defaults: `el_page(size =, z_index =)` and
+  [`el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md).
+- Built-in transitions: `el-fade-in`, `el-zoom-in-top`,
+  `el$collapse_transition()`.

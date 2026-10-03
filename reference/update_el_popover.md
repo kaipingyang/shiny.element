@@ -1,9 +1,10 @@
-# Update Element UI Popover
+# Update Element Plus Popover
 
 Server-side update for
 [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md).
-Setting `value` opens or closes the card, which is how
-`trigger = "manual"` is driven.
+Setting `visible` opens or closes the card, which then stays as set:
+Element Plus's popover is controlled by its `visible` once that is
+given.
 
 ## Usage
 
@@ -14,7 +15,7 @@ update_el_popover(
   title = NULL,
   content = NULL,
   disabled = NULL,
-  value = NULL
+  visible = NULL
 )
 ```
 
@@ -29,7 +30,7 @@ update_el_popover(
 
   Popover ID (un-namespaced).
 
-- title, content, disabled, value:
+- title, content, disabled, visible:
 
   New values; `NULL` leaves one unchanged.
 
@@ -43,7 +44,7 @@ Called for its side effect; returns `NULL` invisibly.
 if (interactive()) {
   # inside a server function
   observeEvent(input$explain, {
-    update_el_popover(session, "info", content = summary_text(), value = TRUE)
+    update_el_popover(session, "info", content = summary_text(), visible = TRUE)
   })
 }
 ```

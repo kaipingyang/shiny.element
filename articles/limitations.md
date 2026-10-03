@@ -1,6 +1,6 @@
 # What works, and what does not
 
-Every component Element UI 2.15.14 documents is wrapped, with every
+Every component Element Plus 2.14.7 documents is wrapped, with every
 documented attribute, event and slot reachable from R and every method
 callable by name. What follows is the small print – the places where
 this package behaves differently from Element in a browser, and why.
@@ -17,8 +17,8 @@ uses.
 
 ## Where the argument name differs from Element’s
 
-Arguments are snake_case versions of Element’s prop names, with six
-exceptions. Each is deliberate; the rest translate mechanically
+Arguments are snake_case versions of Element Plus’s prop names, with a
+few exceptions. Each is deliberate; the rest translate mechanically
 (`show-overflow-tooltip` becomes `show_overflow_tooltip`).
 
 | Element | Here | Why |
@@ -29,6 +29,9 @@ exceptions. Each is deliberate; the rest translate mechanically
 | `props` | `label_field`, `children_field`, `disabled_field`, `is_leaf_field` | [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s field map is four arguments rather than a nested list |
 | `data` (upload) | `extra_data` | [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s `data` would read as the file, not the fields sent beside it |
 | `width` (popover) | `popover_width` | Every component takes `width` for its own size; this one sizes the card |
+| `model-value` | `value`, or `visible` (dialog, drawer), `selected` (tabs), `open` (tour) | `v-model`’s prop is the component’s value, read back as `input$<id>` |
+| `width` (watermark, table-v2) | `watermark_width`, `table_v2_width` | As for the popover |
+| a prop named like a child’s field | prefixed: `tip_`, `pop_`, `pc_` | A component that absorbs its children keeps their data apart from its own |
 
 ### Two names for the choice components
 
@@ -120,12 +123,10 @@ a dialog say, has no instance to reach.
 
 ## Browsers, CSP and the road ahead
 
-Element UI 2 and Vue 2 are both past their active development: Vue 2
-reached end of life at the end of 2023, and Element UI’s last release is
-the 2.15.14 bundled here. They work, and this package keeps working with
-them, but upstream will not fix new bugs or security issues; Element
-Plus on Vue 3 is upstream’s successor, and a future shiny.vue may move
-to it.
+Element Plus 2.14.7 on Vue 3.5 is bundled – both under active
+development upstream. Each component is its own Vue application, made
+with `Vue.createApp()`, so one that fails to mount leaves the rest of
+the page working, and a component removed by Shiny unmounts cleanly.
 
 The bridge needs a browser that supports `display: contents`, `:scope`
 selectors and regular-expression lookbehind – every current Chrome,

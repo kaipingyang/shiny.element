@@ -1,4 +1,4 @@
-# Element UI Transfer
+# Element Plus Transfer
 
 Two lists side by side, for moving items from one to the other.
 
@@ -28,6 +28,9 @@ el_transfer(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  item_size = NULL,
+  validate_event = NULL,
+  virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -140,6 +143,21 @@ el_transfer(
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
 
+- item_size:
+
+  Item height for virtual scrolling. Element Plus's `item-size`
+  (number).
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
+- virtual_scroll:
+
+  Whether to enable virtual scrolling. Element Plus's `virtual-scroll`
+  (boolean).
+
 - width:
 
   Component width, as a CSS unit.
@@ -187,9 +205,9 @@ el_transfer("cols",
 )
 #> <div id="cols" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cols_container" style="display: contents">
-#>   <el-transfer v-model="value" :data="data" :titles="titles === null ? undefined : titles" :button-texts="buttonTexts === null ? undefined : buttonTexts" :filterable="filterable === null ? undefined : filterable" :filter-placeholder="filterPlaceholder === null ? undefined : filterPlaceholder" :filter-method="filterMethod === null ? undefined : filterMethod" :target-order="targetOrder === null ? undefined : targetOrder" :format="format === null ? undefined : format" :props="props === null ? undefined : props" :left-default-checked="leftDefaultChecked === null ? undefined : leftDefaultChecked" :right-default-checked="rightDefaultChecked === null ? undefined : rightDefaultChecked" :render-content="renderContent === null ? undefined : renderContent" @change="elEmitChange" @left-check-change="elEmitLeftCheckChange" @right-check-change="elEmitRightCheckChange"></el-transfer>
+#>   <el-transfer v-model="value" :data="data" :titles="titles === null ? undefined : titles" :button-texts="buttonTexts === null ? undefined : buttonTexts" :filterable="filterable === null ? undefined : filterable" :filter-placeholder="filterPlaceholder === null ? undefined : filterPlaceholder" :filter-method="filterMethod === null ? undefined : filterMethod" :target-order="targetOrder === null ? undefined : targetOrder" :format="format === null ? undefined : format" :props="props === null ? undefined : props" :left-default-checked="leftDefaultChecked === null ? undefined : leftDefaultChecked" :right-default-checked="rightDefaultChecked === null ? undefined : rightDefaultChecked" :render-content="renderContent === null ? undefined : renderContent" @change="elEmitChange" @left-check-change="elEmitLeftCheckChange" @right-check-change="elEmitRightCheckChange" :item-size="itemSize === null ? undefined : itemSize" :validate-event="validateEvent === null ? undefined : validateEvent" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll"></el-transfer>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Species"],"data":[{"key":"Sepal.Length","label":"Sepal.Length"},{"key":"Sepal.Width","label":"Sepal.Width"},{"key":"Petal.Length","label":"Petal.Length"},{"key":"Petal.Width","label":"Petal.Width"},{"key":"Species","label":"Species"}],"titles":null,"buttonTexts":null,"filterable":null,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Species"],"data":[{"key":"Sepal.Length","label":"Sepal.Length"},{"key":"Sepal.Width","label":"Sepal.Width"},{"key":"Petal.Length","label":"Petal.Length"},{"key":"Petal.Width","label":"Petal.Width"},{"key":"Species","label":"Species"}],"titles":null,"buttonTexts":null,"filterable":null,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null,"itemSize":null,"validateEvent":null,"virtualScroll":null},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
 #> </div>
 
 el_transfer("cols",
@@ -199,8 +217,8 @@ el_transfer("cols",
 )
 #> <div id="cols" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cols_container" style="display: contents">
-#>   <el-transfer v-model="value" :data="data" :titles="titles === null ? undefined : titles" :button-texts="buttonTexts === null ? undefined : buttonTexts" :filterable="filterable === null ? undefined : filterable" :filter-placeholder="filterPlaceholder === null ? undefined : filterPlaceholder" :filter-method="filterMethod === null ? undefined : filterMethod" :target-order="targetOrder === null ? undefined : targetOrder" :format="format === null ? undefined : format" :props="props === null ? undefined : props" :left-default-checked="leftDefaultChecked === null ? undefined : leftDefaultChecked" :right-default-checked="rightDefaultChecked === null ? undefined : rightDefaultChecked" :render-content="renderContent === null ? undefined : renderContent" @change="elEmitChange" @left-check-change="elEmitLeftCheckChange" @right-check-change="elEmitRightCheckChange" style="width: 100%"></el-transfer>
+#>   <el-transfer v-model="value" :data="data" :titles="titles === null ? undefined : titles" :button-texts="buttonTexts === null ? undefined : buttonTexts" :filterable="filterable === null ? undefined : filterable" :filter-placeholder="filterPlaceholder === null ? undefined : filterPlaceholder" :filter-method="filterMethod === null ? undefined : filterMethod" :target-order="targetOrder === null ? undefined : targetOrder" :format="format === null ? undefined : format" :props="props === null ? undefined : props" :left-default-checked="leftDefaultChecked === null ? undefined : leftDefaultChecked" :right-default-checked="rightDefaultChecked === null ? undefined : rightDefaultChecked" :render-content="renderContent === null ? undefined : renderContent" @change="elEmitChange" @left-check-change="elEmitLeftCheckChange" @right-check-change="elEmitRightCheckChange" :item-size="itemSize === null ? undefined : itemSize" :validate-event="validateEvent === null ? undefined : validateEvent" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll" style="width: 100%"></el-transfer>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"data":[{"key":"mpg","label":"mpg"},{"key":"cyl","label":"cyl"},{"key":"disp","label":"disp"},{"key":"hp","label":"hp"},{"key":"drat","label":"drat"},{"key":"wt","label":"wt"},{"key":"qsec","label":"qsec"},{"key":"vs","label":"vs"},{"key":"am","label":"am"},{"key":"gear","label":"gear"},{"key":"carb","label":"carb"}],"titles":["Available","Chosen"],"buttonTexts":null,"filterable":true,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"data":[{"key":"mpg","label":"mpg"},{"key":"cyl","label":"cyl"},{"key":"disp","label":"disp"},{"key":"hp","label":"hp"},{"key":"drat","label":"drat"},{"key":"wt","label":"wt"},{"key":"qsec","label":"qsec"},{"key":"vs","label":"vs"},{"key":"am","label":"am"},{"key":"gear","label":"gear"},{"key":"carb","label":"carb"}],"titles":["Available","Chosen"],"buttonTexts":null,"filterable":true,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null,"itemSize":null,"validateEvent":null,"virtualScroll":null},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
 #> </div>
 ```

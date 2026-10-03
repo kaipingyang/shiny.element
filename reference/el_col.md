@@ -1,4 +1,4 @@
-# Element UI Layout Column
+# Element Plus Layout Column
 
 Emits `<div class="el-col el-col-N">` directly; see
 [`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md)
@@ -32,7 +32,7 @@ el_col(
 
 - span:
 
-  Column span out of 24. Defaults to 24, as in Element UI.
+  Column span out of 24. Defaults to 24, as in Element Plus.
 
 - offset:
 

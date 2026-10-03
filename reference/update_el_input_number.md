@@ -1,4 +1,4 @@
-# Update Element UI Input Number
+# Update Element Plus Input Number
 
 Server-side update for
 [`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md).

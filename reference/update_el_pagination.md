@@ -1,4 +1,4 @@
-# Update Element UI Pagination
+# Update Element Plus Pagination
 
 Server-side update for
 [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md).

@@ -1,0 +1,168 @@
+# Scrollbar
+
+Used to replace the browser’s native scrollbar.
+
+## Basic usage
+
+Use `height` property to set the height of the scrollbar, or if not set,
+it adapts according to the parent container height.
+
+``` r
+
+item <- function(i) tags$p(class = "scrollbar-demo-item", style = paste(
+  "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
+  "text-align: center; border-radius: 4px; background: var(--el-color-primary-light-9);",
+  "color: var(--el-color-primary)"), i)
+el_scrollbar(height = "400px", lapply(1:20, item))
+```
+
+## Horizontal scroll
+
+When the element width is greater than the scrollbar width, the
+horizontal scrollbar is displayed.
+
+``` r
+
+item <- function(i) tags$p(style = paste(
+  "flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 100px;",
+  "height: 50px; margin: 10px; border-radius: 4px; background: var(--el-color-danger-light-9);",
+  "color: var(--el-color-danger)"), i)
+el_scrollbar(tags$div(style = "display: flex", lapply(1:50, item)))
+```
+
+## Max height
+
+The scrollbar is displayed only when the element height exceeds the max
+height.
+
+``` r
+
+item <- function(i) tags$p(style = paste(
+  "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
+  "border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"), i)
+el_scrollbar(max_height = "400px", lapply(1:3, item))
+```
+
+## Manual scroll
+
+Use `setScrollTop` and `setScrollLeft` methods can control scrollbar
+manually.
+
+`el_call(session, "sb", "setScrollTop", list(200))` scrolls it from the
+server; `input$<id>_scroll` reports where it is.
+
+``` r
+
+item <- function(i) tags$p(style = paste(
+  "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
+  "border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"), i)
+el_scrollbar(id = "sb", height = "400px", always = TRUE, lapply(1:20, item))
+```
+
+## Infinite scroll
+
+`end-reached` is triggered when the scrollbar reaches the end. It can be
+used as an infinite scroll.
+
+Reaching an end is `input$<id>_end_reached`: `"bottom"`, `"top"`, …
+
+``` r
+
+item <- function(i) tags$p(style = paste(
+  "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
+  "border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"), i)
+el_scrollbar(id = "sb_more", height = "400px", lapply(1:30, item))
+```
+
+## API
+
+Element Plus’s tables, and beside each entry where it is in R.
+
+### Attributes
+
+| Element | In R | Description | Type | Accepted | Default |
+|----|----|----|----|----|----|
+| `height` | `height` | height of scrollbar | [^1] / [^2] |  | — |
+| `max-height` | `max_height` | max height of scrollbar | [^3] / [^4] |  | — |
+| `native` | `native` | whether to use the native scrollbar style | [^5] |  | false |
+| `wrap-style` | `wrap_style` | style of wrap container | [^6] / [^7]`CSSProperties \\| CSSProperties[] \\| string[]` |  | — |
+| `wrap-class` | `wrap_class` | class of wrap container | [^8] |  | — |
+| `view-style` | `view_style` | style of view | [^9] / [^10]`CSSProperties \\| CSSProperties[] \\| string[]` |  | — |
+| `view-class` | `view_class` | class of view | [^11] |  | — |
+| `noresize` | `noresize` | do not respond to container size changes, if the container size does not change, it is better to set it to optimize performance | [^12] |  | false |
+| `tag` | `tag` | element tag of the view | [^13] |  | div |
+| `always` | `always` | always show scrollbar | [^14] |  | false |
+| `min-size` | `min_size` | minimum size of scrollbar | [^15] |  | 20 |
+| `id` | `id`, the Shiny input’s | id of view | [^16] |  | — |
+| `role` | `role` | role of view | [^17] |  | — |
+| `aria-label` | `aria_label` | aria-label of view | [^18] |  | — |
+| `aria-orientation` | `aria_orientation` | aria-orientation of view | [^19]`'horizontal' \\| 'vertical'` |  | — |
+| `tabindex` | `tabindex` | tabindex of wrap container | [^20] / [^21] |  | — |
+| `distance` | `distance` | trigger end-reached event distance(px) | [^22] |  | 0 |
+
+### Events
+
+| Element | In R | Description |
+|----|----|----|
+| `scroll` | `input$<id>_scroll` | triggers when scrolling, return distance of scrolling |
+| `end-reached` | `input$<id>_end_reached` | triggers when the end of a scroll is triggered |
+
+### Slots
+
+| Element   | In R            | Description               |
+|-----------|-----------------|---------------------------|
+| `default` | default content | customize default content |
+
+### Exposes
+
+| Element | In R | Description |
+|----|----|----|
+| `handleScroll` | `el_call(session, id, "handleScroll")` | handle scroll event |
+| `scrollTo` | `el_call(session, id, "scrollTo")` | scrolls to a particular set of coordinates |
+| `setScrollTop` | `el_call(session, id, "setScrollTop")` | Set distance to scroll top |
+| `setScrollLeft` | `el_call(session, id, "setScrollLeft")` | Set distance to scroll left |
+| `update` | `el_call(session, id, "update")` | update scrollbar state manually |
+
+[^1]: string
+
+[^2]: number
+
+[^3]: string
+
+[^4]: number
+
+[^5]: boolean
+
+[^6]: string
+
+[^7]: object
+
+[^8]: string
+
+[^9]: string
+
+[^10]: object
+
+[^11]: string
+
+[^12]: boolean
+
+[^13]: string
+
+[^14]: boolean
+
+[^15]: number
+
+[^16]: string
+
+[^17]: string
+
+[^18]: string
+
+[^19]: enum
+
+[^20]: number
+
+[^21]: string
+
+[^22]: number

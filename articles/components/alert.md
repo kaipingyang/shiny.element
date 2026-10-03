@@ -1,98 +1,156 @@
 # Alert
 
-Displays important alert messages. `input$<id>_close` fires when the
-user closes one;
-[`update_el_alert()`](https://kaipingyang.github.io/shiny.element/reference/update_el_alert.md)
-changes it.
+Displays important alert messages.
 
-## Basic usage
+## Basic Usage
+
+Alert components are non-overlay elements in the page that does not
+disappear automatically.
+
+Alert provides 5 types of themes defined by `type`, whose default value
+is `info`. `primary` has been added in 2.9.11.
 
 ``` r
 
-el_alert("a1", title = "success alert", type = "success")
-el_alert("a2", title = "info alert", type = "info")
-el_alert("a3", title = "warning alert", type = "warning")
-el_alert("a4", title = "error alert", type = "error")
+types <- c("primary", "success", "info", "warning", "error")
+tags$div(style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t)))
 ```
 
 ## Theme
 
+Alert provide two different themes, `light` and `dark`.
+
+Set `effect` to change theme, default is `light`.
+
 ``` r
 
-el_alert("d1", title = "success alert", type = "success", effect = "dark")
-el_alert("d2", title = "info alert", type = "info", effect = "dark")
-el_alert("d3", title = "warning alert", type = "warning", effect = "dark")
-el_alert("d4", title = "error alert", type = "error", effect = "dark")
+types <- c("primary", "success", "info", "warning", "error")
+tags$div(style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
+                                     effect = "dark")))
 ```
 
-## Customizable close button
+## Customizable Close Button
+
+Customize the close button as texts or other symbols.
+
+Alert allows you to configure if it’s closable. The close button text
+and closing callbacks are also customizable. `closable` attribute
+decides if the component can be closed or not. It accepts `boolean`, and
+the default is `true`. You can set `close-text` attribute to replace the
+default cross symbol as the close button. Be careful that `close-text`
+must be a string. `close` event fires when the component is closed.
+
+Closing reports `input$<id>_close`, where Element Plus’s demo raises a
+browser alert.
 
 ``` r
 
-el_alert("c1", title = "unclosable alert", type = "success", closable = FALSE)
-el_alert("c2", title = "customized close-text", type = "info", close_text = "Gotcha")
-el_alert("c3", title = "alert with callback", type = "warning")
+tags$div(style = "max-width: 600px; display: grid; gap: 20px",
+  el_alert(title = "Unclosable alert", type = "success", closable = FALSE),
+  el_alert(title = "Customized close text", type = "info", close_text = "Gotcha"),
+  el_alert("alert_cb", title = "Alert with callback", type = "warning"))
 ```
 
-## With icon
+## With Icon
+
+Displaying an icon improves readability.
+
+Setting the `show-icon` attribute displays an icon that corresponds with
+the current Alert type. Or use the `icon` slot to customize icon.
 
 ``` r
 
-el_alert("i1", title = "success alert", type = "success", show_icon = TRUE)
-el_alert("i2", title = "info alert", type = "info", show_icon = TRUE)
-el_alert("i3", title = "warning alert", type = "warning", show_icon = TRUE)
-el_alert("i4", title = "error alert", type = "error", show_icon = TRUE)
+types <- c("primary", "success", "info", "warning", "error")
+tags$div(style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
+                                     show_icon = TRUE)),
+  el_alert(title = "Error alert with custom icon", type = "error", show_icon = TRUE,
+           slots = list(icon = el_icon("Bell"))))
 ```
 
-## Centered text
+## Centered Text
+
+Use the `center` attribute to center the text.
 
 ``` r
 
-el_alert("ct1", title = "success alert", type = "success", center = TRUE, show_icon = TRUE)
-el_alert("ct2", title = "error alert", type = "error", center = TRUE, show_icon = TRUE)
+types <- c("primary", "success", "info", "warning", "error")
+tags$div(style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
+                                     center = TRUE, show_icon = TRUE)))
 ```
 
-## With description
+## With Description
+
+Description includes a message with more detailed information.
+
+Besides the required `title` attribute, you can add a `description`
+attribute to help you describe the alert with more details. Description
+can only store text string, and it will word wrap automatically.
 
 ``` r
 
-el_alert("de", title = "with description", type = "success",
-         description = "This is a description.")
+tags$div(style = "max-width: 600px",
+  el_alert(title = "With description", type = "success", description = "This is a description."))
 ```
 
-## With icon and description
+## With Icon and Description
+
+At last, this is an example with both icon and description.
 
 ``` r
 
-el_alert("b1", title = "success alert", type = "success", show_icon = TRUE,
-         description = "more text description")
-el_alert("b2", title = "error alert", type = "error", show_icon = TRUE,
-         description = "more text description")
+types <- c("primary", "success", "info", "warning", "error")
+tags$div(style = "max-width: 600px; display: grid; gap: 20px",
+  lapply(types, function(t) el_alert(title = paste(tools::toTitleCase(t), "alert"), type = t,
+                                     description = "More text description", show_icon = TRUE)))
 ```
 
 ## API
+
+Element Plus’s tables, and beside each entry where it is in R.
 
 ### Attributes
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `title` | `title` | title | string | — | — |
-| `type` | `type` | Component type | string | success/warning/info/error | info |
-| `description` | `description` | Descriptive text. Can also be passed with the default slot | string | — | — |
-| `closable` | `closable` | If closable or not | boolean | — | true |
-| `center` | `center` | Whether to center the text | boolean | — | false |
-| `close-text` | `close_text` | Customized close button text | string | — | — |
-| `show-icon` | `show_icon` | If a type icon is displayed | boolean | — | false |
-| `effect` | `effect` | Choose theme | string | light/dark | light |
-
-### Slot
-
-| Element | In R                     | Description                |
-|---------|--------------------------|----------------------------|
-| `title` | `slots = list(title = )` | content of the Alert title |
+| `title` | `title` | alert title. | [^1] |  | — |
+| `type` | `type` | alert type. | [^2]`'primary' (2.9.11) \\| 'success' \\| 'warning' \\| 'info' \\| 'error'` |  | info |
+| `description` | `description` | descriptive text. | [^3] |  | — |
+| `closable` | `closable` | whether alert can be dismissed. | [^4] |  | true |
+| `center` | `center` | whether content is placed in the center. | [^5] |  | false |
+| `close-text` | `close_text` | customized close button text. | [^6] |  | — |
+| `show-icon` | `show_icon` | whether a type icon is displayed. | [^7] |  | false |
+| `effect` | `effect` | theme style. | [^8]`'light' \\| 'dark'` |  | light |
 
 ### Events
 
 | Element | In R | Description |
 |----|----|----|
-| `close` | one of the component’s inputs – see its reference page | fires when alert is closed |
+| `close` | one of the component’s inputs – see its reference page | trigger when alert is closed. |
+
+### Slots
+
+| Element   | In R                     | Description                       |
+|-----------|--------------------------|-----------------------------------|
+| `default` | default content          | content of the alert description. |
+| `title`   | `slots = list(title = )` | content of the alert title.       |
+| `icon`    | `slots = list(icon = )`  | content of the alert icon.        |
+
+[^1]: string
+
+[^2]: enum
+
+[^3]: string
+
+[^4]: boolean
+
+[^5]: boolean
+
+[^6]: string
+
+[^7]: boolean
+
+[^8]: enum

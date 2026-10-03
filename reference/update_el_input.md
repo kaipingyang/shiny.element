@@ -1,4 +1,4 @@
-# Update Element UI Input
+# Update Element Plus Input
 
 Server-side update for
 [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md).

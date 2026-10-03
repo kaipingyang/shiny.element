@@ -1,4 +1,4 @@
-# Update Element UI Empty
+# Update Element Plus Empty
 
 Server-side update for
 [`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md).

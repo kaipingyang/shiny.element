@@ -1,4 +1,4 @@
-# Update Element UI Progress
+# Update Element Plus Progress
 
 Server-side update for
 [`el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md).

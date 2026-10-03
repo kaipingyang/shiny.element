@@ -1,6 +1,6 @@
-# Element UI Switch
+# Element Plus Switch
 
-Creates an Element UI switch with Vue instance.
+Creates an Element Plus switch with Vue instance.
 
 ## Usage
 
@@ -24,10 +24,19 @@ el_switch(
   inactive_color = NULL,
   active_value = TRUE,
   inactive_value = FALSE,
-  active_icon_class = NULL,
-  inactive_icon_class = NULL,
   name = NULL,
   validate_event = NULL,
+  active_action_icon = NULL,
+  active_icon = NULL,
+  aria_label = NULL,
+  before_change = NULL,
+  border_color = NULL,
+  inactive_action_icon = NULL,
+  inactive_icon = NULL,
+  inline_prompt = NULL,
+  loading = NULL,
+  size = NULL,
+  tabindex = NULL,
   slots = NULL,
   session = NULL
 )
@@ -116,14 +125,6 @@ el_switch(
 
   Value reported to Shiny when switch is off. Default `FALSE`.
 
-- active_icon_class:
-
-  Icon class shown on the active side; overrides `active_text`.
-
-- inactive_icon_class:
-
-  Icon class shown on the inactive side; overrides `inactive_text`.
-
 - name:
 
   Native `name` attribute of the inner checkbox.
@@ -131,6 +132,65 @@ el_switch(
 - validate_event:
 
   Whether a change triggers form validation. Default `TRUE`.
+
+- active_action_icon:
+
+  Component of the icon displayed in action when in `on` state. Element
+  Plus's `active-action-icon` (string / Component). An icon's name, such
+  as `"Search"`.
+
+- active_icon:
+
+  Component of the icon displayed when in `on` state, overrides
+  `active-text`. Element Plus's `active-icon` (string / Component). An
+  icon's name, such as `"Search"`.
+
+- aria_label:
+
+  Same as `aria-label` in native input. Element Plus's `aria-label`
+  (string).
+
+- before_change:
+
+  Before-change hook before the switch state changes. If `false` is
+  returned or a `Promise` is returned and then is rejected, will stop
+  switching. Element Plus's `before-change` (() =\> Promise \| boolean).
+
+- border_color:
+
+  Border color of the switch ( use CSS var `--el-switch-border-color`
+  instead ). Element Plus's `border-color` (string).
+
+- inactive_action_icon:
+
+  Component of the icon displayed in action when in `off` state. Element
+  Plus's `inactive-action-icon` (string / Component). An icon's name,
+  such as `"Search"`.
+
+- inactive_icon:
+
+  Component of the icon displayed when in `off` state, overrides
+  `inactive-text`. Element Plus's `inactive-icon` (string / Component).
+  An icon's name, such as `"Search"`.
+
+- inline_prompt:
+
+  Whether icon or text is displayed inside dot, only the first character
+  will be rendered for text. Element Plus's `inline-prompt` (boolean).
+
+- loading:
+
+  Whether Switch is in loading state. Element Plus's `loading`
+  (boolean).
+
+- size:
+
+  Size of Switch. Element Plus's `size` (” \| 'large' \| 'default' \|
+  'small').
+
+- tabindex:
+
+  Tabindex for input. Element Plus's `tabindex` (string / number).
 
 - slots:
 
@@ -167,9 +227,9 @@ Callable with
 el_switch("sw1", value = TRUE)
 #> <div id="sw1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sw1_container" style="display: contents">
-#>   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :active-icon-class="activeIconClass === null ? undefined : activeIconClass" :inactive-icon-class="inactiveIconClass === null ? undefined : inactiveIconClass" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent"></el-switch>
+#>   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"activeIconClass":null,"inactiveIconClass":null,"name":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
 #> </div>
 
 if (interactive()) {

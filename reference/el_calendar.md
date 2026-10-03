@@ -1,4 +1,4 @@
-# Element UI Calendar
+# Element Plus Calendar
 
 A month of days to pick one from, or a range of weeks to show.
 
@@ -9,7 +9,6 @@ el_calendar(
   id = NULL,
   value = NULL,
   range = NULL,
-  first_day_of_week = 1,
   label = NULL,
   label_position = c("top", "left", "right"),
   label_width = NULL,
@@ -18,6 +17,8 @@ el_calendar(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
+  controller_type = NULL,
+  formatter = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -37,10 +38,6 @@ el_calendar(
 - range:
 
   Date range, c("YYYY-MM-DD", "YYYY-MM-DD")
-
-- first_day_of_week:
-
-  First day of week (1~7), default 1
 
 - label:
 
@@ -83,6 +80,18 @@ el_calendar(
   Whether `error`'s message is shown, and whether beside the component
   rather than under it. Element's `show-message` and `inline-message`.
 
+- controller_type:
+
+  How the header switches month and year: `"button"` (the default) or
+  `"select"`. Element Plus's `controller-type`.
+
+- formatter:
+
+  With `controller_type = "select"`, a
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  function `function(value, type)` returning the label of each option.
+  Element Plus's `formatter`.
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -117,9 +126,9 @@ el_calendar("cal")
 #>     </style>
 #> <div id="cal" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cal_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":null,"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 
 # Your own, with whatever Element hands the template
@@ -137,9 +146,9 @@ el_calendar("cal", slots = list(
 #>     </style>
 #> <div id="cal" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cal_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
+#>   <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":null,"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
@@ -151,9 +160,9 @@ el_calendar(id = "calendar1", value = Sys.Date())
 #>     </style>
 #> <div id="calendar1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="calendar1_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","firstDayOfWeek":1,"range":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":null,"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 
 # With date range
@@ -166,9 +175,9 @@ el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 #>     </style>
 #> <div id="calendar2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="calendar2_container" style="display: contents">
-#>   <el-calendar v-model="value" :first-day-of-week="firstDayOfWeek" :range="range === null ? undefined : range"><template slot="dateCell" slot-scope="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   <el-calendar v-model="value" :range="range === null ? undefined : range" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","firstDayOfWeek":1,"range":["2025-01-01","2025-01-31"]},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-03","range":["2025-01-01","2025-01-31"],"controllerType":null,"formatter":null},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.watch.value"]}</script>
 #> </div>
 
 # Shiny app example: interactive calendar with update
@@ -176,7 +185,7 @@ if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    titlePanel("Element UI Calendar Example"),
+    titlePanel("Element Plus Calendar Example"),
     sidebarLayout(
       sidebarPanel(
         actionButton("set_today", "Set to Today"),
@@ -187,8 +196,7 @@ if (interactive()) {
       mainPanel(
         el_calendar(
           id = "my_calendar",
-          value = Sys.Date(),
-          first_day_of_week = 1
+          value = Sys.Date()
         )
       )
     )

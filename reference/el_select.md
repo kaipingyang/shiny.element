@@ -1,8 +1,8 @@
-# Element UI Select Component
+# Element Plus Select Component
 
-Creates an Element UI `<el-select>` component backed by a Vue instance.
-Supports single and multiple selection, filtering, and all standard
-Element UI select props.
+Creates an Element Plus `<el-select>` component backed by a Vue
+instance. Supports single and multiple selection, filtering, and all
+standard Element Plus select props.
 
 ## Usage
 
@@ -29,7 +29,6 @@ el_select(
   no_match_text = NULL,
   no_data_text = NULL,
   popper_class = NULL,
-  popper_append_to_body = NULL,
   reserve_keyword = NULL,
   default_first_option = NULL,
   remote = NULL,
@@ -48,6 +47,31 @@ el_select(
   slots = NULL,
   value = NULL,
   options = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  debounce = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  max_collapse_tags = NULL,
+  offset = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  remote_show_suffix = NULL,
+  show_arrow = NULL,
+  suffix_icon = NULL,
+  suffix_transition = NULL,
+  tabindex = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
   session = NULL
 )
 ```
@@ -95,7 +119,8 @@ el_select(
 
 - size:
 
-  Component size: `NULL`, `"medium"`, `"small"`, or `"mini"`.
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page.
 
 - multiple_limit:
 
@@ -148,10 +173,6 @@ el_select(
 - popper_class:
 
   Extra class name for the dropdown panel.
-
-- popper_append_to_body:
-
-  Whether the dropdown is appended to `body`. Default `TRUE`.
 
 - reserve_keyword:
 
@@ -229,9 +250,8 @@ el_select(
 
   Markup drawn inside each option, in place of its label – Element's
   "custom template". The option is in reach as `opt`, with any field its
-  choice carries:
-  `tags$span("{{ opt.label }}"), tags$span(style = "float: right", "{{ opt.code }}")`
-  for choices given as `list(value =, label =, code =)`.
+  choice carries – `{{ opt.label }}`, `{{ opt.code }}` – for choices
+  given as `list(value =, label =, code =)`. See the example.
 
 - slots:
 
@@ -240,6 +260,129 @@ el_select(
   here is absorbed rather than nested. For a scoped slot, write the
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
+
+- append_to:
+
+  Which element the select dropdown appends to. Element Plus's
+  `append-to` (CSSSelector / HTMLElement).
+
+- aria_label:
+
+  Same as `aria-label` in native input. Element Plus's `aria-label`
+  (string).
+
+- clear_icon:
+
+  Custom clear icon component. Element Plus's `clear-icon` (string /
+  Component). An icon's name, such as `"Search"`.
+
+- collapse_tags_tooltip:
+
+  Whether show all selected tags when mouse hover text of collapse-tags.
+  To use this, `collapse-tags` must be true. Element Plus's
+  `collapse-tags-tooltip` (boolean).
+
+- debounce:
+
+  Debounce delay during remote search, in milliseconds. Element Plus's
+  `debounce` (number).
+
+- effect:
+
+  Tooltip theme, built-in theme: `dark` / `light`. Element Plus's
+  `effect` ('dark' \| 'light' / string).
+
+- empty_values:
+
+  Empty values of component, see config-provider. Element Plus's
+  `empty-values` (array).
+
+- fallback_placements:
+
+  List of possible positions for dropdown popper.js. Element Plus's
+  `fallback-placements` (`Placement[]`).
+
+- fit_input_width:
+
+  Whether the width of the dropdown is the same as the input. Element
+  Plus's `fit-input-width` (boolean).
+
+- max_collapse_tags:
+
+  The max tags number to be shown. To use this, `collapse-tags` must be
+  true. Element Plus's `max-collapse-tags` (number).
+
+- offset:
+
+  Offset of the dropdown. Element Plus's `offset` (number).
+
+- persistent:
+
+  When select dropdown is inactive and `persistent` is `false`, select
+  dropdown will be destroyed. Element Plus's `persistent` (boolean).
+
+- placement:
+
+  Position of dropdown. Element Plus's `placement` (enum).
+
+- popper_options:
+
+  Popper.js parameters. Element Plus's `popper-options` (object).
+
+- popper_style:
+
+  Custom style for Select's dropdown and tags' tooltip. Element Plus's
+  `popper-style` (string / object).
+
+- remote_show_suffix:
+
+  In remote search method show suffix icon. Element Plus's
+  `remote-show-suffix` (boolean).
+
+- show_arrow:
+
+  Whether the dropdown has an arrow. Element Plus's `show-arrow`
+  (boolean).
+
+- suffix_icon:
+
+  Custom suffix icon component. Element Plus's `suffix-icon` (string /
+  Component). An icon's name, such as `"Search"`.
+
+- suffix_transition:
+
+  Animation when dropdown appears/disappears icon. Element Plus's
+  `suffix-transition` (boolean).
+
+- tabindex:
+
+  Tabindex for input. Element Plus's `tabindex` (string / number).
+
+- tag_effect:
+
+  Tag effect. Element Plus's `tag-effect` (” \| 'light' \| 'dark' \|
+  'plain').
+
+- tag_type:
+
+  Tag type. Element Plus's `tag-type` (” \| 'success' \| 'info' \|
+  'warning' \| 'danger').
+
+- teleported:
+
+  Whether select dropdown is teleported, if `true` it will be teleported
+  to where `append-to` sets. Element Plus's `teleported` (boolean).
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
+- value_on_clear:
+
+  Clear return value, see config-provider. Element Plus's
+  `value-on-clear` (string / number / boolean / Function). Give it as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md).
 
 - session:
 
@@ -284,7 +427,7 @@ el_select("city", choices = list(
     htmltools::tags$span(style = "float: right; color: #8492a6", "{{ opt.code }}")))
 #> <div id="city" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="city_container" style="display: contents">
-#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus">
+#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" @end-reached="elEmitEndReached" @popup-scroll="elEmitPopupScroll" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :debounce="debounce === null ? undefined : debounce" :effect="effect === null ? undefined : effect" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :offset="offset === null ? undefined : offset" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :remote-show-suffix="remoteShowSuffix === null ? undefined : remoteShowSuffix" :show-arrow="showArrow === null ? undefined : showArrow" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :suffix-transition="suffixTransition === null ? undefined : suffixTransition" :tabindex="tabindex === null ? undefined : tabindex" :tag-effect="tagEffect === null ? undefined : tagEffect" :tag-type="tagType === null ? undefined : tagType" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear">
 #>     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled">
 #>       <span style="float: left">{{ opt.label }}</span>
 #>       <span style="float: right; color: #8492a6">{{ opt.code }}</span>
@@ -297,7 +440,7 @@ el_select("city", choices = list(
 #>     </el-option-group>
 #>   </el-select>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"bj","label":"Beijing","code":"PEK"},{"value":"sh","label":"Shanghai","code":"SHA"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('city', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('city', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$city_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"bj","label":"Beijing","code":"PEK"},{"value":"sh","label":"Shanghai","code":"SHA"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null,"appendTo":null,"ariaLabel":null,"clearIcon":null,"collapseTagsTooltip":null,"debounce":null,"effect":null,"emptyValues":null,"fallbackPlacements":null,"fitInputWidth":null,"maxCollapseTags":null,"offset":null,"persistent":null,"placement":null,"popperOptions":null,"popperStyle":null,"remoteShowSuffix":null,"showArrow":null,"suffixIcon":null,"suffixTransition":null,"tabindex":null,"tagEffect":null,"tagType":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('city', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('city', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('city', 'end_reached', arguments); }","elEmitPopupScroll":"function() { var shape = function(e) { var now = Date.now(); if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('city', 'popup_scroll', [v]); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$city_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('city_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitEndReached","options.methods.elEmitPopupScroll","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 #> </div>
 
 # Single-select from a named vector
@@ -307,14 +450,14 @@ el_select("sel1",
 )
 #> <div id="sel1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sel1_container" style="display: contents">
-#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :popper-append-to-body="popperAppendToBody === null ? undefined : popperAppendToBody" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus">
+#>   <el-select v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :placeholder="placeholder === null ? undefined : placeholder" :size="size === null ? undefined : size" :value-key="valueKey === null ? undefined : valueKey" :name="name === null ? undefined : name" :autocomplete="autocomplete === null ? undefined : autocomplete" :automatic-dropdown="automaticDropdown === null ? undefined : automaticDropdown" :allow-create="allowCreate === null ? undefined : allowCreate" :loading="loading === null ? undefined : loading" :loading-text="loadingText === null ? undefined : loadingText" :no-match-text="noMatchText === null ? undefined : noMatchText" :no-data-text="noDataText === null ? undefined : noDataText" :popper-class="popperClass === null ? undefined : popperClass" :reserve-keyword="reserveKeyword === null ? undefined : reserveKeyword" :default-first-option="defaultFirstOption === null ? undefined : defaultFirstOption" :remote="remote === null ? undefined : remote" :filter-method="filterMethod === null ? undefined : filterMethod" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @visible-change="elEmitVisibleChange" @remove-tag="elEmitRemoveTag" @clear="elEmitClear" @blur="elEmitBlur" @focus="elEmitFocus" @end-reached="elEmitEndReached" @popup-scroll="elEmitPopupScroll" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :debounce="debounce === null ? undefined : debounce" :effect="effect === null ? undefined : effect" :empty-values="emptyValues === null ? undefined : emptyValues" :fallback-placements="fallbackPlacements === null ? undefined : fallbackPlacements" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :offset="offset === null ? undefined : offset" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :remote-show-suffix="remoteShowSuffix === null ? undefined : remoteShowSuffix" :show-arrow="showArrow === null ? undefined : showArrow" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :suffix-transition="suffixTransition === null ? undefined : suffixTransition" :tabindex="tabindex === null ? undefined : tabindex" :tag-effect="tagEffect === null ? undefined : tagEffect" :tag-type="tagType === null ? undefined : tagType" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear">
 #>     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
 #>     <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
 #>       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
 #>     </el-option-group>
 #>   </el-select>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"popperAppendToBody":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('sel1', 'focus', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$sel1_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sel1_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"banana","options":[{"value":"apple","label":"Apple"},{"value":"banana","label":"Banana"},{"value":"cherry","label":"Cherry"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"placeholder":null,"size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"remoteMethod":null,"appendTo":null,"ariaLabel":null,"clearIcon":null,"collapseTagsTooltip":null,"debounce":null,"effect":null,"emptyValues":null,"fallbackPlacements":null,"fitInputWidth":null,"maxCollapseTags":null,"offset":null,"persistent":null,"placement":null,"popperOptions":null,"popperStyle":null,"remoteShowSuffix":null,"showArrow":null,"suffixIcon":null,"suffixTransition":null,"tabindex":null,"tagEffect":null,"tagType":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('sel1', 'visible_change', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('sel1', 'remove_tag', arguments); }","elEmitClear":"function() { window.shinyVue.emit('sel1', 'clear', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('sel1', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('sel1', 'focus', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('sel1', 'end_reached', arguments); }","elEmitPopupScroll":"function() { var shape = function(e) { var now = Date.now(); if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sel1', 'popup_scroll', [v]); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$sel1_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('sel1_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitRemoveTag","options.methods.elEmitClear","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitEndReached","options.methods.elEmitPopupScroll","options.methods.elRemoteQuery","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example
