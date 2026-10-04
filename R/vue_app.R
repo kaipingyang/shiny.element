@@ -70,12 +70,16 @@ vue_app <- function(
     ),
     extra
   )
-  if (length(model) && !all(model %in% names(data))) {
+  # state set up in setup() is not in data: it can be reported all the same
+  if (length(model) && is.null(extra$setup) && !all(model %in% names(data))) {
     stop("`model` must name fields of `data`.", call. = FALSE)
   }
   input <- NULL
-  if (length(model) == 1) {
+  if (length(model) == 1 && model %in% names(data)) {
     data[model] <- list(.el_restore(id, data[[model]]))
+    options$data <- data
+    input <- model
+  } else if (length(model) == 1) {
     options$data <- data
     input <- model
   } else if (length(model) > 1) {

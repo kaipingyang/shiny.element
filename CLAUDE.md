@@ -98,6 +98,23 @@ mounted over a container would recompile and detach the components inside.
 registers. Raw tags compile only inside a component -- a `template()`, a
 slot, a table cell, a wrapper's trigger, `el_widget(markup =)`.
 
+### Naming: arguments and keys
+
+- **R arguments are snake_case**, Element Plus's kebab-case prop names
+  turned mechanically (`show-overflow-tooltip` -> `show_overflow_tooltip`).
+  No camelCase aliases for them: an alias doubles every signature and help
+  page. Two names exist only where Shiny and Element name one concept
+  differently (`choices`/`options`, `selected`/`value`).
+- **Keys that travel to JavaScript as data accept both spellings**, the
+  JavaScript name being the canonical one: column definitions
+  (`show_overflow_tooltip` or `showOverflowTooltip`), items, plugin options,
+  and the Vue layer's options (`before_unmount` or `beforeUnmount`). Convert
+  with `.el_camel_case()`; two spellings with different values are an error.
+- **Only names the package knows are converted.** Field names in `data`,
+  method names, anything a template refers to are the user's and pass
+  through exactly as written -- renaming `item_count` would break
+  `{{ item_count }}`.
+
 ### Shiny input conventions
 
 Every input reports `input$<id>` on load and on change; an empty selection is
