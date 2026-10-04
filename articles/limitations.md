@@ -37,6 +37,44 @@ few exceptions. Each is deliberate; the rest translate mechanically
 | `width` (watermark, table-v2) | `watermark_width`, `table_v2_width` | As for the popover |
 | a prop named like a child’s field | prefixed: `tip_`, `pop_`, `pc_` | A component that absorbs its children keeps their data apart from its own |
 
+### Arguments and the keys inside them
+
+One rule decides how a name is spelled:
+
+- **A function’s arguments are snake_case** – Element Plus’s kebab-case
+  props, with `-` turned into `_`. There is no camelCase spelling of
+  them; the help pages and autocompletion would list every argument
+  twice.
+- **A key inside a list that goes to the browser as it is accepts both
+  spellings.** The key ends up as a JavaScript property, so its
+  JavaScript name is the canonical one and the snake_case one is an
+  alias. This is what
+  [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)‘s
+  column definitions,
+  [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)’
+  and
+  [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)’s
+  items, and
+  [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)’s
+  props do:
+
+``` r
+
+el_table(
+  "t",
+  data = mtcars[1:3, 1:2],
+  columns = list(
+    list(prop = "mpg", show_overflow_tooltip = TRUE), # R's spelling
+    list(prop = "cyl", showOverflowTooltip = TRUE) # Element's
+  )
+)
+```
+
+- **Names you choose are never changed.** A field of your own in a
+  template’s data, a method’s name, anything a template refers to,
+  passes through exactly as written: `{{ item_count }}` needs a field
+  called `item_count`, not `itemCount`.
+
 ### Two names for the choice components
 
 [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md),

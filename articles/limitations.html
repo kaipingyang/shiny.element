@@ -315,6 +315,43 @@ its own</td>
 </tbody>
 </table>
 <div class="section level3">
+<h3 id="arguments-and-the-keys-inside-them">Arguments and the keys inside them<a class="anchor" aria-label="anchor" href="#arguments-and-the-keys-inside-them"></a>
+</h3>
+<p>One rule decides how a name is spelled:</p>
+<ul>
+<li>
+<strong>A function’s arguments are snake_case</strong> – Element
+Plus’s kebab-case props, with <code>-</code> turned into <code>_</code>.
+There is no camelCase spelling of them; the help pages and
+autocompletion would list every argument twice.</li>
+<li>
+<strong>A key inside a list that goes to the browser as it is
+accepts both spellings.</strong> The key ends up as a JavaScript
+property, so its JavaScript name is the canonical one and the snake_case
+one is an alias. This is what <code><a href="../reference/el_table.html">el_table()</a></code>‘s column
+definitions, <code><a href="../reference/el_descriptions.html">el_descriptions()</a></code>’ and
+<code><a href="../reference/el_menu.html">el_menu()</a></code>’s items, and <code><a href="../reference/el_form_field.html">el_form_field()</a></code>’s props
+do:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
+<span>  <span class="st">"t"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"mpg"</span>, show_overflow_tooltip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="co"># R's spelling</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"cyl"</span>, showOverflowTooltip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Element's</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>
+<strong>Names you choose are never changed.</strong> A field of your
+own in a template’s data, a method’s name, anything a template refers
+to, passes through exactly as written: <code>{{ item_count }}</code>
+needs a field called <code>item_count</code>, not
+<code>itemCount</code>.</li>
+</ul>
+</div>
+<div class="section level3">
 <h3 id="two-names-for-the-choice-components">Two names for the choice components<a class="anchor" aria-label="anchor" href="#two-names-for-the-choice-components"></a>
 </h3>
 <p><code><a href="../reference/el_select.html">el_select()</a></code>, <code><a href="../reference/el_radio_group.html">el_radio_group()</a></code> and
@@ -343,7 +380,7 @@ they take Shiny’s names – and Element’s as well:</p>
 <p>Either works, in the components and in their
 <code>update_el_*()</code>, so code reads naturally to someone coming
 from either side:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
 <span>  <span class="st">"city_shiny"</span>,</span>
 <span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Beijing <span class="op">=</span> <span class="st">"bj"</span>, Shanghai <span class="op">=</span> <span class="st">"sh"</span><span class="op">)</span>,</span>

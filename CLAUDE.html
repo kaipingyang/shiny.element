@@ -216,6 +216,15 @@
 <p><code>el</code> (<code>R/el_tags.R</code>) holds a tag generator for every component Element registers. Raw tags compile only inside a component – a <code><a href="reference/template.html">template()</a></code>, a slot, a table cell, a wrapper’s trigger, <code>el_widget(markup =)</code>.</p>
 </div>
 <div class="section level3">
+<h3 id="naming-arguments-and-keys">Naming: arguments and keys<a class="anchor" aria-label="anchor" href="#naming-arguments-and-keys"></a></h3>
+<ul><li>
+<strong>R arguments are snake_case</strong>, Element Plus’s kebab-case prop names turned mechanically (<code>show-overflow-tooltip</code> -&gt; <code>show_overflow_tooltip</code>). No camelCase aliases for them: an alias doubles every signature and help page. Two names exist only where Shiny and Element name one concept differently (<code>choices</code>/<code>options</code>, <code>selected</code>/<code>value</code>).</li>
+<li>
+<strong>Keys that travel to JavaScript as data accept both spellings</strong>, the JavaScript name being the canonical one: column definitions (<code>show_overflow_tooltip</code> or <code>showOverflowTooltip</code>), items, plugin options, and the Vue layer’s options (<code>before_unmount</code> or <code>beforeUnmount</code>). Convert with <code><a href="reference/dot-el_camel_case.html">.el_camel_case()</a></code>; two spellings with different values are an error.</li>
+<li>
+<strong>Only names the package knows are converted.</strong> Field names in <code>data</code>, method names, anything a template refers to are the user’s and pass through exactly as written – renaming <code>item_count</code> would break <code>{{ item_count }}</code>.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="shiny-input-conventions">Shiny input conventions<a class="anchor" aria-label="anchor" href="#shiny-input-conventions"></a></h3>
 <p>Every input reports <code>input$&lt;id&gt;</code> on load and on change; an empty selection is <code>NULL</code>. Exceptions and extras are documented in each function’s “Shiny inputs” section (<code>el_table</code>’s <code>_selected_rows</code>, <code>el_form</code>’s <code>_valid</code> and <code>_submit</code>, events as <code>input$&lt;id&gt;_&lt;event&gt;</code>).</p>
 </div>
