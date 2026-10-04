@@ -177,6 +177,21 @@ blocks, the hand-written articles' chunks and roxygen `@examples` (it lists
 any block air cannot parse), followed by `tools/ep-pages.py` and
 `devtools::document()`. `air format --check .` should print nothing.
 
+## Finishing a change
+
+Every round of changes ends the same way, without being asked:
+
+1. verify (tests for what changed, `air format --check .`, and for a
+   release-level change the full suites, `R CMD check` and the article
+   shots);
+2. commit on the working branch (`element-plus` now) and push it; `main`
+   follows by fast-forward (`git push origin element-plus:main`), and the
+   pkgdown deploy that push starts is checked until it succeeds;
+3. install into the user's home library, `R CMD INSTALL --no-multiarch .`,
+   and check its `Built:` date -- tests use `load_all()` and pkgdown and
+   `R CMD check` install into temporary libraries, so without this the
+   user's own `library(shiny.element)` stays on an old build.
+
 ## Lessons and gotchas
 
 `.claude/docs/lessons.md` records what was learned the hard way: architectural
