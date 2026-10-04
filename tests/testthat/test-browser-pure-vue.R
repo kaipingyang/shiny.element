@@ -54,7 +54,7 @@ test_that("vue_app() works without Element Plus", {
     "!!document.querySelector('link[href*=element-plus], script[src*=element-plus], script[src*=el-events]')"
   ))
 
-  # model is input$<id>, inputs reports another field; a data.frame is rows
+  # model is input$<id>; a data.frame is rows for v-for
   expect_equal(js("Shiny.shinyapp.$inputValues.counter"), 1)
   expect_equal(
     js(
@@ -65,9 +65,26 @@ test_that("vue_app() works without Element Plus", {
   js("document.querySelector('#counter .inc').click()")
   Sys.sleep(0.8)
   expect_equal(js("Shiny.shinyapp.$inputValues.counter"), 2)
+  # $emit('picked', row) is input$counter_picked, as Element's events are
+  js("document.querySelectorAll('#counter .rows')[1].click()")
+  Sys.sleep(0.8)
   expect_equal(
-    js("JSON.stringify(Shiny.shinyapp.$inputValues.counter_rows)"),
-    '[{"name":"a"},{"name":"b"}]'
+    js("JSON.stringify(Shiny.shinyapp.$inputValues.counter_picked)"),
+    '{"name":"b"}'
+  )
+
+  # a model of two fields is one value, a named list
+  expect_equal(
+    js("JSON.stringify(Shiny.shinyapp.$inputValues.range)"),
+    '{"from":1,"to":9}'
+  )
+  js(
+    "var i = document.querySelector('#range .to'); i.value = '7'; i.dispatchEvent(new Event('input'));"
+  )
+  Sys.sleep(0.8)
+  expect_equal(
+    js("JSON.stringify(Shiny.shinyapp.$inputValues.range)"),
+    '{"from":1,"to":7}'
   )
 
   # a plugin of the page's own, installed by name
@@ -75,13 +92,20 @@ test_that("vue_app() works without Element Plus", {
     js("document.querySelector('#greet .hello').textContent"),
     "hi Ada"
   )
+  # ... and with options
+  expect_equal(
+    js("document.querySelector('#greet2 .hello').textContent"),
+    "hello Alan"
+  )
 
-  # shared state across two apps, and set from the server
+  # a store: two apps share it at once, without the server; its model is
+  # input$cart; the server sets a field with an update
   js(
     "document.querySelector('#sa .sa').click(); document.querySelector('#sa .sa').click();"
   )
-  Sys.sleep(0.3)
   expect_equal(js("document.querySelector('#sb .sb').textContent"), "2|")
+  Sys.sleep(0.8)
+  expect_equal(js("Shiny.shinyapp.$inputValues.cart"), 2)
   js("document.querySelector('#counter .inc').click()")
   Sys.sleep(1.2)
   expect_equal(js("document.querySelector('#sb .sb').textContent"), "2|from R")
