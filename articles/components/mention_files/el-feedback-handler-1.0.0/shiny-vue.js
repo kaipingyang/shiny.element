@@ -531,4 +531,67 @@
     }
   });
   Shiny.inputBindings.register(binding, 'shiny.vue');
+
+  // ── render_vue(): an output whose component is kept across renders ─────
+  //
+  // renderUI() would replace the component on every render, and with it what
+  // the user had done to it: a table's sort, a tree's expanded nodes. Here a
+  // render whose component has the same shape as the one on the page --
+  // same template, same options apart from `data` -- only sends what
+  // changed in its data, compared with what the server sent last, so state
+  // the server never set is the user's and stays. A render of another shape
+  // replaces the component, as renderUI() does.
+  function specOf(host) {
+    var tpl = host.querySelector(':scope > script[data-shiny-vue-template]');
+    var opt = host.querySelector(':scope > script[data-shiny-vue-options]');
+    if (!tpl || !opt) return null;
+    var spec = JSON.parse(opt.textContent);
+    var data = (spec.options && spec.options.data) || {};
+    var rest = JSON.parse(opt.textContent);
+    if (rest.options) delete rest.options.data;
+    // an id drawn at random each render (no id given) is not a difference
+    var norm = function(x) { return x.split(host.id).join('\u0000'); };
+    return { data: data, evals: spec.evals || [],
+             shape: norm(tpl.textContent) + '\u0001' + norm(JSON.stringify(rest)) };
+  }
+  function sent(data) {
+    var out = {};
+    Object.keys(data).forEach(function(k) { out[k] = JSON.stringify(data[k]); });
+    return out;
+  }
+  var outputBinding = new Shiny.OutputBinding();
+  jQuery.extend(outputBinding, {
+    find: function(scope) { return jQuery(scope).find('.shiny-vue-output'); },
+    renderValue: function(el, content) {
+      var oldHost = el.querySelector('[data-shiny-vue]');
+      var holder = document.createElement('div');
+      holder.innerHTML = (content && content.html) || '';
+      var newHost = holder.querySelector('[data-shiny-vue]');
+      var vm = oldHost && oldHost._shinyVue;
+      var before = oldHost && oldHost._shinyVueShape;
+      var after = newHost && specOf(newHost);
+      // data holding functions is revived on mount only: rebuild then
+      var fnInData = after && after.evals.some(function(p) { return /^options\.data\./.test(p); });
+      if (vm && before && after && !fnInData && before === after.shape) {
+        var last = oldHost._shinyVueSent || {};
+        var now = sent(after.data);
+        Object.keys(now).forEach(function(k) {
+          if (now[k] !== last[k] && k in vm.$data) vm[k] = after.data[k];
+        });
+        oldHost._shinyVueSent = now;
+        if (vm._elReport) vm._elReport();
+        if (content.deps && content.deps.length) Shiny.renderDependenciesAsync(content.deps);
+        jQuery(el).trigger('shiny-vue:patched');
+        return;
+      }
+      var done = Shiny.renderContentAsync(el, content);
+      return Promise.resolve(done).then(function() {
+        var host = el.querySelector('[data-shiny-vue]');
+        var spec = host && specOf(host);
+        if (spec) { host._shinyVueShape = spec.shape; host._shinyVueSent = sent(spec.data); }
+        jQuery(el).trigger('shiny-vue:rendered');
+      });
+    }
+  });
+  Shiny.outputBindings.register(outputBinding, 'shiny.vue.output');
 })();

@@ -145,8 +145,8 @@ Callable with
 
 ``` r
 el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
-#> <div id="el_scrollbar_5bdb8dae-63c3-4cb5-b94b-c9033b7772c8" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_scrollbar_5bdb8dae-63c3-4cb5-b94b-c9033b7772c8_container" style="display: contents">
+#> <div id="el_scrollbar_e290b7c7-f5a0-48ab-8028-e3abd5eb6af7" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_scrollbar_e290b7c7-f5a0-48ab-8028-e3abd5eb6af7_container" style="display: contents">
 #>   <el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @scroll="elEmitScroll" @end-reached="elEmitEndReached">
 #>     <p>1</p>
 #>     <p>2</p>
@@ -170,6 +170,6 @@ el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
 #>     <p>20</p>
 #>   </el-scrollbar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('el_scrollbar_5bdb8dae-63c3-4cb5-b94b-c9033b7772c8', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_5bdb8dae-63c3-4cb5-b94b-c9033b7772c8', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('el_scrollbar_e290b7c7-f5a0-48ab-8028-e3abd5eb6af7', 'scroll', arguments); }","elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_e290b7c7-f5a0-48ab-8028-e3abd5eb6af7', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
 #> </div>
 ```
