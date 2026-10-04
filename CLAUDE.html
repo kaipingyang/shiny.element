@@ -270,6 +270,13 @@
 </div>
 </div>
 <div class="section level2">
+<h2 id="finishing-a-change">Finishing a change<a class="anchor" aria-label="anchor" href="#finishing-a-change"></a></h2>
+<p>Every round of changes ends the same way, without being asked:</p>
+<ol style="list-style-type: decimal"><li>verify (tests for what changed, <code>air format --check .</code>, and for a release-level change the full suites, <code>R CMD check</code> and the article shots);</li>
+<li>commit on the working branch (<code>element-plus</code> now) and push it; <code>main</code> follows by fast-forward (<code>git push origin element-plus:main</code>), and the pkgdown deploy that push starts is checked until it succeeds;</li>
+<li>install into the user’s home library, <code>R CMD INSTALL --no-multiarch .</code>, and check its <code>Built:</code> date – tests use <code>load_all()</code> and pkgdown and <code>R CMD check</code> install into temporary libraries, so without this the user’s own <code><a href="https://kaipingyang.github.io/shiny.element/">library(shiny.element)</a></code> stays on an old build.</li>
+</ol></div>
+<div class="section level2">
 <h2 id="lessons-and-gotchas">Lessons and gotchas<a class="anchor" aria-label="anchor" href="#lessons-and-gotchas"></a></h2>
 <p><code>.claude/docs/lessons.md</code> records what was learned the hard way: architectural constraints that cannot be worked around, Element and Shiny behaviours that fail silently, and the verification habits that caught them. Read it before changing how components are built or rendered.</p>
 <p><code>.claude/docs/screenshot-recipe.R</code> is the driver template for looking at a page yourself.</p>
