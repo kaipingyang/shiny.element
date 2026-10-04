@@ -355,6 +355,20 @@ ui <- el_page(
     )
   ),
   el_tree("p_lazy", lazy = TRUE, is_leaf_field = "leaf"),
+  # a slot's template calls the calendar's method through its ref
+  el_calendar(
+    "p_cal",
+    value = "2026-03-15",
+    slots = list(
+      header = template(
+        HTML(
+          '<span class="p-cal-date">{{ date }}</span><button class="p-cal-next" @click="$refs.calendar.selectDate(\'next-month\')">next</button>'
+        ),
+        slot = "header",
+        scope = "{ date }"
+      )
+    )
+  ),
   # a virtual_ref target the server draws after the tooltip has mounted
   el_tooltip(
     "p_late_tip",

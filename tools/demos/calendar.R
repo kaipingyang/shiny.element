@@ -26,7 +26,7 @@ el_calendar("cal_range", range = c("2019-03-04", "2019-03-24"))
 
 ## header
 #' The header's buttons move the calendar with Element Plus's `selectDate()`,
-#' called on the component's ref.
+#' called on the calendar's ref, `$refs.calendar`, as upstream names it.
 el_calendar(
   "cal_head",
   slots = list(
@@ -34,11 +34,11 @@ el_calendar(
       htmltools::HTML(paste0(
         "<span>Custom header content</span><span>{{ date }}</span>",
         "<el-button-group>",
-        "<el-button size=\"small\" @click=\"$refs.el.selectDate('prev-year')\">Previous Year</el-button>",
-        "<el-button size=\"small\" @click=\"$refs.el.selectDate('prev-month')\">Previous Month</el-button>",
-        "<el-button size=\"small\" @click=\"$refs.el.selectDate('today')\">Today</el-button>",
-        "<el-button size=\"small\" @click=\"$refs.el.selectDate('next-month')\">Next Month</el-button>",
-        "<el-button size=\"small\" @click=\"$refs.el.selectDate('next-year')\">Next Year</el-button>",
+        "<el-button size=\"small\" @click=\"$refs.calendar.selectDate('prev-year')\">Previous Year</el-button>",
+        "<el-button size=\"small\" @click=\"$refs.calendar.selectDate('prev-month')\">Previous Month</el-button>",
+        "<el-button size=\"small\" @click=\"$refs.calendar.selectDate('today')\">Today</el-button>",
+        "<el-button size=\"small\" @click=\"$refs.calendar.selectDate('next-month')\">Next Month</el-button>",
+        "<el-button size=\"small\" @click=\"$refs.calendar.selectDate('next-year')\">Next Year</el-button>",
         "</el-button-group>"
       )),
       slot = "header",

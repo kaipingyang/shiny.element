@@ -217,4 +217,14 @@ test_that("every documented method runs on a live component", {
       var a = p.getBoundingClientRect(), t = document.getElementById('p_grow2').getBoundingClientRect();
       return Math.abs((a.left + a.width / 2) - (t.left + t.width / 2)) < t.width; })()"
   ))
+
+  # $refs.calendar from a slot template: the header's own buttons
+  before <- js("document.querySelector('#p_cal .p-cal-date').textContent")
+  js("document.querySelector('#p_cal .p-cal-next').click()")
+  Sys.sleep(0.5)
+  expect_false(identical(
+    js("document.querySelector('#p_cal .p-cal-date').textContent"),
+    before
+  ))
+  expect_equal(js("Shiny.shinyapp.$inputValues.p_cal"), "2026-04-01")
 })

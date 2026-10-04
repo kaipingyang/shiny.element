@@ -107,6 +107,9 @@ el_calendar <- function(
   # "YYYY-MM-DD" string here, as input$<id> reports it, read and written in
   # local time so a day never shifts with the time zone.
   calendar_attrs <- list(
+    # as upstream names it: a slot's template reaches the calendar's
+    # methods as $refs.calendar.selectDate()
+    ref = "calendar",
     ":model-value" = "elDate(value)",
     "@update:model-value" = "elPick"
   )
