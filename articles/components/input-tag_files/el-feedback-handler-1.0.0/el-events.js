@@ -24,7 +24,8 @@
   // Components with a virtual-ref selector. A target may come later --
   // drawn by renderUI() -- or be replaced; one observer, live while any such
   // component is, renders a component again when its target appears or the
-  // one it holds leaves the page. A selector matching several targets
+  // one it holds leaves the page, or the number of targets changes. A
+  // selector matching several targets
   // follows the pointer, through one listener for them all. An entry goes
   // when its component unmounts.
   var refTracked = new Set(), refObserver = null;
@@ -34,8 +35,12 @@
   function refCheck() {
     refTracked.forEach(function (st) {
       if (!refAlive(st)) { refTracked.delete(st); return; }
+      // rendered again when the target it holds has gone and another is
+      // there, or when the selector now matches a different number of
+      // elements -- one target becoming two makes it follow the pointer
       var held = st.el && document.contains(st.el);
-      if (!held && document.querySelector(st.sel)) st.vm.$forceUpdate();
+      var n = document.querySelectorAll(st.sel).length;
+      if ((!held && n) || n !== st.count) st.vm.$forceUpdate();
     });
     if (!refTracked.size && refObserver) { refObserver.disconnect(); refObserver = null; }
   }
@@ -104,6 +109,7 @@
       st.sel = sel;
       refTrack(st);
       var all = document.querySelectorAll(sel);
+      st.count = all.length;
       st.many = all.length > 1;
       if (!all.length) { st.el = null; return undefined; }
       if (!st.many) st.cur = all[0];
