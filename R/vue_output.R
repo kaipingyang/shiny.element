@@ -21,7 +21,7 @@
 vue_output <- function(id) {
   htmltools::attachDependencies(
     htmltools::tags$div(id = id, class = "shiny-vue-output"),
-    .el_vue_dependencies()
+    .vue_dependencies()
   )
 }
 

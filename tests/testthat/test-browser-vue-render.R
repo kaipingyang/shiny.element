@@ -123,6 +123,57 @@ test_that("render_vue() keeps the component and the user's state", {
   expect_true(js("!!document.querySelector('#shape_out #shape_sel')"))
   expect_true(is.null(js("document.getElementById('shape_sel').__mark")))
 
+  # ── several components and markup in one output
+  js("Shiny.setInputValue('min_score', 0)")
+  Sys.sleep(1.5)
+  js(
+    "['mix_sel', 'mix_tbl', 'tab_in'].forEach(function(id){ document.getElementById(id).__mark = 1; });
+     document.getElementById('mix_sel')._shinyVue.value = 'y';"
+  )
+  js("document.getElementById('tb-tab-two').click()")
+  Sys.sleep(0.8)
+  js("document.getElementById('tab_in')._shinyVue.value = 'typed';")
+  js("Shiny.setInputValue('min_score', 80)")
+  Sys.sleep(1.5)
+  # the heading's text, set by the server
+  expect_equal(
+    js("document.querySelector('#mixed_out .count').textContent"),
+    "2 rows"
+  )
+  # both components kept, each patched
+  expect_equal(js("document.getElementById('mix_sel').__mark"), 1)
+  expect_equal(js("document.getElementById('mix_tbl').__mark"), 1)
+  expect_equal(js("document.getElementById('mix_sel')._shinyVue.value"), "y")
+  expect_equal(
+    js("document.getElementById('mix_sel')._shinyVue.placeholder"),
+    "min 80"
+  )
+  expect_equal(
+    js("document.querySelectorAll('#mix_tbl .el-table__body tr').length"),
+    2
+  )
+  # the formatter is the new one
+  expect_match(
+    js("document.querySelector('#mix_tbl .el-table__body').textContent"),
+    "90 / 80"
+  )
+  # a markup container: the user's tab stays open, the input in it is patched
+  expect_equal(
+    js("document.querySelector('#tb .el-tabs__item.is-active').id"),
+    "tb-tab-two"
+  )
+  expect_equal(js("document.getElementById('tab_in').__mark"), 1)
+  expect_equal(js("document.getElementById('tab_in')._shinyVue.value"), "typed")
+  expect_equal(
+    js("document.getElementById('tab_in')._shinyVue.placeholder"),
+    "min 80"
+  )
+
+  # ── removeUI() takes the output and its component away cleanly
+  js("document.getElementById('drop').click()")
+  Sys.sleep(1)
+  expect_false(js("!!document.getElementById('tbl')"))
+
   expect_equal(
     js(
       "window.__w.filter(function(w){ return /Vue warn|shiny-vue/.test(w); }).length"

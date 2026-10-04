@@ -91,6 +91,7 @@ undeclared_refs <- function(ui) {
     "$elRef",
     "$elDate",
     "$setInput",
+    "$shared",
     "$ELEMENT"
   )
   setdiff(refs, c(declared, locals, scoped, members, literals))

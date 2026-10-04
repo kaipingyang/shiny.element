@@ -20,14 +20,19 @@ ui <- function(req) {
       )
     ),
     el_pagination("pg", total = 100),
+    # a component drawn by the server, through render_vue()
+    shiny.element:::vue_output("rv_out"),
     bookmarkButton(),
     verbatimTextOutput("vals")
   )
 }
 
 server <- function(input, output, session) {
+  output$rv_out <- shiny.element:::render_vue(
+    el_select("rv", choices = c("p", "q", "r"), value = "p")
+  )
   output$vals <- renderPrint({
-    for (i in c("name", "cities", "on", "tabs", "pg")) {
+    for (i in c("name", "cities", "on", "tabs", "pg", "rv")) {
       cat(i, "=", paste(input[[i]], collapse = ","), "\n")
     }
   })

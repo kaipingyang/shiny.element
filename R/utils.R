@@ -346,21 +346,33 @@
 #' @keywords internal
 .el_vue_dependencies <- function() {
   js <- system.file("js", package = "shiny.element")
+  c(
+    .vue_dependencies(),
+    list(htmltools::htmlDependency(
+      "el-events",
+      "1.0.0",
+      src = js,
+      script = "el-events.js",
+      all_files = FALSE
+    ))
+  )
+}
+
+#' The scripts the Vue layer needs, and nothing of Element
+#'
+#' jQuery, Vue and the generic bridge (`shiny-vue.js`).
+#'
+#' @return A list of htmlDependency objects.
+#' @keywords internal
+.vue_dependencies <- function() {
   list(
     .el_jquery_dependency(),
     .el_vue_dependency(),
     htmltools::htmlDependency(
       "shiny-vue",
       "1.0.0",
-      src = js,
+      src = system.file("js", package = "shiny.element"),
       script = "shiny-vue.js",
-      all_files = FALSE
-    ),
-    htmltools::htmlDependency(
-      "el-events",
-      "1.0.0",
-      src = js,
-      script = "el-events.js",
       all_files = FALSE
     )
   )

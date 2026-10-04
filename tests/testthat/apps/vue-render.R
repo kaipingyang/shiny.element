@@ -31,6 +31,9 @@ ui <- el_page(
   vue_output("alert_out"),
   vue_output("shape_out"),
   picker_ui("mod"),
+  vue_output("mixed_out"),
+  vue_output("tabs_out"),
+  actionButton("drop", "remove the table"),
   verbatimTextOutput("vals")
 )
 
@@ -59,6 +62,49 @@ server <- function(input, output, session) {
       el_select("shape_sel", choices = "x")
     }
   )
+  # several components and plain markup in one output; a formatter given
+  # as JS() that changes with the data
+  output$mixed_out <- render_vue(tagList(
+    tags$h4(
+      class = "count",
+      paste(nrow(rows[rows$score >= min_score(), ]), "rows")
+    ),
+    el_select(
+      "mix_sel",
+      choices = c("x", "y"),
+      value = "x",
+      placeholder = paste("min", min_score())
+    ),
+    el_table(
+      "mix_tbl",
+      data = rows[rows$score >= min_score(), ],
+      columns = list(
+        list(prop = "name", label = "Name"),
+        list(
+          prop = "score",
+          label = "Score",
+          formatter = JS(sprintf(
+            "function(r, c, v) { return v + ' / %d'; }",
+            as.integer(min_score())
+          ))
+        )
+      )
+    )
+  ))
+  # a markup container: the tab the user opened stays open
+  output$tabs_out <- render_vue(el_tabs(
+    "tb",
+    selected = "one",
+    tabs = list(
+      list(name = "one", label = "One", content = tags$p("first")),
+      list(
+        name = "two",
+        label = "Two",
+        content = el_input("tab_in", placeholder = paste("min", min_score()))
+      )
+    )
+  ))
+  observeEvent(input$drop, removeUI("#table_out"))
   hint <- reactive(paste("hint", input$hint %||% 0))
   picker_server("mod", hint)
   output$vals <- renderText(paste(
