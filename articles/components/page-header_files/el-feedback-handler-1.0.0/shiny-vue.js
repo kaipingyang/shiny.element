@@ -100,17 +100,18 @@
     });
   }
 
-  var sharedState = null;
-  sv.shared = function() {
-    if (!sharedState) sharedState = Vue.reactive({});
-    return sharedState;
+  // Stores: state shared by components. Each component is an app of its
+  // own, so Vue's provide/inject cannot reach across them; a store is what
+  // Vue's guide recommends instead -- one reactive() object every component
+  // refers to -- reached in any template as $store.<id>. A store is itself a
+  // host (vue_store()), its data the shared object, so the bridge treats it
+  // as any component: its model is input$<id>, update_vue() sets its fields,
+  // a bookmark restores them.
+  var storeRegistry = null;
+  sv.stores = function() {
+    if (!storeRegistry) storeRegistry = Vue.reactive({});
+    return storeRegistry;
   };
-  if (window.Shiny && Shiny.addCustomMessageHandler) {
-    Shiny.addCustomMessageHandler('shinyVueShared', function(data) {
-      var st = sv.shared();
-      Object.keys(data).forEach(function(k) { st[k] = data[k]; });
-    });
-  }
 
   function mount(host) {
     if (host._shinyVue) return host._shinyVue;
@@ -123,10 +124,25 @@
     options.template = tpl.textContent;
     // Vue 3: data is a function, and the lifecycle hooks have new names
     var data = options.data || {};
+    // a store's data is the shared object itself
+    if (spec.store) { data = sv.stores()[host.id] = Vue.reactive(data); host._shinyVueStore = true; }
     options.data = function() { return data; };
     if (options.beforeDestroy) { options.beforeUnmount = options.beforeDestroy; delete options.beforeDestroy; }
     if (options.destroyed) { options.unmounted = options.destroyed; delete options.destroyed; }
-    var app = Vue.createApp(options);
+    // emits: Vue's own way for a component to send something out. The root
+    // component's listeners are props of createApp(); each declared event
+    // becomes input$<id>_<event>, as Element's forwarded events do.
+    var rootProps = {};
+    (Array.isArray(options.emits) ? options.emits : []).forEach(function(ev) {
+      var name = 'on' + ev.charAt(0).toUpperCase() + ev.slice(1).replace(/-(\w)/g, function(m, c) { return c.toUpperCase(); });
+      var input = host.id + '_' + ev.replace(/-/g, '_');
+      rootProps[name] = function(value) {
+        if (window.Shiny && Shiny.setInputValue) {
+          Shiny.setInputValue(input, plain(value === undefined ? true : value), { priority: 'event' });
+        }
+      };
+    });
+    var app = Vue.createApp(options, rootProps);
     // A template cannot reach window.Shiny: Vue allows only a few globals in
     // its expressions. $setInput(name, value) is Shiny.setInputValue for
     // templates -- a checkbox in a table cell reporting the rows ticked.
@@ -136,16 +152,14 @@
         Shiny.setInputValue(name, plain(value), opts || { priority: 'event' });
       }
     };
-    // State shared by every component on the page. Each component is an app
-    // of its own, so Vue's provide/inject and stores cannot reach across
-    // them; $shared can: one reactive object, read and written by any
-    // template, set from the server with shinyVueShared.
-    app.config.globalProperties.$shared = sv.shared();
+    app.config.globalProperties.$store = sv.stores();
     // Vue plugins the component asks for, by their global names
     // (window.ElementPlus, window.NaiveUI, ...): app.use() on each
-    (spec.plugins || []).forEach(function(name) {
+    // -- a name, or {name, options} for a plugin that takes them
+    (spec.plugins || []).forEach(function(p) {
+      var name = typeof p === 'string' ? p : p.name;
       var plugin = name.split('.').reduce(function(o, k) { return o && o[k]; }, window);
-      if (plugin) app.use(plugin);
+      if (plugin) app.use(plugin, typeof p === 'string' ? undefined : p.options);
       else if (window.console) console.warn('[shiny-vue] "' + host.id + '" asks for plugin ' + name + ', which is not on the page');
     });
     // the component library installs itself on every app
@@ -185,6 +199,10 @@
     host._shinyVueObserver = obs;
   }
 
+  function isStore(host) {
+    var opt = host.querySelector(':scope > script[data-shiny-vue-options]');
+    return !!opt && /"store":\s*true/.test(opt.textContent);
+  }
   function mountAll(scope) {
     scope = scope || document;
     var hosts = [];
@@ -192,6 +210,8 @@
     if (scope.querySelectorAll) {
       hosts = hosts.concat(Array.prototype.slice.call(scope.querySelectorAll(HOST)));
     }
+    // stores first: the components that read them may come earlier
+    hosts.filter(isStore).forEach(mount);
     hosts.forEach(mount);
     return hosts;
   }
@@ -220,6 +240,7 @@
     if (host._shinyVueObserver) host._shinyVueObserver.disconnect();
     dropQuestions(host);
     if (host._shinyVueApp) host._shinyVueApp.unmount();
+    if (host._shinyVueStore && storeRegistry) delete storeRegistry[host.id];
     host._shinyVueApp = null;
     host._shinyVue = null;
   }
