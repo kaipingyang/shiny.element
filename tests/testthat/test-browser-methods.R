@@ -196,4 +196,25 @@ test_that("every documented method runs on a live component", {
   expect_true(js(
     "document.querySelector('#p_tv_tree').textContent.indexOf('child') !== -1"
   ))
+
+  # a selector that matched one target and later matches two: the popup
+  # follows the pointer onto the new one
+  js(
+    "var b = document.createElement('button'); b.className = 'p-grow'; b.id = 'p_grow2';
+     b.textContent = 'grow 2'; document.getElementById('p_grow_box').appendChild(b);"
+  )
+  Sys.sleep(0.5)
+  # the pointer reaches the button before it clicks
+  js(
+    "document.getElementById('p_grow2').dispatchEvent(new MouseEvent('mouseover', { bubbles: true }))"
+  )
+  Sys.sleep(0.3)
+  js("document.getElementById('p_grow2').click()")
+  Sys.sleep(0.8)
+  expect_true(shown("grown"))
+  expect_true(js(
+    "(function(){ var p = Array.from(document.querySelectorAll('.el-popper')).filter(function(x){ return getComputedStyle(x).display !== 'none' && x.textContent.indexOf('grown') !== -1; })[0];
+      var a = p.getBoundingClientRect(), t = document.getElementById('p_grow2').getBoundingClientRect();
+      return Math.abs((a.left + a.width / 2) - (t.left + t.width / 2)) < t.width; })()"
+  ))
 })

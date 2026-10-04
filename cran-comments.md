@@ -6,12 +6,16 @@
 
 ## R CMD check results
 
+On a tmpfs build directory (block allocation as on ext4):
+
 0 errors | 0 warnings | 0 notes
 
 * This is a new release.
-* Installed size is about 4.6 MB (4612 KB measured with `du -k` on tmpfs).
-  On the overlay filesystem of our development container `du` reports
-  5.2 MB, and there the check notes the size; the files are the same.
+* The same check run in our development container's overlay filesystem
+  gives 0 errors | 0 warnings | 1 note, "installed size is 5.2Mb": `du`
+  there counts the same files as 5.2 MB that tmpfs counts as 4.6 MB
+  (4612 KB). We expect the note on check machines with large filesystem
+  blocks and not elsewhere.
   Most of it is the bundled Element Plus (2.2 MB) and Vue (0.4 MB, the
   production build and the development build that `el_page(dev = TRUE)`
   loads for debugging), bundled so apps work offline.

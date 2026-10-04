@@ -363,6 +363,15 @@ ui <- el_page(
     virtual_ref = "#p_late_btn"
   ),
   uiOutput("p_late"),
+  # a selector matching one target at first, a second one added later
+  tags$button(class = "p-grow", "grow 1"),
+  tags$div(id = "p_grow_box"),
+  el_tooltip(
+    "p_grow_tip",
+    content = "grown",
+    trigger = "click",
+    virtual_ref = ".p-grow"
+  ),
   el_select("p_multi", choices = c("a", "b", "c"), multiple = TRUE),
   el_table_v2(
     "p_tv_tree",
