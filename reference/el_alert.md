@@ -97,13 +97,13 @@ el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
 #>   <script type="text/x-template" data-shiny-vue-template><div id="al1_container" style="display: contents">
 #>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al1_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClose"]}</script>
 #> </div>
 el_alert("al2", "Warning!", description = "Please review.", type = "warning")
 #> <div id="al2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="al2_container" style="display: contents">
 #>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al2_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al2_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClose"]}</script>
 #> </div>
 ```

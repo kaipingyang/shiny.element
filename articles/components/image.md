@@ -151,7 +151,7 @@ el_image(
 
 ## Manually Open Preview
 
-`el_call(session, "pic", "showPreview")` opens the preview from the
+`call_el(session, "pic", "showPreview")` opens the preview from the
 server;
 [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/el_image_viewer.md)
 is the viewer alone, opened with

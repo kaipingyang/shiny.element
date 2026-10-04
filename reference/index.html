@@ -1430,7 +1430,7 @@
 
       <dl><dt>
 
-          <code><a href="el_call.html">el_call()</a></code>
+          <code><a href="call_el.html">call_el()</a></code>
 
         </dt>
         <dd>Call a method of an Element component</dd>
@@ -1449,9 +1449,67 @@
         </dt>
         <dd>Answer a component that asked the server for data</dd>
       </dl></div><div class="section level2">
+      <h2 id="vue-components-of-your-own">Vue components of your own<a class="anchor" aria-label="anchor" href="#vue-components-of-your-own"></a></h2>
+
+      <div class="section-desc"><p>The layer the Element components are built on, usable on its own: Vue’s options written in R, a component as a Shiny input, an output that keeps the user’s state across renders, shared state, and the server’s way in.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="vue_app.html">vue_app()</a></code>
+
+        </dt>
+        <dd>A Vue component, as Shiny UI</dd>
+
+        <dt>
+
+          <code><a href="vue_component.html">vue_component()</a></code>
+
+        </dt>
+        <dd>A Vue child component, for a template to use</dd>
+
+        <dt>
+
+          <code><a href="vue_store.html">vue_store()</a></code>
+
+        </dt>
+        <dd>State shared by Vue components: a store</dd>
+
+        <dt>
+
+          <code><a href="vue_output.html">vue_output()</a></code> <code><a href="vue_output.html">render_vue()</a></code>
+
+        </dt>
+        <dd>A Vue output that keeps the user's state across renders</dd>
+
+        <dt>
+
+          <code><a href="update_vue.html">update_vue()</a></code>
+
+        </dt>
+        <dd>Set fields of a Vue component from the server</dd>
+
+        <dt>
+
+          <code><a href="call_vue.html">call_vue()</a></code>
+
+        </dt>
+        <dd>Call a method of a Vue component from the server</dd>
+
+        <dt>
+
+          <code><a href="vue_answer.html">vue_answer()</a></code>
+
+        </dt>
+        <dd>Answer a Vue component that asked the server</dd>
+      </dl></div><div class="section level2">
       <h2 id="escape-hatches">Escape hatches<a class="anchor" aria-label="anchor" href="#escape-hatches"></a></h2>
 
-      <div class="section-desc"><p>For anything the wrappers do not cover: build your own component the way this package builds its own, write raw Element Plus tags, or update a Vue instance directly.</p></div>
+      <div class="section-desc"><p>For anything the wrappers do not cover: build an Element component the way this package builds its own, or write raw Element Plus tags.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -1485,13 +1543,6 @@
 
         </dt>
         <dd>Generate a <code>&lt;template&gt;</code> tag for Vue/Element Plus slot usage</dd>
-
-        <dt>
-
-          <code><a href="update_vue_data.html">update_vue_data()</a></code>
-
-        </dt>
-        <dd>Set fields of a component's Vue instance</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

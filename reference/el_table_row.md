@@ -35,7 +35,7 @@ el_tree_node(key)
 ## Value
 
 A reference, for
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)'s
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)'s
 `args`.
 
 ## Examples
@@ -43,11 +43,11 @@ A reference, for
 ``` r
 if (interactive()) {
   # inside a server function: select the third row, then make it current
-  el_call(session, "tbl", "toggleRowSelection", list(el_table_row(3), TRUE))
-  el_call(session, "tbl", "setCurrentRow", list(el_table_row(3)))
+  call_el(session, "tbl", "toggleRowSelection", list(el_table_row(3), TRUE))
+  call_el(session, "tbl", "setCurrentRow", list(el_table_row(3)))
   # stop one file
-  el_call(session, "docs", "abort", list(el_upload_file("big.csv")))
+  call_el(session, "docs", "abort", list(el_upload_file("big.csv")))
   # open a node of a virtualized tree
-  el_call(session, "files", "expandNode", list(el_tree_node("src")))
+  call_el(session, "files", "expandNode", list(el_tree_node("src")))
 }
 ```

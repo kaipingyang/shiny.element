@@ -238,7 +238,7 @@ el_upload("folder", directory = TRUE, button_label = "Upload directory")
 
 `auto_upload = FALSE` keeps the files until `submit()` sends them – from
 the server, with
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md).
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md).
 
 ``` r
 
@@ -255,7 +255,7 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$send, el_call(id = "queued", method = "submit"))
+  observeEvent(input$send, call_el(id = "queued", method = "submit"))
   output$arrived <- renderTable(input$queued[, c("name", "size")])
 }
 

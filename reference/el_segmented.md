@@ -149,6 +149,6 @@ el_segmented(
 #>   <script type="text/x-template" data-shiny-vue-template><div id="period_container" style="display: contents">
 #>   <el-segmented v-model="value" @change="handleChange" :options="options === null ? undefined : options" :size="size === null ? undefined : size" :block="block === null ? undefined : block" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :direction="direction === null ? undefined : direction" :props="props === null ? undefined : props"></el-segmented>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"w","options":[{"value":"d","label":"Day"},{"value":"w","label":"Week"},{"value":"m","label":"Month"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"w","options":[{"value":"d","label":"Day"},{"value":"w","label":"Week"},{"value":"m","label":"Month"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
 ```

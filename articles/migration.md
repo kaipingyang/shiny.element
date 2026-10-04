@@ -90,7 +90,7 @@ are likely to meet:
   [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
   renames them for you.
 - `$children` is gone;
-  [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
   and the package’s own lookups find a component by its ref.
 - Filters (`{{ x | money }}`) are gone: call a method, `{{ money(x) }}`.
 - `v-model` on a component binds `modelValue`, and a named one,

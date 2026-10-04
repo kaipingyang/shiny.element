@@ -10,7 +10,7 @@ non-el_page layouts (e.g., bslib::page_sidebar, shiny::navbarPage).
 use_element(
   theme = NULL,
   offline = TRUE,
-  dev = getOption("shiny.element.dev", FALSE),
+  dev = .vue_dev(),
   locale = getOption("shiny.element.locale", "en"),
   size = NULL,
   z_index = NULL,
@@ -42,7 +42,8 @@ use_element(
 
   Load Vue's development build (`vue.global.js`) instead of the
   production one, so Vue's warnings are not stripped. Defaults to
-  `getOption("shiny.element.dev", FALSE)`.
+  `getOption("shiny.vue.dev")` (or `shiny.element.dev`), `FALSE` unless
+  set.
 
 - locale:
 

@@ -85,10 +85,52 @@ changed for code written for them. In short:
   and `tag_tooltip` are new.
   [`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   names a tree’s node for
-  [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md).
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md).
 - `el_page(dev = TRUE)` loads Vue’s development build, which is bundled:
   until now it loaded the production build either way, so Vue’s warnings
   never reached the console the tests read.
+
+### A Vue layer, usable on its own
+
+The bridge every component is built on is exported, and knows nothing of
+Element: write a Vue 3 component in R with Vue’s own options and use it
+as a Shiny input.
+
+- [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+  – a component: `template`, `data`, `methods`, `computed`, `watch`,
+  `emits`, `setup`, `components` and the lifecycle hooks under Vue’s
+  names (multi-word ones also in snake_case), plus `id`, `input` (the
+  field that is `input$<id>`; several for one value) and `use` (Vue’s
+  `app.use()`, any plugin with its options). `$emit()` of an event in
+  `emits` arrives as `input$<id>_<event>`.
+- [`vue_component()`](https://kaipingyang.github.io/shiny.element/reference/vue_component.md)
+  – a child component for `components =`.
+- [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
+  – state shared by components, `$store.<id>` in every template,
+  reported to and set from the server on request.
+- [`vue_output()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+  /
+  [`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+  – like [`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html) /
+  [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html), but a
+  render that changes only a component’s data updates it in place,
+  keeping the user’s sort, ticks and open tabs.
+- [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md),
+  [`call_vue()`](https://kaipingyang.github.io/shiny.element/reference/call_vue.md),
+  [`vue_answer()`](https://kaipingyang.github.io/shiny.element/reference/vue_answer.md)
+  – set fields (`value` for the input), run methods, answer a component
+  that asked the server; they reach `setup()` state too, and bookmarks
+  restore it.
+- Element is now one plugin among others: a component gets Element Plus
+  through `use`, so a Vue component of your own on the same page does
+  not.
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)’s
+  `report` is now `input` (with `emits` for the rest); `el_call()` is
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md);
+  `update_vue_data()` is
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md).
+  `options(shiny.vue.dev = TRUE)` loads Vue’s development build, as
+  `shiny.element.dev` does.
 
 ### Behaviour closer to Element Plus
 
@@ -274,7 +316,7 @@ A component whose type first appears through
 [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) or
 [`insertUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) now hears
 `update_el_*()` and
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md).
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md).
 Their handlers registered only on `shiny:connected`, which had already
 fired by the time such a component’s script arrived, so every update to
 it went nowhere without a word.
@@ -327,7 +369,7 @@ integration article shows, needs no JavaScript.
   `value_format` of your own still reports text in that format.
 - **The session argument.** Every server function – `update_el_*()`,
   [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md),
-  [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
   and the rest – takes the current session by default, as
   [`updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html)
   does. Given an id in the session’s place,
@@ -397,7 +439,7 @@ integration article shows, needs no JavaScript.
 - **A tree filters as it stands.**
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
   has a default `filter_node_method` – the label contains the text,
-  ignoring case – so `el_call(session, "tree", "filter", list(text))`
+  ignoring case – so `call_el(session, "tree", "filter", list(text))`
   needs no JavaScript; Element itself throws without one.
 - **More of upstream.**
   [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md),
@@ -511,9 +553,8 @@ naming them is the way to keep it quiet.
 
 `input$<cascader id>_value` is now `input$<cascader id>`, and
 `input$<pager id>_page` is `input$<pager id>`. `update_vue_component()`
-and `vue_handler_dependency()` are gone:
-[`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
-does the first’s job, and the bridge loads with every component.
+and `vue_handler_dependency()` are gone: `update_vue_data()` does the
+first’s job, and the bridge loads with every component.
 [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)’s
 first argument is now the page’s theme; its layout CSS is `layout_css`.
 
@@ -546,18 +587,18 @@ el_calendar("cal", slots = list(
 ### Reaching a component’s methods
 
 Element documents methods as well as props.
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 invokes one:
 
 ``` r
 
 observeEvent(input$clear, {
-  el_call(session, "tbl", "clearSelection")
+  call_el(session, "tbl", "clearSelection")
 })
 
 # A method with a return value answers asynchronously
 observeEvent(input$ask, {
-  el_call(session, "tree", "getCheckedKeys")
+  call_el(session, "tree", "getCheckedKeys")
 })
 observeEvent(input$tree_get_checked_keys, {
   message("checked: ", paste(input$tree_get_checked_keys, collapse = ", "))

@@ -1075,7 +1075,7 @@ with desired offset/rows.
 > The difference between `smart` and `auto` is that `auto` is a subset
 > of `smart` scroll strategy.
 
-`el_call(session, "tv_scroll", "scrollToRow", list(100))` scrolls it
+`call_el(session, "tv_scroll", "scrollToRow", list(100))` scrolls it
 from the server.
 
 ``` r

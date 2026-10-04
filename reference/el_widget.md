@@ -18,11 +18,12 @@ el_widget(
   watch = NULL,
   mounted = NULL,
   computed = NULL,
+  emits = NULL,
   dependency = NULL,
   head = NULL,
   width = NULL,
   slots = NULL,
-  report = NULL,
+  input = NULL,
   rate = NULL,
   type = NULL,
   label = NULL,
@@ -42,7 +43,7 @@ el_widget(
 - id:
 
   The element id – inside a module, wrapped in `ns()`. It is the input
-  id of the value `report` names.
+  id of the value `input` names.
 
 - markup:
 
@@ -57,6 +58,12 @@ el_widget(
 - methods, watch, mounted, computed:
 
   Vue options, included when not `NULL`.
+
+- emits:
+
+  Events the component sends with `$emit()`: each arrives as
+  `input$<id>_<event>`, as for
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md).
 
 - dependency:
 
@@ -88,17 +95,15 @@ el_widget(
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md)
   and the value is used as it stands.
 
-- report:
+- input:
 
-  Fields of `data` to report as Shiny inputs, as
-  `c(<field> = <input id>)`. The field reported under the component's
-  own `id` is its value: the Shiny binding reads it on load and on every
-  change, and a test driver or `shinyjs` sees it. Fields reported under
-  other ids – `c(value = id, open = paste0(id, "_open"))` – are sent on
-  load and on every change too. An
-  [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
-  from the server counts as a change. Inside a module, pass the
-  namespaced ids.
+  The field of `data` that is `input$<id>`, or several for one value
+  made of them, as
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)'s
+  `input`: the Shiny binding reads it on load and on every change, and a
+  test driver or `shinyjs` sees it. An
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
+  from the server counts as a change.
 
 - rate:
 
@@ -169,8 +174,11 @@ A Shiny UI element with its dependencies attached.
 Reach for it to wrap an Element component this package does not cover,
 or to build an input of your own from
 [el](https://kaipingyang.github.io/shiny.element/reference/el.md) tags;
-`report` names the value. It is what the package's own components are
-made of.
+`input` names the value. It is what the package's own components are
+made of:
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+with Element Plus installed (`use`), and a label in Element's form-item
+style.
 
 The raw Element tags come from
 [el](https://kaipingyang.github.io/shiny.element/reference/el.md), and
@@ -193,22 +201,22 @@ my_avatar("face", "https://example.org/face.png")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="face_container" style="display: contents">
 #>   <el-avatar :src="src" :size="size"></el-avatar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://example.org/face.png","size":50}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://example.org/face.png","size":50}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
 
 # An input of your own: v-model keeps `value` in step with the control,
-# and `report` makes it input$score -- on load, on change, and after
-# update_vue_data(session, "score", list(value = 5)) from the server.
+# and `input` makes it input$score -- on load, on change, and after
+# update_vue(session, "score", value = 5) from the server.
 el_widget(
   id = "score",
   markup = el$rate("v-model" = "value", ":max" = "max"),
   data = list(value = 3, max = 5),
-  report = c(value = "score")
+  input = "value"
 )
 #> <div id="score" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="score_container" style="display: contents">
 #>   <el-rate v-model="value" :max="max"></el-rate>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5}},"input":"value","rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
 ```

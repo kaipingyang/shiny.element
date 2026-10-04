@@ -10,7 +10,7 @@ components that bring the default – htmltools keeps the development one.
 ## Usage
 
 ``` r
-.el_vue_dependency(dev = getOption("shiny.element.dev", FALSE))
+.el_vue_dependency(dev = .vue_dev())
 ```
 
 ## Arguments

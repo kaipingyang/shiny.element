@@ -88,7 +88,7 @@ A Shiny UI element.
 ## Element methods
 
 Callable with
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `scrollTo(href)`.
 
 ## Examples
@@ -118,6 +118,6 @@ el_anchor(
 #>     </el-anchor-link>
 #>   </el-anchor>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('toc', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('toc', href); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('toc', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('toc', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
 #> </div>
 ```

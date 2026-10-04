@@ -519,7 +519,7 @@ the server.
 Element Plus’s methods, the objects they need, and the data a component
 asks the server for.
 
-- [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+- [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
   : Call a method of an Element component
 - [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   [`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
@@ -528,11 +528,32 @@ asks the server for.
 - [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
   : Answer a component that asked the server for data
 
+## Vue components of your own
+
+The layer the Element components are built on, usable on its own: Vue’s
+options written in R, a component as a Shiny input, an output that keeps
+the user’s state across renders, shared state, and the server’s way in.
+
+- [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+  : A Vue component, as Shiny UI
+- [`vue_component()`](https://kaipingyang.github.io/shiny.element/reference/vue_component.md)
+  : A Vue child component, for a template to use
+- [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
+  : State shared by Vue components: a store
+- [`vue_output()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+  [`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+  : A Vue output that keeps the user's state across renders
+- [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
+  : Set fields of a Vue component from the server
+- [`call_vue()`](https://kaipingyang.github.io/shiny.element/reference/call_vue.md)
+  : Call a method of a Vue component from the server
+- [`vue_answer()`](https://kaipingyang.github.io/shiny.element/reference/vue_answer.md)
+  : Answer a Vue component that asked the server
+
 ## Escape hatches
 
-For anything the wrappers do not cover: build your own component the way
-this package builds its own, write raw Element Plus tags, or update a
-Vue instance directly.
+For anything the wrappers do not cover: build an Element component the
+way this package builds its own, or write raw Element Plus tags.
 
 - [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
   : Assemble a component: host, Vue instance, Shiny input binding
@@ -547,9 +568,6 @@ Vue instance directly.
   :
 
   Generate a `<template>` tag for Vue/Element Plus slot usage
-
-- [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md)
-  : Set fields of a component's Vue instance
 
 # Articles
 

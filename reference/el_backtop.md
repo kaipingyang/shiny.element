@@ -78,14 +78,14 @@ el_backtop("top")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="top_container" style="display: contents">
 #>   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick"]}</script>
 #> </div>
 el_backtop("top", visibility_height = 100, right = 20, bottom = 20)
 #> <div id="top" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="top_container" style="display: contents">
 #>   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":100,"right":20,"bottom":20},"methods":{"elEmitClick":"function() { window.shinyVue.emit('top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":null,"visibilityHeight":100,"right":20,"bottom":20},"methods":{"elEmitClick":"function() { window.shinyVue.emit('top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick"]}</script>
 #> </div>
 
 # Scrolling a panel rather than the page
@@ -94,6 +94,6 @@ el_backtop("panel_top", target = "#report")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="panel_top_container" style="display: contents">
 #>   <el-backtop :target="target === null ? undefined : target" :visibility-height="visibilityHeight === null ? undefined : visibilityHeight" :right="right === null ? undefined : right" :bottom="bottom === null ? undefined : bottom" @click="elEmitClick"></el-backtop>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":"#report","visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('panel_top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"target":"#report","visibilityHeight":null,"right":null,"bottom":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('panel_top', 'click', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick"]}</script>
 #> </div>
 ```

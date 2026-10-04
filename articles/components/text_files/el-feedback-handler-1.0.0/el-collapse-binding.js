@@ -117,8 +117,8 @@
       // raises this event for the subscription to pick up. Without it the
       // panels move and input$<id> keeps its old value.
       $(el).on('elCollapseChange.elCollapse', function() { callback(false); });
-      // Element's exposed setActiveNames(), reached with el_call()
-      el._elMethods = {
+      // Element's exposed setActiveNames(), reached with call_el()
+      el._svMethods = {
         setActiveNames: function(names) {
           binding.setValue(el, names == null ? [] : [].concat(names));
           callback(false);

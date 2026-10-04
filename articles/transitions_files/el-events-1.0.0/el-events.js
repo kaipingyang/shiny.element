@@ -79,9 +79,13 @@
     }
     return el || undefined;
   }
-  sv.install = function (app) {
+  // Element Plus as a Vue plugin, for a component's `use`: Element Plus
+  // itself with the page's config (locale, size, z-index, from el_page()),
+  // and what this package adds to it -- the icons by name, $ELEMENT, $elRef,
+  // $elDate. A component that does not ask for it does not get it.
+  se.plugin = { install: function (app, given) {
     if (!window.ElementPlus) return;
-    var cfg = window.shinyElementConfig || {};
+    var cfg = Object.assign({}, window.shinyElementConfig || {}, given || {});
     var opts = {};
     if (cfg.locale) opts.locale = cfg.locale;
     if (cfg.size) opts.size = cfg.size;
@@ -149,7 +153,7 @@
     Object.keys(legacy).forEach(function (old) {
       if (icons[legacy[old]]) app.component('el-icon-' + old, icons[legacy[old]]);
     });
-  };
+  } };
 
   // el_icon(): an <i class="el-icon" data-el-icon="Search">, drawn here with
   // the icon's SVG wherever it is on the page -- inside a component or not,
@@ -257,7 +261,7 @@
     }
   };
 
-  // el_call() arguments that stand for an object: el_table_row(3) is the
+  // call_el() arguments that stand for an object: el_table_row(3) is the
   // third row the table holds (Element compares rows by identity, so a copy
   // from R would not do); el_upload_file("a.csv") is that file in the list.
   sv.refs.row = function(i, vm) {

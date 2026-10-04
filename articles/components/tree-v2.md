@@ -243,7 +243,7 @@ Its parameter is the filtering keyword. Note that for it to work,
 `filter-method` is required, and its value is the filtering method.
 
 [`filter()`](https://rdrr.io/r/stats/filter.html), run with
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md),
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md),
 keeps the nodes `filter_method` passes.
 
 ``` r
@@ -274,7 +274,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$q,
-    el_call(session, "tv2_filter", "filter", list(input$q), result = FALSE)
+    call_el(session, "tv2_filter", "filter", list(input$q), result = FALSE)
   )
 }
 

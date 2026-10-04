@@ -80,7 +80,7 @@ el_breadcrumb(
 #>     <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click="handleClick(item)">{{item.label}}</el-breadcrumb-item>
 #>   </el-breadcrumb>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"Home"},{"label":"Reports"},{"label":"March"}],"separator":null,"separatorIcon":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"Home"},{"label":"Reports"},{"label":"March"}],"separator":null,"separatorIcon":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #> </div>
 
 # An arrow instead of a slash
@@ -95,6 +95,6 @@ el_breadcrumb(
 #>     <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click="handleClick(item)">{{item.label}}</el-breadcrumb-item>
 #>   </el-breadcrumb>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"Home"},{"label":"Detail"}],"separator":null,"separatorIcon":"ArrowRight"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"Home"},{"label":"Detail"}],"separator":null,"separatorIcon":"ArrowRight"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #> </div>
 ```

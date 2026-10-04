@@ -278,9 +278,9 @@
         // Rendered visible from R: register it so the backdrop and the body
         // class match what is on screen.
         if (el.getAttribute('data-visible') === 'true') show(el, false);
-        // Reached by el_call(): Element's drawer has closeDrawer(), which
+        // Reached by call_el(): Element's drawer has closeDrawer(), which
         // closes it the way the user would, through before-close.
-        el._elMethods = {
+        el._svMethods = {
           closeDrawer: function() { requestClose(el); },
           handleClose: function() { requestClose(el); },
           resetPosition: function() { resetPosition(el); }

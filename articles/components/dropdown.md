@@ -182,7 +182,7 @@ el_dropdown(
 You can open or close the dropdown menu by manually use `handleOpen` or
 `handleClose`
 
-`el_call(session, "dd_m", "handleOpen")` opens it from the server;
+`call_el(session, "dd_m", "handleOpen")` opens it from the server;
 `"handleClose"` closes it.
 
 ``` r

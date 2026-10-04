@@ -72,7 +72,7 @@ ui <- bslib::page_sidebar(
 A component with a value reports it as `input$<id>`, on load and on
 change. The server changes it with the matching `update_el_*()`, runs
 one of Element’s methods with
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md),
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md),
 and shows a message, a notification or a question with
 [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md),
 [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md)
@@ -85,7 +85,7 @@ Element’s events arrive as `input$<id>_<event>`.
 server <- function(input, output, session) {
   output$chosen <- renderText(input$city) # read
   observeEvent(input$reset, update_el_select(id = "city", selected = "Beijing"))
-  observeEvent(input$clear, el_call(id = "orders", method = "clearSelection"))
+  observeEvent(input$clear, call_el(id = "orders", method = "clearSelection"))
   observeEvent(input$orders_row_click, el_message(message = "Row clicked"))
 }
 ```

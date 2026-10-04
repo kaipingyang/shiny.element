@@ -254,7 +254,7 @@ And a few things are different by construction:
   ([`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)).
   A method’s callback argument is left out: Element’s promise form,
   where it has one, is what
-  [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
   uses. The rest are each run in a browser test
   (`test-browser-methods.R`).
 - **[`el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md)’s

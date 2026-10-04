@@ -168,7 +168,7 @@ Use this when you want to use Element-UI components in non-el_page layouts
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_element</span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  offline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  dev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.dev"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  dev <span class="op">=</span> <span class="fu"><a href="dot-vue_dev.html">.vue_dev</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"shiny.element.locale"</span>, <span class="st">"en"</span><span class="op">)</span>,</span>
 <span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -196,7 +196,7 @@ rather than the unpkg CDN. See <code><a href="element_plus_dependency.html">elem
 <dt id="arg-dev">dev<a class="anchor" aria-label="anchor" href="#arg-dev"></a></dt>
 <dd><p>Load Vue's development build (<code>vue.global.js</code>) instead of the
 production one, so Vue's warnings are not stripped. Defaults to
-<code>getOption("shiny.element.dev", FALSE)</code>.</p></dd>
+<code>getOption("shiny.vue.dev")</code> (or <code>shiny.element.dev</code>), <code>FALSE</code> unless set.</p></dd>
 
 
 <dt id="arg-locale">locale<a class="anchor" aria-label="anchor" href="#arg-locale"></a></dt>

@@ -84,7 +84,7 @@ el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
 #>     </div>
 #>   </el-skeleton>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
 
 if (interactive()) {

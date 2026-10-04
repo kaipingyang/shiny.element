@@ -32,8 +32,8 @@ things:
 |  | Reaches | Example |
 |----|----|----|
 | `update_el_*()` | the component’s props | `update_el_select(session, "city", selected = "Beijing")` |
-| [`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md) | the component’s methods | `el_call(session, "tbl", "clearSelection")` |
-| [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md) | the Vue instance’s fields directly | `update_vue_data(session, "tip", list(tipContent = "..."))` |
+| [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md) | the component’s methods | `call_el(session, "tbl", "clearSelection")` |
+| [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md) | the Vue instance’s fields directly | `update_vue(session, "tip", tipContent = "...")` |
 
 Like Shiny’s `update*Input()`, each takes the current session by
 default, so `update_el_select(id = "city", selected = "Beijing")` is the
@@ -46,7 +46,7 @@ than vanishing.
 
 `update_el_*()` cannot call a method, because it assigns into the Vue
 instance’s data and a method is a function. That is what
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 is for. A method with a return value answers asynchronously, as
 `input$<id>_<method>`:
 
@@ -76,7 +76,7 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$ask, el_call(session, "tree", "getCheckedKeys"))
+  observeEvent(input$ask, call_el(session, "tree", "getCheckedKeys"))
   output$answer <- renderPrint(input$tree_get_checked_keys)
 }
 
@@ -335,7 +335,7 @@ server <- function(input, output, session) {
   observeEvent(input$busy, {
     # Not update_el_button(session, "save", ...): the button has no host
     # of its own any more. Its fields live on the tooltip.
-    update_vue_data(session, "hint", list(label = "Saving...", loading = TRUE))
+    update_vue(session, "hint", label = "Saving...", loading = TRUE)
   })
 }
 
@@ -349,7 +349,7 @@ If two absorbed components declare the same field – most declare a
 `label`, a `type` and a `disabled` – the second one’s fields are renamed
 on the way in (`el3_label`), and the markup that names them is rewritten
 to match. You only notice when reaching in with
-[`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md),
+[`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md),
 where the renamed field is what to set.
 
 ## Slots
@@ -423,48 +423,149 @@ it.
 
 ## Building your own
 
-[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
-assembles a component the way this package assembles its own, and is
-exported for wrapping anything not covered here, or covered differently:
+Every component in this package is a Vue component on a host element
+that carries its id, with a Shiny input binding on it – the way reactR
+binds React components – so the rest of Shiny reaches it:
+[`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html),
+[`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html), a test
+driver’s `set_inputs()`, bookmarks. The layer that does this is
+exported, and knows nothing of Element:
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+writes a Vue component in R.
+
+### Vue’s options, under Vue’s names
+
+The arguments of
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+are the options of a Vue 3 component – `template`, `data`, `methods`,
+`computed`, `watch`, `emits`, `setup`, `components`, the lifecycle hooks
+– under Vue’s own names (a multi-word one also as snake_case:
+`before_unmount`). Three things are added, as Shiny needs them: `id`,
+where the component goes and what the server calls it; `input`, the
+field that is `input$<id>`; and `dependencies`. `use` is Vue’s
+`app.use()`.
 
 ``` r
 
-initials <- function(id, name, size = 48) {
-  el_widget(
-    id = id,
-    markup = el$avatar(":size" = "size", "{{ letters }}"),
-    data = list(
-      size = size,
-      letters = paste(substr(strsplit(name, " ")[[1]], 1, 1), collapse = "")
+ui <- fluidPage(
+  vue_app(
+    "counter",
+    template = tags$div(
+      tags$button(`@click` = "n++", "Add one"),
+      tags$span(" clicked {{ n }} times, {{ doubled }} doubled")
     ),
-    dependency = element_plus_dependency()
-  )
+    data = list(n = 0),
+    computed = list(doubled = JS("function() { return this.n * 2; }")),
+    input = "n"
+  ),
+  verbatimTextOutput("n")
+)
+
+server <- function(input, output, session) {
+  output$n <- renderPrint(input$counter)
 }
 
-initials("ada", "Ada Lovelace")
-initials("alan", "Alan Mathison Turing", size = 64)
+shinyApp(ui, server)
 ```
 
-### An input of your own, built from `el$` tags
+![The vue-counter example, running](../shots/shiny-vue-counter.png)
 
-The pattern to follow when Element has the parts but no component here
-puts them together the way you need – say, a price range made of two
-number inputs, reported as one value:
+| Vue | In R |
+|----|----|
+| `createApp(options).mount('#app')` | `vue_app(id, ...)` |
+| [`data()`](https://rdrr.io/r/utils/data.html), `methods`, `computed`, `watch`, hooks | the same names; functions written with [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md) |
+| `setup()` (the Composition API) | `setup = JS("function() { ... }")` |
+| `app.use(Plugin, options)` | `use = list(Plugin = options)` |
+| the component’s value | `input = "<field>"`, reported as `input$<id>` |
+| `this.$emit("picked", x)` | `input$<id>_picked`, for an event listed in `emits` |
+| a child component | `components = list(todo_item = vue_component(...))` |
 
-- write the markup with `el$` tags, binding each control to a field of
-  `data` with `v-model`, and pass the result to
-  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md);
-- name the fields to report with `report = c(<field> = id)`. The field
-  is then `input$<id>` – on load, on every change, and after an update;
-- update it from the server with
-  [`update_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/update_vue_data.md),
-  wrapped in a function of your own so callers do not need to know the
-  field names;
-- take `id` as given, so the caller wraps it in `ns()` inside a module;
-- pass
-  [`element_plus_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_plus_dependency.md)
-  unless the page is an
-  [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md).
+A component’s value is one field, or several (`input = c("from", "to")`)
+for one value that is a named list, as
+[`dateRangeInput()`](https://rdrr.io/pkg/shiny/man/dateRangeInput.html)
+gives one value of two dates. Anything else it sends out goes Vue’s way,
+with `$emit()`, and arrives with event priority under the component’s
+id, as Element’s own events do. Inside a module, wrap the id in `ns()`;
+the events follow it.
+
+`data` is the initial state as R writes it: a list is an object, a
+data.frame its rows. Show a user’s data through it – `{{ field }}`,
+`:prop="field"` – which Vue renders as text. Never paste it into the
+template: a template is code, and `{{ }}` in it runs.
+
+### Templates: tags or a string
+
+The template takes htmltools tags or a string, and Vue reads both the
+same:
+
+- **tags** when the markup is built in R –
+  [`lapply()`](https://rdrr.io/r/base/lapply.html) over columns, `if`
+  around a block, other tags spliced in. Directive names need quoting
+  (`` `@click` ``, `` `:title` ``, `` `#header` ``); expressions with
+  `<`, `>` or `&` are fine, Vue decodes what htmltools escapes.
+- **a string** for a template copied from Vue’s or a library’s
+  documentation, or one dense with quotes and expressions: it stays
+  exactly as written.
+
+### The server’s way in
+
+| Function | Does | Shiny’s own |
+|----|----|----|
+| `update_vue(session, id, field = value, value =)` | sets fields of the component’s state; `value` is its input field | `update*Input()` |
+| `call_vue(session, id, method, args)` | runs a method; its result comes back as `input$<id>_<method>` | – |
+| `vue_answer(session, id, request, value)` | answers a component that asked the server (`shinyVue.ask()`) | – |
+| `vue_output(id)` / `render_vue(expr)` | draws components from the server, keeping the user’s state | [`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html) / [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) |
+
+[`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+differs from [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html)
+in one way: a render that changes only a component’s data updates that
+component instead of replacing it, so what the user did – a sort, a
+tick, an open tab – stays. A render that changes the structure replaces
+it, as [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html)
+would. Put what changes from render to render in `data`, and keep the
+template the same.
+
+### State shared between components
+
+Each component is a Vue application of its own, so Vue’s `provide`
+cannot reach from one to another.
+[`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
+is what Vue’s guide recommends instead, one shared
+[`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html) object, read
+and written by every template as `$store.<id>.<field>` – at once, in the
+browser. Give it `input` and the server sees it too, and
+[`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
+sets it:
+
+``` r
+
+ui <- fluidPage(
+  vue_store("cart", data = list(count = 0), input = "count"),
+  vue_app("add", tags$button(`@click` = "$store.cart.count++", "Add to cart")),
+  vue_app("badge", tags$b(" {{ $store.cart.count }} in the cart")),
+  verbatimTextOutput("server_sees")
+)
+
+server <- function(input, output, session) {
+  output$server_sees <- renderPrint(input$cart)
+}
+
+shinyApp(ui, server)
+```
+
+![The vue-store example, running](../shots/shiny-vue-store.png)
+
+A change in the browser shows everywhere at once; one that goes through
+the server waits for the round trip.
+
+### An Element component of your own
+
+[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
+is
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+with Element Plus installed and a label in Element’s form-item style –
+what every component in this package is made of. A price range made of
+two number inputs, reported as one value:
 
 ``` r
 
@@ -490,13 +591,9 @@ price_range_input <- function(id, value = c(0, 100), min = 0, max = 1000) {
       )
     ),
     data = list(range = as.list(value), min = min, max = max),
-    report = c(range = id),
+    input = "range",
     dependency = element_plus_dependency()
   )
-}
-
-update_price_range <- function(session, id, value) {
-  update_vue_data(session, id, list(range = as.list(value)))
 }
 
 ui <- el_page(
@@ -506,7 +603,7 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$cheap, update_price_range(session, "price", c(0, 50)))
+  observeEvent(input$cheap, update_vue(session, "price", value = list(0, 50)))
   output$picked <- renderPrint(input$price)
 }
 
@@ -514,17 +611,6 @@ shinyApp(ui, server)
 ```
 
 ![The own-input example, running](../shots/shiny-own-input.png)
-
-Each component is a host element carrying its id, with the Element
-markup inside and a Shiny input binding on it – the way reactR binds
-React components – so the rest of Shiny can reach it:
-[`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html),
-[`shinyjs::disable()`](https://rdrr.io/pkg/shinyjs/man/stateFuncs.html),
-[`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html), a test
-driver’s `set_inputs()`. A component built with
-[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
-gets all of that. Mounting Vue yourself gets none of it: there is then
-no binding, and the id is wherever you put it.
 
 ## Without Shiny
 
@@ -534,7 +620,7 @@ or Quarto document, a page saved with
 They render and respond: a select opens and picks, tabs switch, a
 collapse folds, a table’s rows tick. What they cannot do there is
 report: there is no `input`, and `update_el_*()`,
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 and the feedback functions have no server to come from. Load the scripts
 once with
 [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md),

@@ -117,7 +117,7 @@ el_statistic("users", value = 26048, title = "Active users")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="users_container" style="display: contents">
 #>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
 el_statistic(
   "revenue",
@@ -130,7 +130,7 @@ el_statistic(
 #>   <script type="text/x-template" data-shiny-vue-template><div id="revenue_container" style="display: contents">
 #>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
 
 # A countdown to an hour from now
@@ -144,6 +144,6 @@ el_countdown(
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sale_container" style="display: contents">
 #>   <el-countdown :value="value" @finish="elEmitFinish" @change="elEmitChange" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791142285468.59,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791146978765.48,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
 #> </div>
 ```

@@ -120,5 +120,5 @@ A Shiny UI element.
 ## Element methods
 
 Callable with
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md):
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `setActiveItem()`.

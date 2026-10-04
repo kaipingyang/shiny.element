@@ -1,4 +1,4 @@
-// Vue components as Shiny inputs. Nothing here is specific to Element Plus:
+// Vue components as Shiny inputs. Nothing here knows any component library:
 // this is the layer a component library builds on.
 //
 // A component is rendered as
@@ -131,7 +131,7 @@
     if (options.destroyed) { options.unmounted = options.destroyed; delete options.destroyed; }
     // emits: Vue's own way for a component to send something out. The root
     // component's listeners are props of createApp(); each declared event
-    // becomes input$<id>_<event>, as Element's forwarded events do.
+    // becomes input$<id>_<event>.
     var rootProps = {};
     (Array.isArray(options.emits) ? options.emits : []).forEach(function(ev) {
       var name = 'on' + ev.charAt(0).toUpperCase() + ev.slice(1).replace(/-(\w)/g, function(m, c) { return c.toUpperCase(); });
@@ -153,17 +153,15 @@
       }
     };
     app.config.globalProperties.$store = sv.stores();
-    // Vue plugins the component asks for, by their global names
-    // (window.ElementPlus, window.NaiveUI, ...): app.use() on each
+    // Vue plugins the component asks for (`use`), by their global names --
+    // a component library, an i18n plugin: app.use() on each
     // -- a name, or {name, options} for a plugin that takes them
-    (spec.plugins || []).forEach(function(p) {
+    (spec.use || []).forEach(function(p) {
       var name = typeof p === 'string' ? p : p.name;
       var plugin = name.split('.').reduce(function(o, k) { return o && o[k]; }, window);
       if (plugin) app.use(plugin, typeof p === 'string' ? undefined : p.options);
       else if (window.console) console.warn('[shiny-vue] "' + host.id + '" asks for plugin ' + name + ', which is not on the page');
     });
-    // the component library installs itself on every app
-    if (typeof sv.install === 'function') sv.install(app);
     // The app's root goes into a box of its own: Vue 3 owns its container
     var box = document.createElement('div');
     box.setAttribute('data-shiny-vue-root', '');
@@ -182,6 +180,11 @@
     }
     host._shinyVueApp = app;
     vm._shinyVueHost = host;
+    // a bookmarked value for an input field that setup() defines -- one in
+    // data was restored on the server, into the data itself
+    if (spec.restored !== undefined && spec.input && /^[A-Za-z_$][\w$]*$/.test(spec.input)) {
+      vm[spec.input] = spec.restored;
+    }
     host._shinyVue = vm;
     host._shinyVueSpec = { input: spec.input || null, type: spec.type || null,
                            rate: spec.rate || null };
@@ -282,8 +285,8 @@
   // beyond assigning -- move a carousel, check tree nodes -- defines
   // shinyVueReceive(data), which handles what it can and returns the rest.
   // Keys starting with a dot are the bridge's, not fields. A layer above it
-  // registers what it handles -- the Element layer draws a label and an
-  // error message -- and `.resolve` answers a question a component asked.
+  // registers what it handles -- a label, an error message, say -- and
+  // `.resolve` answers a question a component asked.
   sv.hooks = sv.hooks || {};
   // How a component layer finds an object a method takes, by index or name
   sv.refs = sv.refs || {};
@@ -297,7 +300,7 @@
     if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
     var rest = {};
     Object.keys(data).forEach(function(k) {
-      if (k === 'id') return;
+      if (k === 'id' || k === '.value') return;
       if (k.charAt(0) === '.' && typeof sv.hooks[k] === 'function') {
         sv.hooks[k](host, data[k], vm);
       } else {
@@ -305,8 +308,16 @@
       }
     });
     if (typeof vm.shinyVueReceive === 'function') rest = vm.shinyVueReceive(rest) || {};
+    // `.value` is the component's value, whichever field that is
+    if ('.value' in data && host._shinyVueSpec && host._shinyVueSpec.input) {
+      var field = host._shinyVueSpec.input.match(/^[A-Za-z_$][\w$]*$/);
+      if (field) rest[field[0]] = data['.value'];
+      else warn('update: "' + id + '" reports an expression, so `value` cannot be set');
+    }
+    // fields of the instance: data, or state returned by setup()
+    var setupState = vm.$ && vm.$.setupState;
     Object.keys(rest).forEach(function(k) {
-      if (!(k in vm.$data)) {
+      if (!(k in vm.$data) && !(setupState && k in setupState)) {
         warn('update: "' + k + '" is not a field of "' + id + '"; the update was ignored');
         return;
       }
@@ -321,7 +332,7 @@
       vm[k] = v;
     });
     // Report the new value, as Shiny's own update*Input() does
-    if (vm._elReport) vm._elReport();
+    if (vm._svReport) vm._svReport();
   };
 
   // ── asking the server ───────────────────────────────────────────────────
@@ -339,7 +350,7 @@
   var pending = {}, nextRequest = 0;
   sv.askTimeout = 30000;
   // An answer can also be a refusal (`failed`): the promise rejects, and a
-  // tree's loader calls Element Plus's reject(), so the node can be loaded
+  // lazy loader can tell its library the load failed, so it can be tried
   // again.
   function settle(request, value, failed) {
     var p = pending[request];
@@ -382,7 +393,7 @@
     jQuery(document).on('shiny:disconnected', function() { dropQuestions(null); });
   }
 
-  // The component the instance renders, whose methods Element documents:
+  // The component the instance renders, whose methods its library documents:
   // $refs.el if marked, else the first child of the given name, else the
   // first child at all.
   function componentOf(vm, name) {
@@ -445,9 +456,9 @@
     var host = document.getElementById(msg.id);
     // A component drawn as markup with a binding of its own (a drawer)
     // lists its methods on the element
-    if (host && !host.hasAttribute('data-shiny-vue') && host._elMethods &&
-        Object.prototype.hasOwnProperty.call(host._elMethods, msg.method)) {
-      reportResult(msg.input, host._elMethods[msg.method].apply(host, args));
+    if (host && !host.hasAttribute('data-shiny-vue') && host._svMethods &&
+        Object.prototype.hasOwnProperty.call(host._svMethods, msg.method)) {
+      reportResult(msg.input, host._svMethods[msg.method].apply(host, args));
       return;
     }
     var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
@@ -472,7 +483,7 @@
     var result;
     try { result = target[msg.method].apply(target, args); }
     catch (e) { warn('call: ' + msg.method + '() raised: ' + e.message); return; }
-    if (vm._elReport) vm._elReport();   // a method can change a reported value
+    if (vm._svReport) vm._svReport();   // a method can change a reported value
     // A promise that rejects -- a form's validate() on invalid fields -- is
     // an answer, not an error: with no input to report it to, it is dropped
     // rather than left unhandled
@@ -679,7 +690,7 @@
         if (k in vm.$data) vm[k] = u.spec.data[k];
       });
       u.host._svSent = asSent;
-      if (vm._elReport) vm._elReport();
+      if (vm._svReport) vm._svReport();
     });
     el._svLast = next;
     return true;

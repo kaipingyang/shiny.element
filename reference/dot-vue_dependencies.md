@@ -1,6 +1,6 @@
-# The scripts the Vue layer needs, and nothing of Element
+# The scripts the Vue layer needs
 
-jQuery, Vue and the generic bridge (`shiny-vue.js`).
+jQuery, Vue and the bridge (`shiny-vue.js`).
 
 ## Usage
 

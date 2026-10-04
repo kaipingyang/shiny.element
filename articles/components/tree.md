@@ -294,7 +294,7 @@ done in two approaches: node and key. If you are taking the key
 approach, `node-key` is required.
 
 `update_el_tree(checked =)` sets them;
-[`el_call()`](https://kaipingyang.github.io/shiny.element/reference/el_call.md)
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 runs Element Plus’s `getCheckedKeys()`, `setCheckedKeys()` and the rest.
 
 ``` r
@@ -332,7 +332,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(input$set, update_el_tree(id = "tree", checked = c(4, 6)))
   observeEvent(input$reset, update_el_tree(id = "tree", checked = character(0)))
-  observeEvent(input$get, el_call(session, "tree", "getCheckedKeys"))
+  observeEvent(input$get, call_el(session, "tree", "getCheckedKeys"))
   output$keys <- renderPrint(input$tree_checked)
 }
 
@@ -493,7 +493,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$q,
-    el_call(session, "filtered", "filter", list(input$q), result = FALSE)
+    call_el(session, "filtered", "filter", list(input$q), result = FALSE)
   )
 }
 
