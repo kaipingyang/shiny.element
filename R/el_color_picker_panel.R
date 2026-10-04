@@ -30,7 +30,7 @@
 #' - `input$<id>` -- the value, on load and on every change.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `update()`.
+#' Callable with [call_el()]: `update()`.
 #'
 #' @return A Shiny UI element.
 #' @examples

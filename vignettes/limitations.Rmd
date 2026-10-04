@@ -232,7 +232,7 @@ And a few things are different by construction:
   objects a component already holds are named from R: a table's rows
   (`el_table_row()`), an upload's files (`el_upload_file()`) and a tree's
   nodes (`el_tree_node()`). A method's callback argument is left out:
-  Element's promise form, where it has one, is what `el_call()` uses. The
+  Element's promise form, where it has one, is what `call_el()` uses. The
   rest are each run in a browser test (`test-browser-methods.R`).
 * **`el_config_provider()`'s `locale`, `z-index` and `namespace` are the
   page's:** `el_page(locale =, z_index =)`. Every component is an

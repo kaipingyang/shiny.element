@@ -11,7 +11,7 @@ el_page(
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
   locale = getOption("shiny.element.locale", "en"),
-  dev = getOption("shiny.element.dev", FALSE),
+  dev = .vue_dev(),
   size = NULL,
   z_index = NULL
 )
@@ -40,7 +40,8 @@ own Simplified Chinese. See \code{\link[=el_locales]{el_locales()}} for the rest
 \item{dev}{Load Vue's development build (\code{vue.global.js}) instead of the
 production one. The production build strips every warning, which is why a template that
 fails to compile renders nothing and says nothing. Defaults to
-\code{getOption("shiny.element.dev", FALSE)}, so it can be turned on for a
+\code{getOption("shiny.vue.dev")} (or \code{shiny.element.dev}), \code{FALSE} unless
+set, so it can be turned on for a
 whole session without touching the UI code.}
 
 \item{size, z_index}{Element Plus's global config, as \code{app.use()} gives it:

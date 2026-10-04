@@ -279,7 +279,7 @@ Element Plus select props.
 }
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{blur()} -- Blur the Input component, and hide the dropdown
 \item \code{focus()} -- Focus the Input component

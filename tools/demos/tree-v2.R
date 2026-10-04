@@ -168,7 +168,7 @@ el_tree_v2(
 )
 
 ## filter
-#' `filter()`, run with `el_call()`, keeps the nodes `filter_method` passes.
+#' `filter()`, run with `call_el()`, keeps the nodes `filter_method` passes.
 #| shot_js = "var i = document.querySelector('#q_container input'); i.value = '1-1'; i.dispatchEvent(new Event('input'));", shot_wait = 2
 make_nodes <- function(depth, prefix = "") {
   lapply(1:10, function(i) {
@@ -196,7 +196,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$q,
-    el_call(session, "tv2_filter", "filter", list(input$q), result = FALSE)
+    call_el(session, "tv2_filter", "filter", list(input$q), result = FALSE)
   )
 }
 

@@ -30,33 +30,4 @@ JS <- function(...) {
 #' @param x A list.
 #' @return A character vector of paths.
 #' @keywords internal
-.el_js_paths <- function(x) {
-  walk <- function(node, path) {
-    if (is.list(node) && !inherits(node, "POSIXlt")) {
-      n <- length(node)
-      if (!n) {
-        return(character(0))
-      }
-      nms <- names(node)
-      if (is.null(nms)) {
-        nms <- as.character(seq_len(n) - 1L)
-      }
-      nms <- gsub(".", "\\.", nms, fixed = TRUE)
-      unlist(
-        lapply(seq_len(n), function(i) {
-          walk(
-            node[[i]],
-            if (is.null(path)) nms[i] else paste0(path, ".", nms[i])
-          )
-        }),
-        use.names = FALSE
-      )
-    } else if (is.character(node) && inherits(node, "JS_EVAL")) {
-      path
-    } else {
-      character(0)
-    }
-  }
-  out <- walk(x, NULL)
-  if (is.null(out)) character(0) else out
-}
+.el_js_paths <- function(x) .vue_js_paths(x)

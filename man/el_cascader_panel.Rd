@@ -106,7 +106,7 @@ load; answer with \code{\link[=el_load_children]{el_load_children()}}. See \code
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{getCheckedNodes()} -- the selected options
 \item \code{clearCheckedNodes()} -- clear the selection

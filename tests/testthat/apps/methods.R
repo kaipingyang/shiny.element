@@ -1,6 +1,6 @@
 # One of each component that has methods, and every method Element Plus
 # documents for it, with arguments where it needs them. test-browser-methods.R
-# calls each through el_call()'s channel and fails on any that is missing or
+# calls each through call_el()'s channel and fails on any that is missing or
 # raises.
 
 library(shiny)

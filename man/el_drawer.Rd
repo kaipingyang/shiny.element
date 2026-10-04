@@ -129,7 +129,7 @@ moves into it on opening, and back on closing.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{handleClose()} closes it the way the user
+Callable with \code{\link[=call_el]{call_el()}}: \code{handleClose()} closes it the way the user
 would, through \code{before_close} (\code{closeDrawer()}, Element UI's name, too).
 }
 

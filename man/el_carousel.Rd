@@ -93,7 +93,7 @@ whenever the slide changes.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{next()} -- Switch to the next slide
 \item \code{prev()} -- Switch to the previous slide

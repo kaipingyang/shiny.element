@@ -825,7 +825,7 @@ el_table_v2(
 )
 
 ## manual-scroll
-#' `el_call(session, "tv_scroll", "scrollToRow", list(100))` scrolls it from
+#' `call_el(session, "tv_scroll", "scrollToRow", list(100))` scrolls it from
 #' the server.
 df <- data.frame(id = 1:1000, name = paste("Name", 1:1000))
 el_table_v2("tv_scroll", data = df, table_v2_width = 700, height = 300)

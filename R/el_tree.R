@@ -51,7 +51,7 @@
 #'   browser instead of from the server. Needs `lazy = TRUE`.
 #' @param filter_node_method `JS()` function deciding whether a
 #'   node survives filtering. By default a node is kept when its label
-#'   contains the text, ignoring case, so `el_call(session, id, "filter",
+#'   contains the text, ignoring case, so `call_el(session, id, "filter",
 #'   list(text))` works as it stands.
 #' @param render_content `JS()` render function for a node's content.
 #' @param allow_drag `JS()` function deciding whether a node may be dragged.
@@ -77,7 +77,7 @@
 #' [el_load_children()].
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `append()` -- Append a child node to a given node in the tree
 #' - `filter()` -- Filter all tree nodes, filtered nodes will be hidden

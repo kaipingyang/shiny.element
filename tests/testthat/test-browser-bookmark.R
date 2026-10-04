@@ -64,6 +64,7 @@ test_that("a bookmark brings every component back", {
   js("document.querySelectorAll('#tabs .el-tabs__item')[1].click()")
   js("document.querySelectorAll('#pg_container .el-pager li')[2].click()")
   js("shinyVue.find('rv').instance.value = 'r'")
+  js("shinyVue.find('su').instance.k = 7")
   Sys.sleep(1.5)
   before <- dump()
 
@@ -79,6 +80,8 @@ test_that("a bookmark brings every component back", {
   expect_equal(after[["cities"]], "sh,gz")
   # inside render_vue() too
   expect_equal(after[["rv"]], "r")
+  # and an input that setup() defines
+  expect_equal(after[["su"]], "7")
   # and on screen, not only in input$
   expect_equal(
     js("document.querySelector('#name_container input').value"),

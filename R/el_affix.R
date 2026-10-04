@@ -26,7 +26,7 @@
 #' - `input$<id>_scroll` -- Element Plus's `scroll` event.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `update()`, `updateRoot()`.
+#' Callable with [call_el()]: `update()`, `updateRoot()`.
 #'
 #' @return A Shiny UI element.
 #' @examples

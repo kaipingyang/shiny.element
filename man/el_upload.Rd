@@ -187,7 +187,7 @@ is marked done once the whole batch has reached the server.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{abort()} -- Cancel upload request: one file, given as its \code{uid}, or
 every file in flight

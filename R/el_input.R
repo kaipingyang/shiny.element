@@ -72,7 +72,7 @@
 #'   the template with [template()].
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `blur()` -- Blur the input element
 #' - `focus()` -- Focus the input element

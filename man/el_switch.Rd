@@ -150,7 +150,7 @@ Creates an Element Plus switch with Vue instance.
 }
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{focus()} -- Focus the Switch component
 }

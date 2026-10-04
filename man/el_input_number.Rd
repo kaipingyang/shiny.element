@@ -149,7 +149,7 @@ A numeric input with increment/decrement buttons.
 }
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{focus()} -- Focus the Input component
 \item \code{select()} -- Select the text in input element

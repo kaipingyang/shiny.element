@@ -39,7 +39,7 @@
 #' - `input$<id>_rotate` -- Element Plus's `rotate` event.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `setActiveItem()`.
+#' Callable with [call_el()]: `setActiveItem()`.
 #'
 #' @return A Shiny UI element.
 #' @export

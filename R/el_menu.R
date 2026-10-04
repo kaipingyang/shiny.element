@@ -169,7 +169,7 @@
 #' index.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `close()` -- Close a specific sub-menu
 #' - `open()` -- Open a specific sub-menu

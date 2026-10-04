@@ -144,7 +144,7 @@
 #' - `input$<id>_end_reached` -- Element Plus's `end-reached` event.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `focus()`, `blur()`.
+#' Callable with [call_el()]: `focus()`, `blur()`.
 #'
 #' @return A Shiny UI element.
 #' @examples

@@ -154,7 +154,7 @@ test_that("el_tree_select() loads lazily from the server", {
   expect_match(vue_payload_of(ui)$methods$elLoad, "ts_load", fixed = TRUE)
 })
 
-test_that("el_tree_node() names a node for el_call()", {
+test_that("el_tree_node() names a node for call_el()", {
   expect_equal(el_tree_node("a"), list(.ref = "node", value = "a"))
 })
 

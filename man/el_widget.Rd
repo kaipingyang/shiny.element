@@ -12,11 +12,12 @@ el_widget(
   watch = NULL,
   mounted = NULL,
   computed = NULL,
+  emits = NULL,
   dependency = NULL,
   head = NULL,
   width = NULL,
   slots = NULL,
-  report = NULL,
+  input = NULL,
   rate = NULL,
   type = NULL,
   label = NULL,
@@ -32,7 +33,7 @@ el_widget(
 }
 \arguments{
 \item{id}{The element id -- inside a module, wrapped in \code{ns()}. It is the
-input id of the value \code{report} names.}
+input id of the value \code{input} names.}
 
 \item{markup}{The Element markup to mount on, usually one \code{htmltools::tag()}.}
 
@@ -40,6 +41,9 @@ input id of the value \code{report} names.}
 set has to be declared here -- Vue does not track one that is not.}
 
 \item{methods, watch, mounted, computed}{Vue options, included when not \code{NULL}.}
+
+\item{emits}{Events the component sends with \verb{$emit()}: each arrives as
+\verb{input$<id>_<event>}, as for \code{\link[=vue_app]{vue_app()}}.}
 
 \item{dependency}{htmlDependency objects to attach. Outside this package
 pass \code{\link[=element_plus_dependency]{element_plus_dependency()}}, unless the page already loads it through
@@ -57,13 +61,10 @@ here is absorbed like any other (\code{\link[=.el_absorb]{.el_absorb()}}). For a
 where Element hands the template its own data, write the template with
 \code{\link[=template]{template()}} and the value is used as it stands.}
 
-\item{report}{Fields of \code{data} to report as Shiny inputs, as
-\verb{c(<field> = <input id>)}. The field reported under the component's own
-\code{id} is its value: the Shiny binding reads it on load and on every
-change, and a test driver or \code{shinyjs} sees it. Fields reported under
-other ids -- \code{c(value = id, open = paste0(id, "_open"))} -- are sent on
-load and on every change too. An \code{\link[=update_vue_data]{update_vue_data()}} from the server
-counts as a change. Inside a module, pass the namespaced ids.}
+\item{input}{The field of \code{data} that is \verb{input$<id>}, or several for one
+value made of them, as \code{\link[=vue_app]{vue_app()}}'s \code{input}: the Shiny binding reads it
+on load and on every change, and a test driver or \code{shinyjs} sees it. An
+\code{\link[=update_vue]{update_vue()}} from the server counts as a change.}
 
 \item{rate}{How often the value is sent while it changes:
 \code{list(policy = "debounce", delay = 250)}, as Shiny's \code{textInput()} does,
@@ -115,8 +116,9 @@ destroys its Vue instance, and its value is \verb{input$<id>}.
 }
 \details{
 Reach for it to wrap an Element component this package does not cover, or
-to build an input of your own from \link{el} tags; \code{report} names the value.
-It is what the package's own components are made of.
+to build an input of your own from \link{el} tags; \code{input} names the value.
+It is what the package's own components are made of: \code{\link[=vue_app]{vue_app()}} with
+Element Plus installed (\code{use}), and a label in Element's form-item style.
 
 The raw Element tags come from \link{el}, and \code{\link[=template]{template()}} writes a slot.
 }
@@ -132,12 +134,12 @@ my_avatar <- function(id, src, size = 50) {
 my_avatar("face", "https://example.org/face.png")
 
 # An input of your own: v-model keeps `value` in step with the control,
-# and `report` makes it input$score -- on load, on change, and after
-# update_vue_data(session, "score", list(value = 5)) from the server.
+# and `input` makes it input$score -- on load, on change, and after
+# update_vue(session, "score", value = 5) from the server.
 el_widget(
   id = "score",
   markup = el$rate("v-model" = "value", ":max" = "max"),
   data = list(value = 3, max = 5),
-  report = c(value = "score")
+  input = "value"
 )
 }

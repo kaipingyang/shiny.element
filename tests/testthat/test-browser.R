@@ -1109,9 +1109,9 @@ test_that("forwarding an event raises no Vue warning", {
   expect_equal(bconsole(), character(0))
 })
 
-# ── el_call(): reaching the component's own methods ───────────────────────────
+# ── call_el(): reaching the component's own methods ───────────────────────────
 
-test_that("el_call runs a method that returns nothing", {
+test_that("call_el runs a method that returns nothing", {
   skip_if_no_browser()
   bclick("#call_clear_container button", wait = 3)
   # clearSelection() returns undefined, which is reported as TRUE so an
@@ -1119,7 +1119,7 @@ test_that("el_call runs a method that returns nothing", {
   expect_match(bdump()[["events_seen"]], "called_clear")
 })
 
-test_that("el_call reports a method's return value", {
+test_that("call_el reports a method's return value", {
   skip_if_no_browser()
   bclick("#call_keys_container button", wait = 3)
   # getCheckedKeys() answers with whatever is checked at the time; earlier
@@ -1130,7 +1130,7 @@ test_that("el_call reports a method's return value", {
   expect_true(nzchar(keys))
 })
 
-test_that("el_call awaits a method that returns a promise", {
+test_that("call_el awaits a method that returns a promise", {
   skip_if_no_browser()
   # el-form's validate() returns a promise when called without a callback; it
   # rejects when the form is invalid, which arrives as FALSE rather than as an
@@ -1139,7 +1139,7 @@ test_that("el_call awaits a method that returns a promise", {
   expect_equal(unname(bdump()[["called_validate"]]), "FALSE")
 })
 
-test_that("el_call on a method that does not exist warns rather than failing", {
+test_that("call_el on a method that does not exist warns rather than failing", {
   skip_if_no_browser()
   bclick("#call_missing_container button", wait = 3)
   expect_match(paste(bconsole(), collapse = " "), "not a method")
@@ -1294,7 +1294,7 @@ test_that("updates, row actions and inserted tabs work inside a module", {
 test_that("a component only ever rendered by renderUI() hears its updates", {
   skip_if_no_browser()
   # Its handler script loads after shiny:connected; handlers used to register
-  # only on that event, so every update_el_*() and el_call() went nowhere.
+  # only on that event, so every update_el_*() and call_el() went nowhere.
   expect_equal(bdump("late_dump")[["late_tp"]], "09:00:00")
   bclick("#late_set", wait = 2)
   expect_equal(bdump("late_dump")[["late_tp"]], "10:30:00")
@@ -1659,9 +1659,9 @@ test_that("a table method taking a row gets the table's own row", {
   expect_equal(bdump()[["tbl_selected_rows"]], "2")
 })
 
-test_that("more of Element's methods run through el_call()", {
+test_that("more of Element's methods run through call_el()", {
   skip_if_no_browser()
-  # A button named car_next would collide with el_call()'s own report,
+  # A button named car_next would collide with call_el()'s own report,
   # input$car_next, and run twice
   before <- as.integer(bdump()[["car"]])
   bclick("#carousel_forward", wait = 2)

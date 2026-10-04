@@ -119,7 +119,7 @@
 #'   the template with [template()].
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `blur()` -- Blur the Input component, and hide the dropdown
 #' - `focus()` -- Focus the Input component

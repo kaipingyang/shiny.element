@@ -239,8 +239,8 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$check, el_call(session, "profile", "validate"))
-  observeEvent(input$clear, el_call(session, "profile", "clearValidate"))
+  observeEvent(input$check, call_el(session, "profile", "validate"))
+  observeEvent(input$clear, call_el(session, "profile", "clearValidate"))
   output$answer <- renderPrint(input$profile_validate)
 }
 

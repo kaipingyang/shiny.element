@@ -22,7 +22,7 @@ reports them.}
 \code{props$value}.}
 }
 \value{
-A reference, for \code{\link[=el_call]{el_call()}}'s \code{args}.
+A reference, for \code{\link[=call_el]{call_el()}}'s \code{args}.
 }
 \description{
 Element's table methods take the row object itself --
@@ -36,11 +36,11 @@ puts the real one in its place before the method runs.
 \examples{
 if (interactive()) {
   # inside a server function: select the third row, then make it current
-  el_call(session, "tbl", "toggleRowSelection", list(el_table_row(3), TRUE))
-  el_call(session, "tbl", "setCurrentRow", list(el_table_row(3)))
+  call_el(session, "tbl", "toggleRowSelection", list(el_table_row(3), TRUE))
+  call_el(session, "tbl", "setCurrentRow", list(el_table_row(3)))
   # stop one file
-  el_call(session, "docs", "abort", list(el_upload_file("big.csv")))
+  call_el(session, "docs", "abort", list(el_upload_file("big.csv")))
   # open a node of a virtualized tree
-  el_call(session, "files", "expandNode", list(el_tree_node("src")))
+  call_el(session, "files", "expandNode", list(el_tree_node("src")))
 }
 }

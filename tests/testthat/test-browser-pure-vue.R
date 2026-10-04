@@ -54,7 +54,7 @@ test_that("vue_app() works without Element Plus", {
     "!!document.querySelector('link[href*=element-plus], script[src*=element-plus], script[src*=el-events]')"
   ))
 
-  # model is input$<id>; a data.frame is rows for v-for
+  # input is input$<id>; a data.frame is rows for v-for
   expect_equal(js("Shiny.shinyapp.$inputValues.counter"), 1)
   expect_equal(
     js(
@@ -73,7 +73,7 @@ test_that("vue_app() works without Element Plus", {
     '{"name":"b"}'
   )
 
-  # a model of two fields is one value, a named list
+  # an input of two fields is one value, a named list
   expect_equal(
     js("JSON.stringify(Shiny.shinyapp.$inputValues.range)"),
     '{"from":1,"to":9}'
@@ -98,7 +98,7 @@ test_that("vue_app() works without Element Plus", {
     "hello Alan"
   )
 
-  # a store: two apps share it at once, without the server; its model is
+  # a store: two apps share it at once, without the server; its input is
   # input$cart; the server sets a field with an update
   js(
     "document.querySelector('#sa .sa').click(); document.querySelector('#sa .sa').click();"
@@ -109,6 +109,14 @@ test_that("vue_app() works without Element Plus", {
   js("document.querySelector('#counter .inc').click()")
   Sys.sleep(1.2)
   expect_equal(js("document.querySelector('#sb .sb').textContent"), "2|from R")
+
+  # setup() state: reported as the input, and set by update_vue(value =)
+  expect_equal(js("document.querySelector('#st .st').textContent"), "1/2")
+  expect_equal(js("Shiny.shinyapp.$inputValues.st"), 1)
+  js("Shiny.setInputValue('set_st', 1)")
+  Sys.sleep(1)
+  expect_equal(js("document.querySelector('#st .st').textContent"), "5/10")
+  expect_equal(js("Shiny.shinyapp.$inputValues.st"), 5)
 
   # render_vue() with a component of the layer's own
   js("document.getElementById('rv_app').__mark = 1")

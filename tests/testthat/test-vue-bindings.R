@@ -482,59 +482,45 @@ test_that("update_el_table keeps a template's key for the same column", {
   expect_null(cols[[1]][["cell"]])
 })
 
-# ── el_widget(report =) ───────────────────────────────────────────────────────
+# ── el_widget(input =, emits =) ──────────────────────────────────────────────
 
-test_that("el_widget reports the named fields on load and on every change", {
-  # Its own id: the binding's value
+test_that("el_widget's input is the binding's value; emits are its events", {
   ui <- el_widget(
     "score",
-    markup = el$rate("v-model" = "value"),
+    markup = el$rate("v-model" = "value", "@change" = "$emit('rated', $event)"),
     data = list(value = 3),
-    report = c(value = "score")
+    input = "value",
+    emits = "rated"
   )
   expect_equal(vue_spec_of(ui)$input, "value")
-  # Any other id: reported on load and on every change by the instance
-  p <- vue_payload_of(el_widget(
-    "score",
-    markup = el$rate("v-model" = "value"),
-    data = list(value = 3, max = 5),
-    report = c(value = "score", max = "score_max")
-  ))
-  expect_match(
-    p$mounted,
-    'Shiny.setInputValue("score_max", self.max)',
-    fixed = TRUE
+  expect_equal(unlist(vue_payload_of(ui)$emits), "rated")
+  # Element Plus comes in through `use`, as any plugin does
+  expect_equal(unlist(vue_spec_of(ui)$use), "shinyElement.plugin")
+  # several fields are one value
+  two <- el_widget(
+    "range",
+    markup = el$slider("v-model" = "lo"),
+    data = list(lo = 1, hi = 9),
+    input = c("lo", "hi")
   )
-  expect_match(p$watch$max, 'Shiny.setInputValue("score_max", v)', fixed = TRUE)
-  expect_match(p$watch$max, "deep: true", fixed = TRUE)
+  expect_equal(vue_spec_of(two)$input, "({lo: lo, hi: hi})")
 })
 
-test_that("el_widget keeps a mounted hook of its own alongside report", {
+test_that("el_widget keeps a mounted hook of its own alongside input", {
   ui <- el_widget(
     "s",
     markup = el$rate("v-model" = "value"),
-    data = list(value = 3, n = 1),
-    report = c(value = "s", n = "s_n"),
+    data = list(value = 3),
+    input = "value",
     mounted = JS("function() { this.ready = true; }")
   )
-  p <- vue_payload_of(ui)
-  expect_match(p$mounted, "this.ready = true", fixed = TRUE)
-  expect_match(p$mounted, 'Shiny.setInputValue("s_n", self.n)', fixed = TRUE)
+  expect_match(vue_payload_of(ui)$mounted, "this.ready = true", fixed = TRUE)
   expect_equal(vue_spec_of(ui)$input, "value")
 })
 
-test_that("report must name fields the component declares", {
+test_that("input must name fields the component declares", {
   expect_error(
-    el_widget(
-      "s",
-      markup = el$rate(),
-      data = list(value = 3),
-      report = c(nope = "s")
-    ),
-    "must name fields"
-  )
-  expect_error(
-    el_widget("s", markup = el$rate(), data = list(value = 3), report = "s"),
+    el_widget("s", markup = el$rate(), data = list(value = 3), input = "nope"),
     "must name fields"
   )
 })

@@ -63,7 +63,7 @@
 #' - `input$<id>_query` -- with `remote = TRUE`, the text to suggest for.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `focus()` -- focus the input
 #'

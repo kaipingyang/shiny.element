@@ -66,7 +66,7 @@ el_scrollbar(max_height = "400px", lapply(1:3, item))
 
 Use `setScrollTop` and `setScrollLeft` methods can control scrollbar manually.
 
-`el_call(session, "sb", "setScrollTop", list(200))` scrolls it from the
+`call_el(session, "sb", "setScrollTop", list(200))` scrolls it from the
 server; `input$<id>_scroll` reports where it is.
 
 ```{r manual-scroll, eval = FALSE, shot = TRUE}

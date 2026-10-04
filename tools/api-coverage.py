@@ -27,7 +27,7 @@ if not os.path.isdir(DOCS):
 import re, json, glob
 
 # Section titles that document a component's API, and what they hold.
-# "Exposes" are the component's instance: its functions are what el_call()
+# "Exposes" are the component's instance: its functions are what call_el()
 # can call (Methods); the rest are refs and values.
 KINDS = (("Attributes", "Attributes"), ("Attribute", "Attributes"), ("Options", "Attributes"),
          ("Events", "Events"), ("Event", "Events"), ("Exposes", "Methods"),
@@ -291,7 +291,7 @@ for fn, info in sorted(ours.items()):
             "bound": [len(upa & mine_a), len(upa)],
             "attr_missing": sorted(upa - covered),
             "evt": [len(upe & mine_e), len(upe)], "evt_missing": sorted(upe - mine_e),
-            # el_call() can invoke any of them on a component with a Vue instance
+            # call_el() can invoke any of them on a component with a Vue instance
             "method": [len(upm) if info.get("invokable") else 0, len(upm)],
             "method_missing": [] if info.get("invokable") else sorted(upm),
             "slot": [len(ups & filled), len(ups)],
@@ -679,7 +679,7 @@ def r_name(slug, tag, kind, name):
         if name in ("change", "input"): return "`input$<id>`, the value"
         return "one of the component's inputs -- see its reference page"
     if kind == "Methods":
-        return f'`el_call(session, id, "{name}")`'
+        return f'`call_el(session, id, "{name}")`'
     if kind == "Slot":
         return "default content" if name == "default" else f"`slots = list({name} = )`"
     return ""

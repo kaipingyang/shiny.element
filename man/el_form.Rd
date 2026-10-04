@@ -109,7 +109,7 @@ the form owning its state rather than each field reporting separately.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{clearValidate()} -- Clear validation message for certain fields. The parameter is prop name or an array of prop names of the...
 \item \code{clearValidate()} -- Remove validation status of the field

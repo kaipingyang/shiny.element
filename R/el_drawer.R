@@ -58,7 +58,7 @@
 #'   -- with `resizable`, the size in pixels as it is dragged.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `handleClose()` closes it the way the user
+#' Callable with [call_el()]: `handleClose()` closes it the way the user
 #' would, through `before_close` (`closeDrawer()`, Element UI's name, too).
 #'
 #' @return An `htmltools` tag.

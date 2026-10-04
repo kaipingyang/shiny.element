@@ -131,7 +131,7 @@ index.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{close()} -- Close a specific sub-menu
 \item \code{open()} -- Open a specific sub-menu

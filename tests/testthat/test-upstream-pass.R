@@ -19,13 +19,13 @@ test_that("an update carrying a function lists it for the page to revive", {
     ns = function(id) id,
     sendCustomMessage = function(type, msg) captured <<- msg
   )
-  update_vue_data(
+  update_vue(
     session,
     "x",
-    list(formatter = JS("function(v) { return v; }"))
+    formatter = JS("function(v) { return v; }")
   )
   expect_equal(as.character(captured[[".evals"]]), "formatter")
-  update_vue_data(session, "x", list(value = 1))
+  update_vue(session, "x", n = 1)
   expect_null(captured[[".evals"]])
 })
 

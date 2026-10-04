@@ -144,7 +144,7 @@ moves into it on opening, and back on closing.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{resetPosition()} puts a dragged dialog back.
+Callable with \code{\link[=call_el]{call_el()}}: \code{resetPosition()} puts a dragged dialog back.
 }
 
 \examples{

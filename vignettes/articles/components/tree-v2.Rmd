@@ -231,7 +231,7 @@ Tree nodes can be filtered
 
 Invoke the `filter` method of the Tree instance to filter tree nodes. Its parameter is the filtering keyword. Note that for it to work, `filter-method` is required, and its value is the filtering method.
 
-`filter()`, run with `el_call()`, keeps the nodes `filter_method` passes.
+`filter()`, run with `call_el()`, keeps the nodes `filter_method` passes.
 
 ```{r filter, eval = FALSE, shot = TRUE, shot_js = "var i = document.querySelector('#q_container input'); i.value = '1-1'; i.dispatchEvent(new Event('input'));", shot_wait = 2}
 make_nodes <- function(depth, prefix = "") {
@@ -260,7 +260,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$q,
-    el_call(session, "tv2_filter", "filter", list(input$q), result = FALSE)
+    call_el(session, "tv2_filter", "filter", list(input$q), result = FALSE)
   )
 }
 

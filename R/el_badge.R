@@ -19,7 +19,7 @@
 #' @param id Give the badge an id and [update_el_badge()] can change it -- a
 #'   count of unread messages, say. A component inside is then folded into
 #'   the badge's Vue instance, as for [el_tooltip()]: it keeps reporting, but
-#'   is reached through [update_vue_data()] on the badge's id.
+#'   is reached through [update_vue()] on the badge's id.
 #'
 #' @return An `htmltools` tag, or with an `id` a Shiny UI element.
 #'

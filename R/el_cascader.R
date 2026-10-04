@@ -96,7 +96,7 @@
 #'   `_remove_tag` -- Element's events.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `getCheckedNodes()` -- Get an array of currently selected node
 #'

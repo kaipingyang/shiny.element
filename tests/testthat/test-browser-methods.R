@@ -2,7 +2,7 @@
 
 # Every method Element Plus documents is callable by name; this runs each one
 # on a live component (apps/methods.R lists them), through the channel
-# el_call() uses, and fails on a method the component does not have, one that
+# call_el() uses, and fails on a method the component does not have, one that
 # raises, or one that makes Vue warn.
 
 test_that("every documented method runs on a live component", {

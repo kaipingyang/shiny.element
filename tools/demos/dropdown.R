@@ -113,7 +113,7 @@ el_dropdown(
 )
 
 ## dropdown-methods
-#' `el_call(session, "dd_m", "handleOpen")` opens it from the server;
+#' `call_el(session, "dd_m", "handleOpen")` opens it from the server;
 #' `"handleClose"` closes it.
 el_dropdown(
   "dd_m",

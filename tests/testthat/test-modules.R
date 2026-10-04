@@ -69,7 +69,7 @@ test_that("server functions namespace the id they are given, as update*Input() d
   })
   update_el_input(m, "name", value = "x")
   expect_equal(sent$id, "mod-name")
-  el_call(m, "rows", "clearSelection")
+  call_el(m, "rows", "clearSelection")
   expect_equal(sent$id, "mod-rows")
 })
 

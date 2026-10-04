@@ -256,7 +256,7 @@ is an event input: clicking the same row twice reports twice.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{clearFilter()} -- Clear filters of the columns whose columnKey are passed in. If no params, clear all filters
 \item \code{clearSelection()} -- Used in multiple selection Table, clear user selection

@@ -83,7 +83,7 @@ el_image(
 )
 
 ## manually-preview
-#' `el_call(session, "pic", "showPreview")` opens the preview from the server;
+#' `call_el(session, "pic", "showPreview")` opens the preview from the server;
 #' `el_image_viewer()` is the viewer alone, opened with `update_el_image_viewer()`.
 url <- "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
 tagList(

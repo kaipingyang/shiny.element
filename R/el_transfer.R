@@ -47,7 +47,7 @@
 #'   as items are ticked.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `clearQuery()` -- clear one panel's search box; pass `"left"` or
 #'   `"right"`

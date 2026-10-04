@@ -87,6 +87,6 @@ A full-screen viewer for a list of images, with zoom and rotation.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{setActiveItem()}.
+Callable with \code{\link[=call_el]{call_el()}}: \code{setActiveItem()}.
 }
 

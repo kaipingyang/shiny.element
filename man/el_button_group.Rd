@@ -40,7 +40,7 @@ The buttons are folded into the group's Vue instance rather than nested
 (see \code{\link[=el_tooltip]{el_tooltip()}}): Element styles the group through its direct
 children, which a button with a host of its own would not be. So
 \code{update_el_button()} cannot reach them; set their fields with
-\code{\link[=update_vue_data]{update_vue_data()}} on the group's id.
+\code{\link[=update_vue]{update_vue()}} on the group's id.
 }
 \examples{
 el_button_group(

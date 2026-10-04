@@ -36,6 +36,19 @@ Upstream sources for reference live in `.upstream/element-plus` (git clone of
 tag 2.14.7, gitignored; see `.upstream/README.md`). Its
 `docs/en-US/component/*.md` and `docs/examples/` are what the site replicates.
 
+### Two layers
+
+The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no component
+library and is to become the shiny.vue package: `vue_app()`,
+`vue_component()`, `vue_store()`, `vue_output()`/`render_vue()`,
+`update_vue()`, `call_vue()`, `vue_answer()`, and the `.vue_*` helpers.
+`test-vue-layer.R` fails if any of it names Element; `test-browser-pure-vue.R`
+runs it with no Element Plus on the page. The **Element layer** (`R/el_*.R`,
+`inst/js/el-*.js`) is built on it: `el_widget()` builds through `.vue_host()`
+with `use = "shinyElement.plugin"` (Element Plus, its icons, `$elRef`,
+`$elDate`), and the `.el_*` helpers delegate to the `.vue_*` ones. Design
+record: `.claude/plans/vue-layer-2026-10-04.md`.
+
 ### Two kinds of component
 
 **Controls** (input, select, table, form, ...) are Vue apps on a host
@@ -66,15 +79,17 @@ mounted over a container would recompile and detach the components inside.
 
 ### Server to browser
 
-- `update_el_*()` and `update_vue_data()` send one custom message,
+- `update_el_*()` and `update_vue()` send one custom message,
   `shinyVueUpdate`, a flat `{id, fields..., .action}` (`.el_send_update()`).
   The bridge finds the host by id, bound or not -- Shiny's input messages
   reach only bound inputs -- runs `sv.hooks` for dot-keys (`.label`,
   `.error`, `.resolve`), then the component's `shinyVueReceive(data)` if it
   has one (for method calls: form, carousel, tree, upload), then assigns
   declared `$data` fields; an unknown id or field logs `[shiny-vue]`.
-- `el_call()` sends `shinyVueCall` to run an Element method; a return value
-  comes back as `input$<id>_<method>`.
+- `call_vue()` (and `call_el()`, which adds Element's row/file/node
+  references) sends `shinyVueCall` to run a method; a return value comes
+  back as `input$<id>_<method>`. `update_vue(value =)` sets the input field;
+  updates reach `data` and `setup()` state.
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search); `el_load_children()` answers through `.resolve`.
 - Feedback services (message, notification, message box, loading) use

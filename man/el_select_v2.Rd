@@ -310,7 +310,7 @@ A select drawing only the options in view, for lists of thousands.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{focus()}, \code{blur()}.
+Callable with \code{\link[=call_el]{call_el()}}: \code{focus()}, \code{blur()}.
 }
 
 \examples{

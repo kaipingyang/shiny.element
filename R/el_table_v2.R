@@ -87,7 +87,7 @@
 #' - `input$<id>_row_expand` -- Element Plus's `row-expand` event.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `scrollTo()`, `scrollToLeft()`, `scrollToTop()`, `scrollToRow()`.
+#' Callable with [call_el()]: `scrollTo()`, `scrollToLeft()`, `scrollToTop()`, `scrollToRow()`.
 #'
 #' @return A Shiny UI element.
 #' @examples

@@ -478,16 +478,29 @@ reference:
     desc: >
       Element Plus's methods, the objects they need, and the data a component asks the server for.
     contents:
-      - el_call
+      - call_el
       - el_table_row
       - el_load_children
 
+  - title: Vue components of your own
+    desc: >
+      The layer the Element components are built on, usable on its own: Vue's
+      options written in R, a component as a Shiny input, an output that keeps
+      the user's state across renders, shared state, and the server's way in.
+    contents:
+      - vue_app
+      - vue_component
+      - vue_store
+      - vue_output
+      - update_vue
+      - call_vue
+      - vue_answer
+
   - title: Escape hatches
     desc: >
-      For anything the wrappers do not cover: build your own component the way this package builds its own, write raw Element Plus tags, or update a Vue instance directly.
+      For anything the wrappers do not cover: build an Element component the way this package builds its own, or write raw Element Plus tags.
     contents:
       - el_widget
       - JS
       - el
       - template
-      - update_vue_data

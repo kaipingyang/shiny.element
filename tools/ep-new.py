@@ -101,7 +101,7 @@ for e in events:
     lines.append(f"#' - `input$<id>_{snake(e)}` -- Element Plus's `{e}` event.")
 if not has_value and not events: lines.append("#' None: it reports nothing.")
 if methods:
-    lines.append("#'\n#' @section Element methods:\n#' Callable with [el_call()]: " + ", ".join(f"`{m}()`" for m in methods) + ".")
+    lines.append("#'\n#' @section Element methods:\n#' Callable with [call_el()]: " + ", ".join(f"`{m}()`" for m in methods) + ".")
 lines.append("#'\n#' @return A Shiny UI element.")
 if examples:
     lines.append("#' @examples")

@@ -403,7 +403,7 @@ el_form_field <- function(
 #' the form owning its state rather than each field reporting separately.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `clearValidate()` -- Clear validation message for certain fields. The parameter is prop name or an array of prop names of the...
 #' - `clearValidate()` -- Remove validation status of the field

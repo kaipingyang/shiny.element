@@ -125,7 +125,7 @@ el_image(
 
 ## Manually Open Preview
 
-`el_call(session, "pic", "showPreview")` opens the preview from the server;
+`call_el(session, "pic", "showPreview")` opens the preview from the server;
 `el_image_viewer()` is the viewer alone, opened with `update_el_image_viewer()`.
 
 ```{r manually-preview, eval = FALSE, shot = TRUE}

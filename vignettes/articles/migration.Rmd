@@ -83,7 +83,7 @@ differences; those you are likely to meet:
   sees new properties.
 * `beforeDestroy` and `destroyed` are `beforeUnmount` and `unmounted`;
   `el_widget()` renames them for you.
-* `$children` is gone; `el_call()` and the package's own lookups find a
+* `$children` is gone; `call_el()` and the package's own lookups find a
   component by its ref.
 * Filters (`{{ x | money }}`) are gone: call a method, `{{ money(x) }}`.
 * `v-model` on a component binds `modelValue`, and a named one,

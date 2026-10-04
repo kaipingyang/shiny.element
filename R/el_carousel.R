@@ -43,7 +43,7 @@
 #' whenever the slide changes.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `next()` -- Switch to the next slide
 #' - `prev()` -- Switch to the previous slide

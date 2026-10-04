@@ -11,23 +11,7 @@
 #' @param data A data.frame or an already row-shaped list.
 #' @return A list of named lists, one per row.
 #' @keywords internal
-.el_table_rows <- function(data) {
-  if (!is.data.frame(data)) {
-    return(data)
-  }
-
-  nms <- names(data)
-  safe <- gsub("\\.", "_", nms)
-
-  lapply(seq_len(nrow(data)), function(i) {
-    row <- lapply(nms, function(col) {
-      val <- data[[col]][i]
-      if (is.factor(val)) as.character(val) else val
-    })
-    names(row) <- safe
-    row
-  })
-}
+.el_table_rows <- function(data) .vue_rows(data)
 
 #' Derive `el-table-column` configs from data
 #'
@@ -466,7 +450,7 @@
 #' is an event input: clicking the same row twice reports twice.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `clearFilter()` -- Clear filters of the columns whose columnKey are passed in. If no params, clear all filters
 #' - `clearSelection()` -- Used in multiple selection Table, clear user selection

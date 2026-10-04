@@ -111,7 +111,7 @@ browser instead of from the server. Needs \code{lazy = TRUE}.}
 
 \item{filter_node_method}{\code{JS()} function deciding whether a
 node survives filtering. By default a node is kept when its label
-contains the text, ignoring case, so \code{el_call(session, id, "filter", list(text))} works as it stands.}
+contains the text, ignoring case, so \code{call_el(session, id, "filter", list(text))} works as it stands.}
 
 \item{render_content}{\code{JS()} render function for a node's content.}
 
@@ -191,7 +191,7 @@ node's \code{node_key} field), \code{data} (the node) and \code{request}; answer
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{append()} -- Append a child node to a given node in the tree
 \item \code{filter()} -- Filter all tree nodes, filtered nodes will be hidden

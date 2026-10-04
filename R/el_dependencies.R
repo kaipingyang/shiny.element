@@ -15,7 +15,7 @@
 #'   rather than the unpkg CDN. See [element_plus_dependency()].
 #' @param dev Load Vue's development build (`vue.global.js`) instead of the
 #'   production one, so Vue's warnings are not stripped. Defaults to
-#'   `getOption("shiny.element.dev", FALSE)`.
+#'   `getOption("shiny.vue.dev")` (or `shiny.element.dev`), `FALSE` unless set.
 #' @param locale Language for Element Plus's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See
 #'   [el_locale_dependency()].
@@ -38,7 +38,7 @@
 use_element <- function(
   theme = NULL,
   offline = TRUE,
-  dev = getOption("shiny.element.dev", FALSE),
+  dev = .vue_dev(),
   locale = getOption("shiny.element.locale", "en"),
   size = NULL,
   z_index = NULL,

@@ -46,7 +46,7 @@
 #'   `input$<id>_node_click`, `input$<id>_check` -- Element Plus's events.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `focus()`, `blur()`.
+#' Callable with [call_el()]: `focus()`, `blur()`.
 #'
 #' @return A Shiny UI element.
 #' @examples

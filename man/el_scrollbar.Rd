@@ -97,7 +97,7 @@ A scroll area with Element's own thin scrollbars.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{handleScroll()}, \code{scrollTo()}, \code{setScrollTop()}, \code{setScrollLeft()}, \code{update()}.
+Callable with \code{\link[=call_el]{call_el()}}: \code{handleScroll()}, \code{scrollTo()}, \code{setScrollTop()}, \code{setScrollLeft()}, \code{update()}.
 }
 
 \examples{

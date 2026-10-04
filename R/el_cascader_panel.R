@@ -36,7 +36,7 @@
 #'   load; answer with [el_load_children()]. See [el_cascader()].
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `getCheckedNodes()` -- the selected options
 #' - `clearCheckedNodes()` -- clear the selection

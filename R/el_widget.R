@@ -8,17 +8,20 @@
 #' destroys its Vue instance, and its value is `input$<id>`.
 #'
 #' Reach for it to wrap an Element component this package does not cover, or
-#' to build an input of your own from [el] tags; `report` names the value.
-#' It is what the package's own components are made of.
+#' to build an input of your own from [el] tags; `input` names the value.
+#' It is what the package's own components are made of: [vue_app()] with
+#' Element Plus installed (`use`), and a label in Element's form-item style.
 #'
 #' The raw Element tags come from [el], and [template()] writes a slot.
 #'
 #' @param id The element id -- inside a module, wrapped in `ns()`. It is the
-#'   input id of the value `report` names.
+#'   input id of the value `input` names.
 #' @param markup The Element markup to mount on, usually one `htmltools::tag()`.
 #' @param data The Vue instance's data. Every field that `update_el_*()` may
 #'   set has to be declared here -- Vue does not track one that is not.
 #' @param methods,watch,mounted,computed Vue options, included when not `NULL`.
+#' @param emits Events the component sends with `$emit()`: each arrives as
+#'   `input$<id>_<event>`, as for [vue_app()].
 #' @param dependency htmlDependency objects to attach. Outside this package
 #'   pass [element_plus_dependency()], unless the page already loads it through
 #'   [el_page()] or [use_element()].
@@ -31,13 +34,10 @@
 #' @param width Component width, as a CSS unit. Applied to the Element markup
 #'   itself -- the host carries `display: contents` and generates no box, so a
 #'   width set on it would do nothing.
-#' @param report Fields of `data` to report as Shiny inputs, as
-#'   `c(<field> = <input id>)`. The field reported under the component's own
-#'   `id` is its value: the Shiny binding reads it on load and on every
-#'   change, and a test driver or `shinyjs` sees it. Fields reported under
-#'   other ids -- `c(value = id, open = paste0(id, "_open"))` -- are sent on
-#'   load and on every change too. An [update_vue_data()] from the server
-#'   counts as a change. Inside a module, pass the namespaced ids.
+#' @param input The field of `data` that is `input$<id>`, or several for one
+#'   value made of them, as [vue_app()]'s `input`: the Shiny binding reads it
+#'   on load and on every change, and a test driver or `shinyjs` sees it. An
+#'   [update_vue()] from the server counts as a change.
 #' @param label A label shown with the component, as Shiny's inputs have:
 #'   text or a tag. `NULL`, the default, shows none. It is the component's
 #'   accessible name too -- tied to it with `for` where the component has a
@@ -78,13 +78,13 @@
 #' my_avatar("face", "https://example.org/face.png")
 #'
 #' # An input of your own: v-model keeps `value` in step with the control,
-#' # and `report` makes it input$score -- on load, on change, and after
-#' # update_vue_data(session, "score", list(value = 5)) from the server.
+#' # and `input` makes it input$score -- on load, on change, and after
+#' # update_vue(session, "score", value = 5) from the server.
 #' el_widget(
 #'   id = "score",
 #'   markup = el$rate("v-model" = "value", ":max" = "max"),
 #'   data = list(value = 3, max = 5),
-#'   report = c(value = "score")
+#'   input = "value"
 #' )
 #' @export
 el_widget <- function(
@@ -95,11 +95,12 @@ el_widget <- function(
   watch = NULL,
   mounted = NULL,
   computed = NULL,
+  emits = NULL,
   dependency = NULL,
   head = NULL,
   width = NULL,
   slots = NULL,
-  report = NULL,
+  input = NULL,
   rate = NULL,
   type = NULL,
   label = NULL,
@@ -145,60 +146,33 @@ el_widget <- function(
     markup <- .el_set_width(markup, width)
   }
 
-  if (length(report)) {
-    if (
-      is.null(names(report)) ||
-        !all(nzchar(names(report))) ||
-        !all(names(report) %in% names(data))
-    ) {
-      stop(
-        "`report` must name fields of `data`: report = c(<field> = <input id>).",
-        call. = FALSE
-      )
+  input_given <- input
+  if (length(input_given)) {
+    if (!is.character(input_given) || !all(input_given %in% names(data))) {
+      stop("`input` must name fields of `data`.", call. = FALSE)
     }
   }
 
   # The field reported under the component's own id is its value, and goes
   # through the Shiny input binding. The package's components declare their
   # reported fields with .el_mounted_init(); a component of your own, with
-  # `report`.
+  # `input`.
   input <- NULL
-  init <- attr(mounted, "el_report")
+  init <- attr(mounted, "vue_report")
   if (!is.null(init)) {
     mounted <- NULL
     input <- unname(init[names(init) == id])
     rest <- init[names(init) != id]
     if (length(rest)) mounted <- .el_mounted_init(rest)
   }
-  if (length(report)) {
-    own <- names(report)[report == id]
-    if (length(own)) {
-      input <- own[1]
-    }
-    others <- report[report != id]
-    if (length(others)) {
-      extra <- .el_mounted_init(stats::setNames(names(others), unname(others)))
-      mounted <- if (is.null(mounted)) {
-        extra
-      } else {
-        JS(sprintf(
-          "function() { (%s).call(this); (%s).call(this); }",
-          extra,
-          mounted
-        ))
-      }
-      # On every change of the field, however it came about: a component of
-      # your own has no Element change event to wait for.
-      for (field in names(others)) {
-        watch[[field]] <- JS(sprintf(
-          paste0(
-            "{handler: function(v) { window.Shiny && Shiny.setInputValue && ",
-            "Shiny.setInputValue(%s, v); }, deep: true}"
-          ),
-          jsonlite::toJSON(unname(others[[field]]), auto_unbox = TRUE)
-        ))
-      }
-    }
+  if (length(input_given) == 1L) {
+    input <- input_given
+  } else if (length(input_given) > 1L) {
+    # one value of several fields: the binding reads an expression
+    input <- sprintf(
+      "({%s})",
+      paste(sprintf("%s: %s", input_given, input_given), collapse = ", ")
+    )
   }
   # Bookmarking: a restored session hands the value back, as every Shiny input
   # does through restoreInput(). An array stays an array -- a restored
@@ -241,11 +215,17 @@ el_widget <- function(
     value <- get(nm)
     if (!is.null(value)) options[[nm]] <- value
   }
+  if (length(emits)) {
+    options$emits <- I(emits)
+  }
   spec <- list(
     options = options,
     input = if (length(input)) input[[1]],
     rate = rate,
-    type = type
+    type = type,
+    # Element Plus, the icons and this package's template helpers: the
+    # Element layer's plugin (el-events.js)
+    use = .vue_use("shinyElement.plugin")
   )
 
   # The template travels as a script, which the browser does not parse: no
@@ -290,23 +270,7 @@ el_widget <- function(
     )
   }
   rendered <- htmltools::renderTags(root)
-  template <- gsub("</script", "<\\/script", rendered$html, ignore.case = TRUE)
-
-  host <- htmltools::tags$div(
-    id = id,
-    `data-shiny-vue` = NA,
-    style = .el_host_style(),
-    htmltools::tags$script(
-      type = "text/x-template",
-      `data-shiny-vue-template` = NA,
-      htmltools::HTML(template)
-    ),
-    htmltools::tags$script(
-      type = "application/json",
-      `data-shiny-vue-options` = NA,
-      htmltools::HTML(.el_vue_json(spec))
-    )
-  )
+  host <- .vue_host(id, as.character(rendered$html), spec)
   # What .el_absorb() needs to fold this component into another: its options
   # as written, with the hook that reports every one of its fields.
   # Absorbed, it has no binding: its change handlers report it again, and a
@@ -323,8 +287,8 @@ el_widget <- function(
     names(init)[names(init) == id] <- paste0(id, ":", type)
     full$mounted <- .el_mounted_init(init)
   }
-  if (length(report)) {
-    every <- .el_mounted_init(stats::setNames(names(report), unname(report)))
+  if (length(input_given)) {
+    every <- .el_mounted_init(stats::setNames(input, id))
     full$mounted <- if (is.null(mounted_given)) {
       every
     } else {

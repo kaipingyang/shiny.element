@@ -20,8 +20,8 @@ ui <- fluidPage(
     "sb",
     tags$span(class = "sb", "{{ $store.cart.count }}|{{ $store.cart.note }}")
   ),
-  vue_store("cart", data = list(count = 0, note = ""), model = "count"),
-  # model is input$<id>; $emit() sends input$<id>_<event>
+  vue_store("cart", data = list(count = 0, note = ""), input = "count"),
+  # input is input$<id>; $emit() sends input$<id>_<event>
   vue_app(
     "counter",
     tags$div(
@@ -36,7 +36,7 @@ ui <- fluidPage(
     ),
     data = list(n = 1, rows = data.frame(name = c("a", "b"))),
     emits = "picked",
-    model = "n"
+    input = "n"
   ),
   # one value of two fields, as dateRangeInput() gives
   vue_app(
@@ -46,35 +46,49 @@ ui <- fluidPage(
       tags$input(class = "to", `v-model.number` = "to")
     ),
     data = list(from = 1, to = 9),
-    model = c("from", "to")
+    input = c("from", "to")
   ),
   vue_app(
     "greet",
     tags$div(htmltools::tag("hello-x", list(`:name` = "who"))),
     data = list(who = "Ada"),
-    plugins = "HelloPlugin"
+    use = "HelloPlugin"
   ),
   vue_app(
     "greet2",
     tags$div(htmltools::tag("hello-x", list(`:name` = "who"))),
     data = list(who = "Alan"),
-    plugins = list(HelloPlugin = list(greeting = "hello"))
+    use = list(HelloPlugin = list(greeting = "hello"))
   ),
-  shiny.element:::vue_output("rv"),
+  # Composition API: state from setup(), reported and set from the server
+  vue_app(
+    "st",
+    tags$span(class = "st", "{{ k }}/{{ twice }}"),
+    setup = JS(
+      "function() {
+        const k = Vue.ref(1);
+        const twice = Vue.computed(() => k.value * 2);
+        return { k, twice };
+      }"
+    ),
+    input = "k"
+  ),
+  vue_output("rv"),
   verbatimTextOutput("vals")
 )
 
 server <- function(input, output, session) {
-  output$rv <- shiny.element:::render_vue(
+  output$rv <- render_vue(
     vue_app(
       "rv_app",
       tags$i(class = "rv", "{{ label }}"),
       data = list(label = paste("n is", input$counter))
     )
   )
+  observeEvent(input$set_st, update_vue(session, "st", value = 5))
   observeEvent(input$counter, {
     if (input$counter >= 3) {
-      update_vue_data(session, "cart", list(note = "from R"))
+      update_vue(session, "cart", note = "from R")
     }
   })
   output$vals <- renderText(paste("counter =", input$counter))

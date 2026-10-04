@@ -8,7 +8,7 @@
 #' (see [el_tooltip()]): Element styles the group through its direct
 #' children, which a button with a host of its own would not be. So
 #' `update_el_button()` cannot reach them; set their fields with
-#' [update_vue_data()] on the group's id.
+#' [update_vue()] on the group's id.
 #'
 #' @param ... Buttons: [el_button()]s, or raw `el$button()` tags.
 #' @param id Group ID. Auto-generated if `NULL`.

@@ -40,7 +40,7 @@
 #' - `input$<id>_blur` -- Element Plus's `blur` event.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `focus()`, `blur()`.
+#' Callable with [call_el()]: `focus()`, `blur()`.
 #'
 #' @return A Shiny UI element.
 #' @examples

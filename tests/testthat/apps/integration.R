@@ -605,16 +605,16 @@ server <- function(input, output, session) {
   })
   observeEvent(
     input$tree_filter,
-    el_call(session, "tree", "filter", list("app"))
+    call_el(session, "tree", "filter", list("app"))
   )
-  observeEvent(input$carousel_forward, el_call(session, "car", "next"))
+  observeEvent(input$carousel_forward, call_el(session, "car", "next"))
   observeEvent(
     input$menu_open_btn,
-    el_call(session, "nav", "open", list("m-prod"))
+    call_el(session, "nav", "open", list("m-prod"))
   )
   observeEvent(input$tbl_pick, {
-    el_call(session, "tbl", "clearSelection")
-    el_call(session, "tbl", "toggleRowSelection", list(el_table_row(2), TRUE))
+    call_el(session, "tbl", "clearSelection")
+    call_el(session, "tbl", "toggleRowSelection", list(el_table_row(2), TRUE))
   })
   observeEvent(
     input$upd_go,
@@ -679,7 +679,7 @@ server <- function(input, output, session) {
     input$late_set,
     update_el_time_picker(session, "late_tp", value = "10:30:00")
   )
-  observeEvent(input$late_call, el_call(session, "late_tp", "focus"))
+  observeEvent(input$late_call, call_el(session, "late_tp", "focus"))
   output$late_dump <- renderPrint({
     cat(
       "late_tp",
@@ -809,18 +809,18 @@ server <- function(input, output, session) {
     seen_events$pc_confirm <- "fired"
   })
 
-  # el_call(): a command, a query, and a promise-returning method
+  # call_el(): a command, a query, and a promise-returning method
   observeEvent(input$call_clear, {
-    el_call(session, "tbl", "clearSelection")
+    call_el(session, "tbl", "clearSelection")
   })
   observeEvent(input$call_keys, {
-    el_call(session, "tree", "getCheckedKeys")
+    call_el(session, "tree", "getCheckedKeys")
   })
   observeEvent(input$call_validate, {
-    el_call(session, "signup", "validate")
+    call_el(session, "signup", "validate")
   })
   observeEvent(input$call_missing, {
-    el_call(session, "tbl", "noSuchMethod")
+    call_el(session, "tbl", "noSuchMethod")
   })
   observeEvent(input$tbl_clear_selection, {
     seen_events$called_clear <- "fired"

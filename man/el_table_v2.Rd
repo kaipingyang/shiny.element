@@ -172,7 +172,7 @@ A table drawing only the rows and columns in view, for very large data.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{scrollTo()}, \code{scrollToLeft()}, \code{scrollToTop()}, \code{scrollToRow()}.
+Callable with \code{\link[=call_el]{call_el()}}: \code{scrollTo()}, \code{scrollToLeft()}, \code{scrollToTop()}, \code{scrollToRow()}.
 }
 
 \examples{

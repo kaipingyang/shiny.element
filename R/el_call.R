@@ -4,7 +4,8 @@
 #' Vue instance's data, which reaches a component's props. Element also
 #' documents *methods* -- `clearSelection()`, `setCheckedKeys()`,
 #' `validate()` -- which are functions on the component and cannot be reached
-#' that way. `el_call()` invokes one.
+#' that way. `call_el()` invokes one: it is [call_vue()] with Element's
+#' references to table rows, upload files and tree nodes.
 #'
 #' A method that returns something reports it as `input$<id>_<method>`, with
 #' the method name in snake_case, matching how events are reported:
@@ -28,7 +29,7 @@
 #' @param result Whether to report the return value as an input. Default
 #'   `TRUE`.
 #'   The input is `<id>_<method>`; an input of your own with that name -- an
-#'   `actionButton("car_next")` beside `el_call(session, "car", "next")` --
+#'   `actionButton("car_next")` beside `call_el(session, "car", "next")` --
 #'   would hear it too. Give `result = FALSE`, or another name, then.
 #' @param component Optional Element component name (`"ElTable"`) to look for
 #'   under the component's id. Only needed when a component nests another of
@@ -65,12 +66,12 @@
 #'   server <- function(input, output, session) {
 #'     # A command: setCheckedKeys() with an empty set
 #'     observeEvent(input$clear, {
-#'       el_call(session, "tree", "setCheckedKeys", list(list()))
+#'       call_el(session, "tree", "setCheckedKeys", list(list()))
 #'     })
 #'
 #'     # A method with a return value answers asynchronously
 #'     observeEvent(input$ask, {
-#'       el_call(session, "tree", "getCheckedKeys")
+#'       call_el(session, "tree", "getCheckedKeys")
 #'     })
 #'     output$answer <- renderPrint(input$tree_get_checked_keys)
 #'   }
@@ -78,7 +79,7 @@
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_call <- function(
+call_el <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   method,
@@ -87,34 +88,17 @@ el_call <- function(
   component = NULL
 ) {
   .el_check_session(session)
-  if (!is.character(method) || length(method) != 1L || !nzchar(method)) {
-    stop("`method` must be a single method name.", call. = FALSE)
-  }
-  if (!grepl("^[A-Za-z][A-Za-z0-9_]*$", method)) {
-    stop(
-      "`method` must be a plain method name, not ",
-      sQuote(method),
-      ".",
-      call. = FALSE
-    )
-  }
-  if (!is.list(args)) {
-    args <- list(args)
-  }
-
-  ns_id <- session$ns(id)
-  session$sendCustomMessage(
-    "shinyVueCall",
-    list(
-      id = ns_id,
-      method = method,
-      # Unnamed, so jsonlite writes an array and the arguments stay positional
-      args = unname(args),
-      component = component,
-      input = if (isTRUE(result)) paste0(ns_id, "_", .el_snake_case(method))
-    )
+  # Element's references -- el_table_row(), el_upload_file(), el_tree_node()
+  # -- are lists the bridge resolves in the browser (sv.refs); the call
+  # itself is the Vue layer's
+  call_vue(
+    session,
+    id,
+    method,
+    args = args,
+    result = result,
+    component = component
   )
-  invisible(NULL)
 }
 
 
@@ -143,16 +127,16 @@ el_call <- function(
 #' @param name A file's name, as it shows in the upload's list.
 #' @param key A node's key: the field `node_key` names, or the tree's
 #'   `props$value`.
-#' @return A reference, for [el_call()]'s `args`.
+#' @return A reference, for [call_el()]'s `args`.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function: select the third row, then make it current
-#'   el_call(session, "tbl", "toggleRowSelection", list(el_table_row(3), TRUE))
-#'   el_call(session, "tbl", "setCurrentRow", list(el_table_row(3)))
+#'   call_el(session, "tbl", "toggleRowSelection", list(el_table_row(3), TRUE))
+#'   call_el(session, "tbl", "setCurrentRow", list(el_table_row(3)))
 #'   # stop one file
-#'   el_call(session, "docs", "abort", list(el_upload_file("big.csv")))
+#'   call_el(session, "docs", "abort", list(el_upload_file("big.csv")))
 #'   # open a node of a virtualized tree
-#'   el_call(session, "files", "expandNode", list(el_tree_node("src")))
+#'   call_el(session, "files", "expandNode", list(el_tree_node("src")))
 #' }
 #' @export
 el_table_row <- function(index) {

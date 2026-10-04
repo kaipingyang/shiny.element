@@ -56,10 +56,38 @@ them. In short:
   `el_tree()` does. `el_tree(class_field =)`, `el_tree_v2(props =)`,
   `el_select(props =)`, `el_select_v2(props =)`, `el_segmented(props =)` and
   `tag_tooltip` are new. `el_tree_node()` names a tree's node for
-  `el_call()`.
+  `call_el()`.
 * `el_page(dev = TRUE)` loads Vue's development build, which is bundled:
   until now it loaded the production build either way, so Vue's warnings
   never reached the console the tests read.
+
+## A Vue layer, usable on its own
+
+The bridge every component is built on is exported, and knows nothing of
+Element: write a Vue 3 component in R with Vue's own options and use it as a
+Shiny input.
+
+* `vue_app()` -- a component: `template`, `data`, `methods`, `computed`,
+  `watch`, `emits`, `setup`, `components` and the lifecycle hooks under
+  Vue's names (multi-word ones also in snake_case), plus `id`, `input` (the
+  field that is `input$<id>`; several for one value) and `use` (Vue's
+  `app.use()`, any plugin with its options). `$emit()` of an event in
+  `emits` arrives as `input$<id>_<event>`.
+* `vue_component()` -- a child component for `components =`.
+* `vue_store()` -- state shared by components, `$store.<id>` in every
+  template, reported to and set from the server on request.
+* `vue_output()` / `render_vue()` -- like `uiOutput()` / `renderUI()`, but a
+  render that changes only a component's data updates it in place, keeping
+  the user's sort, ticks and open tabs.
+* `update_vue()`, `call_vue()`, `vue_answer()` -- set fields (`value` for
+  the input), run methods, answer a component that asked the server; they
+  reach `setup()` state too, and bookmarks restore it.
+* Element is now one plugin among others: a component gets Element Plus
+  through `use`, so a Vue component of your own on the same page does not.
+  `el_widget()`'s `report` is now `input` (with `emits` for the rest);
+  `el_call()` is `call_el()`; `update_vue_data()` is `update_vue()`.
+  `options(shiny.vue.dev = TRUE)` loads Vue's development build, as
+  `shiny.element.dev` does.
 
 ## Behaviour closer to Element Plus
 
@@ -177,7 +205,7 @@ screenshot only where an example needs a server.
 ## Components rendered by `renderUI()`
 
 A component whose type first appears through `renderUI()` or `insertUI()`
-now hears `update_el_*()` and `el_call()`. Their handlers registered only on
+now hears `update_el_*()` and `call_el()`. Their handlers registered only on
 `shiny:connected`, which had already fired by the time such a component's
 script arrived, so every update to it went nowhere without a word.
 
@@ -214,7 +242,7 @@ Shiny integration article shows, needs no JavaScript.
   `"daterange"` with the default `value_format`, as `dateInput()` does. A
   `value_format` of your own still reports text in that format.
 * **The session argument.** Every server function -- `update_el_*()`,
-  `el_message()`, `el_call()` and the rest -- takes the current session by
+  `el_message()`, `call_el()` and the rest -- takes the current session by
   default, as `updateTextInput()` does. Given an id in the session's place,
   `update_el_input("name", ...)`, it says so and names the call to write
   instead, as Shiny's own do.
@@ -254,7 +282,7 @@ Shiny integration article shows, needs no JavaScript.
   argument is now `layout_css`.
 * **A tree filters as it stands.** `el_tree()` has a default
   `filter_node_method` -- the label contains the text, ignoring case -- so
-  `el_call(session, "tree", "filter", list(text))` needs no JavaScript;
+  `call_el(session, "tree", "filter", list(text))` needs no JavaScript;
   Element itself throws without one.
 * **More of upstream.** `el_checkbox()`, one box as `checkboxInput()` is,
   with `indeterminate` for a "check all" box; `el_button_group()`, buttons
@@ -364,16 +392,16 @@ el_calendar("cal", slots = list(
 
 ## Reaching a component's methods
 
-Element documents methods as well as props. `el_call()` invokes one:
+Element documents methods as well as props. `call_el()` invokes one:
 
 ```r
 observeEvent(input$clear, {
-  el_call(session, "tbl", "clearSelection")
+  call_el(session, "tbl", "clearSelection")
 })
 
 # A method with a return value answers asynchronously
 observeEvent(input$ask, {
-  el_call(session, "tree", "getCheckedKeys")
+  call_el(session, "tree", "getCheckedKeys")
 })
 observeEvent(input$tree_get_checked_keys, {
   message("checked: ", paste(input$tree_get_checked_keys, collapse = ", "))

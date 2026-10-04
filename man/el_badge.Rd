@@ -37,7 +37,7 @@ shows \code{"<max>+"}. Only applies when \code{value} is numeric.}
 \item{id}{Give the badge an id and \code{\link[=update_el_badge]{update_el_badge()}} can change it -- a
 count of unread messages, say. A component inside is then folded into
 the badge's Vue instance, as for \code{\link[=el_tooltip]{el_tooltip()}}: it keeps reporting, but
-is reached through \code{\link[=update_vue_data]{update_vue_data()}} on the badge's id.}
+is reached through \code{\link[=update_vue]{update_vue()}} on the badge's id.}
 
 \item{show_zero}{Whether a value of \code{0} is shown. Default \code{TRUE}.}
 

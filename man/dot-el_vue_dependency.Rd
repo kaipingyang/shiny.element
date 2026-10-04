@@ -4,7 +4,7 @@
 \alias{.el_vue_dependency}
 \title{Vue, as bundled with the package}
 \usage{
-.el_vue_dependency(dev = getOption("shiny.element.dev", FALSE))
+.el_vue_dependency(dev = .vue_dev())
 }
 \arguments{
 \item{dev}{Load \code{vue.global.js} rather than \code{vue.global.prod.js}.}

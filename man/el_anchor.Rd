@@ -65,7 +65,7 @@ scrolls.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{scrollTo(href)}.
+Callable with \code{\link[=call_el]{call_el()}}: \code{scrollTo(href)}.
 }
 
 \examples{

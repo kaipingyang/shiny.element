@@ -73,7 +73,7 @@ ui <- bslib::page_sidebar(
 
 A component with a value reports it as `input$<id>`, on load and on change.
 The server changes it with the matching `update_el_*()`, runs one of
-Element's methods with `el_call()`, and shows a message, a notification or
+Element's methods with `call_el()`, and shows a message, a notification or
 a question with `el_message()`, `el_notification()` and `el_message_box()`.
 Element's events arrive as `input$<id>_<event>`.
 
@@ -81,7 +81,7 @@ Element's events arrive as `input$<id>_<event>`.
 server <- function(input, output, session) {
   output$chosen <- renderText(input$city) # read
   observeEvent(input$reset, update_el_select(id = "city", selected = "Beijing"))
-  observeEvent(input$clear, el_call(id = "orders", method = "clearSelection"))
+  observeEvent(input$clear, call_el(id = "orders", method = "clearSelection"))
   observeEvent(input$orders_row_click, el_message(message = "Row clicked"))
 }
 ```

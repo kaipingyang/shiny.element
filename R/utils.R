@@ -9,17 +9,7 @@
 #' @param x A name.
 #' @return The same name in camelCase.
 #' @keywords internal
-.el_camel_case <- function(x) {
-  parts <- strsplit(x, "_", fixed = TRUE)[[1]]
-  paste0(
-    parts[1],
-    paste0(
-      toupper(substring(parts[-1], 1, 1)),
-      substring(parts[-1], 2),
-      collapse = ""
-    )
-  )
-}
+.el_camel_case <- function(x) .vue_camel(x)
 
 #' Forward Element Plus events to Shiny inputs
 #'
@@ -156,46 +146,7 @@
 #'   `c(my_slider = "value")`.
 #' @return A [JS()] function, the Vue `mounted` option.
 #' @keywords internal
-.el_mounted_init <- function(bindings) {
-  js_str <- function(x) {
-    vapply(
-      x,
-      function(e) as.character(jsonlite::toJSON(e, auto_unbox = TRUE)),
-      character(1),
-      USE.NAMES = FALSE
-    )
-  }
-
-  sends <- paste(
-    sprintf(
-      "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, self.%s);",
-      js_str(names(bindings)),
-      bindings
-    ),
-    collapse = " "
-  )
-  js <- JS(paste0(
-    "function() { var self = this; ",
-    "var send = function() { ",
-    sends,
-    " }; ",
-    "if (window.Shiny && Shiny.shinyapp && ",
-    "typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) ",
-    "{ send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } ",
-    # Element raises `change` only for the user's own edits, so a value set by
-    # update_el_*() showed on screen while input$<id> kept the old one --
-    # unlike Shiny's update*Input(), whose new value is reported back. The
-    # updaters call this once they have assigned. It is not a watcher, which
-    # would report every keystroke of an input documented to report on
-    # `change`. Chained, because absorbed components share one instance.
-    "var prev = self._elReport; ",
-    "self._elReport = function() { if (prev) prev(); self.$nextTick(send); }; }"
-  ))
-  # el_widget() reads this back: the field reported under the component's own
-  # id moves onto the Shiny input binding, the rest stay with this hook.
-  attr(js, "el_report") <- bindings
-  js
-}
+.el_mounted_init <- function(bindings) .vue_mounted_report(bindings)
 
 #' Normalise `choices` into option configs
 #'
@@ -308,9 +259,7 @@
 #'
 #' @return An htmlDependency object.
 #' @keywords internal
-.el_jquery_dependency <- function() {
-  jquerylib::jquery_core(3)
-}
+.el_jquery_dependency <- function() .vue_jquery_dependency()
 
 
 #' Vue, as bundled with the package
@@ -325,16 +274,7 @@
 #' @param dev Load `vue.global.js` rather than `vue.global.prod.js`.
 #' @return An htmlDependency object.
 #' @keywords internal
-.el_vue_dependency <- function(dev = getOption("shiny.element.dev", FALSE)) {
-  htmltools::htmlDependency(
-    name = "vue",
-    version = if (isTRUE(dev)) "3.5.43.1" else "3.5.43",
-    src = "vue3",
-    package = "shiny.element",
-    script = if (isTRUE(dev)) "vue.global.js" else "vue.global.prod.js",
-    all_files = FALSE
-  )
-}
+.el_vue_dependency <- function(dev = .vue_dev()) .vue_vue_dependency(dev)
 
 #' The scripts every Vue component needs
 #'
@@ -358,25 +298,6 @@
   )
 }
 
-#' The scripts the Vue layer needs, and nothing of Element
-#'
-#' jQuery, Vue and the generic bridge (`shiny-vue.js`).
-#'
-#' @return A list of htmlDependency objects.
-#' @keywords internal
-.vue_dependencies <- function() {
-  list(
-    .el_jquery_dependency(),
-    .el_vue_dependency(),
-    htmltools::htmlDependency(
-      "shiny-vue",
-      "1.0.0",
-      src = system.file("js", package = "shiny.element"),
-      script = "shiny-vue.js",
-      all_files = FALSE
-    )
-  )
-}
 
 #' Serialise a component's Vue options for the page
 #'
@@ -388,25 +309,7 @@
 #' @param spec The list to write: `options`, and `input`, `rate`, `type`.
 #' @return The JSON, as a single string.
 #' @keywords internal
-.el_vue_json <- function(spec) {
-  spec <- .el_tags_as_html(spec)
-  spec$evals <- I(.el_js_paths(spec))
-  json <- jsonlite::toJSON(
-    spec,
-    auto_unbox = TRUE,
-    null = "null",
-    na = "null",
-    digits = NA,
-    force = TRUE,
-    POSIXt = "ISO8601",
-    UTC = TRUE,
-    rownames = FALSE,
-    keep_vec_names = TRUE,
-    dataframe = "columns",
-    json_verbatim = TRUE
-  )
-  gsub("</", "<\\/", as.character(json), fixed = TRUE)
-}
+.el_vue_json <- function(spec) .vue_json(spec)
 
 
 #' A value as a bookmarked session left it
@@ -420,16 +323,7 @@
 #' @param default The value to use when nothing is being restored.
 #' @return The restored value, or `default`.
 #' @keywords internal
-.el_restore <- function(id, default) {
-  value <- shiny::restoreInput(id = id, default = default)
-  if (identical(value, default)) {
-    return(default)
-  }
-  if (is.list(default) && is.null(names(default))) {
-    return(if (is.null(value)) list() else as.list(value))
-  }
-  value
-}
+.el_restore <- function(id, default) .vue_restore(id, default)
 
 
 #' Send an update to a component
@@ -444,16 +338,7 @@
 #' @param msg The message: `id`, namespaced, and the fields to set.
 #' @return `NULL`, invisibly.
 #' @keywords internal
-.el_send_update <- function(session, msg) {
-  msg <- .el_tags_as_html(msg)
-  # Functions travel as source, listed by path, as a component's options do
-  evals <- .el_js_paths(msg)
-  if (length(evals)) {
-    msg[[".evals"]] <- I(evals)
-  }
-  session$sendCustomMessage("shinyVueUpdate", msg)
-  invisible(NULL)
-}
+.el_send_update <- function(session, msg) .vue_send_update(session, msg)
 
 
 #' Add a label or error to an update
@@ -597,17 +482,7 @@
 #' @param x A list of options or an update message.
 #' @return `x`, with tags replaced by strings.
 #' @keywords internal
-.el_tags_as_html <- function(x) {
-  if (inherits(x, c("shiny.tag", "shiny.tag.list"))) {
-    return(as.character(htmltools::renderTags(x)$html))
-  }
-  if (is.list(x) && !is.data.frame(x) && length(x)) {
-    attrs <- attributes(x)
-    x[] <- lapply(x, .el_tags_as_html)
-    attributes(x) <- attrs
-  }
-  x
-}
+.el_tags_as_html <- function(x) .vue_tags_as_html(x)
 
 #' Markup as a string, for a `v-html` field
 #'

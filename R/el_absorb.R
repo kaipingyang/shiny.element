@@ -203,9 +203,9 @@
   # say so, with every field each reports. el_widget() then binds the
   # wrapper's own value to Shiny, as it does for any other component, and
   # reports the absorbed components' under their ids as before.
-  reports <- lapply(mounts, attr, "el_report")
+  reports <- lapply(mounts, attr, "vue_report")
   if (length(mounts) && !any(vapply(reports, is.null, logical(1)))) {
-    attr(mounted, "el_report") <- do.call(c, unname(reports))
+    attr(mounted, "vue_report") <- do.call(c, unname(reports))
   }
 
   list(
@@ -290,11 +290,11 @@
     rename = rename
   )
   if (!is.null(absorbed$mounted)) {
-    report <- attr(absorbed$mounted, "el_report")
+    report <- attr(absorbed$mounted, "vue_report")
     absorbed$mounted <- .el_rewrite_js(absorbed$mounted, rename)
     # The fields it reports are renamed with the rest
     if (!is.null(report)) {
-      attr(absorbed$mounted, "el_report") <- vapply(
+      attr(absorbed$mounted, "vue_report") <- vapply(
         report,
         .el_rewrite_expr,
         character(1),

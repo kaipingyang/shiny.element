@@ -139,8 +139,16 @@ test_that("every script a component brings resolves to a file", {
 })
 
 test_that("every component brings the bridge, after jQuery and Vue", {
-  names <- vapply(htmltools::findDependencies(el_input("x")), `[[`, "", "name")
-  expect_equal(names[1:4], c("jquery", "vue", "shiny-vue", "el-events"))
+  names <- unique(vapply(
+    htmltools::findDependencies(el_input("x")),
+    `[[`,
+    "",
+    "name"
+  ))
+  expect_equal(names[1:3], c("jquery", "vue", "shiny-vue"))
+  # Element's side of the bridge comes after it: its plugin is looked up
+  # when a component mounts, once every script has loaded
+  expect_gt(match("el-events", names), 3)
 })
 
 test_that("the bridge checks each updated key against the component's data", {

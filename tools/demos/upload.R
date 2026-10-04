@@ -158,7 +158,7 @@ el_upload("folder", directory = TRUE, button_label = "Upload directory")
 
 ## manual
 #' `auto_upload = FALSE` keeps the files until `submit()` sends them -- from
-#' the server, with `el_call()`.
+#' the server, with `call_el()`.
 ui <- el_page(
   el_upload(
     "queued",
@@ -172,7 +172,7 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$send, el_call(id = "queued", method = "submit"))
+  observeEvent(input$send, call_el(id = "queued", method = "submit"))
   output$arrived <- renderTable(input$queued[, c("name", "size")])
 }
 

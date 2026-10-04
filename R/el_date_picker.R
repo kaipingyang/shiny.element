@@ -97,7 +97,7 @@
 #'   the template with [template()].
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `focus()` -- Focus the Input component
 #'

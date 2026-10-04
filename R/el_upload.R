@@ -271,7 +271,7 @@
 #' is marked done once the whole batch has reached the server.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]:
+#' Callable with [call_el()]:
 #'
 #' - `abort()` -- Cancel upload request: one file, given as its `uid`, or
 #'   every file in flight

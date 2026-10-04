@@ -104,7 +104,7 @@ The colour picker's panel, always open, without the trigger.
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{update()}.
+Callable with \code{\link[=call_el]{call_el()}}: \code{update()}.
 }
 
 \examples{

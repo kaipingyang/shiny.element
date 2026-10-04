@@ -195,7 +195,7 @@ the panel opens and closes (\code{el_time_picker()}).
 
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}: \code{focus()}, \code{blur()}; and for \code{el_time_picker()},
+Callable with \code{\link[=call_el]{call_el()}}: \code{focus()}, \code{blur()}; and for \code{el_time_picker()},
 \code{handleOpen()} and \code{handleClose()}.
 }
 

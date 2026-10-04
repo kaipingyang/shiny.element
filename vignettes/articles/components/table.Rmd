@@ -241,9 +241,9 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$second,
-    el_call(session, "single", "setCurrentRow", list(el_table_row(2)))
+    call_el(session, "single", "setCurrentRow", list(el_table_row(2)))
   )
-  observeEvent(input$clear, el_call(session, "single", "setCurrentRow"))
+  observeEvent(input$clear, call_el(session, "single", "setCurrentRow"))
   output$current <- renderPrint(input$single_current_change$row_index)
 }
 
@@ -272,10 +272,10 @@ server <- function(input, output, session) {
   observeEvent(
     input$toggle,
     for (i in 2:3) {
-      el_call(session, "cars", "toggleRowSelection", list(el_table_row(i)))
+      call_el(session, "cars", "toggleRowSelection", list(el_table_row(i)))
     }
   )
-  observeEvent(input$none, el_call(session, "cars", "clearSelection"))
+  observeEvent(input$none, call_el(session, "cars", "clearSelection"))
   output$picked <- renderPrint(cars[input$cars_selected_rows, ])
 }
 

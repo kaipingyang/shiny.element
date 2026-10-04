@@ -226,7 +226,8 @@ el_col <- function(
 #' @param dev Load Vue's development build (`vue.global.js`) instead of the
 #'   production one. The production build strips every warning, which is why a template that
 #'   fails to compile renders nothing and says nothing. Defaults to
-#'   `getOption("shiny.element.dev", FALSE)`, so it can be turned on for a
+#'   `getOption("shiny.vue.dev")` (or `shiny.element.dev`), `FALSE` unless
+#'   set, so it can be turned on for a
 #'   whole session without touching the UI code.
 #' @inheritParams use_element
 #'
@@ -254,7 +255,7 @@ el_page <- function(
   theme_css = el_layout_css_dependency(),
   offline = TRUE,
   locale = getOption("shiny.element.locale", "en"),
-  dev = getOption("shiny.element.dev", FALSE),
+  dev = .vue_dev(),
   size = NULL,
   z_index = NULL
 ) {

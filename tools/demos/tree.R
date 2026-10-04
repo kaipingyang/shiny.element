@@ -213,7 +213,7 @@ el_tree(
 )
 
 ## checking-tree
-#' `update_el_tree(checked =)` sets them; `el_call()` runs Element Plus's
+#' `update_el_tree(checked =)` sets them; `call_el()` runs Element Plus's
 #' `getCheckedKeys()`, `setCheckedKeys()` and the rest.
 #| shot_js = "document.querySelector('#set_container button').click()", shot_wait = 2
 nodes <- list(
@@ -249,7 +249,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(input$set, update_el_tree(id = "tree", checked = c(4, 6)))
   observeEvent(input$reset, update_el_tree(id = "tree", checked = character(0)))
-  observeEvent(input$get, el_call(session, "tree", "getCheckedKeys"))
+  observeEvent(input$get, call_el(session, "tree", "getCheckedKeys"))
   output$keys <- renderPrint(input$tree_checked)
 }
 
@@ -368,7 +368,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$q,
-    el_call(session, "filtered", "filter", list(input$q), result = FALSE)
+    call_el(session, "filtered", "filter", list(input$q), result = FALSE)
   )
 }
 

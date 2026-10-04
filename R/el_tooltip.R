@@ -7,7 +7,7 @@
 #' rather than a separate one, which is what lets it survive being compiled
 #' into the tooltip's markup. It reports its inputs as usual, but it no longer
 #' has a host of its own, so its `update_el_*()` cannot find it -- drive it
-#' through [update_vue_data()] on the tooltip's id instead.
+#' through [update_vue()] on the tooltip's id instead.
 #'
 #' @param id Tooltip ID. Auto-generated if `NULL`.
 #' @param reference The element the tooltip describes. Any Shiny UI, including

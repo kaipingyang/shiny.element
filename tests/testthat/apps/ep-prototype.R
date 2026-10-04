@@ -98,7 +98,7 @@ server <- function(input, output, session) {
   })
   observeEvent(
     input$call,
-    el_call(session, "tbl", "toggleRowSelection", list(el_table_row(2), TRUE))
+    call_el(session, "tbl", "toggleRowSelection", list(el_table_row(2), TRUE))
   )
   output$dyn <- renderUI(el_input("dyn_inp", value = "dynamic"))
   observeEvent(

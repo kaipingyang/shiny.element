@@ -70,21 +70,13 @@ el_load_children <- function(
   } else {
     unname(children)
   }
-  .el_send_update(
+  vue_answer(
     session,
-    list(
-      id = session$ns(id),
-      .resolve = if (isTRUE(reject)) {
-        list(request = number, failed = TRUE)
-      } else {
-        list(
-          request = number,
-          value = if (length(children)) children else list()
-        )
-      }
-    )
+    id,
+    request = number,
+    value = if (length(children)) children else list(),
+    failed = isTRUE(reject)
   )
-  invisible(NULL)
 }
 
 

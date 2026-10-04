@@ -50,7 +50,7 @@
 #'   the panel opens and closes (`el_time_picker()`).
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `focus()`, `blur()`; and for `el_time_picker()`,
+#' Callable with [call_el()]: `focus()`, `blur()`; and for `el_time_picker()`,
 #' `handleOpen()` and `handleClose()`.
 #'
 #' @return A Shiny UI element.

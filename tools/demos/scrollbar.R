@@ -38,7 +38,7 @@ item <- function(i) {
 el_scrollbar(max_height = "400px", lapply(1:3, item))
 
 ## manual-scroll
-#' `el_call(session, "sb", "setScrollTop", list(200))` scrolls it from the
+#' `call_el(session, "sb", "setScrollTop", list(200))` scrolls it from the
 #' server; `input$<id>_scroll` reports where it is.
 item <- function(i) {
   tags$p(

@@ -63,7 +63,7 @@
 #'   moves into it on opening, and back on closing.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `resetPosition()` puts a dragged dialog back.
+#' Callable with [call_el()]: `resetPosition()` puts a dragged dialog back.
 #'
 #' @return An `htmltools` tag.
 #'

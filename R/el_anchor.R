@@ -25,7 +25,7 @@
 #' - `input$<id>_click` -- the `href` of a link the user clicked.
 #'
 #' @section Element methods:
-#' Callable with [el_call()]: `scrollTo(href)`.
+#' Callable with [call_el()]: `scrollTo(href)`.
 #'
 #' @return A Shiny UI element.
 #' @examples

@@ -191,7 +191,7 @@ icons, word-limit display, and autosize textarea.
 }
 \section{Element methods}{
 
-Callable with \code{\link[=el_call]{el_call()}}:
+Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{blur()} -- Blur the input element
 \item \code{focus()} -- Focus the input element
