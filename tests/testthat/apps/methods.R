@@ -190,6 +190,7 @@ cases <- list(
     method = "handleRemove",
     args = list(el_upload_file("a.txt"))
   ),
+  list(id = "m_up", method = "abort"),
   list(id = "m_up", method = "submit"),
   list(id = "m_up", method = "clearFiles")
 )
@@ -354,6 +355,25 @@ ui <- el_page(
     )
   ),
   el_tree("p_lazy", lazy = TRUE, is_leaf_field = "leaf"),
+  # a virtual_ref target the server draws after the tooltip has mounted
+  el_tooltip(
+    "p_late_tip",
+    content = "late target",
+    trigger = "click",
+    virtual_ref = "#p_late_btn"
+  ),
+  uiOutput("p_late"),
+  el_select("p_multi", choices = c("a", "b", "c"), multiple = TRUE),
+  el_table_v2(
+    "p_tv_tree",
+    data = list(
+      list(id = "r1", x = "one", children = list(list(id = "r1c", x = "child")))
+    ),
+    columns = list(list(key = "x", dataKey = "x", title = "X", width = 150)),
+    expand_column_key = "x",
+    table_v2_width = 300,
+    height = 150
+  ),
   tags$script(HTML(sprintf(
     "window.methodCases = %s;",
     jsonlite::toJSON(cases, auto_unbox = TRUE, null = "null")
@@ -361,6 +381,16 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
+  late <- reactiveVal(FALSE)
+  later::later(function() late(TRUE), 2)
+  # one value for a field that holds several
+  observeEvent(input$p_do_update, {
+    update_el_select(id = "p_multi", selected = "b")
+    update_el_table_v2(id = "p_tv_tree", expanded_row_keys = "r1")
+  })
+  output$p_late <- renderUI({
+    if (late()) el_button("p_late_btn", "late")
+  })
   # the first load of a node fails, the second succeeds
   tries <- 0
   observeEvent(input$p_lazy_load, {

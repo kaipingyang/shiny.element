@@ -304,7 +304,8 @@ update_el_table_v2 <- function(
     msg$sortBy <- sort_by
   }
   if (!is.null(expanded_row_keys)) {
-    msg$expandedRowKeys <- expanded_row_keys
+    # an array in Element Plus, even of one key: jsonlite would write "a"
+    msg$expandedRowKeys <- as.list(expanded_row_keys)
   }
   .el_send_update(session, msg)
   invisible(NULL)

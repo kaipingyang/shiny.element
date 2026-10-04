@@ -247,7 +247,7 @@ update_el_checkbox_group <- function(
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(selected)) {
-    msg$value <- selected
+    msg$value <- as.list(selected)
   }
   if (!is.null(choices)) {
     msg$options <- .el_normalize_choices(choices)

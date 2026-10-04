@@ -45,8 +45,8 @@ them. In short:
   rows and columns from the server.
 * `$setInput(name, value)` in any template is Shiny's `setInputValue()`.
 * `virtual_ref` (tooltip, popover, dropdown) is a CSS selector, looked up in
-  the browser; one matching several elements gives them a single popup that
-  follows the pointer.
+  the browser, including for a target the server draws later; one matching
+  several elements gives them a single popup that follows the pointer.
 * `el_tooltip()`'s `trigger` is Element Plus's own -- how it opens -- and
   the element it describes is `reference`, as for `el_popover()`.
   `el_popconfirm(popconfirm_width =)` sizes the prompt. Popover and
@@ -64,11 +64,14 @@ them. In short:
 ## Behaviour closer to Element Plus
 
 * A dialog or drawer keeps focus inside while open, as Element Plus's focus
-  trap does, and one closed straight after opening no longer reports
+  trap does -- the topmost one, when one is opened over another -- and one closed straight after opening no longer reports
   `opened`.
 * Tabs pass over disabled tabs with the arrow keys, a disabled tab cannot
   be closed, and Enter on the "+" adds one.
 * An upload's file field no longer appears as an extra `input$<id>_elfile`.
+* An update giving one value for a field that holds several -- a multiple
+  select's selection, a checkbox group's, a table-v2's expanded rows --
+  sends it as a list of one, not a bare value.
 * Releasing an interrupted upload warns, once, if Shiny's internals it
   relies on have moved.
 

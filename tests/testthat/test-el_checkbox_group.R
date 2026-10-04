@@ -170,7 +170,8 @@ test_that("update_el_checkbox_group: sends correct fields", {
     min = 1,
     max = 3
   )
-  expect_equal(captured$value, c("a"))
+  # a list, so one value still reaches the group as an array
+  expect_equal(captured$value, list("a"))
   expect_true(captured$disabled)
   expect_equal(captured$min, 1)
   expect_equal(captured$max, 3)
@@ -185,7 +186,7 @@ test_that("update_el_checkbox_group: NULL fields are excluded from message", {
     }
   )
   update_el_checkbox_group(mock_session, "cb1", value = c("b"))
-  expect_equal(captured$value, c("b"))
+  expect_equal(captured$value, list("b"))
   expect_null(captured$disabled)
   expect_null(captured$min)
   expect_null(captured$max)

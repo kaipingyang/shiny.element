@@ -224,3 +224,13 @@ test_that("el$ writes logical attributes as Vue booleans", {
 test_that("el_select_v2() starts with an empty list of options", {
   expect_equal(vue_data_of(el_select_v2("s"))$options, list())
 })
+
+test_that("updaters send a single key as a list", {
+  s <- mock_session()
+  update_el_table_v2(s, "t", expanded_row_keys = "row-1")
+  expect_equal(s$captured()$msg$expandedRowKeys, list("row-1"))
+  update_el_checkbox_group(s, "c", selected = "a")
+  expect_equal(s$captured()$msg$value, list("a"))
+  update_el_input_tag(s, "i", value = "a")
+  expect_equal(s$captured()$msg$value, list("a"))
+})

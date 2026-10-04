@@ -21,6 +21,7 @@ ui <- el_page(
     title = "Outer",
     content = tagList(
       el_select("pick", choices = c("alpha", "beta")),
+      tags$button(id = "outer_btn", "in outer"),
       el_dialog(
         "inner",
         title = "Inner",

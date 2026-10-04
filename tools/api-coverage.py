@@ -490,27 +490,46 @@ if any(True for _ in EXCLUDED):
 print(f"  合计  可设 {ta[0]}/{ta[1]} ({100*ta[0]//ta[1]}%)  其中绑定到同名 prop {tb}, 由父标签下传 {ta[0]-tb-tc}, 声明的别名 {tc}   事件 {te[0]}/{te[1]} ({100*te[0]//max(te[1],1)}%)   方法 {tm[0]}/{tm[1]}   插槽 {ts[0]}/{ts[1]}")
 
 # ── methods: reachable, and verified ──────────────────────────────────────────
-# Every method of a component with a Vue instance can be called by name; what
-# a browser test has run end to end is a smaller set. Called directly with
-# el_call() in the tests, or by an update_el_*()/helper that runs it.
-import glob as _glob
-VIA_UPDATE = {"setActiveItem": "update_el_carousel(active =)",
-              "setCheckedKeys": "update_el_tree(checked =)",
-              "validate": "el_form_validate()", "resetFields": "el_form_reset()",
-              "clearValidate": "el_form_clear_validate()", "clearFiles": "el_upload_clear()",
-              "abort": "test-browser.R abort()"}
-tested = set()
-for f in _glob.glob("tests/testthat/*.R") + _glob.glob("tests/testthat/apps/*.R"):
-    src = open(f, encoding="utf-8").read()
-    tested |= set(re.findall(r'el_call\([^)]*?"[^"]+",\s*"([A-Za-z]+)"', src))
-    # apps/methods.R lists every documented method, run one by one by
-    # test-browser-methods.R through el_call()'s channel
-    tested |= set(re.findall(r'method = "([A-Za-z]+)"', src))
-upstream_methods = set()
+# Every method of a component with a Vue instance can be called by name.
+# Verified means run on a live component in a browser test, counted per
+# component and method -- focus() on an input and on a select are two.
+# tests/testthat/apps/methods.R lists one case per pair, run one by one by
+# test-browser-methods.R; a case names its component's id, and the id is
+# found in the call that builds it.
+METHOD_EXCLUDED = {
+    ("el_calendar", "pickDay"): "takes a day.js date, which R cannot send; update_el_calendar(value =)",
+    ("el_calendar", "calculateValidatedDateRange"): "takes two day.js dates, which R cannot send",
+    ("el_upload", "handleStart"): "takes a file the user picked, which only the browser holds",
+}
+fixture = open("tests/testthat/apps/methods.R", encoding="utf-8").read()
+id_fn = {}
+for m in re.finditer(r'\b(el_[a-z0-9_]+)\(', fixture):
+    near = re.search(r'"(m_[a-z0-9]+)"', fixture[m.end():m.end() + 160])
+    if near and near.group(1) not in id_fn and \
+            not fixture[m.end():m.end() + near.start()].count("("):
+        id_fn[near.group(1)] = m.group(1)
+ran = set()
+for c in re.finditer(r'list\(\s*id = "(m_[a-z0-9]+)",\s*(?:component = "([A-Za-z]+)",\s*)?method = "([A-Za-z]+)"', fixture):
+    fn = id_fn.get(c.group(1))
+    tag = re.sub(r'(?<!^)(?=[A-Z])', '-', c.group(2)).lower() if c.group(2) else None
+    ran.add((fn, tag, c.group(3)))
+expected, verified, unrun = [], [], []
 for r in report:
-    upstream_methods |= set(up.get(r["tag"].split(" ")[0], {}).get("Methods", []))
-verified = sorted((tested | set(VIA_UPDATE)) & upstream_methods)
-print(f"  方法：{tm[0]}/{tm[1]} 可按名调用，其中 {len(verified)} 个有浏览器端到端测试")
+    if not r["method"][1]: continue
+    tag = r["tag"].split(" ")[0]
+    for m in up.get(tag, {}).get("Methods", []):
+        if (r["fn"], m) in METHOD_EXCLUDED: continue
+        expected.append((r["fn"], tag, m))
+        own = tag == "el-" + r["fn"][3:].replace("_", "-")
+        if (r["fn"], tag, m) in ran or (own and (r["fn"], None, m) in ran):
+            verified.append((r["fn"], tag, m))
+        else:
+            unrun.append(f"{r['fn']}:{tag}.{m}")
+tested_pairs = len(set(verified))
+print(f"  方法：{tm[0]}/{tm[1]} 可按名调用；{len(METHOD_EXCLUDED)} 个的参数只有浏览器能造（METHOD_EXCLUDED）；"
+      f"其余 {len(set(expected))} 个（组件, 方法）中 {tested_pairs} 个在浏览器里实跑过")
+if unrun:
+    print("  未实跑：" + ", ".join(sorted(set(unrun))))
 
 if "--write-docs" in sys.argv:
     # The numbers in .claude/docs/api-coverage.md come from here, not by hand
@@ -525,10 +544,11 @@ if "--write-docs" in sys.argv:
         f"| Settable attributes | {ta[0]} | {ta[1]} |",
         f"| Events | {te[0]} | {te[1]} |",
         f"| Methods callable by name | {tm[0]} | {tm[1]} |",
-        f"| Methods run end to end in a browser test | {len(verified)} | {tm[1]} |",
+        f"| Methods run on a live component in a browser test | {tested_pairs} | {len(set(expected))} |",
         f"| Slots | {ts[0]} | {ts[1]} |",
         "",
-        "Methods with an end-to-end test: " + ", ".join(f"`{m}`" for m in verified) + ".",
+        f"Every method is run by `test-browser-methods.R`, from `apps/methods.R`, except {len(METHOD_EXCLUDED)} whose "
+        "argument only the browser can make: " + ", ".join(f"`{f}()`'s `{m}`" for (f, m) in METHOD_EXCLUDED) + ".",
         "<!-- coverage:end -->"])
     doc = re.sub(r"<!-- coverage:start.*?<!-- coverage:end -->", block, doc, flags=re.S)
     open(path, "w", encoding="utf-8").write(doc)

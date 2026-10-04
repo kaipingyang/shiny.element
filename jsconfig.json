@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "checkJs": false,
+    "allowJs": true,
+    "noEmit": true,
+    "lib": ["ES2017", "DOM", "DOM.Iterable"]
+  },
+  "include": ["inst/js/*.js", "tools/js-globals.d.ts"]
+}

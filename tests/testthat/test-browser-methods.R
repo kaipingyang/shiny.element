@@ -167,4 +167,33 @@ test_that("every documented method runs on a live component", {
     ),
     "One,Two"
   )
+
+  # a virtual_ref target drawn later by renderUI() is found when it appears,
+  # long after the tooltip mounted
+  Sys.sleep(1)
+  expect_true(js("!!document.querySelector('#p_late_btn button')"))
+  js("document.querySelector('#p_late_btn button').click()")
+  Sys.sleep(0.8)
+  expect_true(shown("late target"))
+  # and a component that leaves the page is no longer watched
+  before <- js("shinyElement.refTracked()")
+  js(
+    "Shiny.unbindAll(document.getElementById('p_vpop')); document.getElementById('p_vpop').remove()"
+  )
+  Sys.sleep(0.5)
+  expect_lt(js("shinyElement.refTracked()"), before)
+
+  # one value sent for a field that holds several stays a list: a multiple
+  # select keeps an array, a table-v2 expands the row
+  js("Shiny.setInputValue('p_do_update', 1)")
+  Sys.sleep(1.5)
+  expect_equal(
+    js(
+      "document.querySelectorAll('#p_multi .el-select__selected-item .el-tag').length"
+    ),
+    1
+  )
+  expect_true(js(
+    "document.querySelector('#p_tv_tree').textContent.indexOf('child') !== -1"
+  ))
 })

@@ -66,6 +66,12 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   expect_gt(z_inner, z_outer)
   # opened follows the transition, once
   expect_equal(vals()[["outer_opened"]], "1")
+  # the inner dialog, on top, keeps the focus: the outer one is under its mask
+  js("document.getElementById('outer_btn').focus()")
+  Sys.sleep(0.2)
+  expect_true(js(
+    "document.querySelector('#inner .el-dialog').contains(document.activeElement)"
+  ))
   # a select inside the inner dialog opens above it
   js("document.querySelector('#pick2_container .el-select__wrapper').click()")
   Sys.sleep(1)
@@ -142,9 +148,20 @@ test_that("overlays stack with Element's popups, focus returns, keys work", {
   expect_true(js(
     "document.querySelector('#trap .el-dialog').contains(document.activeElement)"
   ))
+  # a drawer opened over the dialog takes the focus from it
   js(
-    "(function(){ var w = document.getElementById('trap');
-      $(w).data('shiny-input-binding').setValue(w, false); })()"
+    "(function(){ var w = document.getElementById('drw');
+      $(w).data('shiny-input-binding').setValue(w, true); })()"
+  )
+  Sys.sleep(1.5)
+  js("document.getElementById('trap_a').focus()")
+  Sys.sleep(0.2)
+  expect_true(js(
+    "document.querySelector('#drw .el-drawer').contains(document.activeElement)"
+  ))
+  js(
+    "(function(){ ['drw', 'trap'].forEach(function(id){ var w = document.getElementById(id);
+      $(w).data('shiny-input-binding').setValue(w, false); }); })()"
   )
   Sys.sleep(1)
 
