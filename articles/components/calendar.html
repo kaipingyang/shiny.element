@@ -205,7 +205,7 @@
     </style>
 <div id="basic-cal" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-cal_container" style="display: contents">
-  <el-calendar :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-04","range":null,"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 </div>
 </div>
@@ -229,7 +229,7 @@ it with radio buttons.</p>
     </style>
 <div id="controller-type-cal_ctl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="controller-type-cal_ctl_container" style="display: contents">
-  <el-calendar :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-04","range":null,"controllerType":"select","formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 </div>
 </div>
@@ -266,7 +266,7 @@ details, please refer to the API documentation below.</p>
     </style>
 <div id="customize-cal_cell" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customize-cal_cell_container" style="display: contents">
-  <el-calendar :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{ data }"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}</p></template></el-calendar>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{ data }"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}</p></template></el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-04","range":null,"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 </div>
 </div>
@@ -288,7 +288,7 @@ the time span cannot exceed two months.</p>
     </style>
 <div id="range-cal_range" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="range-cal_range_container" style="display: contents">
-  <el-calendar :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-04","range":["2019-03-04","2019-03-24"],"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 </div>
 </div>
@@ -297,7 +297,8 @@ the time span cannot exceed two months.</p>
 <h2 id="customize-header">Customize header<a class="anchor" aria-label="anchor" href="#customize-header"></a>
 </h2>
 <p>The header’s buttons move the calendar with Element Plus’s
-<code>selectDate()</code>, called on the component’s ref.</p>
+<code>selectDate()</code>, called on the calendar’s ref,
+<code>$refs.calendar</code>, as upstream names it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
 <span>  <span class="st">"cal_head"</span>,</span>
@@ -306,11 +307,11 @@ the time span cannot exceed two months.</p>
 <span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
 <span>        <span class="st">"&lt;span&gt;Custom header content&lt;/span&gt;&lt;span&gt;{{ date }}&lt;/span&gt;"</span>,</span>
 <span>        <span class="st">"&lt;el-button-group&gt;"</span>,</span>
-<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-year')\"&gt;Previous Year&lt;/el-button&gt;"</span>,</span>
-<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('prev-month')\"&gt;Previous Month&lt;/el-button&gt;"</span>,</span>
-<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('today')\"&gt;Today&lt;/el-button&gt;"</span>,</span>
-<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-month')\"&gt;Next Month&lt;/el-button&gt;"</span>,</span>
-<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.el.selectDate('next-year')\"&gt;Next Year&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.calendar.selectDate('prev-year')\"&gt;Previous Year&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.calendar.selectDate('prev-month')\"&gt;Previous Month&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.calendar.selectDate('today')\"&gt;Today&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.calendar.selectDate('next-month')\"&gt;Next Month&lt;/el-button&gt;"</span>,</span>
+<span>        <span class="st">"&lt;el-button size=\"small\" @click=\"$refs.calendar.selectDate('next-year')\"&gt;Next Year&lt;/el-button&gt;"</span>,</span>
 <span>        <span class="st">"&lt;/el-button-group&gt;"</span></span>
 <span>      <span class="op">)</span><span class="op">)</span>,</span>
 <span>      slot <span class="op">=</span> <span class="st">"header"</span>,</span>
@@ -327,8 +328,8 @@ the time span cannot exceed two months.</p>
     </style>
 <div id="header-cal_head" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="header-cal_head_container" style="display: contents">
-  <el-calendar :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter">
-    <template v-slot:header="{ date }"><span>Custom header content</span><span>{{ date }}</span><el-button-group><el-button size="small" @click="$refs.el.selectDate('prev-year')">Previous Year</el-button><el-button size="small" @click="$refs.el.selectDate('prev-month')">Previous Month</el-button><el-button size="small" @click="$refs.el.selectDate('today')">Today</el-button><el-button size="small" @click="$refs.el.selectDate('next-month')">Next Month</el-button><el-button size="small" @click="$refs.el.selectDate('next-year')">Next Year</el-button></el-button-group></template>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter">
+    <template v-slot:header="{ date }"><span>Custom header content</span><span>{{ date }}</span><el-button-group><el-button size="small" @click="$refs.calendar.selectDate('prev-year')">Previous Year</el-button><el-button size="small" @click="$refs.calendar.selectDate('prev-month')">Previous Month</el-button><el-button size="small" @click="$refs.calendar.selectDate('today')">Today</el-button><el-button size="small" @click="$refs.calendar.selectDate('next-month')">Next Month</el-button><el-button size="small" @click="$refs.calendar.selectDate('next-year')">Next Year</el-button></el-button-group></template>
     <template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template>
   </el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-04","range":null,"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
