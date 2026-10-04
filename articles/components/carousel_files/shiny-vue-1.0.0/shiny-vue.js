@@ -100,6 +100,18 @@
     });
   }
 
+  var sharedState = null;
+  sv.shared = function() {
+    if (!sharedState) sharedState = Vue.reactive({});
+    return sharedState;
+  };
+  if (window.Shiny && Shiny.addCustomMessageHandler) {
+    Shiny.addCustomMessageHandler('shinyVueShared', function(data) {
+      var st = sv.shared();
+      Object.keys(data).forEach(function(k) { st[k] = data[k]; });
+    });
+  }
+
   function mount(host) {
     if (host._shinyVue) return host._shinyVue;
     var tpl = host.querySelector(':scope > script[data-shiny-vue-template]');
@@ -124,6 +136,18 @@
         Shiny.setInputValue(name, plain(value), opts || { priority: 'event' });
       }
     };
+    // State shared by every component on the page. Each component is an app
+    // of its own, so Vue's provide/inject and stores cannot reach across
+    // them; $shared can: one reactive object, read and written by any
+    // template, set from the server with shinyVueShared.
+    app.config.globalProperties.$shared = sv.shared();
+    // Vue plugins the component asks for, by their global names
+    // (window.ElementPlus, window.NaiveUI, ...): app.use() on each
+    (spec.plugins || []).forEach(function(name) {
+      var plugin = name.split('.').reduce(function(o, k) { return o && o[k]; }, window);
+      if (plugin) app.use(plugin);
+      else if (window.console) console.warn('[shiny-vue] "' + host.id + '" asks for plugin ' + name + ', which is not on the page');
+    });
     // the component library installs itself on every app
     if (typeof sv.install === 'function') sv.install(app);
     // The app's root goes into a box of its own: Vue 3 owns its container
@@ -532,16 +556,29 @@
   });
   Shiny.inputBindings.register(binding, 'shiny.vue');
 
-  // ── render_vue(): an output whose component is kept across renders ─────
+  // ── render_vue(): an output that keeps what the user did ────────────
   //
-  // renderUI() would replace the component on every render, and with it what
-  // the user had done to it: a table's sort, a tree's expanded nodes. Here a
-  // render whose component has the same shape as the one on the page --
-  // same template, same options apart from `data` -- only sends what
-  // changed in its data, compared with what the server sent last, so state
-  // the server never set is the user's and stays. A render of another shape
-  // replaces the component, as renderUI() does.
-  function specOf(host) {
+  // renderUI() replaces everything on every render, and with it what the
+  // user had done: a table's sort, a tree's open nodes, the tab they were
+  // on. render_vue() applies a render as a change instead -- a three-way
+  // comparison of the server's last render, its new one and the page:
+  //
+  // * markup the server did not change is left as the page has it, so
+  //   bindings that changed it (an open tab, a moved dialog) keep that;
+  // * text and attributes the server did change are set on the page;
+  // * each component (a host) whose template and options are unchanged
+  //   gets only the data fields the server changed since its last render,
+  //   so a field the user changed and the server did not stays the user's.
+  //
+  // Anything else -- an element added or removed, a component's template
+  // or options changed, a host where there was none -- and the output is
+  // rendered afresh, as renderUI() would.
+  function topHosts(root) {
+    return Array.prototype.filter.call(root.querySelectorAll(HOST), function(h) {
+      return !h.parentElement.closest(HOST) || !root.contains(h.parentElement.closest(HOST));
+    });
+  }
+  function hostSpec(host) {
     var tpl = host.querySelector(':scope > script[data-shiny-vue-template]');
     var opt = host.querySelector(':scope > script[data-shiny-vue-options]');
     if (!tpl || !opt) return null;
@@ -549,47 +586,94 @@
     var data = (spec.options && spec.options.data) || {};
     var rest = JSON.parse(opt.textContent);
     if (rest.options) delete rest.options.data;
+    // functions in the data (a column's formatter) may change from render
+    // to render; they are revived when sent, so they are data like any other
+    rest.evals = (rest.evals || []).filter(function(p) { return !/^options\.data\./.test(p); });
     // an id drawn at random each render (no id given) is not a difference
     var norm = function(x) { return x.split(host.id).join('\u0000'); };
-    return { data: data, evals: spec.evals || [],
+    return { data: data, evals: (spec.evals || []).filter(function(p) { return /^options\.data\./.test(p); }),
+             keys: Object.keys(data).sort().join(','),
              shape: norm(tpl.textContent) + '\u0001' + norm(JSON.stringify(rest)) };
   }
-  function sent(data) {
-    var out = {};
-    Object.keys(data).forEach(function(k) { out[k] = JSON.stringify(data[k]); });
-    return out;
+  // Text and attributes the server changed between its last render and this
+  // one, set on the page. False when the structure differs: then nothing is
+  // touched and the caller renders afresh.
+  function changes(last, next, live, out) {
+    if (last.isEqualNode(next)) return true;          // nothing the server changed here
+    if (!live || last.nodeType !== next.nodeType || last.nodeName !== next.nodeName) return false;
+    if (last.nodeType === 3) { out.push(function() { live.data = next.data; }); return true; }
+    if (last.nodeType !== 1) return true;
+    if (last.matches(HOST)) return true;              // a component: compared by its spec
+    if (last.nodeName === 'SCRIPT' || last.nodeName === 'STYLE') return false;
+    var names = {};
+    Array.prototype.forEach.call(last.attributes, function(a) { names[a.name] = 1; });
+    Array.prototype.forEach.call(next.attributes, function(a) { names[a.name] = 1; });
+    Object.keys(names).forEach(function(n) {
+      var v = next.getAttribute(n);
+      if (last.getAttribute(n) === v) return;
+      out.push(function() { if (v === null) live.removeAttribute(n); else live.setAttribute(n, v); });
+    });
+    var lk = last.childNodes, nk = next.childNodes, vk = live.childNodes;
+    if (lk.length !== nk.length || lk.length !== vk.length) return false;
+    for (var i = 0; i < lk.length; i++) if (!changes(lk[i], nk[i], vk[i], out)) return false;
+    return true;
+  }
+  function parse(html) {
+    var holder = document.createElement('div');
+    holder.innerHTML = html || '';
+    return holder;
+  }
+  function remember(el, html) {
+    el._svLast = parse(html);
+    var live = topHosts(el), last = topHosts(el._svLast);
+    last.forEach(function(h, i) {
+      var spec = hostSpec(h);
+      if (live[i] && spec) live[i]._svSent = JSON.parse(JSON.stringify(spec.data));
+    });
+  }
+  function applyRender(el, content) {
+    var last = el._svLast;
+    if (!last || !content) return false;
+    var next = parse(content.html);
+    var lastHosts = topHosts(last), nextHosts = topHosts(next), liveHosts = topHosts(el);
+    if (lastHosts.length !== nextHosts.length || liveHosts.length !== lastHosts.length) return false;
+    var updates = [];
+    for (var i = 0; i < nextHosts.length; i++) {
+      var a = hostSpec(lastHosts[i]), b = hostSpec(nextHosts[i]), host = liveHosts[i];
+      if (!a || !b || a.shape !== b.shape || a.keys !== b.keys || !host._shinyVue) return false;
+      updates.push({ host: host, spec: b });
+    }
+    // the page's elements: a moved node (a dialog appended to <body>) has
+    // left the output, so the walk below finds fewer children and gives up
+    var edits = [];
+    if (!changes(last, next, el, edits)) return false;
+    edits.forEach(function(f) { f(); });
+    updates.forEach(function(u) {
+      var vm = u.host._shinyVue, sentBefore = u.host._svSent || {};
+      // compared as sent -- functions still their source text -- then revived
+      var asSent = JSON.parse(JSON.stringify(u.spec.data));
+      revive({ options: { data: u.spec.data } }, u.spec.evals);
+      Object.keys(asSent).forEach(function(k) {
+        if (JSON.stringify(asSent[k]) === JSON.stringify(sentBefore[k])) return;
+        if (k in vm.$data) vm[k] = u.spec.data[k];
+      });
+      u.host._svSent = asSent;
+      if (vm._elReport) vm._elReport();
+    });
+    el._svLast = next;
+    return true;
   }
   var outputBinding = new Shiny.OutputBinding();
   jQuery.extend(outputBinding, {
     find: function(scope) { return jQuery(scope).find('.shiny-vue-output'); },
     renderValue: function(el, content) {
-      var oldHost = el.querySelector('[data-shiny-vue]');
-      var holder = document.createElement('div');
-      holder.innerHTML = (content && content.html) || '';
-      var newHost = holder.querySelector('[data-shiny-vue]');
-      var vm = oldHost && oldHost._shinyVue;
-      var before = oldHost && oldHost._shinyVueShape;
-      var after = newHost && specOf(newHost);
-      // data holding functions is revived on mount only: rebuild then
-      var fnInData = after && after.evals.some(function(p) { return /^options\.data\./.test(p); });
-      if (vm && before && after && !fnInData && before === after.shape) {
-        var last = oldHost._shinyVueSent || {};
-        var now = sent(after.data);
-        Object.keys(now).forEach(function(k) {
-          if (now[k] !== last[k] && k in vm.$data) vm[k] = after.data[k];
+      var deps = (content && content.deps) || [];
+      return Promise.resolve(deps.length ? Shiny.renderDependenciesAsync(deps) : null).then(function() {
+        if (applyRender(el, content)) { jQuery(el).trigger('shiny-vue:patched'); return; }
+        return Promise.resolve(Shiny.renderContentAsync(el, content)).then(function() {
+          remember(el, content && content.html);
+          jQuery(el).trigger('shiny-vue:rendered');
         });
-        oldHost._shinyVueSent = now;
-        if (vm._elReport) vm._elReport();
-        if (content.deps && content.deps.length) Shiny.renderDependenciesAsync(content.deps);
-        jQuery(el).trigger('shiny-vue:patched');
-        return;
-      }
-      var done = Shiny.renderContentAsync(el, content);
-      return Promise.resolve(done).then(function() {
-        var host = el.querySelector('[data-shiny-vue]');
-        var spec = host && specOf(host);
-        if (spec) { host._shinyVueShape = spec.shape; host._shinyVueSent = sent(spec.data); }
-        jQuery(el).trigger('shiny-vue:rendered');
       });
     }
   });
