@@ -123,10 +123,11 @@ disconnect them. They follow Element closely:
   starts where `el_page(z_index =)` says;
 - `opened` and `closed` follow the end of Element’s own transitions, and
   a drawer gives focus back to what had it;
-- focus stays inside an open dialog or drawer, as Element Plus’s focus
-  trap keeps it: Tab and Shift+Tab go round its controls, and focus that
-  lands on the page underneath is brought back. Element’s own popups – a
-  select’s dropdown, a date picker’s panel – are left alone;
+- focus stays inside the topmost open dialog or drawer – one opened over
+  another included – as Element Plus’s focus trap keeps it: Tab and
+  Shift+Tab go round its controls, and focus that lands on the page
+  underneath is brought back. Element’s own popups – a select’s
+  dropdown, a date picker’s panel – are left alone;
 - closed straight after opening, a dialog never reports `opened`: the
   closing cancels the opening, as Vue’s transitions do;
 - tabs take the arrow keys and Delete, passing over disabled tabs,
@@ -181,7 +182,10 @@ spacers with render functions in JSX. The same goes through R:
   in a table cell can report the rows ticked.
 - **`virtual_ref`** is a CSS selector for the element a tooltip, popover
   or dropdown attaches to; one matching several elements gives them a
-  single popup that follows the pointer.
+  single popup that follows the pointer. The target may come later –
+  drawn by [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) –
+  or be replaced: the popup attaches to whatever matches when it
+  appears.
 
 The table-v2, tree, message-box, notification, space and tooltip pages
 show each of these on Element Plus’s own examples.

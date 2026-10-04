@@ -21,6 +21,45 @@
   }
 
   var refState = new WeakMap();
+  // Components with a virtual-ref selector. A target may come later --
+  // drawn by renderUI() -- or be replaced; one observer, live while any such
+  // component is, renders a component again when its target appears or the
+  // one it holds leaves the page. A selector matching several targets
+  // follows the pointer, through one listener for them all. An entry goes
+  // when its component unmounts.
+  var refTracked = new Set(), refObserver = null;
+  function refAlive(st) { return !st.inst.isUnmounted; }
+  // how many are being watched, for the tests
+  se.refTracked = function () { refCheck(); return refTracked.size; };
+  function refCheck() {
+    refTracked.forEach(function (st) {
+      if (!refAlive(st)) { refTracked.delete(st); return; }
+      var held = st.el && document.contains(st.el);
+      if (!held && document.querySelector(st.sel)) st.vm.$forceUpdate();
+    });
+    if (!refTracked.size && refObserver) { refObserver.disconnect(); refObserver = null; }
+  }
+  function refTrack(st) {
+    refTracked.add(st);
+    if (refObserver || typeof MutationObserver === 'undefined') return;
+    var queued = false;
+    refObserver = new MutationObserver(function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; refCheck(); });
+    });
+    refObserver.observe(document.documentElement, { childList: true, subtree: true });
+  }
+  if (typeof document !== 'undefined') {
+    document.addEventListener('mouseover', function (e) {
+      if (!refTracked.size || !e.target || !e.target.closest) return;
+      refTracked.forEach(function (st) {
+        if (!st.many || !refAlive(st)) return;
+        var t = e.target.closest(st.sel);
+        if (t && t !== st.cur) { st.cur = t; st.vm.$forceUpdate(); }
+      });
+    }, true);
+  }
   // A component's host -- el_button("save") is #save -- draws no box of its
   // own (display: contents), so a popup anchored there has nowhere to go:
   // anchor it to the first element inside that does.
@@ -61,23 +100,16 @@
       // read during render is a Vue warning
       var vm = this, inst = vm.$;
       var st = refState.get(inst);
-      if (!st) refState.set(inst, st = { tries: 0 });
+      if (!st) refState.set(inst, st = { vm: vm, inst: inst });
+      st.sel = sel;
+      refTrack(st);
       var all = document.querySelectorAll(sel);
-      if (!all.length) {
-        if (++st.tries <= 30) requestAnimationFrame(function () { vm.$forceUpdate(); });
-        return undefined;
-      }
-      if (all.length === 1) return boxOf(all[0]);
-      if (st.sel !== sel) {
-        st.sel = sel;
-        st.cur = all[0];
-        document.addEventListener('mouseover', function (e) {
-          if (st.sel !== sel || inst.isUnmounted) return;
-          var t = e.target && e.target.closest && e.target.closest(sel);
-          if (t && t !== st.cur) { st.cur = t; vm.$forceUpdate(); }
-        }, true);
-      }
-      return boxOf(document.contains(st.cur) ? st.cur : all[0]);
+      st.many = all.length > 1;
+      if (!all.length) { st.el = null; return undefined; }
+      if (!st.many) st.cur = all[0];
+      else if (!st.cur || !document.contains(st.cur) || !st.cur.matches(sel)) st.cur = all[0];
+      st.el = st.cur;
+      return boxOf(st.cur);
     };
     // A picker's default-value and default-time are Dates; R sends text --
     // "2010-10-01", "2010-10-01 12:00:00", "12:00:00" -- read in local time

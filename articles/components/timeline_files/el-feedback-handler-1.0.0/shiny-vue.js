@@ -265,7 +265,15 @@
         warn('update: "' + k + '" is not a field of "' + id + '"; the update was ignored');
         return;
       }
-      vm[k] = rest[k];
+      // R sends a vector of one as a bare value; a field that holds a list
+      // -- a multiple select's selection, a tree's expanded keys -- keeps
+      // holding one
+      var v = rest[k];
+      if (Array.isArray(vm[k]) && v !== null && v !== undefined && !Array.isArray(v) &&
+          typeof v !== 'object') {
+        v = [v];
+      }
+      vm[k] = v;
     });
     // Report the new value, as Shiny's own update*Input() does
     if (vm._elReport) vm._elReport();

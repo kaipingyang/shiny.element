@@ -78,9 +78,16 @@
         getComputedStyle(el).visibility !== 'hidden';
     });
   }
+  // Element Plus's own overlays (a message box's mask, an image viewer) are
+  // popups above the dialog; this package's dialogs and drawers are .el-overlay
+  // too, and one lower in the stack is not -- the topmost keeps the focus.
   function popupOutside(el) {
-    return !!(el && el.closest && el.closest(
-      '.el-popper, .el-message-box, .el-message, .el-notification, .el-overlay, .el-image-viewer__wrapper'));
+    if (!el || !el.closest) return false;
+    if (el.closest('.el-popper, .el-message-box, .el-message, .el-notification, .el-image-viewer__wrapper')) {
+      return true;
+    }
+    var ov = el.closest('.el-overlay');
+    return !!ov && !ov.hasAttribute('data-el-overlay');
   }
   document.addEventListener('keydown', function(e) {
     if (e.key !== 'Tab') return;

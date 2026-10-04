@@ -175,7 +175,7 @@
 <li>
 <code>$setInput(name, value)</code> in any template is Shiny’s <code>setInputValue()</code>.</li>
 <li>
-<code>virtual_ref</code> (tooltip, popover, dropdown) is a CSS selector, looked up in the browser; one matching several elements gives them a single popup that follows the pointer.</li>
+<code>virtual_ref</code> (tooltip, popover, dropdown) is a CSS selector, looked up in the browser, including for a target the server draws later; one matching several elements gives them a single popup that follows the pointer.</li>
 <li>
 <code><a href="../reference/el_tooltip.html">el_tooltip()</a></code>’s <code>trigger</code> is Element Plus’s own – how it opens – and the element it describes is <code>reference</code>, as for <code><a href="../reference/el_popover.html">el_popover()</a></code>. <code>el_popconfirm(popconfirm_width =)</code> sizes the prompt. Popover and popconfirm take the tooltip’s other attributes through <code>...</code>.</li>
 <li>
@@ -185,9 +185,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="behaviour-closer-to-element-plus-0-1-0">Behaviour closer to Element Plus<a class="anchor" aria-label="anchor" href="#behaviour-closer-to-element-plus-0-1-0"></a></h3>
-<ul><li>A dialog or drawer keeps focus inside while open, as Element Plus’s focus trap does, and one closed straight after opening no longer reports <code>opened</code>.</li>
+<ul><li>A dialog or drawer keeps focus inside while open, as Element Plus’s focus trap does – the topmost one, when one is opened over another – and one closed straight after opening no longer reports <code>opened</code>.</li>
 <li>Tabs pass over disabled tabs with the arrow keys, a disabled tab cannot be closed, and Enter on the “+” adds one.</li>
 <li>An upload’s file field no longer appears as an extra <code>input$&lt;id&gt;_elfile</code>.</li>
+<li>An update giving one value for a field that holds several – a multiple select’s selection, a checkbox group’s, a table-v2’s expanded rows – sends it as a list of one, not a bare value.</li>
 <li>Releasing an interrupted upload warns, once, if Shiny’s internals it relies on have moved.</li>
 </ul></div>
 <div class="section level3">
