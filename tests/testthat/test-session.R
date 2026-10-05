@@ -17,6 +17,11 @@ test_that("outside a session, the error says there is no server", {
 })
 
 test_that("every server function checks its session first", {
+  # covr rewrites every function body to count its lines
+  skip_if(
+    identical(Sys.getenv("R_COVR"), "true"),
+    "bodies instrumented by covr"
+  )
   ns <- asNamespace("shiny.element")
   fns <- Filter(
     function(f) {
