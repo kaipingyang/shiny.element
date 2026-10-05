@@ -20,6 +20,13 @@ el_skeleton(
   slots = NULL,
   session = NULL
 )
+
+update_el_skeleton(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  loading = NULL,
+  rows = NULL
+)
 ```
 
 ## Arguments
@@ -66,12 +73,23 @@ el_skeleton(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_skeleton()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_skeleton()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
 A Shiny UI element.
+
+## Updating from the server
+
+Server-side update for `el_skeleton()`. `loading = FALSE` swaps the
+placeholder for the real content.
+
+`update_el_skeleton()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -99,5 +117,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(result(), {
+    update_el_skeleton(session, "report", loading = FALSE)
+  })
 }
 ```

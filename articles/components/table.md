@@ -303,7 +303,7 @@ exceeds the max height value.
 The rows are the server’s: Remove reports its row as
 `input$fluid_remove`, Add Item asks for one more, and the server sends
 the rows back with
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md).
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md).
 
 ``` r
 
@@ -820,7 +820,7 @@ You can customize how the header looks by header
 The search box is the column’s `header` template. What is typed lives in
 a store, `$store.search.text`, reported as `input$search`; the server
 filters the rows and sends them with
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md).
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md).
 
 ``` r
 
@@ -893,7 +893,7 @@ in custom column templates.
 Each row opens to its details and a table of its own, the family. The
 switches are the server’s: the parent’s border and
 `preserve_expanded_content` with
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md),
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md),
 the child tables’ border through a store their template reads,
 `$store.expand.child`.
 

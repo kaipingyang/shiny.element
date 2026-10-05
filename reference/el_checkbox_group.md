@@ -36,6 +36,28 @@ el_checkbox_group(
   validate_event = NULL,
   session = NULL
 )
+
+update_el_checkbox_group(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
+  min = NULL,
+  max = NULL,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL,
+  size = NULL,
+  fill = NULL,
+  text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  tag = NULL,
+  type = NULL,
+  validate_event = NULL
+)
 ```
 
 ## Arguments
@@ -167,8 +189,11 @@ el_checkbox_group(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_checkbox_group()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_checkbox_group()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -177,6 +202,18 @@ An `htmltools` tagList with a Vue-managed checkbox group component.
 ## Shiny inputs
 
 `input$<id>` – character vector of currently selected values.
+
+## Updating from the server
+
+Server-side update for `el_checkbox_group()`. Pass only the fields to
+change; `NULL` fields are excluded from the update message.
+
+Every other argument of `el_checkbox_group()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_checkbox_group()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -209,5 +246,11 @@ if (interactive()) {
     output$selected <- renderPrint(input$cb1)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_checkbox_group(session, "langs", selected = c("r", "py"))
+  })
 }
 ```

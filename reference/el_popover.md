@@ -38,6 +38,15 @@ el_popover(
   slots = NULL,
   session = NULL
 )
+
+update_el_popover(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL,
+  disabled = NULL,
+  visible = NULL
+)
 ```
 
 ## Arguments
@@ -192,8 +201,11 @@ el_popover(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_popover()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_popover()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -206,6 +218,15 @@ A Shiny UI element.
 
 - `input$<id>_after_enter`, `input$<id>_after_leave` – fire once the
   animation has finished.
+
+## Updating from the server
+
+Server-side update for `el_popover()`. Setting `visible` opens or closes
+the card, which then stays as set: Element Plus's popover is controlled
+by its `visible` once that is given.
+
+`update_el_popover()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -253,4 +274,10 @@ el_popover(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"popTitle":null,"popContent":null,"popTrigger":"hover","popPlacement":"right","popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null,"popAppendTo":null,"popAutoClose":null,"popEffect":null,"popHideAfter":null,"popPersistent":null,"popPopperStyle":null,"popShowAfter":null,"popShowArrow":null,"popTeleported":null,"popTriggerKeys":null,"popVirtualRef":null,"popVirtualTriggering":null,"popVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyVue.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyVue.emit('info', 'after_leave', arguments); }","elEmitBeforeEnter":"function() { window.shinyVue.emit('info', 'before_enter', arguments); }","elEmitBeforeLeave":"function() { window.shinyVue.emit('info', 'before_leave', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitAfterEnter","options.methods.elEmitAfterLeave","options.methods.elEmitBeforeEnter","options.methods.elEmitBeforeLeave"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$explain, {
+    update_el_popover(session, "info", content = summary_text(), visible = TRUE)
+  })
+}
 ```

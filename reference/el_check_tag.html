@@ -166,6 +166,15 @@
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_check_tag</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -197,6 +206,11 @@ or <code>"danger"</code>.</p></dd>
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
 <dd><p>Component width, as a CSS unit.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateCheckboxInput.html" class="external-link">shiny::updateCheckboxInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -208,6 +222,16 @@ or <code>"danger"</code>.</p></dd>
 
 <ul><li><p><code>input$&lt;id&gt;</code> – <code>TRUE</code> or <code>FALSE</code>, on load and on every change.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p><code>update_el_check_tag()</code> changes the component from the server.</p>
+<p>Every other argument of <code>el_check_tag()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_check_tag()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -225,6 +249,13 @@ or <code>"danger"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":false,"text":"Urgent","disabled":null,"type":"danger"},"methods":{"handleChange":"function(v) { this.value = v; }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span><span class="op">$</span><span class="va">clear</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">update_el_check_tag</span><span class="op">(</span><span class="va">session</span>, <span class="st">"pinned"</span>, value <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

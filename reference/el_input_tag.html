@@ -199,6 +199,38 @@ labels.</p>
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_input_tag</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag_effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trigger <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  draggable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  delimiter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  save_on_blur <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  readonly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autofocus <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  maxlength <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  minlength <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autocomplete <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -385,6 +417,11 @@ whether beside the component rather than under it. Element's
 <dd><p>Named list of Element slot contents: <code>tag</code>, <code>prefix</code>,
 <code>suffix</code>. A scoped slot is written with <code><a href="template.html">template()</a></code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -410,6 +447,16 @@ whether beside the component rather than under it. Element's
 
 <p>Callable with <code><a href="call_el.html">call_el()</a></code>: <code>focus()</code>, <code>blur()</code>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_input_tag()</code>.</p>
+<p>Every other argument of <code>el_input_tag()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_input_tag()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -424,6 +471,10 @@ whether beside the component rather than under it. Element's
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":["shiny","element"],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Add a keyword","autocomplete":null,"ariaLabel":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('keywords', 'input', arguments); }","elEmitAddTag":"function() { window.shinyVue.emit('keywords', 'add_tag', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('keywords', 'remove_tag', arguments); }","elEmitDragTag":"function() { window.shinyVue.emit('keywords', 'drag_tag', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('keywords', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('keywords', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('keywords', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitInput","options.methods.elEmitAddTag","options.methods.elEmitRemoveTag","options.methods.elEmitDragTag","options.methods.elEmitFocus","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reset</span>, <span class="fu">update_el_input_tag</span><span class="op">(</span><span class="va">session</span>, <span class="st">"x"</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

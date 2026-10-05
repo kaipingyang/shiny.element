@@ -27,6 +27,22 @@ el_color_picker_panel(
   width = NULL,
   slots = NULL
 )
+
+update_el_color_picker_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  border = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  validate_event = NULL,
+  hue_slider_class = NULL,
+  hue_slider_style = NULL
+)
 ```
 
 ## Arguments
@@ -129,6 +145,11 @@ el_color_picker_panel(
   written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -143,6 +164,17 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 [`update()`](https://rdrr.io/r/stats/update.html).
 
+## Updating from the server
+
+Server-side update for `el_color_picker_panel()`.
+
+Every other argument of `el_color_picker_panel()` that can change once
+it is drawn is an argument here too, under the same name. One left
+`NULL` stays as it is; `NA` returns it to Element's default.
+
+`update_el_color_picker_panel()` is called for its side effect and
+returns `NULL` invisibly.
+
 ## Examples
 
 ``` r
@@ -153,4 +185,11 @@ el_color_picker_panel("brand", value = "#409EFF")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","border":null,"disabled":null,"showAlpha":false,"colorFormat":null,"predefine":null,"validateEvent":null,"hueSliderClass":null,"hueSliderStyle":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.value"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_color_picker_panel(session, "x", value = NULL)
+  )
+}
 ```

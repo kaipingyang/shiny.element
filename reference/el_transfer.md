@@ -35,6 +35,29 @@ el_transfer(
   slots = NULL,
   session = NULL
 )
+
+update_el_transfer(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  data = NULL,
+  titles = NULL,
+  filterable = NULL,
+  label = NULL,
+  error = NULL,
+  button_texts = NULL,
+  filter_placeholder = NULL,
+  filter_method = NULL,
+  target_order = NULL,
+  format = NULL,
+  props = NULL,
+  left_default_checked = NULL,
+  right_default_checked = NULL,
+  render_content = NULL,
+  item_size = NULL,
+  validate_event = NULL,
+  virtual_scroll = NULL
+)
 ```
 
 ## Arguments
@@ -172,8 +195,11 @@ el_transfer(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_transfer()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_transfer()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -195,6 +221,17 @@ Callable with
 
 - `clearQuery()` – clear one panel's search box; pass `"left"` or
   `"right"`
+
+## Updating from the server
+
+Server-side update for `el_transfer()`.
+
+Every other argument of `el_transfer()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_transfer()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -224,4 +261,10 @@ el_transfer(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"data":[{"key":"mpg","label":"mpg"},{"key":"cyl","label":"cyl"},{"key":"disp","label":"disp"},{"key":"hp","label":"hp"},{"key":"drat","label":"drat"},{"key":"wt","label":"wt"},{"key":"qsec","label":"qsec"},{"key":"vs","label":"vs"},{"key":"am","label":"am"},{"key":"gear","label":"gear"},{"key":"carb","label":"carb"}],"titles":["Available","Chosen"],"buttonTexts":null,"filterable":true,"filterPlaceholder":null,"filterMethod":null,"targetOrder":null,"format":null,"props":null,"leftDefaultChecked":null,"rightDefaultChecked":null,"renderContent":null,"itemSize":null,"validateEvent":null,"virtualScroll":null},"methods":{"elEmitChange":"function() { var shape = function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'change', [v]); }","elEmitLeftCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'left_check_change', [v]); }","elEmitRightCheckChange":"function() { var shape = function(checked, changed) { return {checked: checked, changed: changed}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('cols', 'right_check_change', [v]); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitLeftCheckChange","options.methods.elEmitRightCheckChange","options.watch.value"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, {
+    update_el_transfer(session, "cols", value = list())
+  })
+}
 ```

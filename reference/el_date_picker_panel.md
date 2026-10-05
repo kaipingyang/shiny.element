@@ -37,6 +37,30 @@ el_date_picker_panel(
   width = NULL,
   slots = NULL
 )
+
+update_el_date_picker_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  border = NULL,
+  clearable = NULL,
+  editable = NULL,
+  type = NULL,
+  value_format = NULL,
+  date_format = NULL,
+  time_format = NULL,
+  unlink_panels = NULL,
+  single_panel = NULL,
+  disabled_date = NULL,
+  shortcuts = NULL,
+  cell_class_name = NULL,
+  show_footer = NULL,
+  show_confirm = NULL,
+  show_week_number = NULL
+)
 ```
 
 ## Arguments
@@ -193,6 +217,11 @@ el_date_picker_panel(
   `prev-year`, `next-year`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -207,6 +236,17 @@ A Shiny UI element.
 
 - `input$<id>_clear` – Element Plus's `clear` event.
 
+## Updating from the server
+
+Server-side update for `el_date_picker_panel()`.
+
+Every other argument of `el_date_picker_panel()` that can change once it
+is drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_date_picker_panel()` is called for its side effect and
+returns `NULL` invisibly.
+
 ## Examples
 
 ``` r
@@ -217,4 +257,11 @@ el_date_picker_panel("day", value = Sys.Date(), value_format = "YYYY-MM-DD")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":"YYYY-MM-DD","dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('day', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('day', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('day', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_date_picker_panel(session, "x", value = NULL)
+  )
+}
 ```

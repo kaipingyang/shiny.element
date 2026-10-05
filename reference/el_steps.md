@@ -19,6 +19,18 @@ el_steps(
   slots = NULL,
   session = NULL
 )
+
+update_el_steps(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  process_status = NULL,
+  finish_status = NULL,
+  space = NULL,
+  direction = NULL,
+  align_center = NULL,
+  simple = NULL
+)
 ```
 
 ## Arguments
@@ -79,12 +91,26 @@ el_steps(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_steps()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_steps()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
 A Shiny UI element.
+
+## Updating from the server
+
+`update_el_steps()` changes the component from the server.
+
+Every other argument of `el_steps()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_steps()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -138,4 +164,10 @@ el_steps(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('my_steps', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_steps(session, "wizard", active = 2)
+  })
+}
 ```

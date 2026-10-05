@@ -40,6 +40,34 @@ el_switch(
   slots = NULL,
   session = NULL
 )
+
+update_el_switch(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  active_text = NULL,
+  inactive_text = NULL,
+  active_color = NULL,
+  inactive_color = NULL,
+  label = NULL,
+  error = NULL,
+  active_value = NULL,
+  inactive_value = NULL,
+  name = NULL,
+  validate_event = NULL,
+  active_action_icon = NULL,
+  active_icon = NULL,
+  aria_label = NULL,
+  before_change = NULL,
+  border_color = NULL,
+  inactive_action_icon = NULL,
+  inactive_icon = NULL,
+  inline_prompt = NULL,
+  loading = NULL,
+  size = NULL,
+  tabindex = NULL
+)
 ```
 
 ## Arguments
@@ -202,8 +230,11 @@ el_switch(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_switch()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_switch()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -220,6 +251,18 @@ Callable with
 
 `input$<id>` – the value of `active_value` (when on) or `inactive_value`
 (when off), matching the types of those arguments.
+
+## Updating from the server
+
+Server-side update for `el_switch()`. Pass only the fields to change;
+`NULL` fields are excluded from the update message.
+
+Every other argument of `el_switch()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_switch()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -243,5 +286,11 @@ if (interactive()) {
     output$state <- renderPrint(input$sw1)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_switch(session, "live", value = TRUE)
+  })
 }
 ```

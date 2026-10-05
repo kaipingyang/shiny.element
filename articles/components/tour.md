@@ -8,7 +8,7 @@ to guide users through a product.
 The most basic usage
 
 A step’s `target` is a CSS selector; the server opens the tour with
-[`update_el_tour()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tour.md).
+[`update_el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md).
 
 ``` r
 

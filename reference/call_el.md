@@ -1,6 +1,6 @@
 # Call a method of an Element component
 
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 and the other `update_el_*()` functions assign into the Vue instance's
 data, which reaches a component's props. Element also documents
 *methods* – `clearSelection()`, `setCheckedKeys()`,

@@ -27,6 +27,21 @@ el_segmented(
   width = NULL,
   slots = NULL
 )
+
+update_el_segmented(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  size = NULL,
+  block = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  direction = NULL,
+  props = NULL
+)
 ```
 
 ## Arguments
@@ -127,6 +142,11 @@ el_segmented(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -136,6 +156,17 @@ A Shiny UI element.
 - `input$<id>` – the value, on load and on every change.
 
 - `input$<id>_change` – Element Plus's `change` event.
+
+## Updating from the server
+
+Server-side update for `el_segmented()`.
+
+Every other argument of `el_segmented()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_segmented()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -151,4 +182,8 @@ el_segmented(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"w","options":[{"value":"d","label":"Day"},{"value":"w","label":"Week"},{"value":"m","label":"Month"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_segmented(session, "x", value = NULL))
+}
 ```

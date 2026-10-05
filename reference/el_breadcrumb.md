@@ -14,6 +14,14 @@ el_breadcrumb(
   slots = NULL,
   session = NULL
 )
+
+update_el_breadcrumb(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  separator = NULL,
+  separator_icon = NULL
+)
 ```
 
 ## Arguments
@@ -52,8 +60,11 @@ el_breadcrumb(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_breadcrumb()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_breadcrumb()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -64,6 +75,17 @@ A Shiny UI element.
 - `input$<id>` – the `label` of the step last clicked. Steps without a
   `to` are still reported, so a breadcrumb can drive navigation inside a
   Shiny app without any routing.
+
+## Updating from the server
+
+Server-side update for `el_breadcrumb()`.
+
+Every other argument of `el_breadcrumb()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_breadcrumb()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -99,4 +121,17 @@ el_breadcrumb(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"Home"},{"label":"Detail"}],"separator":null,"separatorIcon":"ArrowRight"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('trail', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$open_detail, {
+    update_el_breadcrumb(
+      session,
+      "trail",
+      items = list(
+        list(label = "Home"),
+        list(label = "Detail")
+      )
+    )
+  })
+}
 ```

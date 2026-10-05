@@ -180,6 +180,22 @@
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_color_picker_panel</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_alpha <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  predefine <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hue_slider_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hue_slider_style <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -285,6 +301,11 @@ whether beside the component rather than under it. Element's
 <dd><p>Named list of Element slot contents: <code>footer</code>. A scoped slot
 is written with <code><a href="template.html">template()</a></code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -302,6 +323,16 @@ is written with <code><a href="template.html">template()</a></code>.</p></dd>
 
 <p>Callable with <code><a href="call_el.html">call_el()</a></code>: <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_color_picker_panel()</code>.</p>
+<p>Every other argument of <code>el_color_picker_panel()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_color_picker_panel()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -312,6 +343,13 @@ is written with <code><a href="template.html">template()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"#409EFF","border":null,"disabled":null,"showAlpha":false,"colorFormat":null,"predefine":null,"validateEvent":null,"hueSliderClass":null,"hueSliderStyle":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.value"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span><span class="op">$</span><span class="va">reset</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">update_el_color_picker_panel</span><span class="op">(</span><span class="va">session</span>, <span class="st">"x"</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

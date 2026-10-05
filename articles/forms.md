@@ -368,9 +368,9 @@ shinyApp(ui, server)
 
 A select or an autocomplete with `remote = TRUE` asks the server for its
 options as the user types – `input$<id>_query`, answered by
-[`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
+[`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
 or
-[`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/update_el_autocomplete.md).
+[`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md).
 The Select and Input pages show both.
 
 ## Typing

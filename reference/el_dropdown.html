@@ -193,6 +193,35 @@ command that is reported as a Shiny input.</p>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_dropdown</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trigger <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  split_button <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_on_click <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_timeout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_timeout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  button_props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  persistent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  role <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trigger_keys <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  virtual_ref <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  virtual_triggering <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -363,9 +392,10 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
-any Shiny input; a session given here namespaces <code>id</code> once more, with
-a warning.</p></dd>
+<dd><p>In <code>el_dropdown()</code>, deprecated: inside a module, wrap <code>id</code> in
+<code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
+once more, with a warning. In <code>update_el_dropdown()</code>, the Shiny session, the
+current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -380,6 +410,16 @@ a warning.</p></dd>
 choosing the same item twice runs an <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code> twice.</p></li>
 <li><p><code>input$&lt;id&gt;_count</code> – the number of items clicked.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_dropdown()</code>.</p>
+<p>Every other argument of <code>el_dropdown()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_dropdown()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -415,6 +455,12 @@ choosing the same item twice runs an <code><a href="https://rdrr.io/pkg/shiny/ma
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"trigger":"hover","hideOnClick":true,"placement":"bottom-end","disabled":false,"splitButton":false,"count":0,"type":null,"size":null,"showTimeout":null,"hideTimeout":null,"tabindex":null,"appendTo":null,"buttonProps":null,"effect":null,"maxHeight":null,"persistent":null,"popperClass":null,"popperOptions":null,"popperStyle":null,"role":null,"showArrow":null,"teleported":null,"triggerKeys":null,"virtualRef":null,"virtualTriggering":null},"methods":{"elEmitClick":"function() { window.shinyVue.emit('dd1', 'click', arguments); }","elEmitVisibleChange":"function() { window.shinyVue.emit('dd1', 'visible_change', arguments); }","handleCommand":"function(cmd) { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1', cmd, {priority: 'event'}); window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('dd1_count', this.count); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.elEmitVisibleChange","options.methods.handleCommand"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">go</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">update_el_dropdown</span><span class="op">(</span><span class="va">session</span>, <span class="st">"actions"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

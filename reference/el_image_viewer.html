@@ -176,6 +176,24 @@
 <span>  show_progress <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_image_viewer</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  visible <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  url_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  initial_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  infinite <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_on_click_modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  zoom_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_progress <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -193,7 +211,7 @@
 
 <dt id="arg-visible">visible<a class="anchor" aria-label="anchor" href="#arg-visible"></a></dt>
 <dd><p>Whether it starts open. Open and close it later with
-<code><a href="update_el_image_viewer.html">update_el_image_viewer()</a></code>.</p></dd>
+<code>update_el_image_viewer()</code>.</p></dd>
 
 
 <dt id="arg-z-index">z_index<a class="anchor" aria-label="anchor" href="#arg-z-index"></a></dt>
@@ -259,6 +277,11 @@ Element Plus's <code>show-progress</code> (boolean).</p></dd>
 <dd><p>Named list of Element slot contents: <code>progress</code>, <code>toolbar</code>,
 <code>viewer-error</code>. A scoped slot is written with <code><a href="template.html">template()</a></code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -279,7 +302,28 @@ Element Plus's <code>show-progress</code> (boolean).</p></dd>
 
 <p>Callable with <code><a href="call_el.html">call_el()</a></code>: <code>setActiveItem()</code>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
 
+
+<p>Open or close an <code>el_image_viewer()</code>, or give it other images.</p>
+<p>Every other argument of <code>el_image_viewer()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_image_viewer()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
+
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span><span class="op">$</span><span class="va">show</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">update_el_image_viewer</span><span class="op">(</span><span class="va">session</span>, <span class="st">"photos"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

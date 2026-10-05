@@ -39,6 +39,15 @@ el_tooltip(
   slots = NULL,
   session = NULL
 )
+
+update_el_tooltip(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  content = NULL,
+  disabled = NULL,
+  visible = NULL,
+  virtual_ref = NULL
+)
 ```
 
 ## Arguments
@@ -200,8 +209,11 @@ el_tooltip(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_tooltip()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_tooltip()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -216,6 +228,15 @@ it no longer has a host of its own, so its `update_el_*()` cannot find
 it – drive it through
 [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
 on the tooltip's id instead.
+
+## Updating from the server
+
+Server-side update for `el_tooltip()`. Setting `visible` shows or hides
+the hint, which then stays as set: Element Plus's tooltip is controlled
+by its `visible` once that is given.
+
+`update_el_tooltip()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -261,4 +282,10 @@ el_tooltip(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"This cannot be undone","tipPlacement":"right","tipEffect":"light","tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTrigger":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('hint', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('hint', 'hide', arguments); }","elEmitBeforeShow":"function() { window.shinyVue.emit('hint', 'before_show', arguments); }","elEmitBeforeHide":"function() { window.shinyVue.emit('hint', 'before_hide', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitBeforeShow","options.methods.elEmitBeforeHide"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$explain, {
+    update_el_tooltip(session, "hint", content = why_disabled())
+  })
+}
 ```

@@ -500,7 +500,7 @@ You can set the column’s attribute `fixed` to `true` (representing
 Sorting is the server’s: a click on a sortable header arrives as
 `input$tv_fixed_column_sort`, and the server sends the rows back
 reversed and the new sort with
-[`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md).
+[`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md).
 
 ``` r
 

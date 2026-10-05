@@ -189,6 +189,31 @@ el_countdown() counts down to a moment instead."></head><body>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_statistic</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  precision <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  decimal_separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  group_separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  formatter <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_countdown</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_style <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -245,9 +270,10 @@ the text to show, in place of Element's formatting.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
-any Shiny input; a session given here namespaces <code>id</code> once more, with
-a warning.</p></dd>
+<dd><p>In <code>el_statistic()</code>, deprecated: inside a module, wrap <code>id</code> in
+<code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
+once more, with a warning. In <code>update_el_statistic()</code>, the Shiny session, the
+current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
 
 
 <dt id="arg-format">format<a class="anchor" aria-label="anchor" href="#arg-format"></a></dt>
@@ -268,6 +294,25 @@ a warning.</p></dd>
 frame; it is sent at most once a second, which is as often as a server
 can usefully hear it.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_statistic()</code> and <code>el_countdown()</code>.</p>
+<p>Every other argument of <code>el_statistic()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_statistic()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="updating-a-countdown">Updating a countdown<a class="anchor" aria-label="anchor" href="#updating-a-countdown"></a></h2>
+
+
+<p><code>update_el_countdown()</code> changes the countdown from the server: every argument
+of <code>el_countdown()</code> that can change once it is drawn, under the same name.
+One left <code>NULL</code> stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_countdown()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -303,8 +348,12 @@ can usefully hear it.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="sale_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-countdown :value="value" @finish="elEmitFinish" @change="elEmitChange" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"&gt;&lt;/el-countdown&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":1791227843108.06,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange &amp;&amp; now - this._elLastChange &lt; 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":1791230256517.89,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange &amp;&amp; now - this._elLastChange &lt; 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="fu">update_el_statistic</span><span class="op">(</span><span class="va">session</span>, <span class="st">"users"</span>, value <span class="op">=</span> <span class="fu">n_users</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -38,6 +38,31 @@ el_mention(
   width = NULL,
   slots = NULL
 )
+
+update_el_mention(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  props = NULL,
+  prefix = NULL,
+  split = NULL,
+  filter_option = NULL,
+  placement = NULL,
+  show_arrow = NULL,
+  offset = NULL,
+  whole = NULL,
+  check_is_whole = NULL,
+  loading = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placeholder = NULL,
+  type = NULL,
+  rows = NULL
+)
 ```
 
 ## Arguments
@@ -178,6 +203,11 @@ el_mention(
   `footer`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -192,6 +222,17 @@ A Shiny UI element.
 
 - `input$<id>_whole_remove` – Element Plus's `whole-remove` event.
 
+## Updating from the server
+
+Server-side update for `el_mention()`.
+
+Every other argument of `el_mention()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_mention()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
@@ -202,4 +243,8 @@ el_mention("msg", options = c("Ada", "Grace", "Linus"), placeholder = "Type @")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"options":[{"value":"Ada","label":"Ada"},{"value":"Grace","label":"Grace"},{"value":"Linus","label":"Linus"}],"props":null,"prefix":null,"split":null,"filterOption":null,"placement":null,"showArrow":null,"offset":null,"whole":null,"checkIsWhole":null,"loading":null,"popperClass":null,"popperStyle":null,"popperOptions":null,"placeholder":"Type @","disabled":null,"type":null,"rows":null},"methods":{"elEmitSearch":"function() { window.shinyVue.emit('msg', 'search', arguments); }","elEmitSelect":"function() { window.shinyVue.emit('msg', 'select', arguments); }","elEmitWholeRemove":"function() { window.shinyVue.emit('msg', 'whole_remove', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSearch","options.methods.elEmitSelect","options.methods.elEmitWholeRemove","options.watch.value"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_mention(session, "x", value = NULL))
+}
 ```

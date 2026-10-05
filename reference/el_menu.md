@@ -34,6 +34,31 @@ el_menu(
   slots = NULL,
   session = NULL
 )
+
+update_el_menu(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  collapse = NULL,
+  mode = NULL,
+  unique_opened = NULL,
+  background_color = NULL,
+  text_color = NULL,
+  active_text_color = NULL,
+  menu_trigger = NULL,
+  collapse_transition = NULL,
+  router = NULL,
+  close_on_click_outside = NULL,
+  ellipsis = NULL,
+  ellipsis_icon = NULL,
+  hide_timeout = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_effect = NULL,
+  popper_offset = NULL,
+  popper_style = NULL,
+  show_timeout = NULL
+)
 ```
 
 ## Arguments
@@ -167,8 +192,11 @@ el_menu(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_menu()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_menu()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -191,6 +219,17 @@ Callable with
 
 - [`open()`](https://rdrr.io/r/base/connections.html) – Open a specific
   sub-menu
+
+## Updating from the server
+
+`update_el_menu()` changes the component from the server.
+
+Every other argument of `el_menu()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_menu()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -262,4 +301,10 @@ el_menu(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"a","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('topnav', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('topnav', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('topnav_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('topnav_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"topnav_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_menu(session, "nav", active = "data")
+  })
+}
 ```

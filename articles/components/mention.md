@@ -82,7 +82,7 @@ Load options asynchronously.
 
 `input$<id>_search` is the text after the trigger, as it is typed; the
 server answers with
-[`update_el_mention()`](https://kaipingyang.github.io/shiny.element/reference/update_el_mention.md)
+[`update_el_mention()`](https://kaipingyang.github.io/shiny.element/reference/el_mention.md)
 and `loading`.
 
 ``` r

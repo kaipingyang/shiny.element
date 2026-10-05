@@ -43,6 +43,32 @@ el_tree_select(
   width = NULL,
   slots = NULL
 )
+
+update_el_tree_select(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  data = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  multiple = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  check_on_click_node = NULL,
+  filterable = NULL,
+  clearable = NULL,
+  placeholder = NULL,
+  node_key = NULL,
+  props = NULL,
+  render_after_expand = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  size = NULL,
+  cache_data = NULL,
+  lazy = NULL,
+  load = NULL
+)
 ```
 
 ## Arguments
@@ -190,6 +216,11 @@ el_tree_select(
 
   Named list of Element slot contents.
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateSelectInput()`](https://rdrr.io/pkg/shiny/man/updateSelectInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -212,6 +243,17 @@ A Shiny UI element.
 Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `focus()`, `blur()`.
+
+## Updating from the server
+
+`update_el_tree_select()` changes the component from the server.
+
+Every other argument of `el_tree_select()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_tree_select()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -237,4 +279,11 @@ el_tree_select(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"data":[{"value":"eng","label":"Engineering","children":[{"value":"web","label":"Web"},{"value":"data","label":"Data"}]},{"value":"ops","label":"Operations"}],"load":null,"multiple":null,"showCheckbox":null,"checkStrictly":null,"checkOnClickNode":null,"filterable":null,"clearable":null,"placeholder":"Department","nodeKey":null,"props":null,"defaultExpandAll":null,"renderAfterExpand":null,"collapseTags":null,"collapseTagsTooltip":null,"size":null,"disabled":null,"cacheData":null,"lazy":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('dept', 'visible_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('dept', 'clear', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('dept', 'remove_tag', arguments); }","elEmitNodeClick":"function() { window.shinyVue.emit('dept', 'node_click', arguments); }","elEmitCheck":"function() { window.shinyVue.emit('dept', 'check', arguments); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('dept_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitClear","options.methods.elEmitRemoveTag","options.methods.elEmitNodeClick","options.methods.elEmitCheck","options.methods.elLoad","options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_tree_select(session, "dept", value = "ops")
+  )
+}
 ```

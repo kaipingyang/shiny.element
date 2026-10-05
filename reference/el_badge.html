@@ -175,6 +175,16 @@ When used without content, renders a standalone badge element.</p>
 <span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  badge_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  badge_class <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_badge</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  is_dot <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hidden <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -209,7 +219,7 @@ shows <code>"&lt;max&gt;+"</code>. Only applies when <code>value</code> is numer
 
 
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
-<dd><p>Give the badge an id and <code><a href="update_el_badge.html">update_el_badge()</a></code> can change it – a
+<dd><p>Give the badge an id and <code>update_el_badge()</code> can change it – a
 count of unread messages, say. A component inside is then folded into
 the badge's Vue instance, as for <code><a href="el_tooltip.html">el_tooltip()</a></code>: it keeps reporting, but
 is reached through <code><a href="update_vue.html">update_vue()</a></code> on the badge's id.</p></dd>
@@ -231,10 +241,22 @@ is reached through <code><a href="update_vue.html">update_vue()</a></code> on th
 <dd><p>Extra CSS – a string or a named list – and
 class names for the badge.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>An <code>htmltools</code> tag, or with an <code>id</code> a Shiny UI element.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for an <code>el_badge()</code> given an <code>id</code>.</p>
+<p><code>update_el_badge()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
     </div>
 
     <div class="section level2">
@@ -280,6 +302,15 @@ class names for the badge.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"badgeValue":3,"badgeMax":null,"badgeIsDot":false,"badgeHidden":false,"badgeType":null,"label":"Inbox","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null,"badgeShowZero":true,"badgeColor":null,"badgeOffset":null,"badgeBadgeStyle":null,"badgeBadgeClass":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('inbox:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"inbox:shiny.action\", self.count); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.mounted"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="fu">update_el_badge</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">session</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"unread"</span>,</span></span>
+<span class="r-in"><span>    value <span class="op">=</span> <span class="fu">unread_count</span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    hidden <span class="op">=</span> <span class="fu">unread_count</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

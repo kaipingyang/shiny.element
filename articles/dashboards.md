@@ -131,7 +131,7 @@ Filters in the header drive everything below them: the headline numbers
 are
 [`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)s
 moved with
-[`update_el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/update_el_statistic.md),
+[`update_el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md),
 the chart is an ordinary
 [`plotOutput()`](https://rdrr.io/pkg/shiny/man/plotOutput.html), and the
 products table renders a progress bar in a cell with a `cell` template.

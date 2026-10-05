@@ -20,6 +20,19 @@ el_alert(
   slots = NULL,
   session = NULL
 )
+
+update_el_alert(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  type = NULL,
+  description = NULL,
+  closable = NULL,
+  close_text = NULL,
+  show_icon = NULL,
+  center = NULL,
+  effect = NULL
+)
 ```
 
 ## Arguments
@@ -77,8 +90,11 @@ el_alert(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_alert()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_alert()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -88,6 +104,17 @@ An `htmltools` tagList with a Vue-managed alert component.
 
 `input$<id>_closed` – set to `1` (with `priority = "event"`) when the
 user closes the alert.
+
+## Updating from the server
+
+Server-side update for `el_alert()`.
+
+Every other argument of `el_alert()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_alert()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -106,4 +133,10 @@ el_alert("al2", "Warning!", description = "Please review.", type = "warning")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al2_closed', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClose"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_alert(session, "hint", title = "Saved", type = "success")
+  })
+}
 ```

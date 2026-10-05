@@ -40,6 +40,32 @@ el_rate(
   slots = NULL,
   session = NULL
 )
+
+update_el_rate(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  max = NULL,
+  allow_half = NULL,
+  show_text = NULL,
+  show_score = NULL,
+  texts = NULL,
+  text_color = NULL,
+  score_template = NULL,
+  void_color = NULL,
+  disabled_void_color = NULL,
+  low_threshold = NULL,
+  high_threshold = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  disabled_void_icon = NULL,
+  icons = NULL,
+  size = NULL,
+  void_icon = NULL
+)
 ```
 
 ## Arguments
@@ -200,8 +226,11 @@ el_rate(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_rate()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_rate()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -211,6 +240,17 @@ An `htmltools` tagList with a Vue-managed rate component.
 
 `input$<id>` – numeric rating value (0 to `max`, increments of 0.5 when
 `allow_half = TRUE`).
+
+## Updating from the server
+
+Server-side update for `el_rate()`.
+
+Every other argument of `el_rate()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_rate()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -229,4 +269,10 @@ el_rate("rate2", allow_half = TRUE, show_score = TRUE)
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":true,"textColor":null,"scoreTemplate":"{value}","texts":null,"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_rate(session, "stars", value = 5)
+  })
+}
 ```

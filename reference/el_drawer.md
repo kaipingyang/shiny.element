@@ -36,6 +36,14 @@ el_drawer(
   header_aria_level = "2",
   session = NULL
 )
+
+update_el_drawer(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  title = NULL,
+  size = NULL
+)
 ```
 
 ## Arguments
@@ -147,8 +155,11 @@ el_drawer(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_drawer()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_drawer()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -184,6 +195,13 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `handleClose()` closes it the way the user would, through `before_close`
 (`closeDrawer()`, Element UI's name, too).
+
+## Updating from the server
+
+Server-side update for `el_drawer()`.
+
+`update_el_drawer()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -235,4 +253,10 @@ el_drawer(
 #>     </div>
 #>   </div>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_drawer(session, "settings", visible = TRUE)
+  })
+}
 ```

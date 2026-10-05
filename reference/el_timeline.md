@@ -15,6 +15,14 @@ el_timeline(
   slots = NULL,
   session = NULL
 )
+
+update_el_timeline(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  reverse = NULL,
+  mode = NULL
+)
 ```
 
 ## Arguments
@@ -65,8 +73,11 @@ el_timeline(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_timeline()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_timeline()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -75,10 +86,20 @@ A Shiny UI element.
 ## Details
 
 Entries are rendered with `v-for` from a data field, so
-[`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/update_el_timeline.md)
-can replace them – useful for a log that grows. Their content is
-therefore a string rather than markup; pass `html = TRUE` to render it
-as HTML.
+`update_el_timeline()` can replace them – useful for a log that grows.
+Their content is therefore a string rather than markup; pass
+`html = TRUE` to render it as HTML.
+
+## Updating from the server
+
+`update_el_timeline()` changes the component from the server.
+
+Every other argument of `el_timeline()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_timeline()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -123,4 +144,14 @@ el_timeline(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
+if (interactive()) {
+  # Append an entry to a growing log
+  observeEvent(input$refresh, {
+    log_entries(c(
+      log_entries(),
+      list(list(content = "Refreshed", timestamp = format(Sys.time(), "%H:%M")))
+    ))
+    update_el_timeline(session, "log", items = log_entries())
+  })
+}
 ```

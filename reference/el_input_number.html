@@ -194,6 +194,35 @@
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_input_number</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step_strictly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  precision <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  controls_position <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  align <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_scientific <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  formatter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inputmode <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parser <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  readonly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -361,9 +390,10 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
-any Shiny input; a session given here namespaces <code>id</code> once more, with
-a warning.</p></dd>
+<dd><p>In <code>el_input_number()</code>, deprecated: inside a module, wrap <code>id</code> in
+<code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
+once more, with a warning. In <code>update_el_input_number()</code>, the Shiny session, the
+current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -383,6 +413,16 @@ a warning.</p></dd>
 
 <p><code>input$&lt;id&gt;</code> – numeric value, updated on each valid change.</p>
     </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_input_number()</code>.</p>
+<p>Every other argument of <code>el_input_number()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_input_number()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -400,6 +440,12 @@ a warning.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":1,"placeholder":null,"label":null,"name":null,"align":null,"ariaLabel":null,"disabledScientific":null,"formatter":null,"inputmode":null,"parser":null,"readonly":null,"tabindex":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('n2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('n2', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">go</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">update_el_input_number</span><span class="op">(</span><span class="va">session</span>, <span class="st">"age"</span>, value <span class="op">=</span> <span class="fl">42</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

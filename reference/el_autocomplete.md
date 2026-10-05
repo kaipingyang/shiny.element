@@ -46,6 +46,38 @@ el_autocomplete(
   slots = NULL,
   session = NULL
 )
+
+update_el_autocomplete(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  suggestions = NULL,
+  placeholder = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  clearable = NULL,
+  value_key = NULL,
+  debounce = NULL,
+  placement = NULL,
+  trigger_on_focus = NULL,
+  select_when_unmatched = NULL,
+  highlight_first_item = NULL,
+  hide_loading = NULL,
+  icon = NULL,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  name = NULL,
+  popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  fit_input_width = NULL,
+  loop_navigation = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  show_arrow = NULL,
+  teleported = NULL
+)
 ```
 
 ## Arguments
@@ -68,9 +100,8 @@ el_autocomplete(
 
   Ask the server for suggestions as the user types, as Element's
   `fetch-suggestions` asks a function: the text arrives as
-  `input$<id>_query`, and
-  [`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/update_el_autocomplete.md)
-  with `suggestions` answers it – the list shows what the server sent.
+  `input$<id>_query`, and `update_el_autocomplete()` with `suggestions`
+  answers it – the list shows what the server sent.
 
 - fetch_suggestions:
 
@@ -224,8 +255,11 @@ el_autocomplete(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_autocomplete()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_autocomplete()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -247,6 +281,17 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 
 - `focus()` – focus the input
+
+## Updating from the server
+
+Server-side update for `el_autocomplete()`.
+
+Every other argument of `el_autocomplete()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_autocomplete()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -272,4 +317,14 @@ el_autocomplete(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"}],"placeholder":"Where to?","clearable":true,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"fitInputWidth":null,"loopNavigation":null,"popperOptions":null,"popperStyle":null,"showArrow":null,"teleported":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('city', 'change', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elEmitInput":"function() { window.shinyVue.emit('city', 'input', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (!cb) return; clearTimeout(this._elQueryTimer); this._elAnswered = (this._elAnswered || 0) + 1; if (this._elAnswered >= this._elAsked) this._elPending = null; cb(v); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.elEmitFocus","options.methods.elEmitInput","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$country, {
+    update_el_autocomplete(
+      session,
+      "city",
+      suggestions = cities_of(input$country)
+    )
+  })
+}
 ```

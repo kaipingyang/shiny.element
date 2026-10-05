@@ -18,7 +18,7 @@ You can set the type of the controller for Calendar header. When setting
 `select`, you can use `formatter` to customize `label`.
 
 The radio buttons set `controller_type` from the server, with
-[`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md).
+[`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md).
 
 ``` r
 

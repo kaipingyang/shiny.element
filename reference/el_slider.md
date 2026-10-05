@@ -45,6 +45,36 @@ el_slider(
   slots = NULL,
   session = NULL
 )
+
+update_el_slider(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  min = NULL,
+  max = NULL,
+  step = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  show_input = NULL,
+  show_stops = NULL,
+  show_tooltip = NULL,
+  vertical = NULL,
+  height = NULL,
+  marks = NULL,
+  input_size = NULL,
+  show_input_controls = NULL,
+  tooltip_class = NULL,
+  format_tooltip = NULL,
+  aria_label = NULL,
+  format_value_text = NULL,
+  persistent = NULL,
+  placement = NULL,
+  range_end_label = NULL,
+  range_start_label = NULL,
+  size = NULL,
+  validate_event = NULL
+)
 ```
 
 ## Arguments
@@ -219,8 +249,11 @@ el_slider(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_slider()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_slider()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -230,6 +263,18 @@ An `htmltools` tagList with a Vue-managed slider component.
 
 `input$<id>` – Number (`range = FALSE`) or two-element array
 (`range = TRUE`), updated when the user finishes dragging.
+
+## Updating from the server
+
+Server-side update for `el_slider()`. Supports updating value, range
+bounds, step size, and disabled state.
+
+Every other argument of `el_slider()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_slider()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -279,5 +324,11 @@ if (interactive()) {
     output$val <- renderPrint(input$slider1)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_slider(session, "score", value = 80)
+  })
 }
 ```

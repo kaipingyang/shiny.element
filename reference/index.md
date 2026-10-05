@@ -29,9 +29,8 @@ The page, its theme, and the scripts and styles a page needs.
 As in Element Plus’s documentation.
 
 - [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md)
+  [`update_el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md)
   : Element Plus Button with Vue Instance
-- [`update_el_button()`](https://kaipingyang.github.io/shiny.element/reference/update_el_button.md)
-  : Update Element Plus Button
 - [`el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md)
   : Element Plus Button Group
 - [`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md)
@@ -51,9 +50,8 @@ As in Element Plus’s documentation.
 - [`el_col()`](https://kaipingyang.github.io/shiny.element/reference/el_col.md)
   : Element Plus Layout Column
 - [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)
+  [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)
   : Element Plus Link
-- [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/update_el_link.md)
-  : Update Element Plus Link
 - [`el_text()`](https://kaipingyang.github.io/shiny.element/reference/el_text.md)
   : Element Plus Text
 - [`el_scrollbar()`](https://kaipingyang.github.io/shiny.element/reference/el_scrollbar.md)
@@ -71,52 +69,42 @@ Each reports to the server as `input$<id>`, on load as well as on
 change.
 
 - [`el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md)
+  [`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/el_autocomplete.md)
   : Element Plus Autocomplete
-- [`update_el_autocomplete()`](https://kaipingyang.github.io/shiny.element/reference/update_el_autocomplete.md)
-  : Update Element Plus Autocomplete
 - [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
+  [`update_el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
   : Element Plus Cascader
-- [`update_el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/update_el_cascader.md)
-  : Update Element Plus Cascader
 - [`el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md)
+  [`update_el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader_panel.md)
   : Element Plus Cascader Panel
-- [`update_el_cascader_panel()`](https://kaipingyang.github.io/shiny.element/reference/update_el_cascader_panel.md)
-  : Update Element Plus Cascader Panel
 - [`df_to_cascader_options()`](https://kaipingyang.github.io/shiny.element/reference/df_to_cascader_options.md)
   : Convert a data.frame with custom value/label columns to Element-UI
   Cascader options list
 - [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md)
+  [`update_el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md)
   : Element Plus Checkbox
-- [`update_el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/update_el_checkbox.md)
-  : Update Element Plus Checkbox
 - [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md)
+  [`update_el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md)
   : Element Plus Checkbox Group
-- [`update_el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/update_el_checkbox_group.md)
-  : Update Element Plus Checkbox Group
 - [`el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md)
+  [`update_el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker.md)
   : Element Plus Color Picker
-- [`update_el_color_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_color_picker.md)
-  : Update Element Plus Color Picker
 - [`el_color_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker_panel.md)
+  [`update_el_color_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_color_picker_panel.md)
   : Element Plus Color Picker Panel
-- [`update_el_color_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/update_el_color_picker_panel.md)
-  : Update Element Plus Color Picker Panel
 - [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md)
+  [`update_el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md)
   : Element Plus Date Picker Component
-- [`update_el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_date_picker.md)
-  : Update Element Plus Date Picker
 - [`el_date_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker_panel.md)
+  [`update_el_date_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker_panel.md)
   : Element Plus Date Picker Panel
-- [`update_el_date_picker_panel()`](https://kaipingyang.github.io/shiny.element/reference/update_el_date_picker_panel.md)
-  : Update Element Plus Date Picker Panel
 - [`el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
+  [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
   : Element Plus Form
 - [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)
   : Declare a form field
 - [`el_rule()`](https://kaipingyang.github.io/shiny.element/reference/el_rule.md)
   : Declare a validation rule
-- [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/update_el_form.md)
-  : Update an Element Plus Form
 - [`el_form_validate()`](https://kaipingyang.github.io/shiny.element/reference/el_form_validate.md)
   : Validate an Element Plus Form from the server
 - [`el_form_reset()`](https://kaipingyang.github.io/shiny.element/reference/el_form_reset.md)
@@ -124,104 +112,81 @@ change.
 - [`el_form_clear_validate()`](https://kaipingyang.github.io/shiny.element/reference/el_form_clear_validate.md)
   : Clear an Element Plus Form's validation messages
 - [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md)
+  [`update_el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md)
   : Element Plus Input with Vue Instance
-- [`update_el_input()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input.md)
-  : Update Element Plus Input
-- [`update_el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input_number.md)
-  : Update Element Plus Input Number
-- [`update_el_input_otp()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input_otp.md)
-  : Update Element Plus Input OTP
-- [`update_el_input_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input_tag.md)
-  : Update Element Plus Input Tag
 - [`el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md)
+  [`update_el_input_number()`](https://kaipingyang.github.io/shiny.element/reference/el_input_number.md)
   : Element Plus Input Number
-- [`el_input_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_input_tag.md)
-  : Element Plus Input Tag
 - [`el_input_otp()`](https://kaipingyang.github.io/shiny.element/reference/el_input_otp.md)
+  [`update_el_input_otp()`](https://kaipingyang.github.io/shiny.element/reference/el_input_otp.md)
   : Element Plus Input OTP
+- [`el_input_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_input_tag.md)
+  [`update_el_input_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_input_tag.md)
+  : Element Plus Input Tag
 - [`el_mention()`](https://kaipingyang.github.io/shiny.element/reference/el_mention.md)
+  [`update_el_mention()`](https://kaipingyang.github.io/shiny.element/reference/el_mention.md)
   : Element Plus Mention
-- [`update_el_mention()`](https://kaipingyang.github.io/shiny.element/reference/update_el_mention.md)
-  : Update Element Plus Mention
 - [`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md)
+  [`update_el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md)
   : Element Plus Radio Group Component
-- [`update_el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/update_el_radio_group.md)
-  : Update Element Plus Radio Group
 - [`el_rate()`](https://kaipingyang.github.io/shiny.element/reference/el_rate.md)
+  [`update_el_rate()`](https://kaipingyang.github.io/shiny.element/reference/el_rate.md)
   : Element Plus Rate (Star Rating)
-- [`update_el_rate()`](https://kaipingyang.github.io/shiny.element/reference/update_el_rate.md)
-  : Update Element Plus Rate
 - [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
+  [`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
   : Element Plus Select Component
-- [`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
-  : Update Element Plus Select
 - [`el_option()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md)
   [`el_option_group()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md)
   : A choice of a select, a radio group, a checkbox group
 - [`el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_select_v2.md)
+  [`update_el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_select_v2.md)
   : Element Plus Virtualized Select
-- [`update_el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select_v2.md)
-  : Update Element Plus Virtualized Select
 - [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md)
+  [`update_el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md)
   : Element Plus Slider Component
-- [`update_el_slider()`](https://kaipingyang.github.io/shiny.element/reference/update_el_slider.md)
-  : Update Element Plus Slider
 - [`el_switch()`](https://kaipingyang.github.io/shiny.element/reference/el_switch.md)
+  [`update_el_switch()`](https://kaipingyang.github.io/shiny.element/reference/el_switch.md)
   : Element Plus Switch
-- [`update_el_switch()`](https://kaipingyang.github.io/shiny.element/reference/update_el_switch.md)
-  : Update Element Plus Switch
 - [`el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
   [`el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
+  [`update_el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
+  [`update_el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/el_time_picker.md)
   : Element Plus Time Picker
-- [`update_el_time_picker()`](https://kaipingyang.github.io/shiny.element/reference/update_el_time_picker.md)
-  [`update_el_time_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_time_picker.md)
-  : Update Element Plus Time Picker
 - [`el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md)
+  [`update_el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/el_transfer.md)
   : Element Plus Transfer
-- [`update_el_transfer()`](https://kaipingyang.github.io/shiny.element/reference/update_el_transfer.md)
-  : Update Element Plus Transfer
 - [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md)
+  [`update_el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md)
   : Element Plus Tree Select
-- [`update_el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tree_select.md)
-  : Update Element Plus Tree Select
 - [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)
+  [`update_el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)
   : Element Plus Upload
-- [`update_el_upload()`](https://kaipingyang.github.io/shiny.element/reference/update_el_upload.md)
-  : Update an Element Plus Upload
 - [`el_upload_clear()`](https://kaipingyang.github.io/shiny.element/reference/el_upload_clear.md)
   : Clear an Element Plus Upload's file list
 
 ## Data
 
 - [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md)
+  [`update_el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md)
   : Element Plus Avatar
-
-- [`update_el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_avatar.md)
-  : Update Element Plus Avatar
 
 - [`el_avatar_group()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar_group.md)
   : Element Plus Avatar Group
 
 - [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md)
+  [`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md)
   : Element Plus Badge
 
-- [`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/update_el_badge.md)
-  : Update Element Plus Badge
-
 - [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md)
+  [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md)
   : Element Plus Calendar
-
-- [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md)
-  : Update Element Plus Calendar Component
 
 - [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md)
   : Element Plus Card
 
 - [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
+  [`update_el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
   : Element Plus Carousel
-
-- [`update_el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/update_el_carousel.md)
-  : Update an Element Plus Carousel
 
 - [`el_carousel_item()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel_item.md)
   :
@@ -230,10 +195,8 @@ change.
   [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
 
 - [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md)
+  [`update_el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md)
   : Element Plus Collapse / Accordion
-
-- [`update_el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/update_el_collapse.md)
-  : Update Element Plus Collapse
 
 - [`el_collapse_item()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse_item.md)
   :
@@ -242,10 +205,8 @@ change.
   [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md)
 
 - [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)
+  [`update_el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)
   : Element Plus Descriptions
-
-- [`update_el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/update_el_descriptions.md)
-  : Update Element Plus Descriptions
 
 - [`el_descriptions_item()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions_item.md)
   :
@@ -254,52 +215,36 @@ change.
   [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)
 
 - [`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md)
+  [`update_el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md)
   : Element Plus Empty
 
-- [`update_el_empty()`](https://kaipingyang.github.io/shiny.element/reference/update_el_empty.md)
-  : Update Element Plus Empty
-
 - [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md)
+  [`update_el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md)
   : Element Plus Image
 
-- [`update_el_image()`](https://kaipingyang.github.io/shiny.element/reference/update_el_image.md)
-  : Update Element Plus Image
-
 - [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/el_image_viewer.md)
+  [`update_el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/el_image_viewer.md)
   : Element Plus Image Viewer
 
-- [`update_el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/update_el_image_viewer.md)
-  : Update Element Plus Image Viewer
-
 - [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md)
+  [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md)
   : Element Plus Infinite Scroll
 
-- [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/update_el_infinite_scroll.md)
-  : Update Element Plus Infinite Scroll
-
 - [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
+  [`update_el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
   : Element Plus Pagination Component
 
-- [`update_el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/update_el_pagination.md)
-  : Update Element Plus Pagination
-
 - [`el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md)
+  [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md)
   : Element Plus Progress Component
 
-- [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/update_el_progress.md)
-  : Update Element Plus Progress
-
 - [`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md)
+  [`update_el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md)
   : Element Plus Result
 
-- [`update_el_result()`](https://kaipingyang.github.io/shiny.element/reference/update_el_result.md)
-  : Update Element Plus Result
-
 - [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)
+  [`update_el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)
   : Element Plus Skeleton
-
-- [`update_el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/update_el_skeleton.md)
-  : Update Element Plus Skeleton
 
 - [`el_skeleton_item()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton_item.md)
   :
@@ -309,10 +254,8 @@ change.
   template
 
 - [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+  [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
   : Element Plus Table Component
-
-- [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
-  : Update Element Plus Table
 
 - [`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md)
   :
@@ -321,10 +264,8 @@ change.
   [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 
 - [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
+  [`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
   : Element Plus Virtualized Table
-
-- [`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md)
-  : Update Element Plus Virtualized Table
 
 - [`el_table_v2_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2_column.md)
   :
@@ -333,22 +274,16 @@ change.
   [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
 
 - [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
+  [`update_el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
   : Element Plus Tag
 
-- [`update_el_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tag.md)
-  : Update Element Plus Tag
-
 - [`el_check_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_check_tag.md)
+  [`update_el_check_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_check_tag.md)
   : Element Plus Check Tag
 
-- [`update_el_check_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_check_tag.md)
-  : Update Element Plus Check Tag
-
 - [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
+  [`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
   : Element Plus Timeline
-
-- [`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/update_el_timeline.md)
-  : Update an Element Plus Timeline
 
 - [`el_timeline_item()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline_item.md)
   :
@@ -357,10 +292,8 @@ change.
   [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
 
 - [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)
+  [`update_el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)
   : Element Plus Tour
-
-- [`update_el_tour()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tour.md)
-  : Update Element Plus Tour
 
 - [`el_tour_step()`](https://kaipingyang.github.io/shiny.element/reference/el_tour_step.md)
   :
@@ -369,10 +302,8 @@ change.
   [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)
 
 - [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+  [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
   : Element Plus Tree
-
-- [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tree.md)
-  : Update an Element Plus Tree
 
 - [`df_to_tree_data()`](https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.md)
   : Build tree data from a data frame
@@ -382,17 +313,13 @@ change.
 
 - [`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
   [`el_countdown()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
+  [`update_el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
+  [`update_el_countdown()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
   : Element Plus Statistic
 
-- [`update_el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/update_el_statistic.md)
-  [`update_el_countdown()`](https://kaipingyang.github.io/shiny.element/reference/update_el_statistic.md)
-  : Update Element Plus Statistic
-
 - [`el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/el_segmented.md)
+  [`update_el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/el_segmented.md)
   : Element Plus Segmented
-
-- [`update_el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/update_el_segmented.md)
-  : Update Element Plus Segmented
 
 ## Navigation
 
@@ -409,16 +336,12 @@ change.
   [`el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md)
 
 - [`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md)
+  [`update_el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md)
   : Element Plus Back to Top
 
-- [`update_el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/update_el_backtop.md)
-  : Update Element Plus Back to Top
-
 - [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md)
+  [`update_el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md)
   : Element Plus Breadcrumb
-
-- [`update_el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/update_el_breadcrumb.md)
-  : Update Element Plus Breadcrumb
 
 - [`el_breadcrumb_item()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb_item.md)
   :
@@ -427,10 +350,8 @@ change.
   [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md)
 
 - [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md)
+  [`update_el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md)
   : Element Plus Dropdown Menu
-
-- [`update_el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/update_el_dropdown.md)
-  : Update Element Plus Dropdown
 
 - [`el_dropdown_item()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown_item.md)
   :
@@ -440,10 +361,8 @@ change.
   menu
 
 - [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)
+  [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)
   : Element Plus Menu
-
-- [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/update_el_menu.md)
-  : Update an Element Plus Menu
 
 - [`el_menu_item()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md)
   [`el_sub_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md)
@@ -455,16 +374,12 @@ change.
   an entry, a submenu, a group
 
 - [`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md)
+  [`update_el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md)
   : Element Plus Page Header
 
-- [`update_el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/update_el_page_header.md)
-  : Update Element Plus Page Header
-
 - [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
+  [`update_el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
   : Element Plus Steps Component
-
-- [`update_el_steps()`](https://kaipingyang.github.io/shiny.element/reference/update_el_steps.md)
-  : Update Element Plus Steps
 
 - [`el_step()`](https://kaipingyang.github.io/shiny.element/reference/el_step.md)
   :
@@ -473,10 +388,8 @@ change.
   [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
 
 - [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+  [`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
   : Element Plus Tabs
-
-- [`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tabs.md)
-  : Update Element Plus Tabs
 
 - [`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md)
   :
@@ -494,17 +407,14 @@ Messages, notifications, message boxes and loading masks are called from
 the server.
 
 - [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md)
+  [`update_el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md)
   : Element Plus Alert
-- [`update_el_alert()`](https://kaipingyang.github.io/shiny.element/reference/update_el_alert.md)
-  : Update Element Plus Alert
 - [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md)
+  [`update_el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md)
   : Element Plus Dialog
-- [`update_el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/update_el_dialog.md)
-  : Update Element Plus Dialog
 - [`el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md)
+  [`update_el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md)
   : Element Plus Drawer
-- [`update_el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/update_el_drawer.md)
-  : Update Element Plus Drawer
 - [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md)
   : Element Plus Loading Mask
 - [`el_loading_close()`](https://kaipingyang.github.io/shiny.element/reference/el_loading_close.md)
@@ -519,17 +429,14 @@ the server.
 - [`el_notification()`](https://kaipingyang.github.io/shiny.element/reference/el_notification.md)
   : Show Element Plus Notification
 - [`el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md)
+  [`update_el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md)
   : Element Plus Confirmation Bubble
-- [`update_el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popconfirm.md)
-  : Update Element Plus Confirmation Bubble
 - [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md)
+  [`update_el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md)
   : Element Plus Popover
-- [`update_el_popover()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popover.md)
-  : Update Element Plus Popover
 - [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md)
+  [`update_el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md)
   : Element Plus Tooltip
-- [`update_el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tooltip.md)
-  : Update Element Plus Tooltip
 
 ## Others
 

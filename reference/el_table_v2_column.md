@@ -1,7 +1,7 @@
 # A column of [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
 
 A column definition for `el_table_v2(columns =)` and
-[`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md),
+[`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md),
 under Element Plus's own field names.
 
 ## Usage

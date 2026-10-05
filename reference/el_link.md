@@ -16,6 +16,17 @@ el_link(
   ...,
   target = "_self"
 )
+
+update_el_link(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  href = NULL,
+  type = NULL,
+  underline = NULL,
+  disabled = NULL,
+  icon = NULL
+)
 ```
 
 ## Arguments
@@ -52,8 +63,7 @@ el_link(
 
   Give the link an id and it reports its clicks, as
   [`shiny::actionLink()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
-  does: `input$<id>` counts them, 0 on load, and
-  [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/update_el_link.md)
+  does: `input$<id>` counts them, 0 on load, and `update_el_link()`
   changes it. Without one it is a plain link.
 
 - ...:
@@ -65,6 +75,11 @@ el_link(
 
   Where the link opens, as an `<a>`'s `target`. Default `"_self"`.
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateActionLink()`](https://rdrr.io/pkg/shiny/man/updateActionButton.html).
+
 ## Value
 
 An `htmltools` `<a>` tag, or with an `id` a Shiny UI element.
@@ -74,6 +89,13 @@ An `htmltools` `<a>` tag, or with an `id` a Shiny UI element.
 With an `id`, `input$<id>` – the number of clicks, as
 [`shiny::actionLink()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
 reports it.
+
+## Updating from the server
+
+Server-side update for an `el_link()` given an `id`.
+
+`update_el_link()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -100,4 +122,8 @@ el_link("Show more", id = "more", type = "primary")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"text":"Show more","href":null,"type":"primary","target":"_self","underline":"hover","disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$more, update_el_link(session, "more", label = "Show less"))
+}
 ```

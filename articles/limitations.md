@@ -24,7 +24,7 @@ few exceptions. Each is deliberate; the rest translate mechanically
 
 | Element | Here | Why |
 |----|----|----|
-| `default-active` | `active` | It is the current item, and [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/update_el_menu.md) changes it – “default” would suggest it is only read once |
+| `default-active` | `active` | It is the current item, and [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md) changes it – “default” would suggest it is only read once |
 | `default-expanded-keys` | `expanded` | As above, for [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md) |
 | `default-checked-keys` | `checked` | As above |
 | `props` | `label_field`, `children_field`, `disabled_field`, `is_leaf_field`, `class_field` | [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s field map is arguments rather than a nested list |

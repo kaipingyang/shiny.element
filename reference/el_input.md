@@ -54,6 +54,46 @@ el_input(
   slots = NULL,
   session = NULL
 )
+
+update_el_input(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  placeholder = NULL,
+  disabled = NULL,
+  readonly = NULL,
+  type = NULL,
+  size = NULL,
+  clearable = NULL,
+  show_password = NULL,
+  label = NULL,
+  error = NULL,
+  show_word_limit = NULL,
+  maxlength = NULL,
+  rows = NULL,
+  autosize = NULL,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  autocomplete = NULL,
+  autofocus = NULL,
+  name = NULL,
+  form = NULL,
+  minlength = NULL,
+  max = NULL,
+  min = NULL,
+  step = NULL,
+  resize = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  count_graphemes = NULL,
+  formatter = NULL,
+  input_style = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  word_limit_position = NULL
+)
 ```
 
 ## Arguments
@@ -272,8 +312,11 @@ el_input(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_input()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_input()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -294,9 +337,20 @@ Callable with
 
 `input$<id>` – the text, reported as it is typed, debounced by 250 ms as
 [`shiny::textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html)
-does, and after an
-[`update_el_input()`](https://kaipingyang.github.io/shiny.element/reference/update_el_input.md).
-(triggered on blur or Enter key press).
+does, and after an `update_el_input()`. (triggered on blur or Enter key
+press).
+
+## Updating from the server
+
+Server-side update for `el_input()`. Sends a custom message to update
+named fields on the Vue instance.
+
+Every other argument of `el_input()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_input()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -336,5 +390,11 @@ if (interactive()) {
     output$val <- renderPrint(input$txt)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_input(session, "name", value = "Ada")
+  })
 }
 ```

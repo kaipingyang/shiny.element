@@ -169,6 +169,17 @@
 <span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  target <span class="op">=</span> <span class="st">"_self"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_link</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  href <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  underline <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  icon <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -207,7 +218,7 @@ label. <code>NULL</code> for none.</p></dd>
 <dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>Give the link an id and it reports its clicks, as
 <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">shiny::actionLink()</a></code> does: <code>input$&lt;id&gt;</code> counts them, 0 on load, and
-<code><a href="update_el_link.html">update_el_link()</a></code> changes it. Without one it is a plain link.</p></dd>
+<code>update_el_link()</code> changes it. Without one it is a plain link.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -218,6 +229,11 @@ link only).</p></dd>
 <dt id="arg-target">target<a class="anchor" aria-label="anchor" href="#arg-target"></a></dt>
 <dd><p>Where the link opens, as an <code>&lt;a&gt;</code>'s <code>target</code>. Default
 <code>"_self"</code>.</p></dd>
+
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateActionButton.html" class="external-link">shiny::updateActionLink()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -230,6 +246,13 @@ link only).</p></dd>
 
 <p>With an <code>id</code>, <code>input$&lt;id&gt;</code> – the number of clicks, as
 <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html" class="external-link">shiny::actionLink()</a></code> reports it.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for an <code>el_link()</code> given an <code>id</code>.</p>
+<p><code>update_el_link()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
     </div>
 
     <div class="section level2">
@@ -256,6 +279,10 @@ link only).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"text":"Show more","href":null,"type":"primary","target":"_self","underline":"hover","disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">more</span>, <span class="fu">update_el_link</span><span class="op">(</span><span class="va">session</span>, <span class="st">"more"</span>, label <span class="op">=</span> <span class="st">"Show less"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -30,6 +30,25 @@ el_input_otp(
   width = NULL,
   slots = NULL
 )
+
+update_el_input_otp(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  length = NULL,
+  validator = NULL,
+  inputmode = NULL,
+  type = NULL,
+  size = NULL,
+  mask = NULL,
+  separator = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  aria_label = NULL
+)
 ```
 
 ## Arguments
@@ -149,6 +168,11 @@ el_input_otp(
   written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -171,6 +195,17 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `focus()`, `blur()`.
 
+## Updating from the server
+
+Server-side update for `el_input_otp()`.
+
+Every other argument of `el_input_otp()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_input_otp()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
@@ -188,4 +223,8 @@ el_input_otp("pin", length = 4, mask = TRUE, type = "underlined")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"length":4,"validator":null,"inputmode":null,"type":"underlined","size":null,"mask":true,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('pin', 'change', arguments); }","elEmitFinish":"function() { window.shinyVue.emit('pin', 'finish', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('pin', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('pin', 'blur', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitFinish","options.methods.elEmitFocus","options.methods.elEmitBlur","options.watch.value"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_input_otp(session, "x", value = NULL))
+}
 ```

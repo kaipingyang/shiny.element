@@ -19,6 +19,14 @@ el_infinite_scroll(
   slots = NULL,
   session = NULL
 )
+
+update_el_infinite_scroll(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  delay = NULL,
+  distance = NULL
+)
 ```
 
 ## Arguments
@@ -71,8 +79,11 @@ el_infinite_scroll(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_infinite_scroll()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_infinite_scroll()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -84,6 +95,14 @@ A Shiny UI element.
   Observe it, fetch the next page, and render it into a
   [`shiny::uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html)
   inside the area.
+
+## Updating from the server
+
+Server-side update for `el_infinite_scroll()`. Setting `disabled` is how
+a feed stops asking once everything has been sent.
+
+`update_el_infinite_scroll()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -114,5 +133,13 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$feed_load, {
+    if (all_rows_sent()) {
+      update_el_infinite_scroll(session, "feed", disabled = TRUE)
+    }
+  })
 }
 ```

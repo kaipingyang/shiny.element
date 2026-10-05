@@ -427,7 +427,7 @@ high.</p>
 </h2>
 <p>Use the reverse property to control the order of the nodes.</p>
 <p><code>reverse</code> shows the entries newest first;
-<code><a href="../../reference/update_el_timeline.html">update_el_timeline()</a></code> flips it.</p>
+<code><a href="../../reference/el_timeline.html">update_el_timeline()</a></code> flips it.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
@@ -448,7 +448,7 @@ high.</p>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">order</span>,</span>
-<span>    <span class="fu"><a href="../../reference/update_el_timeline.html">update_el_timeline</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tl"</span>, reverse <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">order</span> <span class="op">==</span> <span class="st">"desc"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline.html">update_el_timeline</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tl"</span>, reverse <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">order</span> <span class="op">==</span> <span class="st">"desc"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>

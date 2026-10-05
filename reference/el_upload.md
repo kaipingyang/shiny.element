@@ -44,6 +44,35 @@ el_upload(
   slots = NULL,
   session = NULL
 )
+
+update_el_upload(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  limit = NULL,
+  label = NULL,
+  error = NULL,
+  button_label = NULL,
+  drag = NULL,
+  multiple = NULL,
+  accept = NULL,
+  show_file_list = NULL,
+  list_type = NULL,
+  auto_upload = NULL,
+  headers = NULL,
+  extra_data = NULL,
+  file_list = NULL,
+  with_credentials = NULL,
+  before_upload = NULL,
+  before_remove = NULL,
+  on_change = NULL,
+  on_progress = NULL,
+  on_preview = NULL,
+  on_remove = NULL,
+  on_exceed = NULL,
+  crossorigin = NULL,
+  directory = NULL
+)
 ```
 
 ## Arguments
@@ -230,8 +259,11 @@ el_upload(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_upload()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_upload()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -283,6 +315,17 @@ Callable with
   supported in the before-upload hook)
 
 - `submit()` – Upload the file list manually
+
+## Updating from the server
+
+`update_el_upload()` changes the component from the server.
+
+Every other argument of `el_upload()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_upload()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -364,5 +407,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_upload(session, "files", disabled = TRUE)
+  })
 }
 ```

@@ -155,7 +155,7 @@ el_image(
 server;
 [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/el_image_viewer.md)
 is the viewer alone, opened with
-[`update_el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/update_el_image_viewer.md).
+[`update_el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/el_image_viewer.md).
 
 ``` r
 

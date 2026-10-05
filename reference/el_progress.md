@@ -1,8 +1,7 @@
 # Element Plus Progress Component
 
 Creates an Element Plus progress bar. This is a display-only component;
-update it from the server with
-[`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/update_el_progress.md).
+update it from the server with `update_el_progress()`.
 
 ## Usage
 
@@ -25,6 +24,24 @@ el_progress(
   striped = NULL,
   striped_flow = NULL,
   session = NULL
+)
+
+update_el_progress(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  percentage = NULL,
+  type = NULL,
+  status = NULL,
+  color = NULL,
+  stroke_width = NULL,
+  show_text = NULL,
+  text_inside = NULL,
+  stroke_linecap = NULL,
+  format = NULL,
+  duration = NULL,
+  indeterminate = NULL,
+  striped = NULL,
+  striped_flow = NULL
 )
 ```
 
@@ -107,12 +124,26 @@ el_progress(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_progress()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_progress()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
 An `htmltools` tagList with a Vue-managed progress component.
+
+## Updating from the server
+
+Server-side update for `el_progress()`.
+
+Every other argument of `el_progress()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_progress()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -162,5 +193,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_progress(session, "pct", percentage = 100)
+  })
 }
 ```

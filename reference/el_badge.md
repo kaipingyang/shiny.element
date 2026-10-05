@@ -20,6 +20,16 @@ el_badge(
   badge_style = NULL,
   badge_class = NULL
 )
+
+update_el_badge(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  max = NULL,
+  is_dot = NULL,
+  hidden = NULL,
+  type = NULL
+)
 ```
 
 ## Arguments
@@ -52,10 +62,9 @@ el_badge(
 
 - id:
 
-  Give the badge an id and
-  [`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/update_el_badge.md)
-  can change it – a count of unread messages, say. A component inside is
-  then folded into the badge's Vue instance, as for
+  Give the badge an id and `update_el_badge()` can change it – a count
+  of unread messages, say. A component inside is then folded into the
+  badge's Vue instance, as for
   [`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md):
   it keeps reporting, but is reached through
   [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
@@ -77,9 +86,21 @@ el_badge(
 
   Extra CSS – a string or a named list – and class names for the badge.
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 An `htmltools` tag, or with an `id` a Shiny UI element.
+
+## Updating from the server
+
+Server-side update for an `el_badge()` given an `id`.
+
+`update_el_badge()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -125,4 +146,13 @@ el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"badgeValue":3,"badgeMax":null,"badgeIsDot":false,"badgeHidden":false,"badgeType":null,"label":"Inbox","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null,"badgeShowZero":true,"badgeColor":null,"badgeOffset":null,"badgeBadgeStyle":null,"badgeBadgeClass":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('inbox:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"inbox:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.mounted"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observe(update_el_badge(
+    session,
+    "unread",
+    value = unread_count(),
+    hidden = unread_count() == 0
+  ))
+}
 ```

@@ -244,6 +244,70 @@ interval, such as every half hour between nine and six.</p>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_time_picker</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  is_range <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  arrow_control <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start_placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  end_placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  range_separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  editable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  readonly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fallback_placements <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_hours <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_minutes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_seconds <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  empty_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  save_on_blur <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_time_select</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  editable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  end <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  include_end_time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  empty_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -386,9 +450,10 @@ focus.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
-any Shiny input; a session given here namespaces <code>id</code> once more, with
-a warning.</p></dd>
+<dd><p>In <code>el_time_picker()</code>, deprecated: inside a module, wrap <code>id</code> in
+<code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
+once more, with a warning. In <code>update_el_time_picker()</code>, the Shiny session, the
+current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
 
 
 <dt id="arg-include-end-time-start-end-step-min-time-max-time">include_end_time, start, end, step, min_time, max_time<a class="anchor" aria-label="anchor" href="#arg-include-end-time-start-end-step-min-time-max-time"></a></dt>
@@ -420,6 +485,27 @@ the panel opens and closes (<code>el_time_picker()</code>).</p></li>
 
 <p>Callable with <code><a href="call_el.html">call_el()</a></code>: <code>focus()</code>, <code>blur()</code>; and for <code>el_time_picker()</code>,
 <code>handleOpen()</code> and <code>handleClose()</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_time_picker()</code> and <code>el_time_select()</code>;
+<code>update_el_time_select()</code> is the time select's, with its own arguments.</p>
+<p>Every other argument of <code>el_time_picker()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_time_picker()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="updating-a-time-select">Updating a time select<a class="anchor" aria-label="anchor" href="#updating-a-time-select"></a></h2>
+
+
+<p><code>update_el_time_select()</code> changes the time select from the server: every
+argument of <code>el_time_select()</code> that can change once it is drawn, under the
+same name. One left <code>NULL</code> stays as it is; <code>NA</code> returns it to Element's
+default.</p>
+<p><code>update_el_time_select()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
     </div>
 
     <div class="section level2">
@@ -467,6 +553,13 @@ the panel opens and closes (<code>el_time_picker()</code>).</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"","start":"09:00","end":"18:00","step":"00:30","minTime":null,"maxTime":null,"includeEndTime":null,"format":null,"placeholder":null,"clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('slot', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('slot', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('slot', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span><span class="op">$</span><span class="va">reset</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">update_el_time_picker</span><span class="op">(</span><span class="va">session</span>, <span class="st">"start"</span>, value <span class="op">=</span> <span class="st">"09:00:00"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

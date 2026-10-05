@@ -32,6 +32,31 @@ el_image(
   slots = NULL,
   session = NULL
 )
+
+update_el_image(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  src = NULL,
+  fit = NULL,
+  preview_src_list = NULL,
+  alt = NULL,
+  lazy = NULL,
+  scroll_container = NULL,
+  z_index = NULL,
+  initial_index = NULL,
+  close_on_press_escape = NULL,
+  crossorigin = NULL,
+  hide_on_click_modal = NULL,
+  infinite = NULL,
+  loading = NULL,
+  max_scale = NULL,
+  min_scale = NULL,
+  preview_teleported = NULL,
+  referrerpolicy = NULL,
+  scale = NULL,
+  show_progress = NULL,
+  zoom_rate = NULL
+)
 ```
 
 ## Arguments
@@ -150,8 +175,11 @@ el_image(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_image()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_image()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -162,6 +190,17 @@ A Shiny UI element.
 - `input$<id>_load` – fires when the image has loaded.
 
 - `input$<id>_error` – fires when it fails to.
+
+## Updating from the server
+
+Server-side update for `el_image()`.
+
+Every other argument of `el_image()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_image()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -193,4 +232,10 @@ el_image(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":["a.png","b.png","c.png"],"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('photo', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('photo', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('photo', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$next_photo, {
+    update_el_image(session, "photo", src = photo_url())
+  })
+}
 ```

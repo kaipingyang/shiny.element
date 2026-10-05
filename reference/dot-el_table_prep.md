@@ -4,7 +4,7 @@ The columns a user wrote and the columns inferred from the data are kept
 apart – `columns` and `autoColumns` in the Vue data, the template
 showing the first when there are any. A new data set then brings new
 inferred columns without touching written ones:
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 given only `data` used to re-infer and send `columns`, which threw away
 every label, formatter and cell template the table was created with.
 

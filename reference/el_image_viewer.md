@@ -23,6 +23,24 @@ el_image_viewer(
   width = NULL,
   slots = NULL
 )
+
+update_el_image_viewer(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  url_list = NULL,
+  initial_index = NULL,
+  z_index = NULL,
+  infinite = NULL,
+  hide_on_click_modal = NULL,
+  teleported = NULL,
+  zoom_rate = NULL,
+  scale = NULL,
+  min_scale = NULL,
+  max_scale = NULL,
+  close_on_press_escape = NULL,
+  show_progress = NULL
+)
 ```
 
 ## Arguments
@@ -38,7 +56,7 @@ el_image_viewer(
 - visible:
 
   Whether it starts open. Open and close it later with
-  [`update_el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/update_el_image_viewer.md).
+  `update_el_image_viewer()`.
 
 - z_index:
 
@@ -103,6 +121,11 @@ el_image_viewer(
   `viewer-error`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -122,3 +145,26 @@ A Shiny UI element.
 Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `setActiveItem()`.
+
+## Updating from the server
+
+Open or close an `el_image_viewer()`, or give it other images.
+
+Every other argument of `el_image_viewer()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_image_viewer()` is called for its side effect and returns
+`NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$show,
+    update_el_image_viewer(session, "photos", visible = TRUE)
+  )
+}
+```

@@ -87,6 +87,70 @@ el_time_select(
   slots = NULL,
   session = NULL
 )
+
+update_el_time_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  is_range = NULL,
+  value_format = NULL,
+  arrow_control = NULL,
+  placeholder = NULL,
+  start_placeholder = NULL,
+  end_placeholder = NULL,
+  range_separator = NULL,
+  clearable = NULL,
+  editable = NULL,
+  readonly = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  format = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  teleported = NULL,
+  tabindex = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  save_on_blur = NULL
+)
+
+update_el_time_select(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  editable = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  start = NULL,
+  end = NULL,
+  step = NULL,
+  min_time = NULL,
+  max_time = NULL,
+  include_end_time = NULL,
+  format = NULL,
+  effect = NULL,
+  popper_style = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL
+)
 ```
 
 ## Arguments
@@ -224,8 +288,11 @@ el_time_select(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_time_picker()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_time_picker()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - include_end_time, start, end, step, min_time, max_time:
 
@@ -255,6 +322,28 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `focus()`, `blur()`; and for `el_time_picker()`, `handleOpen()` and
 `handleClose()`.
+
+## Updating from the server
+
+Server-side update for `el_time_picker()` and `el_time_select()`;
+`update_el_time_select()` is the time select's, with its own arguments.
+
+Every other argument of `el_time_picker()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_time_picker()` is called for its side effect and returns
+`NULL` invisibly.
+
+## Updating a time select
+
+`update_el_time_select()` changes the time select from the server: every
+argument of `el_time_select()` that can change once it is drawn, under
+the same name. One left `NULL` stays as it is; `NA` returns it to
+Element's default.
+
+`update_el_time_select()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -302,4 +391,11 @@ el_time_select("slot", start = "09:00", step = "00:30", end = "18:00")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","start":"09:00","end":"18:00","step":"00:30","minTime":null,"maxTime":null,"includeEndTime":null,"format":null,"placeholder":null,"clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('slot', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('slot', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('slot', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_time_picker(session, "start", value = "09:00:00")
+  )
+}
 ```

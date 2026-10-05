@@ -19,6 +19,19 @@ el_avatar(
   slots = NULL,
   session = NULL
 )
+
+update_el_avatar(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  content = NULL,
+  src = NULL,
+  icon = NULL,
+  size = NULL,
+  shape = NULL,
+  fit = NULL,
+  src_set = NULL,
+  alt = NULL
+)
 ```
 
 ## Arguments
@@ -75,8 +88,11 @@ el_avatar(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_avatar()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_avatar()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -85,6 +101,17 @@ A Shiny UI element.
 ## Shiny inputs
 
 - `input$<id>_error` – fires when the image fails to load.
+
+## Updating from the server
+
+Server-side update for `el_avatar()`.
+
+Every other argument of `el_avatar()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_avatar()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -110,4 +137,10 @@ el_avatar("anon", icon = "el-icon-user-solid")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":null,"src":null,"icon":"el-icon-user-solid","size":null,"shape":null,"fit":null,"srcSet":null,"alt":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('anon', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitError"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$sign_in, {
+    update_el_avatar(session, "me", src = user_photo())
+  })
+}
 ```

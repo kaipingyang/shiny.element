@@ -13,6 +13,15 @@ el_check_tag(
   type = NULL,
   width = NULL
 )
+
+update_el_check_tag(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  label = NULL,
+  disabled = NULL,
+  type = NULL
+)
 ```
 
 ## Arguments
@@ -42,6 +51,11 @@ el_check_tag(
 
   Component width, as a CSS unit.
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateCheckboxInput()`](https://rdrr.io/pkg/shiny/man/updateCheckboxInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -49,6 +63,17 @@ A Shiny UI element.
 ## Shiny inputs
 
 - `input$<id>` – `TRUE` or `FALSE`, on load and on every change.
+
+## Updating from the server
+
+`update_el_check_tag()` changes the component from the server.
+
+Every other argument of `el_check_tag()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_check_tag()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -67,4 +92,11 @@ el_check_tag("urgent", "Urgent", type = "danger")
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"text":"Urgent","disabled":null,"type":"danger"},"methods":{"handleChange":"function(v) { this.value = v; }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$clear,
+    update_el_check_tag(session, "pinned", value = FALSE)
+  )
+}
 ```

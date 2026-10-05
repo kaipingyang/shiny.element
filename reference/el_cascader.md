@@ -56,6 +56,49 @@ el_cascader(
   slots = NULL,
   session = NULL
 )
+
+update_el_cascader(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  options = NULL,
+  value = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  filterable = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  props = NULL,
+  size = NULL,
+  show_all_levels = NULL,
+  collapse_tags = NULL,
+  separator = NULL,
+  debounce = NULL,
+  popper_class = NULL,
+  filter_method = NULL,
+  before_filter = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  height = NULL,
+  item_size = NULL,
+  max_collapse_tags = NULL,
+  max_collapse_tags_tooltip_height = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_append_to_body = NULL,
+  popper_style = NULL,
+  show_checked_strategy = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  virtual_scroll = NULL
+)
 ```
 
 ## Arguments
@@ -299,8 +342,11 @@ el_cascader(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_cascader()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_cascader()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -326,6 +372,17 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 
 - `getCheckedNodes()` – Get an array of currently selected node
+
+## Updating from the server
+
+`update_el_cascader()` changes the component from the server.
+
+Every other argument of `el_cascader()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_cascader()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -382,4 +439,10 @@ custom_props <- list(
 
 # Update cascader options in server:
 # update_el_cascader(session, "cascader1", options = new_options)
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_cascader(session, "region", value = list("zj", "hz"))
+  })
+}
 ```

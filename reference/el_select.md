@@ -76,6 +76,65 @@ el_select(
   tag_tooltip = NULL,
   session = NULL
 )
+
+update_el_select(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  filterable = NULL,
+  multiple_limit = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL,
+  multiple = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  value_key = NULL,
+  name = NULL,
+  autocomplete = NULL,
+  automatic_dropdown = NULL,
+  allow_create = NULL,
+  popper_class = NULL,
+  reserve_keyword = NULL,
+  remote = NULL,
+  filter_method = NULL,
+  remote_method = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  debounce = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  max_collapse_tags = NULL,
+  offset = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  remote_show_suffix = NULL,
+  show_arrow = NULL,
+  suffix_icon = NULL,
+  suffix_transition = NULL,
+  tabindex = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  tag_tooltip = NULL
+)
 ```
 
 ## Arguments
@@ -402,8 +461,11 @@ el_select(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_select()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_select()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -427,9 +489,20 @@ With `remote = TRUE`, `filterable = TRUE` and no `remote_method` of your
 own, the server does the search, as
 [`selectizeInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html)'s
 server mode does: `input$<id>_query` is the text typed, and
-[`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
-with the matching `choices` answers it – the select shows Element's
-loading text until then, or for 30 seconds at most.
+`update_el_select()` with the matching `choices` answers it – the select
+shows Element's loading text until then, or for 30 seconds at most.
+
+## Updating from the server
+
+Server-side update for `el_select()`. Sends a custom message to update
+reactive fields on the underlying Vue instance.
+
+Every other argument of `el_select()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_select()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -502,5 +575,11 @@ if (interactive()) {
     output$selected <- renderPrint(input$fruit)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_select(session, "city", selected = "sh")
+  })
 }
 ```

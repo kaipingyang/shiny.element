@@ -182,6 +182,26 @@ with the rest of the page dimmed.</p>
 <span>  append_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_tour</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  open <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  current <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  content_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mask <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_into_view_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_close <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  target_area_clickable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_to <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -204,7 +224,7 @@ screen.</p></dd>
 
 <dt id="arg-open">open<a class="anchor" aria-label="anchor" href="#arg-open"></a></dt>
 <dd><p>Whether it starts open: Element Plus's <code>model-value</code>. Open it
-later with <code><a href="update_el_tour.html">update_el_tour()</a></code>.</p></dd>
+later with <code>update_el_tour()</code>.</p></dd>
 
 
 <dt id="arg-current">current<a class="anchor" aria-label="anchor" href="#arg-current"></a></dt>
@@ -222,6 +242,11 @@ later with <code><a href="update_el_tour.html">update_el_tour()</a></code>.</p><
 <dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
 <dd><p>Named list of Element slot contents: <code>indicators</code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -236,6 +261,16 @@ later with <code><a href="update_el_tour.html">update_el_tour()</a></code>.</p><
 <li><p><code>input$&lt;id&gt;_close</code> – the step it was closed on.</p></li>
 <li><p><code>input$&lt;id&gt;_finish</code> – fires when the last step is done.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Open or close an <code>el_tour()</code>, or move it to a step.</p>
+<p>Every other argument of <code>el_tour()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_tour()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -260,6 +295,13 @@ later with <code><a href="update_el_tour.html">update_el_tour()</a></code>.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"open":true,"current":0,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('intro', 'change', arguments); }","elEmitFinish":"function() { window.shinyVue.emit('intro', 'finish', arguments); }","handleClose":"function(step) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('intro_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitFinish","options.methods.handleClose","options.watch.open"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span><span class="op">$</span><span class="va">help</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">update_el_tour</span><span class="op">(</span><span class="va">session</span>, <span class="st">"intro"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

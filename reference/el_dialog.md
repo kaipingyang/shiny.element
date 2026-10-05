@@ -41,6 +41,14 @@ el_dialog(
   transition = NULL,
   session = NULL
 )
+
+update_el_dialog(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  title = NULL,
+  width = NULL
+)
 ```
 
 ## Arguments
@@ -173,8 +181,11 @@ el_dialog(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_dialog()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_dialog()`, the Shiny session, the
+  current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -208,6 +219,13 @@ other components from this package.
 Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `resetPosition()` puts a dragged dialog back.
+
+## Updating from the server
+
+Server-side update for `el_dialog()`.
+
+`update_el_dialog()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -275,4 +293,10 @@ el_dialog(
 #>     </div>
 #>   </div>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_dialog(session, "confirm", visible = TRUE)
+  })
+}
 ```

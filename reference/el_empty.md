@@ -15,6 +15,13 @@ el_empty(
   slots = NULL,
   session = NULL
 )
+
+update_el_empty(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  description = NULL,
+  image = NULL
+)
 ```
 
 ## Arguments
@@ -51,12 +58,22 @@ el_empty(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_empty()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_empty()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
 A Shiny UI element.
+
+## Updating from the server
+
+Server-side update for `el_empty()`.
+
+`update_el_empty()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -82,4 +99,14 @@ el_empty(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"emptyDescription":"No reports yet","emptyImage":null,"emptyImageSize":null,"label":"Create one","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('create:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"create:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.mounted"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$search, {
+    update_el_empty(
+      session,
+      "none",
+      description = paste("Nothing matches", input$search)
+    )
+  })
+}
 ```

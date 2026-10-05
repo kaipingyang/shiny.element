@@ -211,7 +211,7 @@
 setting <code>select</code>, you can use <code>formatter</code> to
 customize <code>label</code>.</p>
 <p>The radio buttons set <code>controller_type</code> from the server,
-with <code><a href="../../reference/update_el_calendar.html">update_el_calendar()</a></code>.</p>
+with <code><a href="../../reference/el_calendar.html">update_el_calendar()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
@@ -225,7 +225,7 @@ with <code><a href="../../reference/update_el_calendar.html">update_el_calendar(
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">controller</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/update_el_calendar.html">update_el_calendar</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"cal_ctl"</span>, controller_type <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">controller</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_calendar.html">update_el_calendar</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"cal_ctl"</span>, controller_type <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">controller</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>

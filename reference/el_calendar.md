@@ -23,6 +23,17 @@ el_calendar(
   slots = NULL,
   session = NULL
 )
+
+update_el_calendar(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  range = NULL,
+  label = NULL,
+  error = NULL,
+  controller_type = NULL,
+  formatter = NULL
+)
 ```
 
 ## Arguments
@@ -113,6 +124,16 @@ el_calendar(
 
 A Shiny UI element.
 
+## Updating from the server
+
+Server-side update for `el_calendar()`: the selected day, the range, and
+every other argument that can change once the calendar is drawn, under
+the same name. One left `NULL` stays as it is; `NA` returns a prop to
+Element's default.
+
+`update_el_calendar()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
@@ -193,5 +214,12 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_calendar(session, "cal", value = "2026-06-01")
+  })
+  update_el_calendar(session, "cal", controller_type = "select")
 }
 ```

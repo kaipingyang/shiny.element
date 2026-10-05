@@ -15,6 +15,12 @@ el_collapse(
   before_collapse = NULL,
   session = NULL
 )
+
+update_el_collapse(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL
+)
 ```
 
 ## Arguments
@@ -71,8 +77,11 @@ el_collapse(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_collapse()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_collapse()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -91,6 +100,13 @@ server. See `.claude/docs/lessons.md`.
 `input$<id>` – character vector of open panel names, reported on load
 and on every change. Empty when all are closed, which Shiny reports as
 `NULL`.
+
+## Updating from the server
+
+Server-side update for `el_collapse()`.
+
+`update_el_collapse()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -163,4 +179,10 @@ el_collapse(
 #>     </div>
 #>   </div>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_collapse(session, "panels", value = "filters")
+  })
+}
 ```

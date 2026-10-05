@@ -309,7 +309,7 @@ a table in the main area. Here it is in R, piece for piece:</p>
 </h2>
 <p>Filters in the header drive everything below them: the headline
 numbers are <code><a href="../reference/el_statistic.html">el_statistic()</a></code>s moved with
-<code><a href="../reference/update_el_statistic.html">update_el_statistic()</a></code>, the chart is an ordinary
+<code><a href="../reference/el_statistic.html">update_el_statistic()</a></code>, the chart is an ordinary
 <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html" class="external-link">plotOutput()</a></code>, and the products table renders a progress bar
 in a cell with a <code>cell</code> template.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -463,14 +463,14 @@ in a cell with a <code>cell</code> template.</p>
 <span>    <span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">picked</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>    <span class="va">by_month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">revenue</span>, <span class="va">d</span><span class="op">$</span><span class="va">month</span>, <span class="va">sum</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_statistic.html">update_el_statistic</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"revenue"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">revenue</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_statistic.html">update_el_statistic</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">orders</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_statistic.html">update_el_statistic</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_statistic.html">update_el_statistic</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"revenue"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">revenue</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_statistic.html">update_el_statistic</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">orders</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_statistic.html">update_el_statistic</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"basket"</span>,</span>
 <span>      value <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">orders</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">revenue</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">orders</span><span class="op">)</span> <span class="kw">else</span> <span class="fl">0</span></span>
 <span>    <span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_statistic.html">update_el_statistic</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_statistic.html">update_el_statistic</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"best"</span>,</span>
 <span>      value <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">by_month</span><span class="op">)</span><span class="op">)</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">by_month</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">by_month</span><span class="op">)</span> <span class="kw">else</span> <span class="fl">0</span></span>
@@ -481,7 +481,7 @@ in a cell with a <code>cell</code> template.</p>
 <span>    <span class="va">by_product</span><span class="op">$</span><span class="va">share</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span></span>
 <span>      <span class="fl">100</span> <span class="op">*</span> <span class="va">by_product</span><span class="op">$</span><span class="va">revenue</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">by_product</span><span class="op">$</span><span class="va">revenue</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"products"</span>, data <span class="op">=</span> <span class="va">by_product</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"products"</span>, data <span class="op">=</span> <span class="va">by_product</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">trend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html" class="external-link">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -750,9 +750,9 @@ carry the row.</p>
 <span>    <span class="fu">query</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>q <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">q</span>, status <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">status</span>, dates <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">dates</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reset</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_input.html">update_el_input</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"q"</span>, value <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"status"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_date_picker.html">update_el_date_picker</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"dates"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_input.html">update_el_input</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"q"</span>, value <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"status"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_date_picker.html">update_el_date_picker</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"dates"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu">query</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
@@ -788,15 +788,15 @@ carry the row.</p>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_pagination.html">update_el_pagination</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">matching</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_pagination.html">update_el_pagination</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">matching</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># ── selection ────────────────────────────────────────────────────────────</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_button.html">update_el_button</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_button.html">update_el_button</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"remove_many"</span>,</span>
 <span>      disabled <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selected_rows</span><span class="op">)</span></span>
@@ -806,12 +806,12 @@ carry the row.</p>
 <span>  <span class="co"># ── add and edit ─────────────────────────────────────────────────────────</span></span>
 <span>  <span class="va">open_editor</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">row</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu">editing</span><span class="op">(</span><span class="va">row</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_form.html">update_el_form</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_form.html">update_el_form</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"order_form"</span>,</span>
 <span>      model <span class="op">=</span> <span class="va">row</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"customer"</span>, <span class="st">"city"</span>, <span class="st">"amount"</span>, <span class="st">"status"</span>, <span class="st">"date"</span><span class="op">)</span><span class="op">]</span></span>
 <span>    <span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add</span>, <span class="op">{</span></span>
 <span>    <span class="fu">open_editor</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -826,7 +826,7 @@ carry the row.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_edit</span>, <span class="fu">open_editor</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_edit</span><span class="op">$</span><span class="va">row</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">cancel</span>,</span>
-<span>    <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">save</span>, <span class="fu"><a href="../reference/el_form_validate.html">el_form_validate</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"order_form"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -857,7 +857,7 @@ carry the row.</p>
 <span>        type <span class="op">=</span> <span class="st">"success"</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># ── delete, one or many, after asking ───────────────────────────────────</span></span>
@@ -1128,9 +1128,9 @@ the form from that row:</p>
 <span>    <span class="fu">query</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>q <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">q</span>, status <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">status</span>, dates <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">dates</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reset</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_input.html">update_el_input</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"q"</span>, value <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"status"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_date_picker.html">update_el_date_picker</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"dates"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_input.html">update_el_input</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"q"</span>, value <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"status"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_date_picker.html">update_el_date_picker</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"dates"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu">query</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
@@ -1166,15 +1166,15 @@ the form from that row:</p>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_pagination.html">update_el_pagination</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">matching</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_pagination.html">update_el_pagination</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">matching</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># ── selection ────────────────────────────────────────────────────────────</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_button.html">update_el_button</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_button.html">update_el_button</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"remove_many"</span>,</span>
 <span>      disabled <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selected_rows</span><span class="op">)</span></span>
@@ -1184,12 +1184,12 @@ the form from that row:</p>
 <span>  <span class="co"># ── add and edit ─────────────────────────────────────────────────────────</span></span>
 <span>  <span class="va">open_editor</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">row</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu">editing</span><span class="op">(</span><span class="va">row</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_form.html">update_el_form</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_form.html">update_el_form</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"order_form"</span>,</span>
 <span>      model <span class="op">=</span> <span class="va">row</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"customer"</span>, <span class="st">"city"</span>, <span class="st">"amount"</span>, <span class="st">"status"</span>, <span class="st">"date"</span><span class="op">)</span><span class="op">]</span></span>
 <span>    <span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add</span>, <span class="op">{</span></span>
 <span>    <span class="fu">open_editor</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -1204,7 +1204,7 @@ the form from that row:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_edit</span>, <span class="fu">open_editor</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_edit</span><span class="op">$</span><span class="va">row</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">cancel</span>,</span>
-<span>    <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">save</span>, <span class="fu"><a href="../reference/el_form_validate.html">el_form_validate</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"order_form"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1235,7 +1235,7 @@ the form from that row:</p>
 <span>        type <span class="op">=</span> <span class="st">"success"</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># ── delete, one or many, after asking ───────────────────────────────────</span></span>

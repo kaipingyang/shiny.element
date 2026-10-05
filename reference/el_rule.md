@@ -71,7 +71,7 @@ el_rule(
   when the value is valid and `callback(new Error("message"))` when it
   is not – Element's custom rule. A check only the server can make goes
   through
-  [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/update_el_form.md)'s
+  [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)'s
   `errors` instead.
 
 - transform:

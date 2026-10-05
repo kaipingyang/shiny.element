@@ -179,7 +179,7 @@ el_timeline(
 Use the reverse property to control the order of the nodes.
 
 `reverse` shows the entries newest first;
-[`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/update_el_timeline.md)
+[`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
 flips it.
 
 ``` r

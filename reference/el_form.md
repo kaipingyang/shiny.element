@@ -30,6 +30,27 @@ el_form(
   slots = NULL,
   session = NULL
 )
+
+update_el_form(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  model = NULL,
+  rules = NULL,
+  label_width = NULL,
+  fields = NULL,
+  errors = NULL,
+  inline = NULL,
+  size = NULL,
+  submit_label = NULL,
+  reset_label = NULL,
+  disabled = NULL,
+  status_icon = NULL,
+  hide_required_asterisk = NULL,
+  validate_on_rule_change = NULL,
+  require_asterisk_position = NULL,
+  scroll_into_view_options = NULL,
+  scroll_to_error = NULL
+)
 ```
 
 ## Arguments
@@ -130,8 +151,37 @@ el_form(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_form()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_form()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
+- model:
+
+  New field values. Merged into the existing model, so a partial list
+  only changes the fields it names.
+
+- rules:
+
+  New validation rules, as a named list of
+  [`el_rule()`](https://kaipingyang.github.io/shiny.element/reference/el_rule.md)
+  lists keyed by `prop`. Replaces the rule set.
+
+- fields:
+
+  The form's fields, as
+  [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)s
+  – the whole list, in order, so a field can be added, removed or moved:
+  Element's "add or delete form items dynamically". A field already in
+  the form keeps what was entered; a new one starts from its `value`; a
+  removed one leaves the model. Each field's rules come with it.
+
+- errors:
+
+  Error messages from the server, as a named list keyed by `prop` –
+  `list(email = "That address is taken")` – shown on the field as
+  Element's `error` shows them. `""` clears one.
 
 ## Value
 
@@ -174,6 +224,17 @@ Callable with
   callback will be executed with...
 
 - `validateField()` – Validate one or several form items
+
+## Updating from the server
+
+`update_el_form()` changes the component from the server.
+
+Every other argument of `el_form()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_form()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -250,5 +311,16 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # Prefill the form from the server
+  update_el_form(session, "signup", model = list(name = "Ada", age = 36))
+
+  # A check only the server can make
+  update_el_form(
+    session,
+    "signup",
+    errors = list(email = "That address is taken")
+  )
 }
 ```

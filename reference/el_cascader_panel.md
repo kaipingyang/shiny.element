@@ -28,6 +28,19 @@ el_cascader_panel(
   slots = NULL,
   session = NULL
 )
+
+update_el_cascader_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL,
+  props = NULL,
+  height = NULL,
+  item_size = NULL,
+  virtual_scroll = NULL
+)
 ```
 
 ## Arguments
@@ -124,8 +137,11 @@ el_cascader_panel(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_cascader_panel()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_cascader_panel()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -151,6 +167,17 @@ Callable with
 - `getCheckedNodes()` – the selected options
 
 - `clearCheckedNodes()` – clear the selection
+
+## Updating from the server
+
+Server-side update for `el_cascader_panel()`.
+
+Every other argument of `el_cascader_panel()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_cascader_panel()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -188,4 +215,11 @@ el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true},"height":null,"itemSize":null,"virtualScroll":null},"methods":{"elEmitExpandChange":"function() { window.shinyVue.emit('where', 'expand_change', arguments); }","elEmitClose":"function() { window.shinyVue.emit('where', 'close', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); },\n            function() { resolve([]); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitExpandChange","options.methods.elEmitClose","options.methods.handleChange","options.computed.elProps"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_cascader_panel(session, "where", value = list())
+  )
+}
 ```

@@ -1,7 +1,7 @@
 # A column of [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 
 Element Plus's `el-table-column`, for `el_table(columns =)` and
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md).
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md).
 A column with columns of its own in `...` is a group header, nested as
 deep as you like.
 

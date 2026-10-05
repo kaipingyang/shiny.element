@@ -34,6 +34,31 @@ el_countdown(
   slots = NULL,
   session = NULL
 )
+
+update_el_statistic(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
+  precision = NULL,
+  decimal_separator = NULL,
+  group_separator = NULL,
+  value_style = NULL,
+  formatter = NULL
+)
+
+update_el_countdown(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
+  format = NULL,
+  value_style = NULL
+)
 ```
 
 ## Arguments
@@ -87,8 +112,11 @@ el_countdown(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_statistic()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_statistic()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 - format:
 
@@ -108,6 +136,27 @@ For `el_countdown()`:
 - `input$<id>_change` – the milliseconds left. Element raises this on
   every frame; it is sent at most once a second, which is as often as a
   server can usefully hear it.
+
+## Updating from the server
+
+Server-side update for `el_statistic()` and `el_countdown()`.
+
+Every other argument of `el_statistic()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_statistic()` is called for its side effect and returns `NULL`
+invisibly.
+
+## Updating a countdown
+
+`update_el_countdown()` changes the countdown from the server: every
+argument of `el_countdown()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_countdown()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -144,6 +193,10 @@ el_countdown(
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sale_container" style="display: contents">
 #>   <el-countdown :value="value" @finish="elEmitFinish" @change="elEmitChange" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791227843108.06,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791230256517.89,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observe(update_el_statistic(session, "users", value = n_users()))
+}
 ```

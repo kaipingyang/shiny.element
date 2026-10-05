@@ -19,6 +19,16 @@ el_descriptions(
   slots = NULL,
   session = NULL
 )
+
+update_el_descriptions(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  extra = NULL,
+  column = NULL,
+  direction = NULL,
+  border = NULL
+)
 ```
 
 ## Arguments
@@ -81,12 +91,24 @@ el_descriptions(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_descriptions()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_descriptions()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
 A Shiny UI element.
+
+## Updating from the server
+
+Server-side update for `el_descriptions()`. The items themselves are
+markup, so replace them by re-rendering; this changes the settings
+around them.
+
+`update_el_descriptions()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -129,4 +151,10 @@ el_descriptions("car", items = as.list(mtcars[1, 1:6]))
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":null,"dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$narrow, {
+    update_el_descriptions(session, "user", column = 1)
+  })
+}
 ```

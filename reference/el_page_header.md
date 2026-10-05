@@ -14,6 +14,14 @@ el_page_header(
   slots = NULL,
   session = NULL
 )
+
+update_el_page_header(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL,
+  icon = NULL
+)
 ```
 
 ## Arguments
@@ -49,8 +57,11 @@ el_page_header(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_page_header()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_page_header()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -61,6 +72,17 @@ A Shiny UI element.
 - `input$<id>_back` – fires when the back link is clicked. Observe it to
   decide what going back means in your app; the component navigates
   nowhere on its own.
+
+## Updating from the server
+
+Server-side update for `el_page_header()`.
+
+Every other argument of `el_page_header()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_page_header()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -90,5 +112,11 @@ if (interactive()) {
     output$where <- renderPrint(input$hdr_back)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$row_click, {
+    update_el_page_header(session, "hdr", content = selected_name())
+  })
 }
 ```

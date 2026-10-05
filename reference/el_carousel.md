@@ -25,6 +25,21 @@ el_carousel(
   slots = NULL,
   session = NULL
 )
+
+update_el_carousel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  autoplay = NULL,
+  interval = NULL,
+  height = NULL,
+  initial_index = NULL,
+  trigger = NULL,
+  indicator_position = NULL,
+  arrow = NULL,
+  loop = NULL,
+  direction = NULL
+)
 ```
 
 ## Arguments
@@ -114,8 +129,15 @@ el_carousel(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_carousel()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_carousel()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
+- active:
+
+  Index of the slide to show, 0-based.
 
 ## Value
 
@@ -137,6 +159,17 @@ Callable with
 - `prev()` – Switch to the previous slide
 
 - `setActiveItem()` – Manually switch slide
+
+## Updating from the server
+
+`update_el_carousel()` changes the component from the server.
+
+Every other argument of `el_carousel()` that can change once it is drawn
+is an argument here too, under the same name. One left `NULL` stays as
+it is; `NA` returns it to Element's default.
+
+`update_el_carousel()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -186,4 +219,10 @@ el_carousel(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"180px","initialIndex":0,"autoplay":true,"interval":3000,"trigger":"click","arrow":"hover","loop":true,"direction":"horizontal","indicatorPosition":null,"carouselType":"card","itemNames":["","","",""],"active":0,"activeName":"","carouselCardScale":null,"carouselMotionBlur":null,"carouselPauseOnHover":null},"methods":{"handleChange":"function(index) { var self = this; self.active = index; self.activeName = self.itemNames[index] || ''; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('cards_name', self.activeName); }","shinyVueReceive":"function(d) { if ('active' in d) { if (this.$refs.carousel) this.$refs.carousel.setActiveItem(d.active); delete d.active; } return d; }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"cards_name\", self.activeName); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange","options.methods.shinyVueReceive","options.mounted"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_carousel(session, "banner", active = 2)
+  })
+}
 ```

@@ -199,6 +199,38 @@
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_autocomplete</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suggestions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  debounce <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trigger_on_focus <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  select_when_unmatched <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  highlight_first_item <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suffix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fit_input_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loop_navigation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -223,7 +255,7 @@ For suggestions that come from the server, use <code>remote = TRUE</code>.</p></
 <dt id="arg-remote">remote<a class="anchor" aria-label="anchor" href="#arg-remote"></a></dt>
 <dd><p>Ask the server for suggestions as the user types, as
 Element's <code>fetch-suggestions</code> asks a function: the text arrives as
-<code>input$&lt;id&gt;_query</code>, and <code><a href="update_el_autocomplete.html">update_el_autocomplete()</a></code> with <code>suggestions</code>
+<code>input$&lt;id&gt;_query</code>, and <code>update_el_autocomplete()</code> with <code>suggestions</code>
 answers it – the list shows what the server sent.</p></dd>
 
 
@@ -381,9 +413,10 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
-any Shiny input; a session given here namespaces <code>id</code> once more, with
-a warning.</p></dd>
+<dd><p>In <code>el_autocomplete()</code>, deprecated: inside a module, wrap <code>id</code> in
+<code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
+once more, with a warning. In <code>update_el_autocomplete()</code>, the Shiny session, the
+current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -405,6 +438,16 @@ a warning.</p></dd>
 
 <p>Callable with <code><a href="call_el.html">call_el()</a></code>:</p><ul><li><p><code>focus()</code> – focus the input</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_autocomplete()</code>.</p>
+<p>Every other argument of <code>el_autocomplete()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_autocomplete()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -429,6 +472,16 @@ a warning.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"}],"placeholder":"Where to?","clearable":true,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"fitInputWidth":null,"loopNavigation":null,"popperOptions":null,"popperStyle":null,"showArrow":null,"teleported":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('city', 'change', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elEmitInput":"function() { window.shinyVue.emit('city', 'input', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (!cb) return; clearTimeout(this._elQueryTimer); this._elAnswered = (this._elAnswered || 0) + 1; if (this._elAnswered &gt;= this._elAsked) this._elPending = null; cb(v); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.elEmitFocus","options.methods.elEmitInput","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">country</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">update_el_autocomplete</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="va">session</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"city"</span>,</span></span>
+<span class="r-in"><span>      suggestions <span class="op">=</span> <span class="fu">cities_of</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">country</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

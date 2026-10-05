@@ -30,5 +30,5 @@ by `cellKey`, and `depths`, the nesting level of each.
 ## Details
 
 The key is built from the column's prop or label, so that
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 given the same columns finds the same template.

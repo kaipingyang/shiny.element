@@ -195,6 +195,32 @@ takes the props of both <code><a href="el_select.html">el_select()</a></code> an
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_tree_select</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_checkbox <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_strictly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_on_click_node <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  node_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  render_after_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cache_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  load <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -341,6 +367,11 @@ whether beside the component rather than under it. Element's
 <dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>
 <dd><p>Named list of Element slot contents.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html" class="external-link">shiny::updateSelectInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -362,6 +393,16 @@ children: <code>level</code>, <code>key</code> (its <code>node_key</code> field)
 
 
 <p>Callable with <code><a href="call_el.html">call_el()</a></code>: <code>focus()</code>, <code>blur()</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p><code>update_el_tree_select()</code> changes the component from the server.</p>
+<p>Every other argument of <code>el_tree_select()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_tree_select()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
     </div>
 
     <div class="section level2">
@@ -387,6 +428,13 @@ children: <code>level</code>, <code>key</code> (its <code>node_key</code> field)
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"data":[{"value":"eng","label":"Engineering","children":[{"value":"web","label":"Web"},{"value":"data","label":"Data"}]},{"value":"ops","label":"Operations"}],"load":null,"multiple":null,"showCheckbox":null,"checkStrictly":null,"checkOnClickNode":null,"filterable":null,"clearable":null,"placeholder":"Department","nodeKey":null,"props":null,"defaultExpandAll":null,"renderAfterExpand":null,"collapseTags":null,"collapseTagsTooltip":null,"size":null,"disabled":null,"cacheData":null,"lazy":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('dept', 'visible_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('dept', 'clear', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('dept', 'remove_tag', arguments); }","elEmitNodeClick":"function() { window.shinyVue.emit('dept', 'node_click', arguments); }","elEmitCheck":"function() { window.shinyVue.emit('dept', 'check', arguments); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level &amp;&amp; this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('dept_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitClear","options.methods.elEmitRemoveTag","options.methods.elEmitNodeClick","options.methods.elEmitCheck","options.methods.elLoad","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span><span class="op">$</span><span class="va">reset</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">update_el_tree_select</span><span class="op">(</span><span class="va">session</span>, <span class="st">"dept"</span>, value <span class="op">=</span> <span class="st">"ops"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -34,6 +34,31 @@ el_pagination(
   slots = NULL,
   session = NULL
 )
+
+update_el_pagination(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  total = NULL,
+  current_page = NULL,
+  page_size = NULL,
+  disabled = NULL,
+  page_sizes = NULL,
+  layout = NULL,
+  background = NULL,
+  small = NULL,
+  pager_count = NULL,
+  prev_text = NULL,
+  next_text = NULL,
+  hide_on_single_page = NULL,
+  page_count = NULL,
+  popper_class = NULL,
+  append_size_to = NULL,
+  next_icon = NULL,
+  popper_style = NULL,
+  prev_icon = NULL,
+  size = NULL,
+  teleported = NULL
+)
 ```
 
 ## Arguments
@@ -157,8 +182,11 @@ el_pagination(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_pagination()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_pagination()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -169,6 +197,17 @@ An `htmltools` tagList with a Vue-managed pagination component.
 - `input$<id>` – the current page, 1-based, on load and on change.
 
 - `input$<id>_size` – the page size, on load and on change.
+
+## Updating from the server
+
+Server-side update for `el_pagination()`.
+
+Every other argument of `el_pagination()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_pagination()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -211,5 +250,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_pagination(session, "pager", current_page = 2)
+  })
 }
 ```

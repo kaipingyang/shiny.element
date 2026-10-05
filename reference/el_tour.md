@@ -27,6 +27,26 @@ el_tour(
   width = NULL,
   slots = NULL
 )
+
+update_el_tour(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  open = NULL,
+  current = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  content_style = NULL,
+  mask = NULL,
+  gap = NULL,
+  type = NULL,
+  scroll_into_view_options = NULL,
+  z_index = NULL,
+  show_close = NULL,
+  close_icon = NULL,
+  close_on_press_escape = NULL,
+  target_area_clickable = NULL,
+  append_to = NULL
+)
 ```
 
 ## Arguments
@@ -48,8 +68,7 @@ el_tour(
 - open:
 
   Whether it starts open: Element Plus's `model-value`. Open it later
-  with
-  [`update_el_tour()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tour.md).
+  with `update_el_tour()`.
 
 - current:
 
@@ -69,6 +88,11 @@ el_tour(
 
   Named list of Element slot contents: `indicators`.
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -82,6 +106,17 @@ A Shiny UI element.
 - `input$<id>_close` – the step it was closed on.
 
 - `input$<id>_finish` – fires when the last step is done.
+
+## Updating from the server
+
+Open or close an `el_tour()`, or move it to a step.
+
+Every other argument of `el_tour()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_tour()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -107,4 +142,11 @@ el_tour(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":true,"current":0,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('intro', 'change', arguments); }","elEmitFinish":"function() { window.shinyVue.emit('intro', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('intro_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$help,
+    update_el_tour(session, "intro", open = TRUE, current = 0)
+  )
+}
 ```

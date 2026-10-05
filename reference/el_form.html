@@ -187,6 +187,27 @@ async-validator running them on blur or change.</p>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_form</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rules <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fields <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  errors <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inline <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  reset_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  status_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_required_asterisk <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_on_rule_change <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  require_asterisk_position <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_into_view_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_to_error <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -286,9 +307,34 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
-any Shiny input; a session given here namespaces <code>id</code> once more, with
-a warning.</p></dd>
+<dd><p>In <code>el_form()</code>, deprecated: inside a module, wrap <code>id</code> in
+<code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
+once more, with a warning. In <code>update_el_form()</code>, the Shiny session, the
+current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
+
+<dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
+<dd><p>New field values. Merged into the existing model, so a partial
+list only changes the fields it names.</p></dd>
+
+
+<dt id="arg-rules">rules<a class="anchor" aria-label="anchor" href="#arg-rules"></a></dt>
+<dd><p>New validation rules, as a named list of <code><a href="el_rule.html">el_rule()</a></code> lists
+keyed by <code>prop</code>. Replaces the rule set.</p></dd>
+
+
+<dt id="arg-fields">fields<a class="anchor" aria-label="anchor" href="#arg-fields"></a></dt>
+<dd><p>The form's fields, as <code><a href="el_form_field.html">el_form_field()</a></code>s – the whole list,
+in order, so a field can be added, removed or moved: Element's "add or
+delete form items dynamically". A field already in the form keeps what
+was entered; a new one starts from its <code>value</code>; a removed one leaves the
+model. Each field's rules come with it.</p></dd>
+
+
+<dt id="arg-errors">errors<a class="anchor" aria-label="anchor" href="#arg-errors"></a></dt>
+<dd><p>Error messages from the server, as a named list keyed by
+<code>prop</code> – <code>list(email = "That address is taken")</code> – shown on the field
+as Element's <code>error</code> shows them. <code>""</code> clears one.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -323,6 +369,16 @@ the form owning its state rather than each field reporting separately.</p>
 <li><p><code><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate()</a></code> – Validate the whole form. Takes a callback as a param. After validation, the callback will be executed with...</p></li>
 <li><p><code>validateField()</code> – Validate one or several form items</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p><code>update_el_form()</code> changes the component from the server.</p>
+<p>Every other argument of <code>el_form()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_form()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -398,6 +454,17 @@ the form owning its state rather than each field reporting separately.</p>
 <span class="r-in"><span>    <span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Prefill the form from the server</span></span></span>
+<span class="r-in"><span>  <span class="fu">update_el_form</span><span class="op">(</span><span class="va">session</span>, <span class="st">"signup"</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Ada"</span>, age <span class="op">=</span> <span class="fl">36</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># A check only the server can make</span></span></span>
+<span class="r-in"><span>  <span class="fu">update_el_form</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">session</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"signup"</span>,</span></span>
+<span class="r-in"><span>    errors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"That address is taken"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

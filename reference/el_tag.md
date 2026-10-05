@@ -21,6 +21,20 @@ el_tag(
   slots = NULL,
   session = NULL
 )
+
+update_el_tag(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  type = NULL,
+  closable = NULL,
+  size = NULL,
+  effect = NULL,
+  color = NULL,
+  hit = NULL,
+  disable_transitions = NULL,
+  round = NULL
+)
 ```
 
 ## Arguments
@@ -84,8 +98,11 @@ el_tag(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_tag()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_tag()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -102,6 +119,17 @@ An `htmltools` tagList with a Vue-managed tag component.
 
 - `input$<id>_closed` – set to `1` when the user clicks the close button
   (only meaningful when `closable = TRUE`).
+
+## Updating from the server
+
+Server-side update for `el_tag()`.
+
+Every other argument of `el_tag()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_tag()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -120,4 +148,10 @@ el_tag("tag2", "Closable", closable = TRUE)
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag2_closed', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tag(session, "status", label = "done", type = "success")
+  })
+}
 ```

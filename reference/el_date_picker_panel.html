@@ -190,6 +190,30 @@
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_date_picker_panel</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  editable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  date_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unlink_panels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  single_panel <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shortcuts <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cell_class_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_footer <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_confirm <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_week_number <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -350,6 +374,11 @@ whether beside the component rather than under it. Element's
 <code>next-month</code>, <code>prev-year</code>, <code>next-year</code>. A scoped slot is written with
 <code><a href="template.html">template()</a></code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -364,6 +393,16 @@ whether beside the component rather than under it. Element's
 <li><p><code>input$&lt;id&gt;_panel_change</code> – Element Plus's <code>panel-change</code> event.</p></li>
 <li><p><code>input$&lt;id&gt;_clear</code> – Element Plus's <code>clear</code> event.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_date_picker_panel()</code>.</p>
+<p>Every other argument of <code>el_date_picker_panel()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_date_picker_panel()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -374,6 +413,13 @@ whether beside the component rather than under it. Element's
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":"2026-10-05","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":"YYYY-MM-DD","dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('day', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('day', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('day', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span><span class="op">$</span><span class="va">reset</span>,</span></span>
+<span class="r-in"><span>    <span class="fu">update_el_date_picker_panel</span><span class="op">(</span><span class="va">session</span>, <span class="st">"x"</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

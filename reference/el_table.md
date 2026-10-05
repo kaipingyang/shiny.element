@@ -61,6 +61,57 @@ el_table(
   tooltip_options = NULL,
   session = NULL
 )
+
+update_el_table(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  columns = NULL,
+  border = NULL,
+  selection = NULL,
+  loading = NULL,
+  stripe = NULL,
+  size = NULL,
+  height = NULL,
+  max_height = NULL,
+  fit = NULL,
+  show_header = NULL,
+  highlight_current_row = NULL,
+  current_row_key = NULL,
+  row_key = NULL,
+  empty_text = NULL,
+  expand_row_keys = NULL,
+  tooltip_effect = NULL,
+  show_summary = NULL,
+  sum_text = NULL,
+  select_on_indeterminate = NULL,
+  indent = NULL,
+  lazy = NULL,
+  tree_props = NULL,
+  row_class_name = NULL,
+  row_style = NULL,
+  cell_class_name = NULL,
+  cell_style = NULL,
+  header_row_class_name = NULL,
+  header_row_style = NULL,
+  header_cell_class_name = NULL,
+  header_cell_style = NULL,
+  span_method = NULL,
+  summary_method = NULL,
+  load = NULL,
+  allow_drag_last_column = NULL,
+  append_filter_panel_to = NULL,
+  flexible = NULL,
+  native_scrollbar = NULL,
+  preserve_expanded_content = NULL,
+  row_expandable = NULL,
+  scrollbar_always_on = NULL,
+  scrollbar_tabindex = NULL,
+  show_overflow_tooltip = NULL,
+  table_layout = NULL,
+  tooltip_formatter = NULL,
+  tooltip_options = NULL
+)
 ```
 
 ## Arguments
@@ -275,9 +326,8 @@ el_table(
 - loading:
 
   Whether to cover the table with Element's loading mask, as its
-  `v-loading` does.
-  [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
-  turns it on and off around slow work.
+  `v-loading` does. `update_el_table()` turns it on and off around slow
+  work.
 
 - allow_drag_last_column:
 
@@ -343,8 +393,11 @@ el_table(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_table()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_table()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -409,6 +462,24 @@ Callable with
 
 - `toggleRowSelection()` – Used in multiple selection Table, toggle if a
   certain row is selected. With the second parameter, you can...
+
+## Updating from the server
+
+Changes a table from the server, as
+[`shiny::updateSelectInput()`](https://rdrr.io/pkg/shiny/man/updateSelectInput.html)
+does a select: every argument of `el_table()` that can change once the
+table is drawn, under the same name. One left `NULL` stays as it is;
+`NA` returns a prop to Element's default. `rownames`, `slots`, `width`
+and the `default_*` arguments, which Element reads only when the table
+is created, are not here.
+
+A column's `cell` template is part of the table's markup, made when the
+table is. New columns given here keep the template of the column with
+the same `prop` (or label) and may drop it, but cannot bring a template
+the table was not created with.
+
+`update_el_table()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 
@@ -521,5 +592,15 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_table(session, "tbl", data = head(mtcars, 10))
+  })
+  # any other argument of el_table()
+  update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
+  # back to Element's default
+  update_el_table(session, "tbl", stripe = NA)
 }
 ```

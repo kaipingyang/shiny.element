@@ -41,6 +41,35 @@ el_input_number(
   slots = NULL,
   session = NULL
 )
+
+update_el_input_number(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  min = NULL,
+  max = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  step = NULL,
+  step_strictly = NULL,
+  precision = NULL,
+  size = NULL,
+  controls = NULL,
+  controls_position = NULL,
+  placeholder = NULL,
+  name = NULL,
+  align = NULL,
+  aria_label = NULL,
+  disabled_scientific = NULL,
+  formatter = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  readonly = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL
+)
 ```
 
 ## Arguments
@@ -206,8 +235,11 @@ el_input_number(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_input_number()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_input_number()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -226,6 +258,17 @@ Callable with
 
 `input$<id>` – numeric value, updated on each valid change.
 
+## Updating from the server
+
+Server-side update for `el_input_number()`.
+
+Every other argument of `el_input_number()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_input_number()` is called for its side effect and returns
+`NULL` invisibly.
+
 ## Examples
 
 ``` r
@@ -243,4 +286,10 @@ el_input_number("n2", value = 1.5, step = 0.5, precision = 1)
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1.5,"min":-1e+308,"max":1e+308,"step":0.5,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":1,"placeholder":null,"label":null,"name":null,"align":null,"ariaLabel":null,"disabledScientific":null,"formatter":null,"inputmode":null,"parser":null,"readonly":null,"tabindex":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('n2', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('n2', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_input_number(session, "age", value = 42)
+  })
+}
 ```

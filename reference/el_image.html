@@ -187,6 +187,31 @@ full-screen preview.</p>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_image</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  src <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  preview_src_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_container <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  initial_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  crossorigin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_on_click_modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  infinite <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  preview_teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  referrerpolicy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_progress <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  zoom_rate <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -307,9 +332,10 @@ the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
-<dd><p>Deprecated. Inside a module, wrap <code>id</code> in <code>ns()</code>, as for
-any Shiny input; a session given here namespaces <code>id</code> once more, with
-a warning.</p></dd>
+<dd><p>In <code>el_image()</code>, deprecated: inside a module, wrap <code>id</code> in
+<code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
+once more, with a warning. In <code>update_el_image()</code>, the Shiny session, the
+current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -323,6 +349,16 @@ a warning.</p></dd>
 <ul><li><p><code>input$&lt;id&gt;_load</code> – fires when the image has loaded.</p></li>
 <li><p><code>input$&lt;id&gt;_error</code> – fires when it fails to.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p>Server-side update for <code>el_image()</code>.</p>
+<p>Every other argument of <code>el_image()</code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_image()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -353,6 +389,12 @@ a warning.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"src":"a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":["a.png","b.png","c.png"],"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('photo', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('photo', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('photo', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">next_photo</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">update_el_image</span><span class="op">(</span><span class="va">session</span>, <span class="st">"photo"</span>, src <span class="op">=</span> <span class="fu">photo_url</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

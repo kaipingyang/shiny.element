@@ -1,7 +1,7 @@
 # A tab of [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
 
 Element Plus's `el-tab-pane`, for `el_tabs(tabs =)` and
-[`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tabs.md):
+[`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md):
 `el_tabs("t", tabs = list(el_tab_pane("One", ...), el_tab_pane("Two", ...)))`.
 
 ## Usage

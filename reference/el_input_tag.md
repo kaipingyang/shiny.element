@@ -44,6 +44,38 @@ el_input_tag(
   width = NULL,
   slots = NULL
 )
+
+update_el_input_tag(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  max = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  effect = NULL,
+  trigger = NULL,
+  draggable = NULL,
+  delimiter = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  save_on_blur = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  autofocus = NULL,
+  tabindex = NULL,
+  max_collapse_tags = NULL,
+  maxlength = NULL,
+  minlength = NULL,
+  placeholder = NULL,
+  autocomplete = NULL,
+  aria_label = NULL
+)
 ```
 
 ## Arguments
@@ -222,6 +254,11 @@ el_input_tag(
   scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -252,6 +289,17 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `focus()`, `blur()`.
 
+## Updating from the server
+
+Server-side update for `el_input_tag()`.
+
+Every other argument of `el_input_tag()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_input_tag()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
@@ -266,4 +314,8 @@ el_input_tag(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["shiny","element"],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Add a keyword","autocomplete":null,"ariaLabel":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('keywords', 'input', arguments); }","elEmitAddTag":"function() { window.shinyVue.emit('keywords', 'add_tag', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('keywords', 'remove_tag', arguments); }","elEmitDragTag":"function() { window.shinyVue.emit('keywords', 'drag_tag', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('keywords', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('keywords', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('keywords', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitInput","options.methods.elEmitAddTag","options.methods.elEmitRemoveTag","options.methods.elEmitDragTag","options.methods.elEmitFocus","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_input_tag(session, "x", value = NULL))
+}
 ```

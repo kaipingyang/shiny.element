@@ -36,6 +36,30 @@ el_color_picker(
   slots = NULL,
   session = NULL
 )
+
+update_el_color_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  size = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  empty_values = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  tabindex = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL
+)
 ```
 
 ## Arguments
@@ -179,8 +203,11 @@ el_color_picker(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_color_picker()`, deprecated: inside a module, wrap `id` in
+  `ns()`, as for any Shiny input; a session given here namespaces `id`
+  once more, with a warning. In `update_el_color_picker()`, the Shiny
+  session, the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -191,6 +218,17 @@ An `htmltools` tagList with a Vue-managed color-picker component.
 `input$<id>` – colour string (e.g. `"#409EFF"` or
 `"rgba(64,158,255,0.5)"`). `NULL` / `NA` when the user clears the
 picker.
+
+## Updating from the server
+
+Server-side update for `el_color_picker()`.
+
+Every other argument of `el_color_picker()` that can change once it is
+drawn is an argument here too, under the same name. One left `NULL`
+stays as it is; `NA` returns it to Element's default.
+
+`update_el_color_picker()` is called for its side effect and returns
+`NULL` invisibly.
 
 ## Examples
 
@@ -209,4 +247,10 @@ el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null,"appendTo":null,"ariaLabel":null,"clearable":null,"emptyValues":null,"persistent":null,"popperStyle":null,"tabindex":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"elEmitActiveChange":"function() { window.shinyVue.emit('cp2', 'active_change', arguments, 200); }","elEmitBlur":"function() { window.shinyVue.emit('cp2', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('cp2', 'clear', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('cp2', 'focus', arguments); }","handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitActiveChange","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.elEmitFocus","options.methods.handleChange"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_color_picker(session, "shade", value = "#67C23A")
+  })
+}
 ```

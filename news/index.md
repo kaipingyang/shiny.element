@@ -62,7 +62,7 @@ changed for code written for them. In short:
 - `el_table_v2(methods =)` gives its slot templates functions of your
   own, so upstream’s row and header renderers port across;
   `auto_resize = TRUE` is Element Plus’s `el-auto-resizer`;
-  [`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md)
+  [`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
   replaces its rows and columns from the server.
 - `$setInput(name, value)` in any template is Shiny’s `setInputValue()`.
 - `virtual_ref` (tooltip, popover, dropdown) is a CSS selector, looked
@@ -373,7 +373,12 @@ its help page, inherited from the component’s. `NULL` leaves one as it
 is, as in Shiny’s updaters; `NA` returns it to Element’s default. A test
 keeps every argument held in a component’s data reachable this way. The
 containers drawn as markup (tabs, collapse, dialog, drawer) and the
-wrappers (tooltip, popover) keep their own updaters.
+wrappers (tooltip, popover) keep their own updaters. Each update
+function is documented on its component’s page, as bslib documents
+[`update_switch()`](https://rstudio.github.io/bslib/reference/input_switch.html)
+with
+[`input_switch()`](https://rstudio.github.io/bslib/reference/input_switch.html):
+one argument, one description.
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 reaches a table-v2 with `auto_resize = TRUE`; it used to reach the
 resizer around it.
@@ -513,7 +518,7 @@ integration article shows, needs no JavaScript.
   replies; a `remote`
   [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
   sends what is typed as `input$<id>_query`, and
-  [`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
+  [`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
   with the matches answers it.
 - **Labels and errors from the server.** The `update_el_*()` of every
   input takes `label`, as
@@ -559,8 +564,8 @@ integration article shows, needs no JavaScript.
   or
   [`el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)
   makes it something the server changes
-  ([`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/update_el_badge.md),
-  [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/update_el_link.md)),
+  ([`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md),
+  [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)),
   the link an action link; `el_select(option_template =)`, Element’s
   custom option template; `el_autocomplete(remote = TRUE)`, suggestions
   from the server through `input$<id>_query`. In forms,
@@ -570,7 +575,7 @@ integration article shows, needs no JavaScript.
   [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)
   every control Element’s form holds – `"checkbox"`, `"time-select"`,
   `"autocomplete"`, `"transfer"`, `"cascader-panel"` added – and
-  [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/update_el_form.md)
+  [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)
   replaces the field list (`fields =`) or shows the server’s own errors
   (`errors =`). An update can carry
   [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
@@ -618,11 +623,11 @@ integration article shows, needs no JavaScript.
   (`required`, `error`, `label_width`, …) now reach the form item rather
   than the control; a wrapper – a popover’s `body`, a badge – takes
   several components and text side by side;
-  [`update_el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tooltip.md),
-  [`update_el_popover()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popover.md),
-  [`update_el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/update_el_popconfirm.md)
+  [`update_el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md),
+  [`update_el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md),
+  [`update_el_popconfirm()`](https://kaipingyang.github.io/shiny.element/reference/el_popconfirm.md)
   and
-  [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/update_el_infinite_scroll.md)
+  [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md)
   sent field names the component did not have and changed nothing –
   every updater is now checked against its component.
 - **Element’s global config.**

@@ -355,7 +355,7 @@ whether a name is taken. <code>""</code> clears it.</p>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_input.html">update_el_input</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_input.html">update_el_input</a></span><span class="op">(</span></span>
 <span>      id <span class="op">=</span> <span class="st">"user"</span>,</span>
 <span>      error <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">taken</span><span class="op">)</span> <span class="st">"That name is taken"</span> <span class="kw">else</span> <span class="st">""</span></span>
 <span>    <span class="op">)</span></span>
@@ -582,7 +582,7 @@ dynamically” does; what was already entered stays.</p>
 <span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">more</span>, <span class="op">{</span></span>
 <span>    <span class="fu">n</span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/update_el_form.html">update_el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"invite"</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_form.html">update_el_form</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"invite"</span>,</span>
 <span>                   fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="va">email_field</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">seats_field</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">check</span>, <span class="fu"><a href="../reference/el_form_validate.html">el_form_validate</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"invite"</span><span class="op">)</span><span class="op">)</span></span>
@@ -658,8 +658,8 @@ the text the picker produces, in that format, unconverted.</p>
 <p>A select or an autocomplete with <code>remote = TRUE</code> asks the
 server for its options as the user types –
 <code>input$&lt;id&gt;_query</code>, answered by
-<code><a href="../reference/update_el_select.html">update_el_select()</a></code> or
-<code><a href="../reference/update_el_autocomplete.html">update_el_autocomplete()</a></code>. The Select and Input pages show
+<code><a href="../reference/el_select.html">update_el_select()</a></code> or
+<code><a href="../reference/el_autocomplete.html">update_el_autocomplete()</a></code>. The Select and Input pages show
 both.</p>
 </div>
 <div class="section level2">

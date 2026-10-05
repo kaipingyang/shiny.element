@@ -49,6 +49,37 @@ el_tree(
   slots = NULL,
   session = NULL
 )
+
+update_el_tree(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  expanded = NULL,
+  checked = NULL,
+  label = NULL,
+  error = NULL,
+  node_key = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  expand_on_click_node = NULL,
+  accordion = NULL,
+  highlight_current = NULL,
+  empty_text = NULL,
+  indent = NULL,
+  lazy = NULL,
+  draggable = NULL,
+  auto_expand_parent = NULL,
+  check_on_click_node = NULL,
+  current_node_key = NULL,
+  render_after_expand = NULL,
+  load = NULL,
+  filter_node_method = NULL,
+  render_content = NULL,
+  allow_drag = NULL,
+  allow_drop = NULL,
+  check_on_click_leaf = NULL,
+  icon = NULL
+)
 ```
 
 ## Arguments
@@ -247,8 +278,11 @@ el_tree(
 
 - session:
 
-  Deprecated. Inside a module, wrap `id` in `ns()`, as for any Shiny
-  input; a session given here namespaces `id` once more, with a warning.
+  In `el_tree()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_tree()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
 
 ## Value
 
@@ -329,6 +363,17 @@ Callable with
 - `updateKeyChildren()` – Set new data to node, only works when node-key
   is assigned
 
+## Updating from the server
+
+`update_el_tree()` changes the component from the server.
+
+Every other argument of `el_tree()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_tree()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
@@ -372,4 +417,10 @@ el_tree(
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":"fruit","label":"Fruit","children":[{"id":"apple","label":"Apple"},{"id":"cherry","label":"Cherry"}]},{"id":"veg","label":"Vegetables","children":[{"id":"leek","label":"Leek","disabled":true}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":["fruit"],"checkedKeys":["apple","cherry"],"emptyText":null,"current":"","checked":["apple","cherry"],"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_drag_over', [v], 200); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picker', 'node_drop', [v]); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('picker_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('picker_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"picker_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
 #> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tree(session, "picker", checked = c("apple"))
+  })
+}
 ```
