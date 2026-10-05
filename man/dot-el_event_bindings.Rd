@@ -4,7 +4,7 @@
 \alias{.el_event_bindings}
 \title{Forward Element Plus events to Shiny inputs}
 \usage{
-.el_event_bindings(ns_id, events, shapes = list())
+.el_event_bindings(ns_id, events, shapes = list(), throttle = character())
 }
 \arguments{
 \item{ns_id}{The namespaced element id.}
@@ -16,6 +16,10 @@ carries more than one argument, turning the arguments into a single
 object. \code{this} is the Vue instance. Returning \code{undefined} skips that
 emission. Without a shape, several arguments are sent as \code{arg1}, \code{arg2},
 ...}
+
+\item{throttle}{Events that fire on every frame -- a scroll, a drag --
+sent at most every 200 ms, the last one always: the server hears where
+the scroll or the drag ended.}
 }
 \value{
 A list with \code{attrs} (to merge into the tag) and \code{methods} (to merge

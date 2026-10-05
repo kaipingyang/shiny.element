@@ -26,10 +26,18 @@
 #'   object. `this` is the Vue instance. Returning `undefined` skips that
 #'   emission. Without a shape, several arguments are sent as `arg1`, `arg2`,
 #'   ...
+#' @param throttle Events that fire on every frame -- a scroll, a drag --
+#'   sent at most every 200 ms, the last one always: the server hears where
+#'   the scroll or the drag ended.
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
 #' @keywords internal
-.el_event_bindings <- function(ns_id, events, shapes = list()) {
+.el_event_bindings <- function(
+  ns_id,
+  events,
+  shapes = list(),
+  throttle = character()
+) {
   if (!length(events)) {
     return(list(attrs = list(), methods = list()))
   }
@@ -50,29 +58,35 @@
     lapply(events, method_name),
     paste0("@", events)
   )
+  unknown <- setdiff(throttle, events)
+  if (length(unknown)) {
+    stop("`throttle` names events not forwarded: ", toString(unknown))
+  }
   methods <- stats::setNames(
     lapply(events, function(event) {
       shape <- shapes[[event]]
+      wait <- if (event %in% throttle) ", 200" else ""
       if (is.null(shape)) {
         return(JS(sprintf(
-          "function() { window.shinyVue.emit('%s', '%s', arguments); }",
+          "function() { window.shinyVue.emit('%s', '%s', arguments%s); }",
           ns_id,
-          input_name(event)
+          input_name(event),
+          wait
         )))
       }
       # The shape runs with `this` as the Vue instance, so it can look a row
-      # up in the instance's own data.
-      # A shape that returns undefined skips that emission -- how a
-      # high-frequency event is throttled.
+      # up in the instance's own data. A shape that returns undefined skips
+      # that emission.
       JS(sprintf(
         paste0(
           "function() { var shape = %s; ",
           "var v = shape.apply(this, arguments); if (v === undefined) return; ",
-          "window.shinyVue.emit('%s', '%s', [v]); }"
+          "window.shinyVue.emit('%s', '%s', [v]%s); }"
         ),
         shape,
         ns_id,
-        input_name(event)
+        input_name(event),
+        wait
       ))
     }),
     vapply(events, method_name, character(1))

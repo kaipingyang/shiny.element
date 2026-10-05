@@ -33,6 +33,7 @@ ui <- el_page(
   picker_ui("mod"),
   vue_output("mixed_out"),
   vue_output("tabs_out"),
+  vue_output("ident_out"),
   actionButton("drop", "remove the table"),
   verbatimTextOutput("vals")
 )
@@ -92,6 +93,15 @@ server <- function(input, output, session) {
     )
   ))
   # a markup container: the tab the user opened stays open
+  # the same shape under another id the author gave: another component
+  output$ident_out <- render_vue(
+    vue_app(
+      input$ident %||% "old_id",
+      tags$b(class = "ident", "{{ n }}"),
+      data = list(n = 1),
+      input = "n"
+    )
+  )
   output$tabs_out <- render_vue(el_tabs(
     "tb",
     selected = "one",

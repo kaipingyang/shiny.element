@@ -38,7 +38,9 @@ el_splitter <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("resize-start", "resize", "resize-end", "collapse")
+    c("resize-start", "resize", "resize-end", "collapse"),
+    # fires on every step of a drag
+    throttle = "resize"
   )
   .el_wrap_widget(
     "el-splitter",

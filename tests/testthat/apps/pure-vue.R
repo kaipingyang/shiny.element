@@ -73,6 +73,39 @@ ui <- fluidPage(
     ),
     input = "k"
   ),
+  # $emit() with no argument, several, and null
+  vue_app(
+    "em",
+    tags$div(
+      tags$button(class = "pair", `@click` = "$emit('pair', 'left', 2)"),
+      tags$button(class = "bare", `@click` = "$emit('bare')"),
+      tags$button(class = "nil", `@click` = "$emit('nil', null)")
+    ),
+    emits = c("pair", "bare", "nil")
+  ),
+  # a child registered in snake_case, used in kebab-case
+  vue_app(
+    "todo",
+    tags$ul(
+      htmltools::tag(
+        "todo-item",
+        list(
+          `v-for` = "t in items",
+          `:text` = "t",
+          `@toggle` = "done++"
+        )
+      )
+    ),
+    data = list(items = list("milk", "bread"), done = 0),
+    components = list(
+      todo_item = vue_component(
+        tags$li(class = "item", `@click` = "$emit('toggle')", "{{ text }}"),
+        props = "text",
+        emits = "toggle"
+      )
+    ),
+    input = "done"
+  ),
   vue_output("rv"),
   verbatimTextOutput("vals")
 )

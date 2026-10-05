@@ -82,7 +82,9 @@ and the server does with \code{\link[=update_vue]{update_vue()}} or \code{\link[
 \itemize{
 \item \verb{input$<id>} -- the \code{input} field, on load, on change and after an
 update; several fields give one value, a named list of them.
-\item \verb{input$<id>_<event>} -- each event in \code{emits}, sent with \verb{$emit()}.
+\item \verb{input$<id>_<event>} -- each event in \code{emits}, sent with \verb{$emit()}:
+one argument as it is, several as a list (\code{arg1}, \code{arg2}, ...), none as
+\code{TRUE}.
 }
 }
 

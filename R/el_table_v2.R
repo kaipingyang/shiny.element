@@ -168,11 +168,6 @@ el_table_v2 <- function(
   if (is.null(height) && is.null(max_height) && !isTRUE(auto_resize)) {
     height <- 400
   }
-  throttle <- paste0(
-    "function(e) { var now = Date.now(); ",
-    "if (this._elLast && now - this._elLast < 200) return undefined; ",
-    "this._elLast = now; return e; }"
-  )
   events <- .el_event_bindings(
     ns_id,
     c(
@@ -183,7 +178,8 @@ el_table_v2 <- function(
       "rows-rendered",
       "row-expand"
     ),
-    shapes = list(scroll = throttle, "rows-rendered" = throttle)
+    # both fire on every frame of a scroll
+    throttle = c("scroll", "rows-rendered")
   )
   attrs <- c(list(), events$attrs)
   props <- .el_props(

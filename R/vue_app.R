@@ -138,6 +138,50 @@
   list(html = as.character(r$html), dependencies = r$dependencies)
 }
 
+#' Child components: their names checked, their dependencies collected
+#'
+#' A name is used as written, and one in snake_case answers to its
+#' kebab-case form too (the bridge registers both), so `todo_item` and
+#' `todo-item` cannot both be given. The dependencies are those of every
+#' child's template and its own `dependencies`, children of children
+#' included.
+#' @noRd
+.vue_components <- function(components) {
+  if (!length(components)) {
+    return(list())
+  }
+  nms <- names(components)
+  if (is.null(nms) || any(!nzchar(nms))) {
+    stop(
+      "`components` must be named: `list(todo_item = vue_component(...))`.",
+      call. = FALSE
+    )
+  }
+  kebab <- gsub("_", "-", nms, fixed = TRUE)
+  clash <- unique(kebab[duplicated(kebab)])
+  if (length(clash)) {
+    stop(
+      "`components` names ",
+      paste(sQuote(clash), collapse = ", "),
+      " twice, in snake_case and kebab-case.",
+      call. = FALSE
+    )
+  }
+  unlist(
+    lapply(components, function(child) {
+      # a vue_component() carries its children's already
+      deps <- attr(child, "dependencies")
+      if (is.null(deps) && is.list(child)) {
+        .vue_components(child$components)
+      } else {
+        deps
+      }
+    }),
+    recursive = FALSE,
+    use.names = FALSE
+  )
+}
+
 #' A Vue component, as Shiny UI
 #'
 #' `vue_app()` writes a Vue 3 component in R and places it on the page: the
@@ -165,7 +209,9 @@
 #' @section Shiny inputs:
 #' - `input$<id>` -- the `input` field, on load, on change and after an
 #'   update; several fields give one value, a named list of them.
-#' - `input$<id>_<event>` -- each event in `emits`, sent with `$emit()`.
+#' - `input$<id>_<event>` -- each event in `emits`, sent with `$emit()`:
+#'   one argument as it is, several as a list (`arg1`, `arg2`, ...), none as
+#'   `TRUE`.
 #'
 #' @section Data from users:
 #' Show it through `data` -- `{{ field }}`, `:prop="field"` -- which Vue
@@ -221,6 +267,7 @@ vue_app <- function(
   use = NULL,
   dependencies = NULL
 ) {
+  child_deps <- .vue_components(components)
   .vue_app_spec(
     id = id,
     template = template,
@@ -241,8 +288,18 @@ vue_app <- function(
     ),
     input = input,
     use = use,
-    dependencies = dependencies
+    dependencies = c(.vue_dependency_list(dependencies), child_deps)
   )
+}
+
+#' One dependency or a list of them, as a list
+#' @noRd
+.vue_dependency_list <- function(dependencies) {
+  if (inherits(dependencies, "html_dependency")) {
+    list(dependencies)
+  } else {
+    dependencies
+  }
 }
 
 #' The body of vue_app() and vue_store()
@@ -299,9 +356,7 @@ vue_app <- function(
   if (isTRUE(store)) {
     spec$store <- TRUE
   }
-  if (inherits(dependencies, "html_dependency")) {
-    dependencies <- list(dependencies)
-  }
+  dependencies <- .vue_dependency_list(dependencies)
   .vue_host(id, tpl$html, spec, c(dependencies, tpl$dependencies))
 }
 
@@ -309,7 +364,7 @@ vue_app <- function(
 #'
 #' Vue's component options for one component that [vue_app()] registers
 #' under `components =`: `components = list(todo_item = vue_component(...))`
-#' is `<todo-item>` in the template. As in Vue, a child takes `props` and
+#' is `<todo-item>` in the template, and `<todo_item>` as written. As in Vue, a child takes `props` and
 #' sends `emits` to its parent's template (`@toggle="..."`); `data` gives
 #' each instance its own copy.
 #'
@@ -319,7 +374,11 @@ vue_app <- function(
 #' @param data Named list: each instance's initial state.
 #' @param methods,computed,watch Named lists of [JS()] functions.
 #' @param setup A [JS()] function: Vue's Composition API.
-#' @param ... Any other option of Vue's, by Vue's name or its snake_case.
+#' @param ... Any other option of Vue's, by Vue's name or its snake_case --
+#'   `components` for children of its own.
+#' @param dependencies [htmltools::htmlDependency()]s the child needs; the
+#'   [vue_app()] that registers it attaches them, with those its template
+#'   carries.
 #' @return A list of Vue options, of class `vue_component`.
 #' @examples
 #' item <- vue_component(
@@ -337,10 +396,12 @@ vue_component <- function(
   computed = NULL,
   watch = NULL,
   setup = NULL,
-  ...
+  ...,
+  dependencies = NULL
 ) {
+  tpl <- .vue_template(template)
   opts <- c(
-    list(template = .vue_template(template)$html),
+    list(template = tpl$html),
     Filter(
       Negate(is.null),
       list(
@@ -368,7 +429,16 @@ vue_component <- function(
     ),
     list(...)
   )
-  structure(.vue_option_aliases(opts), class = c("vue_component", "list"))
+  opts <- .vue_option_aliases(opts)
+  structure(
+    opts,
+    class = c("vue_component", "list"),
+    dependencies = c(
+      .vue_dependency_list(dependencies),
+      tpl$dependencies,
+      .vue_components(opts$components)
+    )
+  )
 }
 
 #' State shared by Vue components: a store

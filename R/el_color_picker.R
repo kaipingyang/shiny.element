@@ -113,7 +113,9 @@ el_color_picker <- function(
       "blur",
       "clear",
       "focus"
-    )
+    ),
+    # fires on every move of a drag in the panel
+    throttle = "active-change"
   )
   cp_attrs <- c(cp_attrs, events$attrs)
   vue_data <- list(

@@ -346,13 +346,13 @@ el_select <- function(
       "popup-scroll"
     ),
     shapes = list(
-      # Fires on every frame of a scroll; a server hears it at most every 200 ms
       "popup-scroll" = paste0(
-        "function(e) { var now = Date.now(); ",
-        "if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; ",
-        "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"
+        "function(e) { ",
+        "return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"
       )
-    )
+    ),
+    # fires on every frame of a scroll
+    throttle = "popup-scroll"
   )
   select_attrs <- c(select_attrs, events$attrs)
   # Build Vue data

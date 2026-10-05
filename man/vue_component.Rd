@@ -13,7 +13,8 @@ vue_component(
   computed = NULL,
   watch = NULL,
   setup = NULL,
-  ...
+  ...,
+  dependencies = NULL
 )
 }
 \arguments{
@@ -29,7 +30,12 @@ vue_component(
 
 \item{setup}{A \code{\link[=JS]{JS()}} function: Vue's Composition API.}
 
-\item{...}{Any other option of Vue's, by Vue's name or its snake_case.}
+\item{...}{Any other option of Vue's, by Vue's name or its snake_case --
+\code{components} for children of its own.}
+
+\item{dependencies}{\code{\link[htmltools:htmlDependency]{htmltools::htmlDependency()}}s the child needs; the
+\code{\link[=vue_app]{vue_app()}} that registers it attaches them, with those its template
+carries.}
 }
 \value{
 A list of Vue options, of class \code{vue_component}.
@@ -37,7 +43,7 @@ A list of Vue options, of class \code{vue_component}.
 \description{
 Vue's component options for one component that \code{\link[=vue_app]{vue_app()}} registers
 under \verb{components =}: \code{components = list(todo_item = vue_component(...))}
-is \verb{<todo-item>} in the template. As in Vue, a child takes \code{props} and
+is \verb{<todo-item>} in the template, and \verb{<todo_item>} as written. As in Vue, a child takes \code{props} and
 sends \code{emits} to its parent's template (\verb{@toggle="..."}); \code{data} gives
 each instance its own copy.
 }

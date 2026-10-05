@@ -52,7 +52,22 @@ ui <- page_sidebar(
   checkboxInput("show_cp", "show", FALSE),
   conditionalPanel("input.show_cp", el_switch("cp_sw", value = TRUE)),
   el_input("js_in", value = "shinyjs target"),
-  actionButton("modal", "modal")
+  actionButton("modal", "modal"),
+  # bslib's tooltip and popover around a component
+  tooltip(el_button("tip_btn", "tip"), "tip text"),
+  popover(el_input("pop_in", value = "pop"), "pop body", title = "pop"),
+  # shinyjs::reset() over components and a Shiny input
+  tags$div(
+    id = "reset_area",
+    el_input("rs_in", value = "start"),
+    el_select(
+      "rs_sel",
+      choices = c("a", "b", "c"),
+      value = "a",
+      multiple = TRUE
+    ),
+    textInput("rs_txt", "text", "orig")
+  )
 )
 
 server <- function(input, output, session) {
@@ -67,6 +82,12 @@ server <- function(input, output, session) {
   observeEvent(input$do_toggle, shinyjs::toggle("js_in"))
   observeEvent(input$do_disable, shinyjs::disable("js_in"))
   observeEvent(input$do_enable, shinyjs::enable("js_in"))
+  observeEvent(input$do_change, {
+    update_el_input(session, "rs_in", value = "changed")
+    update_el_select(session, "rs_sel", value = c("b", "c"))
+    updateTextInput(session, "rs_txt", value = "changed")
+  })
+  observeEvent(input$do_reset, shinyjs::reset("reset_area"))
 }
 
 shinyApp(ui, server)

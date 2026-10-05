@@ -49,7 +49,12 @@ el_affix <- function(
     id <- paste0("el_affix_", uuid::UUIDgenerate())
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("change", "scroll"))
+  events <- .el_event_bindings(
+    ns_id,
+    c("change", "scroll"),
+    # fires on every frame of a scroll
+    throttle = "scroll"
+  )
   .el_wrap_widget(
     "el-affix",
     ns_id,

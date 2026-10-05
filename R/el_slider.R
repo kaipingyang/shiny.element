@@ -169,9 +169,9 @@ el_slider <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "input"
-    )
+    "input",
+    # fires on every step of a drag
+    throttle = "input"
   )
   slider_attrs <- c(slider_attrs, events$attrs)
 

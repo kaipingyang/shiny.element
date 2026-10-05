@@ -138,6 +138,64 @@ test_that("components work inside bslib and Shiny containers", {
     "document.querySelector('#js_in .el-input').classList.contains('is-disabled')"
   ))
 
+  # shinyjs::reset(): the components go back as the page had them, beside
+  # Shiny's own input
+  sel_before <- value("rs_sel")
+  step("do_change")
+  expect_equal(value("rs_in"), '"changed"')
+  expect_equal(value("rs_sel"), '["b","c"]')
+  expect_equal(value("rs_txt"), '"changed"')
+  step("do_reset")
+  Sys.sleep(0.5)
+  expect_equal(value("rs_in"), '"start"')
+  expect_equal(value("rs_sel"), sel_before)
+  expect_equal(value("rs_txt"), '"orig"')
+
+  # bslib's tooltip and popover: the host is their trigger, and has a box
+  hover <- function(sel) {
+    r <- jsonlite::fromJSON(js(sprintf(
+      "(function() { var e = document.querySelector('%s'); e.scrollIntoView({block: 'center'});
+         var r = e.getBoundingClientRect(); return JSON.stringify([r.x + r.width / 2, r.y + r.height / 2]); })()",
+      sel
+    )))
+    b$Input$dispatchMouseEvent(type = "mouseMoved", x = 1, y = 1)
+    Sys.sleep(0.2)
+    b$Input$dispatchMouseEvent(type = "mouseMoved", x = r[1], y = r[2])
+    Sys.sleep(1)
+    r
+  }
+  box <- function(id) {
+    js(sprintf(
+      "(function() { var h = document.getElementById('%s'), c = h.querySelector('button, .el-input');
+         var a = h.getBoundingClientRect(), b = c.getBoundingClientRect();
+         return Math.round(a.width) + '/' + Math.round(b.width); })()",
+      id
+    ))
+  }
+  # the box is the component's size: a button's, an input's whole line
+  w <- strsplit(box("tip_btn"), "/")[[1]]
+  expect_equal(w[1], w[2])
+  expect_lt(as.numeric(w[1]), 200)
+  w <- strsplit(box("pop_in"), "/")[[1]]
+  expect_equal(w[1], w[2])
+  at <- hover("#tip_btn button")
+  tip <- jsonlite::fromJSON(js(
+    "(function() { var t = document.querySelector('.tooltip.show'); if (!t) return 'null';
+       var r = t.getBoundingClientRect(); return JSON.stringify([r.x, r.y, r.width, r.height]); })()"
+  ))
+  expect_length(tip, 4)
+  # beside the button, not in the corner of the page
+  expect_lt(
+    abs(tip[1] + tip[3] / 2 - at[1]) + abs(tip[2] + tip[4] / 2 - at[2]),
+    120
+  )
+  b$Input$dispatchMouseEvent(type = "mouseMoved", x = 1, y = 1)
+  js("document.querySelector('#pop_in input').click()")
+  Sys.sleep(1)
+  expect_true(js("!!document.querySelector('.popover.show')"))
+  js("document.body.click()")
+  Sys.sleep(0.5)
+
   # bslib's dark mode switch turns Element Plus's dark mode with it
   dark <- function() {
     js("document.documentElement.classList.contains('dark')")

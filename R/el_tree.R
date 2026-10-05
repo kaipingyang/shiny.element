@@ -254,7 +254,9 @@ el_tree <- function(
 
       "node-drop"
     ),
-    shapes = .el_tree_event_shapes()
+    shapes = .el_tree_event_shapes(),
+    # fires on every move of a drag
+    throttle = "node-drag-over"
   )
 
   tree_attrs <- c(tree_attrs, events$attrs)

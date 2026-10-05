@@ -126,6 +126,53 @@ test_that("vue_app() works without Element Plus", {
   expect_match(js("document.querySelector('#rv .rv').textContent"), "n is 4")
   expect_equal(js("document.getElementById('rv_app').__mark"), 1)
 
+  # $emit(): several arguments an object, none TRUE, a single null NULL
+  js("document.querySelector('#em .pair').click()")
+  js("document.querySelector('#em .bare').click()")
+  js("document.querySelector('#em .nil').click()")
+  Sys.sleep(0.8)
+  expect_equal(
+    js("JSON.stringify(Shiny.shinyapp.$inputValues.em_pair)"),
+    '{"arg1":"left","arg2":2}'
+  )
+  expect_true(js("Shiny.shinyapp.$inputValues.em_bare"))
+  expect_true(js(
+    "Shiny.shinyapp.$inputValues.em_nil === null"
+  ))
+
+  # a child registered as todo_item renders as <todo-item>, and its event
+  # reaches the parent
+  expect_equal(js("document.querySelectorAll('#todo li.item').length"), 2)
+  expect_false(js("!!document.querySelector('#todo todo-item')"))
+  js("document.querySelector('#todo li.item').click()")
+  Sys.sleep(0.8)
+  expect_equal(js("Shiny.shinyapp.$inputValues.todo"), 1)
+
+  # a throttled event: at once, then at most once per wait, the last always
+  sent <- js(
+    "new Promise(function(done) {
+       var seen = [], set = Shiny.setInputValue;
+       Shiny.setInputValue = function(name, value) {
+         if (name === 'thr_tick') seen.push(value);
+         return set.apply(this, arguments);
+       };
+       var i = 0, timer = setInterval(function() {
+         shinyVue.emit('thr', 'tick', [++i], 200);
+         if (i === 30) {
+           clearInterval(timer);
+           setTimeout(function() {
+             Shiny.setInputValue = set;
+             done(JSON.stringify(seen));
+           }, 400);
+         }
+       }, 20);
+     })"
+  )
+  sent <- jsonlite::fromJSON(sent)
+  expect_equal(sent[1], 1)
+  expect_equal(sent[length(sent)], 30)
+  expect_lte(length(sent), 6)
+
   expect_equal(
     js(
       "window.__w.filter(function(w){ return /Vue warn|shiny-vue/.test(w); }).length"

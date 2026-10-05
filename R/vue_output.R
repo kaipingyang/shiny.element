@@ -14,7 +14,9 @@
 #'   the user changed and the server did not keeps the user's value.
 #'
 #' Anything structural -- an element added or removed, a component's
-#' template or options changed -- renders afresh, as `renderUI()` does. To
+#' template or options changed, a component given another id -- renders
+#' afresh, as `renderUI()` does. (A component given no id draws a random one
+#' each render; that is not a change.) To
 #' keep a component, put what changes from render to render in its `data`
 #' and keep its template the same.
 #'

@@ -72,13 +72,16 @@ Shiny input.
   Vue's names (multi-word ones also in snake_case), plus `id`, `input` (the
   field that is `input$<id>`; several for one value) and `use` (Vue's
   `app.use()`, any plugin with its options). `$emit()` of an event in
-  `emits` arrives as `input$<id>_<event>`.
-* `vue_component()` -- a child component for `components =`.
+  `emits` arrives as `input$<id>_<event>`, several arguments as a list.
+* `vue_component()` -- a child component for `components =`, under its name
+  as written or in kebab-case (`todo_item` is `<todo-item>`); the
+  dependencies its template carries come with it.
 * `vue_store()` -- state shared by components, `$store.<id>` in every
   template, reported to and set from the server on request.
 * `vue_output()` / `render_vue()` -- like `uiOutput()` / `renderUI()`, but a
   render that changes only a component's data updates it in place, keeping
-  the user's sort, ticks and open tabs.
+  the user's sort, ticks and open tabs. A component given another id is
+  another component, and renders afresh.
 * `update_vue()`, `call_vue()`, `vue_answer()` -- set fields (`value` for
   the input), run methods, answer a component that asked the server; they
   reach `setup()` state too, and bookmarks restore it.
@@ -154,7 +157,13 @@ back through `input$<id>` too.
 theme carrying Element's colours, font and control sizes, so Shiny's own
 inputs and outputs match the Element ones beside them. `theme = NULL` leaves
 Shiny's plain Bootstrap. Bootstrap's dark mode -- bslib's
-`input_dark_mode()` -- turns Element Plus's with it.
+`input_dark_mode()` -- turns Element Plus's with it, and bslib's `tooltip()`
+and `popover()` take a component as their trigger.
+
+Events that fire on every frame -- a scroll, a slider or splitter drag, a
+tree node dragged over, a colour picked in the panel -- reach the server at
+most every 200 ms, the last one always, so it hears where the scroll or the
+drag ended.
 
 Tabs can be added and removed from the server (`insert_el_tab()`,
 `remove_el_tab()`) or by the user (`editable = TRUE`), and a lazy pane binds
@@ -222,7 +231,8 @@ so instead of leaving bare text.
 Each component is a host element carrying its id, with Element's markup
 inside and a Shiny input binding on it -- the way reactR binds React
 components -- so the rest of Shiny reaches it as it reaches `textInput()`:
-`shinyjs::hide()`, `show()`, `toggle()`, `disable()` and `enable()`,
+`shinyjs::hide()`, `show()`, `toggle()`, `disable()`, `enable()` and
+`reset()`,
 `removeUI()` (which destroys its Vue instance too), bookmarking,
 shinyvalidate, a test driver's `set_inputs()`, and bslib's containers --
 a sidebar, a card, a closed accordion, a nav panel not yet shown.

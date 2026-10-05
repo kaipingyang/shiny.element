@@ -75,7 +75,12 @@ el_scrollbar <- function(
     id <- paste0("el_scrollbar_", uuid::UUIDgenerate())
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("scroll", "end-reached"))
+  events <- .el_event_bindings(
+    ns_id,
+    c("scroll", "end-reached"),
+    # fires on every frame of a scroll
+    throttle = "scroll"
+  )
   .el_wrap_widget(
     "el-scrollbar",
     ns_id,

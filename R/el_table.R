@@ -125,11 +125,9 @@
     "cell-mouse-enter" = cell_event,
     "cell-mouse-leave" = cell_event,
     "cell-contextmenu" = cell_event,
-    # Scrolling fires on every frame; a server hears it at most every 200 ms
     "scroll" = paste0(
-      "function(e) { var now = Date.now(); ",
-      "if (this._elLastScroll && now - this._elLastScroll < 200) return undefined; ",
-      "this._elLastScroll = now; return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"
+      "function(e) { ",
+      "return {scroll_left: e.scrollLeft, scroll_top: e.scrollTop}; }"
     ),
     "header-click" = header_event,
     "header-contextmenu" = header_event,
@@ -761,7 +759,9 @@ el_table <- function(
       "cell-contextmenu",
       "scroll"
     ),
-    shapes = .el_table_event_shapes()
+    shapes = .el_table_event_shapes(),
+    # fires on every frame of a scroll
+    throttle = "scroll"
   )
   table_attrs <- c(table_attrs, events$attrs)
 

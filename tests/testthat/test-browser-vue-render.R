@@ -169,6 +169,15 @@ test_that("render_vue() keeps the component and the user's state", {
     "min 80"
   )
 
+  # ── an id the author gave is the component's identity: a new id renders
+  # a new component, whatever the shape
+  expect_true(js("!!document.getElementById('old_id')"))
+  js("Shiny.setInputValue('ident', 'new_id')")
+  Sys.sleep(1.2)
+  expect_false(js("!!document.getElementById('old_id')"))
+  expect_true(js("!!document.querySelector('#new_id .ident')"))
+  expect_equal(js("Shiny.shinyapp.$inputValues.new_id"), 1)
+
   # ── removeUI() takes the output and its component away cleanly
   js("document.getElementById('drop').click()")
   Sys.sleep(1)
