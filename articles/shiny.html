@@ -412,7 +412,15 @@ needs to be set up beyond what Shiny itself asks for.</p>
 <code><a href="https://rdrr.io/r/methods/show.html" class="external-link">show()</a></code> take the component and its label with it;
 <code>disable()</code> and <code>enable()</code> set the component’s own
 <code>disabled</code>, so it is drawn disabled as Element draws it
-rather than having a native attribute set somewhere underneath.</p>
+rather than having a native attribute set somewhere underneath.
+<code>reset()</code> puts the components under the element it is given
+back as the page first had them, beside Shiny’s own inputs; to set any
+other value, use the component’s <code>update_el_*()</code>.</p>
+<p><strong>bslib.</strong> Components work in bslib’s containers – a
+sidebar, a card, an accordion, a nav panel not yet shown – and bslib’s
+<code><a href="https://rstudio.github.io/bslib/reference/tooltip.html" class="external-link">tooltip()</a></code> and <code><a href="https://rstudio.github.io/bslib/reference/popover.html" class="external-link">popover()</a></code> take one as their
+trigger. bslib’s <code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">input_dark_mode()</a></code> turns Element Plus’s
+dark mode with Bootstrap’s.</p>
 <p><strong>Inserting and removing.</strong> <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">insertUI()</a></code> and
 <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> mount what they add; <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">removeUI()</a></code> on
 a component’s id removes it and destroys its Vue instance, so it stops
@@ -728,11 +736,16 @@ server calls it; <code>input</code>, the field that is
 </table>
 <p>A component’s value is one field, or several
 (<code>input = c("from", "to")</code>) for one value that is a named
-list, as <code><a href="https://rdrr.io/pkg/shiny/man/dateRangeInput.html" class="external-link">dateRangeInput()</a></code> gives one value of two dates.
-Anything else it sends out goes Vue’s way, with <code>$emit()</code>,
-and arrives with event priority under the component’s id, as Element’s
-own events do. Inside a module, wrap the id in <code>ns()</code>; the
-events follow it.</p>
+list – <code>input$&lt;id&gt;$from</code>,
+<code>input$&lt;id&gt;$to</code>, never an input per field – as
+<code><a href="https://rdrr.io/pkg/shiny/man/dateRangeInput.html" class="external-link">dateRangeInput()</a></code> gives one value of two dates. Anything
+else it sends out goes Vue’s way, with <code>$emit()</code>, and arrives
+with event priority under the component’s id, as Element’s own events
+do: <code>$emit("picked", x)</code> is
+<code>input$&lt;id&gt;_picked</code> holding <code>x</code>; several
+arguments are a list, <code>arg1</code>, <code>arg2</code>, …; none is
+<code>TRUE</code>. Inside a module, wrap the id in <code>ns()</code>;
+the events follow it.</p>
 <p><code>data</code> is the initial state as R writes it: a list is an
 object, a data.frame its rows. Show a user’s data through it –
 <code>{{ field }}</code>, <code>:prop="field"</code> – which Vue renders

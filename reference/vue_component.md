@@ -4,9 +4,9 @@ Vue's component options for one component that
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
 registers under `components =`:
 `components = list(todo_item = vue_component(...))` is `<todo-item>` in
-the template. As in Vue, a child takes `props` and sends `emits` to its
-parent's template (`@toggle="..."`); `data` gives each instance its own
-copy.
+the template, and `<todo_item>` as written. As in Vue, a child takes
+`props` and sends `emits` to its parent's template (`@toggle="..."`);
+`data` gives each instance its own copy.
 
 ## Usage
 
@@ -20,7 +20,8 @@ vue_component(
   computed = NULL,
   watch = NULL,
   setup = NULL,
-  ...
+  ...,
+  dependencies = NULL
 )
 ```
 
@@ -56,7 +57,15 @@ vue_component(
 
 - ...:
 
-  Any other option of Vue's, by Vue's name or its snake_case.
+  Any other option of Vue's, by Vue's name or its snake_case –
+  `components` for children of its own.
+
+- dependencies:
+
+  [`htmltools::htmlDependency()`](https://rstudio.github.io/htmltools/reference/htmlDependency.html)s
+  the child needs; the
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+  that registers it attaches them, with those its template carries.
 
 ## Value
 

@@ -230,7 +230,19 @@ shinyApp(ui, server, enableBookmarking = "url")
 and [`show()`](https://rdrr.io/r/methods/show.html) take the component
 and its label with it; `disable()` and `enable()` set the component’s
 own `disabled`, so it is drawn disabled as Element draws it rather than
-having a native attribute set somewhere underneath.
+having a native attribute set somewhere underneath. `reset()` puts the
+components under the element it is given back as the page first had
+them, beside Shiny’s own inputs; to set any other value, use the
+component’s `update_el_*()`.
+
+**bslib.** Components work in bslib’s containers – a sidebar, a card, an
+accordion, a nav panel not yet shown – and bslib’s
+[`tooltip()`](https://rstudio.github.io/bslib/reference/tooltip.html)
+and
+[`popover()`](https://rstudio.github.io/bslib/reference/popover.html)
+take one as their trigger. bslib’s
+[`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
+turns Element Plus’s dark mode with Bootstrap’s.
 
 **Inserting and removing.**
 [`insertUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) and
@@ -481,12 +493,15 @@ shinyApp(ui, server)
 | a child component | `components = list(todo_item = vue_component(...))` |
 
 A component’s value is one field, or several (`input = c("from", "to")`)
-for one value that is a named list, as
+for one value that is a named list – `input$<id>$from`, `input$<id>$to`,
+never an input per field – as
 [`dateRangeInput()`](https://rdrr.io/pkg/shiny/man/dateRangeInput.html)
 gives one value of two dates. Anything else it sends out goes Vue’s way,
 with `$emit()`, and arrives with event priority under the component’s
-id, as Element’s own events do. Inside a module, wrap the id in `ns()`;
-the events follow it.
+id, as Element’s own events do: `$emit("picked", x)` is
+`input$<id>_picked` holding `x`; several arguments are a list, `arg1`,
+`arg2`, …; none is `TRUE`. Inside a module, wrap the id in `ns()`; the
+events follow it.
 
 `data` is the initial state as R writes it: a list is an object, a
 data.frame its rows. Show a user’s data through it – `{{ field }}`,

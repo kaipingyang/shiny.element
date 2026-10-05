@@ -209,7 +209,9 @@ any markup around them.</p></dd>
 <code>data</code> fields the server changed since its last render – so a field
 the user changed and the server did not keeps the user's value.</p></li>
 </ul><p>Anything structural – an element added or removed, a component's
-template or options changed – renders afresh, as <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> does. To
+template or options changed, a component given another id – renders
+afresh, as <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> does. (A component given no id draws a random one
+each render; that is not a change.) To
 keep a component, put what changes from render to render in its <code>data</code>
 and keep its template the same.</p>
 <p>A field the server sends with the same value as last time is not sent

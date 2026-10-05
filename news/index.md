@@ -102,9 +102,11 @@ as a Shiny input.
   names (multi-word ones also in snake_case), plus `id`, `input` (the
   field that is `input$<id>`; several for one value) and `use` (Vue’s
   `app.use()`, any plugin with its options). `$emit()` of an event in
-  `emits` arrives as `input$<id>_<event>`.
+  `emits` arrives as `input$<id>_<event>`, several arguments as a list.
 - [`vue_component()`](https://kaipingyang.github.io/shiny.element/reference/vue_component.md)
-  – a child component for `components =`.
+  – a child component for `components =`, under its name as written or
+  in kebab-case (`todo_item` is `<todo-item>`); the dependencies its
+  template carries come with it.
 - [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
   – state shared by components, `$store.<id>` in every template,
   reported to and set from the server on request.
@@ -114,7 +116,8 @@ as a Shiny input.
   – like [`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html) /
   [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html), but a
   render that changes only a component’s data updates it in place,
-  keeping the user’s sort, ticks and open tabs.
+  keeping the user’s sort, ticks and open tabs. A component given
+  another id is another component, and renders afresh.
 - [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md),
   [`call_vue()`](https://kaipingyang.github.io/shiny.element/reference/call_vue.md),
   [`vue_answer()`](https://kaipingyang.github.io/shiny.element/reference/vue_answer.md)
@@ -255,7 +258,16 @@ Shiny’s own inputs and outputs match the Element ones beside them.
 `theme = NULL` leaves Shiny’s plain Bootstrap. Bootstrap’s dark mode –
 bslib’s
 [`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
-– turns Element Plus’s with it.
+– turns Element Plus’s with it, and bslib’s
+[`tooltip()`](https://rstudio.github.io/bslib/reference/tooltip.html)
+and
+[`popover()`](https://rstudio.github.io/bslib/reference/popover.html)
+take a component as their trigger.
+
+Events that fire on every frame – a scroll, a slider or splitter drag, a
+tree node dragged over, a colour picked in the panel – reach the server
+at most every 200 ms, the last one always, so it hears where the scroll
+or the drag ended.
 
 Tabs can be added and removed from the server
 ([`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md),
@@ -341,8 +353,8 @@ inside and a Shiny input binding on it – the way reactR binds React
 components – so the rest of Shiny reaches it as it reaches
 [`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html):
 [`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html),
-[`show()`](https://rdrr.io/r/methods/show.html), `toggle()`, `disable()`
-and `enable()`,
+[`show()`](https://rdrr.io/r/methods/show.html), `toggle()`,
+`disable()`, `enable()` and `reset()`,
 [`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) (which
 destroys its Vue instance too), bookmarking, shinyvalidate, a test
 driver’s `set_inputs()`, and bslib’s containers – a sidebar, a card, a

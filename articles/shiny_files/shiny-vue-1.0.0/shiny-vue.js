@@ -67,9 +67,14 @@
   // A component event as input$<id>_<event>. Several arguments go as an
   // object, never an array: Shiny unlists an unnamed list into one flat
   // vector, types and all.
-  sv.emit = function(id, event, args) {
+  //
+  // `wait` (ms) is for an event that fires on every frame -- a scroll, a
+  // drag: it goes at once, then at most once per `wait`, and the last one
+  // always goes, so the server hears where the scroll or the drag ended.
+  var throttled = {};
+  sv.emit = function(id, event, args, wait) {
     if (typeof Shiny === 'undefined' || !Shiny.setInputValue) return;
-    var usable = Array.prototype.slice.call(args).filter(serialisable)
+    var usable = Array.prototype.slice.call(args || []).filter(serialisable)
       .map(function(a) { return plain(a); })
       .filter(function(a) { return a !== undefined; });
     var value;
@@ -79,10 +84,34 @@
       value = {};
       usable.forEach(function(u, i) { value['arg' + (i + 1)] = u; });
     }
-    Shiny.setInputValue(id + '_' + event, value, { priority: 'event' });
+    var input = id + '_' + event;
+    var send = function(v) { Shiny.setInputValue(input, v, { priority: 'event' }); };
+    if (!wait) return send(value);
+    var t = throttled[input] || (throttled[input] = { last: 0, timer: null, value: null });
+    var now = Date.now();
+    t.value = value;
+    if (t.timer) return;
+    if (now - t.last >= wait) { t.last = now; send(value); return; }
+    t.timer = setTimeout(function() {
+      t.timer = null;
+      t.last = Date.now();
+      send(t.value);
+    }, wait - (now - t.last));
   };
 
   // ── mounting ────────────────────────────────────────────────────────────
+
+  // A child registered as todo_item -- R's way of writing a name -- is
+  // <todo_item> in a template as written, and <todo-item>, Vue's way, too.
+  function aliasComponents(opts) {
+    var comps = opts && opts.components;
+    if (!comps || typeof comps !== 'object') return;
+    Object.keys(comps).forEach(function(k) {
+      aliasComponents(comps[k]);
+      var kebab = k.replace(/_/g, '-');
+      if (kebab !== k && !(kebab in comps)) comps[kebab] = comps[k];
+    });
+  }
 
   // Functions travel as source, listed by path in `evals`, as htmlwidgets
   // sends them: "options.methods.handleChange".
@@ -121,6 +150,7 @@
     var spec = JSON.parse(opt.textContent);
     revive(spec, spec.evals);
     var options = spec.options;
+    aliasComponents(options);
     options.template = tpl.textContent;
     // Vue 3: data is a function, and the lifecycle hooks have new names
     var data = options.data || {};
@@ -132,14 +162,19 @@
     // emits: Vue's own way for a component to send something out. The root
     // component's listeners are props of createApp(); each declared event
     // becomes input$<id>_<event>.
+    // Its arguments arrive as sv.emit() sends any event's: none is TRUE, one is
+    // itself, several an object of arg1, arg2, ... -- and a single null
+    // stays null, the component saying "nothing".
     var rootProps = {};
     (Array.isArray(options.emits) ? options.emits : []).forEach(function(ev) {
       var name = 'on' + ev.charAt(0).toUpperCase() + ev.slice(1).replace(/-(\w)/g, function(m, c) { return c.toUpperCase(); });
-      var input = host.id + '_' + ev.replace(/-/g, '_');
-      rootProps[name] = function(value) {
-        if (window.Shiny && Shiny.setInputValue) {
-          Shiny.setInputValue(input, plain(value === undefined ? true : value), { priority: 'event' });
+      var event = ev.replace(/-/g, '_');
+      rootProps[name] = function(first) {
+        if (arguments.length === 1 && first === null) {
+          if (window.Shiny && Shiny.setInputValue) Shiny.setInputValue(host.id + '_' + event, null, { priority: 'event' });
+          return;
         }
+        sv.emit(host.id, event, arguments);
       };
     });
     var app = Vue.createApp(options, rootProps);
@@ -189,7 +224,87 @@
     host._shinyVueSpec = { input: spec.input || null, type: spec.type || null,
                            rate: spec.rate || null };
     watchDisabled(host, vm);
+    boxTrigger(host);
+    host._svInitial = initialValues(host, vm);
     return vm;
+  }
+
+  // Bootstrap's tooltip and popover -- bslib's tooltip() and popover() --
+  // take the element they wrap as their trigger: here the host, which has
+  // no box (display: contents), so they could neither place the tip nor see
+  // the trigger on screen, and hid it again at once. A host that is a
+  // trigger gets a box the size of the component: a block around one that
+  // fills its line (an input), inline-block around one narrower (a button).
+  // Measured again as the tip opens, for a component hidden when mounted.
+  function boxTrigger(host) {
+    if (!/^(tooltip|popover)$/.test(host.getAttribute('data-bs-toggle') || '')) return;
+    var fit = function() {
+      host.style.display = 'block';
+      host.style.width = '';
+      var el = host.querySelector(':scope > [data-shiny-vue-root]');
+      while (el && getComputedStyle(el).display === 'contents') el = el.firstElementChild;
+      if (el && el.getBoundingClientRect().width < host.getBoundingClientRect().width - 1) {
+        // fit-content, or a flex container (bslib's main) stretches it
+        host.style.display = 'inline-block';
+        host.style.width = 'fit-content';
+      }
+    };
+    fit();
+    if (!host._svTriggerFit) {
+      host._svTriggerFit = true;
+      host.addEventListener('show.bs.tooltip', fit);
+      host.addEventListener('show.bs.popover', fit);
+    }
+  }
+
+  // The data fields an input reads: "value", "active || null" (active),
+  // "({from: from, to: to})" (from, to).
+  function inputFields(expr) {
+    if (!expr) return [];
+    var several = expr.match(/^\(\{(.*)\}\)$/);
+    if (several) return several[1].split(',').map(function(p) { return p.split(':')[0].trim(); });
+    var head = expr.match(/^[A-Za-z_$][\w$]*/);
+    return head ? [head[0]] : [];
+  }
+  // What they held when the component was put on the page, for
+  // shinyjs::reset()
+  function initialValues(host, vm) {
+    var out = {};
+    inputFields(host._shinyVueSpec.input).forEach(function(f) {
+      if (f in vm) out[f] = JSON.stringify(plain(vm[f]) === undefined ? null : plain(vm[f]));
+    });
+    return out;
+  }
+
+  // shinyjs::reset() puts Shiny's own inputs back as the page first had
+  // them -- it knows them by their markup and calls update*Input(). The
+  // components under the element reset go back the same way, here.
+  function resetHosts(id) {
+    var el = id ? document.getElementById(id) : document.body;
+    if (!el) return;
+    var hosts = el.matches && el.matches(HOST) ? [el] : [];
+    hosts = hosts.concat(Array.prototype.slice.call(el.querySelectorAll(HOST)));
+    hosts.forEach(function(host) {
+      var vm = host._shinyVue, initial = host._svInitial;
+      if (!vm || !initial) return;
+      Object.keys(initial).forEach(function(f) { vm[f] = JSON.parse(initial[f]); });
+    });
+  }
+  function wrapShinyjsReset() {
+    var js = window.shinyjs;
+    if (!js || typeof js.reset !== 'function' || js.reset._shinyVue) return;
+    var original = js.reset;
+    js.reset = function(params) {
+      var out = original.apply(this, arguments);
+      try { resetHosts(params && params.id); } catch (e) {
+        if (window.console) console.error('[shiny-vue] shinyjs::reset(): ' + e.message);
+      }
+      return out;
+    };
+    js.reset._shinyVue = true;
+  }
+  if (window.jQuery) {
+    jQuery(document).on('shiny:connected shiny:value', wrapShinyjsReset);
   }
 
   // shinyjs::disable() sets `disabled` on the element it is given, which is
@@ -621,12 +736,17 @@
     // functions in the data (a column's formatter) may change from render
     // to render; they are revived when sent, so they are data like any other
     rest.evals = (rest.evals || []).filter(function(p) { return !/^options\.data\./.test(p); });
-    // an id drawn at random each render (no id given) is not a difference
-    var norm = function(x) { return x.split(host.id).join('\u0000'); };
-    return { data: data, evals: (spec.evals || []).filter(function(p) { return /^options\.data\./.test(p); }),
+    // An id drawn at random each render -- a component given none is
+    // <name>_<uuid> -- is not a difference; an id the author gave is the
+    // component's identity, and another one is another component.
+    var generated = GENERATED_ID.test(host.id);
+    var norm = function(x) { return generated ? x.split(host.id).join('\u0000') : x; };
+    return { id: generated ? null : host.id,
+             data: data, evals: (spec.evals || []).filter(function(p) { return /^options\.data\./.test(p); }),
              keys: Object.keys(data).sort().join(','),
              shape: norm(tpl.textContent) + '\u0001' + norm(JSON.stringify(rest)) };
   }
+  var GENERATED_ID = /_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   // Text and attributes the server changed between its last render and this
   // one, set on the page. False when the structure differs: then nothing is
   // touched and the caller renders afresh.
@@ -672,7 +792,7 @@
     var updates = [];
     for (var i = 0; i < nextHosts.length; i++) {
       var a = hostSpec(lastHosts[i]), b = hostSpec(nextHosts[i]), host = liveHosts[i];
-      if (!a || !b || a.shape !== b.shape || a.keys !== b.keys || !host._shinyVue) return false;
+      if (!a || !b || a.id !== b.id || a.shape !== b.shape || a.keys !== b.keys || !host._shinyVue) return false;
       updates.push({ host: host, spec: b });
     }
     // the page's elements: a moved node (a dialog appended to <body>) has

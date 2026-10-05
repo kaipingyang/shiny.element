@@ -262,7 +262,9 @@ and the server does with <code><a href="update_vue.html">update_vue()</a></code>
 
 <ul><li><p><code>input$&lt;id&gt;</code> – the <code>input</code> field, on load, on change and after an
 update; several fields give one value, a named list of them.</p></li>
-<li><p><code>input$&lt;id&gt;_&lt;event&gt;</code> – each event in <code>emits</code>, sent with <code>$emit()</code>.</p></li>
+<li><p><code>input$&lt;id&gt;_&lt;event&gt;</code> – each event in <code>emits</code>, sent with <code>$emit()</code>:
+one argument as it is, several as a list (<code>arg1</code>, <code>arg2</code>, ...), none as
+<code>TRUE</code>.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="data-from-users">Data from users<a class="anchor" aria-label="anchor" href="#data-from-users"></a></h2>

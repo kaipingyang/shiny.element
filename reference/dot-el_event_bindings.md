@@ -9,7 +9,7 @@ what cannot travel and sets `input$<id>_<event>`.
 ## Usage
 
 ``` r
-.el_event_bindings(ns_id, events, shapes = list())
+.el_event_bindings(ns_id, events, shapes = list(), throttle = character())
 ```
 
 ## Arguments
@@ -28,6 +28,12 @@ what cannot travel and sets `input$<id>_<event>`.
   than one argument, turning the arguments into a single object. `this`
   is the Vue instance. Returning `undefined` skips that emission.
   Without a shape, several arguments are sent as `arg1`, `arg2`, ...
+
+- throttle:
+
+  Events that fire on every frame – a scroll, a drag – sent at most
+  every 200 ms, the last one always: the server hears where the scroll
+  or the drag ended.
 
 ## Value
 

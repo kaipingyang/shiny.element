@@ -118,7 +118,9 @@ or
 - `input$<id>` – the `input` field, on load, on change and after an
   update; several fields give one value, a named list of them.
 
-- `input$<id>_<event>` – each event in `emits`, sent with `$emit()`.
+- `input$<id>_<event>` – each event in `emits`, sent with `$emit()`: one
+  argument as it is, several as a list (`arg1`, `arg2`, ...), none as
+  `TRUE`.
 
 ## Data from users
 

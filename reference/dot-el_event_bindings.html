@@ -171,7 +171,7 @@ travel and sets <code>input$&lt;id&gt;_&lt;event&gt;</code>.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_event_bindings</span><span class="op">(</span><span class="va">ns_id</span>, <span class="va">events</span>, shapes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_event_bindings</span><span class="op">(</span><span class="va">ns_id</span>, <span class="va">events</span>, shapes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, throttle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -192,6 +192,12 @@ carries more than one argument, turning the arguments into a single
 object. <code>this</code> is the Vue instance. Returning <code>undefined</code> skips that
 emission. Without a shape, several arguments are sent as <code>arg1</code>, <code>arg2</code>,
 ...</p></dd>
+
+
+<dt id="arg-throttle">throttle<a class="anchor" aria-label="anchor" href="#arg-throttle"></a></dt>
+<dd><p>Events that fire on every frame – a scroll, a drag –
+sent at most every 200 ms, the last one always: the server hears where
+the scroll or the drag ended.</p></dd>
 
 </dl></div>
     <div class="section level2">
