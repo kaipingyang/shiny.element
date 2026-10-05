@@ -86,12 +86,14 @@ update_el_rate(
 
 - texts:
 
-  Character vector of length `max` used when `show_text = TRUE`.
-  Defaults to `c("极差", "失望", "一般", "满意", "惊喜")`.
+  Character vector of length `max` used when `show_text = TRUE`. `NULL`
+  takes Element Plus's: "Extremely bad", "Disappointed", "Fair",
+  "Satisfied", "Surprise".
 
 - text_color:
 
-  Colour of the text/score. Default `"#1f2d3d"`.
+  Colour of the text or score. `NULL` takes Element Plus's, from its CSS
+  variables.
 
 - score_template:
 

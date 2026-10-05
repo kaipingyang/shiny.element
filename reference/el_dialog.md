@@ -184,7 +184,7 @@ An `htmltools` tag.
 
 Rendered as plain markup carrying Element Plus's own classes, driven by
 a Shiny input binding rather than a Vue instance, so the body can hold
-other components from this package. See `.claude/docs/lessons.md` §1.2.
+other components from this package.
 
 ## Shiny inputs
 

@@ -320,9 +320,6 @@ change.
   A column of
   [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 
-- [`el_table_config()`](https://kaipingyang.github.io/shiny.element/reference/el_table_config.md)
-  : Prepare Data for Element Table
-
 - [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
   : Element Plus Virtualized Table
 

@@ -224,7 +224,7 @@ Callable with
 
 ## Shiny inputs
 
-`input$<id>` — numeric value, updated on each valid change.
+`input$<id>` – numeric value, updated on each valid change.
 
 ## Examples
 

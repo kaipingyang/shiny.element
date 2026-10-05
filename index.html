@@ -179,6 +179,11 @@
 <p>Use <a href="https://element-plus.org/" class="external-link">Element Plus</a>, the Vue 3 component library, in Shiny — inputs, tables, trees, dialogs, menus, every component it documents — each reporting through <code>input$&lt;id&gt;</code> and updatable from the server, like any other Shiny input.</p>
 <p>Element Plus 2.14.7, its icons and Vue 3.5 ship inside the package, so apps work without a network connection.</p>
 <div class="section level2">
+<h2 id="lifecycle">Lifecycle<a class="anchor" aria-label="anchor" href="#lifecycle"></a>
+</h2>
+<p>shiny.element is experimental: until 1.0.0 an argument or a function may change when a better design turns up, and every such change is listed under “Breaking changes” in NEWS. From the first CRAN release on, nothing is removed without first being deprecated, with a warning, for at least one minor release. Element Plus is followed as upstream changes: what it deprecates is deprecated here too, and what it removes goes with the next upgrade.</p>
+</div>
+<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -332,6 +337,10 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml" class="external-link"><img src="https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml/badge.svg" alt="browser tests"></a></li>
+<li><a href="https://app.codecov.io/gh/kaipingyang/shiny.element" class="external-link"><img src="https://codecov.io/gh/kaipingyang/shiny.element/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://deepwiki.com/kaipingyang/shiny.element" class="external-link"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a></li>
 </ul>
 </div>

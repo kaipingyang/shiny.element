@@ -114,7 +114,7 @@ el_tooltip(
 
 - arrow_offset:
 
-  Controls the offset (padding) of the tooltip’s arrow relative to the
+  Controls the offset (padding) of the tooltip's arrow relative to the
   popper. Element Plus's `arrow-offset` (number).
 
 - auto_close:

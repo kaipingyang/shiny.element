@@ -100,7 +100,7 @@ An `htmltools` tagList with a Vue-managed tag component.
   and [`req()`](https://rdrr.io/pkg/shiny/man/req.html) as not yet
   clicked.
 
-- `input$<id>_closed` — set to `1` when the user clicks the close button
+- `input$<id>_closed` – set to `1` when the user clicks the close button
   (only meaningful when `closable = TRUE`).
 
 ## Examples

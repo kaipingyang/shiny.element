@@ -36,7 +36,7 @@ el_progress(
 
 - percentage:
 
-  Progress percentage, `0`–`100`. Default `0`.
+  Progress percentage, `0` to `100`. Default `0`.
 
 - type:
 

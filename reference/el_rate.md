@@ -14,8 +14,8 @@ el_rate(
   allow_half = FALSE,
   show_text = FALSE,
   show_score = FALSE,
-  texts = c("极差", "失望", "一般", "满意", "惊喜"),
-  text_color = "#1f2d3d",
+  texts = NULL,
+  text_color = NULL,
   score_template = "{value}",
   colors = NULL,
   void_color = NULL,
@@ -75,12 +75,14 @@ el_rate(
 
 - texts:
 
-  Character vector of length `max` used when `show_text = TRUE`.
-  Defaults to `c("极差", "失望", "一般", "满意", "惊喜")`.
+  Character vector of length `max` used when `show_text = TRUE`. `NULL`
+  takes Element Plus's: "Extremely bad", "Disappointed", "Fair",
+  "Satisfied", "Surprise".
 
 - text_color:
 
-  Colour of the text/score. Default `"#1f2d3d"`.
+  Colour of the text or score. `NULL` takes Element Plus's, from its CSS
+  variables.
 
 - score_template:
 
@@ -207,7 +209,7 @@ An `htmltools` tagList with a Vue-managed rate component.
 
 ## Shiny inputs
 
-`input$<id>` — numeric rating value (0 to `max`, increments of 0.5 when
+`input$<id>` – numeric rating value (0 to `max`, increments of 0.5 when
 `allow_half = TRUE`).
 
 ## Examples
@@ -216,15 +218,15 @@ An `htmltools` tagList with a Vue-managed rate component.
 el_rate("rate1", value = 3)
 #> <div id="rate1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="rate1_container" style="display: contents">
-#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor === null ? undefined : textColor" :score-template="scoreTemplate" :texts="texts === null ? undefined : texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":3,"max":5,"disabled":false,"allowHalf":false,"showText":false,"showScore":false,"textColor":null,"scoreTemplate":"{value}","texts":null,"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
 el_rate("rate2", allow_half = TRUE, show_score = TRUE)
 #> <div id="rate2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="rate2_container" style="display: contents">
-#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor" :score-template="scoreTemplate" :texts="texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
+#>   <el-rate v-model="value" :max="max" :disabled="disabled" :allow-half="allowHalf" :show-text="showText" :show-score="showScore" :text-color="textColor === null ? undefined : textColor" :score-template="scoreTemplate" :texts="texts === null ? undefined : texts" @change="handleChange" :colors="colors === null ? undefined : colors" :void-color="voidColor === null ? undefined : voidColor" :disabled-void-color="disabledVoidColor === null ? undefined : disabledVoidColor" :low-threshold="lowThreshold === null ? undefined : lowThreshold" :high-threshold="highThreshold === null ? undefined : highThreshold" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :disabled-void-icon="disabledVoidIcon === null ? undefined : disabledVoidIcon" :icons="icons === null ? undefined : icons" :size="size === null ? undefined : size" :void-icon="voidIcon === null ? undefined : voidIcon"></el-rate>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":true,"textColor":"#1f2d3d","scoreTemplate":"{value}","texts":["极差","失望","一般","满意","惊喜"],"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0,"max":5,"disabled":false,"allowHalf":true,"showText":false,"showScore":true,"textColor":null,"scoreTemplate":"{value}","texts":null,"colors":null,"voidColor":null,"disabledVoidColor":null,"lowThreshold":null,"highThreshold":null,"ariaLabel":null,"clearable":null,"disabledVoidIcon":null,"icons":null,"size":null,"voidIcon":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
 ```

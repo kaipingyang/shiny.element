@@ -88,7 +88,7 @@ server. See `.claude/docs/lessons.md`.
 
 ## Shiny inputs
 
-`input$<id>` — character vector of open panel names, reported on load
+`input$<id>` – character vector of open panel names, reported on load
 and on every change. Empty when all are closed, which Shiny reports as
 `NULL`.
 

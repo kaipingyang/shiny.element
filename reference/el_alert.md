@@ -47,7 +47,7 @@ el_alert(
 
 - close_text:
 
-  Custom text for the close button. `""` for the default ×.
+  Custom text for the close button. `""` for the default cross.
 
 - show_icon:
 
@@ -86,7 +86,7 @@ An `htmltools` tagList with a Vue-managed alert component.
 
 ## Shiny inputs
 
-`input$<id>_closed` — set to `1` (with `priority = "event"`) when the
+`input$<id>_closed` – set to `1` (with `priority = "event"`) when the
 user closes the alert.
 
 ## Examples

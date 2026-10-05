@@ -135,6 +135,28 @@ as a Shiny input.
   `options(shiny.vue.dev = TRUE)` loads Vue’s development build, as
   `shiny.element.dev` does.
 
+### Breaking changes
+
+Before this first release the API is still allowed to move; from the
+first CRAN release on, a change like these goes through a deprecation
+first.
+
+- `el_call()` is
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md),
+  `update_vue_data()` is
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md),
+  and `el_widget(report =)` is `input =`.
+- [`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)’s
+  `name` is `tab`, which also takes an
+  [`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md).
+- `el_table_config()` is gone:
+  [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+  takes a data.frame as it is, and
+  [`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md)
+  writes the columns.
+- Update functions take `NULL` as “leave it”, as Shiny’s do; `NA`
+  returns a prop to Element’s default.
+
 ### Items as functions
 
 The parts Element Plus writes as child tags have constructors, as bslib
@@ -283,7 +305,6 @@ article lists where they differ from Element’s own.
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md),
   [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md),
   [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md),
-  [`el_table_config()`](https://kaipingyang.github.io/shiny.element/reference/el_table_config.md),
   [`df_to_tree_data()`](https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.md),
   [`df_to_cascader_options()`](https://kaipingyang.github.io/shiny.element/reference/df_to_cascader_options.md),
   [`el_form_validate()`](https://kaipingyang.github.io/shiny.element/reference/el_form_validate.md).

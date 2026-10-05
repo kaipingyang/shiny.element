@@ -218,7 +218,7 @@ Callable with
 
 ## Shiny inputs
 
-`input$<id>` — the value of `active_value` (when on) or `inactive_value`
+`input$<id>` – the value of `active_value` (when on) or `inactive_value`
 (when off), matching the types of those arguments.
 
 ## Examples

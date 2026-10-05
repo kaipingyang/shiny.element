@@ -38,7 +38,7 @@ update_el_progress(
 
 - percentage:
 
-  New percentage value (`0`–`100`).
+  New percentage value (`0` to `100`).
 
 - type:
 

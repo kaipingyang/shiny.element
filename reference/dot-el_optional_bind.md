@@ -2,9 +2,9 @@
 
 Element Plus's props fall back to their own defaults when passed
 `undefined`, but treat `null` as a value: an `el-select` bound to a null
-placeholder renders an empty one instead of "请选择". R has no way to
-send `undefined` through JSON, so an unsupplied field arrives as `null`
-and the expression has to map it back.
+placeholder renders an empty one instead of its "Select". R has no way
+to send `undefined` through JSON, so an unsupplied field arrives as
+`null` and the expression has to map it back.
 
 ## Usage
 

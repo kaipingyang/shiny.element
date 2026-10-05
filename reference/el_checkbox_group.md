@@ -176,7 +176,7 @@ An `htmltools` tagList with a Vue-managed checkbox group component.
 
 ## Shiny inputs
 
-`input$<id>` — character vector of currently selected values.
+`input$<id>` – character vector of currently selected values.
 
 ## Examples
 

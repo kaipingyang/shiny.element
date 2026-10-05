@@ -49,7 +49,7 @@ update_el_alert(
 
 - close_text:
 
-  Custom text for the close button. `""` for the default ×.
+  Custom text for the close button. `""` for the default cross.
 
 - show_icon:
 
