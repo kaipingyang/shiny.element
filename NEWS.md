@@ -153,7 +153,8 @@ back through `input$<id>` too.
 `el_page()` themes the page around the components with `el_theme()`, a bslib
 theme carrying Element's colours, font and control sizes, so Shiny's own
 inputs and outputs match the Element ones beside them. `theme = NULL` leaves
-Shiny's plain Bootstrap.
+Shiny's plain Bootstrap. Bootstrap's dark mode -- bslib's
+`input_dark_mode()` -- turns Element Plus's with it.
 
 Tabs can be added and removed from the server (`insert_el_tab()`,
 `remove_el_tab()`) or by the user (`editable = TRUE`), and a lazy pane binds
@@ -221,8 +222,10 @@ so instead of leaving bare text.
 Each component is a host element carrying its id, with Element's markup
 inside and a Shiny input binding on it -- the way reactR binds React
 components -- so the rest of Shiny reaches it as it reaches `textInput()`:
-`shinyjs::hide()` and `disable()`, `removeUI()` (which destroys its Vue
-instance too), bookmarking, shinyvalidate, a test driver's `set_inputs()`.
+`shinyjs::hide()`, `show()`, `toggle()`, `disable()` and `enable()`,
+`removeUI()` (which destroys its Vue instance too), bookmarking,
+shinyvalidate, a test driver's `set_inputs()`, and bslib's containers --
+a sidebar, a card, a closed accordion, a nav panel not yet shown.
 Vue 3, the version Element Plus runs on, is bundled beside Element Plus, and
 `JS()` marks JavaScript the way `htmlwidgets::JS()` does, without depending
 on htmlwidgets. (Development versions built on vueR's htmlwidgets, where the
