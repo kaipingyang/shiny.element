@@ -320,8 +320,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `handleOpen` | `el_call(session, id, "handleOpen")` | open the dropdown menu |
-| `handleClose` | `el_call(session, id, "handleClose")` | close the dropdown menu |
+| `handleOpen` | `call_el(session, id, "handleOpen")` | open the dropdown menu |
+| `handleClose` | `call_el(session, id, "handleClose")` | close the dropdown menu |
 
 ### Dropdown-Menu Slots
 

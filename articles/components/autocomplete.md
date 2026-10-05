@@ -193,13 +193,13 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `blur` | `el_call(session, id, "blur")` | blur the input element |
-| `close` | `el_call(session, id, "close")` | collapse suggestion list |
-| `focus` | `el_call(session, id, "focus")` | focus the input element |
-| `handleSelect` | `el_call(session, id, "handleSelect")` | triggers when a suggestion is clicked |
-| `handleKeyEnter` | `el_call(session, id, "handleKeyEnter")` | handle keyboard enter event |
-| `highlight` | `el_call(session, id, "highlight")` | highlight an item in a suggestion |
-| `getData` | `el_call(session, id, "getData")` | loading suggestion list |
+| `blur` | `call_el(session, id, "blur")` | blur the input element |
+| `close` | `call_el(session, id, "close")` | collapse suggestion list |
+| `focus` | `call_el(session, id, "focus")` | focus the input element |
+| `handleSelect` | `call_el(session, id, "handleSelect")` | triggers when a suggestion is clicked |
+| `handleKeyEnter` | `call_el(session, id, "handleKeyEnter")` | handle keyboard enter event |
+| `highlight` | `call_el(session, id, "highlight")` | highlight an item in a suggestion |
+| `getData` | `call_el(session, id, "getData")` | loading suggestion list |
 
 [^1]: string
 

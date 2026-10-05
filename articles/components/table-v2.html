@@ -1867,7 +1867,10 @@ that <code>auto</code> is a subset of <code>smart</code> scroll
 strategy.</p>
 </blockquote>
 <p>The buttons call the table’s <code>scrollToTop()</code> and
-<code>scrollToRow()</code> from the server.</p>
+<code>scrollToRow()</code> from the server. <code>scrollToRow()</code>
+is given the strategy <code>"start"</code>: with the default, Element
+Plus 2.14.7 also scrolls the table to its last column (see
+“Limitations”).</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">generate_columns</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">length</span> <span class="op">=</span> <span class="fl">10</span>, <span class="va">prefix</span> <span class="op">=</span> <span class="st">"column-"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">length</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1922,7 +1925,12 @@ strategy.</p>
 <span>    <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tv_scroll"</span>, <span class="st">"scrollToTop"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">delta</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">rows_btn</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tv_scroll"</span>, <span class="st">"scrollToRow"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">rows</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"tv_scroll"</span>,</span>
+<span>      <span class="st">"scrollToRow"</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">rows</span><span class="op">)</span>, <span class="st">"start"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -2361,22 +2369,22 @@ icon</td>
 <tbody>
 <tr class="odd">
 <td><code>scrollTo</code></td>
-<td><code>el_call(session, id, "scrollTo")</code></td>
+<td><code>call_el(session, id, "scrollTo")</code></td>
 <td>Scroll to a given position</td>
 </tr>
 <tr class="even">
 <td><code>scrollToLeft</code></td>
-<td><code>el_call(session, id, "scrollToLeft")</code></td>
+<td><code>call_el(session, id, "scrollToLeft")</code></td>
 <td>Scroll to a given horizontal position</td>
 </tr>
 <tr class="odd">
 <td><code>scrollToTop</code></td>
-<td><code>el_call(session, id, "scrollToTop")</code></td>
+<td><code>call_el(session, id, "scrollToTop")</code></td>
 <td>Scroll to a given vertical position</td>
 </tr>
 <tr class="even">
 <td><code>scrollToRow</code></td>
-<td><code>el_call(session, id, "scrollToRow")</code></td>
+<td><code>call_el(session, id, "scrollToRow")</code></td>
 <td>scroll to a given row with specified scroll strategy</td>
 </tr>
 </tbody>

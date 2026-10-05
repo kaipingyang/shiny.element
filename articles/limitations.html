@@ -639,6 +639,15 @@ not updated.</strong> That is Shiny’s behaviour rather than this
 package’s, but it matters more here: the new instance starts from its
 arguments, so anything the user had changed is lost. Prefer
 <code>update_el_*()</code> where you can.</p>
+<p><strong>A table-v2’s <code>scrollToRow()</code> also scrolls it
+sideways.</strong> In Element Plus 2.14.7, with
+<code>fixed = TRUE</code> and columns wider than the table, the default
+strategy scrolls to the last column when the table was at the first: the
+grid behind it is one column as wide as all of them, and the horizontal
+position is put back only when it was not zero. Element Plus’s own demo
+does the same. Pass a strategy,
+<code>call_el(id = "tbl", method = "scrollToRow", args = list(10, "start"))</code>,
+and the row goes to the top with the columns left where they were.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

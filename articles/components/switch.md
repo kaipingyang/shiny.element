@@ -264,7 +264,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `focus` | `el_call(session, id, "focus")` | manual focus to the switch component |
+| `focus` | `call_el(session, id, "focus")` | manual focus to the switch component |
 
 [^1]: boolean
 

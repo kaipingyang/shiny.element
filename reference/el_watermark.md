@@ -101,12 +101,12 @@ None: it reports nothing.
 
 ``` r
 el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
-#> <div id="el_watermark_2ec10ced-6061-4b74-8da5-311d29e78748" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_2ec10ced-6061-4b74-8da5-311d29e78748_container" style="display: contents">
+#> <div id="el_watermark_6aaf94f9-4e68-4a37-a607-0172607a35a9" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_6aaf94f9-4e68-4a37-a607-0172607a35a9_container" style="display: contents">
 #>   <el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset">
 #>     <div style="height: 300px"></div>
 #>   </el-watermark>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"width":null,"height":null,"rotate":null,"zIndex":null,"image":null,"content":"Confidential","font":null,"gap":null,"offset":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"width":null,"height":null,"rotate":null,"zIndex":null,"image":null,"content":"Confidential","font":null,"gap":null,"offset":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 #> </div>
 ```

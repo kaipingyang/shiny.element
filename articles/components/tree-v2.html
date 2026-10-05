@@ -709,100 +709,100 @@ if return <code>false</code>, tree node will be hidden.</td>
 <tbody>
 <tr class="odd">
 <td><code>filter</code></td>
-<td><code>el_call(session, id, "filter")</code></td>
+<td><code>call_el(session, id, "filter")</code></td>
 <td>filter all tree nodes, filtered nodes will be hidden</td>
 </tr>
 <tr class="even">
 <td><code>getCheckedNodes</code></td>
-<td><code>el_call(session, id, "getCheckedNodes")</code></td>
+<td><code>call_el(session, id, "getCheckedNodes")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently selected array of
 nodes</td>
 </tr>
 <tr class="odd">
 <td><code>getCheckedKeys</code></td>
-<td><code>el_call(session, id, "getCheckedKeys")</code></td>
+<td><code>call_el(session, id, "getCheckedKeys")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently selected array of node’s
 keys</td>
 </tr>
 <tr class="even">
 <td><code>setCheckedKeys</code></td>
-<td><code>el_call(session, id, "setCheckedKeys")</code></td>
+<td><code>call_el(session, id, "setCheckedKeys")</code></td>
 <td>set certain nodes to be checked</td>
 </tr>
 <tr class="odd">
 <td><code>setChecked</code></td>
-<td><code>el_call(session, id, "setChecked")</code></td>
+<td><code>call_el(session, id, "setChecked")</code></td>
 <td>set node to be checked or not, <code>deep</code> (added in
 ^(2.14.0)) indicates whether child nodes should be recursively
 checked/unchecked.</td>
 </tr>
 <tr class="even">
 <td><code>setExpandedKeys</code></td>
-<td><code>el_call(session, id, "setExpandedKeys")</code></td>
+<td><code>call_el(session, id, "setExpandedKeys")</code></td>
 <td>set certain nodes to be expanded</td>
 </tr>
 <tr class="odd">
 <td><code>getHalfCheckedNodes</code></td>
-<td><code>el_call(session, id, "getHalfCheckedNodes")</code></td>
+<td><code>call_el(session, id, "getHalfCheckedNodes")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently half selected array of
 nodes</td>
 </tr>
 <tr class="even">
 <td><code>getHalfCheckedKeys</code></td>
-<td><code>el_call(session, id, "getHalfCheckedKeys")</code></td>
+<td><code>call_el(session, id, "getHalfCheckedKeys")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently half selected array of
 node’s keys</td>
 </tr>
 <tr class="odd">
 <td><code>getCurrentKey</code></td>
-<td><code>el_call(session, id, "getCurrentKey")</code></td>
+<td><code>call_el(session, id, "getCurrentKey")</code></td>
 <td>return the highlight node’s key (undefined if no node is
 highlighted)</td>
 </tr>
 <tr class="even">
 <td><code>getCurrentNode</code></td>
-<td><code>el_call(session, id, "getCurrentNode")</code></td>
+<td><code>call_el(session, id, "getCurrentNode")</code></td>
 <td>return the highlight node’s data (undefined if no node is
 highlighted)</td>
 </tr>
 <tr class="odd">
 <td><code>setCurrentKey</code></td>
-<td><code>el_call(session, id, "setCurrentKey")</code></td>
+<td><code>call_el(session, id, "setCurrentKey")</code></td>
 <td>set highlighted node by key</td>
 </tr>
 <tr class="even">
 <td><code>getNode</code></td>
-<td><code>el_call(session, id, "getNode")</code></td>
+<td><code>call_el(session, id, "getNode")</code></td>
 <td>get node by key or data</td>
 </tr>
 <tr class="odd">
 <td><code>expandNode</code></td>
-<td><code>el_call(session, id, "expandNode")</code></td>
+<td><code>call_el(session, id, "expandNode")</code></td>
 <td>expand specified node</td>
 </tr>
 <tr class="even">
 <td><code>collapseNode</code></td>
-<td><code>el_call(session, id, "collapseNode")</code></td>
+<td><code>call_el(session, id, "collapseNode")</code></td>
 <td>collapse specified node</td>
 </tr>
 <tr class="odd">
 <td><code>setData</code></td>
-<td><code>el_call(session, id, "setData")</code></td>
+<td><code>call_el(session, id, "setData")</code></td>
 <td>When the data is very large, using reactive data will cause the poor
 performance, so we provide a way to avoid this situation</td>
 </tr>
 <tr class="even">
 <td><code>scrollTo</code></td>
-<td><code>el_call(session, id, "scrollTo")</code></td>
+<td><code>call_el(session, id, "scrollTo")</code></td>
 <td>scroll to a given position</td>
 </tr>
 <tr class="odd">
 <td><code>scrollToNode</code></td>
-<td><code>el_call(session, id, "scrollToNode")</code></td>
+<td><code>call_el(session, id, "scrollToNode")</code></td>
 <td>scroll to a given tree key with specified scroll strategy</td>
 </tr>
 </tbody>

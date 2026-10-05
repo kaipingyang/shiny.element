@@ -95,7 +95,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element  | In R                             | Description           |
 |----------|----------------------------------|-----------------------|
-| `update` | `el_call(session, id, "update")` | update sub components |
+| `update` | `call_el(session, id, "update")` | update sub components |
 
 [^1]: string
 

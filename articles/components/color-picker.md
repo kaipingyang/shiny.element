@@ -113,10 +113,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R                            | Description               |
 |---------|---------------------------------|---------------------------|
-| `show`  | `el_call(session, id, "show")`  | manually show ColorPicker |
-| `hide`  | `el_call(session, id, "hide")`  | manually hide ColorPicker |
-| `focus` | `el_call(session, id, "focus")` | focus the picker element  |
-| `blur`  | `el_call(session, id, "blur")`  | blur the picker element   |
+| `show`  | `call_el(session, id, "show")`  | manually show ColorPicker |
+| `hide`  | `call_el(session, id, "hide")`  | manually hide ColorPicker |
+| `focus` | `call_el(session, id, "focus")` | focus the picker element  |
+| `blur`  | `call_el(session, id, "blur")`  | blur the picker element   |
 
 [^1]: string
 

@@ -526,8 +526,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element         | In R                                    | Description    |
 |-----------------|-----------------------------------------|----------------|
-| `resetPosition` | `el_call(session, id, "resetPosition")` | reset position |
-| `handleClose`   | `el_call(session, id, "handleClose")`   | close dialog   |
+| `resetPosition` | `call_el(session, id, "resetPosition")` | reset position |
+| `handleClose`   | `call_el(session, id, "handleClose")`   | close dialog   |
 
 [^1]: boolean
 

@@ -365,11 +365,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `blur` | `el_call(session, id, "blur")` | blur the input element |
-| `clear` | `el_call(session, id, "clear")` | clear input value |
-| `focus` | `el_call(session, id, "focus")` | focus the input element |
-| `resizeTextarea` | `el_call(session, id, "resizeTextarea")` | resize textarea |
-| `select` | `el_call(session, id, "select")` | select the text in input element |
+| `blur` | `call_el(session, id, "blur")` | blur the input element |
+| `clear` | `call_el(session, id, "clear")` | clear input value |
+| `focus` | `call_el(session, id, "focus")` | focus the input element |
+| `resizeTextarea` | `call_el(session, id, "resizeTextarea")` | resize textarea |
+| `select` | `call_el(session, id, "select")` | select the text in input element |
 
 [^1]: string
 

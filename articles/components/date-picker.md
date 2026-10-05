@@ -430,10 +430,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `focus` | `el_call(session, id, "focus")` | focus the DatePicker component |
-| `blur` | `el_call(session, id, "blur")` | blur the DatePicker component |
-| `handleOpen` | `el_call(session, id, "handleOpen")` | open the DatePicker popper |
-| `handleClose` | `el_call(session, id, "handleClose")` | close the DatePicker popper |
+| `focus` | `call_el(session, id, "focus")` | focus the DatePicker component |
+| `blur` | `call_el(session, id, "blur")` | blur the DatePicker component |
+| `handleOpen` | `call_el(session, id, "handleOpen")` | open the DatePicker popper |
+| `handleClose` | `call_el(session, id, "handleClose")` | close the DatePicker popper |
 
 [^1]: number
 

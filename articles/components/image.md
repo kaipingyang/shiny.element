@@ -294,7 +294,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `showPreview` | `el_call(session, id, "showPreview")` | manually open preview big image |
+| `showPreview` | `call_el(session, id, "showPreview")` | manually open preview big image |
 
 ### Image Viewer Attributes
 
@@ -335,7 +335,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `setActiveItem` | `el_call(session, id, "setActiveItem")` | manually switch image |
+| `setActiveItem` | `call_el(session, id, "setActiveItem")` | manually switch image |
 
 [^1]: string
 

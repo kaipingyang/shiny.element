@@ -223,7 +223,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R                           | Description  |
 |---------|--------------------------------|--------------|
-| `hide`  | `el_call(session, id, "hide")` | hide popover |
+| `hide`  | `call_el(session, id, "hide")` | hide popover |
 
 [^1]: enum
 

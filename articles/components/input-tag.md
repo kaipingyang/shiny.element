@@ -238,8 +238,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R                            | Description             |
 |---------|---------------------------------|-------------------------|
-| `focus` | `el_call(session, id, "focus")` | focus the input element |
-| `blur`  | `el_call(session, id, "blur")`  | blur the input element  |
+| `focus` | `call_el(session, id, "focus")` | focus the input element |
+| `blur`  | `call_el(session, id, "blur")`  | blur the input element  |
 
 [^1]: array
 

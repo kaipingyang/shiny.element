@@ -742,7 +742,7 @@ active slide</td>
 <tbody>
 <tr class="odd">
 <td><code>setActiveItem</code></td>
-<td><code>el_call(session, id, "setActiveItem")</code></td>
+<td><code>call_el(session, id, "setActiveItem")</code></td>
 <td>manually switch slide, index of the slide to be switched to,
 starting from 0; or the <code>name</code> of corresponding
 <code>el-carousel-item</code>
@@ -750,12 +750,12 @@ starting from 0; or the <code>name</code> of corresponding
 </tr>
 <tr class="even">
 <td><code>prev</code></td>
-<td><code>el_call(session, id, "prev")</code></td>
+<td><code>call_el(session, id, "prev")</code></td>
 <td>switch to the previous slide</td>
 </tr>
 <tr class="odd">
 <td><code><a href="https://rdrr.io/r/base/Control.html" class="external-link">next</a></code></td>
-<td><code>el_call(session, id, "next")</code></td>
+<td><code>call_el(session, id, "next")</code></td>
 <td>switch to the next slide</td>
 </tr>
 </tbody>

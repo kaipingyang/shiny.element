@@ -231,8 +231,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R                            | Description                      |
 |---------|---------------------------------|----------------------------------|
-| `focus` | `el_call(session, id, "focus")` | get focus the input component    |
-| `blur`  | `el_call(session, id, "blur")`  | remove focus the input component |
+| `focus` | `call_el(session, id, "focus")` | get focus the input component    |
+| `blur`  | `call_el(session, id, "blur")`  | remove focus the input component |
 
 [^1]: number
 

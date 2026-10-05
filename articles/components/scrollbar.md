@@ -148,11 +148,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `handleScroll` | `el_call(session, id, "handleScroll")` | handle scroll event |
-| `scrollTo` | `el_call(session, id, "scrollTo")` | scrolls to a particular set of coordinates |
-| `setScrollTop` | `el_call(session, id, "setScrollTop")` | Set distance to scroll top |
-| `setScrollLeft` | `el_call(session, id, "setScrollLeft")` | Set distance to scroll left |
-| `update` | `el_call(session, id, "update")` | update scrollbar state manually |
+| `handleScroll` | `call_el(session, id, "handleScroll")` | handle scroll event |
+| `scrollTo` | `call_el(session, id, "scrollTo")` | scrolls to a particular set of coordinates |
+| `setScrollTop` | `call_el(session, id, "setScrollTop")` | Set distance to scroll top |
+| `setScrollLeft` | `call_el(session, id, "setScrollLeft")` | Set distance to scroll left |
+| `update` | `call_el(session, id, "update")` | update scrollbar state manually |
 
 [^1]: string
 

@@ -254,10 +254,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `open` | `el_call(session, id, "open")` | open a specific sub-menu, the param is index of the sub-menu to open |
-| `close` | `el_call(session, id, "close")` | close a specific sub-menu, the param is index of the sub-menu to close |
-| `handleResize` | `el_call(session, id, "handleResize")` | manually trigger menu width recalculation |
-| `updateActiveIndex` | `el_call(session, id, "updateActiveIndex")` | set index of active menu |
+| `open` | `call_el(session, id, "open")` | open a specific sub-menu, the param is index of the sub-menu to open |
+| `close` | `call_el(session, id, "close")` | close a specific sub-menu, the param is index of the sub-menu to close |
+| `handleResize` | `call_el(session, id, "handleResize")` | manually trigger menu width recalculation |
+| `updateActiveIndex` | `call_el(session, id, "updateActiveIndex")` | set index of active menu |
 
 ### SubMenu Attributes
 

@@ -1556,21 +1556,21 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `clearSelection` | `el_call(session, id, "clearSelection")` | used in multiple selection Table, clear user selection |
-| `getSelectionRows` | `el_call(session, id, "getSelectionRows")` | returns the currently selected rows |
-| `getHalfSelectionRows` | `el_call(session, id, "getHalfSelectionRows")` | returns the currently half-selected rows |
-| `toggleRowSelection` | `el_call(session, id, "toggleRowSelection")` | used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected |
-| `toggleAllSelection` | `el_call(session, id, "toggleAllSelection")` | used in multiple selection Table, toggle select all and deselect all |
-| `toggleRowExpansion` | `el_call(session, id, "toggleRowExpansion")` | used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter, you can directly set if this row is expanded or collapsed |
-| `setCurrentRow` | `el_call(session, id, "setCurrentRow")` | used in single selection Table, set a certain row selected. If called without any parameter, it will clear selection |
-| `clearSort` | `el_call(session, id, "clearSort")` | clear sorting, restore data to the original order |
-| `clearFilter` | `el_call(session, id, "clearFilter")` | clear filters of the columns whose `columnKey` are passed in. If no params, clear all filters |
-| `doLayout` | `el_call(session, id, "doLayout")` | refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout |
-| `sort` | `el_call(session, id, "sort")` | sort Table manually. Property `prop` is used to set sort column, property `order` is used to set sort order |
-| `scrollTo` | `el_call(session, id, "scrollTo")` | scrolls to a particular set of coordinates |
-| `setScrollTop` | `el_call(session, id, "setScrollTop")` | set vertical scroll position |
-| `setScrollLeft` | `el_call(session, id, "setScrollLeft")` | set horizontal scroll position |
-| `updateKeyChildren` | `el_call(session, id, "updateKeyChildren")` | used in lazy Table, must set `rowKey`, update key children |
+| `clearSelection` | `call_el(session, id, "clearSelection")` | used in multiple selection Table, clear user selection |
+| `getSelectionRows` | `call_el(session, id, "getSelectionRows")` | returns the currently selected rows |
+| `getHalfSelectionRows` | `call_el(session, id, "getHalfSelectionRows")` | returns the currently half-selected rows |
+| `toggleRowSelection` | `call_el(session, id, "toggleRowSelection")` | used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected |
+| `toggleAllSelection` | `call_el(session, id, "toggleAllSelection")` | used in multiple selection Table, toggle select all and deselect all |
+| `toggleRowExpansion` | `call_el(session, id, "toggleRowExpansion")` | used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter, you can directly set if this row is expanded or collapsed |
+| `setCurrentRow` | `call_el(session, id, "setCurrentRow")` | used in single selection Table, set a certain row selected. If called without any parameter, it will clear selection |
+| `clearSort` | `call_el(session, id, "clearSort")` | clear sorting, restore data to the original order |
+| `clearFilter` | `call_el(session, id, "clearFilter")` | clear filters of the columns whose `columnKey` are passed in. If no params, clear all filters |
+| `doLayout` | `call_el(session, id, "doLayout")` | refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout |
+| `sort` | `call_el(session, id, "sort")` | sort Table manually. Property `prop` is used to set sort column, property `order` is used to set sort order |
+| `scrollTo` | `call_el(session, id, "scrollTo")` | scrolls to a particular set of coordinates |
+| `setScrollTop` | `call_el(session, id, "setScrollTop")` | set vertical scroll position |
+| `setScrollLeft` | `call_el(session, id, "setScrollLeft")` | set horizontal scroll position |
+| `updateKeyChildren` | `call_el(session, id, "updateKeyChildren")` | used in lazy Table, must set `rowKey`, update key children |
 
 ### Table-column Attributes
 

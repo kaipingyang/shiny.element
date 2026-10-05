@@ -1070,108 +1070,108 @@ node after the target node)</td>
 <tbody>
 <tr class="odd">
 <td><code>filter</code></td>
-<td><code>el_call(session, id, "filter")</code></td>
+<td><code>call_el(session, id, "filter")</code></td>
 <td>filter all tree nodes, filtered nodes will be hidden</td>
 </tr>
 <tr class="even">
 <td><code>updateKeyChildren</code></td>
-<td><code>el_call(session, id, "updateKeyChildren")</code></td>
+<td><code>call_el(session, id, "updateKeyChildren")</code></td>
 <td>set new data to node, only works when <code>node-key</code> is
 assigned</td>
 </tr>
 <tr class="odd">
 <td><code>getCheckedNodes</code></td>
-<td><code>el_call(session, id, "getCheckedNodes")</code></td>
+<td><code>call_el(session, id, "getCheckedNodes")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently selected array of
 nodes</td>
 </tr>
 <tr class="even">
 <td><code>setCheckedNodes</code></td>
-<td><code>el_call(session, id, "setCheckedNodes")</code></td>
+<td><code>call_el(session, id, "setCheckedNodes")</code></td>
 <td>set certain nodes to be checked, only works when
 <code>node-key</code> is assigned</td>
 </tr>
 <tr class="odd">
 <td><code>getCheckedKeys</code></td>
-<td><code>el_call(session, id, "getCheckedKeys")</code></td>
+<td><code>call_el(session, id, "getCheckedKeys")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently selected array of node’s
 keys</td>
 </tr>
 <tr class="even">
 <td><code>setCheckedKeys</code></td>
-<td><code>el_call(session, id, "setCheckedKeys")</code></td>
+<td><code>call_el(session, id, "setCheckedKeys")</code></td>
 <td>set certain nodes to be checked, only works when
 <code>node-key</code> is assigned</td>
 </tr>
 <tr class="odd">
 <td><code>setChecked</code></td>
-<td><code>el_call(session, id, "setChecked")</code></td>
+<td><code>call_el(session, id, "setChecked")</code></td>
 <td>set node to be checked or not, only works when <code>node-key</code>
 is assigned</td>
 </tr>
 <tr class="even">
 <td><code>getHalfCheckedNodes</code></td>
-<td><code>el_call(session, id, "getHalfCheckedNodes")</code></td>
+<td><code>call_el(session, id, "getHalfCheckedNodes")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently half selected array of
 nodes</td>
 </tr>
 <tr class="odd">
 <td><code>getHalfCheckedKeys</code></td>
-<td><code>el_call(session, id, "getHalfCheckedKeys")</code></td>
+<td><code>call_el(session, id, "getHalfCheckedKeys")</code></td>
 <td>If the node can be selected (<code>show-checkbox</code> is
 <code>true</code>), it returns the currently half selected array of
 node’s keys</td>
 </tr>
 <tr class="even">
 <td><code>getCurrentKey</code></td>
-<td><code>el_call(session, id, "getCurrentKey")</code></td>
+<td><code>call_el(session, id, "getCurrentKey")</code></td>
 <td>return the highlight node’s key (null if no node is
 highlighted)</td>
 </tr>
 <tr class="odd">
 <td><code>getCurrentNode</code></td>
-<td><code>el_call(session, id, "getCurrentNode")</code></td>
+<td><code>call_el(session, id, "getCurrentNode")</code></td>
 <td>return the highlight node’s data (null if no node is
 highlighted)</td>
 </tr>
 <tr class="even">
 <td><code>setCurrentKey</code></td>
-<td><code>el_call(session, id, "setCurrentKey")</code></td>
+<td><code>call_el(session, id, "setCurrentKey")</code></td>
 <td>set highlighted node by key, only works when <code>node-key</code>
 is assigned</td>
 </tr>
 <tr class="odd">
 <td><code>setCurrentNode</code></td>
-<td><code>el_call(session, id, "setCurrentNode")</code></td>
+<td><code>call_el(session, id, "setCurrentNode")</code></td>
 <td>set highlighted node, only works when <code>node-key</code> is
 assigned</td>
 </tr>
 <tr class="even">
 <td><code>getNode</code></td>
-<td><code>el_call(session, id, "getNode")</code></td>
+<td><code>call_el(session, id, "getNode")</code></td>
 <td>get node by data or key</td>
 </tr>
 <tr class="odd">
 <td><code>remove</code></td>
-<td><code>el_call(session, id, "remove")</code></td>
+<td><code>call_el(session, id, "remove")</code></td>
 <td>remove a node, only works when node-key is assigned</td>
 </tr>
 <tr class="even">
 <td><code>append</code></td>
-<td><code>el_call(session, id, "append")</code></td>
+<td><code>call_el(session, id, "append")</code></td>
 <td>append a child node to a given node in the tree</td>
 </tr>
 <tr class="odd">
 <td><code>insertBefore</code></td>
-<td><code>el_call(session, id, "insertBefore")</code></td>
+<td><code>call_el(session, id, "insertBefore")</code></td>
 <td>insert a node before a given node in the tree</td>
 </tr>
 <tr class="even">
 <td><code>insertAfter</code></td>
-<td><code>el_call(session, id, "insertAfter")</code></td>
+<td><code>call_el(session, id, "insertAfter")</code></td>
 <td>insert a node after a given node in the tree</td>
 </tr>
 </tbody>

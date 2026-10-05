@@ -2989,86 +2989,86 @@ be displayed above the summary row if there is one.</td>
 <tbody>
 <tr class="odd">
 <td><code>clearSelection</code></td>
-<td><code>el_call(session, id, "clearSelection")</code></td>
+<td><code>call_el(session, id, "clearSelection")</code></td>
 <td>used in multiple selection Table, clear user selection</td>
 </tr>
 <tr class="even">
 <td><code>getSelectionRows</code></td>
-<td><code>el_call(session, id, "getSelectionRows")</code></td>
+<td><code>call_el(session, id, "getSelectionRows")</code></td>
 <td>returns the currently selected rows</td>
 </tr>
 <tr class="odd">
 <td><code>getHalfSelectionRows</code></td>
-<td><code>el_call(session, id, "getHalfSelectionRows")</code></td>
+<td><code>call_el(session, id, "getHalfSelectionRows")</code></td>
 <td>returns the currently half-selected rows</td>
 </tr>
 <tr class="even">
 <td><code>toggleRowSelection</code></td>
-<td><code>el_call(session, id, "toggleRowSelection")</code></td>
+<td><code>call_el(session, id, "toggleRowSelection")</code></td>
 <td>used in multiple selection Table, toggle if a certain row is
 selected. With the second parameter, you can directly set if this row is
 selected</td>
 </tr>
 <tr class="odd">
 <td><code>toggleAllSelection</code></td>
-<td><code>el_call(session, id, "toggleAllSelection")</code></td>
+<td><code>call_el(session, id, "toggleAllSelection")</code></td>
 <td>used in multiple selection Table, toggle select all and deselect
 all</td>
 </tr>
 <tr class="even">
 <td><code>toggleRowExpansion</code></td>
-<td><code>el_call(session, id, "toggleRowExpansion")</code></td>
+<td><code>call_el(session, id, "toggleRowExpansion")</code></td>
 <td>used in expandable Table or tree Table, toggle if a certain row is
 expanded. With the second parameter, you can directly set if this row is
 expanded or collapsed</td>
 </tr>
 <tr class="odd">
 <td><code>setCurrentRow</code></td>
-<td><code>el_call(session, id, "setCurrentRow")</code></td>
+<td><code>call_el(session, id, "setCurrentRow")</code></td>
 <td>used in single selection Table, set a certain row selected. If
 called without any parameter, it will clear selection</td>
 </tr>
 <tr class="even">
 <td><code>clearSort</code></td>
-<td><code>el_call(session, id, "clearSort")</code></td>
+<td><code>call_el(session, id, "clearSort")</code></td>
 <td>clear sorting, restore data to the original order</td>
 </tr>
 <tr class="odd">
 <td><code>clearFilter</code></td>
-<td><code>el_call(session, id, "clearFilter")</code></td>
+<td><code>call_el(session, id, "clearFilter")</code></td>
 <td>clear filters of the columns whose <code>columnKey</code> are passed
 in. If no params, clear all filters</td>
 </tr>
 <tr class="even">
 <td><code>doLayout</code></td>
-<td><code>el_call(session, id, "doLayout")</code></td>
+<td><code>call_el(session, id, "doLayout")</code></td>
 <td>refresh the layout of Table. When the visibility of Table changes,
 you may need to call this method to get a correct layout</td>
 </tr>
 <tr class="odd">
 <td><code>sort</code></td>
-<td><code>el_call(session, id, "sort")</code></td>
+<td><code>call_el(session, id, "sort")</code></td>
 <td>sort Table manually. Property <code>prop</code> is used to set sort
 column, property <code>order</code> is used to set sort order</td>
 </tr>
 <tr class="even">
 <td><code>scrollTo</code></td>
-<td><code>el_call(session, id, "scrollTo")</code></td>
+<td><code>call_el(session, id, "scrollTo")</code></td>
 <td>scrolls to a particular set of coordinates</td>
 </tr>
 <tr class="odd">
 <td><code>setScrollTop</code></td>
-<td><code>el_call(session, id, "setScrollTop")</code></td>
+<td><code>call_el(session, id, "setScrollTop")</code></td>
 <td>set vertical scroll position</td>
 </tr>
 <tr class="even">
 <td><code>setScrollLeft</code></td>
-<td><code>el_call(session, id, "setScrollLeft")</code></td>
+<td><code>call_el(session, id, "setScrollLeft")</code></td>
 <td>set horizontal scroll position</td>
 </tr>
 <tr class="odd">
 <td><code>updateKeyChildren</code></td>
-<td><code>el_call(session, id, "updateKeyChildren")</code></td>
+<td><code>call_el(session, id, "updateKeyChildren")</code></td>
 <td>used in lazy Table, must set <code>rowKey</code>, update key
 children</td>
 </tr>

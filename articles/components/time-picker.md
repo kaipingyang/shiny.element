@@ -129,10 +129,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `focus` | `el_call(session, id, "focus")` | focus the TimePicker component |
-| `blur` | `el_call(session, id, "blur")` | blur the TimePicker component |
-| `handleOpen` | `el_call(session, id, "handleOpen")` | open the TimePicker popper |
-| `handleClose` | `el_call(session, id, "handleClose")` | close the TimePicker popper |
+| `focus` | `call_el(session, id, "focus")` | focus the TimePicker component |
+| `blur` | `call_el(session, id, "blur")` | blur the TimePicker component |
+| `handleOpen` | `call_el(session, id, "handleOpen")` | open the TimePicker popper |
+| `handleClose` | `call_el(session, id, "handleClose")` | close the TimePicker popper |
 
 [^1]: number
 

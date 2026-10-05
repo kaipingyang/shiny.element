@@ -232,7 +232,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `setActiveNames` | `el_call(session, id, "setActiveNames")` | set active panel names |
+| `setActiveNames` | `call_el(session, id, "setActiveNames")` | set active panel names |
 
 ### Collapse Item Attributes
 

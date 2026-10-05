@@ -314,23 +314,23 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `filter` | `el_call(session, id, "filter")` | filter all tree nodes, filtered nodes will be hidden |
-| `getCheckedNodes` | `el_call(session, id, "getCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes |
-| `getCheckedKeys` | `el_call(session, id, "getCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node’s keys |
-| `setCheckedKeys` | `el_call(session, id, "setCheckedKeys")` | set certain nodes to be checked |
-| `setChecked` | `el_call(session, id, "setChecked")` | set node to be checked or not, `deep` (added in ^(2.14.0)) indicates whether child nodes should be recursively checked/unchecked. |
-| `setExpandedKeys` | `el_call(session, id, "setExpandedKeys")` | set certain nodes to be expanded |
-| `getHalfCheckedNodes` | `el_call(session, id, "getHalfCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes |
-| `getHalfCheckedKeys` | `el_call(session, id, "getHalfCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node’s keys |
-| `getCurrentKey` | `el_call(session, id, "getCurrentKey")` | return the highlight node’s key (undefined if no node is highlighted) |
-| `getCurrentNode` | `el_call(session, id, "getCurrentNode")` | return the highlight node’s data (undefined if no node is highlighted) |
-| `setCurrentKey` | `el_call(session, id, "setCurrentKey")` | set highlighted node by key |
-| `getNode` | `el_call(session, id, "getNode")` | get node by key or data |
-| `expandNode` | `el_call(session, id, "expandNode")` | expand specified node |
-| `collapseNode` | `el_call(session, id, "collapseNode")` | collapse specified node |
-| `setData` | `el_call(session, id, "setData")` | When the data is very large, using reactive data will cause the poor performance, so we provide a way to avoid this situation |
-| `scrollTo` | `el_call(session, id, "scrollTo")` | scroll to a given position |
-| `scrollToNode` | `el_call(session, id, "scrollToNode")` | scroll to a given tree key with specified scroll strategy |
+| `filter` | `call_el(session, id, "filter")` | filter all tree nodes, filtered nodes will be hidden |
+| `getCheckedNodes` | `call_el(session, id, "getCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes |
+| `getCheckedKeys` | `call_el(session, id, "getCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node’s keys |
+| `setCheckedKeys` | `call_el(session, id, "setCheckedKeys")` | set certain nodes to be checked |
+| `setChecked` | `call_el(session, id, "setChecked")` | set node to be checked or not, `deep` (added in ^(2.14.0)) indicates whether child nodes should be recursively checked/unchecked. |
+| `setExpandedKeys` | `call_el(session, id, "setExpandedKeys")` | set certain nodes to be expanded |
+| `getHalfCheckedNodes` | `call_el(session, id, "getHalfCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes |
+| `getHalfCheckedKeys` | `call_el(session, id, "getHalfCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node’s keys |
+| `getCurrentKey` | `call_el(session, id, "getCurrentKey")` | return the highlight node’s key (undefined if no node is highlighted) |
+| `getCurrentNode` | `call_el(session, id, "getCurrentNode")` | return the highlight node’s data (undefined if no node is highlighted) |
+| `setCurrentKey` | `call_el(session, id, "setCurrentKey")` | set highlighted node by key |
+| `getNode` | `call_el(session, id, "getNode")` | get node by key or data |
+| `expandNode` | `call_el(session, id, "expandNode")` | expand specified node |
+| `collapseNode` | `call_el(session, id, "collapseNode")` | collapse specified node |
+| `setData` | `call_el(session, id, "setData")` | When the data is very large, using reactive data will cause the poor performance, so we provide a way to avoid this situation |
+| `scrollTo` | `call_el(session, id, "scrollTo")` | scroll to a given position |
+| `scrollToNode` | `call_el(session, id, "scrollToNode")` | scroll to a given tree key with specified scroll strategy |
 
 ### TreeV2 Events
 

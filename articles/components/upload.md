@@ -311,11 +311,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `abort` | `el_call(session, id, "abort")` | cancel upload request. When a `file` is specified, abort the corresponding pending upload; when no file is specified, abort all pending uploads. |
-| `submit` | `el_call(session, id, "submit")` | upload the file list manually. |
-| `clearFiles` | `el_call(session, id, "clearFiles")` | clear the file list (this method is not supported in the `before-upload` hook). |
-| `handleStart` | `el_call(session, id, "handleStart")` | select the file manually. |
-| `handleRemove` | `el_call(session, id, "handleRemove")` | remove the file manually. `file` and `rawFile` has been merged. `rawFile` will be removed in `v2.2.0`. |
+| `abort` | `call_el(session, id, "abort")` | cancel upload request. When a `file` is specified, abort the corresponding pending upload; when no file is specified, abort all pending uploads. |
+| `submit` | `call_el(session, id, "submit")` | upload the file list manually. |
+| `clearFiles` | `call_el(session, id, "clearFiles")` | clear the file list (this method is not supported in the `before-upload` hook). |
+| `handleStart` | `call_el(session, id, "handleStart")` | select the file manually. |
+| `handleRemove` | `call_el(session, id, "handleRemove")` | remove the file manually. `file` and `rawFile` has been merged. `rawFile` will be removed in `v2.2.0`. |
 
 [^1]: string
 

@@ -85,8 +85,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `update` | `el_call(session, id, "update")` | update affix state manually |
-| `updateRoot` | `el_call(session, id, "updateRoot")` | update rootRect info |
+| `update` | `call_el(session, id, "update")` | update affix state manually |
+| `updateRoot` | `call_el(session, id, "updateRoot")` | update rootRect info |
 
 [^1]: number
 

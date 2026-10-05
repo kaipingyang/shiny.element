@@ -466,13 +466,13 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `validate` | `el_call(session, id, "validate")` | Validate the whole form. Receives a callback or returns `Promise`. |
-| `validateField` | `el_call(session, id, "validateField")` | Validate specified fields. |
-| `resetFields` | `el_call(session, id, "resetFields")` | Reset specified fields and remove validation result. |
-| `scrollToField` | `el_call(session, id, "scrollToField")` | Scroll to the specified fields. |
-| `clearValidate` | `el_call(session, id, "clearValidate")` | Clear validation messages for all or specified fields. |
-| `getField` | `el_call(session, id, "getField")` | Get a field context. |
-| `setInitialValues` | `el_call(session, id, "setInitialValues")` | Set initial values for form fields. When `resetFields` is called, fields will reset to these values. |
+| `validate` | `call_el(session, id, "validate")` | Validate the whole form. Receives a callback or returns `Promise`. |
+| `validateField` | `call_el(session, id, "validateField")` | Validate specified fields. |
+| `resetFields` | `call_el(session, id, "resetFields")` | Reset specified fields and remove validation result. |
+| `scrollToField` | `call_el(session, id, "scrollToField")` | Scroll to the specified fields. |
+| `clearValidate` | `call_el(session, id, "clearValidate")` | Clear validation messages for all or specified fields. |
+| `getField` | `call_el(session, id, "getField")` | Get a field context. |
+| `setInitialValues` | `call_el(session, id, "setInitialValues")` | Set initial values for form fields. When `resetFields` is called, fields will reset to these values. |
 
 ### FormItem Attributes
 
@@ -503,10 +503,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `validate` | `el_call(session, id, "validate")` | Validate form item. |
-| `resetField` | `el_call(session, id, "resetField")` | Reset current field and remove validation result. |
-| `clearValidate` | `el_call(session, id, "clearValidate")` | Remove validation status of the field. |
-| `setInitialValue` | `el_call(session, id, "setInitialValue")` | Set initial value for this field. When `resetField` is called, the field will reset to this value. |
+| `validate` | `call_el(session, id, "validate")` | Validate form item. |
+| `resetField` | `call_el(session, id, "resetField")` | Reset current field and remove validation result. |
+| `clearValidate` | `call_el(session, id, "clearValidate")` | Remove validation status of the field. |
+| `setInitialValue` | `call_el(session, id, "setInitialValue")` | Set initial value for this field. When `resetField` is called, the field will reset to this value. |
 
 [^1]: object
 

@@ -214,9 +214,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `setActiveItem` | `el_call(session, id, "setActiveItem")` | manually switch slide, index of the slide to be switched to, starting from 0; or the `name` of corresponding `el-carousel-item` |
-| `prev` | `el_call(session, id, "prev")` | switch to the previous slide |
-| [`next`](https://rdrr.io/r/base/Control.html) | `el_call(session, id, "next")` | switch to the next slide |
+| `setActiveItem` | `call_el(session, id, "setActiveItem")` | manually switch slide, index of the slide to be switched to, starting from 0; or the `name` of corresponding `el-carousel-item` |
+| `prev` | `call_el(session, id, "prev")` | switch to the previous slide |
+| [`next`](https://rdrr.io/r/base/Control.html) | `call_el(session, id, "next")` | switch to the next slide |
 
 ### Carousel-Item Attributes
 

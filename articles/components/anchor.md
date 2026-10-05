@@ -185,7 +185,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `scrollTo` | `el_call(session, id, "scrollTo")` | Manually scroll to the specific position. |
+| `scrollTo` | `call_el(session, id, "scrollTo")` | Manually scroll to the specific position. |
 
 ### Anchor Slots
 

@@ -133,8 +133,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R                            | Description                      |
 |---------|---------------------------------|----------------------------------|
-| `focus` | `el_call(session, id, "focus")` | Focus an OTP input field         |
-| `blur`  | `el_call(session, id, "blur")`  | Blur the focused OTP input field |
+| `focus` | `call_el(session, id, "focus")` | Focus an OTP input field         |
+| `blur`  | `call_el(session, id, "blur")`  | Blur the focused OTP input field |
 
 [^1]: string
 

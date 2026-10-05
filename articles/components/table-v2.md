@@ -1588,7 +1588,9 @@ with desired offset/rows.
 > of `smart` scroll strategy.
 
 The buttons call the table’s `scrollToTop()` and `scrollToRow()` from
-the server.
+the server. `scrollToRow()` is given the strategy `"start"`: with the
+default, Element Plus 2.14.7 also scrolls the table to its last column
+(see “Limitations”).
 
 ``` r
 
@@ -1645,7 +1647,12 @@ server <- function(input, output, session) {
     call_el(session, "tv_scroll", "scrollToTop", list(as.numeric(input$delta)))
   })
   observeEvent(input$rows_btn, {
-    call_el(session, "tv_scroll", "scrollToRow", list(as.numeric(input$rows)))
+    call_el(
+      session,
+      "tv_scroll",
+      "scrollToRow",
+      list(as.numeric(input$rows), "start")
+    )
   })
 }
 
@@ -1722,10 +1729,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `scrollTo` | `el_call(session, id, "scrollTo")` | Scroll to a given position |
-| `scrollToLeft` | `el_call(session, id, "scrollToLeft")` | Scroll to a given horizontal position |
-| `scrollToTop` | `el_call(session, id, "scrollToTop")` | Scroll to a given vertical position |
-| `scrollToRow` | `el_call(session, id, "scrollToRow")` | scroll to a given row with specified scroll strategy |
+| `scrollTo` | `call_el(session, id, "scrollTo")` | Scroll to a given position |
+| `scrollToLeft` | `call_el(session, id, "scrollToLeft")` | Scroll to a given horizontal position |
+| `scrollToTop` | `call_el(session, id, "scrollToTop")` | Scroll to a given vertical position |
+| `scrollToRow` | `call_el(session, id, "scrollToRow")` | scroll to a given row with specified scroll strategy |
 
 ### Column Attribute
 

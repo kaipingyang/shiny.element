@@ -146,9 +146,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `pickDay` | `el_call(session, id, "pickDay")` | select a specific date |
-| `selectDate` | `el_call(session, id, "selectDate")` | select date |
-| `calculateValidatedDateRange` | `el_call(session, id, "calculateValidatedDateRange")` | Calculate the validate date range according to the start and end dates |
+| `pickDay` | `call_el(session, id, "pickDay")` | select a specific date |
+| `selectDate` | `call_el(session, id, "selectDate")` | select date |
+| `calculateValidatedDateRange` | `call_el(session, id, "calculateValidatedDateRange")` | Calculate the validate date range according to the start and end dates |
 
 [^1]: Date
 

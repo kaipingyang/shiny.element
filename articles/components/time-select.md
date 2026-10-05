@@ -130,8 +130,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R                            | Description               |
 |---------|---------------------------------|---------------------------|
-| `focus` | `el_call(session, id, "focus")` | focus the Input component |
-| `blur`  | `el_call(session, id, "blur")`  | blur the Input component  |
+| `focus` | `call_el(session, id, "focus")` | focus the Input component |
+| `blur`  | `call_el(session, id, "blur")`  | blur the Input component  |
 
 [^1]: string
 

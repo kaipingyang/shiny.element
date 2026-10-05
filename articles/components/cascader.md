@@ -780,10 +780,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `getCheckedNodes` | `el_call(session, id, "getCheckedNodes")` | get an array of currently selected node,(leafOnly) whether only return the leaf checked nodes, default is `false` |
-| `togglePopperVisible` | `el_call(session, id, "togglePopperVisible")` | toggle the visible type of popper |
-| `focus` | `el_call(session, id, "focus")` | focus the input element |
-| `blur` | `el_call(session, id, "blur")` | blur the input element |
+| `getCheckedNodes` | `call_el(session, id, "getCheckedNodes")` | get an array of currently selected node,(leafOnly) whether only return the leaf checked nodes, default is `false` |
+| `togglePopperVisible` | `call_el(session, id, "togglePopperVisible")` | toggle the visible type of popper |
+| `focus` | `call_el(session, id, "focus")` | focus the input element |
+| `blur` | `call_el(session, id, "blur")` | blur the input element |
 
 ### CascaderPanel Attributes
 
@@ -815,8 +815,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `getCheckedNodes` | `el_call(session, id, "getCheckedNodes")` | get an array of currently selected node,(leafOnly) whether only return the leaf checked nodes, default is `false` |
-| `clearCheckedNodes` | `el_call(session, id, "clearCheckedNodes")` | clear checked nodes |
+| `getCheckedNodes` | `call_el(session, id, "getCheckedNodes")` | get an array of currently selected node,(leafOnly) whether only return the leaf checked nodes, default is `false` |
+| `clearCheckedNodes` | `call_el(session, id, "clearCheckedNodes")` | clear checked nodes |
 
 [^1]: string
 

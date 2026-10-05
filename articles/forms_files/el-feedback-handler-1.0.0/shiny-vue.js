@@ -31,7 +31,8 @@
   // ── values that can cross the wire ──────────────────────────────────────
 
   function serialisable(x) {
-    if (x === null || x === undefined) return false;
+    if (x === undefined) return false;
+    if (x === null) return true;
     if (typeof Node !== 'undefined' && x instanceof Node) return false;
     if (typeof Event !== 'undefined' && x instanceof Event) return false;
     if (typeof x === 'function') return false;
@@ -66,7 +67,10 @@
 
   // A component event as input$<id>_<event>. Several arguments go as an
   // object, never an array: Shiny unlists an unnamed list into one flat
-  // vector, types and all.
+  // vector, types and all. What cannot travel -- undefined, an element, an
+  // event, a function, a component -- is left out; null is a value and keeps
+  // its place, but nulls at the end are dropped ($emit('pick', row, null) is
+  // the row), unless null is all there is.
   //
   // `wait` (ms) is for an event that fires on every frame -- a scroll, a
   // drag: it goes at once, then at most once per `wait`, and the last one
@@ -75,8 +79,9 @@
   sv.emit = function(id, event, args, wait) {
     if (typeof Shiny === 'undefined' || !Shiny.setInputValue) return;
     var usable = Array.prototype.slice.call(args || []).filter(serialisable)
-      .map(function(a) { return plain(a); })
+      .map(function(a) { return a === null ? null : plain(a); })
       .filter(function(a) { return a !== undefined; });
+    while (usable.length > 1 && usable[usable.length - 1] === null) usable.pop();
     var value;
     if (usable.length === 0) value = true;
     else if (usable.length === 1) value = usable[0];
@@ -163,19 +168,12 @@
     // component's listeners are props of createApp(); each declared event
     // becomes input$<id>_<event>.
     // Its arguments arrive as sv.emit() sends any event's: none is TRUE, one is
-    // itself, several an object of arg1, arg2, ... -- and a single null
-    // stays null, the component saying "nothing".
+    // itself, several an object of arg1, arg2, ...
     var rootProps = {};
     (Array.isArray(options.emits) ? options.emits : []).forEach(function(ev) {
       var name = 'on' + ev.charAt(0).toUpperCase() + ev.slice(1).replace(/-(\w)/g, function(m, c) { return c.toUpperCase(); });
       var event = ev.replace(/-/g, '_');
-      rootProps[name] = function(first) {
-        if (arguments.length === 1 && first === null) {
-          if (window.Shiny && Shiny.setInputValue) Shiny.setInputValue(host.id + '_' + event, null, { priority: 'event' });
-          return;
-        }
-        sv.emit(host.id, event, arguments);
-      };
+      rootProps[name] = function() { sv.emit(host.id, event, arguments); };
     });
     var app = Vue.createApp(options, rootProps);
     // A template cannot reach window.Shiny: Vue allows only a few globals in
@@ -736,17 +734,16 @@
     // functions in the data (a column's formatter) may change from render
     // to render; they are revived when sent, so they are data like any other
     rest.evals = (rest.evals || []).filter(function(p) { return !/^options\.data\./.test(p); });
-    // An id drawn at random each render -- a component given none is
-    // <name>_<uuid> -- is not a difference; an id the author gave is the
-    // component's identity, and another one is another component.
-    var generated = GENERATED_ID.test(host.id);
+    // An id drawn at random each render -- the R side marks one it drew for
+    // a component given none -- is not a difference; an id the author gave
+    // is the component's identity, and another one is another component.
+    var generated = spec.generated === true;
     var norm = function(x) { return generated ? x.split(host.id).join('\u0000') : x; };
     return { id: generated ? null : host.id,
              data: data, evals: (spec.evals || []).filter(function(p) { return /^options\.data\./.test(p); }),
              keys: Object.keys(data).sort().join(','),
              shape: norm(tpl.textContent) + '\u0001' + norm(JSON.stringify(rest)) };
   }
-  var GENERATED_ID = /_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   // Text and attributes the server changed between its last render and this
   // one, set on the page. False when the structure differs: then nothing is
   // touched and the caller renders afresh.

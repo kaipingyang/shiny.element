@@ -307,9 +307,11 @@ the columns given (they stopped at two levels below the top).
 [`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md)
 and
 [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md)
-take any other argument of their component by its name – `stripe`,
-`table_layout`, `tree_props`, `sort_state`, `fixed_data`,
-`controller_type` – and `NULL` returns one to Element’s default.
+take every argument of their component that can change once it is drawn,
+under the same name – `stripe`, `table_layout`, `tree_props`,
+`sort_state`, `fixed_data`, `controller_type` – each documented on its
+help page. `NULL` leaves one as it is, as in Shiny’s updaters; `NA`
+returns it to Element’s default.
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 reaches a table-v2 with `auto_resize = TRUE`; it used to reach the
 resizer around it.

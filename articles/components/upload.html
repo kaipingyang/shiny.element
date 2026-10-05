@@ -875,30 +875,30 @@ the folder will be flattened.</td>
 <tbody>
 <tr class="odd">
 <td><code>abort</code></td>
-<td><code>el_call(session, id, "abort")</code></td>
+<td><code>call_el(session, id, "abort")</code></td>
 <td>cancel upload request. When a <code>file</code> is specified, abort
 the corresponding pending upload; when no file is specified, abort all
 pending uploads.</td>
 </tr>
 <tr class="even">
 <td><code>submit</code></td>
-<td><code>el_call(session, id, "submit")</code></td>
+<td><code>call_el(session, id, "submit")</code></td>
 <td>upload the file list manually.</td>
 </tr>
 <tr class="odd">
 <td><code>clearFiles</code></td>
-<td><code>el_call(session, id, "clearFiles")</code></td>
+<td><code>call_el(session, id, "clearFiles")</code></td>
 <td>clear the file list (this method is not supported in the
 <code>before-upload</code> hook).</td>
 </tr>
 <tr class="even">
 <td><code>handleStart</code></td>
-<td><code>el_call(session, id, "handleStart")</code></td>
+<td><code>call_el(session, id, "handleStart")</code></td>
 <td>select the file manually.</td>
 </tr>
 <tr class="odd">
 <td><code>handleRemove</code></td>
-<td><code>el_call(session, id, "handleRemove")</code></td>
+<td><code>call_el(session, id, "handleRemove")</code></td>
 <td>remove the file manually. <code>file</code> and <code>rawFile</code>
 has been merged. <code>rawFile</code> will be removed in
 <code>v2.2.0</code>.</td>

@@ -2,7 +2,9 @@
 
 Server-side update for
 [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md):
-the selected day, the range, or any other of its arguments.
+the selected day, the range, and every other argument that can change
+once the calendar is drawn, under the same name. One left `NULL` stays
+as it is; `NA` returns a prop to Element's default.
 
 ## Usage
 
@@ -14,7 +16,8 @@ update_el_calendar(
   range = NULL,
   label = NULL,
   error = NULL,
-  ...
+  controller_type = NULL,
+  formatter = NULL
 )
 ```
 
@@ -52,12 +55,17 @@ update_el_calendar(
   for a check only the server can make, such as whether a name is taken.
   `""` clears it.
 
-- ...:
+- controller_type:
 
-  Any other argument of
-  [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md),
-  by its name: `controller_type = "select"`, `formatter = JS(...)`.
-  `NULL` returns it to Element's default.
+  How the header switches month and year: `"button"` (the default) or
+  `"select"`. Element Plus's `controller-type`.
+
+- formatter:
+
+  With `controller_type = "select"`, a
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  function `function(value, type)` returning the label of each option.
+  Element Plus's `formatter`.
 
 ## Value
 

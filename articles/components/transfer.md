@@ -206,7 +206,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `clearQuery` | `el_call(session, id, "clearQuery")` | clear the filter keyword of a certain panel |
+| `clearQuery` | `call_el(session, id, "clearQuery")` | clear the filter keyword of a certain panel |
 
 [^1]: array
 

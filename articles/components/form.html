@@ -864,38 +864,38 @@ the scrollIntoView option. <a href="https://developer.mozilla.org/en-US/docs/Web
 <tbody>
 <tr class="odd">
 <td><code>validate</code></td>
-<td><code>el_call(session, id, "validate")</code></td>
+<td><code>call_el(session, id, "validate")</code></td>
 <td>Validate the whole form. Receives a callback or returns
 <code>Promise</code>.</td>
 </tr>
 <tr class="even">
 <td><code>validateField</code></td>
-<td><code>el_call(session, id, "validateField")</code></td>
+<td><code>call_el(session, id, "validateField")</code></td>
 <td>Validate specified fields.</td>
 </tr>
 <tr class="odd">
 <td><code>resetFields</code></td>
-<td><code>el_call(session, id, "resetFields")</code></td>
+<td><code>call_el(session, id, "resetFields")</code></td>
 <td>Reset specified fields and remove validation result.</td>
 </tr>
 <tr class="even">
 <td><code>scrollToField</code></td>
-<td><code>el_call(session, id, "scrollToField")</code></td>
+<td><code>call_el(session, id, "scrollToField")</code></td>
 <td>Scroll to the specified fields.</td>
 </tr>
 <tr class="odd">
 <td><code>clearValidate</code></td>
-<td><code>el_call(session, id, "clearValidate")</code></td>
+<td><code>call_el(session, id, "clearValidate")</code></td>
 <td>Clear validation messages for all or specified fields.</td>
 </tr>
 <tr class="even">
 <td><code>getField</code></td>
-<td><code>el_call(session, id, "getField")</code></td>
+<td><code>call_el(session, id, "getField")</code></td>
 <td>Get a field context.</td>
 </tr>
 <tr class="odd">
 <td><code>setInitialValues</code></td>
-<td><code>el_call(session, id, "setInitialValues")</code></td>
+<td><code>call_el(session, id, "setInitialValues")</code></td>
 <td>Set initial values for form fields. When <code>resetFields</code> is
 called, fields will reset to these values.</td>
 </tr>
@@ -1095,22 +1095,22 @@ and show this message immediately.</td>
 <tbody>
 <tr class="odd">
 <td><code>validate</code></td>
-<td><code>el_call(session, id, "validate")</code></td>
+<td><code>call_el(session, id, "validate")</code></td>
 <td>Validate form item.</td>
 </tr>
 <tr class="even">
 <td><code>resetField</code></td>
-<td><code>el_call(session, id, "resetField")</code></td>
+<td><code>call_el(session, id, "resetField")</code></td>
 <td>Reset current field and remove validation result.</td>
 </tr>
 <tr class="odd">
 <td><code>clearValidate</code></td>
-<td><code>el_call(session, id, "clearValidate")</code></td>
+<td><code>call_el(session, id, "clearValidate")</code></td>
 <td>Remove validation status of the field.</td>
 </tr>
 <tr class="even">
 <td><code>setInitialValue</code></td>
-<td><code>el_call(session, id, "setInitialValue")</code></td>
+<td><code>call_el(session, id, "setInitialValue")</code></td>
 <td>Set initial value for this field. When <code>resetField</code> is
 called, the field will reset to this value.</td>
 </tr>

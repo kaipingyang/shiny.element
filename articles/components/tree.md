@@ -609,24 +609,24 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `filter` | `el_call(session, id, "filter")` | filter all tree nodes, filtered nodes will be hidden |
-| `updateKeyChildren` | `el_call(session, id, "updateKeyChildren")` | set new data to node, only works when `node-key` is assigned |
-| `getCheckedNodes` | `el_call(session, id, "getCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes |
-| `setCheckedNodes` | `el_call(session, id, "setCheckedNodes")` | set certain nodes to be checked, only works when `node-key` is assigned |
-| `getCheckedKeys` | `el_call(session, id, "getCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node’s keys |
-| `setCheckedKeys` | `el_call(session, id, "setCheckedKeys")` | set certain nodes to be checked, only works when `node-key` is assigned |
-| `setChecked` | `el_call(session, id, "setChecked")` | set node to be checked or not, only works when `node-key` is assigned |
-| `getHalfCheckedNodes` | `el_call(session, id, "getHalfCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes |
-| `getHalfCheckedKeys` | `el_call(session, id, "getHalfCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node’s keys |
-| `getCurrentKey` | `el_call(session, id, "getCurrentKey")` | return the highlight node’s key (null if no node is highlighted) |
-| `getCurrentNode` | `el_call(session, id, "getCurrentNode")` | return the highlight node’s data (null if no node is highlighted) |
-| `setCurrentKey` | `el_call(session, id, "setCurrentKey")` | set highlighted node by key, only works when `node-key` is assigned |
-| `setCurrentNode` | `el_call(session, id, "setCurrentNode")` | set highlighted node, only works when `node-key` is assigned |
-| `getNode` | `el_call(session, id, "getNode")` | get node by data or key |
-| `remove` | `el_call(session, id, "remove")` | remove a node, only works when node-key is assigned |
-| `append` | `el_call(session, id, "append")` | append a child node to a given node in the tree |
-| `insertBefore` | `el_call(session, id, "insertBefore")` | insert a node before a given node in the tree |
-| `insertAfter` | `el_call(session, id, "insertAfter")` | insert a node after a given node in the tree |
+| `filter` | `call_el(session, id, "filter")` | filter all tree nodes, filtered nodes will be hidden |
+| `updateKeyChildren` | `call_el(session, id, "updateKeyChildren")` | set new data to node, only works when `node-key` is assigned |
+| `getCheckedNodes` | `call_el(session, id, "getCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of nodes |
+| `setCheckedNodes` | `call_el(session, id, "setCheckedNodes")` | set certain nodes to be checked, only works when `node-key` is assigned |
+| `getCheckedKeys` | `call_el(session, id, "getCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently selected array of node’s keys |
+| `setCheckedKeys` | `call_el(session, id, "setCheckedKeys")` | set certain nodes to be checked, only works when `node-key` is assigned |
+| `setChecked` | `call_el(session, id, "setChecked")` | set node to be checked or not, only works when `node-key` is assigned |
+| `getHalfCheckedNodes` | `call_el(session, id, "getHalfCheckedNodes")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of nodes |
+| `getHalfCheckedKeys` | `call_el(session, id, "getHalfCheckedKeys")` | If the node can be selected (`show-checkbox` is `true`), it returns the currently half selected array of node’s keys |
+| `getCurrentKey` | `call_el(session, id, "getCurrentKey")` | return the highlight node’s key (null if no node is highlighted) |
+| `getCurrentNode` | `call_el(session, id, "getCurrentNode")` | return the highlight node’s data (null if no node is highlighted) |
+| `setCurrentKey` | `call_el(session, id, "setCurrentKey")` | set highlighted node by key, only works when `node-key` is assigned |
+| `setCurrentNode` | `call_el(session, id, "setCurrentNode")` | set highlighted node, only works when `node-key` is assigned |
+| `getNode` | `call_el(session, id, "getNode")` | get node by data or key |
+| `remove` | `call_el(session, id, "remove")` | remove a node, only works when node-key is assigned |
+| `append` | `call_el(session, id, "append")` | append a child node to a given node in the tree |
+| `insertBefore` | `call_el(session, id, "insertBefore")` | insert a node before a given node in the tree |
+| `insertAfter` | `call_el(session, id, "insertAfter")` | insert a node after a given node in the tree |
 
 ### Events
 

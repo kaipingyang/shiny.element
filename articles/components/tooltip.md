@@ -358,11 +358,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `isFocusInsideContent` | `el_call(session, id, "isFocusInsideContent")` | Validate current focus event is trigger inside el-tooltip-content |
-| `updatePopper` | `el_call(session, id, "updatePopper")` | Update el-popper component instance |
-| `onOpen` | `el_call(session, id, "onOpen")` | Expose onOpen function to manage el-tooltip open state |
-| `onClose` | `el_call(session, id, "onClose")` | Expose onClose function to manage el-tooltip open state |
-| `hide` | `el_call(session, id, "hide")` | Expose hide function |
+| `isFocusInsideContent` | `call_el(session, id, "isFocusInsideContent")` | Validate current focus event is trigger inside el-tooltip-content |
+| `updatePopper` | `call_el(session, id, "updatePopper")` | Update el-popper component instance |
+| `onOpen` | `call_el(session, id, "onOpen")` | Expose onOpen function to manage el-tooltip open state |
+| `onClose` | `call_el(session, id, "onClose")` | Expose onClose function to manage el-tooltip open state |
+| `hide` | `call_el(session, id, "hide")` | Expose hide function |
 
 [^1]: CSSSelector
 

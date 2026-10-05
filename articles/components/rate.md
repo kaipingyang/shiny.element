@@ -175,8 +175,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `setCurrentValue` | `el_call(session, id, "setCurrentValue")` | set current value |
-| `resetCurrentValue` | `el_call(session, id, "resetCurrentValue")` | reset current value |
+| `setCurrentValue` | `call_el(session, id, "setCurrentValue")` | set current value |
+| `resetCurrentValue` | `call_el(session, id, "resetCurrentValue")` | reset current value |
 
 [^1]: number
 

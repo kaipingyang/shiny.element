@@ -396,8 +396,8 @@ scrolls.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="affix-el_affix_f54b13c0-a2e8-45bb-9c4f-d5ad05c361a2" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="affix-el_affix_f54b13c0-a2e8-45bb-9c4f-d5ad05c361a2_container" style="display: contents">
+  <div id="affix-el_affix_466afeed-9783-4d59-9183-8aaef5094c06" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="affix-el_affix_466afeed-9783-4d59-9183-8aaef5094c06_container" style="display: contents">
   <el-affix :offset="offset === null ? undefined : offset" :position="position === null ? undefined : position" :target="target === null ? undefined : target" :z-index="zIndex === null ? undefined : zIndex" :teleported="teleported === null ? undefined : teleported" :append-to="appendTo === null ? undefined : appendTo" @change="elEmitChange" @scroll="elEmitScroll">
     <el-anchor @change="el2_handleChange" @click="el2_elEmitClick" :container="el2_container === null ? undefined : el2_container" :offset="el2_offset === null ? undefined : el2_offset" :bound="el2_bound === null ? undefined : el2_bound" :duration="el2_duration === null ? undefined : el2_duration" :marker="el2_marker === null ? undefined : el2_marker" :type="el2_type === null ? undefined : el2_type" :direction="el2_direction === null ? undefined : el2_direction" :select-scroll-top="el2_selectScrollTop === null ? undefined : el2_selectScrollTop" style="width: 300px">
       <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
@@ -405,7 +405,7 @@ scrolls.</p>
       <el-anchor-link title="Scroll Container" href="#scroll-container"></el-anchor-link>
     </el-anchor>
   </el-affix>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":60,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"el2_container":null,"el2_offset":70,"el2_bound":null,"el2_duration":null,"el2_marker":null,"el2_type":null,"el2_direction":null,"el2_selectScrollTop":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('affix-el_affix_f54b13c0-a2e8-45bb-9c4f-d5ad05c361a2', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('affix-el_affix_f54b13c0-a2e8-45bb-9c4f-d5ad05c361a2', 'scroll', arguments, 200); }","el2_elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('affix-toc_a', 'click', [v]); }","el2_handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('affix-toc_a', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.el2_elEmitClick","options.methods.el2_handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":60,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"el2_container":null,"el2_offset":70,"el2_bound":null,"el2_duration":null,"el2_marker":null,"el2_type":null,"el2_direction":null,"el2_selectScrollTop":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('affix-el_affix_466afeed-9783-4d59-9183-8aaef5094c06', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('affix-el_affix_466afeed-9783-4d59-9183-8aaef5094c06', 'scroll', arguments, 200); }","el2_elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('affix-toc_a', 'click', [v]); }","el2_handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('affix-toc_a', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.el2_elEmitClick","options.methods.el2_handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -552,7 +552,7 @@ scrolls.</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td><code>scrollTo</code></td>
-<td><code>el_call(session, id, "scrollTo")</code></td>
+<td><code>call_el(session, id, "scrollTo")</code></td>
 <td>Manually scroll to the specific position.</td>
 </tr></tbody>
 </table>
