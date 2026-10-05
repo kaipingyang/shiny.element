@@ -70,13 +70,18 @@ el_check_tag <- function(
 #'     update_el_check_tag(session, "pinned", value = FALSE)
 #'   )
 #' }
+#' @inheritParams el_check_tag
+#' @details Every other argument of [el_check_tag()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_check_tag <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   value = NULL,
   label = NULL,
-  disabled = NULL
+  disabled = NULL,
+  type = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -89,6 +94,18 @@ update_el_check_tag <- function(
   if (!is.null(disabled)) {
     msg$disabled <- disabled
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_check_tag",
+      Filter(
+        Negate(is.null),
+        list(
+          type = type
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

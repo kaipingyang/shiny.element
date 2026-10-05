@@ -9,7 +9,14 @@ update_el_carousel(
   id,
   active = NULL,
   autoplay = NULL,
-  interval = NULL
+  interval = NULL,
+  height = NULL,
+  initial_index = NULL,
+  trigger = NULL,
+  indicator_position = NULL,
+  arrow = NULL,
+  loop = NULL,
+  direction = NULL
 )
 }
 \arguments{
@@ -23,12 +30,33 @@ update_el_carousel(
 \item{autoplay}{Start or stop cycling.}
 
 \item{interval}{New interval in milliseconds.}
+
+\item{height}{Slide height, e.g. \code{"300px"}.}
+
+\item{initial_index}{Index of the slide shown first, 0-based.}
+
+\item{trigger}{What switches slides when an indicator is used:
+\code{"hover"} (default) or \code{"click"}.}
+
+\item{indicator_position}{\code{"outside"}, \code{"none"}, or NULL for inside.}
+
+\item{arrow}{When to show the arrows: \code{"hover"} (default), \code{"always"} or
+\code{"never"}.}
+
+\item{loop}{Return to the first slide after the last.}
+
+\item{direction}{\code{"horizontal"} (default) or \code{"vertical"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update an Element Plus Carousel
+}
+\details{
+Every other argument of \code{\link[=el_carousel]{el_carousel()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

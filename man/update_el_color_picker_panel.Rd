@@ -10,7 +10,14 @@ update_el_color_picker_panel(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  border = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  validate_event = NULL,
+  hue_slider_class = NULL,
+  hue_slider_style = NULL
 )
 }
 \arguments{
@@ -26,12 +33,38 @@ tags or \code{HTML()} drawn as markup. Only a component built with a \code{label
 has one to change.}
 
 \item{error}{An error message to show on the component; \code{""} clears it.}
+
+\item{border}{Whether the color picker panel is bordered. Element Plus's
+\code{border} (boolean).}
+
+\item{show_alpha}{Whether to display the alpha slider. Element Plus's
+\code{show-alpha} (boolean).}
+
+\item{color_format}{Color format of v-model. Element Plus's \code{color-format}
+(enum).}
+
+\item{predefine}{Predefined color options. Element Plus's \code{predefine}
+(string[]).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{hue_slider_class}{Class names will be passed to hue-slider. Element
+Plus's \code{hue-slider-class} (string | string[] | Record<string, boolean>).}
+
+\item{hue_slider_style}{Styles will be passed to hue-slider. Element Plus's
+\code{hue-slider-style} (string / StyleValue).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_color_picker_panel]{el_color_picker_panel()}}.
+}
+\details{
+Every other argument of \code{\link[=el_color_picker_panel]{el_color_picker_panel()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

@@ -180,6 +180,10 @@ el_date_picker_panel <- function(
 #'     update_el_date_picker_panel(session, "x", value = NULL)
 #'   )
 #' }
+#' @inheritParams el_date_picker_panel
+#' @details Every other argument of [el_date_picker_panel()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_date_picker_panel <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -187,7 +191,22 @@ update_el_date_picker_panel <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  border = NULL,
+  clearable = NULL,
+  editable = NULL,
+  type = NULL,
+  value_format = NULL,
+  date_format = NULL,
+  time_format = NULL,
+  unlink_panels = NULL,
+  single_panel = NULL,
+  disabled_date = NULL,
+  shortcuts = NULL,
+  cell_class_name = NULL,
+  show_footer = NULL,
+  show_confirm = NULL,
+  show_week_number = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -198,6 +217,32 @@ update_el_date_picker_panel <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_date_picker_panel",
+      Filter(
+        Negate(is.null),
+        list(
+          border = border,
+          clearable = clearable,
+          editable = editable,
+          type = type,
+          value_format = value_format,
+          date_format = date_format,
+          time_format = time_format,
+          unlink_panels = unlink_panels,
+          single_panel = single_panel,
+          disabled_date = disabled_date,
+          shortcuts = shortcuts,
+          cell_class_name = cell_class_name,
+          show_footer = show_footer,
+          show_confirm = show_confirm,
+          show_week_number = show_week_number
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

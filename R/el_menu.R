@@ -363,12 +363,34 @@ el_menu <- function(
 #'     update_el_menu(session, "nav", active = "data")
 #'   })
 #' }
+#' @inheritParams el_menu
+#' @details Every other argument of [el_menu()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_menu <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   active = NULL,
-  collapse = NULL
+  collapse = NULL,
+  mode = NULL,
+  unique_opened = NULL,
+  background_color = NULL,
+  text_color = NULL,
+  active_text_color = NULL,
+  menu_trigger = NULL,
+  collapse_transition = NULL,
+  router = NULL,
+  close_on_click_outside = NULL,
+  ellipsis = NULL,
+  ellipsis_icon = NULL,
+  hide_timeout = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_effect = NULL,
+  popper_offset = NULL,
+  popper_style = NULL,
+  show_timeout = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -378,6 +400,35 @@ update_el_menu <- function(
   if (!is.null(collapse)) {
     msg$collapse <- collapse
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_menu",
+      Filter(
+        Negate(is.null),
+        list(
+          mode = mode,
+          unique_opened = unique_opened,
+          background_color = background_color,
+          text_color = text_color,
+          active_text_color = active_text_color,
+          menu_trigger = menu_trigger,
+          collapse_transition = collapse_transition,
+          router = router,
+          close_on_click_outside = close_on_click_outside,
+          ellipsis = ellipsis,
+          ellipsis_icon = ellipsis_icon,
+          hide_timeout = hide_timeout,
+          persistent = persistent,
+          popper_class = popper_class,
+          popper_effect = popper_effect,
+          popper_offset = popper_offset,
+          popper_style = popper_style,
+          show_timeout = show_timeout
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

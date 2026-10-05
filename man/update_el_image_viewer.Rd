@@ -9,7 +9,17 @@ update_el_image_viewer(
   id,
   visible = NULL,
   url_list = NULL,
-  initial_index = NULL
+  initial_index = NULL,
+  z_index = NULL,
+  infinite = NULL,
+  hide_on_click_modal = NULL,
+  teleported = NULL,
+  zoom_rate = NULL,
+  scale = NULL,
+  min_scale = NULL,
+  max_scale = NULL,
+  close_on_press_escape = NULL,
+  show_progress = NULL
 )
 }
 \arguments{
@@ -20,12 +30,47 @@ update_el_image_viewer(
 
 \item{visible, url_list, initial_index}{New values; \code{NULL} leaves one
 unchanged.}
+
+\item{z_index}{Preview backdrop z-index. Element Plus's \code{z-index} (number /
+string).}
+
+\item{infinite}{Whether preview is infinite. Element Plus's \code{infinite}
+(boolean).}
+
+\item{hide_on_click_modal}{Whether user can emit close event when clicking
+backdrop. Element Plus's \code{hide-on-click-modal} (boolean).}
+
+\item{teleported}{Whether to append image itself to body. A nested parent
+element attribute transform should have this attribute set to \code{true}.
+Element Plus's \code{teleported} (boolean).}
+
+\item{zoom_rate}{The zoom rate of the image viewer zoom event. Element
+Plus's \code{zoom-rate} (number).}
+
+\item{scale}{The preview image scale. Element Plus's \code{scale} (number).}
+
+\item{min_scale}{The min scale of the image viewer zoom event. Element
+Plus's \code{min-scale} (number).}
+
+\item{max_scale}{The max scale of the image viewer zoom event. Element
+Plus's \code{max-scale} (number).}
+
+\item{close_on_press_escape}{Whether the image-viewer can be closed by
+pressing ESC. Element Plus's \code{close-on-press-escape} (boolean).}
+
+\item{show_progress}{Whether to display the preview image progress content.
+Element Plus's \code{show-progress} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Open or close an \code{\link[=el_image_viewer]{el_image_viewer()}}, or give it other images.
+}
+\details{
+Every other argument of \code{\link[=el_image_viewer]{el_image_viewer()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

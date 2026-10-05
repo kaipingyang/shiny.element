@@ -380,3 +380,74 @@ test_that("an update leaves NULL as it is and sends NA as Element's default", {
     "should be one of"
   )
 })
+
+# Every update function: a UI argument whose value sits in a field of the
+# component's data can be changed, under its own name.
+test_that("every update takes each UI argument held in the component's data", {
+  needs <- list(
+    el_checkbox_group = list("x", choices = c("A", "B")),
+    el_radio_group = list("x", choices = c("A", "B")),
+    el_select = list("x", choices = c("A", "B")),
+    el_check_tag = list("x", "Tag"),
+    el_pagination = list("x", total = 100),
+    el_steps = list("x", steps = list(el_step("S"))),
+    el_dropdown = list("x", items = list(el_dropdown_item("c")))
+  )
+  # held in a field, but transformed on the way there; the update takes them
+  # under the names Shiny gives them (choices) or not at all
+  transformed <- c(
+    "el_mention:options",
+    "el_segmented:options",
+    "el_rate:colors",
+    "el_slider:range",
+    "el_select:options",
+    "el_select_v2:options",
+    "el_radio_group:options",
+    "el_checkbox_group:options"
+  )
+  fixed <- c(
+    "id",
+    "session",
+    "slots",
+    "width",
+    "label",
+    "error",
+    "label_position",
+    "label_width",
+    "label_suffix",
+    "required",
+    "show_message",
+    "inline_message"
+  )
+  missing <- character()
+  for (u in grep(
+    "^update_el_",
+    getNamespaceExports("shiny.element"),
+    value = TRUE
+  )) {
+    ui <- sub("^update_", "", u)
+    if (!exists(ui)) {
+      next
+    }
+    tag <- tryCatch(
+      do.call(ui, needs[[ui]] %||% list("x")),
+      error = function(e) NULL
+    )
+    if (is.null(tag)) {
+      next
+    }
+    keys <- vue_data_keys(tag)
+    args <- setdiff(names(formals(get(ui))), fixed)
+    args <- args[!startsWith(args, "default_")]
+    held <- args[vapply(args, .el_camel_case, "") %in% keys]
+    held <- setdiff(
+      held,
+      sub("^.*:", "", transformed[startsWith(transformed, paste0(ui, ":"))])
+    )
+    gone <- setdiff(held, names(formals(get(u))))
+    if (length(gone)) {
+      missing <- c(missing, paste0(u, ": ", toString(gone)))
+    }
+  }
+  expect_equal(missing, character())
+})

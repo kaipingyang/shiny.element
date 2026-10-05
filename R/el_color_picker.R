@@ -192,6 +192,10 @@ el_color_picker <- function(
 #'     update_el_color_picker(session, "shade", value = "#67C23A")
 #'   })
 #' }
+#' @inheritParams el_color_picker
+#' @details Every other argument of [el_color_picker()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_color_picker <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -199,7 +203,22 @@ update_el_color_picker <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  empty_values = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  tabindex = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -211,6 +230,32 @@ update_el_color_picker <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_color_picker",
+      Filter(
+        Negate(is.null),
+        list(
+          size = size,
+          show_alpha = show_alpha,
+          color_format = color_format,
+          predefine = predefine,
+          popper_class = popper_class,
+          append_to = append_to,
+          aria_label = aria_label,
+          clearable = clearable,
+          empty_values = empty_values,
+          persistent = persistent,
+          popper_style = popper_style,
+          tabindex = tabindex,
+          teleported = teleported,
+          validate_event = validate_event,
+          value_on_clear = value_on_clear
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

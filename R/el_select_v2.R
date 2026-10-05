@@ -343,6 +343,10 @@ el_select_v2 <- function(
 #'   # inside a server function
 #'   observeEvent(input$reset, update_el_select_v2(session, "x", value = NULL))
 #' }
+#' @inheritParams el_select_v2
+#' @details Every other argument of [el_select_v2()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_select_v2 <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -350,7 +354,58 @@ update_el_select_v2 <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  multiple = NULL,
+  value_key = NULL,
+  size = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  collapse_tags = NULL,
+  multiple_limit = NULL,
+  effect = NULL,
+  autocomplete = NULL,
+  placeholder = NULL,
+  filterable = NULL,
+  allow_create = NULL,
+  filter_method = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  reserve_keyword = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  teleported = NULL,
+  append_to = NULL,
+  persistent = NULL,
+  popper_options = NULL,
+  automatic_dropdown = NULL,
+  fit_input_width = NULL,
+  suffix_icon = NULL,
+  height = NULL,
+  item_height = NULL,
+  estimated_option_height = NULL,
+  scrollbar_always_on = NULL,
+  remote = NULL,
+  debounce = NULL,
+  remote_method = NULL,
+  remote_show_suffix = NULL,
+  validate_event = NULL,
+  offset = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  collapse_tags_tooltip = NULL,
+  max_collapse_tags = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  popper_append_to_body = NULL,
+  tabindex = NULL,
+  props = NULL,
+  tag_tooltip = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -361,6 +416,68 @@ update_el_select_v2 <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_select_v2",
+      Filter(
+        Negate(is.null),
+        list(
+          multiple = multiple,
+          value_key = value_key,
+          size = size,
+          clearable = clearable,
+          clear_icon = clear_icon,
+          collapse_tags = collapse_tags,
+          multiple_limit = multiple_limit,
+          effect = effect,
+          autocomplete = autocomplete,
+          placeholder = placeholder,
+          filterable = filterable,
+          allow_create = allow_create,
+          filter_method = filter_method,
+          loading = loading,
+          loading_text = loading_text,
+          reserve_keyword = reserve_keyword,
+          no_match_text = no_match_text,
+          no_data_text = no_data_text,
+          popper_class = popper_class,
+          popper_style = popper_style,
+          teleported = teleported,
+          append_to = append_to,
+          persistent = persistent,
+          popper_options = popper_options,
+          automatic_dropdown = automatic_dropdown,
+          fit_input_width = fit_input_width,
+          suffix_icon = suffix_icon,
+          height = height,
+          item_height = item_height,
+          estimated_option_height = estimated_option_height,
+          scrollbar_always_on = scrollbar_always_on,
+          remote = remote,
+          debounce = debounce,
+          remote_method = remote_method,
+          remote_show_suffix = remote_show_suffix,
+          validate_event = validate_event,
+          offset = offset,
+          show_arrow = show_arrow,
+          placement = placement,
+          fallback_placements = fallback_placements,
+          collapse_tags_tooltip = collapse_tags_tooltip,
+          max_collapse_tags = max_collapse_tags,
+          tag_type = tag_type,
+          tag_effect = tag_effect,
+          aria_label = aria_label,
+          empty_values = empty_values,
+          value_on_clear = value_on_clear,
+          popper_append_to_body = popper_append_to_body,
+          tabindex = tabindex,
+          props = props,
+          tag_tooltip = tag_tooltip
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

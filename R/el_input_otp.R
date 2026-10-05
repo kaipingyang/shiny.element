@@ -136,6 +136,10 @@ el_input_otp <- function(
 #'   # inside a server function
 #'   observeEvent(input$reset, update_el_input_otp(session, "x", value = NULL))
 #' }
+#' @inheritParams el_input_otp
+#' @details Every other argument of [el_input_otp()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_input_otp <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -143,7 +147,17 @@ update_el_input_otp <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  length = NULL,
+  validator = NULL,
+  inputmode = NULL,
+  type = NULL,
+  size = NULL,
+  mask = NULL,
+  separator = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  aria_label = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -154,6 +168,27 @@ update_el_input_otp <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_input_otp",
+      Filter(
+        Negate(is.null),
+        list(
+          length = length,
+          validator = validator,
+          inputmode = inputmode,
+          type = type,
+          size = size,
+          mask = mask,
+          separator = separator,
+          validate_event = validate_event,
+          readonly = readonly,
+          aria_label = aria_label
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

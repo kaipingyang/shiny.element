@@ -10,7 +10,17 @@ update_el_input_otp(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  length = NULL,
+  validator = NULL,
+  inputmode = NULL,
+  type = NULL,
+  size = NULL,
+  mask = NULL,
+  separator = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  aria_label = NULL
 )
 }
 \arguments{
@@ -26,12 +36,46 @@ tags or \code{HTML()} drawn as markup. Only a component built with a \code{label
 has one to change.}
 
 \item{error}{An error message to show on the component; \code{""} clears it.}
+
+\item{length}{The OTP fields length. Element Plus's \code{length} (number).}
+
+\item{validator}{Custom validator function. Element Plus's \code{validator}
+((char: string, index: number) => boolean). Give it as \code{\link[=JS]{JS()}}.}
+
+\item{inputmode}{Native \code{inputmode} attribute. Element Plus's \code{inputmode}
+(string).}
+
+\item{type}{The type of the OTP fields. Element Plus's \code{type} ('outlined' |
+'filled' | 'underlined').}
+
+\item{size}{The size of the OTP fields. Element Plus's \code{size} ('large' |
+'default' | 'small').}
+
+\item{mask}{Whether to enable password mode. Element Plus's \code{mask}
+(boolean).}
+
+\item{separator}{The separator between OTP fields. Element Plus's
+\code{separator} (string / VNode / () => string | VNode). Give it as \code{\link[=JS]{JS()}}.}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{readonly}{Same as \code{readonly} in native input. Element Plus's
+\code{readonly} (boolean).}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_input_otp]{el_input_otp()}}.
+}
+\details{
+Every other argument of \code{\link[=el_input_otp]{el_input_otp()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

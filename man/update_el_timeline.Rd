@@ -8,7 +8,8 @@ update_el_timeline(
   session = shiny::getDefaultReactiveDomain(),
   id,
   items = NULL,
-  reverse = NULL
+  reverse = NULL,
+  mode = NULL
 )
 }
 \arguments{
@@ -20,12 +21,20 @@ update_el_timeline(
 \item{items}{Replacement entries, in the same shape \code{\link[=el_timeline]{el_timeline()}} takes.}
 
 \item{reverse}{New ordering.}
+
+\item{mode}{Relative position of timeline and content. Element Plus's
+\code{mode} ('start' | 'alternate' | 'alternate-reverse' | 'end').}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update an Element Plus Timeline
+}
+\details{
+Every other argument of \code{\link[=el_timeline]{el_timeline()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

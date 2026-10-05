@@ -160,6 +160,10 @@ el_timeline <- function(
 #' @param items Replacement entries, in the same shape [el_timeline()] takes.
 #' @param reverse New ordering.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @inheritParams el_timeline
+#' @details Every other argument of [el_timeline()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 #' @examples
 #' if (interactive()) {
@@ -176,7 +180,8 @@ update_el_timeline <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   items = NULL,
-  reverse = NULL
+  reverse = NULL,
+  mode = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -186,6 +191,18 @@ update_el_timeline <- function(
   if (!is.null(reverse)) {
     msg$reverse <- reverse
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_timeline",
+      Filter(
+        Negate(is.null),
+        list(
+          mode = mode
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

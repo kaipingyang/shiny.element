@@ -14,7 +14,37 @@ update_el_cascader(
   filterable = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  props = NULL,
+  size = NULL,
+  show_all_levels = NULL,
+  collapse_tags = NULL,
+  separator = NULL,
+  debounce = NULL,
+  popper_class = NULL,
+  filter_method = NULL,
+  before_filter = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  height = NULL,
+  item_size = NULL,
+  max_collapse_tags = NULL,
+  max_collapse_tags_tooltip_height = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_append_to_body = NULL,
+  popper_style = NULL,
+  show_checked_strategy = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  virtual_scroll = NULL
 )
 }
 \arguments{
@@ -42,12 +72,109 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{props}{Element's \code{props}, as a named list: \code{multiple},
+\code{checkStrictly}, \code{expandTrigger} (\code{"click"} or \code{"hover"}), \code{lazy},
+\code{lazyLoad}, and the field names \code{value}, \code{label}, \code{children},
+\code{disabled}, \code{leaf}. With \code{lazy = TRUE} and no \code{lazyLoad} of your own,
+the server loads each column: see "Shiny inputs".}
+
+\item{size}{Size of cascader: \code{"large"}, \code{"default"} or \code{"small"}.}
+
+\item{show_all_levels}{Whether to show all levels in input}
+
+\item{collapse_tags}{Whether to collapse tags in multiple mode}
+
+\item{separator}{Separator for display}
+
+\item{debounce}{Debounce delay for filter}
+
+\item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{filter_method}{\code{JS()} function filtering the options as the user types.}
+
+\item{before_filter}{\code{JS()} function called before filtering; returning \code{false} cancels it.}
+
+\item{clear_icon}{Custom clear icon component. Element Plus's \code{clear-icon}
+(string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{collapse_tags_tooltip}{Whether show all selected tags when mouse
+hover text of collapse-tags. To use this, \code{collapse-tags} must be true.
+Element Plus's \code{collapse-tags-tooltip} (boolean).}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{empty_values}{Empty values of component, see config-provider. Element
+Plus's \code{empty-values} (array).}
+
+\item{fallback_placements}{List of possible positions for Tooltip
+popper.js. Element Plus's \code{fallback-placements} (\code{Placement[]}).}
+
+\item{fit_input_width}{Whether the width of the suggestion panel is the
+same as the input, if the value is \code{number}, then the width is fixed.
+Element Plus's \code{fit-input-width} (boolean / number).}
+
+\item{height}{Menu height for virtual scrolling (px). Element Plus's
+\code{height} (number).}
+
+\item{item_size}{Node height for virtual scrolling (px). Element Plus's
+\code{item-size} (number).}
+
+\item{max_collapse_tags}{The max tags number to be shown. To use this,
+\code{collapse-tags} must be true. Element Plus's \code{max-collapse-tags}
+(number).}
+
+\item{max_collapse_tags_tooltip_height}{Max height of collapse-tags
+tooltip. Element Plus's \code{max-collapse-tags-tooltip-height} (string /
+number).}
+
+\item{persistent}{When dropdown is inactive and \code{persistent} is \code{false},
+dropdown will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{placement}{Position of dropdown. Element Plus's \code{placement} (enum).}
+
+\item{popper_append_to_body}{Whether to append the popper menu to body. If
+the positioning of the popper is wrong, you can try to set this prop to
+false. Element Plus's \code{popper-append-to-body} (boolean).}
+
+\item{popper_style}{Custom style for Cascader's dropdown and tags' tooltip.
+Element Plus's \code{popper-style} (string / object).}
+
+\item{show_checked_strategy}{Strategy for displaying checked nodes in
+multiple selection mode. Use \code{parent} when you want things tidy. Use
+\code{child} when every single item matters. Element Plus's
+\code{show-checked-strategy} ('parent' | 'child').}
+
+\item{tag_effect}{Tag effect. Element Plus's \code{tag-effect} ('light' | 'dark'
+| 'plain').}
+
+\item{tag_type}{Tag type. Element Plus's \code{tag-type} ('success' | 'info' |
+'warning' | 'danger').}
+
+\item{teleported}{Whether cascader popup is teleported. Element Plus's
+\code{teleported} (boolean).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{value_on_clear}{Clear return value, see config-provider. Element
+Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
+as \code{\link[=JS]{JS()}}.}
+
+\item{virtual_scroll}{Whether to enable virtual scrolling for large data.
+Element Plus's \code{virtual-scroll} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update Element Plus Cascader
+}
+\details{
+Every other argument of \code{\link[=el_cascader]{el_cascader()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

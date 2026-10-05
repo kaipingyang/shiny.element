@@ -8,7 +8,8 @@ update_el_breadcrumb(
   session = shiny::getDefaultReactiveDomain(),
   id,
   items = NULL,
-  separator = NULL
+  separator = NULL,
+  separator_icon = NULL
 )
 }
 \arguments{
@@ -18,12 +19,21 @@ update_el_breadcrumb(
 \item{id}{Breadcrumb ID (un-namespaced).}
 
 \item{items, separator}{New values; \code{NULL} leaves one unchanged.}
+
+\item{separator_icon}{Icon component of icon separator. Element Plus's
+\code{separator-icon} (string / Component). An icon's name, such as
+\code{"Search"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_breadcrumb]{el_breadcrumb()}}.
+}
+\details{
+Every other argument of \code{\link[=el_breadcrumb]{el_breadcrumb()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

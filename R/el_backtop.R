@@ -91,13 +91,18 @@ el_backtop <- function(
 #'     update_el_backtop(session, "top", right = 10, bottom = 10)
 #'   })
 #' }
+#' @inheritParams el_backtop
+#' @details Every other argument of [el_backtop()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_backtop <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   visibility_height = NULL,
   right = NULL,
-  bottom = NULL
+  bottom = NULL,
+  target = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -111,6 +116,18 @@ update_el_backtop <- function(
   if (!is.null(bottom)) {
     msg$bottom <- bottom
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_backtop",
+      Filter(
+        Negate(is.null),
+        list(
+          target = target
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -9,7 +9,8 @@ update_el_check_tag(
   id,
   value = NULL,
   label = NULL,
-  disabled = NULL
+  disabled = NULL,
+  type = NULL
 )
 }
 \arguments{
@@ -19,12 +20,20 @@ update_el_check_tag(
 \item{id}{Tag ID (un-namespaced).}
 
 \item{value, label, disabled}{New values; \code{NULL} leaves one unchanged.}
+
+\item{type}{\code{"primary"} (the default), \code{"success"}, \code{"info"}, \code{"warning"}
+or \code{"danger"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update Element Plus Check Tag
+}
+\details{
+Every other argument of \code{\link[=el_check_tag]{el_check_tag()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

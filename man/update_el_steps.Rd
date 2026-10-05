@@ -9,7 +9,11 @@ update_el_steps(
   id,
   active = NULL,
   process_status = NULL,
-  finish_status = NULL
+  finish_status = NULL,
+  space = NULL,
+  direction = NULL,
+  align_center = NULL,
+  simple = NULL
 )
 }
 \arguments{
@@ -23,12 +27,25 @@ update_el_steps(
 \item{process_status}{New process status}
 
 \item{finish_status}{New finish status}
+
+\item{space}{Step spacing (number or percentage string)}
+
+\item{direction}{Display direction ("horizontal" or "vertical")}
+
+\item{align_center}{Center align title and description}
+
+\item{simple}{Apply simple style}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update Element Plus Steps
+}
+\details{
+Every other argument of \code{\link[=el_steps]{el_steps()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

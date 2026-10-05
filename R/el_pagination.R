@@ -240,6 +240,10 @@ el_pagination <- function(
 #'     update_el_pagination(session, "pager", current_page = 2)
 #'   })
 #' }
+#' @inheritParams el_pagination
+#' @details Every other argument of [el_pagination()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_pagination <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -247,7 +251,23 @@ update_el_pagination <- function(
   total = NULL,
   current_page = NULL,
   page_size = NULL,
-  disabled = NULL
+  disabled = NULL,
+  page_sizes = NULL,
+  layout = NULL,
+  background = NULL,
+  small = NULL,
+  pager_count = NULL,
+  prev_text = NULL,
+  next_text = NULL,
+  hide_on_single_page = NULL,
+  page_count = NULL,
+  popper_class = NULL,
+  append_size_to = NULL,
+  next_icon = NULL,
+  popper_style = NULL,
+  prev_icon = NULL,
+  size = NULL,
+  teleported = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -264,6 +284,33 @@ update_el_pagination <- function(
   if (!is.null(disabled)) {
     msg$disabled <- disabled
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_pagination",
+      Filter(
+        Negate(is.null),
+        list(
+          page_sizes = page_sizes,
+          layout = layout,
+          background = background,
+          small = small,
+          pager_count = pager_count,
+          prev_text = prev_text,
+          next_text = next_text,
+          hide_on_single_page = hide_on_single_page,
+          page_count = page_count,
+          popper_class = popper_class,
+          append_size_to = append_size_to,
+          next_icon = next_icon,
+          popper_style = popper_style,
+          prev_icon = prev_icon,
+          size = size,
+          teleported = teleported
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

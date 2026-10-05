@@ -11,7 +11,18 @@ update_el_form(
   rules = NULL,
   label_width = NULL,
   fields = NULL,
-  errors = NULL
+  errors = NULL,
+  inline = NULL,
+  size = NULL,
+  submit_label = NULL,
+  reset_label = NULL,
+  disabled = NULL,
+  status_icon = NULL,
+  hide_required_asterisk = NULL,
+  validate_on_rule_change = NULL,
+  require_asterisk_position = NULL,
+  scroll_into_view_options = NULL,
+  scroll_to_error = NULL
 )
 }
 \arguments{
@@ -37,12 +48,45 @@ model. Each field's rules come with it.}
 \item{errors}{Error messages from the server, as a named list keyed by
 \code{prop} -- \code{list(email = "That address is taken")} -- shown on the field
 as Element's \code{error} shows them. \code{""} clears one.}
+
+\item{inline}{Lay the fields out in a row.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{submit_label}{Submit button text. \code{NULL} renders no button, in which
+case drive the form with \code{\link[=el_form_validate]{el_form_validate()}}.}
+
+\item{reset_label}{Reset button text. \code{NULL} renders no button.}
+
+\item{disabled}{Whether every control in the form is disabled.}
+
+\item{status_icon}{Whether to show a validation status icon in each field.}
+
+\item{hide_required_asterisk}{Whether to hide the asterisk next to required fields' labels.}
+
+\item{validate_on_rule_change}{Whether changing the rules triggers validation immediately.}
+
+\item{require_asterisk_position}{Position of asterisk. Element Plus's
+\code{require-asterisk-position} ('left' | 'right').}
+
+\item{scroll_into_view_options}{When validation fails, it scrolls to the
+first error item based on the scrollIntoView option. scrollIntoView.
+Element Plus's \code{scroll-into-view-options} (ScrollIntoViewOptions /
+boolean).}
+
+\item{scroll_to_error}{When validation fails, scroll to the first error
+form entry. Element Plus's \code{scroll-to-error} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update an Element Plus Form
+}
+\details{
+Every other argument of \code{\link[=el_form]{el_form()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

@@ -162,6 +162,11 @@ el_mention <- function(
 #'   # inside a server function
 #'   observeEvent(input$reset, update_el_mention(session, "x", value = NULL))
 #' }
+#' @inheritParams el_mention
+#' @details Every other argument of [el_mention()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
+#' @param placeholder,type,rows As for [el_mention()].
 #' @export
 update_el_mention <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -169,7 +174,23 @@ update_el_mention <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  props = NULL,
+  prefix = NULL,
+  split = NULL,
+  filter_option = NULL,
+  placement = NULL,
+  show_arrow = NULL,
+  offset = NULL,
+  whole = NULL,
+  check_is_whole = NULL,
+  loading = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placeholder = NULL,
+  type = NULL,
+  rows = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -180,6 +201,33 @@ update_el_mention <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_mention",
+      Filter(
+        Negate(is.null),
+        list(
+          props = props,
+          prefix = prefix,
+          split = split,
+          filter_option = filter_option,
+          placement = placement,
+          show_arrow = show_arrow,
+          offset = offset,
+          whole = whole,
+          check_is_whole = check_is_whole,
+          loading = loading,
+          popper_class = popper_class,
+          popper_style = popper_style,
+          popper_options = popper_options,
+          placeholder = placeholder,
+          type = type,
+          rows = rows
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

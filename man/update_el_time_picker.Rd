@@ -11,7 +11,35 @@ update_el_time_picker(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  is_range = NULL,
+  value_format = NULL,
+  arrow_control = NULL,
+  placeholder = NULL,
+  start_placeholder = NULL,
+  end_placeholder = NULL,
+  range_separator = NULL,
+  clearable = NULL,
+  editable = NULL,
+  readonly = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  format = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  teleported = NULL,
+  tabindex = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  save_on_blur = NULL
 )
 
 update_el_time_select(
@@ -20,7 +48,25 @@ update_el_time_select(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  editable = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  start = NULL,
+  end = NULL,
+  step = NULL,
+  min_time = NULL,
+  max_time = NULL,
+  include_end_time = NULL,
+  format = NULL,
+  effect = NULL,
+  popper_style = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL
 )
 }
 \arguments{
@@ -38,13 +84,64 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{is_range}{Pick a start and an end rather than a single time.}
+
+\item{value_format}{Format of the value reported to Shiny, in day.js's
+tokens. Default \code{"HH:mm:ss"}.}
+
+\item{arrow_control}{Whether hours, minutes and seconds are changed with
+arrow buttons rather than by scrolling.}
+
+\item{placeholder, start_placeholder, end_placeholder}{Placeholder text, the
+latter two for a range.}
+
+\item{range_separator}{Text between the two times of a range. Default \code{"-"}.}
+
+\item{clearable, editable, readonly}{As for \code{\link[=el_time_picker]{el_time_picker()}}.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{popper_class, popper_style}{Extra class name and style for the panel.}
+
+\item{prefix_icon, clear_icon}{Icons, by name: \code{"Clock"}, \code{"CircleClose"}.}
+
+\item{format}{Format of the time shown in the input, in day.js's tokens.}
+
+\item{popper_options, placement, fallback_placements}{Where the panel opens,
+as Element Plus's tooltip takes them.}
+
+\item{disabled_hours, disabled_minutes, disabled_seconds}{\code{\link[=JS]{JS()}} functions
+returning the hours, minutes or seconds that cannot be picked -- what
+Element UI's \code{selectableRange} did.}
+
+\item{teleported}{Whether the panel is moved to \verb{<body>}.}
+
+\item{tabindex, aria_label}{Native attributes of the input.}
+
+\item{empty_values, value_on_clear}{What counts as empty, and the value a
+cleared picker reports. See Element Plus's config provider.}
+
+\item{save_on_blur}{Whether the time typed is kept when the input loses
+focus.}
+
+\item{include_end_time, start, end, step, min_time, max_time}{For
+\code{el_time_select()}: the first and last time offered, the interval,
+whether \code{end} itself is offered, and the bounds of what can be picked.}
+
+\item{effect}{\code{"light"} (default) or \code{"dark"} panel, for \code{el_time_select()}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_time_picker]{el_time_picker()}} and \code{\link[=el_time_select]{el_time_select()}};
-\code{update_el_time_select()} is the same function under the select's name.
+\code{update_el_time_select()} is the time select's, with its own arguments.
+}
+\details{
+Every other argument of \code{\link[=el_time_picker]{el_time_picker()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

@@ -163,12 +163,29 @@ el_tour <- function(
 #'     update_el_tour(session, "intro", open = TRUE, current = 0)
 #'   )
 #' }
+#' @inheritParams el_tour
+#' @details Every other argument of [el_tour()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tour <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   open = NULL,
-  current = NULL
+  current = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  content_style = NULL,
+  mask = NULL,
+  gap = NULL,
+  type = NULL,
+  scroll_into_view_options = NULL,
+  z_index = NULL,
+  show_close = NULL,
+  close_icon = NULL,
+  close_on_press_escape = NULL,
+  target_area_clickable = NULL,
+  append_to = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -178,6 +195,30 @@ update_el_tour <- function(
   if (!is.null(current)) {
     msg$current <- current
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_tour",
+      Filter(
+        Negate(is.null),
+        list(
+          show_arrow = show_arrow,
+          placement = placement,
+          content_style = content_style,
+          mask = mask,
+          gap = gap,
+          type = type,
+          scroll_into_view_options = scroll_into_view_options,
+          z_index = z_index,
+          show_close = show_close,
+          close_icon = close_icon,
+          close_on_press_escape = close_on_press_escape,
+          target_area_clickable = target_area_clickable,
+          append_to = append_to
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

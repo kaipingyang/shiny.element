@@ -99,6 +99,10 @@ el_avatar <- function(
 #'     update_el_avatar(session, "me", src = user_photo())
 #'   })
 #' }
+#' @inheritParams el_avatar
+#' @details Every other argument of [el_avatar()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_avatar <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -107,7 +111,10 @@ update_el_avatar <- function(
   src = NULL,
   icon = NULL,
   size = NULL,
-  shape = NULL
+  shape = NULL,
+  fit = NULL,
+  src_set = NULL,
+  alt = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -127,6 +134,20 @@ update_el_avatar <- function(
   if (!is.null(shape)) {
     msg$shape <- shape
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_avatar",
+      Filter(
+        Negate(is.null),
+        list(
+          fit = fit,
+          src_set = src_set,
+          alt = alt
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

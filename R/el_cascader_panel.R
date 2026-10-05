@@ -161,6 +161,10 @@ el_cascader_panel <- function(
 #'     update_el_cascader_panel(session, "where", value = list())
 #'   )
 #' }
+#' @inheritParams el_cascader_panel
+#' @details Every other argument of [el_cascader_panel()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_cascader_panel <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -168,7 +172,11 @@ update_el_cascader_panel <- function(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  props = NULL,
+  height = NULL,
+  item_size = NULL,
+  virtual_scroll = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -179,6 +187,21 @@ update_el_cascader_panel <- function(
     msg$options <- unname(options)
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_cascader_panel",
+      Filter(
+        Negate(is.null),
+        list(
+          props = props,
+          height = height,
+          item_size = item_size,
+          virtual_scroll = virtual_scroll
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -303,11 +303,38 @@ el_dropdown <- function(
 #'     update_el_dropdown(session, "actions", disabled = TRUE)
 #'   })
 #' }
+#' @inheritParams el_dropdown
+#' @details Every other argument of [el_dropdown()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_dropdown <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  disabled = NULL
+  disabled = NULL,
+  trigger = NULL,
+  type = NULL,
+  size = NULL,
+  split_button = NULL,
+  hide_on_click = NULL,
+  placement = NULL,
+  show_timeout = NULL,
+  hide_timeout = NULL,
+  tabindex = NULL,
+  append_to = NULL,
+  button_props = NULL,
+  effect = NULL,
+  max_height = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  role = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -315,6 +342,40 @@ update_el_dropdown <- function(
   if (!is.null(disabled)) {
     msg$disabled <- disabled
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_dropdown",
+      Filter(
+        Negate(is.null),
+        list(
+          trigger = trigger,
+          type = type,
+          size = size,
+          split_button = split_button,
+          hide_on_click = hide_on_click,
+          placement = placement,
+          show_timeout = show_timeout,
+          hide_timeout = hide_timeout,
+          tabindex = tabindex,
+          append_to = append_to,
+          button_props = button_props,
+          effect = effect,
+          max_height = max_height,
+          persistent = persistent,
+          popper_class = popper_class,
+          popper_options = popper_options,
+          popper_style = popper_style,
+          role = role,
+          show_arrow = show_arrow,
+          teleported = teleported,
+          trigger_keys = trigger_keys,
+          virtual_ref = virtual_ref,
+          virtual_triggering = virtual_triggering
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

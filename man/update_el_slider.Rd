@@ -13,7 +13,25 @@ update_el_slider(
   step = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  show_input = NULL,
+  show_stops = NULL,
+  show_tooltip = NULL,
+  vertical = NULL,
+  height = NULL,
+  marks = NULL,
+  input_size = NULL,
+  show_input_controls = NULL,
+  tooltip_class = NULL,
+  format_tooltip = NULL,
+  aria_label = NULL,
+  format_value_text = NULL,
+  persistent = NULL,
+  placement = NULL,
+  range_end_label = NULL,
+  range_start_label = NULL,
+  size = NULL,
+  validate_event = NULL
 )
 }
 \arguments{
@@ -40,6 +58,54 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{show_input}{Whether to display a numeric input box beside the slider
+(non-range mode only). Default \code{FALSE}.}
+
+\item{show_stops}{Whether to display stop markers at each step. Default \code{FALSE}.}
+
+\item{show_tooltip}{Whether to display the tooltip when dragging. Default \code{TRUE}.}
+
+\item{vertical}{Whether to display in vertical orientation. Default \code{FALSE}.}
+
+\item{height}{Height of the slider in vertical mode (e.g., \code{"200px"}).
+Defaults to \code{"200px"} when \code{vertical = TRUE} and not explicitly provided.}
+
+\item{marks}{Named list of mark labels, e.g.,
+\code{list("0" = "0km", "50" = "50km")}. Default \code{NULL} (no marks).}
+
+\item{input_size}{Size of the companion input when \code{show_input = TRUE}.}
+
+\item{show_input_controls}{Whether the companion input shows its spinner buttons.}
+
+\item{tooltip_class}{Extra class name for the value tooltip.}
+
+\item{format_tooltip}{\code{JS()} function formatting the value shown in the tooltip.}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{format_value_text}{Format to display the \code{aria-valuenow} attribute
+for screen readers. Element Plus's \code{format-value-text} ((value: number)
+=> string).}
+
+\item{persistent}{When slider tooltip inactive and \code{persistent} is \code{false}
+, tooltip will be destroyed. \code{persistent} always be \code{false} when
+\code{show-tooltip } is \code{false}. Element Plus's \code{persistent} (boolean).}
+
+\item{placement}{Position of Tooltip. Element Plus's \code{placement} (enum).}
+
+\item{range_end_label}{When \code{range} is true, screen reader label for the
+end of the range. Element Plus's \code{range-end-label} (string).}
+
+\item{range_start_label}{When \code{range} is true, screen reader label for the
+start of the range. Element Plus's \code{range-start-label} (string).}
+
+\item{size}{Size of the slider wrapper, will not work in vertical mode.
+Element Plus's \code{size} ('' | 'large' | 'default' | 'small').}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -47,6 +113,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_slider]{el_slider()}}. Supports updating value, range bounds,
 step size, and disabled state.
+}
+\details{
+Every other argument of \code{\link[=el_slider]{el_slider()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

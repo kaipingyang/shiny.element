@@ -217,6 +217,10 @@ el_switch <- function(
 #'     update_el_switch(session, "live", value = TRUE)
 #'   })
 #' }
+#' @inheritParams el_switch
+#' @details Every other argument of [el_switch()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_switch <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -228,7 +232,22 @@ update_el_switch <- function(
   active_color = NULL,
   inactive_color = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  active_value = NULL,
+  inactive_value = NULL,
+  name = NULL,
+  validate_event = NULL,
+  active_action_icon = NULL,
+  active_icon = NULL,
+  aria_label = NULL,
+  before_change = NULL,
+  border_color = NULL,
+  inactive_action_icon = NULL,
+  inactive_icon = NULL,
+  inline_prompt = NULL,
+  loading = NULL,
+  size = NULL,
+  tabindex = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -252,6 +271,32 @@ update_el_switch <- function(
     msg$inactiveColor <- inactive_color
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_switch",
+      Filter(
+        Negate(is.null),
+        list(
+          active_value = active_value,
+          inactive_value = inactive_value,
+          name = name,
+          validate_event = validate_event,
+          active_action_icon = active_action_icon,
+          active_icon = active_icon,
+          aria_label = aria_label,
+          before_change = before_change,
+          border_color = border_color,
+          inactive_action_icon = inactive_action_icon,
+          inactive_icon = inactive_icon,
+          inline_prompt = inline_prompt,
+          loading = loading,
+          size = size,
+          tabindex = tabindex
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

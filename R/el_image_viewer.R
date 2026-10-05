@@ -127,13 +127,27 @@ el_image_viewer <- function(
 #'     update_el_image_viewer(session, "photos", visible = TRUE)
 #'   )
 #' }
+#' @inheritParams el_image_viewer
+#' @details Every other argument of [el_image_viewer()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_image_viewer <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   visible = NULL,
   url_list = NULL,
-  initial_index = NULL
+  initial_index = NULL,
+  z_index = NULL,
+  infinite = NULL,
+  hide_on_click_modal = NULL,
+  teleported = NULL,
+  zoom_rate = NULL,
+  scale = NULL,
+  min_scale = NULL,
+  max_scale = NULL,
+  close_on_press_escape = NULL,
+  show_progress = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -146,6 +160,27 @@ update_el_image_viewer <- function(
   if (!is.null(initial_index)) {
     msg$initialIndex <- initial_index
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_image_viewer",
+      Filter(
+        Negate(is.null),
+        list(
+          z_index = z_index,
+          infinite = infinite,
+          hide_on_click_modal = hide_on_click_modal,
+          teleported = teleported,
+          zoom_rate = zoom_rate,
+          scale = scale,
+          min_scale = min_scale,
+          max_scale = max_scale,
+          close_on_press_escape = close_on_press_escape,
+          show_progress = show_progress
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

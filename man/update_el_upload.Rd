@@ -10,7 +10,27 @@ update_el_upload(
   disabled = NULL,
   limit = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  button_label = NULL,
+  drag = NULL,
+  multiple = NULL,
+  accept = NULL,
+  show_file_list = NULL,
+  list_type = NULL,
+  auto_upload = NULL,
+  headers = NULL,
+  extra_data = NULL,
+  file_list = NULL,
+  with_credentials = NULL,
+  before_upload = NULL,
+  before_remove = NULL,
+  on_change = NULL,
+  on_progress = NULL,
+  on_preview = NULL,
+  on_remove = NULL,
+  on_exceed = NULL,
+  crossorigin = NULL,
+  directory = NULL
 )
 }
 \arguments{
@@ -30,12 +50,64 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{button_label}{Text for the trigger, as \code{buttonLabel} is for
+\code{\link[shiny:fileInput]{shiny::fileInput()}}: on the button when \code{drag = FALSE}, inside the
+drop zone otherwise.}
+
+\item{drag}{Render a drop zone rather than a button.}
+
+\item{multiple}{Allow selecting several files at once.}
+
+\item{accept}{File types to accept, as an \code{accept} attribute would have
+them, e.g. \code{".csv,.tsv"} or \code{"image/*"}.}
+
+\item{show_file_list}{Show the list of chosen files.}
+
+\item{list_type}{\code{"text"} (default), \code{"picture"} or \code{"picture-card"}.}
+
+\item{auto_upload}{Start uploading as soon as files are chosen.}
+
+\item{headers}{Request headers, as a named list.}
+
+\item{extra_data}{Extra fields sent alongside the file, as a named list.}
+
+\item{file_list}{Files shown initially, each \code{list(name=, url=)}.}
+
+\item{with_credentials}{Whether to send cookies with the request.}
+
+\item{before_upload}{\code{JS()} function called before a file is sent; returning \code{false} cancels it.}
+
+\item{before_remove}{\code{JS()} function called before a file is removed; returning \code{false} cancels it.}
+
+\item{on_change}{\code{JS()} function called when a file is added, or finishes.}
+
+\item{on_progress}{\code{JS()} function called as a file uploads.}
+
+\item{on_preview}{\code{JS()} function called when an uploaded file is clicked.}
+
+\item{on_remove}{\code{JS()} function called after a file is removed.}
+
+\item{on_exceed}{\code{JS()} function called when more files are picked than \code{limit}.}
+
+\item{crossorigin}{Native attribute crossorigin. Element Plus's
+\code{crossorigin} ('' | 'anonymous' | 'use-credentials').}
+
+\item{directory}{Whether to support uploading directory. After enabling it,
+only folders can be selected, and after selecting a folder, the files
+within the folder will be flattened. Element Plus's \code{directory}
+(boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update an Element Plus Upload
+}
+\details{
+Every other argument of \code{\link[=el_upload]{el_upload()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

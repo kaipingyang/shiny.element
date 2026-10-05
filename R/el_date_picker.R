@@ -374,6 +374,10 @@ el_date_picker <- function(
 #'     update_el_date_picker(session, "when", value = "2026-06-01")
 #'   })
 #' }
+#' @inheritParams el_date_picker
+#' @details Every other argument of [el_date_picker()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_date_picker <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -385,7 +389,41 @@ update_el_date_picker <- function(
   readonly = NULL,
   placeholder = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  value_format = NULL,
+  start_placeholder = NULL,
+  end_placeholder = NULL,
+  editable = NULL,
+  range_separator = NULL,
+  size = NULL,
+  name = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  popper_class = NULL,
+  unlink_panels = NULL,
+  validate_event = NULL,
+  arrow_control = NULL,
+  automatic_dropdown = NULL,
+  cell_class_name = NULL,
+  date_format = NULL,
+  disabled_date = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  shortcuts = NULL,
+  show_confirm = NULL,
+  show_footer = NULL,
+  show_now = NULL,
+  show_week_number = NULL,
+  single_panel = NULL,
+  teleported = NULL,
+  time_format = NULL,
+  value_on_clear = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -409,6 +447,51 @@ update_el_date_picker <- function(
     msg$placeholder <- placeholder
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_date_picker",
+      Filter(
+        Negate(is.null),
+        list(
+          value_format = value_format,
+          start_placeholder = start_placeholder,
+          end_placeholder = end_placeholder,
+          editable = editable,
+          range_separator = range_separator,
+          size = size,
+          name = name,
+          prefix_icon = prefix_icon,
+          clear_icon = clear_icon,
+          popper_class = popper_class,
+          unlink_panels = unlink_panels,
+          validate_event = validate_event,
+          arrow_control = arrow_control,
+          automatic_dropdown = automatic_dropdown,
+          cell_class_name = cell_class_name,
+          date_format = date_format,
+          disabled_date = disabled_date,
+          disabled_hours = disabled_hours,
+          disabled_minutes = disabled_minutes,
+          disabled_seconds = disabled_seconds,
+          empty_values = empty_values,
+          fallback_placements = fallback_placements,
+          placement = placement,
+          popper_options = popper_options,
+          popper_style = popper_style,
+          shortcuts = shortcuts,
+          show_confirm = show_confirm,
+          show_footer = show_footer,
+          show_now = show_now,
+          show_week_number = show_week_number,
+          single_panel = single_panel,
+          teleported = teleported,
+          time_format = time_format,
+          value_on_clear = value_on_clear
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

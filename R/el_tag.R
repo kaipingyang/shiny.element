@@ -130,13 +130,23 @@ el_tag <- function(
 #'     update_el_tag(session, "status", label = "done", type = "success")
 #'   })
 #' }
+#' @inheritParams el_tag
+#' @details Every other argument of [el_tag()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tag <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   label = NULL,
   type = NULL,
-  closable = NULL
+  closable = NULL,
+  size = NULL,
+  effect = NULL,
+  color = NULL,
+  hit = NULL,
+  disable_transitions = NULL,
+  round = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -150,6 +160,23 @@ update_el_tag <- function(
   if (!is.null(closable)) {
     msg$closable <- closable
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_tag",
+      Filter(
+        Negate(is.null),
+        list(
+          size = size,
+          effect = effect,
+          color = color,
+          hit = hit,
+          disable_transitions = disable_transitions,
+          round = round
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

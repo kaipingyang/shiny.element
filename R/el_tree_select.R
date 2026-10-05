@@ -196,6 +196,10 @@ el_tree_select <- function(
 #'     update_el_tree_select(session, "dept", value = "ops")
 #'   )
 #' }
+#' @inheritParams el_tree_select
+#' @details Every other argument of [el_tree_select()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tree_select <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -204,7 +208,23 @@ update_el_tree_select <- function(
   data = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  multiple = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  check_on_click_node = NULL,
+  filterable = NULL,
+  clearable = NULL,
+  placeholder = NULL,
+  node_key = NULL,
+  props = NULL,
+  render_after_expand = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  size = NULL,
+  cache_data = NULL,
+  lazy = NULL,
+  load = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -218,6 +238,33 @@ update_el_tree_select <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_tree_select",
+      Filter(
+        Negate(is.null),
+        list(
+          multiple = multiple,
+          show_checkbox = show_checkbox,
+          check_strictly = check_strictly,
+          check_on_click_node = check_on_click_node,
+          filterable = filterable,
+          clearable = clearable,
+          placeholder = placeholder,
+          node_key = node_key,
+          props = props,
+          render_after_expand = render_after_expand,
+          collapse_tags = collapse_tags,
+          collapse_tags_tooltip = collapse_tags_tooltip,
+          size = size,
+          cache_data = cache_data,
+          lazy = lazy,
+          load = load
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

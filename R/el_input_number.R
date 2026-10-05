@@ -221,6 +221,10 @@ el_input_number <- function(
 #'     update_el_input_number(session, "age", value = 42)
 #'   })
 #' }
+#' @inheritParams el_input_number
+#' @details Every other argument of [el_input_number()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_input_number <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -230,7 +234,25 @@ update_el_input_number <- function(
   max = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  step = NULL,
+  step_strictly = NULL,
+  precision = NULL,
+  size = NULL,
+  controls = NULL,
+  controls_position = NULL,
+  placeholder = NULL,
+  name = NULL,
+  align = NULL,
+  aria_label = NULL,
+  disabled_scientific = NULL,
+  formatter = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  readonly = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -248,6 +270,35 @@ update_el_input_number <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_input_number",
+      Filter(
+        Negate(is.null),
+        list(
+          step = step,
+          step_strictly = step_strictly,
+          precision = precision,
+          size = size,
+          controls = controls,
+          controls_position = controls_position,
+          placeholder = placeholder,
+          name = name,
+          align = align,
+          aria_label = aria_label,
+          disabled_scientific = disabled_scientific,
+          formatter = formatter,
+          inputmode = inputmode,
+          parser = parser,
+          readonly = readonly,
+          tabindex = tabindex,
+          validate_event = validate_event,
+          value_on_clear = value_on_clear
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -10,7 +10,24 @@ update_el_rate(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  max = NULL,
+  allow_half = NULL,
+  show_text = NULL,
+  show_score = NULL,
+  texts = NULL,
+  text_color = NULL,
+  score_template = NULL,
+  void_color = NULL,
+  disabled_void_color = NULL,
+  low_threshold = NULL,
+  high_threshold = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  disabled_void_icon = NULL,
+  icons = NULL,
+  size = NULL,
+  void_icon = NULL
 )
 }
 \arguments{
@@ -30,12 +47,63 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{max}{Maximum number of stars. Default \code{5}.}
+
+\item{allow_half}{Whether to allow half-star selection. Default \code{FALSE}.}
+
+\item{show_text}{Whether to show descriptive text beside the stars. Uses the
+\code{texts} vector. Default \code{FALSE}.}
+
+\item{show_score}{Whether to show the numeric score. Default \code{FALSE}.}
+
+\item{texts}{Character vector of length \code{max} used when \code{show_text = TRUE}.
+Defaults to \code{c("极差", "失望", "一般", "满意", "惊喜")}.}
+
+\item{text_color}{Colour of the text/score. Default \code{"#1f2d3d"}.}
+
+\item{score_template}{Template for score display. \code{{value}} is replaced.
+Default \code{"{value}"}.}
+
+\item{void_color}{Colour of unselected icons.}
+
+\item{disabled_void_color}{Colour of unselected icons when \code{disabled = TRUE}.}
+
+\item{low_threshold}{Scores at or below this use the first colour and icon. Default \code{2}.}
+
+\item{high_threshold}{Scores above this use the third colour and icon. Default \code{4}.}
+
+\item{aria_label}{Same as \code{aria-label} in Rate. Element Plus's \code{aria-label}
+(string).}
+
+\item{clearable}{Whether value can be reset to \code{0}. Element Plus's
+\code{clearable} (boolean).}
+
+\item{disabled_void_icon}{Component of unselected read-only icons. Element
+Plus's \code{disabled-void-icon} (string / Component). An icon's name, such as
+\code{"Search"}.}
+
+\item{icons}{Icon components. If array, it should have 3 elements, each of
+which corresponds with a score level, else if object, the key should be
+threshold value between two levels, and the value should be corresponding
+icon component. Element Plus's \code{icons} (\verb{string[] | Component[] / Record<number, string | Component>}). An icon's name, such as \code{"Search"}.}
+
+\item{size}{Size of Rate. Element Plus's \code{size} ('large' | 'default' |
+'small').}
+
+\item{void_icon}{Component of unselected icons. Element Plus's \code{void-icon}
+(string / Component). An icon's name, such as \code{"Search"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_rate]{el_rate()}}.
+}
+\details{
+Every other argument of \code{\link[=el_rate]{el_rate()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

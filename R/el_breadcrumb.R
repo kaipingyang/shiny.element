@@ -118,12 +118,17 @@ el_breadcrumb <- function(
 #'     )
 #'   })
 #' }
+#' @inheritParams el_breadcrumb
+#' @details Every other argument of [el_breadcrumb()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_breadcrumb <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   items = NULL,
-  separator = NULL
+  separator = NULL,
+  separator_icon = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -134,6 +139,18 @@ update_el_breadcrumb <- function(
   if (!is.null(separator)) {
     msg$separator <- separator
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_breadcrumb",
+      Filter(
+        Negate(is.null),
+        list(
+          separator_icon = separator_icon
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

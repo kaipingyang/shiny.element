@@ -11,7 +11,23 @@ update_el_tree_select(
   data = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  multiple = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  check_on_click_node = NULL,
+  filterable = NULL,
+  clearable = NULL,
+  placeholder = NULL,
+  node_key = NULL,
+  props = NULL,
+  render_after_expand = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  size = NULL,
+  cache_data = NULL,
+  lazy = NULL,
+  load = NULL
 )
 }
 \arguments{
@@ -25,12 +41,53 @@ update_el_tree_select(
 \item{label}{New label, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{error}{An error message to show on the component; \code{""} clears it.}
+
+\item{multiple}{Whether several nodes can be selected.}
+
+\item{show_checkbox}{Whether nodes have checkboxes.}
+
+\item{check_strictly}{Whether any node can be selected, not only leaves.}
+
+\item{check_on_click_node}{Whether clicking a node checks it, with
+\code{show_checkbox}.}
+
+\item{filterable}{Whether the options can be searched by typing.}
+
+\item{clearable}{Whether the selection can be cleared.}
+
+\item{placeholder}{Placeholder text.}
+
+\item{node_key}{The field that identifies a node. Default \code{"value"}.}
+
+\item{props}{Where the tree's fields are: \code{list(label =, children =, disabled =, isLeaf =)}.}
+
+\item{render_after_expand}{Whether a node's children are drawn only once
+it is expanded. Default \code{TRUE}.}
+
+\item{collapse_tags, collapse_tags_tooltip}{With \code{multiple}, whether the
+selection is shown as one tag and a count, with the rest in a tooltip.}
+
+\item{size}{\code{"large"}, \code{"default"} or \code{"small"}.}
+
+\item{cache_data}{The nodes behind a value not yet loaded, for a lazy tree.}
+
+\item{lazy}{Whether child nodes are loaded on demand -- from the server,
+which answers \verb{input$<id>_load} with \code{\link[=el_load_children]{el_load_children()}}, unless \code{load}
+is given.}
+
+\item{load}{\code{\link[=JS]{JS()}} function loading child nodes in the browser instead of
+from the server. Needs \code{lazy = TRUE}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update Element Plus Tree Select
+}
+\details{
+Every other argument of \code{\link[=el_tree_select]{el_tree_select()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

@@ -212,6 +212,10 @@ el_button <- function(
 #'     update_el_button(session, "save", loading = TRUE)
 #'   })
 #' }
+#' @inheritParams el_button
+#' @details Every other argument of [el_button()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_button <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -222,7 +226,19 @@ update_el_button <- function(
   plain = NULL,
   round = NULL,
   loading = NULL,
-  disabled = NULL
+  disabled = NULL,
+  circle = NULL,
+  icon = NULL,
+  autofocus = NULL,
+  auto_insert_space = NULL,
+  bg = NULL,
+  color = NULL,
+  dark = NULL,
+  dashed = NULL,
+  link = NULL,
+  loading_icon = NULL,
+  tag = NULL,
+  text = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -248,6 +264,29 @@ update_el_button <- function(
   if (!is.null(disabled)) {
     msg$disabled <- disabled
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_button",
+      Filter(
+        Negate(is.null),
+        list(
+          circle = circle,
+          icon = icon,
+          autofocus = autofocus,
+          auto_insert_space = auto_insert_space,
+          bg = bg,
+          color = color,
+          dark = dark,
+          dashed = dashed,
+          link = link,
+          loading_icon = loading_icon,
+          tag = tag,
+          text = text
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

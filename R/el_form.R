@@ -722,6 +722,10 @@ el_form <- function(
 #'   `prop` -- `list(email = "That address is taken")` -- shown on the field
 #'   as Element's `error` shows them. `""` clears one.
 #' @return Called for its side effect; returns `NULL` invisibly.
+#' @inheritParams el_form
+#' @details Every other argument of [el_form()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 #' @examples
 #' if (interactive()) {
@@ -742,7 +746,18 @@ update_el_form <- function(
   rules = NULL,
   label_width = NULL,
   fields = NULL,
-  errors = NULL
+  errors = NULL,
+  inline = NULL,
+  size = NULL,
+  submit_label = NULL,
+  reset_label = NULL,
+  disabled = NULL,
+  status_icon = NULL,
+  hide_required_asterisk = NULL,
+  validate_on_rule_change = NULL,
+  require_asterisk_position = NULL,
+  scroll_into_view_options = NULL,
+  scroll_to_error = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -764,6 +779,28 @@ update_el_form <- function(
     msg$.errors <- as.list(errors)
   }
 
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_form",
+      Filter(
+        Negate(is.null),
+        list(
+          inline = inline,
+          size = size,
+          submit_label = submit_label,
+          reset_label = reset_label,
+          disabled = disabled,
+          status_icon = status_icon,
+          hide_required_asterisk = hide_required_asterisk,
+          validate_on_rule_change = validate_on_rule_change,
+          require_asterisk_position = require_asterisk_position,
+          scroll_into_view_options = scroll_into_view_options,
+          scroll_to_error = scroll_to_error
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

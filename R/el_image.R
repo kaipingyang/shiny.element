@@ -169,13 +169,34 @@ el_image <- function(
 #'     update_el_image(session, "photo", src = photo_url())
 #'   })
 #' }
+#' @inheritParams el_image
+#' @details Every other argument of [el_image()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_image <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   src = NULL,
   fit = NULL,
-  preview_src_list = NULL
+  preview_src_list = NULL,
+  alt = NULL,
+  lazy = NULL,
+  scroll_container = NULL,
+  z_index = NULL,
+  initial_index = NULL,
+  close_on_press_escape = NULL,
+  crossorigin = NULL,
+  hide_on_click_modal = NULL,
+  infinite = NULL,
+  loading = NULL,
+  max_scale = NULL,
+  min_scale = NULL,
+  preview_teleported = NULL,
+  referrerpolicy = NULL,
+  scale = NULL,
+  show_progress = NULL,
+  zoom_rate = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -189,6 +210,34 @@ update_el_image <- function(
   if (!is.null(preview_src_list)) {
     msg$previewSrcList <- as.list(preview_src_list)
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_image",
+      Filter(
+        Negate(is.null),
+        list(
+          alt = alt,
+          lazy = lazy,
+          scroll_container = scroll_container,
+          z_index = z_index,
+          initial_index = initial_index,
+          close_on_press_escape = close_on_press_escape,
+          crossorigin = crossorigin,
+          hide_on_click_modal = hide_on_click_modal,
+          infinite = infinite,
+          loading = loading,
+          max_scale = max_scale,
+          min_scale = min_scale,
+          preview_teleported = preview_teleported,
+          referrerpolicy = referrerpolicy,
+          scale = scale,
+          show_progress = show_progress,
+          zoom_rate = zoom_rate
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

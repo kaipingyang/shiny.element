@@ -8,7 +8,8 @@ update_el_page_header(
   session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
-  content = NULL
+  content = NULL,
+  icon = NULL
 )
 }
 \arguments{
@@ -18,12 +19,20 @@ update_el_page_header(
 \item{id}{Header ID (un-namespaced).}
 
 \item{title, content}{New values; \code{NULL} leaves one unchanged.}
+
+\item{icon}{Icon component of page header. Element Plus's \code{icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_page_header]{el_page_header()}}.
+}
+\details{
+Every other argument of \code{\link[=el_page_header]{el_page_header()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

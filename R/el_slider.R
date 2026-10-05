@@ -271,6 +271,10 @@ el_slider <- function(
 #'     update_el_slider(session, "score", value = 80)
 #'   })
 #' }
+#' @inheritParams el_slider
+#' @details Every other argument of [el_slider()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_slider <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -281,7 +285,25 @@ update_el_slider <- function(
   step = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  show_input = NULL,
+  show_stops = NULL,
+  show_tooltip = NULL,
+  vertical = NULL,
+  height = NULL,
+  marks = NULL,
+  input_size = NULL,
+  show_input_controls = NULL,
+  tooltip_class = NULL,
+  format_tooltip = NULL,
+  aria_label = NULL,
+  format_value_text = NULL,
+  persistent = NULL,
+  placement = NULL,
+  range_end_label = NULL,
+  range_start_label = NULL,
+  size = NULL,
+  validate_event = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -302,6 +324,35 @@ update_el_slider <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_slider",
+      Filter(
+        Negate(is.null),
+        list(
+          show_input = show_input,
+          show_stops = show_stops,
+          show_tooltip = show_tooltip,
+          vertical = vertical,
+          height = height,
+          marks = marks,
+          input_size = input_size,
+          show_input_controls = show_input_controls,
+          tooltip_class = tooltip_class,
+          format_tooltip = format_tooltip,
+          aria_label = aria_label,
+          format_value_text = format_value_text,
+          persistent = persistent,
+          placement = placement,
+          range_end_label = range_end_label,
+          range_start_label = range_start_label,
+          size = size,
+          validate_event = validate_event
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

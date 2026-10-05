@@ -317,6 +317,10 @@ el_input <- function(
 #'     update_el_input(session, "name", value = "Ada")
 #'   })
 #' }
+#' @inheritParams el_input
+#' @details Every other argument of [el_input()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_input <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -330,7 +334,32 @@ update_el_input <- function(
   clearable = NULL,
   show_password = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  show_word_limit = NULL,
+  maxlength = NULL,
+  rows = NULL,
+  autosize = NULL,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  autocomplete = NULL,
+  autofocus = NULL,
+  name = NULL,
+  form = NULL,
+  minlength = NULL,
+  max = NULL,
+  min = NULL,
+  step = NULL,
+  resize = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  count_graphemes = NULL,
+  formatter = NULL,
+  input_style = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  word_limit_position = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -360,6 +389,42 @@ update_el_input <- function(
     msg$showPassword <- show_password
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_input",
+      Filter(
+        Negate(is.null),
+        list(
+          show_word_limit = show_word_limit,
+          maxlength = maxlength,
+          rows = rows,
+          autosize = autosize,
+          prefix_icon = prefix_icon,
+          suffix_icon = suffix_icon,
+          autocomplete = autocomplete,
+          autofocus = autofocus,
+          name = name,
+          form = form,
+          minlength = minlength,
+          max = max,
+          min = min,
+          step = step,
+          resize = resize,
+          tabindex = tabindex,
+          validate_event = validate_event,
+          aria_label = aria_label,
+          clear_icon = clear_icon,
+          count_graphemes = count_graphemes,
+          formatter = formatter,
+          input_style = input_style,
+          inputmode = inputmode,
+          parser = parser,
+          word_limit_position = word_limit_position
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

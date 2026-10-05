@@ -205,6 +205,10 @@ el_input_tag <- function(
 #'   # inside a server function
 #'   observeEvent(input$reset, update_el_input_tag(session, "x", value = NULL))
 #' }
+#' @inheritParams el_input_tag
+#' @details Every other argument of [el_input_tag()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_input_tag <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -212,7 +216,30 @@ update_el_input_tag <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  max = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  effect = NULL,
+  trigger = NULL,
+  draggable = NULL,
+  delimiter = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  save_on_blur = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  autofocus = NULL,
+  tabindex = NULL,
+  max_collapse_tags = NULL,
+  maxlength = NULL,
+  minlength = NULL,
+  placeholder = NULL,
+  autocomplete = NULL,
+  aria_label = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -223,6 +250,40 @@ update_el_input_tag <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_input_tag",
+      Filter(
+        Negate(is.null),
+        list(
+          max = max,
+          tag_type = tag_type,
+          tag_effect = tag_effect,
+          effect = effect,
+          trigger = trigger,
+          draggable = draggable,
+          delimiter = delimiter,
+          size = size,
+          collapse_tags = collapse_tags,
+          collapse_tags_tooltip = collapse_tags_tooltip,
+          save_on_blur = save_on_blur,
+          clearable = clearable,
+          clear_icon = clear_icon,
+          validate_event = validate_event,
+          readonly = readonly,
+          autofocus = autofocus,
+          tabindex = tabindex,
+          max_collapse_tags = max_collapse_tags,
+          maxlength = maxlength,
+          minlength = minlength,
+          placeholder = placeholder,
+          autocomplete = autocomplete,
+          aria_label = aria_label
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

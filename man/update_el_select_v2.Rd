@@ -10,7 +10,58 @@ update_el_select_v2(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  multiple = NULL,
+  value_key = NULL,
+  size = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  collapse_tags = NULL,
+  multiple_limit = NULL,
+  effect = NULL,
+  autocomplete = NULL,
+  placeholder = NULL,
+  filterable = NULL,
+  allow_create = NULL,
+  filter_method = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  reserve_keyword = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  teleported = NULL,
+  append_to = NULL,
+  persistent = NULL,
+  popper_options = NULL,
+  automatic_dropdown = NULL,
+  fit_input_width = NULL,
+  suffix_icon = NULL,
+  height = NULL,
+  item_height = NULL,
+  estimated_option_height = NULL,
+  scrollbar_always_on = NULL,
+  remote = NULL,
+  debounce = NULL,
+  remote_method = NULL,
+  remote_show_suffix = NULL,
+  validate_event = NULL,
+  offset = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  collapse_tags_tooltip = NULL,
+  max_collapse_tags = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  popper_append_to_body = NULL,
+  tabindex = NULL,
+  props = NULL,
+  tag_tooltip = NULL
 )
 }
 \arguments{
@@ -26,12 +77,184 @@ tags or \code{HTML()} drawn as markup. Only a component built with a \code{label
 has one to change.}
 
 \item{error}{An error message to show on the component; \code{""} clears it.}
+
+\item{multiple}{Is multiple. Element Plus's \code{multiple} (boolean).}
+
+\item{value_key}{Unique identity key name for value, required when value is
+an object. Element Plus's \code{value-key} (string).}
+
+\item{size}{Size of component. Element Plus's \code{size} ('' | 'large' |
+'default' | 'small').}
+
+\item{clearable}{Whether select can be cleared. Element Plus's \code{clearable}
+(boolean).}
+
+\item{clear_icon}{Custom clear icon. Element Plus's \code{clear-icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
+
+\item{collapse_tags}{Whether to collapse tags to a text when multiple
+selecting. Element Plus's \code{collapse-tags} (boolean).}
+
+\item{multiple_limit}{Maximum number of options user can select when
+multiple is true. No limit when set to 0. Element Plus's \code{multiple-limit}
+(number).}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{autocomplete}{Autocomplete of select input. Element Plus's
+\code{autocomplete} (string).}
+
+\item{placeholder}{Placeholder. Element Plus's \code{placeholder} (string).}
+
+\item{filterable}{Whether Select is filterable. Element Plus's \code{filterable}
+(boolean).}
+
+\item{allow_create}{Whether creating new items is allowed. To use this,
+\code{filterable} must be true. Element Plus's \code{allow-create} (boolean).}
+
+\item{filter_method}{Custom filter method, the first parameter is the
+current input value. To use this, \code{filterable} must be true method.
+Element Plus's \code{filter-method} ((query: string) => void). Give it as
+\code{\link[=JS]{JS()}}.}
+
+\item{loading}{Whether Select is loading data from server. Element Plus's
+\code{loading} (boolean).}
+
+\item{loading_text}{Displayed text while loading data from server, default
+is 'Loading'. Element Plus's \code{loading-text} (string).}
+
+\item{reserve_keyword}{Whether reserve the keyword after select filtered
+option. Element Plus's \code{reserve-keyword} (boolean).}
+
+\item{no_match_text}{Displayed text when no data matches the filtering
+query, you can also use slot \code{empty}, default is 'No matching data'.
+Element Plus's \code{no-match-text} (string).}
+
+\item{no_data_text}{Displayed text when there is no options, you can also
+use slot empty. Element Plus's \code{no-data-text} (string).}
+
+\item{popper_class}{Custom class name for Select's dropdown and tags'
+tooltip. Element Plus's \code{popper-class} (string / object).}
+
+\item{popper_style}{Custom style for Select's dropdown and tags' tooltip.
+Element Plus's \code{popper-style} (string / object).}
+
+\item{teleported}{Whether select dropdown is teleported, if \code{true} it will
+be teleported to where \code{append-to} sets. Element Plus's \code{teleported}
+(boolean).}
+
+\item{append_to}{Which element the select dropdown appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
+
+\item{persistent}{When select dropdown is inactive and \code{persistent} is
+\code{false}, select dropdown will be destroyed. Element Plus's \code{persistent}
+(boolean).}
+
+\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
+(object).}
+
+\item{automatic_dropdown}{For non-filterable Select, this prop decides if
+the option menu pops up when the input is focused. Element Plus's
+\code{automatic-dropdown} (boolean).}
+
+\item{fit_input_width}{Whether the width of the dropdown is the same as the
+input, if the value is \code{number}, then the width is fixed. Element Plus's
+\code{fit-input-width} (boolean / number).}
+
+\item{suffix_icon}{Custom suffix icon component. Element Plus's
+\code{suffix-icon} (string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{height}{The height of the dropdown panel, 34px for each item. Element
+Plus's \code{height} (number).}
+
+\item{item_height}{The height of the dropdown item. Element Plus's
+\code{item-height} (number).}
+
+\item{estimated_option_height}{Controls virtual-list sizing mode: if
+undefined, the list uses fixed item height from \code{item-height}; if
+provided, the list uses dynamic item sizing and this value as the
+estimated item height. Element Plus's \code{estimated-option-height} (number).}
+
+\item{scrollbar_always_on}{Controls whether the scrollbar is always
+displayed. Element Plus's \code{scrollbar-always-on} (boolean).}
+
+\item{remote}{Whether search data from server. Element Plus's \code{remote}
+(boolean).}
+
+\item{debounce}{Debounce delay during remote search, in milliseconds.
+Element Plus's \code{debounce} (number).}
+
+\item{remote_method}{Function that gets called when the input value
+changes. Its parameter is the current input value. To use this,
+\code{filterable} must be true. Element Plus's \code{remote-method} ((query:
+string) => void). Give it as \code{\link[=JS]{JS()}}.}
+
+\item{remote_show_suffix}{In remote search method show suffix icon. Element
+Plus's \code{remote-show-suffix} (boolean).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{offset}{Offset of the dropdown. Element Plus's \code{offset} (number).}
+
+\item{show_arrow}{Whether the dropdown has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{placement}{Position of dropdown. Element Plus's \code{placement} (enum).}
+
+\item{fallback_placements}{List of possible positions for dropdown
+popper.js. Element Plus's \code{fallback-placements} (\code{Placement[]}).}
+
+\item{collapse_tags_tooltip}{Whether show all selected tags when mouse
+hover text of collapse-tags. To use this, \code{collapse-tags} must be true.
+Element Plus's \code{collapse-tags-tooltip} (boolean).}
+
+\item{max_collapse_tags}{The max tags number to be shown. To use this,
+\code{collapse-tags} must be true. Element Plus's \code{max-collapse-tags}
+(number).}
+
+\item{tag_type}{Tag type. Element Plus's \code{tag-type} ('' | 'success' |
+'info' | 'warning' | 'danger').}
+
+\item{tag_effect}{Tag effect. Element Plus's \code{tag-effect} ('' | 'light' |
+'dark' | 'plain').}
+
+\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
+\code{aria-label} (string).}
+
+\item{empty_values}{Empty values of component, see config-provider. Element
+Plus's \code{empty-values} (array).}
+
+\item{value_on_clear}{Clear return value, see config-provider. Element
+Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
+as \code{\link[=JS]{JS()}}.}
+
+\item{popper_append_to_body}{Whether to append the popper menu to body. If
+the positioning of the popper is wrong, you can try to set this prop to
+false. Element Plus's \code{popper-append-to-body} (boolean).}
+
+\item{tabindex}{Tabindex for input. Element Plus's \code{tabindex} (string /
+number).}
+
+\item{props}{Which field of an option holds what, when the options are
+records named otherwise: \code{list(value =, label =, disabled =, options =)},
+Element Plus's \code{props}.}
+
+\item{tag_tooltip}{Settings for the tooltip listing collapsed tags, with
+\code{collapse_tags} and \code{collapse_tags_tooltip}: a named list of tooltip
+attributes (\code{placement}, \code{effect}, ...). Element Plus's \code{tag-tooltip}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_select_v2]{el_select_v2()}}.
+}
+\details{
+Every other argument of \code{\link[=el_select_v2]{el_select_v2()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

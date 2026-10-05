@@ -561,6 +561,10 @@ el_upload <- function(
 #'     update_el_upload(session, "files", disabled = TRUE)
 #'   })
 #' }
+#' @inheritParams el_upload
+#' @details Every other argument of [el_upload()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_upload <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -568,7 +572,27 @@ update_el_upload <- function(
   disabled = NULL,
   limit = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  button_label = NULL,
+  drag = NULL,
+  multiple = NULL,
+  accept = NULL,
+  show_file_list = NULL,
+  list_type = NULL,
+  auto_upload = NULL,
+  headers = NULL,
+  extra_data = NULL,
+  file_list = NULL,
+  with_credentials = NULL,
+  before_upload = NULL,
+  before_remove = NULL,
+  on_change = NULL,
+  on_progress = NULL,
+  on_preview = NULL,
+  on_remove = NULL,
+  on_exceed = NULL,
+  crossorigin = NULL,
+  directory = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -579,6 +603,37 @@ update_el_upload <- function(
     msg$limit <- limit
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_upload",
+      Filter(
+        Negate(is.null),
+        list(
+          button_label = button_label,
+          drag = drag,
+          multiple = multiple,
+          accept = accept,
+          show_file_list = show_file_list,
+          list_type = list_type,
+          auto_upload = auto_upload,
+          headers = headers,
+          extra_data = extra_data,
+          file_list = file_list,
+          with_credentials = with_credentials,
+          before_upload = before_upload,
+          before_remove = before_remove,
+          on_change = on_change,
+          on_progress = on_progress,
+          on_preview = on_preview,
+          on_remove = on_remove,
+          on_exceed = on_exceed,
+          crossorigin = crossorigin,
+          directory = directory
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

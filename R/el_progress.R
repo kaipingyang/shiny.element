@@ -158,6 +158,10 @@ el_progress <- function(
 #'     update_el_progress(session, "pct", percentage = 100)
 #'   })
 #' }
+#' @inheritParams el_progress
+#' @details Every other argument of [el_progress()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_progress <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -168,7 +172,13 @@ update_el_progress <- function(
   color = NULL,
   stroke_width = NULL,
   show_text = NULL,
-  text_inside = NULL
+  text_inside = NULL,
+  stroke_linecap = NULL,
+  format = NULL,
+  duration = NULL,
+  indeterminate = NULL,
+  striped = NULL,
+  striped_flow = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -194,6 +204,23 @@ update_el_progress <- function(
   if (!is.null(text_inside)) {
     msg$textInside <- text_inside
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_progress",
+      Filter(
+        Negate(is.null),
+        list(
+          stroke_linecap = stroke_linecap,
+          format = format,
+          duration = duration,
+          indeterminate = indeterminate,
+          striped = striped,
+          striped_flow = striped_flow
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

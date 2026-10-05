@@ -11,7 +11,10 @@ update_el_avatar(
   src = NULL,
   icon = NULL,
   size = NULL,
-  shape = NULL
+  shape = NULL,
+  fit = NULL,
+  src_set = NULL,
+  alt = NULL
 )
 }
 \arguments{
@@ -21,12 +24,24 @@ update_el_avatar(
 \item{id}{Avatar ID (un-namespaced).}
 
 \item{content, src, icon, size, shape}{New values; \code{NULL} leaves one unchanged.}
+
+\item{fit}{How an image fills the avatar: \code{"cover"} (default), \code{"fill"},
+\code{"contain"}, \code{"none"} or \code{"scale-down"}.}
+
+\item{src_set}{Candidate image sources, as a \code{srcset} string.}
+
+\item{alt}{Alternative text for the image.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_avatar]{el_avatar()}}.
+}
+\details{
+Every other argument of \code{\link[=el_avatar]{el_avatar()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

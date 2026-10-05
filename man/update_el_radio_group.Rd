@@ -13,7 +13,14 @@ update_el_radio_group(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  fill = NULL,
+  text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL
 )
 }
 \arguments{
@@ -37,6 +44,24 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.
+Only affects button-style radios (\code{button = TRUE}).}
+
+\item{fill}{Border and background colour of a checked radio button.}
+
+\item{text_color}{Text colour of a checked radio button.}
+
+\item{aria_label}{Same as \code{aria-label} in RadioGroup. Element Plus's
+\code{aria-label} (string).}
+
+\item{props}{Configuration options. Element Plus's \code{props} (\verb{\{ value?: string, label?: string, disabled?: string\}}).}
+
+\item{type}{Component type to render options (e.g. \code{'button'}). Element
+Plus's \code{type} ('radio' | 'button').}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -44,6 +69,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_radio_group]{el_radio_group()}}. Sends a custom message to update
 reactive fields on the underlying Vue instance.
+}
+\details{
+Every other argument of \code{\link[=el_radio_group]{el_radio_group()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

@@ -159,6 +159,10 @@ el_checkbox <- function(
 #'     ignoreNULL = FALSE
 #'   )
 #' }
+#' @inheritParams el_checkbox
+#' @details Every other argument of [el_checkbox()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_checkbox <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -166,7 +170,20 @@ update_el_checkbox <- function(
   value = NULL,
   label = NULL,
   indeterminate = NULL,
-  disabled = NULL
+  disabled = NULL,
+  border = NULL,
+  size = NULL,
+  true_label = NULL,
+  false_label = NULL,
+  name = NULL,
+  checked = NULL,
+  aria_controls = NULL,
+  aria_label = NULL,
+  controls = NULL,
+  false_value = NULL,
+  tabindex = NULL,
+  true_value = NULL,
+  validate_event = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -182,6 +199,30 @@ update_el_checkbox <- function(
   if (!is.null(disabled)) {
     msg$disabled <- disabled
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_checkbox",
+      Filter(
+        Negate(is.null),
+        list(
+          border = border,
+          size = size,
+          true_label = true_label,
+          false_label = false_label,
+          name = name,
+          checked = checked,
+          aria_controls = aria_controls,
+          aria_label = aria_label,
+          controls = controls,
+          false_value = false_value,
+          tabindex = tabindex,
+          true_value = true_value,
+          validate_event = validate_event
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

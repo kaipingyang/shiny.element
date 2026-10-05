@@ -155,13 +155,21 @@ el_steps <- function(
 #'     update_el_steps(session, "wizard", active = 2)
 #'   })
 #' }
+#' @inheritParams el_steps
+#' @details Every other argument of [el_steps()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_steps <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   active = NULL,
   process_status = NULL,
-  finish_status = NULL
+  finish_status = NULL,
+  space = NULL,
+  direction = NULL,
+  align_center = NULL,
+  simple = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -176,6 +184,21 @@ update_el_steps <- function(
     message$finishStatus <- finish_status
   }
 
+  message <- c(
+    message,
+    .el_update_props(
+      "el_steps",
+      Filter(
+        Negate(is.null),
+        list(
+          space = space,
+          direction = direction,
+          align_center = align_center,
+          simple = simple
+        )
+      )
+    )
+  )
   .el_send_update(session, message)
   invisible(NULL)
 }

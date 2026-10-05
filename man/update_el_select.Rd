@@ -21,7 +21,46 @@ update_el_select(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  multiple = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  value_key = NULL,
+  name = NULL,
+  autocomplete = NULL,
+  automatic_dropdown = NULL,
+  allow_create = NULL,
+  popper_class = NULL,
+  reserve_keyword = NULL,
+  remote = NULL,
+  filter_method = NULL,
+  remote_method = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  debounce = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  max_collapse_tags = NULL,
+  offset = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  remote_show_suffix = NULL,
+  show_arrow = NULL,
+  suffix_icon = NULL,
+  suffix_transition = NULL,
+  tabindex = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  tag_tooltip = NULL
 )
 }
 \arguments{
@@ -50,6 +89,117 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{multiple}{Whether multiple items can be selected. Default \code{FALSE}.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{collapse_tags}{Whether to collapse selected tags into a summary when
+\code{multiple = TRUE}. Default \code{FALSE}.}
+
+\item{value_key}{Key that identifies an option when values are objects. Default \code{"value"}.}
+
+\item{name}{Native \code{name} attribute.}
+
+\item{autocomplete}{Native \code{autocomplete} attribute. Default \code{"off"}.}
+
+\item{automatic_dropdown}{Whether a filterable select opens its menu on focus.}
+
+\item{allow_create}{Whether the user may create options not in the list. Needs \code{filterable = TRUE}.}
+
+\item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{reserve_keyword}{Whether a multiple filterable select keeps the search term after selecting.}
+
+\item{remote}{Whether options are fetched from the server as the user
+types. Needs \code{filterable = TRUE}; see "Shiny inputs".}
+
+\item{filter_method}{\code{JS()} function filtering the options as the user types.}
+
+\item{remote_method}{\code{JS()} function fetching options in the
+browser instead of from the server. Needs \code{remote = TRUE}.}
+
+\item{append_to}{Which element the select dropdown appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
+
+\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
+\code{aria-label} (string).}
+
+\item{clear_icon}{Custom clear icon component. Element Plus's \code{clear-icon}
+(string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{collapse_tags_tooltip}{Whether show all selected tags when mouse
+hover text of collapse-tags. To use this, \code{collapse-tags} must be true.
+Element Plus's \code{collapse-tags-tooltip} (boolean).}
+
+\item{debounce}{Debounce delay during remote search, in milliseconds.
+Element Plus's \code{debounce} (number).}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{empty_values}{Empty values of component, see config-provider. Element
+Plus's \code{empty-values} (array).}
+
+\item{fallback_placements}{List of possible positions for dropdown
+popper.js. Element Plus's \code{fallback-placements} (\code{Placement[]}).}
+
+\item{fit_input_width}{Whether the width of the dropdown is the same as the
+input. Element Plus's \code{fit-input-width} (boolean).}
+
+\item{max_collapse_tags}{The max tags number to be shown. To use this,
+\code{collapse-tags} must be true. Element Plus's \code{max-collapse-tags}
+(number).}
+
+\item{offset}{Offset of the dropdown. Element Plus's \code{offset} (number).}
+
+\item{persistent}{When select dropdown is inactive and \code{persistent} is
+\code{false}, select dropdown will be destroyed. Element Plus's \code{persistent}
+(boolean).}
+
+\item{placement}{Position of dropdown. Element Plus's \code{placement} (enum).}
+
+\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
+(object).}
+
+\item{popper_style}{Custom style for Select's dropdown and tags' tooltip.
+Element Plus's \code{popper-style} (string / object).}
+
+\item{remote_show_suffix}{In remote search method show suffix icon. Element
+Plus's \code{remote-show-suffix} (boolean).}
+
+\item{show_arrow}{Whether the dropdown has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{suffix_icon}{Custom suffix icon component. Element Plus's
+\code{suffix-icon} (string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{suffix_transition}{Animation when dropdown appears/disappears icon.
+Element Plus's \code{suffix-transition} (boolean).}
+
+\item{tabindex}{Tabindex for input. Element Plus's \code{tabindex} (string /
+number).}
+
+\item{tag_effect}{Tag effect. Element Plus's \code{tag-effect} ('' | 'light' |
+'dark' | 'plain').}
+
+\item{tag_type}{Tag type. Element Plus's \code{tag-type} ('' | 'success' |
+'info' | 'warning' | 'danger').}
+
+\item{teleported}{Whether select dropdown is teleported, if \code{true} it will
+be teleported to where \code{append-to} sets. Element Plus's \code{teleported}
+(boolean).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{value_on_clear}{Clear return value, see config-provider. Element
+Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
+as \code{\link[=JS]{JS()}}.}
+
+\item{tag_tooltip}{Settings for the tooltip listing collapsed tags, with
+\code{collapse_tags} and \code{collapse_tags_tooltip}: a named list of tooltip
+attributes (\code{placement}, \code{effect}, ...). Element Plus's \code{tag-tooltip}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -57,6 +207,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_select]{el_select()}}. Sends a custom message to update
 reactive fields on the underlying Vue instance.
+}
+\details{
+Every other argument of \code{\link[=el_select]{el_select()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

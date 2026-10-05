@@ -398,6 +398,10 @@ el_tree <- function(
 #'     update_el_tree(session, "picker", checked = c("apple"))
 #'   })
 #' }
+#' @inheritParams el_tree
+#' @details Every other argument of [el_tree()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tree <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -406,7 +410,28 @@ update_el_tree <- function(
   expanded = NULL,
   checked = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  node_key = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  expand_on_click_node = NULL,
+  accordion = NULL,
+  highlight_current = NULL,
+  empty_text = NULL,
+  indent = NULL,
+  lazy = NULL,
+  draggable = NULL,
+  auto_expand_parent = NULL,
+  check_on_click_node = NULL,
+  current_node_key = NULL,
+  render_after_expand = NULL,
+  load = NULL,
+  filter_node_method = NULL,
+  render_content = NULL,
+  allow_drag = NULL,
+  allow_drop = NULL,
+  check_on_click_leaf = NULL,
+  icon = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -422,6 +447,38 @@ update_el_tree <- function(
     msg$checkedKeys <- as.list(checked)
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_tree",
+      Filter(
+        Negate(is.null),
+        list(
+          node_key = node_key,
+          show_checkbox = show_checkbox,
+          check_strictly = check_strictly,
+          expand_on_click_node = expand_on_click_node,
+          accordion = accordion,
+          highlight_current = highlight_current,
+          empty_text = empty_text,
+          indent = indent,
+          lazy = lazy,
+          draggable = draggable,
+          auto_expand_parent = auto_expand_parent,
+          check_on_click_node = check_on_click_node,
+          current_node_key = current_node_key,
+          render_after_expand = render_after_expand,
+          load = load,
+          filter_node_method = filter_node_method,
+          render_content = render_content,
+          allow_drag = allow_drag,
+          allow_drop = allow_drop,
+          check_on_click_leaf = check_on_click_leaf,
+          icon = icon
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

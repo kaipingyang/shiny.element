@@ -339,6 +339,10 @@ el_cascader <- function(
 #'     update_el_cascader(session, "region", value = list("zj", "hz"))
 #'   })
 #' }
+#' @inheritParams el_cascader
+#' @details Every other argument of [el_cascader()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_cascader <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -350,7 +354,37 @@ update_el_cascader <- function(
   filterable = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  props = NULL,
+  size = NULL,
+  show_all_levels = NULL,
+  collapse_tags = NULL,
+  separator = NULL,
+  debounce = NULL,
+  popper_class = NULL,
+  filter_method = NULL,
+  before_filter = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  height = NULL,
+  item_size = NULL,
+  max_collapse_tags = NULL,
+  max_collapse_tags_tooltip_height = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_append_to_body = NULL,
+  popper_style = NULL,
+  show_checked_strategy = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  virtual_scroll = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -375,6 +409,47 @@ update_el_cascader <- function(
   }
 
   message <- .el_form_item_update(message, label, error)
+  message <- c(
+    message,
+    .el_update_props(
+      "el_cascader",
+      Filter(
+        Negate(is.null),
+        list(
+          props = props,
+          size = size,
+          show_all_levels = show_all_levels,
+          collapse_tags = collapse_tags,
+          separator = separator,
+          debounce = debounce,
+          popper_class = popper_class,
+          filter_method = filter_method,
+          before_filter = before_filter,
+          clear_icon = clear_icon,
+          collapse_tags_tooltip = collapse_tags_tooltip,
+          effect = effect,
+          empty_values = empty_values,
+          fallback_placements = fallback_placements,
+          fit_input_width = fit_input_width,
+          height = height,
+          item_size = item_size,
+          max_collapse_tags = max_collapse_tags,
+          max_collapse_tags_tooltip_height = max_collapse_tags_tooltip_height,
+          persistent = persistent,
+          placement = placement,
+          popper_append_to_body = popper_append_to_body,
+          popper_style = popper_style,
+          show_checked_strategy = show_checked_strategy,
+          tag_effect = tag_effect,
+          tag_type = tag_type,
+          teleported = teleported,
+          validate_event = validate_event,
+          value_on_clear = value_on_clear,
+          virtual_scroll = virtual_scroll
+        )
+      )
+    )
+  )
   .el_send_update(session, message)
   invisible(NULL)
 }

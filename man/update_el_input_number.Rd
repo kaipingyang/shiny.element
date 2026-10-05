@@ -12,7 +12,25 @@ update_el_input_number(
   max = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  step = NULL,
+  step_strictly = NULL,
+  precision = NULL,
+  size = NULL,
+  controls = NULL,
+  controls_position = NULL,
+  placeholder = NULL,
+  name = NULL,
+  align = NULL,
+  aria_label = NULL,
+  disabled_scientific = NULL,
+  formatter = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  readonly = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL
 )
 }
 \arguments{
@@ -36,12 +54,66 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{step}{Step increment. Default \code{1}.}
+
+\item{step_strictly}{Force the value to be a multiple of \code{step}. Default
+\code{FALSE}.}
+
+\item{precision}{Decimal precision (non-negative integer). \code{NULL} for
+auto.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{controls}{Whether to show the +/- control buttons. Default \code{TRUE}.}
+
+\item{controls_position}{Button layout: \code{""} (default, left-right) or
+\code{"right"} (both on the right).}
+
+\item{placeholder}{Placeholder text. \code{NULL} for none.}
+
+\item{name}{Native \code{name} attribute of the inner input.}
+
+\item{align}{Alignment for the inner input text. Element Plus's \code{align}
+('left' | 'center' | 'right').}
+
+\item{aria_label}{Same as \code{aria-label} in native input. Element Plus's
+\code{aria-label} (string).}
+
+\item{disabled_scientific}{Disables input of scientific notation (e.g.
+'e'). Element Plus's \code{disabled-scientific} (boolean).}
+
+\item{formatter}{Specifies the format of the value presented in the input.
+Element Plus's \code{formatter} ((value: string) => string).}
+
+\item{inputmode}{Same as \code{inputmode} in native input. Element Plus's
+\code{inputmode} (string).}
+
+\item{parser}{Specifies the value extracted from the formatted input.
+Element Plus's \code{parser} ((value: string) => string).}
+
+\item{readonly}{Same as \code{readonly} in native input. Element Plus's
+\code{readonly} (boolean).}
+
+\item{tabindex}{Same as \code{tabindex} in native input. Element Plus's
+\code{tabindex} (string / number).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{value_on_clear}{Value should be set when input box is cleared.
+Element Plus's \code{value-on-clear} (number / null / 'min' | 'max').}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_input_number]{el_input_number()}}.
+}
+\details{
+Every other argument of \code{\link[=el_input_number]{el_input_number()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

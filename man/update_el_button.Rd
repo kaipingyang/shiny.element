@@ -13,7 +13,19 @@ update_el_button(
   plain = NULL,
   round = NULL,
   loading = NULL,
-  disabled = NULL
+  disabled = NULL,
+  circle = NULL,
+  icon = NULL,
+  autofocus = NULL,
+  auto_insert_space = NULL,
+  bg = NULL,
+  color = NULL,
+  dark = NULL,
+  dashed = NULL,
+  link = NULL,
+  loading_icon = NULL,
+  tag = NULL,
+  text = NULL
 )
 }
 \arguments{
@@ -35,6 +47,45 @@ update_el_button(
 \item{loading}{New loading state.}
 
 \item{disabled}{New disabled state.}
+
+\item{circle}{Whether to render as a circle button (icon only, no label).
+Default \code{FALSE}.}
+
+\item{icon}{Either an Element icon class name such as \code{"el-icon-search"},
+which Element renders itself and \code{\link[=update_el_button]{update_el_button()}} can change, or a tag
+(for example from \code{\link[=el_icon]{el_icon()}}), which is inserted as button content.}
+
+\item{autofocus}{Whether the button takes focus on page load. Default \code{FALSE}.}
+
+\item{auto_insert_space}{Automatically insert a space between two chinese
+characters(this will only take effect when the text length is 2 and all
+characters are in Chinese.). Element Plus's \code{auto-insert-space}
+(boolean).}
+
+\item{bg}{Determine whether the text button background color is always on.
+Element Plus's \code{bg} (boolean).}
+
+\item{color}{Custom button color, automatically calculate \code{hover} and
+\code{active} color. Works with \code{link}/\code{text} buttons since. Element
+Plus's \code{color} (string).}
+
+\item{dark}{Dark mode, which automatically converts \code{color} to dark mode
+colors. Element Plus's \code{dark} (boolean).}
+
+\item{dashed}{Determine whether it's a dashed button. Element Plus's
+\code{dashed} (boolean).}
+
+\item{link}{Determine whether it's a link button. Element Plus's \code{link}
+(boolean).}
+
+\item{loading_icon}{Customize loading icon component. Element Plus's
+\code{loading-icon} (string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{tag}{Custom element tag. Element Plus's \code{tag} (string / Component).
+An icon's name, such as \code{"Search"}.}
+
+\item{text}{Determine whether it's a text button. Element Plus's \code{text}
+(boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -42,6 +93,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_button]{el_button()}}. Supports all visual states including
 \code{size}, \code{plain}, \code{round}, and \code{loading}.
+}
+\details{
+Every other argument of \code{\link[=el_button]{el_button()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

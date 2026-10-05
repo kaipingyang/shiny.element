@@ -246,13 +246,24 @@ el_carousel <- function(
 #'     update_el_carousel(session, "banner", active = 2)
 #'   })
 #' }
+#' @inheritParams el_carousel
+#' @details Every other argument of [el_carousel()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_carousel <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   active = NULL,
   autoplay = NULL,
-  interval = NULL
+  interval = NULL,
+  height = NULL,
+  initial_index = NULL,
+  trigger = NULL,
+  indicator_position = NULL,
+  arrow = NULL,
+  loop = NULL,
+  direction = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -267,6 +278,24 @@ update_el_carousel <- function(
   if (!is.null(interval)) {
     msg$interval <- interval
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_carousel",
+      Filter(
+        Negate(is.null),
+        list(
+          height = height,
+          initial_index = initial_index,
+          trigger = trigger,
+          indicator_position = indicator_position,
+          arrow = arrow,
+          loop = loop,
+          direction = direction
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

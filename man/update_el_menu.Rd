@@ -8,7 +8,25 @@ update_el_menu(
   session = shiny::getDefaultReactiveDomain(),
   id,
   active = NULL,
-  collapse = NULL
+  collapse = NULL,
+  mode = NULL,
+  unique_opened = NULL,
+  background_color = NULL,
+  text_color = NULL,
+  active_text_color = NULL,
+  menu_trigger = NULL,
+  collapse_transition = NULL,
+  router = NULL,
+  close_on_click_outside = NULL,
+  ellipsis = NULL,
+  ellipsis_icon = NULL,
+  hide_timeout = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_effect = NULL,
+  popper_offset = NULL,
+  popper_style = NULL,
+  show_timeout = NULL
 )
 }
 \arguments{
@@ -20,12 +38,61 @@ update_el_menu(
 \item{active}{Index of the item to select.}
 
 \item{collapse}{New collapsed state.}
+
+\item{mode}{\code{"vertical"} (default) or \code{"horizontal"}.}
+
+\item{unique_opened}{Keep only one submenu open at a time.}
+
+\item{background_color, text_color, active_text_color}{Menu colours.}
+
+\item{menu_trigger}{How a horizontal sub-menu opens: \code{"hover"} (default) or \code{"click"}.}
+
+\item{collapse_transition}{Whether to animate collapsing. Default \code{TRUE}.}
+
+\item{router}{Whether to use vue-router mode, taking each index as a path.}
+
+\item{close_on_click_outside}{Optional, whether menu is collapsed when
+clicking outside. Element Plus's \code{close-on-click-outside} (boolean).}
+
+\item{ellipsis}{Whether the menu is ellipsis (available only in horizontal
+mode). Element Plus's \code{ellipsis} (boolean).}
+
+\item{ellipsis_icon}{Custom ellipsis icon (available only in horizontal
+mode and ellipsis is true). Element Plus's \code{ellipsis-icon} (string /
+Component). An icon's name, such as \code{"Search"}.}
+
+\item{hide_timeout}{Control timeout for all menus before hiding. Element
+Plus's \code{hide-timeout} (number).}
+
+\item{persistent}{When menu inactive and \code{persistent} is \code{false} , dropdown
+menu will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{popper_class}{Custom class name for all popup menus and titles'
+tooltips. Element Plus's \code{popper-class} (string).}
+
+\item{popper_effect}{Tooltip theme, built-in theme: \code{dark} / \code{light} when
+menu is collapsed. Element Plus's \code{popper-effect} ('dark' | 'light' /
+string).}
+
+\item{popper_offset}{Offset of the popper (effective for all submenus).
+Element Plus's \code{popper-offset} (number).}
+
+\item{popper_style}{Custom style for all popup menus and titles' tooltips.
+Element Plus's \code{popper-style} (string / object).}
+
+\item{show_timeout}{Control timeout for all menus before showing. Element
+Plus's \code{show-timeout} (number).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Update an Element Plus Menu
+}
+\details{
+Every other argument of \code{\link[=el_menu]{el_menu()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

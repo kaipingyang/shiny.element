@@ -10,7 +10,11 @@ update_el_cascader_panel(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  props = NULL,
+  height = NULL,
+  item_size = NULL,
+  virtual_scroll = NULL
 )
 }
 \arguments{
@@ -28,12 +32,32 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{props}{Element's \code{props}, as a named list: \code{multiple},
+\code{checkStrictly}, \code{expandTrigger} (\code{"click"} or \code{"hover"}), \code{lazy},
+\code{lazyLoad}, and the field names \code{value}, \code{label}, \code{children},
+\code{disabled}, \code{leaf}. With \code{lazy = TRUE} and no \code{lazyLoad} of your own,
+the server loads each column.}
+
+\item{height}{Menu height for virtual scrolling (px). Element Plus's
+\code{height} (number).}
+
+\item{item_size}{Node height for virtual scrolling (px). Element Plus's
+\code{item-size} (number).}
+
+\item{virtual_scroll}{Whether to enable virtual scrolling for large data.
+Element Plus's \code{virtual-scroll} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_cascader_panel]{el_cascader_panel()}}.
+}
+\details{
+Every other argument of \code{\link[=el_cascader_panel]{el_cascader_panel()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

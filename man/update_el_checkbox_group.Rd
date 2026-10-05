@@ -15,7 +15,15 @@ update_el_checkbox_group(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  fill = NULL,
+  text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  tag = NULL,
+  type = NULL,
+  validate_event = NULL
 )
 }
 \arguments{
@@ -43,6 +51,26 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{size}{\code{"large"}, \code{"default"} or \code{"small"}.}
+
+\item{fill}{Border and background colour when \code{button = TRUE} and checked.}
+
+\item{text_color}{Text colour when \code{button = TRUE} and checked.}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
+
+\item{props}{Configuration options. Element Plus's \code{props} (\verb{\{ value?: string, label?: string, disabled?: string\}}).}
+
+\item{tag}{Element tag of the checkbox group. Element Plus's \code{tag}
+(string).}
+
+\item{type}{Component type to render options (e.g. \code{'button'}). Element
+Plus's \code{type} ('checkbox' | 'button').}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -50,6 +78,11 @@ Called for its side effect; returns \code{NULL} invisibly.
 \description{
 Server-side update for \code{\link[=el_checkbox_group]{el_checkbox_group()}}. Pass only the fields to change;
 \code{NULL} fields are excluded from the update message.
+}
+\details{
+Every other argument of \code{\link[=el_checkbox_group]{el_checkbox_group()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

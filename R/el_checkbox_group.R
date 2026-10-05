@@ -228,6 +228,10 @@ el_checkbox_group <- function(
 #'     update_el_checkbox_group(session, "langs", selected = c("r", "py"))
 #'   })
 #' }
+#' @inheritParams el_checkbox_group
+#' @details Every other argument of [el_checkbox_group()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_checkbox_group <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -240,7 +244,15 @@ update_el_checkbox_group <- function(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  fill = NULL,
+  text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  tag = NULL,
+  type = NULL,
+  validate_event = NULL
 ) {
   .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
@@ -263,6 +275,25 @@ update_el_checkbox_group <- function(
     msg$max <- max
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_checkbox_group",
+      Filter(
+        Negate(is.null),
+        list(
+          size = size,
+          fill = fill,
+          text_color = text_color,
+          aria_label = aria_label,
+          props = props,
+          tag = tag,
+          type = type,
+          validate_event = validate_event
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -90,12 +90,17 @@ el_page_header <- function(
 #'     update_el_page_header(session, "hdr", content = selected_name())
 #'   })
 #' }
+#' @inheritParams el_page_header
+#' @details Every other argument of [el_page_header()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_page_header <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
-  content = NULL
+  content = NULL,
+  icon = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -106,6 +111,18 @@ update_el_page_header <- function(
   if (!is.null(content)) {
     msg$content <- content
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_page_header",
+      Filter(
+        Negate(is.null),
+        list(
+          icon = icon
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

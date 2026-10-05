@@ -12,7 +12,19 @@ update_el_transfer(
   titles = NULL,
   filterable = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  button_texts = NULL,
+  filter_placeholder = NULL,
+  filter_method = NULL,
+  target_order = NULL,
+  format = NULL,
+  props = NULL,
+  left_default_checked = NULL,
+  right_default_checked = NULL,
+  render_content = NULL,
+  item_size = NULL,
+  validate_event = NULL,
+  virtual_scroll = NULL
 )
 }
 \arguments{
@@ -30,12 +42,48 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{button_texts}{Labels of the two buttons, as a length-2 character
+vector. Default is arrows only.}
+
+\item{filter_placeholder}{Placeholder of the search boxes.}
+
+\item{filter_method}{\code{JS()} function \verb{function(query, item)}
+returning whether an item survives the search.}
+
+\item{target_order}{Order of the right-hand panel: \code{"original"} (default),
+\code{"push"} or \code{"unshift"}.}
+
+\item{format}{Counts shown in each heading, as
+\code{list(noChecked =, hasChecked =)}, for example
+\code{list(noChecked = "${total}", hasChecked = "${checked}/${total}")}.}
+
+\item{props}{Field names when \code{data} uses other ones, as
+\code{list(key =, label =, disabled =)}.}
+
+\item{left_default_checked, right_default_checked}{Keys ticked at the start.}
+
+\item{render_content}{\code{JS()} render function for an item.}
+
+\item{item_size}{Item height for virtual scrolling. Element Plus's
+\code{item-size} (number).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{virtual_scroll}{Whether to enable virtual scrolling. Element Plus's
+\code{virtual-scroll} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_transfer]{el_transfer()}}.
+}
+\details{
+Every other argument of \code{\link[=el_transfer]{el_transfer()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

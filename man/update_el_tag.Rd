@@ -9,7 +9,13 @@ update_el_tag(
   id,
   label = NULL,
   type = NULL,
-  closable = NULL
+  closable = NULL,
+  size = NULL,
+  effect = NULL,
+  color = NULL,
+  hit = NULL,
+  disable_transitions = NULL,
+  round = NULL
 )
 }
 \arguments{
@@ -23,12 +29,29 @@ update_el_tag(
 \item{type}{New colour type.}
 
 \item{closable}{New closable state.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{effect}{Visual effect: \code{"light"} (default), \code{"dark"}, \code{"plain"}.}
+
+\item{color}{Custom background colour (CSS string). \code{NULL} for themed colour.}
+
+\item{hit}{Whether to show a solid border. Default \code{FALSE}.}
+
+\item{disable_transitions}{Disable the zoom-in-center animation. Default \code{FALSE}.}
+
+\item{round}{Whether Tag is rounded. Element Plus's \code{round} (boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_tag]{el_tag()}}.
+}
+\details{
+Every other argument of \code{\link[=el_tag]{el_tag()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

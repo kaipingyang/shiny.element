@@ -10,7 +10,30 @@ update_el_input_tag(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  max = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  effect = NULL,
+  trigger = NULL,
+  draggable = NULL,
+  delimiter = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  save_on_blur = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  autofocus = NULL,
+  tabindex = NULL,
+  max_collapse_tags = NULL,
+  maxlength = NULL,
+  minlength = NULL,
+  placeholder = NULL,
+  autocomplete = NULL,
+  aria_label = NULL
 )
 }
 \arguments{
@@ -26,12 +49,87 @@ tags or \code{HTML()} drawn as markup. Only a component built with a \code{label
 has one to change.}
 
 \item{error}{An error message to show on the component; \code{""} clears it.}
+
+\item{max}{Max number tags that can be enter. Element Plus's \code{max}
+(number).}
+
+\item{tag_type}{Tag type. Element Plus's \code{tag-type} ('' | 'success' |
+'info' | 'warning' | 'danger').}
+
+\item{tag_effect}{Tag effect. Element Plus's \code{tag-effect} ('' | 'light' |
+'dark' | 'plain').}
+
+\item{effect}{Tooltip theme, built-in theme: \code{dark} / \code{light}. Element
+Plus's \code{effect} ('dark' | 'light' / string).}
+
+\item{trigger}{The key to trigger input tag. Element Plus's \code{trigger}
+('Enter' | 'Space').}
+
+\item{draggable}{Whether tags can be dragged. Element Plus's \code{draggable}
+(boolean).}
+
+\item{delimiter}{Add a tag when a delimiter is matched. Element Plus's
+\code{delimiter} (string / regex).}
+
+\item{size}{Input box size. Element Plus's \code{size} ('large' | 'default' |
+'small').}
+
+\item{collapse_tags}{Whether to collapse tags to a text when multiple
+selecting. Element Plus's \code{collapse-tags} (boolean).}
+
+\item{collapse_tags_tooltip}{Whether show all selected tags when mouse
+hover text of collapse-tags. To use this, collapse-tags must be true.
+Element Plus's \code{collapse-tags-tooltip} (boolean).}
+
+\item{save_on_blur}{Whether to save the input value when the input loses
+focus. Element Plus's \code{save-on-blur} (boolean).}
+
+\item{clearable}{Whether to show clear button. Element Plus's \code{clearable}
+(boolean).}
+
+\item{clear_icon}{Custom clear icon component. Element Plus's \code{clear-icon}
+(string / Component). An icon's name, such as \code{"Search"}.}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{readonly}{Same as \code{readonly} in native input. Element Plus's
+\code{readonly} (boolean).}
+
+\item{autofocus}{Same as \code{autofocus} in native input. Element Plus's
+\code{autofocus} (boolean).}
+
+\item{tabindex}{Same as \code{tabindex} in native input. Element Plus's
+\code{tabindex} (string / number).}
+
+\item{max_collapse_tags}{The max tags number to be shown. To use this,
+collapse-tags must be true. Element Plus's \code{max-collapse-tags} (number).}
+
+\item{maxlength}{Same as \code{maxlength} in native input. Element Plus's
+\code{maxlength} (string / number).}
+
+\item{minlength}{Same as \code{minlength} in native input. Element Plus's
+\code{minlength} (string / number).}
+
+\item{placeholder}{Placeholder of input. Element Plus's \code{placeholder}
+(string).}
+
+\item{autocomplete}{Same as \code{autocomplete} in native input. Element Plus's
+\code{autocomplete} (string).}
+
+\item{aria_label}{Native \code{aria-label} attribute. Element Plus's
+\code{aria-label} (string).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_input_tag]{el_input_tag()}}.
+}
+\details{
+Every other argument of \code{\link[=el_input_tag]{el_input_tag()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

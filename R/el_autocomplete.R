@@ -307,6 +307,10 @@ el_autocomplete <- function(
 #'     )
 #'   })
 #' }
+#' @inheritParams el_autocomplete
+#' @details Every other argument of [el_autocomplete()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_autocomplete <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -316,7 +320,28 @@ update_el_autocomplete <- function(
   placeholder = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  clearable = NULL,
+  value_key = NULL,
+  debounce = NULL,
+  placement = NULL,
+  trigger_on_focus = NULL,
+  select_when_unmatched = NULL,
+  highlight_first_item = NULL,
+  hide_loading = NULL,
+  icon = NULL,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  name = NULL,
+  popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  fit_input_width = NULL,
+  loop_navigation = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  show_arrow = NULL,
+  teleported = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -334,6 +359,38 @@ update_el_autocomplete <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_autocomplete",
+      Filter(
+        Negate(is.null),
+        list(
+          clearable = clearable,
+          value_key = value_key,
+          debounce = debounce,
+          placement = placement,
+          trigger_on_focus = trigger_on_focus,
+          select_when_unmatched = select_when_unmatched,
+          highlight_first_item = highlight_first_item,
+          hide_loading = hide_loading,
+          icon = icon,
+          prefix_icon = prefix_icon,
+          suffix_icon = suffix_icon,
+          name = name,
+          popper_class = popper_class,
+          append_to = append_to,
+          aria_label = aria_label,
+          fit_input_width = fit_input_width,
+          loop_navigation = loop_navigation,
+          popper_options = popper_options,
+          popper_style = popper_style,
+          show_arrow = show_arrow,
+          teleported = teleported
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

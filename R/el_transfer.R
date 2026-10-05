@@ -227,6 +227,10 @@ el_transfer <- function(
 #'     update_el_transfer(session, "cols", value = list())
 #'   })
 #' }
+#' @inheritParams el_transfer
+#' @details Every other argument of [el_transfer()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_transfer <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -236,7 +240,19 @@ update_el_transfer <- function(
   titles = NULL,
   filterable = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  button_texts = NULL,
+  filter_placeholder = NULL,
+  filter_method = NULL,
+  target_order = NULL,
+  format = NULL,
+  props = NULL,
+  left_default_checked = NULL,
+  right_default_checked = NULL,
+  render_content = NULL,
+  item_size = NULL,
+  validate_event = NULL,
+  virtual_scroll = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -254,6 +270,29 @@ update_el_transfer <- function(
     msg$filterable <- filterable
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_transfer",
+      Filter(
+        Negate(is.null),
+        list(
+          button_texts = button_texts,
+          filter_placeholder = filter_placeholder,
+          filter_method = filter_method,
+          target_order = target_order,
+          format = format,
+          props = props,
+          left_default_checked = left_default_checked,
+          right_default_checked = right_default_checked,
+          render_content = render_content,
+          item_size = item_size,
+          validate_event = validate_event,
+          virtual_scroll = virtual_scroll
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

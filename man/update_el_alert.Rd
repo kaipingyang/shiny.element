@@ -9,7 +9,12 @@ update_el_alert(
   id,
   title = NULL,
   type = NULL,
-  description = NULL
+  description = NULL,
+  closable = NULL,
+  close_text = NULL,
+  show_icon = NULL,
+  center = NULL,
+  effect = NULL
 )
 }
 \arguments{
@@ -23,12 +28,27 @@ update_el_alert(
 \item{type}{New alert type.}
 
 \item{description}{New description text. Use \code{NULL} to leave unchanged.}
+
+\item{closable}{Whether to show a close button. Default \code{TRUE}.}
+
+\item{close_text}{Custom text for the close button. \code{""} for the default ×.}
+
+\item{show_icon}{Whether to display the type icon. Default \code{FALSE}.}
+
+\item{center}{Whether to centre the content. Default \code{FALSE}.}
+
+\item{effect}{Visual effect: \code{"light"} (default) or \code{"dark"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_alert]{el_alert()}}.
+}
+\details{
+Every other argument of \code{\link[=el_alert]{el_alert()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

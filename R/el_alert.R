@@ -112,13 +112,22 @@ el_alert <- function(
 #'     update_el_alert(session, "hint", title = "Saved", type = "success")
 #'   })
 #' }
+#' @inheritParams el_alert
+#' @details Every other argument of [el_alert()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_alert <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
   type = NULL,
-  description = NULL
+  description = NULL,
+  closable = NULL,
+  close_text = NULL,
+  show_icon = NULL,
+  center = NULL,
+  effect = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -132,6 +141,22 @@ update_el_alert <- function(
   if (!is.null(description)) {
     msg$description <- description
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_alert",
+      Filter(
+        Negate(is.null),
+        list(
+          closable = closable,
+          close_text = close_text,
+          show_icon = show_icon,
+          center = center,
+          effect = effect
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

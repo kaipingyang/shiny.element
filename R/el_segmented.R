@@ -131,6 +131,10 @@ el_segmented <- function(
 #'   # inside a server function
 #'   observeEvent(input$reset, update_el_segmented(session, "x", value = NULL))
 #' }
+#' @inheritParams el_segmented
+#' @details Every other argument of [el_segmented()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_segmented <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -138,7 +142,13 @@ update_el_segmented <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  block = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  direction = NULL,
+  props = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -149,6 +159,23 @@ update_el_segmented <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_segmented",
+      Filter(
+        Negate(is.null),
+        list(
+          size = size,
+          block = block,
+          validate_event = validate_event,
+          aria_label = aria_label,
+          direction = direction,
+          props = props
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

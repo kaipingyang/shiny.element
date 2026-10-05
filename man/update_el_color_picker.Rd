@@ -10,7 +10,22 @@ update_el_color_picker(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  empty_values = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  tabindex = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL
 )
 }
 \arguments{
@@ -30,12 +45,61 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{show_alpha}{Whether to show an alpha channel slider. Default \code{FALSE}.
+When \code{TRUE}, the returned value is an \code{rgba(...)} string.}
+
+\item{color_format}{Output format: \code{NULL} (auto), \code{"hex"}, \code{"rgb"},
+\code{"hsv"}, \code{"hsl"}.}
+
+\item{predefine}{Character vector of preset colour swatches. \code{NULL} for
+none.}
+
+\item{popper_class}{Extra class name for the dropdown panel.}
+
+\item{append_to}{Which element the color-picker panel appends to. Element
+Plus's \code{append-to} (CSSSelector / HTMLElement).}
+
+\item{aria_label}{ColorPicker aria-label. Element Plus's \code{aria-label}
+(string).}
+
+\item{clearable}{Whether to show clear button. Element Plus's \code{clearable}
+(boolean).}
+
+\item{empty_values}{Empty values of component, see config-provider. Element
+Plus's \code{empty-values} (array).}
+
+\item{persistent}{When color-picker inactive and persistent is false, the
+color panel will be destroyed. Element Plus's \code{persistent} (boolean).}
+
+\item{popper_style}{Custom style for ColorPicker's dropdown. Element Plus's
+\code{popper-style} (string / object).}
+
+\item{tabindex}{ColorPicker tabindex. Element Plus's \code{tabindex} (string /
+number).}
+
+\item{teleported}{Whether color-picker popper is teleported to the body.
+Element Plus's \code{teleported} (boolean).}
+
+\item{validate_event}{Whether to trigger form validation. Element Plus's
+\code{validate-event} (boolean).}
+
+\item{value_on_clear}{Clear return value, see config-provider. Element
+Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
+as \code{\link[=JS]{JS()}}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_color_picker]{el_color_picker()}}.
+}
+\details{
+Every other argument of \code{\link[=el_color_picker]{el_color_picker()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

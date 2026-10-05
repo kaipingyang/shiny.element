@@ -158,6 +158,10 @@ el_countdown <- function(
 #'   # inside a server function
 #'   observe(update_el_statistic(session, "users", value = n_users()))
 #' }
+#' @inheritParams el_statistic
+#' @details Every other argument of [el_statistic()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_statistic <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -165,7 +169,12 @@ update_el_statistic <- function(
   value = NULL,
   title = NULL,
   prefix = NULL,
-  suffix = NULL
+  suffix = NULL,
+  precision = NULL,
+  decimal_separator = NULL,
+  group_separator = NULL,
+  value_style = NULL,
+  formatter = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -184,10 +193,63 @@ update_el_statistic <- function(
   if (!is.null(suffix)) {
     msg$suffix <- suffix
   }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_statistic",
+      Filter(
+        Negate(is.null),
+        list(
+          precision = precision,
+          decimal_separator = decimal_separator,
+          group_separator = group_separator,
+          value_style = value_style,
+          formatter = formatter
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }
 
 #' @rdname update_el_statistic
+#' @param format For a countdown, the format of the time left: `"HH:mm:ss"`.
 #' @export
-update_el_countdown <- update_el_statistic
+update_el_countdown <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
+  format = NULL,
+  value_style = NULL
+) {
+  .el_check_session(session)
+  msg <- list(id = session$ns(id))
+  if (inherits(value, "POSIXt")) {
+    value <- as.numeric(value) * 1000
+  }
+  if (!is.null(value)) {
+    msg$value <- value
+  }
+  if (!is.null(title)) {
+    msg$title <- title
+  }
+  if (!is.null(prefix)) {
+    msg$prefix <- prefix
+  }
+  if (!is.null(suffix)) {
+    msg$suffix <- suffix
+  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_countdown",
+      Filter(Negate(is.null), list(format = format, value_style = value_style))
+    )
+  )
+  .el_send_update(session, msg)
+  invisible(NULL)
+}

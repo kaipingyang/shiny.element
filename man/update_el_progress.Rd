@@ -13,7 +13,13 @@ update_el_progress(
   color = NULL,
   stroke_width = NULL,
   show_text = NULL,
-  text_inside = NULL
+  text_inside = NULL,
+  stroke_linecap = NULL,
+  format = NULL,
+  duration = NULL,
+  indeterminate = NULL,
+  striped = NULL,
+  striped_flow = NULL
 )
 }
 \arguments{
@@ -35,12 +41,33 @@ update_el_progress(
 \item{show_text}{New show-text flag.}
 
 \item{text_inside}{New text-inside flag.}
+
+\item{stroke_linecap}{Shape of the bar's ends: \code{"round"} (default), \code{"butt"} or \code{"square"}.}
+
+\item{format}{\code{JS()} function \verb{function(percentage)} returning the text shown.}
+
+\item{duration}{Control the animation duration of indeterminate progress or
+striped flow progress. Element Plus's \code{duration} (number).}
+
+\item{indeterminate}{Set indeterminate progress. Element Plus's
+\code{indeterminate} (boolean).}
+
+\item{striped}{Stripe over the progress bar's color. Element Plus's
+\code{striped} (boolean).}
+
+\item{striped_flow}{Get the stripes to flow. Element Plus's \code{striped-flow}
+(boolean).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_progress]{el_progress()}}.
+}
+\details{
+Every other argument of \code{\link[=el_progress]{el_progress()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

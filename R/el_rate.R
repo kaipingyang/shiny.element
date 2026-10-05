@@ -209,6 +209,10 @@ el_rate <- function(
 #'     update_el_rate(session, "stars", value = 5)
 #'   })
 #' }
+#' @inheritParams el_rate
+#' @details Every other argument of [el_rate()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_rate <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -216,7 +220,24 @@ update_el_rate <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  max = NULL,
+  allow_half = NULL,
+  show_text = NULL,
+  show_score = NULL,
+  texts = NULL,
+  text_color = NULL,
+  score_template = NULL,
+  void_color = NULL,
+  disabled_void_color = NULL,
+  low_threshold = NULL,
+  high_threshold = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  disabled_void_icon = NULL,
+  icons = NULL,
+  size = NULL,
+  void_icon = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -228,6 +249,34 @@ update_el_rate <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_rate",
+      Filter(
+        Negate(is.null),
+        list(
+          max = max,
+          allow_half = allow_half,
+          show_text = show_text,
+          show_score = show_score,
+          texts = texts,
+          text_color = text_color,
+          score_template = score_template,
+          void_color = void_color,
+          disabled_void_color = disabled_void_color,
+          low_threshold = low_threshold,
+          high_threshold = high_threshold,
+          aria_label = aria_label,
+          clearable = clearable,
+          disabled_void_icon = disabled_void_icon,
+          icons = icons,
+          size = size,
+          void_icon = void_icon
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

@@ -124,6 +124,10 @@ el_color_picker_panel <- function(
 #'     update_el_color_picker_panel(session, "x", value = NULL)
 #'   )
 #' }
+#' @inheritParams el_color_picker_panel
+#' @details Every other argument of [el_color_picker_panel()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_color_picker_panel <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -131,7 +135,14 @@ update_el_color_picker_panel <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  border = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  validate_event = NULL,
+  hue_slider_class = NULL,
+  hue_slider_style = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -142,6 +153,24 @@ update_el_color_picker_panel <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_color_picker_panel",
+      Filter(
+        Negate(is.null),
+        list(
+          border = border,
+          show_alpha = show_alpha,
+          color_format = color_format,
+          predefine = predefine,
+          validate_event = validate_event,
+          hue_slider_class = hue_slider_class,
+          hue_slider_style = hue_slider_style
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }

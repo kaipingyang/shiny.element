@@ -10,7 +10,23 @@ update_el_mention(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  props = NULL,
+  prefix = NULL,
+  split = NULL,
+  filter_option = NULL,
+  placement = NULL,
+  show_arrow = NULL,
+  offset = NULL,
+  whole = NULL,
+  check_is_whole = NULL,
+  loading = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placeholder = NULL,
+  type = NULL,
+  rows = NULL
 )
 }
 \arguments{
@@ -26,12 +42,62 @@ tags or \code{HTML()} drawn as markup. Only a component built with a \code{label
 has one to change.}
 
 \item{error}{An error message to show on the component; \code{""} clears it.}
+
+\item{props}{Configuration options. Element Plus's \code{props}
+(MentionOptionProps).}
+
+\item{prefix}{Prefix character to trigger mentions. The string length must
+be exactly 1. Element Plus's \code{prefix} (\code{string / string[]}).}
+
+\item{split}{Character to split mentions. The string length must be exactly
+\enumerate{
+\item Element Plus's \code{split} (string).
+}}
+
+\item{filter_option}{Customize filter option logic. Element Plus's
+\code{filter-option} (false / (pattern: string, option: MentionOption) =>
+boolean). Give it as \code{\link[=JS]{JS()}}.}
+
+\item{placement}{Set popup placement. Element Plus's \code{placement} ('bottom'
+| 'top').}
+
+\item{show_arrow}{Whether the dropdown panel has an arrow. Element Plus's
+\code{show-arrow} (boolean).}
+
+\item{offset}{Offset of the dropdown panel. Element Plus's \code{offset}
+(number).}
+
+\item{whole}{When backspace is pressed to delete, whether the mention
+content is deleted as a whole. Element Plus's \code{whole} (boolean).}
+
+\item{check_is_whole}{When backspace is pressed to delete, check if the
+mention is a whole. Element Plus's \code{check-is-whole} ((pattern: string,
+prefix: string) => boolean). Give it as \code{\link[=JS]{JS()}}.}
+
+\item{loading}{Whether the dropdown panel of mentions is in a loading
+state. Element Plus's \code{loading} (boolean).}
+
+\item{popper_class}{Custom class name for dropdown panel. Element Plus's
+\code{popper-class} (string / object).}
+
+\item{popper_style}{Custom style for dropdown panel. Element Plus's
+\code{popper-style} (string / object).}
+
+\item{popper_options}{Popper.js parameters. Element Plus's \code{popper-options}
+(object).}
+
+\item{placeholder, type, rows}{As for \code{\link[=el_mention]{el_mention()}}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_mention]{el_mention()}}.
+}
+\details{
+Every other argument of \code{\link[=el_mention]{el_mention()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

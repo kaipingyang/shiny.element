@@ -11,7 +11,12 @@ update_el_statistic(
   value = NULL,
   title = NULL,
   prefix = NULL,
-  suffix = NULL
+  suffix = NULL,
+  precision = NULL,
+  decimal_separator = NULL,
+  group_separator = NULL,
+  value_style = NULL,
+  formatter = NULL
 )
 
 update_el_countdown(
@@ -20,7 +25,9 @@ update_el_countdown(
   value = NULL,
   title = NULL,
   prefix = NULL,
-  suffix = NULL
+  suffix = NULL,
+  format = NULL,
+  value_style = NULL
 )
 }
 \arguments{
@@ -30,12 +37,30 @@ update_el_countdown(
 \item{id}{Component ID (un-namespaced).}
 
 \item{value, title, prefix, suffix}{New values; \code{NULL} leaves one unchanged.}
+
+\item{precision}{Decimal places to show.}
+
+\item{decimal_separator}{Decimal point. Default \code{"."}.}
+
+\item{group_separator}{Separator between digit groups. Default \code{","}.}
+
+\item{value_style}{CSS for the number, as a string or a named list.}
+
+\item{formatter}{\code{JS()} function \verb{function(value)} returning
+the text to show, in place of Element's formatting.}
+
+\item{format}{For a countdown, the format of the time left: \code{"HH:mm:ss"}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_statistic]{el_statistic()}} and \code{\link[=el_countdown]{el_countdown()}}.
+}
+\details{
+Every other argument of \code{\link[=el_statistic]{el_statistic()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

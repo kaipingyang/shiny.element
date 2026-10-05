@@ -9,7 +9,8 @@ update_el_backtop(
   id,
   visibility_height = NULL,
   right = NULL,
-  bottom = NULL
+  bottom = NULL,
+  target = NULL
 )
 }
 \arguments{
@@ -19,12 +20,19 @@ update_el_backtop(
 \item{id}{Button ID (un-namespaced).}
 
 \item{visibility_height, right, bottom}{New values; \code{NULL} leaves one unchanged.}
+
+\item{target}{CSS selector of the element that scrolls. \code{NULL} for the page.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Server-side update for \code{\link[=el_backtop]{el_backtop()}}.
+}
+\details{
+Every other argument of \code{\link[=el_backtop]{el_backtop()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

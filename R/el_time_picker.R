@@ -320,7 +320,7 @@ el_time_select <- function(
 #' Update Element Plus Time Picker
 #'
 #' Server-side update for [el_time_picker()] and [el_time_select()];
-#' `update_el_time_select()` is the same function under the select's name.
+#' `update_el_time_select()` is the time select's, with its own arguments.
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
@@ -341,6 +341,11 @@ el_time_select <- function(
 #'     update_el_time_picker(session, "start", value = "09:00:00")
 #'   )
 #' }
+#' @inheritParams el_time_picker
+#' @details Every other argument of [el_time_picker()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
+#' @param clearable,editable,readonly As for [el_time_picker()].
 #' @export
 update_el_time_picker <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -348,7 +353,35 @@ update_el_time_picker <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  is_range = NULL,
+  value_format = NULL,
+  arrow_control = NULL,
+  placeholder = NULL,
+  start_placeholder = NULL,
+  end_placeholder = NULL,
+  range_separator = NULL,
+  clearable = NULL,
+  editable = NULL,
+  readonly = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  format = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  teleported = NULL,
+  tabindex = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  save_on_blur = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -359,12 +392,52 @@ update_el_time_picker <- function(
     msg$disabled <- disabled
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_time_picker",
+      Filter(
+        Negate(is.null),
+        list(
+          is_range = is_range,
+          value_format = value_format,
+          arrow_control = arrow_control,
+          placeholder = placeholder,
+          start_placeholder = start_placeholder,
+          end_placeholder = end_placeholder,
+          range_separator = range_separator,
+          clearable = clearable,
+          editable = editable,
+          readonly = readonly,
+          size = size,
+          popper_class = popper_class,
+          prefix_icon = prefix_icon,
+          clear_icon = clear_icon,
+          format = format,
+          popper_style = popper_style,
+          popper_options = popper_options,
+          placement = placement,
+          fallback_placements = fallback_placements,
+          disabled_hours = disabled_hours,
+          disabled_minutes = disabled_minutes,
+          disabled_seconds = disabled_seconds,
+          teleported = teleported,
+          tabindex = tabindex,
+          aria_label = aria_label,
+          empty_values = empty_values,
+          value_on_clear = value_on_clear,
+          save_on_blur = save_on_blur
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }
 
 
 #' @rdname update_el_time_picker
+#' @inheritParams el_time_select
 #' @export
 update_el_time_select <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -372,9 +445,59 @@ update_el_time_select <- function(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  editable = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  start = NULL,
+  end = NULL,
+  step = NULL,
+  min_time = NULL,
+  max_time = NULL,
+  include_end_time = NULL,
+  format = NULL,
+  effect = NULL,
+  popper_style = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL
 ) {
   .el_check_session(session)
+  msg <- c(
+    list(id = session$ns(id)),
+    .el_update_props(
+      "el_time_select",
+      Filter(
+        Negate(is.null),
+        list(
+          placeholder = placeholder,
+          clearable = clearable,
+          editable = editable,
+          size = size,
+          popper_class = popper_class,
+          prefix_icon = prefix_icon,
+          clear_icon = clear_icon,
+          start = start,
+          end = end,
+          step = step,
+          min_time = min_time,
+          max_time = max_time,
+          include_end_time = include_end_time,
+          format = format,
+          effect = effect,
+          popper_style = popper_style,
+          empty_values = empty_values,
+          value_on_clear = value_on_clear
+        )
+      )
+    )
+  )
+  if (length(msg) > 1L) {
+    .el_send_update(session, msg)
+  }
   update_el_time_picker(
     session,
     id,

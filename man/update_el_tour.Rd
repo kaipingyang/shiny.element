@@ -8,7 +8,20 @@ update_el_tour(
   session = shiny::getDefaultReactiveDomain(),
   id,
   open = NULL,
-  current = NULL
+  current = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  content_style = NULL,
+  mask = NULL,
+  gap = NULL,
+  type = NULL,
+  scroll_into_view_options = NULL,
+  z_index = NULL,
+  show_close = NULL,
+  close_icon = NULL,
+  close_on_press_escape = NULL,
+  target_area_clickable = NULL,
+  append_to = NULL
 )
 }
 \arguments{
@@ -18,12 +31,19 @@ update_el_tour(
 \item{id}{Tour ID (un-namespaced).}
 
 \item{open, current}{New values; \code{NULL} leaves one unchanged.}
+
+\item{show_arrow, placement, content_style, mask, gap, type, scroll_into_view_options, z_index, show_close, close_icon, close_on_press_escape, target_area_clickable, append_to}{Element Plus's tour props of those names: the defaults for every step.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 Open or close an \code{\link[=el_tour]{el_tour()}}, or move it to a step.
+}
+\details{
+Every other argument of \code{\link[=el_tour]{el_tour()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
 }
 \examples{
 if (interactive()) {

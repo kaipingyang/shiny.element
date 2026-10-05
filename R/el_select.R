@@ -493,6 +493,10 @@ el_select <- function(
 #'     update_el_select(session, "city", selected = "sh")
 #'   })
 #' }
+#' @inheritParams el_select
+#' @details Every other argument of [el_select()] that can change once it is
+#'   drawn is an argument here too, under the same name. One left `NULL`
+#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_select <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -511,7 +515,46 @@ update_el_select <- function(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  multiple = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  value_key = NULL,
+  name = NULL,
+  autocomplete = NULL,
+  automatic_dropdown = NULL,
+  allow_create = NULL,
+  popper_class = NULL,
+  reserve_keyword = NULL,
+  remote = NULL,
+  filter_method = NULL,
+  remote_method = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  debounce = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  max_collapse_tags = NULL,
+  offset = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  remote_show_suffix = NULL,
+  show_arrow = NULL,
+  suffix_icon = NULL,
+  suffix_transition = NULL,
+  tabindex = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  tag_tooltip = NULL
 ) {
   .el_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
@@ -556,6 +599,56 @@ update_el_select <- function(
     msg$noDataText <- no_data_text
   }
   msg <- .el_form_item_update(msg, label, error)
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_select",
+      Filter(
+        Negate(is.null),
+        list(
+          multiple = multiple,
+          size = size,
+          collapse_tags = collapse_tags,
+          value_key = value_key,
+          name = name,
+          autocomplete = autocomplete,
+          automatic_dropdown = automatic_dropdown,
+          allow_create = allow_create,
+          popper_class = popper_class,
+          reserve_keyword = reserve_keyword,
+          remote = remote,
+          filter_method = filter_method,
+          remote_method = remote_method,
+          append_to = append_to,
+          aria_label = aria_label,
+          clear_icon = clear_icon,
+          collapse_tags_tooltip = collapse_tags_tooltip,
+          debounce = debounce,
+          effect = effect,
+          empty_values = empty_values,
+          fallback_placements = fallback_placements,
+          fit_input_width = fit_input_width,
+          max_collapse_tags = max_collapse_tags,
+          offset = offset,
+          persistent = persistent,
+          placement = placement,
+          popper_options = popper_options,
+          popper_style = popper_style,
+          remote_show_suffix = remote_show_suffix,
+          show_arrow = show_arrow,
+          suffix_icon = suffix_icon,
+          suffix_transition = suffix_transition,
+          tabindex = tabindex,
+          tag_effect = tag_effect,
+          tag_type = tag_type,
+          teleported = teleported,
+          validate_event = validate_event,
+          value_on_clear = value_on_clear,
+          tag_tooltip = tag_tooltip
+        )
+      )
+    )
+  )
   .el_send_update(session, msg)
   invisible(NULL)
 }
