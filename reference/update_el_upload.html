@@ -165,7 +165,27 @@
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  limit <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  button_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  drag <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  accept <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_file_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  list_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  auto_upload <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  headers <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  extra_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  file_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  with_credentials <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  before_upload <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  before_remove <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on_change <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on_progress <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on_preview <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on_remove <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on_exceed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  crossorigin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  directory <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -201,10 +221,103 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-button-label">button_label<a class="anchor" aria-label="anchor" href="#arg-button-label"></a></dt>
+<dd><p>Text for the trigger, as <code>buttonLabel</code> is for
+<code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">shiny::fileInput()</a></code>: on the button when <code>drag = FALSE</code>, inside the
+drop zone otherwise.</p></dd>
+
+
+<dt id="arg-drag">drag<a class="anchor" aria-label="anchor" href="#arg-drag"></a></dt>
+<dd><p>Render a drop zone rather than a button.</p></dd>
+
+
+<dt id="arg-multiple">multiple<a class="anchor" aria-label="anchor" href="#arg-multiple"></a></dt>
+<dd><p>Allow selecting several files at once.</p></dd>
+
+
+<dt id="arg-accept">accept<a class="anchor" aria-label="anchor" href="#arg-accept"></a></dt>
+<dd><p>File types to accept, as an <code>accept</code> attribute would have
+them, e.g. <code>".csv,.tsv"</code> or <code>"image/*"</code>.</p></dd>
+
+
+<dt id="arg-show-file-list">show_file_list<a class="anchor" aria-label="anchor" href="#arg-show-file-list"></a></dt>
+<dd><p>Show the list of chosen files.</p></dd>
+
+
+<dt id="arg-list-type">list_type<a class="anchor" aria-label="anchor" href="#arg-list-type"></a></dt>
+<dd><p><code>"text"</code> (default), <code>"picture"</code> or <code>"picture-card"</code>.</p></dd>
+
+
+<dt id="arg-auto-upload">auto_upload<a class="anchor" aria-label="anchor" href="#arg-auto-upload"></a></dt>
+<dd><p>Start uploading as soon as files are chosen.</p></dd>
+
+
+<dt id="arg-headers">headers<a class="anchor" aria-label="anchor" href="#arg-headers"></a></dt>
+<dd><p>Request headers, as a named list.</p></dd>
+
+
+<dt id="arg-extra-data">extra_data<a class="anchor" aria-label="anchor" href="#arg-extra-data"></a></dt>
+<dd><p>Extra fields sent alongside the file, as a named list.</p></dd>
+
+
+<dt id="arg-file-list">file_list<a class="anchor" aria-label="anchor" href="#arg-file-list"></a></dt>
+<dd><p>Files shown initially, each <code>list(name=, url=)</code>.</p></dd>
+
+
+<dt id="arg-with-credentials">with_credentials<a class="anchor" aria-label="anchor" href="#arg-with-credentials"></a></dt>
+<dd><p>Whether to send cookies with the request.</p></dd>
+
+
+<dt id="arg-before-upload">before_upload<a class="anchor" aria-label="anchor" href="#arg-before-upload"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called before a file is sent; returning <code>false</code> cancels it.</p></dd>
+
+
+<dt id="arg-before-remove">before_remove<a class="anchor" aria-label="anchor" href="#arg-before-remove"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called before a file is removed; returning <code>false</code> cancels it.</p></dd>
+
+
+<dt id="arg-on-change">on_change<a class="anchor" aria-label="anchor" href="#arg-on-change"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called when a file is added, or finishes.</p></dd>
+
+
+<dt id="arg-on-progress">on_progress<a class="anchor" aria-label="anchor" href="#arg-on-progress"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called as a file uploads.</p></dd>
+
+
+<dt id="arg-on-preview">on_preview<a class="anchor" aria-label="anchor" href="#arg-on-preview"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called when an uploaded file is clicked.</p></dd>
+
+
+<dt id="arg-on-remove">on_remove<a class="anchor" aria-label="anchor" href="#arg-on-remove"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called after a file is removed.</p></dd>
+
+
+<dt id="arg-on-exceed">on_exceed<a class="anchor" aria-label="anchor" href="#arg-on-exceed"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called when more files are picked than <code>limit</code>.</p></dd>
+
+
+<dt id="arg-crossorigin">crossorigin<a class="anchor" aria-label="anchor" href="#arg-crossorigin"></a></dt>
+<dd><p>Native attribute crossorigin. Element Plus's
+<code>crossorigin</code> (” | 'anonymous' | 'use-credentials').</p></dd>
+
+
+<dt id="arg-directory">directory<a class="anchor" aria-label="anchor" href="#arg-directory"></a></dt>
+<dd><p>Whether to support uploading directory. After enabling it,
+only folders can be selected, and after selecting a folder, the files
+within the folder will be flattened. Element Plus's <code>directory</code>
+(boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_upload.html">el_upload()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

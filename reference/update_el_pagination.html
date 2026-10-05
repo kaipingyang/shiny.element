@@ -165,7 +165,23 @@
 <span>  total <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  current_page <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  page_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  disabled <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  page_sizes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  background <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  small <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pager_count <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prev_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  next_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_on_single_page <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  page_count <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_size_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  next_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prev_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -197,10 +213,89 @@
 <dt id="arg-disabled">disabled<a class="anchor" aria-label="anchor" href="#arg-disabled"></a></dt>
 <dd><p>New disabled state.</p></dd>
 
+
+<dt id="arg-page-sizes">page_sizes<a class="anchor" aria-label="anchor" href="#arg-page-sizes"></a></dt>
+<dd><p>Vector of page-size options. Default <code>c(10, 20, 30, 50)</code>.</p></dd>
+
+
+<dt id="arg-layout">layout<a class="anchor" aria-label="anchor" href="#arg-layout"></a></dt>
+<dd><p>Comma-separated list of layout elements.
+Default <code>"total, sizes, prev, pager, next, jumper"</code>.</p></dd>
+
+
+<dt id="arg-background">background<a class="anchor" aria-label="anchor" href="#arg-background"></a></dt>
+<dd><p>Whether to use background colour on page buttons. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-small">small<a class="anchor" aria-label="anchor" href="#arg-small"></a></dt>
+<dd><p>Whether to use compact (small) mode. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-pager-count">pager_count<a class="anchor" aria-label="anchor" href="#arg-pager-count"></a></dt>
+<dd><p>Number of pager buttons to show. Default <code>7</code>.</p></dd>
+
+
+<dt id="arg-prev-text">prev_text<a class="anchor" aria-label="anchor" href="#arg-prev-text"></a></dt>
+<dd><p>Text of the previous-page button, in place of the arrow icon.</p></dd>
+
+
+<dt id="arg-next-text">next_text<a class="anchor" aria-label="anchor" href="#arg-next-text"></a></dt>
+<dd><p>Text of the next-page button, in place of the arrow icon.</p></dd>
+
+
+<dt id="arg-hide-on-single-page">hide_on_single_page<a class="anchor" aria-label="anchor" href="#arg-hide-on-single-page"></a></dt>
+<dd><p>Whether to hide the pager when there is only one page.</p></dd>
+
+
+<dt id="arg-page-count">page_count<a class="anchor" aria-label="anchor" href="#arg-page-count"></a></dt>
+<dd><p>Total page count. Set either this or <code>total</code>.</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Extra class name for the page-size dropdown.</p></dd>
+
+
+<dt id="arg-append-size-to">append_size_to<a class="anchor" aria-label="anchor" href="#arg-append-size-to"></a></dt>
+<dd><p>Which element the size dropdown appends to. Element
+Plus's <code>append-size-to</code> (string).</p></dd>
+
+
+<dt id="arg-next-icon">next_icon<a class="anchor" aria-label="anchor" href="#arg-next-icon"></a></dt>
+<dd><p>Icon for the next button, has a lower priority than
+<code>next-text</code>. Element Plus's <code>next-icon</code> (string / Component). An icon's
+name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for the page size Select's dropdown.
+Element Plus's <code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-prev-icon">prev_icon<a class="anchor" aria-label="anchor" href="#arg-prev-icon"></a></dt>
+<dd><p>Icon for the prev button, has a lower priority than
+<code>prev-text</code>. Element Plus's <code>prev-icon</code> (string / Component). An icon's
+name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Pagination size. Element Plus's <code>size</code> ('large' | 'default' |
+'small').</p></dd>
+
+
+<dt id="arg-teleported">teleported<a class="anchor" aria-label="anchor" href="#arg-teleported"></a></dt>
+<dd><p>Whether Pagination select dropdown is teleported to the
+body. Element Plus's <code>teleported</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_pagination.html">el_pagination()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

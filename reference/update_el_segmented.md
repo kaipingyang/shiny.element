@@ -12,7 +12,13 @@ update_el_segmented(
   value = NULL,
   disabled = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  block = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  direction = NULL,
+  props = NULL
 )
 ```
 
@@ -44,9 +50,46 @@ update_el_segmented(
 
   An error message to show on the component; `""` clears it.
 
+- size:
+
+  Size of component. Element Plus's `size` (” \| 'large' \| 'default' \|
+  'small').
+
+- block:
+
+  Fit width of parent content. Element Plus's `block` (boolean).
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
+- aria_label:
+
+  Native `aria-label` attribute. Element Plus's `aria-label` (string).
+
+- direction:
+
+  Display direction. Element Plus's `direction` ('horizontal' \|
+  'vertical').
+
+- props:
+
+  Which field of an option holds what, when the options are records
+  named otherwise: `list(value =, label =, disabled =)`, Element Plus's
+  `props`.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/el_segmented.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

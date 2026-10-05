@@ -17,7 +17,14 @@ update_el_radio_group(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  fill = NULL,
+  text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL
 )
 ```
 
@@ -62,9 +69,50 @@ update_el_radio_group(
   for a check only the server can make, such as whether a name is taken.
   `""` clears it.
 
+- size:
+
+  Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or
+  the page. Only affects button-style radios (`button = TRUE`).
+
+- fill:
+
+  Border and background colour of a checked radio button.
+
+- text_color:
+
+  Text colour of a checked radio button.
+
+- aria_label:
+
+  Same as `aria-label` in RadioGroup. Element Plus's `aria-label`
+  (string).
+
+- props:
+
+  Configuration options. Element Plus's `props`
+  (`{ value?: string, label?: string, disabled?: string}`).
+
+- type:
+
+  Component type to render options (e.g. `'button'`). Element Plus's
+  `type` ('radio' \| 'button').
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

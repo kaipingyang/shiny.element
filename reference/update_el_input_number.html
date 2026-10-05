@@ -167,7 +167,25 @@
 <span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step_strictly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  precision <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  controls_position <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  align <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_scientific <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  formatter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inputmode <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parser <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  readonly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -211,10 +229,101 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-step">step<a class="anchor" aria-label="anchor" href="#arg-step"></a></dt>
+<dd><p>Step increment. Default <code>1</code>.</p></dd>
+
+
+<dt id="arg-step-strictly">step_strictly<a class="anchor" aria-label="anchor" href="#arg-step-strictly"></a></dt>
+<dd><p>Force the value to be a multiple of <code>step</code>. Default
+<code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-precision">precision<a class="anchor" aria-label="anchor" href="#arg-precision"></a></dt>
+<dd><p>Decimal precision (non-negative integer). <code>NULL</code> for
+auto.</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size: <code>"large"</code>, <code>"default"</code> or <code>"small"</code>; <code>NULL</code> follows the form or the page.</p></dd>
+
+
+<dt id="arg-controls">controls<a class="anchor" aria-label="anchor" href="#arg-controls"></a></dt>
+<dd><p>Whether to show the +/- control buttons. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-controls-position">controls_position<a class="anchor" aria-label="anchor" href="#arg-controls-position"></a></dt>
+<dd><p>Button layout: <code>""</code> (default, left-right) or
+<code>"right"</code> (both on the right).</p></dd>
+
+
+<dt id="arg-placeholder">placeholder<a class="anchor" aria-label="anchor" href="#arg-placeholder"></a></dt>
+<dd><p>Placeholder text. <code>NULL</code> for none.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute of the inner input.</p></dd>
+
+
+<dt id="arg-align">align<a class="anchor" aria-label="anchor" href="#arg-align"></a></dt>
+<dd><p>Alignment for the inner input text. Element Plus's <code>align</code>
+('left' | 'center' | 'right').</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Same as <code>aria-label</code> in native input. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
+
+<dt id="arg-disabled-scientific">disabled_scientific<a class="anchor" aria-label="anchor" href="#arg-disabled-scientific"></a></dt>
+<dd><p>Disables input of scientific notation (e.g.
+'e'). Element Plus's <code>disabled-scientific</code> (boolean).</p></dd>
+
+
+<dt id="arg-formatter">formatter<a class="anchor" aria-label="anchor" href="#arg-formatter"></a></dt>
+<dd><p>Specifies the format of the value presented in the input.
+Element Plus's <code>formatter</code> ((value: string) =&gt; string).</p></dd>
+
+
+<dt id="arg-inputmode">inputmode<a class="anchor" aria-label="anchor" href="#arg-inputmode"></a></dt>
+<dd><p>Same as <code>inputmode</code> in native input. Element Plus's
+<code>inputmode</code> (string).</p></dd>
+
+
+<dt id="arg-parser">parser<a class="anchor" aria-label="anchor" href="#arg-parser"></a></dt>
+<dd><p>Specifies the value extracted from the formatted input.
+Element Plus's <code>parser</code> ((value: string) =&gt; string).</p></dd>
+
+
+<dt id="arg-readonly">readonly<a class="anchor" aria-label="anchor" href="#arg-readonly"></a></dt>
+<dd><p>Same as <code>readonly</code> in native input. Element Plus's
+<code>readonly</code> (boolean).</p></dd>
+
+
+<dt id="arg-tabindex">tabindex<a class="anchor" aria-label="anchor" href="#arg-tabindex"></a></dt>
+<dd><p>Same as <code>tabindex</code> in native input. Element Plus's
+<code>tabindex</code> (string / number).</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
+
+<dt id="arg-value-on-clear">value_on_clear<a class="anchor" aria-label="anchor" href="#arg-value-on-clear"></a></dt>
+<dd><p>Value should be set when input box is cleared.
+Element Plus's <code>value-on-clear</code> (number / null / 'min' | 'max').</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_input_number.html">el_input_number()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

@@ -165,7 +165,22 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  editable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  date_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unlink_panels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  single_panel <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shortcuts <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cell_class_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_footer <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_confirm <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_week_number <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -195,10 +210,94 @@ has one to change.</p></dd>
 <dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
 <dd><p>An error message to show on the component; <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
+<dd><p>Whether the date picker is bordered. Element Plus's <code>border</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-clearable">clearable<a class="anchor" aria-label="anchor" href="#arg-clearable"></a></dt>
+<dd><p>Whether to show clear button. Element Plus's <code>clearable</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-editable">editable<a class="anchor" aria-label="anchor" href="#arg-editable"></a></dt>
+<dd><p>Whether the input is editable. Element Plus's <code>editable</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>Type of the picker. <code>quarter</code>, <code>quarters</code>, and <code>quarterrange</code>
+are supported. Element Plus's <code>type</code> (enum).</p></dd>
+
+
+<dt id="arg-value-format">value_format<a class="anchor" aria-label="anchor" href="#arg-value-format"></a></dt>
+<dd><p>Optional, format of binding value. If not specified,
+the binding value will be a Date object. Element Plus's <code>value-format</code>
+(string).</p></dd>
+
+
+<dt id="arg-date-format">date_format<a class="anchor" aria-label="anchor" href="#arg-date-format"></a></dt>
+<dd><p>Optional, format of the date displayed in input's inner
+panel. Element Plus's <code>date-format</code> (string).</p></dd>
+
+
+<dt id="arg-time-format">time_format<a class="anchor" aria-label="anchor" href="#arg-time-format"></a></dt>
+<dd><p>Optional, format of the time displayed in input's inner
+panel. Element Plus's <code>time-format</code> (string).</p></dd>
+
+
+<dt id="arg-unlink-panels">unlink_panels<a class="anchor" aria-label="anchor" href="#arg-unlink-panels"></a></dt>
+<dd><p>Unlink two date-panels in range-picker. Element Plus's
+<code>unlink-panels</code> (boolean).</p></dd>
+
+
+<dt id="arg-single-panel">single_panel<a class="anchor" aria-label="anchor" href="#arg-single-panel"></a></dt>
+<dd><p>Show only one panel in range-picker. Element Plus's
+<code>single-panel</code> (boolean).</p></dd>
+
+
+<dt id="arg-disabled-date">disabled_date<a class="anchor" aria-label="anchor" href="#arg-disabled-date"></a></dt>
+<dd><p>A function determining if a date is disabled with that
+date as its parameter. Should return a Boolean. Element Plus's
+<code>disabled-date</code> ((data: Date) =&gt; boolean). Give it as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-shortcuts">shortcuts<a class="anchor" aria-label="anchor" href="#arg-shortcuts"></a></dt>
+<dd><p>An object array to set shortcut options. Element Plus's
+<code>shortcuts</code> (<code>Array&lt;{ text: string, value: Date | Function }&gt;</code>). Give it as
+<code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-cell-class-name">cell_class_name<a class="anchor" aria-label="anchor" href="#arg-cell-class-name"></a></dt>
+<dd><p>Set custom className. Element Plus's
+<code>cell-class-name</code> ((data: Date) =&gt; string). Give it as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-show-footer">show_footer<a class="anchor" aria-label="anchor" href="#arg-show-footer"></a></dt>
+<dd><p>Whether to show footer where the date picker is one
+<code>'dates' | 'months' | 'years' | 'quarters' | 'datetime' | 'datetimerange'</code>. Element Plus's <code>show-footer</code> (boolean).</p></dd>
+
+
+<dt id="arg-show-confirm">show_confirm<a class="anchor" aria-label="anchor" href="#arg-show-confirm"></a></dt>
+<dd><p>Whether to show the confirm button. Element Plus's
+<code>show-confirm</code> (boolean).</p></dd>
+
+
+<dt id="arg-show-week-number">show_week_number<a class="anchor" aria-label="anchor" href="#arg-show-week-number"></a></dt>
+<dd><p>Show the week number besides the week. Element
+Plus's <code>show-week-number</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_date_picker_panel.html">el_date_picker_panel()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

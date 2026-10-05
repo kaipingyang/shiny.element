@@ -10,7 +10,8 @@ update_el_breadcrumb(
   session = shiny::getDefaultReactiveDomain(),
   id,
   items = NULL,
-  separator = NULL
+  separator = NULL,
+  separator_icon = NULL
 )
 ```
 
@@ -29,9 +30,22 @@ update_el_breadcrumb(
 
   New values; `NULL` leaves one unchanged.
 
+- separator_icon:
+
+  Icon component of icon separator. Element Plus's `separator-icon`
+  (string / Component). An icon's name, such as `"Search"`.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

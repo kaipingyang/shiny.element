@@ -169,7 +169,37 @@
 <span>  filterable <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_all_levels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  debounce <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  before_filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  empty_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fallback_placements <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fit_input_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  item_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_collapse_tags_tooltip_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  persistent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_append_to_body <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_checked_strategy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag_effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  virtual_scroll <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -221,10 +251,168 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
+<dd><p>Element's <code>props</code>, as a named list: <code>multiple</code>,
+<code>checkStrictly</code>, <code>expandTrigger</code> (<code>"click"</code> or <code>"hover"</code>), <code>lazy</code>,
+<code>lazyLoad</code>, and the field names <code>value</code>, <code>label</code>, <code>children</code>,
+<code>disabled</code>, <code>leaf</code>. With <code>lazy = TRUE</code> and no <code>lazyLoad</code> of your own,
+the server loads each column: see "Shiny inputs".</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size of cascader: <code>"large"</code>, <code>"default"</code> or <code>"small"</code>.</p></dd>
+
+
+<dt id="arg-show-all-levels">show_all_levels<a class="anchor" aria-label="anchor" href="#arg-show-all-levels"></a></dt>
+<dd><p>Whether to show all levels in input</p></dd>
+
+
+<dt id="arg-collapse-tags">collapse_tags<a class="anchor" aria-label="anchor" href="#arg-collapse-tags"></a></dt>
+<dd><p>Whether to collapse tags in multiple mode</p></dd>
+
+
+<dt id="arg-separator">separator<a class="anchor" aria-label="anchor" href="#arg-separator"></a></dt>
+<dd><p>Separator for display</p></dd>
+
+
+<dt id="arg-debounce">debounce<a class="anchor" aria-label="anchor" href="#arg-debounce"></a></dt>
+<dd><p>Debounce delay for filter</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Extra class name for the dropdown panel.</p></dd>
+
+
+<dt id="arg-filter-method">filter_method<a class="anchor" aria-label="anchor" href="#arg-filter-method"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function filtering the options as the user types.</p></dd>
+
+
+<dt id="arg-before-filter">before_filter<a class="anchor" aria-label="anchor" href="#arg-before-filter"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function called before filtering; returning <code>false</code> cancels it.</p></dd>
+
+
+<dt id="arg-clear-icon">clear_icon<a class="anchor" aria-label="anchor" href="#arg-clear-icon"></a></dt>
+<dd><p>Custom clear icon component. Element Plus's <code>clear-icon</code>
+(string / Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-collapse-tags-tooltip">collapse_tags_tooltip<a class="anchor" aria-label="anchor" href="#arg-collapse-tags-tooltip"></a></dt>
+<dd><p>Whether show all selected tags when mouse
+hover text of collapse-tags. To use this, <code>collapse-tags</code> must be true.
+Element Plus's <code>collapse-tags-tooltip</code> (boolean).</p></dd>
+
+
+<dt id="arg-effect">effect<a class="anchor" aria-label="anchor" href="#arg-effect"></a></dt>
+<dd><p>Tooltip theme, built-in theme: <code>dark</code> / <code>light</code>. Element
+Plus's <code>effect</code> ('dark' | 'light' / string).</p></dd>
+
+
+<dt id="arg-empty-values">empty_values<a class="anchor" aria-label="anchor" href="#arg-empty-values"></a></dt>
+<dd><p>Empty values of component, see config-provider. Element
+Plus's <code>empty-values</code> (array).</p></dd>
+
+
+<dt id="arg-fallback-placements">fallback_placements<a class="anchor" aria-label="anchor" href="#arg-fallback-placements"></a></dt>
+<dd><p>List of possible positions for Tooltip
+popper.js. Element Plus's <code>fallback-placements</code> (<code>Placement[]</code>).</p></dd>
+
+
+<dt id="arg-fit-input-width">fit_input_width<a class="anchor" aria-label="anchor" href="#arg-fit-input-width"></a></dt>
+<dd><p>Whether the width of the suggestion panel is the
+same as the input, if the value is <code>number</code>, then the width is fixed.
+Element Plus's <code>fit-input-width</code> (boolean / number).</p></dd>
+
+
+<dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
+<dd><p>Menu height for virtual scrolling (px). Element Plus's
+<code>height</code> (number).</p></dd>
+
+
+<dt id="arg-item-size">item_size<a class="anchor" aria-label="anchor" href="#arg-item-size"></a></dt>
+<dd><p>Node height for virtual scrolling (px). Element Plus's
+<code>item-size</code> (number).</p></dd>
+
+
+<dt id="arg-max-collapse-tags">max_collapse_tags<a class="anchor" aria-label="anchor" href="#arg-max-collapse-tags"></a></dt>
+<dd><p>The max tags number to be shown. To use this,
+<code>collapse-tags</code> must be true. Element Plus's <code>max-collapse-tags</code>
+(number).</p></dd>
+
+
+<dt id="arg-max-collapse-tags-tooltip-height">max_collapse_tags_tooltip_height<a class="anchor" aria-label="anchor" href="#arg-max-collapse-tags-tooltip-height"></a></dt>
+<dd><p>Max height of collapse-tags
+tooltip. Element Plus's <code>max-collapse-tags-tooltip-height</code> (string /
+number).</p></dd>
+
+
+<dt id="arg-persistent">persistent<a class="anchor" aria-label="anchor" href="#arg-persistent"></a></dt>
+<dd><p>When dropdown is inactive and <code>persistent</code> is <code>false</code>,
+dropdown will be destroyed. Element Plus's <code>persistent</code> (boolean).</p></dd>
+
+
+<dt id="arg-placement">placement<a class="anchor" aria-label="anchor" href="#arg-placement"></a></dt>
+<dd><p>Position of dropdown. Element Plus's <code>placement</code> (enum).</p></dd>
+
+
+<dt id="arg-popper-append-to-body">popper_append_to_body<a class="anchor" aria-label="anchor" href="#arg-popper-append-to-body"></a></dt>
+<dd><p>Whether to append the popper menu to body. If
+the positioning of the popper is wrong, you can try to set this prop to
+false. Element Plus's <code>popper-append-to-body</code> (boolean).</p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for Cascader's dropdown and tags' tooltip.
+Element Plus's <code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-show-checked-strategy">show_checked_strategy<a class="anchor" aria-label="anchor" href="#arg-show-checked-strategy"></a></dt>
+<dd><p>Strategy for displaying checked nodes in
+multiple selection mode. Use <code>parent</code> when you want things tidy. Use
+<code>child</code> when every single item matters. Element Plus's
+<code>show-checked-strategy</code> ('parent' | 'child').</p></dd>
+
+
+<dt id="arg-tag-effect">tag_effect<a class="anchor" aria-label="anchor" href="#arg-tag-effect"></a></dt>
+<dd><p>Tag effect. Element Plus's <code>tag-effect</code> ('light' | 'dark'
+| 'plain').</p></dd>
+
+
+<dt id="arg-tag-type">tag_type<a class="anchor" aria-label="anchor" href="#arg-tag-type"></a></dt>
+<dd><p>Tag type. Element Plus's <code>tag-type</code> ('success' | 'info' |
+'warning' | 'danger').</p></dd>
+
+
+<dt id="arg-teleported">teleported<a class="anchor" aria-label="anchor" href="#arg-teleported"></a></dt>
+<dd><p>Whether cascader popup is teleported. Element Plus's
+<code>teleported</code> (boolean).</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
+
+<dt id="arg-value-on-clear">value_on_clear<a class="anchor" aria-label="anchor" href="#arg-value-on-clear"></a></dt>
+<dd><p>Clear return value, see config-provider. Element
+Plus's <code>value-on-clear</code> (string / number / boolean / Function). Give it
+as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-virtual-scroll">virtual_scroll<a class="anchor" aria-label="anchor" href="#arg-virtual-scroll"></a></dt>
+<dd><p>Whether to enable virtual scrolling for large data.
+Element Plus's <code>virtual-scroll</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_cascader.html">el_cascader()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

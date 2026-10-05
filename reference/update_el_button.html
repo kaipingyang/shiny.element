@@ -171,7 +171,19 @@ size, plain, round, and loading."></head><body>
 <span>  plain <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  round <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  disabled <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  circle <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autofocus <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  auto_insert_space <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bg <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dark <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dashed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  link <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loading_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  text <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -215,10 +227,79 @@ size, plain, round, and loading."></head><body>
 <dt id="arg-disabled">disabled<a class="anchor" aria-label="anchor" href="#arg-disabled"></a></dt>
 <dd><p>New disabled state.</p></dd>
 
+
+<dt id="arg-circle">circle<a class="anchor" aria-label="anchor" href="#arg-circle"></a></dt>
+<dd><p>Whether to render as a circle button (icon only, no label).
+Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-icon">icon<a class="anchor" aria-label="anchor" href="#arg-icon"></a></dt>
+<dd><p>Either an Element icon class name such as <code>"el-icon-search"</code>,
+which Element renders itself and <code>update_el_button()</code> can change, or a tag
+(for example from <code><a href="el_icon.html">el_icon()</a></code>), which is inserted as button content.</p></dd>
+
+
+<dt id="arg-autofocus">autofocus<a class="anchor" aria-label="anchor" href="#arg-autofocus"></a></dt>
+<dd><p>Whether the button takes focus on page load. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-auto-insert-space">auto_insert_space<a class="anchor" aria-label="anchor" href="#arg-auto-insert-space"></a></dt>
+<dd><p>Automatically insert a space between two chinese
+characters(this will only take effect when the text length is 2 and all
+characters are in Chinese.). Element Plus's <code>auto-insert-space</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-bg">bg<a class="anchor" aria-label="anchor" href="#arg-bg"></a></dt>
+<dd><p>Determine whether the text button background color is always on.
+Element Plus's <code>bg</code> (boolean).</p></dd>
+
+
+<dt id="arg-color">color<a class="anchor" aria-label="anchor" href="#arg-color"></a></dt>
+<dd><p>Custom button color, automatically calculate <code>hover</code> and
+<code>active</code> color. Works with <code>link</code>/<code>text</code> buttons since. Element
+Plus's <code>color</code> (string).</p></dd>
+
+
+<dt id="arg-dark">dark<a class="anchor" aria-label="anchor" href="#arg-dark"></a></dt>
+<dd><p>Dark mode, which automatically converts <code>color</code> to dark mode
+colors. Element Plus's <code>dark</code> (boolean).</p></dd>
+
+
+<dt id="arg-dashed">dashed<a class="anchor" aria-label="anchor" href="#arg-dashed"></a></dt>
+<dd><p>Determine whether it's a dashed button. Element Plus's
+<code>dashed</code> (boolean).</p></dd>
+
+
+<dt id="arg-link">link<a class="anchor" aria-label="anchor" href="#arg-link"></a></dt>
+<dd><p>Determine whether it's a link button. Element Plus's <code>link</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-loading-icon">loading_icon<a class="anchor" aria-label="anchor" href="#arg-loading-icon"></a></dt>
+<dd><p>Customize loading icon component. Element Plus's
+<code>loading-icon</code> (string / Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-tag">tag<a class="anchor" aria-label="anchor" href="#arg-tag"></a></dt>
+<dd><p>Custom element tag. Element Plus's <code>tag</code> (string / Component).
+An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-text">text<a class="anchor" aria-label="anchor" href="#arg-text"></a></dt>
+<dd><p>Determine whether it's a text button. Element Plus's <code>text</code>
+(boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_button.html">el_button()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

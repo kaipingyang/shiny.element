@@ -165,7 +165,23 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  split <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_option <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  whole <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_is_whole <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rows <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -195,10 +211,87 @@ has one to change.</p></dd>
 <dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
 <dd><p>An error message to show on the component; <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
+<dd><p>Configuration options. Element Plus's <code>props</code>
+(MentionOptionProps).</p></dd>
+
+
+<dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
+<dd><p>Prefix character to trigger mentions. The string length must
+be exactly 1. Element Plus's <code>prefix</code> (<code>string / string[]</code>).</p></dd>
+
+
+<dt id="arg-split">split<a class="anchor" aria-label="anchor" href="#arg-split"></a></dt>
+<dd><p>Character to split mentions. The string length must be exactly</p><ol><li><p>Element Plus's <code>split</code> (string).</p></li>
+</ol></dd>
+
+
+<dt id="arg-filter-option">filter_option<a class="anchor" aria-label="anchor" href="#arg-filter-option"></a></dt>
+<dd><p>Customize filter option logic. Element Plus's
+<code>filter-option</code> (false / (pattern: string, option: MentionOption) =&gt;
+boolean). Give it as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-placement">placement<a class="anchor" aria-label="anchor" href="#arg-placement"></a></dt>
+<dd><p>Set popup placement. Element Plus's <code>placement</code> ('bottom'
+| 'top').</p></dd>
+
+
+<dt id="arg-show-arrow">show_arrow<a class="anchor" aria-label="anchor" href="#arg-show-arrow"></a></dt>
+<dd><p>Whether the dropdown panel has an arrow. Element Plus's
+<code>show-arrow</code> (boolean).</p></dd>
+
+
+<dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
+<dd><p>Offset of the dropdown panel. Element Plus's <code>offset</code>
+(number).</p></dd>
+
+
+<dt id="arg-whole">whole<a class="anchor" aria-label="anchor" href="#arg-whole"></a></dt>
+<dd><p>When backspace is pressed to delete, whether the mention
+content is deleted as a whole. Element Plus's <code>whole</code> (boolean).</p></dd>
+
+
+<dt id="arg-check-is-whole">check_is_whole<a class="anchor" aria-label="anchor" href="#arg-check-is-whole"></a></dt>
+<dd><p>When backspace is pressed to delete, check if the
+mention is a whole. Element Plus's <code>check-is-whole</code> ((pattern: string,
+prefix: string) =&gt; boolean). Give it as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-loading">loading<a class="anchor" aria-label="anchor" href="#arg-loading"></a></dt>
+<dd><p>Whether the dropdown panel of mentions is in a loading
+state. Element Plus's <code>loading</code> (boolean).</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Custom class name for dropdown panel. Element Plus's
+<code>popper-class</code> (string / object).</p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for dropdown panel. Element Plus's
+<code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-popper-options">popper_options<a class="anchor" aria-label="anchor" href="#arg-popper-options"></a></dt>
+<dd><p>Popper.js parameters. Element Plus's <code>popper-options</code>
+(object).</p></dd>
+
+
+<dt id="arg-placeholder-type-rows">placeholder, type, rows<a class="anchor" aria-label="anchor" href="#arg-placeholder-type-rows"></a></dt>
+<dd><p>As for <code><a href="el_mention.html">el_mention()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_mention.html">el_mention()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

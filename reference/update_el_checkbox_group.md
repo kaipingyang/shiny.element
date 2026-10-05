@@ -19,7 +19,15 @@ update_el_checkbox_group(
   value = NULL,
   options = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  size = NULL,
+  fill = NULL,
+  text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  tag = NULL,
+  type = NULL,
+  validate_event = NULL
 )
 ```
 
@@ -72,9 +80,52 @@ update_el_checkbox_group(
   for a check only the server can make, such as whether a name is taken.
   `""` clears it.
 
+- size:
+
+  `"large"`, `"default"` or `"small"`.
+
+- fill:
+
+  Border and background colour when `button = TRUE` and checked.
+
+- text_color:
+
+  Text colour when `button = TRUE` and checked.
+
+- aria_label:
+
+  Native `aria-label` attribute. Element Plus's `aria-label` (string).
+
+- props:
+
+  Configuration options. Element Plus's `props`
+  (`{ value?: string, label?: string, disabled?: string}`).
+
+- tag:
+
+  Element tag of the checkbox group. Element Plus's `tag` (string).
+
+- type:
+
+  Component type to render options (e.g. `'button'`). Element Plus's
+  `type` ('checkbox' \| 'button').
+
+- validate_event:
+
+  Whether to trigger form validation. Element Plus's `validate-event`
+  (boolean).
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

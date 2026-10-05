@@ -10,7 +10,11 @@ update_el_steps(
   id,
   active = NULL,
   process_status = NULL,
-  finish_status = NULL
+  finish_status = NULL,
+  space = NULL,
+  direction = NULL,
+  align_center = NULL,
+  simple = NULL
 )
 ```
 
@@ -37,9 +41,33 @@ update_el_steps(
 
   New finish status
 
+- space:
+
+  Step spacing (number or percentage string)
+
+- direction:
+
+  Display direction ("horizontal" or "vertical")
+
+- align_center:
+
+  Center align title and description
+
+- simple:
+
+  Apply simple style
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

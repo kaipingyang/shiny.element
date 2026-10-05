@@ -164,7 +164,8 @@
 <span>  <span class="va">id</span>,</span>
 <span>  visibility_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  right <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  bottom <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  bottom <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  target <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -184,10 +185,20 @@
 <dt id="arg-visibility-height-right-bottom">visibility_height, right, bottom<a class="anchor" aria-label="anchor" href="#arg-visibility-height-right-bottom"></a></dt>
 <dd><p>New values; <code>NULL</code> leaves one unchanged.</p></dd>
 
+
+<dt id="arg-target">target<a class="anchor" aria-label="anchor" href="#arg-target"></a></dt>
+<dd><p>CSS selector of the element that scrolls. <code>NULL</code> for the page.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_backtop.html">el_backtop()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

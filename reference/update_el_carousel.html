@@ -164,7 +164,14 @@
 <span>  <span class="va">id</span>,</span>
 <span>  active <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  autoplay <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  interval <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  interval <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  initial_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trigger <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  indicator_position <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loop <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  direction <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -192,10 +199,46 @@
 <dt id="arg-interval">interval<a class="anchor" aria-label="anchor" href="#arg-interval"></a></dt>
 <dd><p>New interval in milliseconds.</p></dd>
 
+
+<dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
+<dd><p>Slide height, e.g. <code>"300px"</code>.</p></dd>
+
+
+<dt id="arg-initial-index">initial_index<a class="anchor" aria-label="anchor" href="#arg-initial-index"></a></dt>
+<dd><p>Index of the slide shown first, 0-based.</p></dd>
+
+
+<dt id="arg-trigger">trigger<a class="anchor" aria-label="anchor" href="#arg-trigger"></a></dt>
+<dd><p>What switches slides when an indicator is used:
+<code>"hover"</code> (default) or <code>"click"</code>.</p></dd>
+
+
+<dt id="arg-indicator-position">indicator_position<a class="anchor" aria-label="anchor" href="#arg-indicator-position"></a></dt>
+<dd><p><code>"outside"</code>, <code>"none"</code>, or NULL for inside.</p></dd>
+
+
+<dt id="arg-arrow">arrow<a class="anchor" aria-label="anchor" href="#arg-arrow"></a></dt>
+<dd><p>When to show the arrows: <code>"hover"</code> (default), <code>"always"</code> or
+<code>"never"</code>.</p></dd>
+
+
+<dt id="arg-loop">loop<a class="anchor" aria-label="anchor" href="#arg-loop"></a></dt>
+<dd><p>Return to the first slide after the last.</p></dd>
+
+
+<dt id="arg-direction">direction<a class="anchor" aria-label="anchor" href="#arg-direction"></a></dt>
+<dd><p><code>"horizontal"</code> (default) or <code>"vertical"</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_carousel.html">el_carousel()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

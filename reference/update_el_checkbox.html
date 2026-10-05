@@ -165,7 +165,20 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  indeterminate <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  disabled <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  true_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  false_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  checked <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  false_value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  true_value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -193,10 +206,74 @@
 <dt id="arg-indeterminate-disabled">indeterminate, disabled<a class="anchor" aria-label="anchor" href="#arg-indeterminate-disabled"></a></dt>
 <dd><p>New states; <code>NULL</code> leaves one unchanged.</p></dd>
 
+
+<dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
+<dd><p>Draw the box with a border.</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size: <code>"large"</code>, <code>"default"</code> or <code>"small"</code>; <code>NULL</code> follows the form or the page.</p></dd>
+
+
+<dt id="arg-true-label-false-label">true_label, false_label<a class="anchor" aria-label="anchor" href="#arg-true-label-false-label"></a></dt>
+<dd><p>Values to report instead of <code>TRUE</code> and
+<code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute.</p></dd>
+
+
+<dt id="arg-checked">checked<a class="anchor" aria-label="anchor" href="#arg-checked"></a></dt>
+<dd><p>Element's <code>checked</code>: tick the box when it is created,
+whatever <code>value</code> says. The same as <code>value = TRUE</code>, kept for code written
+from Element's documentation.</p></dd>
+
+
+<dt id="arg-aria-controls">aria_controls<a class="anchor" aria-label="anchor" href="#arg-aria-controls"></a></dt>
+<dd><p>Same as aria-controls, takes effect when
+<code>indeterminate</code> is <code>true</code>. Element Plus's <code>aria-controls</code> (string).</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Native <code>aria-label</code> attribute. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
+
+<dt id="arg-controls">controls<a class="anchor" aria-label="anchor" href="#arg-controls"></a></dt>
+<dd><p>Same as aria-controls, takes effect when <code>indeterminate</code> is
+<code>true</code>. Element Plus's <code>controls</code> (string).</p></dd>
+
+
+<dt id="arg-false-value">false_value<a class="anchor" aria-label="anchor" href="#arg-false-value"></a></dt>
+<dd><p>Value of the Checkbox if it's not checked. Element
+Plus's <code>false-value</code> (string / number).</p></dd>
+
+
+<dt id="arg-tabindex">tabindex<a class="anchor" aria-label="anchor" href="#arg-tabindex"></a></dt>
+<dd><p>Input tabindex. Element Plus's <code>tabindex</code> (string /
+number).</p></dd>
+
+
+<dt id="arg-true-value">true_value<a class="anchor" aria-label="anchor" href="#arg-true-value"></a></dt>
+<dd><p>Value of the Checkbox if it's checked. Element Plus's
+<code>true-value</code> (string / number).</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_checkbox.html">el_checkbox()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

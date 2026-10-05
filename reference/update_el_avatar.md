@@ -13,7 +13,10 @@ update_el_avatar(
   src = NULL,
   icon = NULL,
   size = NULL,
-  shape = NULL
+  shape = NULL,
+  fit = NULL,
+  src_set = NULL,
+  alt = NULL
 )
 ```
 
@@ -32,9 +35,30 @@ update_el_avatar(
 
   New values; `NULL` leaves one unchanged.
 
+- fit:
+
+  How an image fills the avatar: `"cover"` (default), `"fill"`,
+  `"contain"`, `"none"` or `"scale-down"`.
+
+- src_set:
+
+  Candidate image sources, as a `srcset` string.
+
+- alt:
+
+  Alternative text for the image.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

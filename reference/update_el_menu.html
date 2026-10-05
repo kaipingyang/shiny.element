@@ -163,7 +163,25 @@
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">id</span>,</span>
 <span>  active <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  collapse <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  collapse <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mode <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unique_opened <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  background_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  text_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  active_text_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  menu_trigger <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_transition <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  router <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_click_outside <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ellipsis <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ellipsis_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_timeout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  persistent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_timeout <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -187,10 +205,92 @@
 <dt id="arg-collapse">collapse<a class="anchor" aria-label="anchor" href="#arg-collapse"></a></dt>
 <dd><p>New collapsed state.</p></dd>
 
+
+<dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
+<dd><p><code>"vertical"</code> (default) or <code>"horizontal"</code>.</p></dd>
+
+
+<dt id="arg-unique-opened">unique_opened<a class="anchor" aria-label="anchor" href="#arg-unique-opened"></a></dt>
+<dd><p>Keep only one submenu open at a time.</p></dd>
+
+
+<dt id="arg-background-color-text-color-active-text-color">background_color, text_color, active_text_color<a class="anchor" aria-label="anchor" href="#arg-background-color-text-color-active-text-color"></a></dt>
+<dd><p>Menu colours.</p></dd>
+
+
+<dt id="arg-menu-trigger">menu_trigger<a class="anchor" aria-label="anchor" href="#arg-menu-trigger"></a></dt>
+<dd><p>How a horizontal sub-menu opens: <code>"hover"</code> (default) or <code>"click"</code>.</p></dd>
+
+
+<dt id="arg-collapse-transition">collapse_transition<a class="anchor" aria-label="anchor" href="#arg-collapse-transition"></a></dt>
+<dd><p>Whether to animate collapsing. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-router">router<a class="anchor" aria-label="anchor" href="#arg-router"></a></dt>
+<dd><p>Whether to use vue-router mode, taking each index as a path.</p></dd>
+
+
+<dt id="arg-close-on-click-outside">close_on_click_outside<a class="anchor" aria-label="anchor" href="#arg-close-on-click-outside"></a></dt>
+<dd><p>Optional, whether menu is collapsed when
+clicking outside. Element Plus's <code>close-on-click-outside</code> (boolean).</p></dd>
+
+
+<dt id="arg-ellipsis">ellipsis<a class="anchor" aria-label="anchor" href="#arg-ellipsis"></a></dt>
+<dd><p>Whether the menu is ellipsis (available only in horizontal
+mode). Element Plus's <code>ellipsis</code> (boolean).</p></dd>
+
+
+<dt id="arg-ellipsis-icon">ellipsis_icon<a class="anchor" aria-label="anchor" href="#arg-ellipsis-icon"></a></dt>
+<dd><p>Custom ellipsis icon (available only in horizontal
+mode and ellipsis is true). Element Plus's <code>ellipsis-icon</code> (string /
+Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-hide-timeout">hide_timeout<a class="anchor" aria-label="anchor" href="#arg-hide-timeout"></a></dt>
+<dd><p>Control timeout for all menus before hiding. Element
+Plus's <code>hide-timeout</code> (number).</p></dd>
+
+
+<dt id="arg-persistent">persistent<a class="anchor" aria-label="anchor" href="#arg-persistent"></a></dt>
+<dd><p>When menu inactive and <code>persistent</code> is <code>false</code> , dropdown
+menu will be destroyed. Element Plus's <code>persistent</code> (boolean).</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Custom class name for all popup menus and titles'
+tooltips. Element Plus's <code>popper-class</code> (string).</p></dd>
+
+
+<dt id="arg-popper-effect">popper_effect<a class="anchor" aria-label="anchor" href="#arg-popper-effect"></a></dt>
+<dd><p>Tooltip theme, built-in theme: <code>dark</code> / <code>light</code> when
+menu is collapsed. Element Plus's <code>popper-effect</code> ('dark' | 'light' /
+string).</p></dd>
+
+
+<dt id="arg-popper-offset">popper_offset<a class="anchor" aria-label="anchor" href="#arg-popper-offset"></a></dt>
+<dd><p>Offset of the popper (effective for all submenus).
+Element Plus's <code>popper-offset</code> (number).</p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for all popup menus and titles' tooltips.
+Element Plus's <code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-show-timeout">show_timeout<a class="anchor" aria-label="anchor" href="#arg-show-timeout"></a></dt>
+<dd><p>Control timeout for all menus before showing. Element
+Plus's <code>show-timeout</code> (number).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_menu.html">el_menu()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

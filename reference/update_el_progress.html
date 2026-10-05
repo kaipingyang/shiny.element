@@ -168,7 +168,13 @@
 <span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  stroke_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  show_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  text_inside <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  text_inside <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stroke_linecap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  duration <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  indeterminate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  striped <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  striped_flow <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -212,10 +218,44 @@
 <dt id="arg-text-inside">text_inside<a class="anchor" aria-label="anchor" href="#arg-text-inside"></a></dt>
 <dd><p>New text-inside flag.</p></dd>
 
+
+<dt id="arg-stroke-linecap">stroke_linecap<a class="anchor" aria-label="anchor" href="#arg-stroke-linecap"></a></dt>
+<dd><p>Shape of the bar's ends: <code>"round"</code> (default), <code>"butt"</code> or <code>"square"</code>.</p></dd>
+
+
+<dt id="arg-format">format<a class="anchor" aria-label="anchor" href="#arg-format"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function <code>function(percentage)</code> returning the text shown.</p></dd>
+
+
+<dt id="arg-duration">duration<a class="anchor" aria-label="anchor" href="#arg-duration"></a></dt>
+<dd><p>Control the animation duration of indeterminate progress or
+striped flow progress. Element Plus's <code>duration</code> (number).</p></dd>
+
+
+<dt id="arg-indeterminate">indeterminate<a class="anchor" aria-label="anchor" href="#arg-indeterminate"></a></dt>
+<dd><p>Set indeterminate progress. Element Plus's
+<code>indeterminate</code> (boolean).</p></dd>
+
+
+<dt id="arg-striped">striped<a class="anchor" aria-label="anchor" href="#arg-striped"></a></dt>
+<dd><p>Stripe over the progress bar's color. Element Plus's
+<code>striped</code> (boolean).</p></dd>
+
+
+<dt id="arg-striped-flow">striped_flow<a class="anchor" aria-label="anchor" href="#arg-striped-flow"></a></dt>
+<dd><p>Get the stripes to flow. Element Plus's <code>striped-flow</code>
+(boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_progress.html">el_progress()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

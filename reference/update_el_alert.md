@@ -11,7 +11,12 @@ update_el_alert(
   id,
   title = NULL,
   type = NULL,
-  description = NULL
+  description = NULL,
+  closable = NULL,
+  close_text = NULL,
+  show_icon = NULL,
+  center = NULL,
+  effect = NULL
 )
 ```
 
@@ -38,9 +43,37 @@ update_el_alert(
 
   New description text. Use `NULL` to leave unchanged.
 
+- closable:
+
+  Whether to show a close button. Default `TRUE`.
+
+- close_text:
+
+  Custom text for the close button. `""` for the default ×.
+
+- show_icon:
+
+  Whether to display the type icon. Default `FALSE`.
+
+- center:
+
+  Whether to centre the content. Default `FALSE`.
+
+- effect:
+
+  Visual effect: `"light"` (default) or `"dark"`.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

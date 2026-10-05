@@ -172,7 +172,41 @@ state, type, clearable, readonly, and placeholder text.</p>
 <span>  readonly <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  start_placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  end_placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  editable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  range_separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unlink_panels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  arrow_control <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  automatic_dropdown <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cell_class_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  date_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_date <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_hours <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_minutes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_seconds <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  empty_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fallback_placements <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shortcuts <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_confirm <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_footer <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_now <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_week_number <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  single_panel <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -224,10 +258,185 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-value-format">value_format<a class="anchor" aria-label="anchor" href="#arg-value-format"></a></dt>
+<dd><p>Format string returned to Shiny when a date is selected,
+in day.js's tokens, as Element Plus takes it (e.g., <code>"YYYY-MM-DD"</code>).
+Default <code>"YYYY-MM-DD"</code>. Element UI's tokens – <code>"yyyy-MM-dd"</code>,
+<code>"timestamp"</code> – are translated.</p></dd>
+
+
+<dt id="arg-start-placeholder">start_placeholder<a class="anchor" aria-label="anchor" href="#arg-start-placeholder"></a></dt>
+<dd><p>Placeholder for the start input in range types.</p></dd>
+
+
+<dt id="arg-end-placeholder">end_placeholder<a class="anchor" aria-label="anchor" href="#arg-end-placeholder"></a></dt>
+<dd><p>Placeholder for the end input in range types.</p></dd>
+
+
+<dt id="arg-editable">editable<a class="anchor" aria-label="anchor" href="#arg-editable"></a></dt>
+<dd><p>Whether the user can type directly in the input. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-range-separator">range_separator<a class="anchor" aria-label="anchor" href="#arg-range-separator"></a></dt>
+<dd><p>Separator string displayed between start and end in
+range types. Default <code>"-"</code>.</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size: <code>"large"</code>, <code>"default"</code> or <code>"small"</code>; <code>NULL</code> follows the form or the page.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute.</p></dd>
+
+
+<dt id="arg-prefix-icon">prefix_icon<a class="anchor" aria-label="anchor" href="#arg-prefix-icon"></a></dt>
+<dd><p>Icon class shown at the start of the input.</p></dd>
+
+
+<dt id="arg-clear-icon">clear_icon<a class="anchor" aria-label="anchor" href="#arg-clear-icon"></a></dt>
+<dd><p>Icon class of the clear button.</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Extra class name for the picker panel.</p></dd>
+
+
+<dt id="arg-unlink-panels">unlink_panels<a class="anchor" aria-label="anchor" href="#arg-unlink-panels"></a></dt>
+<dd><p>Whether the two panels of a range picker move independently.</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether a change triggers form validation. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-arrow-control">arrow_control<a class="anchor" aria-label="anchor" href="#arg-arrow-control"></a></dt>
+<dd><p>Whether to pick time using arrow buttons. Element
+Plus's <code>arrow-control</code> (boolean).</p></dd>
+
+
+<dt id="arg-automatic-dropdown">automatic_dropdown<a class="anchor" aria-label="anchor" href="#arg-automatic-dropdown"></a></dt>
+<dd><p>This prop decides if the date picker panel pops
+up when the input is focused. (The default value will be set to false in
+version 3.0). Element Plus's <code>automatic-dropdown</code> (boolean).</p></dd>
+
+
+<dt id="arg-cell-class-name">cell_class_name<a class="anchor" aria-label="anchor" href="#arg-cell-class-name"></a></dt>
+<dd><p>Set custom className. Element Plus's
+<code>cell-class-name</code> ((data: Date) =&gt; string).</p></dd>
+
+
+<dt id="arg-date-format">date_format<a class="anchor" aria-label="anchor" href="#arg-date-format"></a></dt>
+<dd><p>Optional, format of the date displayed in input's inner
+panel. Element Plus's <code>date-format</code> (string).</p></dd>
+
+
+<dt id="arg-disabled-date">disabled_date<a class="anchor" aria-label="anchor" href="#arg-disabled-date"></a></dt>
+<dd><p>A function determining if a date is disabled with that
+date as its parameter. Should return a Boolean. Element Plus's
+<code>disabled-date</code> ((data: Date) =&gt; boolean).</p></dd>
+
+
+<dt id="arg-disabled-hours">disabled_hours<a class="anchor" aria-label="anchor" href="#arg-disabled-hours"></a></dt>
+<dd><p>To specify the array of hours that cannot be
+selected. Element Plus's <code>disabled-hours</code> ((role: string, comparingDate?:
+Dayjs) =&gt; number[]).</p></dd>
+
+
+<dt id="arg-disabled-minutes">disabled_minutes<a class="anchor" aria-label="anchor" href="#arg-disabled-minutes"></a></dt>
+<dd><p>To specify the array of minutes that cannot be
+selected. Element Plus's <code>disabled-minutes</code> ((hour: number, role: string,
+comparingDate?: Dayjs) =&gt; number[]).</p></dd>
+
+
+<dt id="arg-disabled-seconds">disabled_seconds<a class="anchor" aria-label="anchor" href="#arg-disabled-seconds"></a></dt>
+<dd><p>To specify the array of seconds that cannot be
+selected. Element Plus's <code>disabled-seconds</code> (Function). Give it as
+<code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-empty-values">empty_values<a class="anchor" aria-label="anchor" href="#arg-empty-values"></a></dt>
+<dd><p>Empty values of component, see config-provider. Element
+Plus's <code>empty-values</code> (array).</p></dd>
+
+
+<dt id="arg-fallback-placements">fallback_placements<a class="anchor" aria-label="anchor" href="#arg-fallback-placements"></a></dt>
+<dd><p>List of possible positions for Tooltip
+popper.js. Element Plus's <code>fallback-placements</code> (<code>Placement[]</code>).</p></dd>
+
+
+<dt id="arg-placement">placement<a class="anchor" aria-label="anchor" href="#arg-placement"></a></dt>
+<dd><p>Position of dropdown. Element Plus's <code>placement</code>.</p></dd>
+
+
+<dt id="arg-popper-options">popper_options<a class="anchor" aria-label="anchor" href="#arg-popper-options"></a></dt>
+<dd><p>Customized popper option see more at popper.js.
+Element Plus's <code>popper-options</code> (Partial<popperoptions>).</popperoptions></p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for DatePicker's dropdown. Element Plus's
+<code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-shortcuts">shortcuts<a class="anchor" aria-label="anchor" href="#arg-shortcuts"></a></dt>
+<dd><p>An object array to set shortcut options. Element Plus's
+<code>shortcuts</code> (<code>Array&lt;{ text: string, value: Date | Function }&gt;</code>). Give it as
+<code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-show-confirm">show_confirm<a class="anchor" aria-label="anchor" href="#arg-show-confirm"></a></dt>
+<dd><p>Whether to show the confirm button. Element Plus's
+<code>show-confirm</code> (boolean).</p></dd>
+
+
+<dt id="arg-show-footer">show_footer<a class="anchor" aria-label="anchor" href="#arg-show-footer"></a></dt>
+<dd><p>Whether to show footer where the date picker is one
+<code>'dates' | 'months' | 'years' | 'quarters'</code>. Element Plus's
+<code>show-footer</code> (boolean).</p></dd>
+
+
+<dt id="arg-show-now">show_now<a class="anchor" aria-label="anchor" href="#arg-show-now"></a></dt>
+<dd><p>Whether to show the now button. Element Plus's <code>show-now</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-show-week-number">show_week_number<a class="anchor" aria-label="anchor" href="#arg-show-week-number"></a></dt>
+<dd><p>Show the week number besides the week. Element
+Plus's <code>show-week-number</code> (boolean).</p></dd>
+
+
+<dt id="arg-single-panel">single_panel<a class="anchor" aria-label="anchor" href="#arg-single-panel"></a></dt>
+<dd><p>Show only one panel in range-picker. Element Plus's
+<code>single-panel</code> (boolean).</p></dd>
+
+
+<dt id="arg-teleported">teleported<a class="anchor" aria-label="anchor" href="#arg-teleported"></a></dt>
+<dd><p>Whether date-picker dropdown is teleported to the body.
+Element Plus's <code>teleported</code> (boolean).</p></dd>
+
+
+<dt id="arg-time-format">time_format<a class="anchor" aria-label="anchor" href="#arg-time-format"></a></dt>
+<dd><p>Optional, format of the time displayed in input's inner
+panel. Element Plus's <code>time-format</code> (string).</p></dd>
+
+
+<dt id="arg-value-on-clear">value_on_clear<a class="anchor" aria-label="anchor" href="#arg-value-on-clear"></a></dt>
+<dd><p>Clear return value, see config-provider. Element
+Plus's <code>value-on-clear</code> (string / number / boolean / Function). Give it
+as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_date_picker.html">el_date_picker()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

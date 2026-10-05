@@ -166,7 +166,18 @@
 <span>  rules <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fields <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  errors <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  errors <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inline <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  submit_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  reset_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  status_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_required_asterisk <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_on_rule_change <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  require_asterisk_position <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_into_view_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_to_error <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -210,10 +221,66 @@ model. Each field's rules come with it.</p></dd>
 <code>prop</code> – <code>list(email = "That address is taken")</code> – shown on the field
 as Element's <code>error</code> shows them. <code>""</code> clears one.</p></dd>
 
+
+<dt id="arg-inline">inline<a class="anchor" aria-label="anchor" href="#arg-inline"></a></dt>
+<dd><p>Lay the fields out in a row.</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size: <code>"large"</code>, <code>"default"</code> or <code>"small"</code>; <code>NULL</code> follows the form or the page.</p></dd>
+
+
+<dt id="arg-submit-label">submit_label<a class="anchor" aria-label="anchor" href="#arg-submit-label"></a></dt>
+<dd><p>Submit button text. <code>NULL</code> renders no button, in which
+case drive the form with <code><a href="el_form_validate.html">el_form_validate()</a></code>.</p></dd>
+
+
+<dt id="arg-reset-label">reset_label<a class="anchor" aria-label="anchor" href="#arg-reset-label"></a></dt>
+<dd><p>Reset button text. <code>NULL</code> renders no button.</p></dd>
+
+
+<dt id="arg-disabled">disabled<a class="anchor" aria-label="anchor" href="#arg-disabled"></a></dt>
+<dd><p>Whether every control in the form is disabled.</p></dd>
+
+
+<dt id="arg-status-icon">status_icon<a class="anchor" aria-label="anchor" href="#arg-status-icon"></a></dt>
+<dd><p>Whether to show a validation status icon in each field.</p></dd>
+
+
+<dt id="arg-hide-required-asterisk">hide_required_asterisk<a class="anchor" aria-label="anchor" href="#arg-hide-required-asterisk"></a></dt>
+<dd><p>Whether to hide the asterisk next to required fields' labels.</p></dd>
+
+
+<dt id="arg-validate-on-rule-change">validate_on_rule_change<a class="anchor" aria-label="anchor" href="#arg-validate-on-rule-change"></a></dt>
+<dd><p>Whether changing the rules triggers validation immediately.</p></dd>
+
+
+<dt id="arg-require-asterisk-position">require_asterisk_position<a class="anchor" aria-label="anchor" href="#arg-require-asterisk-position"></a></dt>
+<dd><p>Position of asterisk. Element Plus's
+<code>require-asterisk-position</code> ('left' | 'right').</p></dd>
+
+
+<dt id="arg-scroll-into-view-options">scroll_into_view_options<a class="anchor" aria-label="anchor" href="#arg-scroll-into-view-options"></a></dt>
+<dd><p>When validation fails, it scrolls to the
+first error item based on the scrollIntoView option. scrollIntoView.
+Element Plus's <code>scroll-into-view-options</code> (ScrollIntoViewOptions /
+boolean).</p></dd>
+
+
+<dt id="arg-scroll-to-error">scroll_to_error<a class="anchor" aria-label="anchor" href="#arg-scroll-to-error"></a></dt>
+<dd><p>When validation fails, scroll to the first error
+form entry. Element Plus's <code>scroll-to-error</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_form.html">el_form()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

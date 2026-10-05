@@ -10,7 +10,14 @@ update_el_carousel(
   id,
   active = NULL,
   autoplay = NULL,
-  interval = NULL
+  interval = NULL,
+  height = NULL,
+  initial_index = NULL,
+  trigger = NULL,
+  indicator_position = NULL,
+  arrow = NULL,
+  loop = NULL,
+  direction = NULL
 )
 ```
 
@@ -37,9 +44,46 @@ update_el_carousel(
 
   New interval in milliseconds.
 
+- height:
+
+  Slide height, e.g. `"300px"`.
+
+- initial_index:
+
+  Index of the slide shown first, 0-based.
+
+- trigger:
+
+  What switches slides when an indicator is used: `"hover"` (default) or
+  `"click"`.
+
+- indicator_position:
+
+  `"outside"`, `"none"`, or NULL for inside.
+
+- arrow:
+
+  When to show the arrows: `"hover"` (default), `"always"` or `"never"`.
+
+- loop:
+
+  Return to the first slide after the last.
+
+- direction:
+
+  `"horizontal"` (default) or `"vertical"`.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

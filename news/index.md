@@ -343,15 +343,16 @@ A column’s `header` is a template, as its `cell` is: a search box, a
 button, any component in the header cell. Group headers nest as deep as
 the columns given (they stopped at two levels below the top).
 
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md),
-[`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md)
-and
-[`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md)
-take every argument of their component that can change once it is drawn,
-under the same name – `stripe`, `table_layout`, `tree_props`,
-`sort_state`, `fixed_data`, `controller_type` – each documented on its
-help page. `NULL` leaves one as it is, as in Shiny’s updaters; `NA`
-returns it to Element’s default.
+Every `update_el_*()` takes each argument of its component that can
+change once it is drawn, under the same name –
+`update_el_table(stripe =, table_layout =)`,
+`update_el_select(multiple =, filterable =)`,
+`update_el_input(maxlength =)`, about 900 in all – each documented on
+its help page, inherited from the component’s. `NULL` leaves one as it
+is, as in Shiny’s updaters; `NA` returns it to Element’s default. A test
+keeps every argument held in a component’s data reachable this way. The
+containers drawn as markup (tabs, collapse, dialog, drawer) and the
+wrappers (tooltip, popover) keep their own updaters.
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 reaches a table-v2 with `auto_resize = TRUE`; it used to reach the
 resizer around it.

@@ -166,7 +166,23 @@
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_checkbox <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_strictly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_on_click_node <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  node_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  render_after_expand <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cache_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  load <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -194,10 +210,82 @@
 <dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
 <dd><p>An error message to show on the component; <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-multiple">multiple<a class="anchor" aria-label="anchor" href="#arg-multiple"></a></dt>
+<dd><p>Whether several nodes can be selected.</p></dd>
+
+
+<dt id="arg-show-checkbox">show_checkbox<a class="anchor" aria-label="anchor" href="#arg-show-checkbox"></a></dt>
+<dd><p>Whether nodes have checkboxes.</p></dd>
+
+
+<dt id="arg-check-strictly">check_strictly<a class="anchor" aria-label="anchor" href="#arg-check-strictly"></a></dt>
+<dd><p>Whether any node can be selected, not only leaves.</p></dd>
+
+
+<dt id="arg-check-on-click-node">check_on_click_node<a class="anchor" aria-label="anchor" href="#arg-check-on-click-node"></a></dt>
+<dd><p>Whether clicking a node checks it, with
+<code>show_checkbox</code>.</p></dd>
+
+
+<dt id="arg-filterable">filterable<a class="anchor" aria-label="anchor" href="#arg-filterable"></a></dt>
+<dd><p>Whether the options can be searched by typing.</p></dd>
+
+
+<dt id="arg-clearable">clearable<a class="anchor" aria-label="anchor" href="#arg-clearable"></a></dt>
+<dd><p>Whether the selection can be cleared.</p></dd>
+
+
+<dt id="arg-placeholder">placeholder<a class="anchor" aria-label="anchor" href="#arg-placeholder"></a></dt>
+<dd><p>Placeholder text.</p></dd>
+
+
+<dt id="arg-node-key">node_key<a class="anchor" aria-label="anchor" href="#arg-node-key"></a></dt>
+<dd><p>The field that identifies a node. Default <code>"value"</code>.</p></dd>
+
+
+<dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
+<dd><p>Where the tree's fields are: <code>list(label =, children =, disabled =, isLeaf =)</code>.</p></dd>
+
+
+<dt id="arg-render-after-expand">render_after_expand<a class="anchor" aria-label="anchor" href="#arg-render-after-expand"></a></dt>
+<dd><p>Whether a node's children are drawn only once
+it is expanded. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-collapse-tags-collapse-tags-tooltip">collapse_tags, collapse_tags_tooltip<a class="anchor" aria-label="anchor" href="#arg-collapse-tags-collapse-tags-tooltip"></a></dt>
+<dd><p>With <code>multiple</code>, whether the
+selection is shown as one tag and a count, with the rest in a tooltip.</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p><code>"large"</code>, <code>"default"</code> or <code>"small"</code>.</p></dd>
+
+
+<dt id="arg-cache-data">cache_data<a class="anchor" aria-label="anchor" href="#arg-cache-data"></a></dt>
+<dd><p>The nodes behind a value not yet loaded, for a lazy tree.</p></dd>
+
+
+<dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
+<dd><p>Whether child nodes are loaded on demand – from the server,
+which answers <code>input$&lt;id&gt;_load</code> with <code><a href="el_load_children.html">el_load_children()</a></code>, unless <code>load</code>
+is given.</p></dd>
+
+
+<dt id="arg-load">load<a class="anchor" aria-label="anchor" href="#arg-load"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function loading child nodes in the browser instead of
+from the server. Needs <code>lazy = TRUE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_tree_select.html">el_tree_select()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

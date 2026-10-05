@@ -165,7 +165,11 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  options <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  item_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  virtual_scroll <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -197,10 +201,39 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
+<dd><p>Element's <code>props</code>, as a named list: <code>multiple</code>,
+<code>checkStrictly</code>, <code>expandTrigger</code> (<code>"click"</code> or <code>"hover"</code>), <code>lazy</code>,
+<code>lazyLoad</code>, and the field names <code>value</code>, <code>label</code>, <code>children</code>,
+<code>disabled</code>, <code>leaf</code>. With <code>lazy = TRUE</code> and no <code>lazyLoad</code> of your own,
+the server loads each column.</p></dd>
+
+
+<dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
+<dd><p>Menu height for virtual scrolling (px). Element Plus's
+<code>height</code> (number).</p></dd>
+
+
+<dt id="arg-item-size">item_size<a class="anchor" aria-label="anchor" href="#arg-item-size"></a></dt>
+<dd><p>Node height for virtual scrolling (px). Element Plus's
+<code>item-size</code> (number).</p></dd>
+
+
+<dt id="arg-virtual-scroll">virtual_scroll<a class="anchor" aria-label="anchor" href="#arg-virtual-scroll"></a></dt>
+<dd><p>Whether to enable virtual scrolling for large data.
+Element Plus's <code>virtual-scroll</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_cascader_panel.html">el_cascader_panel()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

@@ -174,7 +174,32 @@ named fields on the Vue instance.</p>
 <span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  show_password <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_word_limit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  maxlength <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rows <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autosize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suffix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autocomplete <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autofocus <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  form <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  minlength <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  step <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  resize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  count_graphemes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  formatter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  input_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inputmode <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parser <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  word_limit_position <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -234,10 +259,135 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-show-word-limit">show_word_limit<a class="anchor" aria-label="anchor" href="#arg-show-word-limit"></a></dt>
+<dd><p>Whether to show a word-count badge.
+Requires <code>maxlength</code> to be set. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-maxlength">maxlength<a class="anchor" aria-label="anchor" href="#arg-maxlength"></a></dt>
+<dd><p>Maximum character count. <code>NULL</code> means no limit.</p></dd>
+
+
+<dt id="arg-rows">rows<a class="anchor" aria-label="anchor" href="#arg-rows"></a></dt>
+<dd><p>Number of rows for <code>type = "textarea"</code>. <code>NULL</code> uses the default.</p></dd>
+
+
+<dt id="arg-autosize">autosize<a class="anchor" aria-label="anchor" href="#arg-autosize"></a></dt>
+<dd><p>Whether to auto-size the textarea height. Either <code>TRUE</code>/<code>FALSE</code>
+or a named list <code>list(minRows = 2, maxRows = 4)</code>. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-prefix-icon">prefix_icon<a class="anchor" aria-label="anchor" href="#arg-prefix-icon"></a></dt>
+<dd><p>Icon class for the prefix slot (e.g. <code>"el-icon-search"</code>).
+<code>NULL</code> means no icon.</p></dd>
+
+
+<dt id="arg-suffix-icon">suffix_icon<a class="anchor" aria-label="anchor" href="#arg-suffix-icon"></a></dt>
+<dd><p>Icon class for the suffix slot (e.g. <code>"el-icon-date"</code>).
+<code>NULL</code> means no icon.</p></dd>
+
+
+<dt id="arg-autocomplete">autocomplete<a class="anchor" aria-label="anchor" href="#arg-autocomplete"></a></dt>
+<dd><p>Native <code>autocomplete</code> attribute. Default <code>"off"</code>.</p></dd>
+
+
+<dt id="arg-autofocus">autofocus<a class="anchor" aria-label="anchor" href="#arg-autofocus"></a></dt>
+<dd><p>Whether the input takes focus on page load. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute.</p></dd>
+
+
+<dt id="arg-form">form<a class="anchor" aria-label="anchor" href="#arg-form"></a></dt>
+<dd><p>Native <code>form</code> attribute.</p></dd>
+
+
+<dt id="arg-minlength">minlength<a class="anchor" aria-label="anchor" href="#arg-minlength"></a></dt>
+<dd><p>Minimum input length.</p></dd>
+
+
+<dt id="arg-max">max<a class="anchor" aria-label="anchor" href="#arg-max"></a></dt>
+<dd><p>Native <code>max</code> attribute, for number-like types.</p></dd>
+
+
+<dt id="arg-min">min<a class="anchor" aria-label="anchor" href="#arg-min"></a></dt>
+<dd><p>Native <code>min</code> attribute, for number-like types.</p></dd>
+
+
+<dt id="arg-step">step<a class="anchor" aria-label="anchor" href="#arg-step"></a></dt>
+<dd><p>Native <code>step</code> attribute, for number-like types.</p></dd>
+
+
+<dt id="arg-resize">resize<a class="anchor" aria-label="anchor" href="#arg-resize"></a></dt>
+<dd><p>Resize behaviour of a textarea: <code>"none"</code>, <code>"both"</code>, <code>"horizontal"</code> or <code>"vertical"</code>.</p></dd>
+
+
+<dt id="arg-tabindex">tabindex<a class="anchor" aria-label="anchor" href="#arg-tabindex"></a></dt>
+<dd><p>Tab index of the input.</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether a change triggers form validation. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Same as <code>aria-label</code> in native input. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
+
+<dt id="arg-clear-icon">clear_icon<a class="anchor" aria-label="anchor" href="#arg-clear-icon"></a></dt>
+<dd><p>Custom clear icon component. Element Plus's <code>clear-icon</code>
+(string / Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-count-graphemes">count_graphemes<a class="anchor" aria-label="anchor" href="#arg-count-graphemes"></a></dt>
+<dd><p>Custom function to count graphemes; when set, native
+<code>maxlength</code>/<code>minlength</code> constraints are bypassed. Component uses
+<code>Intl.Segmenter</code> (Chrome 87+, Firefox 125+, Safari 14.1+) for proper
+grapheme clustering; older browsers fall back to <code>Array.from()</code> for
+code-point iteration. Element Plus's <code>count-graphemes</code> ((value: string)
+=&gt; number).</p></dd>
+
+
+<dt id="arg-formatter">formatter<a class="anchor" aria-label="anchor" href="#arg-formatter"></a></dt>
+<dd><p>Specifies the format of the value presented input.(only
+works when <code>type</code> is 'text'). Element Plus's <code>formatter</code> ((value: string
+| number) =&gt; string).</p></dd>
+
+
+<dt id="arg-input-style">input_style<a class="anchor" aria-label="anchor" href="#arg-input-style"></a></dt>
+<dd><p>The style of the input element or textarea element.
+Element Plus's <code>input-style</code> (<code>string / CSSProperties | CSSProperties[] | string[]</code>).</p></dd>
+
+
+<dt id="arg-inputmode">inputmode<a class="anchor" aria-label="anchor" href="#arg-inputmode"></a></dt>
+<dd><p>Same as <code>inputmode</code> in native input. Element Plus's
+<code>inputmode</code> (string).</p></dd>
+
+
+<dt id="arg-parser">parser<a class="anchor" aria-label="anchor" href="#arg-parser"></a></dt>
+<dd><p>Specifies the value extracted from formatter input.(only
+works when <code>type</code> is 'text'). Element Plus's <code>parser</code> ((value: string) =&gt;
+string).</p></dd>
+
+
+<dt id="arg-word-limit-position">word_limit_position<a class="anchor" aria-label="anchor" href="#arg-word-limit-position"></a></dt>
+<dd><p>Word count position, valid when
+<code>show-word-limit</code> is true. Element Plus's <code>word-limit-position</code> ('inside'
+| 'outside').</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_input.html">el_input()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

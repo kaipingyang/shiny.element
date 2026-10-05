@@ -164,7 +164,11 @@
 <span>  <span class="va">id</span>,</span>
 <span>  active <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  process_status <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  finish_status <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  finish_status <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  space <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  align_center <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  simple <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -192,10 +196,32 @@
 <dt id="arg-finish-status">finish_status<a class="anchor" aria-label="anchor" href="#arg-finish-status"></a></dt>
 <dd><p>New finish status</p></dd>
 
+
+<dt id="arg-space">space<a class="anchor" aria-label="anchor" href="#arg-space"></a></dt>
+<dd><p>Step spacing (number or percentage string)</p></dd>
+
+
+<dt id="arg-direction">direction<a class="anchor" aria-label="anchor" href="#arg-direction"></a></dt>
+<dd><p>Display direction ("horizontal" or "vertical")</p></dd>
+
+
+<dt id="arg-align-center">align_center<a class="anchor" aria-label="anchor" href="#arg-align-center"></a></dt>
+<dd><p>Center align title and description</p></dd>
+
+
+<dt id="arg-simple">simple<a class="anchor" aria-label="anchor" href="#arg-simple"></a></dt>
+<dd><p>Apply simple style</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_steps.html">el_steps()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

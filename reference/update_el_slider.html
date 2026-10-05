@@ -171,7 +171,25 @@ step size, and disabled state.</p>
 <span>  step <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_input <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_stops <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vertical <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  marks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  input_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_input_controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tooltip_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format_value_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  persistent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  range_end_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  range_start_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -220,10 +238,100 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-show-input">show_input<a class="anchor" aria-label="anchor" href="#arg-show-input"></a></dt>
+<dd><p>Whether to display a numeric input box beside the slider
+(non-range mode only). Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-show-stops">show_stops<a class="anchor" aria-label="anchor" href="#arg-show-stops"></a></dt>
+<dd><p>Whether to display stop markers at each step. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-show-tooltip">show_tooltip<a class="anchor" aria-label="anchor" href="#arg-show-tooltip"></a></dt>
+<dd><p>Whether to display the tooltip when dragging. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-vertical">vertical<a class="anchor" aria-label="anchor" href="#arg-vertical"></a></dt>
+<dd><p>Whether to display in vertical orientation. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
+<dd><p>Height of the slider in vertical mode (e.g., <code>"200px"</code>).
+Defaults to <code>"200px"</code> when <code>vertical = TRUE</code> and not explicitly provided.</p></dd>
+
+
+<dt id="arg-marks">marks<a class="anchor" aria-label="anchor" href="#arg-marks"></a></dt>
+<dd><p>Named list of mark labels, e.g.,
+<code>list("0" = "0km", "50" = "50km")</code>. Default <code>NULL</code> (no marks).</p></dd>
+
+
+<dt id="arg-input-size">input_size<a class="anchor" aria-label="anchor" href="#arg-input-size"></a></dt>
+<dd><p>Size of the companion input when <code>show_input = TRUE</code>.</p></dd>
+
+
+<dt id="arg-show-input-controls">show_input_controls<a class="anchor" aria-label="anchor" href="#arg-show-input-controls"></a></dt>
+<dd><p>Whether the companion input shows its spinner buttons.</p></dd>
+
+
+<dt id="arg-tooltip-class">tooltip_class<a class="anchor" aria-label="anchor" href="#arg-tooltip-class"></a></dt>
+<dd><p>Extra class name for the value tooltip.</p></dd>
+
+
+<dt id="arg-format-tooltip">format_tooltip<a class="anchor" aria-label="anchor" href="#arg-format-tooltip"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function formatting the value shown in the tooltip.</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Native <code>aria-label</code> attribute. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
+
+<dt id="arg-format-value-text">format_value_text<a class="anchor" aria-label="anchor" href="#arg-format-value-text"></a></dt>
+<dd><p>Format to display the <code>aria-valuenow</code> attribute
+for screen readers. Element Plus's <code>format-value-text</code> ((value: number)
+=&gt; string).</p></dd>
+
+
+<dt id="arg-persistent">persistent<a class="anchor" aria-label="anchor" href="#arg-persistent"></a></dt>
+<dd><p>When slider tooltip inactive and <code>persistent</code> is <code>false</code>
+, tooltip will be destroyed. <code>persistent</code> always be <code>false</code> when
+<code>show-tooltip </code> is <code>false</code>. Element Plus's <code>persistent</code> (boolean).</p></dd>
+
+
+<dt id="arg-placement">placement<a class="anchor" aria-label="anchor" href="#arg-placement"></a></dt>
+<dd><p>Position of Tooltip. Element Plus's <code>placement</code> (enum).</p></dd>
+
+
+<dt id="arg-range-end-label">range_end_label<a class="anchor" aria-label="anchor" href="#arg-range-end-label"></a></dt>
+<dd><p>When <code>range</code> is true, screen reader label for the
+end of the range. Element Plus's <code>range-end-label</code> (string).</p></dd>
+
+
+<dt id="arg-range-start-label">range_start_label<a class="anchor" aria-label="anchor" href="#arg-range-start-label"></a></dt>
+<dd><p>When <code>range</code> is true, screen reader label for the
+start of the range. Element Plus's <code>range-start-label</code> (string).</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size of the slider wrapper, will not work in vertical mode.
+Element Plus's <code>size</code> (” | 'large' | 'default' | 'small').</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_slider.html">el_slider()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

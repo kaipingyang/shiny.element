@@ -172,7 +172,22 @@ NULL fields are excluded from the update message."></head><body>
 <span>  active_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inactive_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  active_value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inactive_value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  active_action_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  active_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  before_change <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  border_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inactive_action_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inactive_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inline_prompt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -224,10 +239,95 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-active-value">active_value<a class="anchor" aria-label="anchor" href="#arg-active-value"></a></dt>
+<dd><p>Value reported to Shiny when switch is on. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-inactive-value">inactive_value<a class="anchor" aria-label="anchor" href="#arg-inactive-value"></a></dt>
+<dd><p>Value reported to Shiny when switch is off. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute of the inner checkbox.</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether a change triggers form validation. Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-active-action-icon">active_action_icon<a class="anchor" aria-label="anchor" href="#arg-active-action-icon"></a></dt>
+<dd><p>Component of the icon displayed in action when in
+<code>on</code> state. Element Plus's <code>active-action-icon</code> (string / Component). An
+icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-active-icon">active_icon<a class="anchor" aria-label="anchor" href="#arg-active-icon"></a></dt>
+<dd><p>Component of the icon displayed when in <code>on</code> state,
+overrides <code>active-text</code>. Element Plus's <code>active-icon</code> (string /
+Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Same as <code>aria-label</code> in native input. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
+
+<dt id="arg-before-change">before_change<a class="anchor" aria-label="anchor" href="#arg-before-change"></a></dt>
+<dd><p>Before-change hook before the switch state changes. If
+<code>false</code> is returned or a <code>Promise</code> is returned and then is rejected, will
+stop switching. Element Plus's <code>before-change</code> (() =&gt; Promise<boolean> |
+boolean).</boolean></p></dd>
+
+
+<dt id="arg-border-color">border_color<a class="anchor" aria-label="anchor" href="#arg-border-color"></a></dt>
+<dd><p>Border color of the switch ( use CSS var
+<code>--el-switch-border-color</code> instead ). Element Plus's <code>border-color</code>
+(string).</p></dd>
+
+
+<dt id="arg-inactive-action-icon">inactive_action_icon<a class="anchor" aria-label="anchor" href="#arg-inactive-action-icon"></a></dt>
+<dd><p>Component of the icon displayed in action when
+in <code>off</code> state. Element Plus's <code>inactive-action-icon</code> (string /
+Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-inactive-icon">inactive_icon<a class="anchor" aria-label="anchor" href="#arg-inactive-icon"></a></dt>
+<dd><p>Component of the icon displayed when in <code>off</code> state,
+overrides <code>inactive-text</code>. Element Plus's <code>inactive-icon</code> (string /
+Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-inline-prompt">inline_prompt<a class="anchor" aria-label="anchor" href="#arg-inline-prompt"></a></dt>
+<dd><p>Whether icon or text is displayed inside dot, only the
+first character will be rendered for text. Element Plus's <code>inline-prompt</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-loading">loading<a class="anchor" aria-label="anchor" href="#arg-loading"></a></dt>
+<dd><p>Whether Switch is in loading state. Element Plus's <code>loading</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size of Switch. Element Plus's <code>size</code> (” | 'large' | 'default'
+| 'small').</p></dd>
+
+
+<dt id="arg-tabindex">tabindex<a class="anchor" aria-label="anchor" href="#arg-tabindex"></a></dt>
+<dd><p>Tabindex for input. Element Plus's <code>tabindex</code> (string /
+number).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_switch.html">el_switch()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

@@ -164,7 +164,24 @@
 <span>  <span class="va">id</span>,</span>
 <span>  src <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fit <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  preview_src_list <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  preview_src_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_container <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  initial_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  crossorigin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_on_click_modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  infinite <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  preview_teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  referrerpolicy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_progress <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  zoom_rate <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -184,10 +201,99 @@
 <dt id="arg-src-fit-preview-src-list">src, fit, preview_src_list<a class="anchor" aria-label="anchor" href="#arg-src-fit-preview-src-list"></a></dt>
 <dd><p>New values; <code>NULL</code> leaves one unchanged.</p></dd>
 
+
+<dt id="arg-alt">alt<a class="anchor" aria-label="anchor" href="#arg-alt"></a></dt>
+<dd><p>Alternative text.</p></dd>
+
+
+<dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
+<dd><p>Whether to load the image only once it scrolls into view.</p></dd>
+
+
+<dt id="arg-scroll-container">scroll_container<a class="anchor" aria-label="anchor" href="#arg-scroll-container"></a></dt>
+<dd><p>CSS selector of the scrolling element to watch when
+<code>lazy = TRUE</code>. <code>NULL</code> watches the nearest scrollable parent.</p></dd>
+
+
+<dt id="arg-z-index">z_index<a class="anchor" aria-label="anchor" href="#arg-z-index"></a></dt>
+<dd><p>Stacking order of the preview. Default <code>2000</code>.</p></dd>
+
+
+<dt id="arg-initial-index">initial_index<a class="anchor" aria-label="anchor" href="#arg-initial-index"></a></dt>
+<dd><p>Which image of <code>preview_src_list</code> the preview opens
+on, 0-based.</p></dd>
+
+
+<dt id="arg-close-on-press-escape">close_on_press_escape<a class="anchor" aria-label="anchor" href="#arg-close-on-press-escape"></a></dt>
+<dd><p>Whether the image-viewer can be closed by
+pressing ESC. Element Plus's <code>close-on-press-escape</code> (boolean).</p></dd>
+
+
+<dt id="arg-crossorigin">crossorigin<a class="anchor" aria-label="anchor" href="#arg-crossorigin"></a></dt>
+<dd><p>Native attribute crossorigin. Element Plus's
+<code>crossorigin</code> (” | 'anonymous' | 'use-credentials').</p></dd>
+
+
+<dt id="arg-hide-on-click-modal">hide_on_click_modal<a class="anchor" aria-label="anchor" href="#arg-hide-on-click-modal"></a></dt>
+<dd><p>When enabling preview, use this flag to control
+whether clicking on backdrop can exit preview mode. Element Plus's
+<code>hide-on-click-modal</code> (boolean).</p></dd>
+
+
+<dt id="arg-infinite">infinite<a class="anchor" aria-label="anchor" href="#arg-infinite"></a></dt>
+<dd><p>Whether the viewer preview is infinite. Element Plus's
+<code>infinite</code> (boolean).</p></dd>
+
+
+<dt id="arg-loading">loading<a class="anchor" aria-label="anchor" href="#arg-loading"></a></dt>
+<dd><p>Indicates how the browser should load the image, same as
+native. Element Plus's <code>loading</code> ('eager' | 'lazy').</p></dd>
+
+
+<dt id="arg-max-scale">max_scale<a class="anchor" aria-label="anchor" href="#arg-max-scale"></a></dt>
+<dd><p>The max scale of the image viewer zoom event. Element
+Plus's <code>max-scale</code> (number).</p></dd>
+
+
+<dt id="arg-min-scale">min_scale<a class="anchor" aria-label="anchor" href="#arg-min-scale"></a></dt>
+<dd><p>The min scale of the image viewer zoom event. Element
+Plus's <code>min-scale</code> (number).</p></dd>
+
+
+<dt id="arg-preview-teleported">preview_teleported<a class="anchor" aria-label="anchor" href="#arg-preview-teleported"></a></dt>
+<dd><p>Whether to append image-viewer to body. A nested
+parent element attribute transform should have this attribute set to
+<code>true</code>. Element Plus's <code>preview-teleported</code> (boolean).</p></dd>
+
+
+<dt id="arg-referrerpolicy">referrerpolicy<a class="anchor" aria-label="anchor" href="#arg-referrerpolicy"></a></dt>
+<dd><p>Native attribute referrerPolicy. Element Plus's
+<code>referrerpolicy</code> (string).</p></dd>
+
+
+<dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
+<dd><p>The preview image scale. Element Plus's <code>scale</code> (number).</p></dd>
+
+
+<dt id="arg-show-progress">show_progress<a class="anchor" aria-label="anchor" href="#arg-show-progress"></a></dt>
+<dd><p>Whether to display the preview image progress content.
+Element Plus's <code>show-progress</code> (boolean).</p></dd>
+
+
+<dt id="arg-zoom-rate">zoom_rate<a class="anchor" aria-label="anchor" href="#arg-zoom-rate"></a></dt>
+<dd><p>The zoom rate of the image viewer zoom event. Element
+Plus's <code>zoom-rate</code> (number).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_image.html">el_image()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

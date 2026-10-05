@@ -9,7 +9,8 @@ update_el_timeline(
   session = shiny::getDefaultReactiveDomain(),
   id,
   items = NULL,
-  reverse = NULL
+  reverse = NULL,
+  mode = NULL
 )
 ```
 
@@ -34,9 +35,22 @@ update_el_timeline(
 
   New ordering.
 
+- mode:
+
+  Relative position of timeline and content. Element Plus's `mode`
+  ('start' \| 'alternate' \| 'alternate-reverse' \| 'end').
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

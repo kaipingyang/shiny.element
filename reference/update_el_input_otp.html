@@ -165,7 +165,17 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  length <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inputmode <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mask <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  readonly <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -195,10 +205,65 @@ has one to change.</p></dd>
 <dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
 <dd><p>An error message to show on the component; <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-length">length<a class="anchor" aria-label="anchor" href="#arg-length"></a></dt>
+<dd><p>The OTP fields length. Element Plus's <code>length</code> (number).</p></dd>
+
+
+<dt id="arg-validator">validator<a class="anchor" aria-label="anchor" href="#arg-validator"></a></dt>
+<dd><p>Custom validator function. Element Plus's <code>validator</code>
+((char: string, index: number) =&gt; boolean). Give it as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-inputmode">inputmode<a class="anchor" aria-label="anchor" href="#arg-inputmode"></a></dt>
+<dd><p>Native <code>inputmode</code> attribute. Element Plus's <code>inputmode</code>
+(string).</p></dd>
+
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>The type of the OTP fields. Element Plus's <code>type</code> ('outlined' |
+'filled' | 'underlined').</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>The size of the OTP fields. Element Plus's <code>size</code> ('large' |
+'default' | 'small').</p></dd>
+
+
+<dt id="arg-mask">mask<a class="anchor" aria-label="anchor" href="#arg-mask"></a></dt>
+<dd><p>Whether to enable password mode. Element Plus's <code>mask</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-separator">separator<a class="anchor" aria-label="anchor" href="#arg-separator"></a></dt>
+<dd><p>The separator between OTP fields. Element Plus's
+<code>separator</code> (string / VNode / () =&gt; string | VNode). Give it as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
+
+<dt id="arg-readonly">readonly<a class="anchor" aria-label="anchor" href="#arg-readonly"></a></dt>
+<dd><p>Same as <code>readonly</code> in native input. Element Plus's
+<code>readonly</code> (boolean).</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Native <code>aria-label</code> attribute. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_input_otp.html">el_input_otp()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

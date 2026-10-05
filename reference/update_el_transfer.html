@@ -167,7 +167,19 @@
 <span>  titles <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  filterable <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  button_texts <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  target_order <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  left_default_checked <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  right_default_checked <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  render_content <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  item_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  virtual_scroll <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -199,10 +211,69 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-button-texts">button_texts<a class="anchor" aria-label="anchor" href="#arg-button-texts"></a></dt>
+<dd><p>Labels of the two buttons, as a length-2 character
+vector. Default is arrows only.</p></dd>
+
+
+<dt id="arg-filter-placeholder">filter_placeholder<a class="anchor" aria-label="anchor" href="#arg-filter-placeholder"></a></dt>
+<dd><p>Placeholder of the search boxes.</p></dd>
+
+
+<dt id="arg-filter-method">filter_method<a class="anchor" aria-label="anchor" href="#arg-filter-method"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function <code>function(query, item)</code>
+returning whether an item survives the search.</p></dd>
+
+
+<dt id="arg-target-order">target_order<a class="anchor" aria-label="anchor" href="#arg-target-order"></a></dt>
+<dd><p>Order of the right-hand panel: <code>"original"</code> (default),
+<code>"push"</code> or <code>"unshift"</code>.</p></dd>
+
+
+<dt id="arg-format">format<a class="anchor" aria-label="anchor" href="#arg-format"></a></dt>
+<dd><p>Counts shown in each heading, as
+<code>list(noChecked =, hasChecked =)</code>, for example
+<code>list(noChecked = "${total}", hasChecked = "${checked}/${total}")</code>.</p></dd>
+
+
+<dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
+<dd><p>Field names when <code>data</code> uses other ones, as
+<code>list(key =, label =, disabled =)</code>.</p></dd>
+
+
+<dt id="arg-left-default-checked-right-default-checked">left_default_checked, right_default_checked<a class="anchor" aria-label="anchor" href="#arg-left-default-checked-right-default-checked"></a></dt>
+<dd><p>Keys ticked at the start.</p></dd>
+
+
+<dt id="arg-render-content">render_content<a class="anchor" aria-label="anchor" href="#arg-render-content"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> render function for an item.</p></dd>
+
+
+<dt id="arg-item-size">item_size<a class="anchor" aria-label="anchor" href="#arg-item-size"></a></dt>
+<dd><p>Item height for virtual scrolling. Element Plus's
+<code>item-size</code> (number).</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
+
+<dt id="arg-virtual-scroll">virtual_scroll<a class="anchor" aria-label="anchor" href="#arg-virtual-scroll"></a></dt>
+<dd><p>Whether to enable virtual scrolling. Element Plus's
+<code>virtual-scroll</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_transfer.html">el_transfer()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

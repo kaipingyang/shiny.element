@@ -164,7 +164,13 @@
 <span>  <span class="va">id</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  closable <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  closable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disable_transitions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  round <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -192,10 +198,40 @@
 <dt id="arg-closable">closable<a class="anchor" aria-label="anchor" href="#arg-closable"></a></dt>
 <dd><p>New closable state.</p></dd>
 
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size: <code>"large"</code>, <code>"default"</code> or <code>"small"</code>; <code>NULL</code> follows the form or the page.</p></dd>
+
+
+<dt id="arg-effect">effect<a class="anchor" aria-label="anchor" href="#arg-effect"></a></dt>
+<dd><p>Visual effect: <code>"light"</code> (default), <code>"dark"</code>, <code>"plain"</code>.</p></dd>
+
+
+<dt id="arg-color">color<a class="anchor" aria-label="anchor" href="#arg-color"></a></dt>
+<dd><p>Custom background colour (CSS string). <code>NULL</code> for themed colour.</p></dd>
+
+
+<dt id="arg-hit">hit<a class="anchor" aria-label="anchor" href="#arg-hit"></a></dt>
+<dd><p>Whether to show a solid border. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-disable-transitions">disable_transitions<a class="anchor" aria-label="anchor" href="#arg-disable-transitions"></a></dt>
+<dd><p>Disable the zoom-in-center animation. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-round">round<a class="anchor" aria-label="anchor" href="#arg-round"></a></dt>
+<dd><p>Whether Tag is rounded. Element Plus's <code>round</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_tag.html">el_tag()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

@@ -165,7 +165,12 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  suffix <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  precision <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  decimal_separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  group_separator <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  formatter <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_countdown</span><span class="op">(</span></span>
@@ -174,7 +179,9 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  suffix <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_style <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -194,10 +201,41 @@
 <dt id="arg-value-title-prefix-suffix">value, title, prefix, suffix<a class="anchor" aria-label="anchor" href="#arg-value-title-prefix-suffix"></a></dt>
 <dd><p>New values; <code>NULL</code> leaves one unchanged.</p></dd>
 
+
+<dt id="arg-precision">precision<a class="anchor" aria-label="anchor" href="#arg-precision"></a></dt>
+<dd><p>Decimal places to show.</p></dd>
+
+
+<dt id="arg-decimal-separator">decimal_separator<a class="anchor" aria-label="anchor" href="#arg-decimal-separator"></a></dt>
+<dd><p>Decimal point. Default <code>"."</code>.</p></dd>
+
+
+<dt id="arg-group-separator">group_separator<a class="anchor" aria-label="anchor" href="#arg-group-separator"></a></dt>
+<dd><p>Separator between digit groups. Default <code>","</code>.</p></dd>
+
+
+<dt id="arg-value-style">value_style<a class="anchor" aria-label="anchor" href="#arg-value-style"></a></dt>
+<dd><p>CSS for the number, as a string or a named list.</p></dd>
+
+
+<dt id="arg-formatter">formatter<a class="anchor" aria-label="anchor" href="#arg-formatter"></a></dt>
+<dd><p><code><a href="JS.html">JS()</a></code> function <code>function(value)</code> returning
+the text to show, in place of Element's formatting.</p></dd>
+
+
+<dt id="arg-format">format<a class="anchor" aria-label="anchor" href="#arg-format"></a></dt>
+<dd><p>For a countdown, the format of the time left: <code>"HH:mm:ss"</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_statistic.html">el_statistic()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

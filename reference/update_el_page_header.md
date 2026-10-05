@@ -10,7 +10,8 @@ update_el_page_header(
   session = shiny::getDefaultReactiveDomain(),
   id,
   title = NULL,
-  content = NULL
+  content = NULL,
+  icon = NULL
 )
 ```
 
@@ -29,9 +30,22 @@ update_el_page_header(
 
   New values; `NULL` leaves one unchanged.
 
+- icon:
+
+  Icon component of page header. Element Plus's `icon` (string /
+  Component). An icon's name, such as `"Search"`.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

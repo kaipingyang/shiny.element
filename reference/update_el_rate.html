@@ -165,7 +165,24 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  allow_half <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_score <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  texts <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  text_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  score_template <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  void_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_void_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  low_threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  high_threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  disabled_void_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  icons <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  void_icon <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -201,10 +218,96 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-max">max<a class="anchor" aria-label="anchor" href="#arg-max"></a></dt>
+<dd><p>Maximum number of stars. Default <code>5</code>.</p></dd>
+
+
+<dt id="arg-allow-half">allow_half<a class="anchor" aria-label="anchor" href="#arg-allow-half"></a></dt>
+<dd><p>Whether to allow half-star selection. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-show-text">show_text<a class="anchor" aria-label="anchor" href="#arg-show-text"></a></dt>
+<dd><p>Whether to show descriptive text beside the stars. Uses the
+<code>texts</code> vector. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-show-score">show_score<a class="anchor" aria-label="anchor" href="#arg-show-score"></a></dt>
+<dd><p>Whether to show the numeric score. Default <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-texts">texts<a class="anchor" aria-label="anchor" href="#arg-texts"></a></dt>
+<dd><p>Character vector of length <code>max</code> used when <code>show_text = TRUE</code>.
+Defaults to <code>c("极差", "失望", "一般", "满意", "惊喜")</code>.</p></dd>
+
+
+<dt id="arg-text-color">text_color<a class="anchor" aria-label="anchor" href="#arg-text-color"></a></dt>
+<dd><p>Colour of the text/score. Default <code>"#1f2d3d"</code>.</p></dd>
+
+
+<dt id="arg-score-template">score_template<a class="anchor" aria-label="anchor" href="#arg-score-template"></a></dt>
+<dd><p>Template for score display. <code>{value}</code> is replaced.
+Default <code>"{value}"</code>.</p></dd>
+
+
+<dt id="arg-void-color">void_color<a class="anchor" aria-label="anchor" href="#arg-void-color"></a></dt>
+<dd><p>Colour of unselected icons.</p></dd>
+
+
+<dt id="arg-disabled-void-color">disabled_void_color<a class="anchor" aria-label="anchor" href="#arg-disabled-void-color"></a></dt>
+<dd><p>Colour of unselected icons when <code>disabled = TRUE</code>.</p></dd>
+
+
+<dt id="arg-low-threshold">low_threshold<a class="anchor" aria-label="anchor" href="#arg-low-threshold"></a></dt>
+<dd><p>Scores at or below this use the first colour and icon. Default <code>2</code>.</p></dd>
+
+
+<dt id="arg-high-threshold">high_threshold<a class="anchor" aria-label="anchor" href="#arg-high-threshold"></a></dt>
+<dd><p>Scores above this use the third colour and icon. Default <code>4</code>.</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Same as <code>aria-label</code> in Rate. Element Plus's <code>aria-label</code>
+(string).</p></dd>
+
+
+<dt id="arg-clearable">clearable<a class="anchor" aria-label="anchor" href="#arg-clearable"></a></dt>
+<dd><p>Whether value can be reset to <code>0</code>. Element Plus's
+<code>clearable</code> (boolean).</p></dd>
+
+
+<dt id="arg-disabled-void-icon">disabled_void_icon<a class="anchor" aria-label="anchor" href="#arg-disabled-void-icon"></a></dt>
+<dd><p>Component of unselected read-only icons. Element
+Plus's <code>disabled-void-icon</code> (string / Component). An icon's name, such as
+<code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-icons">icons<a class="anchor" aria-label="anchor" href="#arg-icons"></a></dt>
+<dd><p>Icon components. If array, it should have 3 elements, each of
+which corresponds with a score level, else if object, the key should be
+threshold value between two levels, and the value should be corresponding
+icon component. Element Plus's <code>icons</code> (<code>string[] | Component[] / Record&lt;number, string | Component&gt;</code>). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size of Rate. Element Plus's <code>size</code> ('large' | 'default' |
+'small').</p></dd>
+
+
+<dt id="arg-void-icon">void_icon<a class="anchor" aria-label="anchor" href="#arg-void-icon"></a></dt>
+<dd><p>Component of unselected icons. Element Plus's <code>void-icon</code>
+(string / Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_rate.html">el_rate()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

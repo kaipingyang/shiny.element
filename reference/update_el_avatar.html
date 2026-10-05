@@ -166,7 +166,10 @@
 <span>  src <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  shape <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  shape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  src_set <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alt <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -186,10 +189,29 @@
 <dt id="arg-content-src-icon-size-shape">content, src, icon, size, shape<a class="anchor" aria-label="anchor" href="#arg-content-src-icon-size-shape"></a></dt>
 <dd><p>New values; <code>NULL</code> leaves one unchanged.</p></dd>
 
+
+<dt id="arg-fit">fit<a class="anchor" aria-label="anchor" href="#arg-fit"></a></dt>
+<dd><p>How an image fills the avatar: <code>"cover"</code> (default), <code>"fill"</code>,
+<code>"contain"</code>, <code>"none"</code> or <code>"scale-down"</code>.</p></dd>
+
+
+<dt id="arg-src-set">src_set<a class="anchor" aria-label="anchor" href="#arg-src-set"></a></dt>
+<dd><p>Candidate image sources, as a <code>srcset</code> string.</p></dd>
+
+
+<dt id="arg-alt">alt<a class="anchor" aria-label="anchor" href="#arg-alt"></a></dt>
+<dd><p>Alternative text for the image.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_avatar.html">el_avatar()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

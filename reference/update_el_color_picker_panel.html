@@ -165,7 +165,14 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_alpha <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  predefine <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hue_slider_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hue_slider_style <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -195,10 +202,51 @@ has one to change.</p></dd>
 <dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
 <dd><p>An error message to show on the component; <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
+<dd><p>Whether the color picker panel is bordered. Element Plus's
+<code>border</code> (boolean).</p></dd>
+
+
+<dt id="arg-show-alpha">show_alpha<a class="anchor" aria-label="anchor" href="#arg-show-alpha"></a></dt>
+<dd><p>Whether to display the alpha slider. Element Plus's
+<code>show-alpha</code> (boolean).</p></dd>
+
+
+<dt id="arg-color-format">color_format<a class="anchor" aria-label="anchor" href="#arg-color-format"></a></dt>
+<dd><p>Color format of v-model. Element Plus's <code>color-format</code>
+(enum).</p></dd>
+
+
+<dt id="arg-predefine">predefine<a class="anchor" aria-label="anchor" href="#arg-predefine"></a></dt>
+<dd><p>Predefined color options. Element Plus's <code>predefine</code>
+(string[]).</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
+
+<dt id="arg-hue-slider-class">hue_slider_class<a class="anchor" aria-label="anchor" href="#arg-hue-slider-class"></a></dt>
+<dd><p>Class names will be passed to hue-slider. Element
+Plus's <code>hue-slider-class</code> (string | string[] | Record&lt;string, boolean&gt;).</p></dd>
+
+
+<dt id="arg-hue-slider-style">hue_slider_style<a class="anchor" aria-label="anchor" href="#arg-hue-slider-style"></a></dt>
+<dd><p>Styles will be passed to hue-slider. Element Plus's
+<code>hue-slider-style</code> (string / StyleValue).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_color_picker_panel.html">el_color_picker_panel()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

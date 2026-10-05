@@ -11,7 +11,8 @@ update_el_backtop(
   id,
   visibility_height = NULL,
   right = NULL,
-  bottom = NULL
+  bottom = NULL,
+  target = NULL
 )
 ```
 
@@ -30,9 +31,21 @@ update_el_backtop(
 
   New values; `NULL` leaves one unchanged.
 
+- target:
+
+  CSS selector of the element that scrolls. `NULL` for the page.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
+
+## Details
+
+Every other argument of
+[`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md)
+that can change once it is drawn is an argument here too, under the same
+name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
 
 ## Examples
 

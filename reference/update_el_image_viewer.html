@@ -164,7 +164,17 @@
 <span>  <span class="va">id</span>,</span>
 <span>  visible <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  url_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  initial_index <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  initial_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  infinite <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_on_click_modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  zoom_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_progress <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -185,10 +195,66 @@
 <dd><p>New values; <code>NULL</code> leaves one
 unchanged.</p></dd>
 
+
+<dt id="arg-z-index">z_index<a class="anchor" aria-label="anchor" href="#arg-z-index"></a></dt>
+<dd><p>Preview backdrop z-index. Element Plus's <code>z-index</code> (number /
+string).</p></dd>
+
+
+<dt id="arg-infinite">infinite<a class="anchor" aria-label="anchor" href="#arg-infinite"></a></dt>
+<dd><p>Whether preview is infinite. Element Plus's <code>infinite</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-hide-on-click-modal">hide_on_click_modal<a class="anchor" aria-label="anchor" href="#arg-hide-on-click-modal"></a></dt>
+<dd><p>Whether user can emit close event when clicking
+backdrop. Element Plus's <code>hide-on-click-modal</code> (boolean).</p></dd>
+
+
+<dt id="arg-teleported">teleported<a class="anchor" aria-label="anchor" href="#arg-teleported"></a></dt>
+<dd><p>Whether to append image itself to body. A nested parent
+element attribute transform should have this attribute set to <code>true</code>.
+Element Plus's <code>teleported</code> (boolean).</p></dd>
+
+
+<dt id="arg-zoom-rate">zoom_rate<a class="anchor" aria-label="anchor" href="#arg-zoom-rate"></a></dt>
+<dd><p>The zoom rate of the image viewer zoom event. Element
+Plus's <code>zoom-rate</code> (number).</p></dd>
+
+
+<dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
+<dd><p>The preview image scale. Element Plus's <code>scale</code> (number).</p></dd>
+
+
+<dt id="arg-min-scale">min_scale<a class="anchor" aria-label="anchor" href="#arg-min-scale"></a></dt>
+<dd><p>The min scale of the image viewer zoom event. Element
+Plus's <code>min-scale</code> (number).</p></dd>
+
+
+<dt id="arg-max-scale">max_scale<a class="anchor" aria-label="anchor" href="#arg-max-scale"></a></dt>
+<dd><p>The max scale of the image viewer zoom event. Element
+Plus's <code>max-scale</code> (number).</p></dd>
+
+
+<dt id="arg-close-on-press-escape">close_on_press_escape<a class="anchor" aria-label="anchor" href="#arg-close-on-press-escape"></a></dt>
+<dd><p>Whether the image-viewer can be closed by
+pressing ESC. Element Plus's <code>close-on-press-escape</code> (boolean).</p></dd>
+
+
+<dt id="arg-show-progress">show_progress<a class="anchor" aria-label="anchor" href="#arg-show-progress"></a></dt>
+<dd><p>Whether to display the preview image progress content.
+Element Plus's <code>show-progress</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_image_viewer.html">el_image_viewer()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

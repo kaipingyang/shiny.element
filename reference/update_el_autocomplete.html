@@ -167,7 +167,28 @@
 <span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  debounce <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trigger_on_focus <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  select_when_unmatched <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  highlight_first_item <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide_loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prefix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suffix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fit_input_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loop_navigation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -200,10 +221,103 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-clearable">clearable<a class="anchor" aria-label="anchor" href="#arg-clearable"></a></dt>
+<dd><p>Whether to show a clear button.</p></dd>
+
+
+<dt id="arg-value-key">value_key<a class="anchor" aria-label="anchor" href="#arg-value-key"></a></dt>
+<dd><p>Field of a suggestion object to display. Default
+<code>"value"</code>.</p></dd>
+
+
+<dt id="arg-debounce">debounce<a class="anchor" aria-label="anchor" href="#arg-debounce"></a></dt>
+<dd><p>Debounce while typing, in milliseconds. Default <code>300</code>.</p></dd>
+
+
+<dt id="arg-placement">placement<a class="anchor" aria-label="anchor" href="#arg-placement"></a></dt>
+<dd><p>Where the list appears: <code>"bottom-start"</code> (default),
+<code>"bottom-end"</code>, <code>"top-start"</code>, <code>"top-end"</code>.</p></dd>
+
+
+<dt id="arg-trigger-on-focus">trigger_on_focus<a class="anchor" aria-label="anchor" href="#arg-trigger-on-focus"></a></dt>
+<dd><p>Whether to suggest as soon as the input is focused.
+Default <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-select-when-unmatched">select_when_unmatched<a class="anchor" aria-label="anchor" href="#arg-select-when-unmatched"></a></dt>
+<dd><p>Whether to fire <code>select</code> when nothing matched.</p></dd>
+
+
+<dt id="arg-highlight-first-item">highlight_first_item<a class="anchor" aria-label="anchor" href="#arg-highlight-first-item"></a></dt>
+<dd><p>Whether to preselect the first suggestion.</p></dd>
+
+
+<dt id="arg-hide-loading">hide_loading<a class="anchor" aria-label="anchor" href="#arg-hide-loading"></a></dt>
+<dd><p>Whether to hide the loading spinner.</p></dd>
+
+
+<dt id="arg-icon-prefix-icon-suffix-icon">icon, prefix_icon, suffix_icon<a class="anchor" aria-label="anchor" href="#arg-icon-prefix-icon-suffix-icon"></a></dt>
+<dd><p>Icon classes.</p></dd>
+
+
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>Native <code>name</code> attribute.</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Extra class name for the suggestion list.</p></dd>
+
+
+<dt id="arg-append-to">append_to<a class="anchor" aria-label="anchor" href="#arg-append-to"></a></dt>
+<dd><p>Which select dropdown appends to. Element Plus's
+<code>append-to</code> (CSSSelector / HTMLElement).</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Native <code>aria-label</code> attribute. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
+
+<dt id="arg-fit-input-width">fit_input_width<a class="anchor" aria-label="anchor" href="#arg-fit-input-width"></a></dt>
+<dd><p>Whether the width of the dropdown is the same as the
+input. Element Plus's <code>fit-input-width</code> (boolean).</p></dd>
+
+
+<dt id="arg-loop-navigation">loop_navigation<a class="anchor" aria-label="anchor" href="#arg-loop-navigation"></a></dt>
+<dd><p>Whether keyboard navigation loops from end to start.
+Element Plus's <code>loop-navigation</code> (boolean).</p></dd>
+
+
+<dt id="arg-popper-options">popper_options<a class="anchor" aria-label="anchor" href="#arg-popper-options"></a></dt>
+<dd><p>Popper.js parameters. Element Plus's <code>popper-options</code>
+(object).</p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for autocomplete's dropdown. Element
+Plus's <code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-show-arrow">show_arrow<a class="anchor" aria-label="anchor" href="#arg-show-arrow"></a></dt>
+<dd><p>Whether the dropdown has an arrow. Element Plus's
+<code>show-arrow</code> (boolean).</p></dd>
+
+
+<dt id="arg-teleported">teleported<a class="anchor" aria-label="anchor" href="#arg-teleported"></a></dt>
+<dd><p>Whether select dropdown is teleported to the body.
+Element Plus's <code>teleported</code> (boolean).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_autocomplete.html">el_autocomplete()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

@@ -163,7 +163,20 @@
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">id</span>,</span>
 <span>  open <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  current <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  current <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  content_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mask <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scroll_into_view_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_close <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  target_area_clickable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_to <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -183,10 +196,20 @@
 <dt id="arg-open-current">open, current<a class="anchor" aria-label="anchor" href="#arg-open-current"></a></dt>
 <dd><p>New values; <code>NULL</code> leaves one unchanged.</p></dd>
 
+
+<dt id="arg-show-arrow-placement-content-style-mask-gap-type-scroll-into-view-options-z-index-show-close-close-icon-close-on-press-escape-target-area-clickable-append-to">show_arrow, placement, content_style, mask, gap, type, scroll_into_view_options, z_index, show_close, close_icon, close_on_press_escape, target_area_clickable, append_to<a class="anchor" aria-label="anchor" href="#arg-show-arrow-placement-content-style-mask-gap-type-scroll-into-view-options-z-index-show-close-close-icon-close-on-press-escape-target-area-clickable-append-to"></a></dt>
+<dd><p>Element Plus's tour props of those names: the defaults for every step.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_tour.html">el_tour()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

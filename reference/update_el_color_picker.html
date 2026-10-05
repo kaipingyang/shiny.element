@@ -165,7 +165,22 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_alpha <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  predefine <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  empty_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  persistent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -201,10 +216,90 @@ has one to change.</p></dd>
 <code>error</code> does – for a check only the server can make, such as whether
 a name is taken. <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size: <code>"large"</code>, <code>"default"</code> or <code>"small"</code>; <code>NULL</code> follows the form or the page.</p></dd>
+
+
+<dt id="arg-show-alpha">show_alpha<a class="anchor" aria-label="anchor" href="#arg-show-alpha"></a></dt>
+<dd><p>Whether to show an alpha channel slider. Default <code>FALSE</code>.
+When <code>TRUE</code>, the returned value is an <code>rgba(...)</code> string.</p></dd>
+
+
+<dt id="arg-color-format">color_format<a class="anchor" aria-label="anchor" href="#arg-color-format"></a></dt>
+<dd><p>Output format: <code>NULL</code> (auto), <code>"hex"</code>, <code>"rgb"</code>,
+<code>"hsv"</code>, <code>"hsl"</code>.</p></dd>
+
+
+<dt id="arg-predefine">predefine<a class="anchor" aria-label="anchor" href="#arg-predefine"></a></dt>
+<dd><p>Character vector of preset colour swatches. <code>NULL</code> for
+none.</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Extra class name for the dropdown panel.</p></dd>
+
+
+<dt id="arg-append-to">append_to<a class="anchor" aria-label="anchor" href="#arg-append-to"></a></dt>
+<dd><p>Which element the color-picker panel appends to. Element
+Plus's <code>append-to</code> (CSSSelector / HTMLElement).</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>ColorPicker aria-label. Element Plus's <code>aria-label</code>
+(string).</p></dd>
+
+
+<dt id="arg-clearable">clearable<a class="anchor" aria-label="anchor" href="#arg-clearable"></a></dt>
+<dd><p>Whether to show clear button. Element Plus's <code>clearable</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-empty-values">empty_values<a class="anchor" aria-label="anchor" href="#arg-empty-values"></a></dt>
+<dd><p>Empty values of component, see config-provider. Element
+Plus's <code>empty-values</code> (array).</p></dd>
+
+
+<dt id="arg-persistent">persistent<a class="anchor" aria-label="anchor" href="#arg-persistent"></a></dt>
+<dd><p>When color-picker inactive and persistent is false, the
+color panel will be destroyed. Element Plus's <code>persistent</code> (boolean).</p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for ColorPicker's dropdown. Element Plus's
+<code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-tabindex">tabindex<a class="anchor" aria-label="anchor" href="#arg-tabindex"></a></dt>
+<dd><p>ColorPicker tabindex. Element Plus's <code>tabindex</code> (string /
+number).</p></dd>
+
+
+<dt id="arg-teleported">teleported<a class="anchor" aria-label="anchor" href="#arg-teleported"></a></dt>
+<dd><p>Whether color-picker popper is teleported to the body.
+Element Plus's <code>teleported</code> (boolean).</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
+
+<dt id="arg-value-on-clear">value_on_clear<a class="anchor" aria-label="anchor" href="#arg-value-on-clear"></a></dt>
+<dd><p>Clear return value, see config-provider. Element
+Plus's <code>value-on-clear</code> (string / number / boolean / Function). Give it
+as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_color_picker.html">el_color_picker()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">

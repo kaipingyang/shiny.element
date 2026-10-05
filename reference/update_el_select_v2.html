@@ -165,7 +165,58 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  error <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clearable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  clear_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  multiple_limit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autocomplete <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filterable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  allow_create <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  loading_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  reserve_keyword <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  no_match_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  no_data_text <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  append_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  persistent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_options <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  automatic_dropdown <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fit_input_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  suffix_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  item_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  estimated_option_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scrollbar_always_on <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  remote <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  debounce <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  remote_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  remote_show_suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  placement <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fallback_placements <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  collapse_tags_tooltip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_collapse_tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag_effect <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  empty_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  value_on_clear <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  popper_append_to_body <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag_tooltip <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -195,10 +246,285 @@ has one to change.</p></dd>
 <dt id="arg-error">error<a class="anchor" aria-label="anchor" href="#arg-error"></a></dt>
 <dd><p>An error message to show on the component; <code>""</code> clears it.</p></dd>
 
+
+<dt id="arg-multiple">multiple<a class="anchor" aria-label="anchor" href="#arg-multiple"></a></dt>
+<dd><p>Is multiple. Element Plus's <code>multiple</code> (boolean).</p></dd>
+
+
+<dt id="arg-value-key">value_key<a class="anchor" aria-label="anchor" href="#arg-value-key"></a></dt>
+<dd><p>Unique identity key name for value, required when value is
+an object. Element Plus's <code>value-key</code> (string).</p></dd>
+
+
+<dt id="arg-size">size<a class="anchor" aria-label="anchor" href="#arg-size"></a></dt>
+<dd><p>Size of component. Element Plus's <code>size</code> (” | 'large' |
+'default' | 'small').</p></dd>
+
+
+<dt id="arg-clearable">clearable<a class="anchor" aria-label="anchor" href="#arg-clearable"></a></dt>
+<dd><p>Whether select can be cleared. Element Plus's <code>clearable</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-clear-icon">clear_icon<a class="anchor" aria-label="anchor" href="#arg-clear-icon"></a></dt>
+<dd><p>Custom clear icon. Element Plus's <code>clear-icon</code> (string /
+Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-collapse-tags">collapse_tags<a class="anchor" aria-label="anchor" href="#arg-collapse-tags"></a></dt>
+<dd><p>Whether to collapse tags to a text when multiple
+selecting. Element Plus's <code>collapse-tags</code> (boolean).</p></dd>
+
+
+<dt id="arg-multiple-limit">multiple_limit<a class="anchor" aria-label="anchor" href="#arg-multiple-limit"></a></dt>
+<dd><p>Maximum number of options user can select when
+multiple is true. No limit when set to 0. Element Plus's <code>multiple-limit</code>
+(number).</p></dd>
+
+
+<dt id="arg-effect">effect<a class="anchor" aria-label="anchor" href="#arg-effect"></a></dt>
+<dd><p>Tooltip theme, built-in theme: <code>dark</code> / <code>light</code>. Element
+Plus's <code>effect</code> ('dark' | 'light' / string).</p></dd>
+
+
+<dt id="arg-autocomplete">autocomplete<a class="anchor" aria-label="anchor" href="#arg-autocomplete"></a></dt>
+<dd><p>Autocomplete of select input. Element Plus's
+<code>autocomplete</code> (string).</p></dd>
+
+
+<dt id="arg-placeholder">placeholder<a class="anchor" aria-label="anchor" href="#arg-placeholder"></a></dt>
+<dd><p>Placeholder. Element Plus's <code>placeholder</code> (string).</p></dd>
+
+
+<dt id="arg-filterable">filterable<a class="anchor" aria-label="anchor" href="#arg-filterable"></a></dt>
+<dd><p>Whether Select is filterable. Element Plus's <code>filterable</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-allow-create">allow_create<a class="anchor" aria-label="anchor" href="#arg-allow-create"></a></dt>
+<dd><p>Whether creating new items is allowed. To use this,
+<code>filterable</code> must be true. Element Plus's <code>allow-create</code> (boolean).</p></dd>
+
+
+<dt id="arg-filter-method">filter_method<a class="anchor" aria-label="anchor" href="#arg-filter-method"></a></dt>
+<dd><p>Custom filter method, the first parameter is the
+current input value. To use this, <code>filterable</code> must be true method.
+Element Plus's <code>filter-method</code> ((query: string) =&gt; void). Give it as
+<code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-loading">loading<a class="anchor" aria-label="anchor" href="#arg-loading"></a></dt>
+<dd><p>Whether Select is loading data from server. Element Plus's
+<code>loading</code> (boolean).</p></dd>
+
+
+<dt id="arg-loading-text">loading_text<a class="anchor" aria-label="anchor" href="#arg-loading-text"></a></dt>
+<dd><p>Displayed text while loading data from server, default
+is 'Loading'. Element Plus's <code>loading-text</code> (string).</p></dd>
+
+
+<dt id="arg-reserve-keyword">reserve_keyword<a class="anchor" aria-label="anchor" href="#arg-reserve-keyword"></a></dt>
+<dd><p>Whether reserve the keyword after select filtered
+option. Element Plus's <code>reserve-keyword</code> (boolean).</p></dd>
+
+
+<dt id="arg-no-match-text">no_match_text<a class="anchor" aria-label="anchor" href="#arg-no-match-text"></a></dt>
+<dd><p>Displayed text when no data matches the filtering
+query, you can also use slot <code>empty</code>, default is 'No matching data'.
+Element Plus's <code>no-match-text</code> (string).</p></dd>
+
+
+<dt id="arg-no-data-text">no_data_text<a class="anchor" aria-label="anchor" href="#arg-no-data-text"></a></dt>
+<dd><p>Displayed text when there is no options, you can also
+use slot empty. Element Plus's <code>no-data-text</code> (string).</p></dd>
+
+
+<dt id="arg-popper-class">popper_class<a class="anchor" aria-label="anchor" href="#arg-popper-class"></a></dt>
+<dd><p>Custom class name for Select's dropdown and tags'
+tooltip. Element Plus's <code>popper-class</code> (string / object).</p></dd>
+
+
+<dt id="arg-popper-style">popper_style<a class="anchor" aria-label="anchor" href="#arg-popper-style"></a></dt>
+<dd><p>Custom style for Select's dropdown and tags' tooltip.
+Element Plus's <code>popper-style</code> (string / object).</p></dd>
+
+
+<dt id="arg-teleported">teleported<a class="anchor" aria-label="anchor" href="#arg-teleported"></a></dt>
+<dd><p>Whether select dropdown is teleported, if <code>true</code> it will
+be teleported to where <code>append-to</code> sets. Element Plus's <code>teleported</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-append-to">append_to<a class="anchor" aria-label="anchor" href="#arg-append-to"></a></dt>
+<dd><p>Which element the select dropdown appends to. Element
+Plus's <code>append-to</code> (CSSSelector / HTMLElement).</p></dd>
+
+
+<dt id="arg-persistent">persistent<a class="anchor" aria-label="anchor" href="#arg-persistent"></a></dt>
+<dd><p>When select dropdown is inactive and <code>persistent</code> is
+<code>false</code>, select dropdown will be destroyed. Element Plus's <code>persistent</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-popper-options">popper_options<a class="anchor" aria-label="anchor" href="#arg-popper-options"></a></dt>
+<dd><p>Popper.js parameters. Element Plus's <code>popper-options</code>
+(object).</p></dd>
+
+
+<dt id="arg-automatic-dropdown">automatic_dropdown<a class="anchor" aria-label="anchor" href="#arg-automatic-dropdown"></a></dt>
+<dd><p>For non-filterable Select, this prop decides if
+the option menu pops up when the input is focused. Element Plus's
+<code>automatic-dropdown</code> (boolean).</p></dd>
+
+
+<dt id="arg-fit-input-width">fit_input_width<a class="anchor" aria-label="anchor" href="#arg-fit-input-width"></a></dt>
+<dd><p>Whether the width of the dropdown is the same as the
+input, if the value is <code>number</code>, then the width is fixed. Element Plus's
+<code>fit-input-width</code> (boolean / number).</p></dd>
+
+
+<dt id="arg-suffix-icon">suffix_icon<a class="anchor" aria-label="anchor" href="#arg-suffix-icon"></a></dt>
+<dd><p>Custom suffix icon component. Element Plus's
+<code>suffix-icon</code> (string / Component). An icon's name, such as <code>"Search"</code>.</p></dd>
+
+
+<dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
+<dd><p>The height of the dropdown panel, 34px for each item. Element
+Plus's <code>height</code> (number).</p></dd>
+
+
+<dt id="arg-item-height">item_height<a class="anchor" aria-label="anchor" href="#arg-item-height"></a></dt>
+<dd><p>The height of the dropdown item. Element Plus's
+<code>item-height</code> (number).</p></dd>
+
+
+<dt id="arg-estimated-option-height">estimated_option_height<a class="anchor" aria-label="anchor" href="#arg-estimated-option-height"></a></dt>
+<dd><p>Controls virtual-list sizing mode: if
+undefined, the list uses fixed item height from <code>item-height</code>; if
+provided, the list uses dynamic item sizing and this value as the
+estimated item height. Element Plus's <code>estimated-option-height</code> (number).</p></dd>
+
+
+<dt id="arg-scrollbar-always-on">scrollbar_always_on<a class="anchor" aria-label="anchor" href="#arg-scrollbar-always-on"></a></dt>
+<dd><p>Controls whether the scrollbar is always
+displayed. Element Plus's <code>scrollbar-always-on</code> (boolean).</p></dd>
+
+
+<dt id="arg-remote">remote<a class="anchor" aria-label="anchor" href="#arg-remote"></a></dt>
+<dd><p>Whether search data from server. Element Plus's <code>remote</code>
+(boolean).</p></dd>
+
+
+<dt id="arg-debounce">debounce<a class="anchor" aria-label="anchor" href="#arg-debounce"></a></dt>
+<dd><p>Debounce delay during remote search, in milliseconds.
+Element Plus's <code>debounce</code> (number).</p></dd>
+
+
+<dt id="arg-remote-method">remote_method<a class="anchor" aria-label="anchor" href="#arg-remote-method"></a></dt>
+<dd><p>Function that gets called when the input value
+changes. Its parameter is the current input value. To use this,
+<code>filterable</code> must be true. Element Plus's <code>remote-method</code> ((query:
+string) =&gt; void). Give it as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-remote-show-suffix">remote_show_suffix<a class="anchor" aria-label="anchor" href="#arg-remote-show-suffix"></a></dt>
+<dd><p>In remote search method show suffix icon. Element
+Plus's <code>remote-show-suffix</code> (boolean).</p></dd>
+
+
+<dt id="arg-validate-event">validate_event<a class="anchor" aria-label="anchor" href="#arg-validate-event"></a></dt>
+<dd><p>Whether to trigger form validation. Element Plus's
+<code>validate-event</code> (boolean).</p></dd>
+
+
+<dt id="arg-offset">offset<a class="anchor" aria-label="anchor" href="#arg-offset"></a></dt>
+<dd><p>Offset of the dropdown. Element Plus's <code>offset</code> (number).</p></dd>
+
+
+<dt id="arg-show-arrow">show_arrow<a class="anchor" aria-label="anchor" href="#arg-show-arrow"></a></dt>
+<dd><p>Whether the dropdown has an arrow. Element Plus's
+<code>show-arrow</code> (boolean).</p></dd>
+
+
+<dt id="arg-placement">placement<a class="anchor" aria-label="anchor" href="#arg-placement"></a></dt>
+<dd><p>Position of dropdown. Element Plus's <code>placement</code> (enum).</p></dd>
+
+
+<dt id="arg-fallback-placements">fallback_placements<a class="anchor" aria-label="anchor" href="#arg-fallback-placements"></a></dt>
+<dd><p>List of possible positions for dropdown
+popper.js. Element Plus's <code>fallback-placements</code> (<code>Placement[]</code>).</p></dd>
+
+
+<dt id="arg-collapse-tags-tooltip">collapse_tags_tooltip<a class="anchor" aria-label="anchor" href="#arg-collapse-tags-tooltip"></a></dt>
+<dd><p>Whether show all selected tags when mouse
+hover text of collapse-tags. To use this, <code>collapse-tags</code> must be true.
+Element Plus's <code>collapse-tags-tooltip</code> (boolean).</p></dd>
+
+
+<dt id="arg-max-collapse-tags">max_collapse_tags<a class="anchor" aria-label="anchor" href="#arg-max-collapse-tags"></a></dt>
+<dd><p>The max tags number to be shown. To use this,
+<code>collapse-tags</code> must be true. Element Plus's <code>max-collapse-tags</code>
+(number).</p></dd>
+
+
+<dt id="arg-tag-type">tag_type<a class="anchor" aria-label="anchor" href="#arg-tag-type"></a></dt>
+<dd><p>Tag type. Element Plus's <code>tag-type</code> (” | 'success' |
+'info' | 'warning' | 'danger').</p></dd>
+
+
+<dt id="arg-tag-effect">tag_effect<a class="anchor" aria-label="anchor" href="#arg-tag-effect"></a></dt>
+<dd><p>Tag effect. Element Plus's <code>tag-effect</code> (” | 'light' |
+'dark' | 'plain').</p></dd>
+
+
+<dt id="arg-aria-label">aria_label<a class="anchor" aria-label="anchor" href="#arg-aria-label"></a></dt>
+<dd><p>Same as <code>aria-label</code> in native input. Element Plus's
+<code>aria-label</code> (string).</p></dd>
+
+
+<dt id="arg-empty-values">empty_values<a class="anchor" aria-label="anchor" href="#arg-empty-values"></a></dt>
+<dd><p>Empty values of component, see config-provider. Element
+Plus's <code>empty-values</code> (array).</p></dd>
+
+
+<dt id="arg-value-on-clear">value_on_clear<a class="anchor" aria-label="anchor" href="#arg-value-on-clear"></a></dt>
+<dd><p>Clear return value, see config-provider. Element
+Plus's <code>value-on-clear</code> (string / number / boolean / Function). Give it
+as <code><a href="JS.html">JS()</a></code>.</p></dd>
+
+
+<dt id="arg-popper-append-to-body">popper_append_to_body<a class="anchor" aria-label="anchor" href="#arg-popper-append-to-body"></a></dt>
+<dd><p>Whether to append the popper menu to body. If
+the positioning of the popper is wrong, you can try to set this prop to
+false. Element Plus's <code>popper-append-to-body</code> (boolean).</p></dd>
+
+
+<dt id="arg-tabindex">tabindex<a class="anchor" aria-label="anchor" href="#arg-tabindex"></a></dt>
+<dd><p>Tabindex for input. Element Plus's <code>tabindex</code> (string /
+number).</p></dd>
+
+
+<dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
+<dd><p>Which field of an option holds what, when the options are
+records named otherwise: <code>list(value =, label =, disabled =, options =)</code>,
+Element Plus's <code>props</code>.</p></dd>
+
+
+<dt id="arg-tag-tooltip">tag_tooltip<a class="anchor" aria-label="anchor" href="#arg-tag-tooltip"></a></dt>
+<dd><p>Settings for the tooltip listing collapsed tags, with
+<code>collapse_tags</code> and <code>collapse_tags_tooltip</code>: a named list of tooltip
+attributes (<code>placement</code>, <code>effect</code>, ...). Element Plus's <code>tag-tooltip</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Called for its side effect; returns <code>NULL</code> invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Every other argument of <code><a href="el_select_v2.html">el_select_v2()</a></code> that can change once it is
+drawn is an argument here too, under the same name. One left <code>NULL</code>
+stays as it is; <code>NA</code> returns it to Element's default.</p>
     </div>
 
     <div class="section level2">
