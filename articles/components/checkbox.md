@@ -72,13 +72,13 @@ el_checkbox_group(
   "cbg",
   selected = c("Value selected and disabled", "Value A"),
   choices = list(
-    list(label = "Option A", value = "Value A"),
-    list(label = "Option B", value = "Value B"),
-    list(label = "Option C", value = "Value C"),
-    list(label = "disabled", value = "Value disabled", disabled = TRUE),
-    list(
-      label = "selected and disabled",
-      value = "Value selected and disabled",
+    el_option("Option A", "Value A"),
+    el_option("Option B", "Value B"),
+    el_option("Option C", "Value C"),
+    el_option("disabled", "Value disabled", disabled = TRUE),
+    el_option(
+      "selected and disabled",
+      "Value selected and disabled",
       disabled = TRUE
     )
   )
@@ -99,9 +99,9 @@ el_checkbox_group(
   selected = c("Value A"),
   props = list(label = "name", value = "id", disabled = "unable"),
   choices = list(
-    list(label = "Option A", value = "Value A"),
-    list(label = "Option B", value = "Value B"),
-    list(label = "Option C", value = "Value C")
+    el_option("Option A", "Value A"),
+    el_option("Option B", "Value B"),
+    el_option("Option C", "Value C")
   )
 )
 ```

@@ -24,8 +24,10 @@ el_breadcrumb(
 
 - items:
 
-  The trail, as a list of `list(label =, to =)`. `to` is optional and
-  makes that step a link; the last step is usually plain text.
+  The trail, a list of
+  [`el_breadcrumb_item()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb_item.md)s
+  – or of `list(label =, to =)`. `to` is optional and makes that step a
+  link; the last step is usually plain text.
 
 - separator:
 

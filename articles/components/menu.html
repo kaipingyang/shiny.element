@@ -203,26 +203,22 @@ sub-menu component to create a second level menu. Menu provides
 <code>active-text-color</code> to customize the colors.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Processing Center"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    index <span class="op">=</span> <span class="st">"2"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Workspace"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-3"</span>, label <span class="op">=</span> <span class="st">"item three"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        index <span class="op">=</span> <span class="st">"2-4"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"item four"</span>,</span>
-<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-4-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-4-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Workspace"</span>,</span>
+<span>    <span class="st">"2"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-2"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"2-3"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>      <span class="st">"item four"</span>,</span>
+<span>      <span class="st">"2-4"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-4-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-4-2"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"Info"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Orders"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Info"</span>, <span class="st">"3"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Orders"</span>, <span class="st">"4"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
@@ -339,13 +335,9 @@ sub-menu component to create a second level menu. Menu provides
 <span>  mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
 <span>  ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"0"</span>, label <span class="op">=</span> <span class="st">"LOGO"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Processing Center"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      index <span class="op">=</span> <span class="st">"2"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Workspace"</span>,</span>
-<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"LOGO"</span>, <span class="st">"0"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span><span class="st">"Workspace"</span>, <span class="st">"2"</span>, <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-1"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -380,39 +372,21 @@ and the name of the group is determined by the title prop or a named
 slot.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    index <span class="op">=</span> <span class="st">"1"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Navigator One"</span>,</span>
-<span>    icon <span class="op">=</span> <span class="st">"Location"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        group <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Group One"</span>,</span>
-<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        group <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Group Two"</span>,</span>
-<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-3"</span>, label <span class="op">=</span> <span class="st">"item three"</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        index <span class="op">=</span> <span class="st">"1-4"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"item four"</span>,</span>
-<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-4-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Navigator One"</span>,</span>
+<span>    <span class="st">"1"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item_group</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Group One"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"1-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"1-2"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item_group</a></span><span class="op">(</span><span class="st">"Group Two"</span>, <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"1-3"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span><span class="st">"item four"</span>, <span class="st">"1-4"</span>, <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"1-4-1"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    icon <span class="op">=</span> <span class="st">"Location"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    index <span class="op">=</span> <span class="st">"3"</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Navigator Three"</span>,</span>
-<span>    icon <span class="op">=</span> <span class="st">"Document"</span>,</span>
-<span>    disabled <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Navigator Four"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Two"</span>, <span class="st">"2"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Three"</span>, <span class="st">"3"</span>, icon <span class="op">=</span> <span class="st">"Document"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Four"</span>, <span class="st">"4"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
@@ -544,18 +518,16 @@ slot.</p>
 <span>  active <span class="op">=</span> <span class="st">"2"</span>,</span>
 <span>  collapse <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      index <span class="op">=</span> <span class="st">"1"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Navigator One"</span>,</span>
-<span>      icon <span class="op">=</span> <span class="st">"Location"</span>,</span>
-<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Navigator One"</span>,</span>
+<span>      <span class="st">"1"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"1-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"1-2"</span><span class="op">)</span>,</span>
+<span>      icon <span class="op">=</span> <span class="st">"Location"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2"</span>, label <span class="op">=</span> <span class="st">"Navigator Two"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"3"</span>, label <span class="op">=</span> <span class="st">"Navigator Three"</span>, icon <span class="op">=</span> <span class="st">"Document"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"4"</span>, label <span class="op">=</span> <span class="st">"Navigator Four"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Two"</span>, <span class="st">"2"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Three"</span>, <span class="st">"3"</span>, icon <span class="op">=</span> <span class="st">"Document"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Four"</span>, <span class="st">"4"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -603,15 +575,13 @@ slot.</p>
 <span>  popper_offset <span class="op">=</span> <span class="fl">16</span>,</span>
 <span>  ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"1"</span>, label <span class="op">=</span> <span class="st">"Processing Center"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      index <span class="op">=</span> <span class="st">"2"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Workspace"</span>,</span>
-<span>      popper_offset <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-1"</span>, label <span class="op">=</span> <span class="st">"item one"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="st">"2-2"</span>, label <span class="op">=</span> <span class="st">"item two"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Workspace"</span>,</span>
+<span>      <span class="st">"2"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-2"</span><span class="op">)</span>,</span>
+<span>      popper_offset <span class="op">=</span> <span class="fl">8</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -970,8 +940,7 @@ close</td>
 <tbody>
 <tr class="odd">
 <td><code>index</code></td>
-<td>field <code>index</code> of each of <code>items</code>
-</td>
+<td><code>el_sub_menu(index =)</code></td>
 <td>unique identification</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>25</sup></a></td>
 <td></td>
@@ -979,7 +948,7 @@ close</td>
 </tr>
 <tr class="even">
 <td><code>popper-class</code></td>
-<td><code>popper_class</code></td>
+<td><code>el_sub_menu(popper_class =)</code></td>
 <td>custom class name for the popup menu</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>26</sup></a></td>
 <td></td>
@@ -987,7 +956,7 @@ close</td>
 </tr>
 <tr class="odd">
 <td><code>popper-style</code></td>
-<td><code>popper_style</code></td>
+<td><code>el_sub_menu(popper_style =)</code></td>
 <td>custom style for the popup menu</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>27</sup></a>
@@ -998,7 +967,7 @@ close</td>
 </tr>
 <tr class="even">
 <td><code>show-timeout</code></td>
-<td><code>show_timeout</code></td>
+<td><code>el_sub_menu(show_timeout =)</code></td>
 <td>timeout before showing a sub-menu(inherit <code>show-timeout</code>
 of the menu by default.)</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>29</sup></a></td>
@@ -1007,7 +976,7 @@ of the menu by default.)</td>
 </tr>
 <tr class="odd">
 <td><code>hide-timeout</code></td>
-<td><code>hide_timeout</code></td>
+<td><code>el_sub_menu(hide_timeout =)</code></td>
 <td>timeout before hiding a sub-menu(inherit <code>hide-timeout</code>
 of the menu by default.)</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>30</sup></a></td>
@@ -1016,8 +985,7 @@ of the menu by default.)</td>
 </tr>
 <tr class="even">
 <td><code>disabled</code></td>
-<td>field <code>disabled</code> of each of <code>items</code>
-</td>
+<td><code>el_sub_menu(disabled =)</code></td>
 <td>whether the sub-menu is disabled</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>31</sup></a></td>
 <td></td>
@@ -1025,8 +993,7 @@ of the menu by default.)</td>
 </tr>
 <tr class="odd">
 <td><code>teleported</code></td>
-<td>field <code>teleported</code> of each of <code>items</code>
-</td>
+<td><code>el_sub_menu(teleported =)</code></td>
 <td>whether popup menu is teleported to the body, the default is true
 for the level one SubMenu, false for other SubMenus</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>32</sup></a></td>
@@ -1035,7 +1002,7 @@ for the level one SubMenu, false for other SubMenus</td>
 </tr>
 <tr class="even">
 <td><code>popper-offset</code></td>
-<td><code>popper_offset</code></td>
+<td><code>el_sub_menu(popper_offset =)</code></td>
 <td>offset of the popper (overrides the <code>popper</code> of
 menu)</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;number&lt;/p&gt;"><sup>33</sup></a></td>
@@ -1044,9 +1011,7 @@ menu)</td>
 </tr>
 <tr class="odd">
 <td><code>expand-close-icon</code></td>
-<td>field <code>expand_close_icon</code> of each of
-<code>items</code>
-</td>
+<td><code>el_sub_menu(expand_close_icon =)</code></td>
 <td>Icon when menu are expanded and submenu are closed,
 <code>expand-close-icon</code> and <code>expand-open-icon</code> need to
 be passed together to take effect</td>
@@ -1059,9 +1024,7 @@ be passed together to take effect</td>
 </tr>
 <tr class="even">
 <td><code>expand-open-icon</code></td>
-<td>field <code>expand_open_icon</code> of each of
-<code>items</code>
-</td>
+<td><code>el_sub_menu(expand_open_icon =)</code></td>
 <td>Icon when menu are expanded and submenu are opened,
 <code>expand-open-icon</code> and <code>expand-close-icon</code> need to
 be passed together to take effect</td>
@@ -1074,9 +1037,7 @@ be passed together to take effect</td>
 </tr>
 <tr class="odd">
 <td><code>collapse-close-icon</code></td>
-<td>field <code>collapse_close_icon</code> of each of
-<code>items</code>
-</td>
+<td><code>el_sub_menu(collapse_close_icon =)</code></td>
 <td>Icon when menu are collapsed and submenu are closed,
 <code>collapse-close-icon</code> and <code>collapse-open-icon</code>
 need to be passed together to take effect</td>
@@ -1089,9 +1050,7 @@ need to be passed together to take effect</td>
 </tr>
 <tr class="even">
 <td><code>collapse-open-icon</code></td>
-<td>field <code>collapse_open_icon</code> of each of
-<code>items</code>
-</td>
+<td><code>el_sub_menu(collapse_open_icon =)</code></td>
 <td>Icon when menu are collapsed and submenu are opened,
 <code>collapse-open-icon</code> and <code>collapse-close-icon</code>
 need to be passed together to take effect</td>
@@ -1151,8 +1110,7 @@ need to be passed together to take effect</td>
 <tbody>
 <tr class="odd">
 <td><code>index</code></td>
-<td>field <code>index</code> of each of <code>items</code>
-</td>
+<td><code>el_menu_item(index =)</code></td>
 <td>unique identification</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>42</sup></a></td>
 <td></td>
@@ -1160,8 +1118,7 @@ need to be passed together to take effect</td>
 </tr>
 <tr class="even">
 <td><code>route</code></td>
-<td>field <code>route</code> of each of <code>items</code>
-</td>
+<td><code>el_menu_item(route =)</code></td>
 <td>Vue Router Route Location Parameters</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>43</sup></a>
@@ -1172,8 +1129,7 @@ need to be passed together to take effect</td>
 </tr>
 <tr class="odd">
 <td><code>disabled</code></td>
-<td>field <code>disabled</code> of each of <code>items</code>
-</td>
+<td><code>el_menu_item(disabled =)</code></td>
 <td>whether disabled</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>45</sup></a></td>
 <td></td>
@@ -1249,8 +1205,7 @@ instance</td>
 </tr></thead>
 <tbody><tr class="odd">
 <td><code>title</code></td>
-<td>field <code>title</code> of each of <code>items</code>
-</td>
+<td><code>el_menu_item_group(title =)</code></td>
 <td>group title</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>46</sup></a></td>
 <td></td>

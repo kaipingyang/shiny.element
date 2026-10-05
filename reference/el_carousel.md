@@ -35,11 +35,13 @@ el_carousel(
 
 - items:
 
-  A list of slides. Each is a list with `content` (a tag, tagList or
-  string) and optionally `name`, used as the value reported when that
-  slide is showing, and `label`, shown on its indicator. A slide's
-  content may hold this package's components: they are folded into the
-  carousel's own Vue instance and keep reporting their inputs.
+  A list of slides, each an
+  [`el_carousel_item()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel_item.md)
+  – or a list with `content` (a tag, tagList or string) and optionally
+  `name`, used as the value reported when that slide is showing, and
+  `label`, shown on its indicator. A slide's content may hold this
+  package's components: they are folded into the carousel's own Vue
+  instance and keep reporting their inputs.
 
 - height:
 

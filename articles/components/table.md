@@ -24,9 +24,9 @@ el_table(
   "basic",
   data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 ```
@@ -50,9 +50,9 @@ el_table(
   data = tableData,
   stripe = TRUE,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 ```
@@ -74,9 +74,9 @@ el_table(
   data = tableData,
   border = TRUE,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 ```
@@ -116,9 +116,9 @@ tagList(
       "}"
     ),
     columns = list(
-      list(prop = "date", label = "Date", width = 180),
-      list(prop = "name", label = "Name", width = 180),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date", width = 180),
+      el_table_column("name", "Name", width = 180),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -149,16 +149,16 @@ el_table(
   "tt",
   data = tableData,
   columns = list(
-    list(type = "selection", width = 55),
-    list(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
-    list(prop = "name", label = "Name", width = 120),
-    list(
-      prop = "address",
-      label = "use show-overflow-tooltip",
+    el_table_column(type = "selection", width = 55),
+    el_table_column(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
+    el_table_column("name", "Name", width = 120),
+    el_table_column(
+      "address",
+      "use show-overflow-tooltip",
       width = 240,
       show_overflow_tooltip = TRUE
     ),
-    list(prop = "address", label = "address")
+    el_table_column("address", "address")
   )
 )
 ```
@@ -190,9 +190,9 @@ el_table(
   data = tableData,
   height = 250,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 ```
@@ -224,13 +224,13 @@ el_table(
   "fixedcol",
   data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = 150, fixed = TRUE),
-    list(prop = "name", label = "Name", width = 120),
-    list(prop = "state", label = "State", width = 120),
-    list(prop = "city", label = "City", width = 120),
-    list(prop = "address", label = "Address", width = 600),
-    list(prop = "zip", label = "Zip", width = 120),
-    list(
+    el_table_column("date", "Date", width = 150, fixed = TRUE),
+    el_table_column("name", "Name", width = 120),
+    el_table_column("state", "State", width = 120),
+    el_table_column("city", "City", width = 120),
+    el_table_column("address", "Address", width = 600),
+    el_table_column("zip", "Zip", width = 120),
+    el_table_column(
       label = "Operations",
       fixed = "right",
       min_width = 120,
@@ -280,12 +280,12 @@ el_table(
   data = tableData,
   height = 250,
   columns = list(
-    list(prop = "date", label = "Date", width = 150, fixed = TRUE),
-    list(prop = "name", label = "Name", width = 120),
-    list(prop = "state", label = "State", width = 120),
-    list(prop = "city", label = "City", width = 320),
-    list(prop = "address", label = "Address", width = 600),
-    list(prop = "zip", label = "Zip")
+    el_table_column("date", "Date", width = 150, fixed = TRUE),
+    el_table_column("name", "Name", width = 120),
+    el_table_column("state", "State", width = 120),
+    el_table_column("city", "City", width = 320),
+    el_table_column("address", "Address", width = 600),
+    el_table_column("zip", "Zip")
   )
 )
 ```
@@ -325,13 +325,13 @@ ui <- el_page(
     data = tableData,
     max_height = 250,
     columns = list(
-      list(prop = "date", label = "Date", width = 150, fixed = TRUE),
-      list(prop = "name", label = "Name", width = 120),
-      list(prop = "state", label = "State", width = 120),
-      list(prop = "city", label = "City", width = 120),
-      list(prop = "address", label = "Address", width = 600),
-      list(prop = "zip", label = "Zip", width = 120),
-      list(
+      el_table_column("date", "Date", width = 150, fixed = TRUE),
+      el_table_column("name", "Name", width = 120),
+      el_table_column("state", "State", width = 120),
+      el_table_column("city", "City", width = 120),
+      el_table_column("address", "Address", width = 600),
+      el_table_column("zip", "Zip", width = 120),
+      el_table_column(
         label = "Operations",
         fixed = "right",
         min_width = 120,
@@ -400,20 +400,16 @@ el_table(
   "grouped",
   data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = 150),
-    list(
+    el_table_column("date", "Date", width = 150),
+    el_table_column(
       label = "Delivery Info",
-      children = list(
-        list(prop = "name", label = "Name", width = 120),
-        list(
-          label = "Address Info",
-          children = list(
-            list(prop = "state", label = "State", width = 120),
-            list(prop = "city", label = "City", width = 120),
-            list(prop = "address", label = "Address"),
-            list(prop = "zip", label = "Zip", width = 120)
-          )
-        )
+      el_table_column("name", "Name", width = 120),
+      el_table_column(
+        label = "Address Info",
+        el_table_column("state", "State", width = 120),
+        el_table_column("city", "City", width = 120),
+        el_table_column("address", "Address"),
+        el_table_column("zip", "Zip", width = 120)
       )
     )
   )
@@ -450,17 +446,15 @@ el_table(
   data = tableData,
   height = 250,
   columns = list(
-    list(prop = "date", label = "Date"),
-    list(prop = "name", label = "Name"),
-    list(prop = "zip", label = "Zip"),
-    list(
+    el_table_column("date", "Date"),
+    el_table_column("name", "Name"),
+    el_table_column("zip", "Zip"),
+    el_table_column(
       label = "Address Info",
       fixed = "right",
-      children = list(
-        list(prop = "state", label = "State"),
-        list(prop = "city", label = "City"),
-        list(prop = "address", label = "Address", min_width = 200)
-      )
+      el_table_column("state", "State"),
+      el_table_column("city", "City"),
+      el_table_column("address", "Address", min_width = 200)
     )
   )
 )
@@ -495,10 +489,10 @@ ui <- el_page(
     data = tableData,
     highlight_current_row = TRUE,
     columns = list(
-      list(type = "index", width = 50),
-      list(prop = "date", label = "Date", width = 120),
-      list(prop = "name", label = "Name", width = 120),
-      list(prop = "address", label = "Address")
+      el_table_column(type = "index", width = 50),
+      el_table_column("date", "Date", width = 120),
+      el_table_column("name", "Name", width = 120),
+      el_table_column("address", "Address")
     )
   ),
   tags$div(
@@ -559,14 +553,18 @@ ui <- el_page(
     data = tableData,
     row_key = "id",
     columns = list(
-      list(
+      el_table_column(
         type = "selection",
         width = 55,
         selectable = JS("function(row) { return ![1, 2].includes(row.id); }")
       ),
-      list(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
-      list(prop = "name", label = "Name", width = 120),
-      list(prop = "address", label = "Address")
+      el_table_column(
+        label = "Date",
+        width = 120,
+        cell = "{{ scope.row.date }}"
+      ),
+      el_table_column("name", "Name", width = 120),
+      el_table_column("address", "Address")
     )
   ),
   tags$div(
@@ -629,11 +627,11 @@ el_table(
   data = tableData,
   default_sort = list(prop = "date", order = "descending"),
   columns = list(
-    list(prop = "date", label = "Date", sortable = TRUE, width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(
-      prop = "address",
-      label = "Address",
+    el_table_column("date", "Date", sortable = TRUE, width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column(
+      "address",
+      "Address",
       formatter = JS("function(row, column) { return row.address; }")
     )
   )
@@ -669,9 +667,9 @@ ui <- el_page(
     data = tableData,
     row_key = "date",
     columns = list(
-      list(
-        prop = "date",
-        label = "Date",
+      el_table_column(
+        "date",
+        "Date",
         sortable = TRUE,
         width = 180,
         column_key = "date",
@@ -685,15 +683,15 @@ ui <- el_page(
           "}"
         )
       ),
-      list(prop = "name", label = "Name", width = 180),
-      list(
-        prop = "address",
-        label = "Address",
+      el_table_column("name", "Name", width = 180),
+      el_table_column(
+        "address",
+        "Address",
         formatter = JS("function(row, column) { return row.address; }")
       ),
-      list(
-        prop = "tag",
-        label = "Tag",
+      el_table_column(
+        "tag",
+        "Tag",
         width = 100,
         filters = list(
           list(text = "Home", value = "Home"),
@@ -750,7 +748,7 @@ ui <- el_page(
     "custom",
     data = tableData,
     columns = list(
-      list(
+      el_table_column(
         label = "Date",
         width = 180,
         cell = tags$div(
@@ -759,7 +757,7 @@ ui <- el_page(
           tags$span(style = "margin-left: 10px", "{{ scope.row.date }}")
         )
       ),
-      list(
+      el_table_column(
         label = "Name",
         width = 180,
         cell = el$popover(
@@ -778,7 +776,7 @@ ui <- el_page(
           )
         )
       ),
-      list(
+      el_table_column(
         label = "Operations",
         cell = tagList(
           el$button(
@@ -838,9 +836,9 @@ ui <- el_page(
     "searchable",
     data = tableData,
     columns = list(
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column(
         align = "right",
         header = el$input(
           "v-model" = "$store.search.text",
@@ -946,7 +944,7 @@ ui <- el_page(
     "expandable",
     data = tableData,
     columns = list(
-      list(
+      el_table_column(
         type = "expand",
         cell = tags$div(
           style = "margin: 16px",
@@ -966,8 +964,8 @@ ui <- el_page(
           )
         )
       ),
-      list(label = "Date", prop = "date"),
-      list(label = "Name", prop = "name")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name")
     )
   )
 )
@@ -1065,9 +1063,9 @@ tags$div(
     border = TRUE,
     default_expand_all = TRUE,
     columns = list(
-      list(prop = "date", label = "Date", sortable = TRUE),
-      list(prop = "name", label = "Name", sortable = TRUE),
-      list(prop = "address", label = "Address", sortable = TRUE)
+      el_table_column("date", "Date", sortable = TRUE),
+      el_table_column("name", "Name", sortable = TRUE),
+      el_table_column("address", "Address", sortable = TRUE)
     )
   ),
   tags$div(style = "height: 20px"),
@@ -1091,9 +1089,9 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -1152,14 +1150,14 @@ ui <- el_page(
     default_expand_all = TRUE,
     tree_props = list(checkStrictly = FALSE),
     columns = list(
-      list(
+      el_table_column(
         type = "selection",
         width = 55,
         selectable = JS("function(row) { return ![1, 31].includes(row.id); }")
       ),
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -1211,11 +1209,11 @@ tags$div(
     border = TRUE,
     show_summary = TRUE,
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Amount 1", sortable = TRUE),
-      list(prop = "amount2", label = "Amount 2", sortable = TRUE),
-      list(prop = "amount3", label = "Amount 3", sortable = TRUE)
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Amount 1", sortable = TRUE),
+      el_table_column("amount2", "Amount 2", sortable = TRUE),
+      el_table_column("amount3", "Amount 3", sortable = TRUE)
     )
   ),
   tags$div(style = "height: 20px"),
@@ -1240,11 +1238,11 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Cost 1 ($)"),
-      list(prop = "amount2", label = "Cost 2 ($)"),
-      list(prop = "amount3", label = "Cost 3 ($)")
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Cost 1 ($)"),
+      el_table_column("amount2", "Cost 2 ($)"),
+      el_table_column("amount3", "Cost 3 ($)")
     )
   )
 )
@@ -1284,11 +1282,11 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Amount 1", sortable = TRUE),
-      list(prop = "amount2", label = "Amount 2", sortable = TRUE),
-      list(prop = "amount3", label = "Amount 3", sortable = TRUE)
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Amount 1", sortable = TRUE),
+      el_table_column("amount2", "Amount 2", sortable = TRUE),
+      el_table_column("amount3", "Amount 3", sortable = TRUE)
     )
   ),
   tags$div(style = "height: 20px"),
@@ -1306,11 +1304,11 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Amount 1"),
-      list(prop = "amount2", label = "Amount 2"),
-      list(prop = "amount3", label = "Amount 3")
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Amount 1"),
+      el_table_column("amount2", "Amount 2"),
+      el_table_column("amount3", "Amount 3")
     )
   )
 )
@@ -1341,10 +1339,13 @@ el_table(
   "idx",
   data = tableData,
   columns = list(
-    list(type = "index", index = JS("function(index) { return index * 2; }")),
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column(
+      type = "index",
+      index = JS("function(index) { return index * 2; }")
+    ),
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 ```
@@ -1378,9 +1379,9 @@ ui <- el_page(
     data = tableData,
     table_layout = "fixed",
     columns = list(
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -1434,10 +1435,10 @@ tagList(
       "function(data) { return data.cellValue + ': table formatter'; }"
     ),
     columns = list(
-      list(prop = "address", label = "extends table formatter", width = 240),
-      list(
-        prop = "tags",
-        label = "formatter object",
+      el_table_column("address", "extends table formatter", width = 240),
+      el_table_column(
+        "tags",
+        "formatter object",
         width = 240,
         tooltip_formatter = JS(
           "function({ row }) { return row.tags.join(', '); }"
@@ -1450,9 +1451,9 @@ tagList(
           "{{ tag }}"
         )
       ),
-      list(
-        prop = "url",
-        label = "with vnode",
+      el_table_column(
+        "url",
+        "with vnode",
         width = 240,
         tooltip_formatter = JS(
           "function(data) {",
@@ -1576,35 +1577,35 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `type` | field `type` of each of `columns` | type of the column. If set to `selection`, the column will display checkbox. If set to `index`, the column will display index of the row (staring from 1). If set to `expand`, the column will display expand icon | [^61]`'default' \\| 'selection' \\| 'index' \\| 'expand'` |  | default |
-| `index` | field `index` of each of `columns` | customize indices for each row, works on columns with `type=index` | [^62] / [^63]`(index: number) => number` |  | — |
-| `label` | field `label` of each of `columns` | column label | [^64] |  | — |
-| `column-key` | field `column_key` of each of `columns` | column’s key. If you need to use the filter-change event, you need this attribute to identify which column is being filtered | [^65] |  | — |
-| `prop` | field `prop` of each of `columns` | field name. You can also use its alias: `property` | [^66] |  | — |
-| `width` | `width` | column width | [^67] / [^68] |  | ’’ |
-| `min-width` | field `min_width` of each of `columns` | column minimum width. Columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion | [^69] / [^70] |  | ’’ |
-| `fixed` | field `fixed` of each of `columns` | whether column is fixed at left / right. Will be fixed at left if `true` | [^71]`'left' \\| 'right'` / [^72] |  | false |
-| `render-header` | field `render_header` of each of `columns` | render function for table header of this column | [^73]`(data: { column: TableColumnCtx<T>, $index: number }) => void` |  | — |
-| `sortable` | field `sortable` of each of `columns` | whether column can be sorted. Remote sorting can be done by setting this attribute to ‘custom’ and listening to the `sort-change` event of Table | [^74] / [^75] |  | false |
-| `sort-method` | field `sort_method` of each of `columns` | sorting method, works when `sortable` is `true`. Should return a number, just like Array.sort | [^76]`<T = any>(a: T, b: T) => number` |  | — |
-| `sort-by` | field `sort_by` of each of `columns` | specify which property to sort by, works when `sortable` is `true` and `sort-method` is `undefined`. If set to an Array, the column will sequentially sort by the next property if the previous one is equal | [^77]`(row: any, index: number) => string` / [^78] / [^79]`string[]` |  | — |
-| `sort-orders` | field `sort_orders` of each of `columns` | the order of the sorting strategies used when sorting the data, works when `sortable` is `true`. Accepts an array, as the user clicks on the header, the column is sorted in order of the elements in the array | [^80]`('ascending' \\| 'descending' \\| null)[]` |  | \[‘ascending’, ‘descending’, null\] |
-| `resizable` | field `resizable` of each of `columns` | whether column width can be resized, works when `border` of `el-table` is `true` | [^81] |  | true |
-| `formatter` | field `formatter` of each of `columns` | function that formats cell content | [^82]`(row: any, column: TableColumnCtx<T>, cellValue: any, index: number) => VNode \\| string` |  | — |
-| `show-overflow-tooltip` | `show_overflow_tooltip` | whether to hide extra content and show them in a tooltip when hovering on the cell | [^83] / [`object`](#table-attributes) ^(2.2.28) |  | undefined |
-| `align` | field `align` of each of `columns` | alignment | [^84]`'left' \\| 'center' \\| 'right'` |  | left |
-| `header-align` | field `header_align` of each of `columns` | alignment of the table header. If omitted, the value of the above `align` attribute will be applied | [^85]`'left' \\| 'center' \\| 'right'` |  | left |
-| `class-name` | field `class_name` of each of `columns` | class name of cells in the column | [^86] |  | — |
-| `label-class-name` | field `label_class_name` of each of `columns` | class name of the label of this column | [^87] |  | — |
-| `selectable` | field `selectable` of each of `columns` | function that determines if a certain row can be selected, works when `type` is ‘selection’ | [^88]`(row: any, index: number) => boolean` |  | — |
-| `reserve-selection` | field `reserve_selection` of each of `columns` | whether to reserve selection after data refreshing, works when `type` is ‘selection’. Note that `row-key` is required for this to work | [^89] |  | false |
-| `filters` | field `filters` of each of `columns` | an array of data filtering options. For each element in this array, `text` and `value` are required | [^90]`Array<{text: string, value: string}>` |  | — |
-| `filter-placement` | field `filter_placement` of each of `columns` | placement for the filter dropdown | [^91]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | — |
-| `filter-class-name` | field `filter_class_name` of each of `columns` | className for the filter dropdown | [^92] |  | — |
-| `filter-multiple` | field `filter_multiple` of each of `columns` | whether data filtering supports multiple options | [^93] |  | true |
-| `filter-method` | field `filter_method` of each of `columns` | data filtering method. If `filter-multiple` is on, this method will be called multiple times for each row, and a row will display if one of the calls returns `true` | [^94]`(value: any, row: any, column: TableColumnCtx<T>) => void` |  | — |
-| `filtered-value` | field `filtered_value` of each of `columns` | filter value for selected data, might be useful when table header is rendered with `render-header` | [^95]`string[]` |  | — |
-| `tooltip-formatter` | `tooltip_formatter` | customize tooltip content when using `show-overflow-tooltip` | [^96]`(data: { row: any, column: TableColumnCtx<T>, cellValue: any }) => VNode \\| string` |  | — |
+| `type` | `el_table_column(type =)` | type of the column. If set to `selection`, the column will display checkbox. If set to `index`, the column will display index of the row (staring from 1). If set to `expand`, the column will display expand icon | [^61]`'default' \\| 'selection' \\| 'index' \\| 'expand'` |  | default |
+| `index` | `el_table_column(index =)` | customize indices for each row, works on columns with `type=index` | [^62] / [^63]`(index: number) => number` |  | — |
+| `label` | `el_table_column(label =)` | column label | [^64] |  | — |
+| `column-key` | `el_table_column(column_key =)` | column’s key. If you need to use the filter-change event, you need this attribute to identify which column is being filtered | [^65] |  | — |
+| `prop` | `el_table_column(prop =)` | field name. You can also use its alias: `property` | [^66] |  | — |
+| `width` | `el_table_column(width =)` | column width | [^67] / [^68] |  | ’’ |
+| `min-width` | `el_table_column(min_width =)` | column minimum width. Columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion | [^69] / [^70] |  | ’’ |
+| `fixed` | `el_table_column(fixed =)` | whether column is fixed at left / right. Will be fixed at left if `true` | [^71]`'left' \\| 'right'` / [^72] |  | false |
+| `render-header` | `el_table_column(render_header =)` | render function for table header of this column | [^73]`(data: { column: TableColumnCtx<T>, $index: number }) => void` |  | — |
+| `sortable` | `el_table_column(sortable =)` | whether column can be sorted. Remote sorting can be done by setting this attribute to ‘custom’ and listening to the `sort-change` event of Table | [^74] / [^75] |  | false |
+| `sort-method` | `el_table_column(sort_method =)` | sorting method, works when `sortable` is `true`. Should return a number, just like Array.sort | [^76]`<T = any>(a: T, b: T) => number` |  | — |
+| `sort-by` | `el_table_column(sort_by =)` | specify which property to sort by, works when `sortable` is `true` and `sort-method` is `undefined`. If set to an Array, the column will sequentially sort by the next property if the previous one is equal | [^77]`(row: any, index: number) => string` / [^78] / [^79]`string[]` |  | — |
+| `sort-orders` | `el_table_column(sort_orders =)` | the order of the sorting strategies used when sorting the data, works when `sortable` is `true`. Accepts an array, as the user clicks on the header, the column is sorted in order of the elements in the array | [^80]`('ascending' \\| 'descending' \\| null)[]` |  | \[‘ascending’, ‘descending’, null\] |
+| `resizable` | `el_table_column(resizable =)` | whether column width can be resized, works when `border` of `el-table` is `true` | [^81] |  | true |
+| `formatter` | `el_table_column(formatter =)` | function that formats cell content | [^82]`(row: any, column: TableColumnCtx<T>, cellValue: any, index: number) => VNode \\| string` |  | — |
+| `show-overflow-tooltip` | `el_table_column(show_overflow_tooltip =)` | whether to hide extra content and show them in a tooltip when hovering on the cell | [^83] / [`object`](#table-attributes) ^(2.2.28) |  | undefined |
+| `align` | `el_table_column(align =)` | alignment | [^84]`'left' \\| 'center' \\| 'right'` |  | left |
+| `header-align` | `el_table_column(header_align =)` | alignment of the table header. If omitted, the value of the above `align` attribute will be applied | [^85]`'left' \\| 'center' \\| 'right'` |  | left |
+| `class-name` | `el_table_column(class_name =)` | class name of cells in the column | [^86] |  | — |
+| `label-class-name` | `el_table_column(label_class_name =)` | class name of the label of this column | [^87] |  | — |
+| `selectable` | `el_table_column(selectable =)` | function that determines if a certain row can be selected, works when `type` is ‘selection’ | [^88]`(row: any, index: number) => boolean` |  | — |
+| `reserve-selection` | `el_table_column(reserve_selection =)` | whether to reserve selection after data refreshing, works when `type` is ‘selection’. Note that `row-key` is required for this to work | [^89] |  | false |
+| `filters` | `el_table_column(filters =)` | an array of data filtering options. For each element in this array, `text` and `value` are required | [^90]`Array<{text: string, value: string}>` |  | — |
+| `filter-placement` | `el_table_column(filter_placement =)` | placement for the filter dropdown | [^91]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | — |
+| `filter-class-name` | `el_table_column(filter_class_name =)` | className for the filter dropdown | [^92] |  | — |
+| `filter-multiple` | `el_table_column(filter_multiple =)` | whether data filtering supports multiple options | [^93] |  | true |
+| `filter-method` | `el_table_column(filter_method =)` | data filtering method. If `filter-multiple` is on, this method will be called multiple times for each row, and a row will display if one of the calls returns `true` | [^94]`(value: any, row: any, column: TableColumnCtx<T>) => void` |  | — |
+| `filtered-value` | `el_table_column(filtered_value =)` | filter value for selected data, might be useful when table header is rendered with `render-header` | [^95]`string[]` |  | — |
+| `tooltip-formatter` | `el_table_column(tooltip_formatter =)` | customize tooltip content when using `show-overflow-tooltip` | [^96]`(data: { row: any, column: TableColumnCtx<T>, cellValue: any }) => VNode \\| string` |  | — |
 
 ### Table-column Slots
 

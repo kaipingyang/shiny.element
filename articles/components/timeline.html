@@ -198,16 +198,16 @@ difference with Steps.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tl"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="basic-tl" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-tl_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13"},{"content":"Success","timestamp":"2018-04-11"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -238,9 +238,9 @@ sides.</p>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"tl_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">m</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        mode <span class="op">=</span> <span class="va">m</span>,</span>
 <span>        items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
+<span>          <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -252,7 +252,7 @@ sides.</p>
     <div id="mode-tl_start" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="mode-tl_start_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13"},{"content":"Success","timestamp":"2018-04-11"}],"reverse":false,"mode":"start"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -262,7 +262,7 @@ sides.</p>
     <div id="mode-tl_alternate" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="mode-tl_alternate_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13"},{"content":"Success","timestamp":"2018-04-11"}],"reverse":false,"mode":"alternate"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -272,7 +272,7 @@ sides.</p>
     <div id="mode-tl_alternate_reverse" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="mode-tl_alternate_reverse_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13"},{"content":"Success","timestamp":"2018-04-11"}],"reverse":false,"mode":"alternate-reverse"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -282,7 +282,7 @@ sides.</p>
     <div id="mode-tl_end" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="mode-tl_end_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13"},{"content":"Success","timestamp":"2018-04-11"}],"reverse":false,"mode":"end"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -297,37 +297,37 @@ sides.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
 <span>  <span class="st">"nodes"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      content <span class="op">=</span> <span class="st">"Custom icon"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Custom icon"</span>,</span>
 <span>      timestamp <span class="op">=</span> <span class="st">"2018-04-12 20:46"</span>,</span>
 <span>      size <span class="op">=</span> <span class="st">"large"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
 <span>      icon <span class="op">=</span> <span class="st">"MoreFilled"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      content <span class="op">=</span> <span class="st">"Custom color"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Custom color"</span>,</span>
 <span>      timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>,</span>
 <span>      color <span class="op">=</span> <span class="st">"#0bbd87"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      content <span class="op">=</span> <span class="st">"Custom size"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Custom size"</span>,</span>
 <span>      timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>,</span>
 <span>      size <span class="op">=</span> <span class="st">"large"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      content <span class="op">=</span> <span class="st">"Custom hollow"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Custom hollow"</span>,</span>
 <span>      timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
 <span>      hollow <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Default node"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Default node"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-03 20:46"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="custom-node-nodes" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-node-nodes_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Custom icon","timestamp":"2018-04-12 20:46","type":"primary","size":"large","icon":"MoreFilled"},{"content":"Custom color","timestamp":"2018-04-03 20:46","color":"#0bbd87"},{"content":"Custom size","timestamp":"2018-04-03 20:46","size":"large"},{"content":"Custom hollow","timestamp":"2018-04-03 20:46","type":"primary","hollow":true},{"content":"Default node","timestamp":"2018-04-03 20:46"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -342,29 +342,29 @@ high.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
 <span>  <span class="st">"stamps"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>,</span>
-<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/12 20:46"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>,</span>
-<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/3 20:46"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>,</span>
-<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/2 20:46"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -372,7 +372,7 @@ high.</p>
   <div id="custom-timestamp-stamps" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-timestamp-stamps_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"<div class=\"el-card is-always-shadow\">\n  <div class=\"el-card__body\">\n    <h4>Update Github template<\/h4>\n    <p>Tom committed 2018/4/12 20:46<\/p>\n  <\/div>\n<\/div>","timestamp":"2018/4/12","placement":"top"},{"content":"<div class=\"el-card is-always-shadow\">\n  <div class=\"el-card__body\">\n    <h4>Update Github template<\/h4>\n    <p>Tom committed 2018/4/3 20:46<\/p>\n  <\/div>\n<\/div>","timestamp":"2018/4/3","placement":"top"},{"content":"<div class=\"el-card is-always-shadow\">\n  <div class=\"el-card__body\">\n    <h4>Update Github template<\/h4>\n    <p>Tom committed 2018/4/2 20:46<\/p>\n  <\/div>\n<\/div>","timestamp":"2018/4/2","placement":"top"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -386,37 +386,37 @@ high.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
 <span>  <span class="st">"centred"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>,</span>
-<span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>      center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/12 20:46"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>,</span>
+<span>      <span class="op">)</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/12"</span>,</span>
 <span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>      center <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"Update Github template"</span><span class="op">)</span>,</span>
 <span>        <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Tom committed 2018/4/3 20:46"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      timestamp <span class="op">=</span> <span class="st">"2018/4/3"</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"top"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Event start"</span>,</span>
 <span>      timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>,</span>
 <span>      placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>      center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      content <span class="op">=</span> <span class="st">"Event start"</span></span>
+<span>      center <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>, placement <span class="op">=</span> <span class="st">"top"</span>, content <span class="op">=</span> <span class="st">"Event end"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event end"</span>, timestamp <span class="op">=</span> <span class="st">"2018/4/2"</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="center-centred" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="center-centred_container" style="display: contents">
   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp">{{ item.content }}</el-timeline-item>
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
   </el-timeline>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"<div class=\"el-card is-always-shadow\">\n  <div class=\"el-card__body\">\n    <h4>Update Github template<\/h4>\n    <p>Tom committed 2018/4/12 20:46<\/p>\n  <\/div>\n<\/div>","timestamp":"2018/4/12","placement":"top","center":true},{"content":"<div class=\"el-card is-always-shadow\">\n  <div class=\"el-card__body\">\n    <h4>Update Github template<\/h4>\n    <p>Tom committed 2018/4/3 20:46<\/p>\n  <\/div>\n<\/div>","timestamp":"2018/4/3","placement":"top"},{"content":"Event start","timestamp":"2018/4/2","placement":"top","center":true},{"content":"Event end","timestamp":"2018/4/2","placement":"top"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 </div>
@@ -438,9 +438,9 @@ high.</p>
 <span>  <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
 <span>    <span class="st">"tl"</span>,</span>
 <span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -540,8 +540,7 @@ high.</p>
 <tbody>
 <tr class="odd">
 <td><code>timestamp</code></td>
-<td>field <code>timestamp</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(timestamp =)</code></td>
 <td>timestamp content</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>3</sup></a></td>
 <td></td>
@@ -549,8 +548,7 @@ high.</p>
 </tr>
 <tr class="even">
 <td><code>hide-timestamp</code></td>
-<td>field <code>hide_timestamp</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(hide_timestamp =)</code></td>
 <td>whether to show timestamp</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>4</sup></a></td>
 <td></td>
@@ -558,8 +556,7 @@ high.</p>
 </tr>
 <tr class="odd">
 <td><code>center</code></td>
-<td>field <code>center</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(center =)</code></td>
 <td>whether vertically centered</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>5</sup></a></td>
 <td></td>
@@ -567,8 +564,7 @@ high.</p>
 </tr>
 <tr class="even">
 <td><code>placement</code></td>
-<td>field <code>placement</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(placement =)</code></td>
 <td>position of timestamp</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>6</sup></a><code>'top' \\| 'bottom'</code>
@@ -578,8 +574,7 @@ high.</p>
 </tr>
 <tr class="odd">
 <td><code>type</code></td>
-<td>field <code>type</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(type =)</code></td>
 <td>node type</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>7</sup></a><code>'primary' \\| 'success' \\| 'warning' \\| 'danger' \\| 'info'</code>
@@ -589,8 +584,7 @@ high.</p>
 </tr>
 <tr class="even">
 <td><code>color</code></td>
-<td>field <code>color</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(color =)</code></td>
 <td>background color of node</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>8</sup></a></td>
 <td></td>
@@ -598,8 +592,7 @@ high.</p>
 </tr>
 <tr class="odd">
 <td><code>size</code></td>
-<td>field <code>size</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(size =)</code></td>
 <td>node size</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>9</sup></a><code>'normal' \\| 'large'</code>
@@ -609,8 +602,7 @@ high.</p>
 </tr>
 <tr class="even">
 <td><code>icon</code></td>
-<td>field <code>icon</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(icon =)</code></td>
 <td>icon component</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>10</sup></a>
@@ -621,8 +613,7 @@ high.</p>
 </tr>
 <tr class="odd">
 <td><code>hollow</code></td>
-<td>field <code>hollow</code> of each of <code>items</code>
-</td>
+<td><code>el_timeline_item(hollow =)</code></td>
 <td>icon is hollow</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>12</sup></a></td>
 <td></td>

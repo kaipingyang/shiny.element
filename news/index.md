@@ -135,6 +135,46 @@ as a Shiny input.
   `options(shiny.vue.dev = TRUE)` loads Vue’s development build, as
   `shiny.element.dev` does.
 
+### Items as functions
+
+The parts Element Plus writes as child tags have constructors, as bslib
+has
+[`nav_panel()`](https://rstudio.github.io/bslib/reference/nav-items.html)
+and
+[`accordion_panel()`](https://rstudio.github.io/bslib/reference/accordion.html):
+[`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md),
+[`el_collapse_item()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse_item.md),
+[`el_timeline_item()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline_item.md),
+[`el_descriptions_item()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions_item.md),
+[`el_carousel_item()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel_item.md),
+[`el_step()`](https://kaipingyang.github.io/shiny.element/reference/el_step.md),
+[`el_breadcrumb_item()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb_item.md),
+[`el_dropdown_item()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown_item.md),
+[`el_tour_step()`](https://kaipingyang.github.io/shiny.element/reference/el_tour_step.md),
+[`el_anchor_link()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor_link.md),
+[`el_menu_item()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md),
+[`el_sub_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md),
+[`el_menu_item_group()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md),
+[`el_option()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md),
+[`el_option_group()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md),
+[`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md),
+[`el_table_v2_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2_column.md)
+and
+[`el_skeleton_item()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton_item.md).
+Each takes the child’s own attributes as arguments – documented,
+completed by the editor, checked – and returns the item its parent’s
+argument takes, so `el_tabs(tabs = list(el_tab_pane("One", ...)))` and
+the plain list it replaces draw the same, and update functions take
+items too. A timeline entry’s `hide_timestamp` is new.
+[`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
+takes an
+[`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md),
+as bslib’s
+[`nav_insert()`](https://rstudio.github.io/bslib/reference/nav_select.html)
+takes a
+[`nav_panel()`](https://rstudio.github.io/bslib/reference/nav-items.html);
+its `name` argument is now `tab`.
+
 ### Behaviour closer to Element Plus
 
 - A dialog or drawer keeps focus inside while open, as Element Plus’s

@@ -274,13 +274,17 @@ Element Plus's <code>cell-props</code>. Give it as <code><a href="JS.html">JS()<
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>The columns: a list of <code>list(key =, dataKey =, title =, width =)</code> and Element Plus's other column fields. <code>NULL</code> makes one per
+<dd><p>The columns, each an <code><a href="el_table_v2_column.html">el_table_v2_column()</a></code> – or a
+<code>list(key =, dataKey =, title =, width =)</code> with Element Plus's other
+column fields. <code>NULL</code> makes one per
 variable of a data.frame <code>data</code>, 150 pixels wide.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>The rows: a data.frame, or a list of rows. Element Plus's
-<code>data</code>.</p></dd>
+<code>data</code>. A vector of one
+element travels as a single value, as in Shiny; wrap it in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to
+keep it an array: <code>tags = I("red")</code>.</p></dd>
 
 
 <dt id="arg-data-getter">data_getter<a class="anchor" aria-label="anchor" href="#arg-data-getter"></a></dt>

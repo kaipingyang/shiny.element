@@ -201,10 +201,10 @@ and it determines the separator. Its default value is ‘/’.</p>
 <span>  <span class="st">"crumbs"</span>,</span>
 <span>  separator <span class="op">=</span> <span class="st">"/"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"homepage"</span>, to <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion management"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion list"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion detail"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"homepage"</span>, to <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"promotion management"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"promotion list"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"promotion detail"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -227,10 +227,10 @@ separator，it will cover <code>separator</code></p>
 <span>  <span class="st">"crumbs_icon"</span>,</span>
 <span>  separator_icon <span class="op">=</span> <span class="st">"ArrowRight"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"homepage"</span>, to <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion management"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion list"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"promotion detail"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"homepage"</span>, to <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"promotion management"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"promotion list"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_breadcrumb_item.html">el_breadcrumb_item</a></span><span class="op">(</span><span class="st">"promotion detail"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -329,8 +329,7 @@ separator，it will cover <code>separator</code></p>
 <tbody>
 <tr class="odd">
 <td><code>to</code></td>
-<td>field <code>to</code> of each of <code>items</code>
-</td>
+<td><code>el_breadcrumb_item(to =)</code></td>
 <td>target route of the link, same as <code>to</code> of
 <code>vue-router</code>
 </td>
@@ -343,8 +342,7 @@ separator，it will cover <code>separator</code></p>
 </tr>
 <tr class="even">
 <td><code>replace</code></td>
-<td>field <code>replace</code> of each of <code>items</code>
-</td>
+<td><code>el_breadcrumb_item(replace =)</code></td>
 <td>if <code>true</code>, the navigation will not leave a history
 record</td>
 <td><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;boolean&lt;/p&gt;"><sup>6</sup></a></td>

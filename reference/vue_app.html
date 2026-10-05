@@ -205,7 +205,10 @@ Vue's <code>app.use()</code>.</p>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>Named list: the initial state. A data.frame in it is rows.</p></dd>
+<dd><p>Named list: the initial state. A data.frame in it is rows.
+A vector of one
+element travels as a single value, as in Shiny; wrap it in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to
+keep it an array: <code>tags = I("red")</code>.</p></dd>
 
 
 <dt id="arg-methods-computed-watch">methods, computed, watch<a class="anchor" aria-label="anchor" href="#arg-methods-computed-watch"></a></dt>

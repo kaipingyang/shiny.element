@@ -230,11 +230,15 @@ row actions that report to the server.</p>
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>A data.frame, or a list of rows (each a named list). A
 data.frame is converted to rows automatically and its column names are
-sanitised (<code>.</code> becomes <code>_</code>) so <code>el-table</code>'s dotted <code>prop</code> lookup works.</p></dd>
+sanitised (<code>.</code> becomes <code>_</code>) so <code>el-table</code>'s dotted <code>prop</code> lookup works.
+A data.frame inside the rows, or in a list column, is rows too. A vector of one
+element travels as a single value, as in Shiny; wrap it in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> to
+keep it an array: <code>tags = I("red")</code>.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>List of column configs, each <code>list(prop=, label=, width=)</code>.
+<dd><p>The columns, each an <code><a href="el_table_column.html">el_table_column()</a></code> – or a list of
+the same fields, <code>list(prop =, label =, width =)</code>.
 Inferred from <code>data</code> when omitted. Beyond Element's column attributes, a
 column may carry:</p><ul><li><p><code>type</code> – <code>"index"</code> for row numbers, <code>"expand"</code> for a row that opens
 to show its <code>cell</code>, or <code>"selection"</code>.</p></li>

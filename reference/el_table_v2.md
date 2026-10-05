@@ -124,13 +124,18 @@ el_table_v2(
 
 - columns:
 
-  The columns: a list of `list(key =, dataKey =, title =, width =)` and
-  Element Plus's other column fields. `NULL` makes one per variable of a
-  data.frame `data`, 150 pixels wide.
+  The columns, each an
+  [`el_table_v2_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2_column.md)
+  – or a `list(key =, dataKey =, title =, width =)` with Element Plus's
+  other column fields. `NULL` makes one per variable of a data.frame
+  `data`, 150 pixels wide.
 
 - data:
 
-  The rows: a data.frame, or a list of rows. Element Plus's `data`.
+  The rows: a data.frame, or a list of rows. Element Plus's `data`. A
+  vector of one element travels as a single value, as in Shiny; wrap it
+  in [`I()`](https://rdrr.io/r/base/AsIs.html) to keep it an array:
+  `tags = I("red")`.
 
 - data_getter:
 

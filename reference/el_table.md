@@ -73,13 +73,19 @@ el_table(
 
   A data.frame, or a list of rows (each a named list). A data.frame is
   converted to rows automatically and its column names are sanitised
-  (`.` becomes `_`) so `el-table`'s dotted `prop` lookup works.
+  (`.` becomes `_`) so `el-table`'s dotted `prop` lookup works. A
+  data.frame inside the rows, or in a list column, is rows too. A vector
+  of one element travels as a single value, as in Shiny; wrap it in
+  [`I()`](https://rdrr.io/r/base/AsIs.html) to keep it an array:
+  `tags = I("red")`.
 
 - columns:
 
-  List of column configs, each `list(prop=, label=, width=)`. Inferred
-  from `data` when omitted. Beyond Element's column attributes, a column
-  may carry:
+  The columns, each an
+  [`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md)
+  – or a list of the same fields, `list(prop =, label =, width =)`.
+  Inferred from `data` when omitted. Beyond Element's column attributes,
+  a column may carry:
 
   - `type` – `"index"` for row numbers, `"expand"` for a row that opens
     to show its `cell`, or `"selection"`.

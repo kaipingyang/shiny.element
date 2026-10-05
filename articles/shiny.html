@@ -741,10 +741,16 @@ arguments are a list, <code>arg1</code>, <code>arg2</code>, …; none is
 <code>TRUE</code>. Inside a module, wrap the id in <code>ns()</code>;
 the events follow it.</p>
 <p><code>data</code> is the initial state as R writes it: a list is an
-object, a data.frame its rows. Show a user’s data through it –
-<code>{{ field }}</code>, <code>:prop="field"</code> – which Vue renders
-as text. Never paste it into the template: a template is code, and
-<code>{{ }}</code> in it runs.</p>
+object, a data.frame its rows – a data.frame further in, or a list
+column, too. A vector of one element is a single value, as everywhere in
+Shiny: <code>c("a", "b")</code> is an array, <code>"a"</code> a string.
+Where JavaScript expects an array whatever its length – a list of tags,
+<code>v-for</code> over it – wrap it in <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>:
+<code>list(tags = I("red"))</code> is <code>{"tags": ["red"]}</code>.
+Show a user’s data through it – <code>{{ field }}</code>,
+<code>:prop="field"</code> – which Vue renders as text. Never paste it
+into the template: a template is code, and <code>{{ }}</code> in it
+runs.</p>
 </div>
 <div class="section level3">
 <h3 id="templates-tags-or-a-string">Templates: tags or a string<a class="anchor" aria-label="anchor" href="#templates-tags-or-a-string"></a>

@@ -199,7 +199,9 @@ mouse hovers over an indicator. Set <code>trigger</code> to
 <code>click</code>, and the carousel switches only when an indicator is
 clicked.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_carousel_item.html">el_carousel_item</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
 <span>    class <span class="op">=</span> <span class="st">"demonstration"</span>,</span>
@@ -260,7 +262,9 @@ carousel. By default, the <code>motion-blur</code> parameter is set to
 <code>false</code>, activating this feature and providing a visually
 engaging experience.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_carousel_item.html">el_carousel_item</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Motion blur the switch (default)"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span></span>
@@ -333,7 +337,7 @@ them outside; setting <code>indicator-position</code> to
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span></span>
 <span>  <span class="st">"car_ind"</span>,</span>
 <span>  indicator_position <span class="op">=</span> <span class="st">"outside"</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_carousel_item.html">el_carousel_item</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="indicator-car_ind" data-shiny-vue style="display: contents">
@@ -369,7 +373,7 @@ shows/hides the arrows permanently.</p>
 <span>  <span class="st">"car_arrow"</span>,</span>
 <span>  interval <span class="op">=</span> <span class="fl">5000</span>,</span>
 <span>  arrow <span class="op">=</span> <span class="st">"always"</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_carousel_item.html">el_carousel_item</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="arrows-car_arrow" data-shiny-vue style="display: contents">
@@ -405,12 +409,10 @@ automatically set according to the height of the
 <span>  <span class="st">"car_auto"</span>,</span>
 <span>  height <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">h</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span></span>
-<span>        style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height: %dpx"</span>, <span class="va">h</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height %dpx"</span>, <span class="va">h</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_carousel_item.html">el_carousel_item</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height: %dpx"</span>, <span class="va">h</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"height %dpx"</span>, <span class="va">h</span><span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -446,7 +448,7 @@ switches the carousel in card mode.</p>
 <span>  interval <span class="op">=</span> <span class="fl">4000</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"card"</span>,</span>
 <span>  height <span class="op">=</span> <span class="st">"200px"</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_carousel_item.html">el_carousel_item</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="card-car_card" data-shiny-vue style="display: contents">
@@ -482,7 +484,9 @@ switches the carousel in card mode.</p>
 carousel be displayed in the vertical direction by setting
 <code>direction</code> to <code>vertical</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">slides</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="../../reference/el_carousel_item.html">el_carousel_item</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"normal vertical layout"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_carousel.html">el_carousel</a></span><span class="op">(</span></span>
@@ -783,8 +787,7 @@ starting from 0; or the <code>name</code> of corresponding
 </tr></thead>
 <tbody><tr class="odd">
 <td><code>label</code></td>
-<td>item field <code>label</code>
-</td>
+<td><code>el_carousel_item(label =)</code></td>
 <td>text content for the corresponding indicator</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;string&lt;/p&gt;"><sup>14</sup></a>

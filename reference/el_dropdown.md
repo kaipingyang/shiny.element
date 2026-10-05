@@ -53,7 +53,9 @@ el_dropdown(
 
 - items:
 
-  A list of menu items. Each element is a named list with:
+  A list of menu entries, each an
+  [`el_dropdown_item()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown_item.md)
+  – or a named list with the same fields:
 
   command
 

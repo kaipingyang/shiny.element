@@ -87,11 +87,13 @@ el_select(
 - choices, options:
 
   The choices: a named character vector (`c(Label = value)`), a list of
-  `list(value = ..., label = ...)`, or a named list of those for option
-  groups. Unnamed vectors are allowed; the element is used as both value
-  and label. `choices` is Shiny's name for it, `options` Element's; give
-  either. Empty by default, for a select whose options arrive later
-  (`remote = TRUE`).
+  [`el_option()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md)s
+  (or of `list(value = ..., label = ...)`), or a list of
+  [`el_option_group()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md)s
+  (or a named list of options) for option groups. Unnamed vectors are
+  allowed; the element is used as both value and label. `choices` is
+  Shiny's name for it, `options` Element's; give either. Empty by
+  default, for a select whose options arrive later (`remote = TRUE`).
 
 - selected, value:
 

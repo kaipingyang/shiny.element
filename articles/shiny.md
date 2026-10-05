@@ -504,7 +504,12 @@ id, as Element’s own events do: `$emit("picked", x)` is
 events follow it.
 
 `data` is the initial state as R writes it: a list is an object, a
-data.frame its rows. Show a user’s data through it – `{{ field }}`,
+data.frame its rows – a data.frame further in, or a list column, too. A
+vector of one element is a single value, as everywhere in Shiny:
+`c("a", "b")` is an array, `"a"` a string. Where JavaScript expects an
+array whatever its length – a list of tags, `v-for` over it – wrap it in
+[`I()`](https://rdrr.io/r/base/AsIs.html): `list(tags = I("red"))` is
+`{"tags": ["red"]}`. Show a user’s data through it – `{{ field }}`,
 `:prop="field"` – which Vue renders as text. Never paste it into the
 template: a template is code, and `{{ }}` in it runs.
 

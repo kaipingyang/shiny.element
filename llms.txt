@@ -286,6 +286,9 @@ change.
   : Element Plus Select Component
 - [`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select.md)
   : Update Element Plus Select
+- [`el_option()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md)
+  [`el_option_group()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md)
+  : A choice of a select, a radio group, a checkbox group
 - [`el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_select_v2.md)
   : Element Plus Virtualized Select
 - [`update_el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_select_v2.md)
@@ -323,106 +326,205 @@ change.
 
 - [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md)
   : Element Plus Avatar
+
 - [`update_el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_avatar.md)
   : Update Element Plus Avatar
+
 - [`el_avatar_group()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar_group.md)
   : Element Plus Avatar Group
+
 - [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md)
   : Element Plus Badge
+
 - [`update_el_badge()`](https://kaipingyang.github.io/shiny.element/reference/update_el_badge.md)
   : Update Element Plus Badge
+
 - [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md)
   : Element Plus Calendar
+
 - [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md)
   : Update Element Plus Calendar Component
+
 - [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md)
   : Element Plus Card
+
 - [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
   : Element Plus Carousel
+
 - [`update_el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/update_el_carousel.md)
   : Update an Element Plus Carousel
+
+- [`el_carousel_item()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel_item.md)
+  :
+
+  A slide of
+  [`el_carousel()`](https://kaipingyang.github.io/shiny.element/reference/el_carousel.md)
+
 - [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md)
   : Element Plus Collapse / Accordion
+
 - [`update_el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/update_el_collapse.md)
   : Update Element Plus Collapse
+
+- [`el_collapse_item()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse_item.md)
+  :
+
+  A panel of
+  [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md)
+
 - [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)
   : Element Plus Descriptions
+
 - [`update_el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/update_el_descriptions.md)
   : Update Element Plus Descriptions
+
+- [`el_descriptions_item()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions_item.md)
+  :
+
+  A field of
+  [`el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)
+
 - [`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md)
   : Element Plus Empty
+
 - [`update_el_empty()`](https://kaipingyang.github.io/shiny.element/reference/update_el_empty.md)
   : Update Element Plus Empty
+
 - [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md)
   : Element Plus Image
+
 - [`update_el_image()`](https://kaipingyang.github.io/shiny.element/reference/update_el_image.md)
   : Update Element Plus Image
+
 - [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/el_image_viewer.md)
   : Element Plus Image Viewer
+
 - [`update_el_image_viewer()`](https://kaipingyang.github.io/shiny.element/reference/update_el_image_viewer.md)
   : Update Element Plus Image Viewer
+
 - [`el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md)
   : Element Plus Infinite Scroll
+
 - [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/update_el_infinite_scroll.md)
   : Update Element Plus Infinite Scroll
+
 - [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
   : Element Plus Pagination Component
+
 - [`update_el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/update_el_pagination.md)
   : Update Element Plus Pagination
+
 - [`el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md)
   : Element Plus Progress Component
+
 - [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/update_el_progress.md)
   : Update Element Plus Progress
+
 - [`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md)
   : Element Plus Result
+
 - [`update_el_result()`](https://kaipingyang.github.io/shiny.element/reference/update_el_result.md)
   : Update Element Plus Result
+
 - [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)
   : Element Plus Skeleton
+
 - [`update_el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/update_el_skeleton.md)
   : Update Element Plus Skeleton
+
+- [`el_skeleton_item()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton_item.md)
+  :
+
+  A placeholder shape of
+  [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)'s
+  template
+
 - [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
   : Element Plus Table Component
+
 - [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md)
   : Update Element Plus Table
+
+- [`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md)
+  :
+
+  A column of
+  [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+
 - [`el_table_config()`](https://kaipingyang.github.io/shiny.element/reference/el_table_config.md)
   : Prepare Data for Element Table
+
 - [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
   : Element Plus Virtualized Table
+
 - [`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table_v2.md)
   : Update Element Plus Virtualized Table
+
+- [`el_table_v2_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2_column.md)
+  :
+
+  A column of
+  [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md)
+
 - [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
   : Element Plus Tag
+
 - [`update_el_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tag.md)
   : Update Element Plus Tag
+
 - [`el_check_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_check_tag.md)
   : Element Plus Check Tag
+
 - [`update_el_check_tag()`](https://kaipingyang.github.io/shiny.element/reference/update_el_check_tag.md)
   : Update Element Plus Check Tag
+
 - [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
   : Element Plus Timeline
+
 - [`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/update_el_timeline.md)
   : Update an Element Plus Timeline
+
+- [`el_timeline_item()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline_item.md)
+  :
+
+  An entry of
+  [`el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md)
+
 - [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)
   : Element Plus Tour
+
 - [`update_el_tour()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tour.md)
   : Update Element Plus Tour
+
+- [`el_tour_step()`](https://kaipingyang.github.io/shiny.element/reference/el_tour_step.md)
+  :
+
+  A step of
+  [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)
+
 - [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
   : Element Plus Tree
+
 - [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tree.md)
   : Update an Element Plus Tree
+
 - [`df_to_tree_data()`](https://kaipingyang.github.io/shiny.element/reference/df_to_tree_data.md)
   : Build tree data from a data frame
+
 - [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)
   : Element Plus Virtualized Tree
+
 - [`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
   [`el_countdown()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
   : Element Plus Statistic
+
 - [`update_el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/update_el_statistic.md)
   [`update_el_countdown()`](https://kaipingyang.github.io/shiny.element/reference/update_el_statistic.md)
   : Update Element Plus Statistic
+
 - [`el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/el_segmented.md)
   : Element Plus Segmented
+
 - [`update_el_segmented()`](https://kaipingyang.github.io/shiny.element/reference/update_el_segmented.md)
   : Update Element Plus Segmented
 
@@ -430,36 +532,92 @@ change.
 
 - [`el_affix()`](https://kaipingyang.github.io/shiny.element/reference/el_affix.md)
   : Element Plus Affix
+
 - [`el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md)
   : Element Plus Anchor
+
+- [`el_anchor_link()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor_link.md)
+  :
+
+  A link of
+  [`el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md)
+
 - [`el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/el_backtop.md)
   : Element Plus Back to Top
+
 - [`update_el_backtop()`](https://kaipingyang.github.io/shiny.element/reference/update_el_backtop.md)
   : Update Element Plus Back to Top
+
 - [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md)
   : Element Plus Breadcrumb
+
 - [`update_el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/update_el_breadcrumb.md)
   : Update Element Plus Breadcrumb
+
+- [`el_breadcrumb_item()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb_item.md)
+  :
+
+  A step of
+  [`el_breadcrumb()`](https://kaipingyang.github.io/shiny.element/reference/el_breadcrumb.md)
+
 - [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md)
   : Element Plus Dropdown Menu
+
 - [`update_el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/update_el_dropdown.md)
   : Update Element Plus Dropdown
+
+- [`el_dropdown_item()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown_item.md)
+  :
+
+  An entry of
+  [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md)'s
+  menu
+
 - [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md)
   : Element Plus Menu
+
 - [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/update_el_menu.md)
   : Update an Element Plus Menu
+
+- [`el_menu_item()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md)
+  [`el_sub_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md)
+  [`el_menu_item_group()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md)
+  :
+
+  Items of
+  [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md):
+  an entry, a submenu, a group
+
 - [`el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/el_page_header.md)
   : Element Plus Page Header
+
 - [`update_el_page_header()`](https://kaipingyang.github.io/shiny.element/reference/update_el_page_header.md)
   : Update Element Plus Page Header
+
 - [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
   : Element Plus Steps Component
+
 - [`update_el_steps()`](https://kaipingyang.github.io/shiny.element/reference/update_el_steps.md)
   : Update Element Plus Steps
+
+- [`el_step()`](https://kaipingyang.github.io/shiny.element/reference/el_step.md)
+  :
+
+  A step of
+  [`el_steps()`](https://kaipingyang.github.io/shiny.element/reference/el_steps.md)
+
 - [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
   : Element Plus Tabs
+
 - [`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/update_el_tabs.md)
   : Update Element Plus Tabs
+
+- [`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md)
+  :
+
+  A tab of
+  [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+
 - [`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
   [`remove_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
   : Add or remove a tab from the server

@@ -43,7 +43,10 @@ vue_app(
 
 - data:
 
-  Named list: the initial state. A data.frame in it is rows.
+  Named list: the initial state. A data.frame in it is rows. A vector of
+  one element travels as a single value, as in Shiny; wrap it in
+  [`I()`](https://rdrr.io/r/base/AsIs.html) to keep it an array:
+  `tags = I("red")`.
 
 - methods, computed, watch:
 

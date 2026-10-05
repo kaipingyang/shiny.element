@@ -18,26 +18,22 @@ the colors.
 ``` r
 
 items <- list(
-  list(index = "1", label = "Processing Center"),
-  list(
-    index = "2",
-    title = "Workspace",
-    children = list(
-      list(index = "2-1", label = "item one"),
-      list(index = "2-2", label = "item two"),
-      list(index = "2-3", label = "item three"),
-      list(
-        index = "2-4",
-        title = "item four",
-        children = list(
-          list(index = "2-4-1", label = "item one"),
-          list(index = "2-4-2", label = "item two")
-        )
-      )
+  el_menu_item("Processing Center", "1"),
+  el_sub_menu(
+    "Workspace",
+    "2",
+    el_menu_item("item one", "2-1"),
+    el_menu_item("item two", "2-2"),
+    el_menu_item("item three", "2-3"),
+    el_sub_menu(
+      "item four",
+      "2-4",
+      el_menu_item("item one", "2-4-1"),
+      el_menu_item("item two", "2-4-2")
     )
   ),
-  list(index = "3", label = "Info", disabled = TRUE),
-  list(index = "4", label = "Orders")
+  el_menu_item("Info", "3", disabled = TRUE),
+  el_menu_item("Orders", "4")
 )
 tagList(
   el_menu(
@@ -73,13 +69,9 @@ el_menu(
   mode = "horizontal",
   ellipsis = FALSE,
   items = list(
-    list(index = "0", label = "LOGO"),
-    list(index = "1", label = "Processing Center"),
-    list(
-      index = "2",
-      title = "Workspace",
-      children = list(list(index = "2-1", label = "item one"))
-    )
+    el_menu_item("LOGO", "0"),
+    el_menu_item("Processing Center", "1"),
+    el_sub_menu("Workspace", "2", el_menu_item("item one", "2-1"))
   )
 )
 ```
@@ -94,39 +86,21 @@ the name of the group is determined by the title prop or a named slot.
 ``` r
 
 items <- list(
-  list(
-    index = "1",
-    title = "Navigator One",
-    icon = "Location",
-    children = list(
-      list(
-        group = TRUE,
-        title = "Group One",
-        children = list(
-          list(index = "1-1", label = "item one"),
-          list(index = "1-2", label = "item two")
-        )
-      ),
-      list(
-        group = TRUE,
-        title = "Group Two",
-        children = list(list(index = "1-3", label = "item three"))
-      ),
-      list(
-        index = "1-4",
-        title = "item four",
-        children = list(list(index = "1-4-1", label = "item one"))
-      )
-    )
+  el_sub_menu(
+    "Navigator One",
+    "1",
+    el_menu_item_group(
+      "Group One",
+      el_menu_item("item one", "1-1"),
+      el_menu_item("item two", "1-2")
+    ),
+    el_menu_item_group("Group Two", el_menu_item("item three", "1-3")),
+    el_sub_menu("item four", "1-4", el_menu_item("item one", "1-4-1")),
+    icon = "Location"
   ),
-  list(index = "2", label = "Navigator Two", icon = "Menu"),
-  list(
-    index = "3",
-    label = "Navigator Three",
-    icon = "Document",
-    disabled = TRUE
-  ),
-  list(index = "4", label = "Navigator Four", icon = "Setting")
+  el_menu_item("Navigator Two", "2", icon = "Menu"),
+  el_menu_item("Navigator Three", "3", icon = "Document", disabled = TRUE),
+  el_menu_item("Navigator Four", "4", icon = "Setting")
 )
 el_row(
   el_col(
@@ -164,18 +138,16 @@ el_menu(
   active = "2",
   collapse = TRUE,
   items = list(
-    list(
-      index = "1",
-      title = "Navigator One",
-      icon = "Location",
-      children = list(
-        list(index = "1-1", label = "item one"),
-        list(index = "1-2", label = "item two")
-      )
+    el_sub_menu(
+      "Navigator One",
+      "1",
+      el_menu_item("item one", "1-1"),
+      el_menu_item("item two", "1-2"),
+      icon = "Location"
     ),
-    list(index = "2", label = "Navigator Two", icon = "Menu"),
-    list(index = "3", label = "Navigator Three", icon = "Document"),
-    list(index = "4", label = "Navigator Four", icon = "Setting")
+    el_menu_item("Navigator Two", "2", icon = "Menu"),
+    el_menu_item("Navigator Three", "3", icon = "Document"),
+    el_menu_item("Navigator Four", "4", icon = "Setting")
   )
 )
 ```
@@ -192,15 +164,13 @@ el_menu(
   popper_offset = 16,
   ellipsis = FALSE,
   items = list(
-    list(index = "1", label = "Processing Center"),
-    list(
-      index = "2",
-      title = "Workspace",
-      popper_offset = 8,
-      children = list(
-        list(index = "2-1", label = "item one"),
-        list(index = "2-2", label = "item two")
-      )
+    el_menu_item("Processing Center", "1"),
+    el_sub_menu(
+      "Workspace",
+      "2",
+      el_menu_item("item one", "2-1"),
+      el_menu_item("item two", "2-2"),
+      popper_offset = 8
     )
   )
 )
@@ -263,18 +233,18 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `index` | field `index` of each of `items` | unique identification | [^25] |  | — |
-| `popper-class` | `popper_class` | custom class name for the popup menu | [^26] |  | — |
-| `popper-style` | `popper_style` | custom style for the popup menu | [^27] / [^28] |  | — |
-| `show-timeout` | `show_timeout` | timeout before showing a sub-menu(inherit `show-timeout` of the menu by default.) | [^29] |  | — |
-| `hide-timeout` | `hide_timeout` | timeout before hiding a sub-menu(inherit `hide-timeout` of the menu by default.) | [^30] |  | — |
-| `disabled` | field `disabled` of each of `items` | whether the sub-menu is disabled | [^31] |  | false |
-| `teleported` | field `teleported` of each of `items` | whether popup menu is teleported to the body, the default is true for the level one SubMenu, false for other SubMenus | [^32] |  | undefined |
-| `popper-offset` | `popper_offset` | offset of the popper (overrides the `popper` of menu) | [^33] |  | — |
-| `expand-close-icon` | field `expand_close_icon` of each of `items` | Icon when menu are expanded and submenu are closed, `expand-close-icon` and `expand-open-icon` need to be passed together to take effect | [^34] / [^35] |  | — |
-| `expand-open-icon` | field `expand_open_icon` of each of `items` | Icon when menu are expanded and submenu are opened, `expand-open-icon` and `expand-close-icon` need to be passed together to take effect | [^36] / [^37] |  | — |
-| `collapse-close-icon` | field `collapse_close_icon` of each of `items` | Icon when menu are collapsed and submenu are closed, `collapse-close-icon` and `collapse-open-icon` need to be passed together to take effect | [^38] / [^39] |  | — |
-| `collapse-open-icon` | field `collapse_open_icon` of each of `items` | Icon when menu are collapsed and submenu are opened, `collapse-open-icon` and `collapse-close-icon` need to be passed together to take effect | [^40] / [^41] |  | — |
+| `index` | `el_sub_menu(index =)` | unique identification | [^25] |  | — |
+| `popper-class` | `el_sub_menu(popper_class =)` | custom class name for the popup menu | [^26] |  | — |
+| `popper-style` | `el_sub_menu(popper_style =)` | custom style for the popup menu | [^27] / [^28] |  | — |
+| `show-timeout` | `el_sub_menu(show_timeout =)` | timeout before showing a sub-menu(inherit `show-timeout` of the menu by default.) | [^29] |  | — |
+| `hide-timeout` | `el_sub_menu(hide_timeout =)` | timeout before hiding a sub-menu(inherit `hide-timeout` of the menu by default.) | [^30] |  | — |
+| `disabled` | `el_sub_menu(disabled =)` | whether the sub-menu is disabled | [^31] |  | false |
+| `teleported` | `el_sub_menu(teleported =)` | whether popup menu is teleported to the body, the default is true for the level one SubMenu, false for other SubMenus | [^32] |  | undefined |
+| `popper-offset` | `el_sub_menu(popper_offset =)` | offset of the popper (overrides the `popper` of menu) | [^33] |  | — |
+| `expand-close-icon` | `el_sub_menu(expand_close_icon =)` | Icon when menu are expanded and submenu are closed, `expand-close-icon` and `expand-open-icon` need to be passed together to take effect | [^34] / [^35] |  | — |
+| `expand-open-icon` | `el_sub_menu(expand_open_icon =)` | Icon when menu are expanded and submenu are opened, `expand-open-icon` and `expand-close-icon` need to be passed together to take effect | [^36] / [^37] |  | — |
+| `collapse-close-icon` | `el_sub_menu(collapse_close_icon =)` | Icon when menu are collapsed and submenu are closed, `collapse-close-icon` and `collapse-open-icon` need to be passed together to take effect | [^38] / [^39] |  | — |
+| `collapse-open-icon` | `el_sub_menu(collapse_open_icon =)` | Icon when menu are collapsed and submenu are opened, `collapse-open-icon` and `collapse-close-icon` need to be passed together to take effect | [^40] / [^41] |  | — |
 
 ### SubMenu Slots
 
@@ -287,9 +257,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `index` | field `index` of each of `items` | unique identification | [^42] |  | — |
-| `route` | field `route` of each of `items` | Vue Router Route Location Parameters | [^43] / [^44] |  | — |
-| `disabled` | field `disabled` of each of `items` | whether disabled | [^45] |  | false |
+| `index` | `el_menu_item(index =)` | unique identification | [^42] |  | — |
+| `route` | `el_menu_item(route =)` | Vue Router Route Location Parameters | [^43] / [^44] |  | — |
+| `disabled` | `el_menu_item(disabled =)` | whether disabled | [^45] |  | false |
 
 ### Menu-Item Events
 
@@ -306,9 +276,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 ### Menu-Item-Group Attributes
 
-| Element | In R                             | Description | Type  | Accepted | Default |
-|---------|----------------------------------|-------------|-------|----------|---------|
-| `title` | field `title` of each of `items` | group title | [^46] |          | —       |
+| Element | In R                          | Description | Type  | Accepted | Default |
+|---------|-------------------------------|-------------|-------|----------|---------|
+| `title` | `el_menu_item_group(title =)` | group title | [^46] |          | —       |
 
 ### Menu-Item-Group Slots
 

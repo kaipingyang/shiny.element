@@ -29,13 +29,15 @@ el_descriptions(
 
 - items:
 
-  The fields, as a list of `list(label =, content =)`, or a named list
-  or vector whose names are the labels. `content` may be any Shiny UI, a
-  shiny.element component included, which is absorbed rather than
-  nested. An item may also carry Element Plus's item props: `span`,
-  `rowspan`, `width`, `min_width`, `label_width`, `align`,
-  `label_align`, `class_name` and `label_class_name`. A `label` that is
-  markup rather than text fills the item's label slot.
+  The fields, each an
+  [`el_descriptions_item()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions_item.md)
+  – or a `list(label =, content =)` – or a named list or vector whose
+  names are the labels. `content` may be any Shiny UI, a shiny.element
+  component included, which is absorbed rather than nested. An item may
+  also carry Element Plus's item props: `span`, `rowspan`, `width`,
+  `min_width`, `label_width`, `align`, `label_align`, `class_name` and
+  `label_class_name`. A `label` that is markup rather than text fills
+  the item's label slot.
 
 - title:
 

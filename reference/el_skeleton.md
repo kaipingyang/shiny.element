@@ -61,7 +61,8 @@ el_skeleton(
 - slots:
 
   Named list of Element slot contents. `template` replaces the
-  placeholder's shape; build it from `el$skeleton_item(variant = ...)`.
+  placeholder's shape; build it from
+  [`el_skeleton_item()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton_item.md).
 
 - session:
 

@@ -13,9 +13,9 @@ difference with Steps.
 el_timeline(
   "tl",
   items = list(
-    list(content = "Event start", timestamp = "2018-04-15"),
-    list(content = "Approved", timestamp = "2018-04-13"),
-    list(content = "Success", timestamp = "2018-04-11")
+    el_timeline_item("Event start", timestamp = "2018-04-15"),
+    el_timeline_item("Approved", timestamp = "2018-04-13"),
+    el_timeline_item("Success", timestamp = "2018-04-11")
   )
 )
 ```
@@ -45,9 +45,9 @@ tagList(lapply(
         paste0("tl_", gsub("-", "_", m)),
         mode = m,
         items = list(
-          list(content = "Event start", timestamp = "2018-04-15"),
-          list(content = "Approved", timestamp = "2018-04-13"),
-          list(content = "Success", timestamp = "2018-04-11")
+          el_timeline_item("Event start", timestamp = "2018-04-15"),
+          el_timeline_item("Approved", timestamp = "2018-04-13"),
+          el_timeline_item("Success", timestamp = "2018-04-11")
         )
       )
     )
@@ -72,30 +72,30 @@ Size, color, and icons can be customized in node.
 el_timeline(
   "nodes",
   items = list(
-    list(
-      content = "Custom icon",
+    el_timeline_item(
+      "Custom icon",
       timestamp = "2018-04-12 20:46",
       size = "large",
       type = "primary",
       icon = "MoreFilled"
     ),
-    list(
-      content = "Custom color",
+    el_timeline_item(
+      "Custom color",
       timestamp = "2018-04-03 20:46",
       color = "#0bbd87"
     ),
-    list(
-      content = "Custom size",
+    el_timeline_item(
+      "Custom size",
       timestamp = "2018-04-03 20:46",
       size = "large"
     ),
-    list(
-      content = "Custom hollow",
+    el_timeline_item(
+      "Custom hollow",
       timestamp = "2018-04-03 20:46",
       type = "primary",
       hollow = TRUE
     ),
-    list(content = "Default node", timestamp = "2018-04-03 20:46")
+    el_timeline_item("Default node", timestamp = "2018-04-03 20:46")
   )
 )
 ```
@@ -109,29 +109,29 @@ Timestamp can be placed on top of content when content is too high.
 el_timeline(
   "stamps",
   items = list(
-    list(
-      timestamp = "2018/4/12",
-      placement = "top",
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/12 20:46")
-      )
+      ),
+      timestamp = "2018/4/12",
+      placement = "top"
     ),
-    list(
-      timestamp = "2018/4/3",
-      placement = "top",
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/3 20:46")
-      )
+      ),
+      timestamp = "2018/4/3",
+      placement = "top"
     ),
-    list(
-      timestamp = "2018/4/2",
-      placement = "top",
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/2 20:46")
-      )
+      ),
+      timestamp = "2018/4/2",
+      placement = "top"
     )
   )
 )
@@ -146,30 +146,30 @@ Timeline-Item is centered vertically.
 el_timeline(
   "centred",
   items = list(
-    list(
-      timestamp = "2018/4/12",
-      placement = "top",
-      center = TRUE,
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/12 20:46")
-      )
-    ),
-    list(
-      timestamp = "2018/4/3",
+      ),
+      timestamp = "2018/4/12",
       placement = "top",
-      content = el_card(
+      center = TRUE
+    ),
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/3 20:46")
-      )
+      ),
+      timestamp = "2018/4/3",
+      placement = "top"
     ),
-    list(
+    el_timeline_item(
+      "Event start",
       timestamp = "2018/4/2",
       placement = "top",
-      center = TRUE,
-      content = "Event start"
+      center = TRUE
     ),
-    list(timestamp = "2018/4/2", placement = "top", content = "Event end")
+    el_timeline_item("Event end", timestamp = "2018/4/2", placement = "top")
   )
 )
 ```
@@ -193,9 +193,9 @@ ui <- el_page(
   el_timeline(
     "tl",
     items = list(
-      list(content = "Event start", timestamp = "2018-04-15"),
-      list(content = "Approved", timestamp = "2018-04-13"),
-      list(content = "Success", timestamp = "2018-04-11")
+      el_timeline_item("Event start", timestamp = "2018-04-15"),
+      el_timeline_item("Approved", timestamp = "2018-04-13"),
+      el_timeline_item("Success", timestamp = "2018-04-11")
     )
   )
 )
@@ -233,15 +233,15 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `timestamp` | field `timestamp` of each of `items` | timestamp content | [^3] |  | ’’ |
-| `hide-timestamp` | field `hide_timestamp` of each of `items` | whether to show timestamp | [^4] |  | false |
-| `center` | field `center` of each of `items` | whether vertically centered | [^5] |  | false |
-| `placement` | field `placement` of each of `items` | position of timestamp | [^6]`'top' \\| 'bottom'` |  | bottom |
-| `type` | field `type` of each of `items` | node type | [^7]`'primary' \\| 'success' \\| 'warning' \\| 'danger' \\| 'info'` |  | ’’ |
-| `color` | field `color` of each of `items` | background color of node | [^8] |  | ’’ |
-| `size` | field `size` of each of `items` | node size | [^9]`'normal' \\| 'large'` |  | normal |
-| `icon` | field `icon` of each of `items` | icon component | [^10] / [^11] |  | — |
-| `hollow` | field `hollow` of each of `items` | icon is hollow | [^12] |  | false |
+| `timestamp` | `el_timeline_item(timestamp =)` | timestamp content | [^3] |  | ’’ |
+| `hide-timestamp` | `el_timeline_item(hide_timestamp =)` | whether to show timestamp | [^4] |  | false |
+| `center` | `el_timeline_item(center =)` | whether vertically centered | [^5] |  | false |
+| `placement` | `el_timeline_item(placement =)` | position of timestamp | [^6]`'top' \\| 'bottom'` |  | bottom |
+| `type` | `el_timeline_item(type =)` | node type | [^7]`'primary' \\| 'success' \\| 'warning' \\| 'danger' \\| 'info'` |  | ’’ |
+| `color` | `el_timeline_item(color =)` | background color of node | [^8] |  | ’’ |
+| `size` | `el_timeline_item(size =)` | node size | [^9]`'normal' \\| 'large'` |  | normal |
+| `icon` | `el_timeline_item(icon =)` | icon component | [^10] / [^11] |  | — |
+| `hollow` | `el_timeline_item(hollow =)` | icon is hollow | [^12] |  | false |
 
 ### Timeline-Item Slots
 

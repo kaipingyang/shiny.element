@@ -180,9 +180,11 @@
 
 
 <dt id="arg-items">items<a class="anchor" aria-label="anchor" href="#arg-items"></a></dt>
-<dd><p>A list of entries. Each is a list with <code>content</code> and
+<dd><p>A list of entries, each an <code><a href="el_timeline_item.html">el_timeline_item()</a></code> – or a list
+with the same fields: <code>content</code> and
 optionally <code>timestamp</code>, <code>type</code> (<code>"primary"</code>, <code>"success"</code>, <code>"warning"</code>,
 <code>"danger"</code> or <code>"info"</code>), <code>color</code>, <code>size</code> (<code>"normal"</code> or <code>"large"</code>),
+<code>hide_timestamp</code>,
 <code>icon</code> (an icon's name), <code>placement</code> (<code>"bottom"</code> or <code>"top"</code>, where the
 timestamp goes), <code>center</code> (centre the dot against the content) and
 <code>hollow</code> (draw the dot hollow).</p></dd>
@@ -253,7 +255,7 @@ to render it as HTML.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="log_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-timeline&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}&lt;/script&gt;</span>
@@ -271,7 +273,7 @@ to render it as HTML.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="log" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="log_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="!item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"&gt;{{ item.content }}&lt;/el-timeline-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-timeline&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}&lt;/script&gt;</span>

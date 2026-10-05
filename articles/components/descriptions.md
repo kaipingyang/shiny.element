@@ -10,16 +10,16 @@ el_descriptions(
   "desc",
   title = "User Info",
   items = list(
-    list(label = "Username", content = "kooriookami"),
-    list(label = "Telephone", content = "18100000000"),
-    list(label = "Place", content = "Suzhou"),
-    list(
-      label = "Remarks",
-      content = el_tag("desc_tag", "School", size = "small")
+    el_descriptions_item("Username", "kooriookami"),
+    el_descriptions_item("Telephone", "18100000000"),
+    el_descriptions_item("Place", "Suzhou"),
+    el_descriptions_item(
+      "Remarks",
+      el_tag("desc_tag", "School", size = "small")
     ),
-    list(
-      label = "Address",
-      content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
+    el_descriptions_item(
+      "Address",
+      "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
     )
   )
 )
@@ -64,16 +64,16 @@ el_descriptions(
   column = 4,
   border = TRUE,
   items = list(
-    list(label = "Username", content = "kooriookami"),
-    list(label = "Telephone", content = "18100000000"),
-    list(label = "Place", content = "Suzhou", span = 2),
-    list(
-      label = "Remarks",
-      content = el_tag("desc_tag_v", "School", size = "small")
+    el_descriptions_item("Username", "kooriookami"),
+    el_descriptions_item("Telephone", "18100000000"),
+    el_descriptions_item("Place", "Suzhou", span = 2),
+    el_descriptions_item(
+      "Remarks",
+      el_tag("desc_tag_v", "School", size = "small")
     ),
-    list(
-      label = "Address",
-      content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
+    el_descriptions_item(
+      "Address",
+      "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
     )
   )
 )
@@ -88,23 +88,23 @@ el_descriptions(
   title = "Width horizontal list",
   border = TRUE,
   items = list(
-    list(
-      label = "Photo",
-      rowspan = 2,
-      width = 140,
-      align = "center",
-      content = el_image(
+    el_descriptions_item(
+      "Photo",
+      el_image(
         src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
         alt = "A hamburger",
         fit = "cover",
         width = "100px"
-      )
+      ),
+      rowspan = 2,
+      width = 140,
+      align = "center"
     ),
-    list(label = "Username", content = "kooriookami"),
-    list(label = "Place", content = "Suzhou"),
-    list(
-      label = "Address",
-      content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
+    el_descriptions_item("Username", "kooriookami"),
+    el_descriptions_item("Place", "Suzhou"),
+    el_descriptions_item(
+      "Address",
+      "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
     )
   )
 )
@@ -125,26 +125,26 @@ tagList(
     column = 3,
     border = TRUE,
     items = list(
-      list(
-        label = "Username",
+      el_descriptions_item(
+        "Username",
+        "kooriookami",
         label_align = "right",
         align = "center",
         label_class_name = "my-label",
         class_name = "my-content",
-        width = "150px",
-        content = "kooriookami"
+        width = "150px"
       ),
-      list(
-        label = "Telephone",
+      el_descriptions_item(
+        "Telephone",
+        "18100000000",
         label_align = "right",
-        align = "center",
-        content = "18100000000"
+        align = "center"
       ),
-      list(
-        label = "Place",
+      el_descriptions_item(
+        "Place",
+        "Suzhou",
         label_align = "right",
-        align = "center",
-        content = "Suzhou"
+        align = "center"
       )
     )
   )
@@ -179,16 +179,16 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `label` | item field `label` | label text | [^9] |  | ’’ |
-| `span` | field `span` of each of `items` | colspan of column | [^10] |  | 1 |
-| `rowspan` | field `rowspan` of each of `items` | the number of rows a cell should span | [^11] |  | 1 |
-| `width` | `width` | column width, the width of the same column in different rows is set by the max value (If no `border`, width contains label and content) | [^12] / [^13] |  | ’’ |
-| `min-width` | field `min_width` of each of `items` | column minimum width, columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion (If no`border`, width contains label and content) | [^14] / [^15] |  | ’’ |
-| `label-width` | `label_width` | column label width, if not set, it will be the same as the width of the column. Higher priority than the `label-width` of `Descriptions` | [^16] / [^17] |  | — |
-| `align` | field `align` of each of `items` | column content alignment (If no `border`, effective for both label and content) | [^18]`'left' \\| 'center' \\| 'right'` |  | left |
-| `label-align` | field `label_align` of each of `items` | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute) | [^19]`'left' \\| 'center' \\| 'right'` |  | — |
-| `class-name` | field `class_name` of each of `items` | column content custom class name | [^20] |  | ’’ |
-| `label-class-name` | field `label_class_name` of each of `items` | column label custom class name | [^21] |  | ’’ |
+| `label` | `el_descriptions_item(label =)` | label text | [^9] |  | ’’ |
+| `span` | `el_descriptions_item(span =)` | colspan of column | [^10] |  | 1 |
+| `rowspan` | `el_descriptions_item(rowspan =)` | the number of rows a cell should span | [^11] |  | 1 |
+| `width` | `el_descriptions_item(width =)` | column width, the width of the same column in different rows is set by the max value (If no `border`, width contains label and content) | [^12] / [^13] |  | ’’ |
+| `min-width` | `el_descriptions_item(min_width =)` | column minimum width, columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion (If no`border`, width contains label and content) | [^14] / [^15] |  | ’’ |
+| `label-width` | `el_descriptions_item(label_width =)` | column label width, if not set, it will be the same as the width of the column. Higher priority than the `label-width` of `Descriptions` | [^16] / [^17] |  | — |
+| `align` | `el_descriptions_item(align =)` | column content alignment (If no `border`, effective for both label and content) | [^18]`'left' \\| 'center' \\| 'right'` |  | left |
+| `label-align` | `el_descriptions_item(label_align =)` | column label alignment, if omitted, the value of the above `align` attribute will be applied (If no `border`, please use `align` attribute) | [^19]`'left' \\| 'center' \\| 'right'` |  | — |
+| `class-name` | `el_descriptions_item(class_name =)` | column content custom class name | [^20] |  | ’’ |
+| `label-class-name` | `el_descriptions_item(label_class_name =)` | column label custom class name | [^21] |  | ’’ |
 
 ### DescriptionsItem Slots
 

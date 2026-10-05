@@ -15,16 +15,14 @@ el_anchor(
   "toc",
   offset = 70,
   links = list(
-    list(title = "Basic Usage", href = "#basic-usage"),
-    list(title = "Horizontal Mode", href = "#horizontal-mode"),
-    list(title = "Scroll Container", href = "#scroll-container"),
-    list(
-      title = "Anchor API",
-      href = "#api",
-      children = list(
-        list(title = "Anchor Attributes", href = "#anchor-attributes"),
-        list(title = "Anchor Events", href = "#anchor-events")
-      )
+    el_anchor_link("Basic Usage", "#basic-usage"),
+    el_anchor_link("Horizontal Mode", "#horizontal-mode"),
+    el_anchor_link("Scroll Container", "#scroll-container"),
+    el_anchor_link(
+      "Anchor API",
+      "#api",
+      el_anchor_link("Anchor Attributes", "#anchor-attributes"),
+      el_anchor_link("Anchor Events", "#anchor-events")
     )
   )
 )
@@ -45,9 +43,9 @@ el_anchor(
   offset = 70,
   direction = "horizontal",
   links = list(
-    list(title = "Basic Usage", href = "#basic-usage"),
-    list(title = "Horizontal Mode", href = "#horizontal-mode"),
-    list(title = "Scroll Container", href = "#scroll-container")
+    el_anchor_link("Basic Usage", "#basic-usage"),
+    el_anchor_link("Horizontal Mode", "#horizontal-mode"),
+    el_anchor_link("Scroll Container", "#scroll-container")
   )
 )
 ```
@@ -84,9 +82,9 @@ el_row(
       "toc_s",
       container = "#anchor-scroller",
       links = list(
-        list(title = "part1", href = "#part1"),
-        list(title = "part2", href = "#part2"),
-        list(title = "part3", href = "#part3")
+        el_anchor_link("part1", "#part1"),
+        el_anchor_link("part2", "#part2"),
+        el_anchor_link("part3", "#part3")
       )
     )
   )
@@ -111,9 +109,9 @@ el_anchor(
   "toc_change",
   offset = 70,
   links = list(
-    list(title = "Basic Usage", href = "#basic-usage"),
-    list(title = "Horizontal Mode", href = "#horizontal-mode"),
-    list(title = "Scroll Container", href = "#scroll-container")
+    el_anchor_link("Basic Usage", "#basic-usage"),
+    el_anchor_link("Horizontal Mode", "#horizontal-mode"),
+    el_anchor_link("Scroll Container", "#scroll-container")
   )
 )
 ```
@@ -129,9 +127,9 @@ el_anchor(
   type = "underline",
   offset = 70,
   links = list(
-    list(title = "Basic Usage", href = "#basic-usage"),
-    list(title = "Horizontal Mode", href = "#horizontal-mode"),
-    list(title = "Scroll Container", href = "#scroll-container")
+    el_anchor_link("Basic Usage", "#basic-usage"),
+    el_anchor_link("Horizontal Mode", "#horizontal-mode"),
+    el_anchor_link("Scroll Container", "#scroll-container")
   )
 )
 ```
@@ -149,9 +147,9 @@ el_affix(
     offset = 70,
     width = "300px",
     links = list(
-      list(title = "Basic Usage", href = "#basic-usage"),
-      list(title = "Horizontal Mode", href = "#horizontal-mode"),
-      list(title = "Scroll Container", href = "#scroll-container")
+      el_anchor_link("Basic Usage", "#basic-usage"),
+      el_anchor_link("Horizontal Mode", "#horizontal-mode"),
+      el_anchor_link("Scroll Container", "#scroll-container")
     )
   )
 )
@@ -197,8 +195,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `title` | field `title` of each of `links` | The text content of the anchor link. | `string` |  | — |
-| `href` | field `href` of each of `links` | The address of the anchor link. | `string` |  | — |
+| `title` | `el_anchor_link(title =)` | The text content of the anchor link. | `string` |  | — |
+| `href` | `el_anchor_link(href =)` | The address of the anchor link. | `string` |  | — |
 
 ### AnchorLink Slots
 

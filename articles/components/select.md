@@ -51,9 +51,9 @@ el_select(
   placeholder = "Select",
   width = "240px",
   choices = list(
-    list(value = "Option1", label = "Option 1"),
-    list(value = "Option2", label = "Option 2"),
-    list(value = "Option3", label = "Option 3", disabled = TRUE)
+    el_option("Option 1", "Option1"),
+    el_option("Option 2", "Option2"),
+    el_option("Option 3", "Option3", disabled = TRUE)
   )
 )
 ```
@@ -70,9 +70,9 @@ el_select(
   placeholder = "Select",
   width = "240px",
   choices = list(
-    list(value = "Option1", label = "Option1"),
-    list(value = "Option2", label = "Option2", disabled = TRUE),
-    list(value = "Option3", label = "Option3")
+    el_option("Option1"),
+    el_option("Option2", disabled = TRUE),
+    el_option("Option3")
   )
 )
 ```
@@ -366,8 +366,8 @@ el_select(
   placeholder = "Select",
   width = "240px",
   choices = list(
-    list(value = list(id = 1, name = "Option A"), label = "Option A"),
-    list(value = list(id = 2, name = "Option B"), label = "Option B")
+    el_option("Option A", list(id = 1, name = "Option A")),
+    el_option("Option B", list(id = 2, name = "Option B"))
   )
 )
 ```
@@ -559,8 +559,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `label` | `label` | name of the group | [^66] |  | — |
-| `disabled` | `disabled` | whether to disable all options in this group | [^67] |  | false |
+| `label` | `el_option_group(label =)` | name of the group | [^66] |  | — |
+| `disabled` | `el_option_group(disabled =)` | whether to disable all options in this group | [^67] |  | false |
 
 ### Option Group Slots
 
@@ -572,9 +572,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `value` | `value` | value of option | [^68] / [^69] / [^70] / [^71] |  | — |
-| `label` | `label` | label of option, same as `value` if omitted | [^72] / [^73] |  | — |
-| `disabled` | `disabled` | whether option is disabled | [^74] |  | false |
+| `value` | `el_option(value =)` | value of option | [^68] / [^69] / [^70] / [^71] |  | — |
+| `label` | `el_option(label =)` | label of option, same as `value` if omitted | [^72] / [^73] |  | — |
+| `disabled` | `el_option(disabled =)` | whether option is disabled | [^74] |  | false |
 
 ### Option Slots
 

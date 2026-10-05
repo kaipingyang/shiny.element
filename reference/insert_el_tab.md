@@ -13,8 +13,8 @@ The content may hold any UI, this package's components included.
 insert_el_tab(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  name,
-  label,
+  tab,
+  label = NULL,
   content = NULL,
   closable = NULL,
   select = TRUE
@@ -34,13 +34,17 @@ remove_el_tab(session = shiny::getDefaultReactiveDomain(), id, name)
 
   Tabs ID (un-namespaced).
 
-- name, label:
+- tab:
 
-  The new tab's name and label.
+  The new tab: an
+  [`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md),
+  as
+  [`bslib::nav_insert()`](https://rstudio.github.io/bslib/reference/nav_select.html)
+  takes a `nav_panel()` – or its name, with `label` and `content`.
 
-- content:
+- label, content:
 
-  The new tab's content.
+  The new tab's label and content, when `tab` is a name.
 
 - closable:
 
@@ -49,6 +53,10 @@ remove_el_tab(session = shiny::getDefaultReactiveDomain(), id, name)
 - select:
 
   Whether to switch to it. Default `TRUE`.
+
+- name:
+
+  For `remove_el_tab()`, the name of the tab to remove.
 
 ## Value
 
@@ -63,7 +71,7 @@ if (interactive()) {
     "docs",
     editable = TRUE,
     tabs = list(
-      list(name = "t1", label = "Tab 1", content = tags$p("First"))
+      el_tab_pane("Tab 1", tags$p("First"), name = "t1")
     )
   ))
   server <- function(input, output, session) {
@@ -73,9 +81,7 @@ if (interactive()) {
       insert_el_tab(
         session,
         "docs",
-        name = paste0("t", n),
-        label = paste("Tab", n),
-        content = tags$p("New")
+        el_tab_pane(paste("Tab", n), tags$p("New"), name = paste0("t", n))
       )
     })
   }

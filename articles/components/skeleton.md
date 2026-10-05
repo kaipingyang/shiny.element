@@ -206,7 +206,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `variant` | `template(variant =)` | the current rendering skeleton type | [^7]`'p' \\| 'text' \\| 'h1' \\| 'h3' \\| 'caption' \\| 'button' \\| 'image' \\| 'circle' \\| 'rect'` |  | text |
+| `variant` | `el_skeleton_item(variant =)` | the current rendering skeleton type | [^7]`'p' \\| 'text' \\| 'h1' \\| 'h3' \\| 'caption' \\| 'button' \\| 'image' \\| 'circle' \\| 'rect'` |  | text |
 
 [^1]: boolean
 

@@ -37,9 +37,10 @@ el_tour(
 
 - steps:
 
-  The steps: a list of
-  `list(target = "#css-selector", title =, description =)`, each with
-  Element Plus's other step props if wanted – `placement`, `mask`,
+  The steps, each an
+  [`el_tour_step()`](https://kaipingyang.github.io/shiny.element/reference/el_tour_step.md)
+  – or a `list(target = "#css-selector", title =, description =)`, each
+  with Element Plus's other step props if wanted – `placement`, `mask`,
   `type`, `show_arrow`, `show_close`, `content_style`,
   `scroll_into_view_options`, and `header`, markup in place of the
   title. A step without a `target` shows in the middle of the screen.

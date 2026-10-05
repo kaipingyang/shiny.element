@@ -34,12 +34,7 @@ a basic example with 10 columns and 1000 rows.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -88,12 +83,7 @@ height of its own.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -133,13 +123,12 @@ returning Vue’s `h()`, as upstream’s JSX does.
 ``` r
 
 columns <- list(
-  list(
-    key = "date",
-    title = "Date",
-    dataKey = "date",
+  el_table_v2_column(
+    "date",
+    "Date",
     width = 150,
     fixed = "left",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: date }) {",
       "  var p = date.split('-').map(function(n) { return n.padStart(2, '0'); });",
       "  var text = p.join('/');",
@@ -153,22 +142,21 @@ columns <- list(
       "}"
     )
   ),
-  list(
-    key = "name",
-    title = "Name",
-    dataKey = "name",
+  el_table_v2_column(
+    "name",
+    "Name",
     width = 150,
     align = "center",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: name }) {",
       "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
       "}"
     )
   ),
-  list(
-    key = "operations",
-    title = "Operations",
-    cellRenderer = JS(
+  el_table_v2_column(
+    "operations",
+    "Operations",
+    cell_renderer = JS(
       "function() {",
       "  return [",
       "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
@@ -223,7 +211,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 df <- grid()
@@ -232,7 +220,10 @@ report <- "$setInput('tv_sel_checked', data.filter(r => r.checked).map(r => r.id
 el_table_v2(
   "tv_sel",
   data = df,
-  columns = c(list(list(key = "selection", width = 50)), grid_columns()),
+  columns = c(
+    list(el_table_v2_column("selection", width = 50)),
+    grid_columns()
+  ),
   table_v2_width = 700,
   height = 400,
   fixed = TRUE,
@@ -294,7 +285,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 df <- grid()
@@ -351,13 +342,12 @@ class, and every 5th row with the `bg-red-100` class.
 ``` r
 
 columns <- list(
-  list(
-    key = "date",
-    title = "Date",
-    dataKey = "date",
+  el_table_v2_column(
+    "date",
+    "Date",
     width = 150,
     fixed = "left",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: date }) {",
       "  var p = date.split('-').map(function(n) { return n.padStart(2, '0'); });",
       "  var text = p.join('/');",
@@ -371,22 +361,21 @@ columns <- list(
       "}"
     )
   ),
-  list(
-    key = "name",
-    title = "Name",
-    dataKey = "name",
+  el_table_v2_column(
+    "name",
+    "Name",
     width = 150,
     align = "center",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: name }) {",
       "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
       "}"
     )
   ),
-  list(
-    key = "operations",
-    title = "Operations",
-    cellRenderer = JS(
+  el_table_v2_column(
+    "operations",
+    "Operations",
+    cell_renderer = JS(
       "function() {",
       "  return [",
       "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
@@ -397,7 +386,7 @@ columns <- list(
     ),
     width = 150,
     align = "center",
-    flexGrow = 1
+    flex_grow = 1
   )
 )
 data <- data.frame(
@@ -443,12 +432,7 @@ fifth row with `update_el_table_v2(fixed_data =)`.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -522,12 +506,7 @@ reversed and the new sort with
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -618,7 +597,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 cols <- grid_columns(15, width = 100)
@@ -709,7 +688,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 cols <- grid_columns(width = 100)
@@ -789,12 +768,7 @@ and which way, and the server sends the rows back reversed with the new
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -858,12 +832,7 @@ with `update_el_table_v2(sort_state =)`.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -940,16 +909,18 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 cols <- c(
-  list(list(
-    key = "column-n-1",
+  list(el_table_v2_column(
+    "column-n-1",
+    "Row No.",
     width = 50,
-    title = "Row No.",
     align = "center",
-    cellRenderer = JS("function({ rowIndex }) { return String(rowIndex + 1); }")
+    cell_renderer = JS(
+      "function({ rowIndex }) { return String(rowIndex + 1); }"
+    )
   )),
   grid_columns()
 )
@@ -1013,7 +984,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 el_table_v2(
@@ -1079,7 +1050,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 el_table_v2(
@@ -1137,7 +1108,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 el_table_v2(
@@ -1199,12 +1170,7 @@ and the open rows `input$tv_tree_expanded_rows_change`.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -1291,41 +1257,32 @@ data <- data.frame(
 )
 
 columns <- list(
-  list(
-    key = "id",
-    title = "Id",
-    dataKey = "id",
-    width = 150,
-    sortable = TRUE,
-    fixed = "left"
-  ),
-  list(
-    key = "name",
-    title = "Name",
-    dataKey = "name",
+  el_table_v2_column("id", "Id", width = 150, sortable = TRUE, fixed = "left"),
+  el_table_v2_column(
+    "name",
+    "Name",
     width = 150,
     align = "center",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: name }) {",
       "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
       "}"
     )
   ),
-  list(
-    key = "description",
-    title = "Description",
-    dataKey = "description",
+  el_table_v2_column(
+    "description",
+    "Description",
     width = 150,
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: description }) {",
       "  return Vue.h('div', { style: 'padding: 10px 0;' }, description);",
       "}"
     )
   ),
-  list(
-    key = "operations",
-    title = "Operations",
-    cellRenderer = JS(
+  el_table_v2_column(
+    "operations",
+    "Operations",
+    cell_renderer = JS(
       "function() {",
       "  return [",
       "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
@@ -1396,7 +1353,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 detail <- paste(
@@ -1441,12 +1398,7 @@ information.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -1492,12 +1444,7 @@ Render a customized empty element.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 columns <- generate_columns(10)
@@ -1527,12 +1474,7 @@ indicator or something else.
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -1596,12 +1538,7 @@ default, Element Plus 2.14.7 also scrolls the table to its last column
 
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -1738,22 +1675,22 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `align` | field `align` of each of `columns` | Alignment of the table cell content | [Alignment](https://github.com/element-plus/element-plus/blob/b92b22932758f0ddea98810ae248f6ca62f77e25/packages/components/table-v2/src/constants.ts#L6) |  | left |
-| `class` | an HTML attribute of the tag; [`tagAppendAttributes()`](https://rstudio.github.io/htmltools/reference/tagAppendAttributes.html) | Class name for the column | `string` |  | — |
-| `key` | field `key` of each of `columns` | Unique identification | [KeyType](#typings) |  | — |
-| `dataKey` | field `data_key` of each of `columns` | Unique identification of data | [KeyType](#typings) |  | — |
-| `fixed` | `fixed` | Fixed direction of the column | `boolean` / [FixedDir](https://github.com/element-plus/element-plus/blob/b92b22932758f0ddea98810ae248f6ca62f77e25/packages/components/table-v2/src/constants.ts#L11) |  | false |
-| `flexGrow` | field `flex_grow` of each of `columns` | CSSProperties flex grow, Only useful when this is not a fixed table | `number` |  | 0 |
-| `flexShrink` | field `flex_shrink` of each of `columns` | CSSProperties flex shrink, Only useful when this is not a fixed table | `number` |  | 1 |
-| `headerClass` | `header_class` | Used for customizing header column class | `string` |  | — |
-| `hidden` | field `hidden` of each of `columns` | Whether the column is invisible | `boolean` |  | — |
-| `style` | an HTML attribute of the tag; [`tagAppendAttributes()`](https://rstudio.github.io/htmltools/reference/tagAppendAttributes.html) | Customized style for column cell, will be merged with grid cell | [^1]`CSSProperties` |  | — |
-| `sortable` | field `sortable` of each of `columns` | Indicates whether the column is sortable | `boolean` |  | — |
-| `title` | field `title` of each of `columns` | The default text rendered in header cell | `string` |  | — |
-| `maxWidth` | field `max_width` of each of `columns` | Maximum width for the column | `number` |  | — |
-| `minWidth` | field `min_width` of each of `columns` | Minimum width for the column | `number` |  | — |
-| `width` | `width` | Width for the column | `number` |  | — |
-| `cellRenderer` | field `cell_renderer` of each of `columns` | Customized Cell renderer | `VueComponent` / (props: [CellRenderProps](#typings)) =\> VNode |  | — |
-| `headerCellRenderer` | field `header_cell_renderer` of each of `columns` | Customized Header renderer | `VueComponent` / (props: [HeaderRenderProps](#typings)) =\> VNode |  | — |
+| `align` | `el_table_v2_column(align =)` | Alignment of the table cell content | [Alignment](https://github.com/element-plus/element-plus/blob/b92b22932758f0ddea98810ae248f6ca62f77e25/packages/components/table-v2/src/constants.ts#L6) |  | left |
+| `class` | `el_table_v2_column(class =)` | Class name for the column | `string` |  | — |
+| `key` | `el_table_v2_column(key =)` | Unique identification | [KeyType](#typings) |  | — |
+| `dataKey` | `el_table_v2_column(data_key =)` | Unique identification of data | [KeyType](#typings) |  | — |
+| `fixed` | `el_table_v2_column(fixed =)` | Fixed direction of the column | `boolean` / [FixedDir](https://github.com/element-plus/element-plus/blob/b92b22932758f0ddea98810ae248f6ca62f77e25/packages/components/table-v2/src/constants.ts#L11) |  | false |
+| `flexGrow` | `el_table_v2_column(flex_grow =)` | CSSProperties flex grow, Only useful when this is not a fixed table | `number` |  | 0 |
+| `flexShrink` | `el_table_v2_column(flex_shrink =)` | CSSProperties flex shrink, Only useful when this is not a fixed table | `number` |  | 1 |
+| `headerClass` | `el_table_v2_column(header_class =)` | Used for customizing header column class | `string` |  | — |
+| `hidden` | `el_table_v2_column(hidden =)` | Whether the column is invisible | `boolean` |  | — |
+| `style` | `el_table_v2_column(style =)` | Customized style for column cell, will be merged with grid cell | [^1]`CSSProperties` |  | — |
+| `sortable` | `el_table_v2_column(sortable =)` | Indicates whether the column is sortable | `boolean` |  | — |
+| `title` | `el_table_v2_column(title =)` | The default text rendered in header cell | `string` |  | — |
+| `maxWidth` | `el_table_v2_column(max_width =)` | Maximum width for the column | `number` |  | — |
+| `minWidth` | `el_table_v2_column(min_width =)` | Minimum width for the column | `number` |  | — |
+| `width` | `el_table_v2_column(width =)` | Width for the column | `number` |  | — |
+| `cellRenderer` | `el_table_v2_column(cell_renderer =)` | Customized Cell renderer | `VueComponent` / (props: [CellRenderProps](#typings)) =\> VNode |  | — |
+| `headerCellRenderer` | `el_table_v2_column(header_cell_renderer =)` | Customized Header renderer | `VueComponent` / (props: [HeaderRenderProps](#typings)) =\> VNode |  | — |
 
 [^1]: object

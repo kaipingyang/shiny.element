@@ -16,10 +16,10 @@ el_tabs(
   "basic",
   selected = "first",
   tabs = list(
-    list(name = "first", label = "User", content = "User"),
-    list(name = "second", label = "Config", content = "Config"),
-    list(name = "third", label = "Role", content = "Role"),
-    list(name = "fourth", label = "Task", content = "Task")
+    el_tab_pane("User", "User", name = "first"),
+    el_tab_pane("Config", "Config", name = "second"),
+    el_tab_pane("Role", "Role", name = "third"),
+    el_tab_pane("Task", "Task", name = "fourth")
   )
 )
 ```
@@ -52,10 +52,10 @@ el_tabs(
   "card",
   type = "card",
   tabs = list(
-    list(name = "first", label = "User", content = "User"),
-    list(name = "second", label = "Config", content = "Config"),
-    list(name = "third", label = "Role", content = "Role"),
-    list(name = "fourth", label = "Task", content = "Task")
+    el_tab_pane("User", "User", name = "first"),
+    el_tab_pane("Config", "Config", name = "second"),
+    el_tab_pane("Role", "Role", name = "third"),
+    el_tab_pane("Task", "Task", name = "fourth")
   )
 )
 ```
@@ -88,10 +88,10 @@ el_tabs(
   "bc",
   type = "border-card",
   tabs = list(
-    list(name = "first", label = "User", content = "User"),
-    list(name = "second", label = "Config", content = "Config"),
-    list(name = "third", label = "Role", content = "Role"),
-    list(name = "fourth", label = "Task", content = "Task")
+    el_tab_pane("User", "User", name = "first"),
+    el_tab_pane("Config", "Config", name = "second"),
+    el_tab_pane("Role", "Role", name = "third"),
+    el_tab_pane("Task", "Task", name = "fourth")
   )
 )
 ```
@@ -125,10 +125,10 @@ el_tabs(
   "pos",
   tab_position = "left",
   tabs = list(
-    list(name = "first", label = "User", content = "User"),
-    list(name = "second", label = "Config", content = "Config"),
-    list(name = "third", label = "Role", content = "Role"),
-    list(name = "fourth", label = "Task", content = "Task")
+    el_tab_pane("User", "User", name = "first"),
+    el_tab_pane("Config", "Config", name = "second"),
+    el_tab_pane("Role", "Role", name = "third"),
+    el_tab_pane("Task", "Task", name = "fourth")
   )
 )
 ```
@@ -161,14 +161,14 @@ el_tabs(
   "cus",
   type = "border-card",
   tabs = list(
-    list(
-      name = "route",
-      label = tagList(el_icon("Calendar"), " Route"),
-      content = "Route"
+    el_tab_pane(
+      tagList(el_icon("Calendar"), " Route"),
+      "Route",
+      name = "route"
     ),
-    list(name = "config", label = "Config", content = "Config"),
-    list(name = "role", label = "Role", content = "Role"),
-    list(name = "task", label = "Task", content = "Task")
+    el_tab_pane("Config", "Config", name = "config"),
+    el_tab_pane("Role", "Role", name = "role"),
+    el_tab_pane("Task", "Task", name = "task")
   )
 )
 ```
@@ -204,8 +204,8 @@ ui <- el_page(el_tabs(
   type = "card",
   editable = TRUE,
   tabs = list(
-    list(name = "1", label = "Tab 1", content = "Tab 1 content"),
-    list(name = "2", label = "Tab 2", content = "Tab 2 content")
+    el_tab_pane("Tab 1", "Tab 1 content", name = "1"),
+    el_tab_pane("Tab 2", "Tab 2 content", name = "2")
   )
 ))
 
@@ -215,9 +215,7 @@ server <- function(input, output, session) {
     n <<- n + 1
     insert_el_tab(
       id = "docs",
-      name = as.character(n),
-      label = "New Tab",
-      content = "New Tab content"
+      tab = el_tab_pane("New Tab", "New Tab content", name = as.character(n))
     )
   })
 }
@@ -237,8 +235,8 @@ el_tabs(
   editable = TRUE,
   add_icon = "CirclePlus",
   tabs = list(
-    list(name = "1", label = "Tab 1", content = "Tab 1 content"),
-    list(name = "2", label = "Tab 2", content = "Tab 2 content")
+    el_tab_pane("Tab 1", "Tab 1 content", name = "1"),
+    el_tab_pane("Tab 2", "Tab 2 content", name = "2")
   )
 )
 ```
@@ -262,8 +260,8 @@ ui <- el_page(
     type = "card",
     closable = TRUE,
     tabs = list(
-      list(name = "1", label = "Tab 1", content = "Tab 1 content"),
-      list(name = "2", label = "Tab 2", content = "Tab 2 content")
+      el_tab_pane("Tab 1", "Tab 1 content", name = "1"),
+      el_tab_pane("Tab 2", "Tab 2 content", name = "2")
     )
   )
 )
@@ -274,9 +272,7 @@ server <- function(input, output, session) {
     n <<- n + 1
     insert_el_tab(
       id = "docs",
-      name = as.character(n),
-      label = "New Tab",
-      content = "New Tab content"
+      tab = el_tab_pane("New Tab", "New Tab content", name = as.character(n))
     )
   })
 }
@@ -298,10 +294,10 @@ el_tabs(
   selected = "third",
   type = "card",
   tabs = list(
-    list(name = "first", label = "User", content = "User"),
-    list(name = "second", label = "Config", content = "Config"),
-    list(name = "third", label = "Role", content = "Role"),
-    list(name = "fourth", label = "Task", content = "Task")
+    el_tab_pane("User", "User", name = "first"),
+    el_tab_pane("Config", "Config", name = "second"),
+    el_tab_pane("Role", "Role", name = "third"),
+    el_tab_pane("Task", "Task", name = "fourth")
   )
 )
 ```
@@ -363,10 +359,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `label` | item field `label` | title of the tab | [^14] |  | ’’ |
-| `disabled` | item field `disabled` | whether Tab is disabled | [^15] |  | false |
-| `closable` | `closable` | whether Tab is closable | [^16] |  | false |
-| `lazy` | item field `lazy` | whether Tab is lazily rendered | [^17] |  | false |
+| `label` | `el_tab_pane(label =)` | title of the tab | [^14] |  | ’’ |
+| `disabled` | `el_tab_pane(disabled =)` | whether Tab is disabled | [^15] |  | false |
+| `closable` | `el_tab_pane(closable =)` | whether Tab is closable | [^16] |  | false |
+| `lazy` | `el_tab_pane(lazy =)` | whether Tab is lazily rendered | [^17] |  | false |
 
 ### Tab-pane Slots
 

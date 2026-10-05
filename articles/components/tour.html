@@ -204,21 +204,9 @@ tour with <code><a href="../../reference/update_el_tour.html">update_el_tour()</
 <span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>    <span class="st">"tour"</span>,</span>
 <span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_more"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Other Actions"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Click to see other"</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_more"</span>, <span class="st">"Other Actions"</span>, <span class="st">"Click to see other"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -255,21 +243,9 @@ emphasize the guide itself.</p>
 <span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
 <span>    mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_more"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Other Actions"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Click to see other"</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_more"</span>, <span class="st">"Other Actions"</span>, <span class="st">"Click to see other"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -296,22 +272,17 @@ will show in the center.</p>
 <span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>    <span class="st">"tour"</span>,</span>
 <span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
 <span>        title <span class="op">=</span> <span class="st">"Center"</span>,</span>
 <span>        description <span class="op">=</span> <span class="st">"Displayed in the center of screen."</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        title <span class="op">=</span> <span class="st">"Right"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"On the right of target."</span>,</span>
-<span>        placement <span class="op">=</span> <span class="st">"right"</span>,</span>
-<span>        target <span class="op">=</span> <span class="st">"#t_btn"</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
+<span>        <span class="st">"#t_btn"</span>,</span>
+<span>        <span class="st">"Right"</span>,</span>
+<span>        <span class="st">"On the right of target."</span>,</span>
+<span>        placement <span class="op">=</span> <span class="st">"right"</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        title <span class="op">=</span> <span class="st">"Top"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"On the top of target."</span>,</span>
-<span>        placement <span class="op">=</span> <span class="st">"top"</span>,</span>
-<span>        target <span class="op">=</span> <span class="st">"#t_btn"</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_btn"</span>, <span class="st">"Top"</span>, <span class="st">"On the top of target."</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -347,15 +318,11 @@ and <code>color</code>.</p>
 <span>      color <span class="op">=</span> <span class="st">"rgba(80, 255, 255, .4)"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
+<span>        <span class="st">"#t_save"</span>,</span>
+<span>        <span class="st">"Save"</span>,</span>
+<span>        <span class="st">"Save your changes"</span>,</span>
 <span>        mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>          style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #fff"</span><span class="op">)</span>,</span>
 <span>          color <span class="op">=</span> <span class="st">"rgba(40, 0, 255, .4)"</span></span>
@@ -392,16 +359,8 @@ and <code>color</code>.</p>
 <span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>    <span class="st">"tour"</span>,</span>
 <span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_up"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Upload File"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Put you files here."</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#t_save"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Save"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Save your changes"</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      indicators <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
@@ -447,16 +406,8 @@ shown.</p>
 <span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>    <span class="st">"tour"</span>,</span>
 <span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">"#first"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"By id"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"A selector for an id."</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        target <span class="op">=</span> <span class="st">".second"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"By class"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"A selector for a class."</span></span>
-<span>      <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#first"</span>, <span class="st">"By id"</span>, <span class="st">"A selector for an id."</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">".second"</span>, <span class="st">"By class"</span>, <span class="st">"A selector for a class."</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -714,8 +665,7 @@ custom props</td>
 <tbody>
 <tr class="odd">
 <td><code>target</code></td>
-<td>field <code>target</code> of each of <code>steps</code>
-</td>
+<td><code>el_tour_step(target =)</code></td>
 <td>get the element the guide card points to. Empty makes it show in
 center of screen. the string and Function types are supported since
 ^(2.5.2). the string type is selectors of document.querySelector.</td>
@@ -729,7 +679,7 @@ center of screen. the string and Function types are supported since
 </tr>
 <tr class="even">
 <td><code>show-arrow</code></td>
-<td><code>show_arrow</code></td>
+<td><code>el_tour_step(show_arrow =)</code></td>
 <td>whether to show the arrow</td>
 <td><code>boolean</code></td>
 <td></td>
@@ -737,8 +687,7 @@ center of screen. the string and Function types are supported since
 </tr>
 <tr class="odd">
 <td><code>title</code></td>
-<td>field <code>title</code> of each of <code>steps</code>
-</td>
+<td><code>el_tour_step(title =)</code></td>
 <td>title</td>
 <td><code>string</code></td>
 <td></td>
@@ -746,8 +695,7 @@ center of screen. the string and Function types are supported since
 </tr>
 <tr class="even">
 <td><code>description</code></td>
-<td>field <code>description</code> of each of <code>steps</code>
-</td>
+<td><code>el_tour_step(description =)</code></td>
 <td>description</td>
 <td><code>string</code></td>
 <td></td>
@@ -755,7 +703,7 @@ center of screen. the string and Function types are supported since
 </tr>
 <tr class="odd">
 <td><code>placement</code></td>
-<td><code>placement</code></td>
+<td><code>el_tour_step(placement =)</code></td>
 <td>position of the guide card relative to the target element</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;enum&lt;/p&gt;"><sup>7</sup></a><code>'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'</code>
@@ -765,7 +713,7 @@ center of screen. the string and Function types are supported since
 </tr>
 <tr class="even">
 <td><code>content-style</code></td>
-<td><code>content_style</code></td>
+<td><code>el_tour_step(content_style =)</code></td>
 <td>custom style for content</td>
 <td><code>CSSProperties</code></td>
 <td></td>
@@ -773,7 +721,7 @@ center of screen. the string and Function types are supported since
 </tr>
 <tr class="odd">
 <td><code>mask</code></td>
-<td><code>mask</code></td>
+<td><code>el_tour_step(mask =)</code></td>
 <td>whether to enable masking, change mask style and fill color by pass
 custom props</td>
 <td>
@@ -785,7 +733,7 @@ custom props</td>
 </tr>
 <tr class="even">
 <td><code>type</code></td>
-<td><code>type</code></td>
+<td><code>el_tour_step(type =)</code></td>
 <td>type, affects the background color and text color</td>
 <td>
 <code>default</code> \</td>
@@ -794,9 +742,7 @@ custom props</td>
 </tr>
 <tr class="odd">
 <td><code>next-button-props</code></td>
-<td>field <code>next_button_props</code> of each of
-<code>steps</code>
-</td>
+<td><code>el_tour_step(next_button_props =)</code></td>
 <td>properties of the Next button</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Object&lt;/p&gt;"><sup>9</sup></a><code>{ children: VueNode \\| string; onClick: Function }</code>
@@ -806,9 +752,7 @@ custom props</td>
 </tr>
 <tr class="even">
 <td><code>prev-button-props</code></td>
-<td>field <code>prev_button_props</code> of each of
-<code>steps</code>
-</td>
+<td><code>el_tour_step(prev_button_props =)</code></td>
 <td>properties of the previous button</td>
 <td>
 <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Object&lt;/p&gt;"><sup>10</sup></a><code>{ children: VueNode \\| string; onClick: Function }</code>
@@ -818,7 +762,7 @@ custom props</td>
 </tr>
 <tr class="odd">
 <td><code>scroll-into-view-options</code></td>
-<td><code>scroll_into_view_options</code></td>
+<td><code>el_tour_step(scroll_into_view_options =)</code></td>
 <td>support pass custom scrollIntoView options, the default follows the
 <code>scrollIntoViewOptions</code> property of Tour</td>
 <td>
@@ -828,7 +772,7 @@ custom props</td>
 </tr>
 <tr class="even">
 <td><code>show-close</code></td>
-<td><code>show_close</code></td>
+<td><code>el_tour_step(show_close =)</code></td>
 <td>whether to show a close button</td>
 <td><code>boolean</code></td>
 <td></td>
@@ -836,7 +780,7 @@ custom props</td>
 </tr>
 <tr class="odd">
 <td><code>close-icon</code></td>
-<td><code>close_icon</code></td>
+<td><code>el_tour_step(close_icon =)</code></td>
 <td>custom close icon, default is Close</td>
 <td>
 <code>string</code> \</td>

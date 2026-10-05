@@ -47,8 +47,10 @@ el_checkbox_group(
 - choices, options:
 
   The choices: a named character vector (`c(Label = value)`) or a list
-  of `list(value = ..., label = ...)`. `choices` is Shiny's name for it,
-  `options` Element's; give either.
+  of
+  [`el_option()`](https://kaipingyang.github.io/shiny.element/reference/el_option.md)s
+  – which can be `disabled` – or of `list(value = ..., label = ...)`.
+  `choices` is Shiny's name for it, `options` Element's; give either.
 
 - selected, value:
 

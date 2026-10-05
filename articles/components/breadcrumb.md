@@ -16,10 +16,10 @@ el_breadcrumb(
   "crumbs",
   separator = "/",
   items = list(
-    list(label = "homepage", to = "/"),
-    list(label = "promotion management"),
-    list(label = "promotion list"),
-    list(label = "promotion detail")
+    el_breadcrumb_item("homepage", to = "/"),
+    el_breadcrumb_item("promotion management"),
+    el_breadcrumb_item("promotion list"),
+    el_breadcrumb_item("promotion detail")
   )
 )
 ```
@@ -35,10 +35,10 @@ el_breadcrumb(
   "crumbs_icon",
   separator_icon = "ArrowRight",
   items = list(
-    list(label = "homepage", to = "/"),
-    list(label = "promotion management"),
-    list(label = "promotion list"),
-    list(label = "promotion detail")
+    el_breadcrumb_item("homepage", to = "/"),
+    el_breadcrumb_item("promotion management"),
+    el_breadcrumb_item("promotion list"),
+    el_breadcrumb_item("promotion detail")
   )
 )
 ```
@@ -64,8 +64,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `to` | field `to` of each of `items` | target route of the link, same as `to` of `vue-router` | [^4] / [^5]`RouteLocationRaw` |  | ’’ |
-| `replace` | field `replace` of each of `items` | if `true`, the navigation will not leave a history record | [^6] |  | false |
+| `to` | `el_breadcrumb_item(to =)` | target route of the link, same as `to` of `vue-router` | [^4] / [^5]`RouteLocationRaw` |  | ’’ |
+| `replace` | `el_breadcrumb_item(replace =)` | if `true`, the navigation will not leave a history record | [^6] |  | false |
 
 ### BreadcrumbItem Slots
 

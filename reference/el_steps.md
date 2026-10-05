@@ -29,9 +29,11 @@ el_steps(
 
 - steps:
 
-  List of step definitions, each with `title`, `description`, `icon` and
-  `status`. `title`, `description` and `icon` may be markup rather than
-  text, which fills the step's slot of that name.
+  A list of steps, each an
+  [`el_step()`](https://kaipingyang.github.io/shiny.element/reference/el_step.md)
+  – or a list with `title`, `description`, `icon` and `status`. `title`,
+  `description` and `icon` may be markup rather than text, which fills
+  the step's slot of that name.
 
 - active:
 

@@ -9,33 +9,33 @@ You can expand multiple panels
 ``` r
 
 panels <- list(
-  list(
-    name = "1",
-    title = "Consistency",
+  el_collapse_item(
+    "Consistency",
     tags$div(
       "Consistent with real life: in line with the process and logic of real life, and comply with languages and habits that the users are used to;"
-    )
+    ),
+    name = "1"
   ),
-  list(
-    name = "2",
-    title = "Feedback",
+  el_collapse_item(
+    "Feedback",
     tags$div(
       "Operation feedback: enable the users to clearly perceive their operations by style updates and interactive effects;"
-    )
+    ),
+    name = "2"
   ),
-  list(
-    name = "3",
-    title = "Efficiency",
+  el_collapse_item(
+    "Efficiency",
     tags$div(
       "Simplify the process: keep operating process simple and intuitive;"
-    )
+    ),
+    name = "3"
   ),
-  list(
-    name = "4",
-    title = "Controllability",
+  el_collapse_item(
+    "Controllability",
     tags$div(
       "Decision making: giving advices about operations is acceptable, but do not make decisions for the users;"
-    )
+    ),
+    name = "4"
   )
 )
 el_collapse("coll", items = panels, value = "1")
@@ -43,11 +43,22 @@ el_collapse("coll", items = panels, value = "1")
 
 Consistency
 
+Consistent with real life: in line with the process and logic of real
+life, and comply with languages and habits that the users are used to;
+
 Feedback
+
+Operation feedback: enable the users to clearly perceive their
+operations by style updates and interactive effects;
 
 Efficiency
 
+Simplify the process: keep operating process simple and intuitive;
+
 Controllability
+
+Decision making: giving advices about operations is acceptable, but do
+not make decisions for the users;
 
 ## Accordion
 
@@ -62,25 +73,41 @@ el_collapse(
   value = "1",
   accordion = TRUE,
   items = list(
-    list(
-      name = "1",
-      title = "Consistency",
-      tags$div("Consistent with real life.")
+    el_collapse_item(
+      "Consistency",
+      tags$div("Consistent with real life."),
+      name = "1"
     ),
-    list(name = "2", title = "Feedback", tags$div("Operation feedback.")),
-    list(name = "3", title = "Efficiency", tags$div("Simplify the process.")),
-    list(name = "4", title = "Controllability", tags$div("Decision making."))
+    el_collapse_item("Feedback", tags$div("Operation feedback."), name = "2"),
+    el_collapse_item(
+      "Efficiency",
+      tags$div("Simplify the process."),
+      name = "3"
+    ),
+    el_collapse_item(
+      "Controllability",
+      tags$div("Decision making."),
+      name = "4"
+    )
   )
 )
 ```
 
 Consistency
 
+Consistent with real life.
+
 Feedback
+
+Operation feedback.
 
 Efficiency
 
+Simplify the process.
+
 Controllability
+
+Decision making.
 
 ## Custom title
 
@@ -100,22 +127,26 @@ el_collapse(
   "coll_title",
   accordion = TRUE,
   items = list(
-    list(
-      name = "1",
-      title = tags$span(
+    el_collapse_item(
+      tags$span(
         "Consistency ",
         el_icon("InfoFilled", class = "header-icon")
       ),
-      tags$div("Consistent with real life.")
+      tags$div("Consistent with real life."),
+      name = "1"
     ),
-    list(name = "2", title = "Feedback", tags$div("Operation feedback."))
+    el_collapse_item("Feedback", tags$div("Operation feedback."), name = "2")
   )
 )
 ```
 
 Consistency
 
+Consistent with real life.
+
 Feedback
+
+Operation feedback.
 
 ## Custom icon
 
@@ -128,17 +159,17 @@ el_collapse(
   "coll_icon",
   value = "1",
   items = list(
-    list(
+    el_collapse_item(
+      "Consistency",
+      tags$div("Consistent with real life."),
       name = "1",
-      title = "Consistency",
-      icon = "CaretRight",
-      tags$div("Consistent with real life.")
+      icon = "CaretRight"
     ),
-    list(
+    el_collapse_item(
+      "Feedback",
+      tags$div("Operation feedback."),
       name = "2",
-      title = "Feedback",
-      icon = "ArrowRightBold",
-      tags$div("Operation feedback.")
+      icon = "ArrowRightBold"
     )
   )
 )
@@ -146,7 +177,11 @@ el_collapse(
 
 Consistency
 
+Consistent with real life.
+
 Feedback
+
+Operation feedback.
 
 ## Custom icon position
 
@@ -159,19 +194,23 @@ el_collapse(
   "coll_pos",
   expand_icon_position = "left",
   items = list(
-    list(
-      name = "1",
-      title = "Consistency",
-      tags$div("Consistent with real life.")
+    el_collapse_item(
+      "Consistency",
+      tags$div("Consistent with real life."),
+      name = "1"
     ),
-    list(name = "2", title = "Feedback", tags$div("Operation feedback."))
+    el_collapse_item("Feedback", tags$div("Operation feedback."), name = "2")
   )
 )
 ```
 
 Consistency
 
+Consistent with real life.
+
 Feedback
+
+Operation feedback.
 
 ## Prevent collapsing
 
@@ -189,19 +228,23 @@ el_collapse(
     "function(name) { return confirm('Toggle ' + name + '?'); }"
   ),
   items = list(
-    list(
-      name = "1",
-      title = "Consistency",
-      tags$div("Consistent with real life.")
+    el_collapse_item(
+      "Consistency",
+      tags$div("Consistent with real life."),
+      name = "1"
     ),
-    list(name = "2", title = "Feedback", tags$div("Operation feedback."))
+    el_collapse_item("Feedback", tags$div("Operation feedback."), name = "2")
   )
 )
 ```
 
 Consistency
 
+Consistent with real life.
+
 Feedback
+
+Operation feedback.
 
 ## API
 
@@ -238,9 +281,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `title` | item field `title` | title of the panel | [^6] |  | ’’ |
-| `icon` | item field `icon` | icon of the collapse item | [^7] / [^8] |  | ArrowRight |
-| `disabled` | item field `disabled` | disable the collapse item | [^9] |  | false |
+| `title` | `el_collapse_item(title =)` | title of the panel | [^6] |  | ’’ |
+| `icon` | `el_collapse_item(icon =)` | icon of the collapse item | [^7] / [^8] |  | ArrowRight |
+| `disabled` | `el_collapse_item(disabled =)` | disable the collapse item | [^9] |  | false |
 
 ### Collapse Item Slot
 

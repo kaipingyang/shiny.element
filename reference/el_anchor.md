@@ -30,8 +30,10 @@ el_anchor(
 
 - links:
 
-  The links: a list of `list(title =, href = "#section")`, each with
-  optional `children`, a list of links one level down.
+  The links, each an
+  [`el_anchor_link()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor_link.md)
+  – or a `list(title =, href = "#section")`, each with optional
+  `children`, a list of links one level down.
 
 - container:
 

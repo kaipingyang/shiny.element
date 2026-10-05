@@ -44,13 +44,18 @@ el_menu(
 
 - items:
 
-  A list of items. Each is a list with `index` (the value reported when
-  selected), `label` (or `title`, Element's name for it), and optionally
-  `icon` (an icon's name, such as `"House"`), `disabled`, `route` (for
-  `router = TRUE`), or `children` for a submenu. A submenu may also
-  carry Element Plus's sub-menu props: `popper_class`, `popper_style`,
-  `show_timeout`, `hide_timeout`, `teleported`, `popper_offset`, and its
-  expand and collapse icons (`expand_close_icon`, `expand_open_icon`,
+  A list of items, each an
+  [`el_menu_item()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md),
+  [`el_sub_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md)
+  or
+  [`el_menu_item_group()`](https://kaipingyang.github.io/shiny.element/reference/el_menu_item.md)
+  – or a list with `index` (the value reported when selected), `label`
+  (or `title`, Element's name for it), and optionally `icon` (an icon's
+  name, such as `"House"`), `disabled`, `route` (for `router = TRUE`),
+  or `children` for a submenu. A submenu may also carry Element Plus's
+  sub-menu props: `popper_class`, `popper_style`, `show_timeout`,
+  `hide_timeout`, `teleported`, `popper_offset`, and its expand and
+  collapse icons (`expand_close_icon`, `expand_open_icon`,
   `collapse_close_icon`, `collapse_open_icon`). An item with
   `group = TRUE` becomes a titled group of its `children` rather than a
   submenu.

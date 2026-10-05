@@ -23,21 +23,9 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes"
-      ),
-      list(
-        target = "#t_more",
-        title = "Other Actions",
-        description = "Click to see other"
-      )
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step("#t_save", "Save", "Save your changes"),
+      el_tour_step("#t_more", "Other Actions", "Click to see other")
     )
   )
 )
@@ -77,21 +65,9 @@ ui <- el_page(
     type = "primary",
     mask = FALSE,
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes"
-      ),
-      list(
-        target = "#t_more",
-        title = "Other Actions",
-        description = "Click to see other"
-      )
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step("#t_save", "Save", "Save your changes"),
+      el_tour_step("#t_more", "Other Actions", "Click to see other")
     )
   )
 )
@@ -121,22 +97,17 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
+      el_tour_step(
         title = "Center",
         description = "Displayed in the center of screen."
       ),
-      list(
-        title = "Right",
-        description = "On the right of target.",
-        placement = "right",
-        target = "#t_btn"
+      el_tour_step(
+        "#t_btn",
+        "Right",
+        "On the right of target.",
+        placement = "right"
       ),
-      list(
-        title = "Top",
-        description = "On the top of target.",
-        placement = "top",
-        target = "#t_btn"
-      )
+      el_tour_step("#t_btn", "Top", "On the top of target.", placement = "top")
     )
   )
 )
@@ -175,15 +146,11 @@ ui <- el_page(
       color = "rgba(80, 255, 255, .4)"
     ),
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes",
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step(
+        "#t_save",
+        "Save",
+        "Save your changes",
         mask = list(
           style = list(boxShadow = "inset 0 0 15px #fff"),
           color = "rgba(40, 0, 255, .4)"
@@ -224,16 +191,8 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes"
-      )
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step("#t_save", "Save", "Save your changes")
     ),
     slots = list(
       indicators = template(
@@ -283,16 +242,8 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
-        target = "#first",
-        title = "By id",
-        description = "A selector for an id."
-      ),
-      list(
-        target = ".second",
-        title = "By class",
-        description = "A selector for a class."
-      )
+      el_tour_step("#first", "By id", "A selector for an id."),
+      el_tour_step(".second", "By class", "A selector for a class.")
     )
   )
 )
@@ -352,19 +303,19 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `target` | field `target` of each of `steps` | get the element the guide card points to. Empty makes it show in center of screen. the string and Function types are supported since ^(2.5.2). the string type is selectors of document.querySelector. | `HTMLElement` \\ | `string` \\ | [^6]`() => HTMLElement` |
-| `show-arrow` | `show_arrow` | whether to show the arrow | `boolean` |  | — |
-| `title` | field `title` of each of `steps` | title | `string` |  | — |
-| `description` | field `description` of each of `steps` | description | `string` |  | — |
-| `placement` | `placement` | position of the guide card relative to the target element | [^7]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | `bottom` |
-| `content-style` | `content_style` | custom style for content | `CSSProperties` |  | — |
-| `mask` | `mask` | whether to enable masking, change mask style and fill color by pass custom props | `boolean` \\ | [^8]`{ style?: CSSProperties; color?: string; }` |  |
-| `type` | `type` | type, affects the background color and text color | `default` \\ | `primary` |  |
-| `next-button-props` | field `next_button_props` of each of `steps` | properties of the Next button | [^9]`{ children: VueNode \\| string; onClick: Function }` |  | — |
-| `prev-button-props` | field `prev_button_props` of each of `steps` | properties of the previous button | [^10]`{ children: VueNode \\| string; onClick: Function }` |  | — |
-| `scroll-into-view-options` | `scroll_into_view_options` | support pass custom scrollIntoView options, the default follows the `scrollIntoViewOptions` property of Tour | `boolean` \\ | `ScrollIntoViewOptions` |  |
-| `show-close` | `show_close` | whether to show a close button | `boolean` |  | — |
-| `close-icon` | `close_icon` | custom close icon, default is Close | `string` \\ | `Component` |  |
+| `target` | `el_tour_step(target =)` | get the element the guide card points to. Empty makes it show in center of screen. the string and Function types are supported since ^(2.5.2). the string type is selectors of document.querySelector. | `HTMLElement` \\ | `string` \\ | [^6]`() => HTMLElement` |
+| `show-arrow` | `el_tour_step(show_arrow =)` | whether to show the arrow | `boolean` |  | — |
+| `title` | `el_tour_step(title =)` | title | `string` |  | — |
+| `description` | `el_tour_step(description =)` | description | `string` |  | — |
+| `placement` | `el_tour_step(placement =)` | position of the guide card relative to the target element | [^7]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'` |  | `bottom` |
+| `content-style` | `el_tour_step(content_style =)` | custom style for content | `CSSProperties` |  | — |
+| `mask` | `el_tour_step(mask =)` | whether to enable masking, change mask style and fill color by pass custom props | `boolean` \\ | [^8]`{ style?: CSSProperties; color?: string; }` |  |
+| `type` | `el_tour_step(type =)` | type, affects the background color and text color | `default` \\ | `primary` |  |
+| `next-button-props` | `el_tour_step(next_button_props =)` | properties of the Next button | [^9]`{ children: VueNode \\| string; onClick: Function }` |  | — |
+| `prev-button-props` | `el_tour_step(prev_button_props =)` | properties of the previous button | [^10]`{ children: VueNode \\| string; onClick: Function }` |  | — |
+| `scroll-into-view-options` | `el_tour_step(scroll_into_view_options =)` | support pass custom scrollIntoView options, the default follows the `scrollIntoViewOptions` property of Tour | `boolean` \\ | `ScrollIntoViewOptions` |  |
+| `show-close` | `el_tour_step(show_close =)` | whether to show a close button | `boolean` |  | — |
+| `close-icon` | `el_tour_step(close_icon =)` | custom close icon, default is Close | `string` \\ | `Component` |  |
 
 ### TourStep slots
 

@@ -25,7 +25,9 @@ el_collapse(
 
 - items:
 
-  A list of panels. Each is a named list with:
+  A list of panels, each an
+  [`el_collapse_item()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse_item.md)
+  – or a named list with the same fields:
 
   name
 
