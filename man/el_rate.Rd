@@ -12,8 +12,8 @@ el_rate(
   allow_half = FALSE,
   show_text = FALSE,
   show_score = FALSE,
-  texts = c("极差", "失望", "一般", "满意", "惊喜"),
-  text_color = "#1f2d3d",
+  texts = NULL,
+  text_color = NULL,
   score_template = "{value}",
   colors = NULL,
   void_color = NULL,
@@ -56,9 +56,11 @@ el_rate(
 \item{show_score}{Whether to show the numeric score. Default \code{FALSE}.}
 
 \item{texts}{Character vector of length \code{max} used when \code{show_text = TRUE}.
-Defaults to \code{c("极差", "失望", "一般", "满意", "惊喜")}.}
+\code{NULL} takes Element Plus's: "Extremely bad", "Disappointed", "Fair",
+"Satisfied", "Surprise".}
 
-\item{text_color}{Colour of the text/score. Default \code{"#1f2d3d"}.}
+\item{text_color}{Colour of the text or score. \code{NULL} takes Element
+Plus's, from its CSS variables.}
 
 \item{score_template}{Template for score display. \code{{value}} is replaced.
 Default \code{"{value}"}.}
@@ -142,7 +144,7 @@ A star-rating input. Supports half-stars, custom icons, and read-only display.
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>} — numeric rating value (0 to \code{max}, increments of 0.5 when
+\verb{input$<id>} -- numeric rating value (0 to \code{max}, increments of 0.5 when
 \code{allow_half = TRUE}).
 }
 

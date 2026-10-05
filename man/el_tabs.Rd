@@ -73,7 +73,6 @@ Rendered as plain markup carrying Element's own classes, driven by a Shiny
 input binding rather than a Vue instance. That is what lets a tab hold other
 components from this package: a Vue instance mounted here would rebuild the
 DOM underneath them, leaving them rendered but disconnected from the server.
-See \code{.claude/docs/lessons.md} §1.2.
 }
 \section{Shiny inputs}{
 

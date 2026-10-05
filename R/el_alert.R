@@ -10,7 +10,7 @@
 #' @param type Alert type: `"info"` (default), `"success"`, `"warning"`,
 #'   `"error"`.
 #' @param closable Whether to show a close button. Default `TRUE`.
-#' @param close_text Custom text for the close button. `""` for the default ×.
+#' @param close_text Custom text for the close button. `""` for the default cross.
 #' @param show_icon Whether to display the type icon. Default `FALSE`.
 #' @param center Whether to centre the content. Default `FALSE`.
 #' @param effect Visual effect: `"light"` (default) or `"dark"`.
@@ -28,7 +28,7 @@
 #' @return An `htmltools` tagList with a Vue-managed alert component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>_closed` — set to `1` (with `priority = "event"`) when the
+#' `input$<id>_closed` -- set to `1` (with `priority = "event"`) when the
 #' user closes the alert.
 #'
 #' @examples
@@ -54,7 +54,6 @@ el_alert <- function(
     id <- .el_auto_id("el_alert")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   alert_attrs <- list(
     ":title" = "title",

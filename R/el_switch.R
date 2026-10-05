@@ -61,7 +61,7 @@
 #' @return An `htmltools` tagList with a Vue-managed switch component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — the value of `active_value` (when on) or `inactive_value`
+#' `input$<id>` -- the value of `active_value` (when on) or `inactive_value`
 #' (when off), matching the types of those arguments.
 #'
 #' @examples
@@ -120,7 +120,6 @@ el_switch <- function(
     id <- .el_auto_id("el_switch")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   switch_attrs <- list(
     "v-model" = "value",

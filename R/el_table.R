@@ -576,7 +576,6 @@ el_table <- function(
     id <- .el_auto_id("el_table")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   data <- .el_table_rownames(data, rownames)
   prep <- .el_table_prep(data, columns)
@@ -1161,69 +1160,4 @@ update_el_table <- function(
 
   .el_send_update(session, msg)
   invisible(NULL)
-}
-
-#' Prepare Data for Element Table
-#'
-#' @param df Data frame
-#' @param max_rows Max rows to show
-#' @param add_name Add row names
-#' @return List with data and columns
-#'
-#' @details
-#' Superseded: [el_table()] now accepts a data.frame directly and infers its
-#' columns, so this helper is only needed for its extra behaviour (dropping
-#' incomplete rows, capping row count, prepending a row-name column).
-#'
-#' Note it drops rows with any `NA` via [stats::na.omit()] and overwrites a
-#' column literally named `name` when `add_name = TRUE`.
-#'
-#' @examples
-#' cfg <- el_table_config(head(iris, 3))
-#' str(cfg$columns, max.level = 2)
-#'
-#' # Cap the rows and leave out the row-name column
-#' el_table_config(iris, max_rows = 5, add_name = FALSE)
-#' @export
-el_table_config <- function(df, max_rows = NULL, add_name = TRUE) {
-  if (!is.null(max_rows)) {
-    df <- df[seq_len(min(max_rows, nrow(df))), , drop = FALSE]
-  }
-  df <- na.omit(df)
-  original_names <- names(df)
-  safe_names <- gsub("\\.", "_", original_names)
-  names(df) <- safe_names
-
-  data <- lapply(seq_len(nrow(df)), function(i) {
-    row <- lapply(safe_names, function(col) {
-      val <- df[i, col]
-      if (is.factor(val)) {
-        as.character(val[[1]])
-      } else if (is.numeric(val)) {
-        as.numeric(val[[1]])
-      } else {
-        as.character(val[[1]])
-      }
-    })
-    names(row) <- safe_names
-    if (add_name) {
-      row$name <- rownames(df)[i]
-    }
-    row
-  })
-
-  columns <- list(list(prop = "name", label = "row_name", width = "150"))
-  for (i in seq_along(safe_names)) {
-    col_class <- class(df[[safe_names[i]]])[1]
-    width <- if (col_class %in% c("numeric", "integer")) "100" else "120"
-    columns <- c(
-      columns,
-      list(list(
-        prop = safe_names[i],
-        label = paste0(original_names[i], " (", col_class, ")"),
-        width = width
-      ))
-    )
-  }
-  list(data = data, columns = columns)
 }

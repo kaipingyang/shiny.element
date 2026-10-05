@@ -67,10 +67,12 @@ el_theme()
 # Element's look with another brand colour
 el_theme(primary = "#7c3aed")
 
-# Rounder and smaller, all through Element
+# Rounder and smaller, all through Element (compiles Element's Sass)
+\donttest{
 el_theme(
   element = list("border-radius-base" = "10px", "font-size-base" = "13px")
 )
+}
 
 if (interactive()) {
   el_page(theme = el_theme(), shiny::actionButton("go", "Shiny's own button"))

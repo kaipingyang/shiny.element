@@ -32,7 +32,7 @@ icon is rendered at the larger size.}
 
 \item{closable}{Whether to show a close button. Default \code{TRUE}.}
 
-\item{close_text}{Custom text for the close button. \code{""} for the default ×.}
+\item{close_text}{Custom text for the close button. \code{""} for the default cross.}
 
 \item{show_icon}{Whether to display the type icon. Default \code{FALSE}.}
 
@@ -62,7 +62,7 @@ the user closes it.
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>_closed} — set to \code{1} (with \code{priority = "event"}) when the
+\verb{input$<id>_closed} -- set to \code{1} (with \code{priority = "event"}) when the
 user closes the alert.
 }
 

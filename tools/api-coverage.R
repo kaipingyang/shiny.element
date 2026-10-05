@@ -50,7 +50,7 @@ fixtures <- list(
   )
 )
 # Server-side helpers, dependency getters and item constructors (R/el_items.R) render no component of their own
-skip <- "^el_message_close$|^el_notification_close$|^call_el$|^el_loading$|^el_loading_close$|^el_message_box$|^el_widget$|_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$|^el_load_children$|^el_table_row$|^el_upload_file$|^el_tree_node$|^JS$|^el_(tab_pane|collapse_item|timeline_item|descriptions_item|carousel_item|step|breadcrumb_item|dropdown_item|tour_step|anchor_link|menu_item|sub_menu|menu_item_group|option|option_group|table_column|table_v2_column|skeleton_item)$"
+skip <- "^el_message_close$|^el_notification_close$|^call_el$|^el_loading$|^el_loading_close$|^el_message_box$|^el_widget$|_dependency$|^el$|^el_page$|^el_rule$|^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$|^el_load_children$|^el_table_row$|^el_upload_file$|^el_tree_node$|^JS$|^el_(tab_pane|collapse_item|timeline_item|descriptions_item|carousel_item|step|breadcrumb_item|dropdown_item|tour_step|anchor_link|menu_item|sub_menu|menu_item_group|option|option_group|table_column|table_v2_column|skeleton_item)$"
 
 ui_fns <- setdiff(
   grep("^el_", getNamespaceExports("shiny.element"), value = TRUE),

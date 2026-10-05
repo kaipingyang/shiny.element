@@ -157,7 +157,7 @@ range modes, marks, vertical orientation, and optional numeric input box.
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>} — Number (\code{range = FALSE}) or two-element array
+\verb{input$<id>} -- Number (\code{range = FALSE}) or two-element array
 (\code{range = TRUE}), updated when the user finishes dragging.
 }
 

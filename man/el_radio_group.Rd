@@ -119,7 +119,7 @@ Supports both standard radio buttons (\verb{<el-radio>}) and button-style radios
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>} — string or number reflecting the currently selected value,
+\verb{input$<id>} -- string or number reflecting the currently selected value,
 updated on each change.
 }
 

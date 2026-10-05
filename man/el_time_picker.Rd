@@ -206,7 +206,11 @@ el_time_picker("start", value = "09:30:00")
 el_time_picker(
   "start",
   disabled_hours = JS(
-    "function() { var h = []; for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i); return h; }"
+    "function() {",
+    "  var h = [];",
+    "  for (var i = 0; i < 24; i++) if (i < 9 || i > 18) h.push(i);",
+    "  return h;",
+    "}"
   )
 )
 

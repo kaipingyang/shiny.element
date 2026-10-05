@@ -64,3 +64,9 @@ vue_spec_of <- function(ui) {
   json <- sub("</script>.*$", "", json)
   jsonlite::fromJSON(json, simplifyVector = FALSE)
 }
+
+# Rows as R lists, whether .vue_rows() wrote them as JSON (a data.frame) or
+# kept them as lists
+rows_of <- function(x) {
+  if (inherits(x, "json")) jsonlite::fromJSON(x, simplifyVector = FALSE) else x
+}

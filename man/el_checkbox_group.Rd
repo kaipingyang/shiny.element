@@ -125,7 +125,7 @@ checkboxes or button-style variants.
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>} — character vector of currently selected values.
+\verb{input$<id>} -- character vector of currently selected values.
 }
 
 \examples{

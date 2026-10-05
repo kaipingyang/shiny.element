@@ -110,7 +110,6 @@ el_button <- function(
     id <- .el_auto_id("el_button")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # circle buttons show no label
   if (circle) {

@@ -210,7 +210,6 @@ el_cascader <- function(
     id <- .el_auto_id("el_cascader")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   cascader_attrs <- list(
     ":options" = "options",

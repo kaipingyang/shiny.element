@@ -117,7 +117,6 @@ el_pagination <- function(
     id <- .el_auto_id("el_pagination")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
   # The page is the value, restored by el_widget(); the size beside it
   page_size <- shiny::restoreInput(paste0(ns_id, "_size"), page_size)
 

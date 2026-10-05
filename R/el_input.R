@@ -163,7 +163,6 @@ el_input <- function(
     id <- .el_auto_id("el_input")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Always-present Vue binding attributes
   input_attrs <- list(

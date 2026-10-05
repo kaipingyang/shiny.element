@@ -177,7 +177,6 @@ el_tree <- function(
     id <- .el_auto_id("el_tree")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   tree_attrs <- list(
     # Named so the handler can call setCheckedKeys(): assigning

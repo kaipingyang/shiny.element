@@ -49,7 +49,7 @@
 #' @return An `htmltools` tagList with a Vue-managed color-picker component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — colour string (e.g. `"#409EFF"` or `"rgba(64,158,255,0.5)"`).
+#' `input$<id>` -- colour string (e.g. `"#409EFF"` or `"rgba(64,158,255,0.5)"`).
 #' `NULL` / `NA` when the user clears the picker.
 #'
 #' @examples
@@ -92,7 +92,6 @@ el_color_picker <- function(
     id <- .el_auto_id("el_color_picker")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   cp_attrs <- list(
     "v-model" = "value",

@@ -92,6 +92,19 @@ Shiny input.
   `options(shiny.vue.dev = TRUE)` loads Vue's development build, as
   `shiny.element.dev` does.
 
+## Breaking changes
+
+Before this first release the API is still allowed to move; from the first
+CRAN release on, a change like these goes through a deprecation first.
+
+* `el_call()` is `call_el()`, `update_vue_data()` is `update_vue()`, and
+  `el_widget(report =)` is `input =`.
+* `insert_el_tab()`'s `name` is `tab`, which also takes an `el_tab_pane()`.
+* `el_table_config()` is gone: `el_table()` takes a data.frame as it is, and
+  `el_table_column()` writes the columns.
+* Update functions take `NULL` as "leave it", as Shiny's do; `NA` returns a
+  prop to Element's default.
+
 ## Items as functions
 
 The parts Element Plus writes as child tags have constructors, as bslib has
@@ -164,7 +177,7 @@ they differ from Element's own.
   `el_main()`, `el_footer()`.
 * **Feedback** — `el_message()`, `el_notification()`, `el_message_box()`,
   `el_loading()`, `el_loading_close()`.
-* **Helpers** — `el_page()`, `el_theme()`, `use_element()`, `el_table_config()`,
+* **Helpers** — `el_page()`, `el_theme()`, `use_element()`,
   `df_to_tree_data()`, `df_to_cascader_options()`, `el_form_validate()`.
 
 Most components have a matching `update_el_*()` for server-side updates, and

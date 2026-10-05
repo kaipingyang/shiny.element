@@ -9,7 +9,7 @@
 #'   `content` is its own width. Element Plus's `width` (number).
 #' @param height The height of the watermark, the default value of `content`
 #'   is its own height. Element Plus's `height` (number).
-#' @param rotate When the watermark is drawn, the rotation Angle, unit `°`.
+#' @param rotate When the watermark is drawn, the rotation angle, in degrees.
 #'   Element Plus's `rotate` (number).
 #' @param z_index The z-index of the appended watermark element. Element
 #'   Plus's `z-index` (number).

@@ -11,8 +11,10 @@
 #'   `texts` vector. Default `FALSE`.
 #' @param show_score Whether to show the numeric score. Default `FALSE`.
 #' @param texts Character vector of length `max` used when `show_text = TRUE`.
-#'   Defaults to `c("极差", "失望", "一般", "满意", "惊喜")`.
-#' @param text_color Colour of the text/score. Default `"#1f2d3d"`.
+#'   `NULL` takes Element Plus's: "Extremely bad", "Disappointed", "Fair",
+#'   "Satisfied", "Surprise".
+#' @param text_color Colour of the text or score. `NULL` takes Element
+#'   Plus's, from its CSS variables.
 #' @param score_template Template for score display. `{value}` is replaced.
 #'   Default `"{value}"`.
 #' @param aria_label Same as `aria-label` in Rate. Element Plus's `aria-label`
@@ -51,7 +53,7 @@
 #' @return An `htmltools` tagList with a Vue-managed rate component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — numeric rating value (0 to `max`, increments of 0.5 when
+#' `input$<id>` -- numeric rating value (0 to `max`, increments of 0.5 when
 #' `allow_half = TRUE`).
 #'
 #' @examples
@@ -66,17 +68,8 @@ el_rate <- function(
   allow_half = FALSE,
   show_text = FALSE,
   show_score = FALSE,
-  # Escaped rather than literal: CRAN requires R code to be ASCII-only, so
-  # that the package reads the same under any locale. These are Element Plus's
-  # own default labels: 极差 失望 一般 满意 惊喜.
-  texts = c(
-    "\u6781\u5dee",
-    "\u5931\u671b",
-    "\u4e00\u822c",
-    "\u6ee1\u610f",
-    "\u60ca\u559c"
-  ),
-  text_color = "#1f2d3d",
+  texts = NULL,
+  text_color = NULL,
   score_template = "{value}",
   colors = NULL,
   void_color = NULL,
@@ -106,7 +99,6 @@ el_rate <- function(
     id <- .el_auto_id("el_rate")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   rate_attrs <- list(
     "v-model" = "value",
@@ -115,9 +107,9 @@ el_rate <- function(
     ":allow-half" = "allowHalf",
     ":show-text" = "showText",
     ":show-score" = "showScore",
-    ":text-color" = "textColor",
+    ":text-color" = .el_optional_bind("textColor"),
     ":score-template" = "scoreTemplate",
-    ":texts" = "texts",
+    ":texts" = .el_optional_bind("texts"),
     "@change" = "handleChange"
   )
 
@@ -163,9 +155,9 @@ el_rate <- function(
       allowHalf = allow_half,
       showText = show_text,
       showScore = show_score,
-      textColor = text_color,
+      textColor = .el_or_na(text_color),
       scoreTemplate = score_template,
-      texts = as.list(texts),
+      texts = if (is.null(texts)) NA else as.list(texts),
       colors = .el_or_na(colors),
       voidColor = .el_or_na(void_color),
       disabledVoidColor = .el_or_na(disabled_void_color),

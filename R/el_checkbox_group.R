@@ -43,7 +43,7 @@
 #' @return An `htmltools` tagList with a Vue-managed checkbox group component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — character vector of currently selected values.
+#' `input$<id>` -- character vector of currently selected values.
 #'
 #' @examples
 #' el_checkbox_group(
@@ -108,7 +108,6 @@ el_checkbox_group <- function(
     id <- .el_auto_id("el_checkbox_group")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   cb_tag_name <- if (button) "el-checkbox-button" else "el-checkbox"
   # Per-choice props are read off the option object, so a choice may be given

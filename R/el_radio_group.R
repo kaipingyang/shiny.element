@@ -47,7 +47,7 @@
 #' @return An `htmltools` tagList containing the Vue-managed radio group.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — string or number reflecting the currently selected value,
+#' `input$<id>` -- string or number reflecting the currently selected value,
 #' updated on each change.
 #'
 #' @examples
@@ -121,7 +121,6 @@ el_radio_group <- function(
     id <- .el_auto_id("el_radio_group")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Choose el-radio or el-radio-button based on button param
   radio_tag_name <- if (button) "el-radio-button" else "el-radio"

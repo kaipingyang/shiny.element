@@ -59,7 +59,7 @@ rebuild the DOM underneath them, detaching them from the server. See
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>} — character vector of open panel names, reported on load and on
+\verb{input$<id>} -- character vector of open panel names, reported on load and on
 every change. Empty when all are closed, which Shiny reports as \code{NULL}.
 }
 

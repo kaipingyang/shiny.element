@@ -214,13 +214,13 @@
 
 #' Inline style for a component's Vue mount point
 #'
-#' Vue mounts onto the `<div id="…_container">` each component renders, but it
+#' Vue mounts onto the `<div id="<id>_container">` each component renders, but it
 #' does not remove that div: it stays in the document as a block-level box.
 #' Every component therefore started on its own line, so two buttons or two
 #' tags could never sit side by side without wrapping them in a grid.
 #'
 #' `display: contents` makes the box itself generate no layout, leaving the
-#' component to take part in the surrounding flow with its own display — inline
+#' component to take part in the surrounding flow with its own display -- inline
 #' for a button, block for an alert. The style is inline rather than in a
 #' stylesheet so it cannot be switched off with `el_page(theme_css = NULL)`.
 #'
@@ -234,7 +234,7 @@
 #'
 #' Element Plus's props fall back to their own defaults when passed `undefined`,
 #' but treat `null` as a value: an `el-select` bound to a null placeholder
-#' renders an empty one instead of "请选择". R has no way to send `undefined`
+#' renders an empty one instead of its "Select". R has no way to send `undefined`
 #' through JSON, so an unsupplied field arrives as `null` and the expression
 #' has to map it back.
 #'

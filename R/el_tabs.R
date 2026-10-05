@@ -6,7 +6,7 @@
 #' input binding rather than a Vue instance. That is what lets a tab hold other
 #' components from this package: a Vue instance mounted here would rebuild the
 #' DOM underneath them, leaving them rendered but disconnected from the server.
-#' See `.claude/docs/lessons.md` §1.2.
+#'
 #'
 #' @param id Tabs ID. Auto-generated UUID if `NULL`.
 #' @param tabs A list of tabs, each an [el_tab_pane()] -- or a named list

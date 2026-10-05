@@ -112,7 +112,6 @@ export(el_switch)
 export(el_tab_pane)
 export(el_table)
 export(el_table_column)
-export(el_table_config)
 export(el_table_row)
 export(el_table_v2)
 export(el_table_v2_column)
@@ -224,4 +223,3 @@ importFrom(shiny,
   tags,
   titlePanel
 )
-importFrom(stats,na.omit)

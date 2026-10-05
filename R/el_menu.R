@@ -240,7 +240,6 @@ el_menu <- function(
     id <- .el_auto_id("el_menu")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
   active <- shiny::restoreInput(ns_id, active)
 
   menu_attrs <- list(

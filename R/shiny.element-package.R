@@ -8,6 +8,5 @@
 #' @importFrom shiny tagList
 #' @importFrom shiny tags
 #' @importFrom shiny titlePanel
-#' @importFrom stats na.omit
 ## usethis namespace: end
 NULL

@@ -11,12 +11,19 @@
 (returned as is).}
 }
 \value{
-A list of rows.
+The rows: JSON of class \code{json}, or a list of row lists.
 }
 \description{
 Factors become strings; a dot in a name becomes an underscore, since a
 template expression cannot name \code{a.b}. A data.frame further in -- a row's
 list of rows, a cell of a list column -- is rows too, and a list column's
-cell is its value, not a list of one.
+cell is its value, not a list of one; \code{NA} is \code{null}.
+}
+\details{
+The rows are written by jsonlite, as JSON kept verbatim (class \code{json}):
+its \code{dataframe = "rows"} is one vectorised pass, where a list of row lists
+took jsonlite seconds for a table-v2's ten thousand rows. A data.frame
+holding tags or \code{\link[=JS]{JS()}} in a list column is turned into row lists instead,
+so they are rendered and revived as anywhere else.
 }
 \keyword{internal}

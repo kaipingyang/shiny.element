@@ -125,7 +125,7 @@ A modal dialog.
 \details{
 Rendered as plain markup carrying Element Plus's own classes, driven by a
 Shiny input binding rather than a Vue instance, so the body can hold other
-components from this package. See \code{.claude/docs/lessons.md} §1.2.
+components from this package.
 }
 \section{Shiny inputs}{
 

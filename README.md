@@ -1,6 +1,10 @@
 # shiny.element
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kaipingyang/shiny.element/actions/workflows/R-CMD-check.yaml)
+[![browser tests](https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml/badge.svg)](https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml)
+[![Codecov test coverage](https://codecov.io/gh/kaipingyang/shiny.element/graph/badge.svg)](https://app.codecov.io/gh/kaipingyang/shiny.element)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kaipingyang/shiny.element)
 <!-- badges: end -->
 
@@ -11,6 +15,16 @@ server, like any other Shiny input.
 
 Element Plus 2.14.7, its icons and Vue 3.5 ship inside the package, so apps
 work without a network connection.
+
+## Lifecycle
+
+shiny.element is experimental: until 1.0.0 an argument or a function may
+change when a better design turns up, and every such change is listed under
+"Breaking changes" in NEWS. From the first CRAN release on, nothing is
+removed without first being deprecated, with a warning, for at least one
+minor release. Element Plus is followed as upstream changes: what it
+deprecates is deprecated here too, and what it removes goes with the next
+upgrade.
 
 ## Installation
 

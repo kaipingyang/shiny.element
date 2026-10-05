@@ -5,20 +5,20 @@ render_html <- function(tag) {
 # ── .el_table_rows ────────────────────────────────────────────────────────────
 
 test_that(".el_table_rows: data.frame becomes one named list per row", {
-  rows <- .el_table_rows(data.frame(a = 1:2, b = c("x", "y")))
+  rows <- rows_of(.el_table_rows(data.frame(a = 1:2, b = c("x", "y"))))
   expect_length(rows, 2)
   expect_equal(rows[[1]], list(a = 1L, b = "x"))
   expect_equal(rows[[2]], list(a = 2L, b = "y"))
 })
 
 test_that(".el_table_rows: numeric columns keep their type", {
-  rows <- .el_table_rows(data.frame(v = c(5.1, 4.9)))
+  rows <- rows_of(.el_table_rows(data.frame(v = c(5.1, 4.9))))
   expect_type(rows[[1]]$v, "double")
   expect_equal(rows[[1]]$v, 5.1)
 })
 
 test_that(".el_table_rows: factors become character", {
-  rows <- .el_table_rows(data.frame(f = factor(c("lo", "hi"))))
+  rows <- rows_of(.el_table_rows(data.frame(f = factor(c("lo", "hi")))))
   expect_type(rows[[1]]$f, "character")
   expect_equal(rows[[1]]$f, "lo")
 })
@@ -26,7 +26,7 @@ test_that(".el_table_rows: factors become character", {
 test_that(".el_table_rows: dots in names become underscores", {
   # el-table resolves `prop` as a dotted path, so `Sepal.Length` would be
   # looked up as row$Sepal$Length and render blank.
-  rows <- .el_table_rows(data.frame(Sepal.Length = 5.1))
+  rows <- rows_of(.el_table_rows(data.frame(Sepal.Length = 5.1)))
   expect_named(rows[[1]], "Sepal_Length")
 })
 
@@ -36,7 +36,7 @@ test_that(".el_table_rows: a row-shaped list passes through untouched", {
 })
 
 test_that(".el_table_rows: empty data.frame gives an empty list", {
-  expect_length(.el_table_rows(data.frame(a = integer(0))), 0)
+  expect_length(rows_of(.el_table_rows(data.frame(a = integer(0)))), 0)
 })
 
 # ── .el_table_infer_columns ───────────────────────────────────────────────────
@@ -149,7 +149,7 @@ test_that("update_el_table: sends row-shaped data under the right message type",
   expect_equal(s$captured()$msg$id, "t1")
   # The field is named tableData because the shared updater assigns straight
   # onto the Vue data field of that name.
-  expect_equal(s$captured()$msg$tableData[[1]], list(a = 1L))
+  expect_equal(rows_of(s$captured()$msg$tableData)[[1]], list(a = 1L))
 })
 
 test_that("update_el_table: infers columns when only data is given", {
@@ -207,19 +207,6 @@ test_that("update_el_table: NULL fields are excluded from the message", {
   expect_null(s$captured()$msg$tableData)
   expect_null(s$captured()$msg$columns)
   expect_null(s$captured()$msg$selection)
-})
-
-# ── el_table_config (superseded, kept working) ────────────────────────────────
-
-test_that("el_table_config: still produces rows plus columns", {
-  cfg <- el_table_config(head(iris, 2))
-  expect_length(cfg$data, 2)
-  expect_equal(cfg$columns[[1]]$prop, "name")
-  expect_true(all(c("Sepal_Length", "name") %in% names(cfg$data[[1]])))
-})
-
-test_that("el_table_config: max_rows caps the row count", {
-  expect_length(el_table_config(iris, max_rows = 3)$data, 3)
 })
 
 # ── argument order (id first since 0.1.0) ─────────────────────────────────────
@@ -439,12 +426,12 @@ test_that("a data.frame inside the rows is rows too", {
     family = data.frame(name = c("Jerry", "Spike"))
   )))
   expect_equal(
-    rows[[1]]$family,
+    rows_of(rows[[1]]$family),
     list(list(name = "Jerry"), list(name = "Spike"))
   )
   df <- data.frame(id = 1:2)
   df$tags <- list(c("a", "b"), "c")
-  expect_equal(.vue_rows(df)[[1]]$tags, c("a", "b"))
+  expect_equal(unlist(rows_of(.vue_rows(df))[[1]]$tags), c("a", "b"))
 })
 
 test_that("I() keeps a one-element cell an array", {

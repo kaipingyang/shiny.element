@@ -57,7 +57,7 @@
 #' @return An `htmltools` tagList with a Vue-managed slider component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — Number (`range = FALSE`) or two-element array
+#' `input$<id>` -- Number (`range = FALSE`) or two-element array
 #' (`range = TRUE`), updated when the user finishes dragging.
 #'
 #' @examples
@@ -133,7 +133,6 @@ el_slider <- function(
     id <- .el_auto_id("el_slider")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Normalize value for range mode
   if (range && length(value) == 1) {

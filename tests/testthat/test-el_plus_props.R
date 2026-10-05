@@ -96,7 +96,7 @@ test_that("update_el_table_v2() sends rows as rows", {
   update_el_table_v2(s, "t", data = data.frame(a.b = 1:2))
   msg <- s$captured()$msg
   expect_equal(msg$id, "t")
-  expect_equal(msg$data[[2]]$a_b, 2)
+  expect_equal(rows_of(msg$data)[[2]]$a_b, 2)
 })
 
 test_that("el_select(props =) renames the fields of record choices", {

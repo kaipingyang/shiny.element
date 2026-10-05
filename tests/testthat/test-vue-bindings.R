@@ -18,7 +18,7 @@ binding_fixtures <- list(
 
 # Server-side helpers and dependency getters render no Vue instance
 binding_skip <- paste0(
-  "_dependency$|^el$|^el_page$|^el_rule$|^el_table_config$|",
+  "_dependency$|^el$|^el_page$|^el_rule$|",
   "^el_form_(validate|reset|clear)|^el_upload_clear$|^el_message$|^el_notification$"
 )
 

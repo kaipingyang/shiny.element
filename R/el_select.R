@@ -262,7 +262,6 @@ el_select <- function(
     id <- .el_auto_id("el_select")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Options are rendered with v-for so update_el_select() can replace them.
   # Each carries its own `disabled`: the select's `disabled` argument turns off

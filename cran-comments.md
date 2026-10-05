@@ -1,24 +1,26 @@
 ## Test environments
 
-* local Linux (container), R 4.4.3: `R CMD check --no-manual`, vignettes
+* local Linux (container), R 4.4.3: `R CMD check --as-cran`, vignettes
   built
+* GitHub Actions (R-CMD-check.yaml): macOS and Windows (R release), Ubuntu
+  (R devel, release and oldrel-1)
 * win-builder (devel and release): to be run before submission
 
 ## R CMD check results
 
-On a tmpfs build directory (block allocation as on ext4):
-
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
 
 * This is a new release.
-* The same check run in our development container's overlay filesystem
-  gives 0 errors | 0 warnings | 1 note, "installed size is 5.2Mb": `du`
-  there counts the same files as 5.2 MB that tmpfs counts as 4.6 MB
-  (4612 KB). We expect the note on check machines with large filesystem
-  blocks and not elsewhere.
-  Most of it is the bundled Element Plus (2.2 MB) and Vue (0.4 MB, the
+* Installed size: 4.8 MB on a tmpfs build directory (block allocation as
+  on ext4), under the 5 MB threshold; on our container's overlay
+  filesystem `du` counts the same files larger and the size note appears.
+  Most of it is the bundled Element Plus (2.1 MB) and Vue (0.4 MB, the
   production build and the development build that `el_page(dev = TRUE)`
   loads for debugging), bundled so apps work offline.
+* The README's DeepWiki badge answers automated URL checks with 429 (Too
+  Many Requests); the page itself is reachable.
+* The browser tests (headless Chromium) skip on CRAN; they run on every
+  push in GitHub Actions (browser.yaml).
 
 ## Bundled third-party code
 

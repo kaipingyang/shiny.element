@@ -146,7 +146,7 @@ test_that("update_vue() sends fields, and value for the input", {
   msg <- s$captured()$msg
   expect_equal(msg$id, "c")
   expect_equal(msg$n, 1)
-  expect_equal(msg$rows[[1]]$a, 1)
+  expect_equal(rows_of(msg$rows)[[1]]$a, 1)
   expect_equal(msg$.value, 3)
   expect_error(update_vue(s, "c", 1), "named")
   expect_error(update_vue(NULL, "c", n = 1), "outside a Shiny session")

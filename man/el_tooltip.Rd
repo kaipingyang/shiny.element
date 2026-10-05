@@ -80,7 +80,7 @@ Plus's \code{append-to} (CSSSelector / HTMLElement).}
 \item{aria_label}{Same as \code{aria-label}. Element Plus's \code{aria-label}
 (string).}
 
-\item{arrow_offset}{Controls the offset (padding) of the tooltip’s arrow
+\item{arrow_offset}{Controls the offset (padding) of the tooltip's arrow
 relative to the popper. Element Plus's \code{arrow-offset} (number).}
 
 \item{auto_close}{Timeout in milliseconds to hide tooltip, not valid in

@@ -507,7 +507,6 @@ el_form <- function(
     id <- .el_auto_id("el_form")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   fields <- list(...)
   if (!length(fields)) {

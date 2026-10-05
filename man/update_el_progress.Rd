@@ -28,7 +28,7 @@ update_el_progress(
 
 \item{id}{Progress ID (un-namespaced).}
 
-\item{percentage}{New percentage value (\code{0}–\code{100}).}
+\item{percentage}{New percentage value (\code{0} to \code{100}).}
 
 \item{type}{New progress type.}
 

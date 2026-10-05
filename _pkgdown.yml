@@ -409,7 +409,6 @@ reference:
       - el_table
       - update_el_table
       - el_table_column
-      - el_table_config
       - el_table_v2
       - update_el_table_v2
       - el_table_v2_column

@@ -15,7 +15,7 @@ A template expression yielding the field, or \code{undefined} when unset.
 \description{
 Element Plus's props fall back to their own defaults when passed \code{undefined},
 but treat \code{null} as a value: an \code{el-select} bound to a null placeholder
-renders an empty one instead of "请选择". R has no way to send \code{undefined}
+renders an empty one instead of its "Select". R has no way to send \code{undefined}
 through JSON, so an unsupplied field arrives as \code{null} and the expression
 has to map it back.
 }

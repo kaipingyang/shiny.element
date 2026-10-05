@@ -101,7 +101,6 @@ el_calendar <- function(
     id <- .el_auto_id("el_calendar")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Element Plus's calendar takes and gives Date objects; the value stays a
   # "YYYY-MM-DD" string here, as input$<id> reports it, read and written in

@@ -201,7 +201,6 @@ el_date_picker <- function(
     id <- .el_auto_id("el_date_picker")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Determine if this is a range-type picker
   is_range_type <- grepl("range", type)

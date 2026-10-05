@@ -134,7 +134,6 @@ el_dropdown <- function(
     id <- .el_auto_id("el_dropdown")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Build el-dropdown-item tags
   item_tags <- lapply(items, function(item) {

@@ -35,7 +35,7 @@
 #'   Plus's `append-to` (CSSSelector / HTMLElement).
 #' @param aria_label Same as `aria-label`. Element Plus's `aria-label`
 #'   (string).
-#' @param arrow_offset Controls the offset (padding) of the tooltip’s arrow
+#' @param arrow_offset Controls the offset (padding) of the tooltip's arrow
 #'   relative to the popper. Element Plus's `arrow-offset` (number).
 #' @param auto_close Timeout in milliseconds to hide tooltip, not valid in
 #'   controlled mode. Element Plus's `auto-close` (number).

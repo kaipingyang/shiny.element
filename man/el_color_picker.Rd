@@ -135,7 +135,7 @@ A colour picker input that returns a CSS colour string.
 }
 \section{Shiny inputs}{
 
-\verb{input$<id>} — colour string (e.g. \code{"#409EFF"} or \code{"rgba(64,158,255,0.5)"}).
+\verb{input$<id>} -- colour string (e.g. \code{"#409EFF"} or \code{"rgba(64,158,255,0.5)"}).
 \code{NULL} / \code{NA} when the user clears the picker.
 }
 

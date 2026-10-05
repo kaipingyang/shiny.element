@@ -158,7 +158,7 @@ Callable with \code{\link[=call_el]{call_el()}}:
 
 \section{Shiny inputs}{
 
-\verb{input$<id>} — the value of \code{active_value} (when on) or \code{inactive_value}
+\verb{input$<id>} -- the value of \code{active_value} (when on) or \code{inactive_value}
 (when off), matching the types of those arguments.
 }
 

@@ -1,0 +1,40 @@
+# Style (air) and what lintr finds that air cannot (.lintr).
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+name: lint.yaml
+
+permissions: read-all
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install air
+        run: curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-installer.sh | sh
+
+      - name: air format --check
+        run: air format --check .
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::lintr, local::.
+          needs: lint
+
+      - name: lintr
+        run: |
+          lints <- lintr::lint_package()
+          print(lints)
+          if (length(lints)) quit(status = 1)
+        shell: Rscript {0}

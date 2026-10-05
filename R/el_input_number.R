@@ -59,7 +59,7 @@
 #' @return An `htmltools` tagList with a Vue-managed input-number component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` — numeric value, updated on each valid change.
+#' `input$<id>` -- numeric value, updated on each valid change.
 #'
 #' @examples
 #' el_input_number("n1", value = 5, min = 0, max = 100)
@@ -106,7 +106,6 @@ el_input_number <- function(
     id <- .el_auto_id("el_input_number")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Convert R Inf to JS-compatible large numbers
   js_min <- if (is.infinite(min) && min < 0) -1e308 else min

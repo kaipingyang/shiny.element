@@ -32,7 +32,7 @@ into this one's Vue instance, as \code{\link[=el_button_group]{el_button_group()
 \item{height}{The height of the watermark, the default value of \code{content}
 is its own height. Element Plus's \code{height} (number).}
 
-\item{rotate}{When the watermark is drawn, the rotation Angle, unit \verb{°}.
+\item{rotate}{When the watermark is drawn, the rotation angle, in degrees.
 Element Plus's \code{rotate} (number).}
 
 \item{z_index}{The z-index of the appended watermark element. Element

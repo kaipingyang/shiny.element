@@ -69,7 +69,7 @@ Shiny inputs.
 \item \verb{input$<id>} -- the number of clicks on the tag's body, as
 \code{\link[shiny:actionButton]{shiny::actionButton()}} reports it: 0 on load, treated by
 \code{observeEvent()} and \code{req()} as not yet clicked.
-\item \verb{input$<id>_closed} — set to \code{1} when the user clicks the close button
+\item \verb{input$<id>_closed} -- set to \code{1} when the user clicks the close button
 (only meaningful when \code{closable = TRUE}).
 }
 }

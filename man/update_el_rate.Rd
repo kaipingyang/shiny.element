@@ -58,9 +58,11 @@ a name is taken. \code{""} clears it.}
 \item{show_score}{Whether to show the numeric score. Default \code{FALSE}.}
 
 \item{texts}{Character vector of length \code{max} used when \code{show_text = TRUE}.
-Defaults to \code{c("极差", "失望", "一般", "满意", "惊喜")}.}
+\code{NULL} takes Element Plus's: "Extremely bad", "Disappointed", "Fair",
+"Satisfied", "Surprise".}
 
-\item{text_color}{Colour of the text/score. Default \code{"#1f2d3d"}.}
+\item{text_color}{Colour of the text or score. \code{NULL} takes Element
+Plus's, from its CSS variables.}
 
 \item{score_template}{Template for score display. \code{{value}} is replaced.
 Default \code{"{value}"}.}

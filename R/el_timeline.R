@@ -75,7 +75,6 @@ el_timeline <- function(
     id <- .el_auto_id("el_timeline")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # One v-for over a data field, so update_el_timeline() can replace the lot.
   body <- if (html) {

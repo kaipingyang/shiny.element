@@ -97,7 +97,6 @@ el_carousel <- function(
     id <- .el_auto_id("el_carousel")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   # Slides are generated in R rather than with v-for so their content can be
   # any htmltools markup rather than a string.

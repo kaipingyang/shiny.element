@@ -31,7 +31,7 @@ update_el_alert(
 
 \item{closable}{Whether to show a close button. Default \code{TRUE}.}
 
-\item{close_text}{Custom text for the close button. \code{""} for the default ×.}
+\item{close_text}{Custom text for the close button. \code{""} for the default cross.}
 
 \item{show_icon}{Whether to display the type icon. Default \code{FALSE}.}
 

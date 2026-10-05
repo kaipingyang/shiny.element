@@ -27,7 +27,7 @@ el_progress(
 \arguments{
 \item{id}{Progress ID. Auto-generated UUID if \code{NULL}.}
 
-\item{percentage}{Progress percentage, \code{0}–\code{100}. Default \code{0}.}
+\item{percentage}{Progress percentage, \code{0} to \code{100}. Default \code{0}.}
 
 \item{type}{Progress bar type: \code{"line"}, \code{"circle"}, or \code{"dashboard"}.
 Default \code{"line"}.}

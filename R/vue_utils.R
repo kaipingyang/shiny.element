@@ -40,21 +40,49 @@
 #' Factors become strings; a dot in a name becomes an underscore, since a
 #' template expression cannot name `a.b`. A data.frame further in -- a row's
 #' list of rows, a cell of a list column -- is rows too, and a list column's
-#' cell is its value, not a list of one.
+#' cell is its value, not a list of one; `NA` is `null`.
+#'
+#' The rows are written by jsonlite, as JSON kept verbatim (class `json`):
+#' its `dataframe = "rows"` is one vectorised pass, where a list of row lists
+#' took jsonlite seconds for a table-v2's ten thousand rows. A data.frame
+#' holding tags or [JS()] in a list column is turned into row lists instead,
+#' so they are rendered and revived as anywhere else.
 #'
 #' @param data A data.frame, a list holding some, or anything else
 #'   (returned as is).
-#' @return A list of rows.
+#' @return The rows: JSON of class `json`, or a list of row lists.
 #' @keywords internal
 .vue_rows <- function(data) {
   if (!is.data.frame(data)) {
-    if (is.list(data) && length(data)) {
+    if (is.list(data) && !inherits(data, "json") && length(data)) {
       data[] <- lapply(data, .vue_rows)
     }
     return(data)
   }
+  names(data) <- gsub("\\.", "_", names(data))
+  special <- function(x) {
+    inherits(x, c("shiny.tag", "shiny.tag.list", "html", "JS_EVAL"))
+  }
+  in_cells <- vapply(
+    data,
+    function(col) is.list(col) && any(vapply(col, special, logical(1))),
+    logical(1)
+  )
+  if (!any(in_cells)) {
+    return(jsonlite::toJSON(
+      data,
+      dataframe = "rows",
+      auto_unbox = TRUE,
+      null = "null",
+      na = "null",
+      digits = NA,
+      POSIXt = "ISO8601",
+      UTC = TRUE,
+      rownames = FALSE,
+      factor = "string"
+    ))
+  }
   nms <- names(data)
-  safe <- gsub("\\.", "_", nms)
   lapply(seq_len(nrow(data)), function(i) {
     row <- lapply(nms, function(col) {
       column <- data[[col]]
@@ -64,7 +92,7 @@
       val <- column[i]
       if (is.factor(val)) as.character(val) else val
     })
-    names(row) <- safe
+    names(row) <- nms
     row
   })
 }

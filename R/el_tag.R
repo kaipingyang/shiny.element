@@ -32,7 +32,7 @@
 #' - `input$<id>` -- the number of clicks on the tag's body, as
 #'   [shiny::actionButton()] reports it: 0 on load, treated by
 #'   `observeEvent()` and `req()` as not yet clicked.
-#' - `input$<id>_closed` — set to `1` when the user clicks the close button
+#' - `input$<id>_closed` -- set to `1` when the user clicks the close button
 #'   (only meaningful when `closable = TRUE`).
 #'
 #' @examples
@@ -59,7 +59,6 @@ el_tag <- function(
     id <- .el_auto_id("el_tag")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   tag_attrs <- list(
     ":type" = "type",

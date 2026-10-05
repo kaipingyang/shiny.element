@@ -4,7 +4,7 @@
 #' update it from the server with [update_el_progress()].
 #'
 #' @param id Progress ID. Auto-generated UUID if `NULL`.
-#' @param percentage Progress percentage, `0`–`100`. Default `0`.
+#' @param percentage Progress percentage, `0` to `100`. Default `0`.
 #' @param type Progress bar type: `"line"`, `"circle"`, or `"dashboard"`.
 #'   Default `"line"`.
 #' @param status Status theme: `NULL`, `"success"`, `"exception"`, or
@@ -91,7 +91,6 @@ el_progress <- function(
     id <- .el_auto_id("el_progress")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   progress_attrs <- list(
     ":percentage" = "percentage",
@@ -142,7 +141,7 @@ el_progress <- function(
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Progress ID (un-namespaced).
-#' @param percentage New percentage value (`0`–`100`).
+#' @param percentage New percentage value (`0` to `100`).
 #' @param type New progress type.
 #' @param status New status theme.
 #' @param color New custom colour string.

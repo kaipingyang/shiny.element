@@ -355,7 +355,6 @@ el_upload <- function(
     id <- .el_auto_id("el_upload")
   }
   ns_id <- .el_ui_id(id, session)
-  container_id <- paste0(ns_id, "_container")
 
   via_shiny <- is.null(action)
 

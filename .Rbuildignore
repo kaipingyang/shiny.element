@@ -16,3 +16,4 @@
 ^vignettes/articles$
 ^air\.toml$
 ^jsconfig\.json$
+^\.lintr$
