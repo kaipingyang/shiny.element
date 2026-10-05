@@ -622,18 +622,25 @@
       values[vtrig] <- list(TRUE)
     }
   }
-  # A prop Element Plus takes only as an array stays one when R gives a
-  # single value: jsonlite would write "1" for c(1), and a tree-v2 handed a
-  # string for its default-expanded-keys fails to mount
+  list(attrs = attrs, data = stats::setNames(.el_prop_values(values), camel))
+}
+
+#' Props' values as the component's fields hold them
+#'
+#' `NULL` is `NA`, the placeholder that falls back to Element's default; a
+#' prop Element Plus takes only as an array stays one when R gives a single
+#' value (jsonlite would write "1" for c(1), and a tree-v2 handed a string
+#' for its default-expanded-keys fails to mount); a data.frame is rows.
+#'
+#' @param values Named list, by the props' R names.
+#' @return The list, values prepared.
+#' @keywords internal
+.el_prop_values <- function(values) {
   arrays <- names(values) %in% .el_array_props & vapply(values, is.atomic, TRUE)
   values[arrays] <- lapply(values[arrays], function(v) {
     if (is.null(v) || inherits(v, "JS_EVAL")) v else as.list(v)
   })
-  data <- stats::setNames(
-    lapply(values, function(v) if (is.null(v)) NA else v),
-    camel
-  )
-  list(attrs = attrs, data = data)
+  lapply(values, function(v) if (is.null(v)) NA else .vue_rows(v))
 }
 
 #' Props Element Plus takes only as arrays
@@ -740,4 +747,59 @@
     return(x)
   }
   htmltools::HTML(sprintf("<el-icon><%s /></el-icon>", .el_icon_pascal(x)))
+}
+
+
+#' The rest of a component's arguments, set from its update function
+#'
+#' `update_el_<name>(...)` takes any other argument of `el_<name>()` by its
+#' name. Each sets the component's field of that name in camelCase
+#' (`table_layout` -> `tableLayout`) -- the field the prop is bound to,
+#' with `NA` standing for Element's default -- or the field `rename` names.
+#' `NULL` sends the prop back to Element's default. An argument the UI
+#' function does not have, or one that cannot change once drawn (`skip`), is
+#' an error; enumerated ones are checked as the UI function checks them.
+#'
+#' @param fn The UI function's name, `"el_table"`.
+#' @param dots The update's `list(...)`.
+#' @param skip Arguments of `fn` an update cannot set this way.
+#' @param rename `c(<argument> = "<field>")` for a field named otherwise.
+#' @return A named list: field -> value.
+#' @keywords internal
+.el_update_props <- function(
+  fn,
+  dots,
+  skip = character(),
+  rename = character()
+) {
+  if (!length(dots)) {
+    return(list())
+  }
+  nms <- names(dots)
+  if (is.null(nms) || any(!nzchar(nms))) {
+    stop(
+      "Arguments of `",
+      fn,
+      "()` must be named: `stripe = TRUE`.",
+      call. = FALSE
+    )
+  }
+  fixed <- c("id", "session", "slots", "width", skip)
+  known <- setdiff(names(formals(get(fn))), fixed)
+  bad <- setdiff(nms, known)
+  if (length(bad)) {
+    stop(
+      paste(sQuote(bad), collapse = ", "),
+      if (length(bad) == 1L) " is not" else " are not",
+      " an argument of `",
+      fn,
+      "()` an update can set.",
+      call. = FALSE
+    )
+  }
+  .el_check_choices(fn, list2env(dots[!vapply(dots, is.null, TRUE)]))
+  fields <- vapply(nms, .el_camel_case, "")
+  hit <- nms %in% names(rename)
+  fields[hit] <- rename[nms[hit]]
+  stats::setNames(.el_prop_values(dots), fields)
 }

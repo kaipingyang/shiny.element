@@ -330,3 +330,64 @@ test_that("every updater of a Vue component sends only declared fields", {
     }
   }
 })
+
+# An update's `...` takes the rest of the UI function's arguments; each must
+# land on a field the component declares.
+test_that("update ... sets every other argument of the UI function", {
+  dots_cases <- list(
+    list(
+      "update_el_table",
+      "el_table",
+      quote(el_table("x", data = data.frame(a = 1)))
+    ),
+    list(
+      "update_el_table_v2",
+      "el_table_v2",
+      quote(el_table_v2("x", data = data.frame(a = 1)))
+    ),
+    list("update_el_calendar", "el_calendar", quote(el_calendar("x")))
+  )
+  for (case in dots_cases) {
+    fn <- get(case[[1]])
+    named <- setdiff(names(formals(fn)), c("session", "id", "..."))
+    ui_args <- setdiff(
+      names(formals(get(case[[2]]))),
+      c(named, "id", "session", "slots", "width")
+    )
+    declared <- vue_data_keys(eval(case[[3]]))
+    for (arg in ui_args) {
+      sent <- tryCatch(
+        capture_update(fn, stats::setNames(list(NULL), arg)),
+        error = function(e) NULL
+      )
+      if (is.null(sent)) {
+        next # an argument the update refuses: fixed once drawn
+      }
+      expect_true(
+        all(sent %in% declared),
+        info = paste0(case[[1]], "(", arg, " =) sends ", toString(sent))
+      )
+    }
+  }
+})
+
+test_that("update ... refuses what the UI function does not take", {
+  session <- list(ns = function(id) id, sendCustomMessage = function(...) NULL)
+  expect_error(
+    update_el_table(session, "x", stripes = TRUE),
+    "not an argument of `el_table\\(\\)`"
+  )
+  expect_error(
+    update_el_table(session, "x", rownames = TRUE),
+    "not an argument"
+  )
+  expect_error(
+    update_el_calendar(session, "x", controller_type = "dial"),
+    "should be one of"
+  )
+  sent <- NULL
+  session$sendCustomMessage <- function(type, msg) sent <<- msg
+  update_el_table(session, "x", stripe = TRUE, table_layout = NULL)
+  expect_true(sent$stripe)
+  expect_true(is.na(sent$tableLayout))
+})

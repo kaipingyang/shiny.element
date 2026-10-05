@@ -259,10 +259,6 @@
       if (!is.null(col$children)) {
         col$children <- lift(col$children, depth + 1L)
       }
-      if (is.null(col[["cell"]])) {
-        col$slot <- "none"
-        return(col)
-      }
       base <- if (!is.null(col$prop)) {
         col$prop
       } else if (!is.null(col$label)) {
@@ -270,14 +266,26 @@
       } else {
         i
       }
-      key <- paste0("cell_", gsub("[^A-Za-z0-9_]", "_", base))
-      if (key %in% names(cells)) {
-        key <- paste0(key, "_", length(cells) + 1L)
+      # a template for the cells, and one for the header cell
+      keep <- function(kind) {
+        key <- paste0(kind, "_", gsub("[^A-Za-z0-9_]", "_", base))
+        if (key %in% names(cells)) {
+          key <- paste0(key, "_", length(cells) + 1L)
+        }
+        cells[[key]] <<- col[[kind]]
+        depths[[key]] <<- depth
+        key
       }
-      cells[[key]] <<- col[["cell"]]
-      depths[[key]] <<- depth
+      if (!is.null(col[["header"]])) {
+        col$headerKey <- keep("header")
+        col[["header"]] <- NULL
+      }
+      if (is.null(col[["cell"]])) {
+        col$slot <- "none"
+        return(col)
+      }
+      col$cellKey <- keep("cell")
       col[["cell"]] <- NULL
-      col$cellKey <- key
       col$slot <- "default"
       col
     })
@@ -334,10 +342,13 @@
 #'   * `filter_icon` -- the filter's icon, by name.
 #'   * `header_html` -- markup for the header cell, a string or htmltools
 #'     tags, inserted unescaped, so pass only what you control.
+#'   * `header` -- a template for the header cell, as `cell` is for the
+#'     others: components and all, `scope.column` and `scope.$index` in
+#'     reach. `el$input(size = "small", ...)` puts a search box there.
 #'   * `children` -- the columns under a group header, as Element nests
-#'     `el-table-column`: `list(label = "Address", children = list(...))`.
-#'     Two levels deep; each child column takes `cell` and `header_html`
-#'     as a top-level one does.
+#'     `el-table-column`: `list(label = "Address", children = list(...))`,
+#'     as deep as you nest them; each child column takes `cell`, `header`
+#'     and `header_html` as a top-level one does.
 #' @param rownames Whether to show a data.frame's row names as the first
 #'   column. `NULL` (the default) shows them when they carry something --
 #'   `mtcars`' car names -- and leaves out automatic ones, which only count
@@ -591,10 +602,26 @@ el_table <- function(
   # comments -- so every branch is a v-if. The same slot holds a group
   # header's child columns. Each level of nesting has the templates at that
   # level, read off its own column variable `v`.
+  # Group headers nest as deep as the columns given -- and at least two
+  # levels below the top, for columns update_el_table() may bring later
+  depth_of <- function(columns) {
+    if (!length(columns)) {
+      return(0L)
+    }
+    max(vapply(
+      columns,
+      function(col) {
+        if (length(col$children)) 1L + depth_of(col$children) else 0L
+      },
+      integer(1)
+    ))
+  }
+  max_depth <- max(2L, depth_of(prep$columns))
   default_slot <- function(v, depth) {
     here <- names(prep$depths)[prep$depths == depth]
+    here <- grep("^cell_", here, value = TRUE)
     branches <- list()
-    if (depth < 2) {
+    if (depth < max_depth) {
       branches <- list(htmltools::tag(
         "template",
         list(
@@ -639,19 +666,42 @@ el_table <- function(
       )
     )
   }
-  header_slot <- function(v) {
+  # A column's `header` is a template, as its `cell` is -- components and
+  # all, `scope.column` in reach; header_html is markup inserted as it is.
+  header_slot <- function(v, depth) {
+    here <- names(prep$depths)[prep$depths == depth]
+    here <- grep("^header_", here, value = TRUE)
+    branches <- lapply(seq_along(here), function(i) {
+      htmltools::tag(
+        "template",
+        c(
+          stats::setNames(
+            list(sprintf("%s.headerKey === '%s'", v, here[[i]])),
+            if (i == 1L) "v-if" else "v-else-if"
+          ),
+          list(prep$cells[[here[[i]]]])
+        )
+      )
+    })
+    html <- list(
+      "v-html" = sprintf("%s.headerHtml", v)
+    )
+    html[[if (length(branches)) "v-else-if" else "v-if"]] <- sprintf(
+      "%s.headerHtml",
+      v
+    )
     htmltools::tag(
       "template",
-      list(
-        "v-slot:header" = "scope",
-        htmltools::tag(
-          "span",
-          list(
-            "v-if" = sprintf("%s.headerHtml", v),
-            "v-html" = sprintf("%s.headerHtml", v)
+      c(
+        list("v-slot:header" = "scope"),
+        branches,
+        list(
+          htmltools::tag("span", rev(html)),
+          htmltools::tag(
+            "span",
+            list("v-else" = NA, sprintf("{{%s.label}}", v))
           )
-        ),
-        htmltools::tag("span", list("v-else" = NA, sprintf("{{%s.label}}", v)))
+        )
       )
     )
   }
@@ -705,7 +755,11 @@ el_table <- function(
           ":key" = sprintf("%s.prop || %s.label", v, v)
         ),
         col_props(v),
-        list(header_slot(v), filter_icon_slot(v), default_slot(v, depth))
+        list(
+          header_slot(v, depth),
+          filter_icon_slot(v),
+          default_slot(v, depth)
+        )
       )
     )
   }
@@ -719,7 +773,7 @@ el_table <- function(
       ),
       col_props("col"),
       list(
-        header_slot("col"),
+        header_slot("col", 0L),
         filter_icon_slot("col"),
         default_slot("col", 0L)
       )
@@ -948,6 +1002,11 @@ el_table <- function(
 #' @param border New border state.
 #' @param selection New row-selection state.
 #' @param loading Show or hide the loading mask.
+#' @param ... Any other argument of [el_table()], by its name: `stripe =
+#'   TRUE`, `table_layout = "auto"`, `tree_props = list(checkStrictly =
+#'   TRUE)`, `row_class_name = JS(...)`. `NULL` returns it to Element's
+#'   default. `rownames`, `slots` and `width` are fixed when the table is
+#'   drawn.
 #' @details A column's `cell` template is part of the table's markup, made
 #'   when the table is. New columns given here keep the template of the
 #'   column with the same `prop` (or label) and may drop it, but cannot
@@ -959,6 +1018,8 @@ el_table <- function(
 #'   observeEvent(input$go, {
 #'     update_el_table(session, "tbl", data = head(mtcars, 10))
 #'   })
+#'   # any other argument of el_table()
+#'   update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
 #' }
 #' @export
 update_el_table <- function(
@@ -968,11 +1029,15 @@ update_el_table <- function(
   columns = NULL,
   border = NULL,
   selection = NULL,
-  loading = NULL
+  loading = NULL,
+  ...
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  msg <- list(id = ns_id)
+  msg <- c(
+    list(id = ns_id),
+    .el_update_props("el_table", list(...), skip = "rownames")
+  )
 
   if (!is.null(data) || !is.null(columns)) {
     prep <- .el_table_prep(

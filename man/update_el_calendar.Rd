@@ -10,7 +10,8 @@ update_el_calendar(
   value = NULL,
   range = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  ...
 )
 }
 \arguments{
@@ -30,12 +31,17 @@ has one to change.}
 \item{error}{An error message to show on the component, as Element's
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
+
+\item{...}{Any other argument of \code{\link[=el_calendar]{el_calendar()}}, by its name:
+\code{controller_type = "select"}, \code{formatter = JS(...)}. \code{NULL} returns it
+to Element's default.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Send a message to update the calendar value, range, first day of week, or slot.
+Server-side update for \code{\link[=el_calendar]{el_calendar()}}: the selected day, the range, or
+any other of its arguments.
 }
 \examples{
 if (interactive()) {
@@ -43,5 +49,6 @@ if (interactive()) {
   observeEvent(input$go, {
     update_el_calendar(session, "cal", value = "2026-06-01")
   })
+  update_el_calendar(session, "cal", controller_type = "select")
 }
 }

@@ -1,48 +1,139 @@
 ## basic
-#' A data.frame, its columns made from its variables.
-df <- data.frame(
-  check.names = FALSE,
-  setNames(
-    lapply(1:10, function(j) paste0("Row ", 1:1000, " - Col ", j)),
-    paste0("column-", 1:10)
-  )
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 1000)
+el_table_v2(
+  "tv_basic",
+  columns = columns,
+  data = data,
+  table_v2_width = 700,
+  height = 400,
+  fixed = TRUE
 )
-el_table_v2("tv_basic", data = df, table_v2_width = 700, height = 400)
 
 ## auto-resizer
 #' `auto_resize = TRUE` sizes the table to its container, which needs a
 #' height of its own.
-df <- data.frame(
-  id = 1:1000,
-  name = paste("Name", 1:1000),
-  value = round(runif(1000) * 100)
-)
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
 tags$div(
   style = "height: 400px",
-  el_table_v2("tv_auto", data = df, auto_resize = TRUE)
+  el_table_v2(
+    "tv_auto",
+    columns = columns,
+    data = data,
+    fixed = TRUE,
+    auto_resize = TRUE
+  )
 )
 
 ## cell-templating
-#' A cell drawn with a template: the `cell` slot, its scope the row and column.
-df <- data.frame(
-  name = paste("User", 1:200),
-  state = sample(c("active", "inactive"), 200, TRUE)
+#' The cells are drawn by each column's `cellRenderer`, a [JS()] function
+#' returning Vue's `h()`, as upstream's JSX does.
+columns <- list(
+  list(
+    key = "date",
+    title = "Date",
+    dataKey = "date",
+    width = 150,
+    fixed = "left",
+    cellRenderer = JS(
+      "function({ cellData: date }) {",
+      "  var p = date.split('-').map(function(n) { return n.padStart(2, '0'); });",
+      "  var text = p.join('/');",
+      "  return Vue.h(ElementPlus.ElTooltip, { content: text }, function() {",
+      "    return Vue.h('span', { style: 'display: flex; align-items: center' }, [",
+      "      Vue.h(ElementPlus.ElIcon, { style: 'margin-right: 12px' },",
+      "        function() { return Vue.h(ElementPlusIconsVue.Timer); }),",
+      "      text",
+      "    ]);",
+      "  });",
+      "}"
+    )
+  ),
+  list(
+    key = "name",
+    title = "Name",
+    dataKey = "name",
+    width = 150,
+    align = "center",
+    cellRenderer = JS(
+      "function({ cellData: name }) {",
+      "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
+      "}"
+    )
+  ),
+  list(
+    key = "operations",
+    title = "Operations",
+    cellRenderer = JS(
+      "function() {",
+      "  return [",
+      "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
+      "    Vue.h(ElementPlus.ElButton, { size: 'small', type: 'danger' },",
+      "      function() { return 'Delete'; })",
+      "  ];",
+      "}"
+    ),
+    width = 150,
+    align = "center"
+  )
+)
+data <- data.frame(
+  id = paste0("random-id-", 1:200),
+  name = "Tom",
+  date = "2020-10-1"
 )
 el_table_v2(
   "tv_cell",
-  data = df,
+  columns = columns,
+  data = data,
   table_v2_width = 700,
-  height = 300,
-  slots = list(
-    cell = template(
-      htmltools::HTML(paste0(
-        "<el-tag v-if=\"column.dataKey === 'state'\" :type=\"rowData.state === 'active' ? 'success' : 'info'\">",
-        "{{ rowData.state }}</el-tag><span v-else>{{ rowData[column.dataKey] }}</span>"
-      )),
-      slot = "cell",
-      scope = "{ rowData, column }"
-    )
-  )
+  height = 400,
+  fixed = TRUE
 )
 
 ## selection
@@ -176,59 +267,209 @@ tags$style(
 )
 
 ## row-class
-df <- data.frame(id = 1:200, name = paste("Name", 1:200))
+columns <- list(
+  list(
+    key = "date",
+    title = "Date",
+    dataKey = "date",
+    width = 150,
+    fixed = "left",
+    cellRenderer = JS(
+      "function({ cellData: date }) {",
+      "  var p = date.split('-').map(function(n) { return n.padStart(2, '0'); });",
+      "  var text = p.join('/');",
+      "  return Vue.h(ElementPlus.ElTooltip, { content: text }, function() {",
+      "    return Vue.h('span', { style: 'display: flex; align-items: center' }, [",
+      "      Vue.h(ElementPlus.ElIcon, { style: 'margin-right: 12px' },",
+      "        function() { return Vue.h(ElementPlusIconsVue.Timer); }),",
+      "      text",
+      "    ]);",
+      "  });",
+      "}"
+    )
+  ),
+  list(
+    key = "name",
+    title = "Name",
+    dataKey = "name",
+    width = 150,
+    align = "center",
+    cellRenderer = JS(
+      "function({ cellData: name }) {",
+      "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
+      "}"
+    )
+  ),
+  list(
+    key = "operations",
+    title = "Operations",
+    cellRenderer = JS(
+      "function() {",
+      "  return [",
+      "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
+      "    Vue.h(ElementPlus.ElButton, { size: 'small', type: 'danger' },",
+      "      function() { return 'Delete'; })",
+      "  ];",
+      "}"
+    ),
+    width = 150,
+    align = "center",
+    flexGrow = 1
+  )
+)
+data <- data.frame(
+  id = paste0("random-id-", 1:200),
+  name = "Tom",
+  date = "2020-10-1"
+)
 tagList(
-  tags$style(".tv-odd { background: var(--el-color-primary-light-9); }"),
+  tags$style(
+    ".bg-red-100 { background-color: #fee2e2; }
+.bg-blue-200 { background-color: #bfdbfe; }"
+  ),
   el_table_v2(
     "tv_rowclass",
-    data = df,
-    table_v2_width = 700,
-    height = 300,
+    columns = columns,
+    data = data,
     row_class = JS(
-      "function({ rowIndex }) { return rowIndex % 2 ? 'tv-odd' : ''; }"
-    )
+      "function({ rowIndex }) {",
+      "  if (rowIndex % 10 === 5) return 'bg-red-100';",
+      "  if (rowIndex % 10 === 0) return 'bg-blue-200';",
+      "  return '';",
+      "}"
+    ),
+    table_v2_width = 700,
+    height = 400
   )
 )
 
 ## sticky-rows
-df <- data.frame(id = 1:200, name = paste("Name", 1:200))
-el_table_v2(
-  "tv_sticky",
-  data = df,
-  table_v2_width = 700,
-  height = 300,
-  fixed_data = list(list(id = "Pinned", name = "Stays on top"))
+#| shot_js = "shinyVue.call({id: 'tv_sticky', method: 'scrollToTop', args: [600]})"
+#| shot_wait = 2
+#' The first row stays at the top while the rest scroll. As the table
+#' scrolls, the server hears `input$tv_sticky_scroll` and pins the next
+#' fifth row with `update_el_table_v2(fixed_data =)`.
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
+
+ui <- el_page(
+  tags$style(
+    ".el-el-table-v2__fixed-header-row {
+  background-color: var(--el-color-primary-light-5);
+  font-weight: bold;
+}"
+  ),
+  el_table_v2(
+    "tv_sticky",
+    columns = columns,
+    data = data[-1, ],
+    fixed_data = data[1, ],
+    row_class = JS(
+      "function({ rowIndex }) {",
+      "  if (rowIndex < 0 || (rowIndex + 1) % 5 === 0) return 'sticky-row';",
+      "}"
+    ),
+    table_v2_width = 700,
+    height = 400,
+    fixed = TRUE
+  )
 )
 
+server <- function(input, output, session) {
+  sticky <- reactiveVal(0)
+  observeEvent(input$tv_sticky_scroll, {
+    sticky(floor(input$tv_sticky_scroll$scrollTop / 250) * 5)
+  })
+  observeEvent(sticky(), ignoreInit = TRUE, {
+    update_el_table_v2(id = "tv_sticky", fixed_data = data[sticky() + 1, ])
+  })
+}
+
+shinyApp(ui, server)
+
 ## fixed-columns
-cols <- lapply(1:10, function(j) {
-  list(
-    key = paste0("c", j),
-    dataKey = paste0("c", j),
-    title = paste("Column", j),
-    width = 150,
-    fixed = if (j == 1) {
-      "left"
-    } else if (j == 10) {
-      "right"
-    }
-  )
-})
-df <- data.frame(
-  check.names = FALSE,
-  setNames(
-    lapply(1:10, function(j) paste0("Row ", 1:200, " - Col ", j)),
-    paste0("c", 1:10)
+#' Sorting is the server's: a click on a sortable header arrives as
+#' `input$tv_fixed_column_sort`, and the server sends the rows back reversed
+#' and the new sort with `update_el_table_v2()`.
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
+columns[[1]]$fixed <- TRUE
+columns[[2]]$fixed <- "left"
+columns[[10]]$fixed <- "right"
+for (i in 1:3) {
+  columns[[i]]$sortable <- TRUE
+}
+
+ui <- el_page(
+  el_table_v2(
+    "tv_fixed",
+    columns = columns,
+    data = data,
+    sort_by = list(key = "column-0", order = "asc"),
+    table_v2_width = 700,
+    height = 400,
+    fixed = TRUE
   )
 )
-el_table_v2(
-  "tv_fixed",
-  data = df,
-  columns = cols,
-  table_v2_width = 700,
-  height = 300,
-  fixed = TRUE
-)
+
+server <- function(input, output, session) {
+  rows <- reactiveVal(data)
+  observeEvent(input$tv_fixed_column_sort, {
+    rows(rows()[rev(seq_len(nrow(rows()))), ])
+    sort <- input$tv_fixed_column_sort
+    update_el_table_v2(
+      id = "tv_fixed",
+      data = rows(),
+      sort_by = list(key = sort$key, order = sort$order)
+    )
+  })
+}
+
+shinyApp(ui, server)
 
 ## grouping-header
 #' Three header rows, `header_height = c(50, 40, 50)`. The `header` slot
@@ -400,48 +641,117 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ## sort
-#' Sorting is the server's: `input$<id>_column_sort` says which column and
-#' which way.
-df <- data.frame(id = 1:200, value = round(runif(200) * 100))
-cols <- list(
-  list(key = "id", dataKey = "id", title = "Id", width = 150, sortable = TRUE),
-  list(
-    key = "value",
-    dataKey = "value",
-    title = "Value",
-    width = 150,
-    sortable = TRUE
+#' Sorting is the server's: `input$tv_sort_column_sort` says which column
+#' and which way, and the server sends the rows back reversed with the new
+#' `sort_by`.
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
+columns[[1]]$sortable <- TRUE
+
+ui <- el_page(
+  el_table_v2(
+    "tv_sort",
+    columns = columns,
+    data = data,
+    sort_by = list(key = "column-0", order = "asc"),
+    table_v2_width = 700,
+    height = 400,
+    fixed = TRUE
   )
-)
-el_table_v2(
-  "tv_sort",
-  data = df,
-  columns = cols,
-  table_v2_width = 700,
-  height = 300,
-  sort_by = list(key = "id", order = "asc")
 )
 
+server <- function(input, output, session) {
+  rows <- reactiveVal(data)
+  observeEvent(input$tv_sort_column_sort, {
+    rows(rows()[rev(seq_len(nrow(rows()))), ])
+    sort <- input$tv_sort_column_sort
+    update_el_table_v2(
+      id = "tv_sort",
+      data = rows(),
+      sort_by = list(key = sort$key, order = sort$order)
+    )
+  })
+}
+
+shinyApp(ui, server)
+
 ## controlled-sort
-df <- data.frame(id = 1:200, value = round(runif(200) * 100))
-cols <- list(
-  list(key = "id", dataKey = "id", title = "Id", width = 150, sortable = TRUE),
-  list(
-    key = "value",
-    dataKey = "value",
-    title = "Value",
-    width = 150,
-    sortable = TRUE
+#' Two columns sorted at once: `sort_state` holds each column's order. A
+#' click sets that column's order on the server, which sends the state back
+#' with `update_el_table_v2(sort_state =)`.
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
+columns[[1]]$sortable <- TRUE
+columns[[2]]$sortable <- TRUE
+
+ui <- el_page(
+  el_table_v2(
+    "tv_csort",
+    columns = columns,
+    data = data,
+    sort_state = list(`column-0` = "desc", `column-1` = "asc"),
+    table_v2_width = 700,
+    height = 400,
+    fixed = TRUE
   )
 )
-el_table_v2(
-  "tv_csort",
-  data = df,
-  columns = cols,
-  table_v2_width = 700,
-  height = 300,
-  sort_state = list(id = "desc", value = "asc")
-)
+
+server <- function(input, output, session) {
+  state <- list(`column-0` = "desc", `column-1` = "asc")
+  rows <- data
+  observeEvent(input$tv_csort_column_sort, {
+    sort <- input$tv_csort_column_sort
+    state[[sort$key]] <<- sort$order
+    rows <<- rows[rev(seq_len(nrow(rows))), ]
+    update_el_table_v2(id = "tv_csort", data = rows, sort_state = state)
+  })
+}
+
+shinyApp(ui, server)
 
 ## cross-hovering
 #' Hovering a cell lights its row and its column. `cell_props` gives every
@@ -683,44 +993,159 @@ el_table_v2(
 )
 
 ## tree-data
-rows <- lapply(1:50, function(i) {
-  list(
-    id = paste0("r", i),
-    name = paste("Parent", i),
-    children = lapply(1:3, function(j) {
-      list(id = paste0("r", i, "-", j), name = paste("Child", i, j))
-    })
-  )
+#' The rows nest through `children`; the arrow sits in the column named by
+#' `expand_column_key`. Opening a row reports `input$tv_tree_row_expand`,
+#' and the open rows `input$tv_tree_expanded_rows_change`.
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+for (i in 1:2) {
+  columns[[i]]$fixed <- "left"
+}
+columns[[10]]$fixed <- "right"
+
+expand_column_key <- "column-0"
+rows <- generate_data(columns, 200)
+rows <- lapply(seq_len(nrow(rows)), function(i) as.list(rows[i, ]))
+copy <- function(row, id, label) {
+  row$id <- id
+  row[[expand_column_key]] <- label
+  row
+}
+rows[[1]]$children <- lapply(0:49, function(i) {
+  copy(rows[[1]], paste0(rows[[1]]$id, "-sub-", i), paste("Sub", i))
 })
+rows[[3]]$children <- lapply(0:49, function(i) {
+  sub <- copy(rows[[3]], paste0(rows[[3]]$id, "-sub-", i), paste("Sub", i))
+  sub$children <- list(copy(
+    rows[[3]],
+    paste0(rows[[3]]$id, "-sub-sub-", i),
+    paste("Sub-Sub", i)
+  ))
+  sub
+})
+
 el_table_v2(
   "tv_tree",
+  columns = columns,
   data = rows,
-  expand_column_key = "name",
+  expand_column_key = expand_column_key,
   table_v2_width = 700,
-  height = 300,
-  columns = list(
-    list(key = "name", dataKey = "name", title = "Name", width = 300),
-    list(key = "id", dataKey = "id", title = "Id", width = 150)
-  )
+  height = 400,
+  fixed = TRUE
 )
 
 ## dynamic-height
 #' `estimated_row_height` lets each row take the height of its content.
-df <- data.frame(
-  id = 1:100,
-  text = vapply(1:100, function(i) strrep("text ", (i %% 7 + 1) * 8), "")
+#' Sorting is the server's: it sorts the rows and sends them back with the
+#' new `sort_by`.
+long_text <- "Quaerat ipsam necessitatibus eum quibusdam est id voluptatem cumque mollitia."
+mid_text <- "Corrupti doloremque a quos vero delectus consequatur."
+short_text <- "Eius optio fugiat."
+
+set.seed(1)
+data <- data.frame(
+  id = paste0("random-", 1:200),
+  name = "Tom",
+  date = "2016-05-03",
+  description = sample(c(short_text, mid_text, long_text), 200, TRUE)
 )
-el_table_v2(
-  "tv_dyn",
-  data = df,
-  estimated_row_height = 50,
-  table_v2_width = 700,
-  height = 300,
-  columns = list(
-    list(key = "id", dataKey = "id", title = "Id", width = 80),
-    list(key = "text", dataKey = "text", title = "Text", width = 600)
+
+columns <- list(
+  list(
+    key = "id",
+    title = "Id",
+    dataKey = "id",
+    width = 150,
+    sortable = TRUE,
+    fixed = "left"
+  ),
+  list(
+    key = "name",
+    title = "Name",
+    dataKey = "name",
+    width = 150,
+    align = "center",
+    cellRenderer = JS(
+      "function({ cellData: name }) {",
+      "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
+      "}"
+    )
+  ),
+  list(
+    key = "description",
+    title = "Description",
+    dataKey = "description",
+    width = 150,
+    cellRenderer = JS(
+      "function({ cellData: description }) {",
+      "  return Vue.h('div', { style: 'padding: 10px 0;' }, description);",
+      "}"
+    )
+  ),
+  list(
+    key = "operations",
+    title = "Operations",
+    cellRenderer = JS(
+      "function() {",
+      "  return [",
+      "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
+      "    Vue.h(ElementPlus.ElButton, { size: 'small', type: 'danger' },",
+      "      function() { return 'Delete'; })",
+      "  ];",
+      "}"
+    ),
+    width = 150,
+    align = "center"
   )
 )
+
+ui <- el_page(
+  el_table_v2(
+    "tv_dyn",
+    columns = columns,
+    data = data,
+    sort_by = list(key = "name", order = "asc"),
+    estimated_row_height = 40,
+    table_v2_width = 700,
+    height = 400,
+    fixed = TRUE
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$tv_dyn_column_sort, {
+    sort <- input$tv_dyn_column_sort
+    rows <- data[order(data[[sort$key]], decreasing = sort$order == "desc"), ]
+    update_el_table_v2(
+      id = "tv_dyn",
+      data = rows,
+      sort_by = list(key = sort$key, order = sort$order)
+    )
+  })
+}
+
+shinyApp(ui, server)
 
 ## detailed-view
 #' Each row has a child holding its detail; expanded, the `row` slot draws
@@ -778,54 +1203,184 @@ el_table_v2(
 )
 
 ## footer
-df <- data.frame(id = 1:200, name = paste("Name", 1:200))
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
 el_table_v2(
   "tv_footer",
-  data = df,
+  columns = columns,
+  data = data,
+  row_height = 40,
   table_v2_width = 700,
-  height = 300,
+  height = 400,
   footer_height = 50,
+  fixed = TRUE,
   slots = list(
     footer = tags$div(
-      style = "display: flex; align-items: center; justify-content: center; height: 100%",
+      style = paste(
+        "display: flex; align-items: center; justify-content: center;",
+        "height: 100%; background-color: var(--el-color-primary-light-7);"
+      ),
       "Display a message in the footer"
     )
   )
 )
 
 ## empty
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+columns <- generate_columns(10)
 el_table_v2(
   "tv_empty",
+  columns = columns,
   data = list(),
+  row_height = 40,
   table_v2_width = 700,
-  height = 300,
-  columns = list(list(key = "a", dataKey = "a", title = "A", width = 150)),
+  height = 400,
+  footer_height = 50,
   slots = list(
     empty = tags$div(
-      style = "display: flex; justify-content: center",
+      style = "display: flex; align-items: center; justify-content: center; height: 100%",
       el_empty()
     )
   )
 )
 
 ## overlay
-df <- data.frame(id = 1:200, name = paste("Name", 1:200))
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
 el_table_v2(
   "tv_overlay",
-  data = df,
+  columns = columns,
+  data = data,
+  row_height = 40,
   table_v2_width = 700,
-  height = 300,
+  height = 400,
   slots = list(
     overlay = tags$div(
       class = "el-loading-mask",
       style = "display: flex; align-items: center; justify-content: center",
-      el_icon("Loading", class = "is-loading", size = "26px")
+      el_icon(
+        "Loading",
+        class = "is-loading",
+        color = "var(--el-color-primary)",
+        size = 26
+      )
     )
   )
 )
 
 ## manual-scroll
-#' `call_el(session, "tv_scroll", "scrollToRow", list(100))` scrolls it from
-#' the server.
-df <- data.frame(id = 1:1000, name = paste("Name", 1:1000))
-el_table_v2("tv_scroll", data = df, table_v2_width = 700, height = 300)
+#| shot_js = "document.querySelector('#rows_btn_container button').click()"
+#| shot_wait = 2
+#' The buttons call the table's `scrollToTop()` and `scrollToRow()` from the
+#' server.
+generate_columns <- function(length = 10, prefix = "column-") {
+  lapply(seq_len(length) - 1, function(i) {
+    list(
+      key = paste0(prefix, i),
+      dataKey = paste0(prefix, i),
+      title = paste("Column", i),
+      width = 150
+    )
+  })
+}
+generate_data <- function(columns, length = 200, prefix = "row-") {
+  rows <- data.frame(id = paste0(prefix, seq_len(length) - 1))
+  for (j in seq_along(columns)) {
+    rows[[columns[[j]]$dataKey]] <- paste0(
+      "Row ",
+      seq_len(length) - 1,
+      " - Col ",
+      j - 1
+    )
+  }
+  rows
+}
+columns <- generate_columns(10)
+data <- generate_data(columns, 200)
+
+ui <- el_page(
+  tags$div(
+    style = "display: flex; gap: 16px; margin-bottom: 16px",
+    el_input("delta", value = "200", label = "Scroll pixels"),
+    el_input("rows", value = "10", label = "Scroll rows")
+  ),
+  tags$div(
+    style = "margin-bottom: 16px",
+    el_button("pixels_btn", "Scroll by pixels"),
+    el_button("rows_btn", "Scroll by rows")
+  ),
+  tags$div(
+    style = "height: 400px",
+    el_table_v2(
+      "tv_scroll",
+      columns = columns,
+      data = data,
+      fixed = TRUE,
+      auto_resize = TRUE
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$pixels_btn, {
+    call_el(session, "tv_scroll", "scrollToTop", list(as.numeric(input$delta)))
+  })
+  observeEvent(input$rows_btn, {
+    call_el(session, "tv_scroll", "scrollToRow", list(as.numeric(input$rows)))
+  })
+}
+
+shinyApp(ui, server)

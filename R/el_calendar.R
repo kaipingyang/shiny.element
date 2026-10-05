@@ -117,21 +117,6 @@ el_calendar <- function(
   # field left out of the Vue data is not reactive.
   calendar_attrs[[":range"]] <- "range === null ? undefined : range.map(elDate)"
 
-  # Element's own day cell is bare, so this is the default -- but it is only
-  # a default: slots = list(`date-cell` = ...) replaces it.
-  if (is.null(slots[["date-cell"]]) && is.null(slots$dateCell)) {
-    slots[["date-cell"]] <- template(
-      htmltools::HTML(paste0(
-        '<p :class="data.isSelected ? \'is-selected\' : \'\'">',
-        "{{ data.day.split('-').slice(1).join('-') }}",
-        '<span v-if="data.isSelected">\u2714</span>',
-        "</p>"
-      )),
-      slot = "date-cell",
-      scope = "{date, data}"
-    )
-  }
-
   vue_data <- list(
     value = if (is.null(value)) {
       format(Sys.Date(), "%Y-%m-%d")
@@ -156,14 +141,6 @@ el_calendar <- function(
     inline_message = inline_message,
     id = ns_id,
     markup = tag("el-calendar", calendar_attrs),
-    head = tags$style(HTML(
-      "
-      .is-selected {
-        color: #1989FA;
-        font-weight: bold;
-      }
-    "
-    )),
     data = vue_data,
     methods = list(
       elPick = JS("function(d) { this.value = this.elDay(d); }"),
@@ -192,7 +169,8 @@ el_calendar <- function(
 
 #' Update Element Plus Calendar Component
 #'
-#' Send a message to update the calendar value, range, first day of week, or slot.
+#' Server-side update for [el_calendar()]: the selected day, the range, or
+#' any other of its arguments.
 #'
 #' @param id Component id
 #' @param value New value (Date/string/number)
@@ -205,6 +183,9 @@ el_calendar <- function(
 #' @param error An error message to show on the component, as Element's
 #'   `error` does -- for a check only the server can make, such as whether
 #'   a name is taken. `""` clears it.
+#' @param ... Any other argument of [el_calendar()], by its name:
+#'   `controller_type = "select"`, `formatter = JS(...)`. `NULL` returns it
+#'   to Element's default.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -212,6 +193,7 @@ el_calendar <- function(
 #'   observeEvent(input$go, {
 #'     update_el_calendar(session, "cal", value = "2026-06-01")
 #'   })
+#'   update_el_calendar(session, "cal", controller_type = "select")
 #' }
 #' @export
 update_el_calendar <- function(
@@ -220,11 +202,26 @@ update_el_calendar <- function(
   value = NULL,
   range = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  ...
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
-  message <- list(id = ns_id)
+  message <- c(
+    list(id = ns_id),
+    .el_update_props(
+      "el_calendar",
+      list(...),
+      skip = c(
+        "label_position",
+        "label_width",
+        "label_suffix",
+        "required",
+        "show_message",
+        "inline_message"
+      )
+    )
+  )
   if (!is.null(value)) {
     message$value <- if (inherits(value, "Date")) {
       format(value, "%Y-%m-%d")

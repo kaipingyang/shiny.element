@@ -105,6 +105,8 @@ Shiny input.
   sends it as a list of one, not a bare value.
 * Releasing an interrupted upload warns, once, if Shiny's internals it
   relies on have moved.
+* `el_calendar()` draws Element Plus's own day cell; it used to fill it with
+  a template of its own and colour every `.is-selected` on the page.
 
 ## Documentation, after Element's own
 
@@ -184,6 +186,25 @@ and the row. `loading` shows Element's loading mask, from the server too.
 `update_el_table(data =)` keeps the columns the table was created with.
 It used to re-infer them from the new data, discarding every label,
 formatter and template.
+
+A column's `header` is a template, as its `cell` is: a search box, a
+button, any component in the header cell. Group headers nest as deep as the
+columns given (they stopped at two levels below the top).
+
+`update_el_table()`, `update_el_table_v2()` and `update_el_calendar()` take
+any other argument of their component by its name -- `stripe`,
+`table_layout`, `tree_props`, `sort_state`, `fixed_data`,
+`controller_type` -- and `NULL` returns one to Element's default.
+`call_el()` reaches a table-v2 with `auto_resize = TRUE`; it used to reach
+the resizer around it.
+
+A data.frame inside the data -- a row's own rows, a cell of a list column
+-- is rows too, and a list column's cell is its value rather than a list of
+one.
+
+The table, table-v2 and calendar pages show Element Plus's demos with
+Element Plus's data; where a demo changes the component as it runs, the R
+version is an app whose server does it.
 
 ## Dashboards
 

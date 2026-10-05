@@ -11,7 +11,8 @@ update_el_table(
   columns = NULL,
   border = NULL,
   selection = NULL,
-  loading = NULL
+  loading = NULL,
+  ...
 )
 }
 \arguments{
@@ -32,6 +33,10 @@ whose columns were inferred infers them again from the new \code{data}.
 \item{selection}{New row-selection state.}
 
 \item{loading}{Show or hide the loading mask.}
+
+\item{...}{Any other argument of \code{\link[=el_table]{el_table()}}, by its name: \code{stripe = TRUE}, \code{table_layout = "auto"}, \code{tree_props = list(checkStrictly = TRUE)}, \code{row_class_name = JS(...)}. \code{NULL} returns it to Element's
+default. \code{rownames}, \code{slots} and \code{width} are fixed when the table is
+drawn.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -51,5 +56,7 @@ if (interactive()) {
   observeEvent(input$go, {
     update_el_table(session, "tbl", data = head(mtcars, 10))
   })
+  # any other argument of el_table()
+  update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
 }
 }

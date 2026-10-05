@@ -361,13 +361,15 @@ test_that("a scoped slot is passed through as written", {
   expect_match(html, "{{data.day}}", fixed = TRUE)
 })
 
-test_that("el_calendar's day cell is a default, not a fixture", {
-  # It used to be hard-coded, so a user could not change how a day rendered
+test_that("el_calendar draws Element's own day cell unless given one", {
+  # It used to fill the cell with a template of its own, and a page-wide
+  # .is-selected style; Element Plus's calendar has neither
   plain <- paste(
     as.character(htmltools::renderTags(el_calendar("c"))$html),
     collapse = ""
   )
-  expect_match(plain, "isSelected", fixed = TRUE)
+  expect_no_match(plain, "isSelected", fixed = TRUE)
+  expect_no_match(plain, ".is-selected", fixed = TRUE)
 
   custom <- paste(
     as.character(
@@ -384,7 +386,7 @@ test_that("el_calendar's day cell is a default, not a fixture", {
     ),
     collapse = ""
   )
-  expect_no_match(custom, "isSelected", fixed = TRUE)
+  expect_match(custom, "<p>x</p>", fixed = TRUE)
 })
 
 test_that("a column may render its own header", {

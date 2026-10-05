@@ -230,9 +230,15 @@ el_table_v2 <- function(
   # el-auto-resizer measures its box and hands the table its size through
   # its slot; the table's own slots go inside, on the table
   sized <- props$attrs[!names(props$attrs) %in% c(":width", ":height")]
+  # ref="el": call_el() reaches the table, not the resizer around it
   table <- htmltools::tag(
     "el-table-v2",
-    c(attrs, sized, list(":width" = "size.width", ":height" = "size.height"))
+    c(
+      list(ref = "el"),
+      attrs,
+      sized,
+      list(":width" = "size.width", ":height" = "size.height")
+    )
   )
   filled <- if (length(slots)) {
     .el_slot_markup(
@@ -267,6 +273,11 @@ el_table_v2 <- function(
 #' @param id Table ID (un-namespaced).
 #' @param data,columns,sort_by,expanded_row_keys New values; `NULL` leaves
 #'   one unchanged.
+#' @param ... Any other argument of [el_table_v2()], by its name:
+#'   `sort_state = list(id = "desc")`, `fixed_data = ...`, `row_class =
+#'   JS(...)`, `height = 500`. `NULL` returns it to Element's default.
+#'   `methods`, `slots`, `width` and `auto_resize` are fixed when the table
+#'   is drawn.
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
@@ -275,6 +286,8 @@ el_table_v2 <- function(
 #'   observeEvent(input$filter_on, {
 #'     update_el_table_v2(id = "big", data = subset(big, keep))
 #'   })
+#'   # any other argument of el_table_v2()
+#'   update_el_table_v2(id = "big", sort_state = list(id = "desc"))
 #' }
 #' @export
 update_el_table_v2 <- function(
@@ -283,10 +296,19 @@ update_el_table_v2 <- function(
   data = NULL,
   columns = NULL,
   sort_by = NULL,
-  expanded_row_keys = NULL
+  expanded_row_keys = NULL,
+  ...
 ) {
   .el_check_session(session)
-  msg <- list(id = session$ns(id))
+  msg <- c(
+    list(id = session$ns(id)),
+    .el_update_props(
+      "el_table_v2",
+      list(...),
+      skip = c("methods", "auto_resize"),
+      rename = c(table_v2_width = "width")
+    )
+  )
   if (is.data.frame(data)) {
     data <- .el_table_rows(data)
   }

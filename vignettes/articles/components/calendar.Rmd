@@ -20,10 +20,27 @@ el_calendar("cal", value = Sys.Date())
 
 You can set the type of the controller for Calendar header. When setting `select`, you can use `formatter` to customize `label`.
 
-`controller_type` set in R; Element Plus's demo switches it with radio buttons.
+The radio buttons set `controller_type` from the server, with
+`update_el_calendar()`.
 
-```{r controller-type, eval = FALSE, shot = TRUE}
-el_calendar("cal_ctl", value = Sys.Date(), controller_type = "select")
+```{r controller-type, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#controller_container .el-radio-button')[1].click()", shot_wait = 2}
+ui <- el_page(
+  el_radio_group(
+    "controller",
+    choices = c("select", "button"),
+    value = "select",
+    button = TRUE
+  ),
+  el_calendar("cal_ctl", value = Sys.Date(), controller_type = "select")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$controller, {
+    update_el_calendar(session, "cal_ctl", controller_type = input$controller)
+  })
+}
+
+shinyApp(ui, server)
 ```
 
 ## Custom Content
@@ -31,17 +48,20 @@ el_calendar("cal_ctl", value = Sys.Date(), controller_type = "select")
 Customize what is displayed in the calendar cell by setting `scoped-slot` named `date-cell`. In `scoped-slot` you can get the date (the date of the current cell), data (including the type, isSelected, day attribute). For details, please refer to the API documentation below.
 
 ```{r customize, eval = FALSE, shot = TRUE}
-el_calendar(
-  "cal_cell",
-  slots = list(
-    `date-cell` = template(
-      htmltools::HTML(paste0(
-        "<p :class=\"data.isSelected ? 'is-selected' : ''\">",
-        "{{ data.day.split('-').slice(1).join('-') }} ",
-        "{{ data.isSelected ? '✔️' : '' }}</p>"
-      )),
-      slot = "date-cell",
-      scope = "{ data }"
+tagList(
+  tags$style(".is-selected { color: #1989fa; }"),
+  el_calendar(
+    "cal_cell",
+    slots = list(
+      `date-cell` = template(
+        htmltools::HTML(paste0(
+          "<p :class=\"data.isSelected ? 'is-selected' : ''\">",
+          "{{ data.day.split('-').slice(1).join('-') }} ",
+          "{{ data.isSelected ? '\u2714\ufe0f' : '' }}</p>"
+        )),
+        slot = "date-cell",
+        scope = "{ data }"
+      )
     )
   )
 )

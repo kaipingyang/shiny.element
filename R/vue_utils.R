@@ -38,20 +38,30 @@
 #' A data.frame as rows, as `v-for` walks it and table components take it
 #'
 #' Factors become strings; a dot in a name becomes an underscore, since a
-#' template expression cannot name `a.b`.
+#' template expression cannot name `a.b`. A data.frame further in -- a row's
+#' list of rows, a cell of a list column -- is rows too, and a list column's
+#' cell is its value, not a list of one.
 #'
-#' @param data A data.frame, or anything else (returned as is).
+#' @param data A data.frame, a list holding some, or anything else
+#'   (returned as is).
 #' @return A list of rows.
 #' @keywords internal
 .vue_rows <- function(data) {
   if (!is.data.frame(data)) {
+    if (is.list(data) && length(data)) {
+      data[] <- lapply(data, .vue_rows)
+    }
     return(data)
   }
   nms <- names(data)
   safe <- gsub("\\.", "_", nms)
   lapply(seq_len(nrow(data)), function(i) {
     row <- lapply(nms, function(col) {
-      val <- data[[col]][i]
+      column <- data[[col]]
+      if (is.list(column)) {
+        return(.vue_rows(column[[i]]))
+      }
+      val <- column[i]
       if (is.factor(val)) as.character(val) else val
     })
     names(row) <- safe

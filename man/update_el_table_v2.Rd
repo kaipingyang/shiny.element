@@ -10,7 +10,8 @@ update_el_table_v2(
   data = NULL,
   columns = NULL,
   sort_by = NULL,
-  expanded_row_keys = NULL
+  expanded_row_keys = NULL,
+  ...
 )
 }
 \arguments{
@@ -21,6 +22,11 @@ update_el_table_v2(
 
 \item{data, columns, sort_by, expanded_row_keys}{New values; \code{NULL} leaves
 one unchanged.}
+
+\item{...}{Any other argument of \code{\link[=el_table_v2]{el_table_v2()}}, by its name:
+\code{sort_state = list(id = "desc")}, \code{fixed_data = ...}, \code{row_class = JS(...)}, \code{height = 500}. \code{NULL} returns it to Element's default.
+\code{methods}, \code{slots}, \code{width} and \code{auto_resize} are fixed when the table
+is drawn.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -36,5 +42,7 @@ if (interactive()) {
   observeEvent(input$filter_on, {
     update_el_table_v2(id = "big", data = subset(big, keep))
   })
+  # any other argument of el_table_v2()
+  update_el_table_v2(id = "big", sort_state = list(id = "desc"))
 }
 }

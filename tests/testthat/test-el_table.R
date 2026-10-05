@@ -388,3 +388,61 @@ test_that("el_table draws no borders unless asked, as Element", {
     vue_data_of(el_table("t", data = head(iris, 2), border = TRUE))$border
   )
 })
+
+test_that("a column's header is a template, components and all", {
+  html <- paste(
+    as.character(
+      htmltools::renderTags(el_table(
+        "t",
+        data = data.frame(a = 1),
+        columns = list(list(
+          prop = "a",
+          label = "A",
+          header = el$input(size = "small", placeholder = "Type to search")
+        ))
+      ))$html
+    ),
+    collapse = ""
+  )
+  expect_match(html, "headerKey === &#39;header_a&#39;", fixed = TRUE)
+  expect_match(html, "<el-input size=\"small\"", fixed = TRUE)
+})
+
+test_that("group headers nest as deep as the columns given", {
+  deep <- list(list(
+    label = "L1",
+    children = list(list(
+      label = "L2",
+      children = list(list(
+        label = "L3",
+        children = list(list(prop = "a", label = "A"))
+      ))
+    ))
+  ))
+  html <- paste(
+    as.character(
+      htmltools::renderTags(el_table(
+        "t",
+        data = data.frame(a = 1),
+        columns = deep
+      ))$html
+    ),
+    collapse = ""
+  )
+  # three levels below the top, each its own v-for
+  expect_match(html, "colxxx in colxx.children", fixed = TRUE)
+})
+
+test_that("a data.frame inside the rows is rows too", {
+  rows <- .vue_rows(list(list(
+    name = "Tom",
+    family = data.frame(name = c("Jerry", "Spike"))
+  )))
+  expect_equal(
+    rows[[1]]$family,
+    list(list(name = "Jerry"), list(name = "Spike"))
+  )
+  df <- data.frame(id = 1:2)
+  df$tags <- list(c("a", "b"), "c")
+  expect_equal(.vue_rows(df)[[1]]$tags, c("a", "b"))
+})

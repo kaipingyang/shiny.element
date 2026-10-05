@@ -7,13 +7,16 @@
 .vue_rows(data)
 }
 \arguments{
-\item{data}{A data.frame, or anything else (returned as is).}
+\item{data}{A data.frame, a list holding some, or anything else
+(returned as is).}
 }
 \value{
 A list of rows.
 }
 \description{
 Factors become strings; a dot in a name becomes an underscore, since a
-template expression cannot name \code{a.b}.
+template expression cannot name \code{a.b}. A data.frame further in -- a row's
+list of rows, a cell of a list column -- is rows too, and a list column's
+cell is its value, not a list of one.
 }
 \keyword{internal}

@@ -80,10 +80,13 @@ a \code{prop} -- a column of buttons -- is fine. See "Row actions" below.
 \item \code{filter_icon} -- the filter's icon, by name.
 \item \code{header_html} -- markup for the header cell, a string or htmltools
 tags, inserted unescaped, so pass only what you control.
+\item \code{header} -- a template for the header cell, as \code{cell} is for the
+others: components and all, \code{scope.column} and \code{scope.$index} in
+reach. \code{el$input(size = "small", ...)} puts a search box there.
 \item \code{children} -- the columns under a group header, as Element nests
-\code{el-table-column}: \code{list(label = "Address", children = list(...))}.
-Two levels deep; each child column takes \code{cell} and \code{header_html}
-as a top-level one does.
+\code{el-table-column}: \code{list(label = "Address", children = list(...))},
+as deep as you nest them; each child column takes \code{cell}, \code{header}
+and \code{header_html} as a top-level one does.
 }}
 
 \item{selection}{Enable row selection}
