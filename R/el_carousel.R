@@ -3,7 +3,8 @@
 #' A slideshow of items, horizontal or vertical.
 #'
 #' @param id Carousel ID (auto-generated if NULL).
-#' @param items A list of slides. Each is a list with `content` (a tag,
+#' @param items A list of slides, each an [el_carousel_item()] -- or a list
+#'   with `content` (a tag,
 #'   tagList or string) and optionally `name`, used as the value reported when
 #'   that slide is showing, and `label`, shown on its indicator. A slide's
 #'   content may hold this package's components: they are folded into the

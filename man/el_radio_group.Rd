@@ -36,7 +36,8 @@ el_radio_group(
 \item{id}{Input ID. Auto-generated UUID if \code{NULL}.}
 
 \item{choices, options}{The choices: a named character vector
-(\code{c(Label = value)}) or a list of \code{list(value = ..., label = ...)}.
+(\code{c(Label = value)}) or a list of \code{\link[=el_option]{el_option()}}s -- which can be
+\code{disabled} -- or of \code{list(value = ..., label = ...)}.
 Unnamed vectors are allowed; the element is used as both value and
 label. \code{choices} is Shiny's name for it, \code{options} Element's; give
 either.}

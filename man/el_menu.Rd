@@ -36,7 +36,8 @@ el_menu(
 \arguments{
 \item{id}{Menu ID (auto-generated if NULL).}
 
-\item{items}{A list of items. Each is a list with \code{index} (the value
+\item{items}{A list of items, each an \code{\link[=el_menu_item]{el_menu_item()}}, \code{\link[=el_sub_menu]{el_sub_menu()}} or
+\code{\link[=el_menu_item_group]{el_menu_item_group()}} -- or a list with \code{index} (the value
 reported when selected), \code{label} (or \code{title}, Element's name for it),
 and optionally \code{icon} (an icon's name, such as \code{"House"}), \code{disabled},
 \code{route} (for \code{router = TRUE}), or \code{children} for a submenu. A submenu

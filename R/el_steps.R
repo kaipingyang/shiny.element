@@ -1,7 +1,8 @@
 #' Element Plus Steps Component
 #'
 #' @param id Steps ID (auto-generated if NULL)
-#' @param steps List of step definitions, each with `title`, `description`,
+#' @param steps A list of steps, each an [el_step()] -- or a list with
+#'   `title`, `description`,
 #'   `icon` and `status`. `title`, `description` and `icon` may be markup
 #'   rather than text, which fills the step's slot of that name.
 #' @param active Current active step index (0-based)

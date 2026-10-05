@@ -94,9 +94,9 @@ el_dropdown(
   hide_on_click = FALSE,
   trigger_label = "Dropdown List",
   items = list(
-    list(command = "a", label = "Action 1"),
-    list(command = "b", label = "Action 2"),
-    list(command = "c", label = "Action 3")
+    el_dropdown_item("a", "Action 1"),
+    el_dropdown_item("b", "Action 2"),
+    el_dropdown_item("c", "Action 3")
   )
 )
 
@@ -106,9 +106,9 @@ el_dropdown(
   "dd_cmd",
   trigger_label = "Dropdown List",
   items = list(
-    list(command = "a", label = "Action 1"),
-    list(command = "b", label = "Action 2"),
-    list(command = "c", label = "Action 3")
+    el_dropdown_item("a", "Action 1"),
+    el_dropdown_item("b", "Action 2"),
+    el_dropdown_item("c", "Action 3")
   )
 )
 
@@ -120,8 +120,8 @@ el_dropdown(
   trigger = "contextmenu",
   trigger_label = "Dropdown List",
   items = list(
-    list(command = "a", label = "Action 1"),
-    list(command = "b", label = "Action 2")
+    el_dropdown_item("a", "Action 1"),
+    el_dropdown_item("b", "Action 2")
   )
 )
 
@@ -167,11 +167,11 @@ tagList(
     placement = "bottom-start",
     show_arrow = FALSE,
     items = list(
-      list(command = "a1", label = "Action 1", icon = "Plus"),
-      list(command = "a2", label = "Action 2", icon = "CirclePlusFilled"),
-      list(command = "a3", label = "Action 3", icon = "CirclePlus"),
-      list(command = "a4", label = "Action 4", icon = "Check"),
-      list(command = "a5", label = "Action 5", icon = "CircleCheck")
+      el_dropdown_item("a1", "Action 1", icon = "Plus"),
+      el_dropdown_item("a2", "Action 2", icon = "CirclePlusFilled"),
+      el_dropdown_item("a3", "Action 3", icon = "CirclePlus"),
+      el_dropdown_item("a4", "Action 4", icon = "Check"),
+      el_dropdown_item("a5", "Action 5", icon = "CircleCheck")
     )
   )
 )

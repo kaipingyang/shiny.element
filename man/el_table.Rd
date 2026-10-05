@@ -65,9 +65,13 @@ el_table(
 
 \item{data}{A data.frame, or a list of rows (each a named list). A
 data.frame is converted to rows automatically and its column names are
-sanitised (\code{.} becomes \verb{_}) so \code{el-table}'s dotted \code{prop} lookup works.}
+sanitised (\code{.} becomes \verb{_}) so \code{el-table}'s dotted \code{prop} lookup works.
+A data.frame inside the rows, or in a list column, is rows too. A vector of one
+element travels as a single value, as in Shiny; wrap it in \code{I()} to
+keep it an array: \code{tags = I("red")}.}
 
-\item{columns}{List of column configs, each \code{list(prop=, label=, width=)}.
+\item{columns}{The columns, each an \code{\link[=el_table_column]{el_table_column()}} -- or a list of
+the same fields, \code{list(prop =, label =, width =)}.
 Inferred from \code{data} when omitted. Beyond Element's column attributes, a
 column may carry:
 \itemize{

@@ -18,9 +18,11 @@ el_timeline(
 \arguments{
 \item{id}{Timeline ID (auto-generated if NULL).}
 
-\item{items}{A list of entries. Each is a list with \code{content} and
+\item{items}{A list of entries, each an \code{\link[=el_timeline_item]{el_timeline_item()}} -- or a list
+with the same fields: \code{content} and
 optionally \code{timestamp}, \code{type} (\code{"primary"}, \code{"success"}, \code{"warning"},
 \code{"danger"} or \code{"info"}), \code{color}, \code{size} (\code{"normal"} or \code{"large"}),
+\code{hide_timestamp},
 \code{icon} (an icon's name), \code{placement} (\code{"bottom"} or \code{"top"}, where the
 timestamp goes), \code{center} (centre the dot against the content) and
 \code{hollow} (draw the dot hollow).}

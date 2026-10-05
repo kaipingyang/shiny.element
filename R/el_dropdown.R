@@ -7,7 +7,8 @@
 #' @param trigger_label The dropdown's trigger. Text gets a down arrow after
 #'   it; a tag -- an icon, an avatar -- is used as it is. Default
 #'   `"Dropdown"`.
-#' @param items A list of menu items. Each element is a named list with:
+#' @param items A list of menu entries, each an [el_dropdown_item()] -- or a
+#'   named list with the same fields:
 #'   \describe{
 #'     \item{command}{Command value sent to `input$<id>` on click. Required.}
 #'     \item{label}{Display text. Defaults to `command`.}

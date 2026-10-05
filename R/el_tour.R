@@ -4,7 +4,8 @@
 #' with the rest of the page dimmed.
 #'
 #' @param id Tour ID. Auto-generated if `NULL`.
-#' @param steps The steps: a list of `list(target = "#css-selector", title =,
+#' @param steps The steps, each an [el_tour_step()] -- or a
+#'   `list(target = "#css-selector", title =,
 #'   description =)`, each with Element Plus's other step props if wanted --
 #'   `placement`, `mask`, `type`, `show_arrow`, `show_close`,
 #'   `content_style`, `scroll_into_view_options`, and `header`, markup in

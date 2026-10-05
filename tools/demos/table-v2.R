@@ -1,12 +1,7 @@
 ## basic
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -37,12 +32,7 @@ el_table_v2(
 #' height of its own.
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -74,13 +64,12 @@ tags$div(
 #' The cells are drawn by each column's `cellRenderer`, a [JS()] function
 #' returning Vue's `h()`, as upstream's JSX does.
 columns <- list(
-  list(
-    key = "date",
-    title = "Date",
-    dataKey = "date",
+  el_table_v2_column(
+    "date",
+    "Date",
     width = 150,
     fixed = "left",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: date }) {",
       "  var p = date.split('-').map(function(n) { return n.padStart(2, '0'); });",
       "  var text = p.join('/');",
@@ -94,22 +83,21 @@ columns <- list(
       "}"
     )
   ),
-  list(
-    key = "name",
-    title = "Name",
-    dataKey = "name",
+  el_table_v2_column(
+    "name",
+    "Name",
     width = 150,
     align = "center",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: name }) {",
       "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
       "}"
     )
   ),
-  list(
-    key = "operations",
-    title = "Operations",
-    cellRenderer = JS(
+  el_table_v2_column(
+    "operations",
+    "Operations",
+    cell_renderer = JS(
       "function() {",
       "  return [",
       "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
@@ -158,7 +146,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 df <- grid()
@@ -167,7 +155,10 @@ report <- "$setInput('tv_sel_checked', data.filter(r => r.checked).map(r => r.id
 el_table_v2(
   "tv_sel",
   data = df,
-  columns = c(list(list(key = "selection", width = 50)), grid_columns()),
+  columns = c(
+    list(el_table_v2_column("selection", width = 50)),
+    grid_columns()
+  ),
   table_v2_width = 700,
   height = 400,
   fixed = TRUE,
@@ -222,7 +213,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 df <- grid()
@@ -268,13 +259,12 @@ tags$style(
 
 ## row-class
 columns <- list(
-  list(
-    key = "date",
-    title = "Date",
-    dataKey = "date",
+  el_table_v2_column(
+    "date",
+    "Date",
     width = 150,
     fixed = "left",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: date }) {",
       "  var p = date.split('-').map(function(n) { return n.padStart(2, '0'); });",
       "  var text = p.join('/');",
@@ -288,22 +278,21 @@ columns <- list(
       "}"
     )
   ),
-  list(
-    key = "name",
-    title = "Name",
-    dataKey = "name",
+  el_table_v2_column(
+    "name",
+    "Name",
     width = 150,
     align = "center",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: name }) {",
       "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
       "}"
     )
   ),
-  list(
-    key = "operations",
-    title = "Operations",
-    cellRenderer = JS(
+  el_table_v2_column(
+    "operations",
+    "Operations",
+    cell_renderer = JS(
       "function() {",
       "  return [",
       "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
@@ -314,7 +303,7 @@ columns <- list(
     ),
     width = 150,
     align = "center",
-    flexGrow = 1
+    flex_grow = 1
   )
 )
 data <- data.frame(
@@ -351,12 +340,7 @@ tagList(
 #' fifth row with `update_el_table_v2(fixed_data =)`.
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -415,12 +399,7 @@ shinyApp(ui, server)
 #' and the new sort with `update_el_table_v2()`.
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -491,7 +470,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 cols <- grid_columns(15, width = 100)
@@ -575,7 +554,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 cols <- grid_columns(width = 100)
@@ -646,12 +625,7 @@ shinyApp(ui, server)
 #' `sort_by`.
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -703,12 +677,7 @@ shinyApp(ui, server)
 #' with `update_el_table_v2(sort_state =)`.
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -774,16 +743,18 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 cols <- c(
-  list(list(
-    key = "column-n-1",
+  list(el_table_v2_column(
+    "column-n-1",
+    "Row No.",
     width = 50,
-    title = "Row No.",
     align = "center",
-    cellRenderer = JS("function({ rowIndex }) { return String(rowIndex + 1); }")
+    cell_renderer = JS(
+      "function({ rowIndex }) { return String(rowIndex + 1); }"
+    )
   )),
   grid_columns()
 )
@@ -836,7 +807,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 el_table_v2(
@@ -893,7 +864,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 el_table_v2(
@@ -944,7 +915,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 el_table_v2(
@@ -998,12 +969,7 @@ el_table_v2(
 #' and the open rows `input$tv_tree_expanded_rows_change`.
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -1072,41 +1038,32 @@ data <- data.frame(
 )
 
 columns <- list(
-  list(
-    key = "id",
-    title = "Id",
-    dataKey = "id",
-    width = 150,
-    sortable = TRUE,
-    fixed = "left"
-  ),
-  list(
-    key = "name",
-    title = "Name",
-    dataKey = "name",
+  el_table_v2_column("id", "Id", width = 150, sortable = TRUE, fixed = "left"),
+  el_table_v2_column(
+    "name",
+    "Name",
     width = 150,
     align = "center",
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: name }) {",
       "  return Vue.h(ElementPlus.ElTag, null, function() { return name; });",
       "}"
     )
   ),
-  list(
-    key = "description",
-    title = "Description",
-    dataKey = "description",
+  el_table_v2_column(
+    "description",
+    "Description",
     width = 150,
-    cellRenderer = JS(
+    cell_renderer = JS(
       "function({ cellData: description }) {",
       "  return Vue.h('div', { style: 'padding: 10px 0;' }, description);",
       "}"
     )
   ),
-  list(
-    key = "operations",
-    title = "Operations",
-    cellRenderer = JS(
+  el_table_v2_column(
+    "operations",
+    "Operations",
+    cell_renderer = JS(
       "function() {",
       "  return [",
       "    Vue.h(ElementPlus.ElButton, { size: 'small' }, function() { return 'Edit'; }),",
@@ -1167,7 +1124,7 @@ grid <- function(cols = 10, rows = 200) {
 grid_columns <- function(cols = 10, width = 150) {
   lapply(seq_len(cols) - 1, function(j) {
     k <- paste0("column-", j)
-    list(key = k, dataKey = k, title = paste("Column", j), width = width)
+    el_table_v2_column(k, paste("Column", j), width = width)
   })
 }
 detail <- paste(
@@ -1205,12 +1162,7 @@ el_table_v2(
 ## footer
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -1250,12 +1202,7 @@ el_table_v2(
 ## empty
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 columns <- generate_columns(10)
@@ -1278,12 +1225,7 @@ el_table_v2(
 ## overlay
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {
@@ -1330,12 +1272,7 @@ el_table_v2(
 #' "Limitations").
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
-    list(
-      key = paste0(prefix, i),
-      dataKey = paste0(prefix, i),
-      title = paste("Column", i),
-      width = 150
-    )
+    el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
   })
 }
 generate_data <- function(columns, length = 200, prefix = "row-") {

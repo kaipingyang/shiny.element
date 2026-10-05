@@ -644,11 +644,31 @@ def _fields(fn):
     f = (ours.get(fn) or {}).get("item_fields") or []
     return [f] if isinstance(f, str) else f
 
+# A child tag written with its own constructor (R/el_items.R): its props are
+# that function's arguments. Arguments from /tmp/elapi/formals.json, written
+# as tools/ep-choices.py's header says.
+ITEM_FN = {"el-tab-pane": "el_tab_pane", "el-collapse-item": "el_collapse_item",
+           "el-timeline-item": "el_timeline_item", "el-descriptions-item": "el_descriptions_item",
+           "el-carousel-item": "el_carousel_item", "el-step": "el_step",
+           "el-breadcrumb-item": "el_breadcrumb_item", "el-dropdown-item": "el_dropdown_item",
+           "el-tour-step": "el_tour_step", "el-anchor-link": "el_anchor_link",
+           "el-menu-item": "el_menu_item", "el-sub-menu": "el_sub_menu",
+           "el-menu-item-group": "el_menu_item_group", "el-option": "el_option",
+           "el-option-group": "el_option_group", "el-table-column": "el_table_column",
+           "el-column": "el_table_v2_column", "el-skeleton-item": "el_skeleton_item"}
+try:
+    FORMALS = json.load(open("/tmp/elapi/formals.json"))
+except FileNotFoundError:
+    FORMALS = {}
+
 def r_name(slug, tag, kind, name):
     fns = PAGE_FNS.get(slug, [])
     snake = _snake(camel(name)) if kind == "Attributes" else _snake(name.replace("-", "_"))
     if kind == "Attributes":
         if (tag, name) in NAMED: return "`" + NAMED[(tag, name)] + "`"
+        item_fn = ITEM_FN.get(tag)
+        if item_fn and snake in FORMALS.get(item_fn, []):
+            return f"`{item_fn}({snake} =)`"
         # v-model's prop: the R argument that starts it, the input that reports it
         if name in ("model-value", "checked"):
             arg = {"el-dialog": "visible", "el-drawer": "visible", "el-tabs": "selected",

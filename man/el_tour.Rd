@@ -29,7 +29,8 @@ el_tour(
 \arguments{
 \item{id}{Tour ID. Auto-generated if \code{NULL}.}
 
-\item{steps}{The steps: a list of \code{list(target = "#css-selector", title =, description =)}, each with Element Plus's other step props if wanted --
+\item{steps}{The steps, each an \code{\link[=el_tour_step]{el_tour_step()}} -- or a
+\code{list(target = "#css-selector", title =, description =)}, each with Element Plus's other step props if wanted --
 \code{placement}, \code{mask}, \code{type}, \code{show_arrow}, \code{show_close},
 \code{content_style}, \code{scroll_into_view_options}, and \code{header}, markup in
 place of the title. A step without a \code{target} shows in the middle of the

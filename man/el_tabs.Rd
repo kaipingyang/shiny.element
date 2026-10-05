@@ -22,7 +22,8 @@ el_tabs(
 \arguments{
 \item{id}{Tabs ID. Auto-generated UUID if \code{NULL}.}
 
-\item{tabs}{A list of tabs. Each is a named list with:
+\item{tabs}{A list of tabs, each an \code{\link[=el_tab_pane]{el_tab_pane()}} -- or a named list
+with the same fields:
 \describe{
 \item{name}{Unique tab identifier (string). Required.}
 \item{label}{Tab label. Required.}

@@ -10,7 +10,8 @@
 #'
 #' @param id Input ID. Auto-generated UUID if `NULL`.
 #' @param choices,options The choices: a named character vector
-#'   (`c(Label = value)`) or a list of `list(value = ..., label = ...)`.
+#'   (`c(Label = value)`) or a list of [el_option()]s -- which can be
+#'   `disabled` -- or of `list(value = ..., label = ...)`.
 #'   Unnamed vectors are allowed; the element is used as both value and
 #'   label. `choices` is Shiny's name for it, `options` Element's; give
 #'   either.

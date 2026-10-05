@@ -26,7 +26,10 @@ vue_app(
 
 \item{template}{The template: htmltools tags, or a string.}
 
-\item{data}{Named list: the initial state. A data.frame in it is rows.}
+\item{data}{Named list: the initial state. A data.frame in it is rows.
+A vector of one
+element travels as a single value, as in Shiny; wrap it in \code{I()} to
+keep it an array: \code{tags = I("red")}.}
 
 \item{methods, computed, watch}{Named lists of \code{\link[=JS]{JS()}} functions.}
 

@@ -88,8 +88,8 @@ tagList(
   el_select_v2(
     "v2_dis1",
     options = list(
-      list(value = "a", label = "Option a"),
-      list(value = "b", label = "Option b", disabled = TRUE)
+      el_option("Option a", "a"),
+      el_option("Option b", "b", disabled = TRUE)
     ),
     placeholder = "Please select",
     width = "240px"
@@ -194,8 +194,8 @@ el_select_v2(
   placeholder = "Please select",
   width = "240px",
   options = list(
-    list(value = list(id = 1, name = "a"), label = "Option a"),
-    list(value = list(id = 2, name = "b"), label = "Option b")
+    el_option("Option a", list(id = 1, name = "a")),
+    el_option("Option b", list(id = 2, name = "b"))
   )
 )
 

@@ -279,6 +279,12 @@ test_that("insert_el_tab: inserts the pane, then adds and selects the header", {
 
   insert_el_tab(session, "t1", "quiet", "Quiet", select = FALSE)
   expect_null(sent$msg$selected)
+
+  # an el_tab_pane(), as bslib's nav_insert() takes a nav_panel()
+  insert_el_tab(session, "t1", el_tab_pane("Pane", shiny::tags$p("Body")))
+  expect_equal(sent$msg$add_tab$name, "Pane")
+  expect_equal(sent$msg$add_tab$label, "Pane")
+  expect_match(render_html(inserted$ui), "<p>Body</p>", fixed = TRUE)
 })
 
 test_that("remove_el_tab: asks the binding to remove the tab", {

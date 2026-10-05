@@ -22,7 +22,8 @@ el_descriptions(
 \arguments{
 \item{id}{Component ID. Auto-generated if \code{NULL}.}
 
-\item{items}{The fields, as a list of \code{list(label =, content =)}, or a named
+\item{items}{The fields, each an \code{\link[=el_descriptions_item]{el_descriptions_item()}} -- or a
+\code{list(label =, content =)} -- or a named
 list or vector whose names are the labels. \code{content} may be any Shiny UI,
 a shiny.element component included, which is absorbed rather than nested.
 An item may also carry Element Plus's item props: \code{span}, \code{rowspan},

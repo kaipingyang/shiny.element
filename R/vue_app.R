@@ -222,6 +222,9 @@
 #'   [call_vue()] name. Inside a module, `ns("id")`.
 #' @param template The template: htmltools tags, or a string.
 #' @param data Named list: the initial state. A data.frame in it is rows.
+#'   A vector of one
+#'   element travels as a single value, as in Shiny; wrap it in `I()` to
+#'   keep it an array: `tags = I("red")`.
 #' @param methods,computed,watch Named lists of [JS()] functions.
 #' @param emits Names of the events the component sends with `$emit()`.
 #' @param setup A [JS()] function: Vue's Composition API.

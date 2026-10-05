@@ -1,5 +1,7 @@
 ## basic
-slides <- function(n) lapply(seq_len(n), function(i) list(content = tags$h3(i)))
+slides <- function(n) {
+  lapply(seq_len(n), function(i) el_carousel_item(tags$h3(i)))
+}
 tagList(
   tags$span(
     class = "demonstration",
@@ -11,7 +13,9 @@ tagList(
 )
 
 ## motion-blur
-slides <- function(n) lapply(seq_len(n), function(i) list(content = tags$h3(i)))
+slides <- function(n) {
+  lapply(seq_len(n), function(i) el_carousel_item(tags$h3(i)))
+}
 tagList(
   tags$span(class = "demonstration", "Motion blur the switch (default)"),
   el_carousel(
@@ -35,7 +39,7 @@ tagList(
 el_carousel(
   "car_ind",
   indicator_position = "outside",
-  items = lapply(1:4, function(i) list(content = tags$h3(i)))
+  items = lapply(1:4, function(i) el_carousel_item(tags$h3(i)))
 )
 
 ## arrows
@@ -43,7 +47,7 @@ el_carousel(
   "car_arrow",
   interval = 5000,
   arrow = "always",
-  items = lapply(1:4, function(i) list(content = tags$h3(i)))
+  items = lapply(1:4, function(i) el_carousel_item(tags$h3(i)))
 )
 
 ## auto-height
@@ -52,12 +56,10 @@ el_carousel(
   "car_auto",
   height = "auto",
   items = lapply(c(100, 200, 300), function(h) {
-    list(
-      content = tags$h3(
-        style = sprintf("height: %dpx", h),
-        sprintf("height %dpx", h)
-      )
-    )
+    el_carousel_item(tags$h3(
+      style = sprintf("height: %dpx", h),
+      sprintf("height %dpx", h)
+    ))
   })
 )
 
@@ -67,11 +69,13 @@ el_carousel(
   interval = 4000,
   type = "card",
   height = "200px",
-  items = lapply(1:6, function(i) list(content = tags$h3(i)))
+  items = lapply(1:6, function(i) el_carousel_item(tags$h3(i)))
 )
 
 ## vertical
-slides <- function(n) lapply(seq_len(n), function(i) list(content = tags$h3(i)))
+slides <- function(n) {
+  lapply(seq_len(n), function(i) el_carousel_item(tags$h3(i)))
+}
 tagList(
   tags$p(class = "demonstration", "normal vertical layout"),
   el_carousel(

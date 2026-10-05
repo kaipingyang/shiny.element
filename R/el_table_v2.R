@@ -31,11 +31,14 @@
 #'   Element Plus's `row-event-handlers`.
 #' @param cell_props Extra props passed to each cell (except header cells).
 #'   Element Plus's `cell-props`. Give it as [JS()].
-#' @param columns The columns: a list of `list(key =, dataKey =, title =,
-#'   width =)` and Element Plus's other column fields. `NULL` makes one per
+#' @param columns The columns, each an [el_table_v2_column()] -- or a
+#'   `list(key =, dataKey =, title =, width =)` with Element Plus's other
+#'   column fields. `NULL` makes one per
 #'   variable of a data.frame `data`, 150 pixels wide.
 #' @param data The rows: a data.frame, or a list of rows. Element Plus's
-#'   `data`.
+#'   `data`. A vector of one
+#'   element travels as a single value, as in Shiny; wrap it in `I()` to
+#'   keep it an array: `tags = I("red")`.
 #' @param data_getter A method to customize data fetch from the data source.
 #'   Element Plus's `data-getter`. Give it as [JS()].
 #' @param fixed_data Data for rendering rows above the main content and below

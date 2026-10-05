@@ -92,6 +92,23 @@ Shiny input.
   `options(shiny.vue.dev = TRUE)` loads Vue's development build, as
   `shiny.element.dev` does.
 
+## Items as functions
+
+The parts Element Plus writes as child tags have constructors, as bslib has
+`nav_panel()` and `accordion_panel()`: `el_tab_pane()`, `el_collapse_item()`,
+`el_timeline_item()`, `el_descriptions_item()`, `el_carousel_item()`,
+`el_step()`, `el_breadcrumb_item()`, `el_dropdown_item()`, `el_tour_step()`,
+`el_anchor_link()`, `el_menu_item()`, `el_sub_menu()`, `el_menu_item_group()`,
+`el_option()`, `el_option_group()`, `el_table_column()`,
+`el_table_v2_column()` and `el_skeleton_item()`. Each takes the child's own
+attributes as arguments -- documented, completed by the editor, checked --
+and returns the item its parent's argument takes, so
+`el_tabs(tabs = list(el_tab_pane("One", ...)))` and the plain list it
+replaces draw the same, and update functions take items too. A timeline
+entry's `hide_timestamp` is new. `insert_el_tab()` takes an
+`el_tab_pane()`, as bslib's `nav_insert()` takes a `nav_panel()`; its
+`name` argument is now `tab`.
+
 ## Behaviour closer to Element Plus
 
 * A dialog or drawer keeps focus inside while open, as Element Plus's focus

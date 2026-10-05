@@ -22,7 +22,8 @@ el_anchor(
 \arguments{
 \item{id}{Anchor ID. Auto-generated if \code{NULL}.}
 
-\item{links}{The links: a list of \code{list(title =, href = "#section")}, each
+\item{links}{The links, each an \code{\link[=el_anchor_link]{el_anchor_link()}} -- or a
+\code{list(title =, href = "#section")}, each
 with optional \code{children}, a list of links one level down.}
 
 \item{container}{A CSS selector for the element that scrolls, when it is

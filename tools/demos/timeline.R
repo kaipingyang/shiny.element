@@ -2,9 +2,9 @@
 el_timeline(
   "tl",
   items = list(
-    list(content = "Event start", timestamp = "2018-04-15"),
-    list(content = "Approved", timestamp = "2018-04-13"),
-    list(content = "Success", timestamp = "2018-04-11")
+    el_timeline_item("Event start", timestamp = "2018-04-15"),
+    el_timeline_item("Approved", timestamp = "2018-04-13"),
+    el_timeline_item("Success", timestamp = "2018-04-11")
   )
 )
 
@@ -21,9 +21,9 @@ tagList(lapply(
         paste0("tl_", gsub("-", "_", m)),
         mode = m,
         items = list(
-          list(content = "Event start", timestamp = "2018-04-15"),
-          list(content = "Approved", timestamp = "2018-04-13"),
-          list(content = "Success", timestamp = "2018-04-11")
+          el_timeline_item("Event start", timestamp = "2018-04-15"),
+          el_timeline_item("Approved", timestamp = "2018-04-13"),
+          el_timeline_item("Success", timestamp = "2018-04-11")
         )
       )
     )
@@ -34,30 +34,30 @@ tagList(lapply(
 el_timeline(
   "nodes",
   items = list(
-    list(
-      content = "Custom icon",
+    el_timeline_item(
+      "Custom icon",
       timestamp = "2018-04-12 20:46",
       size = "large",
       type = "primary",
       icon = "MoreFilled"
     ),
-    list(
-      content = "Custom color",
+    el_timeline_item(
+      "Custom color",
       timestamp = "2018-04-03 20:46",
       color = "#0bbd87"
     ),
-    list(
-      content = "Custom size",
+    el_timeline_item(
+      "Custom size",
       timestamp = "2018-04-03 20:46",
       size = "large"
     ),
-    list(
-      content = "Custom hollow",
+    el_timeline_item(
+      "Custom hollow",
       timestamp = "2018-04-03 20:46",
       type = "primary",
       hollow = TRUE
     ),
-    list(content = "Default node", timestamp = "2018-04-03 20:46")
+    el_timeline_item("Default node", timestamp = "2018-04-03 20:46")
   )
 )
 
@@ -65,29 +65,29 @@ el_timeline(
 el_timeline(
   "stamps",
   items = list(
-    list(
-      timestamp = "2018/4/12",
-      placement = "top",
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/12 20:46")
-      )
+      ),
+      timestamp = "2018/4/12",
+      placement = "top"
     ),
-    list(
-      timestamp = "2018/4/3",
-      placement = "top",
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/3 20:46")
-      )
+      ),
+      timestamp = "2018/4/3",
+      placement = "top"
     ),
-    list(
-      timestamp = "2018/4/2",
-      placement = "top",
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/2 20:46")
-      )
+      ),
+      timestamp = "2018/4/2",
+      placement = "top"
     )
   )
 )
@@ -96,30 +96,30 @@ el_timeline(
 el_timeline(
   "centred",
   items = list(
-    list(
-      timestamp = "2018/4/12",
-      placement = "top",
-      center = TRUE,
-      content = el_card(
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/12 20:46")
-      )
-    ),
-    list(
-      timestamp = "2018/4/3",
+      ),
+      timestamp = "2018/4/12",
       placement = "top",
-      content = el_card(
+      center = TRUE
+    ),
+    el_timeline_item(
+      el_card(
         tags$h4("Update Github template"),
         tags$p("Tom committed 2018/4/3 20:46")
-      )
+      ),
+      timestamp = "2018/4/3",
+      placement = "top"
     ),
-    list(
+    el_timeline_item(
+      "Event start",
       timestamp = "2018/4/2",
       placement = "top",
-      center = TRUE,
-      content = "Event start"
+      center = TRUE
     ),
-    list(timestamp = "2018/4/2", placement = "top", content = "Event end")
+    el_timeline_item("Event end", timestamp = "2018/4/2", placement = "top")
   )
 )
 
@@ -134,9 +134,9 @@ ui <- el_page(
   el_timeline(
     "tl",
     items = list(
-      list(content = "Event start", timestamp = "2018-04-15"),
-      list(content = "Approved", timestamp = "2018-04-13"),
-      list(content = "Success", timestamp = "2018-04-11")
+      el_timeline_item("Event start", timestamp = "2018-04-15"),
+      el_timeline_item("Approved", timestamp = "2018-04-13"),
+      el_timeline_item("Success", timestamp = "2018-04-11")
     )
   )
 )

@@ -437,7 +437,12 @@ several arguments are a list, `arg1`, `arg2`, ...; none is `TRUE`. Inside a
 module, wrap the id in `ns()`; the events follow it.
 
 `data` is the initial state as R writes it: a list is an object, a
-data.frame its rows. Show a user's data through it -- `{{ field }}`,
+data.frame its rows -- a data.frame further in, or a list column, too. A
+vector of one element is a single value, as everywhere in Shiny: `c("a",
+"b")` is an array, `"a"` a string. Where JavaScript expects an array
+whatever its length -- a list of tags, `v-for` over it -- wrap it in `I()`:
+`list(tags = I("red"))` is `{"tags": ["red"]}`. Show a user's data through
+it -- `{{ field }}`,
 `:prop="field"` -- which Vue renders as text. Never paste it into the
 template: a template is code, and `{{ }}` in it runs.
 

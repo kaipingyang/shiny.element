@@ -3,7 +3,8 @@
 #' A trail of links showing where a page sits.
 #'
 #' @param id Breadcrumb ID. Auto-generated if `NULL`.
-#' @param items The trail, as a list of `list(label =, to =)`. `to` is
+#' @param items The trail, a list of [el_breadcrumb_item()]s -- or of
+#'   `list(label =, to =)`. `to` is
 #'   optional and makes that step a link; the last step is usually plain text.
 #' @param separator Separator character. Default `"/"`.
 #' @param width Component width, as a CSS unit.

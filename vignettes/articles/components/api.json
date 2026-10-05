@@ -360,7 +360,7 @@
 "type": "`string`",
 "accepted": "",
 "default": "—",
-"r": "field `title` of each of `links`"
+"r": "`el_anchor_link(title =)`"
 },
 {
 "name": "href",
@@ -368,7 +368,7 @@
 "type": "`string`",
 "accepted": "",
 "default": "—",
-"r": "field `href` of each of `links`"
+"r": "`el_anchor_link(href =)`"
 }
 ]
 },
@@ -1176,7 +1176,7 @@
 "type": "^[string] / ^[object]`RouteLocationRaw`",
 "accepted": "",
 "default": "''",
-"r": "field `to` of each of `items`"
+"r": "`el_breadcrumb_item(to =)`"
 },
 {
 "name": "replace",
@@ -1184,7 +1184,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `replace` of each of `items`"
+"r": "`el_breadcrumb_item(replace =)`"
 }
 ]
 },
@@ -1802,7 +1802,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "''",
-"r": "item field `label`"
+"r": "`el_carousel_item(label =)`"
 }
 ]
 },
@@ -2908,7 +2908,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "item field `title`"
+"r": "`el_collapse_item(title =)`"
 },
 {
 "name": "icon",
@@ -2916,7 +2916,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "ArrowRight",
-"r": "item field `icon`"
+"r": "`el_collapse_item(icon =)`"
 },
 {
 "name": "disabled",
@@ -2924,7 +2924,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "item field `disabled`"
+"r": "`el_collapse_item(disabled =)`"
 }
 ]
 },
@@ -4820,7 +4820,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "item field `label`"
+"r": "`el_descriptions_item(label =)`"
 },
 {
 "name": "span",
@@ -4828,7 +4828,7 @@
 "type": "^[number]",
 "accepted": "",
 "default": "1",
-"r": "field `span` of each of `items`"
+"r": "`el_descriptions_item(span =)`"
 },
 {
 "name": "rowspan",
@@ -4836,7 +4836,7 @@
 "type": "^[number]",
 "accepted": "",
 "default": "1",
-"r": "field `rowspan` of each of `items`"
+"r": "`el_descriptions_item(rowspan =)`"
 },
 {
 "name": "width",
@@ -4844,7 +4844,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "''",
-"r": "`width`"
+"r": "`el_descriptions_item(width =)`"
 },
 {
 "name": "min-width",
@@ -4852,7 +4852,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "''",
-"r": "field `min_width` of each of `items`"
+"r": "`el_descriptions_item(min_width =)`"
 },
 {
 "name": "label-width",
@@ -4860,7 +4860,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "—",
-"r": "`label_width`"
+"r": "`el_descriptions_item(label_width =)`"
 },
 {
 "name": "align",
@@ -4868,7 +4868,7 @@
 "type": "^[enum]`'left' \\| 'center' \\| 'right'`",
 "accepted": "",
 "default": "left",
-"r": "field `align` of each of `items`"
+"r": "`el_descriptions_item(align =)`"
 },
 {
 "name": "label-align",
@@ -4876,7 +4876,7 @@
 "type": "^[enum]`'left' \\| 'center' \\| 'right'`",
 "accepted": "",
 "default": "—",
-"r": "field `label_align` of each of `items`"
+"r": "`el_descriptions_item(label_align =)`"
 },
 {
 "name": "class-name",
@@ -4884,7 +4884,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "field `class_name` of each of `items`"
+"r": "`el_descriptions_item(class_name =)`"
 },
 {
 "name": "label-class-name",
@@ -4892,7 +4892,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "field `label_class_name` of each of `items`"
+"r": "`el_descriptions_item(label_class_name =)`"
 }
 ]
 },
@@ -5948,7 +5948,7 @@
 "type": "^[string] / ^[number] / ^[object]",
 "accepted": "",
 "default": "—",
-"r": "item field `command`"
+"r": "`el_dropdown_item(command =)`"
 },
 {
 "name": "disabled",
@@ -5956,7 +5956,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "`disabled`"
+"r": "`el_dropdown_item(disabled =)`"
 },
 {
 "name": "divided",
@@ -5964,7 +5964,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "item field `divided`"
+"r": "`el_dropdown_item(divided =)`"
 },
 {
 "name": "icon",
@@ -5972,7 +5972,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "—",
-"r": "item field `icon`"
+"r": "`el_dropdown_item(icon =)`"
 }
 ]
 },
@@ -9016,7 +9016,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `index` of each of `items`"
+"r": "`el_sub_menu(index =)`"
 },
 {
 "name": "popper-class",
@@ -9024,7 +9024,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "`popper_class`"
+"r": "`el_sub_menu(popper_class =)`"
 },
 {
 "name": "popper-style",
@@ -9032,7 +9032,7 @@
 "type": "^[string] / ^[object]",
 "accepted": "",
 "default": "—",
-"r": "`popper_style`"
+"r": "`el_sub_menu(popper_style =)`"
 },
 {
 "name": "show-timeout",
@@ -9040,7 +9040,7 @@
 "type": "^[number]",
 "accepted": "",
 "default": "—",
-"r": "`show_timeout`"
+"r": "`el_sub_menu(show_timeout =)`"
 },
 {
 "name": "hide-timeout",
@@ -9048,7 +9048,7 @@
 "type": "^[number]",
 "accepted": "",
 "default": "—",
-"r": "`hide_timeout`"
+"r": "`el_sub_menu(hide_timeout =)`"
 },
 {
 "name": "disabled",
@@ -9056,7 +9056,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `disabled` of each of `items`"
+"r": "`el_sub_menu(disabled =)`"
 },
 {
 "name": "teleported",
@@ -9064,7 +9064,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "undefined",
-"r": "field `teleported` of each of `items`"
+"r": "`el_sub_menu(teleported =)`"
 },
 {
 "name": "popper-offset",
@@ -9072,7 +9072,7 @@
 "type": "^[number]",
 "accepted": "",
 "default": "—",
-"r": "`popper_offset`"
+"r": "`el_sub_menu(popper_offset =)`"
 },
 {
 "name": "expand-close-icon",
@@ -9080,7 +9080,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "—",
-"r": "field `expand_close_icon` of each of `items`"
+"r": "`el_sub_menu(expand_close_icon =)`"
 },
 {
 "name": "expand-open-icon",
@@ -9088,7 +9088,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "—",
-"r": "field `expand_open_icon` of each of `items`"
+"r": "`el_sub_menu(expand_open_icon =)`"
 },
 {
 "name": "collapse-close-icon",
@@ -9096,7 +9096,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "—",
-"r": "field `collapse_close_icon` of each of `items`"
+"r": "`el_sub_menu(collapse_close_icon =)`"
 },
 {
 "name": "collapse-open-icon",
@@ -9104,7 +9104,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "—",
-"r": "field `collapse_open_icon` of each of `items`"
+"r": "`el_sub_menu(collapse_open_icon =)`"
 }
 ]
 },
@@ -9140,7 +9140,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `index` of each of `items`"
+"r": "`el_menu_item(index =)`"
 },
 {
 "name": "route",
@@ -9148,7 +9148,7 @@
 "type": "^[string] / ^[object]",
 "accepted": "",
 "default": "—",
-"r": "field `route` of each of `items`"
+"r": "`el_menu_item(route =)`"
 },
 {
 "name": "disabled",
@@ -9156,7 +9156,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `disabled` of each of `items`"
+"r": "`el_menu_item(disabled =)`"
 }
 ]
 },
@@ -9206,7 +9206,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `title` of each of `items`"
+"r": "`el_menu_item_group(title =)`"
 }
 ]
 },
@@ -12890,7 +12890,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "`label`"
+"r": "`el_option_group(label =)`"
 },
 {
 "name": "disabled",
@@ -12898,7 +12898,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "`disabled`"
+"r": "`el_option_group(disabled =)`"
 }
 ]
 },
@@ -12926,7 +12926,7 @@
 "type": "^[string] / ^[number] / ^[boolean] / ^[object]",
 "accepted": "",
 "default": "—",
-"r": "`value`"
+"r": "`el_option(value =)`"
 },
 {
 "name": "label",
@@ -12934,7 +12934,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "—",
-"r": "`label`"
+"r": "`el_option(label =)`"
 },
 {
 "name": "disabled",
@@ -12942,7 +12942,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "`disabled`"
+"r": "`el_option(disabled =)`"
 }
 ]
 },
@@ -13040,7 +13040,7 @@
 "type": "^[enum]`'p' \\| 'text' \\| 'h1' \\| 'h3' \\| 'caption' \\| 'button' \\| 'image' \\| 'circle' \\| 'rect'`",
 "accepted": "",
 "default": "text",
-"r": "`template(variant =)`"
+"r": "`el_skeleton_item(variant =)`"
 }
 ]
 }
@@ -13832,7 +13832,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "field `title` of each of `steps`"
+"r": "`el_step(title =)`"
 },
 {
 "name": "description",
@@ -13840,7 +13840,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "field `description` of each of `steps`"
+"r": "`el_step(description =)`"
 },
 {
 "name": "icon",
@@ -13848,7 +13848,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "—",
-"r": "field `icon` of each of `steps`"
+"r": "`el_step(icon =)`"
 },
 {
 "name": "status",
@@ -13856,7 +13856,7 @@
 "type": "^[enum]`'' \\| 'wait' \\| 'process' \\| 'finish' \\| 'error' \\| 'success'`",
 "accepted": "",
 "default": "''",
-"r": "field `status` of each of `steps`"
+"r": "`el_step(status =)`"
 }
 ]
 },
@@ -14568,7 +14568,7 @@
 "type": "[Alignment](https://github.com/element-plus/element-plus/blob/b92b22932758f0ddea98810ae248f6ca62f77e25/packages/components/table-v2/src/constants.ts#L6)",
 "accepted": "",
 "default": "left",
-"r": "field `align` of each of `columns`"
+"r": "`el_table_v2_column(align =)`"
 },
 {
 "name": "class",
@@ -14576,7 +14576,7 @@
 "type": "`string`",
 "accepted": "",
 "default": "—",
-"r": "an HTML attribute of the tag; `tagAppendAttributes()`"
+"r": "`el_table_v2_column(class =)`"
 },
 {
 "name": "key",
@@ -14584,7 +14584,7 @@
 "type": "[KeyType](#typings)",
 "accepted": "",
 "default": "—",
-"r": "field `key` of each of `columns`"
+"r": "`el_table_v2_column(key =)`"
 },
 {
 "name": "dataKey",
@@ -14592,7 +14592,7 @@
 "type": "[KeyType](#typings)",
 "accepted": "",
 "default": "—",
-"r": "field `data_key` of each of `columns`"
+"r": "`el_table_v2_column(data_key =)`"
 },
 {
 "name": "fixed",
@@ -14600,7 +14600,7 @@
 "type": "`boolean` / [FixedDir](https://github.com/element-plus/element-plus/blob/b92b22932758f0ddea98810ae248f6ca62f77e25/packages/components/table-v2/src/constants.ts#L11)",
 "accepted": "",
 "default": "false",
-"r": "`fixed`"
+"r": "`el_table_v2_column(fixed =)`"
 },
 {
 "name": "flexGrow",
@@ -14608,7 +14608,7 @@
 "type": "`number`",
 "accepted": "",
 "default": "0",
-"r": "field `flex_grow` of each of `columns`"
+"r": "`el_table_v2_column(flex_grow =)`"
 },
 {
 "name": "flexShrink",
@@ -14616,7 +14616,7 @@
 "type": "`number`",
 "accepted": "",
 "default": "1",
-"r": "field `flex_shrink` of each of `columns`"
+"r": "`el_table_v2_column(flex_shrink =)`"
 },
 {
 "name": "headerClass",
@@ -14624,7 +14624,7 @@
 "type": "`string`",
 "accepted": "",
 "default": "—",
-"r": "`header_class`"
+"r": "`el_table_v2_column(header_class =)`"
 },
 {
 "name": "hidden",
@@ -14632,7 +14632,7 @@
 "type": "`boolean`",
 "accepted": "",
 "default": "—",
-"r": "field `hidden` of each of `columns`"
+"r": "`el_table_v2_column(hidden =)`"
 },
 {
 "name": "style",
@@ -14640,7 +14640,7 @@
 "type": "^[object]`CSSProperties`",
 "accepted": "",
 "default": "—",
-"r": "an HTML attribute of the tag; `tagAppendAttributes()`"
+"r": "`el_table_v2_column(style =)`"
 },
 {
 "name": "sortable",
@@ -14648,7 +14648,7 @@
 "type": "`boolean`",
 "accepted": "",
 "default": "—",
-"r": "field `sortable` of each of `columns`"
+"r": "`el_table_v2_column(sortable =)`"
 },
 {
 "name": "title",
@@ -14656,7 +14656,7 @@
 "type": "`string`",
 "accepted": "",
 "default": "—",
-"r": "field `title` of each of `columns`"
+"r": "`el_table_v2_column(title =)`"
 },
 {
 "name": "maxWidth",
@@ -14664,7 +14664,7 @@
 "type": "`number`",
 "accepted": "",
 "default": "—",
-"r": "field `max_width` of each of `columns`"
+"r": "`el_table_v2_column(max_width =)`"
 },
 {
 "name": "minWidth",
@@ -14672,7 +14672,7 @@
 "type": "`number`",
 "accepted": "",
 "default": "—",
-"r": "field `min_width` of each of `columns`"
+"r": "`el_table_v2_column(min_width =)`"
 },
 {
 "name": "width",
@@ -14680,7 +14680,7 @@
 "type": "`number`",
 "accepted": "",
 "default": "—",
-"r": "`width`"
+"r": "`el_table_v2_column(width =)`"
 },
 {
 "name": "cellRenderer",
@@ -14688,7 +14688,7 @@
 "type": "`VueComponent` / (props: [CellRenderProps](#typings)) => VNode",
 "accepted": "",
 "default": "—",
-"r": "field `cell_renderer` of each of `columns`"
+"r": "`el_table_v2_column(cell_renderer =)`"
 },
 {
 "name": "headerCellRenderer",
@@ -14696,7 +14696,7 @@
 "type": "`VueComponent` / (props: [HeaderRenderProps](#typings)) => VNode",
 "accepted": "",
 "default": "—",
-"r": "field `header_cell_renderer` of each of `columns`"
+"r": "`el_table_v2_column(header_cell_renderer =)`"
 }
 ]
 }
@@ -15392,7 +15392,7 @@
 "type": "^[enum]`'default' \\| 'selection' \\| 'index' \\| 'expand'`",
 "accepted": "",
 "default": "default",
-"r": "field `type` of each of `columns`"
+"r": "`el_table_column(type =)`"
 },
 {
 "name": "index",
@@ -15400,7 +15400,7 @@
 "type": "^[number] / ^[Function]`(index: number) => number`",
 "accepted": "",
 "default": "—",
-"r": "field `index` of each of `columns`"
+"r": "`el_table_column(index =)`"
 },
 {
 "name": "label",
@@ -15408,7 +15408,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `label` of each of `columns`"
+"r": "`el_table_column(label =)`"
 },
 {
 "name": "column-key",
@@ -15416,7 +15416,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `column_key` of each of `columns`"
+"r": "`el_table_column(column_key =)`"
 },
 {
 "name": "prop",
@@ -15424,7 +15424,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `prop` of each of `columns`"
+"r": "`el_table_column(prop =)`"
 },
 {
 "name": "width",
@@ -15432,7 +15432,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "''",
-"r": "`width`"
+"r": "`el_table_column(width =)`"
 },
 {
 "name": "min-width",
@@ -15440,7 +15440,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "''",
-"r": "field `min_width` of each of `columns`"
+"r": "`el_table_column(min_width =)`"
 },
 {
 "name": "fixed",
@@ -15448,7 +15448,7 @@
 "type": "^[enum]`'left' \\| 'right'` / ^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `fixed` of each of `columns`"
+"r": "`el_table_column(fixed =)`"
 },
 {
 "name": "render-header",
@@ -15456,7 +15456,7 @@
 "type": "^[Function]`(data: { column: TableColumnCtx<T>, $index: number }) => void`",
 "accepted": "",
 "default": "—",
-"r": "field `render_header` of each of `columns`"
+"r": "`el_table_column(render_header =)`"
 },
 {
 "name": "sortable",
@@ -15464,7 +15464,7 @@
 "type": "^[boolean] / ^[string]",
 "accepted": "",
 "default": "false",
-"r": "field `sortable` of each of `columns`"
+"r": "`el_table_column(sortable =)`"
 },
 {
 "name": "sort-method",
@@ -15472,7 +15472,7 @@
 "type": "^[Function]`<T = any>(a: T, b: T) => number`",
 "accepted": "",
 "default": "—",
-"r": "field `sort_method` of each of `columns`"
+"r": "`el_table_column(sort_method =)`"
 },
 {
 "name": "sort-by",
@@ -15480,7 +15480,7 @@
 "type": "^[Function]`(row: any, index: number) => string` / ^[string] / ^[array]`string[]`",
 "accepted": "",
 "default": "—",
-"r": "field `sort_by` of each of `columns`"
+"r": "`el_table_column(sort_by =)`"
 },
 {
 "name": "sort-orders",
@@ -15488,7 +15488,7 @@
 "type": "^[object]`('ascending' \\| 'descending' \\| null)[]`",
 "accepted": "",
 "default": "['ascending', 'descending', null]",
-"r": "field `sort_orders` of each of `columns`"
+"r": "`el_table_column(sort_orders =)`"
 },
 {
 "name": "resizable",
@@ -15496,7 +15496,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "true",
-"r": "field `resizable` of each of `columns`"
+"r": "`el_table_column(resizable =)`"
 },
 {
 "name": "formatter",
@@ -15504,7 +15504,7 @@
 "type": "^[Function]`(row: any, column: TableColumnCtx<T>, cellValue: any, index: number) => VNode \\| string`",
 "accepted": "",
 "default": "—",
-"r": "field `formatter` of each of `columns`"
+"r": "`el_table_column(formatter =)`"
 },
 {
 "name": "show-overflow-tooltip",
@@ -15512,7 +15512,7 @@
 "type": "^[boolean] / [`object`](#table-attributes) ^(2.2.28)",
 "accepted": "",
 "default": "undefined",
-"r": "`show_overflow_tooltip`"
+"r": "`el_table_column(show_overflow_tooltip =)`"
 },
 {
 "name": "align",
@@ -15520,7 +15520,7 @@
 "type": "^[enum]`'left' \\| 'center' \\| 'right'`",
 "accepted": "",
 "default": "left",
-"r": "field `align` of each of `columns`"
+"r": "`el_table_column(align =)`"
 },
 {
 "name": "header-align",
@@ -15528,7 +15528,7 @@
 "type": "^[enum]`'left' \\| 'center' \\| 'right'`",
 "accepted": "",
 "default": "left",
-"r": "field `header_align` of each of `columns`"
+"r": "`el_table_column(header_align =)`"
 },
 {
 "name": "class-name",
@@ -15536,7 +15536,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `class_name` of each of `columns`"
+"r": "`el_table_column(class_name =)`"
 },
 {
 "name": "label-class-name",
@@ -15544,7 +15544,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `label_class_name` of each of `columns`"
+"r": "`el_table_column(label_class_name =)`"
 },
 {
 "name": "selectable",
@@ -15552,7 +15552,7 @@
 "type": "^[Function]`(row: any, index: number) => boolean`",
 "accepted": "",
 "default": "—",
-"r": "field `selectable` of each of `columns`"
+"r": "`el_table_column(selectable =)`"
 },
 {
 "name": "reserve-selection",
@@ -15560,7 +15560,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `reserve_selection` of each of `columns`"
+"r": "`el_table_column(reserve_selection =)`"
 },
 {
 "name": "filters",
@@ -15568,7 +15568,7 @@
 "type": "^[array]`Array<{text: string, value: string}>`",
 "accepted": "",
 "default": "—",
-"r": "field `filters` of each of `columns`"
+"r": "`el_table_column(filters =)`"
 },
 {
 "name": "filter-placement",
@@ -15576,7 +15576,7 @@
 "type": "^[enum]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'`",
 "accepted": "",
 "default": "—",
-"r": "field `filter_placement` of each of `columns`"
+"r": "`el_table_column(filter_placement =)`"
 },
 {
 "name": "filter-class-name",
@@ -15584,7 +15584,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "—",
-"r": "field `filter_class_name` of each of `columns`"
+"r": "`el_table_column(filter_class_name =)`"
 },
 {
 "name": "filter-multiple",
@@ -15592,7 +15592,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "true",
-"r": "field `filter_multiple` of each of `columns`"
+"r": "`el_table_column(filter_multiple =)`"
 },
 {
 "name": "filter-method",
@@ -15600,7 +15600,7 @@
 "type": "^[Function]`(value: any, row: any, column: TableColumnCtx<T>) => void`",
 "accepted": "",
 "default": "—",
-"r": "field `filter_method` of each of `columns`"
+"r": "`el_table_column(filter_method =)`"
 },
 {
 "name": "filtered-value",
@@ -15608,7 +15608,7 @@
 "type": "^[array]`string[]`",
 "accepted": "",
 "default": "—",
-"r": "field `filtered_value` of each of `columns`"
+"r": "`el_table_column(filtered_value =)`"
 },
 {
 "name": "tooltip-formatter",
@@ -15616,7 +15616,7 @@
 "type": "^[Function]`(data: { row: any, column: TableColumnCtx<T>, cellValue: any }) => VNode \\| string`",
 "accepted": "",
 "default": "—",
-"r": "`tooltip_formatter`"
+"r": "`el_table_column(tooltip_formatter =)`"
 }
 ]
 },
@@ -15832,7 +15832,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "item field `label`"
+"r": "`el_tab_pane(label =)`"
 },
 {
 "name": "disabled",
@@ -15840,7 +15840,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "item field `disabled`"
+"r": "`el_tab_pane(disabled =)`"
 },
 {
 "name": "closable",
@@ -15848,7 +15848,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "`closable`"
+"r": "`el_tab_pane(closable =)`"
 },
 {
 "name": "lazy",
@@ -15856,7 +15856,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "item field `lazy`"
+"r": "`el_tab_pane(lazy =)`"
 }
 ]
 },
@@ -16742,7 +16742,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "field `timestamp` of each of `items`"
+"r": "`el_timeline_item(timestamp =)`"
 },
 {
 "name": "hide-timestamp",
@@ -16750,7 +16750,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `hide_timestamp` of each of `items`"
+"r": "`el_timeline_item(hide_timestamp =)`"
 },
 {
 "name": "center",
@@ -16758,7 +16758,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `center` of each of `items`"
+"r": "`el_timeline_item(center =)`"
 },
 {
 "name": "placement",
@@ -16766,7 +16766,7 @@
 "type": "^[enum]`'top' \\| 'bottom'`",
 "accepted": "",
 "default": "bottom",
-"r": "field `placement` of each of `items`"
+"r": "`el_timeline_item(placement =)`"
 },
 {
 "name": "type",
@@ -16774,7 +16774,7 @@
 "type": "^[enum]`'primary' \\| 'success' \\| 'warning' \\| 'danger' \\| 'info'`",
 "accepted": "",
 "default": "''",
-"r": "field `type` of each of `items`"
+"r": "`el_timeline_item(type =)`"
 },
 {
 "name": "color",
@@ -16782,7 +16782,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "field `color` of each of `items`"
+"r": "`el_timeline_item(color =)`"
 },
 {
 "name": "size",
@@ -16790,7 +16790,7 @@
 "type": "^[enum]`'normal' \\| 'large'`",
 "accepted": "",
 "default": "normal",
-"r": "field `size` of each of `items`"
+"r": "`el_timeline_item(size =)`"
 },
 {
 "name": "icon",
@@ -16798,7 +16798,7 @@
 "type": "^[string] / ^[Component]",
 "accepted": "",
 "default": "—",
-"r": "field `icon` of each of `items`"
+"r": "`el_timeline_item(icon =)`"
 },
 {
 "name": "hollow",
@@ -16806,7 +16806,7 @@
 "type": "^[boolean]",
 "accepted": "",
 "default": "false",
-"r": "field `hollow` of each of `items`"
+"r": "`el_timeline_item(hollow =)`"
 }
 ]
 },
@@ -17352,7 +17352,7 @@
 "type": "`HTMLElement` \\| `string` \\| ^[Function]`() => HTMLElement`",
 "accepted": "",
 "default": "—",
-"r": "field `target` of each of `steps`"
+"r": "`el_tour_step(target =)`"
 },
 {
 "name": "show-arrow",
@@ -17360,7 +17360,7 @@
 "type": "`boolean`",
 "accepted": "",
 "default": "—",
-"r": "`show_arrow`"
+"r": "`el_tour_step(show_arrow =)`"
 },
 {
 "name": "title",
@@ -17368,7 +17368,7 @@
 "type": "`string`",
 "accepted": "",
 "default": "—",
-"r": "field `title` of each of `steps`"
+"r": "`el_tour_step(title =)`"
 },
 {
 "name": "description",
@@ -17376,7 +17376,7 @@
 "type": "`string`",
 "accepted": "",
 "default": "—",
-"r": "field `description` of each of `steps`"
+"r": "`el_tour_step(description =)`"
 },
 {
 "name": "placement",
@@ -17384,7 +17384,7 @@
 "type": "^[enum]`'top' \\| 'top-start' \\| 'top-end' \\| 'bottom' \\| 'bottom-start' \\| 'bottom-end' \\| 'left' \\| 'left-start' \\| 'left-end' \\| 'right' \\| 'right-start' \\| 'right-end'`",
 "accepted": "",
 "default": "`bottom`",
-"r": "`placement`"
+"r": "`el_tour_step(placement =)`"
 },
 {
 "name": "content-style",
@@ -17392,7 +17392,7 @@
 "type": "`CSSProperties`",
 "accepted": "",
 "default": "—",
-"r": "`content_style`"
+"r": "`el_tour_step(content_style =)`"
 },
 {
 "name": "mask",
@@ -17400,7 +17400,7 @@
 "type": "`boolean` \\| ^[Object]`{ style?: CSSProperties; color?: string; }`",
 "accepted": "",
 "default": "—",
-"r": "`mask`"
+"r": "`el_tour_step(mask =)`"
 },
 {
 "name": "type",
@@ -17408,7 +17408,7 @@
 "type": "`default` \\| `primary`",
 "accepted": "",
 "default": "`default`",
-"r": "`type`"
+"r": "`el_tour_step(type =)`"
 },
 {
 "name": "next-button-props",
@@ -17416,7 +17416,7 @@
 "type": "^[Object]`{ children: VueNode \\| string; onClick: Function }`",
 "accepted": "",
 "default": "—",
-"r": "field `next_button_props` of each of `steps`"
+"r": "`el_tour_step(next_button_props =)`"
 },
 {
 "name": "prev-button-props",
@@ -17424,7 +17424,7 @@
 "type": "^[Object]`{ children: VueNode \\| string; onClick: Function }`",
 "accepted": "",
 "default": "—",
-"r": "field `prev_button_props` of each of `steps`"
+"r": "`el_tour_step(prev_button_props =)`"
 },
 {
 "name": "scroll-into-view-options",
@@ -17432,7 +17432,7 @@
 "type": "`boolean` \\| `ScrollIntoViewOptions`",
 "accepted": "",
 "default": "—",
-"r": "`scroll_into_view_options`"
+"r": "`el_tour_step(scroll_into_view_options =)`"
 },
 {
 "name": "show-close",
@@ -17440,7 +17440,7 @@
 "type": "`boolean`",
 "accepted": "",
 "default": "—",
-"r": "`show_close`"
+"r": "`el_tour_step(show_close =)`"
 },
 {
 "name": "close-icon",
@@ -17448,7 +17448,7 @@
 "type": "`string` \\| `Component`",
 "accepted": "",
 "default": "—",
-"r": "`close_icon`"
+"r": "`el_tour_step(close_icon =)`"
 }
 ]
 },

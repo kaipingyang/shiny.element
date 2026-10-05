@@ -37,7 +37,7 @@ a fast load does not flash it.}
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents. \code{template} replaces the
-placeholder's shape; build it from \code{el$skeleton_item(variant = ...)}.}
+placeholder's shape; build it from \code{\link[=el_skeleton_item]{el_skeleton_item()}}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with

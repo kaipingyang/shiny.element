@@ -8,8 +8,8 @@
 insert_el_tab(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  name,
-  label,
+  tab,
+  label = NULL,
   content = NULL,
   closable = NULL,
   select = TRUE
@@ -23,14 +23,18 @@ remove_el_tab(session = shiny::getDefaultReactiveDomain(), id, name)
 
 \item{id}{Tabs ID (un-namespaced).}
 
-\item{name, label}{The new tab's name and label.}
+\item{tab}{The new tab: an \code{\link[=el_tab_pane]{el_tab_pane()}}, as \code{\link[bslib:nav_insert]{bslib::nav_insert()}}
+takes a \code{nav_panel()} -- or its name, with \code{label} and \code{content}.}
 
-\item{content}{The new tab's content.}
+\item{label, content}{The new tab's label and content, when \code{tab} is a
+name.}
 
 \item{closable}{Whether it can be closed. \code{NULL} follows the tabs'
 own setting.}
 
 \item{select}{Whether to switch to it. Default \code{TRUE}.}
+
+\item{name}{For \code{remove_el_tab()}, the name of the tab to remove.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -49,7 +53,7 @@ if (interactive()) {
     "docs",
     editable = TRUE,
     tabs = list(
-      list(name = "t1", label = "Tab 1", content = tags$p("First"))
+      el_tab_pane("Tab 1", tags$p("First"), name = "t1")
     )
   ))
   server <- function(input, output, session) {
@@ -59,9 +63,7 @@ if (interactive()) {
       insert_el_tab(
         session,
         "docs",
-        name = paste0("t", n),
-        label = paste("Tab", n),
-        content = tags$p("New")
+        el_tab_pane(paste("Tab", n), tags$p("New"), name = paste0("t", n))
       )
     })
   }

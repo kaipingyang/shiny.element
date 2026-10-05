@@ -9,7 +9,8 @@
 #' See `.claude/docs/lessons.md` §1.2.
 #'
 #' @param id Tabs ID. Auto-generated UUID if `NULL`.
-#' @param tabs A list of tabs. Each is a named list with:
+#' @param tabs A list of tabs, each an [el_tab_pane()] -- or a named list
+#'   with the same fields:
 #'   \describe{
 #'     \item{name}{Unique tab identifier (string). Required.}
 #'     \item{label}{Tab label. Required.}
@@ -295,8 +296,11 @@ update_el_tabs <- function(
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Tabs ID (un-namespaced).
-#' @param name,label The new tab's name and label.
-#' @param content The new tab's content.
+#' @param tab The new tab: an [el_tab_pane()], as [bslib::nav_insert()]
+#'   takes a `nav_panel()` -- or its name, with `label` and `content`.
+#' @param label,content The new tab's label and content, when `tab` is a
+#'   name.
+#' @param name For `remove_el_tab()`, the name of the tab to remove.
 #' @param closable Whether it can be closed. `NULL` follows the tabs'
 #'   own setting.
 #' @param select Whether to switch to it. Default `TRUE`.
@@ -309,7 +313,7 @@ update_el_tabs <- function(
 #'     "docs",
 #'     editable = TRUE,
 #'     tabs = list(
-#'       list(name = "t1", label = "Tab 1", content = tags$p("First"))
+#'       el_tab_pane("Tab 1", tags$p("First"), name = "t1")
 #'     )
 #'   ))
 #'   server <- function(input, output, session) {
@@ -319,9 +323,7 @@ update_el_tabs <- function(
 #'       insert_el_tab(
 #'         session,
 #'         "docs",
-#'         name = paste0("t", n),
-#'         label = paste("Tab", n),
-#'         content = tags$p("New")
+#'         el_tab_pane(paste("Tab", n), tags$p("New"), name = paste0("t", n))
 #'       )
 #'     })
 #'   }
@@ -331,13 +333,24 @@ update_el_tabs <- function(
 insert_el_tab <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  name,
-  label,
+  tab,
+  label = NULL,
   content = NULL,
   closable = NULL,
   select = TRUE
 ) {
   .el_check_session(session)
+  if (inherits(tab, "el_tab_pane")) {
+    label <- tab$label
+    content <- tab$content
+    closable <- tab$closable %||% closable
+    name <- tab$name
+  } else {
+    name <- tab
+    if (is.null(label)) {
+      label <- name
+    }
+  }
   ns_id <- session$ns(id)
   # The pane goes in through insertUI, which renders its dependencies and
   # binds what is inside; the header item is built by the binding, which knows

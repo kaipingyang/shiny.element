@@ -48,9 +48,9 @@ el_select(
   placeholder = "Select",
   width = "240px",
   choices = list(
-    list(value = "Option1", label = "Option 1"),
-    list(value = "Option2", label = "Option 2"),
-    list(value = "Option3", label = "Option 3", disabled = TRUE)
+    el_option("Option 1", "Option1"),
+    el_option("Option 2", "Option2"),
+    el_option("Option 3", "Option3", disabled = TRUE)
   )
 )
 ```
@@ -65,9 +65,9 @@ el_select(
   placeholder = "Select",
   width = "240px",
   choices = list(
-    list(value = "Option1", label = "Option1"),
-    list(value = "Option2", label = "Option2", disabled = TRUE),
-    list(value = "Option3", label = "Option3")
+    el_option("Option1"),
+    el_option("Option2", disabled = TRUE),
+    el_option("Option3")
   )
 )
 ```
@@ -323,8 +323,8 @@ el_select(
   placeholder = "Select",
   width = "240px",
   choices = list(
-    list(value = list(id = 1, name = "Option A"), label = "Option A"),
-    list(value = list(id = 2, name = "Option B"), label = "Option B")
+    el_option("Option A", list(id = 1, name = "Option A")),
+    el_option("Option B", list(id = 2, name = "Option B"))
   )
 )
 ```

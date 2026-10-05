@@ -3,7 +3,8 @@
 #' A read-only grid of labelled values -- the detail view of a record.
 #'
 #' @param id Component ID. Auto-generated if `NULL`.
-#' @param items The fields, as a list of `list(label =, content =)`, or a named
+#' @param items The fields, each an [el_descriptions_item()] -- or a
+#'   `list(label =, content =)` -- or a named
 #'   list or vector whose names are the labels. `content` may be any Shiny UI,
 #'   a shiny.element component included, which is absorbed rather than nested.
 #'   An item may also carry Element Plus's item props: `span`, `rowspan`,

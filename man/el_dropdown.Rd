@@ -44,7 +44,8 @@ el_dropdown(
 it; a tag -- an icon, an avatar -- is used as it is. Default
 \code{"Dropdown"}.}
 
-\item{items}{A list of menu items. Each element is a named list with:
+\item{items}{A list of menu entries, each an \code{\link[=el_dropdown_item]{el_dropdown_item()}} -- or a
+named list with the same fields:
 \describe{
 \item{command}{Command value sent to \verb{input$<id>} on click. Required.}
 \item{label}{Display text. Defaults to \code{command}.}

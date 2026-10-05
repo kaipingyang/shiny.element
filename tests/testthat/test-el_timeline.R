@@ -76,10 +76,10 @@ test_that("el_timeline: entries render through one v-for so they stay replaceabl
   expect_match(html, ':placement="item.placement"', fixed = TRUE)
 })
 
-test_that("el_timeline: the timestamp is hidden only when there is none", {
+test_that("el_timeline: the timestamp is hidden when asked, or when there is none", {
   expect_match(
     render_html(el_timeline(id = "log")),
-    ':hide-timestamp="!item.timestamp"',
+    ':hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"',
     fixed = TRUE
   )
 })

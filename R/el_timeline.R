@@ -8,9 +8,11 @@
 #' to render it as HTML.
 #'
 #' @param id Timeline ID (auto-generated if NULL).
-#' @param items A list of entries. Each is a list with `content` and
+#' @param items A list of entries, each an [el_timeline_item()] -- or a list
+#'   with the same fields: `content` and
 #'   optionally `timestamp`, `type` (`"primary"`, `"success"`, `"warning"`,
 #'   `"danger"` or `"info"`), `color`, `size` (`"normal"` or `"large"`),
+#'   `hide_timestamp`,
 #'   `icon` (an icon's name), `placement` (`"bottom"` or `"top"`, where the
 #'   timestamp goes), `center` (centre the dot against the content) and
 #'   `hollow` (draw the dot hollow).
@@ -95,7 +97,7 @@ el_timeline <- function(
       ":placement" = "item.placement",
       ":center" = "item.center",
       ":hollow" = "item.hollow",
-      ":hide-timestamp" = "!item.timestamp",
+      ":hide-timestamp" = "item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp",
       body
     )
   )
@@ -135,6 +137,7 @@ el_timeline <- function(
   fields <- c(
     "content",
     "timestamp",
+    "hide_timestamp",
     "type",
     "color",
     "size",

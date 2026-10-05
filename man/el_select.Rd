@@ -78,8 +78,8 @@ el_select(
 \item{id}{Input ID. Auto-generated UUID if \code{NULL}.}
 
 \item{choices, options}{The choices: a named character vector
-(\code{c(Label = value)}), a list of \code{list(value = ..., label = ...)}, or
-a named list of those for option groups. Unnamed vectors are allowed;
+(\code{c(Label = value)}), a list of \code{\link[=el_option]{el_option()}}s (or of \code{list(value = ..., label = ...)}), or a list of \code{\link[=el_option_group]{el_option_group()}}s (or a named list
+of options) for option groups. Unnamed vectors are allowed;
 the element is used as both value and label. \code{choices} is Shiny's name
 for it, \code{options} Element's; give either. Empty by default, for a
 select whose options arrive later (\code{remote = TRUE}).}

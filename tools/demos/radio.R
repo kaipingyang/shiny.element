@@ -71,9 +71,9 @@ el_radio_group(
   selected = "Value A",
   props = list(label = "name", value = "id", disabled = "unable"),
   choices = list(
-    list(label = "Option A", value = "Value A"),
-    list(label = "Option B", value = "Value B"),
-    list(label = "Option C", value = "Value C")
+    el_option("Option A", "Value A"),
+    el_option("Option B", "Value B"),
+    el_option("Option C", "Value C")
   )
 )
 

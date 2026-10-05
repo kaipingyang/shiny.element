@@ -9,7 +9,8 @@
 #' `.claude/docs/lessons.md`.
 #'
 #' @param id Collapse ID. Auto-generated UUID if `NULL`.
-#' @param items A list of panels. Each is a named list with:
+#' @param items A list of panels, each an [el_collapse_item()] -- or a
+#'   named list with the same fields:
 #'   \describe{
 #'     \item{name}{Unique panel identifier (string). Required.}
 #'     \item{title}{Panel header text. Required.}

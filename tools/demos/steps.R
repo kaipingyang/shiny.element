@@ -5,9 +5,9 @@ el_steps(
   active = 0,
   finish_status = "success",
   steps = list(
-    list(title = "Step 1"),
-    list(title = "Step 2"),
-    list(title = "Step 3")
+    el_step("Step 1"),
+    el_step("Step 2"),
+    el_step("Step 3")
   )
 )
 
@@ -18,9 +18,9 @@ el_steps(
   space = 200,
   finish_status = "success",
   steps = list(
-    list(title = "Done"),
-    list(title = "Processing"),
-    list(title = "Step 3")
+    el_step("Done"),
+    el_step("Processing"),
+    el_step("Step 3")
   )
 )
 
@@ -30,10 +30,10 @@ el_steps(
   active = 2,
   align_center = TRUE,
   steps = list(
-    list(title = "Step 1", description = "Some description"),
-    list(title = "Step 2", description = "Some description"),
-    list(title = "Step 3", description = "Some description"),
-    list(title = "Step 4", description = "Some description")
+    el_step("Step 1", "Some description"),
+    el_step("Step 2", "Some description"),
+    el_step("Step 3", "Some description"),
+    el_step("Step 4", "Some description")
   )
 )
 
@@ -42,9 +42,9 @@ el_steps(
   "st_desc",
   active = 1,
   steps = list(
-    list(title = "Step 1", description = "Some description"),
-    list(title = "Step 2", description = "Some description"),
-    list(title = "Step 3", description = "Some description")
+    el_step("Step 1", "Some description"),
+    el_step("Step 2", "Some description"),
+    el_step("Step 3", "Some description")
   )
 )
 
@@ -53,9 +53,9 @@ el_steps(
   "st_icon",
   active = 1,
   steps = list(
-    list(title = "Step 1", icon = "Edit"),
-    list(title = "Step 2", icon = "Upload"),
-    list(title = "Step 3", icon = "Picture")
+    el_step("Step 1", icon = "Edit"),
+    el_step("Step 2", icon = "Upload"),
+    el_step("Step 3", icon = "Picture")
   )
 )
 
@@ -67,9 +67,9 @@ tags$div(
     direction = "vertical",
     active = 1,
     steps = list(
-      list(title = "Step 1"),
-      list(title = "Step 2"),
-      list(title = "Step 3")
+      el_step("Step 1"),
+      el_step("Step 2"),
+      el_step("Step 3")
     )
   )
 )
@@ -81,9 +81,9 @@ tagList(
     active = 0,
     simple = TRUE,
     steps = list(
-      list(title = "Step 1", icon = "Edit"),
-      list(title = "Step 2", icon = "UploadFilled"),
-      list(title = "Step 3", icon = "Picture")
+      el_step("Step 1", icon = "Edit"),
+      el_step("Step 2", icon = "UploadFilled"),
+      el_step("Step 3", icon = "Picture")
     )
   ),
   tags$div(style = "margin-top: 20px"),
@@ -93,9 +93,9 @@ tagList(
     finish_status = "success",
     simple = TRUE,
     steps = list(
-      list(title = "Step 1"),
-      list(title = "Step 2"),
-      list(title = "Step 3")
+      el_step("Step 1"),
+      el_step("Step 2"),
+      el_step("Step 3")
     )
   )
 )

@@ -446,3 +446,10 @@ test_that("a data.frame inside the rows is rows too", {
   df$tags <- list(c("a", "b"), "c")
   expect_equal(.vue_rows(df)[[1]]$tags, c("a", "b"))
 })
+
+test_that("I() keeps a one-element cell an array", {
+  df <- data.frame(id = 1:2)
+  df$tags <- list(c("a", "b"), I("c"))
+  json <- .vue_json(list(rows = .vue_rows(df)))
+  expect_match(json, '"tags":["c"]', fixed = TRUE)
+})

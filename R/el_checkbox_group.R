@@ -5,7 +5,8 @@
 #'
 #' @param id Checkbox group ID. Auto-generated UUID if `NULL`.
 #' @param choices,options The choices: a named character vector
-#'   (`c(Label = value)`) or a list of `list(value = ..., label = ...)`.
+#'   (`c(Label = value)`) or a list of [el_option()]s -- which can be
+#'   `disabled` -- or of `list(value = ..., label = ...)`.
 #'   `choices` is Shiny's name for it, `options` Element's; give either.
 #' @param selected,value Character vector of initially checked values; none
 #'   by default. `selected` is Shiny's name, `value` Element's (its

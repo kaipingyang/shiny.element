@@ -28,7 +28,8 @@ el_carousel(
 \arguments{
 \item{id}{Carousel ID (auto-generated if NULL).}
 
-\item{items}{A list of slides. Each is a list with \code{content} (a tag,
+\item{items}{A list of slides, each an \code{\link[=el_carousel_item]{el_carousel_item()}} -- or a list
+with \code{content} (a tag,
 tagList or string) and optionally \code{name}, used as the value reported when
 that slide is showing, and \code{label}, shown on its indicator. A slide's
 content may hold this package's components: they are folded into the

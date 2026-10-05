@@ -15,7 +15,7 @@
 #'   a fast load does not flash it.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents. `template` replaces the
-#'   placeholder's shape; build it from `el$skeleton_item(variant = ...)`.
+#'   placeholder's shape; build it from [el_skeleton_item()].
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.

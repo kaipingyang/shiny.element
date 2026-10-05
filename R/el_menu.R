@@ -106,7 +106,8 @@
 #' depth.
 #'
 #' @param id Menu ID (auto-generated if NULL).
-#' @param items A list of items. Each is a list with `index` (the value
+#' @param items A list of items, each an [el_menu_item()], [el_sub_menu()] or
+#'   [el_menu_item_group()] -- or a list with `index` (the value
 #'   reported when selected), `label` (or `title`, Element's name for it),
 #'   and optionally `icon` (an icon's name, such as `"House"`), `disabled`,
 #'   `route` (for `router = TRUE`), or `children` for a submenu. A submenu

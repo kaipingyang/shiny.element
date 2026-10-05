@@ -8,9 +8,9 @@ el_table(
   "basic",
   data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 
@@ -25,9 +25,9 @@ el_table(
   data = tableData,
   stripe = TRUE,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 
@@ -42,9 +42,9 @@ el_table(
   data = tableData,
   border = TRUE,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 
@@ -74,9 +74,9 @@ tagList(
       "}"
     ),
     columns = list(
-      list(prop = "date", label = "Date", width = 180),
-      list(prop = "name", label = "Name", width = 180),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date", width = 180),
+      el_table_column("name", "Name", width = 180),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -100,9 +100,9 @@ el_table(
   data = tableData,
   height = 250,
   columns = list(
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 
@@ -122,13 +122,13 @@ el_table(
   "fixedcol",
   data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = 150, fixed = TRUE),
-    list(prop = "name", label = "Name", width = 120),
-    list(prop = "state", label = "State", width = 120),
-    list(prop = "city", label = "City", width = 120),
-    list(prop = "address", label = "Address", width = 600),
-    list(prop = "zip", label = "Zip", width = 120),
-    list(
+    el_table_column("date", "Date", width = 150, fixed = TRUE),
+    el_table_column("name", "Name", width = 120),
+    el_table_column("state", "State", width = 120),
+    el_table_column("city", "City", width = 120),
+    el_table_column("address", "Address", width = 600),
+    el_table_column("zip", "Zip", width = 120),
+    el_table_column(
       label = "Operations",
       fixed = "right",
       min_width = 120,
@@ -168,12 +168,12 @@ el_table(
   data = tableData,
   height = 250,
   columns = list(
-    list(prop = "date", label = "Date", width = 150, fixed = TRUE),
-    list(prop = "name", label = "Name", width = 120),
-    list(prop = "state", label = "State", width = 120),
-    list(prop = "city", label = "City", width = 320),
-    list(prop = "address", label = "Address", width = 600),
-    list(prop = "zip", label = "Zip")
+    el_table_column("date", "Date", width = 150, fixed = TRUE),
+    el_table_column("name", "Name", width = 120),
+    el_table_column("state", "State", width = 120),
+    el_table_column("city", "City", width = 320),
+    el_table_column("address", "Address", width = 600),
+    el_table_column("zip", "Zip")
   )
 )
 
@@ -201,13 +201,13 @@ ui <- el_page(
     data = tableData,
     max_height = 250,
     columns = list(
-      list(prop = "date", label = "Date", width = 150, fixed = TRUE),
-      list(prop = "name", label = "Name", width = 120),
-      list(prop = "state", label = "State", width = 120),
-      list(prop = "city", label = "City", width = 120),
-      list(prop = "address", label = "Address", width = 600),
-      list(prop = "zip", label = "Zip", width = 120),
-      list(
+      el_table_column("date", "Date", width = 150, fixed = TRUE),
+      el_table_column("name", "Name", width = 120),
+      el_table_column("state", "State", width = 120),
+      el_table_column("city", "City", width = 120),
+      el_table_column("address", "Address", width = 600),
+      el_table_column("zip", "Zip", width = 120),
+      el_table_column(
         label = "Operations",
         fixed = "right",
         min_width = 120,
@@ -263,20 +263,16 @@ el_table(
   "grouped",
   data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = 150),
-    list(
+    el_table_column("date", "Date", width = 150),
+    el_table_column(
       label = "Delivery Info",
-      children = list(
-        list(prop = "name", label = "Name", width = 120),
-        list(
-          label = "Address Info",
-          children = list(
-            list(prop = "state", label = "State", width = 120),
-            list(prop = "city", label = "City", width = 120),
-            list(prop = "address", label = "Address"),
-            list(prop = "zip", label = "Zip", width = 120)
-          )
-        )
+      el_table_column("name", "Name", width = 120),
+      el_table_column(
+        label = "Address Info",
+        el_table_column("state", "State", width = 120),
+        el_table_column("city", "City", width = 120),
+        el_table_column("address", "Address"),
+        el_table_column("zip", "Zip", width = 120)
       )
     )
   )
@@ -299,10 +295,10 @@ ui <- el_page(
     data = tableData,
     highlight_current_row = TRUE,
     columns = list(
-      list(type = "index", width = 50),
-      list(prop = "date", label = "Date", width = 120),
-      list(prop = "name", label = "Name", width = 120),
-      list(prop = "address", label = "Address")
+      el_table_column(type = "index", width = 50),
+      el_table_column("date", "Date", width = 120),
+      el_table_column("name", "Name", width = 120),
+      el_table_column("address", "Address")
     )
   ),
   tags$div(
@@ -348,14 +344,18 @@ ui <- el_page(
     data = tableData,
     row_key = "id",
     columns = list(
-      list(
+      el_table_column(
         type = "selection",
         width = 55,
         selectable = JS("function(row) { return ![1, 2].includes(row.id); }")
       ),
-      list(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
-      list(prop = "name", label = "Name", width = 120),
-      list(prop = "address", label = "Address")
+      el_table_column(
+        label = "Date",
+        width = 120,
+        cell = "{{ scope.row.date }}"
+      ),
+      el_table_column("name", "Name", width = 120),
+      el_table_column("address", "Address")
     )
   ),
   tags$div(
@@ -398,11 +398,11 @@ el_table(
   data = tableData,
   default_sort = list(prop = "date", order = "descending"),
   columns = list(
-    list(prop = "date", label = "Date", sortable = TRUE, width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(
-      prop = "address",
-      label = "Address",
+    el_table_column("date", "Date", sortable = TRUE, width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column(
+      "address",
+      "Address",
       formatter = JS("function(row, column) { return row.address; }")
     )
   )
@@ -426,9 +426,9 @@ ui <- el_page(
     data = tableData,
     row_key = "date",
     columns = list(
-      list(
-        prop = "date",
-        label = "Date",
+      el_table_column(
+        "date",
+        "Date",
         sortable = TRUE,
         width = 180,
         column_key = "date",
@@ -442,15 +442,15 @@ ui <- el_page(
           "}"
         )
       ),
-      list(prop = "name", label = "Name", width = 180),
-      list(
-        prop = "address",
-        label = "Address",
+      el_table_column("name", "Name", width = 180),
+      el_table_column(
+        "address",
+        "Address",
         formatter = JS("function(row, column) { return row.address; }")
       ),
-      list(
-        prop = "tag",
-        label = "Tag",
+      el_table_column(
+        "tag",
+        "Tag",
         width = 100,
         filters = list(
           list(text = "Home", value = "Home"),
@@ -496,7 +496,7 @@ ui <- el_page(
     "custom",
     data = tableData,
     columns = list(
-      list(
+      el_table_column(
         label = "Date",
         width = 180,
         cell = tags$div(
@@ -505,7 +505,7 @@ ui <- el_page(
           tags$span(style = "margin-left: 10px", "{{ scope.row.date }}")
         )
       ),
-      list(
+      el_table_column(
         label = "Name",
         width = 180,
         cell = el$popover(
@@ -524,7 +524,7 @@ ui <- el_page(
           )
         )
       ),
-      list(
+      el_table_column(
         label = "Operations",
         cell = tagList(
           el$button(
@@ -572,9 +572,9 @@ ui <- el_page(
     "searchable",
     data = tableData,
     columns = list(
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column(
         align = "right",
         header = el$input(
           "v-model" = "$store.search.text",
@@ -661,7 +661,7 @@ ui <- el_page(
     "expandable",
     data = tableData,
     columns = list(
-      list(
+      el_table_column(
         type = "expand",
         cell = tags$div(
           style = "margin: 16px",
@@ -681,8 +681,8 @@ ui <- el_page(
           )
         )
       ),
-      list(label = "Date", prop = "date"),
-      list(label = "Name", prop = "name")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name")
     )
   )
 )
@@ -766,9 +766,9 @@ tags$div(
     border = TRUE,
     default_expand_all = TRUE,
     columns = list(
-      list(prop = "date", label = "Date", sortable = TRUE),
-      list(prop = "name", label = "Name", sortable = TRUE),
-      list(prop = "address", label = "Address", sortable = TRUE)
+      el_table_column("date", "Date", sortable = TRUE),
+      el_table_column("name", "Name", sortable = TRUE),
+      el_table_column("address", "Address", sortable = TRUE)
     )
   ),
   tags$div(style = "height: 20px"),
@@ -792,9 +792,9 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -814,11 +814,11 @@ tags$div(
     border = TRUE,
     show_summary = TRUE,
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Amount 1", sortable = TRUE),
-      list(prop = "amount2", label = "Amount 2", sortable = TRUE),
-      list(prop = "amount3", label = "Amount 3", sortable = TRUE)
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Amount 1", sortable = TRUE),
+      el_table_column("amount2", "Amount 2", sortable = TRUE),
+      el_table_column("amount3", "Amount 3", sortable = TRUE)
     )
   ),
   tags$div(style = "height: 20px"),
@@ -843,11 +843,11 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Cost 1 ($)"),
-      list(prop = "amount2", label = "Cost 2 ($)"),
-      list(prop = "amount3", label = "Cost 3 ($)")
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Cost 1 ($)"),
+      el_table_column("amount2", "Cost 2 ($)"),
+      el_table_column("amount3", "Cost 3 ($)")
     )
   )
 )
@@ -874,11 +874,11 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Amount 1", sortable = TRUE),
-      list(prop = "amount2", label = "Amount 2", sortable = TRUE),
-      list(prop = "amount3", label = "Amount 3", sortable = TRUE)
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Amount 1", sortable = TRUE),
+      el_table_column("amount2", "Amount 2", sortable = TRUE),
+      el_table_column("amount3", "Amount 3", sortable = TRUE)
     )
   ),
   tags$div(style = "height: 20px"),
@@ -896,11 +896,11 @@ tags$div(
       "}"
     ),
     columns = list(
-      list(prop = "id", label = "ID", width = 180),
-      list(prop = "name", label = "Name"),
-      list(prop = "amount1", label = "Amount 1"),
-      list(prop = "amount2", label = "Amount 2"),
-      list(prop = "amount3", label = "Amount 3")
+      el_table_column("id", "ID", width = 180),
+      el_table_column("name", "Name"),
+      el_table_column("amount1", "Amount 1"),
+      el_table_column("amount2", "Amount 2"),
+      el_table_column("amount3", "Amount 3")
     )
   )
 )
@@ -919,10 +919,13 @@ el_table(
   "idx",
   data = tableData,
   columns = list(
-    list(type = "index", index = JS("function(index) { return index * 2; }")),
-    list(prop = "date", label = "Date", width = 180),
-    list(prop = "name", label = "Name", width = 180),
-    list(prop = "address", label = "Address")
+    el_table_column(
+      type = "index",
+      index = JS("function(index) { return index * 2; }")
+    ),
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 
@@ -941,16 +944,16 @@ el_table(
   "tt",
   data = tableData,
   columns = list(
-    list(type = "selection", width = 55),
-    list(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
-    list(prop = "name", label = "Name", width = 120),
-    list(
-      prop = "address",
-      label = "use show-overflow-tooltip",
+    el_table_column(type = "selection", width = 55),
+    el_table_column(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
+    el_table_column("name", "Name", width = 120),
+    el_table_column(
+      "address",
+      "use show-overflow-tooltip",
       width = 240,
       show_overflow_tooltip = TRUE
     ),
-    list(prop = "address", label = "address")
+    el_table_column("address", "address")
   )
 )
 
@@ -976,17 +979,15 @@ el_table(
   data = tableData,
   height = 250,
   columns = list(
-    list(prop = "date", label = "Date"),
-    list(prop = "name", label = "Name"),
-    list(prop = "zip", label = "Zip"),
-    list(
+    el_table_column("date", "Date"),
+    el_table_column("name", "Name"),
+    el_table_column("zip", "Zip"),
+    el_table_column(
       label = "Address Info",
       fixed = "right",
-      children = list(
-        list(prop = "state", label = "State"),
-        list(prop = "city", label = "City"),
-        list(prop = "address", label = "Address", min_width = 200)
-      )
+      el_table_column("state", "State"),
+      el_table_column("city", "City"),
+      el_table_column("address", "Address", min_width = 200)
     )
   )
 )
@@ -1034,14 +1035,14 @@ ui <- el_page(
     default_expand_all = TRUE,
     tree_props = list(checkStrictly = FALSE),
     columns = list(
-      list(
+      el_table_column(
         type = "selection",
         width = 55,
         selectable = JS("function(row) { return ![1, 31].includes(row.id); }")
       ),
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -1080,9 +1081,9 @@ ui <- el_page(
     data = tableData,
     table_layout = "fixed",
     columns = list(
-      list(prop = "date", label = "Date"),
-      list(prop = "name", label = "Name"),
-      list(prop = "address", label = "Address")
+      el_table_column("date", "Date"),
+      el_table_column("name", "Name"),
+      el_table_column("address", "Address")
     )
   )
 )
@@ -1128,10 +1129,10 @@ tagList(
       "function(data) { return data.cellValue + ': table formatter'; }"
     ),
     columns = list(
-      list(prop = "address", label = "extends table formatter", width = 240),
-      list(
-        prop = "tags",
-        label = "formatter object",
+      el_table_column("address", "extends table formatter", width = 240),
+      el_table_column(
+        "tags",
+        "formatter object",
         width = 240,
         tooltip_formatter = JS(
           "function({ row }) { return row.tags.join(', '); }"
@@ -1144,9 +1145,9 @@ tagList(
           "{{ tag }}"
         )
       ),
-      list(
-        prop = "url",
-        label = "with vnode",
+      el_table_column(
+        "url",
+        "with vnode",
         width = 240,
         tooltip_formatter = JS(
           "function(data) {",

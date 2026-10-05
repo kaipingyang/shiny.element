@@ -13,21 +13,9 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes"
-      ),
-      list(
-        target = "#t_more",
-        title = "Other Actions",
-        description = "Click to see other"
-      )
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step("#t_save", "Save", "Save your changes"),
+      el_tour_step("#t_more", "Other Actions", "Click to see other")
     )
   )
 )
@@ -57,21 +45,9 @@ ui <- el_page(
     type = "primary",
     mask = FALSE,
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes"
-      ),
-      list(
-        target = "#t_more",
-        title = "Other Actions",
-        description = "Click to see other"
-      )
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step("#t_save", "Save", "Save your changes"),
+      el_tour_step("#t_more", "Other Actions", "Click to see other")
     )
   )
 )
@@ -92,22 +68,17 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
+      el_tour_step(
         title = "Center",
         description = "Displayed in the center of screen."
       ),
-      list(
-        title = "Right",
-        description = "On the right of target.",
-        placement = "right",
-        target = "#t_btn"
+      el_tour_step(
+        "#t_btn",
+        "Right",
+        "On the right of target.",
+        placement = "right"
       ),
-      list(
-        title = "Top",
-        description = "On the top of target.",
-        placement = "top",
-        target = "#t_btn"
-      )
+      el_tour_step("#t_btn", "Top", "On the top of target.", placement = "top")
     )
   )
 )
@@ -138,15 +109,11 @@ ui <- el_page(
       color = "rgba(80, 255, 255, .4)"
     ),
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes",
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step(
+        "#t_save",
+        "Save",
+        "Save your changes",
         mask = list(
           style = list(boxShadow = "inset 0 0 15px #fff"),
           color = "rgba(40, 0, 255, .4)"
@@ -179,16 +146,8 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
-        target = "#t_up",
-        title = "Upload File",
-        description = "Put you files here."
-      ),
-      list(
-        target = "#t_save",
-        title = "Save",
-        description = "Save your changes"
-      )
+      el_tour_step("#t_up", "Upload File", "Put you files here."),
+      el_tour_step("#t_save", "Save", "Save your changes")
     ),
     slots = list(
       indicators = template(
@@ -228,16 +187,8 @@ ui <- el_page(
   el_tour(
     "tour",
     steps = list(
-      list(
-        target = "#first",
-        title = "By id",
-        description = "A selector for an id."
-      ),
-      list(
-        target = ".second",
-        title = "By class",
-        description = "A selector for a class."
-      )
+      el_tour_step("#first", "By id", "A selector for an id."),
+      el_tour_step(".second", "By class", "A selector for a class.")
     )
   )
 )

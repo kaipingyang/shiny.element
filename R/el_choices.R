@@ -185,6 +185,10 @@
       direction = c("vertical", "horizontal"),
       size = c("", "large", "default", "small")
     ),
+    el_descriptions_item = list(
+      align = c("left", "center", "right"),
+      label_align = c("left", "center", "right")
+    ),
     el_divider = list(
       direction = c("horizontal", "vertical"),
       content_position = c("left", "right", "center")
@@ -379,6 +383,19 @@
       tag_type = c("", "success", "info", "warning", "danger", "primary"),
       tag_effect = c("", "light", "dark", "plain")
     ),
+    el_skeleton_item = list(
+      variant = c(
+        "p",
+        "text",
+        "h1",
+        "h3",
+        "caption",
+        "button",
+        "image",
+        "circle",
+        "rect"
+      )
+    ),
     el_slider = list(
       size = c("", "large", "default", "small"),
       input_size = c("", "large", "default", "small"),
@@ -399,6 +416,9 @@
     ),
     el_space = list(direction = c("vertical", "horizontal")),
     el_splitter = list(layout = c("horizontal", "vertical")),
+    el_step = list(
+      status = c("", "wait", "process", "finish", "error", "success")
+    ),
     el_steps = list(
       direction = c("vertical", "horizontal"),
       process_status = c("wait", "process", "finish", "error", "success"),
@@ -409,6 +429,25 @@
       size = c("", "large", "default", "small"),
       tooltip_effect = c("dark", "light"),
       table_layout = c("fixed", "auto")
+    ),
+    el_table_column = list(
+      type = c("default", "selection", "index", "expand"),
+      align = c("left", "center", "right"),
+      header_align = c("left", "center", "right"),
+      filter_placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
     ),
     el_tabs = list(
       type = c("", "card", "border-card"),
@@ -428,6 +467,11 @@
     el_timeline = list(
       mode = c("start", "alternate", "alternate-reverse", "end")
     ),
+    el_timeline_item = list(
+      placement = c("top", "bottom"),
+      type = c("primary", "success", "warning", "danger", "info"),
+      size = c("normal", "large")
+    ),
     el_tooltip = list(
       placement = c(
         "top",
@@ -445,6 +489,22 @@
       )
     ),
     el_tour = list(
+      placement = c(
+        "top",
+        "top-start",
+        "top-end",
+        "bottom",
+        "bottom-start",
+        "bottom-end",
+        "left",
+        "left-start",
+        "left-end",
+        "right",
+        "right-start",
+        "right-end"
+      )
+    ),
+    el_tour_step = list(
       placement = c(
         "top",
         "top-start",

@@ -4,7 +4,8 @@
 #' scrolls.
 #'
 #' @param id Anchor ID. Auto-generated if `NULL`.
-#' @param links The links: a list of `list(title =, href = "#section")`, each
+#' @param links The links, each an [el_anchor_link()] -- or a
+#'   `list(title =, href = "#section")`, each
 #'   with optional `children`, a list of links one level down.
 #' @param container A CSS selector for the element that scrolls, when it is
 #'   not the page.

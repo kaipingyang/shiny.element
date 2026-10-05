@@ -17,7 +17,8 @@ el_breadcrumb(
 \arguments{
 \item{id}{Breadcrumb ID. Auto-generated if \code{NULL}.}
 
-\item{items}{The trail, as a list of \code{list(label =, to =)}. \code{to} is
+\item{items}{The trail, a list of \code{\link[=el_breadcrumb_item]{el_breadcrumb_item()}}s -- or of
+\code{list(label =, to =)}. \code{to} is
 optional and makes that step a link; the last step is usually plain text.}
 
 \item{separator}{Separator character. Default \code{"/"}.}

@@ -22,26 +22,22 @@ By default Menu is vertical, but you can change it to horizontal by setting the 
 
 ```{r basic, eval = FALSE, shot = TRUE}
 items <- list(
-  list(index = "1", label = "Processing Center"),
-  list(
-    index = "2",
-    title = "Workspace",
-    children = list(
-      list(index = "2-1", label = "item one"),
-      list(index = "2-2", label = "item two"),
-      list(index = "2-3", label = "item three"),
-      list(
-        index = "2-4",
-        title = "item four",
-        children = list(
-          list(index = "2-4-1", label = "item one"),
-          list(index = "2-4-2", label = "item two")
-        )
-      )
+  el_menu_item("Processing Center", "1"),
+  el_sub_menu(
+    "Workspace",
+    "2",
+    el_menu_item("item one", "2-1"),
+    el_menu_item("item two", "2-2"),
+    el_menu_item("item three", "2-3"),
+    el_sub_menu(
+      "item four",
+      "2-4",
+      el_menu_item("item one", "2-4-1"),
+      el_menu_item("item two", "2-4-2")
     )
   ),
-  list(index = "3", label = "Info", disabled = TRUE),
-  list(index = "4", label = "Orders")
+  el_menu_item("Info", "3", disabled = TRUE),
+  el_menu_item("Orders", "4")
 )
 tagList(
   el_menu(
@@ -76,13 +72,9 @@ el_menu(
   mode = "horizontal",
   ellipsis = FALSE,
   items = list(
-    list(index = "0", label = "LOGO"),
-    list(index = "1", label = "Processing Center"),
-    list(
-      index = "2",
-      title = "Workspace",
-      children = list(list(index = "2-1", label = "item one"))
-    )
+    el_menu_item("LOGO", "0"),
+    el_menu_item("Processing Center", "1"),
+    el_sub_menu("Workspace", "2", el_menu_item("item one", "2-1"))
   )
 )
 ```
@@ -95,39 +87,21 @@ You can use the el-menu-item-group component to create a menu group, and the nam
 
 ```{r vertical, eval = FALSE, shot = TRUE}
 items <- list(
-  list(
-    index = "1",
-    title = "Navigator One",
-    icon = "Location",
-    children = list(
-      list(
-        group = TRUE,
-        title = "Group One",
-        children = list(
-          list(index = "1-1", label = "item one"),
-          list(index = "1-2", label = "item two")
-        )
-      ),
-      list(
-        group = TRUE,
-        title = "Group Two",
-        children = list(list(index = "1-3", label = "item three"))
-      ),
-      list(
-        index = "1-4",
-        title = "item four",
-        children = list(list(index = "1-4-1", label = "item one"))
-      )
-    )
+  el_sub_menu(
+    "Navigator One",
+    "1",
+    el_menu_item_group(
+      "Group One",
+      el_menu_item("item one", "1-1"),
+      el_menu_item("item two", "1-2")
+    ),
+    el_menu_item_group("Group Two", el_menu_item("item three", "1-3")),
+    el_sub_menu("item four", "1-4", el_menu_item("item one", "1-4-1")),
+    icon = "Location"
   ),
-  list(index = "2", label = "Navigator Two", icon = "Menu"),
-  list(
-    index = "3",
-    label = "Navigator Three",
-    icon = "Document",
-    disabled = TRUE
-  ),
-  list(index = "4", label = "Navigator Four", icon = "Setting")
+  el_menu_item("Navigator Two", "2", icon = "Menu"),
+  el_menu_item("Navigator Three", "3", icon = "Document", disabled = TRUE),
+  el_menu_item("Navigator Four", "4", icon = "Setting")
 )
 el_row(
   el_col(
@@ -160,18 +134,16 @@ el_menu(
   active = "2",
   collapse = TRUE,
   items = list(
-    list(
-      index = "1",
-      title = "Navigator One",
-      icon = "Location",
-      children = list(
-        list(index = "1-1", label = "item one"),
-        list(index = "1-2", label = "item two")
-      )
+    el_sub_menu(
+      "Navigator One",
+      "1",
+      el_menu_item("item one", "1-1"),
+      el_menu_item("item two", "1-2"),
+      icon = "Location"
     ),
-    list(index = "2", label = "Navigator Two", icon = "Menu"),
-    list(index = "3", label = "Navigator Three", icon = "Document"),
-    list(index = "4", label = "Navigator Four", icon = "Setting")
+    el_menu_item("Navigator Two", "2", icon = "Menu"),
+    el_menu_item("Navigator Three", "3", icon = "Document"),
+    el_menu_item("Navigator Four", "4", icon = "Setting")
   )
 )
 ```
@@ -187,15 +159,13 @@ el_menu(
   popper_offset = 16,
   ellipsis = FALSE,
   items = list(
-    list(index = "1", label = "Processing Center"),
-    list(
-      index = "2",
-      title = "Workspace",
-      popper_offset = 8,
-      children = list(
-        list(index = "2-1", label = "item one"),
-        list(index = "2-2", label = "item two")
-      )
+    el_menu_item("Processing Center", "1"),
+    el_sub_menu(
+      "Workspace",
+      "2",
+      el_menu_item("item one", "2-1"),
+      el_menu_item("item two", "2-2"),
+      popper_offset = 8
     )
   )
 )

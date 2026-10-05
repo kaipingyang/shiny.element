@@ -17,7 +17,8 @@ el_collapse(
 \arguments{
 \item{id}{Collapse ID. Auto-generated UUID if \code{NULL}.}
 
-\item{items}{A list of panels. Each is a named list with:
+\item{items}{A list of panels, each an \code{\link[=el_collapse_item]{el_collapse_item()}} -- or a
+named list with the same fields:
 \describe{
 \item{name}{Unique panel identifier (string). Required.}
 \item{title}{Panel header text. Required.}

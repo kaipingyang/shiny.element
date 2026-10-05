@@ -86,11 +86,15 @@ Element Plus's \code{row-event-handlers}.}
 \item{cell_props}{Extra props passed to each cell (except header cells).
 Element Plus's \code{cell-props}. Give it as \code{\link[=JS]{JS()}}.}
 
-\item{columns}{The columns: a list of \code{list(key =, dataKey =, title =, width =)} and Element Plus's other column fields. \code{NULL} makes one per
+\item{columns}{The columns, each an \code{\link[=el_table_v2_column]{el_table_v2_column()}} -- or a
+\code{list(key =, dataKey =, title =, width =)} with Element Plus's other
+column fields. \code{NULL} makes one per
 variable of a data.frame \code{data}, 150 pixels wide.}
 
 \item{data}{The rows: a data.frame, or a list of rows. Element Plus's
-\code{data}.}
+\code{data}. A vector of one
+element travels as a single value, as in Shiny; wrap it in \code{I()} to
+keep it an array: \code{tags = I("red")}.}
 
 \item{data_getter}{A method to customize data fetch from the data source.
 Element Plus's \code{data-getter}. Give it as \code{\link[=JS]{JS()}}.}

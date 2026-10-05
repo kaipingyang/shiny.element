@@ -22,7 +22,8 @@ el_steps(
 \arguments{
 \item{id}{Steps ID (auto-generated if NULL)}
 
-\item{steps}{List of step definitions, each with \code{title}, \code{description},
+\item{steps}{A list of steps, each an \code{\link[=el_step]{el_step()}} -- or a list with
+\code{title}, \code{description},
 \code{icon} and \code{status}. \code{title}, \code{description} and \code{icon} may be markup
 rather than text, which fills the step's slot of that name.}
 
