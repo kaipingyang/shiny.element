@@ -117,7 +117,7 @@ el_switch <- function(
 ) {
   .el_check_choices("el_switch", environment())
   if (is.null(id)) {
-    id <- paste0("el_switch_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_switch")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

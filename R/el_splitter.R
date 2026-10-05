@@ -33,7 +33,7 @@ el_splitter <- function(
 ) {
   .el_check_choices("el_splitter", environment())
   if (is.null(id)) {
-    id <- paste0("el_splitter_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_splitter")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(

@@ -144,7 +144,7 @@ el_tooltip <- function(
   inner <- .el_absorb(reference)
 
   if (is.null(id)) {
-    id <- paste0("el_tooltip_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_tooltip")
   }
   ns_id <- .el_ui_id(id, session)
 

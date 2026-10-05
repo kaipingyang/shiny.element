@@ -34,6 +34,7 @@ ui <- el_page(
   vue_output("mixed_out"),
   vue_output("tabs_out"),
   vue_output("ident_out"),
+  vue_output("ident_uuid_out"),
   actionButton("drop", "remove the table"),
   verbatimTextOutput("vals")
 )
@@ -100,6 +101,13 @@ server <- function(input, output, session) {
       tags$b(class = "ident", "{{ n }}"),
       data = list(n = 1),
       input = "n"
+    )
+  )
+  # an id of the author's that looks generated is still the author's
+  output$ident_uuid_out <- render_vue(
+    el_alert(
+      input$ident_uuid %||% "box_00000000-0000-4000-8000-000000000001",
+      title = "uuid-looking id"
     )
   )
   output$tabs_out <- render_vue(el_tabs(

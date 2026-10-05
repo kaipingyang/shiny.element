@@ -109,6 +109,19 @@
   if (is.null(x)) NA else x
 }
 
+#' An id for a component given none
+#'
+#' Drawn at random, and marked as such: [render_vue()] does not take a new
+#' one, each render, for another component, as it does an id the author
+#' gave.
+#'
+#' @param prefix The component's name, `"el_input"`.
+#' @return The id, with attribute `generated`.
+#' @keywords internal
+.el_auto_id <- function(prefix) {
+  structure(paste0(prefix, "_", uuid::UUIDgenerate()), generated = TRUE)
+}
+
 #' The id a UI function gives its component
 #'
 #' A UI function does not namespace its `id`, any more than
@@ -126,12 +139,14 @@
 #' @return The id the component uses.
 #' @keywords internal
 .el_ui_id <- function(id, session = NULL) {
+  generated <- attr(id, "generated")
   # Set by the package's own articles, which render many examples on one page:
   # two that both use "city" would otherwise share one id.
   prefix <- getOption("shiny.element.id_prefix")
   if (!is.null(prefix)) {
     id <- paste0(prefix, id)
   }
+  attr(id, "generated") <- generated
   if (is.null(session)) {
     return(id)
   }
@@ -750,18 +765,18 @@
 }
 
 
-#' The rest of a component's arguments, set from its update function
+#' Props an update function was given, as the component's fields
 #'
-#' `update_el_<name>(...)` takes any other argument of `el_<name>()` by its
-#' name. Each sets the component's field of that name in camelCase
-#' (`table_layout` -> `tableLayout`) -- the field the prop is bound to,
-#' with `NA` standing for Element's default -- or the field `rename` names.
-#' `NULL` sends the prop back to Element's default. An argument the UI
+#' `update_el_<name>()` takes `el_<name>()`'s arguments under the same names.
+#' Each sets the component's field of that name in camelCase (`table_layout`
+#' -> `tableLayout`) -- the field the prop is bound to, `NA` standing for
+#' Element's default -- or the field `rename` names. An argument the UI
 #' function does not have, or one that cannot change once drawn (`skip`), is
 #' an error; enumerated ones are checked as the UI function checks them.
 #'
 #' @param fn The UI function's name, `"el_table"`.
-#' @param dots The update's `list(...)`.
+#' @param dots The props given, named by their R names; leave out those the
+#'   caller left `NULL`.
 #' @param skip Arguments of `fn` an update cannot set this way.
 #' @param rename `c(<argument> = "<field>")` for a field named otherwise.
 #' @return A named list: field -> value.

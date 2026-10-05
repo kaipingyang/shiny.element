@@ -62,7 +62,7 @@ el_avatar_group <- function(
 ) {
   .el_check_choices("el_avatar_group", environment())
   if (is.null(id)) {
-    id <- paste0("el_avatar_group_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_avatar_group")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())

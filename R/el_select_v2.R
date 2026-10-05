@@ -228,7 +228,7 @@ el_select_v2 <- function(
     options <- .el_normalize_choices(options)
   }
   if (is.null(id)) {
-    id <- paste0("el_select_v2_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_select_v2")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(

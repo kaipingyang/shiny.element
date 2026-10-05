@@ -46,7 +46,7 @@ el_affix <- function(
 ) {
   .el_check_choices("el_affix", environment())
   if (is.null(id)) {
-    id <- paste0("el_affix_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_affix")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(

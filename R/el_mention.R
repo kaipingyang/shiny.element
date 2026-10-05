@@ -93,7 +93,7 @@ el_mention <- function(
     options <- .el_normalize_choices(options)
   }
   if (is.null(id)) {
-    id <- paste0("el_mention_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_mention")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("search", "select", "whole-remove"))

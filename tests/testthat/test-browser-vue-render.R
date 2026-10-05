@@ -178,6 +178,16 @@ test_that("render_vue() keeps the component and the user's state", {
   expect_true(js("!!document.querySelector('#new_id .ident')"))
   expect_equal(js("Shiny.shinyapp.$inputValues.new_id"), 1)
 
+  # ... even one that looks like a generated <name>_<uuid>: only an id the
+  # package drew itself is ignored
+  old_uuid <- "box_00000000-0000-4000-8000-000000000001"
+  new_uuid <- "box_00000000-0000-4000-8000-000000000002"
+  expect_true(js(sprintf("!!document.getElementById('%s')", old_uuid)))
+  js(sprintf("Shiny.setInputValue('ident_uuid', '%s')", new_uuid))
+  Sys.sleep(1.2)
+  expect_false(js(sprintf("!!document.getElementById('%s')", old_uuid)))
+  expect_true(js(sprintf("!!document.getElementById('%s')", new_uuid)))
+
   # ── removeUI() takes the output and its component away cleanly
   js("document.getElementById('drop').click()")
   Sys.sleep(1)

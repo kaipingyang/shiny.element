@@ -2,14 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{.el_update_props}
 \alias{.el_update_props}
-\title{The rest of a component's arguments, set from its update function}
+\title{Props an update function was given, as the component's fields}
 \usage{
 .el_update_props(fn, dots, skip = character(), rename = character())
 }
 \arguments{
 \item{fn}{The UI function's name, \code{"el_table"}.}
 
-\item{dots}{The update's \code{list(...)}.}
+\item{dots}{The props given, named by their R names; leave out those the
+caller left \code{NULL}.}
 
 \item{skip}{Arguments of \code{fn} an update cannot set this way.}
 
@@ -19,11 +20,10 @@
 A named list: field -> value.
 }
 \description{
-\verb{update_el_<name>(...)} takes any other argument of \verb{el_<name>()} by its
-name. Each sets the component's field of that name in camelCase
-(\code{table_layout} -> \code{tableLayout}) -- the field the prop is bound to,
-with \code{NA} standing for Element's default -- or the field \code{rename} names.
-\code{NULL} sends the prop back to Element's default. An argument the UI
+\verb{update_el_<name>()} takes \verb{el_<name>()}'s arguments under the same names.
+Each sets the component's field of that name in camelCase (\code{table_layout}
+-> \code{tableLayout}) -- the field the prop is bound to, \code{NA} standing for
+Element's default -- or the field \code{rename} names. An argument the UI
 function does not have, or one that cannot change once drawn (\code{skip}), is
 an error; enumerated ones are checked as the UI function checks them.
 }

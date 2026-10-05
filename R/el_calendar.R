@@ -98,7 +98,7 @@ el_calendar <- function(
   .el_check_choices("el_calendar", environment())
 
   if (is.null(id)) {
-    id <- paste0("el_calendar_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_calendar")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -169,8 +169,10 @@ el_calendar <- function(
 
 #' Update Element Plus Calendar Component
 #'
-#' Server-side update for [el_calendar()]: the selected day, the range, or
-#' any other of its arguments.
+#' Server-side update for [el_calendar()]: the selected day, the range, and
+#' every other argument that can change once the calendar is drawn, under
+#' the same name. One left `NULL` stays as it is; `NA` returns a prop to
+#' Element's default.
 #'
 #' @param id Component id
 #' @param value New value (Date/string/number)
@@ -183,9 +185,7 @@ el_calendar <- function(
 #' @param error An error message to show on the component, as Element's
 #'   `error` does -- for a check only the server can make, such as whether
 #'   a name is taken. `""` clears it.
-#' @param ... Any other argument of [el_calendar()], by its name:
-#'   `controller_type = "select"`, `formatter = JS(...)`. `NULL` returns it
-#'   to Element's default.
+#' @inheritParams el_calendar
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -203,7 +203,8 @@ update_el_calendar <- function(
   range = NULL,
   label = NULL,
   error = NULL,
-  ...
+  controller_type = NULL,
+  formatter = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -211,14 +212,9 @@ update_el_calendar <- function(
     list(id = ns_id),
     .el_update_props(
       "el_calendar",
-      list(...),
-      skip = c(
-        "label_position",
-        "label_width",
-        "label_suffix",
-        "required",
-        "show_message",
-        "inline_message"
+      Filter(
+        Negate(is.null),
+        list(controller_type = controller_type, formatter = formatter)
       )
     )
   )

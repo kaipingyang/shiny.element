@@ -71,7 +71,7 @@ el_collapse <- function(
   .el_check_choices("el_collapse", environment())
   expand_icon_position <- match.arg(expand_icon_position, c("right", "left"))
   if (is.null(id)) {
-    id <- paste0("el_collapse_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_collapse")
   }
   ns_id <- .el_ui_id(id, session)
   value <- shiny::restoreInput(ns_id, value)

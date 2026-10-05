@@ -60,7 +60,7 @@ el_color_picker_panel <- function(
 ) {
   .el_check_choices("el_color_picker_panel", environment())
   if (is.null(id)) {
-    id <- paste0("el_color_picker_panel_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_color_picker_panel")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())

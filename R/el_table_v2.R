@@ -145,7 +145,7 @@ el_table_v2 <- function(
     stop("`methods` must be a named list of JS() functions.", call. = FALSE)
   }
   if (is.null(id)) {
-    id <- paste0("el_table_v2_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_table_v2")
   }
   ns_id <- .el_ui_id(id, NULL)
   # A data.frame is rows; columns not given are one per variable
@@ -264,20 +264,20 @@ el_table_v2 <- function(
 
 #' Update Element Plus Virtualized Table
 #'
-#' Server-side update for [el_table_v2()]: new rows, new columns, or the sort
-#' indicator. Rows are given as for [el_table_v2()], a data.frame or a list
-#' of rows; a data.frame without `columns` keeps the table's columns.
+#' Server-side update for [el_table_v2()]: every argument that can change
+#' once the table is drawn, under the same name. One left `NULL` stays as it
+#' is; `NA` returns a prop to Element's default. Rows are given as for
+#' [el_table_v2()], a data.frame or a list of rows; a data.frame without
+#' `columns` keeps the table's columns. `methods`, `slots`, `width`,
+#' `auto_resize` and `default_expanded_row_keys`, which Element reads only
+#' when the table is created, are not here.
 #'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Table ID (un-namespaced).
 #' @param data,columns,sort_by,expanded_row_keys New values; `NULL` leaves
 #'   one unchanged.
-#' @param ... Any other argument of [el_table_v2()], by its name:
-#'   `sort_state = list(id = "desc")`, `fixed_data = ...`, `row_class =
-#'   JS(...)`, `height = 500`. `NULL` returns it to Element's default.
-#'   `methods`, `slots`, `width` and `auto_resize` are fixed when the table
-#'   is drawn.
+#' @inheritParams el_table_v2
 #'
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
@@ -297,15 +297,68 @@ update_el_table_v2 <- function(
   columns = NULL,
   sort_by = NULL,
   expanded_row_keys = NULL,
-  ...
+  cache = NULL,
+  estimated_row_height = NULL,
+  header_class = NULL,
+  header_props = NULL,
+  header_cell_props = NULL,
+  header_height = NULL,
+  footer_height = NULL,
+  row_class = NULL,
+  row_key = NULL,
+  row_props = NULL,
+  row_height = NULL,
+  row_event_handlers = NULL,
+  cell_props = NULL,
+  data_getter = NULL,
+  fixed_data = NULL,
+  expand_column_key = NULL,
+  fixed = NULL,
+  table_v2_width = NULL,
+  height = NULL,
+  max_height = NULL,
+  indent_size = NULL,
+  h_scrollbar_size = NULL,
+  v_scrollbar_size = NULL,
+  scrollbar_always_on = NULL,
+  sort_state = NULL
 ) {
   .el_check_session(session)
+  props <- mget(
+    c(
+      "cache",
+      "estimated_row_height",
+      "header_class",
+      "header_props",
+      "header_cell_props",
+      "header_height",
+      "footer_height",
+      "row_class",
+      "row_key",
+      "row_props",
+      "row_height",
+      "row_event_handlers",
+      "cell_props",
+      "data_getter",
+      "fixed_data",
+      "expand_column_key",
+      "fixed",
+      "table_v2_width",
+      "height",
+      "max_height",
+      "indent_size",
+      "h_scrollbar_size",
+      "v_scrollbar_size",
+      "scrollbar_always_on",
+      "sort_state"
+    ),
+    environment()
+  )
   msg <- c(
     list(id = session$ns(id)),
     .el_update_props(
       "el_table_v2",
-      list(...),
-      skip = c("methods", "auto_resize"),
+      Filter(Negate(is.null), props),
       rename = c(table_v2_width = "width")
     )
   )

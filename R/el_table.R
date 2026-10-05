@@ -569,7 +569,7 @@ el_table <- function(
   columns <- args$columns
 
   if (is.null(id)) {
-    id <- paste0("el_table_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_table")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")
@@ -991,6 +991,13 @@ el_table <- function(
 
 #' Update Element Plus Table
 #'
+#' Changes a table from the server, as [shiny::updateSelectInput()] does a
+#' select: every argument of [el_table()] that can change once the table is
+#' drawn, under the same name. One left `NULL` stays as it is; `NA` returns
+#' a prop to Element's default. `rownames`, `slots`, `width` and the
+#' `default_*` arguments, which Element reads only when the table is
+#' created, are not here.
+#'
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Table ID (un-namespaced).
@@ -1002,11 +1009,7 @@ el_table <- function(
 #' @param border New border state.
 #' @param selection New row-selection state.
 #' @param loading Show or hide the loading mask.
-#' @param ... Any other argument of [el_table()], by its name: `stripe =
-#'   TRUE`, `table_layout = "auto"`, `tree_props = list(checkStrictly =
-#'   TRUE)`, `row_class_name = JS(...)`. `NULL` returns it to Element's
-#'   default. `rownames`, `slots` and `width` are fixed when the table is
-#'   drawn.
+#' @inheritParams el_table
 #' @details A column's `cell` template is part of the table's markup, made
 #'   when the table is. New columns given here keep the template of the
 #'   column with the same `prop` (or label) and may drop it, but cannot
@@ -1020,6 +1023,8 @@ el_table <- function(
 #'   })
 #'   # any other argument of el_table()
 #'   update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
+#'   # back to Element's default
+#'   update_el_table(session, "tbl", stripe = NA)
 #' }
 #' @export
 update_el_table <- function(
@@ -1030,13 +1035,99 @@ update_el_table <- function(
   border = NULL,
   selection = NULL,
   loading = NULL,
-  ...
+  stripe = NULL,
+  size = NULL,
+  height = NULL,
+  max_height = NULL,
+  fit = NULL,
+  show_header = NULL,
+  highlight_current_row = NULL,
+  current_row_key = NULL,
+  row_key = NULL,
+  empty_text = NULL,
+  expand_row_keys = NULL,
+  tooltip_effect = NULL,
+  show_summary = NULL,
+  sum_text = NULL,
+  select_on_indeterminate = NULL,
+  indent = NULL,
+  lazy = NULL,
+  tree_props = NULL,
+  row_class_name = NULL,
+  row_style = NULL,
+  cell_class_name = NULL,
+  cell_style = NULL,
+  header_row_class_name = NULL,
+  header_row_style = NULL,
+  header_cell_class_name = NULL,
+  header_cell_style = NULL,
+  span_method = NULL,
+  summary_method = NULL,
+  load = NULL,
+  allow_drag_last_column = NULL,
+  append_filter_panel_to = NULL,
+  flexible = NULL,
+  native_scrollbar = NULL,
+  preserve_expanded_content = NULL,
+  row_expandable = NULL,
+  scrollbar_always_on = NULL,
+  scrollbar_tabindex = NULL,
+  show_overflow_tooltip = NULL,
+  table_layout = NULL,
+  tooltip_formatter = NULL,
+  tooltip_options = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
+  props <- mget(
+    c(
+      "stripe",
+      "size",
+      "height",
+      "max_height",
+      "fit",
+      "show_header",
+      "highlight_current_row",
+      "current_row_key",
+      "row_key",
+      "empty_text",
+      "expand_row_keys",
+      "tooltip_effect",
+      "show_summary",
+      "sum_text",
+      "select_on_indeterminate",
+      "indent",
+      "lazy",
+      "tree_props",
+      "row_class_name",
+      "row_style",
+      "cell_class_name",
+      "cell_style",
+      "header_row_class_name",
+      "header_row_style",
+      "header_cell_class_name",
+      "header_cell_style",
+      "span_method",
+      "summary_method",
+      "load",
+      "allow_drag_last_column",
+      "append_filter_panel_to",
+      "flexible",
+      "native_scrollbar",
+      "preserve_expanded_content",
+      "row_expandable",
+      "scrollbar_always_on",
+      "scrollbar_tabindex",
+      "show_overflow_tooltip",
+      "table_layout",
+      "tooltip_formatter",
+      "tooltip_options"
+    ),
+    environment()
+  )
   msg <- c(
     list(id = ns_id),
-    .el_update_props("el_table", list(...), skip = "rownames")
+    .el_update_props("el_table", Filter(Negate(is.null), props))
   )
 
   if (!is.null(data) || !is.null(columns)) {

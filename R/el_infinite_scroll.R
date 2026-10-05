@@ -71,7 +71,7 @@ el_infinite_scroll <- function(
   inners <- lapply(list(...), .el_absorb)
 
   if (is.null(id)) {
-    id <- paste0("el_infinite_scroll_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_infinite_scroll")
   }
   ns_id <- .el_ui_id(id, session)
 

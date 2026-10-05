@@ -105,7 +105,7 @@ el_date_picker_panel <- function(
   date_format <- .el_dayjs_format(date_format)
   time_format <- .el_dayjs_format(time_format)
   if (is.null(id)) {
-    id <- paste0("el_date_picker_panel_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_date_picker_panel")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(

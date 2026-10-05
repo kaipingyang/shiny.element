@@ -331,63 +331,52 @@ test_that("every updater of a Vue component sends only declared fields", {
   }
 })
 
-# An update's `...` takes the rest of the UI function's arguments; each must
-# land on a field the component declares.
-test_that("update ... sets every other argument of the UI function", {
-  dots_cases <- list(
+# An update takes, under the same names, every argument of the UI function
+# that can change once the component is drawn -- not only a chosen few.
+test_that("an update takes every argument of its UI function that can change", {
+  fixed <- c("id", "session", "slots", "width")
+  cases <- list(
+    list("update_el_table", "el_table", "rownames"),
+    list("update_el_table_v2", "el_table_v2", c("methods", "auto_resize")),
     list(
-      "update_el_table",
-      "el_table",
-      quote(el_table("x", data = data.frame(a = 1)))
-    ),
-    list(
-      "update_el_table_v2",
-      "el_table_v2",
-      quote(el_table_v2("x", data = data.frame(a = 1)))
-    ),
-    list("update_el_calendar", "el_calendar", quote(el_calendar("x")))
-  )
-  for (case in dots_cases) {
-    fn <- get(case[[1]])
-    named <- setdiff(names(formals(fn)), c("session", "id", "..."))
-    ui_args <- setdiff(
-      names(formals(get(case[[2]]))),
-      c(named, "id", "session", "slots", "width")
+      "update_el_calendar",
+      "el_calendar",
+      c(
+        "label_position",
+        "label_width",
+        "label_suffix",
+        "required",
+        "show_message",
+        "inline_message"
+      )
     )
-    declared <- vue_data_keys(eval(case[[3]]))
-    for (arg in ui_args) {
-      sent <- tryCatch(
-        capture_update(fn, stats::setNames(list(NULL), arg)),
-        error = function(e) NULL
-      )
-      if (is.null(sent)) {
-        next # an argument the update refuses: fixed once drawn
-      }
-      expect_true(
-        all(sent %in% declared),
-        info = paste0(case[[1]], "(", arg, " =) sends ", toString(sent))
-      )
-    }
+  )
+  for (case in cases) {
+    ui <- setdiff(names(formals(get(case[[2]]))), c(fixed, case[[3]]))
+    # Element reads these only when the component is created
+    ui <- ui[!startsWith(ui, "default_")]
+    expect_equal(
+      setdiff(ui, names(formals(get(case[[1]])))),
+      character(),
+      info = case[[1]]
+    )
   }
 })
 
-test_that("update ... refuses what the UI function does not take", {
-  session <- list(ns = function(id) id, sendCustomMessage = function(...) NULL)
-  expect_error(
-    update_el_table(session, "x", stripes = TRUE),
-    "not an argument of `el_table\\(\\)`"
+test_that("an update leaves NULL as it is and sends NA as Element's default", {
+  sent <- NULL
+  session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) sent <<- msg
   )
-  expect_error(
-    update_el_table(session, "x", rownames = TRUE),
-    "not an argument"
-  )
+  update_el_table(session, "x", stripe = TRUE, table_layout = NA)
+  expect_true(sent$stripe)
+  expect_true(is.na(sent$tableLayout))
+  expect_false("size" %in% names(sent))
+  update_el_table_v2(session, "x", table_v2_width = 500)
+  expect_equal(sent$width, 500)
   expect_error(
     update_el_calendar(session, "x", controller_type = "dial"),
     "should be one of"
   )
-  sent <- NULL
-  session$sendCustomMessage <- function(type, msg) sent <<- msg
-  update_el_table(session, "x", stripe = TRUE, table_layout = NULL)
-  expect_true(sent$stripe)
-  expect_true(is.na(sent$tableLayout))
 })

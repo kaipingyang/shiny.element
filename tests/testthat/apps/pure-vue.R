@@ -79,9 +79,10 @@ ui <- fluidPage(
     tags$div(
       tags$button(class = "pair", `@click` = "$emit('pair', 'left', 2)"),
       tags$button(class = "bare", `@click` = "$emit('bare')"),
-      tags$button(class = "nil", `@click` = "$emit('nil', null)")
+      tags$button(class = "nil", `@click` = "$emit('nil', null)"),
+      tags$button(class = "mix", `@click` = "$emit('mix', null, 2)")
     ),
-    emits = c("pair", "bare", "nil")
+    emits = c("pair", "bare", "nil", "mix")
   ),
   # a child registered in snake_case, used in kebab-case
   vue_app(

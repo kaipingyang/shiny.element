@@ -236,7 +236,7 @@ el_menu <- function(
   .el_check_items(items, "items", c("index", "label"))
   .el_check_choices("el_menu", environment())
   if (is.null(id)) {
-    id <- paste0("el_menu_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_menu")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

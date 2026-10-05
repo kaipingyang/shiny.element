@@ -108,7 +108,7 @@ el_drawer <- function(
 ) {
   .el_check_choices("el_drawer", environment())
   if (is.null(id)) {
-    id <- paste0("el_drawer_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_drawer")
   }
   ns_id <- .el_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))

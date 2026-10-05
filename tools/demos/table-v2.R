@@ -1325,7 +1325,9 @@ el_table_v2(
 #| shot_js = "document.querySelector('#rows_btn_container button').click()"
 #| shot_wait = 2
 #' The buttons call the table's `scrollToTop()` and `scrollToRow()` from the
-#' server.
+#' server. `scrollToRow()` is given the strategy `"start"`: with the default,
+#' Element Plus 2.14.7 also scrolls the table to its last column (see
+#' "Limitations").
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
     list(
@@ -1379,7 +1381,12 @@ server <- function(input, output, session) {
     call_el(session, "tv_scroll", "scrollToTop", list(as.numeric(input$delta)))
   })
   observeEvent(input$rows_btn, {
-    call_el(session, "tv_scroll", "scrollToRow", list(as.numeric(input$rows)))
+    call_el(
+      session,
+      "tv_scroll",
+      "scrollToRow",
+      list(as.numeric(input$rows), "start")
+    )
   })
 }
 

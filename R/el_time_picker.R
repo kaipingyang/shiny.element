@@ -118,7 +118,7 @@ el_time_picker <- function(
 ) {
   .el_check_choices("el_time_picker", environment())
   if (is.null(id)) {
-    id <- paste0("el_time_picker_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_time_picker")
   }
   ns_id <- .el_ui_id(id, session)
   init <- if (is.null(value)) {
@@ -219,7 +219,7 @@ el_time_select <- function(
 ) {
   .el_check_choices("el_time_select", environment())
   if (is.null(id)) {
-    id <- paste0("el_time_select_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_time_select")
   }
   ns_id <- .el_ui_id(id, session)
   .el_time_widget(

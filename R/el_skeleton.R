@@ -50,7 +50,7 @@ el_skeleton <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_skeleton_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_skeleton")
   }
   ns_id <- .el_ui_id(id, session)
 

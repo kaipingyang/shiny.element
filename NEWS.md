@@ -192,9 +192,11 @@ button, any component in the header cell. Group headers nest as deep as the
 columns given (they stopped at two levels below the top).
 
 `update_el_table()`, `update_el_table_v2()` and `update_el_calendar()` take
-any other argument of their component by its name -- `stripe`,
-`table_layout`, `tree_props`, `sort_state`, `fixed_data`,
-`controller_type` -- and `NULL` returns one to Element's default.
+every argument of their component that can change once it is drawn, under
+the same name -- `stripe`, `table_layout`, `tree_props`, `sort_state`,
+`fixed_data`, `controller_type` -- each documented on its help page. `NULL`
+leaves one as it is, as in Shiny's updaters; `NA` returns it to Element's
+default.
 `call_el()` reaches a table-v2 with `auto_resize = TRUE`; it used to reach
 the resizer around it.
 

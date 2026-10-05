@@ -60,7 +60,7 @@ el_anchor <- function(
   .el_check_choices("el_anchor", environment())
   .el_check_items(links, "links", c("title", "href"))
   if (is.null(id)) {
-    id <- paste0("el_anchor_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_anchor")
   }
   ns_id <- .el_ui_id(id, NULL)
   link_tags <- function(links) {

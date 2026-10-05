@@ -48,7 +48,7 @@ el_page_header <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_page_header_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_page_header")
   }
   ns_id <- .el_ui_id(id, session)
 

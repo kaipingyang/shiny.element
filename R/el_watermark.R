@@ -51,7 +51,7 @@ el_watermark <- function(
 ) {
   .el_check_choices("el_watermark", environment())
   if (is.null(id)) {
-    id <- paste0("el_watermark_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_watermark")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())

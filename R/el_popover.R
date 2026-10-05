@@ -127,7 +127,7 @@ el_popover <- function(
   inner_body <- .el_absorb(body)
 
   if (is.null(id)) {
-    id <- paste0("el_popover_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_popover")
   }
   ns_id <- .el_ui_id(id, session)
 

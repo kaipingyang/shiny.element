@@ -130,7 +130,7 @@ el_dropdown <- function(
   .el_check_items(items, "items", c("command", "label"))
   .el_check_choices("el_dropdown", environment())
   if (is.null(id)) {
-    id <- paste0("el_dropdown_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_dropdown")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

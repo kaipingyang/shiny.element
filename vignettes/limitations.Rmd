@@ -282,3 +282,12 @@ Data". Text you pass in is yours to translate.
 Shiny's behaviour rather than this package's, but it matters more here: the
 new instance starts from its arguments, so anything the user had changed is
 lost. Prefer `update_el_*()` where you can.
+
+**A table-v2's `scrollToRow()` also scrolls it sideways.** In Element Plus
+2.14.7, with `fixed = TRUE` and columns wider than the table, the default
+strategy scrolls to the last column when the table was at the first: the
+grid behind it is one column as wide as all of them, and the horizontal
+position is put back only when it was not zero. Element Plus's own demo
+does the same. Pass a strategy, `call_el(id = "tbl", method =
+"scrollToRow", args = list(10, "start"))`, and the row goes to the top with
+the columns left where they were.

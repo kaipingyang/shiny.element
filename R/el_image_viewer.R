@@ -63,7 +63,7 @@ el_image_viewer <- function(
 ) {
   .el_check_choices("el_image_viewer", environment())
   if (is.null(id)) {
-    id <- paste0("el_image_viewer_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_image_viewer")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("error", "switch", "rotate"))

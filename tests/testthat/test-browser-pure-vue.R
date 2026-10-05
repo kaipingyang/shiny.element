@@ -130,7 +130,13 @@ test_that("vue_app() works without Element Plus", {
   js("document.querySelector('#em .pair').click()")
   js("document.querySelector('#em .bare').click()")
   js("document.querySelector('#em .nil').click()")
+  js("document.querySelector('#em .mix').click()")
   Sys.sleep(0.8)
+  # a null keeps its place among several
+  expect_equal(
+    js("JSON.stringify(Shiny.shinyapp.$inputValues.em_mix)"),
+    '{"arg1":null,"arg2":2}'
+  )
   expect_equal(
     js("JSON.stringify(Shiny.shinyapp.$inputValues.em_pair)"),
     '{"arg1":"left","arg2":2}'

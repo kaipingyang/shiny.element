@@ -174,7 +174,7 @@ el_tree <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_tree_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_tree")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

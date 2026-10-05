@@ -36,7 +36,7 @@ el_empty <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_empty_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_empty")
   }
   ns_id <- .el_ui_id(id, session)
 

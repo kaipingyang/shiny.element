@@ -130,7 +130,7 @@ el_slider <- function(
 ) {
   .el_check_choices("el_slider", environment())
   if (is.null(id)) {
-    id <- paste0("el_slider_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_slider")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

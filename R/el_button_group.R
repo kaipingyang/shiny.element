@@ -36,7 +36,7 @@ el_button_group <- function(
 ) {
   .el_check_choices("el_button_group", environment())
   if (is.null(id)) {
-    id <- paste0("el_button_group_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_button_group")
   }
   own <- list(
     markup = NULL,

@@ -69,7 +69,7 @@ el_steps <- function(
 ) {
   .el_check_items(steps, "steps", c("title", "description"))
   if (is.null(id)) {
-    id <- paste0("el_steps_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_steps")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

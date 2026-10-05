@@ -66,7 +66,7 @@ el_statistic <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_statistic_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_statistic")
   }
   ns_id <- .el_ui_id(id, session)
   el_widget(
@@ -104,7 +104,7 @@ el_countdown <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_countdown_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_countdown")
   }
   ns_id <- .el_ui_id(id, session)
   events <- .el_event_bindings(

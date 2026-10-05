@@ -92,7 +92,7 @@ el_tree_v2 <- function(
 ) {
   .el_check_choices("el_tree_v2", environment())
   if (is.null(id)) {
-    id <- paste0("el_tree_v2_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_tree_v2")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(

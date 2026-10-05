@@ -11,7 +11,8 @@ update_el_calendar(
   range = NULL,
   label = NULL,
   error = NULL,
-  ...
+  controller_type = NULL,
+  formatter = NULL
 )
 }
 \arguments{
@@ -32,16 +33,21 @@ has one to change.}
 \code{error} does -- for a check only the server can make, such as whether
 a name is taken. \code{""} clears it.}
 
-\item{...}{Any other argument of \code{\link[=el_calendar]{el_calendar()}}, by its name:
-\code{controller_type = "select"}, \code{formatter = JS(...)}. \code{NULL} returns it
-to Element's default.}
+\item{controller_type}{How the header switches month and year: \code{"button"}
+(the default) or \code{"select"}. Element Plus's \code{controller-type}.}
+
+\item{formatter}{With \code{controller_type = "select"}, a \code{\link[=JS]{JS()}} function
+\verb{function(value, type)} returning the label of each option. Element
+Plus's \code{formatter}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Server-side update for \code{\link[=el_calendar]{el_calendar()}}: the selected day, the range, or
-any other of its arguments.
+Server-side update for \code{\link[=el_calendar]{el_calendar()}}: the selected day, the range, and
+every other argument that can change once the calendar is drawn, under
+the same name. One left \code{NULL} stays as it is; \code{NA} returns a prop to
+Element's default.
 }
 \examples{
 if (interactive()) {

@@ -86,7 +86,7 @@ el_cascader_panel <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_cascader_panel_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_cascader_panel")
   }
   ns_id <- .el_ui_id(id, session)
 

@@ -88,7 +88,7 @@ el_progress <- function(
 ) {
   .el_check_choices("el_progress", environment())
   if (is.null(id)) {
-    id <- paste0("el_progress_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_progress")
   }
   ns_id <- .el_ui_id(id, session)
   container_id <- paste0(ns_id, "_container")

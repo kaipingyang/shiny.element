@@ -74,7 +74,7 @@ el_input_otp <- function(
 ) {
   .el_check_choices("el_input_otp", environment())
   if (is.null(id)) {
-    id <- paste0("el_input_otp_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_input_otp")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, c("change", "finish", "focus", "blur"))

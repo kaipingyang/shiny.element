@@ -97,7 +97,7 @@ el_popconfirm <- function(
   inner <- .el_absorb(reference)
 
   if (is.null(id)) {
-    id <- paste0("el_popconfirm_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_popconfirm")
   }
   ns_id <- .el_ui_id(id, session)
 

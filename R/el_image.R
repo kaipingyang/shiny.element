@@ -94,7 +94,7 @@ el_image <- function(
 ) {
   .el_check_choices("el_image", environment())
   if (is.null(id)) {
-    id <- paste0("el_image_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_image")
   }
   ns_id <- .el_ui_id(id, session)
 

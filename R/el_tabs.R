@@ -90,7 +90,7 @@ el_tabs <- function(
   .el_check_items(tabs, "tabs", c("name", "label"))
   .el_check_choices("el_tabs", environment())
   if (is.null(id)) {
-    id <- paste0("el_tabs_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_tabs")
   }
   ns_id <- .el_ui_id(id, session)
   selected <- shiny::restoreInput(ns_id, selected)

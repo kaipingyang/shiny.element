@@ -120,7 +120,7 @@ el_dialog <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_dialog_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_dialog")
   }
   ns_id <- .el_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))

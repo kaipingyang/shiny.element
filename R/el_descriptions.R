@@ -58,7 +58,7 @@ el_descriptions <- function(
 ) {
   .el_check_choices("el_descriptions", environment())
   if (is.null(id)) {
-    id <- paste0("el_descriptions_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_descriptions")
   }
   ns_id <- .el_ui_id(id, session)
 

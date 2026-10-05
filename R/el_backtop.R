@@ -42,7 +42,7 @@ el_backtop <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_backtop_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_backtop")
   }
   ns_id <- .el_ui_id(id, session)
 

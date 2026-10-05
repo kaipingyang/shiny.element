@@ -51,7 +51,7 @@ el_breadcrumb <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- paste0("el_breadcrumb_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_breadcrumb")
   }
   ns_id <- .el_ui_id(id, session)
 

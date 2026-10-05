@@ -227,6 +227,11 @@ el_widget <- function(
     # Element layer's plugin (el-events.js)
     use = .vue_use("shinyElement.plugin")
   )
+  # an id drawn at random (the component was given none): render_vue()
+  # does not take a new one for another component
+  if (isTRUE(attr(id, "generated"))) {
+    spec$generated <- TRUE
+  }
 
   # The template travels as a script, which the browser does not parse: no
   # flash of raw <el-*> tags before Vue runs, and camelCase attribute names

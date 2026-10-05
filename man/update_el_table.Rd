@@ -12,7 +12,47 @@ update_el_table(
   border = NULL,
   selection = NULL,
   loading = NULL,
-  ...
+  stripe = NULL,
+  size = NULL,
+  height = NULL,
+  max_height = NULL,
+  fit = NULL,
+  show_header = NULL,
+  highlight_current_row = NULL,
+  current_row_key = NULL,
+  row_key = NULL,
+  empty_text = NULL,
+  expand_row_keys = NULL,
+  tooltip_effect = NULL,
+  show_summary = NULL,
+  sum_text = NULL,
+  select_on_indeterminate = NULL,
+  indent = NULL,
+  lazy = NULL,
+  tree_props = NULL,
+  row_class_name = NULL,
+  row_style = NULL,
+  cell_class_name = NULL,
+  cell_style = NULL,
+  header_row_class_name = NULL,
+  header_row_style = NULL,
+  header_cell_class_name = NULL,
+  header_cell_style = NULL,
+  span_method = NULL,
+  summary_method = NULL,
+  load = NULL,
+  allow_drag_last_column = NULL,
+  append_filter_panel_to = NULL,
+  flexible = NULL,
+  native_scrollbar = NULL,
+  preserve_expanded_content = NULL,
+  row_expandable = NULL,
+  scrollbar_always_on = NULL,
+  scrollbar_tabindex = NULL,
+  show_overflow_tooltip = NULL,
+  table_layout = NULL,
+  tooltip_formatter = NULL,
+  tooltip_options = NULL
 )
 }
 \arguments{
@@ -34,15 +74,117 @@ whose columns were inferred infers them again from the new \code{data}.
 
 \item{loading}{Show or hide the loading mask.}
 
-\item{...}{Any other argument of \code{\link[=el_table]{el_table()}}, by its name: \code{stripe = TRUE}, \code{table_layout = "auto"}, \code{tree_props = list(checkStrictly = TRUE)}, \code{row_class_name = JS(...)}. \code{NULL} returns it to Element's
-default. \code{rownames}, \code{slots} and \code{width} are fixed when the table is
-drawn.}
+\item{stripe}{Whether rows alternate background colour.}
+
+\item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
+
+\item{height}{Table height. Fixes the header and scrolls the body.}
+
+\item{max_height}{Maximum table height, beyond which the body scrolls.}
+
+\item{fit}{Whether column widths stretch to fill the table. Default \code{TRUE}.}
+
+\item{show_header}{Whether the header row is shown. Default \code{TRUE}.}
+
+\item{highlight_current_row}{Whether the clicked row stays highlighted; pairs with \verb{input$<id>_current}.}
+
+\item{current_row_key}{Key of the row highlighted at start. Needs \code{row_key}.}
+
+\item{row_key}{Column whose value identifies a row. Needed for tree data and reserved selection.}
+
+\item{empty_text}{Text shown when there are no rows. Default \code{"No Data"}.}
+
+\item{expand_row_keys}{Keys of the rows that start expanded. Needs \code{row_key}.}
+
+\item{tooltip_effect}{Theme of overflow tooltips: \code{"dark"} (default) or \code{"light"}.}
+
+\item{show_summary}{Whether to add a summary row at the bottom.}
+
+\item{sum_text}{Label of the summary row's first cell. Default \code{"Sum"}.}
+
+\item{select_on_indeterminate}{What the header checkbox does when only some rows are selected. Default \code{TRUE}.}
+
+\item{indent}{Horizontal indent between tree levels, in pixels. Default \code{16}.}
+
+\item{lazy}{Whether child rows of tree data are loaded on demand --
+from the server, unless \code{load} is given.}
+
+\item{tree_props}{Field names for tree data, as \code{list(children =, hasChildren =)}.}
+
+\item{row_class_name}{Class name for every row, or a JS function returning one.}
+
+\item{row_style}{Inline style for every row, or a JS function returning one.}
+
+\item{cell_class_name}{Class name for every cell, or a JS function returning one.}
+
+\item{cell_style}{Inline style for every cell, or a JS function returning one.}
+
+\item{header_row_class_name}{Class name for the header row, or a JS function returning one.}
+
+\item{header_row_style}{Inline style for the header row, or a JS function returning one.}
+
+\item{header_cell_class_name}{Class name for header cells, or a JS function returning one.}
+
+\item{header_cell_style}{Inline style for header cells, or a JS function returning one.}
+
+\item{span_method}{\code{JS()} function deciding row/column spans for merged cells.}
+
+\item{summary_method}{\code{JS()} function returning the summary row's cells.}
+
+\item{load}{\code{JS()} function loading child rows in the
+browser instead of from the server. Needs \code{lazy = TRUE}.}
+
+\item{allow_drag_last_column}{Whether to allow drag the last column.
+Element Plus's \code{allow-drag-last-column} (boolean).}
+
+\item{append_filter_panel_to}{Which element the filter panels appends to.
+Element Plus's \code{append-filter-panel-to} (string).}
+
+\item{flexible}{Ensure main axis minimum-size doesn't follow the content.
+Element Plus's \code{flexible} (boolean).}
+
+\item{native_scrollbar}{Whether to use native scrollbars. Element Plus's
+\code{native-scrollbar} (boolean).}
+
+\item{preserve_expanded_content}{Whether to preserve expanded row content
+in DOM when collapsed. Element Plus's \code{preserve-expanded-content}
+(boolean).}
+
+\item{row_expandable}{Enable expandable rows, works when the table has a
+column type="expand". Element Plus's \code{row-expandable} ((row: any, index:
+number) => boolean).}
+
+\item{scrollbar_always_on}{Always show scrollbar. Element Plus's
+\code{scrollbar-always-on} (boolean).}
+
+\item{scrollbar_tabindex}{Body scrollbar's wrap container tabindex. Element
+Plus's \code{scrollbar-tabindex} (string / number).}
+
+\item{show_overflow_tooltip}{Whether to hide extra content and show them in
+a tooltip when hovering on the cell.It will affect all the table columns,
+refer to table tooltip-options. Element Plus's \code{show-overflow-tooltip}
+(boolean).}
+
+\item{table_layout}{Sets the algorithm used to lay out table cells, rows,
+and columns. Element Plus's \code{table-layout} ('fixed' | 'auto').}
+
+\item{tooltip_formatter}{Customize tooltip content when using
+\code{show-overflow-tooltip}. Element Plus's \code{tooltip-formatter} (Function).
+Give it as \code{\link[=JS]{JS()}}.}
+
+\item{tooltip_options}{The options for the overflow tooltip, see the
+following tooltip component. Element Plus's \code{tooltip-options} (object).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
-Update Element Plus Table
+Changes a table from the server, as \code{\link[shiny:updateSelectInput]{shiny::updateSelectInput()}} does a
+select: every argument of \code{\link[=el_table]{el_table()}} that can change once the table is
+drawn, under the same name. One left \code{NULL} stays as it is; \code{NA} returns
+a prop to Element's default. \code{rownames}, \code{slots}, \code{width} and the
+\verb{default_*} arguments, which Element reads only when the table is
+created, are not here.
 }
 \details{
 A column's \code{cell} template is part of the table's markup, made
@@ -58,5 +200,7 @@ if (interactive()) {
   })
   # any other argument of el_table()
   update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
+  # back to Element's default
+  update_el_table(session, "tbl", stripe = NA)
 }
 }

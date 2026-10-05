@@ -67,7 +67,7 @@ el_segmented <- function(
     options <- .el_normalize_choices(options)
   }
   if (is.null(id)) {
-    id <- paste0("el_segmented_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_segmented")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())

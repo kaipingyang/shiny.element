@@ -60,7 +60,7 @@ el_config_provider <- function(
 ) {
   .el_check_choices("el_config_provider", environment())
   if (is.null(id)) {
-    id <- paste0("el_config_provider_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_config_provider")
   }
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(ns_id, character())

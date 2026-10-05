@@ -122,7 +122,7 @@ el_autocomplete <- function(
 ) {
   .el_check_choices("el_autocomplete", environment())
   if (is.null(id)) {
-    id <- paste0("el_autocomplete_", uuid::UUIDgenerate())
+    id <- .el_auto_id("el_autocomplete")
   }
   ns_id <- .el_ui_id(id, session)
 
