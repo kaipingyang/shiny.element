@@ -182,7 +182,8 @@ update_el_switch(
 
   Before-change hook before the switch state changes. If `false` is
   returned or a `Promise` is returned and then is rejected, will stop
-  switching. Element Plus's `before-change` (() =\> Promise \| boolean).
+  switching. Element Plus's `before-change`
+  (`() => Promise<boolean> | boolean`).
 
 - border_color:
 

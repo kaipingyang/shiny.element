@@ -328,7 +328,7 @@ update_el_date_picker(
 - popper_options:
 
   Customized popper option see more at popper.js. Element Plus's
-  `popper-options` (Partial).
+  `popper-options` (`Partial<PopperOptions>`).
 
 - popper_style:
 
