@@ -25,9 +25,10 @@
 #'   `striped` (boolean).
 #' @param striped_flow Get the stripes to flow. Element Plus's `striped-flow`
 #'   (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_progress()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_progress()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param stroke_linecap Shape of the bar's ends: `"round"` (default), `"butt"` or `"square"`.
 #' @param format `JS()` function `function(percentage)` returning the text shown.
 #' @param slots Named list of Element slot contents, such as
@@ -134,22 +135,15 @@ el_progress <- function(
 }
 
 
-#' Update Element Plus Progress
-#'
+#' @rdname el_progress
+#' @section Updating from the server:
 #' Server-side update for [el_progress()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Progress ID (un-namespaced).
-#' @param percentage New percentage value (`0` to `100`).
-#' @param type New progress type.
-#' @param status New status theme.
-#' @param color New custom colour string.
-#' @param stroke_width New stroke width in pixels.
-#' @param show_text New show-text flag.
-#' @param text_inside New text-inside flag.
+#' Every other argument of [el_progress()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_progress()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -157,10 +151,6 @@ el_progress <- function(
 #'     update_el_progress(session, "pct", percentage = 100)
 #'   })
 #' }
-#' @inheritParams el_progress
-#' @details Every other argument of [el_progress()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_progress <- function(
   session = shiny::getDefaultReactiveDomain(),

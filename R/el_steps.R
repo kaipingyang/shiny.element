@@ -12,9 +12,10 @@
 #' @param finish_status Status of finished steps
 #' @param align_center Center align title and description
 #' @param simple Apply simple style
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_steps()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_steps()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -139,14 +140,15 @@ el_steps <- function(
   )
 }
 
-#' Update Element Plus Steps
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Steps ID
-#' @param active New active step index
-#' @param process_status New process status
-#' @param finish_status New finish status
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' @rdname el_steps
+#' @section Updating from the server:
+#' `update_el_steps()` changes the component from the server.
+#'
+#' Every other argument of [el_steps()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_steps()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -154,10 +156,6 @@ el_steps <- function(
 #'     update_el_steps(session, "wizard", active = 2)
 #'   })
 #' }
-#' @inheritParams el_steps
-#' @details Every other argument of [el_steps()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_steps <- function(
   session = shiny::getDefaultReactiveDomain(),

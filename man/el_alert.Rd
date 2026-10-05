@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_alert.R
 \name{el_alert}
 \alias{el_alert}
+\alias{update_el_alert}
 \title{Element Plus Alert}
 \usage{
 el_alert(
@@ -17,6 +18,19 @@ el_alert(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_alert(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  type = NULL,
+  description = NULL,
+  closable = NULL,
+  close_text = NULL,
+  show_icon = NULL,
+  center = NULL,
+  effect = NULL
 )
 }
 \arguments{
@@ -49,9 +63,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_alert()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_alert()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed alert component.
@@ -66,7 +81,24 @@ the user closes it.
 user closes the alert.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_alert]{el_alert()}}.
+
+Every other argument of \code{\link[=el_alert]{el_alert()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_alert()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
 el_alert("al2", "Warning!", description = "Please review.", type = "warning")
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_alert(session, "hint", title = "Saved", type = "success")
+  })
+}
 }

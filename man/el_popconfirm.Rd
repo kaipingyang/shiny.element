@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_popconfirm.R
 \name{el_popconfirm}
 \alias{el_popconfirm}
+\alias{update_el_popconfirm}
 \title{Element Plus Confirmation Bubble}
 \usage{
 el_popconfirm(
@@ -25,6 +26,14 @@ el_popconfirm(
   slots = NULL,
   session = NULL,
   placement = NULL
+)
+
+update_el_popconfirm(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  confirm_button_text = NULL,
+  cancel_button_text = NULL
 )
 }
 \arguments{
@@ -74,9 +83,10 @@ inherits, in snake_case: \code{enterable = FALSE}, \code{offset = 20}.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_popconfirm()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_popconfirm()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{placement}{Where the popup goes: \code{"top"}, \code{"bottom-start"} and
 the rest of the tooltip's placements. Passed through to its tooltip, as
@@ -97,6 +107,13 @@ for actions that warrant a check but not a dialog.
 }
 
 Both are event inputs, so read them with \code{observeEvent()}.
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_popconfirm]{el_popconfirm()}}.
+
+\code{update_el_popconfirm()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -121,5 +138,15 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$row_click, {
+    update_el_popconfirm(
+      session,
+      "del",
+      title = paste0("Delete ", selected_name(), "?")
+    )
+  })
 }
 }

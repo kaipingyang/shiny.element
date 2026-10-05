@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_cascader_panel.R
 \name{el_cascader_panel}
 \alias{el_cascader_panel}
+\alias{update_el_cascader_panel}
 \title{Element Plus Cascader Panel}
 \usage{
 el_cascader_panel(
@@ -23,6 +24,19 @@ el_cascader_panel(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_cascader_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL,
+  props = NULL,
+  height = NULL,
+  item_size = NULL,
+  virtual_scroll = NULL
 )
 }
 \arguments{
@@ -82,9 +96,10 @@ Element Plus's \code{virtual-scroll} (boolean).}
 \item{slots}{Named list of Element slot contents. The default slot, scoped
 with \verb{\{node, data\}}, renders one option; write it with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_cascader_panel()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_cascader_panel()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -113,6 +128,17 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_cascader_panel]{el_cascader_panel()}}.
+
+Every other argument of \code{\link[=el_cascader_panel]{el_cascader_panel()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_cascader_panel()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 regions <- list(
   list(
@@ -135,4 +161,11 @@ el_cascader_panel("where", options = regions, value = c("asia", "jp"))
 
 # Several at once
 el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_cascader_panel(session, "where", value = list())
+  )
+}
 }

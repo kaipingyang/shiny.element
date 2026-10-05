@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_infinite_scroll.R
 \name{el_infinite_scroll}
 \alias{el_infinite_scroll}
+\alias{update_el_infinite_scroll}
 \title{Element Plus Infinite Scroll}
 \usage{
 el_infinite_scroll(
@@ -15,6 +16,14 @@ el_infinite_scroll(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_infinite_scroll(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  delay = NULL,
+  distance = NULL
 )
 }
 \arguments{
@@ -46,9 +55,10 @@ fill the area. Default \code{TRUE}.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_infinite_scroll()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_infinite_scroll()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -65,6 +75,14 @@ the area is a container you put content into.
 Observe it, fetch the next page, and render it into a \code{\link[shiny:uiOutput]{shiny::uiOutput()}}
 inside the area.
 }
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_infinite_scroll]{el_infinite_scroll()}}. Setting \code{disabled} is how a
+feed stops asking once everything has been sent.
+
+\code{update_el_infinite_scroll()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -86,5 +104,13 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$feed_load, {
+    if (all_rows_sent()) {
+      update_el_infinite_scroll(session, "feed", disabled = TRUE)
+    }
+  })
 }
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_segmented.R
 \name{el_segmented}
 \alias{el_segmented}
+\alias{update_el_segmented}
 \title{Element Plus Segmented}
 \usage{
 el_segmented(
@@ -25,6 +26,21 @@ el_segmented(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_segmented(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  size = NULL,
+  block = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  direction = NULL,
+  props = NULL
 )
 }
 \arguments{
@@ -88,6 +104,9 @@ whether beside the component rather than under it. Element's
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -103,10 +122,25 @@ A row of options, one of them selected: a compact radio group.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_segmented]{el_segmented()}}.
+
+Every other argument of \code{\link[=el_segmented]{el_segmented()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_segmented()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_segmented(
   "period",
   options = c(Day = "d", Week = "w", Month = "m"),
   value = "w"
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_segmented(session, "x", value = NULL))
+}
 }

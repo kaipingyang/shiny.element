@@ -32,9 +32,10 @@
 #'   popconfirm will be destroyed. Element Plus's `persistent` (boolean).
 #' @param teleported Whether popconfirm is teleported to the body. Element
 #'   Plus's `teleported` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_popconfirm()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_popconfirm()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -182,17 +183,11 @@ el_popconfirm <- function(
 }
 
 
-#' Update Element Plus Confirmation Bubble
-#'
+#' @rdname el_popconfirm
+#' @section Updating from the server:
 #' Server-side update for [el_popconfirm()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Popconfirm ID (un-namespaced).
-#' @param title,confirm_button_text,cancel_button_text New values; `NULL`
-#'   leaves one unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_popconfirm()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

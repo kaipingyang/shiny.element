@@ -229,7 +229,9 @@ help page, inherited from the component's. `NULL` leaves one as it is, as
 in Shiny's updaters; `NA` returns it to Element's default. A test keeps
 every argument held in a component's data reachable this way. The
 containers drawn as markup (tabs, collapse, dialog, drawer) and the
-wrappers (tooltip, popover) keep their own updaters.
+wrappers (tooltip, popover) keep their own updaters. Each update function is documented on its component's page, as bslib
+documents `update_switch()` with `input_switch()`: one argument, one
+description.
 `call_el()` reaches a table-v2 with `auto_resize = TRUE`; it used to reach
 the resizer around it.
 

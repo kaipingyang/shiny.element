@@ -55,13 +55,17 @@ el_check_tag <- function(
 }
 
 
-#' Update Element Plus Check Tag
+#' @rdname el_check_tag
+#' @section Updating from the server:
+#' `update_el_check_tag()` changes the component from the server.
 #'
+#' Every other argument of [el_check_tag()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_check_tag()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateCheckboxInput()].
-#' @param id Tag ID (un-namespaced).
-#' @param value,label,disabled New values; `NULL` leaves one unchanged.
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -70,10 +74,6 @@ el_check_tag <- function(
 #'     update_el_check_tag(session, "pinned", value = FALSE)
 #'   )
 #' }
-#' @inheritParams el_check_tag
-#' @details Every other argument of [el_check_tag()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_check_tag <- function(
   session = shiny::getDefaultReactiveDomain(),

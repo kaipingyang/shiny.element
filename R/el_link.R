@@ -118,17 +118,13 @@ el_link <- function(
 }
 
 
-#' Update Element Plus Link
-#'
+#' @rdname el_link
+#' @section Updating from the server:
 #' Server-side update for an [el_link()] given an `id`.
 #'
+#' `update_el_link()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateActionLink()].
-#' @param id Link ID (un-namespaced).
-#' @param label,href,type,underline,disabled,icon New values; `NULL` leaves
-#'   one unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

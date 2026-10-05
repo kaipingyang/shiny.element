@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_avatar.R
 \name{el_avatar}
 \alias{el_avatar}
+\alias{update_el_avatar}
 \title{Element Plus Avatar}
 \usage{
 el_avatar(
@@ -17,6 +18,19 @@ el_avatar(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_avatar(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  content = NULL,
+  src = NULL,
+  icon = NULL,
+  size = NULL,
+  shape = NULL,
+  fit = NULL,
+  src_set = NULL,
+  alt = NULL
 )
 }
 \arguments{
@@ -46,9 +60,10 @@ el_avatar(
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_avatar()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_avatar()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -63,8 +78,25 @@ A user avatar, from an image, an icon, or text.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_avatar]{el_avatar()}}.
+
+Every other argument of \code{\link[=el_avatar]{el_avatar()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_avatar()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_avatar("me", src = "https://example.org/face.png")
 el_avatar("initials", content = "KY", shape = "square", size = 40)
 el_avatar("anon", icon = "el-icon-user-solid")
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$sign_in, {
+    update_el_avatar(session, "me", src = user_photo())
+  })
+}
 }

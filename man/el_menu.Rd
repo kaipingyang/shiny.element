@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_menu.R
 \name{el_menu}
 \alias{el_menu}
+\alias{update_el_menu}
 \title{Element Plus Menu}
 \usage{
 el_menu(
@@ -31,6 +32,31 @@ el_menu(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_menu(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  collapse = NULL,
+  mode = NULL,
+  unique_opened = NULL,
+  background_color = NULL,
+  text_color = NULL,
+  active_text_color = NULL,
+  menu_trigger = NULL,
+  collapse_transition = NULL,
+  router = NULL,
+  close_on_click_outside = NULL,
+  ellipsis = NULL,
+  ellipsis_icon = NULL,
+  hide_timeout = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_effect = NULL,
+  popper_offset = NULL,
+  popper_style = NULL,
+  show_timeout = NULL
 )
 }
 \arguments{
@@ -110,9 +136,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_menu()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_menu()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -137,6 +164,17 @@ Callable with \code{\link[=call_el]{call_el()}}:
 \item \code{close()} -- Close a specific sub-menu
 \item \code{open()} -- Open a specific sub-menu
 }
+}
+
+\section{Updating from the server}{
+
+\code{update_el_menu()} changes the component from the server.
+
+Every other argument of \code{\link[=el_menu]{el_menu()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_menu()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -168,4 +206,10 @@ el_menu(
     list(index = "b", label = "Two")
   )
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_menu(session, "nav", active = "data")
+  })
+}
 }

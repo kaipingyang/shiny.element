@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_date_picker_panel.R
 \name{el_date_picker_panel}
 \alias{el_date_picker_panel}
+\alias{update_el_date_picker_panel}
 \title{Element Plus Date Picker Panel}
 \usage{
 el_date_picker_panel(
@@ -35,6 +36,30 @@ el_date_picker_panel(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_date_picker_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  border = NULL,
+  clearable = NULL,
+  editable = NULL,
+  type = NULL,
+  value_format = NULL,
+  date_format = NULL,
+  time_format = NULL,
+  unlink_panels = NULL,
+  single_panel = NULL,
+  disabled_date = NULL,
+  shortcuts = NULL,
+  cell_class_name = NULL,
+  show_footer = NULL,
+  show_confirm = NULL,
+  show_week_number = NULL
 )
 }
 \arguments{
@@ -133,6 +158,9 @@ whether beside the component rather than under it. Element's
 \item{slots}{Named list of Element slot contents: \code{prev-month},
 \code{next-month}, \code{prev-year}, \code{next-year}. A scoped slot is written with
 \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -150,6 +178,24 @@ The date picker's panel, always open, without the input.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_date_picker_panel]{el_date_picker_panel()}}.
+
+Every other argument of \code{\link[=el_date_picker_panel]{el_date_picker_panel()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_date_picker_panel()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_date_picker_panel("day", value = Sys.Date(), value_format = "YYYY-MM-DD")
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_date_picker_panel(session, "x", value = NULL)
+  )
+}
 }

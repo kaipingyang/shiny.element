@@ -35,10 +35,10 @@
 #'   `false`, or a promise that rejects, to stay put.
 #' @param stretch Stretch the tabs to fill the available width.
 #' @param add_icon The add button's icon, by name. Default `"Plus"`.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_tabs()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_tabs()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @return An `htmltools` tag.
 #'
 #' @section Shiny inputs:
@@ -252,16 +252,11 @@ el_tabs <- function(
 }
 
 
-#' Update Element Plus Tabs
-#'
+#' @rdname el_tabs
+#' @section Updating from the server:
 #' Server-side update for [el_tabs()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Tabs ID (un-namespaced).
-#' @param selected Name of the tab to select.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_tabs()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

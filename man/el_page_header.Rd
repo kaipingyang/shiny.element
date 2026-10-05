@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_page_header.R
 \name{el_page_header}
 \alias{el_page_header}
+\alias{update_el_page_header}
 \title{Element Plus Page Header}
 \usage{
 el_page_header(
@@ -12,6 +13,14 @@ el_page_header(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_page_header(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL,
+  icon = NULL
 )
 }
 \arguments{
@@ -31,9 +40,10 @@ Component). An icon's name, such as \code{"Search"}.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_page_header()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_page_header()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -50,6 +60,17 @@ on its own.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_page_header]{el_page_header()}}.
+
+Every other argument of \code{\link[=el_page_header]{el_page_header()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_page_header()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_page_header("hdr", content = "Sales for March")
 el_page_header("hdr", title = "All reports", content = "Sales for March")
@@ -64,5 +85,11 @@ if (interactive()) {
     output$where <- renderPrint(input$hdr_back)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$row_click, {
+    update_el_page_header(session, "hdr", content = selected_name())
+  })
 }
 }

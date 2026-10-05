@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_checkbox.R
 \name{el_checkbox}
 \alias{el_checkbox}
+\alias{update_el_checkbox}
 \title{Element Plus Checkbox}
 \usage{
 el_checkbox(
@@ -26,6 +27,28 @@ el_checkbox(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_checkbox(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  label = NULL,
+  indeterminate = NULL,
+  disabled = NULL,
+  border = NULL,
+  size = NULL,
+  true_label = NULL,
+  false_label = NULL,
+  name = NULL,
+  checked = NULL,
+  aria_controls = NULL,
+  aria_label = NULL,
+  controls = NULL,
+  false_value = NULL,
+  tabindex = NULL,
+  true_value = NULL,
+  validate_event = NULL
 )
 }
 \arguments{
@@ -79,9 +102,10 @@ number).}
 \item{slots}{Named list of Element slot contents; the default slot
 replaces \code{label}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_checkbox()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_checkbox()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -98,6 +122,17 @@ on load and on change.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_checkbox]{el_checkbox()}}.
+
+Every other argument of \code{\link[=el_checkbox]{el_checkbox()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_checkbox()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_checkbox("agree", "I agree to the terms")
 
@@ -105,4 +140,20 @@ el_checkbox("agree", "I agree to the terms")
 el_checkbox("all", "Check all", indeterminate = TRUE)
 
 el_checkbox("remember", "Remember me", value = TRUE, border = TRUE)
+if (interactive()) {
+  # inside a server function: the "check all" box follows the group
+  observeEvent(
+    input$cities,
+    {
+      n <- length(input$cities)
+      update_el_checkbox(
+        session,
+        "all",
+        value = n == 4,
+        indeterminate = n > 0 && n < 4
+      )
+    },
+    ignoreNULL = FALSE
+  )
+}
 }

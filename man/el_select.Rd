@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_select.R
 \name{el_select}
 \alias{el_select}
+\alias{update_el_select}
 \title{Element Plus Select Component}
 \usage{
 el_select(
@@ -72,6 +73,65 @@ el_select(
   props = NULL,
   tag_tooltip = NULL,
   session = NULL
+)
+
+update_el_select(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  filterable = NULL,
+  multiple_limit = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL,
+  multiple = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  value_key = NULL,
+  name = NULL,
+  autocomplete = NULL,
+  automatic_dropdown = NULL,
+  allow_create = NULL,
+  popper_class = NULL,
+  reserve_keyword = NULL,
+  remote = NULL,
+  filter_method = NULL,
+  remote_method = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  debounce = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  max_collapse_tags = NULL,
+  offset = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  remote_show_suffix = NULL,
+  show_arrow = NULL,
+  suffix_icon = NULL,
+  suffix_transition = NULL,
+  tabindex = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  tag_tooltip = NULL
 )
 }
 \arguments{
@@ -265,9 +325,10 @@ Element Plus's \code{props}.}
 \code{collapse_tags} and \code{collapse_tags_tooltip}: a named list of tooltip
 attributes (\code{placement}, \code{effect}, ...). Element Plus's \code{tag-tooltip}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_select()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_select()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList containing the Vue-managed select component.
@@ -296,6 +357,18 @@ own, the server does the search, as \code{selectizeInput()}'s server mode
 does: \verb{input$<id>_query} is the text typed, and \code{\link[=update_el_select]{update_el_select()}}
 with the matching \code{choices} answers it -- the select shows Element's
 loading text until then, or for 30 seconds at most.
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_select]{el_select()}}. Sends a custom message to update
+reactive fields on the underlying Vue instance.
+
+Every other argument of \code{\link[=el_select]{el_select()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_select()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -339,5 +412,11 @@ if (interactive()) {
     output$selected <- renderPrint(input$fruit)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_select(session, "city", selected = "sh")
+  })
 }
 }

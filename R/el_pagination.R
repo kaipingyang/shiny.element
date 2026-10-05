@@ -33,9 +33,10 @@
 #'   'small').
 #' @param teleported Whether Pagination select dropdown is teleported to the
 #'   body. Element Plus's `teleported` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_pagination()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_pagination()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param prev_text Text of the previous-page button, in place of the arrow icon.
 #' @param next_text Text of the next-page button, in place of the arrow icon.
 #' @param hide_on_single_page Whether to hide the pager when there is only one page.
@@ -219,19 +220,15 @@ el_pagination <- function(
 }
 
 
-#' Update Element Plus Pagination
-#'
+#' @rdname el_pagination
+#' @section Updating from the server:
 #' Server-side update for [el_pagination()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Pagination ID (un-namespaced).
-#' @param total New total item count.
-#' @param current_page New current page number.
-#' @param page_size New page size.
-#' @param disabled New disabled state.
+#' Every other argument of [el_pagination()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_pagination()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -239,10 +236,6 @@ el_pagination <- function(
 #'     update_el_pagination(session, "pager", current_page = 2)
 #'   })
 #' }
-#' @inheritParams el_pagination
-#' @details Every other argument of [el_pagination()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_pagination <- function(
   session = shiny::getDefaultReactiveDomain(),

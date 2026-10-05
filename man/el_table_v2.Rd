@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_table_v2.R
 \name{el_table_v2}
 \alias{el_table_v2}
+\alias{update_el_table_v2}
 \title{Element Plus Virtualized Table}
 \usage{
 el_table_v2(
@@ -40,6 +41,40 @@ el_table_v2(
   slots = NULL,
   methods = NULL,
   auto_resize = FALSE
+)
+
+update_el_table_v2(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  columns = NULL,
+  sort_by = NULL,
+  expanded_row_keys = NULL,
+  cache = NULL,
+  estimated_row_height = NULL,
+  header_class = NULL,
+  header_props = NULL,
+  header_cell_props = NULL,
+  header_height = NULL,
+  footer_height = NULL,
+  row_class = NULL,
+  row_key = NULL,
+  row_props = NULL,
+  row_height = NULL,
+  row_event_handlers = NULL,
+  cell_props = NULL,
+  data_getter = NULL,
+  fixed_data = NULL,
+  expand_column_key = NULL,
+  fixed = NULL,
+  table_v2_width = NULL,
+  height = NULL,
+  max_height = NULL,
+  indent_size = NULL,
+  h_scrollbar_size = NULL,
+  v_scrollbar_size = NULL,
+  scrollbar_always_on = NULL,
+  sort_state = NULL
 )
 }
 \arguments{
@@ -155,6 +190,9 @@ is drawn with \verb{<component :is="cell" />}.}
 \item{auto_resize}{\code{TRUE} to size the table to its container, as Element
 Plus's \code{el-auto-resizer} does: \code{table_v2_width} and \code{height} are then
 ignored, and the container needs a height of its own.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -179,6 +217,19 @@ A table drawing only the rows and columns in view, for very large data.
 Callable with \code{\link[=call_el]{call_el()}}: \code{scrollTo()}, \code{scrollToLeft()}, \code{scrollToTop()}, \code{scrollToRow()}.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_table_v2]{el_table_v2()}}: every argument that can change
+once the table is drawn, under the same name. One left \code{NULL} stays as it
+is; \code{NA} returns a prop to Element's default. Rows are given as for
+\code{\link[=el_table_v2]{el_table_v2()}}, a data.frame or a list of rows; a data.frame without
+\code{columns} keeps the table's columns. \code{methods}, \code{slots}, \code{width},
+\code{auto_resize} and \code{default_expanded_row_keys}, which Element reads only
+when the table is created, are not here.
+
+\code{update_el_table_v2()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_table_v2(
   "big",
@@ -186,4 +237,12 @@ el_table_v2(
   width = 600,
   height = 400
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$filter_on, {
+    update_el_table_v2(id = "big", data = subset(big, keep))
+  })
+  # any other argument of el_table_v2()
+  update_el_table_v2(id = "big", sort_state = list(id = "desc"))
+}
 }

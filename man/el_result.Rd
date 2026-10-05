@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_result.R
 \name{el_result}
 \alias{el_result}
+\alias{update_el_result}
 \title{Element Plus Result}
 \usage{
 el_result(
@@ -13,6 +14,14 @@ el_result(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_result(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  icon = NULL,
+  title = NULL,
+  sub_title = NULL
 )
 }
 \arguments{
@@ -33,9 +42,10 @@ reporting its inputs.}
 \item{slots}{Named list of Element slot contents: \code{icon}, \code{title},
 \code{subTitle}, \code{extra}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_result()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_result()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -44,6 +54,13 @@ A Shiny UI element.
 The outcome of an operation: an icon, a title, a line of detail, and
 what to do next.
 }
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_result]{el_result()}}.
+
+\code{update_el_result()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_result(
   "done",
@@ -52,4 +69,22 @@ el_result(
   sub_title = "It will be reviewed within a day",
   el_button("back", "Back to the list", type = "primary")
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$submit, {
+    ok <- tryCatch(
+      {
+        save()
+        TRUE
+      },
+      error = function(e) FALSE
+    )
+    update_el_result(
+      session,
+      "outcome",
+      icon = if (ok) "success" else "error",
+      title = if (ok) "Saved" else "Could not save"
+    )
+  })
+}
 }

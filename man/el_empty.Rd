@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_empty.R
 \name{el_empty}
 \alias{el_empty}
+\alias{update_el_empty}
 \title{Element Plus Empty}
 \usage{
 el_empty(
@@ -13,6 +14,13 @@ el_empty(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_empty(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  description = NULL,
+  image = NULL
 )
 }
 \arguments{
@@ -32,9 +40,10 @@ emptiness. A shiny.element component here is absorbed, not nested.}
 
 \item{slots}{Named list of Element slot contents: \code{image}, \code{description}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_empty()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_empty()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -42,6 +51,13 @@ A Shiny UI element.
 \description{
 A placeholder for a view with nothing in it yet.
 }
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_empty]{el_empty()}}.
+
+\code{update_el_empty()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_empty("none", description = "No reports yet")
 
@@ -50,4 +66,14 @@ el_empty(
   description = "No reports yet",
   el_button("create", "Create one", type = "primary")
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$search, {
+    update_el_empty(
+      session,
+      "none",
+      description = paste("Nothing matches", input$search)
+    )
+  })
+}
 }

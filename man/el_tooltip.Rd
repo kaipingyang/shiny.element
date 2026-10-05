@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_tooltip.R
 \name{el_tooltip}
 \alias{el_tooltip}
+\alias{update_el_tooltip}
 \title{Element Plus Tooltip}
 \usage{
 el_tooltip(
@@ -37,6 +38,15 @@ el_tooltip(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_tooltip(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  content = NULL,
+  disabled = NULL,
+  visible = NULL,
+  virtual_ref = NULL
 )
 }
 \arguments{
@@ -135,9 +145,10 @@ given.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_tooltip()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_tooltip()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -152,6 +163,15 @@ into the tooltip's markup. It reports its inputs as usual, but it no longer
 has a host of its own, so its \verb{update_el_*()} cannot find it -- drive it
 through \code{\link[=update_vue]{update_vue()}} on the tooltip's id instead.
 }
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_tooltip]{el_tooltip()}}. Setting \code{visible} shows or hides
+the hint, which then stays as set: Element Plus's tooltip is controlled by
+its \code{visible} once that is given.
+
+\code{update_el_tooltip()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 # A plain tag as the reference
 el_tooltip(
@@ -170,4 +190,10 @@ el_tooltip(
   placement = "right",
   effect = "light"
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$explain, {
+    update_el_tooltip(session, "hint", content = why_disabled())
+  })
+}
 }

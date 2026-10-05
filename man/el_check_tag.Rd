@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_check_tag.R
 \name{el_check_tag}
 \alias{el_check_tag}
+\alias{update_el_check_tag}
 \title{Element Plus Check Tag}
 \usage{
 el_check_tag(
@@ -11,6 +12,15 @@ el_check_tag(
   disabled = NULL,
   type = NULL,
   width = NULL
+)
+
+update_el_check_tag(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  label = NULL,
+  disabled = NULL,
+  type = NULL
 )
 }
 \arguments{
@@ -26,6 +36,9 @@ el_check_tag(
 or \code{"danger"}.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateCheckboxInput]{shiny::updateCheckboxInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -40,7 +53,25 @@ A tag that toggles on and off when clicked, as a checkbox does.
 }
 }
 
+\section{Updating from the server}{
+
+\code{update_el_check_tag()} changes the component from the server.
+
+Every other argument of \code{\link[=el_check_tag]{el_check_tag()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_check_tag()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_check_tag("pinned", "Pinned", value = TRUE)
 el_check_tag("urgent", "Urgent", type = "danger")
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$clear,
+    update_el_check_tag(session, "pinned", value = FALSE)
+  )
+}
 }

@@ -22,9 +22,10 @@
 #'   goes through `v-html`, which does not escape anything.
 #' @param mode Relative position of timeline and content. Element Plus's
 #'   `mode` ('start' | 'alternate' | 'alternate-reverse' | 'end').
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_timeline()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_timeline()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -151,19 +152,15 @@ el_timeline <- function(
   })
 }
 
-#' Update an Element Plus Timeline
+#' @rdname el_timeline
+#' @section Updating from the server:
+#' `update_el_timeline()` changes the component from the server.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Timeline ID (un-namespaced).
-#' @param items Replacement entries, in the same shape [el_timeline()] takes.
-#' @param reverse New ordering.
-#' @return Called for its side effect; returns `NULL` invisibly.
-#' @inheritParams el_timeline
-#' @details Every other argument of [el_timeline()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
-#' @export
+#' Every other argument of [el_timeline()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_timeline()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # Append an entry to a growing log
@@ -175,6 +172,7 @@ el_timeline <- function(
 #'     update_el_timeline(session, "log", items = log_entries())
 #'   })
 #' }
+#' @export
 update_el_timeline <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,

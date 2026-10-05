@@ -34,10 +34,10 @@
 #'   `true-value` (string / number).
 #' @param validate_event Whether to trigger form validation. Element Plus's
 #'   `validate-event` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_checkbox()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_checkbox()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @section Shiny inputs:
 #' - `input$<id>` -- `TRUE` or `FALSE` (or `true_label` and `false_label`),
 #'   on load and on change.
@@ -130,18 +130,15 @@ el_checkbox <- function(
 }
 
 
-#' Update Element Plus Checkbox
-#'
+#' @rdname el_checkbox
+#' @section Updating from the server:
 #' Server-side update for [el_checkbox()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateCheckboxInput()].
-#' @param id Checkbox ID (un-namespaced).
-#' @param value Whether the box is ticked.
-#' @param label The box's new text.
-#' @param indeterminate,disabled New states; `NULL` leaves one unchanged.
+#' Every other argument of [el_checkbox()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_checkbox()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function: the "check all" box follows the group
@@ -159,10 +156,6 @@ el_checkbox <- function(
 #'     ignoreNULL = FALSE
 #'   )
 #' }
-#' @inheritParams el_checkbox
-#' @details Every other argument of [el_checkbox()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_checkbox <- function(
   session = shiny::getDefaultReactiveDomain(),

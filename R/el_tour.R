@@ -146,15 +146,17 @@ el_tour <- function(
 }
 
 
-#' Update Element Plus Tour
-#'
+#' @rdname el_tour
+#' @section Updating from the server:
 #' Open or close an [el_tour()], or move it to a step.
 #'
+#' Every other argument of [el_tour()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_tour()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param id Tour ID (un-namespaced).
-#' @param open,current New values; `NULL` leaves one unchanged.
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -163,10 +165,6 @@ el_tour <- function(
 #'     update_el_tour(session, "intro", open = TRUE, current = 0)
 #'   )
 #' }
-#' @inheritParams el_tour
-#' @details Every other argument of [el_tour()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tour <- function(
   session = shiny::getDefaultReactiveDomain(),

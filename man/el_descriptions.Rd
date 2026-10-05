@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_descriptions.R
 \name{el_descriptions}
 \alias{el_descriptions}
+\alias{update_el_descriptions}
 \title{Element Plus Descriptions}
 \usage{
 el_descriptions(
@@ -17,6 +18,16 @@ el_descriptions(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_descriptions(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  extra = NULL,
+  column = NULL,
+  direction = NULL,
+  border = NULL
 )
 }
 \arguments{
@@ -52,9 +63,10 @@ use \code{slots = list(extra = ...)}.}
 
 \item{slots}{Named list of Element slot contents: \code{title}, \code{extra}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_descriptions()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_descriptions()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -62,6 +74,15 @@ A Shiny UI element.
 \description{
 A read-only grid of labelled values -- the detail view of a record.
 }
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_descriptions]{el_descriptions()}}. The items themselves are
+markup, so replace them by re-rendering; this changes the settings around
+them.
+
+\code{update_el_descriptions()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_descriptions(
   "user",
@@ -76,4 +97,10 @@ el_descriptions(
 
 # The quick form: names are labels
 el_descriptions("car", items = as.list(mtcars[1, 1:6]))
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$narrow, {
+    update_el_descriptions(session, "user", column = 1)
+  })
+}
 }

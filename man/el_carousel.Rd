@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_carousel.R
 \name{el_carousel}
 \alias{el_carousel}
+\alias{update_el_carousel}
 \title{Element Plus Carousel}
 \usage{
 el_carousel(
@@ -23,6 +24,21 @@ el_carousel(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_carousel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  autoplay = NULL,
+  interval = NULL,
+  height = NULL,
+  initial_index = NULL,
+  trigger = NULL,
+  indicator_position = NULL,
+  arrow = NULL,
+  loop = NULL,
+  direction = NULL
 )
 }
 \arguments{
@@ -75,9 +91,12 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_carousel()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_carousel()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
+
+\item{active}{Index of the slide to show, 0-based.}
 }
 \value{
 A Shiny UI element.
@@ -102,6 +121,17 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 }
 
+\section{Updating from the server}{
+
+\code{update_el_carousel()} changes the component from the server.
+
+Every other argument of \code{\link[=el_carousel]{el_carousel()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_carousel()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_carousel(
   id = "banner",
@@ -121,4 +151,10 @@ el_carousel(
   height = "180px",
   items = lapply(1:4, function(i) list(content = paste("Card", i)))
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_carousel(session, "banner", active = 2)
+  })
+}
 }

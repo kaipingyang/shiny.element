@@ -15,9 +15,10 @@
 #' @param hit Whether to show a solid border. Default `FALSE`.
 #' @param disable_transitions Disable the zoom-in-center animation. Default `FALSE`.
 #' @param round Whether Tag is rounded. Element Plus's `round` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_tag()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_tag()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -110,18 +111,15 @@ el_tag <- function(
 }
 
 
-#' Update Element Plus Tag
-#'
+#' @rdname el_tag
+#' @section Updating from the server:
 #' Server-side update for [el_tag()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Tag ID (un-namespaced).
-#' @param label New label text.
-#' @param type New colour type.
-#' @param closable New closable state.
+#' Every other argument of [el_tag()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_tag()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -129,10 +127,6 @@ el_tag <- function(
 #'     update_el_tag(session, "status", label = "done", type = "success")
 #'   })
 #' }
-#' @inheritParams el_tag
-#' @details Every other argument of [el_tag()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tag <- function(
   session = shiny::getDefaultReactiveDomain(),

@@ -37,9 +37,10 @@
 #'   `validate-event` (boolean).
 #' @param value_on_clear Value should be set when input box is cleared.
 #'   Element Plus's `value-on-clear` (number / null / 'min' | 'max').
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_input_number()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_input_number()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param name Native `name` attribute of the inner input.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
@@ -194,25 +195,15 @@ el_input_number <- function(
 }
 
 
-#' Update Element Plus Input Number
-#'
+#' @rdname el_input_number
+#' @section Updating from the server:
 #' Server-side update for [el_input_number()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Input ID (un-namespaced).
-#' @param value New numeric value.
-#' @param min New minimum.
-#' @param max New maximum.
-#' @param disabled New disabled state.
+#' Every other argument of [el_input_number()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_input_number()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -220,10 +211,6 @@ el_input_number <- function(
 #'     update_el_input_number(session, "age", value = 42)
 #'   })
 #' }
-#' @inheritParams el_input_number
-#' @details Every other argument of [el_input_number()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_input_number <- function(
   session = shiny::getDefaultReactiveDomain(),

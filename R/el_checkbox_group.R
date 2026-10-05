@@ -26,9 +26,10 @@
 #'   Plus's `type` ('checkbox' | 'button').
 #' @param validate_event Whether to trigger form validation. Element Plus's
 #'   `validate-event` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_checkbox_group()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_checkbox_group()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param fill Border and background colour when `button = TRUE` and checked.
 #' @param text_color Text colour when `button = TRUE` and checked.
 #' @inheritParams el_widget
@@ -197,29 +198,16 @@ el_checkbox_group <- function(
 }
 
 
-#' Update Element Plus Checkbox Group
-#'
+#' @rdname el_checkbox_group
+#' @section Updating from the server:
 #' Server-side update for [el_checkbox_group()]. Pass only the fields to change;
 #' `NULL` fields are excluded from the update message.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Checkbox group ID (un-namespaced).
-#' @param selected,value New character vector of checked values.
-#'   `selected` is Shiny's name, `value` Element's; give either.
-#' @param choices,options New choices, as for [el_checkbox_group()].
-#'   `choices` is Shiny's name, `options` Element's; give either.
-#' @param disabled New disabled state.
-#' @param min New minimum checked count.
-#' @param max New maximum checked count.
+#' Every other argument of [el_checkbox_group()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_checkbox_group()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -227,10 +215,6 @@ el_checkbox_group <- function(
 #'     update_el_checkbox_group(session, "langs", selected = c("r", "py"))
 #'   })
 #' }
-#' @inheritParams el_checkbox_group
-#' @details Every other argument of [el_checkbox_group()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_checkbox_group <- function(
   session = shiny::getDefaultReactiveDomain(),

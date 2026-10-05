@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_popover.R
 \name{el_popover}
 \alias{el_popover}
+\alias{update_el_popover}
 \title{Element Plus Popover}
 \usage{
 el_popover(
@@ -36,6 +37,15 @@ el_popover(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_popover(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  content = NULL,
+  disabled = NULL,
+  visible = NULL
 )
 }
 \arguments{
@@ -129,9 +139,10 @@ inherits, in snake_case: \code{enterable = FALSE}, \code{offset = 20}.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_popover()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_popover()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -146,6 +157,15 @@ A card shown on click or hover, with a title and body.
 \item \verb{input$<id>_after_enter}, \verb{input$<id>_after_leave} -- fire once the
 animation has finished.
 }
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_popover]{el_popover()}}. Setting \code{visible} opens or closes
+the card, which then stays as set: Element Plus's popover is controlled by
+its \code{visible} once that is given.
+
+\code{update_el_popover()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -164,4 +184,10 @@ el_popover(
   trigger = "hover",
   placement = "right"
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$explain, {
+    update_el_popover(session, "info", content = summary_text(), visible = TRUE)
+  })
+}
 }

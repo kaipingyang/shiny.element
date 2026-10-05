@@ -47,10 +47,10 @@
 #' @param before_close `htmltools::JS()` function `function(done)`, run when
 #'   the user closes it -- by the cross, the backdrop or Escape; call `done()`
 #'   to let it close.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_dialog()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_dialog()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @section Shiny inputs:
 #' - `input$<id>` -- `TRUE` while the dialog is open, reported whenever it
 #'   opens or closes, however that happens. Shiny routes an input binding's
@@ -237,18 +237,11 @@ el_dialog <- function(
 }
 
 
-#' Update Element Plus Dialog
-#'
+#' @rdname el_dialog
+#' @section Updating from the server:
 #' Server-side update for [el_dialog()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Dialog ID (un-namespaced).
-#' @param visible Open or close it.
-#' @param title New header text.
-#' @param width New width.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_dialog()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_steps.R
 \name{el_steps}
 \alias{el_steps}
+\alias{update_el_steps}
 \title{Element Plus Steps Component}
 \usage{
 el_steps(
@@ -17,6 +18,18 @@ el_steps(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_steps(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  active = NULL,
+  process_status = NULL,
+  finish_status = NULL,
+  space = NULL,
+  direction = NULL,
+  align_center = NULL,
+  simple = NULL
 )
 }
 \arguments{
@@ -50,9 +63,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_steps()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_steps()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -60,6 +74,17 @@ A Shiny UI element.
 \description{
 Element Plus Steps Component
 }
+\section{Updating from the server}{
+
+\code{update_el_steps()} changes the component from the server.
+
+Every other argument of \code{\link[=el_steps]{el_steps()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_steps()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 # Basic usage
 el_steps(
@@ -90,4 +115,10 @@ el_steps(
     list(title = "Step 3", description = "Finish", icon = "el-icon-picture")
   )
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_steps(session, "wizard", active = 2)
+  })
+}
 }

@@ -71,9 +71,10 @@
 #'   as [JS()].
 #' @param virtual_scroll Whether to enable virtual scrolling for large data.
 #'   Element Plus's `virtual-scroll` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_cascader()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_cascader()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param popper_class Extra class name for the dropdown panel.
 #' @param filter_method `JS()` function filtering the options as the user types.
 #' @param before_filter `JS()` function called before filtering; returning `false` cancels it.
@@ -313,24 +314,15 @@ el_cascader <- function(
   )
 }
 
-#' Update Element Plus Cascader
+#' @rdname el_cascader
+#' @section Updating from the server:
+#' `update_el_cascader()` changes the component from the server.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Cascader ID
-#' @param options New cascader options
-#' @param value New selected value
-#' @param placeholder New placeholder text
-#' @param clearable Whether clearable
-#' @param filterable Whether filterable
-#' @param disabled Whether disabled
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' Every other argument of [el_cascader()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_cascader()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -338,10 +330,6 @@ el_cascader <- function(
 #'     update_el_cascader(session, "region", value = list("zj", "hz"))
 #'   })
 #' }
-#' @inheritParams el_cascader
-#' @details Every other argument of [el_cascader()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_cascader <- function(
   session = shiny::getDefaultReactiveDomain(),

@@ -43,9 +43,10 @@
 #'   | 'small').
 #' @param tabindex Tabindex for input. Element Plus's `tabindex` (string /
 #'   number).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_switch()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_switch()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param name Native `name` attribute of the inner checkbox.
 #' @param validate_event Whether a change triggers form validation. Default `TRUE`.
 #' @param slots Named list of Element slot contents, such as
@@ -187,28 +188,16 @@ el_switch <- function(
 }
 
 
-#' Update Element Plus Switch
-#'
+#' @rdname el_switch
+#' @section Updating from the server:
 #' Server-side update for [el_switch()]. Pass only the fields to change;
 #' `NULL` fields are excluded from the update message.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Switch ID (un-namespaced).
-#' @param value New switch value.
-#' @param disabled New disabled state.
-#' @param active_text New active text.
-#' @param inactive_text New inactive text.
-#' @param active_color New active background color.
-#' @param inactive_color New inactive background color.
+#' Every other argument of [el_switch()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_switch()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -216,10 +205,6 @@ el_switch <- function(
 #'     update_el_switch(session, "live", value = TRUE)
 #'   })
 #' }
-#' @inheritParams el_switch
-#' @details Every other argument of [el_switch()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_switch <- function(
   session = shiny::getDefaultReactiveDomain(),

@@ -86,9 +86,10 @@
 #' @param value_on_clear Clear return value, see config-provider. Element
 #'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
 #'   as [JS()].
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_select()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_select()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param value_key Key that identifies an option when values are objects. Default `"value"`.
 #' @param name Native `name` attribute.
 #' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
@@ -460,31 +461,16 @@ el_select <- function(
 }
 
 
-#' Update Element Plus Select
-#'
+#' @rdname el_select
+#' @section Updating from the server:
 #' Server-side update for [el_select()]. Sends a custom message to update
 #' reactive fields on the underlying Vue instance.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Select input ID (un-namespaced).
-#' @param selected,value New selected value(s). `selected` is Shiny's name,
-#'   `value` Element's; give either.
-#' @param choices,options New choices, in any form [el_select()] takes.
-#'   `choices` is Shiny's name, `options` Element's; give either.
-#' @param disabled,placeholder,clearable,filterable,multiple_limit New
-#'   values for these props.
-#' @param loading,loading_text,no_match_text,no_data_text The remote-search
-#'   state: show the spinner while options are fetched, and the messages for
-#'   no match and no data.
+#' Every other argument of [el_select()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_select()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -492,10 +478,6 @@ el_select <- function(
 #'     update_el_select(session, "city", selected = "sh")
 #'   })
 #' }
-#' @inheritParams el_select
-#' @details Every other argument of [el_select()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_select <- function(
   session = shiny::getDefaultReactiveDomain(),

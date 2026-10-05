@@ -23,10 +23,10 @@
 #' @param slots Named list of Element slot contents: `title`, `extra`.
 #' @param label_width Label width of every column. Element Plus's
 #'   `label-width` (string / number).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_descriptions()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_descriptions()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @return A Shiny UI element.
 #' @examples
 #' el_descriptions(
@@ -206,19 +206,13 @@ el_descriptions <- function(
 }
 
 
-#' Update Element Plus Descriptions
-#'
+#' @rdname el_descriptions
+#' @section Updating from the server:
 #' Server-side update for [el_descriptions()]. The items themselves are
 #' markup, so replace them by re-rendering; this changes the settings around
 #' them.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Component ID (un-namespaced).
-#' @param title,extra,column,direction,border New values; `NULL` leaves one
-#'   unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_descriptions()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

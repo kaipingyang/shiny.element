@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_mention.R
 \name{el_mention}
 \alias{el_mention}
+\alias{update_el_mention}
 \title{Element Plus Mention}
 \usage{
 el_mention(
@@ -35,6 +36,31 @@ el_mention(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_mention(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  props = NULL,
+  prefix = NULL,
+  split = NULL,
+  filter_option = NULL,
+  placement = NULL,
+  show_arrow = NULL,
+  offset = NULL,
+  whole = NULL,
+  check_is_whole = NULL,
+  loading = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placeholder = NULL,
+  type = NULL,
+  rows = NULL
 )
 }
 \arguments{
@@ -124,6 +150,9 @@ whether beside the component rather than under it. Element's
 
 \item{slots}{Named list of Element slot contents: \code{label}, \code{loading},
 \code{header}, \code{footer}. A scoped slot is written with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -142,6 +171,21 @@ do.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_mention]{el_mention()}}.
+
+Every other argument of \code{\link[=el_mention]{el_mention()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_mention()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_mention("msg", options = c("Ada", "Grace", "Linus"), placeholder = "Type @")
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_mention(session, "x", value = NULL))
+}
 }

@@ -166,26 +166,14 @@ el_calendar <- function(
   )
 }
 
-#' Update Element Plus Calendar Component
-#'
+#' @rdname el_calendar
+#' @section Updating from the server:
 #' Server-side update for [el_calendar()]: the selected day, the range, and
 #' every other argument that can change once the calendar is drawn, under
 #' the same name. One left `NULL` stays as it is; `NA` returns a prop to
 #' Element's default.
 #'
-#' @param id Component id
-#' @param value New value (Date/string/number)
-#' @param range New range (c("YYYY-MM-DD", "YYYY-MM-DD"))
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @inheritParams el_calendar
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_calendar()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

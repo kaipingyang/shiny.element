@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_tree_select.R
 \name{el_tree_select}
 \alias{el_tree_select}
+\alias{update_el_tree_select}
 \title{Element Plus Tree Select}
 \usage{
 el_tree_select(
@@ -37,6 +38,32 @@ el_tree_select(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_tree_select(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  data = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  multiple = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  check_on_click_node = NULL,
+  filterable = NULL,
+  clearable = NULL,
+  placeholder = NULL,
+  node_key = NULL,
+  props = NULL,
+  render_after_expand = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  size = NULL,
+  cache_data = NULL,
+  lazy = NULL,
+  load = NULL
 )
 }
 \arguments{
@@ -119,6 +146,9 @@ whether beside the component rather than under it. Element's
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateSelectInput]{shiny::updateSelectInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -144,6 +174,17 @@ children: \code{level}, \code{key} (its \code{node_key} field) and \code{data}. 
 Callable with \code{\link[=call_el]{call_el()}}: \code{focus()}, \code{blur()}.
 }
 
+\section{Updating from the server}{
+
+\code{update_el_tree_select()} changes the component from the server.
+
+Every other argument of \code{\link[=el_tree_select]{el_tree_select()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_tree_select()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_tree_select(
   "dept",
@@ -160,4 +201,11 @@ el_tree_select(
     list(value = "ops", label = "Operations")
   )
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_tree_select(session, "dept", value = "ops")
+  )
+}
 }

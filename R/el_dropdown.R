@@ -59,9 +59,10 @@
 #' @param virtual_triggering Whether virtual triggering is enabled. Element
 #'   Plus's `virtual-triggering` (boolean); `TRUE` when `virtual_ref` is
 #'   given.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_dropdown()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_dropdown()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param show_timeout Delay in ms before the menu appears, for `trigger = "hover"`.
 #' @param hide_timeout Delay in ms before the menu hides, for `trigger = "hover"`.
 #' @param tabindex Tab index of the dropdown trigger.
@@ -285,16 +286,15 @@ el_dropdown <- function(
 }
 
 
-#' Update Element Plus Dropdown
-#'
+#' @rdname el_dropdown
+#' @section Updating from the server:
 #' Server-side update for [el_dropdown()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Dropdown ID (un-namespaced).
-#' @param disabled New disabled state.
+#' Every other argument of [el_dropdown()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_dropdown()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -302,10 +302,6 @@ el_dropdown <- function(
 #'     update_el_dropdown(session, "actions", disabled = TRUE)
 #'   })
 #' }
-#' @inheritParams el_dropdown
-#' @details Every other argument of [el_dropdown()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_dropdown <- function(
   session = shiny::getDefaultReactiveDomain(),

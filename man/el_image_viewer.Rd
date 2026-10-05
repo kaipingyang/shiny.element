@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_image_viewer.R
 \name{el_image_viewer}
 \alias{el_image_viewer}
+\alias{update_el_image_viewer}
 \title{Element Plus Image Viewer}
 \usage{
 el_image_viewer(
@@ -21,6 +22,24 @@ el_image_viewer(
   show_progress = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_image_viewer(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  url_list = NULL,
+  initial_index = NULL,
+  z_index = NULL,
+  infinite = NULL,
+  hide_on_click_modal = NULL,
+  teleported = NULL,
+  zoom_rate = NULL,
+  scale = NULL,
+  min_scale = NULL,
+  max_scale = NULL,
+  close_on_press_escape = NULL,
+  show_progress = NULL
 )
 }
 \arguments{
@@ -68,6 +87,9 @@ Element Plus's \code{show-progress} (boolean).}
 
 \item{slots}{Named list of Element slot contents: \code{progress}, \code{toolbar},
 \code{viewer-error}. A scoped slot is written with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -90,3 +112,23 @@ A full-screen viewer for a list of images, with zoom and rotation.
 Callable with \code{\link[=call_el]{call_el()}}: \code{setActiveItem()}.
 }
 
+\section{Updating from the server}{
+
+Open or close an \code{\link[=el_image_viewer]{el_image_viewer()}}, or give it other images.
+
+Every other argument of \code{\link[=el_image_viewer]{el_image_viewer()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_image_viewer()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$show,
+    update_el_image_viewer(session, "photos", visible = TRUE)
+  )
+}
+}

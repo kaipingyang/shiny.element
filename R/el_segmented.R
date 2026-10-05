@@ -113,28 +113,22 @@ el_segmented <- function(
 }
 
 
-#' Update Element Plus Segmented
-#'
+#' @rdname el_segmented
+#' @section Updating from the server:
 #' Server-side update for [el_segmented()].
 #'
+#' Every other argument of [el_segmented()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_segmented()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param id Component ID (un-namespaced).
-#' @param value,disabled New values; `NULL` leaves one unchanged.
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component; `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$reset, update_el_segmented(session, "x", value = NULL))
 #' }
-#' @inheritParams el_segmented
-#' @details Every other argument of [el_segmented()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_segmented <- function(
   session = shiny::getDefaultReactiveDomain(),

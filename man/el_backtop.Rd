@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_backtop.R
 \name{el_backtop}
 \alias{el_backtop}
+\alias{update_el_backtop}
 \title{Element Plus Back to Top}
 \usage{
 el_backtop(
@@ -14,6 +15,15 @@ el_backtop(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_backtop(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visibility_height = NULL,
+  right = NULL,
+  bottom = NULL,
+  target = NULL
 )
 }
 \arguments{
@@ -37,9 +47,10 @@ appears. Default \code{200}.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_backtop()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_backtop()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -55,10 +66,27 @@ to the top when clicked.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_backtop]{el_backtop()}}.
+
+Every other argument of \code{\link[=el_backtop]{el_backtop()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_backtop()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_backtop("top")
 el_backtop("top", visibility_height = 100, right = 20, bottom = 20)
 
 # Scrolling a panel rather than the page
 el_backtop("panel_top", target = "#report")
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$compact, {
+    update_el_backtop(session, "top", right = 10, bottom = 10)
+  })
+}
 }

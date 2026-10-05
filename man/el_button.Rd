@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_button.R
 \name{el_button}
 \alias{el_button}
+\alias{update_el_button}
 \title{Element Plus Button with Vue Instance}
 \usage{
 el_button(
@@ -29,6 +30,30 @@ el_button(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_button(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  type = NULL,
+  size = NULL,
+  plain = NULL,
+  round = NULL,
+  loading = NULL,
+  disabled = NULL,
+  circle = NULL,
+  icon = NULL,
+  autofocus = NULL,
+  auto_insert_space = NULL,
+  bg = NULL,
+  color = NULL,
+  dark = NULL,
+  dashed = NULL,
+  link = NULL,
+  loading_icon = NULL,
+  tag = NULL,
+  text = NULL
 )
 }
 \arguments{
@@ -101,9 +126,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_button()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_button()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed button component.
@@ -118,6 +144,18 @@ button variants including \code{plain}, \code{round}, \code{circle}, and \code{l
 it: 0 on load, and counted only while neither \code{disabled} nor \code{loading} is
 \code{TRUE}. It carries the same class, so \code{observeEvent()} and \code{req()} treat 0
 as not yet clicked.
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_button]{el_button()}}. Supports all visual states including
+\code{size}, \code{plain}, \code{round}, and \code{loading}.
+
+Every other argument of \code{\link[=el_button]{el_button()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_button()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -136,5 +174,11 @@ if (interactive()) {
     output$count <- renderPrint(input$btn1)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_button(session, "save", loading = TRUE)
+  })
 }
 }

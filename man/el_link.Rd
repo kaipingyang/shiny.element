@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_link.R
 \name{el_link}
 \alias{el_link}
+\alias{update_el_link}
 \title{Element Plus Link}
 \usage{
 el_link(
@@ -14,6 +15,17 @@ el_link(
   id = NULL,
   ...,
   target = "_self"
+)
+
+update_el_link(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  href = NULL,
+  type = NULL,
+  underline = NULL,
+  disabled = NULL,
+  icon = NULL
 )
 }
 \arguments{
@@ -42,6 +54,9 @@ link only).}
 
 \item{target}{Where the link opens, as an \verb{<a>}'s \code{target}. Default
 \code{"_self"}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateActionLink]{shiny::updateActionLink()}}.}
 }
 \value{
 An \code{htmltools} \verb{<a>} tag, or with an \code{id} a Shiny UI element.
@@ -55,6 +70,13 @@ With an \code{id}, \verb{input$<id>} -- the number of clicks, as
 \code{\link[shiny:actionLink]{shiny::actionLink()}} reports it.
 }
 
+\section{Updating from the server}{
+
+Server-side update for an \code{\link[=el_link]{el_link()}} given an \code{id}.
+
+\code{update_el_link()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_link("Visit GitHub", href = "https://github.com", type = "primary")
 el_link("Disabled", disabled = TRUE)
@@ -62,4 +84,8 @@ el_link("With icon", icon = "el-icon-edit", type = "success")
 
 # An action link: input$more counts its clicks
 el_link("Show more", id = "more", type = "primary")
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$more, update_el_link(session, "more", label = "Show less"))
+}
 }

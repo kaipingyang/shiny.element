@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_slider.R
 \name{el_slider}
 \alias{el_slider}
+\alias{update_el_slider}
 \title{Element Plus Slider Component}
 \usage{
 el_slider(
@@ -41,6 +42,36 @@ el_slider(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_slider(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  min = NULL,
+  max = NULL,
+  step = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  show_input = NULL,
+  show_stops = NULL,
+  show_tooltip = NULL,
+  vertical = NULL,
+  height = NULL,
+  marks = NULL,
+  input_size = NULL,
+  show_input_controls = NULL,
+  tooltip_class = NULL,
+  format_tooltip = NULL,
+  aria_label = NULL,
+  format_value_text = NULL,
+  persistent = NULL,
+  placement = NULL,
+  range_end_label = NULL,
+  range_start_label = NULL,
+  size = NULL,
+  validate_event = NULL
 )
 }
 \arguments{
@@ -144,9 +175,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_slider()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_slider()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed slider component.
@@ -159,6 +191,18 @@ range modes, marks, vertical orientation, and optional numeric input box.
 
 \verb{input$<id>} -- Number (\code{range = FALSE}) or two-element array
 (\code{range = TRUE}), updated when the user finishes dragging.
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_slider]{el_slider()}}. Supports updating value, range bounds,
+step size, and disabled state.
+
+Every other argument of \code{\link[=el_slider]{el_slider()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_slider()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -189,5 +233,11 @@ if (interactive()) {
     output$val <- renderPrint(input$slider1)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_slider(session, "score", value = 80)
+  })
 }
 }

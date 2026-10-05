@@ -19,9 +19,10 @@
 #' @param immediate Whether to ask once on load, in case the content does not
 #'   fill the area. Default `TRUE`.
 #' @param width Component width, as a CSS unit.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_infinite_scroll()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_infinite_scroll()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -121,17 +122,12 @@ el_infinite_scroll <- function(
 }
 
 
-#' Update Element Plus Infinite Scroll
-#'
+#' @rdname el_infinite_scroll
+#' @section Updating from the server:
 #' Server-side update for [el_infinite_scroll()]. Setting `disabled` is how a
 #' feed stops asking once everything has been sent.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Container ID (un-namespaced).
-#' @param disabled,delay,distance New values; `NULL` leaves one unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_infinite_scroll()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

@@ -11,9 +11,10 @@
 #' @param separator_icon Icon component of icon separator. Element Plus's
 #'   `separator-icon` (string / Component). An icon's name, such as
 #'   `"Search"`.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_breadcrumb()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_breadcrumb()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -94,16 +95,15 @@ el_breadcrumb <- function(
 }
 
 
-#' Update Element Plus Breadcrumb
-#'
+#' @rdname el_breadcrumb
+#' @section Updating from the server:
 #' Server-side update for [el_breadcrumb()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Breadcrumb ID (un-namespaced).
-#' @param items,separator New values; `NULL` leaves one unchanged.
+#' Every other argument of [el_breadcrumb()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_breadcrumb()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -118,10 +118,6 @@ el_breadcrumb <- function(
 #'     )
 #'   })
 #' }
-#' @inheritParams el_breadcrumb
-#' @details Every other argument of [el_breadcrumb()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_breadcrumb <- function(
   session = shiny::getDefaultReactiveDomain(),

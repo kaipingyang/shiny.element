@@ -13,10 +13,10 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `icon`, `title`,
 #'   `subTitle`, `extra`.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_result()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_result()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @return A Shiny UI element.
 #' @examples
 #' el_result(
@@ -86,16 +86,11 @@ el_result <- function(
 }
 
 
-#' Update Element Plus Result
-#'
+#' @rdname el_result
+#' @section Updating from the server:
 #' Server-side update for [el_result()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Component ID (un-namespaced).
-#' @param icon,title,sub_title New values; `NULL` leaves one unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_result()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

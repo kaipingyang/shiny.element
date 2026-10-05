@@ -290,7 +290,6 @@ reference:
       As in Element Plus's documentation.
     contents:
       - el_button
-      - update_el_button
       - el_button_group
       - el_container
       - el_header
@@ -301,7 +300,6 @@ reference:
       - el_row
       - el_col
       - el_link
-      - update_el_link
       - el_text
       - el_scrollbar
       - el_space
@@ -313,28 +311,18 @@ reference:
       Each reports to the server as `input$<id>`, on load as well as on change.
     contents:
       - el_autocomplete
-      - update_el_autocomplete
       - el_cascader
-      - update_el_cascader
       - el_cascader_panel
-      - update_el_cascader_panel
       - df_to_cascader_options
       - el_checkbox
-      - update_el_checkbox
       - el_checkbox_group
-      - update_el_checkbox_group
       - el_color_picker
-      - update_el_color_picker
       - el_color_picker_panel
-      - update_el_color_picker_panel
       - el_date_picker
-      - update_el_date_picker
       - el_date_picker_panel
-      - update_el_date_picker_panel
       - el_form
       - el_form_field
       - el_rule
-      - update_el_form
       - el_form_validate
       - el_form_reset
       - el_form_clear_validate
@@ -344,93 +332,58 @@ reference:
       - el_input_tag
       - el_input_otp
       - el_mention
-      - update_el_mention
       - el_radio_group
-      - update_el_radio_group
       - el_rate
-      - update_el_rate
       - el_select
-      - update_el_select
       - el_option
       - el_select_v2
-      - update_el_select_v2
       - el_slider
-      - update_el_slider
       - el_switch
-      - update_el_switch
       - el_time_picker
-      - update_el_time_picker
       - el_time_select
-      - update_el_time_select
       - el_transfer
-      - update_el_transfer
       - el_tree_select
-      - update_el_tree_select
       - el_upload
-      - update_el_upload
       - el_upload_clear
 
   - title: Data
     contents:
       - el_avatar
-      - update_el_avatar
       - el_avatar_group
       - el_badge
-      - update_el_badge
       - el_calendar
-      - update_el_calendar
       - el_card
       - el_carousel
-      - update_el_carousel
       - el_carousel_item
       - el_collapse
-      - update_el_collapse
       - el_collapse_item
       - el_descriptions
-      - update_el_descriptions
       - el_descriptions_item
       - el_empty
-      - update_el_empty
       - el_image
-      - update_el_image
       - el_image_viewer
-      - update_el_image_viewer
       - el_infinite_scroll
-      - update_el_infinite_scroll
       - el_pagination
-      - update_el_pagination
       - el_progress
-      - update_el_progress
       - el_result
-      - update_el_result
       - el_skeleton
-      - update_el_skeleton
       - el_skeleton_item
       - el_table
-      - update_el_table
       - el_table_column
       - el_table_v2
-      - update_el_table_v2
       - el_table_v2_column
       - el_tag
-      - update_el_tag
       - el_check_tag
-      - update_el_check_tag
       - el_timeline
-      - update_el_timeline
       - el_timeline_item
       - el_tour
-      - update_el_tour
       - el_tour_step
       - el_tree
-      - update_el_tree
       - df_to_tree_data
       - el_tree_v2
       - el_statistic
-      - update_el_statistic
       - el_countdown
       - el_segmented
-      - update_el_segmented
 
   - title: Navigation
     contents:
@@ -438,23 +391,16 @@ reference:
       - el_anchor
       - el_anchor_link
       - el_backtop
-      - update_el_backtop
       - el_breadcrumb
-      - update_el_breadcrumb
       - el_breadcrumb_item
       - el_dropdown
-      - update_el_dropdown
       - el_dropdown_item
       - el_menu
-      - update_el_menu
       - el_menu_item
       - el_page_header
-      - update_el_page_header
       - el_steps
-      - update_el_steps
       - el_step
       - el_tabs
-      - update_el_tabs
       - el_tab_pane
       - insert_el_tab
       - remove_el_tab
@@ -464,11 +410,8 @@ reference:
       Messages, notifications, message boxes and loading masks are called from the server.
     contents:
       - el_alert
-      - update_el_alert
       - el_dialog
-      - update_el_dialog
       - el_drawer
-      - update_el_drawer
       - el_loading
       - el_loading_close
       - el_message
@@ -477,11 +420,8 @@ reference:
       - el_notification
       - el_notification_close
       - el_popconfirm
-      - update_el_popconfirm
       - el_popover
-      - update_el_popover
       - el_tooltip
-      - update_el_tooltip
 
   - title: Others
     contents:

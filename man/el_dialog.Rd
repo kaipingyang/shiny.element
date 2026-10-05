@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_dialog.R
 \name{el_dialog}
 \alias{el_dialog}
+\alias{update_el_dialog}
 \title{Element Plus Dialog}
 \usage{
 el_dialog(
@@ -39,6 +40,14 @@ el_dialog(
   header_aria_level = "2",
   transition = NULL,
   session = NULL
+)
+
+update_el_dialog(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  visible = NULL,
+  title = NULL,
+  width = NULL
 )
 }
 \arguments{
@@ -112,9 +121,10 @@ hands out.}
 \item{transition}{The name of the transition it plays, instead of
 Element's \code{"dialog-fade"}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_dialog()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_dialog()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tag.
@@ -147,6 +157,13 @@ moves into it on opening, and back on closing.
 Callable with \code{\link[=call_el]{call_el()}}: \code{resetPosition()} puts a dragged dialog back.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_dialog]{el_dialog()}}.
+
+\code{update_el_dialog()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_dialog(
   "d1",
@@ -162,4 +179,10 @@ el_dialog(
   draggable = TRUE,
   content = shiny::tagList(el_input("q"), el_switch("live"))
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_dialog(session, "confirm", visible = TRUE)
+  })
+}
 }

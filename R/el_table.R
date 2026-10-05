@@ -389,9 +389,10 @@
 #'   Give it as [JS()].
 #' @param tooltip_options The options for the overflow tooltip, see the
 #'   following tooltip component. Element Plus's `tooltip-options` (object).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_table()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_table()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param stripe Whether rows alternate background colour.
 #' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param height Table height. Fixes the header and scrolls the body.
@@ -992,8 +993,8 @@ el_table <- function(
   )
 }
 
-#' Update Element Plus Table
-#'
+#' @rdname el_table
+#' @section Updating from the server:
 #' Changes a table from the server, as [shiny::updateSelectInput()] does a
 #' select: every argument of [el_table()] that can change once the table is
 #' drawn, under the same name. One left `NULL` stays as it is; `NA` returns
@@ -1001,23 +1002,12 @@ el_table <- function(
 #' `default_*` arguments, which Element reads only when the table is
 #' created, are not here.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Table ID (un-namespaced).
-#' @param data New data: a data.frame or a list of rows.
-#' @param columns New column configs. Omitted, the table keeps the columns
-#'   it was created with -- labels, formatters, cell templates -- and a table
-#'   whose columns were inferred infers them again from the new `data`.
-#'   `list()` drops written columns and goes back to inferring them.
-#' @param border New border state.
-#' @param selection New row-selection state.
-#' @param loading Show or hide the loading mask.
-#' @inheritParams el_table
-#' @details A column's `cell` template is part of the table's markup, made
-#'   when the table is. New columns given here keep the template of the
-#'   column with the same `prop` (or label) and may drop it, but cannot
-#'   bring a template the table was not created with.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' A column's `cell` template is part of the table's markup, made
+#' when the table is. New columns given here keep the template of the
+#' column with the same `prop` (or label) and may drop it, but cannot
+#' bring a template the table was not created with.
+#'
+#' `update_el_table()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

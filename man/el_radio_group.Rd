@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_radio_group.R
 \name{el_radio_group}
 \alias{el_radio_group}
+\alias{update_el_radio_group}
 \title{Element Plus Radio Group Component}
 \usage{
 el_radio_group(
@@ -30,6 +31,25 @@ el_radio_group(
   type = NULL,
   validate_event = NULL,
   session = NULL
+)
+
+update_el_radio_group(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL,
+  choices = NULL,
+  disabled = NULL,
+  value = NULL,
+  options = NULL,
+  label = NULL,
+  error = NULL,
+  size = NULL,
+  fill = NULL,
+  text_color = NULL,
+  aria_label = NULL,
+  props = NULL,
+  type = NULL,
+  validate_event = NULL
 )
 }
 \arguments{
@@ -105,9 +125,10 @@ Plus's \code{type} ('radio' | 'button').}
 \item{validate_event}{Whether to trigger form validation. Element Plus's
 \code{validate-event} (boolean).}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_radio_group()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_radio_group()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList containing the Vue-managed radio group.
@@ -121,6 +142,18 @@ Supports both standard radio buttons (\verb{<el-radio>}) and button-style radios
 
 \verb{input$<id>} -- string or number reflecting the currently selected value,
 updated on each change.
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_radio_group]{el_radio_group()}}. Sends a custom message to update
+reactive fields on the underlying Vue instance.
+
+Every other argument of \code{\link[=el_radio_group]{el_radio_group()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_radio_group()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -155,5 +188,11 @@ if (interactive()) {
     output$selected <- renderPrint(input$fruit)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_radio_group(session, "plan", selected = "pro")
+  })
 }
 }

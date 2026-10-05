@@ -27,9 +27,10 @@
 #'   Element Plus's `motion-blur` (boolean).
 #' @param pause_on_hover Pause autoplay when hover. Element Plus's
 #'   `pause-on-hover` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_carousel()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_carousel()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -229,15 +230,16 @@ el_carousel <- function(
   )
 }
 
-#' Update an Element Plus Carousel
+#' @rdname el_carousel
+#' @section Updating from the server:
+#' `update_el_carousel()` changes the component from the server.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Carousel ID (un-namespaced).
+#' Every other argument of [el_carousel()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_carousel()` is called for its side effect and returns `NULL` invisibly.
 #' @param active Index of the slide to show, 0-based.
-#' @param autoplay Start or stop cycling.
-#' @param interval New interval in milliseconds.
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -245,10 +247,6 @@ el_carousel <- function(
 #'     update_el_carousel(session, "banner", active = 2)
 #'   })
 #' }
-#' @inheritParams el_carousel
-#' @details Every other argument of [el_carousel()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_carousel <- function(
   session = shiny::getDefaultReactiveDomain(),

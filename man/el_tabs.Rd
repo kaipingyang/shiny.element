@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_tabs.R
 \name{el_tabs}
 \alias{el_tabs}
+\alias{update_el_tabs}
 \title{Element Plus Tabs}
 \usage{
 el_tabs(
@@ -17,6 +18,12 @@ el_tabs(
   before_leave = NULL,
   add_icon = NULL,
   session = NULL
+)
+
+update_el_tabs(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  selected = NULL
 )
 }
 \arguments{
@@ -58,9 +65,10 @@ from the page; the server is told through \verb{input$<id>_tab_remove}.}
 
 \item{add_icon}{The add button's icon, by name. Default \code{"Plus"}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_tabs()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_tabs()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tag.
@@ -88,6 +96,13 @@ a list of \code{target} (the tab name, or \code{NULL} for an add) and \code{acti
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_tabs]{el_tabs()}}.
+
+\code{update_el_tabs()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_tabs(
   "t1",
@@ -110,4 +125,10 @@ el_tabs(
     list(name = "opts", label = "Options", content = el_switch("live"))
   )
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tabs(session, "section", selected = "data")
+  })
+}
 }

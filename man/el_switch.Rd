@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_switch.R
 \name{el_switch}
 \alias{el_switch}
+\alias{update_el_switch}
 \title{Element Plus Switch}
 \usage{
 el_switch(
@@ -38,6 +39,34 @@ el_switch(
   tabindex = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_switch(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  active_text = NULL,
+  inactive_text = NULL,
+  active_color = NULL,
+  inactive_color = NULL,
+  label = NULL,
+  error = NULL,
+  active_value = NULL,
+  inactive_value = NULL,
+  name = NULL,
+  validate_event = NULL,
+  active_action_icon = NULL,
+  active_icon = NULL,
+  aria_label = NULL,
+  before_change = NULL,
+  border_color = NULL,
+  inactive_action_icon = NULL,
+  inactive_icon = NULL,
+  inline_prompt = NULL,
+  loading = NULL,
+  size = NULL,
+  tabindex = NULL
 )
 }
 \arguments{
@@ -138,9 +167,10 @@ number).}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_switch()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_switch()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed switch component.
@@ -162,6 +192,18 @@ Callable with \code{\link[=call_el]{call_el()}}:
 (when off), matching the types of those arguments.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_switch]{el_switch()}}. Pass only the fields to change;
+\code{NULL} fields are excluded from the update message.
+
+Every other argument of \code{\link[=el_switch]{el_switch()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_switch()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_switch("sw1", value = TRUE)
 
@@ -176,5 +218,11 @@ if (interactive()) {
     output$state <- renderPrint(input$sw1)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_switch(session, "live", value = TRUE)
+  })
 }
 }

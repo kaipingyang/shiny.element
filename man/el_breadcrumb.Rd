@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_breadcrumb.R
 \name{el_breadcrumb}
 \alias{el_breadcrumb}
+\alias{update_el_breadcrumb}
 \title{Element Plus Breadcrumb}
 \usage{
 el_breadcrumb(
@@ -12,6 +13,14 @@ el_breadcrumb(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_breadcrumb(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  separator = NULL,
+  separator_icon = NULL
 )
 }
 \arguments{
@@ -34,9 +43,10 @@ optional and makes that step a link; the last step is usually plain text.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_breadcrumb()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_breadcrumb()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -51,6 +61,17 @@ A trail of links showing where a page sits.
 \code{to} are still reported, so a breadcrumb can drive navigation inside a
 Shiny app without any routing.
 }
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_breadcrumb]{el_breadcrumb()}}.
+
+Every other argument of \code{\link[=el_breadcrumb]{el_breadcrumb()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_breadcrumb()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -69,4 +90,17 @@ el_breadcrumb(
   items = list(list(label = "Home"), list(label = "Detail")),
   separator_icon = "ArrowRight"
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$open_detail, {
+    update_el_breadcrumb(
+      session,
+      "trail",
+      items = list(
+        list(label = "Home"),
+        list(label = "Detail")
+      )
+    )
+  })
+}
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_select_v2.R
 \name{el_select_v2}
 \alias{el_select_v2}
+\alias{update_el_select_v2}
 \title{Element Plus Virtualized Select}
 \usage{
 el_select_v2(
@@ -71,6 +72,66 @@ el_select_v2(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_select_v2(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  multiple = NULL,
+  value_key = NULL,
+  size = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  collapse_tags = NULL,
+  multiple_limit = NULL,
+  effect = NULL,
+  autocomplete = NULL,
+  placeholder = NULL,
+  filterable = NULL,
+  allow_create = NULL,
+  filter_method = NULL,
+  loading = NULL,
+  loading_text = NULL,
+  reserve_keyword = NULL,
+  no_match_text = NULL,
+  no_data_text = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  teleported = NULL,
+  append_to = NULL,
+  persistent = NULL,
+  popper_options = NULL,
+  automatic_dropdown = NULL,
+  fit_input_width = NULL,
+  suffix_icon = NULL,
+  height = NULL,
+  item_height = NULL,
+  estimated_option_height = NULL,
+  scrollbar_always_on = NULL,
+  remote = NULL,
+  debounce = NULL,
+  remote_method = NULL,
+  remote_show_suffix = NULL,
+  validate_event = NULL,
+  offset = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  collapse_tags_tooltip = NULL,
+  max_collapse_tags = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  popper_append_to_body = NULL,
+  tabindex = NULL,
+  props = NULL,
+  tag_tooltip = NULL
 )
 }
 \arguments{
@@ -287,6 +348,9 @@ whether beside the component rather than under it. Element's
 \item{slots}{Named list of Element slot contents: \code{header}, \code{footer},
 \code{empty}, \code{prefix}, \code{tag}, \code{loading}, \code{label}. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -313,6 +377,21 @@ A select drawing only the options in view, for lists of thousands.
 Callable with \code{\link[=call_el]{call_el()}}: \code{focus()}, \code{blur()}.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_select_v2]{el_select_v2()}}.
+
+Every other argument of \code{\link[=el_select_v2]{el_select_v2()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_select_v2()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_select_v2("city", options = paste("City", 1:10000), filterable = TRUE)
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_select_v2(session, "x", value = NULL))
+}
 }

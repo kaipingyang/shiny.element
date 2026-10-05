@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_badge.R
 \name{el_badge}
 \alias{el_badge}
+\alias{update_el_badge}
 \title{Element Plus Badge}
 \usage{
 el_badge(
@@ -17,6 +18,16 @@ el_badge(
   offset = NULL,
   badge_style = NULL,
   badge_class = NULL
+)
+
+update_el_badge(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  max = NULL,
+  is_dot = NULL,
+  hidden = NULL,
+  type = NULL
 )
 }
 \arguments{
@@ -47,6 +58,9 @@ is reached through \code{\link[=update_vue]{update_vue()}} on the badge's id.}
 
 \item{badge_style, badge_class}{Extra CSS -- a string or a named list -- and
 class names for the badge.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tag, or with an \code{id} a Shiny UI element.
@@ -55,6 +69,13 @@ An \code{htmltools} tag, or with an \code{id} a Shiny UI element.
 Wraps any content with a numeric badge or red dot in the top-right corner.
 When used without content, renders a standalone badge element.
 }
+\section{Updating from the server}{
+
+Server-side update for an \code{\link[=el_badge]{el_badge()}} given an \code{id}.
+
+\code{update_el_badge()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_badge(el_button("btn1", "Messages"), value = 5)
 el_badge(el_button("btn2", "Alerts"), value = 200, max = 99)
@@ -62,4 +83,13 @@ el_badge(el_button("btn3", "Updates"), is_dot = TRUE)
 
 # Updated from the server: update_el_badge(session, "unread", value = 7)
 el_badge(el_button("inbox", "Inbox"), value = 3, id = "unread")
+if (interactive()) {
+  # inside a server function
+  observe(update_el_badge(
+    session,
+    "unread",
+    value = unread_count(),
+    hidden = unread_count() == 0
+  ))
+}
 }

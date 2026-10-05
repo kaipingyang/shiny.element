@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_pagination.R
 \name{el_pagination}
 \alias{el_pagination}
+\alias{update_el_pagination}
 \title{Element Plus Pagination Component}
 \usage{
 el_pagination(
@@ -31,6 +32,31 @@ el_pagination(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_pagination(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  total = NULL,
+  current_page = NULL,
+  page_size = NULL,
+  disabled = NULL,
+  page_sizes = NULL,
+  layout = NULL,
+  background = NULL,
+  small = NULL,
+  pager_count = NULL,
+  prev_text = NULL,
+  next_text = NULL,
+  hide_on_single_page = NULL,
+  page_count = NULL,
+  popper_class = NULL,
+  append_size_to = NULL,
+  next_icon = NULL,
+  popper_style = NULL,
+  prev_icon = NULL,
+  size = NULL,
+  teleported = NULL
 )
 }
 \arguments{
@@ -101,9 +127,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_pagination()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_pagination()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed pagination component.
@@ -118,6 +145,17 @@ jump-to-page input, and total count display.
 \item \verb{input$<id>} -- the current page, 1-based, on load and on change.
 \item \verb{input$<id>_size} -- the page size, on load and on change.
 }
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_pagination]{el_pagination()}}.
+
+Every other argument of \code{\link[=el_pagination]{el_pagination()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_pagination()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -147,5 +185,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_pagination(session, "pager", current_page = 2)
+  })
 }
 }

@@ -11,10 +11,10 @@
 #'   emptiness. A shiny.element component here is absorbed, not nested.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `image`, `description`.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_empty()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_empty()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @return A Shiny UI element.
 #' @examples
 #' el_empty("none", description = "No reports yet")
@@ -77,16 +77,11 @@ el_empty <- function(
 }
 
 
-#' Update Element Plus Empty
-#'
+#' @rdname el_empty
+#' @section Updating from the server:
 #' Server-side update for [el_empty()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Component ID (un-namespaced).
-#' @param description,image New values; `NULL` leaves one unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_empty()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

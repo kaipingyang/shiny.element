@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_skeleton.R
 \name{el_skeleton}
 \alias{el_skeleton}
+\alias{update_el_skeleton}
 \title{Element Plus Skeleton}
 \usage{
 el_skeleton(
@@ -15,6 +16,13 @@ el_skeleton(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_skeleton(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  loading = NULL,
+  rows = NULL
 )
 }
 \arguments{
@@ -39,9 +47,10 @@ a fast load does not flash it.}
 \item{slots}{Named list of Element slot contents. \code{template} replaces the
 placeholder's shape; build it from \code{\link[=el_skeleton_item]{el_skeleton_item()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_skeleton()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_skeleton()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -51,6 +60,14 @@ Grey placeholder shapes shown while content is on its way, then the content
 itself. In Shiny the usual pattern is to start with \code{loading = TRUE} and
 switch it off from the server once the work is done.
 }
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_skeleton]{el_skeleton()}}. \code{loading = FALSE} swaps the
+placeholder for the real content.
+
+\code{update_el_skeleton()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
 
@@ -65,5 +82,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(result(), {
+    update_el_skeleton(session, "report", loading = FALSE)
+  })
 }
 }

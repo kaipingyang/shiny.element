@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_input_otp.R
 \name{el_input_otp}
 \alias{el_input_otp}
+\alias{update_el_input_otp}
 \title{Element Plus Input OTP}
 \usage{
 el_input_otp(
@@ -28,6 +29,25 @@ el_input_otp(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_input_otp(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  length = NULL,
+  validator = NULL,
+  inputmode = NULL,
+  type = NULL,
+  size = NULL,
+  mask = NULL,
+  separator = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  aria_label = NULL
 )
 }
 \arguments{
@@ -100,6 +120,9 @@ whether beside the component rather than under it. Element's
 
 \item{slots}{Named list of Element slot contents: \code{separator}. A scoped
 slot is written with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -123,7 +146,22 @@ A one-time password or verification code, typed one character per field.
 Callable with \code{\link[=call_el]{call_el()}}: \code{focus()}, \code{blur()}.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_input_otp]{el_input_otp()}}.
+
+Every other argument of \code{\link[=el_input_otp]{el_input_otp()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_input_otp()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_input_otp("code", length = 6)
 el_input_otp("pin", length = 4, mask = TRUE, type = "underlined")
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_input_otp(session, "x", value = NULL))
+}
 }

@@ -109,16 +109,17 @@ el_image_viewer <- function(
 }
 
 
-#' Update Element Plus Image Viewer
-#'
+#' @rdname el_image_viewer
+#' @section Updating from the server:
 #' Open or close an [el_image_viewer()], or give it other images.
 #'
+#' Every other argument of [el_image_viewer()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_image_viewer()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param id Viewer ID (un-namespaced).
-#' @param visible,url_list,initial_index New values; `NULL` leaves one
-#'   unchanged.
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -127,10 +128,6 @@ el_image_viewer <- function(
 #'     update_el_image_viewer(session, "photos", visible = TRUE)
 #'   )
 #' }
-#' @inheritParams el_image_viewer
-#' @details Every other argument of [el_image_viewer()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_image_viewer <- function(
   session = shiny::getDefaultReactiveDomain(),

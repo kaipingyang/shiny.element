@@ -39,10 +39,10 @@
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_time_picker()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_time_picker()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @section Shiny inputs:
 #' - `input$<id>` -- the time, or two for a range, on load and on change.
 #' - `input$<id>_blur`, `input$<id>_focus`, `input$<id>_clear` -- as the field
@@ -321,22 +321,16 @@ el_time_select <- function(
 }
 
 
-#' Update Element Plus Time Picker
-#'
+#' @rdname el_time_picker
+#' @section Updating from the server:
 #' Server-side update for [el_time_picker()] and [el_time_select()];
 #' `update_el_time_select()` is the time select's, with its own arguments.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Picker ID (un-namespaced).
-#' @param value,disabled New values; `NULL` leaves one unchanged.
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' Every other argument of [el_time_picker()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_time_picker()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -345,11 +339,6 @@ el_time_select <- function(
 #'     update_el_time_picker(session, "start", value = "09:00:00")
 #'   )
 #' }
-#' @inheritParams el_time_picker
-#' @details Every other argument of [el_time_picker()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
-#' @param clearable,editable,readonly As for [el_time_picker()].
 #' @export
 update_el_time_picker <- function(
   session = shiny::getDefaultReactiveDomain(),
@@ -440,8 +429,14 @@ update_el_time_picker <- function(
 }
 
 
-#' @rdname update_el_time_picker
-#' @inheritParams el_time_select
+#' @rdname el_time_picker
+#' @section Updating a time select:
+#' `update_el_time_select()` changes the time select from the server: every
+#' argument of [el_time_select()] that can change once it is drawn, under the
+#' same name. One left `NULL` stays as it is; `NA` returns it to Element's
+#' default.
+#'
+#' `update_el_time_select()` is called for its side effect and returns `NULL` invisibly.
 #' @export
 update_el_time_select <- function(
   session = shiny::getDefaultReactiveDomain(),

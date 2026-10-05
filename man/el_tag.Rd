@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_tag.R
 \name{el_tag}
 \alias{el_tag}
+\alias{update_el_tag}
 \title{Element Plus Tag}
 \usage{
 el_tag(
@@ -18,6 +19,20 @@ el_tag(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_tag(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  label = NULL,
+  type = NULL,
+  closable = NULL,
+  size = NULL,
+  effect = NULL,
+  color = NULL,
+  hit = NULL,
+  disable_transitions = NULL,
+  round = NULL
 )
 }
 \arguments{
@@ -52,9 +67,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_tag()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_tag()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed tag component.
@@ -74,7 +90,24 @@ Shiny inputs.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_tag]{el_tag()}}.
+
+Every other argument of \code{\link[=el_tag]{el_tag()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_tag()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_tag("tag1", "Success", type = "success")
 el_tag("tag2", "Closable", closable = TRUE)
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tag(session, "status", label = "done", type = "success")
+  })
+}
 }

@@ -147,9 +147,10 @@
 #'   Element Plus's `popper-style` (string / object).
 #' @param show_timeout Control timeout for all menus before showing. Element
 #'   Plus's `show-timeout` (number).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_menu()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_menu()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param default_openeds Character vector of sub-menu indexes open at start.
 #' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
 #' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
@@ -347,14 +348,15 @@ el_menu <- function(
   )
 }
 
-#' Update an Element Plus Menu
+#' @rdname el_menu
+#' @section Updating from the server:
+#' `update_el_menu()` changes the component from the server.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Menu ID (un-namespaced).
-#' @param active Index of the item to select.
-#' @param collapse New collapsed state.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' Every other argument of [el_menu()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_menu()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -362,10 +364,6 @@ el_menu <- function(
 #'     update_el_menu(session, "nav", active = "data")
 #'   })
 #' }
-#' @inheritParams el_menu
-#' @details Every other argument of [el_menu()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_menu <- function(
   session = shiny::getDefaultReactiveDomain(),

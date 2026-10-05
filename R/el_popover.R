@@ -58,9 +58,10 @@
 #'   (boolean / null).
 #' @param tabindex Tabindex of Popover. Element Plus's `tabindex` (number /
 #'   string).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_popover()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_popover()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -226,18 +227,13 @@ el_popover <- function(
 }
 
 
-#' Update Element Plus Popover
-#'
+#' @rdname el_popover
+#' @section Updating from the server:
 #' Server-side update for [el_popover()]. Setting `visible` opens or closes
 #' the card, which then stays as set: Element Plus's popover is controlled by
 #' its `visible` once that is given.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Popover ID (un-namespaced).
-#' @param title,content,disabled,visible New values; `NULL` leaves one unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_popover()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

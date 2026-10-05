@@ -159,19 +159,17 @@ el_date_picker_panel <- function(
 }
 
 
-#' Update Element Plus Date Picker Panel
-#'
+#' @rdname el_date_picker_panel
+#' @section Updating from the server:
 #' Server-side update for [el_date_picker_panel()].
 #'
+#' Every other argument of [el_date_picker_panel()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_date_picker_panel()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param id Component ID (un-namespaced).
-#' @param value,disabled New values; `NULL` leaves one unchanged.
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component; `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -180,10 +178,6 @@ el_date_picker_panel <- function(
 #'     update_el_date_picker_panel(session, "x", value = NULL)
 #'   )
 #' }
-#' @inheritParams el_date_picker_panel
-#' @details Every other argument of [el_date_picker_panel()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_date_picker_panel <- function(
   session = shiny::getDefaultReactiveDomain(),

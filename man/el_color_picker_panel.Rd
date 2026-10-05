@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_color_picker_panel.R
 \name{el_color_picker_panel}
 \alias{el_color_picker_panel}
+\alias{update_el_color_picker_panel}
 \title{Element Plus Color Picker Panel}
 \usage{
 el_color_picker_panel(
@@ -25,6 +26,22 @@ el_color_picker_panel(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_color_picker_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  border = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  validate_event = NULL,
+  hue_slider_class = NULL,
+  hue_slider_style = NULL
 )
 }
 \arguments{
@@ -88,6 +105,9 @@ whether beside the component rather than under it. Element's
 
 \item{slots}{Named list of Element slot contents: \code{footer}. A scoped slot
 is written with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -107,6 +127,24 @@ The colour picker's panel, always open, without the trigger.
 Callable with \code{\link[=call_el]{call_el()}}: \code{update()}.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_color_picker_panel]{el_color_picker_panel()}}.
+
+Every other argument of \code{\link[=el_color_picker_panel]{el_color_picker_panel()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_color_picker_panel()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_color_picker_panel("brand", value = "#409EFF")
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_color_picker_panel(session, "x", value = NULL)
+  )
+}
 }

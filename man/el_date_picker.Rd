@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_date_picker.R
 \name{el_date_picker}
 \alias{el_date_picker}
+\alias{update_el_date_picker}
 \title{Element Plus Date Picker Component}
 \usage{
 el_date_picker(
@@ -60,6 +61,53 @@ el_date_picker(
   time_format = NULL,
   value_on_clear = NULL,
   session = NULL
+)
+
+update_el_date_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  type = NULL,
+  clearable = NULL,
+  readonly = NULL,
+  placeholder = NULL,
+  label = NULL,
+  error = NULL,
+  value_format = NULL,
+  start_placeholder = NULL,
+  end_placeholder = NULL,
+  editable = NULL,
+  range_separator = NULL,
+  size = NULL,
+  name = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  popper_class = NULL,
+  unlink_panels = NULL,
+  validate_event = NULL,
+  arrow_control = NULL,
+  automatic_dropdown = NULL,
+  cell_class_name = NULL,
+  date_format = NULL,
+  disabled_date = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  placement = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  shortcuts = NULL,
+  show_confirm = NULL,
+  show_footer = NULL,
+  show_now = NULL,
+  show_week_number = NULL,
+  single_panel = NULL,
+  teleported = NULL,
+  time_format = NULL,
+  value_on_clear = NULL
 )
 }
 \arguments{
@@ -224,9 +272,10 @@ panel. Element Plus's \code{time-format} (string).}
 Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
 as \code{\link[=JS]{JS()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_date_picker()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_date_picker()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed date picker component.
@@ -250,6 +299,18 @@ default \code{value_format}, a \code{Date} (two for a range, several for \code{"
 as \code{\link[shiny:dateInput]{shiny::dateInput()}} gives one; \code{NULL} while empty. Any other type or
 \code{value_format} reports the text the picker produces, in that format -- you
 asked for that format, so it is not converted.
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_date_picker]{el_date_picker()}}. Supports updating value, disabled
+state, type, clearable, readonly, and placeholder text.
+
+Every other argument of \code{\link[=el_date_picker]{el_date_picker()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_date_picker()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -279,5 +340,11 @@ if (interactive()) {
     output$selected <- renderPrint(input$dp1)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_date_picker(session, "when", value = "2026-06-01")
+  })
 }
 }

@@ -36,9 +36,10 @@
 #'   (boolean).
 #' @param icon Custom tree node icon component. Element Plus's `icon` (string
 #'   / Component). An icon's name, such as `"Search"`.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_tree()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_tree()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param indent Horizontal indent between levels, in pixels. Default `16`.
 #' @param lazy Whether child nodes are loaded on demand -- from the server,
 #'   unless `load` is given. See "Shiny inputs".
@@ -372,24 +373,15 @@ el_tree <- function(
   )
 }
 
-#' Update an Element Plus Tree
+#' @rdname el_tree
+#' @section Updating from the server:
+#' `update_el_tree()` changes the component from the server.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Tree ID (un-namespaced).
-#' @param data Replacement node data.
-#' @param expanded Keys to expand. Expanding is additive: a node already open
-#'   is not closed by leaving it out, because Element's default-expanded-keys
-#'   only ever opens nodes.
-#' @param checked Keys to check, replacing the current selection entirely.
-#'   Pass `list()` to clear it.
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' Every other argument of [el_tree()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_tree()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -397,10 +389,6 @@ el_tree <- function(
 #'     update_el_tree(session, "picker", checked = c("apple"))
 #'   })
 #' }
-#' @inheritParams el_tree
-#' @details Every other argument of [el_tree()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tree <- function(
   session = shiny::getDefaultReactiveDomain(),

@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_collapse.R
 \name{el_collapse}
 \alias{el_collapse}
+\alias{update_el_collapse}
 \title{Element Plus Collapse / Accordion}
 \usage{
 el_collapse(
@@ -12,6 +13,12 @@ el_collapse(
   expand_icon_position = "right",
   before_collapse = NULL,
   session = NULL
+)
+
+update_el_collapse(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL
 )
 }
 \arguments{
@@ -40,9 +47,10 @@ default) or \code{"left"}.}
 panel opens or closes: return \code{false}, or a promise that resolves to
 \code{false}, to keep it as it is.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_collapse()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_collapse()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tag.
@@ -61,6 +69,13 @@ rebuild the DOM underneath them, detaching them from the server. See
 
 \verb{input$<id>} -- character vector of open panel names, reported on load and on
 every change. Empty when all are closed, which Shiny reports as \code{NULL}.
+}
+
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_collapse]{el_collapse()}}.
+
+\code{update_el_collapse()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -84,4 +99,10 @@ el_collapse(
     )
   )
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_collapse(session, "panels", value = "filters")
+  })
+}
 }

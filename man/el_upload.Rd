@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_upload.R
 \name{el_upload}
 \alias{el_upload}
+\alias{update_el_upload}
 \title{Element Plus Upload}
 \usage{
 el_upload(
@@ -42,6 +43,35 @@ el_upload(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_upload(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  limit = NULL,
+  label = NULL,
+  error = NULL,
+  button_label = NULL,
+  drag = NULL,
+  multiple = NULL,
+  accept = NULL,
+  show_file_list = NULL,
+  list_type = NULL,
+  auto_upload = NULL,
+  headers = NULL,
+  extra_data = NULL,
+  file_list = NULL,
+  with_credentials = NULL,
+  before_upload = NULL,
+  before_remove = NULL,
+  on_change = NULL,
+  on_progress = NULL,
+  on_preview = NULL,
+  on_remove = NULL,
+  on_exceed = NULL,
+  crossorigin = NULL,
+  directory = NULL
 )
 }
 \arguments{
@@ -146,9 +176,10 @@ scoped with \code{file}), \code{trigger}. A shiny.element component given here i
 absorbed rather than nested. For a scoped slot, write the template with
 \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_upload()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_upload()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -196,6 +227,17 @@ every file in flight
 }
 }
 
+\section{Updating from the server}{
+
+\code{update_el_upload()} changes the component from the server.
+
+Every other argument of \code{\link[=el_upload]{el_upload()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_upload()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 # A drop zone taking several CSVs, read on the server like fileInput()
 el_upload(
@@ -226,5 +268,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_upload(session, "files", disabled = TRUE)
+  })
 }
 }

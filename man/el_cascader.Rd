@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_cascader.R
 \name{el_cascader}
 \alias{el_cascader}
+\alias{update_el_cascader}
 \title{Element Plus Cascader}
 \usage{
 el_cascader(
@@ -53,6 +54,49 @@ el_cascader(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_cascader(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  options = NULL,
+  value = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  filterable = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  props = NULL,
+  size = NULL,
+  show_all_levels = NULL,
+  collapse_tags = NULL,
+  separator = NULL,
+  debounce = NULL,
+  popper_class = NULL,
+  filter_method = NULL,
+  before_filter = NULL,
+  clear_icon = NULL,
+  collapse_tags_tooltip = NULL,
+  effect = NULL,
+  empty_values = NULL,
+  fallback_placements = NULL,
+  fit_input_width = NULL,
+  height = NULL,
+  item_size = NULL,
+  max_collapse_tags = NULL,
+  max_collapse_tags_tooltip_height = NULL,
+  persistent = NULL,
+  placement = NULL,
+  popper_append_to_body = NULL,
+  popper_style = NULL,
+  show_checked_strategy = NULL,
+  tag_effect = NULL,
+  tag_type = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL,
+  virtual_scroll = NULL
 )
 }
 \arguments{
@@ -200,9 +244,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_cascader()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_cascader()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -231,6 +276,17 @@ Callable with \code{\link[=call_el]{call_el()}}:
 \itemize{
 \item \code{getCheckedNodes()} -- Get an array of currently selected node
 }
+}
+
+\section{Updating from the server}{
+
+\code{update_el_cascader()} changes the component from the server.
+
+Every other argument of \code{\link[=el_cascader]{el_cascader()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_cascader()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -286,4 +342,10 @@ custom_props <- list(
 
 # Update cascader options in server:
 # update_el_cascader(session, "cascader1", options = new_options)
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_cascader(session, "region", value = list("zj", "hz"))
+  })
+}
 }

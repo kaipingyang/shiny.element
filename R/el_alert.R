@@ -14,9 +14,10 @@
 #' @param show_icon Whether to display the type icon. Default `FALSE`.
 #' @param center Whether to centre the content. Default `FALSE`.
 #' @param effect Visual effect: `"light"` (default) or `"dark"`.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_alert()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_alert()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -92,18 +93,15 @@ el_alert <- function(
 }
 
 
-#' Update Element Plus Alert
-#'
+#' @rdname el_alert
+#' @section Updating from the server:
 #' Server-side update for [el_alert()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Alert ID (un-namespaced).
-#' @param title New title text.
-#' @param type New alert type.
-#' @param description New description text. Use `NULL` to leave unchanged.
+#' Every other argument of [el_alert()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_alert()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -111,10 +109,6 @@ el_alert <- function(
 #'     update_el_alert(session, "hint", title = "Saved", type = "success")
 #'   })
 #' }
-#' @inheritParams el_alert
-#' @details Every other argument of [el_alert()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_alert <- function(
   session = shiny::getDefaultReactiveDomain(),

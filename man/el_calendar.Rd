@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_calendar.R
 \name{el_calendar}
 \alias{el_calendar}
+\alias{update_el_calendar}
 \title{Element Plus Calendar}
 \usage{
 el_calendar(
@@ -21,6 +22,17 @@ el_calendar(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_calendar(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  range = NULL,
+  label = NULL,
+  error = NULL,
+  controller_type = NULL,
+  formatter = NULL
 )
 }
 \arguments{
@@ -81,6 +93,16 @@ A Shiny UI element.
 \description{
 A month of days to pick one from, or a range of weeks to show.
 }
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_calendar]{el_calendar()}}: the selected day, the range, and
+every other argument that can change once the calendar is drawn, under
+the same name. One left \code{NULL} stays as it is; \code{NA} returns a prop to
+Element's default.
+
+\code{update_el_calendar()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 # The default day cell
 el_calendar("cal")
@@ -135,5 +157,12 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_calendar(session, "cal", value = "2026-06-01")
+  })
+  update_el_calendar(session, "cal", controller_type = "select")
 }
 }

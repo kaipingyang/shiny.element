@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_tour.R
 \name{el_tour}
 \alias{el_tour}
+\alias{update_el_tour}
 \title{Element Plus Tour}
 \usage{
 el_tour(
@@ -25,6 +26,26 @@ el_tour(
   width = NULL,
   slots = NULL
 )
+
+update_el_tour(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  open = NULL,
+  current = NULL,
+  show_arrow = NULL,
+  placement = NULL,
+  content_style = NULL,
+  mask = NULL,
+  gap = NULL,
+  type = NULL,
+  scroll_into_view_options = NULL,
+  z_index = NULL,
+  show_close = NULL,
+  close_icon = NULL,
+  close_on_press_escape = NULL,
+  target_area_clickable = NULL,
+  append_to = NULL
+)
 }
 \arguments{
 \item{id}{Tour ID. Auto-generated if \code{NULL}.}
@@ -46,6 +67,9 @@ later with \code{\link[=update_el_tour]{update_el_tour()}}.}
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents: \code{indicators}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -64,6 +88,17 @@ with the rest of the page dimmed.
 }
 }
 
+\section{Updating from the server}{
+
+Open or close an \code{\link[=el_tour]{el_tour()}}, or move it to a step.
+
+Every other argument of \code{\link[=el_tour]{el_tour()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_tour()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_tour(
   "intro",
@@ -77,4 +112,11 @@ el_tour(
     list(target = "#run", title = "Run", description = "Then press this.")
   )
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$help,
+    update_el_tour(session, "intro", open = TRUE, current = 0)
+  )
+}
 }

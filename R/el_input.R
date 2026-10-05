@@ -48,9 +48,10 @@
 #' @param word_limit_position Word count position, valid when
 #'   `show-word-limit` is true. Element Plus's `word-limit-position` ('inside'
 #'   | 'outside').
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_input()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_input()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param autocomplete Native `autocomplete` attribute. Default `"off"`.
 #' @param autofocus Whether the input takes focus on page load. Default `FALSE`.
 #' @param name Native `name` attribute.
@@ -285,30 +286,16 @@ el_input <- function(
 }
 
 
-#' Update Element Plus Input
-#'
+#' @rdname el_input
+#' @section Updating from the server:
 #' Server-side update for [el_input()]. Sends a custom message to update
 #' named fields on the Vue instance.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Input ID (un-namespaced).
-#' @param value New value string.
-#' @param placeholder New placeholder text.
-#' @param disabled New disabled state.
-#' @param readonly New readonly state.
-#' @param type New input type.
-#' @param size New input size.
-#' @param clearable New clearable state.
-#' @param show_password New show-password toggle state.
+#' Every other argument of [el_input()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_input()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -316,10 +303,6 @@ el_input <- function(
 #'     update_el_input(session, "name", value = "Ada")
 #'   })
 #' }
-#' @inheritParams el_input
-#' @details Every other argument of [el_input()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_input <- function(
   session = shiny::getDefaultReactiveDomain(),

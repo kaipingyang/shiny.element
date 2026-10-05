@@ -3,6 +3,8 @@
 \name{el_statistic}
 \alias{el_statistic}
 \alias{el_countdown}
+\alias{update_el_statistic}
+\alias{update_el_countdown}
 \title{Element Plus Statistic}
 \usage{
 el_statistic(
@@ -33,6 +35,31 @@ el_countdown(
   slots = NULL,
   session = NULL
 )
+
+update_el_statistic(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
+  precision = NULL,
+  decimal_separator = NULL,
+  group_separator = NULL,
+  value_style = NULL,
+  formatter = NULL
+)
+
+update_el_countdown(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  title = NULL,
+  prefix = NULL,
+  suffix = NULL,
+  format = NULL,
+  value_style = NULL
+)
 }
 \arguments{
 \item{id}{Component ID. Auto-generated if \code{NULL}.}
@@ -61,9 +88,10 @@ the text to show, in place of Element's formatting.}
 \item{slots}{Named list of Element slot contents: \code{prefix}, \code{suffix},
 \code{title}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_statistic()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_statistic()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{format}{How a countdown is shown, in day.js's tokens, such as
 \code{"HH:mm:ss"} (the default) or \code{"DD [days] HH:mm:ss"}.}
@@ -86,6 +114,26 @@ can usefully hear it.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_statistic]{el_statistic()}} and \code{\link[=el_countdown]{el_countdown()}}.
+
+Every other argument of \code{\link[=el_statistic]{el_statistic()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_statistic()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
+\section{Updating a countdown}{
+
+\code{update_el_countdown()} changes the countdown from the server: every argument
+of \code{\link[=el_countdown]{el_countdown()}} that can change once it is drawn, under the same name.
+One left \code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_countdown()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_statistic("users", value = 26048, title = "Active users")
 el_statistic(
@@ -103,4 +151,8 @@ el_countdown(
   value = Sys.time() + 3600,
   format = "HH:mm:ss"
 )
+if (interactive()) {
+  # inside a server function
+  observe(update_el_statistic(session, "users", value = n_users()))
+}
 }

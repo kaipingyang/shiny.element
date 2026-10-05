@@ -229,9 +229,10 @@
 #'   only folders can be selected, and after selecting a folder, the files
 #'   within the folder will be flattened. Element Plus's `directory`
 #'   (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_upload()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_upload()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param headers Request headers, as a named list.
 #' @param extra_data Extra fields sent alongside the file, as a named list.
 #' @param file_list Files shown initially, each `list(name=, url=)`.
@@ -539,20 +540,15 @@ el_upload <- function(
   )
 }
 
-#' Update an Element Plus Upload
+#' @rdname el_upload
+#' @section Updating from the server:
+#' `update_el_upload()` changes the component from the server.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Upload ID (un-namespaced).
-#' @param disabled New disabled state.
-#' @param limit New maximum number of files.
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' Every other argument of [el_upload()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_upload()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -560,10 +556,6 @@ el_upload <- function(
 #'     update_el_upload(session, "files", disabled = TRUE)
 #'   })
 #' }
-#' @inheritParams el_upload
-#' @details Every other argument of [el_upload()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_upload <- function(
   session = shiny::getDefaultReactiveDomain(),

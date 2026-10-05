@@ -179,15 +179,17 @@ el_tree_select <- function(
 }
 
 
-#' Update Element Plus Tree Select
+#' @rdname el_tree_select
+#' @section Updating from the server:
+#' `update_el_tree_select()` changes the component from the server.
 #'
+#' Every other argument of [el_tree_select()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_tree_select()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateSelectInput()].
-#' @param id Component ID (un-namespaced).
-#' @param value,data,disabled New values; `NULL` leaves one unchanged.
-#' @param label New label, as for [shiny::updateTextInput()].
-#' @param error An error message to show on the component; `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -196,10 +198,6 @@ el_tree_select <- function(
 #'     update_el_tree_select(session, "dept", value = "ops")
 #'   )
 #' }
-#' @inheritParams el_tree_select
-#' @details Every other argument of [el_tree_select()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_tree_select <- function(
   session = shiny::getDefaultReactiveDomain(),

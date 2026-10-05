@@ -42,10 +42,10 @@
 #' @param before_close `htmltools::JS()` function `function(done)`, run when
 #'   the user closes it -- by the cross, the backdrop or Escape; call `done()`
 #'   to let it close.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_drawer()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_drawer()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @section Shiny inputs:
 #' - `input$<id>` -- `TRUE` while the drawer is open, reported whenever it
 #'   opens or closes, however that happens; see [el_dialog()].
@@ -198,18 +198,11 @@ el_drawer <- function(
 }
 
 
-#' Update Element Plus Drawer
-#'
+#' @rdname el_drawer
+#' @section Updating from the server:
 #' Server-side update for [el_drawer()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Drawer ID (un-namespaced).
-#' @param visible Open or close it.
-#' @param title New header text.
-#' @param size New width or height.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_drawer()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

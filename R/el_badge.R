@@ -150,17 +150,13 @@ el_badge <- function(
 }
 
 
-#' Update Element Plus Badge
-#'
+#' @rdname el_badge
+#' @section Updating from the server:
 #' Server-side update for an [el_badge()] given an `id`.
 #'
+#' `update_el_badge()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param id Badge ID (un-namespaced).
-#' @param value,max,is_dot,hidden,type New values; `NULL` leaves one
-#'   unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

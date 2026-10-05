@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_input.R
 \name{el_input}
 \alias{el_input}
+\alias{update_el_input}
 \title{Element Plus Input with Vue Instance}
 \usage{
 el_input(
@@ -50,6 +51,46 @@ el_input(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_input(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  placeholder = NULL,
+  disabled = NULL,
+  readonly = NULL,
+  type = NULL,
+  size = NULL,
+  clearable = NULL,
+  show_password = NULL,
+  label = NULL,
+  error = NULL,
+  show_word_limit = NULL,
+  maxlength = NULL,
+  rows = NULL,
+  autosize = NULL,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  autocomplete = NULL,
+  autofocus = NULL,
+  name = NULL,
+  form = NULL,
+  minlength = NULL,
+  max = NULL,
+  min = NULL,
+  step = NULL,
+  resize = NULL,
+  tabindex = NULL,
+  validate_event = NULL,
+  aria_label = NULL,
+  clear_icon = NULL,
+  count_graphemes = NULL,
+  formatter = NULL,
+  input_style = NULL,
+  inputmode = NULL,
+  parser = NULL,
+  word_limit_position = NULL
 )
 }
 \arguments{
@@ -177,9 +218,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_input()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_input()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed input component.
@@ -206,6 +248,18 @@ as \code{\link[shiny:textInput]{shiny::textInput()}} does, and after an \code{\l
 (triggered on blur or Enter key press).
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_input]{el_input()}}. Sends a custom message to update
+named fields on the Vue instance.
+
+Every other argument of \code{\link[=el_input]{el_input()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_input()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 # Basic text input
 el_input("name", placeholder = "Enter your name")
@@ -230,5 +284,11 @@ if (interactive()) {
     output$val <- renderPrint(input$txt)
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_input(session, "name", value = "Ada")
+  })
 }
 }

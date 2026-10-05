@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_autocomplete.R
 \name{el_autocomplete}
 \alias{el_autocomplete}
+\alias{update_el_autocomplete}
 \title{Element Plus Autocomplete}
 \usage{
 el_autocomplete(
@@ -44,6 +45,38 @@ el_autocomplete(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_autocomplete(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  suggestions = NULL,
+  placeholder = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  clearable = NULL,
+  value_key = NULL,
+  debounce = NULL,
+  placement = NULL,
+  trigger_on_focus = NULL,
+  select_when_unmatched = NULL,
+  highlight_first_item = NULL,
+  hide_loading = NULL,
+  icon = NULL,
+  prefix_icon = NULL,
+  suffix_icon = NULL,
+  name = NULL,
+  popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  fit_input_width = NULL,
+  loop_navigation = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  show_arrow = NULL,
+  teleported = NULL
 )
 }
 \arguments{
@@ -151,9 +184,10 @@ Element Plus's \code{teleported} (boolean).}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_autocomplete()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_autocomplete()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -179,6 +213,17 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_autocomplete]{el_autocomplete()}}.
+
+Every other argument of \code{\link[=el_autocomplete]{el_autocomplete()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_autocomplete()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_autocomplete("city", suggestions = c("Beijing", "Shanghai", "Shenzhen"))
 
@@ -189,4 +234,14 @@ el_autocomplete(
   clearable = TRUE,
   width = 260
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$country, {
+    update_el_autocomplete(
+      session,
+      "city",
+      suggestions = cities_of(input$country)
+    )
+  })
+}
 }

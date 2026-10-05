@@ -16,10 +16,10 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents. `template` replaces the
 #'   placeholder's shape; build it from [el_skeleton_item()].
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_skeleton()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_skeleton()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @return A Shiny UI element.
 #' @examples
 #' el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
@@ -101,17 +101,12 @@ el_skeleton <- function(
 }
 
 
-#' Update Element Plus Skeleton
-#'
+#' @rdname el_skeleton
+#' @section Updating from the server:
 #' Server-side update for [el_skeleton()]. `loading = FALSE` swaps the
 #' placeholder for the real content.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Component ID (un-namespaced).
-#' @param loading,rows New values; `NULL` leaves one unchanged.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_skeleton()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

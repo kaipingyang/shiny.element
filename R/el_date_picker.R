@@ -75,9 +75,10 @@
 #' @param value_on_clear Clear return value, see config-provider. Element
 #'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
 #'   as [JS()].
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_date_picker()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_date_picker()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param name Native `name` attribute.
 #' @param prefix_icon Icon class shown at the start of the input.
@@ -344,28 +345,16 @@ el_date_picker <- function(
 }
 
 
-#' Update Element Plus Date Picker
-#'
+#' @rdname el_date_picker
+#' @section Updating from the server:
 #' Server-side update for [el_date_picker()]. Supports updating value, disabled
 #' state, type, clearable, readonly, and placeholder text.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Date picker ID (un-namespaced).
-#' @param value New picker value (string or two-element vector for range types).
-#' @param disabled New disabled state.
-#' @param type New picker type.
-#' @param clearable New clearable state.
-#' @param readonly New readonly state.
-#' @param placeholder New placeholder text (non-range types).
+#' Every other argument of [el_date_picker()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_date_picker()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -373,10 +362,6 @@ el_date_picker <- function(
 #'     update_el_date_picker(session, "when", value = "2026-06-01")
 #'   })
 #' }
-#' @inheritParams el_date_picker
-#' @details Every other argument of [el_date_picker()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_date_picker <- function(
   session = shiny::getDefaultReactiveDomain(),

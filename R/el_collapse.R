@@ -27,10 +27,10 @@
 #' @param before_collapse [JS()] function `function(name)`, run before a
 #'   panel opens or closes: return `false`, or a promise that resolves to
 #'   `false`, to keep it as it is.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
-#'
+#' @param session In `el_collapse()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_collapse()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @return An `htmltools` tag.
 #'
 #' @section Shiny inputs:
@@ -184,17 +184,11 @@ el_collapse_dependency <- function() {
 }
 
 
-#' Update Element Plus Collapse
-#'
+#' @rdname el_collapse
+#' @section Updating from the server:
 #' Server-side update for [el_collapse()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Collapse ID (un-namespaced).
-#' @param value Character vector of panel names to open. Pass
-#'   `character(0)` to close them all.
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_collapse()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

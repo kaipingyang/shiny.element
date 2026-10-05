@@ -41,9 +41,10 @@
 #'   An icon's name, such as `"Search"`.
 #' @param text Determine whether it's a text button. Element Plus's `text`
 #'   (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_button()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_button()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param autofocus Whether the button takes focus on page load. Default `FALSE`.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
@@ -187,23 +188,16 @@ el_button <- function(
 }
 
 
-#' Update Element Plus Button
-#'
+#' @rdname el_button
+#' @section Updating from the server:
 #' Server-side update for [el_button()]. Supports all visual states including
 #' `size`, `plain`, `round`, and `loading`.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Button ID (un-namespaced).
-#' @param label New label text.
-#' @param type New button type.
-#' @param size New button size.
-#' @param plain New plain state.
-#' @param round New round state.
-#' @param loading New loading state.
-#' @param disabled New disabled state.
+#' Every other argument of [el_button()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_button()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -211,10 +205,6 @@ el_button <- function(
 #'     update_el_button(session, "save", loading = TRUE)
 #'   })
 #' }
-#' @inheritParams el_button
-#' @details Every other argument of [el_button()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_button <- function(
   session = shiny::getDefaultReactiveDomain(),

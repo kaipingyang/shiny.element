@@ -265,8 +265,8 @@ el_table_v2 <- function(
 }
 
 
-#' Update Element Plus Virtualized Table
-#'
+#' @rdname el_table_v2
+#' @section Updating from the server:
 #' Server-side update for [el_table_v2()]: every argument that can change
 #' once the table is drawn, under the same name. One left `NULL` stays as it
 #' is; `NA` returns a prop to Element's default. Rows are given as for
@@ -275,14 +275,9 @@ el_table_v2 <- function(
 #' `auto_resize` and `default_expanded_row_keys`, which Element reads only
 #' when the table is created, are not here.
 #'
+#' `update_el_table_v2()` is called for its side effect and returns `NULL` invisibly.
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
-#' @param id Table ID (un-namespaced).
-#' @param data,columns,sort_by,expanded_row_keys New values; `NULL` leaves
-#'   one unchanged.
-#' @inheritParams el_table_v2
-#'
-#' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function

@@ -377,9 +377,10 @@ el_form_field <- function(
 #'   boolean).
 #' @param scroll_to_error When validation fails, scroll to the first error
 #'   form entry. Element Plus's `scroll-to-error` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_form()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_form()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param disabled Whether every control in the form is disabled.
 #' @param show_message Whether to show validation messages. Default `TRUE`.
 #' @param inline_message Whether to show validation messages inline.
@@ -702,16 +703,19 @@ el_form <- function(
   )
 }
 
-#' Update an Element Plus Form
+#' @rdname el_form
+#' @section Updating from the server:
+#' `update_el_form()` changes the component from the server.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Form ID (un-namespaced).
+#' Every other argument of [el_form()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_form()` is called for its side effect and returns `NULL` invisibly.
 #' @param model New field values. Merged into the existing model, so a partial
 #'   list only changes the fields it names.
 #' @param rules New validation rules, as a named list of [el_rule()] lists
 #'   keyed by `prop`. Replaces the rule set.
-#' @param label_width New label column width.
 #' @param fields The form's fields, as [el_form_field()]s -- the whole list,
 #'   in order, so a field can be added, removed or moved: Element's "add or
 #'   delete form items dynamically". A field already in the form keeps what
@@ -720,12 +724,6 @@ el_form <- function(
 #' @param errors Error messages from the server, as a named list keyed by
 #'   `prop` -- `list(email = "That address is taken")` -- shown on the field
 #'   as Element's `error` shows them. `""` clears one.
-#' @return Called for its side effect; returns `NULL` invisibly.
-#' @inheritParams el_form
-#' @details Every other argument of [el_form()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
-#' @export
 #' @examples
 #' if (interactive()) {
 #'   # Prefill the form from the server
@@ -738,6 +736,7 @@ el_form <- function(
 #'     errors = list(email = "That address is taken")
 #'   )
 #' }
+#' @export
 update_el_form <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,

@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_tree.R
 \name{el_tree}
 \alias{el_tree}
+\alias{update_el_tree}
 \title{Element Plus Tree}
 \usage{
 el_tree(
@@ -47,6 +48,37 @@ el_tree(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_tree(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  expanded = NULL,
+  checked = NULL,
+  label = NULL,
+  error = NULL,
+  node_key = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  expand_on_click_node = NULL,
+  accordion = NULL,
+  highlight_current = NULL,
+  empty_text = NULL,
+  indent = NULL,
+  lazy = NULL,
+  draggable = NULL,
+  auto_expand_parent = NULL,
+  check_on_click_node = NULL,
+  current_node_key = NULL,
+  render_after_expand = NULL,
+  load = NULL,
+  filter_node_method = NULL,
+  render_content = NULL,
+  allow_drag = NULL,
+  allow_drop = NULL,
+  check_on_click_leaf = NULL,
+  icon = NULL
 )
 }
 \arguments{
@@ -162,9 +194,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_tree()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_tree()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -214,6 +247,17 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 }
 
+\section{Updating from the server}{
+
+\code{update_el_tree()} changes the component from the server.
+
+Every other argument of \code{\link[=el_tree]{el_tree()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_tree()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 nodes <- list(
   list(
@@ -243,4 +287,10 @@ el_tree(
   checked = c("apple", "cherry"),
   expanded = "fruit"
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_tree(session, "picker", checked = c("apple"))
+  })
+}
 }

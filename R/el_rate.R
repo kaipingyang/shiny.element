@@ -33,9 +33,10 @@
 #'   'small').
 #' @param void_icon Component of unselected icons. Element Plus's `void-icon`
 #'   (string / Component). An icon's name, such as `"Search"`.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_rate()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_rate()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param colors Colours for the three score levels, or a named list keyed by threshold.
 #' @param void_color Colour of unselected icons.
 #' @param disabled_void_color Colour of unselected icons when `disabled = TRUE`.
@@ -177,23 +178,15 @@ el_rate <- function(
 }
 
 
-#' Update Element Plus Rate
-#'
+#' @rdname el_rate
+#' @section Updating from the server:
 #' Server-side update for [el_rate()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Rate ID (un-namespaced).
-#' @param value New rating value.
-#' @param disabled New disabled state.
+#' Every other argument of [el_rate()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_rate()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -201,10 +194,6 @@ el_rate <- function(
 #'     update_el_rate(session, "stars", value = 5)
 #'   })
 #' }
-#' @inheritParams el_rate
-#' @details Every other argument of [el_rate()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_rate <- function(
   session = shiny::getDefaultReactiveDomain(),

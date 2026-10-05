@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_image.R
 \name{el_image}
 \alias{el_image}
+\alias{update_el_image}
 \title{Element Plus Image}
 \usage{
 el_image(
@@ -29,6 +30,31 @@ el_image(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_image(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  src = NULL,
+  fit = NULL,
+  preview_src_list = NULL,
+  alt = NULL,
+  lazy = NULL,
+  scroll_container = NULL,
+  z_index = NULL,
+  initial_index = NULL,
+  close_on_press_escape = NULL,
+  crossorigin = NULL,
+  hide_on_click_modal = NULL,
+  infinite = NULL,
+  loading = NULL,
+  max_scale = NULL,
+  min_scale = NULL,
+  preview_teleported = NULL,
+  referrerpolicy = NULL,
+  scale = NULL,
+  show_progress = NULL,
+  zoom_rate = NULL
 )
 }
 \arguments{
@@ -98,9 +124,10 @@ Plus's \code{zoom-rate} (number).}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_image()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_image()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -117,6 +144,17 @@ full-screen preview.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_image]{el_image()}}.
+
+Every other argument of \code{\link[=el_image]{el_image()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_image()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_image("photo", src = "https://example.org/a.png", width = 200)
 el_image("photo", src = "a.png", fit = "cover", lazy = TRUE)
@@ -127,4 +165,10 @@ el_image(
   src = "a.png",
   preview_src_list = c("a.png", "b.png", "c.png")
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$next_photo, {
+    update_el_image(session, "photo", src = photo_url())
+  })
+}
 }

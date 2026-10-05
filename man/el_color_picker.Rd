@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_color_picker.R
 \name{el_color_picker}
 \alias{el_color_picker}
+\alias{update_el_color_picker}
 \title{Element Plus Color Picker}
 \usage{
 el_color_picker(
@@ -34,6 +35,30 @@ el_color_picker(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_color_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  size = NULL,
+  show_alpha = NULL,
+  color_format = NULL,
+  predefine = NULL,
+  popper_class = NULL,
+  append_to = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  empty_values = NULL,
+  persistent = NULL,
+  popper_style = NULL,
+  tabindex = NULL,
+  teleported = NULL,
+  validate_event = NULL,
+  value_on_clear = NULL
 )
 }
 \arguments{
@@ -123,9 +148,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_color_picker()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_color_picker()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed color-picker component.
@@ -139,7 +165,24 @@ A colour picker input that returns a CSS colour string.
 \code{NULL} / \code{NA} when the user clears the picker.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_color_picker]{el_color_picker()}}.
+
+Every other argument of \code{\link[=el_color_picker]{el_color_picker()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_color_picker()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_color_picker("cp1", value = "#409EFF")
 el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_color_picker(session, "shade", value = "#67C23A")
+  })
+}
 }

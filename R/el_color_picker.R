@@ -33,9 +33,10 @@
 #' @param value_on_clear Clear return value, see config-provider. Element
 #'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
 #'   as [JS()].
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_color_picker()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_color_picker()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param popper_class Extra class name for the dropdown panel.
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
@@ -167,23 +168,15 @@ el_color_picker <- function(
 }
 
 
-#' Update Element Plus Color Picker
-#'
+#' @rdname el_color_picker
+#' @section Updating from the server:
 #' Server-side update for [el_color_picker()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Color picker ID (un-namespaced).
-#' @param value New colour string.
-#' @param disabled New disabled state.
+#' Every other argument of [el_color_picker()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_color_picker()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -191,10 +184,6 @@ el_color_picker <- function(
 #'     update_el_color_picker(session, "shade", value = "#67C23A")
 #'   })
 #' }
-#' @inheritParams el_color_picker
-#' @details Every other argument of [el_color_picker()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_color_picker <- function(
   session = shiny::getDefaultReactiveDomain(),

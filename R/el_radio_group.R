@@ -30,9 +30,10 @@
 #'   Plus's `type` ('radio' | 'button').
 #' @param validate_event Whether to trigger form validation. Element Plus's
 #'   `validate-event` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_radio_group()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_radio_group()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param fill Border and background colour of a checked radio button.
 #' @param text_color Text colour of a checked radio button.
 #' @inheritParams el_widget
@@ -198,27 +199,16 @@ el_radio_group <- function(
 }
 
 
-#' Update Element Plus Radio Group
-#'
+#' @rdname el_radio_group
+#' @section Updating from the server:
 #' Server-side update for [el_radio_group()]. Sends a custom message to update
 #' reactive fields on the underlying Vue instance.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Radio group input ID (un-namespaced).
-#' @param selected,value New selected value. `selected` is Shiny's name,
-#'   `value` Element's; give either.
-#' @param choices,options New choices, as for [el_radio_group()]. `choices`
-#'   is Shiny's name, `options` Element's; give either.
-#' @param disabled New disabled state.
+#' Every other argument of [el_radio_group()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_radio_group()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -226,10 +216,6 @@ el_radio_group <- function(
 #'     update_el_radio_group(session, "plan", selected = "pro")
 #'   })
 #' }
-#' @inheritParams el_radio_group
-#' @details Every other argument of [el_radio_group()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_radio_group <- function(
   session = shiny::getDefaultReactiveDomain(),

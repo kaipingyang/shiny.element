@@ -3,6 +3,8 @@
 \name{el_time_picker}
 \alias{el_time_picker}
 \alias{el_time_select}
+\alias{update_el_time_picker}
+\alias{update_el_time_select}
 \title{Element Plus Time Picker}
 \usage{
 el_time_picker(
@@ -85,6 +87,70 @@ el_time_select(
   slots = NULL,
   session = NULL
 )
+
+update_el_time_picker(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  is_range = NULL,
+  value_format = NULL,
+  arrow_control = NULL,
+  placeholder = NULL,
+  start_placeholder = NULL,
+  end_placeholder = NULL,
+  range_separator = NULL,
+  clearable = NULL,
+  editable = NULL,
+  readonly = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  format = NULL,
+  popper_style = NULL,
+  popper_options = NULL,
+  placement = NULL,
+  fallback_placements = NULL,
+  disabled_hours = NULL,
+  disabled_minutes = NULL,
+  disabled_seconds = NULL,
+  teleported = NULL,
+  tabindex = NULL,
+  aria_label = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  save_on_blur = NULL
+)
+
+update_el_time_select(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  placeholder = NULL,
+  clearable = NULL,
+  editable = NULL,
+  size = NULL,
+  popper_class = NULL,
+  prefix_icon = NULL,
+  clear_icon = NULL,
+  start = NULL,
+  end = NULL,
+  step = NULL,
+  min_time = NULL,
+  max_time = NULL,
+  include_end_time = NULL,
+  format = NULL,
+  effect = NULL,
+  popper_style = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL
+)
 }
 \arguments{
 \item{id}{Picker ID. Auto-generated if \code{NULL}.}
@@ -165,9 +231,10 @@ focus.}
 
 \item{slots}{Named list of Element slot contents.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_time_picker()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_time_picker()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
 \item{include_end_time, start, end, step, min_time, max_time}{For
 \code{el_time_select()}: the first and last time offered, the interval,
@@ -199,6 +266,28 @@ Callable with \code{\link[=call_el]{call_el()}}: \code{focus()}, \code{blur()}; 
 \code{handleOpen()} and \code{handleClose()}.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_time_picker]{el_time_picker()}} and \code{\link[=el_time_select]{el_time_select()}};
+\code{update_el_time_select()} is the time select's, with its own arguments.
+
+Every other argument of \code{\link[=el_time_picker]{el_time_picker()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_time_picker()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
+\section{Updating a time select}{
+
+\code{update_el_time_select()} changes the time select from the server: every
+argument of \code{\link[=el_time_select]{el_time_select()}} that can change once it is drawn, under the
+same name. One left \code{NULL} stays as it is; \code{NA} returns it to Element's
+default.
+
+\code{update_el_time_select()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_time_picker("start", value = "09:30:00")
 
@@ -219,4 +308,11 @@ el_time_picker("shift", is_range = TRUE, value = c("09:00:00", "17:30:00"))
 
 # Every half hour between nine and six
 el_time_select("slot", start = "09:00", step = "00:30", end = "18:00")
+if (interactive()) {
+  # inside a server function
+  observeEvent(
+    input$reset,
+    update_el_time_picker(session, "start", value = "09:00:00")
+  )
+}
 }

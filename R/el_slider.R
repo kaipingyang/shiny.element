@@ -38,9 +38,10 @@
 #'   Element Plus's `size` ('' | 'large' | 'default' | 'small').
 #' @param validate_event Whether to trigger form validation. Element Plus's
 #'   `validate-event` (boolean).
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_slider()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_slider()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param input_size Size of the companion input when `show_input = TRUE`.
 #' @param show_input_controls Whether the companion input shows its spinner buttons.
 #' @param tooltip_class Extra class name for the value tooltip.
@@ -241,28 +242,16 @@ el_slider <- function(
 }
 
 
-#' Update Element Plus Slider
-#'
+#' @rdname el_slider
+#' @section Updating from the server:
 #' Server-side update for [el_slider()]. Supports updating value, range bounds,
 #' step size, and disabled state.
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Slider ID (un-namespaced).
-#' @param value New slider value. A single number or two-element vector for
-#'   range mode.
-#' @param min New minimum value.
-#' @param max New maximum value.
-#' @param step New step size.
-#' @param disabled New disabled state.
+#' Every other argument of [el_slider()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @param label New label, as for [shiny::updateTextInput()]: text, or
-#'   tags or `HTML()` drawn as markup. Only a component built with a `label`
-#'   has one to change.
-#' @param error An error message to show on the component, as Element's
-#'   `error` does -- for a check only the server can make, such as whether
-#'   a name is taken. `""` clears it.
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_slider()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -270,10 +259,6 @@ el_slider <- function(
 #'     update_el_slider(session, "score", value = 80)
 #'   })
 #' }
-#' @inheritParams el_slider
-#' @details Every other argument of [el_slider()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_slider <- function(
   session = shiny::getDefaultReactiveDomain(),

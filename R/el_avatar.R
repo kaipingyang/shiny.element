@@ -13,9 +13,10 @@
 #' @param src_set Candidate image sources, as a `srcset` string.
 #' @param alt Alternative text for the image.
 #' @param width Component width, as a CSS unit.
-#' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
-#'   any Shiny input; a session given here namespaces `id` once more, with
-#'   a warning.
+#' @param session In `el_avatar()`, deprecated: inside a module, wrap `id` in
+#'   `ns()`, as for any Shiny input; a session given here namespaces `id`
+#'   once more, with a warning. In `update_el_avatar()`, the Shiny session, the
+#'   current one by default, as for [shiny::updateTextInput()].
 #' @param slots Named list of Element slot contents, such as
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -82,16 +83,15 @@ el_avatar <- function(
 }
 
 
-#' Update Element Plus Avatar
-#'
+#' @rdname el_avatar
+#' @section Updating from the server:
 #' Server-side update for [el_avatar()].
 #'
-#' @param session Shiny session; the current one by default, as for
-#'   [shiny::updateTextInput()].
-#' @param id Avatar ID (un-namespaced).
-#' @param content,src,icon,size,shape New values; `NULL` leaves one unchanged.
+#' Every other argument of [el_avatar()] that can change once it is
+#' drawn is an argument here too, under the same name. One left `NULL`
+#' stays as it is; `NA` returns it to Element's default.
 #'
-#' @return Called for its side effect; returns `NULL` invisibly.
+#' `update_el_avatar()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
 #'   # inside a server function
@@ -99,10 +99,6 @@ el_avatar <- function(
 #'     update_el_avatar(session, "me", src = user_photo())
 #'   })
 #' }
-#' @inheritParams el_avatar
-#' @details Every other argument of [el_avatar()] that can change once it is
-#'   drawn is an argument here too, under the same name. One left `NULL`
-#'   stays as it is; `NA` returns it to Element's default.
 #' @export
 update_el_avatar <- function(
   session = shiny::getDefaultReactiveDomain(),

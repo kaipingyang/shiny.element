@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_progress.R
 \name{el_progress}
 \alias{el_progress}
+\alias{update_el_progress}
 \title{Element Plus Progress Component}
 \usage{
 el_progress(
@@ -22,6 +23,24 @@ el_progress(
   striped = NULL,
   striped_flow = NULL,
   session = NULL
+)
+
+update_el_progress(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  percentage = NULL,
+  type = NULL,
+  status = NULL,
+  color = NULL,
+  stroke_width = NULL,
+  show_text = NULL,
+  text_inside = NULL,
+  stroke_linecap = NULL,
+  format = NULL,
+  duration = NULL,
+  indeterminate = NULL,
+  striped = NULL,
+  striped_flow = NULL
 )
 }
 \arguments{
@@ -69,9 +88,10 @@ striped flow progress. Element Plus's \code{duration} (number).}
 \item{striped_flow}{Get the stripes to flow. Element Plus's \code{striped-flow}
 (boolean).}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_progress()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_progress()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed progress component.
@@ -80,6 +100,17 @@ An \code{htmltools} tagList with a Vue-managed progress component.
 Creates an Element Plus progress bar. This is a display-only component;
 update it from the server with \code{\link[=update_el_progress]{update_el_progress()}}.
 }
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_progress]{el_progress()}}.
+
+Every other argument of \code{\link[=el_progress]{el_progress()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_progress()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 # Basic line progress
 el_progress("prog1", percentage = 60)
@@ -108,5 +139,11 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_progress(session, "pct", percentage = 100)
+  })
 }
 }

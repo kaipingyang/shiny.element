@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_rate.R
 \name{el_rate}
 \alias{el_rate}
+\alias{update_el_rate}
 \title{Element Plus Rate (Star Rating)}
 \usage{
 el_rate(
@@ -37,6 +38,32 @@ el_rate(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_rate(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  max = NULL,
+  allow_half = NULL,
+  show_text = NULL,
+  show_score = NULL,
+  texts = NULL,
+  text_color = NULL,
+  score_template = NULL,
+  void_color = NULL,
+  disabled_void_color = NULL,
+  low_threshold = NULL,
+  high_threshold = NULL,
+  aria_label = NULL,
+  clearable = NULL,
+  disabled_void_icon = NULL,
+  icons = NULL,
+  size = NULL,
+  void_icon = NULL
 )
 }
 \arguments{
@@ -132,9 +159,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_rate()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_rate()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed rate component.
@@ -148,7 +176,24 @@ A star-rating input. Supports half-stars, custom icons, and read-only display.
 \code{allow_half = TRUE}).
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_rate]{el_rate()}}.
+
+Every other argument of \code{\link[=el_rate]{el_rate()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_rate()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_rate("rate1", value = 3)
 el_rate("rate2", allow_half = TRUE, show_score = TRUE)
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_rate(session, "stars", value = 5)
+  })
+}
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_timeline.R
 \name{el_timeline}
 \alias{el_timeline}
+\alias{update_el_timeline}
 \title{Element Plus Timeline}
 \usage{
 el_timeline(
@@ -13,6 +14,14 @@ el_timeline(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_timeline(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  items = NULL,
+  reverse = NULL,
+  mode = NULL
 )
 }
 \arguments{
@@ -45,9 +54,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_timeline()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_timeline()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -61,6 +71,17 @@ Entries are rendered with \verb{v-for} from a data field, so
 Their content is therefore a string rather than markup; pass \code{html = TRUE}
 to render it as HTML.
 }
+\section{Updating from the server}{
+
+\code{update_el_timeline()} changes the component from the server.
+
+Every other argument of \code{\link[=el_timeline]{el_timeline()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_timeline()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_timeline(
   id = "log",
@@ -86,4 +107,14 @@ el_timeline(
     list(content = "First", timestamp = "09:15", placement = "top")
   )
 )
+if (interactive()) {
+  # Append an entry to a growing log
+  observeEvent(input$refresh, {
+    log_entries(c(
+      log_entries(),
+      list(list(content = "Refreshed", timestamp = format(Sys.time(), "\%H:\%M")))
+    ))
+    update_el_timeline(session, "log", items = log_entries())
+  })
+}
 }

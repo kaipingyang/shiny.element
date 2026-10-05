@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_dropdown.R
 \name{el_dropdown}
 \alias{el_dropdown}
+\alias{update_el_dropdown}
 \title{Element Plus Dropdown Menu}
 \usage{
 el_dropdown(
@@ -35,6 +36,35 @@ el_dropdown(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_dropdown(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  disabled = NULL,
+  trigger = NULL,
+  type = NULL,
+  size = NULL,
+  split_button = NULL,
+  hide_on_click = NULL,
+  placement = NULL,
+  show_timeout = NULL,
+  hide_timeout = NULL,
+  tabindex = NULL,
+  append_to = NULL,
+  button_props = NULL,
+  effect = NULL,
+  max_height = NULL,
+  persistent = NULL,
+  popper_class = NULL,
+  popper_options = NULL,
+  popper_style = NULL,
+  role = NULL,
+  show_arrow = NULL,
+  teleported = NULL,
+  trigger_keys = NULL,
+  virtual_ref = NULL,
+  virtual_triggering = NULL
 )
 }
 \arguments{
@@ -133,9 +163,10 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_dropdown()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_dropdown()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 An \code{htmltools} tagList with a Vue-managed dropdown component.
@@ -153,6 +184,17 @@ choosing the same item twice runs an \code{observeEvent()} twice.
 }
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_dropdown]{el_dropdown()}}.
+
+Every other argument of \code{\link[=el_dropdown]{el_dropdown()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_dropdown()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_dropdown(
   "dd1",
@@ -168,4 +210,10 @@ el_dropdown(
     )
   )
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_dropdown(session, "actions", disabled = TRUE)
+  })
+}
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_input_tag.R
 \name{el_input_tag}
 \alias{el_input_tag}
+\alias{update_el_input_tag}
 \title{Element Plus Input Tag}
 \usage{
 el_input_tag(
@@ -41,6 +42,38 @@ el_input_tag(
   inline_message = FALSE,
   width = NULL,
   slots = NULL
+)
+
+update_el_input_tag(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  value = NULL,
+  disabled = NULL,
+  label = NULL,
+  error = NULL,
+  max = NULL,
+  tag_type = NULL,
+  tag_effect = NULL,
+  effect = NULL,
+  trigger = NULL,
+  draggable = NULL,
+  delimiter = NULL,
+  size = NULL,
+  collapse_tags = NULL,
+  collapse_tags_tooltip = NULL,
+  save_on_blur = NULL,
+  clearable = NULL,
+  clear_icon = NULL,
+  validate_event = NULL,
+  readonly = NULL,
+  autofocus = NULL,
+  tabindex = NULL,
+  max_collapse_tags = NULL,
+  maxlength = NULL,
+  minlength = NULL,
+  placeholder = NULL,
+  autocomplete = NULL,
+  aria_label = NULL
 )
 }
 \arguments{
@@ -153,6 +186,9 @@ whether beside the component rather than under it. Element's
 
 \item{slots}{Named list of Element slot contents: \code{tag}, \code{prefix},
 \code{suffix}. A scoped slot is written with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -181,10 +217,25 @@ labels.
 Callable with \code{\link[=call_el]{call_el()}}: \code{focus()}, \code{blur()}.
 }
 
+\section{Updating from the server}{
+
+Server-side update for \code{\link[=el_input_tag]{el_input_tag()}}.
+
+Every other argument of \code{\link[=el_input_tag]{el_input_tag()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_input_tag()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_input_tag(
   "keywords",
   value = c("shiny", "element"),
   placeholder = "Add a keyword"
 )
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$reset, update_el_input_tag(session, "x", value = NULL))
+}
 }

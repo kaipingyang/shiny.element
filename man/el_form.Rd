@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_form.R
 \name{el_form}
 \alias{el_form}
+\alias{update_el_form}
 \title{Element Plus Form}
 \usage{
 el_form(
@@ -26,6 +27,27 @@ el_form(
   width = NULL,
   slots = NULL,
   session = NULL
+)
+
+update_el_form(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  model = NULL,
+  rules = NULL,
+  label_width = NULL,
+  fields = NULL,
+  errors = NULL,
+  inline = NULL,
+  size = NULL,
+  submit_label = NULL,
+  reset_label = NULL,
+  disabled = NULL,
+  status_icon = NULL,
+  hide_required_asterisk = NULL,
+  validate_on_rule_change = NULL,
+  require_asterisk_position = NULL,
+  scroll_into_view_options = NULL,
+  scroll_to_error = NULL
 )
 }
 \arguments{
@@ -80,9 +102,26 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
-\item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
-any Shiny input; a session given here namespaces \code{id} once more, with
-a warning.}
+\item{session}{In \code{el_form()}, deprecated: inside a module, wrap \code{id} in
+\code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
+once more, with a warning. In \code{update_el_form()}, the Shiny session, the
+current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
+
+\item{model}{New field values. Merged into the existing model, so a partial
+list only changes the fields it names.}
+
+\item{rules}{New validation rules, as a named list of \code{\link[=el_rule]{el_rule()}} lists
+keyed by \code{prop}. Replaces the rule set.}
+
+\item{fields}{The form's fields, as \code{\link[=el_form_field]{el_form_field()}}s -- the whole list,
+in order, so a field can be added, removed or moved: Element's "add or
+delete form items dynamically". A field already in the form keeps what
+was entered; a new one starts from its \code{value}; a removed one leaves the
+model. Each field's rules come with it.}
+
+\item{errors}{Error messages from the server, as a named list keyed by
+\code{prop} -- \code{list(email = "That address is taken")} -- shown on the field
+as Element's \code{error} shows them. \code{""} clears one.}
 }
 \value{
 A Shiny UI element.
@@ -118,6 +157,17 @@ Callable with \code{\link[=call_el]{call_el()}}:
 \item \code{validate()} -- Validate the whole form. Takes a callback as a param. After validation, the callback will be executed with...
 \item \code{validateField()} -- Validate one or several form items
 }
+}
+
+\section{Updating from the server}{
+
+\code{update_el_form()} changes the component from the server.
+
+Every other argument of \code{\link[=el_form]{el_form()}} that can change once it is
+drawn is an argument here too, under the same name. One left \code{NULL}
+stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_form()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{
@@ -184,5 +234,16 @@ if (interactive()) {
     })
   }
   shinyApp(ui, server)
+}
+if (interactive()) {
+  # Prefill the form from the server
+  update_el_form(session, "signup", model = list(name = "Ada", age = 36))
+
+  # A check only the server can make
+  update_el_form(
+    session,
+    "signup",
+    errors = list(email = "That address is taken")
+  )
 }
 }
