@@ -197,15 +197,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <style>
-      .is-selected {
-        color: #1989FA;
-        font-weight: bold;
-      }
-    </style>
-<div id="basic-cal" data-shiny-vue style="display: contents">
+  <div id="basic-cal" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-cal_container" style="display: contents">
-  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"></el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","range":null,"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 </div>
 </div>
@@ -216,23 +210,27 @@
 <p>You can set the type of the controller for Calendar header. When
 setting <code>select</code>, you can use <code>formatter</code> to
 customize <code>label</code>.</p>
-<p><code>controller_type</code> set in R; Element Plus’s demo switches
-it with radio buttons.</p>
+<p>The radio buttons set <code>controller_type</code> from the server,
+with <code><a href="../../reference/update_el_calendar.html">update_el_calendar()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_ctl"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, controller_type <span class="op">=</span> <span class="st">"select"</span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <style>
-      .is-selected {
-        color: #1989FA;
-        font-weight: bold;
-      }
-    </style>
-<div id="controller-type-cal_ctl" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="controller-type-cal_ctl_container" style="display: contents">
-  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","range":null,"controllerType":"select","formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
-</div>
-</div>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"controller"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"select"</span>, <span class="st">"button"</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="st">"select"</span>,</span>
+<span>    button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_ctl"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, controller_type <span class="op">=</span> <span class="st">"select"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">controller</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/update_el_calendar.html">update_el_calendar</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"cal_ctl"</span>, controller_type <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">controller</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/calendar-controller-type.png" alt="The controller-type example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="custom-content">Custom Content<a class="anchor" aria-label="anchor" href="#custom-content"></a>
@@ -243,27 +241,25 @@ it with radio buttons.</p>
 cell), data (including the type, isSelected, day attribute). For
 details, please refer to the API documentation below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
-<span>  <span class="st">"cal_cell"</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    `date-cell` <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>      <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
-<span>        <span class="st">"&lt;p :class=\"data.isSelected ? 'is-selected' : ''\"&gt;"</span>,</span>
-<span>        <span class="st">"{{ data.day.split('-').slice(1).join('-') }} "</span>,</span>
-<span>        <span class="st">"{{ data.isSelected ? '✔️' : '' }}&lt;/p&gt;"</span></span>
-<span>      <span class="op">)</span><span class="op">)</span>,</span>
-<span>      slot <span class="op">=</span> <span class="st">"date-cell"</span>,</span>
-<span>      scope <span class="op">=</span> <span class="st">"{ data }"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">".is-selected { color: #1989fa; }"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cal_cell"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      `date-cell` <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>        <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>          <span class="st">"&lt;p :class=\"data.isSelected ? 'is-selected' : ''\"&gt;"</span>,</span>
+<span>          <span class="st">"{{ data.day.split('-').slice(1).join('-') }} "</span>,</span>
+<span>          <span class="st">"{{ data.isSelected ? '\u2714\ufe0f' : '' }}&lt;/p&gt;"</span></span>
+<span>        <span class="op">)</span><span class="op">)</span>,</span>
+<span>        slot <span class="op">=</span> <span class="st">"date-cell"</span>,</span>
+<span>        scope <span class="op">=</span> <span class="st">"{ data }"</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <style>
-      .is-selected {
-        color: #1989FA;
-        font-weight: bold;
-      }
-    </style>
+  <style>.is-selected { color: #1989fa; }</style>
 <div id="customize-cal_cell" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customize-cal_cell_container" style="display: contents">
   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{ data }"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}</p></template></el-calendar>
@@ -280,15 +276,9 @@ the time span cannot exceed two months.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span><span class="st">"cal_range"</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2019-03-04"</span>, <span class="st">"2019-03-24"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <style>
-      .is-selected {
-        color: #1989FA;
-        font-weight: bold;
-      }
-    </style>
-<div id="range-cal_range" data-shiny-vue style="display: contents">
+  <div id="range-cal_range" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="range-cal_range_container" style="display: contents">
-  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"></el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","range":["2019-03-04","2019-03-24"],"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 </div>
 </div>
@@ -320,18 +310,9 @@ the time span cannot exceed two months.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <style>
-      .is-selected {
-        color: #1989FA;
-        font-weight: bold;
-      }
-    </style>
-<div id="header-cal_head" data-shiny-vue style="display: contents">
+  <div id="header-cal_head" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="header-cal_head_container" style="display: contents">
-  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter">
-    <template v-slot:header="{ date }"><span>Custom header content</span><span>{{ date }}</span><el-button-group><el-button size="small" @click="$refs.calendar.selectDate('prev-year')">Previous Year</el-button><el-button size="small" @click="$refs.calendar.selectDate('prev-month')">Previous Month</el-button><el-button size="small" @click="$refs.calendar.selectDate('today')">Today</el-button><el-button size="small" @click="$refs.calendar.selectDate('next-month')">Next Month</el-button><el-button size="small" @click="$refs.calendar.selectDate('next-year')">Next Year</el-button></el-button-group></template>
-    <template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template>
-  </el-calendar>
+  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:header="{ date }"><span>Custom header content</span><span>{{ date }}</span><el-button-group><el-button size="small" @click="$refs.calendar.selectDate('prev-year')">Previous Year</el-button><el-button size="small" @click="$refs.calendar.selectDate('prev-month')">Previous Month</el-button><el-button size="small" @click="$refs.calendar.selectDate('today')">Today</el-button><el-button size="small" @click="$refs.calendar.selectDate('next-month')">Next Month</el-button><el-button size="small" @click="$refs.calendar.selectDate('next-year')">Next Year</el-button></el-button-group></template></el-calendar>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","range":null,"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 </div>
 </div>

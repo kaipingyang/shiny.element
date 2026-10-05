@@ -15,7 +15,20 @@ can use `prop` (corresponding to a key of the object in `data` array) in
 
 ``` r
 
-el_table("cars", data = head(mtcars[, 1:5], 4))
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
+el_table(
+  "basic",
+  data = tableData,
+  columns = list(
+    list(prop = "date", label = "Date", width = 180),
+    list(prop = "name", label = "Name", width = 180),
+    list(prop = "address", label = "Address")
+  )
+)
 ```
 
 ## Striped Table
@@ -27,7 +40,21 @@ striped.
 
 ``` r
 
-el_table("striped", data = head(mtcars[, 1:5], 4), stripe = TRUE)
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
+el_table(
+  "striped",
+  data = tableData,
+  stripe = TRUE,
+  columns = list(
+    list(prop = "date", label = "Date", width = 180),
+    list(prop = "name", label = "Name", width = 180),
+    list(prop = "address", label = "Address")
+  )
+)
 ```
 
 ## Table with border
@@ -37,7 +64,21 @@ attribute `border` to `true`.
 
 ``` r
 
-el_table("bordered", data = head(mtcars[, 1:5], 4), border = TRUE)
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
+el_table(
+  "bordered",
+  data = tableData,
+  border = TRUE,
+  columns = list(
+    list(prop = "date", label = "Date", width = 180),
+    list(prop = "name", label = "Name", width = 180),
+    list(prop = "address", label = "Address")
+  )
+)
 ```
 
 ## Table with status
@@ -50,18 +91,34 @@ row. Then you can style it with custom classes.
 
 ``` r
 
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
 tagList(
   tags$style(
-    ".el-table .warning-row { background: oldlace; }
-              .el-table .success-row { background: #f0f9eb; }"
+    ".el-table .warning-row {
+  --el-table-tr-bg-color: var(--el-color-warning-light-9);
+}
+.el-table .success-row {
+  --el-table-tr-bg-color: var(--el-color-success-light-9);
+}"
   ),
   el_table(
     "status",
-    data = head(mtcars[, 1:4], 4),
+    data = tableData,
     row_class_name = JS(
-      "function({row, rowIndex}) {",
-      "  return rowIndex === 1 ? 'warning-row' : rowIndex === 3 ? 'success-row' : '';",
+      "function({ row, rowIndex }) {",
+      "  if (rowIndex === 1) return 'warning-row';",
+      "  if (rowIndex === 3) return 'success-row';",
+      "  return '';",
       "}"
+    ),
+    columns = list(
+      list(prop = "date", label = "Date", width = 180),
+      list(prop = "name", label = "Name", width = 180),
+      list(prop = "address", label = "Address")
     )
   )
 )
@@ -78,18 +135,30 @@ cell.
 
 ``` r
 
+tableData <- data.frame(
+  date = c("2016-05-04", "2016-05-03", "2016-05-02", "2016-05-01"),
+  name = c("Aleyna Kutzner", "Helen Jacobi", "Brandon Deckert", "Margie Smith"),
+  address = c(
+    "Lohrbergstr. 86c, Süd Lilli, Saarland",
+    "760 A Street, South Frankfield, Illinois",
+    "Arnold-Ohletz-Str. 41a, Alt Malinascheid, Thüringen",
+    "23618 Windsor Drive, West Ricardoview, Idaho"
+  )
+)
 el_table(
   "tt",
-  show_overflow_tooltip = TRUE,
-  data = data.frame(
-    date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
-    name = "Tom",
-    address = "No. 189, Grove St, Los Angeles, a long address that runs on"
-  ),
+  data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = 120),
+    list(type = "selection", width = 55),
+    list(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
     list(prop = "name", label = "Name", width = 120),
-    list(prop = "address", label = "Address", width = 200)
+    list(
+      prop = "address",
+      label = "use show-overflow-tooltip",
+      width = 240,
+      show_overflow_tooltip = TRUE
+    ),
+    list(prop = "address", label = "address")
   )
 )
 ```
@@ -103,7 +172,29 @@ header without any other codes.
 
 ``` r
 
-el_table("fixedhead", data = iris, height = "250px")
+tableData <- data.frame(
+  date = c(
+    "2016-05-03",
+    "2016-05-02",
+    "2016-05-04",
+    "2016-05-01",
+    "2016-05-08",
+    "2016-05-06",
+    "2016-05-07"
+  ),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
+el_table(
+  "fixedhead",
+  data = tableData,
+  height = 250,
+  columns = list(
+    list(prop = "date", label = "Date", width = 180),
+    list(prop = "name", label = "Name", width = 180),
+    list(prop = "address", label = "Address")
+  )
+)
 ```
 
 ## Table with fixed column
@@ -115,23 +206,45 @@ If `true`, the column will be fixed at left. It also accepts two string
 literals: ‘left’ and ‘right’, both indicating that the column will be
 fixed at corresponding direction.
 
+The buttons report to the server with `rowAction()`: Detail sets
+`input$fixedcol_detail` to the row.
+
 ``` r
 
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  state = "California",
+  city = "Los Angeles",
+  address = "No. 189, Grove St, Los Angeles",
+  zip = "CA 90036",
+  tag = c("Home", "Office", "Home", "Office")
+)
 el_table(
   "fixedcol",
-  data = head(mtcars, 4),
-  border = TRUE,
-  columns = c(
-    list(list(prop = "mpg", label = "MPG", width = "120", fixed = TRUE)),
-    lapply(names(mtcars)[-1], function(n) {
-      list(prop = n, label = n, width = "120")
-    }),
-    list(list(
+  data = tableData,
+  columns = list(
+    list(prop = "date", label = "Date", width = 150, fixed = TRUE),
+    list(prop = "name", label = "Name", width = 120),
+    list(prop = "state", label = "State", width = 120),
+    list(prop = "city", label = "City", width = 120),
+    list(prop = "address", label = "Address", width = 600),
+    list(prop = "zip", label = "Zip", width = 120),
+    list(
       label = "Operations",
-      width = "120",
       fixed = "right",
-      cell = el$button(link = TRUE, size = "small", "Detail")
-    ))
+      min_width = 120,
+      cell = tagList(
+        el$button(
+          link = NA,
+          type = "primary",
+          size = "small",
+          "@click" = "rowAction('detail', scope)",
+          "Detail"
+        ),
+        el$button(link = NA, type = "primary", size = "small", "Edit")
+      )
+    )
   )
 )
 ```
@@ -146,15 +259,33 @@ examples.
 
 ``` r
 
+tableData <- data.frame(
+  date = c(
+    "2016-05-03",
+    "2016-05-02",
+    "2016-05-04",
+    "2016-05-01",
+    "2016-05-08",
+    "2016-05-06",
+    "2016-05-07"
+  ),
+  name = "Tom",
+  state = "California",
+  city = "Los Angeles",
+  address = "No. 189, Grove St, Los Angeles",
+  zip = "CA 90036"
+)
 el_table(
   "fixedboth",
-  data = head(mtcars, 12),
-  height = "250px",
-  columns = c(
-    list(list(prop = "mpg", label = "MPG", width = "120", fixed = TRUE)),
-    lapply(names(mtcars)[-1], function(n) {
-      list(prop = n, label = n, width = "120")
-    })
+  data = tableData,
+  height = 250,
+  columns = list(
+    list(prop = "date", label = "Date", width = 150, fixed = TRUE),
+    list(prop = "name", label = "Name", width = 120),
+    list(prop = "state", label = "State", width = 120),
+    list(prop = "city", label = "City", width = 320),
+    list(prop = "address", label = "Address", width = 600),
+    list(prop = "zip", label = "Zip")
   )
 )
 ```
@@ -169,10 +300,75 @@ By setting the attribute `max-height` of `el-table`, you can fix the
 table header. The table body scrolls only if the height of the rows
 exceeds the max height value.
 
+The rows are the server’s: Remove reports its row as
+`input$fluid_remove`, Add Item asks for one more, and the server sends
+the rows back with
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md).
+
 ``` r
 
-el_table("fluid", data = head(mtcars[, 1:5], 10), max_height = "250px")
+row <- function(date) {
+  data.frame(
+    date = format(date),
+    name = "Tom",
+    state = "California",
+    city = "Los Angeles",
+    address = "No. 189, Grove St, Los Angeles",
+    zip = "CA 90036"
+  )
+}
+tableData <- do.call(rbind, lapply(as.Date("2016-05-01") + 0:2, row))
+
+ui <- el_page(
+  el_table(
+    "fluid",
+    data = tableData,
+    max_height = 250,
+    columns = list(
+      list(prop = "date", label = "Date", width = 150, fixed = TRUE),
+      list(prop = "name", label = "Name", width = 120),
+      list(prop = "state", label = "State", width = 120),
+      list(prop = "city", label = "City", width = 120),
+      list(prop = "address", label = "Address", width = 600),
+      list(prop = "zip", label = "Zip", width = 120),
+      list(
+        label = "Operations",
+        fixed = "right",
+        min_width = 120,
+        cell = el$button(
+          link = NA,
+          type = "primary",
+          size = "small",
+          "@click.prevent" = "rowAction('remove', scope)",
+          "Remove"
+        )
+      )
+    )
+  ),
+  tags$div(
+    style = "margin-top: 12px",
+    el_button("add_item", "Add Item", width = "100%")
+  )
+)
+
+server <- function(input, output, session) {
+  rows <- reactiveVal(tableData)
+  day <- reactiveVal(Sys.Date())
+  observeEvent(rows(), update_el_table(session, "fluid", data = rows()))
+  observeEvent(input$fluid_remove, {
+    rows(rows()[-input$fluid_remove$row_index, ])
+  })
+  observeEvent(input$add_item, {
+    day(day() + 1)
+    rows(rbind(rows(), row(day())))
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+![The fixed-header-with-fluid-header example,
+running](../../shots/table-fixed-header-with-fluid-header.png)
 
 ## Grouping table head
 
@@ -184,31 +380,38 @@ achieve group header.
 
 ``` r
 
-people <- data.frame(
-  date = "2016-05-03",
+tableData <- data.frame(
+  date = c(
+    "2016-05-03",
+    "2016-05-02",
+    "2016-05-04",
+    "2016-05-01",
+    "2016-05-08",
+    "2016-05-06",
+    "2016-05-07"
+  ),
   name = "Tom",
   state = "California",
   city = "Los Angeles",
-  address = "No. 189, Grove St",
+  address = "No. 189, Grove St, Los Angeles",
   zip = "CA 90036"
 )
 el_table(
   "grouped",
-  data = people[rep(1, 3), ],
-  border = TRUE,
+  data = tableData,
   columns = list(
-    list(prop = "date", label = "Date", width = "150"),
+    list(prop = "date", label = "Date", width = 150),
     list(
       label = "Delivery Info",
       children = list(
-        list(prop = "name", label = "Name", width = "120"),
+        list(prop = "name", label = "Name", width = 120),
         list(
           label = "Address Info",
           children = list(
-            list(prop = "state", label = "State", width = "120"),
-            list(prop = "city", label = "City", width = "120"),
+            list(prop = "state", label = "State", width = 120),
+            list(prop = "city", label = "City", width = 120),
             list(prop = "address", label = "Address"),
-            list(prop = "zip", label = "Zip", width = "120")
+            list(prop = "zip", label = "Zip", width = 120)
           )
         )
       )
@@ -226,28 +429,37 @@ The attribute `fixed` of the group header is determined by the outermost
 
 ``` r
 
+tableData <- data.frame(
+  date = c(
+    "2016-05-03",
+    "2016-05-02",
+    "2016-05-04",
+    "2016-05-01",
+    "2016-05-08",
+    "2016-05-06",
+    "2016-05-07"
+  ),
+  name = "Tom",
+  state = "California",
+  city = "Los Angeles",
+  address = "No. 189, Grove St, Los Angeles",
+  zip = "CA 90036"
+)
 el_table(
   "fg",
-  height = "250px",
-  data = data.frame(
-    date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
-    name = "Tom",
-    address = "No. 189, Grove St, Los Angeles, a long address that runs on"
-  ),
+  data = tableData,
+  height = 250,
   columns = list(
-    list(prop = "date", label = "Date", width = 150, fixed = "left"),
+    list(prop = "date", label = "Date"),
+    list(prop = "name", label = "Name"),
+    list(prop = "zip", label = "Zip"),
     list(
-      label = "Delivery Info",
+      label = "Address Info",
+      fixed = "right",
       children = list(
-        list(prop = "name", label = "Name", width = 120),
-        list(
-          label = "Address Info",
-          children = list(list(
-            prop = "address",
-            label = "Address",
-            width = 300
-          ))
-        )
+        list(prop = "state", label = "State"),
+        list(prop = "city", label = "City"),
+        list(prop = "address", label = "Address", min_width = 200)
       )
     )
   )
@@ -266,22 +478,41 @@ need to display row index, you can add a new `el-table-column` with its
 `type` attribute assigned to `index`, and you will see the index
 starting from 1.
 
+The buttons call the table’s `setCurrentRow()` from the server; the row
+clicked or set arrives as `input$single_current_change`.
+
 ``` r
 
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
+
 ui <- el_page(
-  el_table("single", data = head(iris, 4), highlight_current_row = TRUE),
-  el_button("second", "Select second row"),
-  el_button("clear", "Clear selection"),
-  verbatimTextOutput("current")
+  el_table(
+    "single",
+    data = tableData,
+    highlight_current_row = TRUE,
+    columns = list(
+      list(type = "index", width = 50),
+      list(prop = "date", label = "Date", width = 120),
+      list(prop = "name", label = "Name", width = 120),
+      list(prop = "address", label = "Address")
+    )
+  ),
+  tags$div(
+    style = "margin-top: 20px",
+    el_button("second", "Select second row"),
+    el_button("clear", "Clear selection")
+  )
 )
 
 server <- function(input, output, session) {
-  observeEvent(
-    input$second,
+  observeEvent(input$second, {
     call_el(session, "single", "setCurrentRow", list(el_table_row(2)))
-  )
+  })
   observeEvent(input$clear, call_el(session, "single", "setCurrentRow"))
-  output$current <- renderPrint(input$single_current_change$row_index)
 }
 
 shinyApp(ui, server)
@@ -301,26 +532,68 @@ attribute.
 Activating multiple selection is easy: simply add an `el-table-column`
 with its `type` set to `selection`.
 
+Rows 1 and 2 cannot be ticked (`selectable`). The first button toggles
+rows 2 and 3 whatever `selectable` says, the second only where it
+allows; the rows ticked arrive as `input$multi_selected_rows`.
+
 ``` r
 
-cars <- head(mtcars[, 1:4], 5)
+tableData <- data.frame(
+  id = 1:7,
+  date = c(
+    "2016-05-03",
+    "2016-05-02",
+    "2016-05-04",
+    "2016-05-01",
+    "2016-05-08",
+    "2016-05-06",
+    "2016-05-07"
+  ),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
 
 ui <- el_page(
-  el_table("cars", data = cars, selection = TRUE),
-  el_button("toggle", "Toggle rows 2 and 3"),
-  el_button("none", "Clear selection"),
-  verbatimTextOutput("picked")
+  el_table(
+    "multi",
+    data = tableData,
+    row_key = "id",
+    columns = list(
+      list(
+        type = "selection",
+        width = 55,
+        selectable = JS("function(row) { return ![1, 2].includes(row.id); }")
+      ),
+      list(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
+      list(prop = "name", label = "Name", width = 120),
+      list(prop = "address", label = "Address")
+    )
+  ),
+  tags$div(
+    style = "margin-top: 20px",
+    el_button("toggle", "Toggle selection status of second and third rows"),
+    el_button(
+      "toggle_selectable",
+      "Toggle selection status based on selectable"
+    ),
+    el_button("clear", "Clear selection")
+  )
 )
 
 server <- function(input, output, session) {
-  observeEvent(
-    input$toggle,
+  toggle <- function(ignore_selectable) {
     for (i in 2:3) {
-      call_el(session, "cars", "toggleRowSelection", list(el_table_row(i)))
+      call_el(
+        session,
+        "multi",
+        "toggleRowSelection",
+        list(el_table_row(i), NULL, ignore_selectable)
+      )
     }
-  )
-  observeEvent(input$none, call_el(session, "cars", "clearSelection"))
-  output$picked <- renderPrint(cars[input$cars_selected_rows, ])
+  }
+  observeEvent(input$toggle, toggle(TRUE))
+  observeEvent(input$toggle_selectable, toggle(FALSE))
+  observeEvent(input$clear, call_el(session, "multi", "clearSelection"))
 }
 
 shinyApp(ui, server)
@@ -346,14 +619,23 @@ handle it according to your own needs.
 
 ``` r
 
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
 el_table(
   "sorted",
-  data = head(mtcars[, 1:4], 6),
-  default_sort = list(prop = "mpg", order = "descending"),
+  data = tableData,
+  default_sort = list(prop = "date", order = "descending"),
   columns = list(
-    list(prop = "mpg", label = "MPG", sortable = TRUE),
-    list(prop = "cyl", label = "Cylinders", sortable = TRUE),
-    list(prop = "disp", label = "Displacement")
+    list(prop = "date", label = "Date", sortable = TRUE, width = 180),
+    list(prop = "name", label = "Name", width = 180),
+    list(
+      prop = "address",
+      label = "Address",
+      formatter = JS("function(row, column) { return row.address; }")
+    )
   )
 )
 ```
@@ -367,34 +649,81 @@ this column filterable. `filters` is an array, and `filter-method` is a
 function deciding which rows are displayed. It has three parameters:
 `value`, `row` and `column`.
 
+The buttons call the table’s `clearFilter()` from the server: with the
+date column’s `column_key`, or with nothing for every column.
+
 ``` r
 
-staff <- data.frame(
-  name = c("Tom", "Ada", "Linus", "Grace"),
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles",
   tag = c("Home", "Office", "Home", "Office")
 )
-el_table(
-  "filtered",
-  data = staff,
-  columns = list(
-    list(prop = "name", label = "Name"),
-    list(
-      prop = "tag",
-      label = "Tag",
-      filters = list(
-        list(text = "Home", value = "Home"),
-        list(text = "Office", value = "Office")
+
+ui <- el_page(
+  el_button("reset_date", "reset date filter"),
+  el_button("reset_all", "reset all filters"),
+  el_table(
+    "filtered",
+    data = tableData,
+    row_key = "date",
+    columns = list(
+      list(
+        prop = "date",
+        label = "Date",
+        sortable = TRUE,
+        width = 180,
+        column_key = "date",
+        filters = lapply(
+          c("2016-05-01", "2016-05-02", "2016-05-03", "2016-05-04"),
+          function(d) list(text = d, value = d)
+        ),
+        filter_method = JS(
+          "function(value, row, column) {",
+          "  return row[column['property']] === value;",
+          "}"
+        )
       ),
-      filter_method = JS("function(value, row) { return row.tag === value; }"),
-      cell = el$tag(
-        ":type" = "scope.row.tag === 'Home' ? 'primary' : 'success'",
-        "disable-transitions" = NA,
-        "{{ scope.row.tag }}"
+      list(prop = "name", label = "Name", width = 180),
+      list(
+        prop = "address",
+        label = "Address",
+        formatter = JS("function(row, column) { return row.address; }")
+      ),
+      list(
+        prop = "tag",
+        label = "Tag",
+        width = 100,
+        filters = list(
+          list(text = "Home", value = "Home"),
+          list(text = "Office", value = "Office")
+        ),
+        filter_method = JS(
+          "function(value, row) { return row.tag === value; }"
+        ),
+        filter_placement = "bottom-end",
+        cell = el$tag(
+          ":type" = "scope.row.tag === 'Home' ? 'primary' : 'success'",
+          "disable-transitions" = NA,
+          "{{ scope.row.tag }}"
+        )
       )
     )
   )
 )
+
+server <- function(input, output, session) {
+  observeEvent(input$reset_date, {
+    call_el(session, "filtered", "clearFilter", list(list("date")))
+  })
+  observeEvent(input$reset_all, call_el(session, "filtered", "clearFilter"))
+}
+
+shinyApp(ui, server)
 ```
+
+![The filter example, running](../../shots/table-filter.png)
 
 ## Custom column template
 
@@ -404,23 +733,50 @@ You have access to the following data: row, column, \$index and store
 (state management of Table) by
 [slot](https://v3.vuejs.org/guide/component-slots.html).
 
+Edit and Delete report to the server with `rowAction()`, as
+`input$custom_edit` and `input$custom_delete`: the row’s number and the
+row.
+
 ``` r
 
-tasks <- data.frame(
-  task = c("Draft", "Review", "Publish"),
-  done = c(100, 60, 0)
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
 )
 
 ui <- el_page(
   el_table(
-    "tasks",
-    data = tasks,
+    "custom",
+    data = tableData,
     columns = list(
-      list(prop = "task", label = "Task"),
       list(
-        prop = "done",
-        label = "Progress",
-        cell = el$progress(":percentage" = "scope.row.done")
+        label = "Date",
+        width = 180,
+        cell = tags$div(
+          style = "display: flex; align-items: center",
+          htmltools::tag("el-icon", list(htmltools::tag("timer", list()))),
+          tags$span(style = "margin-left: 10px", "{{ scope.row.date }}")
+        )
+      ),
+      list(
+        label = "Name",
+        width = 180,
+        cell = el$popover(
+          effect = "light",
+          trigger = "hover",
+          placement = "top",
+          width = "auto",
+          tags$template(
+            `v-slot:default` = NA,
+            tags$div("name: {{ scope.row.name }}"),
+            tags$div("address: {{ scope.row.address }}")
+          ),
+          tags$template(
+            `v-slot:reference` = NA,
+            el$tag("{{ scope.row.name }}")
+          )
+        )
       ),
       list(
         label = "Operations",
@@ -445,8 +801,8 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   output$which <- renderPrint(list(
-    edit = input$tasks_edit$row_index,
-    delete = input$tasks_delete$row_index
+    edit = input$custom_edit$row_index,
+    delete = input$custom_delete$row_index
   ))
 }
 
@@ -463,22 +819,65 @@ Customize table header so it can be even more customized.
 You can customize how the header looks by header
 [slots](https://v3.vuejs.org/guide/component-slots.html).
 
+The search box is the column’s `header` template. What is typed lives in
+a store, `$store.search.text`, reported as `input$search`; the server
+filters the rows and sends them with
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md).
+
 ``` r
 
-el_table(
-  "hdr",
-  data = head(mtcars[, 1:3], 3),
-  columns = list(
-    list(
-      prop = "mpg",
-      label = "MPG",
-      header_html = "<b>MPG</b> <small>(miles/gallon)</small>"
-    ),
-    list(prop = "cyl", label = "Cylinders"),
-    list(prop = "disp", label = "Displacement")
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = c("Tom", "John", "Morgan", "Jessy"),
+  address = "No. 189, Grove St, Los Angeles"
+)
+
+ui <- el_page(
+  vue_store("search", data = list(text = ""), input = "text"),
+  el_table(
+    "searchable",
+    data = tableData,
+    columns = list(
+      list(prop = "date", label = "Date"),
+      list(prop = "name", label = "Name"),
+      list(
+        align = "right",
+        header = el$input(
+          "v-model" = "$store.search.text",
+          size = "small",
+          placeholder = "Type to search"
+        ),
+        cell = tagList(
+          el$button(
+            size = "small",
+            "@click" = "rowAction('edit', scope)",
+            "Edit"
+          ),
+          el$button(
+            size = "small",
+            type = "danger",
+            "@click" = "rowAction('delete', scope)",
+            "Delete"
+          )
+        )
+      )
+    )
   )
 )
+
+server <- function(input, output, session) {
+  observeEvent(input$search, {
+    keep <- !nzchar(input$search) |
+      grepl(tolower(input$search), tolower(tableData$name), fixed = TRUE)
+    update_el_table(session, "searchable", data = tableData[keep, ])
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+![The custom-header example,
+running](../../shots/table-custom-header.png)
 
 ## Expandable row
 
@@ -493,25 +892,107 @@ for el-table-column will be rendered as the contents of the expanded
 row, and you can access the same attributes as when you are using `slot`
 in custom column templates.
 
+Each row opens to its details and a table of its own, the family. The
+switches are the server’s: the parent’s border and
+`preserve_expanded_content` with
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/update_el_table.md),
+the child tables’ border through a store their template reads,
+`$store.expand.child`.
+
 ``` r
 
-el_table(
-  "exp",
-  data = data.frame(
-    name = c("Tom", "Ada"),
-    city = c("Los Angeles", "London"),
-    shop = c("No. 189, Grove St", "1 Baker St")
+family <- data.frame(
+  name = c("Jerry", "Spike", "Tyke"),
+  state = "California",
+  city = "San Francisco",
+  address = "3650 21st St, San Francisco",
+  zip = "CA 94114"
+)
+tableData <- lapply(
+  c(
+    "2016-05-03",
+    "2016-05-02",
+    "2016-05-04",
+    "2016-05-01",
+    "2016-05-08",
+    "2016-05-06",
+    "2016-05-07"
   ),
-  default_expand_all = TRUE,
-  columns = list(
+  function(date) {
     list(
-      type = "expand",
-      cell = tags$p("City: {{ scope.row.city }} -- Shop: {{ scope.row.shop }}")
-    ),
-    list(prop = "name", label = "Name")
+      date = date,
+      name = "Tom",
+      state = "California",
+      city = "San Francisco",
+      address = "3650 21st St, San Francisco",
+      zip = "CA 94114",
+      family = family
+    )
+  }
+)
+
+ui <- el_page(
+  vue_store("expand", data = list(child = FALSE)),
+  tags$div(
+    style = "display: flex; gap: 8px; align-items: center",
+    "switch parent border:",
+    el_switch("parent_border"),
+    "switch child border:",
+    el_switch("child_border"),
+    "preserve expanded:",
+    el_switch("preserve")
+  ),
+  el_table(
+    "expandable",
+    data = tableData,
+    columns = list(
+      list(
+        type = "expand",
+        cell = tags$div(
+          style = "margin: 16px",
+          tags$p("State: {{ scope.row.state }}"),
+          tags$p("City: {{ scope.row.city }}"),
+          tags$p("Address: {{ scope.row.address }}"),
+          tags$p("Zip: {{ scope.row.zip }}"),
+          tags$h3("Family"),
+          el$table(
+            ":data" = "scope.row.family",
+            ":border" = "$store.expand.child",
+            el$table_column(label = "Name", prop = "name"),
+            el$table_column(label = "State", prop = "state"),
+            el$table_column(label = "City", prop = "city"),
+            el$table_column(label = "Address", prop = "address"),
+            el$table_column(label = "Zip", prop = "zip")
+          )
+        )
+      ),
+      list(label = "Date", prop = "date"),
+      list(label = "Name", prop = "name")
+    )
   )
 )
+
+server <- function(input, output, session) {
+  observeEvent(input$parent_border, {
+    update_el_table(session, "expandable", border = input$parent_border)
+  })
+  observeEvent(input$preserve, {
+    update_el_table(
+      session,
+      "expandable",
+      preserve_expanded_content = input$preserve
+    )
+  })
+  observeEvent(input$child_border, {
+    update_vue(session, "expand", child = input$child_border)
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+![The expandable-row example,
+running](../../shots/table-expandable-row.png)
 
 ## Tree data and lazy mode
 
@@ -523,45 +1004,100 @@ asynchronously. Set `lazy` property of Table to true and the function
 contains children. Both `children` and `hasChildren` can be configured
 via `tree-props`.
 
+The second table loads a row’s children when it is opened, with `load`,
+in the browser. Without `load` the server loads them: see
+[`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md).
+
 ``` r
 
-teams <- data.frame(
-  id = c(1, 2),
-  name = c("Engineering", "Design"),
-  size = c(42, 9),
-  hasChildren = c(TRUE, FALSE)
-)
-
-ui <- el_page(el_table(
-  "teams",
-  data = teams,
-  row_key = "id",
-  lazy = TRUE,
-  columns = list(
-    list(prop = "name", label = "Team"),
-    list(prop = "size", label = "People")
-  )
-))
-
-server <- function(input, output, session) {
-  observeEvent(input$teams_load, {
-    el_load_children(
-      id = "teams",
-      request = input$teams_load,
-      children = data.frame(
-        id = c(11, 12),
-        name = c("Platform", "Product"),
-        size = c(18, 24)
+tableData <- list(
+  list(
+    id = 1,
+    date = "2016-05-02",
+    name = "wangxiaohu",
+    address = "No. 189, Grove St, Los Angeles"
+  ),
+  list(
+    id = 2,
+    date = "2016-05-04",
+    name = "wangxiaohu",
+    address = "No. 189, Grove St, Los Angeles"
+  ),
+  list(
+    id = 3,
+    date = "2016-05-01",
+    name = "wangxiaohu",
+    address = "No. 189, Grove St, Los Angeles",
+    children = list(
+      list(
+        id = 31,
+        date = "2016-05-01",
+        name = "wangxiaohu",
+        address = "No. 189, Grove St, Los Angeles"
+      ),
+      list(
+        id = 32,
+        date = "2016-05-01",
+        name = "wangxiaohu",
+        address = "No. 189, Grove St, Los Angeles"
       )
     )
-  })
-}
-
-shinyApp(ui, server)
+  ),
+  list(
+    id = 4,
+    date = "2016-05-03",
+    name = "wangxiaohu",
+    address = "No. 189, Grove St, Los Angeles"
+  )
+)
+tableData1 <- data.frame(
+  id = 1:4,
+  date = c("2016-05-02", "2016-05-04", "2016-05-01", "2016-05-03"),
+  name = "wangxiaohu",
+  hasChildren = c(FALSE, FALSE, TRUE, FALSE),
+  address = "No. 189, Grove St, Los Angeles"
+)
+tags$div(
+  el_table(
+    "tree",
+    data = tableData,
+    row_key = "id",
+    border = TRUE,
+    default_expand_all = TRUE,
+    columns = list(
+      list(prop = "date", label = "Date", sortable = TRUE),
+      list(prop = "name", label = "Name", sortable = TRUE),
+      list(prop = "address", label = "Address", sortable = TRUE)
+    )
+  ),
+  tags$div(style = "height: 20px"),
+  el_table(
+    "lazy",
+    data = tableData1,
+    row_key = "id",
+    border = TRUE,
+    lazy = TRUE,
+    tree_props = list(children = "children", hasChildren = "hasChildren"),
+    load = JS(
+      "function(row, treeNode, resolve) {",
+      "  setTimeout(function() {",
+      "    resolve([",
+      "      { id: 31, date: '2016-05-01', name: 'wangxiaohu',",
+      "        address: 'No. 189, Grove St, Los Angeles' },",
+      "      { id: 32, date: '2016-05-01', name: 'wangxiaohu',",
+      "        address: 'No. 189, Grove St, Los Angeles' }",
+      "    ]);",
+      "  }, 1000);",
+      "}"
+    ),
+    columns = list(
+      list(prop = "date", label = "Date"),
+      list(prop = "name", label = "Name"),
+      list(prop = "address", label = "Address")
+    )
+  )
+)
 ```
-
-![The tree-and-lazy example,
-running](../../shots/table-tree-and-lazy.png)
 
 ## Selectable tree
 
@@ -573,33 +1109,76 @@ child nodes will be associated with the selection state of child nodes,
 that is, when the parent node is selected, all its child nodes will be
 selected.
 
-A tree table’s rows tick on their own, not with their children.
+The radio buttons set `tree_props = list(checkStrictly =)` from the
+server: ticked strictly, a row ticks on its own, not with its children.
+Rows 1 and 31 cannot be ticked.
 
 ``` r
 
-el_table(
-  "strict",
-  row_key = "id",
-  selection = TRUE,
-  default_expand_all = TRUE,
-  data = list(
-    list(id = 1, date = "2016-05-02", name = "Tom"),
-    list(
-      id = 3,
-      date = "2016-05-01",
-      name = "Tom",
-      children = list(
-        list(id = 31, date = "2016-05-01", name = "Tom"),
-        list(id = 32, date = "2016-05-01", name = "Tom")
-      )
-    )
+row <- function(id, date, children = NULL) {
+  r <- list(
+    id = id,
+    date = date,
+    name = "wangxiaohu",
+    address = "No. 189, Grove St, Los Angeles"
+  )
+  if (length(children)) {
+    r$children <- children
+  }
+  r
+}
+tableData <- list(
+  row(1, "2016-05-02"),
+  row(2, "2016-05-04"),
+  row(
+    3,
+    "2016-05-01",
+    list(row(31, "2016-05-01"), row(32, "2016-05-01"), row(33, "2016-05-01"))
   ),
-  columns = list(
-    list(prop = "date", label = "Date"),
-    list(prop = "name", label = "Name")
+  row(4, "2016-05-03")
+)
+
+ui <- el_page(
+  el_radio_group(
+    "strict_mode",
+    choices = c("true", "false"),
+    value = "false",
+    button = TRUE
+  ),
+  el_table(
+    "strict",
+    data = tableData,
+    row_key = "id",
+    default_expand_all = TRUE,
+    tree_props = list(checkStrictly = FALSE),
+    columns = list(
+      list(
+        type = "selection",
+        width = 55,
+        selectable = JS("function(row) { return ![1, 31].includes(row.id); }")
+      ),
+      list(prop = "date", label = "Date"),
+      list(prop = "name", label = "Name"),
+      list(prop = "address", label = "Address")
+    )
   )
 )
+
+server <- function(input, output, session) {
+  observeEvent(input$strict_mode, {
+    update_el_table(
+      session,
+      "strict",
+      tree_props = list(checkStrictly = input$strict_mode == "true")
+    )
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+![The check-strictly example,
+running](../../shots/table-check-strictly.png)
 
 ## Summary row
 
@@ -618,12 +1197,56 @@ example is a detailed demo.
 
 ``` r
 
-el_table(
-  "sums",
-  data = head(mtcars[, c("mpg", "hp", "wt")], 5),
-  show_summary = TRUE,
-  sum_text = "Total",
-  border = TRUE
+tableData <- data.frame(
+  id = c("12987122", "12987123", "12987124", "12987125", "12987126"),
+  name = "Tom",
+  amount1 = c("234", "165", "324", "621", "539"),
+  amount2 = c("3.2", "4.43", "1.9", "2.2", "4.1"),
+  amount3 = c(10, 12, 9, 17, 15)
+)
+tags$div(
+  el_table(
+    "sums",
+    data = tableData,
+    border = TRUE,
+    show_summary = TRUE,
+    columns = list(
+      list(prop = "id", label = "ID", width = 180),
+      list(prop = "name", label = "Name"),
+      list(prop = "amount1", label = "Amount 1", sortable = TRUE),
+      list(prop = "amount2", label = "Amount 2", sortable = TRUE),
+      list(prop = "amount3", label = "Amount 3", sortable = TRUE)
+    )
+  ),
+  tags$div(style = "height: 20px"),
+  el_table(
+    "costs",
+    data = tableData,
+    border = TRUE,
+    height = 200,
+    show_summary = TRUE,
+    summary_method = JS(
+      "function({ columns, data }) {",
+      "  return columns.map(function(column, index) {",
+      "    if (index === 0) {",
+      "      return Vue.h('div', { style: { textDecoration: 'underline' } }, ['Total Cost']);",
+      "    }",
+      "    var values = data.map(function(item) { return Number(item[column.property]); });",
+      "    if (values.every(function(value) { return Number.isNaN(value); })) return 'N/A';",
+      "    return '$ ' + values.reduce(function(prev, curr) {",
+      "      return Number.isNaN(curr) ? prev : prev + curr;",
+      "    }, 0);",
+      "  });",
+      "}"
+    ),
+    columns = list(
+      list(prop = "id", label = "ID", width = 180),
+      list(prop = "name", label = "Name"),
+      list(prop = "amount1", label = "Cost 1 ($)"),
+      list(prop = "amount2", label = "Cost 2 ($)"),
+      list(prop = "amount3", label = "Cost 3 ($)")
+    )
+  )
 )
 ```
 
@@ -640,14 +1263,55 @@ can also return an object with `rowspan` and `colspan` props.
 
 ``` r
 
-el_table(
-  "spans",
-  data = head(mtcars[, 1:4], 6),
-  border = TRUE,
-  span_method = JS(
-    "function({row, column, rowIndex, columnIndex}) {",
-    "  if (columnIndex === 0) return rowIndex % 2 === 0 ? [2, 1] : [0, 0];",
-    "}"
+tableData <- data.frame(
+  id = c("12987122", "12987123", "12987124", "12987125", "12987126"),
+  name = "Tom",
+  amount1 = c("234", "165", "324", "621", "539"),
+  amount2 = c("3.2", "4.43", "1.9", "2.2", "4.1"),
+  amount3 = c(10, 12, 9, 17, 15)
+)
+tags$div(
+  el_table(
+    "colspans",
+    data = tableData,
+    border = TRUE,
+    span_method = JS(
+      "function({ row, column, rowIndex, columnIndex }) {",
+      "  if (rowIndex % 2 === 0) {",
+      "    if (columnIndex === 0) return [1, 2];",
+      "    if (columnIndex === 1) return [0, 0];",
+      "  }",
+      "}"
+    ),
+    columns = list(
+      list(prop = "id", label = "ID", width = 180),
+      list(prop = "name", label = "Name"),
+      list(prop = "amount1", label = "Amount 1", sortable = TRUE),
+      list(prop = "amount2", label = "Amount 2", sortable = TRUE),
+      list(prop = "amount3", label = "Amount 3", sortable = TRUE)
+    )
+  ),
+  tags$div(style = "height: 20px"),
+  el_table(
+    "rowspans",
+    data = tableData,
+    border = TRUE,
+    span_method = JS(
+      "function({ row, column, rowIndex, columnIndex }) {",
+      "  if (columnIndex === 0) {",
+      "    return rowIndex % 2 === 0",
+      "      ? { rowspan: 2, colspan: 1 }",
+      "      : { rowspan: 0, colspan: 0 };",
+      "  }",
+      "}"
+    ),
+    columns = list(
+      list(prop = "id", label = "ID", width = 180),
+      list(prop = "name", label = "Name"),
+      list(prop = "amount1", label = "Amount 1"),
+      list(prop = "amount2", label = "Amount 2"),
+      list(prop = "amount3", label = "Amount 3")
+    )
   )
 )
 ```
@@ -664,13 +1328,23 @@ displayed as index.
 
 ``` r
 
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  state = "California",
+  city = "Los Angeles",
+  address = "No. 189, Grove St, Los Angeles",
+  zip = "CA 90036",
+  tag = c("Home", "Office", "Home", "Office")
+)
 el_table(
   "idx",
-  data = head(iris[, c(1, 5)], 4),
+  data = tableData,
   columns = list(
-    list(type = "index", index = JS("function(i) { return i * 2; }")),
-    list(prop = "Sepal_Length", label = "Sepal length"),
-    list(prop = "Species", label = "Species")
+    list(type = "index", index = JS("function(index) { return index * 2; }")),
+    list(prop = "date", label = "Date", width = 180),
+    list(prop = "name", label = "Name", width = 180),
+    list(prop = "address", label = "Address")
   )
 )
 ```
@@ -682,18 +1356,45 @@ The
 property sets the algorithm used to lay out table cells, rows, and
 columns.
 
+The radio buttons set `table_layout` from the server.
+
 ``` r
 
-el_table(
-  "layout_auto",
-  table_layout = "auto",
-  data = data.frame(
-    date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
-    name = "Tom",
-    address = "No. 189, Grove St, Los Angeles, a long address that runs on"
+tableData <- data.frame(
+  date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "Tom",
+  address = "No. 189, Grove St, Los Angeles"
+)
+
+ui <- el_page(
+  el_radio_group(
+    "layout",
+    choices = c("fixed", "auto"),
+    value = "fixed",
+    button = TRUE
+  ),
+  el_table(
+    "layout_table",
+    data = tableData,
+    table_layout = "fixed",
+    columns = list(
+      list(prop = "date", label = "Date"),
+      list(prop = "name", label = "Name"),
+      list(prop = "address", label = "Address")
+    )
   )
 )
+
+server <- function(input, output, session) {
+  observeEvent(input$layout, {
+    update_el_table(session, "layout_table", table_layout = input$layout)
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+![The table-layout example, running](../../shots/table-table-layout.png)
 
 ## Tooltip formatter
 
@@ -701,18 +1402,66 @@ You can use `tooltip-formatter` to customize the tooltip content.
 
 ``` r
 
-el_table(
-  "tt_fmt",
-  show_overflow_tooltip = TRUE,
-  data = data.frame(
-    date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
-    name = "Tom",
-    address = "No. 189, Grove St, Los Angeles, a long address that runs on"
+tableData <- list(
+  list(
+    address = "Lohrbergstr. 86c, Süd Lilli, Saarland",
+    tags = list("Office", "Home", "Park", "Garden"),
+    url = "https://github.com/element-plus/element-plus/issues"
   ),
-  tooltip_formatter = JS("function(d) { return 'Address: ' + d.row.address; }"),
-  columns = list(
-    list(prop = "date", label = "Date", width = 120),
-    list(prop = "address", label = "Address", width = 200)
+  list(
+    address = "760 A Street, South Frankfield, Illinois",
+    tags = list("error", "warning", "success", "info"),
+    url = "https://github.com/element-plus/element-plus/pulls"
+  ),
+  list(
+    address = "Arnold-Ohletz-Str. 41a, Alt Malinascheid, Thüringen",
+    tags = list("one", "two", "three", "four", "five"),
+    url = "https://github.com/element-plus/element-plus/discussions"
+  ),
+  list(
+    address = "23618 Windsor Drive, West Ricardoview, Idaho",
+    tags = list("blue", "white", "dark", "gray", "red", "bright"),
+    url = "https://github.com/element-plus/element-plus/actions"
+  )
+)
+tagList(
+  tags$style(".tag-item + .tag-item { margin-left: 5px; }"),
+  el_table(
+    "tt_fmt",
+    data = tableData,
+    show_overflow_tooltip = TRUE,
+    tooltip_formatter = JS(
+      "function(data) { return data.cellValue + ': table formatter'; }"
+    ),
+    columns = list(
+      list(prop = "address", label = "extends table formatter", width = 240),
+      list(
+        prop = "tags",
+        label = "formatter object",
+        width = 240,
+        tooltip_formatter = JS(
+          "function({ row }) { return row.tags.join(', '); }"
+        ),
+        cell = el$tag(
+          "v-for" = "tag in scope.row.tags",
+          ":key" = "tag",
+          class = "tag-item",
+          type = "primary",
+          "{{ tag }}"
+        )
+      ),
+      list(
+        prop = "url",
+        label = "with vnode",
+        width = 240,
+        tooltip_formatter = JS(
+          "function(data) {",
+          "  return Vue.h(ElementPlus.ElLink, { type: 'primary', href: data.cellValue },",
+          "    function() { return Vue.h('span', null, data.cellValue); });",
+          "}"
+        )
+      )
+    )
   )
 )
 ```

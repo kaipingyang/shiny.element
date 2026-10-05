@@ -12,7 +12,8 @@ update_el_table(
   columns = NULL,
   border = NULL,
   selection = NULL,
-  loading = NULL
+  loading = NULL,
+  ...
 )
 ```
 
@@ -51,6 +52,15 @@ update_el_table(
 
   Show or hide the loading mask.
 
+- ...:
+
+  Any other argument of
+  [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md),
+  by its name: `stripe = TRUE`, `table_layout = "auto"`,
+  `tree_props = list(checkStrictly = TRUE)`, `row_class_name = JS(...)`.
+  `NULL` returns it to Element's default. `rownames`, `slots` and
+  `width` are fixed when the table is drawn.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
@@ -70,5 +80,7 @@ if (interactive()) {
   observeEvent(input$go, {
     update_el_table(session, "tbl", data = head(mtcars, 10))
   })
+  # any other argument of el_table()
+  update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
 }
 ```

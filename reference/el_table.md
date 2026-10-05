@@ -96,10 +96,14 @@ el_table(
   - `header_html` – markup for the header cell, a string or htmltools
     tags, inserted unescaped, so pass only what you control.
 
+  - `header` – a template for the header cell, as `cell` is for the
+    others: components and all, `scope.column` and `scope.$index` in
+    reach. `el$input(size = "small", ...)` puts a search box there.
+
   - `children` – the columns under a group header, as Element nests
-    `el-table-column`: `list(label = "Address", children = list(...))`.
-    Two levels deep; each child column takes `cell` and `header_html` as
-    a top-level one does.
+    `el-table-column`: `list(label = "Address", children = list(...))`,
+    as deep as you nest them; each child column takes `cell`, `header`
+    and `header_html` as a top-level one does.
 
 - selection:
 

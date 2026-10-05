@@ -1,7 +1,8 @@
 # Update Element Plus Calendar Component
 
-Send a message to update the calendar value, range, first day of week,
-or slot.
+Server-side update for
+[`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md):
+the selected day, the range, or any other of its arguments.
 
 ## Usage
 
@@ -12,7 +13,8 @@ update_el_calendar(
   value = NULL,
   range = NULL,
   label = NULL,
-  error = NULL
+  error = NULL,
+  ...
 )
 ```
 
@@ -50,6 +52,13 @@ update_el_calendar(
   for a check only the server can make, such as whether a name is taken.
   `""` clears it.
 
+- ...:
+
+  Any other argument of
+  [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md),
+  by its name: `controller_type = "select"`, `formatter = JS(...)`.
+  `NULL` returns it to Element's default.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
@@ -62,5 +71,6 @@ if (interactive()) {
   observeEvent(input$go, {
     update_el_calendar(session, "cal", value = "2026-06-01")
   })
+  update_el_calendar(session, "cal", controller_type = "select")
 }
 ```

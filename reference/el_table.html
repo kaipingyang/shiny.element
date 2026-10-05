@@ -245,10 +245,13 @@ a <code>prop</code> – a column of buttons – is fine. See "Row actions" below
 <li><p><code>filter_icon</code> – the filter's icon, by name.</p></li>
 <li><p><code>header_html</code> – markup for the header cell, a string or htmltools
 tags, inserted unescaped, so pass only what you control.</p></li>
+<li><p><code>header</code> – a template for the header cell, as <code>cell</code> is for the
+others: components and all, <code>scope.column</code> and <code>scope.$index</code> in
+reach. <code>el$input(size = "small", ...)</code> puts a search box there.</p></li>
 <li><p><code>children</code> – the columns under a group header, as Element nests
-<code>el-table-column</code>: <code>list(label = "Address", children = list(...))</code>.
-Two levels deep; each child column takes <code>cell</code> and <code>header_html</code>
-as a top-level one does.</p></li>
+<code>el-table-column</code>: <code>list(label = "Address", children = list(...))</code>,
+as deep as you nest them; each child column takes <code>cell</code>, <code>header</code>
+and <code>header_html</code> as a top-level one does.</p></li>
 </ul></dd>
 
 

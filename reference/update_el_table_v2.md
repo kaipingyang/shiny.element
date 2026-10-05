@@ -16,7 +16,8 @@ update_el_table_v2(
   data = NULL,
   columns = NULL,
   sort_by = NULL,
-  expanded_row_keys = NULL
+  expanded_row_keys = NULL,
+  ...
 )
 ```
 
@@ -35,6 +36,15 @@ update_el_table_v2(
 
   New values; `NULL` leaves one unchanged.
 
+- ...:
+
+  Any other argument of
+  [`el_table_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_table_v2.md),
+  by its name: `sort_state = list(id = "desc")`, `fixed_data = ...`,
+  `row_class = JS(...)`, `height = 500`. `NULL` returns it to Element's
+  default. `methods`, `slots`, `width` and `auto_resize` are fixed when
+  the table is drawn.
+
 ## Value
 
 Called for its side effect; returns `NULL` invisibly.
@@ -47,5 +57,7 @@ if (interactive()) {
   observeEvent(input$filter_on, {
     update_el_table_v2(id = "big", data = subset(big, keep))
   })
+  # any other argument of el_table_v2()
+  update_el_table_v2(id = "big", sort_state = list(id = "desc"))
 }
 ```

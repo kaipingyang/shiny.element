@@ -17,13 +17,32 @@ el_calendar("cal", value = Sys.Date())
 You can set the type of the controller for Calendar header. When setting
 `select`, you can use `formatter` to customize `label`.
 
-`controller_type` set in R; Element Plus’s demo switches it with radio
-buttons.
+The radio buttons set `controller_type` from the server, with
+[`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/update_el_calendar.md).
 
 ``` r
 
-el_calendar("cal_ctl", value = Sys.Date(), controller_type = "select")
+ui <- el_page(
+  el_radio_group(
+    "controller",
+    choices = c("select", "button"),
+    value = "select",
+    button = TRUE
+  ),
+  el_calendar("cal_ctl", value = Sys.Date(), controller_type = "select")
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$controller, {
+    update_el_calendar(session, "cal_ctl", controller_type = input$controller)
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+![The controller-type example,
+running](../../shots/calendar-controller-type.png)
 
 ## Custom Content
 
@@ -35,17 +54,20 @@ below.
 
 ``` r
 
-el_calendar(
-  "cal_cell",
-  slots = list(
-    `date-cell` = template(
-      htmltools::HTML(paste0(
-        "<p :class=\"data.isSelected ? 'is-selected' : ''\">",
-        "{{ data.day.split('-').slice(1).join('-') }} ",
-        "{{ data.isSelected ? '✔️' : '' }}</p>"
-      )),
-      slot = "date-cell",
-      scope = "{ data }"
+tagList(
+  tags$style(".is-selected { color: #1989fa; }"),
+  el_calendar(
+    "cal_cell",
+    slots = list(
+      `date-cell` = template(
+        htmltools::HTML(paste0(
+          "<p :class=\"data.isSelected ? 'is-selected' : ''\">",
+          "{{ data.day.split('-').slice(1).join('-') }} ",
+          "{{ data.isSelected ? '\u2714\ufe0f' : '' }}</p>"
+        )),
+        slot = "date-cell",
+        scope = "{ data }"
+      )
     )
   )
 )

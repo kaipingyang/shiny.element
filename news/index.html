@@ -205,6 +205,8 @@
 <li>An upload’s file field no longer appears as an extra <code>input$&lt;id&gt;_elfile</code>.</li>
 <li>An update giving one value for a field that holds several – a multiple select’s selection, a checkbox group’s, a table-v2’s expanded rows – sends it as a list of one, not a bare value.</li>
 <li>Releasing an interrupted upload warns, once, if Shiny’s internals it relies on have moved.</li>
+<li>
+<code><a href="../reference/el_calendar.html">el_calendar()</a></code> draws Element Plus’s own day cell; it used to fill it with a template of its own and colour every <code>.is-selected</code> on the page.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-after-elements-own-0-1-0">Documentation, after Element’s own<a class="anchor" aria-label="anchor" href="#documentation-after-elements-own-0-1-0"></a></h3>
@@ -235,6 +237,10 @@
 <p><code><a href="../reference/el_table.html">el_table()</a></code> columns may carry a <code>cell</code> template, drawn once per row with <code>scope.row</code> in reach – a status tag, a progress bar, a column of buttons – and a <code>type</code> of <code>"index"</code> or <code>"expand"</code>. A button in a cell reports with <code>rowAction('edit', scope)</code>, setting <code>input$&lt;id&gt;_edit</code> to the row’s number and the row. <code>loading</code> shows Element’s loading mask, from the server too.</p>
 <p><code><a href="../reference/el_table.html">el_table()</a></code> draws no column borders by default, as Element does; pass <code>border = TRUE</code> for them.</p>
 <p><code>update_el_table(data =)</code> keeps the columns the table was created with. It used to re-infer them from the new data, discarding every label, formatter and template.</p>
+<p>A column’s <code>header</code> is a template, as its <code>cell</code> is: a search box, a button, any component in the header cell. Group headers nest as deep as the columns given (they stopped at two levels below the top).</p>
+<p><code><a href="../reference/update_el_table.html">update_el_table()</a></code>, <code><a href="../reference/update_el_table_v2.html">update_el_table_v2()</a></code> and <code><a href="../reference/update_el_calendar.html">update_el_calendar()</a></code> take any other argument of their component by its name – <code>stripe</code>, <code>table_layout</code>, <code>tree_props</code>, <code>sort_state</code>, <code>fixed_data</code>, <code>controller_type</code> – and <code>NULL</code> returns one to Element’s default. <code><a href="../reference/call_el.html">call_el()</a></code> reaches a table-v2 with <code>auto_resize = TRUE</code>; it used to reach the resizer around it.</p>
+<p>A data.frame inside the data – a row’s own rows, a cell of a list column – is rows too, and a list column’s cell is its value rather than a list of one.</p>
+<p>The table, table-v2 and calendar pages show Element Plus’s demos with Element Plus’s data; where a demo changes the component as it runs, the R version is an app whose server does it.</p>
 </div>
 <div class="section level3">
 <h3 id="dashboards-0-1-0">Dashboards<a class="anchor" aria-label="anchor" href="#dashboards-0-1-0"></a></h3>

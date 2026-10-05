@@ -118,15 +118,9 @@ A Shiny UI element.
 ``` r
 # The default day cell
 el_calendar("cal")
-#> <style>
-#>       .is-selected {
-#>         color: #1989FA;
-#>         font-weight: bold;
-#>       }
-#>     </style>
 #> <div id="cal" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cal_container" style="display: contents">
-#>   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"></el-calendar>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","range":null,"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 #> </div>
@@ -142,12 +136,6 @@ el_calendar(
     )
   )
 )
-#> <style>
-#>       .is-selected {
-#>         color: #1989FA;
-#>         font-weight: bold;
-#>       }
-#>     </style>
 #> <div id="cal" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cal_container" style="display: contents">
 #>   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p>{{ data.day.slice(8) }}</p></template></el-calendar>
@@ -156,30 +144,18 @@ el_calendar(
 #> </div>
 # Basic usage
 el_calendar(id = "calendar1", value = Sys.Date())
-#> <style>
-#>       .is-selected {
-#>         color: #1989FA;
-#>         font-weight: bold;
-#>       }
-#>     </style>
 #> <div id="calendar1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="calendar1_container" style="display: contents">
-#>   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"></el-calendar>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","range":null,"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 #> </div>
 
 # With date range
 el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
-#> <style>
-#>       .is-selected {
-#>         color: #1989FA;
-#>         font-weight: bold;
-#>       }
-#>     </style>
 #> <div id="calendar2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="calendar2_container" style="display: contents">
-#>   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }}<span v-if="data.isSelected">✔</span></p></template></el-calendar>
+#>   <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"></el-calendar>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-05","range":["2025-01-01","2025-01-31"],"controllerType":null,"formatter":null},"methods":{"elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value"]}</script>
 #> </div>

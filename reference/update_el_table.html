@@ -166,7 +166,8 @@
 <span>  columns <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  selection <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  loading <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -205,6 +206,12 @@ whose columns were inferred infers them again from the new <code>data</code>.
 <dt id="arg-loading">loading<a class="anchor" aria-label="anchor" href="#arg-loading"></a></dt>
 <dd><p>Show or hide the loading mask.</p></dd>
 
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Any other argument of <code><a href="el_table.html">el_table()</a></code>, by its name: <code>stripe = TRUE</code>, <code>table_layout = "auto"</code>, <code>tree_props = list(checkStrictly = TRUE)</code>, <code>row_class_name = JS(...)</code>. <code>NULL</code> returns it to Element's
+default. <code>rownames</code>, <code>slots</code> and <code>width</code> are fixed when the table is
+drawn.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -225,6 +232,8 @@ bring a template the table was not created with.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">go</span>, <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="fu">update_el_table</span><span class="op">(</span><span class="va">session</span>, <span class="st">"tbl"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># any other argument of el_table()</span></span></span>
+<span class="r-in"><span>  <span class="fu">update_el_table</span><span class="op">(</span><span class="va">session</span>, <span class="st">"tbl"</span>, stripe <span class="op">=</span> <span class="cn">TRUE</span>, table_layout <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

@@ -171,7 +171,8 @@ of rows; a data.frame without <code>columns</code> keeps the table's columns.</p
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  columns <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sort_by <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  expanded_row_keys <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  expanded_row_keys <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -192,6 +193,13 @@ of rows; a data.frame without <code>columns</code> keeps the table's columns.</p
 <dd><p>New values; <code>NULL</code> leaves
 one unchanged.</p></dd>
 
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Any other argument of <code><a href="el_table_v2.html">el_table_v2()</a></code>, by its name:
+<code>sort_state = list(id = "desc")</code>, <code>fixed_data = ...</code>, <code>row_class = JS(...)</code>, <code>height = 500</code>. <code>NULL</code> returns it to Element's default.
+<code>methods</code>, <code>slots</code>, <code>width</code> and <code>auto_resize</code> are fixed when the table
+is drawn.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -205,6 +213,8 @@ one unchanged.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">filter_on</span>, <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="fu">update_el_table_v2</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"big"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">big</span>, <span class="va">keep</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># any other argument of el_table_v2()</span></span></span>
+<span class="r-in"><span>  <span class="fu">update_el_table_v2</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"big"</span>, sort_state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
