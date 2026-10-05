@@ -185,6 +185,21 @@
     }
   }
 
+  // Bootstrap's dark mode -- bslib's input_dark_mode(), a theme -- is
+  // data-bs-theme on <html>; Element Plus's is the class `dark` there. While
+  // the attribute is set, the class follows it, so one switch turns both.
+  if (typeof document !== 'undefined') {
+    var html = document.documentElement;
+    var followTheme = function () {
+      var theme = html.getAttribute('data-bs-theme');
+      if (theme === 'dark' || theme === 'light') html.classList.toggle('dark', theme === 'dark');
+    };
+    followTheme();
+    if (typeof MutationObserver !== 'undefined') {
+      new MutationObserver(followTheme).observe(html, { attributes: true, attributeFilter: ['data-bs-theme'] });
+    }
+  }
+
   // A validation message from shinyvalidate, drawn as Element draws a
   // failed el-form rule: the control framed in red, the message under it.
   // Element's rules hang off .el-form-item.is-error. A labelled component is

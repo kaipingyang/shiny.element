@@ -64,9 +64,28 @@ shinyApp(ui, server)
 ![The toggle example, running](../shots/dark-mode-toggle.png)
 
 The page around the components is Bootstrap’s: the `tags$style()` above
-gives its background and text Element Plus’s dark colours. bslib’s
+gives its background and text Element Plus’s dark colours.
+
+## With bslib
+
+Bootstrap has a dark mode of its own, `data-bs-theme="dark"` on
+`<html>`, and bslib’s
 [`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
-switches Bootstrap’s own dark mode, for a page whose theme uses it.
+switches it. The components follow: while the page has `data-bs-theme`,
+the class `dark` goes with it, so one switch turns Bootstrap and Element
+Plus together.
+
+``` r
+
+theme <- el_theme()
+ui <- page_sidebar(
+  theme = theme,
+  use_element(theme = theme),
+  sidebar = sidebar(input_dark_mode(id = "mode")),
+  el_input("i", placeholder = "Input"),
+  el_button("b", "Primary", type = "primary")
+)
+```
 
 ## Custom variables
 

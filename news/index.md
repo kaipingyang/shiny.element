@@ -252,7 +252,10 @@ themes the page around the components with
 [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md),
 a bslib theme carrying Element’s colours, font and control sizes, so
 Shiny’s own inputs and outputs match the Element ones beside them.
-`theme = NULL` leaves Shiny’s plain Bootstrap.
+`theme = NULL` leaves Shiny’s plain Bootstrap. Bootstrap’s dark mode –
+bslib’s
+[`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
+– turns Element Plus’s with it.
 
 Tabs can be added and removed from the server
 ([`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md),
@@ -337,12 +340,14 @@ Each component is a host element carrying its id, with Element’s markup
 inside and a Shiny input binding on it – the way reactR binds React
 components – so the rest of Shiny reaches it as it reaches
 [`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html):
-[`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html)
-and `disable()`,
+[`shinyjs::hide()`](https://rdrr.io/pkg/shinyjs/man/visibilityFuncs.html),
+[`show()`](https://rdrr.io/r/methods/show.html), `toggle()`, `disable()`
+and `enable()`,
 [`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) (which
 destroys its Vue instance too), bookmarking, shinyvalidate, a test
-driver’s `set_inputs()`. Vue 3, the version Element Plus runs on, is
-bundled beside Element Plus, and
+driver’s `set_inputs()`, and bslib’s containers – a sidebar, a card, a
+closed accordion, a nav panel not yet shown. Vue 3, the version Element
+Plus runs on, is bundled beside Element Plus, and
 [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
 marks JavaScript the way
 [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html) does,

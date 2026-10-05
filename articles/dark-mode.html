@@ -239,15 +239,33 @@ away.</p>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../shots/dark-mode-toggle.png" alt="The toggle example, running" style="max-width: 100%"><p>The page around the components is Bootstrap’s: the
 <code>tags$style()</code> above gives its background and text Element
-Plus’s dark colours. bslib’s <code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">input_dark_mode()</a></code> switches
-Bootstrap’s own dark mode, for a page whose theme uses it.</p>
+Plus’s dark colours.</p>
+</div>
+<div class="section level2">
+<h2 id="with-bslib">With bslib<a class="anchor" aria-label="anchor" href="#with-bslib"></a>
+</h2>
+<p>Bootstrap has a dark mode of its own,
+<code>data-bs-theme="dark"</code> on <code>&lt;html&gt;</code>, and
+bslib’s <code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">input_dark_mode()</a></code> switches it. The components
+follow: while the page has <code>data-bs-theme</code>, the class
+<code>dark</code> goes with it, so one switch turns Bootstrap and
+Element Plus together.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_theme.html">el_theme</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html" class="external-link">page_sidebar</a></span><span class="op">(</span></span>
+<span>  theme <span class="op">=</span> <span class="va">theme</span>,</span>
+<span>  <span class="fu"><a href="../reference/use_element.html">use_element</a></span><span class="op">(</span>theme <span class="op">=</span> <span class="va">theme</span><span class="op">)</span>,</span>
+<span>  sidebar <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/sidebar.html" class="external-link">sidebar</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">input_dark_mode</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"mode"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"i"</span>, placeholder <span class="op">=</span> <span class="st">"Input"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"Primary"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="custom-variables">Custom variables<a class="anchor" aria-label="anchor" href="#custom-variables"></a>
 </h2>
 <p>A dark theme of your own overrides Element Plus’s variables under
 <code>html.dark</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
 <span>  <span class="st">"html.dark {</span></span>
 <span><span class="st">  --el-bg-color: #141414;</span></span>
