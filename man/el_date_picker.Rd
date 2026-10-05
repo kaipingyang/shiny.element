@@ -237,7 +237,7 @@ popper.js. Element Plus's \code{fallback-placements} (\code{Placement[]}).}
 \item{placement}{Position of dropdown. Element Plus's \code{placement}.}
 
 \item{popper_options}{Customized popper option see more at popper.js.
-Element Plus's \code{popper-options} (Partial\if{html}{\out{<PopperOptions>}}).}
+Element Plus's \code{popper-options} (\verb{Partial<PopperOptions>}).}
 
 \item{popper_style}{Custom style for DatePicker's dropdown. Element Plus's
 \code{popper-style} (string / object).}

@@ -134,8 +134,8 @@ Component). An icon's name, such as \code{"Search"}.}
 
 \item{before_change}{Before-change hook before the switch state changes. If
 \code{false} is returned or a \code{Promise} is returned and then is rejected, will
-stop switching. Element Plus's \code{before-change} (() => Promise\if{html}{\out{<boolean>}} |
-boolean).}
+stop switching. Element Plus's \code{before-change}
+(\verb{() => Promise<boolean> | boolean}).}
 
 \item{border_color}{Border color of the switch ( use CSS var
 \code{--el-switch-border-color} instead ). Element Plus's \code{border-color}

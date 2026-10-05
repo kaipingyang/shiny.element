@@ -51,7 +51,7 @@
 #'   popper.js. Element Plus's `fallback-placements` (`Placement[]`).
 #' @param placement Position of dropdown. Element Plus's `placement`.
 #' @param popper_options Customized popper option see more at popper.js.
-#'   Element Plus's `popper-options` (Partial<PopperOptions>).
+#'   Element Plus's `popper-options` (`Partial<PopperOptions>`).
 #' @param popper_style Custom style for DatePicker's dropdown. Element Plus's
 #'   `popper-style` (string / object).
 #' @param shortcuts An object array to set shortcut options. Element Plus's

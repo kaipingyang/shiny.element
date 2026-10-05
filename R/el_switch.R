@@ -23,8 +23,8 @@
 #'   `aria-label` (string).
 #' @param before_change Before-change hook before the switch state changes. If
 #'   `false` is returned or a `Promise` is returned and then is rejected, will
-#'   stop switching. Element Plus's `before-change` (() => Promise<boolean> |
-#'   boolean).
+#'   stop switching. Element Plus's `before-change`
+#'   (`() => Promise<boolean> | boolean`).
 #' @param border_color Border color of the switch ( use CSS var
 #'   `--el-switch-border-color` instead ). Element Plus's `border-color`
 #'   (string).
