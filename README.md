@@ -5,7 +5,6 @@
 [![browser tests](https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml/badge.svg)](https://github.com/kaipingyang/shiny.element/actions/workflows/browser.yaml)
 [![Codecov test coverage](https://codecov.io/gh/kaipingyang/shiny.element/graph/badge.svg)](https://app.codecov.io/gh/kaipingyang/shiny.element)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kaipingyang/shiny.element)
 <!-- badges: end -->
 
 Use [Element Plus](https://element-plus.org/), the Vue 3 component library,
