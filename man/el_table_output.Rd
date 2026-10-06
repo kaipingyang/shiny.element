@@ -5,7 +5,7 @@
 \alias{render_el_table}
 \title{An Element Plus table as a Shiny output}
 \usage{
-el_table_output(outputId, width = "100\%")
+el_table_output(outputId, width = "100\%", loading = TRUE)
 
 render_el_table(expr, env = parent.frame(), quoted = FALSE)
 }
@@ -13,6 +13,9 @@ render_el_table(expr, env = parent.frame(), quoted = FALSE)
 \item{outputId}{The output's id.}
 
 \item{width}{The table's width, as a CSS unit.}
+
+\item{loading}{Whether Element's loading mask covers the table while
+Shiny recalculates it, in place of Shiny fading the output.}
 
 \item{expr}{An expression returning \code{\link[=el_table]{el_table()}}, given no \code{id}.}
 
@@ -41,6 +44,10 @@ events with \code{el_table(events =)} or \code{\link[=el_on]{el_on()}}.
 
 \code{\link[=update_el_table]{update_el_table()}} and \code{\link[=call_el]{call_el()}} reach the table by the output id;
 \code{\link[=el_table_data]{el_table_data()}} reads the data it shows.
+
+The first render sends the table; a render after it whose columns,
+templates and options are unchanged sends only the data that changed, as
+JSON -- as Shiny's own outputs send values rather than markup.
 }
 \examples{
 if (interactive()) {

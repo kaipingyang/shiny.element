@@ -193,6 +193,7 @@ ui <- el_page(
   el_table_output("otbl"),
   actionButton("otbl_again", "render the same rows again"),
   actionButton("otbl_more", "render other rows"),
+  actionButton("otbl_slow", "render slowly"),
   # rows edited from the server, one at a time
   actionButton("otbl_insert", "insert a row first"),
   actionButton("otbl_replace", "replace the first row"),
@@ -873,8 +874,14 @@ server <- function(input, output, session) {
       )
     )
   })
+  otbl_slow_seen <- NULL
   output$otbl <- render_el_table({
     input$otbl_again
+    # a slow render, once per click: the table's mask shows while it runs
+    if (!identical(input$otbl_slow, otbl_slow_seen)) {
+      otbl_slow_seen <<- input$otbl_slow
+      if (isTRUE(otbl_slow_seen > 0)) Sys.sleep(2)
+    }
     cars <- head(mtcars[, 1:3], otbl_rows())
     cars$made <- as.Date("2020-01-01") + seq_len(nrow(cars))
     el_table(data = cars, selection = TRUE)

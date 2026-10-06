@@ -1513,7 +1513,6 @@ update_el_table <- function(
     .el_update_props("el_table", Filter(Negate(is.null), props))
   )
 
-  entry <- .el_table_entry(session, ns_id)
   edit <- .el_table_edit_args(data, insert, replace, delete, at)
   if (!is.null(edit)) {
     msg$tableEdit <- .el_table_edit(session, ns_id, edit)
@@ -1522,7 +1521,7 @@ update_el_table <- function(
     if (!is.null(data)) {
       # the server keeps what the browser shows, for the table's inputs
       .el_table_data_set(session, ns_id, data)
-      data <- .el_table_rownames(data, entry$rownames)
+      data <- .el_table_rownames(data, .el_table_rownames_of(session, ns_id))
     }
     prep <- .el_table_prep(
       if (is.null(data)) list() else data,
@@ -1619,8 +1618,7 @@ update_el_table <- function(
 #' browser: the rows as they now stand on the server, so both sides agree
 #' @noRd
 .el_table_edit <- function(session, id, edit) {
-  entry <- .el_table_entry(session, id)
-  data <- if (is.null(entry)) NULL else shiny::isolate(entry$shown())
+  data <- .el_table_data(session, id)
   rows <- edit$rows
   at <- edit$at
   if (!is.null(data)) {
@@ -1642,7 +1640,7 @@ update_el_table <- function(
     .el_table_data_set(session, id, data)
     # the rows as a render of the whole data would draw them -- with a
     # row-name column if the table has one
-    drawn <- .el_table_rownames(data, entry$rownames)
+    drawn <- .el_table_rownames(data, .el_table_rownames_of(session, id))
     if (edit$op == "insert") {
       at <- at %||% (n + 1L)
       m <- if (is.data.frame(rows)) nrow(rows) else length(rows)

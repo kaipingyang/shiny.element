@@ -292,6 +292,31 @@ test_that("a table output rendered again keeps the ticks of the same rows", {
   expect_equal(bdump()[["otbl_selection_rows"]], "<NULL>")
 })
 
+test_that("a table output shows its mask while it recalculates", {
+  skip_if_no_browser()
+  mask <- "(function(){ var m = document.querySelector('#otbl .el-loading-mask'); return !!m && getComputedStyle(m).display !== 'none'; })()"
+  expect_false(bev(mask))
+  bclick("#otbl_slow", wait = 1)
+  # the mask, and no fading of the output under it
+  expect_true(bev(mask))
+  expect_equal(
+    bev("getComputedStyle(document.getElementById('otbl')).opacity"),
+    "1"
+  )
+  Sys.sleep(3)
+  expect_false(bev(mask))
+})
+
+test_that("a page that cannot apply a patch gets the table whole", {
+  skip_if_no_browser()
+  bev("document.getElementById('otbl-el').remove()")
+  expect_false(bev("!!document.getElementById('otbl-el')"))
+  bclick("#otbl_again", wait = 3)
+  expect_true(bev(
+    "!!document.querySelector('#otbl-el') && !!document.querySelector('#otbl .el-table__body tr')"
+  ))
+})
+
 test_that("a cell edited in place reaches the server with its column's type", {
   skip_if_no_browser()
   cell <- function(r, c) {

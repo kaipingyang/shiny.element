@@ -123,50 +123,61 @@ el_on <- function(x, event, input = NULL) {
   invisible(events)
 }
 
-#' The data a table shows, kept on the server
+#' The data tables show, kept on the server
 #'
-#' One entry per table and session: `shown`, a reactive value holding the
-#' data the browser has, and `rendered`, the data the table's last render
-#' gave. The browser patches a render in -- a field changes only when the
-#' render's value of it does -- so the two sides stay alike by the same
-#' rule: a render writes `shown` only when its data differs from its last;
-#' an update always does.
+#' One set per session: `shown`, a `reactiveValues()` holding, under each
+#' table's id, the data the browser has; `rendered`, the data each table's
+#' last render gave; `rownames`, each render's `rownames`. The browser
+#' patches a render in -- a field changes only when the render's value of
+#' it does -- so the two sides stay alike by the same rule: a render writes
+#' `shown` only when its data differs from its last; an update always does.
 #' @noRd
-.el_table_entry <- function(session, id, create = FALSE) {
+.el_tables <- function(session, create = FALSE) {
   tables <- session$userData$.el_tables
-  if (is.null(tables)) {
-    if (!create) {
-      return(NULL)
-    }
-    tables <- new.env(parent = emptyenv())
+  if (is.null(tables) && create) {
+    tables <- list(
+      shown = shiny::reactiveValues(),
+      rendered = new.env(parent = emptyenv()),
+      rownames = new.env(parent = emptyenv()),
+      known = new.env(parent = emptyenv())
+    )
     session$userData$.el_tables <- tables
   }
-  entry <- tables[[id]]
-  if (is.null(entry) && create) {
-    entry <- new.env(parent = emptyenv())
-    entry$shown <- shiny::reactiveVal(NULL)
-    entry$rendered <- NULL
-    entry$rownames <- NULL
-    tables[[id]] <- entry
-  }
-  entry
+  tables
+}
+
+#' Whether the server holds a table's data
+#' @noRd
+.el_table_known <- function(session, id) {
+  tables <- .el_tables(session)
+  !is.null(tables) && exists(id, envir = tables$known, inherits = FALSE)
 }
 
 #' The data a table shows, outside a reactive read
 #' @noRd
 .el_table_data <- function(session, id) {
-  entry <- .el_table_entry(session, id)
-  if (is.null(entry)) NULL else shiny::isolate(entry$shown())
+  if (!.el_table_known(session, id)) {
+    return(NULL)
+  }
+  shiny::isolate(.el_tables(session)$shown[[id]])
+}
+
+#' The `rownames` a table was rendered with
+#' @noRd
+.el_table_rownames_of <- function(session, id) {
+  tables <- .el_tables(session)
+  if (is.null(tables)) NULL else tables$rownames[[id]]
 }
 
 #' A table rendered: its data is what the browser shows if it changed
 #' @noRd
 .el_table_rendered <- function(session, id, data, rownames = NULL) {
-  entry <- .el_table_entry(session, id, create = TRUE)
-  entry$rownames <- rownames
-  if (is.null(entry$rendered) || !identical(entry$rendered, data)) {
-    entry$rendered <- data
-    entry$shown(data)
+  tables <- .el_tables(session, create = TRUE)
+  tables$rownames[[id]] <- rownames
+  last <- tables$rendered[[id]]
+  if (!.el_table_known(session, id) || !identical(last, data)) {
+    tables$rendered[[id]] <- data
+    .el_table_data_set(session, id, data)
   }
   invisible(NULL)
 }
@@ -174,8 +185,9 @@ el_on <- function(x, event, input = NULL) {
 #' A table's data replaced or edited by an update
 #' @noRd
 .el_table_data_set <- function(session, id, data) {
-  entry <- .el_table_entry(session, id, create = TRUE)
-  entry$shown(data)
+  tables <- .el_tables(session, create = TRUE)
+  assign(id, TRUE, envir = tables$known)
+  tables$shown[[id]] <- data
   invisible(NULL)
 }
 
@@ -206,8 +218,9 @@ el_on <- function(x, event, input = NULL) {
 #' @export
 el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
   .el_check_session(session)
-  entry <- .el_table_entry(session, session$ns(id))
-  if (is.null(entry)) NULL else entry$shown()
+  # created here if need be, so a read before the first render still
+  # depends on the data that render brings
+  .el_tables(session, create = TRUE)$shown[[session$ns(id)]]
 }
 
 #' A cell edit from the browser, applied to the server's data
@@ -314,8 +327,14 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' [update_el_table()] and [call_el()] reach the table by the output id;
 #' [el_table_data()] reads the data it shows.
 #'
+#' The first render sends the table; a render after it whose columns,
+#' templates and options are unchanged sends only the data that changed, as
+#' JSON -- as Shiny's own outputs send values rather than markup.
+#'
 #' @param outputId The output's id.
 #' @param width The table's width, as a CSS unit.
+#' @param loading Whether Element's loading mask covers the table while
+#'   Shiny recalculates it, in place of Shiny fading the output.
 #' @param expr An expression returning [el_table()], given no `id`.
 #' @param env,quoted As for [shiny::renderUI()].
 #' @return `el_table_output()`, a tag; `render_el_table()`, a render
@@ -334,12 +353,18 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #'   shinyApp(ui, server)
 #' }
 #' @export
-el_table_output <- function(outputId, width = "100%") {
+el_table_output <- function(outputId, width = "100%", loading = TRUE) {
+  style <- c(
+    if (!is.null(width)) paste0("width: ", width),
+    # Shiny fades a recalculating output; the mask says it instead
+    if (isTRUE(loading)) "--shiny-fade-opacity: 1"
+  )
   htmltools::attachDependencies(
     htmltools::tags$div(
       id = outputId,
       class = "shiny-vue-output",
-      style = if (!is.null(width)) paste0("width: ", width)
+      style = if (length(style)) paste(style, collapse = "; "),
+      `data-shiny-vue-loading` = if (isTRUE(loading)) NA
     ),
     .el_vue_dependencies()
   )
@@ -352,8 +377,15 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
   shiny::markRenderFunction(
     el_table_output,
     function(shinysession, name, ...) {
-      table <- func()
+      # the browser asks for the whole table when it cannot apply a patch
+      .vue_output_redraw(shinysession, name)
+      table <- tryCatch(func(), error = function(e) {
+        # an error, req() included, empties the output: draw it whole next
+        .vue_output_forget(shinysession, name)
+        stop(e)
+      })
       if (is.null(table)) {
+        .vue_output_forget(shinysession, name)
         return(NULL)
       }
       if (!inherits(table, "el_table")) {
@@ -366,14 +398,8 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
         table$args$data,
         table$args$rownames
       )
-      rendered <- htmltools::renderTags(.el_output_host(table, name))
-      list(
-        html = rendered$html,
-        deps = lapply(
-          htmltools::resolveDependencies(rendered$dependencies),
-          shiny::createWebDependency
-        )
-      )
+      tags <- .el_output_host(table, name)
+      .vue_output_value(shinysession, name, tags)
     }
   )
 }

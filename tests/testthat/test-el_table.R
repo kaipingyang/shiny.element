@@ -677,7 +677,7 @@ test_that("a render after an update leaves the update's data unless its own chan
 
 test_that("el_table_data() is a reactive read of the data shown", {
   m <- edit_session()
-  expect_null(el_table_data(m$session, "tbl"))
+  expect_null(shiny::isolate(el_table_data(m$session, "tbl")))
   .el_table_rendered(m$session, "tbl", head(mtcars, 2))
   rows <- shiny::reactive(nrow(el_table_data(m$session, "tbl")))
   expect_equal(shiny::isolate(rows()), 2)
@@ -794,4 +794,82 @@ test_that("a cell edit is applied to the server's data, with the column's type",
     m$session
   )
   expect_equal(got, list(row = 1L, column = "a", value = "x", old = "y"))
+})
+
+# ── what a render sends ───────────────────────────────────────────────────────
+#
+# The wire, read with testServer(): the value render_el_table() hands Shiny
+# is what crosses the websocket.
+
+test_that("a render sends the table once, then only the data that changed", {
+  shiny::testServer(
+    function(input, output, session) {
+      n <- shiny::reactiveVal(2)
+      events <- shiny::reactiveVal(NULL)
+      fail <- shiny::reactiveVal(FALSE)
+      bump <- shiny::reactiveVal(0)
+      session$userData$bump <- bump
+      session$userData$n <- n
+      session$userData$events <- events
+      session$userData$fail <- fail
+      output$tbl <- render_el_table({
+        shiny::req(!fail())
+        bump()
+        el_table(
+          data = head(mtcars[, 1:2], n()),
+          selection = TRUE,
+          events = events()
+        )
+      })
+    },
+    {
+      set <- function(what, value) {
+        session$userData[[what]](value)
+        session$flushReact()
+      }
+      first <- output$tbl
+      expect_named(first, c("html", "deps"))
+
+      # other rows: the rows alone, as JSON the page reads
+      set("n", 3)
+      second <- output$tbl
+      expect_named(second, "patch")
+      expect_equal(second$patch$host, "tbl-el")
+      expect_named(second$patch$fields, "tableData")
+      sent <- jsonlite::fromJSON(second$patch$fields$tableData)
+      expect_equal(nrow(sent$value), 3)
+      expect_true(nchar(second$patch$fields$tableData) < nchar(first$html) / 3)
+      # the server's copy follows
+      expect_equal(nrow(.el_table_data(session, "tbl")), 3)
+
+      # rendered again, nothing changed: an empty patch
+      set("bump", 1)
+      expect_named(output$tbl, "patch")
+      expect_length(output$tbl$patch$fields, 0)
+
+      # another event bound: the markup changed, so the table is sent whole
+      set("events", "row-click")
+      expect_named(output$tbl, c("html", "deps"))
+
+      # an error empties the output: the next render draws it whole
+      set("fail", TRUE)
+      expect_error(output$tbl)
+      set("fail", FALSE)
+      expect_named(output$tbl, c("html", "deps"))
+      set("n", 2)
+      expect_named(output$tbl, "patch")
+
+      # the page asks for the markup when it cannot patch
+      session$setInputs(tbl__vue_redraw = 1)
+      expect_named(output$tbl, c("html", "deps"))
+    }
+  )
+})
+
+test_that("el_table_output() trades Shiny's fading for the loading mask", {
+  html <- render_html(el_table_output("tbl"))
+  expect_match(html, "data-shiny-vue-loading", fixed = TRUE)
+  expect_match(html, "--shiny-fade-opacity: 1", fixed = TRUE)
+  plain <- render_html(el_table_output("tbl", loading = FALSE))
+  expect_false(grepl("shiny-vue-loading", plain, fixed = TRUE))
 })

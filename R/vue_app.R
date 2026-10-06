@@ -122,7 +122,14 @@
       htmltools::HTML(.vue_json(spec))
     )
   )
-  htmltools::attachDependencies(host, c(.vue_dependencies(), dependencies))
+  host <- htmltools::attachDependencies(
+    host,
+    c(.vue_dependencies(), dependencies)
+  )
+  # what an output compares from render to render, to send only the data
+  # that changed (.vue_output_patch())
+  attr(host, "vue_host") <- list(template = template, spec = spec)
+  host
 }
 
 #' A template, tags or a string, as HTML and the dependencies it carries
