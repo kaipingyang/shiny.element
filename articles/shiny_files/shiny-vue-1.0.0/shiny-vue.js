@@ -146,6 +146,13 @@
     if (!storeRegistry) storeRegistry = Vue.reactive({});
     return storeRegistry;
   };
+  // Which data outputs Shiny is recalculating, by output id --
+  // $recalculating.<id> in templates
+  var recalculating = null;
+  sv.recalculating = function() {
+    if (!recalculating) recalculating = Vue.reactive({});
+    return recalculating;
+  };
 
   function mount(host) {
     if (host._shinyVue) return host._shinyVue;
@@ -186,6 +193,7 @@
       }
     };
     app.config.globalProperties.$store = sv.stores();
+    app.config.globalProperties.$recalculating = sv.recalculating();
     // Vue plugins the component asks for (`use`), by their global names --
     // a component library, an i18n plugin: app.use() on each
     // -- a name, or {name, options} for a plugin that takes them
@@ -224,6 +232,7 @@
     watchDisabled(host, vm);
     reportFromOutput(host, vm);
     applyPending(host);
+    placeOutputs(host, vm, spec.outputs);
     boxTrigger(host);
     host._svInitial = initialValues(host, vm);
     return vm;
@@ -244,6 +253,34 @@
     vm.$watch(function() { return get(this); }, send, { deep: true });
     if (Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send();
     else if (window.jQuery) jQuery(document).one('shiny:connected', send);
+  }
+
+  // Data outputs a component's fields follow (vue_app(outputs =)): an
+  // element for each, which Shiny binds as an output -- visible while the
+  // component is, so held back with it when it is hidden
+  function placeOutputs(host, vm, outputs) {
+    var ids = Object.keys(outputs || {});
+    if (!ids.length) return;
+    var holder = document.createElement('span');
+    holder.setAttribute('data-shiny-vue-outputs', '');
+    ids.forEach(function(field) {
+      var out = document.getElementById(outputs[field]);
+      if (!out) {
+        out = document.createElement('span');
+        out.id = outputs[field];
+        out.className = 'shiny-vue-data-output';
+        holder.appendChild(out);
+      }
+      (out._svTargets = out._svTargets || []).push({ vm: vm, field: field });
+      if (out._svValue !== undefined) vm[field] = out._svValue;
+    });
+    host.appendChild(holder);
+    // bound with the page if Shiny has not started yet, here if it has
+    if (window.Shiny && Shiny.initializedPromise && Shiny.bindAll) {
+      Promise.resolve(Shiny.initializedPromise).then(function() { Shiny.bindAll(holder); });
+    } else if (window.Shiny && Shiny.shinyapp && Shiny.bindAll) {
+      Shiny.bindAll(holder);
+    }
   }
 
   // Updates sent to an output before it drew its component, applied now
@@ -932,4 +969,26 @@
     }
   });
   Shiny.outputBindings.register(outputBinding, 'shiny.vue.output');
+
+  // render_vue_data(): a value, JSON as the page reads it ({value, evals}),
+  // assigned to the fields that follow the output
+  var dataBinding = new Shiny.OutputBinding();
+  jQuery.extend(dataBinding, {
+    find: function(scope) { return jQuery(scope).find('.shiny-vue-data-output'); },
+    renderValue: function(el, json) {
+      var data = typeof json === 'string' ? JSON.parse(json) : { value: json };
+      revive(data, data.evals);
+      el._svValue = data.value;
+      (el._svTargets || []).forEach(function(t) {
+        if (t.field in t.vm.$data || (t.vm.$ && t.vm.$.setupState && t.field in t.vm.$.setupState)) {
+          t.vm[t.field] = data.value;
+        }
+      });
+    },
+    showProgress: function(el, show) {
+      Shiny.OutputBinding.prototype.showProgress.call(this, el, show);
+      sv.recalculating()[el.id] = !!show;
+    }
+  });
+  Shiny.outputBindings.register(dataBinding, 'shiny.vue.data');
 })();

@@ -22,6 +22,7 @@ vue_app(
   components = NULL,
   ...,
   input = NULL,
+  outputs = NULL,
   use = NULL,
   dependencies = NULL
 )
@@ -79,6 +80,15 @@ vue_app(
 
   The field whose value is `input$<id>`, or several, for one value made
   of them. `NULL`: the component reports no value.
+
+- outputs:
+
+  Fields the server fills, each from an output it renders with
+  [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md):
+  `c(stats = "stats")`, field = output id, or `"stats"` for both. Inside
+  a module, `c(stats = ns("stats"))`. A field not in `data` starts
+  `NULL`. Each render sets the field; while Shiny recalculates it,
+  `$recalculating.<output id>` is `true` in templates.
 
 - use:
 

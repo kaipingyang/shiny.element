@@ -103,6 +103,12 @@ as a Shiny input.
   field that is `input$<id>`; several for one value) and `use` (Vue’s
   `app.use()`, any plugin with its options). `$emit()` of an event in
   `emits` arrives as `input$<id>_<event>`, several arguments as a list.
+- [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
+  – an output that sends a value, not markup, after shinyreact’s
+  `reactive_output()`: a component’s field follows it
+  (`vue_app(outputs = c(stats = "stats"))`, `vue_store(outputs =)`). It
+  waits while its component is hidden, as outputs do, and
+  `$recalculating.<id>` tells the template while it runs.
 - [`vue_component()`](https://kaipingyang.github.io/shiny.element/reference/vue_component.md)
   – a child component for `components =`, under its name as written or
   in kebab-case (`todo_item` is `<todo-item>`); the dependencies its

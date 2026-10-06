@@ -204,6 +204,8 @@
 <li>
 <code><a href="reference/call_vue.html">call_vue()</a></code> (and <code><a href="reference/call_el.html">call_el()</a></code>, which adds Element’s row/file/node references) sends <code>shinyVueCall</code> to run a method; a return value comes back as <code>input$&lt;id&gt;_&lt;method&gt;</code>. <code>update_vue(value =)</code> sets the input field; updates reach <code>data</code> and <code>setup()</code> state.</li>
 <li>
+<code><a href="reference/render_vue_data.html">render_vue_data()</a></code> is an output of values: a component’s field follows it (<code>vue_app(outputs =)</code>). The bridge places a <code>.shiny-vue-data-output</code> element per output in the host and binds it (<code>placeOutputs()</code>), so it is suspended while the component is hidden; <code>$recalculating.&lt;id&gt;</code> in templates follows its progress.</li>
+<li>
 <code>shinyVue.ask(input, question)</code> lets a component ask the server (lazy loaders, remote search); <code><a href="reference/el_load_children.html">el_load_children()</a></code> answers through <code>.resolve</code>.</li>
 <li>Feedback services (message, notification, message box, loading) use <code>inst/js/el-feedback-handler.js</code>.</li>
 <li>Every server function takes <code>session = shiny::getDefaultReactiveDomain()</code> first and calls <code>.el_check_session(session)</code> first.</li>

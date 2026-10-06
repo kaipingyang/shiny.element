@@ -483,6 +483,9 @@ the user’s state across renders, shared state, and the server’s way in.
 - [`vue_output()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
   [`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
   : A Vue output that keeps the user's state across renders
+- [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
+  [`vue_data_output()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
+  : Data for a component, from the server
 - [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
   : Set fields of a Vue component from the server
 - [`call_vue()`](https://kaipingyang.github.io/shiny.element/reference/call_vue.md)

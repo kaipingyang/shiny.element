@@ -16,7 +16,7 @@ restores them.
 ## Usage
 
 ``` r
-vue_store(id, data = list(), input = NULL)
+vue_store(id, data = list(), input = NULL, outputs = NULL)
 ```
 
 ## Arguments
@@ -32,6 +32,11 @@ vue_store(id, data = list(), input = NULL)
 - input:
 
   Fields reported as `input$<id>`, as for
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md).
+
+- outputs:
+
+  Fields filled by outputs, as for
   [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md).
 
 ## Value

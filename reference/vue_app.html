@@ -186,6 +186,7 @@ Vue's <code>app.use()</code>.</p>
 <span>  components <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  input <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  outputs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  use <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dependencies <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -235,6 +236,14 @@ keep it an array: <code>tags = I("red")</code>.</p></dd>
 <dt id="arg-input">input<a class="anchor" aria-label="anchor" href="#arg-input"></a></dt>
 <dd><p>The field whose value is <code>input$&lt;id&gt;</code>, or several, for one
 value made of them. <code>NULL</code>: the component reports no value.</p></dd>
+
+
+<dt id="arg-outputs">outputs<a class="anchor" aria-label="anchor" href="#arg-outputs"></a></dt>
+<dd><p>Fields the server fills, each from an output it renders
+with <code><a href="render_vue_data.html">render_vue_data()</a></code>: <code>c(stats = "stats")</code>, field = output id, or
+<code>"stats"</code> for both. Inside a module, <code>c(stats = ns("stats"))</code>. A field
+not in <code>data</code> starts <code>NULL</code>. Each render sets the field; while Shiny
+recalculates it, <code>$recalculating.&lt;output id&gt;</code> is <code>true</code> in templates.</p></dd>
 
 
 <dt id="arg-use">use<a class="anchor" aria-label="anchor" href="#arg-use"></a></dt>

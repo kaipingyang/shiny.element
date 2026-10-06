@@ -820,6 +820,17 @@ input field</td>
 <code><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput()</a></code> / <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code>
 </td>
 </tr>
+<tr class="odd">
+<td>
+<code>vue_app(outputs =)</code> /
+<code>render_vue_data(expr)</code>
+</td>
+<td>fills a field from an output: a value, not markup</td>
+<td>
+<code><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText()</a></code>, shinyreact’s
+<code>reactive_output()</code>
+</td>
+</tr>
 </tbody>
 </table>
 <p><code><a href="../reference/vue_output.html">render_vue()</a></code> differs from <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> in one
@@ -828,6 +839,42 @@ component instead of replacing it, so what the user did – a sort, a
 tick, an open tab – stays. A render that changes the structure replaces
 it, as <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> would. Put what changes from render to
 render in <code>data</code>, and keep the template the same.</p>
+</div>
+<div class="section level3">
+<h3 id="data-from-outputs">Data from outputs<a class="anchor" aria-label="anchor" href="#data-from-outputs"></a>
+</h3>
+<p>Where the server computes what a component shows, the component can
+name an output in <code>outputs</code> and a field follows it:
+<code><a href="../reference/render_vue_data.html">render_vue_data()</a></code> sends a value – a list, a data.frame’s
+rows, a [JS()] function – not markup, and the template redraws what
+depends on it. It is an output as Shiny knows them: it runs again when
+what it reads changes, waits while its component is hidden, and while it
+runs <code>$recalculating.&lt;id&gt;</code> is <code>true</code>, for
+the template to say so.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html" class="external-link">sliderInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Draws"</span>, <span class="fl">10</span>, <span class="fl">1000</span>, <span class="fl">100</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>    <span class="st">"summary"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>      `:style` <span class="op">=</span> <span class="st">"{opacity: $recalculating.stats ? 0.4 : 1}"</span>,</span>
+<span>      <span class="st">"Mean {{ stats.mean }}, sd {{ stats.sd }} of {{ stats.n }} draws"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="cn">NA</span>, sd <span class="op">=</span> <span class="cn">NA</span>, n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    outputs <span class="op">=</span> <span class="st">"stats"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_vue_data.html">render_vue_data</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../shots/shiny-vue-data.png" alt="The vue-data example, running" style="max-width: 100%"><p>Inside a module the field is named and the id wrapped:
+<code>outputs = c(stats = ns("stats"))</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="state-shared-between-components">State shared between components<a class="anchor" aria-label="anchor" href="#state-shared-between-components"></a>
@@ -839,7 +886,7 @@ shared <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="extern
 template as <code>$store.&lt;id&gt;.&lt;field&gt;</code> – at once, in
 the browser. Give it <code>input</code> and the server sees it too, and
 <code><a href="../reference/update_vue.html">update_vue()</a></code> sets it:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"cart"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, input <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>`@click` <span class="op">=</span> <span class="st">"$store.cart.count++"</span>, <span class="st">"Add to cart"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -862,7 +909,7 @@ through the server waits for the round trip.</p>
 installed and a label in Element’s form-item style – what every
 component in this package is made of. A price range made of two number
 inputs, reported as one value:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>

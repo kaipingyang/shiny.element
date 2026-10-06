@@ -540,6 +540,7 @@ same:
 | `call_vue(session, id, method, args)` | runs a method; its result comes back as `input$<id>_<method>` | – |
 | `vue_answer(session, id, request, value)` | answers a component that asked the server (`shinyVue.ask()`) | – |
 | `vue_output(id)` / `render_vue(expr)` | draws components from the server, keeping the user’s state | [`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html) / [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) |
+| `vue_app(outputs =)` / `render_vue_data(expr)` | fills a field from an output: a value, not markup | [`renderText()`](https://rdrr.io/pkg/shiny/man/renderPrint.html), shinyreact’s `reactive_output()` |
 
 [`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
 differs from [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html)
@@ -549,6 +550,47 @@ tick, an open tab – stays. A render that changes the structure replaces
 it, as [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html)
 would. Put what changes from render to render in `data`, and keep the
 template the same.
+
+### Data from outputs
+
+Where the server computes what a component shows, the component can name
+an output in `outputs` and a field follows it:
+[`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
+sends a value – a list, a data.frame’s rows, a \[JS()\] function – not
+markup, and the template redraws what depends on it. It is an output as
+Shiny knows them: it runs again when what it reads changes, waits while
+its component is hidden, and while it runs `$recalculating.<id>` is
+`true`, for the template to say so.
+
+``` r
+
+ui <- fluidPage(
+  sliderInput("n", "Draws", 10, 1000, 100),
+  vue_app(
+    "summary",
+    tags$p(
+      `:style` = "{opacity: $recalculating.stats ? 0.4 : 1}",
+      "Mean {{ stats.mean }}, sd {{ stats.sd }} of {{ stats.n }} draws"
+    ),
+    data = list(stats = list(mean = NA, sd = NA, n = 0)),
+    outputs = "stats"
+  )
+)
+
+server <- function(input, output, session) {
+  output$stats <- render_vue_data({
+    x <- rnorm(input$n)
+    list(mean = round(mean(x), 2), sd = round(sd(x), 2), n = input$n)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![The vue-data example, running](../shots/shiny-vue-data.png)
+
+Inside a module the field is named and the id wrapped:
+`outputs = c(stats = ns("stats"))`.
 
 ### State shared between components
 
