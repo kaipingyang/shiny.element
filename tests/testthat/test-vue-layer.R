@@ -173,3 +173,46 @@ test_that("call_el() is call_vue() under Element's name", {
   call_el(s, "t", "toggleRowSelection", list(el_table_row(2)))
   expect_equal(s$captured()$msg$args[[1]], list(.ref = "row", value = 2))
 })
+
+# ── data outputs ──────────────────────────────────────────────────────────────
+
+test_that("vue_app(outputs =) names the fields outputs fill", {
+  html <- paste(
+    as.character(vue_app(
+      "a",
+      "<p>{{ stats }}</p>",
+      data = list(n = 1),
+      outputs = c(stats = "s_out", "rows")
+    )),
+    collapse = ""
+  )
+  expect_match(html, '"outputs":{"stats":"s_out","rows":"rows"}', fixed = TRUE)
+  # fields not in data start empty, so Vue tracks them
+  expect_match(html, '"stats":null', fixed = TRUE)
+  expect_match(html, '"rows":null', fixed = TRUE)
+  store <- paste(as.character(vue_store("s", outputs = "x")), collapse = "")
+  expect_match(store, '"outputs":{"x":"x"}', fixed = TRUE)
+  expect_error(vue_app("a", "<p></p>", outputs = "m-stats"), "name them")
+  expect_error(vue_app("a", "<p></p>", outputs = 1), "output ids")
+})
+
+test_that("render_vue_data() sends the value as the page reads data", {
+  shiny::testServer(
+    function(input, output, session) {
+      output$stats <- render_vue_data(list(mean = 2, tags = I("a")))
+      output$rows <- render_vue_data(head(mtcars[, 1:2], 2))
+      output$fmt <- render_vue_data(JS("function(x) { return x; }"))
+    },
+    {
+      stats <- jsonlite::fromJSON(output$stats, simplifyVector = FALSE)
+      expect_equal(stats$value, list(mean = 2, tags = list("a")))
+      rows <- jsonlite::fromJSON(output$rows)
+      expect_equal(nrow(rows$value), 2)
+      expect_equal(names(rows$value), c("mpg", "cyl"))
+      fmt <- jsonlite::fromJSON(output$fmt)
+      expect_equal(fmt$evals, "value")
+    }
+  )
+  html <- paste(as.character(vue_data_output("x")), collapse = "")
+  expect_match(html, 'class="shiny-vue-data-output"', fixed = TRUE)
+})

@@ -108,10 +108,48 @@ ui <- fluidPage(
     input = "done"
   ),
   vue_output("rv"),
+  # fields the server fills from outputs: a list, a data.frame's rows, a
+  # function; $recalculating while the server works
+  vue_app(
+    "dout",
+    tags$div(
+      tags$p(
+        class = "dout",
+        `:data-busy` = "$recalculating.dstats ? 'yes' : 'no'",
+        "{{ stats && stats.twice }} {{ rows && rows.length }} {{ fmt ? fmt(1) : '' }}"
+      )
+    ),
+    outputs = c(stats = "dstats", rows = "drows", fmt = "dfmt")
+  ),
+  # one in a hidden tab is held back until shown
+  tabsetPanel(
+    tabPanel("shown", "first"),
+    tabPanel(
+      "hidden",
+      vue_app(
+        "dhid",
+        tags$i(class = "dhid", "{{ runs }}"),
+        outputs = c(runs = "druns")
+      )
+    )
+  ),
   verbatimTextOutput("vals")
 )
 
 server <- function(input, output, session) {
+  output$dstats <- render_vue_data({
+    if (isTRUE(input$dslow)) {
+      Sys.sleep(2)
+    }
+    list(twice = (input$counter %||% 0) * 2)
+  })
+  output$drows <- render_vue_data(head(mtcars, input$counter %||% 1))
+  output$dfmt <- render_vue_data(JS("function(x) { return 'f' + x; }"))
+  runs <- 0
+  output$druns <- render_vue_data({
+    runs <<- runs + 1
+    runs
+  })
   output$rv <- render_vue(
     vue_app(
       "rv_app",

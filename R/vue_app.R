@@ -240,6 +240,11 @@
 #'   `mounted = JS(...)`, `before_unmount = JS(...)`, `provide = JS(...)`.
 #' @param input The field whose value is `input$<id>`, or several, for one
 #'   value made of them. `NULL`: the component reports no value.
+#' @param outputs Fields the server fills, each from an output it renders
+#'   with [render_vue_data()]: `c(stats = "stats")`, field = output id, or
+#'   `"stats"` for both. Inside a module, `c(stats = ns("stats"))`. A field
+#'   not in `data` starts `NULL`. Each render sets the field; while Shiny
+#'   recalculates it, `$recalculating.<output id>` is `true` in templates.
 #' @param use Vue plugins to install, by the global name each is loaded
 #'   under: `"MyPlugin"`, or with options, `list(MyPlugin = list(...))`.
 #' @param dependencies [htmltools::htmlDependency()]s the component needs:
@@ -274,6 +279,7 @@ vue_app <- function(
   components = NULL,
   ...,
   input = NULL,
+  outputs = NULL,
   use = NULL,
   dependencies = NULL
 ) {
@@ -297,6 +303,7 @@ vue_app <- function(
       list(...)
     ),
     input = input,
+    outputs = outputs,
     use = use,
     dependencies = c(.vue_dependency_list(dependencies), child_deps)
   )
@@ -322,13 +329,19 @@ vue_app <- function(
   input,
   use,
   dependencies,
-  store = FALSE
+  store = FALSE,
+  outputs = NULL
 ) {
   if (!is.character(id) || length(id) != 1L || !nzchar(id)) {
     stop("`id` must be a single string.", call. = FALSE)
   }
   tpl <- .vue_template(template)
   data <- lapply(data, .vue_rows)
+  outputs <- .vue_outputs_arg(outputs)
+  # a field an output fills starts empty, if not given
+  for (field in setdiff(names(outputs), names(data))) {
+    data[field] <- list(NULL)
+  }
   options <- .vue_option_aliases(options)
   spec <- list(options = c(list(data = data), options))
   in_setup <- !is.null(options$setup)
@@ -363,6 +376,9 @@ vue_app <- function(
     }
   }
   spec$use <- .vue_use(use)
+  if (length(outputs)) {
+    spec$outputs <- as.list(outputs)
+  }
   if (isTRUE(store)) {
     spec$store <- TRUE
   }
@@ -468,19 +484,21 @@ vue_component <- function(
 #' @param id The store's id: `$store.<id>` in templates.
 #' @param data Named list: the initial state.
 #' @param input Fields reported as `input$<id>`, as for [vue_app()].
+#' @param outputs Fields filled by outputs, as for [vue_app()].
 #' @return A tag: a hidden host that holds the store.
 #' @examples
 #' vue_store("cart", data = list(count = 0), input = "count")
 #' vue_app("add", htmltools::tags$button(`@click` = "$store.cart.count++", "Add"))
 #' vue_app("show", htmltools::tags$span("{{ $store.cart.count }} in the cart"))
 #' @export
-vue_store <- function(id, data = list(), input = NULL) {
+vue_store <- function(id, data = list(), input = NULL, outputs = NULL) {
   .vue_app_spec(
     id = id,
     template = htmltools::tags$span(hidden = NA),
     data = data,
     options = list(),
     input = input,
+    outputs = outputs,
     use = NULL,
     dependencies = NULL,
     store = TRUE

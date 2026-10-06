@@ -449,6 +449,7 @@ reference:
       - vue_component
       - vue_store
       - vue_output
+      - render_vue_data
       - update_vue
       - call_vue
       - vue_answer

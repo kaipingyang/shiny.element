@@ -4,7 +4,7 @@
 \alias{vue_store}
 \title{State shared by Vue components: a store}
 \usage{
-vue_store(id, data = list(), input = NULL)
+vue_store(id, data = list(), input = NULL, outputs = NULL)
 }
 \arguments{
 \item{id}{The store's id: \verb{$store.<id>} in templates.}
@@ -12,6 +12,8 @@ vue_store(id, data = list(), input = NULL)
 \item{data}{Named list: the initial state.}
 
 \item{input}{Fields reported as \verb{input$<id>}, as for \code{\link[=vue_app]{vue_app()}}.}
+
+\item{outputs}{Fields filled by outputs, as for \code{\link[=vue_app]{vue_app()}}.}
 }
 \value{
 A tag: a hidden host that holds the store.

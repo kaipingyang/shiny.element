@@ -154,6 +154,28 @@ test_that("vue_app() works without Element Plus", {
   Sys.sleep(0.8)
   expect_equal(js("Shiny.shinyapp.$inputValues.todo"), 1)
 
+  # data outputs: each field follows its output (the counter is at 4 here)
+  expect_equal(
+    js("document.querySelector('#dout .dout').textContent.trim()"),
+    "8 4 f1"
+  )
+  js("Shiny.setInputValue('dslow', true)")
+  Sys.sleep(0.8)
+  expect_equal(
+    js("document.querySelector('#dout .dout').getAttribute('data-busy')"),
+    "yes"
+  )
+  Sys.sleep(2.5)
+  expect_equal(
+    js("document.querySelector('#dout .dout').getAttribute('data-busy')"),
+    "no"
+  )
+  # held back while hidden: rendered once shown
+  expect_equal(js("document.querySelector('#dhid .dhid').textContent"), "")
+  js("document.querySelectorAll('.nav-tabs a')[1].click()")
+  Sys.sleep(1.5)
+  expect_equal(js("document.querySelector('#dhid .dhid').textContent"), "1")
+
   # a throttled event: at once, then at most once per wait, the last always
   sent <- js(
     "new Promise(function(done) {

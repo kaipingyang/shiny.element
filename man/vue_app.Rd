@@ -16,6 +16,7 @@ vue_app(
   components = NULL,
   ...,
   input = NULL,
+  outputs = NULL,
   use = NULL,
   dependencies = NULL
 )
@@ -44,6 +45,12 @@ keep it an array: \code{tags = I("red")}.}
 
 \item{input}{The field whose value is \verb{input$<id>}, or several, for one
 value made of them. \code{NULL}: the component reports no value.}
+
+\item{outputs}{Fields the server fills, each from an output it renders
+with \code{\link[=render_vue_data]{render_vue_data()}}: \code{c(stats = "stats")}, field = output id, or
+\code{"stats"} for both. Inside a module, \code{c(stats = ns("stats"))}. A field
+not in \code{data} starts \code{NULL}. Each render sets the field; while Shiny
+recalculates it, \verb{$recalculating.<output id>} is \code{true} in templates.}
 
 \item{use}{Vue plugins to install, by the global name each is loaded
 under: \code{"MyPlugin"}, or with options, \code{list(MyPlugin = list(...))}.}

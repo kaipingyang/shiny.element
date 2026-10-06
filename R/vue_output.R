@@ -192,3 +192,98 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
   }
   invisible(NULL)
 }
+
+# ── data outputs ──────────────────────────────────────────────────────────────
+
+#' Data for a component, from the server
+#'
+#' An output that sends a value rather than markup: a component's field
+#' follows it. The component names the output in its `outputs`
+#' (`vue_app(outputs = c(stats = "stats"))`); the server renders the value,
+#' which arrives as JSON and is assigned to the field -- the template
+#' redraws what depends on it, and nothing else is touched. As shinyreact's
+#' `reactive_output()` does for React.
+#'
+#' It is an output like any other: rendered again when what it reads
+#' changes, held back while its component is hidden, an error shown as
+#' Shiny shows one. While it recalculates, `$recalculating.<id>` is `true`
+#' in the component's templates.
+#'
+#' Values travel as [vue_app()]'s `data` does: a list an object, a
+#' data.frame its rows, [JS()] a function; `I()` keeps a vector of one an
+#' array.
+#'
+#' @param expr An expression returning the value.
+#' @param env,quoted As for [shiny::renderText()].
+#' @param outputId The output's id. Only needed to place the output by
+#'   hand: a component listing it in `outputs` places it itself.
+#' @return `render_vue_data()`, a render function; `vue_data_output()`, a
+#'   tag.
+#' @seealso [vue_app()], [vue_store()].
+#' @examples
+#' if (interactive()) {
+#'   library(shiny)
+#'   ui <- fluidPage(
+#'     sliderInput("n", "Draws", 10, 1000, 100),
+#'     vue_app(
+#'       "summary",
+#'       template = htmltools::tags$p(
+#'         `:style` = "{opacity: $recalculating.stats ? 0.5 : 1}",
+#'         "Mean {{ stats.mean }}, sd {{ stats.sd }}"
+#'       ),
+#'       data = list(stats = list(mean = NA, sd = NA)),
+#'       outputs = "stats"
+#'     )
+#'   )
+#'   server <- function(input, output, session) {
+#'     output$stats <- render_vue_data({
+#'       x <- rnorm(input$n)
+#'       list(mean = round(mean(x), 3), sd = round(sd(x), 3))
+#'     })
+#'   }
+#'   shinyApp(ui, server)
+#' }
+#' @export
+render_vue_data <- function(expr, env = parent.frame(), quoted = FALSE) {
+  func <- shiny::exprToFunction(expr, env, quoted)
+  shiny::markRenderFunction(
+    vue_data_output,
+    function(shinysession, name, ...) {
+      value <- func()
+      # as `data` travels: rows for a data.frame, functions revived
+      .vue_json(list(value = .vue_rows(value)))
+    }
+  )
+}
+
+#' @rdname render_vue_data
+#' @export
+vue_data_output <- function(outputId) {
+  htmltools::attachDependencies(
+    htmltools::tags$span(id = outputId, class = "shiny-vue-data-output"),
+    .vue_dependencies()
+  )
+}
+
+#' `outputs` as field = output id
+#' @noRd
+.vue_outputs_arg <- function(outputs) {
+  if (!length(outputs)) {
+    return(NULL)
+  }
+  if (!is.character(outputs)) {
+    stop("`outputs` names output ids: c(field = \"id\").", call. = FALSE)
+  }
+  fields <- names(outputs) %||% rep("", length(outputs))
+  fields[!nzchar(fields)] <- outputs[!nzchar(fields)]
+  bad <- !grepl("^[A-Za-z_$][A-Za-z0-9_$]*$", fields)
+  if (any(bad)) {
+    stop(
+      "`outputs` fills fields, which ",
+      paste(sQuote(fields[bad]), collapse = ", "),
+      " cannot be: name them, c(stats = ns(\"stats\")).",
+      call. = FALSE
+    )
+  }
+  stats::setNames(unname(outputs), fields)
+}

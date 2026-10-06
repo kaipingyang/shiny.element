@@ -115,6 +115,11 @@ value to the column's type.
   references) sends `shinyVueCall` to run a method; a return value comes
   back as `input$<id>_<method>`. `update_vue(value =)` sets the input field;
   updates reach `data` and `setup()` state.
+- `render_vue_data()` is an output of values: a component's field follows
+  it (`vue_app(outputs =)`). The bridge places a `.shiny-vue-data-output`
+  element per output in the host and binds it (`placeOutputs()`), so it is
+  suspended while the component is hidden; `$recalculating.<id>` in
+  templates follows its progress.
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search); `el_load_children()` answers through `.resolve`.
 - Feedback services (message, notification, message box, loading) use
