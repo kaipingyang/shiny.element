@@ -101,12 +101,16 @@ where the last click landed; only the observer knows there were two:
 ``` r
 
 ui <- el_page(
-  el_table("tbl", data = head(iris[, c(1, 5)], 3)),
+  el_table_output("tbl"),
   verbatimTextOutput("polled"),
   verbatimTextOutput("latched")
 )
 
 server <- function(input, output, session) {
+  output$tbl <- render_el_table(
+    el_table(data = head(iris[, c(1, 5)], 3)) |> el_on("row-click")
+  )
+
   # Reading the value: the last row clicked, but not how many times
   output$polled <- renderText({
     paste("last row clicked:", input$tbl_row_click$row_index)
@@ -137,7 +141,8 @@ namespaced by the module’s session. That holds for UI built by
 [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) inside the
 module too, and for the inputs a component adds to its id –
 `input$rows_go` from a row action, `input$tabs_edit`,
-`input$rows_selected_rows`.
+`input$rows_selection_change`. An output is the same:
+`el_table_output(ns("rows"))` in the UI, `output$rows` in the server.
 
 ``` r
 
@@ -145,8 +150,15 @@ orders_ui <- function(id) {
   ns <- NS(id)
   tagList(
     el_select(ns("status"), choices = c("paid", "pending"), selected = "paid"),
-    el_table(
-      ns("rows"),
+    el_table_output(ns("rows")),
+    uiOutput(ns("more")),
+    verbatimTextOutput(ns("seen"))
+  )
+}
+
+orders_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$rows <- render_el_table(el_table(
       data = data.frame(order = c(101, 102)),
       columns = list(
         list(prop = "order", label = "Order"),
@@ -159,14 +171,7 @@ orders_ui <- function(id) {
           )
         )
       )
-    ),
-    uiOutput(ns("more")),
-    verbatimTextOutput(ns("seen"))
-  )
-}
-
-orders_server <- function(id) {
-  moduleServer(id, function(input, output, session) {
+    ))
     # Built in the server, still wrapped in ns() once
     output$more <- renderUI(el_switch(
       session$ns("urgent"),

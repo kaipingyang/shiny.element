@@ -279,7 +279,6 @@ a table in the main area. Here it is in R, piece for piece:</p>
 <span>      <span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="../reference/el_main.html">el_main</a></span><span class="op">(</span></span>
 <span>        <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
-<span>          <span class="st">"people"</span>,</span>
 <span>          data <span class="op">=</span> <span class="va">rows</span>,</span>
 <span>          columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"date"</span>, label <span class="op">=</span> <span class="st">"Date"</span>, width <span class="op">=</span> <span class="st">"140"</span><span class="op">)</span>,</span>
@@ -416,30 +415,7 @@ in a cell with a <code>cell</code> template.</p>
 <span>          span <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>          <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>            header <span class="op">=</span> <span class="st">"Products"</span>,</span>
-<span>            <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
-<span>              <span class="st">"products"</span>,</span>
-<span>              columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>                <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"index"</span>, label <span class="op">=</span> <span class="st">"#"</span>, width <span class="op">=</span> <span class="st">"50"</span><span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"product"</span>, label <span class="op">=</span> <span class="st">"Product"</span><span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>                  prop <span class="op">=</span> <span class="st">"revenue"</span>,</span>
-<span>                  label <span class="op">=</span> <span class="st">"Revenue"</span>,</span>
-<span>                  align <span class="op">=</span> <span class="st">"right"</span>,</span>
-<span>                  formatter <span class="op">=</span> <span class="fu"><a href="../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>                    <span class="st">"function(r, c, v) { return '$' + v.toLocaleString(); }"</span></span>
-<span>                  <span class="op">)</span></span>
-<span>                <span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>                  prop <span class="op">=</span> <span class="st">"share"</span>,</span>
-<span>                  label <span class="op">=</span> <span class="st">"Share"</span>,</span>
-<span>                  width <span class="op">=</span> <span class="st">"130"</span>,</span>
-<span>                  cell <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">progress</span><span class="op">(</span></span>
-<span>                    <span class="st">":percentage"</span> <span class="op">=</span> <span class="st">"scope.row.share"</span>,</span>
-<span>                    <span class="st">":stroke-width"</span> <span class="op">=</span> <span class="st">"8"</span></span>
-<span>                  <span class="op">)</span></span>
-<span>                <span class="op">)</span></span>
-<span>              <span class="op">)</span></span>
-<span>            <span class="op">)</span></span>
+<span>            <span class="fu"><a href="../reference/el_table_output.html">el_table_output</a></span><span class="op">(</span><span class="st">"products"</span><span class="op">)</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
@@ -475,13 +451,40 @@ in a cell with a <code>cell</code> template.</p>
 <span>      <span class="st">"best"</span>,</span>
 <span>      value <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">by_month</span><span class="op">)</span><span class="op">)</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">by_month</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">by_month</span><span class="op">)</span> <span class="kw">else</span> <span class="fl">0</span></span>
 <span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">products</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_table_output.html">render_el_table</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">picked</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>    <span class="va">by_product</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">revenue</span> <span class="op">~</span> <span class="va">product</span>, <span class="va">d</span>, <span class="va">sum</span><span class="op">)</span></span>
 <span>    <span class="va">by_product</span> <span class="op">&lt;-</span> <span class="va">by_product</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">by_product</span><span class="op">$</span><span class="va">revenue</span><span class="op">)</span>, <span class="op">]</span></span>
 <span>    <span class="va">by_product</span><span class="op">$</span><span class="va">share</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span></span>
 <span>      <span class="fl">100</span> <span class="op">*</span> <span class="va">by_product</span><span class="op">$</span><span class="va">revenue</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">by_product</span><span class="op">$</span><span class="va">revenue</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"products"</span>, data <span class="op">=</span> <span class="va">by_product</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
+<span>      data <span class="op">=</span> <span class="va">by_product</span>,</span>
+<span>      columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"index"</span>, label <span class="op">=</span> <span class="st">"#"</span>, width <span class="op">=</span> <span class="st">"50"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="st">"product"</span>, label <span class="op">=</span> <span class="st">"Product"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          prop <span class="op">=</span> <span class="st">"revenue"</span>,</span>
+<span>          label <span class="op">=</span> <span class="st">"Revenue"</span>,</span>
+<span>          align <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>          formatter <span class="op">=</span> <span class="fu"><a href="../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>            <span class="st">"function(r, c, v) { return '$' + v.toLocaleString(); }"</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          prop <span class="op">=</span> <span class="st">"share"</span>,</span>
+<span>          label <span class="op">=</span> <span class="st">"Share"</span>,</span>
+<span>          width <span class="op">=</span> <span class="st">"130"</span>,</span>
+<span>          cell <span class="op">=</span> <span class="va">el</span><span class="op">$</span><span class="fu">progress</span><span class="op">(</span></span>
+<span>            <span class="st">":percentage"</span> <span class="op">=</span> <span class="st">"scope.row.share"</span>,</span>
+<span>            <span class="st">":stroke-width"</span> <span class="op">=</span> <span class="st">"8"</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">trend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html" class="external-link">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -665,13 +668,7 @@ carry the row.</p>
 <span>      disabled <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
-<span>    <span class="st">"orders"</span>,</span>
-<span>    selection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    row_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>    columns <span class="op">=</span> <span class="va">columns</span>,</span>
-<span>    empty_text <span class="op">=</span> <span class="st">"No orders match"</span></span>
-<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_table_output.html">el_table_output</a></span><span class="op">(</span><span class="st">"orders"</span><span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    style <span class="op">=</span> <span class="st">"margin-top: 16px; text-align: right"</span>,</span>
 <span>    <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
@@ -790,16 +787,20 @@ carry the row.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/el_pagination.html">update_el_pagination</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">matching</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">orders</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_table_output.html">render_el_table</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    selection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    row_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    columns <span class="op">=</span> <span class="va">columns</span>,</span>
+<span>    empty_text <span class="op">=</span> <span class="st">"No orders match"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># ── selection ────────────────────────────────────────────────────────────</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/el_button.html">update_el_button</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"remove_many"</span>,</span>
-<span>      disabled <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selected_rows</span><span class="op">)</span></span>
+<span>      disabled <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
@@ -883,7 +884,7 @@ carry the row.</p>
 <span>  <span class="op">}</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_delete</span>, <span class="fu">ask_delete</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_delete</span><span class="op">$</span><span class="va">row</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">remove_many</span>, <span class="op">{</span></span>
-<span>    <span class="fu">ask_delete</span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">id</span><span class="op">[</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selected_rows</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="fu">ask_delete</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selection_change</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">confirm_delete</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">confirm_delete</span>, <span class="st">"confirm"</span><span class="op">)</span><span class="op">)</span></span>
@@ -1043,13 +1044,7 @@ the form from that row:</p>
 <span>      disabled <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
-<span>    <span class="st">"orders"</span>,</span>
-<span>    selection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    row_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>    columns <span class="op">=</span> <span class="va">columns</span>,</span>
-<span>    empty_text <span class="op">=</span> <span class="st">"No orders match"</span></span>
-<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_table_output.html">el_table_output</a></span><span class="op">(</span><span class="st">"orders"</span><span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    style <span class="op">=</span> <span class="st">"margin-top: 16px; text-align: right"</span>,</span>
 <span>    <span class="fu"><a href="../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
@@ -1168,16 +1163,20 @@ the form from that row:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/el_pagination.html">update_el_pagination</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"pager"</span>, total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">matching</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"orders"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">orders</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_table_output.html">render_el_table</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_table.html">el_table</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    selection <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    row_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    columns <span class="op">=</span> <span class="va">columns</span>,</span>
+<span>    empty_text <span class="op">=</span> <span class="st">"No orders match"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># ── selection ────────────────────────────────────────────────────────────</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/el_button.html">update_el_button</a></span><span class="op">(</span></span>
 <span>      <span class="va">session</span>,</span>
 <span>      <span class="st">"remove_many"</span>,</span>
-<span>      disabled <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selected_rows</span><span class="op">)</span></span>
+<span>      disabled <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
@@ -1261,7 +1260,7 @@ the form from that row:</p>
 <span>  <span class="op">}</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_delete</span>, <span class="fu">ask_delete</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_delete</span><span class="op">$</span><span class="va">row</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">remove_many</span>, <span class="op">{</span></span>
-<span>    <span class="fu">ask_delete</span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/page.html" class="external-link">page</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">id</span><span class="op">[</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selected_rows</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="fu">ask_delete</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">orders_selection_change</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">confirm_delete</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">confirm_delete</span>, <span class="st">"confirm"</span><span class="op">)</span><span class="op">)</span></span>

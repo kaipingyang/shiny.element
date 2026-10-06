@@ -95,6 +95,26 @@ classes and a Shiny input binding of their own
 (`inst/js/el-*-binding.js`). A Vue instance mounted over a container
 would recompile and detach the components inside.
 
+**Data components** (`el_table` now; table_v2, tree, transfer to follow)
+are outputs in an app: `el_table_output(id)` +
+`render_el_table(el_table(data = ...))`.
+[`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+returns a spec object
+([`.el_component()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_component.md),
+`R/el_component.R`) drawn by
+[`htmltools::as.tags()`](https://rstudio.github.io/htmltools/reference/as.tags.html),
+as htmlwidgets are, so
+[`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md)
+can pipe events onto it;
+[`.el_resolve()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_resolve.md)
+draws specs inside UI that code reads as tags. The rendered host is
+`<id>-el` with `data-shiny-vue-id=<id>`: the bridge finds it by either,
+and it reports `input$<id>` through `Shiny.setInputValue()` with no
+binding (`reportFromOutput`), since an input binding sharing the
+output’s id makes Shiny warn (gt has that warning; rhandsontable does it
+this way). The data rendered is kept in `session$userData` so the
+`shiny.element.selection` handler returns `data[rows, , drop = FALSE]`.
+
 ### Server to browser
 
 - `update_el_*()` and
@@ -171,8 +191,18 @@ a slot, a table cell, a wrapper’s trigger, `el_widget(markup =)`.
 
 Every input reports `input$<id>` on load and on change; an empty
 selection is `NULL`. Exceptions and extras are documented in each
-function’s “Shiny inputs” section (`el_table`’s `_selected_rows`,
+function’s “Shiny inputs” section (`el_table`’s `_selection_change`,
 `el_form`’s `_valid` and `_submit`, events as `input$<id>_<event>`).
+
+Two id forms: flat `input$<id>_<name>` for events and states (each
+observer fires for its own; event priority works); `input$<id>$<field>`
+only when one value has parts (el_form’s model,
+`vue_app(input = c("a", "b"))`). Event inputs are named after Element’s
+event in snake_case (`selection-change` -\> `_selection_change`); where
+upstream has no name, toastui’s. A component reports a few events by
+default and the rest when asked (`events =`,
+[`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md)).
+Design record: `.claude/plans/shiny-style-components-2026-10-06.md`.
 
 ### Adding a new component
 

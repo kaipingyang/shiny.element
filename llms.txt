@@ -398,6 +398,10 @@ change.
   [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
   : Element Plus Table Component
 
+- [`el_table_output()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md)
+  [`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md)
+  : An Element Plus table as a Shiny output
+
 - [`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md)
   :
 
@@ -588,11 +592,13 @@ the server.
 
 ## From the server
 
-Element Plus’s methods, the objects they need, and the data a component
-asks the server for.
+Element Plus’s methods, the objects they need, the events a component
+reports, and the data a component asks the server for.
 
 - [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
   : Call a method of an Element component
+- [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md)
+  : Report a component's event to the server
 - [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   [`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   [`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)

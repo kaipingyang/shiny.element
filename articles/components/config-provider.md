@@ -136,7 +136,6 @@ el_config_provider(
 el_config_provider(
   table = list(showOverflowTooltip = TRUE, tooltipEffect = "light"),
   el_table(
-    "cfg_t2",
     data = data.frame(
       date = "2016-05-03",
       name = "Tom",

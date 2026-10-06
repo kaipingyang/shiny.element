@@ -9,7 +9,13 @@ what cannot travel and sets `input$<id>_<event>`.
 ## Usage
 
 ``` r
-.el_event_bindings(ns_id, events, shapes = list(), throttle = character())
+.el_event_bindings(
+  ns_id,
+  events,
+  shapes = list(),
+  throttle = character(),
+  inputs = character()
+)
 ```
 
 ## Arguments
@@ -34,6 +40,11 @@ what cannot travel and sets `input$<id>_<event>`.
   Events that fire on every frame – a scroll, a drag – sent at most
   every 200 ms, the last one always: the server hears where the scroll
   or the drag ended.
+
+- inputs:
+
+  `c(<event> = "<input id>")`: events reported under an input of the
+  user's naming rather than `<ns_id>_<event>`.
 
 ## Value
 

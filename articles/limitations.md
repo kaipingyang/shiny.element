@@ -61,7 +61,6 @@ One rule decides how a name is spelled:
 ``` r
 
 el_table(
-  "t",
   data = mtcars[1:3, 1:2],
   columns = list(
     list(prop = "mpg", show_overflow_tooltip = TRUE), # R's spelling

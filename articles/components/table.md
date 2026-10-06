@@ -21,7 +21,6 @@ tableData <- data.frame(
   address = "No. 189, Grove St, Los Angeles"
 )
 el_table(
-  "basic",
   data = tableData,
   columns = list(
     el_table_column("date", "Date", width = 180),
@@ -46,7 +45,6 @@ tableData <- data.frame(
   address = "No. 189, Grove St, Los Angeles"
 )
 el_table(
-  "striped",
   data = tableData,
   stripe = TRUE,
   columns = list(
@@ -70,7 +68,6 @@ tableData <- data.frame(
   address = "No. 189, Grove St, Los Angeles"
 )
 el_table(
-  "bordered",
   data = tableData,
   border = TRUE,
   columns = list(
@@ -106,7 +103,6 @@ tagList(
 }"
   ),
   el_table(
-    "status",
     data = tableData,
     row_class_name = JS(
       "function({ row, rowIndex }) {",
@@ -146,7 +142,6 @@ tableData <- data.frame(
   )
 )
 el_table(
-  "tt",
   data = tableData,
   columns = list(
     el_table_column(type = "selection", width = 55),
@@ -186,7 +181,6 @@ tableData <- data.frame(
   address = "No. 189, Grove St, Los Angeles"
 )
 el_table(
-  "fixedhead",
   data = tableData,
   height = 250,
   columns = list(
@@ -206,8 +200,8 @@ If `true`, the column will be fixed at left. It also accepts two string
 literals: ‘left’ and ‘right’, both indicating that the column will be
 fixed at corresponding direction.
 
-The buttons report to the server with `rowAction()`: Detail sets
-`input$fixedcol_detail` to the row.
+The buttons report to the server with `rowAction()`: in an app, Detail
+sets `input$<id>_detail` to the row.
 
 ``` r
 
@@ -221,7 +215,6 @@ tableData <- data.frame(
   tag = c("Home", "Office", "Home", "Office")
 )
 el_table(
-  "fixedcol",
   data = tableData,
   columns = list(
     el_table_column("date", "Date", width = 150, fixed = TRUE),
@@ -276,7 +269,6 @@ tableData <- data.frame(
   zip = "CA 90036"
 )
 el_table(
-  "fixedboth",
   data = tableData,
   height = 250,
   columns = list(
@@ -300,10 +292,9 @@ By setting the attribute `max-height` of `el-table`, you can fix the
 table header. The table body scrolls only if the height of the rows
 exceeds the max height value.
 
-The rows are the server’s: Remove reports its row as
-`input$fluid_remove`, Add Item asks for one more, and the server sends
-the rows back with
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md).
+The rows are the server’s, rendered from a reactive value: Remove
+reports its row as `input$fluid_remove`, Add Item asks for one more, and
+the table is rendered again with the rows that are left.
 
 ``` r
 
@@ -320,9 +311,18 @@ row <- function(date) {
 tableData <- do.call(rbind, lapply(as.Date("2016-05-01") + 0:2, row))
 
 ui <- el_page(
-  el_table(
-    "fluid",
-    data = tableData,
+  el_table_output("fluid"),
+  tags$div(
+    style = "margin-top: 12px",
+    el_button("add_item", "Add Item", width = "100%")
+  )
+)
+
+server <- function(input, output, session) {
+  rows <- reactiveVal(tableData)
+  day <- reactiveVal(Sys.Date())
+  output$fluid <- render_el_table(el_table(
+    data = rows(),
     max_height = 250,
     columns = list(
       el_table_column("date", "Date", width = 150, fixed = TRUE),
@@ -344,17 +344,7 @@ ui <- el_page(
         )
       )
     )
-  ),
-  tags$div(
-    style = "margin-top: 12px",
-    el_button("add_item", "Add Item", width = "100%")
-  )
-)
-
-server <- function(input, output, session) {
-  rows <- reactiveVal(tableData)
-  day <- reactiveVal(Sys.Date())
-  observeEvent(rows(), update_el_table(session, "fluid", data = rows()))
+  ))
   observeEvent(input$fluid_remove, {
     rows(rows()[-input$fluid_remove$row_index, ])
   })
@@ -397,7 +387,6 @@ tableData <- data.frame(
   zip = "CA 90036"
 )
 el_table(
-  "grouped",
   data = tableData,
   columns = list(
     el_table_column("date", "Date", width = 150),
@@ -442,7 +431,6 @@ tableData <- data.frame(
   zip = "CA 90036"
 )
 el_table(
-  "fg",
   data = tableData,
   height = 250,
   columns = list(
@@ -484,17 +472,7 @@ tableData <- data.frame(
 )
 
 ui <- el_page(
-  el_table(
-    "single",
-    data = tableData,
-    highlight_current_row = TRUE,
-    columns = list(
-      el_table_column(type = "index", width = 50),
-      el_table_column("date", "Date", width = 120),
-      el_table_column("name", "Name", width = 120),
-      el_table_column("address", "Address")
-    )
-  ),
+  el_table_output("single"),
   tags$div(
     style = "margin-top: 20px",
     el_button("second", "Select second row"),
@@ -503,6 +481,16 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
+  output$single <- render_el_table(el_table(
+    data = tableData,
+    highlight_current_row = TRUE,
+    columns = list(
+      el_table_column(type = "index", width = 50),
+      el_table_column("date", "Date", width = 120),
+      el_table_column("name", "Name", width = 120),
+      el_table_column("address", "Address")
+    )
+  ))
   observeEvent(input$second, {
     call_el(session, "single", "setCurrentRow", list(el_table_row(2)))
   })
@@ -528,7 +516,8 @@ with its `type` set to `selection`.
 
 Rows 1 and 2 cannot be ticked (`selectable`). The first button toggles
 rows 2 and 3 whatever `selectable` says, the second only where it
-allows; the rows ticked arrive as `input$multi_selected_rows`.
+allows; the rows ticked arrive as `input$multi` (their numbers) and
+`input$multi_selection_change` (the rows).
 
 ``` r
 
@@ -548,8 +537,20 @@ tableData <- data.frame(
 )
 
 ui <- el_page(
-  el_table(
-    "multi",
+  el_table_output("multi"),
+  tags$div(
+    style = "margin-top: 20px",
+    el_button("toggle", "Toggle selection status of second and third rows"),
+    el_button(
+      "toggle_selectable",
+      "Toggle selection status based on selectable"
+    ),
+    el_button("clear", "Clear selection")
+  )
+)
+
+server <- function(input, output, session) {
+  output$multi <- render_el_table(el_table(
     data = tableData,
     row_key = "id",
     columns = list(
@@ -566,19 +567,7 @@ ui <- el_page(
       el_table_column("name", "Name", width = 120),
       el_table_column("address", "Address")
     )
-  ),
-  tags$div(
-    style = "margin-top: 20px",
-    el_button("toggle", "Toggle selection status of second and third rows"),
-    el_button(
-      "toggle_selectable",
-      "Toggle selection status based on selectable"
-    ),
-    el_button("clear", "Clear selection")
-  )
-)
-
-server <- function(input, output, session) {
+  ))
   toggle <- function(ignore_selectable) {
     for (i in 2:3) {
       call_el(
@@ -623,7 +612,6 @@ tableData <- data.frame(
   address = "No. 189, Grove St, Los Angeles"
 )
 el_table(
-  "sorted",
   data = tableData,
   default_sort = list(prop = "date", order = "descending"),
   columns = list(
@@ -662,8 +650,11 @@ tableData <- data.frame(
 ui <- el_page(
   el_button("reset_date", "reset date filter"),
   el_button("reset_all", "reset all filters"),
-  el_table(
-    "filtered",
+  el_table_output("filtered")
+)
+
+server <- function(input, output, session) {
+  output$filtered <- render_el_table(el_table(
     data = tableData,
     row_key = "date",
     columns = list(
@@ -708,10 +699,7 @@ ui <- el_page(
         )
       )
     )
-  )
-)
-
-server <- function(input, output, session) {
+  ))
   observeEvent(input$reset_date, {
     call_el(session, "filtered", "clearFilter", list(list("date")))
   })
@@ -744,8 +732,12 @@ tableData <- data.frame(
 )
 
 ui <- el_page(
-  el_table(
-    "custom",
+  el_table_output("custom"),
+  verbatimTextOutput("which")
+)
+
+server <- function(input, output, session) {
+  output$custom <- render_el_table(el_table(
     data = tableData,
     columns = list(
       el_table_column(
@@ -793,11 +785,7 @@ ui <- el_page(
         )
       )
     )
-  ),
-  verbatimTextOutput("which")
-)
-
-server <- function(input, output, session) {
+  ))
   output$which <- renderPrint(list(
     edit = input$custom_edit$row_index,
     delete = input$custom_delete$row_index
@@ -818,9 +806,8 @@ You can customize how the header looks by header
 [slots](https://v3.vuejs.org/guide/component-slots.html).
 
 The search box is the column’s `header` template. What is typed lives in
-a store, `$store.search.text`, reported as `input$search`; the server
-filters the rows and sends them with
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md).
+a store, `$store.search.text`, reported as `input$search`; the table is
+rendered again with the rows that match.
 
 ``` r
 
@@ -832,9 +819,16 @@ tableData <- data.frame(
 
 ui <- el_page(
   vue_store("search", data = list(text = ""), input = "text"),
-  el_table(
-    "searchable",
-    data = tableData,
+  el_table_output("searchable")
+)
+
+server <- function(input, output, session) {
+  matches <- reactive({
+    text <- input$search %||% ""
+    !nzchar(text) | grepl(tolower(text), tolower(tableData$name), fixed = TRUE)
+  })
+  output$searchable <- render_el_table(el_table(
+    data = tableData[matches(), ],
     columns = list(
       el_table_column("date", "Date"),
       el_table_column("name", "Name"),
@@ -860,15 +854,7 @@ ui <- el_page(
         )
       )
     )
-  )
-)
-
-server <- function(input, output, session) {
-  observeEvent(input$search, {
-    keep <- !nzchar(input$search) |
-      grepl(tolower(input$search), tolower(tableData$name), fixed = TRUE)
-    update_el_table(session, "searchable", data = tableData[keep, ])
-  })
+  ))
 }
 
 shinyApp(ui, server)
@@ -892,10 +878,9 @@ in custom column templates.
 
 Each row opens to its details and a table of its own, the family. The
 switches are the server’s: the parent’s border and
-`preserve_expanded_content` with
-[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md),
-the child tables’ border through a store their template reads,
-`$store.expand.child`.
+`preserve_expanded_content` render the table again – patched in place,
+the open rows stay open – the child tables’ border goes through a store
+their template reads, `$store.expand.child`.
 
 ``` r
 
@@ -940,9 +925,14 @@ ui <- el_page(
     "preserve expanded:",
     el_switch("preserve")
   ),
-  el_table(
-    "expandable",
+  el_table_output("expandable")
+)
+
+server <- function(input, output, session) {
+  output$expandable <- render_el_table(el_table(
     data = tableData,
+    border = isTRUE(input$parent_border),
+    preserve_expanded_content = isTRUE(input$preserve),
     columns = list(
       el_table_column(
         type = "expand",
@@ -967,20 +957,7 @@ ui <- el_page(
       el_table_column("date", "Date"),
       el_table_column("name", "Name")
     )
-  )
-)
-
-server <- function(input, output, session) {
-  observeEvent(input$parent_border, {
-    update_el_table(session, "expandable", border = input$parent_border)
-  })
-  observeEvent(input$preserve, {
-    update_el_table(
-      session,
-      "expandable",
-      preserve_expanded_content = input$preserve
-    )
-  })
+  ))
   observeEvent(input$child_border, {
     update_vue(session, "expand", child = input$child_border)
   })
@@ -1057,7 +1034,6 @@ tableData1 <- data.frame(
 )
 tags$div(
   el_table(
-    "tree",
     data = tableData,
     row_key = "id",
     border = TRUE,
@@ -1070,7 +1046,6 @@ tags$div(
   ),
   tags$div(style = "height: 20px"),
   el_table(
-    "lazy",
     data = tableData1,
     row_key = "id",
     border = TRUE,
@@ -1107,9 +1082,9 @@ child nodes will be associated with the selection state of child nodes,
 that is, when the parent node is selected, all its child nodes will be
 selected.
 
-The radio buttons set `tree_props = list(checkStrictly =)` from the
-server: ticked strictly, a row ticks on its own, not with its children.
-Rows 1 and 31 cannot be ticked.
+The radio buttons set `tree_props = list(checkStrictly =)`, rendering
+the table again: ticked strictly, a row ticks on its own, not with its
+children. Rows 1 and 31 cannot be ticked.
 
 ``` r
 
@@ -1143,12 +1118,15 @@ ui <- el_page(
     value = "false",
     button = TRUE
   ),
-  el_table(
-    "strict",
+  el_table_output("strict")
+)
+
+server <- function(input, output, session) {
+  output$strict <- render_el_table(el_table(
     data = tableData,
     row_key = "id",
     default_expand_all = TRUE,
-    tree_props = list(checkStrictly = FALSE),
+    tree_props = list(checkStrictly = identical(input$strict_mode, "true")),
     columns = list(
       el_table_column(
         type = "selection",
@@ -1159,17 +1137,7 @@ ui <- el_page(
       el_table_column("name", "Name"),
       el_table_column("address", "Address")
     )
-  )
-)
-
-server <- function(input, output, session) {
-  observeEvent(input$strict_mode, {
-    update_el_table(
-      session,
-      "strict",
-      tree_props = list(checkStrictly = input$strict_mode == "true")
-    )
-  })
+  ))
 }
 
 shinyApp(ui, server)
@@ -1204,7 +1172,6 @@ tableData <- data.frame(
 )
 tags$div(
   el_table(
-    "sums",
     data = tableData,
     border = TRUE,
     show_summary = TRUE,
@@ -1218,7 +1185,6 @@ tags$div(
   ),
   tags$div(style = "height: 20px"),
   el_table(
-    "costs",
     data = tableData,
     border = TRUE,
     height = 200,
@@ -1270,7 +1236,6 @@ tableData <- data.frame(
 )
 tags$div(
   el_table(
-    "colspans",
     data = tableData,
     border = TRUE,
     span_method = JS(
@@ -1291,7 +1256,6 @@ tags$div(
   ),
   tags$div(style = "height: 20px"),
   el_table(
-    "rowspans",
     data = tableData,
     border = TRUE,
     span_method = JS(
@@ -1336,7 +1300,6 @@ tableData <- data.frame(
   tag = c("Home", "Office", "Home", "Office")
 )
 el_table(
-  "idx",
   data = tableData,
   columns = list(
     el_table_column(
@@ -1374,8 +1337,11 @@ ui <- el_page(
     value = "fixed",
     button = TRUE
   ),
-  el_table(
-    "layout_table",
+  el_table_output("layout_table")
+)
+
+server <- function(input, output, session) {
+  output$layout_table <- render_el_table(el_table(
     data = tableData,
     table_layout = "fixed",
     columns = list(
@@ -1383,10 +1349,7 @@ ui <- el_page(
       el_table_column("name", "Name"),
       el_table_column("address", "Address")
     )
-  )
-)
-
-server <- function(input, output, session) {
+  ))
   observeEvent(input$layout, {
     update_el_table(session, "layout_table", table_layout = input$layout)
   })
@@ -1428,7 +1391,6 @@ tableData <- list(
 tagList(
   tags$style(".tag-item + .tag-item { margin-left: 5px; }"),
   el_table(
-    "tt_fmt",
     data = tableData,
     show_overflow_tooltip = TRUE,
     tooltip_formatter = JS(
@@ -1466,6 +1428,63 @@ tagList(
   )
 )
 ```
+
+## In Shiny
+
+In an app a table is an output, as DT’s and reactable’s are: the page
+holds `el_table_output("cars")`, the server renders
+[`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+into it with
+[`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md),
+and the output’s id names the table’s inputs. The table above every
+example on this page is
+[`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+alone, which is how it goes in R Markdown, Quarto or a static page. \|
+Input \| Value \| \|—\|—\| \| `input$cars` \| the selected row numbers,
+integers; `NULL` with none \| \| `input$cars_selection_change` \| the
+selected rows, `data[rows, , drop = FALSE]`: the columns, types and row
+names rendered \| \| `input$cars_current_change`, `_sort_change`,
+`_filter_change`, `_expand_change` \| reported by every table \| \|
+`input$cars_<event>` \| any other of Element’s events, asked for with
+[`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md)
+or `el_table(events =)` \| Rendering again with the same rows keeps the
+user’s ticks, sort and open rows; other rows clear the selection, as
+Element does, unless the rows carry a `row_key` and the selection column
+`reserve_selection = TRUE`.
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+and
+[`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
+reach the table by the output’s id.
+
+``` r
+
+#'
+#'
+cars <- head(mtcars[, 1:4], 6)
+cars$made <- as.Date("2024-01-01") + 0:5
+
+ui <- el_page(
+  el_input_number("n", value = 6, min = 1, max = 6),
+  el_table_output("cars"),
+  verbatimTextOutput("picked")
+)
+
+server <- function(input, output, session) {
+  output$cars <- render_el_table(
+    el_table(data = head(cars, input$n), selection = TRUE) |>
+      el_on("row-dblclick")
+  )
+  # the ticked rows, as R subsets them: Dates stay Dates
+  output$picked <- renderPrint(input$cars_selection_change)
+  observeEvent(input$cars_row_dblclick, {
+    el_message(message = paste("Row", input$cars_row_dblclick$row_index))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+![The shiny-output example, running](../../shots/table-shiny-output.png)
 
 ## API
 
@@ -1525,25 +1544,25 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `select` | `input$<id>_select` | triggers when user clicks the checkbox in a row |
-| `select-all` | `input$<id>_select_all` | triggers when user clicks the checkbox in table header |
-| `selection-change` | one of the component’s inputs – see its reference page | triggers when selection changes |
-| `cell-mouse-enter` | `input$<id>_cell_mouse_enter` | triggers when hovering into a cell |
-| `cell-mouse-leave` | `input$<id>_cell_mouse_leave` | triggers when hovering out of a cell |
-| `cell-click` | `input$<id>_cell_click` | triggers when clicking a cell |
-| `cell-dblclick` | `input$<id>_cell_dblclick` | triggers when double clicking a cell |
-| `cell-contextmenu` | `input$<id>_cell_contextmenu` | triggers when user right clicks on a cell |
-| `row-click` | `input$<id>_row_click` | triggers when clicking a row |
-| `row-contextmenu` | `input$<id>_row_contextmenu` | triggers when user right clicks on a row |
-| `row-dblclick` | `input$<id>_row_dblclick` | triggers when double clicking a row |
-| `header-click` | `input$<id>_header_click` | triggers when clicking a column header |
-| `header-contextmenu` | `input$<id>_header_contextmenu` | triggers when user right clicks on a column header |
+| `select` | `input$<id>_select`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user clicks the checkbox in a row |
+| `select-all` | `input$<id>_select_all`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user clicks the checkbox in table header |
+| `selection-change` | `input$<id>_selection_change`, the rows; `input$<id>`, their numbers | triggers when selection changes |
+| `cell-mouse-enter` | `input$<id>_cell_mouse_enter`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when hovering into a cell |
+| `cell-mouse-leave` | `input$<id>_cell_mouse_leave`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when hovering out of a cell |
+| `cell-click` | `input$<id>_cell_click`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when clicking a cell |
+| `cell-dblclick` | `input$<id>_cell_dblclick`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when double clicking a cell |
+| `cell-contextmenu` | `input$<id>_cell_contextmenu`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user right clicks on a cell |
+| `row-click` | `input$<id>_row_click`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when clicking a row |
+| `row-contextmenu` | `input$<id>_row_contextmenu`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user right clicks on a row |
+| `row-dblclick` | `input$<id>_row_dblclick`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when double clicking a row |
+| `header-click` | `input$<id>_header_click`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when clicking a column header |
+| `header-contextmenu` | `input$<id>_header_contextmenu`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user right clicks on a column header |
 | `sort-change` | `input$<id>_sort_change` | triggers when Table’s sorting changes |
 | `filter-change` | `input$<id>_filter_change` | triggers when the table’s filter changes |
 | `current-change` | `input$<id>_current_change` | triggers when current row changes |
-| `header-dragend` | `input$<id>_header_dragend` | triggers after changing a column’s width by dragging the column header’s border |
+| `header-dragend` | `input$<id>_header_dragend`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers after changing a column’s width by dragging the column header’s border |
 | `expand-change` | `input$<id>_expand_change` | triggers when user expands or collapses a row (for expandable table, second param is expandedRows; for tree Table, second param is expanded) |
-| `scroll` | `input$<id>_scroll` | Invoked after scrolled |
+| `scroll` | `input$<id>_scroll`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | Invoked after scrolled |
 
 ### Table Slots
 

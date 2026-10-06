@@ -1,0 +1,85 @@
+# Report a component's event to the server
+
+Each component reports a few events by default – a table its
+`selection-change`, `current-change`, `sort-change`, `filter-change` and
+`expand-change` – and any other of Element Plus's events when asked:
+here, piped, or with the component's `events` argument. The event
+arrives as `input$<id>_<event>`, Element's name in snake_case
+(`row-dblclick` -\> `input$tbl_row_dblclick`), or under `input` if
+given.
+
+## Usage
+
+``` r
+el_on(x, event, input = NULL)
+```
+
+## Arguments
+
+- x:
+
+  A component: `el_table(...)`.
+
+- event:
+
+  Element Plus's name for the event, `"row-dblclick"`; several at once
+  are fine.
+
+- input:
+
+  The input it reports as, instead of `<id>_<event>`; inside a module,
+  namespaced as the component's own id is. One event only.
+
+## Value
+
+`x`, reporting the event too.
+
+## See also
+
+[`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md).
+
+## Examples
+
+``` r
+el_table(data = head(mtcars)) |>
+  el_on("row-dblclick") |>
+  el_on("cell-click", input = "picked")
+#> <div id="el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b_container" style="display: contents">
+#>   <el-table :data="tableData" :border="border" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange" @current-change="elEmitCurrentChange" @sort-change="elEmitSortChange" @filter-change="elEmitFilterChange" @expand-change="elEmitExpandChange" @row-dblclick="elEmitRowDblclick" @cell-click="elEmitCellClick" :stripe="stripe === null ? undefined : stripe" :size="size === null ? undefined : size" :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :fit="fit === null ? undefined : fit" :show-header="showHeader === null ? undefined : showHeader" :highlight-current-row="highlightCurrentRow === null ? undefined : highlightCurrentRow" :current-row-key="currentRowKey === null ? undefined : currentRowKey" :row-key="rowKey === null ? undefined : rowKey" :empty-text="emptyText === null ? undefined : emptyText" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :expand-row-keys="expandRowKeys === null ? undefined : expandRowKeys" :default-sort="defaultSort === null ? undefined : defaultSort" :tooltip-effect="tooltipEffect === null ? undefined : tooltipEffect" :show-summary="showSummary === null ? undefined : showSummary" :sum-text="sumText === null ? undefined : sumText" :select-on-indeterminate="selectOnIndeterminate === null ? undefined : selectOnIndeterminate" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :tree-props="treeProps === null ? undefined : treeProps" :row-class-name="rowClassName === null ? undefined : rowClassName" :row-style="rowStyle === null ? undefined : rowStyle" :cell-class-name="cellClassName === null ? undefined : cellClassName" :cell-style="cellStyle === null ? undefined : cellStyle" :header-row-class-name="headerRowClassName === null ? undefined : headerRowClassName" :header-row-style="headerRowStyle === null ? undefined : headerRowStyle" :header-cell-class-name="headerCellClassName === null ? undefined : headerCellClassName" :header-cell-style="headerCellStyle === null ? undefined : headerCellStyle" :span-method="spanMethod === null ? undefined : spanMethod" :summary-method="summaryMethod === null ? undefined : summaryMethod" :load="load === null ? elLoad : load" :allow-drag-last-column="allowDragLastColumn === null ? undefined : allowDragLastColumn" :append-filter-panel-to="appendFilterPanelTo === null ? undefined : appendFilterPanelTo" :flexible="flexible === null ? undefined : flexible" :native-scrollbar="nativeScrollbar === null ? undefined : nativeScrollbar" :preserve-expanded-content="preserveExpandedContent === null ? undefined : preserveExpandedContent" :row-expandable="rowExpandable === null ? undefined : rowExpandable" :scrollbar-always-on="scrollbarAlwaysOn === null ? undefined : scrollbarAlwaysOn" :scrollbar-tabindex="scrollbarTabindex === null ? undefined : scrollbarTabindex" :show-overflow-tooltip="showOverflowTooltip === null ? undefined : showOverflowTooltip" :table-layout="tableLayout === null ? undefined : tableLayout" :tooltip-formatter="tooltipFormatter === null ? undefined : tooltipFormatter" :tooltip-options="tooltipOptions === null ? undefined : tooltipOptions">
+#>     <el-table-column v-if="selection" type="selection" width="55"></el-table-column>
+#>     <el-table-column v-for="col in (columns.length ? columns : autoColumns)" :key="col.prop || col.label" :prop="col.prop" :label="col.label" :width="col.width" :align="col.align" :header-align="col.headerAlign" :class-name="col.className" :label-class-name="col.labelClassName" :column-key="col.columnKey" :min-width="col.minWidth" :fixed="col.fixed" :resizable="col.resizable" :sortable="col.sortable" :sort-by="col.sortBy" :sort-orders="col.sortOrders" :show-overflow-tooltip="col.showOverflowTooltip" :filters="col.filters" :filtered-value="col.filteredValue" :filter-multiple="col.filterMultiple" :filter-placement="col.filterPlacement" :reserve-selection="col.reserveSelection" :index="col.index" :formatter="col.formatter" :filter-method="col.filterMethod" :filter-class-name="col.filterClassName" :tooltip-formatter="col.tooltipFormatter" :sort-method="col.sortMethod" :render-header="col.renderHeader" :selectable="col.selectable" :type="col.type">
+#>       <template v-slot:header="scope">
+#>         <span v-if="col.headerHtml" v-html="col.headerHtml"></span>
+#>         <span v-else>{{col.label}}</span>
+#>       </template>
+#>       <template v-slot:[col.filterIcon?'filter-icon':'no-filter-icon']><el-icon><component :is="col.filterIcon" /></el-icon></template>
+#>       <template v-slot:default="scope">
+#>         <template v-if="col.children &amp;&amp; col.children.length">
+#>           <el-table-column v-for="colx in col.children" :key="colx.prop || colx.label" :prop="colx.prop" :label="colx.label" :width="colx.width" :align="colx.align" :header-align="colx.headerAlign" :class-name="colx.className" :label-class-name="colx.labelClassName" :column-key="colx.columnKey" :min-width="colx.minWidth" :fixed="colx.fixed" :resizable="colx.resizable" :sortable="colx.sortable" :sort-by="colx.sortBy" :sort-orders="colx.sortOrders" :show-overflow-tooltip="colx.showOverflowTooltip" :filters="colx.filters" :filtered-value="colx.filteredValue" :filter-multiple="colx.filterMultiple" :filter-placement="colx.filterPlacement" :reserve-selection="colx.reserveSelection" :index="colx.index" :formatter="colx.formatter" :filter-method="colx.filterMethod" :filter-class-name="colx.filterClassName" :tooltip-formatter="colx.tooltipFormatter" :sort-method="colx.sortMethod" :render-header="colx.renderHeader" :selectable="colx.selectable" :type="colx.type">
+#>             <template v-slot:header="scope">
+#>               <span v-if="colx.headerHtml" v-html="colx.headerHtml"></span>
+#>               <span v-else>{{colx.label}}</span>
+#>             </template>
+#>             <template v-slot:[colx.filterIcon?'filter-icon':'no-filter-icon']><el-icon><component :is="colx.filterIcon" /></el-icon></template>
+#>             <template v-slot:default="scope">
+#>               <template v-if="colx.children &amp;&amp; colx.children.length">
+#>                 <el-table-column v-for="colxx in colx.children" :key="colxx.prop || colxx.label" :prop="colxx.prop" :label="colxx.label" :width="colxx.width" :align="colxx.align" :header-align="colxx.headerAlign" :class-name="colxx.className" :label-class-name="colxx.labelClassName" :column-key="colxx.columnKey" :min-width="colxx.minWidth" :fixed="colxx.fixed" :resizable="colxx.resizable" :sortable="colxx.sortable" :sort-by="colxx.sortBy" :sort-orders="colxx.sortOrders" :show-overflow-tooltip="colxx.showOverflowTooltip" :filters="colxx.filters" :filtered-value="colxx.filteredValue" :filter-multiple="colxx.filterMultiple" :filter-placement="colxx.filterPlacement" :reserve-selection="colxx.reserveSelection" :index="colxx.index" :formatter="colxx.formatter" :filter-method="colxx.filterMethod" :filter-class-name="colxx.filterClassName" :tooltip-formatter="colxx.tooltipFormatter" :sort-method="colxx.sortMethod" :render-header="colxx.renderHeader" :selectable="colxx.selectable" :type="colxx.type">
+#>                   <template v-slot:header="scope">
+#>                     <span v-if="colxx.headerHtml" v-html="colxx.headerHtml"></span>
+#>                     <span v-else>{{colxx.label}}</span>
+#>                   </template>
+#>                   <template v-slot:[colxx.filterIcon?'filter-icon':'no-filter-icon']><el-icon><component :is="colxx.filterIcon" /></el-icon></template>
+#>                   <template v-slot:default="scope"></template>
+#>                 </el-table-column>
+#>               </template>
+#>             </template>
+#>           </el-table-column>
+#>         </template>
+#>       </template>
+#>     </el-table-column>
+#>   </el-table>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"tableData":[{"rowname":"Mazda RX4","mpg":21,"cyl":6,"disp":160,"hp":110,"drat":3.9,"wt":2.62,"qsec":16.46,"vs":0,"am":1,"gear":4,"carb":4},{"rowname":"Mazda RX4 Wag","mpg":21,"cyl":6,"disp":160,"hp":110,"drat":3.9,"wt":2.875,"qsec":17.02,"vs":0,"am":1,"gear":4,"carb":4},{"rowname":"Datsun 710","mpg":22.8,"cyl":4,"disp":108,"hp":93,"drat":3.85,"wt":2.32,"qsec":18.61,"vs":1,"am":1,"gear":4,"carb":1},{"rowname":"Hornet 4 Drive","mpg":21.4,"cyl":6,"disp":258,"hp":110,"drat":3.08,"wt":3.215,"qsec":19.44,"vs":1,"am":0,"gear":3,"carb":1},{"rowname":"Hornet Sportabout","mpg":18.7,"cyl":8,"disp":360,"hp":175,"drat":3.15,"wt":3.44,"qsec":17.02,"vs":0,"am":0,"gear":3,"carb":2},{"rowname":"Valiant","mpg":18.1,"cyl":6,"disp":225,"hp":105,"drat":2.76,"wt":3.46,"qsec":20.22,"vs":1,"am":0,"gear":3,"carb":1}],"columns":[],"autoColumns":[{"prop":"rowname","label":"","slot":"none"},{"prop":"mpg","label":"mpg","slot":"none"},{"prop":"cyl","label":"cyl","slot":"none"},{"prop":"disp","label":"disp","slot":"none"},{"prop":"hp","label":"hp","slot":"none"},{"prop":"drat","label":"drat","slot":"none"},{"prop":"wt","label":"wt","slot":"none"},{"prop":"qsec","label":"qsec","slot":"none"},{"prop":"vs","label":"vs","slot":"none"},{"prop":"am","label":"am","slot":"none"},{"prop":"gear","label":"gear","slot":"none"},{"prop":"carb","label":"carb","slot":"none"}],"border":false,"selection":false,"selected":[],"selectedRows":[],"restoredRows":[],"loading":false,"stripe":null,"size":null,"height":null,"maxHeight":null,"fit":null,"showHeader":null,"highlightCurrentRow":null,"currentRowKey":null,"rowKey":null,"emptyText":null,"defaultExpandAll":null,"expandRowKeys":null,"defaultSort":null,"tooltipEffect":null,"showSummary":null,"sumText":null,"selectOnIndeterminate":null,"indent":null,"lazy":null,"treeProps":null,"rowClassName":null,"rowStyle":null,"cellClassName":null,"cellStyle":null,"headerRowClassName":null,"headerRowStyle":null,"headerCellClassName":null,"headerCellStyle":null,"spanMethod":null,"summaryMethod":null,"load":null,"allowDragLastColumn":null,"appendFilterPanelTo":null,"flexible":null,"nativeScrollbar":null,"preserveExpandedContent":null,"rowExpandable":null,"scrollbarAlwaysOn":null,"scrollbarTabindex":null,"showOverflowTooltip":null,"tableLayout":null,"tooltipFormatter":null,"tooltipOptions":null},"methods":{"elEmitCurrentChange":"function() { var shape = function(row, old) { return {row_index: window.shinyElement.rowIndex(this, row), row: row, previous_index: window.shinyElement.rowIndex(this, old)}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b', 'current_change', [v]); }","elEmitSortChange":"function() { var shape = function(s) { return {column: s.prop, order: s.order}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b', 'sort_change', [v]); }","elEmitFilterChange":"function() { window.shinyVue.emit('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b', 'filter_change', arguments); }","elEmitExpandChange":"function() { var shape = function(row, expanded) { var vm = this; return {row_index: window.shinyElement.rowIndex(this, row), expanded: Array.isArray(expanded) ? expanded.map(function(r) { return window.shinyElement.rowIndex(vm, r); }) : expanded}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b', 'expand_change', [v]); }","elEmitRowDblclick":"function() { var shape = function(row, column) { return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: window.shinyElement.colProp(column)}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b', 'row_dblclick', [v]); }","elEmitCellClick":"function() { var shape = function(row, column) { var prop = window.shinyElement.colProp(column); return {row_index: window.shinyElement.rowIndex(this, row), row: row, column: prop, value: row[prop]}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('picked', '', [v]); }","elLoad":"function(row, treeNode, resolve) {\n  var key = this.rowKey && typeof this.rowKey === 'string' ? row[this.rowKey] : null;\n  window.shinyVue.ask('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b_load', {key: key, row: row, level: treeNode ? treeNode.level : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { resolve([]); });\n}","rowAction":"function(name, scope) { var se = window.shinyElement; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b_' + name, {row_index: se.rowIndex(this, scope.row), row: window.shinyVue.plain(scope.row)}, {priority: 'event'}); }","handleSelectionChange":"function(selection) { var self = this; self.selected = selection; self.selectedRows = selection.map(function(r) { return window.shinyElement.rowIndex(self, r); }); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b_selection_change:shiny.element.selection', {table: 'el_table_fb20fb5b-b34e-4c36-9a68-f73fe523605b', rows: self.selectedRows, data: window.shinyVue.plain(selection)}, {priority: 'event'}); }"},"watch":{"restoredRows":{"immediate":true,"handler":"function(rows) { var self = this; if (!rows || !rows.length) return; self.$nextTick(function() { var t = window.shinyVue.componentOf(self, 'ElTable'); if (!t) return; rows.forEach(function(i) { var r = self.tableData[i - 1]; if (r) t.toggleRowSelection(r, true); }); self.restoredRows = []; }); }"}}},"input":"selectedRows.length ? selectedRows : null","rate":null,"type":"shiny.element.rows","use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitCurrentChange","options.methods.elEmitSortChange","options.methods.elEmitFilterChange","options.methods.elEmitExpandChange","options.methods.elEmitRowDblclick","options.methods.elEmitCellClick","options.methods.elLoad","options.methods.rowAction","options.methods.handleSelectionChange","options.watch.restoredRows.handler"]}</script>
+#> </div>
+```

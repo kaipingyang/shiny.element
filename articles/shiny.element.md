@@ -63,7 +63,7 @@ ui <- bslib::page_sidebar(
   theme = theme,
   use_element(theme = theme),
   sidebar = bslib::sidebar(el_select("metric", choices = c("Mean", "Median"))),
-  el_table("summary", data = head(iris))
+  el_table(data = head(iris))
 )
 ```
 

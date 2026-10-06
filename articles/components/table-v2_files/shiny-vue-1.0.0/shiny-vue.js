@@ -89,7 +89,7 @@
       value = {};
       usable.forEach(function(u, i) { value['arg' + (i + 1)] = u; });
     }
-    var input = id + '_' + event;
+    var input = event ? id + '_' + event : id;
     var send = function(v) { Shiny.setInputValue(input, v, { priority: 'event' }); };
     if (!wait) return send(value);
     var t = throttled[input] || (throttled[input] = { last: 0, timer: null, value: null });
@@ -173,7 +173,7 @@
     (Array.isArray(options.emits) ? options.emits : []).forEach(function(ev) {
       var name = 'on' + ev.charAt(0).toUpperCase() + ev.slice(1).replace(/-(\w)/g, function(m, c) { return c.toUpperCase(); });
       var event = ev.replace(/-/g, '_');
-      rootProps[name] = function() { sv.emit(host.id, event, arguments); };
+      rootProps[name] = function() { sv.emit(host.getAttribute('data-shiny-vue-id') || host.id, event, arguments); };
     });
     var app = Vue.createApp(options, rootProps);
     // A template cannot reach window.Shiny: Vue allows only a few globals in
@@ -222,9 +222,36 @@
     host._shinyVueSpec = { input: spec.input || null, type: spec.type || null,
                            rate: spec.rate || null };
     watchDisabled(host, vm);
+    reportFromOutput(host, vm);
     boxTrigger(host);
     host._svInitial = initialValues(host, vm);
     return vm;
+  }
+
+  // A component an output renders (render_el_table()) shares the output's
+  // id, and Shiny warns of an input and an output bound to one id. Its value
+  // is sent as rhandsontable sends its own, with setInputValue() and no
+  // binding: on load, and on every change.
+  function reportFromOutput(host, vm) {
+    var id = host.getAttribute('data-shiny-vue-id');
+    var spec = host._shinyVueSpec;
+    if (!id || !spec.input || !window.Shiny) return;
+    var get = getter(spec.input);
+    var name = id + (spec.type ? ':' + spec.type : '');
+    var send = function() { Shiny.setInputValue(name, plain(get(vm))); };
+    // stopped with the instance when Vue unmounts it
+    vm.$watch(function() { return get(this); }, send, { deep: true });
+    if (Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send();
+    else if (window.jQuery) jQuery(document).one('shiny:connected', send);
+    // updates that came before the component was drawn
+    var output = document.getElementById(id);
+    if (output && output._svPending) {
+      var pending = output._svPending;
+      output._svPending = null;
+      Promise.resolve().then(function() {
+        pending.forEach(function(data) { sv.update(id, data); });
+      });
+    }
   }
 
   // Bootstrap's tooltip and popover -- bslib's tooltip() and popover() --
@@ -334,7 +361,7 @@
 
   // The component behind an id, mounted first if need be, as {instance: vm}.
   sv.find = function(id) {
-    var host = document.getElementById(String(id).replace(/^#/, ''));
+    var host = byId(String(id).replace(/^#/, ''));
     if (!host || !host.hasAttribute('data-shiny-vue')) return null;
     var vm = mount(host);
     return vm ? { instance: vm } : null;
@@ -404,9 +431,31 @@
   // How a component layer finds an object a method takes, by index or name
   sv.refs = sv.refs || {};
 
+  // The element a component's id names: its host, or -- a component an
+  // output renders, the output holding that id -- the host whose inputs are
+  // named after it (data-shiny-vue-id)
+  function byId(id) {
+    var el = document.getElementById(id);
+    if (el && el.hasAttribute('data-shiny-vue')) return el;
+    var named = document.querySelectorAll('[data-shiny-vue-id]');
+    for (var i = 0; i < named.length; i++) {
+      if (named[i].getAttribute('data-shiny-vue-id') === id) return named[i];
+    }
+    return el;
+  }
+  sv.byId = byId;
+  // the component instance under a host's: a table's el-table
+  sv.componentOf = componentOf;
+
   sv.update = function(id, data) {
-    var host = document.getElementById(id);
+    var host = byId(id);
     var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
+    // An output not drawn yet -- an update sent while the server renders it,
+    // from an observer of an input that reports on load -- gets it once drawn
+    if (!vm && host && host.classList.contains('shiny-vue-output')) {
+      (host._svPending = host._svPending || []).push(data);
+      return;
+    }
     if (!vm) { warn('update: no component with id "' + id + '"'); return; }
     // A function in an update -- a new formatter, a form rule's validator --
     // travels as source too
@@ -566,7 +615,7 @@
     if (!SAFE_NAME.test(msg.method)) { warn('call: refusing method name "' + msg.method + '"'); return; }
     var args = msg.args || [];
     if (!Array.isArray(args)) args = [args];
-    var host = document.getElementById(msg.id);
+    var host = byId(msg.id);
     // A component drawn as markup with a binding of its own (a drawer)
     // lists its methods on the element
     if (host && !host.hasAttribute('data-shiny-vue') && host._svMethods &&
@@ -641,7 +690,10 @@
     // Only a component with a value is an input; the others are mounted all
     // the same, but binding them would add an input$<id> of NULL for each.
     getId: function(el) {
-      return (el._shinyVueSpec && el._shinyVueSpec.input) ? el.id : null;
+      // one an output holds reports through reportFromOutput(), unbound
+      if (!(el._shinyVueSpec && el._shinyVueSpec.input)) return null;
+      if (el.hasAttribute('data-shiny-vue-id')) return null;
+      return el.id;
     },
     getType: function(el) {
       return (el._shinyVueSpec && el._shinyVueSpec.type) || false;

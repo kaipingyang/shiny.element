@@ -208,6 +208,7 @@
 <li>
 <code>el_table_config()</code> is gone: <code><a href="../reference/el_table.html">el_table()</a></code> takes a data.frame as it is, and <code><a href="../reference/el_table_column.html">el_table_column()</a></code> writes the columns.</li>
 <li>Update functions take <code>NULL</code> as “leave it”, as Shiny’s do; <code>NA</code> returns a prop to Element’s default.</li>
+<li>A table in an app is an output: <code><a href="../reference/el_table_output.html">el_table_output()</a></code> and <code><a href="../reference/el_table_output.html">render_el_table()</a></code>. <code>input$&lt;id&gt;</code> is the selected row numbers, and <code>input$&lt;id&gt;_selection_change</code> the selected rows, <code>data[rows, , drop = FALSE]</code> of the data rendered; <code>input$&lt;id&gt;_selected</code> and <code>input$&lt;id&gt;_selected_rows</code> are gone. A table reports five of Element’s events unasked – <code>selection-change</code>, <code>current-change</code>, <code>sort-change</code>, <code>filter-change</code>, <code>expand-change</code> – and the others when asked, with <code>el_table(events =)</code> or <code><a href="../reference/el_on.html">el_on()</a></code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="items-as-functions-0-1-0">Items as functions<a class="anchor" aria-label="anchor" href="#items-as-functions-0-1-0"></a></h3>
@@ -249,6 +250,14 @@
 </div>
 <div class="section level3">
 <h3 id="tables-0-1-0">Tables<a class="anchor" aria-label="anchor" href="#tables-0-1-0"></a></h3>
+<p>A table is an output in an app, as DT’s and reactable’s are: <code>el_table_output("tbl")</code> in the UI, <code>output$tbl &lt;- render_el_table(el_table(data = ...))</code> in the server. Rendered again, it is patched in place: the same rows keep the user’s ticks, sort and open rows. Its inputs are named after the output:</p>
+<ul><li>
+<code>input$tbl</code>, the selected row numbers, integers – the table as an input, as gt’s is: it goes into bookmarks, and a bookmarked selection is ticked again.</li>
+<li>
+<code>input$tbl_selection_change</code>, the selected rows as R subsets them, <code>data[rows, , drop = FALSE]</code>: factors, Dates and row names as rendered, the input handler subsetting the data the server kept.</li>
+<li>
+<code>input$tbl_current_change</code>, <code>_sort_change</code>, <code>_filter_change</code> and <code>_expand_change</code>, always; Element’s other events – <code>row-dblclick</code>, <code>cell-click</code> and the rest – when asked, with <code>el_table(events =)</code> or piped, <code>el_table(...) |&gt; el_on("row-dblclick")</code>, under Element’s name in snake_case or an input of one’s own (<code>el_on("cell-click", input = "picked")</code>).</li>
+</ul><p><code><a href="../reference/el_table.html">el_table()</a></code> returns the table’s specification, drawn when placed, as an htmlwidget is; without Shiny – R Markdown, Quarto, the site – it is placed as it is, with no id.</p>
 <p><code><a href="../reference/el_table.html">el_table()</a></code> columns may carry a <code>cell</code> template, drawn once per row with <code>scope.row</code> in reach – a status tag, a progress bar, a column of buttons – and a <code>type</code> of <code>"index"</code> or <code>"expand"</code>. A button in a cell reports with <code>rowAction('edit', scope)</code>, setting <code>input$&lt;id&gt;_edit</code> to the row’s number and the row. <code>loading</code> shows Element’s loading mask, from the server too.</p>
 <p><code><a href="../reference/el_table.html">el_table()</a></code> draws no column borders by default, as Element does; pass <code>border = TRUE</code> for them.</p>
 <p><code>update_el_table(data =)</code> keeps the columns the table was created with. It used to re-infer them from the new data, discarding every label, formatter and template.</p>

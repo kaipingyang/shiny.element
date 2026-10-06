@@ -97,7 +97,6 @@ ui <- el_page(
       ),
       el_main(
         el_table(
-          "people",
           data = rows,
           columns = list(
             list(prop = "date", label = "Date", width = "140"),
@@ -241,30 +240,7 @@ ui <- el_page(
           span = 10,
           el_card(
             header = "Products",
-            el_table(
-              "products",
-              columns = list(
-                list(type = "index", label = "#", width = "50"),
-                list(prop = "product", label = "Product"),
-                list(
-                  prop = "revenue",
-                  label = "Revenue",
-                  align = "right",
-                  formatter = JS(
-                    "function(r, c, v) { return '$' + v.toLocaleString(); }"
-                  )
-                ),
-                list(
-                  prop = "share",
-                  label = "Share",
-                  width = "130",
-                  cell = el$progress(
-                    ":percentage" = "scope.row.share",
-                    ":stroke-width" = "8"
-                  )
-                )
-              )
-            )
+            el_table_output("products")
           )
         )
       )
@@ -300,13 +276,40 @@ server <- function(input, output, session) {
       "best",
       value = if (length(by_month)) 100 * max(by_month) / sum(by_month) else 0
     )
+  })
 
+  output$products <- render_el_table({
+    d <- picked()
+    req(nrow(d) > 0)
     by_product <- aggregate(revenue ~ product, d, sum)
     by_product <- by_product[order(-by_product$revenue), ]
     by_product$share <- round(
       100 * by_product$revenue / sum(by_product$revenue)
     )
-    update_el_table(session, "products", data = by_product)
+    el_table(
+      data = by_product,
+      columns = list(
+        list(type = "index", label = "#", width = "50"),
+        list(prop = "product", label = "Product"),
+        list(
+          prop = "revenue",
+          label = "Revenue",
+          align = "right",
+          formatter = JS(
+            "function(r, c, v) { return '$' + v.toLocaleString(); }"
+          )
+        ),
+        list(
+          prop = "share",
+          label = "Share",
+          width = "130",
+          cell = el$progress(
+            ":percentage" = "scope.row.share",
+            ":stroke-width" = "8"
+          )
+        )
+      )
+    )
   })
 
   output$trend <- renderPlot({
@@ -492,13 +495,7 @@ ui <- el_page(
       disabled = TRUE
     )
   ),
-  el_table(
-    "orders",
-    selection = TRUE,
-    row_key = "id",
-    columns = columns,
-    empty_text = "No orders match"
-  ),
+  el_table_output("orders"),
   tags$div(
     style = "margin-top: 16px; text-align: right",
     el_pagination(
@@ -617,16 +614,20 @@ server <- function(input, output, session) {
   observe({
     update_el_pagination(session, "pager", total = nrow(matching()))
   })
-  observe({
-    update_el_table(session, "orders", data = page())
-  })
+  output$orders <- render_el_table(el_table(
+    data = page(),
+    selection = TRUE,
+    row_key = "id",
+    columns = columns,
+    empty_text = "No orders match"
+  ))
 
   # ── selection ────────────────────────────────────────────────────────────
   observe({
     update_el_button(
       session,
       "remove_many",
-      disabled = !length(input$orders_selected_rows)
+      disabled = !length(input$orders)
     )
   })
 
@@ -710,7 +711,7 @@ server <- function(input, output, session) {
   }
   observeEvent(input$orders_delete, ask_delete(input$orders_delete$row$id))
   observeEvent(input$remove_many, {
-    ask_delete(page()$id[input$orders_selected_rows])
+    ask_delete(input$orders_selection_change$id)
   })
   observeEvent(input$confirm_delete, {
     req(identical(input$confirm_delete, "confirm"))
@@ -876,13 +877,7 @@ ui <- el_page(
       disabled = TRUE
     )
   ),
-  el_table(
-    "orders",
-    selection = TRUE,
-    row_key = "id",
-    columns = columns,
-    empty_text = "No orders match"
-  ),
+  el_table_output("orders"),
   tags$div(
     style = "margin-top: 16px; text-align: right",
     el_pagination(
@@ -1001,16 +996,20 @@ server <- function(input, output, session) {
   observe({
     update_el_pagination(session, "pager", total = nrow(matching()))
   })
-  observe({
-    update_el_table(session, "orders", data = page())
-  })
+  output$orders <- render_el_table(el_table(
+    data = page(),
+    selection = TRUE,
+    row_key = "id",
+    columns = columns,
+    empty_text = "No orders match"
+  ))
 
   # ── selection ────────────────────────────────────────────────────────────
   observe({
     update_el_button(
       session,
       "remove_many",
-      disabled = !length(input$orders_selected_rows)
+      disabled = !length(input$orders)
     )
   })
 
@@ -1094,7 +1093,7 @@ server <- function(input, output, session) {
   }
   observeEvent(input$orders_delete, ask_delete(input$orders_delete$row$id))
   observeEvent(input$remove_many, {
-    ask_delete(page()$id[input$orders_selected_rows])
+    ask_delete(input$orders_selection_change$id)
   })
   observeEvent(input$confirm_delete, {
     req(identical(input$confirm_delete, "confirm"))

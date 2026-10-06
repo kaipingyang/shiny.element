@@ -122,6 +122,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_close_icon.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_col_gutter.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_component.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_config_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_container_part.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_css_fixes.html</loc></url>
@@ -162,6 +163,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_prop_values.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rename_option_fields.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_resolve.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_restore.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_expr.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_js.html</loc></url>
@@ -290,6 +292,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_message.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_message_box.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_notification.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_on.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_option.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_overlay_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_page.html</loc></url>
@@ -320,6 +323,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_table.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_table_column.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_table_output.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_table_row.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_table_v2.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_table_v2_column.html</loc></url>
