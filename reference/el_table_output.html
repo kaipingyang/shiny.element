@@ -200,12 +200,14 @@ function.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The output id names the table's inputs:</p><ul><li><p><code>input$&lt;id&gt;</code> – the selected row numbers, integers; <code>NULL</code> with none.</p></li>
-<li><p><code>input$&lt;id&gt;_selection_change</code> – the selected rows, <code>data[rows, , drop = FALSE]</code> of the data rendered: its columns, types and row names.</p></li>
+    <p>The output id names the table's inputs:</p><ul><li><p><code>input$&lt;id&gt;_selection_rows</code> – the selected row numbers, integers;
+<code>NULL</code> with none.</p></li>
+<li><p><code>input$&lt;id&gt;_selection_change</code> – the selected rows, <code>data[rows, , drop = FALSE]</code> of the data shown: its columns, types and row names.</p></li>
 <li><p><code>input$&lt;id&gt;_current_change</code>, <code>_sort_change</code>, <code>_filter_change</code>,
 <code>_expand_change</code> – reported by every table; any other of Element's
 events with <code>el_table(events =)</code> or <code><a href="el_on.html">el_on()</a></code>.</p></li>
-</ul><p><code><a href="el_table.html">update_el_table()</a></code> and <code><a href="call_el.html">call_el()</a></code> reach the table by the output id.</p>
+</ul><p><code><a href="el_table.html">update_el_table()</a></code> and <code><a href="call_el.html">call_el()</a></code> reach the table by the output id;
+<code><a href="el_table_data.html">el_table_data()</a></code> reads the data it shows.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

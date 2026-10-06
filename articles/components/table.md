@@ -516,8 +516,8 @@ with its `type` set to `selection`.
 
 Rows 1 and 2 cannot be ticked (`selectable`). The first button toggles
 rows 2 and 3 whatever `selectable` says, the second only where it
-allows; the rows ticked arrive as `input$multi` (their numbers) and
-`input$multi_selection_change` (the rows).
+allows; the rows ticked arrive as `input$multi_selection_rows` (their
+numbers) and `input$multi_selection_change` (the rows).
 
 ``` r
 
@@ -1440,10 +1440,11 @@ and the output’s id names the table’s inputs. The table above every
 example on this page is
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 alone, which is how it goes in R Markdown, Quarto or a static page. \|
-Input \| Value \| \|—\|—\| \| `input$cars` \| the selected row numbers,
-integers; `NULL` with none \| \| `input$cars_selection_change` \| the
-selected rows, `data[rows, , drop = FALSE]`: the columns, types and row
-names rendered \| \| `input$cars_current_change`, `_sort_change`,
+Input \| Value \| \|—\|—\| \| `input$cars_selection_rows` \| the
+selected row numbers, integers; `NULL` with none \| \|
+`input$cars_selection_change` \| the selected rows,
+`data[rows, , drop = FALSE]`: the columns, types and row names as R
+holds them \| \| `input$cars_current_change`, `_sort_change`,
 `_filter_change`, `_expand_change` \| reported by every table \| \|
 `input$cars_<event>` \| any other of Element’s events, asked for with
 [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md)
@@ -1454,7 +1455,11 @@ Element does, unless the rows carry a `row_key` and the selection column
 [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 and
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
-reach the table by the output’s id.
+reach the table by the output’s id:
+`update_el_table(insert =, replace =, delete =)` changes a few rows and
+sends only those, and
+[`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
+reads the data the table shows.
 
 ``` r
 
@@ -1485,6 +1490,116 @@ shinyApp(ui, server)
 ```
 
 ![The shiny-output example, running](../../shots/table-shiny-output.png)
+
+### Editing cells
+
+A column with `editable` is edited in place, in Element’s own input,
+input-number, select or date picker: double-click a cell, then Enter or
+leave it to commit, Escape to abandon, Tab to commit and go on to the
+next editable cell. The edit is shown at once, applied to the server’s
+copy of the data –
+[`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
+– and reported as `input$cars_cell_edit`,
+`list(row, column, value, old)` with the column’s type: a Date stays a
+Date, a factor a factor. An observer saves it, or puts the old value
+back with `update_el_table(replace =)`.
+
+``` r
+
+#'
+cars <- head(mtcars[, 1:2], 4)
+cars$made <- as.Date("2024-01-01") + 0:3
+cars$grade <- factor(c("A", "B", "A", "C"))
+
+ui <- el_page(
+  el_table_output("cars"),
+  verbatimTextOutput("edited")
+)
+
+server <- function(input, output, session) {
+  output$cars <- render_el_table(el_table(
+    data = cars,
+    columns = list(
+      el_table_column(
+        "mpg",
+        "MPG",
+        editable = "number",
+        editor = list(min = 0)
+      ),
+      el_table_column("cyl", "Cylinders"),
+      el_table_column("made", "Made", editable = "date"),
+      el_table_column(
+        "grade",
+        "Grade",
+        editable = "select",
+        editor = list(choices = c("A", "B", "C"))
+      )
+    )
+  ))
+  output$edited <- renderPrint(input$cars_cell_edit)
+}
+
+shinyApp(ui, server)
+```
+
+![The shiny-edit example, running](../../shots/table-shiny-edit.png)
+
+### Rows from the server
+
+[`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+changes a few rows and sends only those: `insert` (before row `at`, or
+at the end), `replace` (rows `at`) and `delete`. The server’s copy
+changes as R would change the data, and the rows not touched keep their
+ticks.
+[`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
+is that copy, a reactive read; `data` replaces every row, as rendering
+again does.
+
+``` r
+
+#'
+todo <- data.frame(
+  task = c("Write the docs", "Run the tests"),
+  done = c(FALSE, TRUE)
+)
+
+ui <- el_page(
+  el_button("add", "Add a task"),
+  el_button("remove", "Remove the ticked"),
+  el_table_output("todo"),
+  textOutput("count")
+)
+
+server <- function(input, output, session) {
+  output$todo <- render_el_table(el_table(
+    data = todo,
+    selection = TRUE,
+    columns = list(
+      el_table_column("task", "Task", editable = TRUE),
+      el_table_column("done", "Done")
+    )
+  ))
+  observeEvent(input$add, {
+    update_el_table(
+      session,
+      "todo",
+      insert = data.frame(task = paste("Task", input$add), done = FALSE),
+      at = 1
+    )
+  })
+  observeEvent(input$remove, {
+    req(input$todo_selection_rows)
+    update_el_table(session, "todo", delete = input$todo_selection_rows)
+  })
+  output$count <- renderText(
+    paste(nrow(el_table_data(id = "todo")), "tasks")
+  )
+}
+
+shinyApp(ui, server)
+```
+
+![The shiny-rows example, running](../../shots/table-shiny-rows.png)
 
 ## API
 
@@ -1546,7 +1661,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 |----|----|----|
 | `select` | `input$<id>_select`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user clicks the checkbox in a row |
 | `select-all` | `input$<id>_select_all`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user clicks the checkbox in table header |
-| `selection-change` | `input$<id>_selection_change`, the rows; `input$<id>`, their numbers | triggers when selection changes |
+| `selection-change` | `input$<id>_selection_change`, the rows; `input$<id>_selection_rows`, their numbers | triggers when selection changes |
 | `cell-mouse-enter` | `input$<id>_cell_mouse_enter`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when hovering into a cell |
 | `cell-mouse-leave` | `input$<id>_cell_mouse_leave`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when hovering out of a cell |
 | `cell-click` | `input$<id>_cell_click`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when clicking a cell |
@@ -1577,7 +1692,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `clearSelection` | `call_el(session, id, "clearSelection")` | used in multiple selection Table, clear user selection |
-| `getSelectionRows` | `call_el(session, id, "getSelectionRows")` | returns the currently selected rows |
+| `getSelectionRows` | `input$<id>_selection_rows`; `call_el(session, id, "getSelectionRows")` | returns the currently selected rows |
 | `getHalfSelectionRows` | `call_el(session, id, "getHalfSelectionRows")` | returns the currently half-selected rows |
 | `toggleRowSelection` | `call_el(session, id, "toggleRowSelection")` | used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected |
 | `toggleAllSelection` | `call_el(session, id, "toggleAllSelection")` | used in multiple selection Table, toggle select all and deselect all |

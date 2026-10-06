@@ -22,7 +22,8 @@ el_tree_node(key)
 
 - index:
 
-  A row's number, 1-based, as a table's `input$<id>` reports them.
+  A row's number, 1-based, as a table's `input$<id>_selection_rows`
+  reports them.
 
 - name:
 

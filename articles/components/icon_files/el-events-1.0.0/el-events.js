@@ -298,6 +298,14 @@
   se.rowIndex = function (vm, row) {
     if (!row || !vm || !vm.tableData) return null;
     var i = vm.tableData.indexOf(row);
+    // a row replaced by update_el_table() is a new object; Element keeps
+    // the old one ticked by its row-key, and so is it found here
+    var key = vm.rowKey;
+    if (i < 0 && typeof key === 'string' && row[key] !== undefined) {
+      for (var k = 0; k < vm.tableData.length; k++) {
+        if (vm.tableData[k] && vm.tableData[k][key] === row[key]) { i = k; break; }
+      }
+    }
     return i < 0 ? null : i + 1;
   };
 

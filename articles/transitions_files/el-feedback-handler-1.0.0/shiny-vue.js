@@ -223,6 +223,7 @@
                            rate: spec.rate || null };
     watchDisabled(host, vm);
     reportFromOutput(host, vm);
+    applyPending(host);
     boxTrigger(host);
     host._svInitial = initialValues(host, vm);
     return vm;
@@ -243,15 +244,18 @@
     vm.$watch(function() { return get(this); }, send, { deep: true });
     if (Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send();
     else if (window.jQuery) jQuery(document).one('shiny:connected', send);
-    // updates that came before the component was drawn
-    var output = document.getElementById(id);
-    if (output && output._svPending) {
-      var pending = output._svPending;
-      output._svPending = null;
-      Promise.resolve().then(function() {
-        pending.forEach(function(data) { sv.update(id, data); });
-      });
-    }
+  }
+
+  // Updates sent to an output before it drew its component, applied now
+  function applyPending(host) {
+    var id = host.getAttribute('data-shiny-vue-id');
+    var output = id && document.getElementById(id);
+    if (!output || !output._svPending) return;
+    var pending = output._svPending;
+    output._svPending = null;
+    Promise.resolve().then(function() {
+      pending.forEach(function(data) { sv.update(id, data); });
+    });
   }
 
   // Bootstrap's tooltip and popover -- bslib's tooltip() and popover() --

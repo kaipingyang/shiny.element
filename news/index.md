@@ -160,13 +160,13 @@ first.
   [`el_table_output()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md)
   and
   [`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md).
-  `input$<id>` is the selected row numbers, and
+  `input$<id>_selection_rows` is the selected row numbers, and
   `input$<id>_selection_change` the selected rows,
-  `data[rows, , drop = FALSE]` of the data rendered;
-  `input$<id>_selected` and `input$<id>_selected_rows` are gone. A table
-  reports five of Element’s events unasked – `selection-change`,
-  `current-change`, `sort-change`, `filter-change`, `expand-change` –
-  and the others when asked, with `el_table(events =)` or
+  `data[rows, , drop = FALSE]` of the data shown; `input$<id>_selected`
+  and `input$<id>_selected_rows` are gone. A table reports five of
+  Element’s events unasked – `selection-change`, `current-change`,
+  `sort-change`, `filter-change`, `expand-change` – and the others when
+  asked, with `el_table(events =)` or
   [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md).
 
 ### Items as functions
@@ -362,18 +362,33 @@ A table is an output in an app, as DT’s and reactable’s are:
 Rendered again, it is patched in place: the same rows keep the user’s
 ticks, sort and open rows. Its inputs are named after the output:
 
-- `input$tbl`, the selected row numbers, integers – the table as an
-  input, as gt’s is: it goes into bookmarks, and a bookmarked selection
-  is ticked again.
+- `input$tbl_selection_rows`, the selected row numbers, integers – after
+  Element’s `getSelectionRows()`. It goes into bookmarks, and a
+  bookmarked selection is ticked again. `input$tbl` itself is left free:
+  Element’s table has no value of its own.
 - `input$tbl_selection_change`, the selected rows as R subsets them,
-  `data[rows, , drop = FALSE]`: factors, Dates and row names as
-  rendered, the input handler subsetting the data the server kept.
+  `data[rows, , drop = FALSE]`: factors, Dates and row names kept, the
+  input handler subsetting the data the server keeps.
 - `input$tbl_current_change`, `_sort_change`, `_filter_change` and
   `_expand_change`, always; Element’s other events – `row-dblclick`,
   `cell-click` and the rest – when asked, with `el_table(events =)` or
   piped, `el_table(...) |> el_on("row-dblclick")`, under Element’s name
   in snake_case or an input of one’s own
   (`el_on("cell-click", input = "picked")`).
+
+`el_table_column(editable =)` edits a column’s cells in place, in
+Element’s input, input-number, select or date picker: a double click
+opens the editor, Enter or leaving it commits, Escape abandons, Tab
+moves to the next editable cell. The edit is shown at once, applied to
+the server’s copy of the data, and reported as `input$<id>_cell_edit`,
+`list(row, column, value, old)` with the column’s type. Nothing Excel
+does beyond that – ranges, copy and paste, fill, undo – is attempted.
+
+`update_el_table(insert =, replace =, delete =)` changes a few rows and
+sends only those; the server’s copy of the data changes as R would
+change it, and
+[`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
+reads it, reactively. Rows not touched keep their ticks and open state.
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 returns the table’s specification, drawn when placed, as an htmlwidget

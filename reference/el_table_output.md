@@ -44,11 +44,12 @@ render_el_table(expr, env = parent.frame(), quoted = FALSE)
 
 The output id names the table's inputs:
 
-- `input$<id>` – the selected row numbers, integers; `NULL` with none.
+- `input$<id>_selection_rows` – the selected row numbers, integers;
+  `NULL` with none.
 
 - `input$<id>_selection_change` – the selected rows,
-  `data[rows, , drop = FALSE]` of the data rendered: its columns, types
-  and row names.
+  `data[rows, , drop = FALSE]` of the data shown: its columns, types and
+  row names.
 
 - `input$<id>_current_change`, `_sort_change`, `_filter_change`,
   `_expand_change` – reported by every table; any other of Element's
@@ -58,7 +59,9 @@ The output id names the table's inputs:
 [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 and
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
-reach the table by the output id.
+reach the table by the output id;
+[`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
+reads the data it shows.
 
 ## See also
 

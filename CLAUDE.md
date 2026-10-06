@@ -108,12 +108,23 @@ as htmlwidgets are, so
 can pipe events onto it;
 [`.el_resolve()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_resolve.md)
 draws specs inside UI that code reads as tags. The rendered host is
-`<id>-el` with `data-shiny-vue-id=<id>`: the bridge finds it by either,
-and it reports `input$<id>` through `Shiny.setInputValue()` with no
-binding (`reportFromOutput`), since an input binding sharing the
-output’s id makes Shiny warn (gt has that warning; rhandsontable does it
-this way). The data rendered is kept in `session$userData` so the
-`shiny.element.selection` handler returns `data[rows, , drop = FALSE]`.
+`<id>-el` with `data-shiny-vue-id=<id>`: the bridge finds it by either.
+A component with a value in an output reports `input$<id>` through
+`Shiny.setInputValue()` with no binding (`reportFromOutput`), since an
+input binding sharing the output’s id makes Shiny warn; the table has no
+value (`input$<id>` is left free) and reports `_selection_rows`. The
+data the table shows is kept per session (`.el_table_entry()`, a
+reactiveVal, read by
+[`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)):
+a render writes it only when its own data changed, an update always –
+the rule the browser’s patching follows – so the
+`shiny.element.selection` handler returns the right
+`data[rows, , drop = FALSE]`. Editable columns
+(`el_table_column(editable =)`,
+[`.el_table_editor()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_table_editor.md))
+apply an edit in the browser at once and on the server in the
+`shiny.element.cell_edit` input handler, which converts the value to the
+column’s type.
 
 ### Server to browser
 

@@ -261,6 +261,9 @@ change.
   [`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md)
   : An Element Plus table as a Shiny output
 
+- [`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
+  : The data a table shows
+
 - [`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md)
   :
 
