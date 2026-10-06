@@ -92,7 +92,10 @@ the table shows is kept per session (`.el_table_entry()`, a reactiveVal,
 read by `el_table_data()`): a render writes it only when its own data
 changed, an update always -- the rule the browser's patching follows -- so
 the `shiny.element.selection` handler returns the right `data[rows, ,
-drop = FALSE]`.
+drop = FALSE]`. Editable columns (`el_table_column(editable =)`,
+`.el_table_editor()`) apply an edit in the browser at once and on the
+server in the `shiny.element.cell_edit` input handler, which converts the
+value to the column's type.
 
 ### Server to browser
 

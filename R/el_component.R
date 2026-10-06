@@ -210,6 +210,78 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
   if (is.null(entry)) NULL else entry$shown()
 }
 
+#' A cell edit from the browser, applied to the server's data
+#'
+#' @param x What the browser sent: `table`, `row`, `column` (the prop),
+#'   `value`, `old`.
+#' @param session The session.
+#' @return `list(row, column, value, old)`: the column under its R name and
+#'   the values with its type.
+#' @noRd
+.el_table_cell_edit <- function(x, session) {
+  row <- as.integer(x$row %||% NA)
+  data <- .el_table_data(session, x$table %||% "")
+  column <- x$column
+  plain <- list(row = row, column = column, value = x$value, old = x$old)
+  if (is.null(data) || is.na(row)) {
+    return(plain)
+  }
+  if (!is.data.frame(data)) {
+    if (row > length(data)) {
+      return(plain)
+    }
+    old <- data[[row]][[column]]
+    data[[row]][[column]] <- x$value
+    .el_table_data_set(session, x$table, data)
+    return(list(row = row, column = column, value = x$value, old = old))
+  }
+  # the prop is the column's name with dots made underscores
+  name <- names(data)[gsub(".", "_", names(data), fixed = TRUE) == column]
+  if (!length(name) || row > nrow(data)) {
+    return(plain)
+  }
+  name <- name[[1]]
+  old <- data[[name]][row]
+  value <- .el_cell_value(x$value, data[[name]])
+  if (is.factor(value) && !is.na(value) && !value %in% levels(data[[name]])) {
+    levels(data[[name]]) <- c(levels(data[[name]]), as.character(value))
+  }
+  data[[name]][row] <- value
+  .el_table_data_set(session, x$table, data)
+  list(row = row, column = name, value = data[[name]][row], old = old)
+}
+
+#' A value from an editor, as the column it goes into holds values
+#' @noRd
+.el_cell_value <- function(value, column) {
+  if (is.null(value) || !length(value)) {
+    return(column[NA_integer_])
+  }
+  value <- unlist(value)[[1]]
+  if (inherits(column, "Date")) {
+    return(as.Date(value))
+  }
+  if (inherits(column, "POSIXct")) {
+    return(as.POSIXct(value, tz = attr(column, "tzone") %||% ""))
+  }
+  if (is.factor(column)) {
+    return(factor(as.character(value), levels = union(levels(column), value)))
+  }
+  if (is.integer(column)) {
+    return(as.integer(value))
+  }
+  if (is.numeric(column)) {
+    return(as.numeric(value))
+  }
+  if (is.logical(column)) {
+    return(as.logical(value))
+  }
+  if (is.character(column)) {
+    return(as.character(value))
+  }
+  value
+}
+
 #' Rows as the browser holds them, as a data.frame
 #' @noRd
 .el_rows_frame <- function(rows) {

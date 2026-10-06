@@ -9,6 +9,8 @@ el_table_column(
   label = NULL,
   ...,
   cell = NULL,
+  editable = NULL,
+  editor = NULL,
   header = NULL,
   header_html = NULL,
   filter_icon = NULL,
@@ -53,6 +55,18 @@ is then a group header, \code{el_table_column(label = "Info", el_table_column( "
 string, with \code{scope.row}, \code{scope.column} and \code{scope.$index} in reach and
 raw Element tags (\code{el$tag()}) working. A button in it reports with
 \code{rowAction('edit', scope)}; see \code{\link[=el_table]{el_table()}}.}
+
+\item{editable}{Whether the column's cells are edited in place, and
+with what: \code{TRUE} or \code{"input"} for text, \code{"number"}, \code{"select"} or
+\code{"date"} -- Element's input, input-number, select and date picker. A
+double click opens the editor; Enter or leaving it commits, Escape
+abandons, Tab commits and moves to the next editable cell. Each edit
+is shown at once, applied to the server's copy of the data
+(\code{\link[=el_table_data]{el_table_data()}}) and reported as \verb{input$<id>_cell_edit}; see
+\code{\link[=el_table]{el_table()}}. Not with \code{cell}.}
+
+\item{editor}{The editor's props, under Element's names in snake_case:
+\code{list(min = 0, precision = 2)} for a number, \code{list(choices = c("a", "b"))} for a select, \code{list(placeholder = "...")}.}
 
 \item{header}{A template for the header cell, as \code{cell} is for the
 others: a search box, a button.}

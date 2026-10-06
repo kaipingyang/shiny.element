@@ -232,6 +232,14 @@ the output:
   snake_case or an input of one's own (`el_on("cell-click", input =
   "picked")`).
 
+`el_table_column(editable =)` edits a column's cells in place, in
+Element's input, input-number, select or date picker: a double click opens
+the editor, Enter or leaving it commits, Escape abandons, Tab moves to the
+next editable cell. The edit is shown at once, applied to the server's copy
+of the data, and reported as `input$<id>_cell_edit`, `list(row, column,
+value, old)` with the column's type. Nothing Excel does beyond that --
+ranges, copy and paste, fill, undo -- is attempted.
+
 `update_el_table(insert =, replace =, delete =)` changes a few rows and
 sends only those; the server's copy of the data changes as R would change
 it, and `el_table_data()` reads it, reactively. Rows not touched keep their

@@ -197,6 +197,8 @@ ui <- el_page(
   actionButton("otbl_insert", "insert a row first"),
   actionButton("otbl_replace", "replace the first row"),
   actionButton("otbl_delete", "delete the first row"),
+  # cells edited in place, each edit applied on the server with R's types
+  el_table_output("etbl"),
 
   # Group headers: a child column's own cell and header templates used to
   # stay in its JSON, never rendered.
@@ -811,6 +813,21 @@ server <- function(input, output, session) {
     if (!is.null(shown)) {
       cat("otbl_shown", "=", paste(rownames(shown), collapse = ","), "\n")
     }
+    edited <- input$etbl_cell_edit
+    if (!is.null(edited)) {
+      cat(
+        "etbl_edit",
+        "=",
+        paste(
+          edited$row,
+          edited$column,
+          class(edited$value)[1],
+          format(edited$value)
+        ),
+        "\n"
+      )
+      cat("etbl_shown", "=", format(el_table_data(id = "etbl")$made[1]), "\n")
+    }
     picked <- input$otbl_selection_change
     if (!is.null(picked)) {
       cat(
@@ -845,6 +862,17 @@ server <- function(input, output, session) {
     update_el_table(session, "otbl", replace = car, at = 1)
   })
   observeEvent(input$otbl_delete, update_el_table(session, "otbl", delete = 1))
+  output$etbl <- render_el_table({
+    cars <- head(mtcars[, 1:2], 2)
+    cars$made <- as.Date("2020-01-01") + 0:1
+    el_table(
+      data = cars,
+      columns = list(
+        el_table_column("mpg", "MPG", editable = "number"),
+        el_table_column("made", "Made", editable = "date")
+      )
+    )
+  })
   output$otbl <- render_el_table({
     input$otbl_again
     cars <- head(mtcars[, 1:3], otbl_rows())

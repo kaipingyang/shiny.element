@@ -19,9 +19,10 @@ A demos file holds one block per upstream demo:
     Why there is no R form of it.
 
 A block may start with lines of prose (`#' text`), shown above its code,
-and chunk options (`#| shot_js = "..."`) for the screenshot. A block named
-`in-shiny`, which upstream has not, is a section of its own, "In Shiny",
-before the API: how the component is used in an app.
+and chunk options (`#| shot_js = "..."`) for the screenshot. Blocks named
+`in-shiny` or `in-shiny-<name>`, which upstream has not, make a section of
+their own, "In Shiny", before the API: how the component is used in an app,
+in the order written.
 """
 import sys, re, os, glob
 
@@ -113,13 +114,17 @@ def build(slug):
                 out.append(f"```{{r {chunk}, eval = FALSE, shot = TRUE{extra}}}\n{b['code']}\n```")
         pos = m.end()
     out.append(prose(main[pos:], slug))
-    b = demos.get("in-shiny")
-    if b:
-        used.add("in-shiny")
+    shiny = [n for n in demos if n == "in-shiny" or n.startswith("in-shiny-")]
+    if shiny:
         out.append("## In Shiny")
+    for name in shiny:
+        b = demos[name]
+        used.add(name)
         if b["note"]: out.append(b["note"])
+        # a label that is not an R keyword: `in` would not parse
+        chunk = "shiny-output" if name == "in-shiny" else "shiny-" + name[len("in-shiny-"):]
         extra = "".join(", " + o for o in b["opts"])
-        out.append(f"```{{r shiny-output, eval = FALSE, shot = TRUE{extra}}}\n{b['code']}\n```")
+        out.append(f"```{{r {chunk}, eval = FALSE, shot = TRUE{extra}}}\n{b['code']}\n```")
     out.append("## API\n\nElement Plus's tables, and beside each entry where it is in R.\n")
     out.append(f'```{{r api, echo = FALSE, results = "asis"}}\napi_tables("{slug}")\n```')
     text = "\n\n".join(x for x in out if x.strip()) + "\n"

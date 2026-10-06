@@ -1171,3 +1171,100 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
+## in-shiny-edit
+#| shot_js = "var v = document.querySelectorAll('#cars .el-table-edit-cell__value')[1]; v.dispatchEvent(new MouseEvent('dblclick', {bubbles: true}));"
+#| shot_wait = 1.5
+#' ### Editing cells
+#'
+#' A column with `editable` is edited in place, in Element's own input,
+#' input-number, select or date picker: double-click a cell, then Enter or
+#' leave it to commit, Escape to abandon, Tab to commit and go on to the
+#' next editable cell. The edit is shown at once, applied to the server's
+#' copy of the data -- `el_table_data()` -- and reported as
+#' `input$cars_cell_edit`, `list(row, column, value, old)` with the
+#' column's type: a Date stays a Date, a factor a factor. An observer saves
+#' it, or puts the old value back with `update_el_table(replace =)`.
+cars <- head(mtcars[, 1:2], 4)
+cars$made <- as.Date("2024-01-01") + 0:3
+cars$grade <- factor(c("A", "B", "A", "C"))
+
+ui <- el_page(
+  el_table_output("cars"),
+  verbatimTextOutput("edited")
+)
+
+server <- function(input, output, session) {
+  output$cars <- render_el_table(el_table(
+    data = cars,
+    columns = list(
+      el_table_column(
+        "mpg",
+        "MPG",
+        editable = "number",
+        editor = list(min = 0)
+      ),
+      el_table_column("cyl", "Cylinders"),
+      el_table_column("made", "Made", editable = "date"),
+      el_table_column(
+        "grade",
+        "Grade",
+        editable = "select",
+        editor = list(choices = c("A", "B", "C"))
+      )
+    )
+  ))
+  output$edited <- renderPrint(input$cars_cell_edit)
+}
+
+shinyApp(ui, server)
+
+## in-shiny-rows
+#| shot_js = "document.querySelector('#add_container button').click()"
+#| shot_wait = 2
+#' ### Rows from the server
+#'
+#' `update_el_table()` changes a few rows and sends only those: `insert`
+#' (before row `at`, or at the end), `replace` (rows `at`) and `delete`.
+#' The server's copy changes as R would change the data, and the rows not
+#' touched keep their ticks. `el_table_data()` is that copy, a reactive
+#' read; `data` replaces every row, as rendering again does.
+todo <- data.frame(
+  task = c("Write the docs", "Run the tests"),
+  done = c(FALSE, TRUE)
+)
+
+ui <- el_page(
+  el_button("add", "Add a task"),
+  el_button("remove", "Remove the ticked"),
+  el_table_output("todo"),
+  textOutput("count")
+)
+
+server <- function(input, output, session) {
+  output$todo <- render_el_table(el_table(
+    data = todo,
+    selection = TRUE,
+    columns = list(
+      el_table_column("task", "Task", editable = TRUE),
+      el_table_column("done", "Done")
+    )
+  ))
+  observeEvent(input$add, {
+    update_el_table(
+      session,
+      "todo",
+      insert = data.frame(task = paste("Task", input$add), done = FALSE),
+      at = 1
+    )
+  })
+  observeEvent(input$remove, {
+    req(input$todo_selection_rows)
+    update_el_table(session, "todo", delete = input$todo_selection_rows)
+  })
+  output$count <- renderText(
+    paste(nrow(el_table_data(id = "todo")), "tasks")
+  )
+}
+
+shinyApp(ui, server)

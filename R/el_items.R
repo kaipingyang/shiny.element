@@ -645,6 +645,17 @@ el_option_group <- function(label, ..., disabled = NULL) {
 #'   string, with `scope.row`, `scope.column` and `scope.$index` in reach and
 #'   raw Element tags (`el$tag()`) working. A button in it reports with
 #'   `rowAction('edit', scope)`; see [el_table()].
+#' @param editable Whether the column's cells are edited in place, and
+#'   with what: `TRUE` or `"input"` for text, `"number"`, `"select"` or
+#'   `"date"` -- Element's input, input-number, select and date picker. A
+#'   double click opens the editor; Enter or leaving it commits, Escape
+#'   abandons, Tab commits and moves to the next editable cell. Each edit
+#'   is shown at once, applied to the server's copy of the data
+#'   ([el_table_data()]) and reported as `input$<id>_cell_edit`; see
+#'   [el_table()]. Not with `cell`.
+#' @param editor The editor's props, under Element's names in snake_case:
+#'   `list(min = 0, precision = 2)` for a number, `list(choices = c("a",
+#'   "b"))` for a select, `list(placeholder = "...")`.
 #' @param header A template for the header cell, as `cell` is for the
 #'   others: a search box, a button.
 #' @param header_html Markup for the header cell, inserted as it is: pass
@@ -707,6 +718,8 @@ el_table_column <- function(
   label = NULL,
   ...,
   cell = NULL,
+  editable = NULL,
+  editor = NULL,
   header = NULL,
   header_html = NULL,
   filter_icon = NULL,
@@ -758,6 +771,8 @@ el_table_column <- function(
       label = label,
       children = if (length(children)) children,
       cell = cell,
+      editable = editable,
+      editor = editor,
       header = header,
       header_html = header_html,
       filter_icon = filter_icon,

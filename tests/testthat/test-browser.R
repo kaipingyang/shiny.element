@@ -292,6 +292,50 @@ test_that("a table output rendered again keeps the ticks of the same rows", {
   expect_equal(bdump()[["otbl_selection_rows"]], "<NULL>")
 })
 
+test_that("a cell edited in place reaches the server with its column's type", {
+  skip_if_no_browser()
+  cell <- function(r, c) {
+    sprintf(
+      "document.querySelectorAll('#etbl .el-table__body tr')[%d].querySelectorAll('td')[%d]",
+      r,
+      c
+    )
+  }
+  bev(sprintf(
+    "%s.querySelector('.el-table-edit-cell__value').dispatchEvent(new MouseEvent('dblclick', {bubbles: true}))",
+    cell(0, 1)
+  ))
+  Sys.sleep(0.5)
+  expect_true(bev(sprintf("!!%s.querySelector('.el-date-editor')", cell(0, 1))))
+  # typed, then Enter: the date picker commits
+  bev(sprintf(
+    "(function(){ var i = %s.querySelector('input'); i.value = '2024-02-29'; i.dispatchEvent(new Event('input', {bubbles: true})); i.dispatchEvent(new Event('change', {bubbles: true})); i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', code: 'Enter', bubbles: true})); })()",
+    cell(0, 1)
+  ))
+  Sys.sleep(2)
+  vals <- bdump()
+  expect_equal(vals[["etbl_edit"]], "1 made Date 2024-02-29")
+  expect_equal(vals[["etbl_shown"]], "2024-02-29")
+  expect_equal(bev(sprintf("%s.innerText.trim()", cell(0, 1))), "2024-02-29")
+  # Escape abandons
+  bev(sprintf(
+    "%s.querySelector('.el-table-edit-cell__value').dispatchEvent(new MouseEvent('dblclick', {bubbles: true}))",
+    cell(1, 0)
+  ))
+  Sys.sleep(0.5)
+  bev(sprintf(
+    "(function(){ var i = %s.querySelector('input'); i.value = '99'; i.dispatchEvent(new Event('input', {bubbles: true})); i.dispatchEvent(new KeyboardEvent('keyup', {key: 'Escape', bubbles: true})); })()",
+    cell(1, 0)
+  ))
+  Sys.sleep(1)
+  expect_false(bev(sprintf(
+    "!!%s.querySelector('.el-input-number')",
+    cell(1, 0)
+  )))
+  expect_equal(bev(sprintf("%s.innerText.trim()", cell(1, 0))), "21")
+  expect_equal(bdump()[["etbl_edit"]], "1 made Date 2024-02-29")
+})
+
 test_that("rows edited from the server keep the other rows' ticks", {
   skip_if_no_browser()
   first <- "document.querySelector('#otbl .el-table__body tr td:nth-child(2)').innerText.trim()"

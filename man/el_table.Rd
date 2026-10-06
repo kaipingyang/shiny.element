@@ -329,6 +329,7 @@ Rendered into \code{el_table_output("tbl")}, the table reports:\tabular{lll}{
    \code{input$tbl_sort_change} \tab a column is sorted \tab \code{list(column, order)}, \code{order} \code{"ascending"}, \code{"descending"} or \code{NULL} \cr
    \code{input$tbl_filter_change} \tab a column filter changes \tab the filters, \verb{list(<column key> = values)} \cr
    \code{input$tbl_expand_change} \tab a row opens or closes \tab \code{list(row_index, expanded)}, \code{expanded} the open rows' numbers (or \code{TRUE}/\code{FALSE} for tree rows) \cr
+   \code{input$tbl_cell_edit} \tab a cell of an editable column is changed (\code{el_table_column(editable =)}) \tab \code{list(row, column, value, old)}: the row number, the column's name in the data, the new value and the one it replaced, both of the column's type \cr
 }
 
 
@@ -340,6 +341,11 @@ reported when asked for, with \code{events} or \code{\link[=el_on]{el_on()}}, as
 \verb{input$tbl_<event>} in snake_case: a row event as \code{list(row_index, row, column)}, a cell event with its \code{value} too, a header event as
 \code{list(column, label)}, \code{scroll} as \code{list(scroll_left, scroll_top)} (at
 most every 200 ms).
+
+An edit is shown at once and applied to the server's copy of the data,
+so \code{\link[=el_table_data]{el_table_data()}} and \code{input$tbl_selection_change} see it; an
+observer of \code{input$tbl_cell_edit} saves it, or refuses it by putting the
+old value back: \code{update_el_table(session, "tbl", replace = row, at = input$tbl_cell_edit$row)}.
 
 \code{input$tbl} itself is not used: Element's table has no value of its own
 (no \code{v-model}), and the name stays free.

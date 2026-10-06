@@ -47,6 +47,14 @@
     },
     force = TRUE
   )
+  # A cell edited in an editable column: applied to the server's copy of
+  # the data, as the browser shows it already, and reported with R's types
+  # -- the value as the column holds it, and the value it replaced
+  shiny::registerInputHandler(
+    "shiny.element.cell_edit",
+    function(x, session, name) .el_table_cell_edit(x, session),
+    force = TRUE
+  )
   # An upload job a failed or aborted file left behind, to be let go of
   shiny::registerInputHandler(
     "shiny.element.upload_abandon",

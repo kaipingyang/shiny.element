@@ -78,8 +78,150 @@
       col$headerHtml <- .el_html_string(col$header_html, "header_html")
       col$header_html <- NULL
     }
+    # An editable column: its cells are an editor's template
+    if (!is.null(col$editable)) {
+      editable <- col$editable
+      col$editable <- NULL
+      editor <- col$editor
+      col$editor <- NULL
+      if (!isFALSE(editable)) {
+        if (!is.null(col$cell)) {
+          stop(
+            "A column is `editable` or has a `cell` template, not both.",
+            call. = FALSE
+          )
+        }
+        if (is.null(col$prop)) {
+          stop("An `editable` column needs a `prop`.", call. = FALSE)
+        }
+        col$cell <- .el_table_editor(col$prop, editable, editor)
+        col$editableProp <- col$prop
+      }
+    }
     col
   })
+}
+
+#' The cell template of an editable column
+#'
+#' The value as text; double-clicked, Element's editor for it, which Enter
+#' or leaving it commits, Escape abandons and Tab commits, moving to the
+#' next editable cell. The table's `startEdit()`, `commitEdit()` and
+#' `cancelEdit()` do the rest.
+#'
+#' @param prop The column's prop, sanitised.
+#' @param editable `TRUE` or the editor: `"input"`, `"number"`, `"select"`
+#'   or `"date"`.
+#' @param editor Props of the editor, `choices` for a select.
+#' @return Markup, the column's `cell`.
+#' @keywords internal
+.el_table_editor <- function(prop, editable, editor = NULL) {
+  kinds <- c("input", "number", "select", "date")
+  if (isTRUE(editable)) {
+    editable <- "input"
+  }
+  if (
+    !is.character(editable) || length(editable) != 1L || !editable %in% kinds
+  ) {
+    stop(
+      "`editable` is TRUE or one of ",
+      paste(dQuote(kinds, FALSE), collapse = ", "),
+      ".",
+      call. = FALSE
+    )
+  }
+  editor <- as.list(editor)
+  js <- function(x) as.character(jsonlite::toJSON(x, auto_unbox = TRUE))
+  # a value written into a template attribute: JSON with single quotes
+  lit <- function(x) {
+    gsub('"', "'", gsub("'", "\\\\u0027", js(x)), fixed = TRUE)
+  }
+  here <- sprintf("scope, %s", lit(prop))
+  commit <- sprintf("commitEdit(false, %s)", here)
+  choices <- editor$choices
+  editor$choices <- NULL
+  # the editor's own props, as Element names them
+  props <- if (length(editor)) {
+    stats::setNames(
+      lapply(editor, js),
+      paste0(":", gsub("_", "-", names(editor), fixed = TRUE))
+    )
+  }
+  common <- c(
+    list(
+      `v-if` = sprintf("isEditing(%s)", here),
+      `v-model` = "editing.value",
+      size = "small",
+      class = "el-table-edit-cell__editor",
+      style = "width: 100%",
+      `@keydown.tab.prevent` = sprintf("commitEdit(true, %s)", here),
+      `@keyup.esc` = "cancelEdit()"
+    ),
+    props
+  )
+  field <- switch(
+    editable,
+    input = do.call(
+      el$input,
+      c(common, list(`@keyup.enter` = commit, `@blur` = commit))
+    ),
+    number = do.call(
+      el$input_number,
+      c(
+        common,
+        list(
+          `controls-position` = "right",
+          `@keyup.enter` = commit,
+          `@blur` = commit
+        )
+      )
+    ),
+    select = do.call(
+      el$select,
+      c(
+        common,
+        list(
+          `automatic-dropdown` = NA,
+          `@change` = commit,
+          # closed without a choice: the edit ends
+          `@visible-change` = sprintf("$event || %s", commit),
+          el$option(
+            `v-for` = sprintf(
+              "o in %s",
+              lit(.el_normalize_choices(choices %||% character()))
+            ),
+            `:key` = "o.value",
+            `:value` = "o.value",
+            `:label` = "o.label"
+          )
+        )
+      )
+    ),
+    date = do.call(
+      el$date_picker,
+      c(
+        common,
+        list(
+          type = "date",
+          `value-format` = "YYYY-MM-DD",
+          `@change` = commit,
+          `@blur` = commit
+        )
+      )
+    )
+  )
+  htmltools::tags$div(
+    class = "el-table-edit-cell",
+    field,
+    htmltools::tags$div(
+      `v-else` = NA,
+      class = "el-table-edit-cell__value",
+      # an empty cell can still be double-clicked
+      style = "min-height: 23px; cursor: text",
+      `@dblclick` = sprintf("startEdit(%s)", here),
+      sprintf("{{ scope.row[%s] }}", lit(prop))
+    )
+  )
 }
 
 #' What each table event reports
@@ -464,6 +606,7 @@
 #' | `input$tbl_sort_change` | a column is sorted | `list(column, order)`, `order` `"ascending"`, `"descending"` or `NULL` |
 #' | `input$tbl_filter_change` | a column filter changes | the filters, `list(<column key> = values)` |
 #' | `input$tbl_expand_change` | a row opens or closes | `list(row_index, expanded)`, `expanded` the open rows' numbers (or `TRUE`/`FALSE` for tree rows) |
+#' | `input$tbl_cell_edit` | a cell of an editable column is changed (`el_table_column(editable =)`) | `list(row, column, value, old)`: the row number, the column's name in the data, the new value and the one it replaced, both of the column's type |
 #'
 #' Any other of Element's events -- `select`, `select-all`, `row-click`,
 #' `row-dblclick`, `row-contextmenu`, `cell-click`, `cell-dblclick`,
@@ -474,6 +617,12 @@
 #' column)`, a cell event with its `value` too, a header event as
 #' `list(column, label)`, `scroll` as `list(scroll_left, scroll_top)` (at
 #' most every 200 ms).
+#'
+#' An edit is shown at once and applied to the server's copy of the data,
+#' so [el_table_data()] and `input$tbl_selection_change` see it; an
+#' observer of `input$tbl_cell_edit` saves it, or refuses it by putting the
+#' old value back: `update_el_table(session, "tbl", replace = row, at =
+#' input$tbl_cell_edit$row)`.
 #'
 #' `input$tbl` itself is not used: Element's table has no value of its own
 #' (no `v-model`), and the name stays free.
@@ -1041,6 +1190,8 @@ el_table <- function(
       selection = selection,
       selected = list(),
       selectedRows = list(),
+      # the cell an editable column is editing: row, prop, value, old
+      editing = NULL,
       # rows ticked when the app was bookmarked, ticked again once drawn
       restoredRows = .el_restore(paste0(ns_id, "_selection_rows"), list()),
       loading = isTRUE(loading),
@@ -1088,6 +1239,47 @@ el_table <- function(
             "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_' + name, {row_index: se.rowIndex(this, scope.row), ",
             "row: window.shinyVue.plain(scope.row)}, {priority: 'event'}); }"
           ),
+          ns_id
+        )),
+        # Editable columns (el_table_column(editable =)): one cell at a
+        # time; a committed edit is shown at once and reported as
+        # input$<id>_cell_edit, which the server applies to its copy
+        isEditing = JS(paste0(
+          "function(scope, prop) { var e = this.editing; ",
+          "return !!e && e.row === scope.row && e.prop === prop; }"
+        )),
+        startEdit = JS(paste0(
+          "function(scope, prop) { var self = this; ",
+          "self.editing = {row: scope.row, prop: prop, value: scope.row[prop], ",
+          "old: scope.row[prop]}; self.$nextTick(function() { ",
+          "var root = self.$el && self.$el.querySelector ? self.$el : document; ",
+          "var f = root.querySelector('.el-table-edit-cell__editor input, ",
+          ".el-table-edit-cell__editor textarea'); if (f) f.focus(); }); }"
+        )),
+        cancelEdit = JS("function() { this.editing = null; }"),
+        commitEdit = JS(sprintf(
+          paste0(
+            "function(move, scope, prop) { var e = this.editing; ",
+            # a blur from an editor already left behind
+            "if (!e || (scope && (e.row !== scope.row || e.prop !== prop))) return; ",
+            "this.editing = null; ",
+            "if (e.value !== e.old) { e.row[e.prop] = e.value; ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(",
+            "'%s_cell_edit:shiny.element.cell_edit', {table: '%s', ",
+            "row: window.shinyElement.rowIndex(this, e.row), column: e.prop, ",
+            "value: e.value, old: e.old}, {priority: 'event'}); } ",
+            "if (!move) return; ",
+            # Tab: the next editable cell, along the row and on to the next
+            "var props = []; (function walk(cols) { (cols || []).forEach(function(c) { ",
+            "if (c.editableProp) props.push(c.editableProp); walk(c.children); }); })",
+            "(this.columns && this.columns.length ? this.columns : this.autoColumns); ",
+            "var i = props.indexOf(e.prop), r = this.tableData.indexOf(e.row); ",
+            "if (i < 0 || r < 0) return; ",
+            "if (i + 1 < props.length) i++; else { i = 0; r++; } ",
+            "if (r < this.tableData.length) ",
+            "this.startEdit({row: this.tableData[r]}, props[i]); }"
+          ),
+          ns_id,
           ns_id
         )),
         # input$<id>_selection_rows: the selected rows' numbers, sent again

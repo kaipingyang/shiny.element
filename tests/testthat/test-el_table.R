@@ -684,3 +684,114 @@ test_that("el_table_data() is a reactive read of the data shown", {
   update_el_table(m$session, "tbl", insert = mtcars[3, ])
   expect_equal(shiny::isolate(rows()), 3)
 })
+
+# ── editable cells ────────────────────────────────────────────────────────────
+
+test_that("an editable column draws Element's editor for its cells", {
+  html <- render_html(el_table(
+    id = "t1",
+    data = data.frame(a.b = 1, n = "x", d = "2020-01-01", k = "u"),
+    columns = list(
+      el_table_column("a.b", "A", editable = "number", editor = list(min = 0)),
+      el_table_column("n", "N", editable = TRUE),
+      el_table_column("d", "D", editable = "date"),
+      el_table_column(
+        "k",
+        "K",
+        editable = "select",
+        editor = list(choices = c("u", "v"))
+      )
+    )
+  ))
+  expect_match(html, "<el-input-number", fixed = TRUE)
+  expect_match(html, ':min="0"', fixed = TRUE)
+  # the prop as the table has it, dots made underscores
+  expect_match(html, "startEdit(scope, &#39;a_b&#39;)", fixed = TRUE)
+  expect_match(html, "<el-input v-if", fixed = TRUE)
+  expect_match(html, "<el-date-picker", fixed = TRUE)
+  expect_match(html, "value-format=\"YYYY-MM-DD\"", fixed = TRUE)
+  expect_match(html, "<el-select", fixed = TRUE)
+  expect_match(html, "&#39;value&#39;:&#39;v&#39;", fixed = TRUE)
+  expect_match(html, "t1_cell_edit:shiny.element.cell_edit", fixed = TRUE)
+  expect_match(html, '"editableProp":"a_b"', fixed = TRUE)
+
+  expect_error(
+    render_html(el_table(
+      data = data.frame(a = 1),
+      columns = list(el_table_column("a", editable = "slider"))
+    )),
+    "one of"
+  )
+  expect_error(
+    el_table(
+      data = data.frame(a = 1),
+      columns = list(el_table_column("a", editable = TRUE, cell = "x"))
+    ),
+    "not both"
+  )
+  expect_error(
+    el_table(
+      data = data.frame(a = 1),
+      columns = list(list(label = "A", editable = TRUE))
+    ),
+    "needs a `prop`"
+  )
+  # a quote in a choice does not end the template's attribute
+  html <- render_html(el_table(
+    data = data.frame(k = "u"),
+    columns = list(
+      el_table_column("k", editable = "select", editor = list(choices = "it's"))
+    )
+  ))
+  expect_match(html, "it\\u0027s", fixed = TRUE)
+})
+
+test_that("a cell edit is applied to the server's data, with the column's type", {
+  m <- edit_session()
+  cars <- head(mtcars[, 1:2], 3)
+  cars$made <- as.Date("2020-01-01") + 0:2
+  cars$kind <- factor(c("a", "b", "a"))
+  cars$n_obs <- 1:3
+  .el_table_rendered(m$session, "tbl", cars)
+  edit <- function(column, value, row = 2) {
+    .el_table_cell_edit(
+      list(
+        table = "tbl",
+        row = row,
+        column = column,
+        value = value,
+        old = NULL
+      ),
+      m$session
+    )
+  }
+  got <- edit("mpg", 33.5)
+  expect_equal(got, list(row = 2L, column = "mpg", value = 33.5, old = 21))
+  got <- edit("made", "2024-02-29")
+  expect_equal(got$value, as.Date("2024-02-29"))
+  expect_equal(got$old, as.Date("2020-01-02"))
+  got <- edit("kind", "c")
+  expect_s3_class(got$value, "factor")
+  expect_equal(as.character(got$value), "c")
+  # the prop n_obs is the column n_obs; integers stay integers
+  got <- edit("n_obs", 7)
+  expect_identical(got$value, 7L)
+  data <- .el_table_data(m$session, "tbl")
+  expect_equal(data$mpg[2], 33.5)
+  expect_equal(levels(data$kind), c("a", "b", "c"))
+  expect_identical(rownames(data), rownames(cars))
+  # a dotted column, reached by its prop
+  .el_table_rendered(m$session, "ir", head(iris, 2))
+  got <- .el_table_cell_edit(
+    list(table = "ir", row = 1, column = "Sepal_Length", value = 9, old = 5.1),
+    m$session
+  )
+  expect_equal(got$column, "Sepal.Length")
+  expect_equal(.el_table_data(m$session, "ir")$Sepal.Length[1], 9)
+  # a table the server does not hold: reported as sent
+  got <- .el_table_cell_edit(
+    list(table = "nope", row = 1, column = "a", value = "x", old = "y"),
+    m$session
+  )
+  expect_equal(got, list(row = 1L, column = "a", value = "x", old = "y"))
+})
