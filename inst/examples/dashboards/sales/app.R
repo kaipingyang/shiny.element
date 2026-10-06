@@ -101,30 +101,7 @@ ui <- el_page(
           span = 10,
           el_card(
             header = "Products",
-            el_table(
-              "products",
-              columns = list(
-                list(type = "index", label = "#", width = "50"),
-                list(prop = "product", label = "Product"),
-                list(
-                  prop = "revenue",
-                  label = "Revenue",
-                  align = "right",
-                  formatter = JS(
-                    "function(r, c, v) { return '$' + v.toLocaleString(); }"
-                  )
-                ),
-                list(
-                  prop = "share",
-                  label = "Share",
-                  width = "130",
-                  cell = el$progress(
-                    ":percentage" = "scope.row.share",
-                    ":stroke-width" = "8"
-                  )
-                )
-              )
-            )
+            el_table_output("products")
           )
         )
       )
@@ -160,13 +137,40 @@ server <- function(input, output, session) {
       "best",
       value = if (length(by_month)) 100 * max(by_month) / sum(by_month) else 0
     )
+  })
 
+  output$products <- render_el_table({
+    d <- picked()
+    req(nrow(d) > 0)
     by_product <- aggregate(revenue ~ product, d, sum)
     by_product <- by_product[order(-by_product$revenue), ]
     by_product$share <- round(
       100 * by_product$revenue / sum(by_product$revenue)
     )
-    update_el_table(session, "products", data = by_product)
+    el_table(
+      data = by_product,
+      columns = list(
+        list(type = "index", label = "#", width = "50"),
+        list(prop = "product", label = "Product"),
+        list(
+          prop = "revenue",
+          label = "Revenue",
+          align = "right",
+          formatter = JS(
+            "function(r, c, v) { return '$' + v.toLocaleString(); }"
+          )
+        ),
+        list(
+          prop = "share",
+          label = "Share",
+          width = "130",
+          cell = el$progress(
+            ":percentage" = "scope.row.share",
+            ":stroke-width" = "8"
+          )
+        )
+      )
+    )
   })
 
   output$trend <- renderPlot({

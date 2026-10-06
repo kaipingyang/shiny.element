@@ -141,13 +141,7 @@ ui <- el_page(
       disabled = TRUE
     )
   ),
-  el_table(
-    "orders",
-    selection = TRUE,
-    row_key = "id",
-    columns = columns,
-    empty_text = "No orders match"
-  ),
+  el_table_output("orders"),
   tags$div(
     style = "margin-top: 16px; text-align: right",
     el_pagination(
@@ -266,16 +260,20 @@ server <- function(input, output, session) {
   observe({
     update_el_pagination(session, "pager", total = nrow(matching()))
   })
-  observe({
-    update_el_table(session, "orders", data = page())
-  })
+  output$orders <- render_el_table(el_table(
+    data = page(),
+    selection = TRUE,
+    row_key = "id",
+    columns = columns,
+    empty_text = "No orders match"
+  ))
 
   # ── selection ────────────────────────────────────────────────────────────
   observe({
     update_el_button(
       session,
       "remove_many",
-      disabled = !length(input$orders_selected_rows)
+      disabled = !length(input$orders)
     )
   })
 
@@ -359,7 +357,7 @@ server <- function(input, output, session) {
   }
   observeEvent(input$orders_delete, ask_delete(input$orders_delete$row$id))
   observeEvent(input$remove_many, {
-    ask_delete(page()$id[input$orders_selected_rows])
+    ask_delete(input$orders_selection_change$id)
   })
   observeEvent(input$confirm_delete, {
     req(identical(input$confirm_delete, "confirm"))

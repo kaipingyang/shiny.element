@@ -2,7 +2,6 @@
 #' A table's own `loading` draws Element Plus's mask over it, as `v-loading`
 #' does; `update_el_table(loading =)` turns it on and off.
 el_table(
-  "ld_tbl",
   loading = TRUE,
   data = data.frame(
     Date = c("2016-05-02", "2016-05-04", "2016-05-01"),
@@ -19,7 +18,7 @@ ui <- el_page(
   el_button("go", "Cover the table"),
   tags$div(
     id = "covered",
-    el_table("ld_tbl2", data = data.frame(Date = "2016-05-02", Name = "John"))
+    el_table(data = data.frame(Date = "2016-05-02", Name = "John"))
   )
 )
 server <- function(input, output, session) {

@@ -82,7 +82,6 @@ ui <- el_page(
       ),
       el_main(
         el_table(
-          "people",
           data = rows,
           columns = list(
             list(prop = "date", label = "Date", width = "140"),

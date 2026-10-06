@@ -104,6 +104,14 @@ CRAN release on, a change like these goes through a deprecation first.
   `el_table_column()` writes the columns.
 * Update functions take `NULL` as "leave it", as Shiny's do; `NA` returns a
   prop to Element's default.
+* A table in an app is an output: `el_table_output()` and
+  `render_el_table()`. `input$<id>` is the selected row numbers, and
+  `input$<id>_selection_change` the selected rows, `data[rows, , drop =
+  FALSE]` of the data rendered; `input$<id>_selected` and
+  `input$<id>_selected_rows` are gone. A table reports five of Element's
+  events unasked -- `selection-change`, `current-change`, `sort-change`,
+  `filter-change`, `expand-change` -- and the others when asked, with
+  `el_table(events =)` or `el_on()`.
 
 ## Items as functions
 
@@ -203,6 +211,29 @@ its content when first shown. Messages and notifications given an `id` can be
 closed by it (`el_message_close()`, `el_notification_close()`).
 
 ## Tables
+
+A table is an output in an app, as DT's and reactable's are:
+`el_table_output("tbl")` in the UI, `output$tbl <- render_el_table(el_table(data
+= ...))` in the server. Rendered again, it is patched in place: the same
+rows keep the user's ticks, sort and open rows. Its inputs are named after
+the output:
+
+* `input$tbl`, the selected row numbers, integers -- the table as an input,
+  as gt's is: it goes into bookmarks, and a bookmarked selection is ticked
+  again.
+* `input$tbl_selection_change`, the selected rows as R subsets them,
+  `data[rows, , drop = FALSE]`: factors, Dates and row names as rendered,
+  the input handler subsetting the data the server kept.
+* `input$tbl_current_change`, `_sort_change`, `_filter_change` and
+  `_expand_change`, always; Element's other events -- `row-dblclick`,
+  `cell-click` and the rest -- when asked, with `el_table(events =)` or
+  piped, `el_table(...) |> el_on("row-dblclick")`, under Element's name in
+  snake_case or an input of one's own (`el_on("cell-click", input =
+  "picked")`).
+
+`el_table()` returns the table's specification, drawn when placed, as an
+htmlwidget is; without Shiny -- R Markdown, Quarto, the site -- it is
+placed as it is, with no id.
 
 `el_table()` columns may carry a `cell` template, drawn once per row with
 `scope.row` in reach -- a status tag, a progress bar, a column of buttons --

@@ -507,7 +507,8 @@ for m in re.finditer(r'\b(el_[a-z0-9_]+)\(', fixture):
     near = re.search(r'"(m_[a-z0-9]+)"', fixture[m.end():m.end() + 160])
     if near and near.group(1) not in id_fn and \
             not fixture[m.end():m.end() + near.start()].count("("):
-        id_fn[near.group(1)] = m.group(1)
+        # el_table_output("m_table") holds an el_table()
+        id_fn[near.group(1)] = re.sub(r"_output$", "", m.group(1))
 ran = set()
 for c in re.finditer(r'list\(\s*id = "(m_[a-z0-9]+)",\s*(?:component = "([A-Za-z]+)",\s*)?method = "([A-Za-z]+)"', fixture):
     fn = id_fn.get(c.group(1))
@@ -690,12 +691,19 @@ def r_name(slug, tag, kind, name):
         for fn in fns:
             x = (ours.get(fn) or {}).get("forwarded") or []
             fw |= set([x] if isinstance(x, str) else x)
+        asked = set()
+        for fn in fns:
+            x = (ours.get(fn) or {}).get("on_request") or []
+            asked |= set([x] if isinstance(x, str) else x)
+        if name in asked: return f"`input$<id>_{snake}`, with `el_on()`"
         if name in fw: return f"`input$<id>_{snake}`"
         # A container's binding reports its events itself
         tags_js = {"el-tabs": "el-tabs-binding.js", "el-collapse": "el-collapse-binding.js",
                    "el-dialog": "el-overlay-binding.js", "el-drawer": "el-overlay-binding.js"}
         if tag in tags_js and re.search(r"['\"]_" + snake + r"['\"]", _js(tags_js[tag])):
             return f"`input$<id>_{snake}`"
+        if tag == "el-table" and name == "selection-change":
+            return "`input$<id>_selection_change`, the rows; `input$<id>`, their numbers"
         if name in ("change", "input"): return "`input$<id>`, the value"
         return "one of the component's inputs -- see its reference page"
     if kind == "Methods":

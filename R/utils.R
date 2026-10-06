@@ -29,6 +29,8 @@
 #' @param throttle Events that fire on every frame -- a scroll, a drag --
 #'   sent at most every 200 ms, the last one always: the server hears where
 #'   the scroll or the drag ended.
+#' @param inputs `c(<event> = "<input id>")`: events reported under an input
+#'   of the user's naming rather than `<ns_id>_<event>`.
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
 #' @keywords internal
@@ -36,7 +38,8 @@
   ns_id,
   events,
   shapes = list(),
-  throttle = character()
+  throttle = character(),
+  inputs = character()
 ) {
   if (!length(events)) {
     return(list(attrs = list(), methods = list()))
@@ -52,7 +55,13 @@
       )
     )
   }
-  input_name <- function(event) gsub("-", "_", event, fixed = TRUE)
+  # emit() names the input <id>_<event>, or <id> alone given no event
+  target <- function(event) {
+    if (event %in% names(inputs)) {
+      return(c(inputs[[event]], ""))
+    }
+    c(ns_id, gsub("-", "_", event, fixed = TRUE))
+  }
 
   attrs <- stats::setNames(
     lapply(events, method_name),
@@ -66,11 +75,12 @@
     lapply(events, function(event) {
       shape <- shapes[[event]]
       wait <- if (event %in% throttle) ", 200" else ""
+      to <- target(event)
       if (is.null(shape)) {
         return(JS(sprintf(
           "function() { window.shinyVue.emit('%s', '%s', arguments%s); }",
-          ns_id,
-          input_name(event),
+          to[1],
+          to[2],
           wait
         )))
       }
@@ -84,8 +94,8 @@
           "window.shinyVue.emit('%s', '%s', [v]%s); }"
         ),
         shape,
-        ns_id,
-        input_name(event),
+        to[1],
+        to[2],
         wait
       ))
     }),

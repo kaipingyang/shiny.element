@@ -96,7 +96,6 @@ el_popover(
   popover_width = 400,
   placement = "right",
   body = el_table(
-    "addresses",
     data = data.frame(
       date = c("2016-05-02", "2016-05-04"),
       name = c("Jack", "Jack"),

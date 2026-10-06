@@ -287,13 +287,8 @@ ui <- el_page(
   el_select("m_sel", choices = c("a", "b")),
   el_select_v2("m_selv2", options = list(list(value = "a", label = "A"))),
   el_switch("m_switch"),
-  el_table(
-    id = "m_table",
-    data = data.frame(x = 1:3, y = c("a", "b", "c")),
-    selection = TRUE,
-    row_key = "x",
-    height = 120
-  ),
+  # an output: call_el() reaches the table by the output's id
+  el_table_output("m_table"),
   el_table_v2(
     "m_tv2",
     data = data.frame(x = 1:100),
@@ -404,6 +399,12 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
+  output$m_table <- render_el_table(el_table(
+    data = data.frame(x = 1:3, y = c("a", "b", "c")),
+    selection = TRUE,
+    row_key = "x",
+    height = 120
+  ))
   late <- reactiveVal(FALSE)
   later::later(function() late(TRUE), 2)
   # one value for a field that holds several

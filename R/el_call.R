@@ -122,7 +122,7 @@ call_el <- function(
 #' `collapseNode(node)`. These stand for the object instead, and the page
 #' puts the real one in its place before the method runs.
 #'
-#' @param index A row's number, 1-based, as `input$<id>_selected_rows`
+#' @param index A row's number, 1-based, as a table's `input$<id>`
 #'   reports them.
 #' @param name A file's name, as it shows in the upload's list.
 #' @param key A node's key: the field `node_key` names, or the tree's

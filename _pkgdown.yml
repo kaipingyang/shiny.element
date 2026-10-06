@@ -369,6 +369,7 @@ reference:
       - el_skeleton
       - el_skeleton_item
       - el_table
+      - el_table_output
       - el_table_column
       - el_table_v2
       - el_table_v2_column
@@ -430,9 +431,10 @@ reference:
 
   - title: From the server
     desc: >
-      Element Plus's methods, the objects they need, and the data a component asks the server for.
+      Element Plus's methods, the objects they need, the events a component reports, and the data a component asks the server for.
     contents:
       - call_el
+      - el_on
       - el_table_row
       - el_load_children
 

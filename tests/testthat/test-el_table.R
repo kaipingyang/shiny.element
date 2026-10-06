@@ -77,10 +77,14 @@ test_that(".el_table_sanitize_columns: a config without prop survives", {
 
 # ── el_table ──────────────────────────────────────────────────────────────────
 
-test_that("el_table: returns a tagList with the container id", {
+test_that("el_table: returns its specification, drawn as a tagList", {
   tb <- el_table(id = "t1", data = head(iris, 2))
-  expect_true(inherits(tb, "shiny.tag.list"))
+  expect_s3_class(tb, c("el_table", "el_component"))
+  expect_s3_class(htmltools::as.tags(tb), "shiny.tag.list")
   expect_match(render_html(tb), 'id="t1_container"')
+  expect_identical(as.character(tb), as.character(htmltools::as.tags(tb)))
+  # placed in other UI, it is drawn there
+  expect_match(render_html(htmltools::div(tb)), 'id="t1_container"')
 })
 
 test_that("el_table: columns render via v-for so they stay updatable", {
@@ -112,14 +116,113 @@ test_that("el_table: selection column is bound to the reactive flag", {
   expect_match(html, '@selection-change')
 })
 
-test_that("el_table: reports selected rows as well as selected row objects", {
+test_that("el_table: reports the selected row numbers and the rows", {
   html <- render_html(el_table(
     id = "t1",
     data = head(iris, 2),
     selection = TRUE
   ))
-  expect_match(html, 't1_selected', fixed = TRUE)
-  expect_match(html, 't1_selected_rows', fixed = TRUE)
+  # input$t1: the row numbers, typed by their handler
+  expect_match(html, '"type":"shiny.element.rows"', fixed = TRUE)
+  expect_match(
+    html,
+    "t1_selection_change:shiny.element.selection",
+    fixed = TRUE
+  )
+  expect_match(html, "table: 't1'", fixed = TRUE)
+  expect_false(grepl("t1_selected", html, fixed = TRUE))
+})
+
+test_that("el_table: the default events are reported, others when asked", {
+  html <- render_html(el_table(id = "t1", data = head(iris, 2)))
+  for (event in c("current_change", "sort_change", "filter_change")) {
+    expect_match(html, paste0("'t1', '", event, "'"), fixed = TRUE)
+  }
+  expect_false(grepl("row_dblclick", html, fixed = TRUE))
+  expect_false(grepl("cell_mouse_enter", html, fixed = TRUE))
+
+  asked <- render_html(el_table(
+    id = "t1",
+    data = head(iris, 2),
+    events = c("row-dblclick", picked = "cell-click")
+  ))
+  expect_match(asked, "'t1', 'row_dblclick'", fixed = TRUE)
+  # a named event reports under that input, whole
+  expect_match(asked, "emit('picked', ''", fixed = TRUE)
+  expect_false(grepl("cell_click", asked, fixed = TRUE))
+})
+
+test_that("el_on() adds events to a table's specification", {
+  tb <- el_table(data = head(iris, 2)) |>
+    el_on("row-dblclick") |>
+    el_on("cell-click", input = "picked")
+  expect_identical(tb$args$events, c("row-dblclick", picked = "cell-click"))
+  piped <- render_html(
+    el_table(id = "t1", data = head(iris, 2)) |> el_on("row-dblclick")
+  )
+  expect_match(piped, "'t1', 'row_dblclick'", fixed = TRUE)
+
+  expect_error(el_on(htmltools::div(), "row-click"), "must be a component")
+  expect_error(el_on(tb, c("a", "b"), input = "x"), "one event")
+  expect_error(el_table(events = "row-tap"), "Not an event of el-table")
+  expect_error(el_on(tb, "row-tap"), "Not an event of el-table")
+})
+
+test_that("a table's selection arrives as R subsets its data", {
+  rows <- shiny:::inputHandlers$get("shiny.element.rows")
+  expect_identical(rows(list(2L, 4L)), c(2L, 4L))
+  expect_null(rows(list()))
+
+  selection <- shiny:::inputHandlers$get("shiny.element.selection")
+  session <- list(userData = new.env())
+  cars <- head(mtcars[, 1:3], 4)
+  cars$made <- as.Date("2020-01-01") + 0:3
+  .el_table_data_set(session, "tbl", cars)
+  got <- selection(list(table = "tbl", rows = list(2, 4)), session, "x")
+  expect_identical(got, cars[c(2, 4), , drop = FALSE])
+  expect_null(selection(list(table = "tbl", rows = list()), session, "x"))
+
+  # a table the server did not render: the rows as the browser sent them
+  sent <- list(list(a = 1, b = "x"), list(a = 2, b = "y"))
+  got <- selection(
+    list(table = "nope", rows = list(1, 2), data = sent),
+    session,
+    "x"
+  )
+  expect_equal(got, data.frame(a = c(1, 2), b = c("x", "y")))
+})
+
+test_that("render_el_table() draws the table under the output's id", {
+  cars <- head(mtcars[, 1:3], 3)
+  shiny::testServer(
+    function(input, output, session) {
+      output$tbl <- render_el_table(el_table(data = cars, selection = TRUE))
+    },
+    {
+      html <- output$tbl$html
+      expect_match(html, 'id="tbl-el"', fixed = TRUE)
+      expect_match(html, 'data-shiny-vue-id="tbl"', fixed = TRUE)
+      expect_match(html, "tbl_selection_change", fixed = TRUE)
+      expect_true(length(output$tbl$deps) > 0)
+      # the data rendered is kept for input$tbl_selection_change
+      expect_identical(.el_table_data(session, "tbl"), cars)
+    }
+  )
+  expect_error(
+    shiny::testServer(
+      function(input, output, session) {
+        output$tbl <- render_el_table(htmltools::div())
+      },
+      output$tbl
+    ),
+    "renders an el_table"
+  )
+})
+
+test_that("el_table_output() is the output's placeholder", {
+  html <- render_html(el_table_output("tbl"))
+  expect_match(html, 'id="tbl"', fixed = TRUE)
+  expect_match(html, 'class="shiny-vue-output"', fixed = TRUE)
 })
 
 test_that("el_table: empty table renders without columns", {
@@ -439,4 +542,33 @@ test_that("I() keeps a one-element cell an array", {
   df$tags <- list(c("a", "b"), I("c"))
   json <- .vue_json(list(rows = .vue_rows(df)))
   expect_match(json, '"tags":["c"]', fixed = TRUE)
+})
+
+test_that("a bookmark brings a table's ticked rows back", {
+  ctx <- shiny:::RestoreContext$new("?_inputs_&t1=%5B2%2C4%5D")
+  html <- shiny:::withRestoreContext(
+    ctx,
+    render_html(el_table(id = "t1", data = head(iris, 5), selection = TRUE))
+  )
+  expect_match(html, '"restoredRows":[2,4]', fixed = TRUE)
+  # ticked again once drawn, through Element's own toggleRowSelection
+  expect_match(html, "toggleRowSelection(r, true)", fixed = TRUE)
+  plain <- render_html(el_table(id = "t1", data = head(iris, 5)))
+  expect_match(plain, '"restoredRows":[]', fixed = TRUE)
+})
+
+test_that("a table folded into a wrapper keeps its bookmark watcher", {
+  html <- render_html(el_config_provider(
+    table = list(showOverflowTooltip = TRUE),
+    el_table(data = data.frame(a = 1))
+  ))
+  # renamed with the rest of its fields, handler included
+  watch <- regmatches(html, regexpr('"watch":\\{"[^"]*restoredRows', html))
+  expect_length(watch, 1)
+  prefixed <- sub('.*"(\\w*restoredRows)$', "\\1", watch)
+  expect_match(
+    html,
+    paste0("self.", sub("restoredRows", "tableData", prefixed)),
+    fixed = TRUE
+  )
 })

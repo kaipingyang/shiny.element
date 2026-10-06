@@ -19,7 +19,9 @@ A demos file holds one block per upstream demo:
     Why there is no R form of it.
 
 A block may start with lines of prose (`#' text`), shown above its code,
-and chunk options (`#| shot_js = "..."`) for the screenshot.
+and chunk options (`#| shot_js = "..."`) for the screenshot. A block named
+`in-shiny`, which upstream has not, is a section of its own, "In Shiny",
+before the API: how the component is used in an app.
 """
 import sys, re, os, glob
 
@@ -111,6 +113,13 @@ def build(slug):
                 out.append(f"```{{r {chunk}, eval = FALSE, shot = TRUE{extra}}}\n{b['code']}\n```")
         pos = m.end()
     out.append(prose(main[pos:], slug))
+    b = demos.get("in-shiny")
+    if b:
+        used.add("in-shiny")
+        out.append("## In Shiny")
+        if b["note"]: out.append(b["note"])
+        extra = "".join(", " + o for o in b["opts"])
+        out.append(f"```{{r shiny-output, eval = FALSE, shot = TRUE{extra}}}\n{b['code']}\n```")
     out.append("## API\n\nElement Plus's tables, and beside each entry where it is in R.\n")
     out.append(f'```{{r api, echo = FALSE, results = "asis"}}\napi_tables("{slug}")\n```')
     text = "\n\n".join(x for x in out if x.strip()) + "\n"

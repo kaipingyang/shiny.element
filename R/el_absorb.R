@@ -21,6 +21,8 @@
 #'   back as `markup` with everything else empty.
 #' @keywords internal
 .el_absorb <- function(ui) {
+  # a component given as its specification (el_table()) is drawn first
+  ui <- .el_resolve(ui)
   empty <- list(
     markup = ui,
     data = list(),
@@ -303,7 +305,14 @@
     }
   }
   if (length(absorbed$watch)) {
-    absorbed$watch <- lapply(absorbed$watch, .el_rewrite_js, rename = rename)
+    # a watcher is a function, or list(handler =, immediate =, deep =)
+    absorbed$watch <- lapply(absorbed$watch, function(w) {
+      if (is.list(w)) {
+        w$handler <- .el_rewrite_js(w$handler, rename)
+        return(w)
+      }
+      .el_rewrite_js(w, rename)
+    })
   }
   absorbed
 }

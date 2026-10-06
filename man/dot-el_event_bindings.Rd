@@ -4,7 +4,13 @@
 \alias{.el_event_bindings}
 \title{Forward Element Plus events to Shiny inputs}
 \usage{
-.el_event_bindings(ns_id, events, shapes = list(), throttle = character())
+.el_event_bindings(
+  ns_id,
+  events,
+  shapes = list(),
+  throttle = character(),
+  inputs = character()
+)
 }
 \arguments{
 \item{ns_id}{The namespaced element id.}
@@ -20,6 +26,9 @@ emission. Without a shape, several arguments are sent as \code{arg1}, \code{arg2
 \item{throttle}{Events that fire on every frame -- a scroll, a drag --
 sent at most every 200 ms, the last one always: the server hears where
 the scroll or the drag ended.}
+
+\item{inputs}{\verb{c(<event> = "<input id>")}: events reported under an input
+of the user's naming rather than \verb{<ns_id>_<event>}.}
 }
 \value{
 A list with \code{attrs} (to merge into the tag) and \code{methods} (to merge

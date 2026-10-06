@@ -15078,7 +15078,7 @@
 "type": "^[Function]`<T = DefaultRow>(selection: T[], row: T) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_select`"
+"r": "`input$<id>_select`, with `el_on()`"
 },
 {
 "name": "select-all",
@@ -15086,7 +15086,7 @@
 "type": "^[Function]`<T = DefaultRow>(selection: T[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_select_all`"
+"r": "`input$<id>_select_all`, with `el_on()`"
 },
 {
 "name": "selection-change",
@@ -15094,7 +15094,7 @@
 "type": "^[Function]`<T = DefaultRow>(newSelection: T[]) => void`",
 "accepted": "",
 "default": "",
-"r": "one of the component's inputs -- see its reference page"
+"r": "`input$<id>_selection_change`, the rows; `input$<id>`, their numbers"
 },
 {
 "name": "cell-mouse-enter",
@@ -15102,7 +15102,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_mouse_enter`"
+"r": "`input$<id>_cell_mouse_enter`, with `el_on()`"
 },
 {
 "name": "cell-mouse-leave",
@@ -15110,7 +15110,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_mouse_leave`"
+"r": "`input$<id>_cell_mouse_leave`, with `el_on()`"
 },
 {
 "name": "cell-click",
@@ -15118,7 +15118,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_click`"
+"r": "`input$<id>_cell_click`, with `el_on()`"
 },
 {
 "name": "cell-dblclick",
@@ -15126,7 +15126,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_dblclick`"
+"r": "`input$<id>_cell_dblclick`, with `el_on()`"
 },
 {
 "name": "cell-contextmenu",
@@ -15134,7 +15134,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_contextmenu`"
+"r": "`input$<id>_cell_contextmenu`, with `el_on()`"
 },
 {
 "name": "row-click",
@@ -15142,7 +15142,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T> \\| null, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_row_click`"
+"r": "`input$<id>_row_click`, with `el_on()`"
 },
 {
 "name": "row-contextmenu",
@@ -15150,7 +15150,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T> \\| null, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_row_contextmenu`"
+"r": "`input$<id>_row_contextmenu`, with `el_on()`"
 },
 {
 "name": "row-dblclick",
@@ -15158,7 +15158,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T> \\| null, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_row_dblclick`"
+"r": "`input$<id>_row_dblclick`, with `el_on()`"
 },
 {
 "name": "header-click",
@@ -15166,7 +15166,7 @@
 "type": "^[Function]`<T = DefaultRow>(column: TableColumnCtx<T>, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_header_click`"
+"r": "`input$<id>_header_click`, with `el_on()`"
 },
 {
 "name": "header-contextmenu",
@@ -15174,7 +15174,7 @@
 "type": "^[Function]`<T = DefaultRow>(column: TableColumnCtx<T>, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_header_contextmenu`"
+"r": "`input$<id>_header_contextmenu`, with `el_on()`"
 },
 {
 "name": "sort-change",
@@ -15206,7 +15206,7 @@
 "type": "^[Function]`<T = DefaultRow>(newWidth: number, oldWidth: number, column: TableColumnCtx<T>, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_header_dragend`"
+"r": "`input$<id>_header_dragend`, with `el_on()`"
 },
 {
 "name": "expand-change",
@@ -15222,7 +15222,7 @@
 "type": "^[Function]`({ scrollLeft: number, scrollTop: number }) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_scroll`"
+"r": "`input$<id>_scroll`, with `el_on()`"
 }
 ]
 },

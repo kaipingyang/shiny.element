@@ -179,8 +179,20 @@ ui <- el_page(
   actionButton("step_next", "next step"),
 
   # Table: a data.frame used to serialise column-wise and render nothing.
-  el_table(id = "tbl", data = head(iris, 4), selection = TRUE),
+  el_table(
+    id = "tbl",
+    data = head(iris, 4),
+    selection = TRUE,
+    events = "row-click"
+  ),
   actionButton("tbl_swap", "swap table data"),
+
+  # A table as an output: input$otbl the row numbers, its selection-change
+  # the rows as R subsets them; rendered again with the same data it keeps
+  # the ticks, with other data it starts over.
+  el_table_output("otbl"),
+  actionButton("otbl_again", "render the same rows again"),
+  actionButton("otbl_more", "render other rows"),
 
   # Group headers: a child column's own cell and header templates used to
   # stay in its JSON, never rendered.
@@ -720,7 +732,8 @@ server <- function(input, output, session) {
       "col",
       "rg_num",
       "stp",
-      "tbl_selected_rows",
+      "tbl",
+      "otbl",
       "casc",
       "sw_nested",
       "sld_nested",
@@ -790,6 +803,30 @@ server <- function(input, output, session) {
       }
     }
     cat("raw_row_click", "=", fmt(input$tbl_row_click), "\n")
+    picked <- input$otbl_selection_change
+    if (!is.null(picked)) {
+      cat(
+        "otbl_picked",
+        "=",
+        paste(class(picked$made), paste(rownames(picked), collapse = ",")),
+        "\n"
+      )
+    }
+  })
+
+  otbl_rows <- reactiveVal(4)
+  # sent before the table is drawn: applied once it is
+  observeEvent(
+    TRUE,
+    update_el_table(session, "otbl", stripe = TRUE),
+    once = TRUE
+  )
+  observeEvent(input$otbl_more, otbl_rows(3))
+  output$otbl <- render_el_table({
+    input$otbl_again
+    cars <- head(mtcars[, 1:3], otbl_rows())
+    cars$made <- as.Date("2020-01-01") + seq_len(nrow(cars))
+    el_table(data = cars, selection = TRUE)
   })
 
   # Prove a forwarded event reaches the server at all

@@ -13,7 +13,7 @@ el_upload_file(name)
 el_tree_node(key)
 }
 \arguments{
-\item{index}{A row's number, 1-based, as \verb{input$<id>_selected_rows}
+\item{index}{A row's number, 1-based, as a table's \verb{input$<id>}
 reports them.}
 
 \item{name}{A file's name, as it shows in the upload's list.}

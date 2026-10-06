@@ -58,7 +58,8 @@ el_table(
   table_layout = NULL,
   tooltip_formatter = NULL,
   tooltip_options = NULL,
-  session = NULL
+  session = NULL,
+  events = NULL
 )
 
 update_el_table(
@@ -113,7 +114,10 @@ update_el_table(
 )
 }
 \arguments{
-\item{id}{Table ID (auto-generated if NULL)}
+\item{id}{The table's id. Leave it out: in an app the output's id is the
+table's. A table given an id in the UI still reports its inputs, but
+its data is then fixed in the page and \verb{input$<id>_selection_change}
+gets its rows back through JSON rather than as R subsets them.}
 
 \item{data}{A data.frame, or a list of rows (each a named list). A
 data.frame is converted to rows automatically and its column names are
@@ -167,7 +171,8 @@ the table. Default \code{FALSE}, as in Element.}
 
 \item{show_header}{Whether the header row is shown. Default \code{TRUE}.}
 
-\item{highlight_current_row}{Whether the clicked row stays highlighted; pairs with \verb{input$<id>_current}.}
+\item{highlight_current_row}{Whether the clicked row stays highlighted;
+the row clicked arrives as \verb{input$<id>_current_change}.}
 
 \item{current_row_key}{Key of the row highlighted at start. Needs \code{row_key}.}
 
@@ -276,23 +281,56 @@ following tooltip component. Element Plus's \code{tooltip-options} (object).}
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_table()}, the Shiny session, the
 current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
+
+\item{events}{Element's table events to report besides the default ones,
+by Element's name: \code{c("row-dblclick", "cell-click")}. A named entry
+reports under that input instead: \code{c(picked = "cell-click")}. The same
+as piping to \code{\link[=el_on]{el_on()}}.}
 }
 \value{
-A Shiny UI element.
+An \code{el_table} object, drawn as a table wherever UI goes.
 }
 \description{
 Rows of data, with sorting, selection, fixed columns, cell templates and
 row actions that report to the server.
 }
+\details{
+In a Shiny app a table is an output, as DT's and reactable's are: the
+page holds \code{\link[=el_table_output]{el_table_output()}}, the server renders \code{el_table()} into it
+with \code{\link[=render_el_table]{render_el_table()}}, and the output's id names the table's inputs.
+Without Shiny -- R Markdown, Quarto, a pkgdown page -- \code{el_table()} is
+placed as it is, with no id.
+
+\code{el_table()} returns the table's specification, drawn when it is placed
+(as an htmlwidget is), so it can be piped to \code{\link[=el_on]{el_on()}} first.
+}
 \section{Shiny inputs}{
 
-With \code{selection = TRUE} the component reports two inputs:
-\verb{input$<id>_selected} (the selected row objects) and
-\verb{input$<id>_selected_rows} (their 1-based row numbers). Prefer the latter to
-index back into your original data: a row object with mixed column types is
-simplified to a character vector on its way back through JSON, so numbers
-arrive as strings. Both are \code{NULL} while nothing is selected, matching how
-Shiny reports an empty \code{\link[shiny:checkboxGroupInput]{shiny::checkboxGroupInput()}}.
+Rendered into \code{el_table_output("tbl")}, the table reports:\tabular{lll}{
+   Input \tab When \tab Value \cr
+   \code{input$tbl} \tab on load and when the selection changes \tab the selected row numbers, integers, 1-based in \code{data}; \code{NULL} with none \cr
+   \code{input$tbl_selection_change} \tab rows ticked or unticked \tab the selected rows, \code{data[rows, , drop = FALSE]}: columns, types and row names as rendered; \code{NULL} with none \cr
+   \code{input$tbl_current_change} \tab the highlighted row changes (\code{highlight_current_row = TRUE}) \tab \code{list(row_index, row, previous_index)} \cr
+   \code{input$tbl_sort_change} \tab a column is sorted \tab \code{list(column, order)}, \code{order} \code{"ascending"}, \code{"descending"} or \code{NULL} \cr
+   \code{input$tbl_filter_change} \tab a column filter changes \tab the filters, \verb{list(<column key> = values)} \cr
+   \code{input$tbl_expand_change} \tab a row opens or closes \tab \code{list(row_index, expanded)}, \code{expanded} the open rows' numbers (or \code{TRUE}/\code{FALSE} for tree rows) \cr
+}
+
+
+Any other of Element's events -- \code{select}, \code{select-all}, \code{row-click},
+\code{row-dblclick}, \code{row-contextmenu}, \code{cell-click}, \code{cell-dblclick},
+\code{cell-contextmenu}, \code{cell-mouse-enter}, \code{cell-mouse-leave},
+\code{header-click}, \code{header-contextmenu}, \code{header-dragend}, \code{scroll} -- is
+reported when asked for, with \code{events} or \code{\link[=el_on]{el_on()}}, as
+\verb{input$tbl_<event>} in snake_case: a row event as \code{list(row_index, row, column)}, a cell event with its \code{value} too, a header event as
+\code{list(column, label)}, \code{scroll} as \code{list(scroll_left, scroll_top)} (at
+most every 200 ms).
+
+Row numbers count rows of \code{data} as given, whatever the user's sort.
+Rendering the same data again keeps the user's ticks, sort and open rows;
+new data clears the selection, as Element does, unless rows carry a key:
+\code{row_key} and a selection column with \code{reserve_selection = TRUE} keep the
+ticked rows that are still there.
 
 With tree data, \code{lazy = TRUE} and no \code{load} of your own, the server loads
 a row's children when it is opened: \verb{input$<id>_load} asks, with \code{key}
@@ -335,9 +373,11 @@ Callable with \code{\link[=call_el]{call_el()}}:
 Changes a table from the server, as \code{\link[shiny:updateSelectInput]{shiny::updateSelectInput()}} does a
 select: every argument of \code{\link[=el_table]{el_table()}} that can change once the table is
 drawn, under the same name. One left \code{NULL} stays as it is; \code{NA} returns
-a prop to Element's default. \code{rownames}, \code{slots}, \code{width} and the
-\verb{default_*} arguments, which Element reads only when the table is
-created, are not here.
+a prop to Element's default. \code{rownames}, \code{slots}, \code{width}, \code{events} and
+the \verb{default_*} arguments, which are read only when the table is
+created, are not here. A table in \code{\link[=el_table_output]{el_table_output()}} is reached by the
+output's id; rendering it again with \code{\link[=render_el_table]{render_el_table()}} does the same
+for any argument.
 
 A column's \code{cell} template is part of the table's markup, made
 when the table is. New columns given here keep the template of the
@@ -349,11 +389,10 @@ bring a template the table was not created with.
 
 \examples{
 # A data.frame is enough -- columns are inferred
-el_table("iris_preview", data = head(iris, 3))
+el_table(data = head(iris, 3))
 
 # Explicit columns
 el_table(
-  "scores",
   data = data.frame(name = c("A", "B"), value = c(1, 2)),
   columns = list(
     list(prop = "name", label = "Name"),
@@ -361,22 +400,24 @@ el_table(
   )
 )
 
-# Shiny app with row selection and server-side updates
+# A Shiny app: the table is an output, its inputs named after it
 if (interactive()) {
   library(shiny)
   library(shiny.element)
   ui <- el_page(
-    el_table("my_table", data = head(iris, 5), selection = TRUE),
-    el_button("reload", "Show more rows"),
-    verbatimTextOutput("selected_rows")
+    el_input_number("n", value = 5, min = 1),
+    el_table_output("flowers"),
+    verbatimTextOutput("picked")
   )
   server <- function(input, output, session) {
-    output$selected_rows <- renderPrint({
-      # *_selected_rows holds 1-based row numbers, with original R types
-      head(iris, 5)[input$my_table_selected_rows, ]
-    })
-    observeEvent(input$reload, {
-      update_el_table(session, "my_table", data = head(iris, 10))
+    output$flowers <- render_el_table(
+      el_table(data = head(iris, input$n), selection = TRUE) |>
+        el_on("row-dblclick")
+    )
+    # the ticked rows, as R subsets them
+    output$picked <- renderPrint(input$flowers_selection_change)
+    observeEvent(input$flowers_row_dblclick, {
+      el_message(message = paste("Row", input$flowers_row_dblclick$row_index))
     })
   }
   shinyApp(ui, server)

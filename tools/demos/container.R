@@ -70,7 +70,6 @@ el_container(
   el_container(
     el_header(style = "text-align: right; font-size: 12px", tags$span("Tom")),
     el_main(el_table(
-      "ctr_tbl",
       data = data.frame(
         Date = rep("2016-05-02", 4),
         Name = rep("Tom", 4),

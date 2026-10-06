@@ -48,7 +48,7 @@ test_that("every stateful component reports its value on load", {
 test_that("an empty table selection reports NULL, as Shiny does", {
   skip_if_no_browser()
   # Shiny turns an empty JSON array into NULL; matching checkboxGroupInput.
-  expect_equal(bdump()[["tbl_selected_rows"]], "<NULL>")
+  expect_equal(bdump()[["tbl"]], "<NULL>")
 })
 
 # ── choices normalisation ─────────────────────────────────────────────────────
@@ -252,7 +252,44 @@ test_that("selecting rows reports 1-based row numbers with their types", {
   )
   Sys.sleep(2)
   # Row objects come back simplified to character; row numbers do not.
-  expect_equal(bdump()[["tbl_selected_rows"]], "1,3")
+  expect_equal(bdump()[["tbl"]], "1,3")
+})
+
+test_that("a table output reports its rows as an input, typed", {
+  skip_if_no_browser()
+  # The output element holds the id; the table inside reports input$otbl
+  # without an input binding of the same id, which Shiny would warn of
+  expect_equal(
+    bev("document.querySelector('#otbl [data-shiny-vue]').id"),
+    "otbl-el"
+  )
+  # an update sent before the output was drawn reached the table
+  expect_true(bev("!!document.querySelector('#otbl .el-table--striped')"))
+  expect_equal(bdump()[["otbl"]], "<NULL>")
+  bev(
+    "(function(){var c=document.querySelectorAll('#otbl .el-table__body-wrapper .el-checkbox'); c[1].click(); c[3].click();})()"
+  )
+  Sys.sleep(2)
+  vals <- bdump()
+  expect_equal(vals[["otbl"]], "2,4")
+  # data[rows, ]: the Date column a Date, the row names the data's
+  expect_equal(vals[["otbl_picked"]], "Date Mazda RX4 Wag,Hornet 4 Drive")
+})
+
+test_that("a table output rendered again keeps the ticks of the same rows", {
+  skip_if_no_browser()
+  ticked <- "String(document.querySelectorAll('#otbl .el-table__body .el-checkbox.is-checked').length)"
+  bclick("#otbl_again", wait = 2)
+  expect_equal(bev(ticked), "2")
+  expect_equal(bdump()[["otbl"]], "2,4")
+  # other rows: Element clears the selection
+  bclick("#otbl_more", wait = 2)
+  expect_equal(
+    bev("String(document.querySelectorAll('#otbl .el-table__body tr').length)"),
+    "3"
+  )
+  expect_equal(bev(ticked), "0")
+  expect_equal(bdump()[["otbl"]], "<NULL>")
 })
 
 test_that("a group header's child columns render their own cell and header", {
@@ -1656,7 +1693,7 @@ test_that("a tree filters by label without a filter method of its own", {
 test_that("a table method taking a row gets the table's own row", {
   skip_if_no_browser()
   bclick("#tbl_pick", wait = 2)
-  expect_equal(bdump()[["tbl_selected_rows"]], "2")
+  expect_equal(bdump()[["tbl"]], "2")
 })
 
 test_that("more of Element's methods run through call_el()", {

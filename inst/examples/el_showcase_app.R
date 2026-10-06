@@ -200,7 +200,7 @@ ui <- el_page(
               name = "data",
               label = "Data",
               content = tagList(
-                el_table(id = "tbl", data = head(iris, 5), selection = TRUE),
+                el_table_output("tbl"),
                 verbatimTextOutput("picked"),
                 tags$br(),
                 el_pagination(
@@ -415,9 +415,12 @@ server <- function(input, output, session) {
     input$signup
   })
 
+  output$tbl <- render_el_table(
+    el_table(data = head(iris, 5), selection = TRUE)
+  )
+  # the ticked rows, as R subsets them
   output$picked <- renderPrint({
-    rows <- input$tbl_selected_rows
-    if (is.null(rows)) "Select some rows" else head(iris, 5)[rows, ]
+    input$tbl_selection_change %||% "Select some rows"
   })
 
   output$checked <- renderPrint({

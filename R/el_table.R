@@ -325,7 +325,19 @@
 #' Rows of data, with sorting, selection, fixed columns, cell templates and
 #' row actions that report to the server.
 #'
-#' @param id Table ID (auto-generated if NULL)
+#' In a Shiny app a table is an output, as DT's and reactable's are: the
+#' page holds [el_table_output()], the server renders `el_table()` into it
+#' with [render_el_table()], and the output's id names the table's inputs.
+#' Without Shiny -- R Markdown, Quarto, a pkgdown page -- `el_table()` is
+#' placed as it is, with no id.
+#'
+#' `el_table()` returns the table's specification, drawn when it is placed
+#' (as an htmlwidget is), so it can be piped to [el_on()] first.
+#'
+#' @param id The table's id. Leave it out: in an app the output's id is the
+#'   table's. A table given an id in the UI still reports its inputs, but
+#'   its data is then fixed in the page and `input$<id>_selection_change`
+#'   gets its rows back through JSON rather than as R subsets them.
 #' @param data A data.frame, or a list of rows (each a named list). A
 #'   data.frame is converted to rows automatically and its column names are
 #'   sanitised (`.` becomes `_`) so `el-table`'s dotted `prop` lookup works.
@@ -399,7 +411,8 @@
 #' @param max_height Maximum table height, beyond which the body scrolls.
 #' @param fit Whether column widths stretch to fill the table. Default `TRUE`.
 #' @param show_header Whether the header row is shown. Default `TRUE`.
-#' @param highlight_current_row Whether the clicked row stays highlighted; pairs with `input$<id>_current`.
+#' @param highlight_current_row Whether the clicked row stays highlighted;
+#'   the row clicked arrives as `input$<id>_current_change`.
 #' @param current_row_key Key of the row highlighted at start. Needs `row_key`.
 #' @param row_key Column whose value identifies a row. Needed for tree data and reserved selection.
 #' @param empty_text Text shown when there are no rows. Default `"No Data"`.
@@ -435,15 +448,38 @@
 #'   the template with [template()].
 #' @param width Component width, as a CSS unit. Replaces the table's default
 #'   `width: 100%`. For a fixed header use `height` instead.
+#' @param events Element's table events to report besides the default ones,
+#'   by Element's name: `c("row-dblclick", "cell-click")`. A named entry
+#'   reports under that input instead: `c(picked = "cell-click")`. The same
+#'   as piping to [el_on()].
 #'
 #' @section Shiny inputs:
-#' With `selection = TRUE` the component reports two inputs:
-#' `input$<id>_selected` (the selected row objects) and
-#' `input$<id>_selected_rows` (their 1-based row numbers). Prefer the latter to
-#' index back into your original data: a row object with mixed column types is
-#' simplified to a character vector on its way back through JSON, so numbers
-#' arrive as strings. Both are `NULL` while nothing is selected, matching how
-#' Shiny reports an empty [shiny::checkboxGroupInput()].
+#' Rendered into `el_table_output("tbl")`, the table reports:
+#'
+#' | Input | When | Value |
+#' |---|---|---|
+#' | `input$tbl` | on load and when the selection changes | the selected row numbers, integers, 1-based in `data`; `NULL` with none |
+#' | `input$tbl_selection_change` | rows ticked or unticked | the selected rows, `data[rows, , drop = FALSE]`: columns, types and row names as rendered; `NULL` with none |
+#' | `input$tbl_current_change` | the highlighted row changes (`highlight_current_row = TRUE`) | `list(row_index, row, previous_index)` |
+#' | `input$tbl_sort_change` | a column is sorted | `list(column, order)`, `order` `"ascending"`, `"descending"` or `NULL` |
+#' | `input$tbl_filter_change` | a column filter changes | the filters, `list(<column key> = values)` |
+#' | `input$tbl_expand_change` | a row opens or closes | `list(row_index, expanded)`, `expanded` the open rows' numbers (or `TRUE`/`FALSE` for tree rows) |
+#'
+#' Any other of Element's events -- `select`, `select-all`, `row-click`,
+#' `row-dblclick`, `row-contextmenu`, `cell-click`, `cell-dblclick`,
+#' `cell-contextmenu`, `cell-mouse-enter`, `cell-mouse-leave`,
+#' `header-click`, `header-contextmenu`, `header-dragend`, `scroll` -- is
+#' reported when asked for, with `events` or [el_on()], as
+#' `input$tbl_<event>` in snake_case: a row event as `list(row_index, row,
+#' column)`, a cell event with its `value` too, a header event as
+#' `list(column, label)`, `scroll` as `list(scroll_left, scroll_top)` (at
+#' most every 200 ms).
+#'
+#' Row numbers count rows of `data` as given, whatever the user's sort.
+#' Rendering the same data again keeps the user's ticks, sort and open rows;
+#' new data clears the selection, as Element does, unless rows carry a key:
+#' `row_key` and a selection column with `reserve_selection = TRUE` keep the
+#' ticked rows that are still there.
 #'
 #' With tree data, `lazy = TRUE` and no `load` of your own, the server loads
 #' a row's children when it is opened: `input$<id>_load` asks, with `key`
@@ -476,15 +512,14 @@
 #' - `toggleRowExpansion()` -- Used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter,...
 #' - `toggleRowSelection()` -- Used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can...
 #'
-#' @return A Shiny UI element.
+#' @return An `el_table` object, drawn as a table wherever UI goes.
 #' @export
 #' @examples
 #' # A data.frame is enough -- columns are inferred
-#' el_table("iris_preview", data = head(iris, 3))
+#' el_table(data = head(iris, 3))
 #'
 #' # Explicit columns
 #' el_table(
-#'   "scores",
 #'   data = data.frame(name = c("A", "B"), value = c(1, 2)),
 #'   columns = list(
 #'     list(prop = "name", label = "Name"),
@@ -492,22 +527,24 @@
 #'   )
 #' )
 #'
-#' # Shiny app with row selection and server-side updates
+#' # A Shiny app: the table is an output, its inputs named after it
 #' if (interactive()) {
 #'   library(shiny)
 #'   library(shiny.element)
 #'   ui <- el_page(
-#'     el_table("my_table", data = head(iris, 5), selection = TRUE),
-#'     el_button("reload", "Show more rows"),
-#'     verbatimTextOutput("selected_rows")
+#'     el_input_number("n", value = 5, min = 1),
+#'     el_table_output("flowers"),
+#'     verbatimTextOutput("picked")
 #'   )
 #'   server <- function(input, output, session) {
-#'     output$selected_rows <- renderPrint({
-#'       # *_selected_rows holds 1-based row numbers, with original R types
-#'       head(iris, 5)[input$my_table_selected_rows, ]
-#'     })
-#'     observeEvent(input$reload, {
-#'       update_el_table(session, "my_table", data = head(iris, 10))
+#'     output$flowers <- render_el_table(
+#'       el_table(data = head(iris, input$n), selection = TRUE) |>
+#'         el_on("row-dblclick")
+#'     )
+#'     # the ticked rows, as R subsets them
+#'     output$picked <- renderPrint(input$flowers_selection_change)
+#'     observeEvent(input$flowers_row_dblclick, {
+#'       el_message(message = paste("Row", input$flowers_row_dblclick$row_index))
 #'     })
 #'   }
 #'   shinyApp(ui, server)
@@ -565,7 +602,79 @@ el_table <- function(
   table_layout = NULL,
   tooltip_formatter = NULL,
   tooltip_options = NULL,
-  session = NULL
+  session = NULL,
+  events = NULL
+) {
+  .el_check_choices("el_table", environment())
+  # Mistakes are reported here, where the table is written, not where it
+  # is drawn
+  args <- .el_table_args(id, data, columns)
+  id <- args$id
+  data <- args$data
+  columns <- args$columns
+  rm(args)
+  .el_table_sanitize_columns(columns)
+  .el_check_events(events, "el-table", .el_table_events)
+  .el_component(".el_table_tags", as.list(environment()), "el_table")
+}
+
+#' Draw a table from its specification
+#' @noRd
+.el_table_tags <- function(
+  id = NULL,
+  data = list(),
+  columns = list(),
+  selection = FALSE,
+  rownames = NULL,
+  border = FALSE,
+  stripe = NULL,
+  size = NULL,
+  height = NULL,
+  max_height = NULL,
+  fit = NULL,
+  show_header = NULL,
+  highlight_current_row = NULL,
+  current_row_key = NULL,
+  row_key = NULL,
+  empty_text = NULL,
+  default_expand_all = NULL,
+  expand_row_keys = NULL,
+  default_sort = NULL,
+  tooltip_effect = NULL,
+  show_summary = NULL,
+  sum_text = NULL,
+  select_on_indeterminate = NULL,
+  indent = NULL,
+  lazy = NULL,
+  tree_props = NULL,
+  row_class_name = NULL,
+  row_style = NULL,
+  cell_class_name = NULL,
+  cell_style = NULL,
+  header_row_class_name = NULL,
+  header_row_style = NULL,
+  header_cell_class_name = NULL,
+  header_cell_style = NULL,
+  span_method = NULL,
+  summary_method = NULL,
+  load = NULL,
+  width = NULL,
+  slots = NULL,
+  loading = FALSE,
+  allow_drag_last_column = NULL,
+  append_filter_panel_to = NULL,
+  flexible = NULL,
+  native_scrollbar = NULL,
+  preserve_expanded_content = NULL,
+  row_expandable = NULL,
+  scrollbar_always_on = NULL,
+  scrollbar_tabindex = NULL,
+  show_overflow_tooltip = NULL,
+  table_layout = NULL,
+  tooltip_formatter = NULL,
+  tooltip_options = NULL,
+  session = NULL,
+  events = NULL
 ) {
   .el_check_choices("el_table", environment())
   args <- .el_table_args(id, data, columns)
@@ -580,6 +689,16 @@ el_table <- function(
 
   data <- .el_table_rownames(data, rownames)
   prep <- .el_table_prep(data, columns)
+  named_selection <- if (is.null(events) || is.null(names(events))) {
+    character()
+  } else {
+    names(events)[events == "selection-change" & nzchar(names(events))]
+  }
+  selection_input <- if (length(named_selection)) {
+    named_selection[[1]]
+  } else {
+    paste0(ns_id, "_selection_change")
+  }
 
   # Columns are rendered with v-for rather than baked into the markup, so
   # update_el_table() can change them -- Vue only tracks fields declared in
@@ -793,33 +912,30 @@ el_table <- function(
     "@selection-change" = "handleSelectionChange"
   )
 
-  # The rest of Element's table events are forwarded as-is; each sets
-  # input$<id>_<event>, e.g. input$tbl_row_click.
+  # Element's events: the state changes every table reports, and any other
+  # asked for with `events` or el_on() -- unnamed as <id>_<event>, named as
+  # the input given
+  asked <- if (is.null(events)) character() else events
+  .el_check_events(asked, "el-table", .el_table_events)
+  named <- if (is.null(names(asked))) {
+    rep(FALSE, length(asked))
+  } else {
+    nzchar(names(asked))
+  }
+  inputs <- if (any(named)) {
+    stats::setNames(names(asked)[named], unname(asked)[named])
+  } else {
+    character()
+  }
+  forwarded <- union(.el_table_default_events, unname(asked))
+  forwarded <- setdiff(forwarded, "selection-change")
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "select",
-      "select-all",
-      "cell-click",
-      "cell-dblclick",
-      "cell-mouse-enter",
-      "cell-mouse-leave",
-      "row-click",
-      "row-dblclick",
-      "row-contextmenu",
-      "header-click",
-      "header-contextmenu",
-      "header-dragend",
-      "sort-change",
-      "filter-change",
-      "current-change",
-      "expand-change",
-      "cell-contextmenu",
-      "scroll"
-    ),
+    forwarded,
     shapes = .el_table_event_shapes(),
     # fires on every frame of a scroll
-    throttle = "scroll"
+    throttle = intersect("scroll", forwarded),
+    inputs = inputs
   )
   table_attrs <- c(table_attrs, events$attrs)
 
@@ -920,6 +1036,8 @@ el_table <- function(
       selection = selection,
       selected = list(),
       selectedRows = list(),
+      # rows ticked when the app was bookmarked, ticked again once drawn
+      restoredRows = .el_restore(ns_id, list()),
       loading = isTRUE(loading),
       stripe = .el_or_na(stripe),
       size = .el_or_na(size),
@@ -967,27 +1085,43 @@ el_table <- function(
           ),
           ns_id
         )),
+        # selectedRows is the table's value, input$<id>; selection-change
+        # sends the row numbers, which the server turns into the rows of
+        # the data it rendered (the shiny.element.selection handler) -- or,
+        # for a table it did not render, the rows as they are here
         handleSelectionChange = JS(sprintf(
           paste0(
             "function(selection) { var self = this; ",
             "self.selected = selection; ",
             "self.selectedRows = selection.map(function(r) { ",
-            "return self.tableData.indexOf(r) + 1; }); ",
-            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected', self.selected); ",
-            # Row numbers survive the JSON round-trip with their R types
-            # intact, unlike the row objects themselves: a mixed-type row
-            # is simplified to a character vector on the way back.
-            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_selected_rows', self.selectedRows); }"
+            "return window.shinyElement.rowIndex(self, r); }); ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(",
+            "'%s:shiny.element.selection', {table: '%s', ",
+            "rows: self.selectedRows, data: window.shinyVue.plain(selection)}, ",
+            "{priority: 'event'}); }"
           ),
-          ns_id,
+          selection_input,
           ns_id
         ))
       )
     ),
+    watch = list(
+      restoredRows = list(
+        immediate = TRUE,
+        handler = JS(paste0(
+          "function(rows) { var self = this; if (!rows || !rows.length) return; ",
+          "self.$nextTick(function() { ",
+          "var t = window.shinyVue.componentOf(self, 'ElTable'); if (!t) return; ",
+          "rows.forEach(function(i) { var r = self.tableData[i - 1]; ",
+          "if (r) t.toggleRowSelection(r, true); }); self.restoredRows = []; }); }"
+        ))
+      )
+    ),
     mounted = .el_mounted_init(stats::setNames(
-      c("selected", "selectedRows"),
-      paste0(ns_id, c("_selected", "_selected_rows"))
+      "selectedRows.length ? selectedRows : null",
+      ns_id
     )),
+    type = "shiny.element.rows",
     width = width,
     slots = slots
   )
@@ -998,9 +1132,11 @@ el_table <- function(
 #' Changes a table from the server, as [shiny::updateSelectInput()] does a
 #' select: every argument of [el_table()] that can change once the table is
 #' drawn, under the same name. One left `NULL` stays as it is; `NA` returns
-#' a prop to Element's default. `rownames`, `slots`, `width` and the
-#' `default_*` arguments, which Element reads only when the table is
-#' created, are not here.
+#' a prop to Element's default. `rownames`, `slots`, `width`, `events` and
+#' the `default_*` arguments, which are read only when the table is
+#' created, are not here. A table in [el_table_output()] is reached by the
+#' output's id; rendering it again with [render_el_table()] does the same
+#' for any argument.
 #'
 #' A column's `cell` template is part of the table's markup, made
 #' when the table is. New columns given here keep the template of the
@@ -1132,6 +1268,10 @@ update_el_table <- function(
     # by key, so a message field that does not match is refused.
     if (!is.null(data)) {
       msg$tableData <- prep$rows
+      # input$<id>_selection_change subsets the data now shown
+      if (!is.null(.el_table_data(session, ns_id))) {
+        .el_table_data_set(session, ns_id, data)
+      }
       # Shown only while the table has no written columns of its own
       msg$autoColumns <- prep$auto
     }
@@ -1151,3 +1291,33 @@ update_el_table <- function(
   .el_send_update(session, msg)
   invisible(NULL)
 }
+
+# Every event el-table emits, and the few a table reports unasked
+.el_table_events <- c(
+  "select",
+  "select-all",
+  "selection-change",
+  "cell-mouse-enter",
+  "cell-mouse-leave",
+  "cell-click",
+  "cell-dblclick",
+  "cell-contextmenu",
+  "row-click",
+  "row-contextmenu",
+  "row-dblclick",
+  "header-click",
+  "header-contextmenu",
+  "sort-change",
+  "filter-change",
+  "current-change",
+  "header-dragend",
+  "expand-change",
+  "scroll"
+)
+.el_table_default_events <- c(
+  "selection-change",
+  "current-change",
+  "sort-change",
+  "filter-change",
+  "expand-change"
+)

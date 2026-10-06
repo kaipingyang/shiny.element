@@ -183,14 +183,36 @@ variants <- list(
       list(command = "b", label = "B", icon = htmltools::tags$b("i"))
     )
   )),
-  el_table = list(list(
-    "tb",
-    data = data.frame(a = 1),
-    columns = list(
-      list(prop = "a", filter_icon = "Filter"),
-      list(type = "expand", cell = htmltools::tags$p("x"))
+  el_table = list(
+    list(
+      "tb",
+      data = data.frame(a = 1),
+      columns = list(
+        list(prop = "a", filter_icon = "Filter"),
+        list(type = "expand", cell = htmltools::tags$p("x"))
+      )
+    ),
+    list(
+      "tb_events",
+      # every event, reported only when asked for
+      events = c(
+        "select",
+        "select-all",
+        "cell-mouse-enter",
+        "cell-mouse-leave",
+        "cell-click",
+        "cell-dblclick",
+        "cell-contextmenu",
+        "row-click",
+        "row-contextmenu",
+        "row-dblclick",
+        "header-click",
+        "header-contextmenu",
+        "header-dragend",
+        "scroll"
+      )
     )
-  )),
+  ),
   el_select = list(list(
     "sg",
     choices = list(
@@ -289,6 +311,19 @@ for (f in sort(ui_fns)) {
     paste(as.character(htmltools::renderTags(ui)$html), collapse = ""),
     error = function(e) ""
   )
+  emitted <- function(html) {
+    unique(sub(
+      '^@',
+      '',
+      sub(
+        '="elEmit$',
+        '',
+        regmatches(html, gregexpr('@[a-z-]+="elEmit', html))[[1]]
+      )
+    ))
+  }
+  # Events reported unasked; the rest, with an `events` argument, on request
+  reported <- emitted(html)
 
   for (v in variants[[f]]) {
     extra <- tryCatch(do.call(f, v), error = function(e) NULL)
@@ -353,20 +388,15 @@ for (f in sort(ui_fns)) {
   ))
 
   # Events forwarded as input$<id>_<event>: bound to a generated elEmit* method
-  forwarded <- unique(sub(
-    '^@',
-    '',
-    sub(
-      '="elEmit$',
-      '',
-      regmatches(html, gregexpr('@[a-z-]+="elEmit', html))[[1]]
-    )
-  ))
+  forwarded <- emitted(html)
   out[[f]] <- list(
     ok = TRUE,
     tags = attrs_of(html),
     item_fields = item_fields,
     forwarded = forwarded,
+    on_request = if ("events" %in% names(formals(f))) {
+      setdiff(forwarded, reported)
+    },
     slots = c(
       slots_of(html),
       # Content passed through ... is the default slot
