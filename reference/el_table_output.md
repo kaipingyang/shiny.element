@@ -10,7 +10,7 @@ in place – the user's sort, ticks and open rows stay (see
 ## Usage
 
 ``` r
-el_table_output(outputId, width = "100%")
+el_table_output(outputId, width = "100%", loading = TRUE)
 
 render_el_table(expr, env = parent.frame(), quoted = FALSE)
 ```
@@ -24,6 +24,11 @@ render_el_table(expr, env = parent.frame(), quoted = FALSE)
 - width:
 
   The table's width, as a CSS unit.
+
+- loading:
+
+  Whether Element's loading mask covers the table while Shiny
+  recalculates it, in place of Shiny fading the output.
 
 - expr:
 
@@ -62,6 +67,10 @@ and
 reach the table by the output id;
 [`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
 reads the data it shows.
+
+The first render sends the table; a render after it whose columns,
+templates and options are unchanged sends only the data that changed, as
+JSON – as Shiny's own outputs send values rather than markup.
 
 ## See also
 

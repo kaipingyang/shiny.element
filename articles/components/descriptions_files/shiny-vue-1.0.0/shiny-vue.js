@@ -868,10 +868,59 @@
     el._svLast = next;
     return true;
   }
+  // A render that changed only data comes as data: each changed field, JSON
+  // as the page reads it ({value, evals}), assigned as applyRender() would.
+  // A page that cannot apply it -- its component gone -- asks for the
+  // markup: input$<output>__vue_redraw renders the output again, whole.
+  function applyPatch(el, patch) {
+    var host = document.getElementById(patch.host);
+    var vm = host && el.contains(host) && host._shinyVue;
+    if (!vm) {
+      if (window.Shiny && Shiny.setInputValue) {
+        Shiny.setInputValue(el.id + '__vue_redraw', Date.now(), { priority: 'event' });
+      }
+      return;
+    }
+    var sent = host._svSent || (host._svSent = {});
+    Object.keys(patch.fields || {}).forEach(function(k) {
+      var asSent = JSON.parse(patch.fields[k]);
+      var field = JSON.parse(patch.fields[k]);
+      revive(field, field.evals);
+      sent[k] = asSent.value;
+      if (k in vm.$data) vm[k] = field.value;
+      // the server's own loading, kept when the recalculation's mask ends
+      if (k === 'loading' && el._svLoading !== undefined) el._svLoading = field.value;
+    });
+    if (vm._svReport) vm._svReport();
+  }
+  // An output drawing a component with a `loading` field (a table) shows
+  // that field's mask while Shiny recalculates it, in place of fading it
+  function showLoading(el, show) {
+    if (!el.hasAttribute('data-shiny-vue-loading')) return;
+    var hosts = topHosts(el);
+    var vm = hosts.length && hosts[0]._shinyVue;
+    if (!vm || !('loading' in vm.$data)) return;
+    if (show) {
+      if (el._svLoading === undefined) el._svLoading = vm.loading;
+      vm.loading = true;
+    } else if (el._svLoading !== undefined) {
+      vm.loading = el._svLoading;
+      el._svLoading = undefined;
+    }
+  }
   var outputBinding = new Shiny.OutputBinding();
   jQuery.extend(outputBinding, {
     find: function(scope) { return jQuery(scope).find('.shiny-vue-output'); },
+    showProgress: function(el, show) {
+      Shiny.OutputBinding.prototype.showProgress.call(this, el, show);
+      showLoading(el, show);
+    },
     renderValue: function(el, content) {
+      if (content && content.patch) {
+        applyPatch(el, content.patch);
+        jQuery(el).trigger('shiny-vue:patched');
+        return;
+      }
       var deps = (content && content.deps) || [];
       return Promise.resolve(deps.length ? Shiny.renderDependenciesAsync(deps) : null).then(function() {
         if (applyRender(el, content)) { jQuery(el).trigger('shiny-vue:patched'); return; }

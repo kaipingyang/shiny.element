@@ -113,8 +113,14 @@ A component with a value in an output reports `input$<id>` through
 `Shiny.setInputValue()` with no binding (`reportFromOutput`), since an
 input binding sharing the output’s id makes Shiny warn; the table has no
 value (`input$<id>` is left free) and reports `_selection_rows`. The
-data the table shows is kept per session (`.el_table_entry()`, a
-reactiveVal, read by
+first render sends markup; later renders with the same template and
+options send only the changed data fields as JSON
+([`.vue_output_value()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_output_value.md),
+`applyPatch()` in shiny-vue.js), and a page that cannot apply a patch
+asks for the markup with `input$<id>__vue_redraw`.
+`el_table_output(loading = TRUE)` shows Element’s mask while Shiny
+recalculates. The data the table shows is kept per session
+(`.el_tables()`, a `reactiveValues()`, read by
 [`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)):
 a render writes it only when its own data changed, an update always –
 the rule the browser’s patching follows – so the

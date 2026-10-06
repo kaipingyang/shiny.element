@@ -384,6 +384,11 @@ the server’s copy of the data, and reported as `input$<id>_cell_edit`,
 `list(row, column, value, old)` with the column’s type. Nothing Excel
 does beyond that – ranges, copy and paste, fill, undo – is attempted.
 
+A table output sends its markup once: rendered again with the same
+columns and options, it sends only the data that changed, as JSON. While
+Shiny recalculates it, Element’s loading mask covers it in place of
+Shiny’s fading (`el_table_output(loading = FALSE)` for the fading).
+
 `update_el_table(insert =, replace =, delete =)` changes a few rows and
 sends only those; the server’s copy of the data changes as R would
 change it, and
