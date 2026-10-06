@@ -123,19 +123,91 @@ el_on <- function(x, event, input = NULL) {
   invisible(events)
 }
 
-#' The data a table was rendered with, kept for its inputs
+#' The data a table shows, kept on the server
+#'
+#' One entry per table and session: `shown`, a reactive value holding the
+#' data the browser has, and `rendered`, the data the table's last render
+#' gave. The browser patches a render in -- a field changes only when the
+#' render's value of it does -- so the two sides stay alike by the same
+#' rule: a render writes `shown` only when its data differs from its last;
+#' an update always does.
+#' @noRd
+.el_table_entry <- function(session, id, create = FALSE) {
+  tables <- session$userData$.el_tables
+  if (is.null(tables)) {
+    if (!create) {
+      return(NULL)
+    }
+    tables <- new.env(parent = emptyenv())
+    session$userData$.el_tables <- tables
+  }
+  entry <- tables[[id]]
+  if (is.null(entry) && create) {
+    entry <- new.env(parent = emptyenv())
+    entry$shown <- shiny::reactiveVal(NULL)
+    entry$rendered <- NULL
+    entry$rownames <- NULL
+    tables[[id]] <- entry
+  }
+  entry
+}
+
+#' The data a table shows, outside a reactive read
 #' @noRd
 .el_table_data <- function(session, id) {
-  store <- session$userData$.el_table_data
-  if (is.null(store)) NULL else store[[id]]
+  entry <- .el_table_entry(session, id)
+  if (is.null(entry)) NULL else shiny::isolate(entry$shown())
 }
+
+#' A table rendered: its data is what the browser shows if it changed
+#' @noRd
+.el_table_rendered <- function(session, id, data, rownames = NULL) {
+  entry <- .el_table_entry(session, id, create = TRUE)
+  entry$rownames <- rownames
+  if (is.null(entry$rendered) || !identical(entry$rendered, data)) {
+    entry$rendered <- data
+    entry$shown(data)
+  }
+  invisible(NULL)
+}
+
+#' A table's data replaced or edited by an update
 #' @noRd
 .el_table_data_set <- function(session, id, data) {
-  if (is.null(session$userData$.el_table_data)) {
-    session$userData$.el_table_data <- list()
-  }
-  session$userData$.el_table_data[[id]] <- data
+  entry <- .el_table_entry(session, id, create = TRUE)
+  entry$shown(data)
   invisible(NULL)
+}
+
+#' The data a table shows
+#'
+#' What the browser holds, as R: the data last rendered with
+#' [render_el_table()] or sent with [update_el_table()], with every row
+#' [update_el_table()] has since inserted, replaced or deleted. A reactive
+#' read: an observer or output reading it runs again when the data changes.
+#' Row numbers in the table's inputs -- `input$<id>_selection_rows`, a row
+#' event's `row_index` -- index it.
+#'
+#' @param session The Shiny session, the current one by default.
+#' @param id The table's id, the output's.
+#' @return The data, as given (a data.frame or a list of rows); `NULL` for
+#'   a table the server has not rendered or updated.
+#' @seealso [render_el_table()], [update_el_table()].
+#' @examples
+#' if (interactive()) {
+#'   library(shiny)
+#'   ui <- el_page(el_table_output("cars"), verbatimTextOutput("n"))
+#'   server <- function(input, output, session) {
+#'     output$cars <- render_el_table(el_table(data = head(mtcars)))
+#'     output$n <- renderText(nrow(el_table_data(id = "cars")))
+#'   }
+#'   shinyApp(ui, server)
+#' }
+#' @export
+el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
+  .el_check_session(session)
+  entry <- .el_table_entry(session, session$ns(id))
+  if (is.null(entry)) NULL else entry$shown()
 }
 
 #' Rows as the browser holds them, as a data.frame
@@ -159,14 +231,16 @@ el_on <- function(x, event, input = NULL) {
 #'
 #' The output id names the table's inputs:
 #'
-#' - `input$<id>` -- the selected row numbers, integers; `NULL` with none.
+#' - `input$<id>_selection_rows` -- the selected row numbers, integers;
+#'   `NULL` with none.
 #' - `input$<id>_selection_change` -- the selected rows, `data[rows, , drop =
-#'   FALSE]` of the data rendered: its columns, types and row names.
+#'   FALSE]` of the data shown: its columns, types and row names.
 #' - `input$<id>_current_change`, `_sort_change`, `_filter_change`,
 #'   `_expand_change` -- reported by every table; any other of Element's
 #'   events with `el_table(events =)` or [el_on()].
 #'
-#' [update_el_table()] and [call_el()] reach the table by the output id.
+#' [update_el_table()] and [call_el()] reach the table by the output id;
+#' [el_table_data()] reads the data it shows.
 #'
 #' @param outputId The output's id.
 #' @param width The table's width, as a CSS unit.
@@ -214,7 +288,12 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
         stop("render_el_table() renders an el_table().", call. = FALSE)
       }
       table$args$id <- name
-      .el_table_data_set(shinysession, name, table$args$data)
+      .el_table_rendered(
+        shinysession,
+        name,
+        table$args$data,
+        table$args$rownames
+      )
       rendered <- htmltools::renderTags(.el_output_host(table, name))
       list(
         html = rendered$html,

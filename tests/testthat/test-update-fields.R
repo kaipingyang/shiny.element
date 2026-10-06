@@ -19,13 +19,18 @@ vue_data_keys <- function(tag) {
     return(character(0))
   }
   json <- sub("</script>$", "", sub('^application/json"[^>]*>', "", m))
-  names(jsonlite::fromJSON(json, simplifyVector = FALSE)$options$data)
+  options <- jsonlite::fromJSON(json, simplifyVector = FALSE)$options
+  # and the fields its shinyVueReceive takes ('tableEdit' in d)
+  receive <- paste(unlist(options$methods$shinyVueReceive), collapse = "")
+  taken <- regmatches(receive, gregexpr("'([A-Za-z]+)' in d", receive))[[1]]
+  c(names(options$data), sub("'([A-Za-z]+)' in d", "\\1", taken))
 }
 
 capture_update <- function(fn, args) {
   captured <- NULL
   session <- list(
     ns = function(id) id,
+    userData = new.env(),
     sendCustomMessage = function(type, msg) captured <<- msg
   )
   do.call(fn, c(list(session = session, id = "x"), args))
@@ -311,7 +316,8 @@ test_that("every updater of a Vue component sends only declared fields", {
     f <- get(fn, envir = ns)
     args <- setdiff(names(formals(f)), c("session", "id", "..."))
     # One argument at a time, each given a value of a plausible type
-    for (a in args) {
+    # `at` goes with insert or replace, given with them below
+    for (a in setdiff(args, "at")) {
       val <- switch(
         a,
         items = list(list(label = "a")),
@@ -324,7 +330,11 @@ test_that("every updater of a Vue component sends only declared fields", {
         steps = list(list(title = "S")),
         1
       )
-      sent <- capture_update(f, stats::setNames(list(val), a))
+      given <- stats::setNames(list(val), a)
+      if (a == "replace") {
+        given$at <- 1
+      }
+      sent <- capture_update(f, given)
       sent <- sent[!startsWith(sent, ".")]
       expect_equal(setdiff(sent, keys), character(0), info = paste(fn, a))
     }

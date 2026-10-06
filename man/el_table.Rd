@@ -66,6 +66,10 @@ update_el_table(
   session = shiny::getDefaultReactiveDomain(),
   id,
   data = NULL,
+  insert = NULL,
+  replace = NULL,
+  delete = NULL,
+  at = NULL,
   columns = NULL,
   border = NULL,
   selection = NULL,
@@ -286,6 +290,17 @@ current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateT
 by Element's name: \code{c("row-dblclick", "cell-click")}. A named entry
 reports under that input instead: \code{c(picked = "cell-click")}. The same
 as piping to \code{\link[=el_on]{el_on()}}.}
+
+\item{insert}{Rows to insert -- a data.frame, or a list of rows -- before
+row \code{at}, or at the end.}
+
+\item{replace}{Rows to put in place of rows \code{at}, one for each.}
+
+\item{delete}{Numbers of the rows to delete.}
+
+\item{at}{Where \code{insert} goes, one row number; which rows \code{replace}
+replaces. Row numbers count the rows the table shows, as
+\verb{input$<id>_selection_rows} does.}
 }
 \value{
 An \code{el_table} object, drawn as a table wherever UI goes.
@@ -308,8 +323,8 @@ placed as it is, with no id.
 
 Rendered into \code{el_table_output("tbl")}, the table reports:\tabular{lll}{
    Input \tab When \tab Value \cr
-   \code{input$tbl} \tab on load and when the selection changes \tab the selected row numbers, integers, 1-based in \code{data}; \code{NULL} with none \cr
-   \code{input$tbl_selection_change} \tab rows ticked or unticked \tab the selected rows, \code{data[rows, , drop = FALSE]}: columns, types and row names as rendered; \code{NULL} with none \cr
+   \code{input$tbl_selection_rows} \tab on load, when the selection changes and when an edit renumbers it \tab the selected row numbers, integers, 1-based in the data; \code{NULL} with none \cr
+   \code{input$tbl_selection_change} \tab rows ticked or unticked \tab the selected rows, \code{data[rows, , drop = FALSE]}: columns, types and row names as R holds them; \code{NULL} with none \cr
    \code{input$tbl_current_change} \tab the highlighted row changes (\code{highlight_current_row = TRUE}) \tab \code{list(row_index, row, previous_index)} \cr
    \code{input$tbl_sort_change} \tab a column is sorted \tab \code{list(column, order)}, \code{order} \code{"ascending"}, \code{"descending"} or \code{NULL} \cr
    \code{input$tbl_filter_change} \tab a column filter changes \tab the filters, \verb{list(<column key> = values)} \cr
@@ -326,11 +341,16 @@ reported when asked for, with \code{events} or \code{\link[=el_on]{el_on()}}, as
 \code{list(column, label)}, \code{scroll} as \code{list(scroll_left, scroll_top)} (at
 most every 200 ms).
 
-Row numbers count rows of \code{data} as given, whatever the user's sort.
-Rendering the same data again keeps the user's ticks, sort and open rows;
-new data clears the selection, as Element does, unless rows carry a key:
-\code{row_key} and a selection column with \code{reserve_selection = TRUE} keep the
-ticked rows that are still there.
+\code{input$tbl} itself is not used: Element's table has no value of its own
+(no \code{v-model}), and the name stays free.
+
+Row numbers count rows of the data the table shows, whatever the user's
+sort -- the data \code{\link[=el_table_data]{el_table_data()}} returns. Rendering the same data again
+keeps the user's ticks, sort and open rows; new data clears the
+selection, as Element does, unless rows carry a key: \code{row_key} and a
+selection column with \code{reserve_selection = TRUE} keep the ticked rows
+that are still there. Rows inserted, replaced or deleted with
+\code{\link[=update_el_table]{update_el_table()}} leave the other rows' ticks alone.
 
 With tree data, \code{lazy = TRUE} and no \code{load} of your own, the server loads
 a row's children when it is opened: \verb{input$<id>_load} asks, with \code{key}
@@ -378,6 +398,20 @@ the \verb{default_*} arguments, which are read only when the table is
 created, are not here. A table in \code{\link[=el_table_output]{el_table_output()}} is reached by the
 output's id; rendering it again with \code{\link[=render_el_table]{render_el_table()}} does the same
 for any argument.
+
+\strong{Rows.} \code{data} replaces them all; \code{insert}, \code{replace} and \code{delete}
+change a few and send only those, one of them per call. The server's
+copy of the data (\code{\link[=el_table_data]{el_table_data()}}) is changed as R would change it --
+\code{rbind()} to insert, \code{data[at, ] <- replace}, \code{data[-delete, ]} -- and
+the browser gets the rows as they then stand, so both hold the same
+data. Rows not touched keep their ticks and open state; the selection's
+row numbers are reported again, renumbered.
+
+Data that comes from reactive expressions is best rendered: the table is
+patched in place either way, and one render is one source of the data.
+An update suits a change an observer makes -- a row the user added,
+edited or deleted. A render after an update leaves the update's rows in
+place unless the render's own data changed.
 
 A column's \code{cell} template is part of the table's markup, made
 when the table is. New columns given here keep the template of the
@@ -431,5 +465,9 @@ if (interactive()) {
   update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
   # back to Element's default
   update_el_table(session, "tbl", stripe = NA)
+  # a few rows, leaving the rest as they are
+  update_el_table(session, "tbl", insert = head(mtcars, 1), at = 1)
+  update_el_table(session, "tbl", replace = mtcars[3, ], at = 3)
+  update_el_table(session, "tbl", delete = c(2, 5))
 }
 }

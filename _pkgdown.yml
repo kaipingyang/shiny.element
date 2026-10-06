@@ -370,6 +370,7 @@ reference:
       - el_skeleton_item
       - el_table
       - el_table_output
+      - el_table_data
       - el_table_column
       - el_table_v2
       - el_table_v2_column

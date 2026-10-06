@@ -125,7 +125,7 @@ test_that("the Vue 3 / Element Plus bridge keeps the Shiny contract", {
   expect_equal(count("#tbl .el-table__body tr"), 5)
   js("document.getElementById('call').click()")
   Sys.sleep(1.5)
-  expect_equal(vals()[["tbl"]], "2")
+  expect_equal(vals()[["tbl_selection_rows"]], "2")
 
   # ── insertUI / removeUI: mounted, then unmounted with its app
   js("document.getElementById('add').click()")

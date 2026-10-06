@@ -187,12 +187,16 @@ ui <- el_page(
   ),
   actionButton("tbl_swap", "swap table data"),
 
-  # A table as an output: input$otbl the row numbers, its selection-change
+  # A table as an output: input$otbl_selection_rows the row numbers, its selection-change
   # the rows as R subsets them; rendered again with the same data it keeps
   # the ticks, with other data it starts over.
   el_table_output("otbl"),
   actionButton("otbl_again", "render the same rows again"),
   actionButton("otbl_more", "render other rows"),
+  # rows edited from the server, one at a time
+  actionButton("otbl_insert", "insert a row first"),
+  actionButton("otbl_replace", "replace the first row"),
+  actionButton("otbl_delete", "delete the first row"),
 
   # Group headers: a child column's own cell and header templates used to
   # stay in its JSON, never rendered.
@@ -732,8 +736,8 @@ server <- function(input, output, session) {
       "col",
       "rg_num",
       "stp",
-      "tbl",
-      "otbl",
+      "tbl_selection_rows",
+      "otbl_selection_rows",
       "casc",
       "sw_nested",
       "sld_nested",
@@ -803,6 +807,10 @@ server <- function(input, output, session) {
       }
     }
     cat("raw_row_click", "=", fmt(input$tbl_row_click), "\n")
+    shown <- el_table_data(id = "otbl")
+    if (!is.null(shown)) {
+      cat("otbl_shown", "=", paste(rownames(shown), collapse = ","), "\n")
+    }
     picked <- input$otbl_selection_change
     if (!is.null(picked)) {
       cat(
@@ -822,6 +830,21 @@ server <- function(input, output, session) {
     once = TRUE
   )
   observeEvent(input$otbl_more, otbl_rows(3))
+  new_car <- function(name) {
+    car <- head(mtcars[, 1:3], 1)
+    car$made <- as.Date("2021-01-01")
+    rownames(car) <- name
+    car
+  }
+  observeEvent(input$otbl_insert, {
+    update_el_table(session, "otbl", insert = new_car("New car"), at = 1)
+  })
+  observeEvent(input$otbl_replace, {
+    car <- new_car("Swapped")
+    car$mpg <- 99
+    update_el_table(session, "otbl", replace = car, at = 1)
+  })
+  observeEvent(input$otbl_delete, update_el_table(session, "otbl", delete = 1))
   output$otbl <- render_el_table({
     input$otbl_again
     cars <- head(mtcars[, 1:3], otbl_rows())

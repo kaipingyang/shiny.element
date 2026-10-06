@@ -703,10 +703,12 @@ def r_name(slug, tag, kind, name):
         if tag in tags_js and re.search(r"['\"]_" + snake + r"['\"]", _js(tags_js[tag])):
             return f"`input$<id>_{snake}`"
         if tag == "el-table" and name == "selection-change":
-            return "`input$<id>_selection_change`, the rows; `input$<id>`, their numbers"
+            return "`input$<id>_selection_change`, the rows; `input$<id>_selection_rows`, their numbers"
         if name in ("change", "input"): return "`input$<id>`, the value"
         return "one of the component's inputs -- see its reference page"
     if kind == "Methods":
+        if tag == "el-table" and name == "getSelectionRows":
+            return '`input$<id>_selection_rows`; `call_el(session, id, "getSelectionRows")`'
         return f'`call_el(session, id, "{name}")`'
     if kind == "Slot":
         return "default content" if name == "default" else f"`slots = list({name} = )`"

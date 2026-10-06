@@ -15094,7 +15094,7 @@
 "type": "^[Function]`<T = DefaultRow>(newSelection: T[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_selection_change`, the rows; `input$<id>`, their numbers"
+"r": "`input$<id>_selection_change`, the rows; `input$<id>_selection_rows`, their numbers"
 },
 {
 "name": "cell-mouse-enter",
@@ -15274,7 +15274,7 @@
 "type": "^[Function]`() => any[]`",
 "accepted": "",
 "default": "",
-"r": "`call_el(session, id, \"getSelectionRows\")`"
+"r": "`input$<id>_selection_rows`; `call_el(session, id, \"getSelectionRows\")`"
 },
 {
 "name": "getHalfSelectionRows",

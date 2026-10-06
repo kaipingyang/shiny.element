@@ -119,7 +119,7 @@ server <- function(input, output, session) {
       "btn",
       "inp",
       "sel",
-      "tbl",
+      "tbl_selection_rows",
       "fname",
       "frm_submit",
       "dlg",

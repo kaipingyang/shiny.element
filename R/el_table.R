@@ -458,8 +458,8 @@
 #'
 #' | Input | When | Value |
 #' |---|---|---|
-#' | `input$tbl` | on load and when the selection changes | the selected row numbers, integers, 1-based in `data`; `NULL` with none |
-#' | `input$tbl_selection_change` | rows ticked or unticked | the selected rows, `data[rows, , drop = FALSE]`: columns, types and row names as rendered; `NULL` with none |
+#' | `input$tbl_selection_rows` | on load, when the selection changes and when an edit renumbers it | the selected row numbers, integers, 1-based in the data; `NULL` with none |
+#' | `input$tbl_selection_change` | rows ticked or unticked | the selected rows, `data[rows, , drop = FALSE]`: columns, types and row names as R holds them; `NULL` with none |
 #' | `input$tbl_current_change` | the highlighted row changes (`highlight_current_row = TRUE`) | `list(row_index, row, previous_index)` |
 #' | `input$tbl_sort_change` | a column is sorted | `list(column, order)`, `order` `"ascending"`, `"descending"` or `NULL` |
 #' | `input$tbl_filter_change` | a column filter changes | the filters, `list(<column key> = values)` |
@@ -475,11 +475,16 @@
 #' `list(column, label)`, `scroll` as `list(scroll_left, scroll_top)` (at
 #' most every 200 ms).
 #'
-#' Row numbers count rows of `data` as given, whatever the user's sort.
-#' Rendering the same data again keeps the user's ticks, sort and open rows;
-#' new data clears the selection, as Element does, unless rows carry a key:
-#' `row_key` and a selection column with `reserve_selection = TRUE` keep the
-#' ticked rows that are still there.
+#' `input$tbl` itself is not used: Element's table has no value of its own
+#' (no `v-model`), and the name stays free.
+#'
+#' Row numbers count rows of the data the table shows, whatever the user's
+#' sort -- the data [el_table_data()] returns. Rendering the same data again
+#' keeps the user's ticks, sort and open rows; new data clears the
+#' selection, as Element does, unless rows carry a key: `row_key` and a
+#' selection column with `reserve_selection = TRUE` keep the ticked rows
+#' that are still there. Rows inserted, replaced or deleted with
+#' [update_el_table()] leave the other rows' ticks alone.
 #'
 #' With tree data, `lazy = TRUE` and no `load` of your own, the server loads
 #' a row's children when it is opened: `input$<id>_load` asks, with `key`
@@ -1037,7 +1042,7 @@ el_table <- function(
       selected = list(),
       selectedRows = list(),
       # rows ticked when the app was bookmarked, ticked again once drawn
-      restoredRows = .el_restore(ns_id, list()),
+      restoredRows = .el_restore(paste0(ns_id, "_selection_rows"), list()),
       loading = isTRUE(loading),
       stripe = .el_or_na(stripe),
       size = .el_or_na(size),
@@ -1085,16 +1090,26 @@ el_table <- function(
           ),
           ns_id
         )),
-        # selectedRows is the table's value, input$<id>; selection-change
-        # sends the row numbers, which the server turns into the rows of
-        # the data it rendered (the shiny.element.selection handler) -- or,
-        # for a table it did not render, the rows as they are here
+        # input$<id>_selection_rows: the selected rows' numbers, sent again
+        # when an edit renumbers them
+        reportSelection = JS(sprintf(
+          paste0(
+            "function() { var self = this; ",
+            "self.selectedRows = (self.selected || []).map(function(r) { ",
+            "return window.shinyElement.rowIndex(self, r); }); ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(",
+            "'%s_selection_rows:shiny.element.rows', self.selectedRows); }"
+          ),
+          ns_id
+        )),
+        # selection-change sends the row numbers, which the server turns
+        # into the rows of the data it holds (the shiny.element.selection
+        # handler) -- or, for a table it never rendered, the rows as they
+        # are here
         handleSelectionChange = JS(sprintf(
           paste0(
             "function(selection) { var self = this; ",
-            "self.selected = selection; ",
-            "self.selectedRows = selection.map(function(r) { ",
-            "return window.shinyElement.rowIndex(self, r); }); ",
+            "self.selected = selection; self.reportSelection(); ",
             "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(",
             "'%s:shiny.element.selection', {table: '%s', ",
             "rows: self.selectedRows, data: window.shinyVue.plain(selection)}, ",
@@ -1102,6 +1117,25 @@ el_table <- function(
           ),
           selection_input,
           ns_id
+        )),
+        # update_el_table(insert =, replace =, delete =): the rows spliced
+        # into the same array, which Element watches deeply -- the rows not
+        # touched keep their ticks and open state
+        shinyVueReceive = JS(paste0(
+          "function(d) { if (!('tableEdit' in d)) return d; ",
+          "var e = d.tableEdit, data = this.tableData, rows = e.rows || [], ",
+          "at = e.at === null || e.at === undefined ? [] : [].concat(e.at); ",
+          "delete d.tableEdit; ",
+          "if (e.op === 'insert') { ",
+          "var i = at.length ? at[0] - 1 : data.length; ",
+          "data.splice.apply(data, [i, 0].concat(rows)); } ",
+          "else if (e.op === 'replace') { ",
+          "at.forEach(function(i, k) { data.splice(i - 1, 1, rows[k]); }); } ",
+          "else if (e.op === 'delete') { ",
+          "at.slice().sort(function(a, b) { return b - a; })",
+          ".forEach(function(i) { data.splice(i - 1, 1); }); } ",
+          "var self = this; this.$nextTick(function() { self.reportSelection(); }); ",
+          "return d; }"
         ))
       )
     ),
@@ -1118,16 +1152,22 @@ el_table <- function(
       )
     ),
     mounted = .el_mounted_init(stats::setNames(
-      "selectedRows.length ? selectedRows : null",
-      ns_id
+      "selectedRows",
+      paste0(ns_id, "_selection_rows:shiny.element.rows")
     )),
-    type = "shiny.element.rows",
     width = width,
     slots = slots
   )
 }
 
 #' @rdname el_table
+#' @param insert Rows to insert -- a data.frame, or a list of rows -- before
+#'   row `at`, or at the end.
+#' @param replace Rows to put in place of rows `at`, one for each.
+#' @param delete Numbers of the rows to delete.
+#' @param at Where `insert` goes, one row number; which rows `replace`
+#'   replaces. Row numbers count the rows the table shows, as
+#'   `input$<id>_selection_rows` does.
 #' @section Updating from the server:
 #' Changes a table from the server, as [shiny::updateSelectInput()] does a
 #' select: every argument of [el_table()] that can change once the table is
@@ -1137,6 +1177,20 @@ el_table <- function(
 #' created, are not here. A table in [el_table_output()] is reached by the
 #' output's id; rendering it again with [render_el_table()] does the same
 #' for any argument.
+#'
+#' **Rows.** `data` replaces them all; `insert`, `replace` and `delete`
+#' change a few and send only those, one of them per call. The server's
+#' copy of the data ([el_table_data()]) is changed as R would change it --
+#' `rbind()` to insert, `data[at, ] <- replace`, `data[-delete, ]` -- and
+#' the browser gets the rows as they then stand, so both hold the same
+#' data. Rows not touched keep their ticks and open state; the selection's
+#' row numbers are reported again, renumbered.
+#'
+#' Data that comes from reactive expressions is best rendered: the table is
+#' patched in place either way, and one render is one source of the data.
+#' An update suits a change an observer makes -- a row the user added,
+#' edited or deleted. A render after an update leaves the update's rows in
+#' place unless the render's own data changed.
 #'
 #' A column's `cell` template is part of the table's markup, made
 #' when the table is. New columns given here keep the template of the
@@ -1154,12 +1208,20 @@ el_table <- function(
 #'   update_el_table(session, "tbl", stripe = TRUE, table_layout = "auto")
 #'   # back to Element's default
 #'   update_el_table(session, "tbl", stripe = NA)
+#'   # a few rows, leaving the rest as they are
+#'   update_el_table(session, "tbl", insert = head(mtcars, 1), at = 1)
+#'   update_el_table(session, "tbl", replace = mtcars[3, ], at = 3)
+#'   update_el_table(session, "tbl", delete = c(2, 5))
 #' }
 #' @export
 update_el_table <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   data = NULL,
+  insert = NULL,
+  replace = NULL,
+  delete = NULL,
+  at = NULL,
   columns = NULL,
   border = NULL,
   selection = NULL,
@@ -1259,7 +1321,17 @@ update_el_table <- function(
     .el_update_props("el_table", Filter(Negate(is.null), props))
   )
 
+  entry <- .el_table_entry(session, ns_id)
+  edit <- .el_table_edit_args(data, insert, replace, delete, at)
+  if (!is.null(edit)) {
+    msg$tableEdit <- .el_table_edit(session, ns_id, edit)
+  }
   if (!is.null(data) || !is.null(columns)) {
+    if (!is.null(data)) {
+      # the server keeps what the browser shows, for the table's inputs
+      .el_table_data_set(session, ns_id, data)
+      data <- .el_table_rownames(data, entry$rownames)
+    }
     prep <- .el_table_prep(
       if (is.null(data)) list() else data,
       if (is.null(columns)) list() else columns
@@ -1268,10 +1340,6 @@ update_el_table <- function(
     # by key, so a message field that does not match is refused.
     if (!is.null(data)) {
       msg$tableData <- prep$rows
-      # input$<id>_selection_change subsets the data now shown
-      if (!is.null(.el_table_data(session, ns_id))) {
-        .el_table_data_set(session, ns_id, data)
-      }
       # Shown only while the table has no written columns of its own
       msg$autoColumns <- prep$auto
     }
@@ -1290,6 +1358,166 @@ update_el_table <- function(
 
   .el_send_update(session, msg)
   invisible(NULL)
+}
+
+#' The one edit an update asks for, checked
+#' @noRd
+.el_table_edit_args <- function(data, insert, replace, delete, at) {
+  given <- c(
+    insert = !is.null(insert),
+    replace = !is.null(replace),
+    delete = !is.null(delete)
+  )
+  if (!any(given)) {
+    if (!is.null(at)) {
+      stop("`at` places `insert` or `replace`.", call. = FALSE)
+    }
+    return(NULL)
+  }
+  if (sum(given) > 1L || !is.null(data)) {
+    stop(
+      "Give one of `data`, `insert`, `replace` and `delete` at a time.",
+      call. = FALSE
+    )
+  }
+  op <- names(given)[given]
+  rows <- switch(op, insert = insert, replace = replace, delete = NULL)
+  if (op == "delete") {
+    at <- delete
+  }
+  whole <- function(x) {
+    is.numeric(x) && length(x) && !anyNA(x) && all(x == round(x)) && all(x >= 1)
+  }
+  n_rows <- function(x) if (is.data.frame(x)) nrow(x) else length(x)
+  if (op == "insert" && !is.null(at) && (!whole(at) || length(at) != 1L)) {
+    stop(
+      "`at` is one row number: where the first row inserted goes.",
+      call. = FALSE
+    )
+  }
+  if (op != "insert") {
+    if (is.null(at) || !whole(at)) {
+      stop(
+        if (op == "delete") {
+          "`delete` takes row numbers."
+        } else {
+          "`replace` needs `at`, the row numbers it replaces."
+        },
+        call. = FALSE
+      )
+    }
+    if (anyDuplicated(at)) {
+      stop("`", op, "` names a row twice.", call. = FALSE)
+    }
+  }
+  if (op == "replace" && n_rows(rows) != length(at)) {
+    stop(
+      "`replace` has ",
+      n_rows(rows),
+      " rows for ",
+      length(at),
+      " numbers in `at`.",
+      call. = FALSE
+    )
+  }
+  list(op = op, rows = rows, at = if (!is.null(at)) as.integer(at))
+}
+
+#' An edit applied to the data the server keeps, and the message for the
+#' browser: the rows as they now stand on the server, so both sides agree
+#' @noRd
+.el_table_edit <- function(session, id, edit) {
+  entry <- .el_table_entry(session, id)
+  data <- if (is.null(entry)) NULL else shiny::isolate(entry$shown())
+  rows <- edit$rows
+  at <- edit$at
+  if (!is.null(data)) {
+    n <- if (is.data.frame(data)) nrow(data) else length(data)
+    last <- if (edit$op == "insert") n + 1L else n
+    if (length(at) && any(at > last)) {
+      stop(
+        "The table has ",
+        n,
+        " rows; `",
+        if (edit$op == "delete") "delete" else "at",
+        "` names row ",
+        max(at),
+        ".",
+        call. = FALSE
+      )
+    }
+    data <- .el_table_apply_edit(data, edit)
+    .el_table_data_set(session, id, data)
+    # the rows as a render of the whole data would draw them -- with a
+    # row-name column if the table has one
+    drawn <- .el_table_rownames(data, entry$rownames)
+    if (edit$op == "insert") {
+      at <- at %||% (n + 1L)
+      m <- if (is.data.frame(rows)) nrow(rows) else length(rows)
+      rows <- .el_table_slice(drawn, at - 1L + seq_len(m))
+    } else if (edit$op == "replace") {
+      rows <- .el_table_slice(drawn, at)
+    }
+  } else if (!is.null(rows)) {
+    rows <- .el_table_rownames(rows)
+  }
+  if (!is.null(rows)) {
+    rows <- .el_table_rows(rows)
+  }
+  list(op = edit$op, rows = rows, at = if (length(at)) I(at))
+}
+
+#' Rows of a data.frame or of a list of rows
+#' @noRd
+.el_table_slice <- function(data, i) {
+  if (is.data.frame(data)) data[i, , drop = FALSE] else data[i]
+}
+
+#' What R does to data: rbind() to insert, `[<-` to replace, `[-i]` to
+#' delete
+#' @noRd
+.el_table_apply_edit <- function(data, edit) {
+  at <- edit$at
+  if (!is.data.frame(data)) {
+    rows <- edit$rows
+    if (is.data.frame(rows)) {
+      rows <- lapply(seq_len(nrow(rows)), function(i) {
+        as.list(rows[i, , drop = FALSE])
+      })
+    }
+    return(switch(
+      edit$op,
+      insert = append(data, rows, after = (at %||% (length(data) + 1L)) - 1L),
+      replace = {
+        data[at] <- rows
+        data
+      },
+      delete = data[-at]
+    ))
+  }
+  n <- nrow(data)
+  switch(
+    edit$op,
+    insert = {
+      rows <- as.data.frame(edit$rows)
+      at <- at %||% (n + 1L)
+      bound <- rbind(data, rows)
+      bound[
+        c(
+          seq_len(at - 1L),
+          n + seq_len(nrow(rows)),
+          seq_len(n - at + 1L) + at - 1L
+        ),
+        ,
+        drop = FALSE
+      ]
+    },
+    replace = {
+      data[at, ] <- edit$rows
+      data
+    },
+    delete = data[-at, , drop = FALSE]
+  )
 }
 
 # Every event el-table emits, and the few a table reports unasked

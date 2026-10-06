@@ -122,8 +122,10 @@ test_that("el_table: reports the selected row numbers and the rows", {
     data = head(iris, 2),
     selection = TRUE
   ))
-  # input$t1: the row numbers, typed by their handler
-  expect_match(html, '"type":"shiny.element.rows"', fixed = TRUE)
+  # input$t1_selection_rows: the row numbers, typed by their handler;
+  # input$t1 is left free, the host no input
+  expect_match(html, "t1_selection_rows:shiny.element.rows", fixed = TRUE)
+  expect_match(html, '"input":null', fixed = TRUE)
   expect_match(
     html,
     "t1_selection_change:shiny.element.selection",
@@ -545,7 +547,7 @@ test_that("I() keeps a one-element cell an array", {
 })
 
 test_that("a bookmark brings a table's ticked rows back", {
-  ctx <- shiny:::RestoreContext$new("?_inputs_&t1=%5B2%2C4%5D")
+  ctx <- shiny:::RestoreContext$new("?_inputs_&t1_selection_rows=%5B2%2C4%5D")
   html <- shiny:::withRestoreContext(
     ctx,
     render_html(el_table(id = "t1", data = head(iris, 5), selection = TRUE))
@@ -571,4 +573,114 @@ test_that("a table folded into a wrapper keeps its bookmark watcher", {
     paste0("self.", sub("restoredRows", "tableData", prefixed)),
     fixed = TRUE
   )
+})
+
+# ── rows from the server ──────────────────────────────────────────────────────
+
+edit_session <- function() {
+  sent <- list()
+  session <- list(
+    ns = function(id) id,
+    userData = new.env(),
+    sendCustomMessage = function(type, msg) sent[[length(sent) + 1L]] <<- msg
+  )
+  list(session = session, sent = function() sent)
+}
+
+test_that("an edit changes the server's data as R would", {
+  cars <- head(mtcars[, 1:2], 4)
+  ins <- .el_table_apply_edit(
+    cars,
+    list(op = "insert", rows = mtcars[10, 1:2], at = 2L)
+  )
+  expect_equal(rownames(ins), rownames(mtcars)[c(1, 10, 2, 3, 4)])
+  end <- .el_table_apply_edit(cars, list(op = "insert", rows = mtcars[10, 1:2]))
+  expect_equal(rownames(end)[5], rownames(mtcars)[10])
+  rep <- .el_table_apply_edit(
+    cars,
+    list(op = "replace", rows = data.frame(mpg = 0, cyl = 0), at = 3L)
+  )
+  expect_equal(rep$mpg, c(21, 21, 0, 21.4))
+  expect_equal(rownames(rep), rownames(cars))
+  del <- .el_table_apply_edit(cars, list(op = "delete", at = c(1L, 3L)))
+  expect_identical(del, cars[c(2, 4), ])
+  # a list of rows
+  rows <- list(list(a = 1), list(a = 2))
+  expect_equal(
+    .el_table_apply_edit(
+      rows,
+      list(op = "insert", rows = list(list(a = 9)), at = 1L)
+    ),
+    list(list(a = 9), list(a = 1), list(a = 2))
+  )
+  expect_equal(
+    .el_table_apply_edit(rows, list(op = "delete", at = 2L)),
+    list(list(a = 1))
+  )
+})
+
+test_that("update_el_table() sends only the rows edited, as the server holds them", {
+  m <- edit_session()
+  cars <- head(mtcars[, 1:2], 4)
+  .el_table_rendered(m$session, "tbl", cars)
+  update_el_table(m$session, "tbl", insert = mtcars[10, 1:2], at = 1)
+  msg <- m$sent()[[1]]
+  expect_null(msg$tableData)
+  expect_equal(msg$tableEdit$op, "insert")
+  json <- as.character(msg$tableEdit$rows)
+  # the row name, as the table draws it
+  expect_match(json, rownames(mtcars)[10], fixed = TRUE)
+  expect_equal(nrow(.el_table_data(m$session, "tbl")), 5)
+
+  update_el_table(m$session, "tbl", delete = c(1, 5))
+  expect_equal(
+    rownames(.el_table_data(m$session, "tbl")),
+    rownames(cars)[1:3]
+  )
+  update_el_table(
+    m$session,
+    "tbl",
+    replace = data.frame(mpg = 1, cyl = 2),
+    at = 2
+  )
+  expect_equal(.el_table_data(m$session, "tbl")$mpg[2], 1)
+  expect_equal(unclass(m$sent()[[3]]$tableEdit$at), 2L)
+
+  expect_error(update_el_table(m$session, "tbl", delete = 9), "has 3 rows")
+  expect_error(
+    update_el_table(m$session, "tbl", insert = cars, delete = 1),
+    "one of"
+  )
+  expect_error(update_el_table(m$session, "tbl", replace = cars), "needs `at`")
+  expect_error(
+    update_el_table(m$session, "tbl", replace = cars, at = 1),
+    "4 rows for 1"
+  )
+  expect_error(update_el_table(m$session, "tbl", at = 1), "places")
+})
+
+test_that("a render after an update leaves the update's data unless its own changed", {
+  m <- edit_session()
+  a <- head(mtcars, 2)
+  b <- head(mtcars, 5)
+  .el_table_rendered(m$session, "tbl", a)
+  update_el_table(m$session, "tbl", data = b)
+  expect_identical(.el_table_data(m$session, "tbl"), b)
+  # rendered again for another reason, with the same data: the browser
+  # keeps b, and so does the server
+  .el_table_rendered(m$session, "tbl", a)
+  expect_identical(.el_table_data(m$session, "tbl"), b)
+  # the render's own data changed: it is shown on both sides
+  .el_table_rendered(m$session, "tbl", head(mtcars, 3))
+  expect_identical(.el_table_data(m$session, "tbl"), head(mtcars, 3))
+})
+
+test_that("el_table_data() is a reactive read of the data shown", {
+  m <- edit_session()
+  expect_null(el_table_data(m$session, "tbl"))
+  .el_table_rendered(m$session, "tbl", head(mtcars, 2))
+  rows <- shiny::reactive(nrow(el_table_data(m$session, "tbl")))
+  expect_equal(shiny::isolate(rows()), 2)
+  update_el_table(m$session, "tbl", insert = mtcars[3, ])
+  expect_equal(shiny::isolate(rows()), 3)
 })

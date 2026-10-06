@@ -105,9 +105,9 @@ CRAN release on, a change like these goes through a deprecation first.
 * Update functions take `NULL` as "leave it", as Shiny's do; `NA` returns a
   prop to Element's default.
 * A table in an app is an output: `el_table_output()` and
-  `render_el_table()`. `input$<id>` is the selected row numbers, and
-  `input$<id>_selection_change` the selected rows, `data[rows, , drop =
-  FALSE]` of the data rendered; `input$<id>_selected` and
+  `render_el_table()`. `input$<id>_selection_rows` is the selected row
+  numbers, and `input$<id>_selection_change` the selected rows, `data[rows,
+  , drop = FALSE]` of the data shown; `input$<id>_selected` and
   `input$<id>_selected_rows` are gone. A table reports five of Element's
   events unasked -- `selection-change`, `current-change`, `sort-change`,
   `filter-change`, `expand-change` -- and the others when asked, with
@@ -218,18 +218,24 @@ A table is an output in an app, as DT's and reactable's are:
 rows keep the user's ticks, sort and open rows. Its inputs are named after
 the output:
 
-* `input$tbl`, the selected row numbers, integers -- the table as an input,
-  as gt's is: it goes into bookmarks, and a bookmarked selection is ticked
-  again.
+* `input$tbl_selection_rows`, the selected row numbers, integers -- after
+  Element's `getSelectionRows()`. It goes into bookmarks, and a bookmarked
+  selection is ticked again. `input$tbl` itself is left free: Element's
+  table has no value of its own.
 * `input$tbl_selection_change`, the selected rows as R subsets them,
-  `data[rows, , drop = FALSE]`: factors, Dates and row names as rendered,
-  the input handler subsetting the data the server kept.
+  `data[rows, , drop = FALSE]`: factors, Dates and row names kept, the
+  input handler subsetting the data the server keeps.
 * `input$tbl_current_change`, `_sort_change`, `_filter_change` and
   `_expand_change`, always; Element's other events -- `row-dblclick`,
   `cell-click` and the rest -- when asked, with `el_table(events =)` or
   piped, `el_table(...) |> el_on("row-dblclick")`, under Element's name in
   snake_case or an input of one's own (`el_on("cell-click", input =
   "picked")`).
+
+`update_el_table(insert =, replace =, delete =)` changes a few rows and
+sends only those; the server's copy of the data changes as R would change
+it, and `el_table_data()` reads it, reactively. Rows not touched keep their
+ticks and open state.
 
 `el_table()` returns the table's specification, drawn when placed, as an
 htmlwidget is; without Shiny -- R Markdown, Quarto, the site -- it is

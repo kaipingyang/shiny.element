@@ -313,8 +313,8 @@ shinyApp(ui, server)
 #| shot_wait = 2
 #' Rows 1 and 2 cannot be ticked (`selectable`). The first button toggles
 #' rows 2 and 3 whatever `selectable` says, the second only where it allows;
-#' the rows ticked arrive as `input$multi` (their numbers) and
-#' `input$multi_selection_change` (the rows).
+#' the rows ticked arrive as `input$multi_selection_rows` (their numbers)
+#' and `input$multi_selection_change` (the rows).
 tableData <- data.frame(
   id = 1:7,
   date = c(
@@ -1138,15 +1138,17 @@ tagList(
 #'
 #' | Input | Value |
 #' |---|---|
-#' | `input$cars` | the selected row numbers, integers; `NULL` with none |
-#' | `input$cars_selection_change` | the selected rows, `data[rows, , drop = FALSE]`: the columns, types and row names rendered |
+#' | `input$cars_selection_rows` | the selected row numbers, integers; `NULL` with none |
+#' | `input$cars_selection_change` | the selected rows, `data[rows, , drop = FALSE]`: the columns, types and row names as R holds them |
 #' | `input$cars_current_change`, `_sort_change`, `_filter_change`, `_expand_change` | reported by every table |
 #' | `input$cars_<event>` | any other of Element's events, asked for with `el_on()` or `el_table(events =)` |
 #'
 #' Rendering again with the same rows keeps the user's ticks, sort and open
 #' rows; other rows clear the selection, as Element does, unless the rows
 #' carry a `row_key` and the selection column `reserve_selection = TRUE`.
-#' `update_el_table()` and `call_el()` reach the table by the output's id.
+#' `update_el_table()` and `call_el()` reach the table by the output's id:
+#' `update_el_table(insert =, replace =, delete =)` changes a few rows and
+#' sends only those, and `el_table_data()` reads the data the table shows.
 cars <- head(mtcars[, 1:4], 6)
 cars$made <- as.Date("2024-01-01") + 0:5
 

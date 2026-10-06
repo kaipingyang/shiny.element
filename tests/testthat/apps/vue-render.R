@@ -127,7 +127,7 @@ server <- function(input, output, session) {
   picker_server("mod", hint)
   output$vals <- renderText(paste(
     "selected =",
-    paste(input$tbl, collapse = ",")
+    paste(input$tbl_selection_rows, collapse = ",")
   ))
 }
 

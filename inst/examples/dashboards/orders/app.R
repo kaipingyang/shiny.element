@@ -273,7 +273,7 @@ server <- function(input, output, session) {
     update_el_button(
       session,
       "remove_many",
-      disabled = !length(input$orders)
+      disabled = !length(input$orders_selection_rows)
     )
   })
 
