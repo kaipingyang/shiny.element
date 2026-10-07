@@ -226,6 +226,20 @@ Element Plus’s tables, and beside each entry where it is in R.
 |-----------|-----------------|---------------------------|
 | `default` | default content | customize default content |
 
+Main
+
+Main
+
+Main
+
+Main
+
+Main
+
+Main
+
+Main
+
 [^1]: enum
 
 [^2]: string

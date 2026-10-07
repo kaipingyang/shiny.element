@@ -318,7 +318,8 @@
         }
         if (data.hasOwnProperty('width')) {
           var panel = el.querySelector('.el-dialog');
-          if (panel) panel.style.setProperty('--el-dialog-width', data.width);
+          // a fullscreen dialog's size is is-fullscreen's, as in Element
+          if (panel && !panel.classList.contains('is-fullscreen')) panel.style.setProperty('--el-dialog-width', data.width);
         }
         if (data.hasOwnProperty('size')) {
           var drawer = el.querySelector('.el-drawer');

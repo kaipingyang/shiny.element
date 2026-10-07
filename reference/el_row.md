@@ -35,8 +35,8 @@ el_row(
 
 - type:
 
-  Set to `"flex"` for the flex layout, which `justify` and `align`
-  require.
+  Element UI's `"flex"`, kept so old code runs: Element Plus's row is
+  always a flex row, and `justify` and `align` apply without it.
 
 - justify:
 
@@ -74,18 +74,17 @@ el_row(
   el_col(span = 12, "right")
 )
 #> <div class="el-row" style="margin-left:-10px; margin-right:-10px">
-#>   <div class="el-col el-col-12" style="padding-left:10px; padding-right:10px">left</div>
-#>   <div class="el-col el-col-12" style="padding-left:10px; padding-right:10px">right</div>
+#>   <div class="el-col el-col-12 is-guttered" style="padding-left:10px; padding-right:10px">left</div>
+#>   <div class="el-col el-col-12 is-guttered" style="padding-left:10px; padding-right:10px">right</div>
 #> </div>
 
-# Centred flex row
+# Centred row
 el_row(
-  type = "flex",
   justify = "center",
   align = "middle",
   el_col(span = 8, "centred")
 )
-#> <div class="el-row el-row--flex is-justify-center is-align-middle">
+#> <div class="el-row is-justify-center is-align-middle">
 #>   <div class="el-col el-col-8">centred</div>
 #> </div>
 ```

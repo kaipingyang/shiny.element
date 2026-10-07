@@ -27,11 +27,12 @@ Build one of the Element Plus container parts
 
 - size:
 
-  Inline `height` or `width` value, or `NULL`.
+  The `height` or `width`, or `NULL`: Element's CSS variable,
+  `--el-header-height`.
 
 - size_prop:
 
-  Which CSS property `size` sets.
+  Which size it is.
 
 - style:
 

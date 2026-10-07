@@ -17,7 +17,7 @@ el_footer(..., height = "60px", style = NULL, class = NULL)
 - height:
 
   Footer height. Defaults to `"60px"`, as in Element Plus, which sets it
-  inline rather than through the stylesheet.
+  as the CSS variable `--el-<part>-<size>`.
 
 - style:
 
@@ -35,7 +35,7 @@ A Shiny UI element.
 
 ``` r
 el_footer("(c) 2026")
-#> <div class="el-footer" style="height:60px">(c) 2026</div>
+#> <footer class="el-footer" style="--el-footer-height:60px">(c) 2026</footer>
 el_footer(height = "40px", "Compact footer")
-#> <div class="el-footer" style="height:40px">Compact footer</div>
+#> <footer class="el-footer" style="--el-footer-height:40px">Compact footer</footer>
 ```

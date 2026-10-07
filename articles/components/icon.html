@@ -292,13 +292,17 @@ instead, through the fontawesome package.</p>
 <p>Every icon of <code>@element-plus/icons-vue</code>, by the name
 <code><a href="../../reference/el_icon.html">el_icon()</a></code> takes:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">js</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>    <span class="st">"element-plus"</span>,</span>
-<span>    <span class="st">"icons-vue.iife.min.js"</span>,</span>
-<span>    package <span class="op">=</span> <span class="st">"shiny.element"</span></span>
+<code class="sourceCode R"><span><span class="co"># the whole script as one string: its licence comment is a line of its own</span></span>
+<span><span class="va">js</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span>      <span class="st">"element-plus"</span>,</span>
+<span>      <span class="st">"icons-vue.iife.min.js"</span>,</span>
+<span>      package <span class="op">=</span> <span class="st">"shiny.element"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    warn <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  warn <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  collapse <span class="op">=</span> <span class="st">"\n"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/regmatches.html" class="external-link">regmatches</a></span><span class="op">(</span></span>
 <span>  <span class="va">js</span>,</span>
@@ -317,7 +321,1766 @@ instead, through the fontawesome package.</p>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div style="display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)"></div>
+  <div style="display: flex; flex-wrap: wrap; border-top: 1px solid var(--el-border-color)">
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="AddLocation" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">AddLocation</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Aim" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Aim</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="AlarmClock" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">AlarmClock</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Apple" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Apple</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowDown" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowDown</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowDownBold" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowDownBold</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowLeft" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowLeft</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowLeftBold" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowLeftBold</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowRight" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowRight</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowRightBold" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowRightBold</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowUp" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowUp</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ArrowUpBold" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ArrowUpBold</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Avatar" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Avatar</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Back" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Back</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Baseball" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Baseball</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Basketball" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Basketball</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Bell" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Bell</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="BellFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">BellFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Bicycle" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Bicycle</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Bottom" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Bottom</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="BottomLeft" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">BottomLeft</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="BottomRight" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">BottomRight</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Bowl" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Bowl</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Box" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Box</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Briefcase" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Briefcase</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Brush" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Brush</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="BrushFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">BrushFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Burger" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Burger</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Calendar" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Calendar</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Camera" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Camera</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CameraFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CameraFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CaretBottom" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CaretBottom</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CaretLeft" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CaretLeft</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CaretRight" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CaretRight</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CaretTop" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CaretTop</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Cellphone" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Cellphone</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ChatDotRound" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ChatDotRound</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ChatDotSquare" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ChatDotSquare</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ChatLineRound" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ChatLineRound</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ChatLineSquare" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ChatLineSquare</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ChatRound" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ChatRound</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ChatSquare" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ChatSquare</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Check" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Check</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Checked" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Checked</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Cherry" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Cherry</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Chicken" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Chicken</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ChromeFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ChromeFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CircleCheck" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CircleCheck</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CircleCheckFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CircleCheckFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CircleClose" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CircleClose</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CircleCloseFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CircleCloseFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CirclePlus" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CirclePlus</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CirclePlusFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CirclePlusFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Clock" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Clock</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Close" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Close</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CloseBold" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CloseBold</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Cloudy" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Cloudy</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Coffee" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Coffee</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CoffeeCup" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CoffeeCup</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Coin" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Coin</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ColdDrink" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ColdDrink</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Collection" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Collection</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CollectionTag" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CollectionTag</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Comment" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Comment</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Compass" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Compass</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Connection" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Connection</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Coordinate" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Coordinate</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CopyDocument" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CopyDocument</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Cpu" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Cpu</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="CreditCard" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">CreditCard</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Crop" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Crop</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DArrowLeft" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DArrowLeft</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DArrowRight" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DArrowRight</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DataAnalysis" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DataAnalysis</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DataBoard" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DataBoard</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DataLine" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DataLine</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DCaret" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DCaret</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Delete" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Delete</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DeleteFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DeleteFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DeleteLocation" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DeleteLocation</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Dessert" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Dessert</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Discount" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Discount</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Dish" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Dish</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DishDot" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DishDot</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Document" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Document</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DocumentAdd" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DocumentAdd</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DocumentChecked" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DocumentChecked</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DocumentCopy" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DocumentCopy</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DocumentDelete" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DocumentDelete</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="DocumentRemove" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">DocumentRemove</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Download" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Download</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Drizzling" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Drizzling</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Edit" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Edit</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="EditPen" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">EditPen</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Eleme" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Eleme</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ElemeFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ElemeFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ElementPlus" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ElementPlus</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Expand" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Expand</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Failed" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Failed</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Female" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Female</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Files" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Files</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Film" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Film</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Filter" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Filter</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Finished" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Finished</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="FirstAidKit" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">FirstAidKit</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Flag" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Flag</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Fold" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Fold</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Folder" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Folder</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="FolderAdd" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">FolderAdd</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="FolderChecked" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">FolderChecked</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="FolderDelete" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">FolderDelete</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="FolderOpened" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">FolderOpened</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="FolderRemove" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">FolderRemove</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Food" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Food</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Football" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Football</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ForkSpoon" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ForkSpoon</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Fries" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Fries</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="FullScreen" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">FullScreen</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Goblet" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Goblet</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="GobletFull" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">GobletFull</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="GobletSquare" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">GobletSquare</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="GobletSquareFull" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">GobletSquareFull</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="GoldMedal" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">GoldMedal</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Goods" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Goods</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="GoodsFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">GoodsFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Grape" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Grape</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Grid" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Grid</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Guide" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Guide</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Handbag" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Handbag</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Headset" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Headset</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Help" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Help</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="HelpFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">HelpFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Hide" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Hide</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Histogram" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Histogram</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="HomeFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">HomeFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="HotWater" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">HotWater</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="House" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">House</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="IceCream" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">IceCream</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="IceCreamRound" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">IceCreamRound</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="IceCreamSquare" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">IceCreamSquare</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="IceDrink" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">IceDrink</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="IceTea" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">IceTea</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="InfoFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">InfoFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Iphone" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Iphone</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Key" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Key</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="KnifeFork" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">KnifeFork</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Lightning" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Lightning</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Link" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Link</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="List" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">List</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Loading" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Loading</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Location" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Location</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="LocationFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">LocationFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="LocationInformation" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">LocationInformation</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Lock" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Lock</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Lollipop" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Lollipop</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MagicStick" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MagicStick</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Magnet" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Magnet</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Male" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Male</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Management" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Management</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MapLocation" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MapLocation</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Medal" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Medal</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Memo" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Memo</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Menu" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Menu</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Message" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Message</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MessageBox" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MessageBox</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Mic" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Mic</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Microphone" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Microphone</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MilkTea" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MilkTea</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Minus" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Minus</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Money" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Money</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Monitor" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Monitor</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Moon" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Moon</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MoonNight" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MoonNight</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="More" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">More</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MoreFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MoreFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MostlyCloudy" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MostlyCloudy</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Mouse" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Mouse</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Mug" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Mug</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Mute" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Mute</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="MuteNotification" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">MuteNotification</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="NoSmoking" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">NoSmoking</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Notebook" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Notebook</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Notification" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Notification</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Odometer" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Odometer</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="OfficeBuilding" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">OfficeBuilding</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Open" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Open</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Operation" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Operation</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Opportunity" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Opportunity</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Orange" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Orange</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Paperclip" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Paperclip</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="PartlyCloudy" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">PartlyCloudy</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Pear" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Pear</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Phone" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Phone</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="PhoneFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">PhoneFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Picture" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Picture</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="PictureFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">PictureFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="PictureRounded" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">PictureRounded</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="PieChart" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">PieChart</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Place" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Place</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Platform" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Platform</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Plus" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Plus</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Pointer" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Pointer</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Position" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Position</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Postcard" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Postcard</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Pouring" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Pouring</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Present" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Present</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="PriceTag" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">PriceTag</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Printer" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Printer</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Promotion" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Promotion</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="QuartzWatch" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">QuartzWatch</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="QuestionFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">QuestionFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Rank" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Rank</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Reading" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Reading</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ReadingLamp" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ReadingLamp</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Refresh" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Refresh</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="RefreshLeft" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">RefreshLeft</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="RefreshRight" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">RefreshRight</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Refrigerator" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Refrigerator</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Remove" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Remove</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="RemoveFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">RemoveFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Right" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Right</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ScaleToOriginal" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ScaleToOriginal</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="School" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">School</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Scissor" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Scissor</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Search" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Search</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Select" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Select</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Sell" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Sell</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SemiSelect" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SemiSelect</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Service" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Service</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Setting" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Setting</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SetUp" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SetUp</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Share" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Share</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Ship" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Ship</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Shop" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Shop</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ShoppingBag" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ShoppingBag</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ShoppingCart" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ShoppingCart</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ShoppingCartFull" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ShoppingCartFull</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ShoppingTrolley" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ShoppingTrolley</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Smoking" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Smoking</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Soccer" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Soccer</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SoldOut" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SoldOut</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Sort" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Sort</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SortDown" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SortDown</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SortUp" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SortUp</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Stamp" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Stamp</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Star" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Star</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="StarFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">StarFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Stopwatch" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Stopwatch</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SuccessFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SuccessFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Sugar" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Sugar</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Suitcase" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Suitcase</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SuitcaseLine" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SuitcaseLine</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Sunny" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Sunny</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Sunrise" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Sunrise</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Sunset" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Sunset</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Switch" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Switch</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SwitchButton" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SwitchButton</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="SwitchFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">SwitchFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="TakeawayBox" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">TakeawayBox</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Ticket" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Ticket</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Tickets" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Tickets</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Timer" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Timer</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ToiletPaper" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ToiletPaper</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Tools" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Tools</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Top" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Top</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="TopLeft" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">TopLeft</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="TopRight" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">TopRight</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="TrendCharts" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">TrendCharts</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Trophy" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Trophy</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="TrophyBase" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">TrophyBase</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="TurnOff" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">TurnOff</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Umbrella" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Umbrella</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Unlock" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Unlock</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Upload" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Upload</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="UploadFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">UploadFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="User" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">User</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="UserFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">UserFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Van" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Van</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="VideoCamera" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">VideoCamera</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="VideoCameraFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">VideoCameraFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="VideoPause" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">VideoPause</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="VideoPlay" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">VideoPlay</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="View" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">View</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Wallet" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Wallet</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="WalletFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">WalletFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Warning" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Warning</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="WarningFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">WarningFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="WarnTriangleFilled" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">WarnTriangleFilled</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Watch" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Watch</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="Watermelon" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">Watermelon</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="WindPower" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">WindPower</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ZoomIn" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ZoomIn</div>
+    </div>
+    <div style="width: 16.66%; min-width: 110px; height: 90px; text-align: center; font-size: 12px;
+             color: var(--el-text-color-regular); border-right: 1px solid var(--el-border-color);
+             border-bottom: 1px solid var(--el-border-color); padding-top: 18px">
+      <i class="el-icon" data-el-icon="ZoomOut" style="font-size:22px;" aria-hidden="true" role="img"></i>
+      <div style="margin-top: 8px">ZoomOut</div>
+    </div>
+  </div>
 </div>
 </div>
 <div class="section level2">

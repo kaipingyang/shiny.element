@@ -62,12 +62,16 @@
 
     var vertical = el.getAttribute('data-position') === 'left' ||
                    el.getAttribute('data-position') === 'right';
+    // as Element's tab-bar.vue: a horizontal bar spans the label alone,
+    // the item's padding left out
     if (vertical) {
-      bar.style.height = active.offsetHeight + 'px';
+      bar.style.height = active.clientHeight + 'px';
       bar.style.transform = 'translateY(' + active.offsetTop + 'px)';
     } else {
-      bar.style.width = active.offsetWidth + 'px';
-      bar.style.transform = 'translateX(' + active.offsetLeft + 'px)';
+      var cs = window.getComputedStyle(active);
+      var padL = parseFloat(cs.paddingLeft) || 0, padR = parseFloat(cs.paddingRight) || 0;
+      bar.style.width = (active.clientWidth - padL - padR) + 'px';
+      bar.style.transform = 'translateX(' + (active.offsetLeft + padL) + 'px)';
     }
   }
 

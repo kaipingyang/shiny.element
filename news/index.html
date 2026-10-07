@@ -225,6 +225,14 @@
 <li>Releasing an interrupted upload warns, once, if Shiny’s internals it relies on have moved.</li>
 <li>
 <code><a href="../reference/el_calendar.html">el_calendar()</a></code> draws Element Plus’s own day cell; it used to fill it with a template of its own and colour every <code>.is-selected</code> on the page.</li>
+<li>
+<code>el_row(justify =, align =)</code> apply without <code>type = "flex"</code>, Element UI’s switch, as Element Plus’s row is always flex; a guttered row’s columns are marked <code>is-guttered</code>.</li>
+<li>A fullscreen dialog fills the screen: its width and top are left to <code>is-fullscreen</code>, as Element does, where they made it half the width. A header with a close button is padded clear of it (<code>show-close</code>).</li>
+<li>
+<code>el_switch(active_color =, inactive_color =, border_color =)</code> work again, as Element Plus’s CSS variables: it dropped the props.</li>
+<li>Two components in one popover (or any wrapper) no longer show the second one’s label on both: renaming their fields apart renamed some twice.</li>
+<li>A timeline entry whose content is tags – <code><a href="../reference/el_card.html">el_card()</a></code> – is drawn as markup, where it showed its HTML source.</li>
+<li>Containers are Element’s own elements – <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code> – with their sizes as its CSS variables; a side tab header is laid out in a column, the “+” is Element’s, and the active tab’s bar spans its label alone.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-after-elements-own-0-1-0">Documentation, after Element’s own<a class="anchor" aria-label="anchor" href="#documentation-after-elements-own-0-1-0"></a></h3>

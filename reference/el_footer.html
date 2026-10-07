@@ -172,7 +172,7 @@
 
 <dt id="arg-height">height<a class="anchor" aria-label="anchor" href="#arg-height"></a></dt>
 <dd><p>Footer height. Defaults to <code>"60px"</code>, as in Element Plus, which
-sets it inline rather than through the stylesheet.</p></dd>
+sets it as the CSS variable <code>--el-&lt;part&gt;-&lt;size&gt;</code>.</p></dd>
 
 
 <dt id="arg-style">style<a class="anchor" aria-label="anchor" href="#arg-style"></a></dt>
@@ -191,9 +191,9 @@ sets it inline rather than through the stylesheet.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_footer</span><span class="op">(</span><span class="st">"(c) 2026"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-footer" style="height:60px"&gt;(c) 2026&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;footer class="el-footer" style="--el-footer-height:60px"&gt;(c) 2026&lt;/footer&gt;</span>
 <span class="r-in"><span><span class="fu">el_footer</span><span class="op">(</span>height <span class="op">=</span> <span class="st">"40px"</span>, <span class="st">"Compact footer"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-footer" style="height:40px"&gt;Compact footer&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;footer class="el-footer" style="--el-footer-height:40px"&gt;Compact footer&lt;/footer&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

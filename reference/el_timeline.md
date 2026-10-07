@@ -87,8 +87,8 @@ A Shiny UI element.
 
 Entries are rendered with `v-for` from a data field, so
 `update_el_timeline()` can replace them – useful for a log that grows.
-Their content is therefore a string rather than markup; pass
-`html = TRUE` to render it as HTML.
+Content given as tags – `el_card(...)` – is drawn as markup; a string is
+text unless `html = TRUE`.
 
 ## Updating from the server
 
@@ -121,7 +121,7 @@ el_timeline(
 #> <div id="log" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
 #>   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
+#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"><span v-if="item.contentHtml" v-html="item.content"></span><template v-else>{{ item.content }}</template></el-timeline-item>
 #>   </el-timeline>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
@@ -139,7 +139,7 @@ el_timeline(
 #> <div id="log" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
 #>   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
+#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"><span v-if="item.contentHtml" v-html="item.content"></span><template v-else>{{ item.content }}</template></el-timeline-item>
 #>   </el-timeline>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>

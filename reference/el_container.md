@@ -1,6 +1,6 @@
 # Element Plus Container
 
-Emits `<div class="el-container">` directly.
+Emits `<section class="el-container">` directly, as Element does.
 
 ## Usage
 
@@ -69,35 +69,35 @@ el_container(
     el_main("Content")
   )
 )
-#> <div class="el-container is-vertical">
-#>   <div class="el-header" style="height:60px">Title</div>
-#>   <div class="el-container">
-#>     <div class="el-aside" style="width:200px">Sidebar</div>
-#>     <div class="el-main">Content</div>
-#>   </div>
-#> </div>
+#> <section class="el-container is-vertical">
+#>   <header class="el-header" style="--el-header-height:60px">Title</header>
+#>   <section class="el-container">
+#>     <aside class="el-aside" style="--el-aside-width:200px">Sidebar</aside>
+#>     <main class="el-main">Content</main>
+#>   </section>
+#> </section>
 
 # Nested inputs work, unlike with the previous Vue template approach
 el_container(
   el_header(el_switch("dark_mode", value = FALSE)),
   el_main(el_slider("amount", value = 50))
 )
-#> <div class="el-container is-vertical">
-#>   <div class="el-header" style="height:60px">
+#> <section class="el-container is-vertical">
+#>   <header class="el-header" style="--el-header-height:60px">
 #>     <div id="dark_mode" data-shiny-vue style="display: contents">
 #>       <script type="text/x-template" data-shiny-vue-template><div id="dark_mode_container" style="display: contents">
-#>   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :active-color="activeColor" :inactive-color="inactiveColor" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
+#>   <el-switch v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :style="{ &#39;--el-switch-on-color&#39;: activeColor || undefined, &#39;--el-switch-off-color&#39;: inactiveColor || undefined, &#39;--el-switch-border-color&#39;: borderColor || undefined }" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange" :width="width === null ? undefined : width" :name="name === null ? undefined : name" :validate-event="validateEvent === null ? undefined : validateEvent" :active-action-icon="activeActionIcon === null ? undefined : activeActionIcon" :active-icon="activeIcon === null ? undefined : activeIcon" :aria-label="ariaLabel === null ? undefined : ariaLabel" :before-change="beforeChange === null ? undefined : beforeChange" :border-color="borderColor === null ? undefined : borderColor" :inactive-action-icon="inactiveActionIcon === null ? undefined : inactiveActionIcon" :inactive-icon="inactiveIcon === null ? undefined : inactiveIcon" :inline-prompt="inlinePrompt === null ? undefined : inlinePrompt" :loading="loading === null ? undefined : loading" :size="size === null ? undefined : size" :tabindex="tabindex === null ? undefined : tabindex"></el-switch>
 #> </div></script>
 #>       <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #>     </div>
-#>   </div>
-#>   <div class="el-main">
+#>   </header>
+#>   <main class="el-main">
 #>     <div id="amount" data-shiny-vue style="display: contents">
 #>       <script type="text/x-template" data-shiny-vue-template><div id="amount_container" style="display: contents">
 #>   <el-slider v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" :height="height === null ? undefined : height" :marks="marks === null ? undefined : marks" :label="label === null ? undefined : label" :input-size="inputSize === null ? undefined : inputSize" :show-input-controls="showInputControls === null ? undefined : showInputControls" :tooltip-class="tooltipClass === null ? undefined : tooltipClass" :format-tooltip="formatTooltip === null ? undefined : formatTooltip" @input="elEmitInput" :aria-label="ariaLabel === null ? undefined : ariaLabel" :format-value-text="formatValueText === null ? undefined : formatValueText" :persistent="persistent === null ? undefined : persistent" :placement="placement === null ? undefined : placement" :range-end-label="rangeEndLabel === null ? undefined : rangeEndLabel" :range-start-label="rangeStartLabel === null ? undefined : rangeStartLabel" :size="size === null ? undefined : size" :validate-event="validateEvent === null ? undefined : validateEvent"></el-slider>
 #> </div></script>
 #>       <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":50,"min":0,"max":100,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":null,"inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('amount', 'input', arguments, 200); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitInput","options.methods.handleChange"]}</script>
 #>     </div>
-#>   </div>
-#> </div>
+#>   </main>
+#> </section>
 ```

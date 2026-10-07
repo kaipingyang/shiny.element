@@ -98,7 +98,7 @@ el_timeline(
 #> <div id="tl" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="tl_container" style="display: contents">
 #>   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
-#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp">{{ item.content }}</el-timeline-item>
+#>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"><span v-if="item.contentHtml" v-html="item.content"></span><template v-else>{{ item.content }}</template></el-timeline-item>
 #>   </el-timeline>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13","type":"success"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
