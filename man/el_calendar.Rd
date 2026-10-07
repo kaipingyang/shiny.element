@@ -209,12 +209,15 @@ if (interactive()) {
     )
     observeEvent(input$plan_add, {
       new <- input$plan_add
-      events(rbind(events(), data.frame(
-        id = max(events()$id) + 1L,
-        start = new$start,
-        title = new$title,
-        type = new$type
-      )))
+      events(rbind(
+        events(),
+        data.frame(
+          id = max(events()$id) + 1L,
+          start = new$start,
+          title = new$title,
+          type = new$type
+        )
+      ))
     })
     observeEvent(input$plan_update, {
       d <- events()
