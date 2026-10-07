@@ -67,7 +67,17 @@ cases <- list(
     "update_el_steps",
     quote(el_steps("x", steps = list(list(title = "S"))))
   ),
-  list("update_el_calendar", quote(el_calendar("x"))),
+  list(
+    "update_el_calendar",
+    quote(el_calendar("x")),
+    list(
+      value = "2026-01-01",
+      range = c("2026-01-01", "2026-01-31"),
+      controller_type = "select",
+      events = data.frame(date = "2026-01-02", title = "a"),
+      editable = TRUE
+    )
+  ),
   list("update_el_alert", quote(el_alert("x"))),
   list("update_el_button", quote(el_button("x"))),
   list("update_el_tag", quote(el_tag("x"))),
@@ -328,11 +338,18 @@ test_that("every updater of a Vue component sends only declared fields", {
         data = data.frame(key = 1, label = "a"),
         columns = list(list(prop = "a", label = "A")),
         steps = list(list(title = "S")),
+        events = data.frame(date = "2026-01-02", title = "a"),
+        insert = data.frame(id = 9, date = "2026-01-02", title = "a"),
+        event_labels = list(save = "OK"),
         1
       )
       given <- stats::setNames(list(val), a)
       if (a == "replace") {
-        given$at <- 1
+        given <- if (fn == "update_el_calendar") {
+          list(replace = data.frame(id = 1, date = "2026-01-02", title = "a"))
+        } else {
+          list(replace = 1, at = 1)
+        }
       }
       sent <- capture_update(f, given)
       sent <- sent[!startsWith(sent, ".")]

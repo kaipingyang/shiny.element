@@ -47,6 +47,13 @@
     },
     force = TRUE
   )
+  # A calendar's events and the days it shows, their dates as Dates:
+  # `date`, `end`, `start` and `current`, at any depth
+  shiny::registerInputHandler(
+    "shiny.element.cal_event",
+    function(x, ...) .el_calendar_dates(x),
+    force = TRUE
+  )
   # A cell edited in an editable column: applied to the server's copy of
   # the data, as the browser shows it already, and reported with R's types
   # -- the value as the column holds it, and the value it replaced

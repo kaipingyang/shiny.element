@@ -200,6 +200,19 @@ ui <- el_page(
   actionButton("otbl_delete", "delete the first row"),
   # cells edited in place, each edit applied on the server with R's types
   el_table_output("etbl"),
+  # a planner: the server keeps the events and answers each request
+  el_calendar(
+    "plan",
+    value = "2026-10-07",
+    events = data.frame(
+      id = 1:3,
+      date = as.Date("2026-10-05") + c(0, 2, 9),
+      end = as.Date(c(NA, "2026-10-09", NA)),
+      title = c("Standup", "Conference", "Review"),
+      type = c("primary", "success", "warning")
+    ),
+    editable = TRUE
+  ),
   # a cached table: renders read back from the cache still patch the page
   el_table_output("ctbl"),
   actionButton("ctbl_four", "four rows"),
@@ -819,6 +832,17 @@ server <- function(input, output, session) {
       cat("otbl_shown", "=", paste(rownames(shown), collapse = ","), "\n")
     }
     cat("ctbl_runs", "=", session$userData$ctbl_runs %||% 0, "\n")
+    p <- plan()
+    cat("plan", "=", paste(p$id, format(p$date), p$title, collapse = ";"), "\n")
+    if (!is.null(input$plan_dates)) {
+      cat(
+        "plan_dates",
+        "=",
+        paste(format(input$plan_dates$start), format(input$plan_dates$end)),
+        "\n"
+      )
+    }
+    cat("plan_click", "=", input$plan_click$title %||% "", "\n")
     if (!is.null(input$ctbl_selection_change)) {
       cat(
         "ctbl_picked",
@@ -876,6 +900,39 @@ server <- function(input, output, session) {
     update_el_table(session, "otbl", replace = car, at = 1)
   })
   observeEvent(input$otbl_delete, update_el_table(session, "otbl", delete = 1))
+  plan <- reactiveVal(data.frame(
+    id = 1:3,
+    date = as.Date("2026-10-05") + c(0, 2, 9),
+    end = as.Date(c(NA, "2026-10-09", NA)),
+    title = c("Standup", "Conference", "Review"),
+    type = c("primary", "success", "warning")
+  ))
+  observeEvent(input$plan_add, {
+    ev <- input$plan_add
+    new <- data.frame(
+      id = max(plan()$id) + 1L,
+      date = ev$date,
+      end = if (is.null(ev$end)) as.Date(NA) else ev$end,
+      title = ev$title,
+      type = ev$type
+    )
+    plan(rbind(plan(), new))
+    update_el_calendar(session, "plan", insert = new)
+  })
+  observeEvent(input$plan_update, {
+    u <- input$plan_update
+    d <- plan()
+    i <- which(d$id == u$id)
+    for (k in intersect(names(u$changes), names(d))) {
+      d[[k]][i] <- if (is.null(u$changes[[k]])) NA else u$changes[[k]]
+    }
+    plan(d)
+    update_el_calendar(session, "plan", replace = d[i, ])
+  })
+  observeEvent(input$plan_delete, {
+    plan(plan()[plan()$id != input$plan_delete$id, ])
+    update_el_calendar(session, "plan", delete = input$plan_delete$id)
+  })
   ctbl_n <- reactiveVal(3)
   ctbl_runs <- 0
   observeEvent(input$ctbl_four, ctbl_n(4))

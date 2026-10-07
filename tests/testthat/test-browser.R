@@ -317,6 +317,63 @@ test_that("a page that cannot apply a patch gets the table whole", {
   ))
 })
 
+test_that("a calendar's events are requests the server answers", {
+  skip_if_no_browser()
+  drawn <- "Array.from(document.querySelectorAll('#plan .el-calendar-event')).map(function(t){ return t.innerText; }).join(',')"
+  save <- "Array.from(document.querySelectorAll('.el-calendar-dialog .el-button')).filter(function(b){ return b.innerText.trim() === 'Save' && b.offsetParent; })[0].click()"
+  type_title <- function(text) {
+    bev(sprintf(
+      "(function(){ var i = Array.from(document.querySelectorAll('.el-calendar-dialog input')).filter(function(i){ return i.offsetParent; })[0]; i.value = '%s'; i.dispatchEvent(new Event('input', {bubbles: true})); })()",
+      text
+    ))
+  }
+  # drawn on each day they cover; the days shown reported
+  expect_equal(bev(drawn), "Standup,Conference,Conference,Conference,Review")
+  expect_equal(bdump()[["plan_dates"]], "2026-09-27 2026-10-31")
+  # a click reports the event and opens it for editing
+  bev("document.querySelectorAll('#plan .el-calendar-event')[0].click()")
+  Sys.sleep(1)
+  expect_equal(bdump()[["plan_click"]], "Standup")
+  type_title("Standup moved")
+  bev(save)
+  Sys.sleep(1.5)
+  expect_match(bdump()[["plan"]], "1 2026-10-05 Standup moved", fixed = TRUE)
+  expect_match(bev(drawn), "^Standup moved,")
+  # a double click on a day adds one; the server gives it its id
+  bev(
+    "document.querySelectorAll('#plan .el-calendar-table td.current .el-calendar-cell')[19].dispatchEvent(new MouseEvent('dblclick', {bubbles: true}))"
+  )
+  Sys.sleep(1)
+  type_title("Launch")
+  bev(save)
+  Sys.sleep(1.5)
+  expect_match(bdump()[["plan"]], "4 2026-10-20 Launch", fixed = TRUE)
+  expect_match(bev(drawn), "Launch")
+  # dragged to another day: moved
+  bev(
+    "(function(){ var t = Array.from(document.querySelectorAll('#plan .el-calendar-event')).filter(function(e){ return e.innerText === 'Review'; })[0]; var dt = new DataTransfer(); t.dispatchEvent(new DragEvent('dragstart', {bubbles: true, dataTransfer: dt})); document.querySelectorAll('#plan .el-calendar-table td.current .el-calendar-cell')[15].dispatchEvent(new DragEvent('drop', {bubbles: true, dataTransfer: dt})); })()"
+  )
+  Sys.sleep(1.5)
+  expect_match(bdump()[["plan"]], "3 2026-10-16 Review", fixed = TRUE)
+  # deleted from its dialog
+  bev(
+    "Array.from(document.querySelectorAll('#plan .el-calendar-event')).filter(function(e){ return e.innerText === 'Conference'; })[0].click()"
+  )
+  Sys.sleep(1)
+  bev(
+    "Array.from(document.querySelectorAll('.el-calendar-dialog .el-button')).filter(function(b){ return b.innerText.trim() === 'Delete' && b.offsetParent; })[0].click()"
+  )
+  Sys.sleep(1.5)
+  expect_false(grepl("Conference", bdump()[["plan"]], fixed = TRUE))
+  expect_false(grepl("Conference", bev(drawn), fixed = TRUE))
+  # another month: its dates
+  bev(
+    "Array.from(document.querySelectorAll('#plan .el-calendar__button-group .el-button')).filter(function(b){ return /Next/.test(b.innerText); })[0].click()"
+  )
+  Sys.sleep(1.5)
+  expect_equal(bdump()[["plan_dates"]], "2026-11-01 2026-12-05")
+})
+
 test_that("a cached table output is patched from the cache", {
   skip_if_no_browser()
   rows <- "String(document.querySelectorAll('#ctbl .el-table__body tr').length)"
