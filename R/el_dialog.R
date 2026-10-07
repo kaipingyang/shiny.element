@@ -282,15 +282,16 @@ update_el_dialog <- function(
 #' @return An htmlDependency object.
 #' @keywords internal
 el_overlay_dependency <- function() {
-  list(
-    .el_jquery_dependency(),
-    htmltools::htmlDependency(
+  c(
+    list(.el_jquery_dependency()),
+    .el_plus_dependencies(),
+    list(htmltools::htmlDependency(
       name = "el-overlay-binding",
       version = "1.0.0",
       src = system.file("js", package = "shiny.element"),
       script = "el-overlay-binding.js",
       all_files = FALSE
-    )
+    ))
   )
 }
 

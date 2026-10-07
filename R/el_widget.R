@@ -22,9 +22,8 @@
 #' @param methods,watch,mounted,computed Vue options, included when not `NULL`.
 #' @param emits Events the component sends with `$emit()`: each arrives as
 #'   `input$<id>_<event>`, as for [vue_app()].
-#' @param dependency htmlDependency objects to attach. Outside this package
-#'   pass [element_plus_dependency()], unless the page already loads it through
-#'   [el_page()] or [use_element()].
+#' @param dependency htmlDependency objects to attach, beside Vue, Element
+#'   Plus and the bridge, which every component carries.
 #' @param head Tags to place before the host, such as a `<style>` block.
 #' @param slots Named list of slot contents, one entry per Element slot:
 #'   `list(title = tags$b("Bold"))` fills the `title` slot. A component given

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_dependencies.R
 \name{use_element}
 \alias{use_element}
-\title{Load All Element-UI Dependencies}
+\title{Element Plus for a page of your own}
 \usage{
 use_element(
   theme = NULL,
@@ -44,9 +44,14 @@ from (2000 by default). \code{NULL} leaves Element's default.}
 A list of htmlDependency objects
 }
 \description{
-Convenience function to load Vue, Element-UI, and layout CSS dependencies.
-Use this when you want to use Element-UI components in non-el_page layouts
-(e.g., bslib::page_sidebar, shiny::navbarPage).
+What \code{\link[=el_page]{el_page()}} gives a page, for other page functions --
+\code{\link[bslib:page_sidebar]{bslib::page_sidebar()}}, \code{\link[shiny:navbarPage]{shiny::navbarPage()}}: the theme Element follows,
+its locale and global config, the handlers of \code{\link[=el_message]{el_message()}} and the other
+feedback services, and Element served from the CDN when \code{offline = FALSE}.
+Components need none of it to work: each carries Vue and Element Plus, so
+on a page without \code{use_element()} they show in English, Element's own
+colours and sizes. Place it before the components, so its copy of
+Element is the one kept.
 }
 \examples{
 \dontrun{

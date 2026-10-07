@@ -113,7 +113,11 @@ el_container <- function(
     attrs$id <- .el_ui_id(id, session)
   }
 
-  htmltools::tag("div", c(attrs, children))
+  # Element Plus's stylesheet lays the container and its parts out
+  htmltools::attachDependencies(
+    htmltools::tag("div", c(attrs, children)),
+    .el_plus_dependencies()
+  )
 }
 
 #' Element Plus Header

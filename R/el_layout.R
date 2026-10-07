@@ -117,13 +117,17 @@ el_row <- function(
     children <- lapply(children, .el_col_gutter, half = half)
   }
 
-  htmltools::tag(
-    tag,
-    c(
-      list(class = paste(classes, collapse = " ")),
-      list(style = .el_style(gutter_style, style)),
-      children
-    )
+  # Element Plus's stylesheet lays the row and its columns out
+  htmltools::attachDependencies(
+    htmltools::tag(
+      tag,
+      c(
+        list(class = paste(classes, collapse = " ")),
+        list(style = .el_style(gutter_style, style)),
+        children
+      )
+    ),
+    .el_plus_dependencies()
   )
 }
 

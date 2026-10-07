@@ -45,9 +45,8 @@ set has to be declared here -- Vue does not track one that is not.}
 \item{emits}{Events the component sends with \verb{$emit()}: each arrives as
 \verb{input$<id>_<event>}, as for \code{\link[=vue_app]{vue_app()}}.}
 
-\item{dependency}{htmlDependency objects to attach. Outside this package
-pass \code{\link[=element_plus_dependency]{element_plus_dependency()}}, unless the page already loads it through
-\code{\link[=el_page]{el_page()}} or \code{\link[=use_element]{use_element()}}.}
+\item{dependency}{htmlDependency objects to attach, beside Vue, Element
+Plus and the bridge, which every component carries.}
 
 \item{head}{Tags to place before the host, such as a \verb{<style>} block.}
 

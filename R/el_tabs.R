@@ -392,14 +392,15 @@ remove_el_tab <- function(
 #' @return An htmlDependency object.
 #' @keywords internal
 el_tabs_dependency <- function() {
-  list(
-    .el_jquery_dependency(),
-    htmltools::htmlDependency(
+  c(
+    list(.el_jquery_dependency()),
+    .el_plus_dependencies(),
+    list(htmltools::htmlDependency(
       name = "el-tabs-binding",
       version = "1.0.0",
       src = system.file("js", package = "shiny.element"),
       script = "el-tabs-binding.js",
       all_files = FALSE
-    )
+    ))
   )
 }

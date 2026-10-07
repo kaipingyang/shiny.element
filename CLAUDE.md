@@ -151,8 +151,14 @@ value to the column's type.
   and, when the theme changes Element Plus's colours, a `<style>` of its CSS
   variables (`R/el_element_theme.R`, dependency `element-plus-theme`).
 - `use_element()` -- the same for other page functions.
-- Every component also attaches what it needs, so it works on any page and
-  without Shiny (static R Markdown, the pkgdown site).
+- Every component -- controls through `.el_vue_dependencies()`, containers
+  through their binding's dependency, `el_row()` and `el_container()`
+  directly -- carries Vue and Element Plus, as Shiny's inputs carry
+  selectize and htmlwidgets their libraries, so it works on any page and
+  without Shiny (static R Markdown); `test-browser-bare-page.R` runs them on
+  a `fluidPage()` with neither. htmltools keeps the first copy, so a page
+  that loads Element from the CDN keeps it. The theme, locale, global config
+  and feedback handlers belong to the page: `el_page()` or `use_element()`.
 
 ### Pure tag API
 

@@ -331,6 +331,16 @@ drawer bind themselves when Shiny is absent, and the scripts bring their own
 jQuery. The website's examples are live components built this way, with a
 screenshot only where an example needs a server.
 
+## On any page
+
+Every component carries Vue and Element Plus, as Shiny's inputs carry
+selectize: on `fluidPage()`, `navbarPage()` or a bslib page with no
+`use_element()` they used to stay bare `<el-*>` tags. `use_element()` and
+`el_page()` now give what belongs to the page -- the theme Element follows,
+its locale and global config, the feedback handlers, Element from the CDN.
+Should Element still be missing -- a CDN that cannot be reached -- the
+console says so rather than blaming the tags' place.
+
 ## Components rendered by `renderUI()`
 
 A component whose type first appears through `renderUI()` or `insertUI()`
