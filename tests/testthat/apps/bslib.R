@@ -71,11 +71,19 @@ ui <- page_sidebar(
   # shinyjs's UI wrappers and click() on components
   shinyjs::hidden(el_input("sj_hid", value = "hidden")),
   shinyjs::disabled(el_input("sj_dis", value = "disabled")),
-  el_button("sj_btn", "clicked by shinyjs")
+  el_button("sj_btn", "clicked by shinyjs"),
+  # a whole page returned by renderUI(), its output hidden from the start
+  # or hidden later
+  shinyjs::hidden(uiOutput("pg_hidden")),
+  uiOutput("pg_shown")
 )
 
 server <- function(input, output, session) {
   observeEvent(input$do_click, shinyjs::click("sj_btn"))
+  output$pg_hidden <- renderUI(el_page(el_input("pg_h_in", value = "h")))
+  output$pg_shown <- renderUI(el_page(el_input("pg_s_in", value = "s")))
+  observeEvent(input$do_pg_hide, shinyjs::hide("pg_shown"))
+  observeEvent(input$do_pg_show, shinyjs::show("pg_hidden"))
   observeEvent(input$do_show_hid, shinyjs::show("sj_hid"))
   # a theme changed while the app runs: Element's colours follow Bootstrap's
   observeEvent(

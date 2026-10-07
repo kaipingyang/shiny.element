@@ -166,6 +166,17 @@ test_that("components work inside bslib and Shiny containers", {
   step("do_click")
   expect_equal(js(clicks), "1")
 
+  # an el_page() returned by renderUI(): hidden with its uiOutput()
+  expect_equal(value("pg_s_in"), '"s"')
+  # not drawn while hidden: Shiny holds a hidden output back
+  expect_null(value("pg_h_in"))
+  step("do_pg_hide")
+  expect_equal(size("#pg_shown .el-input"), "0x0")
+  step("do_pg_show")
+  Sys.sleep(2)
+  expect_false(size("#pg_hidden .el-input") %in% c("0x0", "missing"))
+  expect_equal(value("pg_h_in"), '"h"')
+
   # session$setCurrentTheme(): Element's colours follow the new theme
   primary <- "getComputedStyle(document.documentElement).getPropertyValue('--el-color-primary').trim().toLowerCase()"
   expect_equal(js(primary), "#409eff")

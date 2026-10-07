@@ -236,6 +236,13 @@ el_col <- function(
 #' (`page_sidebar()`, `layout_columns()`) each work here; nest one inside a
 #' cell of the other rather than interleaving them.
 #'
+#' A page returned by [shiny::renderUI()] works there too. Like Shiny's and
+#' bslib's page functions it is a whole page, not one tag, so shinyjs's
+#' `hidden()` cannot wrap it: hide its output instead --
+#' `shinyjs::hidden(uiOutput("id"))`, or `shinyjs::hide("id")` later.
+#' Inside `renderUI()` the components alone are enough: each brings what it
+#' needs.
+#'
 #' @return A Shiny UI element.
 #'
 #' @examples

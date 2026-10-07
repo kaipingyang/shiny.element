@@ -63,6 +63,13 @@ Use this as the root UI function for your Shiny app. You can combine bslib layou
 Element's layout (\code{el_container()}, \code{el_row()}, \code{el_col()}) and bslib's
 (\code{page_sidebar()}, \code{layout_columns()}) each work here; nest one inside a
 cell of the other rather than interleaving them.
+
+A page returned by \code{\link[shiny:renderUI]{shiny::renderUI()}} works there too. Like Shiny's and
+bslib's page functions it is a whole page, not one tag, so shinyjs's
+\code{hidden()} cannot wrap it: hide its output instead --
+\code{shinyjs::hidden(uiOutput("id"))}, or \code{shinyjs::hide("id")} later.
+Inside \code{renderUI()} the components alone are enough: each brings what it
+needs.
 }
 \examples{
 el_page(
