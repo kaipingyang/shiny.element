@@ -60,10 +60,35 @@ again, so it does not undo what the user did; to set a value whatever
 the user did, use
 [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md).
 
+## render_vue(), render_vue_data(), update_vue()
+
+Three ways the server shapes a component, by who owns it:
+
+- `render_vue()` – the server writes the component: template, options,
+  methods, data, dependencies. Rendered again, it keeps what the user
+  did; a new template or new methods mount it afresh. As shiny.react's
+  `renderReact()` is for React.
+
+- [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
+  – the component is written in the UI and one of its fields follows a
+  value the server renders: a value, not markup, for components whose
+  structure is fixed. One output can feed several components, or a
+  [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
+  they share.
+
+- [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
+  – an observer sets fields when it decides to: an imperative change,
+  sent whether or not the component is shown.
+
+`render_vue()` can be cached with
+[`shiny::bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html), as
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) can.
+
 ## See also
 
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md),
-[`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md).
+[`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md),
+[`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md).
 
 ## Examples
 

@@ -108,7 +108,16 @@ as a Shiny input.
   `reactive_output()`: a component’s field follows it
   (`vue_app(outputs = c(stats = "stats"))`, `vue_store(outputs =)`). It
   waits while its component is hidden, as outputs do, and
-  `$recalculating.<id>` tells the template while it runs.
+  `$recalculating.<id>` tells the template while it runs. One output can
+  feed several components, or a
+  [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
+  they share. It and
+  [`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+  can be cached with
+  [`bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html);
+  [`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md),
+  which sends only what changed since its last render, refuses to be and
+  says to cache the data upstream.
 - [`vue_component()`](https://kaipingyang.github.io/shiny.element/reference/vue_component.md)
   – a child component for `components =`, under its name as written or
   in kebab-case (`todo_item` is `<todo-item>`); the dependencies its

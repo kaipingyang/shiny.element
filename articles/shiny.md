@@ -553,8 +553,13 @@ template the same.
 
 ### Data from outputs
 
-Where the server computes what a component shows, the component can name
-an output in `outputs` and a field follows it:
+Two outputs, by who writes the component.
+[`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+draws one the server writes – template, options, methods and data, any
+of which a render can change – as shiny.react’s `renderReact()` draws
+React. Where the component is written in the UI and only its data comes
+from the server, the component names an output in `outputs` and a field
+follows it:
 [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
 sends a value – a list, a data.frame’s rows, a \[JS()\] function – not
 markup, and the template redraws what depends on it. It is an output as
@@ -591,6 +596,35 @@ shinyApp(ui, server)
 
 Inside a module the field is named and the id wrapped:
 `outputs = c(stats = ns("stats"))`.
+
+One output can feed several components, or a
+[`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
+that every component reads – the shared state Vue’s guide recommends,
+with the server as its source:
+
+``` r
+
+ui <- fluidPage(
+  vue_store("sales", outputs = c(totals = "totals")),
+  vue_app("kpi", tags$b("{{ $store.sales.totals.revenue }}")),
+  vue_app("trend", tags$i("{{ $store.sales.totals.growth }} %"))
+)
+
+server <- function(input, output, session) {
+  output$totals <- render_vue_data(summarise_sales(input$region))
+}
+```
+
+[`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+and
+[`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
+can be cached with
+[`bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html), as
+Shiny’s own render functions can. A table output cannot: each render
+sends only what changed since the last one in the session, so cache the
+data it shows in a
+[`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html) upstream
+instead.
 
 ### State shared between components
 

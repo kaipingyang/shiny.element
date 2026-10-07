@@ -210,6 +210,12 @@ in the component's templates.</p>
 <p>Values travel as <code><a href="vue_app.html">vue_app()</a></code>'s <code>data</code> does: a list an object, a
 data.frame its rows, <code><a href="JS.html">JS()</a></code> a function; <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> keeps a vector of one an
 array.</p>
+<p>Where <code><a href="vue_output.html">render_vue()</a></code> draws a component the server writes, this fills a
+component the UI writes: the template stays where it is, the value comes
+from the server. One output can feed several components' fields, or a
+<code><a href="vue_store.html">vue_store()</a></code> they all read – shared state, as Vue's guide recommends,
+with the server as its source. It can be cached with
+<code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">shiny::bindCache()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

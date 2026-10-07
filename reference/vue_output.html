@@ -219,8 +219,25 @@ again, so it does not undo what the user did; to set a value whatever the
 user did, use <code><a href="update_vue.html">update_vue()</a></code>.</p>
     </div>
     <div class="section level2">
+    <h2 id="render-vue-render-vue-data-update-vue-">render_vue(), render_vue_data(), update_vue()<a class="anchor" aria-label="anchor" href="#render-vue-render-vue-data-update-vue-"></a></h2>
+
+
+<p>Three ways the server shapes a component, by who owns it:</p><ul><li><p><code>render_vue()</code> – the server writes the component: template, options,
+methods, data, dependencies. Rendered again, it keeps what the user did;
+a new template or new methods mount it afresh. As shiny.react's
+<code>renderReact()</code> is for React.</p></li>
+<li><p><code><a href="render_vue_data.html">render_vue_data()</a></code> – the component is written in the UI and one of
+its fields follows a value the server renders: a value, not markup, for
+components whose structure is fixed. One output can feed several
+components, or a <code><a href="vue_store.html">vue_store()</a></code> they share.</p></li>
+<li><p><code><a href="update_vue.html">update_vue()</a></code> – an observer sets fields when it decides to: an
+imperative change, sent whether or not the component is shown.</p></li>
+</ul><p><code>render_vue()</code> can be cached with <code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">shiny::bindCache()</a></code>, as <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code>
+can.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="vue_app.html">vue_app()</a></code>, <code><a href="update_vue.html">update_vue()</a></code>.</p></div>
+    <div class="dont-index"><p><code><a href="vue_app.html">vue_app()</a></code>, <code><a href="update_vue.html">update_vue()</a></code>, <code><a href="render_vue_data.html">render_vue_data()</a></code>.</p></div>
     </div>
 
     <div class="section level2">

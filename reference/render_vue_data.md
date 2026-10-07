@@ -49,6 +49,16 @@ Values travel as
 function; [`I()`](https://rdrr.io/r/base/AsIs.html) keeps a vector of
 one an array.
 
+Where
+[`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+draws a component the server writes, this fills a component the UI
+writes: the template stays where it is, the value comes from the server.
+One output can feed several components' fields, or a
+[`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
+they all read – shared state, as Vue's guide recommends, with the server
+as its source. It can be cached with
+[`shiny::bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html).
+
 ## See also
 
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md),
