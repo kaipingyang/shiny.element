@@ -175,6 +175,28 @@
 <link href="calendar_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
 <link href="calendar_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
 <script src="calendar_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="calendar_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="calendar_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="calendar_files/el-events-1.0.0/el-events.js"></script><script src="calendar_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="calendar_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<style>.el-calendar-cell { height: 100%; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.el-calendar-cell.is-selecting { background-color: var(--el-color-primary-light-9); }
+.el-calendar-cell__events { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.el-calendar-cell__events.is-scrolling { overflow-y: auto; }
+.el-calendar-event { width: 100%; justify-content: flex-start; cursor: pointer; overflow: hidden; flex-shrink: 0; }
+.el-calendar-event .el-tag__content { overflow: hidden; text-overflow: ellipsis; }
+.el-calendar-cell__head { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
+.el-calendar-more { font-size: 12px; color: var(--el-color-primary); cursor: pointer; white-space: nowrap; }
+.el-calendar-more:hover { text-decoration: underline; }
+.el-calendar-more__list { display: flex; flex-direction: column; gap: 4px; }
+.el-calendar-more__day { font-weight: 600; margin-bottom: 2px; }
+.el-calendar-detail { display: flex; flex-direction: column; gap: 6px; }
+.el-calendar-detail__title { font-weight: 600; font-size: 14px; color: var(--el-text-color-primary); }
+.el-calendar-detail__when, .el-calendar-detail__calendar { color: var(--el-text-color-secondary); }
+.el-calendar-detail__body { white-space: pre-wrap; }
+.el-calendar.is-hide-col-1 .el-calendar-table tr > :nth-child(1) { display: none; }
+.el-calendar.is-hide-col-2 .el-calendar-table tr > :nth-child(2) { display: none; }
+.el-calendar.is-hide-col-3 .el-calendar-table tr > :nth-child(3) { display: none; }
+.el-calendar.is-hide-col-4 .el-calendar-table tr > :nth-child(4) { display: none; }
+.el-calendar.is-hide-col-5 .el-calendar-table tr > :nth-child(5) { display: none; }
+.el-calendar.is-hide-col-6 .el-calendar-table tr > :nth-child(6) { display: none; }
+.el-calendar.is-hide-col-7 .el-calendar-table tr > :nth-child(7) { display: none; }</style>
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -256,27 +278,52 @@ details, please refer to the API documentation below.</p>
   <style>.is-selected { color: #1989fa; }</style>
 <div id="customize-cal_cell" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customize-cal_cell_container" style="display: contents">
-  <el-calendar ref="calendar" :model-value="elDate(value)" @update:model-value="elPick" class="el-calendar--events" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{ data }"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}</p></template></el-calendar>
-  <el-dialog :model-value="eventForm !== null" @update:model-value="$event || cancelEvent()" :title="eventForm &amp;&amp; eventForm.id !== undefined ? eventLabels.edit : eventLabels.add" width="420px" append-to-body class="el-calendar-dialog">
-    <el-form v-if="eventForm" label-width="64px" @submit.prevent>
+  <el-calendar ref="calendar" :key="&#39;week-&#39; + weekStart()" :model-value="elDate(value)" @update:model-value="elPick" :class="calendarClass()" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{ data }"><p :class="data.isSelected ? 'is-selected' : ''">{{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}</p></template></el-calendar>
+  <el-popover :visible="eventMore !== null" :virtual-ref="eventAnchor" virtual-triggering placement="bottom" :width="220" popper-class="el-calendar-popover">
+    <div v-if="eventMore !== null" class="el-calendar-more__list">
+      <div class="el-calendar-more__day">{{ eventMore }}</div>
+      <el-tag v-for="ev in eventsOn(eventMore)" :key="ev.id" :type="eventType(ev)" size="small" class="el-calendar-event" :title="ev.body || ev.title" :aria-label="ev.title || ev.body || ev.date" :color="eventColor(ev)" :style="eventStyle(ev)" @click.stop="clickEvent(ev, $event, true)">{{ eventLabel(ev, eventMore) }}</el-tag>
+    </div>
+  </el-popover>
+  <el-popover :visible="eventDetail !== null" :virtual-ref="eventAnchor" virtual-triggering placement="right" :width="260" popper-class="el-calendar-popover">
+    <div v-if="eventDetail !== null" class="el-calendar-detail">
+      <div class="el-calendar-detail__title">{{ eventDetail.title }}</div>
+      <div class="el-calendar-detail__when">{{ eventWhen(eventDetail) }}</div>
+      <div v-if="eventCalendar(eventDetail)" class="el-calendar-detail__calendar">{{ eventCalendar(eventDetail).name || eventCalendar(eventDetail).id }}</div>
+      <div v-if="eventDetail.body" class="el-calendar-detail__body">{{ eventDetail.body }}</div>
+    </div>
+  </el-popover>
+  <el-dialog :model-value="eventForm !== null" @update:model-value="$event || cancelEvent()" :title="eventForm &amp;&amp; eventForm.id !== undefined ? eventLabels.edit : eventLabels.add" width="460px" append-to-body class="el-calendar-dialog">
+    <el-form v-if="eventForm" label-width="72px" @submit.prevent>
       <el-form-item :label="eventLabels.title">
         <el-input v-model="eventForm.title"></el-input>
       </el-form-item>
+      <el-form-item :label="eventLabels.allday">
+        <el-switch :model-value="isAllday(eventForm)" @update:model-value="setAllday"></el-switch>
+      </el-form-item>
       <el-form-item :label="eventLabels.date">
-        <el-date-picker v-model="eventForm.date" type="date" value-format="YYYY-MM-DD" :clearable="false" style="width: 100%"></el-date-picker>
+        <el-date-picker v-model="eventForm.date" :type="isAllday(eventForm) ? &#39;date&#39; : &#39;datetime&#39;" :value-format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" :format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" style="width: 100%" :clearable="false"></el-date-picker>
       </el-form-item>
       <el-form-item :label="eventLabels.end">
-        <el-date-picker v-model="eventForm.end" type="date" value-format="YYYY-MM-DD" style="width: 100%"></el-date-picker>
+        <el-date-picker v-model="eventForm.end" :type="isAllday(eventForm) ? &#39;date&#39; : &#39;datetime&#39;" :value-format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" :format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" style="width: 100%"></el-date-picker>
+      </el-form-item>
+      <el-form-item :label="eventLabels.calendar" v-if="calendars.length">
+        <el-select v-model="eventForm.calendarId">
+          <el-option v-for="c in calendars" :key="c.id" :label="c.name || c.id" :value="c.id"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item :label="eventLabels.type">
-        <el-select v-model="eventForm.type">
+        <el-select v-model="eventForm.type" :placeholder="eventType(eventForm)">
           <el-option v-for="t in [&#39;primary&#39;, &#39;success&#39;, &#39;info&#39;, &#39;warning&#39;, &#39;danger&#39;]" :key="t" :label="t" :value="t"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item :label="eventLabels.body">
+        <el-input v-model="eventForm.body" type="textarea" :rows="2"></el-input>
+      </el-form-item>
     </el-form>
-    <template v-slot:footer><el-button v-if="eventForm &amp;&amp; eventForm.id !== undefined" type="danger" plain @click="deleteEvent">{{ eventLabels.delete }}</el-button><el-button @click="cancelEvent">{{ eventLabels.cancel }}</el-button><el-button type="primary" @click="saveEvent" :disabled="!eventForm || !eventForm.title">{{ eventLabels.save }}</el-button></template>
+    <template v-slot:footer><el-button v-if="eventForm &amp;&amp; eventForm.id !== undefined" type="danger" plain @click="deleteEvent">{{ eventLabels.delete }}</el-button><el-button @click="cancelEvent">{{ eventLabels.cancel }}</el-button><el-button type="primary" @click="saveEvent" :disabled="!eventForm || !eventForm.date">{{ eventLabels.save }}</el-button></template>
   </el-dialog>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-07","range":null,"events":[],"editable":false,"eventForm":null,"eventDragged":null,"eventLabels":{"add":"New event","edit":"Edit event","title":"Title","date":"Date","end":"Until","type":"Type","save":"Save","delete":"Delete","cancel":"Cancel"},"controllerType":null,"formatter":null},"methods":{"eventStyle":"function(ev) { return ev.color ? {borderColor: ev.color, color: 'var(--el-text-color-primary)'} : null; }","eventsOn":"function(day) { return (this.events || []).filter(function(e) { var end = e.end || e.date; return e.date <= day && day <= end; }); }","eventRequest":"function(kind, value, apply) { if (window.Shiny && Shiny.setInputValue) { Shiny.setInputValue('customize-cal_cell_' + kind + ':shiny.element.cal_event', window.shinyVue.plain(value), {priority: 'event'}); } else if (apply) { apply.call(this); } }","clickEvent":"function(ev) { var self = this; self.eventRequest('click', ev); if (self.editable) self.eventForm = Object.assign({}, ev, {end: ev.end || null}); }","openAdd":"function(day) { if (!this.editable) return; this.eventForm = {date: day, end: null, title: '', type: 'primary'}; }","cancelEvent":"function() { this.eventForm = null; }","saveEvent":"function() { var self = this, f = self.eventForm; if (!f || !f.title) return; var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; if (ev.id === undefined) { self.eventRequest('add', ev, function() { ev.id = 'local-' + Date.now(); self.events.push(ev); }); } else { var old = self.events.filter(function(e) { return e.id === ev.id; })[0] || {}; var changes = {}; Object.keys(ev).forEach(function(k) { if (ev[k] !== old[k] && !(ev[k] === null && old[k] === undefined)) changes[k] = ev[k]; }); self.eventRequest('update', {event: old, changes: changes}, function() { var i = self.events.indexOf(old); if (i >= 0) self.events.splice(i, 1, ev); }); } self.eventForm = null; }","deleteEvent":"function() { var self = this, f = self.eventForm; if (!f) return; var old = self.events.filter(function(e) { return e.id === f.id; })[0]; if (old) self.eventRequest('delete', old, function() { self.events.splice(self.events.indexOf(old), 1); }); self.eventForm = null; }","dragStart":"function(ev, e) { if (!this.editable) { e.preventDefault(); return; } this.eventDragged = ev.id; if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(ev.id)); } }","dropOn":"function(day) { var self = this, id = self.eventDragged; self.eventDragged = null; if (!self.editable || id === null) return; var old = self.events.filter(function(e) { return e.id === id; })[0]; if (!old || old.date === day) return; var parse = function(s) { var p = s.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var shift = parse(day) - parse(old.date); var changes = {date: day}; if (old.end) changes.end = fmt(parse(old.end) + shift); var ev = Object.assign({}, old, changes); self.eventRequest('update', {event: old, changes: changes}, function() { self.events.splice(self.events.indexOf(old), 1, ev); }); }","reportDates":"function() { var self = this; self.$nextTick(function() { var root = self.$el && self.$el.querySelectorAll ? self.$el : null; if (!root || !window.Shiny || !Shiny.setInputValue) return; var cells = root.querySelectorAll('.el-calendar-table td'); if (!cells.length) return; var parse = function(s) { var p = s.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var start, end; if (self.range && self.range.length) { start = parse(self.range[0]); end = start + (cells.length - 1) * 864e5; } else { var v = String(self.value).slice(0, 10).split('-'); var first = Date.UTC(+v[0], +v[1] - 1, 1); var prev = root.querySelectorAll('.el-calendar-table td.prev').length; start = first - prev * 864e5; end = start + (cells.length - 1) * 864e5; } Shiny.setInputValue('customize-cal_cell_dates:shiny.element.cal_event', {current: String(self.value).slice(0, 10), start: fmt(start), end: fmt(end)}); }); }","shinyVueReceive":"function(d) { if (!('calendarEdit' in d)) return d; var e = d.calendarEdit, events = this.events, rows = e.rows || []; delete d.calendarEdit; var at = function(id) { for (var i = 0; i < events.length; i++) if (String(events[i].id) === String(id)) return i; return -1; }; if (e.op === 'insert') rows.forEach(function(r) { events.push(r); }); else if (e.op === 'replace') rows.forEach(function(r) { var i = at(r.id); if (i >= 0) events.splice(i, 1, r); else events.push(r); }); else if (e.op === 'delete') [].concat(e.ids || []).forEach(function(id) { var i = at(id); if (i >= 0) events.splice(i, 1); }); return d; }","elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal, oldVal) { if (!oldVal || String(newVal).slice(0, 7) !== String(oldVal).slice(0, 7)) this.reportDates(); }","range":{"immediate":true,"handler":"function() { this.reportDates(); }"}}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.eventStyle","options.methods.eventsOn","options.methods.eventRequest","options.methods.clickEvent","options.methods.openAdd","options.methods.cancelEvent","options.methods.saveEvent","options.methods.deleteEvent","options.methods.dragStart","options.methods.dropOn","options.methods.reportDates","options.methods.shinyVueReceive","options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value","options.watch.range.handler"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-07","range":null,"events":[],"editable":false,"calendars":[],"visibleEventCount":null,"useDetailPopup":false,"firstDayOfWeek":null,"workweek":false,"eventForm":null,"eventDragged":null,"eventDetail":null,"eventMore":null,"eventAnchor":null,"eventSelect":null,"eventLabels":{"add":"New event","edit":"Edit event","title":"Title","allday":"All day","date":"Date","end":"Until","calendar":"Calendar","type":"Type","body":"Details","save":"Save","delete":"Delete","cancel":"Cancel","more":"+{n} more"},"controllerType":null,"formatter":null},"methods":{"eventCalendar":"function(ev) { if (!ev || ev.calendarId === undefined || ev.calendarId === null) return null; var id = String(ev.calendarId); return (this.calendars || []).filter(function(c) { return String(c.id) === id; })[0] || null; }","eventType":"function(ev) { var c = this.eventCalendar(ev); return ev.type || (c && c.type) || 'primary'; }","eventColor":"function(ev) { var c = this.eventCalendar(ev); return ev.color || (c && c.color) || undefined; }","eventStyle":"function(ev) { var col = this.eventColor(ev); return col ? {borderColor: col, color: 'var(--el-text-color-primary)'} : null; }","eventLabel":"function(ev, day) { var d = String(ev.date); return (d.length > 10 && d.slice(0, 10) === day ? d.slice(11, 16) + ' ' : '') + (ev.title || ''); }","eventWhen":"function(ev) { if (!ev) return ''; var d = String(ev.date), e = ev.end ? String(ev.end) : ''; if (!e) return d; return d + ' – ' + (e.slice(0, 10) === d.slice(0, 10) ? e.slice(11) : e); }","eventsOn":"function(day) { var self = this; var on = (self.events || []).filter(function(e) { if (e.isVisible === false) return false; var c = self.eventCalendar(e); if (c && c.isVisible === false) return false; var start = String(e.date).slice(0, 10), end = e.end ? String(e.end).slice(0, 10) : start; return start <= day && day <= end; }); var key = function(e) { var d = String(e.date); return d.length > 10 && d.slice(0, 10) === day ? d.slice(11) : ''; }; return on.map(function(e, i) { return [e, i]; }).sort(function(a, b) { var ka = key(a[0]), kb = key(b[0]); return ka < kb ? -1 : ka > kb ? 1 : a[1] - b[1]; }).map(function(p) { return p[0]; }); }","eventsShown":"function(day) { var all = this.eventsOn(day), n = this.visibleEventCount; return n && all.length > n ? all.slice(0, n) : all; }","eventsHidden":"function(day) { var n = this.visibleEventCount; if (!n) return 0; return Math.max(0, this.eventsOn(day).length - n); }","moreLabel":"function(day) { return String(this.eventLabels.more).replace('{n}', this.eventsHidden(day)); }","canEdit":"function(ev) { return !!this.editable && !ev.isReadOnly; }","isAllday":"function(f) { return !f || !f.date || String(f.date).length <= 10; }","setAllday":"function(on) { var f = this.eventForm; if (!f || !f.date) return; var day = function(s) { return String(s).slice(0, 10); }; if (on) { f.date = day(f.date); if (f.end) f.end = day(f.end); } else { f.date = day(f.date) + ' 09:00'; if (f.end) f.end = day(f.end) + ' 10:00'; } }","eventRequest":"function(kind, value, apply) { if (window.Shiny && Shiny.setInputValue) { Shiny.setInputValue('customize-cal_cell_' + kind + ':shiny.element.cal_event', window.shinyVue.plain(value), {priority: 'event'}); } else if (apply) { apply.call(this); } }","clickEvent":"function(ev, e, fromMore) { var self = this; self.eventRequest('click', ev); var anchor = fromMore ? self.eventAnchor : (e && e.currentTarget) || null; self.closePopovers(); if (self.canEdit(ev)) { self.eventForm = Object.assign({}, ev, {end: ev.end || null}); return; } if (self.useDetailPopup && anchor) { self.eventAnchor = anchor; self.eventDetail = ev; self.listenOutside(); } }","openMore":"function(day, e) { this.closePopovers(); this.eventAnchor = e.currentTarget; this.eventMore = day; this.listenOutside(); }","closePopovers":"function() { this.eventMore = null; this.eventDetail = null; }","listenOutside":"function() { var self = this; if (self._outside) return; var off = function() { document.removeEventListener('mousedown', down, true); document.removeEventListener('keydown', key, true); self._outside = null; }; var down = function(e) { var t = e.target; if (t.closest && (t.closest('.el-calendar-popover') || t === self.eventAnchor)) return; self.closePopovers(); off(); }; var key = function(e) { if (e.key === 'Escape') { self.closePopovers(); off(); } }; self._outside = off; document.addEventListener('mousedown', down, true); document.addEventListener('keydown', key, true); }","openAdd":"function(day, end) { if (!this.editable) return; this.closePopovers(); var f = {date: day, end: end && end !== day ? end : null, title: '', type: 'primary', body: ''}; if (this.calendars && this.calendars.length) f.calendarId = this.calendars[0].id; this.eventForm = f; }","cancelEvent":"function() { this.eventForm = null; }","saveEvent":"function() { var self = this, f = self.eventForm; if (!f || !f.date) return; var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; if (ev.id === undefined) { self.eventRequest('add', ev, function() { ev.id = 'local-' + Date.now(); self.events.push(ev); }); } else { var old = self.events.filter(function(e) { return e.id === ev.id; })[0] || {}; var changes = {}; Object.keys(ev).forEach(function(k) { if (ev[k] !== old[k] && !(ev[k] === null && old[k] === undefined)) changes[k] = ev[k]; }); self.eventRequest('update', {event: old, changes: changes}, function() { var i = self.events.indexOf(old); if (i >= 0) self.events.splice(i, 1, ev); }); } self.eventForm = null; }","deleteEvent":"function() { var self = this, f = self.eventForm; if (!f) return; var old = self.events.filter(function(e) { return e.id === f.id; })[0]; if (old) self.eventRequest('delete', old, function() { self.events.splice(self.events.indexOf(old), 1); }); self.eventForm = null; }","dragStart":"function(ev, e) { if (!this.canEdit(ev)) { e.preventDefault(); return; } this.closePopovers(); this.eventDragged = ev.id; if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(ev.id)); } }","dropOn":"function(day) { var self = this, id = self.eventDragged; self.eventDragged = null; if (!self.editable || id === null) return; var old = self.events.filter(function(e) { return e.id === id; })[0]; if (!old || String(old.date).slice(0, 10) === day) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var shift = parse(day) - parse(old.date); var changes = {date: day + String(old.date).slice(10)}; if (old.end) changes.end = fmt(parse(old.end) + shift) + String(old.end).slice(10); var ev = Object.assign({}, old, changes); self.eventRequest('update', {event: old, changes: changes}, function() { self.events.splice(self.events.indexOf(old), 1, ev); }); }","selectStart":"function(day, e) { var self = this; if (!self.editable || e.button !== 0) return; self.eventSelect = {from: day, to: day}; var up = function() { document.removeEventListener('mouseup', up, true); self.selectEnd(); }; document.addEventListener('mouseup', up, true); }","selectMove":"function(day) { if (this.eventSelect) this.eventSelect.to = day; }","selectEnd":"function() { var s = this.eventSelect; this.eventSelect = null; if (!s || s.from === s.to) return; this.openAdd(s.from < s.to ? s.from : s.to, s.from < s.to ? s.to : s.from); }","inSelection":"function(day) { var s = this.eventSelect; if (!s || s.from === s.to) return false; var a = s.from < s.to ? s.from : s.to, b = s.from < s.to ? s.to : s.from; return a <= day && day <= b; }","weekStart":"function() { var dj = window.ElementPlus && ElementPlus.dayjs; var fdw = this.firstDayOfWeek; if (!dj) return fdw === null || fdw === undefined ? 0 : fdw; var loc = dj.Ls && dj.Ls[dj.locale()]; if (fdw === null || fdw === undefined || !loc) return dj.localeData ? dj.localeData().firstDayOfWeek() : 0; var had = Object.prototype.hasOwnProperty.call(loc, 'weekStart'), old = loc.weekStart; loc.weekStart = fdw; Promise.resolve().then(function() { if (had) loc.weekStart = old; else delete loc.weekStart; }); return fdw; }","calendarClass":"function() { var out = ['el-calendar--events']; if (!this.workweek) return out; var s = this.firstDayOfWeek; if (s === null || s === undefined) { var dj = window.ElementPlus && ElementPlus.dayjs; s = dj && dj.localeData ? dj.localeData().firstDayOfWeek() : 0; } [0, 6].forEach(function(w) { out.push('is-hide-col-' + (((w - s + 7) % 7) + 1)); }); return out; }","reportDates":"function() { var self = this; self.$nextTick(function() { var root = self.$el && self.$el.querySelectorAll ? self.$el : null; if (!root || !window.Shiny || !Shiny.setInputValue) return; var cells = root.querySelectorAll('.el-calendar-table td'); if (!cells.length) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var start, end; if (self.range && self.range.length) { start = parse(self.range[0]); end = start + (cells.length - 1) * 864e5; } else { var v = String(self.value).slice(0, 10).split('-'); var first = Date.UTC(+v[0], +v[1] - 1, 1); var prev = root.querySelectorAll('.el-calendar-table td.prev').length; start = first - prev * 864e5; end = start + (cells.length - 1) * 864e5; } Shiny.setInputValue('customize-cal_cell_dates:shiny.element.cal_event', {current: String(self.value).slice(0, 10), start: fmt(start), end: fmt(end)}); }); }","shinyVueReceive":"function(d) { if (!('calendarEdit' in d)) return d; var e = d.calendarEdit, events = this.events, rows = e.rows || []; delete d.calendarEdit; var at = function(id) { for (var i = 0; i < events.length; i++) if (String(events[i].id) === String(id)) return i; return -1; }; if (e.op === 'insert') rows.forEach(function(r) { events.push(r); }); else if (e.op === 'replace') rows.forEach(function(r) { var i = at(r.id); if (i >= 0) events.splice(i, 1, r); else events.push(r); }); else if (e.op === 'delete') [].concat(e.ids || []).forEach(function(id) { var i = at(id); if (i >= 0) events.splice(i, 1); }); return d; }","elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal, oldVal) { if (!oldVal || String(newVal).slice(0, 7) !== String(oldVal).slice(0, 7)) this.reportDates(); }","range":{"immediate":true,"handler":"function() { this.reportDates(); }"},"firstDayOfWeek":"function() { this.reportDates(); }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.eventCalendar","options.methods.eventType","options.methods.eventColor","options.methods.eventStyle","options.methods.eventLabel","options.methods.eventWhen","options.methods.eventsOn","options.methods.eventsShown","options.methods.eventsHidden","options.methods.moreLabel","options.methods.canEdit","options.methods.isAllday","options.methods.setAllday","options.methods.eventRequest","options.methods.clickEvent","options.methods.openMore","options.methods.closePopovers","options.methods.listenOutside","options.methods.openAdd","options.methods.cancelEvent","options.methods.saveEvent","options.methods.deleteEvent","options.methods.dragStart","options.methods.dropOn","options.methods.selectStart","options.methods.selectMove","options.methods.selectEnd","options.methods.inSelection","options.methods.weekStart","options.methods.calendarClass","options.methods.reportDates","options.methods.shinyVueReceive","options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value","options.watch.range.handler","options.watch.firstDayOfWeek"]}</script>
 </div>
 </div>
 </div>
@@ -371,15 +418,17 @@ stays.</p>
 <div class="section level3">
 <h3 id="a-planner">A planner<a class="anchor" aria-label="anchor" href="#a-planner"></a>
 </h3>
-<p>With <code>editable = TRUE</code> the user double-clicks a day to add
-an event, clicks one to edit or delete it in a dialog, and drags it to
-another day. The server owns the events, as toastui’s calendar has it:
-what the user does arrives as a request and changes nothing until the
-server answers – here by changing its data, which renders the calendar
-again; for a large calendar,
+<p>With <code>editable = TRUE</code> the user double-clicks a day, or
+drags across several, to add an event, clicks one to edit or delete it
+in a dialog, and drags it to another day. The server owns the events, as
+toastui’s calendar has it: what the user does arrives as a request and
+changes nothing until the server answers – here by changing its data,
+which renders the calendar again; for a large calendar,
 <code>update_el_calendar(insert =, replace =, delete =)</code> sends
 only the events that changed. <code><a href="../../reference/el_calendar_events.html">el_calendar_events()</a></code> reads
-what the calendar shows. | Input | Value | |—|—| |
+what the calendar shows. A day comes back as a Date and a time, which
+the dialog’s switch adds, as a date-time; the app keeps both as text, as
+the calendar takes them. | Input | Value | |—|—| |
 <code>input$plan</code> | the day picked, <code>"YYYY-MM-DD"</code> | |
 <code>input$plan_dates</code> | the days drawn,
 <code>list(current, start, end)</code>, Dates | |
@@ -391,13 +440,24 @@ what the calendar shows. | Input | Value | |—|—| |
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#'</span></span>
 <span><span class="co">#'</span></span>
+<span><span class="co">#'</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_calendar_output.html">el_calendar_output</a></span><span class="op">(</span><span class="st">"plan"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># a day as "YYYY-MM-DD", a time as "YYYY-MM-DD HH:MM"</span></span>
+<span>  <span class="va">as_text</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="cn">NA_character_</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"POSIXt"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"%Y-%m-%d %H:%M"</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
 <span>  <span class="va">events</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
-<span>    date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-10-05"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">9</span><span class="op">)</span>,</span>
-<span>    end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">"2026-10-09"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2026-10-05 09:30"</span>, <span class="st">"2026-10-07"</span>, <span class="st">"2026-10-14"</span><span class="op">)</span>,</span>
+<span>    end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">"2026-10-09"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Standup"</span>, <span class="st">"Conference"</span>, <span class="st">"Review"</span><span class="op">)</span>,</span>
 <span>    type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span>
@@ -410,8 +470,8 @@ what the calendar shows. | Input | Value | |—|—| |
 <span>      <span class="fu">events</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>        id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu">events</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">id</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1L</span>,</span>
-<span>        date <span class="op">=</span> <span class="va">new</span><span class="op">$</span><span class="va">date</span>,</span>
-<span>        end <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">new</span><span class="op">$</span><span class="va">end</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="kw">else</span> <span class="va">new</span><span class="op">$</span><span class="va">end</span>,</span>
+<span>        date <span class="op">=</span> <span class="fu">as_text</span><span class="op">(</span><span class="va">new</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>,</span>
+<span>        end <span class="op">=</span> <span class="fu">as_text</span><span class="op">(</span><span class="va">new</span><span class="op">$</span><span class="va">end</span><span class="op">)</span>,</span>
 <span>        title <span class="op">=</span> <span class="va">new</span><span class="op">$</span><span class="va">title</span>,</span>
 <span>        type <span class="op">=</span> <span class="va">new</span><span class="op">$</span><span class="va">type</span></span>
 <span>      <span class="op">)</span></span>
@@ -422,7 +482,7 @@ what the calendar shows. | Input | Value | |—|—| |
 <span>    <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">d</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">plan_update</span><span class="op">$</span><span class="va">event</span><span class="op">$</span><span class="va">id</span></span>
 <span>    <span class="kw">for</span> <span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">plan_update</span><span class="op">$</span><span class="va">changes</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">value</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">plan_update</span><span class="op">$</span><span class="va">changes</span><span class="op">[[</span><span class="va">k</span><span class="op">]</span><span class="op">]</span></span>
-<span>      <span class="va">d</span><span class="op">[[</span><span class="va">k</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="cn">NA</span> <span class="kw">else</span> <span class="va">value</span></span>
+<span>      <span class="va">d</span><span class="op">[[</span><span class="va">k</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">k</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"date"</span>, <span class="st">"end"</span><span class="op">)</span><span class="op">)</span> <span class="fu">as_text</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="kw">else</span> <span class="va">value</span></span>
 <span>    <span class="op">}</span></span>
 <span>    <span class="fu">events</span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
@@ -433,6 +493,150 @@ what the calendar shows. | Input | Value | |—|—| |
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/calendar-shiny-planner.png" alt="The shiny-planner example, running" style="max-width: 100%">
+</div>
+<div class="section level3">
+<h3 id="times-groups-and-a-full-day">Times, groups and a full day<a class="anchor" aria-label="anchor" href="#times-groups-and-a-full-day"></a>
+</h3>
+<p>A <code>date</code> with a time shows it before the title, and a day
+lists its all-day events first, then the others by time.
+<code>calendars</code> groups the events, as toastui’s do: each event
+names its group as <code>calendarId</code> and takes its
+<code>type</code> or <code>color</code> unless it has one of its own;
+<code>update_el_calendar(calendars =)</code> with
+<code>isVisible = FALSE</code> hides a group. Past
+<code>visible_event_count</code> a day shows “+N more”, which lists them
+all. <code>first_day_of_week</code> starts the week on Monday
+(<code>1</code>), and an event with <code>isReadOnly</code> stays where
+it is.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#'</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"shown"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Work <span class="op">=</span> <span class="st">"work"</span>, Home <span class="op">=</span> <span class="st">"home"</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"work"</span>, <span class="st">"home"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_calendar_output.html">el_calendar_output</a></span><span class="op">(</span><span class="st">"week"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">calendars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"work"</span>, <span class="st">"home"</span><span class="op">)</span>,</span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Work"</span>, <span class="st">"Home"</span><span class="op">)</span>,</span>
+<span>    type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_calendar_output.html">render_el_calendar</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2026-10-07"</span>,</span>
+<span>    events <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,</span>
+<span>      date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>        <span class="st">"2026-10-05"</span>,</span>
+<span>        <span class="st">"2026-10-05 09:30"</span>,</span>
+<span>        <span class="st">"2026-10-05 14:00"</span>,</span>
+<span>        <span class="st">"2026-10-05"</span>,</span>
+<span>        <span class="st">"2026-10-07"</span>,</span>
+<span>        <span class="st">"2026-10-13 10:00"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"2026-10-05 15:00"</span>, <span class="cn">NA</span>, <span class="st">"2026-10-09"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Standup"</span>, <span class="st">"Design"</span>, <span class="st">"Review"</span>, <span class="st">"Lunch"</span>, <span class="st">"Conference"</span>, <span class="st">"Audit"</span><span class="op">)</span>,</span>
+<span>      calendarId <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"work"</span>, <span class="st">"work"</span>, <span class="st">"work"</span>, <span class="st">"home"</span>, <span class="st">"work"</span>, <span class="st">"work"</span><span class="op">)</span>,</span>
+<span>      isReadOnly <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    calendars <span class="op">=</span> <span class="va">calendars</span>,</span>
+<span>    editable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    visible_event_count <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    first_day_of_week <span class="op">=</span> <span class="fl">1</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">shown</span>, ignoreNULL <span class="op">=</span> <span class="cn">FALSE</span>, <span class="op">{</span></span>
+<span>    <span class="va">calendars</span><span class="op">$</span><span class="va">isVisible</span> <span class="op">&lt;-</span> <span class="va">calendars</span><span class="op">$</span><span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">input</span><span class="op">$</span><span class="va">shown</span></span>
+<span>    <span class="fu"><a href="../../reference/el_calendar.html">update_el_calendar</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"week"</span>, calendars <span class="op">=</span> <span class="va">calendars</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/calendar-shiny-groups.png" alt="The shiny-groups example, running" style="max-width: 100%">
+</div>
+<div class="section level3">
+<h3 id="a-dialog-of-your-own">A dialog of your own<a class="anchor" aria-label="anchor" href="#a-dialog-of-your-own"></a>
+</h3>
+<p>toastui’s popups are fixed; here the dialog, the popover and each
+event’s tag are slots, filled with Element’s components.
+<code>eventForm</code> replaces the dialog’s fields: bind one to
+<code>form.&lt;field&gt;</code> and it travels with the event in
+<code>input$&lt;id&gt;_add</code> and <code>_update</code>.
+<code>eventDetail</code> fills the popover that
+<code>use_detail_popup</code> opens on an event the user cannot edit,
+and <code>event</code> the tag. Each slot’s scope –
+<code>{ form, labels, calendars }</code>,
+<code>{ event, labels, calendars }</code>, <code>{ event, day }</code> –
+is named in <code>template(scope = )</code>, or all of it when none is
+written. <code>workweek</code> leaves out the weekend.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#'</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_calendar_output.html">el_calendar_output</a></span><span class="op">(</span><span class="st">"visits"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"changed"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">visits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_calendar_output.html">render_el_calendar</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="st">"2026-10-07"</span>,</span>
+<span>    events <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>      date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2026-10-06"</span>, <span class="st">"2026-10-08"</span>, <span class="st">"2026-10-14"</span><span class="op">)</span>,</span>
+<span>      title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site visit"</span>, <span class="st">"Audit"</span>, <span class="st">"Review"</span><span class="op">)</span>,</span>
+<span>      site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lab 2"</span>, <span class="st">"HQ"</span>, <span class="st">"Lab 1"</span><span class="op">)</span>,</span>
+<span>      priority <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>      isReadOnly <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    editable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    use_detail_popup <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    workweek <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      event <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>        <span class="st">"&lt;el-icon&gt;&lt;Location /&gt;&lt;/el-icon&gt; {{ event.title }}"</span>,</span>
+<span>        slot <span class="op">=</span> <span class="st">"event"</span>,</span>
+<span>        scope <span class="op">=</span> <span class="st">"{ event }"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      eventForm <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>        <span class="va">el</span><span class="op">$</span><span class="fu">form_item</span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Title"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span>`v-model` <span class="op">=</span> <span class="st">"form.title"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="va">el</span><span class="op">$</span><span class="fu">form_item</span><span class="op">(</span></span>
+<span>          label <span class="op">=</span> <span class="st">"Site"</span>,</span>
+<span>          <span class="va">el</span><span class="op">$</span><span class="fu">select</span><span class="op">(</span></span>
+<span>            `v-model` <span class="op">=</span> <span class="st">"form.site"</span>,</span>
+<span>            <span class="va">el</span><span class="op">$</span><span class="fu">option</span><span class="op">(</span></span>
+<span>              `v-for` <span class="op">=</span> <span class="st">"s in ['Lab 1', 'Lab 2', 'HQ']"</span>,</span>
+<span>              `:key` <span class="op">=</span> <span class="st">"s"</span>,</span>
+<span>              `:label` <span class="op">=</span> <span class="st">"s"</span>,</span>
+<span>              `:value` <span class="op">=</span> <span class="st">"s"</span></span>
+<span>            <span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="va">el</span><span class="op">$</span><span class="fu">form_item</span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Priority"</span>, <span class="va">el</span><span class="op">$</span><span class="fu">rate</span><span class="op">(</span>`v-model` <span class="op">=</span> <span class="st">"form.priority"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="va">el</span><span class="op">$</span><span class="fu">form_item</span><span class="op">(</span></span>
+<span>          label <span class="op">=</span> <span class="st">"Day"</span>,</span>
+<span>          <span class="va">el</span><span class="op">$</span><span class="fu">date_picker</span><span class="op">(</span>`v-model` <span class="op">=</span> <span class="st">"form.date"</span>, `value-format` <span class="op">=</span> <span class="st">"YYYY-MM-DD"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      eventDetail <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>        <span class="va">el</span><span class="op">$</span><span class="fu">text</span><span class="op">(</span>tag <span class="op">=</span> <span class="st">"b"</span>, <span class="st">"{{ event.title }}"</span><span class="op">)</span>,</span>
+<span>        <span class="va">el</span><span class="op">$</span><span class="fu">descriptions</span><span class="op">(</span></span>
+<span>          `:column` <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>          size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>          <span class="va">el</span><span class="op">$</span><span class="fu">descriptions_item</span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Site"</span>, <span class="st">"{{ event.site }}"</span><span class="op">)</span>,</span>
+<span>          <span class="va">el</span><span class="op">$</span><span class="fu">descriptions_item</span><span class="op">(</span></span>
+<span>            label <span class="op">=</span> <span class="st">"Priority"</span>,</span>
+<span>            <span class="va">el</span><span class="op">$</span><span class="fu">rate</span><span class="op">(</span>`:model-value` <span class="op">=</span> <span class="st">"event.priority"</span>, disabled <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">changed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">visits_update</span><span class="op">$</span><span class="va">changes</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/calendar-shiny-dialog.png" alt="The shiny-dialog example, running" style="max-width: 100%">
 </div>
 </div>
 <div class="section level2">

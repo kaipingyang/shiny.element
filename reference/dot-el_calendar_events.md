@@ -13,7 +13,8 @@ A calendar's events, as rows for the browser
 - events:
 
   `NULL`, a data.frame or a list of rows, with `date`; `end`, `title`,
-  `body`, `type`, `color` and `id` optional, any other column kept.
+  `body`, `type`, `color`, `calendarId`, `isReadOnly`, `isVisible` and
+  `id` optional, any other column kept.
 
 - arg:
 
@@ -21,5 +22,5 @@ A calendar's events, as rows for the browser
 
 ## Value
 
-Rows, each with an `id` (the row's number when none is given) and days
-as `"YYYY-MM-DD"`.
+Rows, each with an `id` (the row's number when none is given), days as
+`"YYYY-MM-DD"` and times as `"YYYY-MM-DD HH:MM"`.
