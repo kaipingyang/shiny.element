@@ -100,17 +100,51 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 #' What an output sends: its markup, or the data that changed
 #'
+#' A render is made in two steps. `.vue_output_whole()` is the output as
+#' it stands, the same for every session -- what `bindCache()` keeps;
+#' `.vue_output_send()` compares it with what this session's page last got
+#' and sends the markup or the changed fields. A cached render runs only the
+#' second step (`cacheReadHook`), so caching and sending only what changed
+#' go together.
+#'
 #' @param session The session.
 #' @param name The output's id.
 #' @param tags The component's tags, its host carrying `vue_host`.
 #' @return `list(html =, deps =)`, or `list(patch = list(host =, fields =))`
-#'   with each changed field as JSON text.
+#'   with each changed field as JSON text; carrying the whole as attribute
+#'   `vue_whole`, for the cache.
 #' @keywords internal
 .vue_output_value <- function(session, name, tags) {
+  whole <- .vue_output_whole(tags)
+  value <- .vue_output_send(session, name, whole)
+  attr(value, "vue_whole") <- whole
+  value
+}
+
+#' The output as it stands: markup, dependencies, shape and fields
+#' @noRd
+.vue_output_whole <- function(tags) {
   host <- .vue_find_host(tags)
-  sent <- if (!is.null(host)) .vue_output_parts(host)
+  rendered <- htmltools::renderTags(tags)
+  list(
+    html = rendered$html,
+    deps = lapply(
+      htmltools::resolveDependencies(rendered$dependencies),
+      shiny::createWebDependency
+    ),
+    host = if (!is.null(host)) host$attribs$id,
+    parts = if (!is.null(host)) .vue_output_parts(host)
+  )
+}
+
+#' What this session's page needs of the output: the markup, or the fields
+#' that changed since it last got it
+#' @noRd
+.vue_output_send <- function(session, name, whole) {
+  sent <- whole$parts
   outputs <- .vue_outputs(session)
   last <- outputs[[name]]
+  outputs[[name]] <- sent
   if (!is.null(sent) && !is.null(last) && identical(last$shape, sent$shape)) {
     changed <- names(sent$fields)[
       !vapply(
@@ -119,23 +153,11 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
         logical(1)
       )
     ]
-    outputs[[name]] <- sent
     return(list(
-      patch = list(
-        host = host$attribs$id,
-        fields = as.list(sent$fields[changed])
-      )
+      patch = list(host = whole$host, fields = as.list(sent$fields[changed]))
     ))
   }
-  outputs[[name]] <- sent
-  rendered <- htmltools::renderTags(tags)
-  list(
-    html = rendered$html,
-    deps = lapply(
-      htmltools::resolveDependencies(rendered$dependencies),
-      shiny::createWebDependency
-    )
-  )
+  list(html = whole$html, deps = whole$deps)
 }
 
 #' A host's shape -- template and options but data -- and its data fields,
@@ -216,8 +238,10 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 #' Data for a component, from the server
 #'
-#' An output that sends a value rather than markup: a component's field
-#' follows it. The component names the output in its `outputs`
+#' An output that sends a value rather than markup: a field of the
+#' component's `data` follows it -- "data" as Vue calls a component's state,
+#' whatever the value is: a number, a string, a list, a data.frame's rows, a
+#' function. The component names the output in its `outputs`
 #' (`vue_app(outputs = c(stats = "stats"))`); the server renders the value,
 #' which arrives as JSON and is assigned to the field -- the template
 #' redraws what depends on it, and nothing else is touched. As shinyreact's

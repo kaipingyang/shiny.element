@@ -200,6 +200,10 @@ ui <- el_page(
   actionButton("otbl_delete", "delete the first row"),
   # cells edited in place, each edit applied on the server with R's types
   el_table_output("etbl"),
+  # a cached table: renders read back from the cache still patch the page
+  el_table_output("ctbl"),
+  actionButton("ctbl_four", "four rows"),
+  actionButton("ctbl_three", "three rows"),
 
   # Group headers: a child column's own cell and header templates used to
   # stay in its JSON, never rendered.
@@ -814,6 +818,15 @@ server <- function(input, output, session) {
     if (!is.null(shown)) {
       cat("otbl_shown", "=", paste(rownames(shown), collapse = ","), "\n")
     }
+    cat("ctbl_runs", "=", session$userData$ctbl_runs %||% 0, "\n")
+    if (!is.null(input$ctbl_selection_change)) {
+      cat(
+        "ctbl_picked",
+        "=",
+        paste(rownames(input$ctbl_selection_change), collapse = ","),
+        "\n"
+      )
+    }
     edited <- input$etbl_cell_edit
     if (!is.null(edited)) {
       cat(
@@ -863,6 +876,18 @@ server <- function(input, output, session) {
     update_el_table(session, "otbl", replace = car, at = 1)
   })
   observeEvent(input$otbl_delete, update_el_table(session, "otbl", delete = 1))
+  ctbl_n <- reactiveVal(3)
+  ctbl_runs <- 0
+  observeEvent(input$ctbl_four, ctbl_n(4))
+  observeEvent(input$ctbl_three, ctbl_n(3))
+  output$ctbl <- bindCache(
+    render_el_table({
+      ctbl_runs <<- ctbl_runs + 1
+      session$userData$ctbl_runs <- ctbl_runs
+      el_table(data = head(mtcars[, 1:2], ctbl_n()), selection = TRUE)
+    }),
+    ctbl_n()
+  )
   output$etbl <- render_el_table({
     cars <- head(mtcars[, 1:2], 2)
     cars$made <- as.Date("2020-01-01") + 0:1

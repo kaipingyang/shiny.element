@@ -874,12 +874,41 @@ test_that("el_table_output() trades Shiny's fading for the loading mask", {
   expect_false(grepl("shiny-vue-loading", plain, fixed = TRUE))
 })
 
-test_that("render_el_table() refuses caching, pointing upstream", {
-  expect_error(
-    shiny::bindCache(render_el_table(el_table(data = head(mtcars))), 1),
-    "Cache the data instead"
+test_that("a cached table output still sends each page only what changed", {
+  runs <- 0
+  shiny::testServer(
+    function(input, output, session) {
+      n <- shiny::reactiveVal(3)
+      session$userData$n <- n
+      table <- function() {
+        runs <<- runs + 1
+        el_table(data = head(mtcars[, 1:2], n()), selection = TRUE)
+      }
+      output$a <- shiny::bindCache(render_el_table(table()), n())
+      output$b <- shiny::bindCache(render_el_table(table()), n())
+    },
+    {
+      expect_named(output$a, c("html", "deps"))
+      # the same table for another output: from the cache, but its page
+      # has nothing yet, so it gets the markup
+      expect_named(output$b, c("html", "deps"))
+      expect_equal(runs, 1)
+      session$userData$n(4)
+      session$flushReact()
+      expect_named(output$a, "patch")
+      expect_equal(runs, 2)
+      # back to a table seen before: read from the cache, compared with what
+      # this page has, and the server's copy of the data follows
+      session$userData$n(3)
+      session$flushReact()
+      back <- output$a
+      expect_named(back, "patch")
+      expect_named(back$patch$fields, "tableData")
+      expect_equal(runs, 2)
+      expect_equal(nrow(.el_table_data(session, "a")), 3)
+    }
   )
-  # bindEvent() still works on it
+  # bindEvent() works on it too
   expect_s3_class(
     shiny::bindEvent(render_el_table(el_table(data = head(mtcars))), 1),
     "shiny.render.function"

@@ -317,6 +317,24 @@ test_that("a page that cannot apply a patch gets the table whole", {
   ))
 })
 
+test_that("a cached table output is patched from the cache", {
+  skip_if_no_browser()
+  rows <- "String(document.querySelectorAll('#ctbl .el-table__body tr').length)"
+  expect_equal(bev(rows), "3")
+  bclick("#ctbl_four", wait = 2)
+  expect_equal(bev(rows), "4")
+  # back to three: from the cache, the expression not run again
+  bclick("#ctbl_three", wait = 2)
+  expect_equal(bev(rows), "3")
+  expect_equal(bdump()[["ctbl_runs"]], "2")
+  # the server's copy follows the cached render: the selection is its rows
+  bev(
+    "document.querySelectorAll('#ctbl .el-table__body .el-checkbox')[1].click()"
+  )
+  Sys.sleep(1.5)
+  expect_equal(bdump()[["ctbl_picked"]], "Mazda RX4 Wag")
+})
+
 test_that("a cell edited in place reaches the server with its column's type", {
   skip_if_no_browser()
   cell <- function(r, c) {

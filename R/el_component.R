@@ -329,10 +329,9 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #'
 #' The first render sends the table; a render after it whose columns,
 #' templates and options are unchanged sends only the data that changed, as
-#' JSON -- as Shiny's own outputs send values rather than markup. Because a
-#' render depends on the last one in the session, `render_el_table()` is not
-#' cached with [shiny::bindCache()] (as DT's server-side table is not); cache
-#' the data it shows instead, in a [shiny::reactive()] upstream.
+#' JSON -- as Shiny's own outputs send values rather than markup. With
+#' [shiny::bindCache()] the table as rendered is cached, the same for every
+#' session, and each session's page still gets only what changed for it.
 #'
 #' @param outputId The output's id.
 #' @param width The table's width, as a CSS unit.
@@ -376,7 +375,10 @@ el_table_output <- function(outputId, width = "100%", loading = TRUE) {
 #' @rdname el_table_output
 #' @export
 render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
-  func <- shiny::exprToFunction(expr, env, quoted)
+  if (!quoted) {
+    expr <- substitute(expr)
+  }
+  func <- shiny::exprToFunction(expr, env, quoted = TRUE)
   render <- shiny::markRenderFunction(
     el_table_output,
     function(shinysession, name, ...) {
@@ -402,27 +404,55 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
         table$args$rownames
       )
       tags <- .el_output_host(table, name)
-      .vue_output_value(shinysession, name, tags)
+      value <- .vue_output_value(shinysession, name, tags)
+      # the data, for the table's inputs, kept with the cached whole
+      attr(value, "vue_whole")$table <- list(
+        data = table$args$data,
+        rownames = table$args$rownames
+      )
+      value
     },
-    # it sends what changed since its last render in this session, so a
-    # cached value would be wrong: not cacheable, as DT's server-side table
-    cacheHint = FALSE
+    # bindCache() keeps the output as it stands, the same for every
+    # session; read from the cache, it is compared with what this session's
+    # page last got, as a fresh render is
+    cacheHint = list(label = "render_el_table", userExpr = expr),
+    cacheWriteHook = function(value) attr(value, "vue_whole"),
+    cacheReadHook = function(whole) {
+      session <- shiny::getDefaultReactiveDomain()
+      name <- shiny::getCurrentOutputInfo(session)$name
+      if (is.null(whole)) {
+        .vue_output_forget(session, name)
+        return(NULL)
+      }
+      .el_table_rendered(
+        session,
+        name,
+        whole$table$data,
+        whole$table$rownames
+      )
+      .vue_output_send(session, name, whole)
+    }
   )
   class(render) <- c("el_render_table", class(render))
   render
 }
 
-#' A table output is not cached: cache what it shows
+#' Caching a table output
+#'
+#' Shiny's caching, plus what a cached render cannot do inside: a cached
+#' render runs isolated, so the page's request for the whole table
+#' (`input$<id>__vue_redraw`) is read here, outside it.
 #' @exportS3Method shiny::bindCache
 #' @noRd
 bindCache.el_render_table <- function(x, ..., cache = "app") {
-  stop(
-    "render_el_table() cannot be cached: a render sends only what changed ",
-    "since the last one in the session. Cache the data instead, upstream:\n",
-    "  rows <- bindCache(reactive(query(input$year)), input$year)\n",
-    "  output$tbl <- render_el_table(el_table(data = rows()))",
-    call. = FALSE
-  )
+  cached <- NextMethod()
+  render <- function(...) {
+    session <- shiny::getDefaultReactiveDomain()
+    .vue_output_redraw(session, shiny::getCurrentOutputInfo(session)$name)
+    cached(...)
+  }
+  attributes(render) <- attributes(cached)
+  render
 }
 
 #' A component drawn inside the output of the same id

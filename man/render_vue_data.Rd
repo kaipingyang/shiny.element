@@ -22,8 +22,10 @@ hand: a component listing it in \code{outputs} places it itself.}
 tag.
 }
 \description{
-An output that sends a value rather than markup: a component's field
-follows it. The component names the output in its \code{outputs}
+An output that sends a value rather than markup: a field of the
+component's \code{data} follows it -- "data" as Vue calls a component's state,
+whatever the value is: a number, a string, a list, a data.frame's rows, a
+function. The component names the output in its \code{outputs}
 (\code{vue_app(outputs = c(stats = "stats"))}); the server renders the value,
 which arrives as JSON and is assigned to the field -- the template
 redraws what depends on it, and nothing else is touched. As shinyreact's

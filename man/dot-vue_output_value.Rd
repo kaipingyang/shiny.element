@@ -15,9 +15,15 @@
 }
 \value{
 \code{list(html =, deps =)}, or \code{list(patch = list(host =, fields =))}
-with each changed field as JSON text.
+with each changed field as JSON text; carrying the whole as attribute
+\code{vue_whole}, for the cache.
 }
 \description{
-What an output sends: its markup, or the data that changed
+A render is made in two steps. \code{.vue_output_whole()} is the output as
+it stands, the same for every session -- what \code{bindCache()} keeps;
+\code{.vue_output_send()} compares it with what this session's page last got
+and sends the markup or the changed fields. A cached render runs only the
+second step (\code{cacheReadHook}), so caching and sending only what changed
+go together.
 }
 \keyword{internal}
