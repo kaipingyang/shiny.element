@@ -137,6 +137,12 @@ value to the column's type.
   `.el_render_component()`. Event fields follow Element first (`date`, as
   its day cell names it, `type`, `color`), toastui where Element has none
   (`end`, `title`, `body`, `_update` as `list(event, changes)`).
+  Beyond them: times in `date`/`end`, `calendars`, `visible_event_count`,
+  `use_detail_popup`, `isReadOnly`, `first_day_of_week` (set on dayjs's
+  global locale only while the calendar renders: Element reads it as a
+  date table is created) and `workweek`; slots of the events layer's own
+  (`event`, `eventForm`, `eventDetail`) are placed by
+  `.el_calendar_scoped()` as a one-item `v-for` giving their scope.
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search); `el_load_children()` answers through `.resolve`.
 - Feedback services (message, notification, message box, loading) use

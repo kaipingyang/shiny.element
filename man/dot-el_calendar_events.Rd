@@ -8,14 +8,14 @@
 }
 \arguments{
 \item{events}{\code{NULL}, a data.frame or a list of rows, with \code{date};
-\code{end}, \code{title}, \code{body}, \code{type}, \code{color} and \code{id} optional, any other
-column kept.}
+\code{end}, \code{title}, \code{body}, \code{type}, \code{color}, \code{calendarId}, \code{isReadOnly},
+\code{isVisible} and \code{id} optional, any other column kept.}
 
 \item{arg}{The update argument the rows came in, which must give ids.}
 }
 \value{
-Rows, each with an \code{id} (the row's number when none is given)
-and days as \code{"YYYY-MM-DD"}.
+Rows, each with an \code{id} (the row's number when none is given),
+days as \code{"YYYY-MM-DD"} and times as \code{"YYYY-MM-DD HH:MM"}.
 }
 \description{
 A calendar's events, as rows for the browser

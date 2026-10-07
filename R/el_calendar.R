@@ -3,6 +3,9 @@
 #' A month of days to pick one from, or a range of weeks to show -- and,
 #' with `events`, a month planner: each day shows its events, which the
 #' user can add, edit, delete and drag to another day (`editable`).
+#' Days show times, groups (`calendars`) and a "+N more" beyond
+#' `visible_event_count`; the dialog and the popovers take Element's
+#' components of your own through slots.
 #'
 #' The server owns the events, as toastui's calendar has it: what the user
 #' does arrives as a request -- `input$<id>_add`, `_update`, `_delete` --
@@ -23,40 +26,69 @@
 #' @inheritParams el_widget
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels.
-#' @param slots Named list of Element slot contents. `dateCell` renders one
-#'   day: Element hands the template `date` and `data`, so write it with
-#'   [template()]. A default is used when none is given.
+#' @param slots Named list of slot contents. Element's: `dateCell` renders
+#'   one day -- Element hands the template `date` and `data`, so write it
+#'   with [template()] -- and replaces the one that draws the events; call
+#'   `eventsOn(data.day)` in it for the day's events. The events layer's own,
+#'   for Element's components in what it draws: `event`, the content of an
+#'   event's tag (scope `{ event, day }`); `eventForm`, the dialog's fields
+#'   in place of ours (scope `{ form, labels, calendars }`: bind a field with
+#'   `` `v-model` = "form.location" `` and it travels with the event in
+#'   `_add` and `_update`); `eventDetail`, the popover of
+#'   `use_detail_popup` (scope `{ event, labels, calendars }`). Write a
+#'   scope of your own with `template(scope = "{ event }")`.
 #' @param session Deprecated. Inside a module, wrap `id` in `ns()`, as for
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param events The events to show: a data.frame, or a list of rows, with
-#'   `date`, the day (a Date, a date-time or `"YYYY-MM-DD"`), named as
-#'   Element names the day of a cell; optionally `end`, the last day of an
-#'   event spanning several, `title`, `body` (shown on hover), `id` (the
-#'   row's number when absent) -- toastui's names, where Element has none
-#'   -- and, from Element's tag, `type` (`"primary"`, `"success"`,
-#'   `"info"`, `"warning"`, `"danger"`) or `color`, a background colour of
-#'   your own.
-#'   Any other column travels with the event and comes back in the inputs.
-#'   In a Shiny app whose events come from the server, render the calendar
-#'   as an output: [el_calendar_output()]. A day cell of your own
-#'   (`slots = list(dateCell = ...)`) replaces the one that draws them; call
-#'   `eventsOn(data.day)` in it for the day's events.
+#'   `date`, the day -- a Date or `"YYYY-MM-DD"` -- or the time it starts
+#'   -- a date-time or `"YYYY-MM-DD HH:MM"` --, named as Element names the
+#'   day of a cell. Optionally, from toastui where Element has no name:
+#'   `end`, the day or time it ends; `title`; `body`, shown on hover and
+#'   in the popover; `id` (the row's number when absent); `calendarId`,
+#'   its group in `calendars`; `isReadOnly`, an event the user cannot
+#'   change; `isVisible = FALSE`, one not shown; `category = "allday"`,
+#'   times not shown. From Element's tag: `type` (`"primary"`,
+#'   `"success"`, `"info"`, `"warning"`, `"danger"`) or `color`, a
+#'   background colour of your own. toastui's camelCase names can be
+#'   written in snake_case (`calendar_id`). Any other column travels with
+#'   the event and comes back in the inputs. A day shows its all-day events
+#'   first, then the others by time, the time before the title. In a Shiny
+#'   app whose events come from the server, render the calendar as an
+#'   output: [el_calendar_output()].
 #' @param editable Whether the user can change the events: double-click a
-#'   day to add one, click an event to edit or delete it in a dialog, drag
-#'   it to another day to move it (a span keeps its length).
-#' @param event_labels The dialog's words, to change any of: a named list of
-#'   `add`, `edit` (its titles), `title`, `date`, `end`, `type` (its fields),
-#'   `save`, `delete`, `cancel` (its buttons) -- `list(add = "新建日程",
-#'   save = "保存")`.
+#'   day, or drag across several, to add one; click an event to edit or
+#'   delete it in a dialog; drag it to another day to move it (its times
+#'   and a span's length kept). An event with `isReadOnly` stays as it is.
+#' @param event_labels The dialog's and popovers' words, to change any of: a
+#'   named list of `add`, `edit` (the dialog's titles), `title`, `allday`,
+#'   `date`, `end`, `calendar`, `type`, `body` (its fields), `save`,
+#'   `delete`, `cancel` (its buttons), `more` (the link to a day's hidden
+#'   events, `{n}` their number) -- `list(add = "新建日程", save = "保存",
+#'   more = "还有 {n} 项")`.
+#' @param calendars Groups of events, toastui's: a data.frame, or a list of
+#'   rows, with `id`, which an event names as its `calendarId`; optionally
+#'   `name`, shown in the dialog and the popover; `type` or `color`, for its
+#'   events with none of their own; `isVisible = FALSE`, its events hidden.
+#' @param visible_event_count How many events a day shows; the rest are
+#'   behind a "+N more" that lists them in a popover. `NULL` shows them all,
+#'   scrolling. toastui's `visibleEventCount`.
+#' @param use_detail_popup Whether a click on an event the user cannot edit
+#'   shows it in a popover: its title, when, calendar and body, or the
+#'   `eventDetail` slot. toastui's `useDetailPopup`.
+#' @param first_day_of_week The day the week starts on, `1` (Monday) to `7`
+#'   (Sunday), as Element UI's `firstDayOfWeek`. `NULL` keeps Element Plus's,
+#'   which is Sunday.
+#' @param workweek Whether to hide Saturday and Sunday, as toastui's
+#'   `workweek`.
 #'
 #' @section Shiny inputs:
 #' | Input | When | Value |
 #' |---|---|---|
 #' | `input$<id>` | on load and when a day is picked | the day, `"YYYY-MM-DD"` |
 #' | `input$<id>_dates` | on load and when another month is shown | `list(current, start, end)`, Dates: the day the calendar is on and the first and last days drawn |
-#' | `input$<id>_click` | an event is clicked | the event, a list with its dates as Dates |
-#' | `input$<id>_add` | the user saves a new event (`editable`) | the event asked for, without an `id`: `list(date, end, title, type)` |
+#' | `input$<id>_click` | an event is clicked | the event, a list with its days as Dates and its times as date-times (the time shown, in the R session's time zone) |
+#' | `input$<id>_add` | the user saves a new event (`editable`) | the event asked for, without an `id`: `list(date, end, title, type, body)`, its `calendarId` with `calendars`, and the fields of an `eventForm` slot |
 #' | `input$<id>_update` | the user saves an edit or drops an event on another day | `list(event, changes)`: the event as it is, and what to change -- toastui's shape |
 #' | `input$<id>_delete` | the user deletes an event | the event |
 #'
@@ -148,12 +180,20 @@ el_calendar <- function(
   session = NULL,
   events = NULL,
   editable = FALSE,
-  event_labels = NULL
+  event_labels = NULL,
+  calendars = NULL,
+  visible_event_count = NULL,
+  use_detail_popup = FALSE,
+  first_day_of_week = NULL,
+  workweek = FALSE
 ) {
   .el_check_choices("el_calendar", environment())
   # mistakes are reported here, where the calendar is written
   .el_calendar_events(events)
   .el_calendar_labels(event_labels)
+  .el_calendar_calendars(calendars)
+  .el_calendar_count(visible_event_count)
+  .el_calendar_week_start(first_day_of_week)
   .el_component(".el_calendar_tags", as.list(environment()), "el_calendar")
 }
 
@@ -178,7 +218,12 @@ el_calendar <- function(
   session = NULL,
   events = NULL,
   editable = FALSE,
-  event_labels = NULL
+  event_labels = NULL,
+  calendars = NULL,
+  visible_event_count = NULL,
+  use_detail_popup = FALSE,
+  first_day_of_week = NULL,
+  workweek = FALSE
 ) {
   .el_check_choices("el_calendar", environment())
 
@@ -195,9 +240,12 @@ el_calendar <- function(
     # as upstream names it: a slot's template reaches the calendar's
     # methods as $refs.calendar.selectDate()
     ref = "calendar",
+    # drawn again when the first day of the week changes: Element reads it
+    # once, as the calendar is created, from the week start set around it
+    ":key" = "'week-' + weekStart()",
     ":model-value" = "elDate(value)",
     "@update:model-value" = "elPick",
-    class = "el-calendar--events"
+    ":class" = "calendarClass()"
   )
   # Bound unconditionally so update_el_calendar(range = ) can set it later; a
   # field left out of the Vue data is not reactive.
@@ -213,13 +261,25 @@ el_calendar <- function(
   vue_data$range <- if (is.null(range)) NA else as.character(range)
   vue_data$events <- events
   vue_data$editable <- isTRUE(editable)
+  vue_data$calendars <- .el_calendar_calendars(calendars)
+  vue_data$visibleEventCount <- .el_calendar_count(visible_event_count)
+  vue_data$useDetailPopup <- isTRUE(use_detail_popup)
+  vue_data$firstDayOfWeek <- .el_calendar_week_start(first_day_of_week)
+  vue_data$workweek <- isTRUE(workweek)
   # the event the dialog edits: a copy, or NULL while it is closed
   vue_data["eventForm"] <- list(NULL)
   vue_data["eventDragged"] <- list(NULL)
+  # the popovers: the event shown, the day whose events are listed, the
+  # element they point at
+  vue_data["eventDetail"] <- list(NULL)
+  vue_data["eventMore"] <- list(NULL)
+  vue_data["eventAnchor"] <- list(NULL)
+  # days being dragged across to add an event: list(from, to)
+  vue_data["eventSelect"] <- list(NULL)
   vue_data$eventLabels <- .el_calendar_labels(event_labels)
 
-  # A day cell of the user's own takes the place of ours, which draws the
-  # day's events; theirs can call eventsOn(data.day) for the same list
+  # Element's slots go to the calendar; ours -- event, event-form,
+  # event-detail -- into the pieces the events layer draws
   slot_names <- gsub(
     "([a-z0-9])([A-Z])",
     "\\1-\\L\\2",
@@ -230,8 +290,14 @@ el_calendar <- function(
   parts <- if (length(slots)) {
     .el_slot_markup(slots, taken = c(names(vue_data), .el_calendar_methods))
   }
+  ours <- slot_names %in% names(.el_calendar_scopes)
+  our_slots <- if (any(ours)) {
+    Map(.el_calendar_scoped, slot_names[ours], parts$markup[ours])
+  } else {
+    list()
+  }
   # the props go on the calendar itself: the markup is the calendar and
-  # the dialog beside it
+  # the dialog and popovers beside it
   props <- .el_props(list(
     controller_type = controller_type,
     formatter = formatter
@@ -242,8 +308,8 @@ el_calendar <- function(
     c(
       .el_label_attrs(calendar_attrs, ns_id, label),
       props$attrs,
-      parts$markup,
-      if (!own_cell) list(.el_calendar_cell())
+      parts$markup[!ours],
+      if (!own_cell) list(.el_calendar_cell(our_slots$event))
     )
   )
 
@@ -257,9 +323,14 @@ el_calendar <- function(
     show_message = show_message,
     inline_message = inline_message,
     id = ns_id,
-    markup = htmltools::tagList(calendar, .el_calendar_dialog()),
+    markup = htmltools::tagList(
+      calendar,
+      .el_calendar_more(),
+      .el_calendar_detail(our_slots[["event-detail"]]),
+      .el_calendar_dialog(our_slots[["event-form"]])
+    ),
     data = c(vue_data, parts$data),
-    dependency = parts$dependencies,
+    dependency = c(list(.el_calendar_dependency()), parts$dependencies),
     methods = c(
       parts$methods,
       .el_calendar_event_methods(ns_id),
@@ -294,7 +365,9 @@ el_calendar <- function(
         range = list(
           immediate = TRUE,
           handler = JS("function() { this.reportDates(); }")
-        )
+        ),
+        # another first day of the week draws other days
+        firstDayOfWeek = JS("function() { this.reportDates(); }")
       )
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
@@ -314,7 +387,8 @@ el_calendar <- function(
 #'
 #' `events` replaces all the events; `insert`, `replace` and `delete`
 #' change a few, found by `id`, and send only those -- one of the four per
-#' call.
+#' call. `calendars` replaces the groups: an `isVisible = FALSE` hides a
+#' group's events, as toastui's `cal_proxy_toggle()` does.
 #'
 #' `update_el_calendar()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
@@ -340,7 +414,12 @@ update_el_calendar <- function(
   replace = NULL,
   delete = NULL,
   editable = NULL,
-  event_labels = NULL
+  event_labels = NULL,
+  calendars = NULL,
+  visible_event_count = NULL,
+  use_detail_popup = NULL,
+  first_day_of_week = NULL,
+  workweek = NULL
 ) {
   .el_check_session(session)
   ns_id <- session$ns(id)
@@ -386,6 +465,26 @@ update_el_calendar <- function(
   if (!is.null(event_labels)) {
     message$eventLabels <- .el_calendar_labels(event_labels)
   }
+  if (!is.null(calendars)) {
+    message$calendars <- .el_calendar_calendars(calendars)
+  }
+  # NA: every event again, Element's week start again
+  if (!is.null(visible_event_count)) {
+    message["visibleEventCount"] <- list(
+      .el_calendar_count(visible_event_count)
+    )
+  }
+  if (!is.null(use_detail_popup)) {
+    message$useDetailPopup <- isTRUE(use_detail_popup)
+  }
+  if (!is.null(first_day_of_week)) {
+    message["firstDayOfWeek"] <- list(
+      .el_calendar_week_start(first_day_of_week)
+    )
+  }
+  if (!is.null(workweek)) {
+    message$workweek <- isTRUE(workweek)
+  }
   if (edits[["insert"]] || edits[["replace"]]) {
     op <- if (edits[["insert"]]) "insert" else "replace"
     rows <- if (op == "insert") insert else replace
@@ -410,28 +509,18 @@ update_el_calendar <- function(
 #' A calendar's events, as rows for the browser
 #'
 #' @param events `NULL`, a data.frame or a list of rows, with `date`;
-#'   `end`, `title`, `body`, `type`, `color` and `id` optional, any other
-#'   column kept.
+#'   `end`, `title`, `body`, `type`, `color`, `calendarId`, `isReadOnly`,
+#'   `isVisible` and `id` optional, any other column kept.
 #' @param arg The update argument the rows came in, which must give ids.
-#' @return Rows, each with an `id` (the row's number when none is given)
-#'   and days as `"YYYY-MM-DD"`.
+#' @return Rows, each with an `id` (the row's number when none is given),
+#'   days as `"YYYY-MM-DD"` and times as `"YYYY-MM-DD HH:MM"`.
 #' @keywords internal
 .el_calendar_events <- function(events, arg = NULL) {
+  events <- .el_calendar_rows(
+    events,
+    "`events` must be a data.frame, or a list of rows, with `date`."
+  )
   if (is.null(events)) {
-    return(I(list()))
-  }
-  if (!is.data.frame(events)) {
-    events <- tryCatch(
-      do.call(rbind, lapply(events, as.data.frame, stringsAsFactors = FALSE)),
-      error = function(e) {
-        stop(
-          "`events` must be a data.frame, or a list of rows, with `date`.",
-          call. = FALSE
-        )
-      }
-    )
-  }
-  if (!nrow(events)) {
     return(I(list()))
   }
   if (is.null(events$date)) {
@@ -447,83 +536,275 @@ update_el_calendar <- function(
     }
     events$id <- seq_len(nrow(events))
   }
+  # toastui's all-day events may carry times, which are not shown
+  allday <- if (is.null(events$category)) {
+    rep(FALSE, nrow(events))
+  } else {
+    events$category %in% "allday"
+  }
   for (col in intersect(c("date", "end"), names(events))) {
-    events[[col]] <- .el_calendar_day(events[[col]])
+    events[[col]] <- .el_calendar_time(events[[col]], allday)
   }
   .vue_rows(events)
 }
 
-#' Days as "YYYY-MM-DD", NA as NA
+#' A calendar's groups, as rows for the browser
+#'
+#' @param calendars `NULL`, a data.frame or a list of rows, with `id`;
+#'   `name`, `type`, `color` and `isVisible` optional.
+#' @return Rows.
 #' @noRd
-.el_calendar_day <- function(x) {
-  if (inherits(x, c("Date", "POSIXt"))) {
-    out <- format(as.Date(x), "%Y-%m-%d")
-  } else {
-    out <- substr(as.character(x), 1, 10)
+.el_calendar_calendars <- function(calendars) {
+  calendars <- .el_calendar_rows(
+    calendars,
+    "`calendars` must be a data.frame, or a list of rows, with `id`."
+  )
+  if (is.null(calendars)) {
+    return(I(list()))
   }
+  if (is.null(calendars$id)) {
+    stop(
+      "`calendars` needs `id`, which events name as `calendarId`.",
+      call. = FALSE
+    )
+  }
+  .vue_rows(calendars)
+}
+
+#' Rows as a data.frame, the keys toastui spells in camelCase accepted in
+#' snake_case too; `NULL` for none
+#' @noRd
+.el_calendar_rows <- function(x, wrong) {
+  if (is.null(x)) {
+    return(NULL)
+  }
+  if (!is.data.frame(x)) {
+    x <- tryCatch(
+      do.call(rbind, lapply(x, as.data.frame, stringsAsFactors = FALSE)),
+      error = function(e) stop(wrong, call. = FALSE)
+    )
+    if (!is.data.frame(x)) {
+      stop(wrong, call. = FALSE)
+    }
+  }
+  if (!nrow(x)) {
+    return(NULL)
+  }
+  for (key in intersect(
+    c("calendar_id", "is_read_only", "is_visible"),
+    names(x)
+  )) {
+    camel <- .el_camel_case(key)
+    if (!is.null(x[[camel]]) && !identical(x[[camel]], x[[key]])) {
+      stop(
+        "`",
+        key,
+        "` and `",
+        camel,
+        "` are one column, given twice with different values.",
+        call. = FALSE
+      )
+    }
+    x[[camel]] <- x[[key]]
+    x[[key]] <- NULL
+  }
+  x
+}
+
+#' Days as "YYYY-MM-DD", times as "YYYY-MM-DD HH:MM", NA as NA
+#'
+#' A date-time is written as its own time zone shows it; an all-day event's
+#' time is dropped.
+#' @noRd
+.el_calendar_time <- function(x, allday = FALSE) {
+  if (inherits(x, "Date")) {
+    out <- format(x, "%Y-%m-%d")
+  } else if (inherits(x, "POSIXt")) {
+    out <- format(x, "%Y-%m-%d %H:%M")
+  } else {
+    s <- sub("T", " ", as.character(x), fixed = TRUE)
+    timed <- grepl("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}", s)
+    out <- ifelse(timed, substr(s, 1, 16), substr(s, 1, 10))
+  }
+  out[allday] <- substr(out[allday], 1, 10)
   out[is.na(x)] <- NA
   out
 }
 
+#' How many events a day shows before "+N": a whole number, or NA for all
+#' @noRd
+.el_calendar_count <- function(n) {
+  if (is.null(n) || identical(n, NA)) {
+    return(NA)
+  }
+  if (!is.numeric(n) || length(n) != 1 || is.na(n) || n < 1 || n != round(n)) {
+    stop(
+      "`visible_event_count` is a whole number of events, 1 or more.",
+      call. = FALSE
+    )
+  }
+  as.integer(n)
+}
+
+#' The first day of the week, 1 (Monday) to 7 (Sunday) as Element UI's
+#' `firstDayOfWeek`, as dayjs counts it (0 Sunday to 6 Saturday); NA for
+#' the locale's
+#' @noRd
+.el_calendar_week_start <- function(day) {
+  if (is.null(day) || identical(day, NA)) {
+    return(NA)
+  }
+  if (!is.numeric(day) || length(day) != 1 || !day %in% 1:7) {
+    stop(
+      "`first_day_of_week` is 1 (Monday) to 7 (Sunday).",
+      call. = FALSE
+    )
+  }
+  as.integer(day) %% 7L
+}
+
 # the methods the events layer adds, whose names a slot must not take
 .el_calendar_methods <- c(
+  "eventCalendar",
+  "eventType",
+  "eventColor",
   "eventStyle",
+  "eventLabel",
+  "eventWhen",
   "eventsOn",
+  "eventsShown",
+  "eventsHidden",
+  "moreLabel",
+  "canEdit",
+  "isAllday",
+  "setAllday",
   "clickEvent",
+  "openMore",
+  "closePopovers",
+  "listenOutside",
   "openAdd",
   "saveEvent",
   "deleteEvent",
   "cancelEvent",
   "dragStart",
   "dropOn",
+  "selectStart",
+  "selectMove",
+  "selectEnd",
+  "inSelection",
+  "weekStart",
+  "calendarClass",
   "reportDates",
   "eventRequest",
   "shinyVueReceive"
 )
 
-#' The day cell: the day, and its events
+# our slots, and what their scope offers: an object the slot's scope
+# destructures, as an Element slot's would
+.el_calendar_scopes <- c(
+  "event" = "{ event: ev, day: data.day }",
+  "event-form" = "{ form: eventForm, labels: eventLabels, calendars: calendars }",
+  "event-detail" = "{ event: eventDetail, labels: eventLabels, calendars: calendars }"
+)
+
+#' One of our slots' content, in place: a `v-for` over its one scope
+#'
+#' The slot is not Element's -- the events layer draws the tag, the dialog
+#' and the popover -- so its content goes where it is drawn, its scope
+#' given by a `v-for` of one: `{ form }` is what the user wrote in
+#' `template(scope = )`, or the whole scope when they gave none.
 #' @noRd
-.el_calendar_cell <- function() {
+.el_calendar_scoped <- function(name, markup) {
+  html <- paste(as.character(markup), collapse = "")
+  m <- regmatches(
+    html,
+    regexec(
+      "(?s)^\\s*<template\\s+v-slot:[A-Za-z0-9_-]+(?:=\"([^\"]*)\")?\\s*>(.*)</template>\\s*$",
+      html,
+      perl = TRUE
+    )
+  )[[1]]
+  scope <- if (length(m) && nzchar(m[2])) m[2] else NULL
+  inner <- if (length(m)) m[3] else html
+  provided <- .el_calendar_scopes[[name]]
+  if (is.null(scope)) {
+    # no scope written: every name the slot offers
+    scope <- paste0(
+      "{ ",
+      paste(
+        regmatches(
+          provided,
+          gregexpr("[a-zA-Z]+(?=:)", provided, perl = TRUE)
+        )[[1]],
+        collapse = ", "
+      ),
+      " }"
+    )
+  }
+  htmltools::HTML(sprintf(
+    '<template v-for="%s in [%s]">%s</template>',
+    scope,
+    provided,
+    inner
+  ))
+}
+
+#' The day cell: the day, and its events
+#'
+#' The "+N" of `visible_event_count` sits beside the day, where the
+#' cell's height cannot hide it.
+#'
+#' @param event Our `event` slot's content, in place of the title.
+#' @noRd
+.el_calendar_cell <- function(event = NULL) {
   template(
     htmltools::tags$div(
       class = "el-calendar-cell",
-      style = paste(
-        "height: 100%; display: flex; flex-direction: column; gap: 2px;",
-        "overflow: hidden;"
-      ),
+      `:class` = "{ 'is-selecting': inSelection(data.day) }",
       `@dblclick` = "openAdd(data.day)",
+      `@mousedown` = "selectStart(data.day, $event)",
+      `@mouseenter` = "selectMove(data.day)",
       `@dragover.prevent` = NA,
       `@drop.prevent` = "dropOn(data.day)",
-      htmltools::tags$span(
-        class = "el-calendar-cell__day",
-        "{{ Number(data.day.slice(8)) }}"
+      htmltools::tags$div(
+        class = "el-calendar-cell__head",
+        htmltools::tags$span(
+          class = "el-calendar-cell__day",
+          "{{ Number(data.day.slice(8)) }}"
+        ),
+        htmltools::tags$span(
+          `v-if` = "eventsHidden(data.day) > 0",
+          class = "el-calendar-more",
+          role = "button",
+          tabindex = "0",
+          `@mousedown.stop` = NA,
+          `@dblclick.stop` = NA,
+          `@click.stop` = "openMore(data.day, $event)",
+          `@keydown.enter.stop` = "openMore(data.day, $event)",
+          "{{ moreLabel(data.day) }}"
+        )
       ),
       htmltools::tags$div(
         class = "el-calendar-cell__events",
-        style = paste(
-          "flex: 1; overflow-y: auto; display: flex; flex-direction: column;",
-          "gap: 2px;"
-        ),
+        `:class` = "{ 'is-scrolling': visibleEventCount === null }",
         el$tag(
-          `v-for` = "ev in eventsOn(data.day)",
+          `v-for` = "ev in eventsShown(data.day)",
           `:key` = "ev.id",
-          `:type` = "ev.type || 'primary'",
+          `:type` = "eventType(ev)",
           size = "small",
           class = "el-calendar-event",
-          style = paste(
-            "width: 100%; justify-content: flex-start; cursor: pointer;",
-            "overflow: hidden;"
-          ),
           `:title` = "ev.body || ev.title",
           # a block of colour with no title is still named, for screen
           # readers
           `:aria-label` = "ev.title || ev.body || ev.date",
-          `:color` = "ev.color",
+          `:color` = "eventColor(ev)",
           `:style` = "eventStyle(ev)",
-          `:draggable` = "editable",
+          `:draggable` = "canEdit(ev)",
           `@dragstart` = "dragStart(ev, $event)",
-          `@click.stop` = "clickEvent(ev)",
-          "{{ ev.title }}"
+          `@mousedown.stop` = NA,
+          `@dblclick.stop` = NA,
+          `@click.stop` = "clickEvent(ev, $event)",
+          event %||% "{{ eventLabel(ev, data.day) }}"
         )
       )
     ),
@@ -532,47 +813,129 @@ update_el_calendar <- function(
   )
 }
 
-#' The dialog that adds, edits and deletes an event
+#' The popover listing all of a day's events, from its "+N"
 #' @noRd
-.el_calendar_dialog <- function() {
-  field <- function(label, input) {
-    el$form_item(`:label` = paste0("eventLabels.", label), input)
+.el_calendar_more <- function() {
+  el$popover(
+    `:visible` = "eventMore !== null",
+    `:virtual-ref` = "eventAnchor",
+    `virtual-triggering` = NA,
+    placement = "bottom",
+    `:width` = "220",
+    `popper-class` = "el-calendar-popover",
+    htmltools::tags$div(
+      `v-if` = "eventMore !== null",
+      class = "el-calendar-more__list",
+      htmltools::tags$div(
+        class = "el-calendar-more__day",
+        "{{ eventMore }}"
+      ),
+      el$tag(
+        `v-for` = "ev in eventsOn(eventMore)",
+        `:key` = "ev.id",
+        `:type` = "eventType(ev)",
+        size = "small",
+        class = "el-calendar-event",
+        `:title` = "ev.body || ev.title",
+        `:aria-label` = "ev.title || ev.body || ev.date",
+        `:color` = "eventColor(ev)",
+        `:style` = "eventStyle(ev)",
+        `@click.stop` = "clickEvent(ev, $event, true)",
+        "{{ eventLabel(ev, eventMore) }}"
+      )
+    )
+  )
+}
+
+#' The popover showing an event the user cannot edit (`use_detail_popup`)
+#'
+#' @param detail Our `event-detail` slot's content, in place of ours.
+#' @noRd
+.el_calendar_detail <- function(detail = NULL) {
+  el$popover(
+    `:visible` = "eventDetail !== null",
+    `:virtual-ref` = "eventAnchor",
+    `virtual-triggering` = NA,
+    placement = "right",
+    `:width` = "260",
+    `popper-class` = "el-calendar-popover",
+    htmltools::tags$div(
+      `v-if` = "eventDetail !== null",
+      class = "el-calendar-detail",
+      detail %||%
+        htmltools::tagList(
+          htmltools::tags$div(
+            class = "el-calendar-detail__title",
+            "{{ eventDetail.title }}"
+          ),
+          htmltools::tags$div(
+            class = "el-calendar-detail__when",
+            "{{ eventWhen(eventDetail) }}"
+          ),
+          htmltools::tags$div(
+            `v-if` = "eventCalendar(eventDetail)",
+            class = "el-calendar-detail__calendar",
+            "{{ eventCalendar(eventDetail).name || eventCalendar(eventDetail).id }}"
+          ),
+          htmltools::tags$div(
+            `v-if` = "eventDetail.body",
+            class = "el-calendar-detail__body",
+            "{{ eventDetail.body }}"
+          )
+        )
+    )
+  )
+}
+
+#' The dialog that adds, edits and deletes an event
+#'
+#' @param form Our `event-form` slot's content, in place of our fields.
+#' @noRd
+.el_calendar_dialog <- function(form = NULL) {
+  field <- function(label, input, ...) {
+    el$form_item(`:label` = paste0("eventLabels.", label), input, ...)
   }
-  el$dialog(
-    `:model-value` = "eventForm !== null",
-    `@update:model-value` = "$event || cancelEvent()",
-    `:title` = "eventForm && eventForm.id !== undefined ? eventLabels.edit : eventLabels.add",
-    width = "420px",
-    `append-to-body` = NA,
-    class = "el-calendar-dialog",
-    el$form(
-      `v-if` = "eventForm",
-      `label-width` = "64px",
-      `@submit.prevent` = NA,
+  picker <- function(model, ...) {
+    el$date_picker(
+      `v-model` = model,
+      `:type` = "isAllday(eventForm) ? 'date' : 'datetime'",
+      `:value-format` = "isAllday(eventForm) ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm'",
+      `:format` = "isAllday(eventForm) ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm'",
+      style = "width: 100%",
+      ...
+    )
+  }
+  fields <- form %||%
+    htmltools::tagList(
       field("title", el$input(`v-model` = "eventForm.title")),
       field(
-        "date",
-        el$date_picker(
-          `v-model` = "eventForm.date",
-          type = "date",
-          `value-format` = "YYYY-MM-DD",
-          `:clearable` = "false",
-          style = "width: 100%"
+        "allday",
+        el$switch(
+          `:model-value` = "isAllday(eventForm)",
+          `@update:model-value` = "setAllday"
         )
       ),
+      field("date", picker("eventForm.date", `:clearable` = "false")),
+      field("end", picker("eventForm.end")),
       field(
-        "end",
-        el$date_picker(
-          `v-model` = "eventForm.end",
-          type = "date",
-          `value-format` = "YYYY-MM-DD",
-          style = "width: 100%"
+        "calendar",
+        `v-if` = "calendars.length",
+        el$select(
+          `v-model` = "eventForm.calendarId",
+          el$option(
+            `v-for` = "c in calendars",
+            `:key` = "c.id",
+            `:label` = "c.name || c.id",
+            `:value` = "c.id"
+          )
         )
       ),
       field(
         "type",
         el$select(
           `v-model` = "eventForm.type",
+          # an event of a calendar takes its type unless given one
+          `:placeholder` = "eventType(eventForm)",
           el$option(
             `v-for` = "t in ['primary', 'success', 'info', 'warning', 'danger']",
             `:key` = "t",
@@ -580,7 +943,28 @@ update_el_calendar <- function(
             `:value` = "t"
           )
         )
+      ),
+      field(
+        "body",
+        el$input(
+          `v-model` = "eventForm.body",
+          type = "textarea",
+          `:rows` = "2"
+        )
       )
+    )
+  el$dialog(
+    `:model-value` = "eventForm !== null",
+    `@update:model-value` = "$event || cancelEvent()",
+    `:title` = "eventForm && eventForm.id !== undefined ? eventLabels.edit : eventLabels.add",
+    width = "460px",
+    `append-to-body` = NA,
+    class = "el-calendar-dialog",
+    el$form(
+      `v-if` = "eventForm",
+      `label-width` = "72px",
+      `@submit.prevent` = NA,
+      fields
     ),
     htmltools::HTML(paste0(
       "<template v-slot:footer>",
@@ -598,11 +982,57 @@ update_el_calendar <- function(
       as.character(el$button(
         type = "primary",
         `@click` = "saveEvent",
-        `:disabled` = "!eventForm || !eventForm.title",
+        `:disabled` = "!eventForm || !eventForm.date",
         "{{ eventLabels.save }}"
       )),
       "</template>"
     ))
+  )
+}
+
+#' The events layer's stylesheet
+#' @noRd
+.el_calendar_dependency <- function() {
+  css <- paste(
+    ".el-calendar-cell { height: 100%; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }",
+    ".el-calendar-cell.is-selecting { background-color: var(--el-color-primary-light-9); }",
+    ".el-calendar-cell__events { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }",
+    ".el-calendar-cell__events.is-scrolling { overflow-y: auto; }",
+    ".el-calendar-event { width: 100%; justify-content: flex-start; cursor: pointer; overflow: hidden; flex-shrink: 0; }",
+    ".el-calendar-event .el-tag__content { overflow: hidden; text-overflow: ellipsis; }",
+    ".el-calendar-cell__head { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }",
+    ".el-calendar-more { font-size: 12px; color: var(--el-color-primary); cursor: pointer; white-space: nowrap; }",
+    ".el-calendar-more:hover { text-decoration: underline; }",
+    ".el-calendar-more__list { display: flex; flex-direction: column; gap: 4px; }",
+    ".el-calendar-more__day { font-weight: 600; margin-bottom: 2px; }",
+    ".el-calendar-detail { display: flex; flex-direction: column; gap: 6px; }",
+    ".el-calendar-detail__title { font-weight: 600; font-size: 14px; color: var(--el-text-color-primary); }",
+    ".el-calendar-detail__when, .el-calendar-detail__calendar { color: var(--el-text-color-secondary); }",
+    ".el-calendar-detail__body { white-space: pre-wrap; }",
+    # workweek: the columns of Saturday and Sunday, wherever the week
+    # starts
+    paste(
+      vapply(
+        1:7,
+        function(i) {
+          sprintf(
+            ".el-calendar.is-hide-col-%d .el-calendar-table tr > :nth-child(%d) { display: none; }",
+            i,
+            i
+          )
+        },
+        character(1)
+      ),
+      collapse = "\n"
+    ),
+    sep = "\n"
+  )
+  htmltools::htmlDependency(
+    "el-calendar-events",
+    "1.0.0",
+    src = system.file("js", package = "shiny.element"),
+    head = paste0("<style>", css, "</style>"),
+    all_files = FALSE
   )
 }
 
@@ -615,15 +1045,77 @@ update_el_calendar <- function(
 #' applies them itself.
 #' @noRd
 .el_calendar_event_methods <- function(ns_id) {
+  # "YYYY-MM-DD[ HH:MM]" as a UTC instant, and back to a day
+  parse <- paste0(
+    "var parse = function(s) { var p = String(s).slice(0, 10).split('-'); ",
+    "return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; ",
+    "var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; "
+  )
   list(
+    eventCalendar = JS(paste0(
+      "function(ev) { if (!ev || ev.calendarId === undefined || ev.calendarId === null) return null; ",
+      "var id = String(ev.calendarId); ",
+      "return (this.calendars || []).filter(function(c) { return String(c.id) === id; })[0] || null; }"
+    )),
+    # the event's own type or colour, else its calendar's
+    eventType = JS(paste0(
+      "function(ev) { var c = this.eventCalendar(ev); ",
+      "return ev.type || (c && c.type) || 'primary'; }"
+    )),
+    eventColor = JS(paste0(
+      "function(ev) { var c = this.eventCalendar(ev); ",
+      "return ev.color || (c && c.color) || undefined; }"
+    )),
     # a colour of the event's own: its border too, and the page's text
     eventStyle = JS(paste0(
-      "function(ev) { return ev.color ? {borderColor: ev.color, ",
+      "function(ev) { var col = this.eventColor(ev); return col ? {borderColor: col, ",
       "color: 'var(--el-text-color-primary)'} : null; }"
     )),
+    # a timed event shows its time on its first day
+    eventLabel = JS(paste0(
+      "function(ev, day) { var d = String(ev.date); ",
+      "return (d.length > 10 && d.slice(0, 10) === day ? d.slice(11, 16) + ' ' : '') + (ev.title || ''); }"
+    )),
+    eventWhen = JS(paste0(
+      "function(ev) { if (!ev) return ''; var d = String(ev.date), e = ev.end ? String(ev.end) : ''; ",
+      "if (!e) return d; ",
+      "return d + ' \u2013 ' + (e.slice(0, 10) === d.slice(0, 10) ? e.slice(11) : e); }"
+    )),
+    # the day's events, shown ones, all-day first, then by time
     eventsOn = JS(paste0(
-      "function(day) { return (this.events || []).filter(function(e) { ",
-      "var end = e.end || e.date; return e.date <= day && day <= end; }); }"
+      "function(day) { var self = this; ",
+      "var on = (self.events || []).filter(function(e) { ",
+      "if (e.isVisible === false) return false; var c = self.eventCalendar(e); ",
+      "if (c && c.isVisible === false) return false; ",
+      "var start = String(e.date).slice(0, 10), end = e.end ? String(e.end).slice(0, 10) : start; ",
+      "return start <= day && day <= end; }); ",
+      "var key = function(e) { var d = String(e.date); ",
+      "return d.length > 10 && d.slice(0, 10) === day ? d.slice(11) : ''; }; ",
+      "return on.map(function(e, i) { return [e, i]; }).sort(function(a, b) { ",
+      "var ka = key(a[0]), kb = key(b[0]); ",
+      "return ka < kb ? -1 : ka > kb ? 1 : a[1] - b[1]; }).map(function(p) { return p[0]; }); }"
+    )),
+    eventsShown = JS(paste0(
+      "function(day) { var all = this.eventsOn(day), n = this.visibleEventCount; ",
+      "return n && all.length > n ? all.slice(0, n) : all; }"
+    )),
+    eventsHidden = JS(paste0(
+      "function(day) { var n = this.visibleEventCount; if (!n) return 0; ",
+      "return Math.max(0, this.eventsOn(day).length - n); }"
+    )),
+    moreLabel = JS(paste0(
+      "function(day) { return String(this.eventLabels.more).replace('{n}', this.eventsHidden(day)); }"
+    )),
+    canEdit = JS("function(ev) { return !!this.editable && !ev.isReadOnly; }"),
+    isAllday = JS(
+      "function(f) { return !f || !f.date || String(f.date).length <= 10; }"
+    ),
+    # the dialog's switch: times added, or dropped
+    setAllday = JS(paste0(
+      "function(on) { var f = this.eventForm; if (!f || !f.date) return; ",
+      "var day = function(s) { return String(s).slice(0, 10); }; ",
+      "if (on) { f.date = day(f.date); if (f.end) f.end = day(f.end); } ",
+      "else { f.date = day(f.date) + ' 09:00'; if (f.end) f.end = day(f.end) + ' 10:00'; } }"
     )),
     # a request to the server, or -- with none -- the change made here
     eventRequest = JS(sprintf(
@@ -636,18 +1128,44 @@ update_el_calendar <- function(
       ),
       ns_id
     )),
+    # a click: reported; the dialog to edit it, or the popover to read it.
+    # From the "+N" list the popover points at the "+N".
     clickEvent = JS(paste0(
-      "function(ev) { var self = this; self.eventRequest('click', ev); ",
-      "if (self.editable) self.eventForm = Object.assign({}, ev, ",
-      "{end: ev.end || null}); }"
+      "function(ev, e, fromMore) { var self = this; self.eventRequest('click', ev); ",
+      "var anchor = fromMore ? self.eventAnchor : (e && e.currentTarget) || null; ",
+      "self.closePopovers(); ",
+      "if (self.canEdit(ev)) { self.eventForm = Object.assign({}, ev, {end: ev.end || null}); return; } ",
+      "if (self.useDetailPopup && anchor) { self.eventAnchor = anchor; self.eventDetail = ev; ",
+      "self.listenOutside(); } }"
+    )),
+    openMore = JS(paste0(
+      "function(day, e) { this.closePopovers(); this.eventAnchor = e.currentTarget; ",
+      "this.eventMore = day; this.listenOutside(); }"
+    )),
+    closePopovers = JS(
+      "function() { this.eventMore = null; this.eventDetail = null; }"
+    ),
+    # a press outside the popovers, or Escape, closes them
+    listenOutside = JS(paste0(
+      "function() { var self = this; if (self._outside) return; ",
+      "var off = function() { document.removeEventListener('mousedown', down, true); ",
+      "document.removeEventListener('keydown', key, true); self._outside = null; }; ",
+      "var down = function(e) { var t = e.target; ",
+      "if (t.closest && (t.closest('.el-calendar-popover') || t === self.eventAnchor)) return; ",
+      "self.closePopovers(); off(); }; ",
+      "var key = function(e) { if (e.key === 'Escape') { self.closePopovers(); off(); } }; ",
+      "self._outside = off; document.addEventListener('mousedown', down, true); ",
+      "document.addEventListener('keydown', key, true); }"
     )),
     openAdd = JS(paste0(
-      "function(day) { if (!this.editable) return; ",
-      "this.eventForm = {date: day, end: null, title: '', type: 'primary'}; }"
+      "function(day, end) { if (!this.editable) return; this.closePopovers(); ",
+      "var f = {date: day, end: end && end !== day ? end : null, title: '', type: 'primary', body: ''}; ",
+      "if (this.calendars && this.calendars.length) f.calendarId = this.calendars[0].id; ",
+      "this.eventForm = f; }"
     )),
     cancelEvent = JS("function() { this.eventForm = null; }"),
     saveEvent = JS(paste0(
-      "function() { var self = this, f = self.eventForm; if (!f || !f.title) return; ",
+      "function() { var self = this, f = self.eventForm; if (!f || !f.date) return; ",
       "var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; ",
       "if (ev.id === undefined) { ",
       "self.eventRequest('add', ev, function() { ",
@@ -668,35 +1186,79 @@ update_el_calendar <- function(
       "self.eventForm = null; }"
     )),
     dragStart = JS(paste0(
-      "function(ev, e) { if (!this.editable) { e.preventDefault(); return; } ",
-      "this.eventDragged = ev.id; ",
+      "function(ev, e) { if (!this.canEdit(ev)) { e.preventDefault(); return; } ",
+      "this.closePopovers(); this.eventDragged = ev.id; ",
       "if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; ",
       "e.dataTransfer.setData('text/plain', String(ev.id)); } }"
     )),
-    # dropped on another day: moved there, a span keeping its length
+    # dropped on another day: moved there, its times and a span's length
+    # kept
     dropOn = JS(paste0(
       "function(day) { var self = this, id = self.eventDragged; ",
       "self.eventDragged = null; if (!self.editable || id === null) return; ",
       "var old = self.events.filter(function(e) { return e.id === id; })[0]; ",
-      "if (!old || old.date === day) return; ",
-      "var parse = function(s) { var p = s.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; ",
-      "var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; ",
+      "if (!old || String(old.date).slice(0, 10) === day) return; ",
+      parse,
       "var shift = parse(day) - parse(old.date); ",
-      "var changes = {date: day}; if (old.end) changes.end = fmt(parse(old.end) + shift); ",
+      "var changes = {date: day + String(old.date).slice(10)}; ",
+      "if (old.end) changes.end = fmt(parse(old.end) + shift) + String(old.end).slice(10); ",
       "var ev = Object.assign({}, old, changes); ",
       "self.eventRequest('update', {event: old, changes: changes}, function() { ",
       "self.events.splice(self.events.indexOf(old), 1, ev); }); }"
     )),
+    # pressed on a day and dragged across others: a new event over them
+    selectStart = JS(paste0(
+      "function(day, e) { var self = this; if (!self.editable || e.button !== 0) return; ",
+      "self.eventSelect = {from: day, to: day}; ",
+      "var up = function() { document.removeEventListener('mouseup', up, true); self.selectEnd(); }; ",
+      "document.addEventListener('mouseup', up, true); }"
+    )),
+    selectMove = JS(
+      "function(day) { if (this.eventSelect) this.eventSelect.to = day; }"
+    ),
+    selectEnd = JS(paste0(
+      "function() { var s = this.eventSelect; this.eventSelect = null; ",
+      "if (!s || s.from === s.to) return; ",
+      "this.openAdd(s.from < s.to ? s.from : s.to, s.from < s.to ? s.to : s.from); }"
+    )),
+    inSelection = JS(paste0(
+      "function(day) { var s = this.eventSelect; if (!s || s.from === s.to) return false; ",
+      "var a = s.from < s.to ? s.from : s.to, b = s.from < s.to ? s.to : s.from; ",
+      "return a <= day && day <= b; }"
+    )),
+    # The week's first day, as dayjs counts it. Element reads it from
+    # dayjs's global locale as a calendar's date table is created, which
+    # happens while this component renders: it is set for that render and
+    # put back once it is done, so no other component sees it.
+    weekStart = JS(paste0(
+      "function() { var dj = window.ElementPlus && ElementPlus.dayjs; ",
+      "var fdw = this.firstDayOfWeek; ",
+      "if (!dj) return fdw === null || fdw === undefined ? 0 : fdw; ",
+      "var loc = dj.Ls && dj.Ls[dj.locale()]; ",
+      "if (fdw === null || fdw === undefined || !loc) return dj.localeData ? dj.localeData().firstDayOfWeek() : 0; ",
+      "var had = Object.prototype.hasOwnProperty.call(loc, 'weekStart'), old = loc.weekStart; ",
+      "loc.weekStart = fdw; ",
+      "Promise.resolve().then(function() { if (had) loc.weekStart = old; else delete loc.weekStart; }); ",
+      "return fdw; }"
+    )),
+    # workweek: Saturday's and Sunday's columns hidden
+    calendarClass = JS(paste0(
+      "function() { var out = ['el-calendar--events']; if (!this.workweek) return out; ",
+      "var s = this.firstDayOfWeek; ",
+      "if (s === null || s === undefined) { var dj = window.ElementPlus && ElementPlus.dayjs; ",
+      "s = dj && dj.localeData ? dj.localeData().firstDayOfWeek() : 0; } ",
+      "[0, 6].forEach(function(w) { out.push('is-hide-col-' + (((w - s + 7) % 7) + 1)); }); ",
+      "return out; }"
+    )),
     # the days shown, counted off the drawn month: Element's first day of
-    # the week follows its locale
+    # the week follows its locale, or first_day_of_week
     reportDates = JS(sprintf(
       paste0(
         "function() { var self = this; self.$nextTick(function() { ",
         "var root = self.$el && self.$el.querySelectorAll ? self.$el : null; ",
         "if (!root || !window.Shiny || !Shiny.setInputValue) return; ",
         "var cells = root.querySelectorAll('.el-calendar-table td'); if (!cells.length) return; ",
-        "var parse = function(s) { var p = s.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; ",
-        "var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; ",
+        parse,
         "var start, end; ",
         "if (self.range && self.range.length) { start = parse(self.range[0]); ",
         "end = start + (cells.length - 1) * 864e5; } else { ",
@@ -726,7 +1288,10 @@ update_el_calendar <- function(
   )
 }
 
-#' A calendar's message with its dates as Dates
+#' A calendar's message with its dates as Dates, its times as date-times
+#'
+#' A time is the wall-clock time the calendar shows, read in the R
+#' session's time zone.
 #' @noRd
 .el_calendar_dates <- function(x) {
   if (!is.list(x)) {
@@ -736,7 +1301,13 @@ update_el_calendar <- function(
     v <- x[[k]]
     if (k %in% c("date", "end", "start", "current")) {
       x[k] <- list(
-        if (is.null(v) || identical(v, "")) NULL else as.Date(substr(v, 1, 10))
+        if (is.null(v) || identical(v, "")) {
+          NULL
+        } else if (nchar(v) > 10) {
+          as.POSIXct(substr(v, 1, 16), format = "%Y-%m-%d %H:%M", tz = "")
+        } else {
+          as.Date(substr(v, 1, 10))
+        }
       )
     } else if (is.list(v)) {
       x[[k]] <- .el_calendar_dates(v)
@@ -745,19 +1316,23 @@ update_el_calendar <- function(
   x
 }
 
-#' The event dialog's words, English unless given
+#' The event dialog's and popovers' words, English unless given
 #' @noRd
 .el_calendar_labels <- function(labels = NULL) {
   words <- list(
     add = "New event",
     edit = "Edit event",
     title = "Title",
+    allday = "All day",
     date = "Date",
     end = "Until",
+    calendar = "Calendar",
     type = "Type",
+    body = "Details",
     save = "Save",
     delete = "Delete",
-    cancel = "Cancel"
+    cancel = "Cancel",
+    more = "+{n} more"
   )
   labels <- as.list(labels)
   unknown <- setdiff(names(labels), names(words))

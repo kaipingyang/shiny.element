@@ -341,6 +341,7 @@ test_that("every updater of a Vue component sends only declared fields", {
         events = data.frame(date = "2026-01-02", title = "a"),
         insert = data.frame(id = 9, date = "2026-01-02", title = "a"),
         event_labels = list(save = "OK"),
+        calendars = data.frame(id = "w"),
         1
       )
       given <- stats::setNames(list(val), a)

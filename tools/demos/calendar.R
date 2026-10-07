@@ -110,14 +110,17 @@ shinyApp(ui, server)
 #| shot_sel = ".el-calendar-dialog"
 #' ### A planner
 #'
-#' With `editable = TRUE` the user double-clicks a day to add an event,
-#' clicks one to edit or delete it in a dialog, and drags it to another day.
-#' The server owns the events, as toastui's calendar has it: what the user
-#' does arrives as a request and changes nothing until the server answers --
-#' here by changing its data, which renders the calendar again; for a large
-#' calendar, `update_el_calendar(insert =, replace =, delete =)` sends only
-#' the events that changed. `el_calendar_events()` reads what the calendar
-#' shows.
+#' With `editable = TRUE` the user double-clicks a day, or drags across
+#' several, to add an event, clicks one to edit or delete it in a dialog,
+#' and drags it to another day. The server owns the events, as toastui's
+#' calendar has it: what the user does arrives as a request and changes
+#' nothing until the server answers -- here by changing its data, which
+#' renders the calendar again; for a large calendar,
+#' `update_el_calendar(insert =, replace =, delete =)` sends only the events
+#' that changed. `el_calendar_events()` reads what the calendar shows.
+#'
+#' A day comes back as a Date and a time, which the dialog's switch adds,
+#' as a date-time; the app keeps both as text, as the calendar takes them.
 #'
 #' | Input | Value |
 #' |---|---|
@@ -130,10 +133,20 @@ shinyApp(ui, server)
 ui <- el_page(el_calendar_output("plan"))
 
 server <- function(input, output, session) {
+  # a day as "YYYY-MM-DD", a time as "YYYY-MM-DD HH:MM"
+  as_text <- function(x) {
+    if (is.null(x)) {
+      NA_character_
+    } else if (inherits(x, "POSIXt")) {
+      format(x, "%Y-%m-%d %H:%M")
+    } else {
+      format(x)
+    }
+  }
   events <- reactiveVal(data.frame(
     id = 1:3,
-    date = as.Date("2026-10-05") + c(0, 2, 9),
-    end = as.Date(c(NA, "2026-10-09", NA)),
+    date = c("2026-10-05 09:30", "2026-10-07", "2026-10-14"),
+    end = c(NA, "2026-10-09", NA),
     title = c("Standup", "Conference", "Review"),
     type = c("primary", "success", "warning")
   ))
@@ -146,8 +159,8 @@ server <- function(input, output, session) {
       events(),
       data.frame(
         id = max(events()$id) + 1L,
-        date = new$date,
-        end = if (is.null(new$end)) as.Date(NA) else new$end,
+        date = as_text(new$date),
+        end = as_text(new$end),
         title = new$title,
         type = new$type
       )
@@ -158,13 +171,150 @@ server <- function(input, output, session) {
     i <- d$id == input$plan_update$event$id
     for (k in intersect(names(input$plan_update$changes), names(d))) {
       value <- input$plan_update$changes[[k]]
-      d[[k]][i] <- if (is.null(value)) NA else value
+      d[[k]][i] <- if (k %in% c("date", "end")) as_text(value) else value
     }
     events(d)
   })
   observeEvent(input$plan_delete, {
     events(events()[events()$id != input$plan_delete$id, ])
   })
+}
+
+shinyApp(ui, server)
+
+## in-shiny-groups
+#| shot_js = "document.querySelector('#week .el-calendar-more').click()"
+#| shot_wait = 1.5
+#' ### Times, groups and a full day
+#'
+#' A `date` with a time shows it before the title, and a day lists its
+#' all-day events first, then the others by time. `calendars` groups the
+#' events, as toastui's do: each event names its group as `calendarId`
+#' and takes its `type` or `color` unless it has one of its own;
+#' `update_el_calendar(calendars =)` with `isVisible = FALSE` hides a
+#' group. Past `visible_event_count` a day shows "+N more", which lists them
+#' all. `first_day_of_week` starts the week on Monday (`1`), and an event
+#' with `isReadOnly` stays where it is.
+ui <- el_page(
+  el_checkbox_group(
+    "shown",
+    choices = c(Work = "work", Home = "home"),
+    value = c("work", "home")
+  ),
+  el_calendar_output("week")
+)
+
+server <- function(input, output, session) {
+  calendars <- data.frame(
+    id = c("work", "home"),
+    name = c("Work", "Home"),
+    type = c("primary", "success")
+  )
+  output$week <- render_el_calendar(el_calendar(
+    value = "2026-10-07",
+    events = data.frame(
+      id = 1:6,
+      date = c(
+        "2026-10-05",
+        "2026-10-05 09:30",
+        "2026-10-05 14:00",
+        "2026-10-05",
+        "2026-10-07",
+        "2026-10-13 10:00"
+      ),
+      end = c(NA, NA, "2026-10-05 15:00", NA, "2026-10-09", NA),
+      title = c("Standup", "Design", "Review", "Lunch", "Conference", "Audit"),
+      calendarId = c("work", "work", "work", "home", "work", "work"),
+      isReadOnly = c(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
+    ),
+    calendars = calendars,
+    editable = TRUE,
+    visible_event_count = 2,
+    first_day_of_week = 1
+  ))
+  observeEvent(input$shown, ignoreNULL = FALSE, {
+    calendars$isVisible <- calendars$id %in% input$shown
+    update_el_calendar(session, "week", calendars = calendars)
+  })
+}
+
+shinyApp(ui, server)
+
+## in-shiny-dialog
+#| shot_js = "document.querySelectorAll('#visits .el-calendar-event')[0].click()"
+#| shot_wait = 1.5
+#| shot_sel = ".el-calendar-dialog"
+#' ### A dialog of your own
+#'
+#' toastui's popups are fixed; here the dialog, the popover and each
+#' event's tag are slots, filled with Element's components. `eventForm`
+#' replaces the dialog's fields: bind one to `form.<field>` and it travels
+#' with the event in `input$<id>_add` and `_update`. `eventDetail` fills the
+#' popover that `use_detail_popup` opens on an event the user cannot edit,
+#' and `event` the tag. Each slot's scope -- `{ form, labels, calendars }`,
+#' `{ event, labels, calendars }`, `{ event, day }` -- is named in
+#' `template(scope = )`, or all of it when none is written. `workweek`
+#' leaves out the weekend.
+ui <- el_page(
+  el_calendar_output("visits"),
+  verbatimTextOutput("changed")
+)
+
+server <- function(input, output, session) {
+  output$visits <- render_el_calendar(el_calendar(
+    value = "2026-10-07",
+    events = data.frame(
+      id = 1:3,
+      date = c("2026-10-06", "2026-10-08", "2026-10-14"),
+      title = c("Site visit", "Audit", "Review"),
+      site = c("Lab 2", "HQ", "Lab 1"),
+      priority = c(3, 5, 2),
+      isReadOnly = c(FALSE, TRUE, FALSE)
+    ),
+    editable = TRUE,
+    use_detail_popup = TRUE,
+    workweek = TRUE,
+    slots = list(
+      event = template(
+        "<el-icon><Location /></el-icon> {{ event.title }}",
+        slot = "event",
+        scope = "{ event }"
+      ),
+      eventForm = tagList(
+        el$form_item(label = "Title", el$input(`v-model` = "form.title")),
+        el$form_item(
+          label = "Site",
+          el$select(
+            `v-model` = "form.site",
+            el$option(
+              `v-for` = "s in ['Lab 1', 'Lab 2', 'HQ']",
+              `:key` = "s",
+              `:label` = "s",
+              `:value` = "s"
+            )
+          )
+        ),
+        el$form_item(label = "Priority", el$rate(`v-model` = "form.priority")),
+        el$form_item(
+          label = "Day",
+          el$date_picker(`v-model` = "form.date", `value-format` = "YYYY-MM-DD")
+        )
+      ),
+      eventDetail = tagList(
+        el$text(tag = "b", "{{ event.title }}"),
+        el$descriptions(
+          `:column` = "1",
+          size = "small",
+          el$descriptions_item(label = "Site", "{{ event.site }}"),
+          el$descriptions_item(
+            label = "Priority",
+            el$rate(`:model-value` = "event.priority", disabled = NA)
+          )
+        )
+      )
+    )
+  ))
+  output$changed <- renderPrint(input$visits_update$changes)
 }
 
 shinyApp(ui, server)

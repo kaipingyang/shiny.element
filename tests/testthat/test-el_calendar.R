@@ -177,7 +177,7 @@ test_that("a calendar with events draws them in its day cells, with the dialog",
     events = data.frame(date = "2026-10-05", title = "Standup"),
     editable = TRUE
   ))
-  expect_match(html, "eventsOn(data.day)", fixed = TRUE)
+  expect_match(html, "eventsShown(data.day)", fixed = TRUE)
   expect_match(html, "el-calendar-dialog", fixed = TRUE)
   expect_match(html, '"title":"Standup"', fixed = TRUE)
   expect_match(html, '"editable":true', fixed = TRUE)
@@ -386,4 +386,145 @@ test_that("update_el_calendar() keeps the server's copy in step", {
     shiny::isolate(el_calendar_events(session, "cal"))$id,
     5L
   )
+})
+
+# rows as columns, as jsonlite reads them back
+cal_rows <- function(x) jsonlite::fromJSON(as.character(x))
+
+test_that("an event's times are kept, an all-day one's dropped", {
+  rows <- cal_rows(.el_calendar_events(data.frame(
+    date = c("2026-10-05", "2026-10-05 09:30:00", "2026-10-06T14:00"),
+    end = c(NA, "2026-10-05 10:00", NA),
+    title = c("a", "b", "c")
+  )))
+  expect_equal(
+    rows$date,
+    c("2026-10-05", "2026-10-05 09:30", "2026-10-06 14:00")
+  )
+  expect_equal(rows$end, c(NA, "2026-10-05 10:00", NA))
+  # a date-time as its own time zone shows it
+  t <- as.POSIXct("2026-10-05 08:15", tz = "Asia/Shanghai")
+  expect_equal(
+    cal_rows(.el_calendar_events(data.frame(date = t, title = "x")))$date,
+    "2026-10-05 08:15"
+  )
+  # toastui's all-day events with times
+  all_day <- cal_rows(.el_calendar_events(data.frame(
+    date = "2021-02-03 10:00:00",
+    end = "2021-02-03 20:00:00",
+    category = "allday",
+    title = ""
+  )))
+  expect_equal(c(all_day$date, all_day$end), c("2021-02-03", "2021-02-03"))
+})
+
+test_that("toastui's camelCase keys are taken in snake_case too", {
+  rows <- cal_rows(.el_calendar_events(data.frame(
+    date = "2026-10-05",
+    calendar_id = "w",
+    is_read_only = TRUE
+  )))
+  expect_equal(rows$calendarId, "w")
+  expect_true(rows$isReadOnly)
+  expect_null(rows$calendar_id)
+  expect_error(
+    .el_calendar_events(data.frame(
+      date = "2026-10-05",
+      calendar_id = "a",
+      calendarId = "b"
+    )),
+    "one column, given twice"
+  )
+})
+
+test_that("calendars, the count and the week start are checked", {
+  cals <- cal_rows(.el_calendar_calendars(data.frame(
+    id = c("w", "h"),
+    is_visible = c(TRUE, FALSE)
+  )))
+  expect_equal(cals$isVisible, c(TRUE, FALSE))
+  expect_error(.el_calendar_calendars(data.frame(name = "x")), "needs `id`")
+  expect_error(el_calendar(calendars = list(name = "x")), "needs `id`")
+  expect_equal(.el_calendar_count(3), 3L)
+  expect_true(is.na(.el_calendar_count(NULL)))
+  expect_error(el_calendar(visible_event_count = 0), "whole number")
+  # Element UI's 1 (Monday) to 7 (Sunday), as dayjs counts: 0 is Sunday
+  expect_equal(.el_calendar_week_start(1), 1L)
+  expect_equal(.el_calendar_week_start(7), 0L)
+  expect_error(el_calendar(first_day_of_week = 0), "1 \\(Monday\\)")
+})
+
+test_that("times come back as date-times, days as Dates", {
+  got <- .el_calendar_dates(list(
+    event = list(date = "2026-10-05 09:30", end = "2026-10-06"),
+    changes = list(date = "2026-10-07 09:30")
+  ))
+  expect_s3_class(got$event$date, "POSIXct")
+  expect_equal(format(got$event$date, "%Y-%m-%d %H:%M"), "2026-10-05 09:30")
+  expect_s3_class(got$event$end, "Date")
+  expect_equal(format(got$changes$date, "%H:%M"), "09:30")
+})
+
+test_that("our slots go into the tag, the dialog and the popover", {
+  html <- render_html(el_calendar(
+    "c",
+    events = data.frame(date = "2026-10-05", title = "a"),
+    editable = TRUE,
+    slots = list(
+      event = template(
+        "<b>{{ event.title }}</b>",
+        slot = "event",
+        scope = "{ event }"
+      ),
+      eventForm = el$input(`v-model` = "form.location"),
+      eventDetail = htmltools::tags$i("{{ event.location }}")
+    )
+  ))
+  expect_match(
+    html,
+    '<template v-for="{ event } in [{ event: ev, day: data.day }]"><b>{{ event.title }}</b></template>',
+    fixed = TRUE
+  )
+  # no scope written: every name the slot offers
+  expect_match(
+    html,
+    "v-for=\"{ form, labels, calendars } in [{ form: eventForm,",
+    fixed = TRUE
+  )
+  expect_match(html, 'v-model="form.location"', fixed = TRUE)
+  expect_match(html, "{ event: eventDetail,", fixed = TRUE)
+  # ours replace our fields; Element's own slots still reach the calendar
+  expect_no_match(html, 'v-model="eventForm.title"', fixed = TRUE)
+  expect_no_match(html, "v-slot:event-form", fixed = TRUE)
+})
+
+test_that("update_el_calendar() sends the events layer's options", {
+  captured <- NULL
+  session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) captured <<- msg
+  )
+  update_el_calendar(
+    session,
+    "c",
+    calendars = data.frame(id = "w", is_visible = FALSE),
+    visible_event_count = 2,
+    use_detail_popup = TRUE,
+    first_day_of_week = 1,
+    workweek = TRUE
+  )
+  expect_false(cal_rows(captured$calendars)$isVisible)
+  expect_equal(captured$visibleEventCount, 2L)
+  expect_true(captured$useDetailPopup)
+  expect_equal(captured$firstDayOfWeek, 1L)
+  expect_true(captured$workweek)
+  # NA: back to every event and Element's week
+  update_el_calendar(
+    session,
+    "c",
+    visible_event_count = NA,
+    first_day_of_week = NA
+  )
+  expect_true(is.na(captured$visibleEventCount))
+  expect_true(is.na(captured$firstDayOfWeek))
 })

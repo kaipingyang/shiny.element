@@ -24,7 +24,12 @@ el_calendar(
   session = NULL,
   events = NULL,
   editable = FALSE,
-  event_labels = NULL
+  event_labels = NULL,
+  calendars = NULL,
+  visible_event_count = NULL,
+  use_detail_popup = FALSE,
+  first_day_of_week = NULL,
+  workweek = FALSE
 )
 
 update_el_calendar(
@@ -41,7 +46,12 @@ update_el_calendar(
   replace = NULL,
   delete = NULL,
   editable = NULL,
-  event_labels = NULL
+  event_labels = NULL,
+  calendars = NULL,
+  visible_event_count = NULL,
+  use_detail_popup = NULL,
+  first_day_of_week = NULL,
+  workweek = NULL
 )
 }
 \arguments{
@@ -88,35 +98,69 @@ Plus's \code{formatter}.}
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels.}
 
-\item{slots}{Named list of Element slot contents. \code{dateCell} renders one
-day: Element hands the template \code{date} and \code{data}, so write it with
-\code{\link[=template]{template()}}. A default is used when none is given.}
+\item{slots}{Named list of slot contents. Element's: \code{dateCell} renders
+one day -- Element hands the template \code{date} and \code{data}, so write it
+with \code{\link[=template]{template()}} -- and replaces the one that draws the events; call
+\code{eventsOn(data.day)} in it for the day's events. The events layer's own,
+for Element's components in what it draws: \code{event}, the content of an
+event's tag (scope \verb{\{ event, day \}}); \code{eventForm}, the dialog's fields
+in place of ours (scope \verb{\{ form, labels, calendars \}}: bind a field with
+\code{`v-model` = "form.location"} and it travels with the event in
+\verb{_add} and \verb{_update}); \code{eventDetail}, the popover of
+\code{use_detail_popup} (scope \verb{\{ event, labels, calendars \}}). Write a
+scope of your own with \code{template(scope = "{ event }")}.}
 
 \item{session}{Deprecated. Inside a module, wrap \code{id} in \code{ns()}, as for
 any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
 
 \item{events}{The events to show: a data.frame, or a list of rows, with
-\code{date}, the day (a Date, a date-time or \code{"YYYY-MM-DD"}), named as
-Element names the day of a cell; optionally \code{end}, the last day of an
-event spanning several, \code{title}, \code{body} (shown on hover), \code{id} (the
-row's number when absent) -- toastui's names, where Element has none
--- and, from Element's tag, \code{type} (\code{"primary"}, \code{"success"},
-\code{"info"}, \code{"warning"}, \code{"danger"}) or \code{color}, a background colour of
-your own.
-Any other column travels with the event and comes back in the inputs.
-In a Shiny app whose events come from the server, render the calendar
-as an output: \code{\link[=el_calendar_output]{el_calendar_output()}}. A day cell of your own
-(\code{slots = list(dateCell = ...)}) replaces the one that draws them; call
-\code{eventsOn(data.day)} in it for the day's events.}
+\code{date}, the day -- a Date or \code{"YYYY-MM-DD"} -- or the time it starts
+-- a date-time or \code{"YYYY-MM-DD HH:MM"} --, named as Element names the
+day of a cell. Optionally, from toastui where Element has no name:
+\code{end}, the day or time it ends; \code{title}; \code{body}, shown on hover and
+in the popover; \code{id} (the row's number when absent); \code{calendarId},
+its group in \code{calendars}; \code{isReadOnly}, an event the user cannot
+change; \code{isVisible = FALSE}, one not shown; \code{category = "allday"},
+times not shown. From Element's tag: \code{type} (\code{"primary"},
+\code{"success"}, \code{"info"}, \code{"warning"}, \code{"danger"}) or \code{color}, a
+background colour of your own. toastui's camelCase names can be
+written in snake_case (\code{calendar_id}). Any other column travels with
+the event and comes back in the inputs. A day shows its all-day events
+first, then the others by time, the time before the title. In a Shiny
+app whose events come from the server, render the calendar as an
+output: \code{\link[=el_calendar_output]{el_calendar_output()}}.}
 
 \item{editable}{Whether the user can change the events: double-click a
-day to add one, click an event to edit or delete it in a dialog, drag
-it to another day to move it (a span keeps its length).}
+day, or drag across several, to add one; click an event to edit or
+delete it in a dialog; drag it to another day to move it (its times
+and a span's length kept). An event with \code{isReadOnly} stays as it is.}
 
-\item{event_labels}{The dialog's words, to change any of: a named list of
-\code{add}, \code{edit} (its titles), \code{title}, \code{date}, \code{end}, \code{type} (its fields),
-\code{save}, \code{delete}, \code{cancel} (its buttons) -- \code{list(add = "新建日程", save = "保存")}.}
+\item{event_labels}{The dialog's and popovers' words, to change any of: a
+named list of \code{add}, \code{edit} (the dialog's titles), \code{title}, \code{allday},
+\code{date}, \code{end}, \code{calendar}, \code{type}, \code{body} (its fields), \code{save},
+\code{delete}, \code{cancel} (its buttons), \code{more} (the link to a day's hidden
+events, \code{{n}} their number) -- \code{list(add = "新建日程", save = "保存", more = "还有 {n} 项")}.}
+
+\item{calendars}{Groups of events, toastui's: a data.frame, or a list of
+rows, with \code{id}, which an event names as its \code{calendarId}; optionally
+\code{name}, shown in the dialog and the popover; \code{type} or \code{color}, for its
+events with none of their own; \code{isVisible = FALSE}, its events hidden.}
+
+\item{visible_event_count}{How many events a day shows; the rest are
+behind a "+N more" that lists them in a popover. \code{NULL} shows them all,
+scrolling. toastui's \code{visibleEventCount}.}
+
+\item{use_detail_popup}{Whether a click on an event the user cannot edit
+shows it in a popover: its title, when, calendar and body, or the
+\code{eventDetail} slot. toastui's \code{useDetailPopup}.}
+
+\item{first_day_of_week}{The day the week starts on, \code{1} (Monday) to \code{7}
+(Sunday), as Element UI's \code{firstDayOfWeek}. \code{NULL} keeps Element Plus's,
+which is Sunday.}
+
+\item{workweek}{Whether to hide Saturday and Sunday, as toastui's
+\code{workweek}.}
 
 \item{insert}{Events to add, each with its \code{id}.}
 
@@ -131,6 +175,9 @@ A Shiny UI element.
 A month of days to pick one from, or a range of weeks to show -- and,
 with \code{events}, a month planner: each day shows its events, which the
 user can add, edit, delete and drag to another day (\code{editable}).
+Days show times, groups (\code{calendars}) and a "+N more" beyond
+\code{visible_event_count}; the dialog and the popovers take Element's
+components of your own through slots.
 }
 \details{
 The server owns the events, as toastui's calendar has it: what the user
@@ -146,8 +193,8 @@ calendar applies the user's changes itself.
    Input \tab When \tab Value \cr
    \verb{input$<id>} \tab on load and when a day is picked \tab the day, \code{"YYYY-MM-DD"} \cr
    \verb{input$<id>_dates} \tab on load and when another month is shown \tab \code{list(current, start, end)}, Dates: the day the calendar is on and the first and last days drawn \cr
-   \verb{input$<id>_click} \tab an event is clicked \tab the event, a list with its dates as Dates \cr
-   \verb{input$<id>_add} \tab the user saves a new event (\code{editable}) \tab the event asked for, without an \code{id}: \code{list(date, end, title, type)} \cr
+   \verb{input$<id>_click} \tab an event is clicked \tab the event, a list with its days as Dates and its times as date-times (the time shown, in the R session's time zone) \cr
+   \verb{input$<id>_add} \tab the user saves a new event (\code{editable}) \tab the event asked for, without an \code{id}: \code{list(date, end, title, type, body)}, its \code{calendarId} with \code{calendars}, and the fields of an \code{eventForm} slot \cr
    \verb{input$<id>_update} \tab the user saves an edit or drops an event on another day \tab \code{list(event, changes)}: the event as it is, and what to change -- toastui's shape \cr
    \verb{input$<id>_delete} \tab the user deletes an event \tab the event \cr
 }
@@ -166,7 +213,8 @@ Element's default.
 
 \code{events} replaces all the events; \code{insert}, \code{replace} and \code{delete}
 change a few, found by \code{id}, and send only those -- one of the four per
-call.
+call. \code{calendars} replaces the groups: an \code{isVisible = FALSE} hides a
+group's events, as toastui's \code{cal_proxy_toggle()} does.
 
 \code{update_el_calendar()} is called for its side effect and returns \code{NULL} invisibly.
 }

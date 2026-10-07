@@ -379,6 +379,20 @@ replace =, delete =)`, by id. `_click` reports a click on an event and
 itself. The dialog's words come from `event_labels`; a day cell of one's
 own can call `eventsOn(data.day)`.
 
+What toastui's month view has, Element's pieces draw: a `date` or `end`
+with a time (`"YYYY-MM-DD HH:MM"`, a date-time) shows it before the title,
+all-day events first -- toastui's `category = "allday"` keeps a day --
+and comes back as a date-time; the dialog has an all-day switch and the
+`body`. `calendars` groups events by `calendarId`, colours them and hides
+a group with `isVisible = FALSE`; `visible_event_count` puts a day's other
+events behind "+N more"; `use_detail_popup` shows an event the user
+cannot edit in a popover; dragging across days adds an event over them;
+`isReadOnly` keeps one event as it is; `first_day_of_week` (1 to 7, as
+Element UI's `firstDayOfWeek`) and `workweek` change the week. Where
+toastui's popups are fixed, slots take Element's components: `event` for
+the tag, `eventForm` for the dialog's fields (a `form.<field>` travels
+with the event), `eventDetail` for the popover.
+
 ## Every component is a Shiny input
 
 Each component is a host element carrying its id, with Element's markup
