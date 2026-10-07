@@ -238,6 +238,12 @@ from (2000 by default). <code>NULL</code> leaves Element's default.</p></dd>
 <p>Element's layout (<code><a href="el_container.html">el_container()</a></code>, <code><a href="el_row.html">el_row()</a></code>, <code><a href="el_col.html">el_col()</a></code>) and bslib's
 (<code>page_sidebar()</code>, <code>layout_columns()</code>) each work here; nest one inside a
 cell of the other rather than interleaving them.</p>
+<p>A page returned by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">shiny::renderUI()</a></code> works there too. Like Shiny's and
+bslib's page functions it is a whole page, not one tag, so shinyjs's
+<code>hidden()</code> cannot wrap it: hide its output instead –
+<code>shinyjs::hidden(uiOutput("id"))</code>, or <code>shinyjs::hide("id")</code> later.
+Inside <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> the components alone are enough: each brings what it
+needs.</p>
     </div>
 
     <div class="section level2">

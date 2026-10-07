@@ -94,6 +94,15 @@ Element's layout
 and bslib's (`page_sidebar()`, `layout_columns()`) each work here; nest
 one inside a cell of the other rather than interleaving them.
 
+A page returned by
+[`shiny::renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) works
+there too. Like Shiny's and bslib's page functions it is a whole page,
+not one tag, so shinyjs's `hidden()` cannot wrap it: hide its output
+instead – `shinyjs::hidden(uiOutput("id"))`, or `shinyjs::hide("id")`
+later. Inside
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) the
+components alone are enough: each brings what it needs.
+
 ## Examples
 
 ``` r
