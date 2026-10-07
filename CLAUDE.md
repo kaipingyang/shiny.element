@@ -170,9 +170,15 @@ column’s type.
   `_update`, `_delete`, typed by `shiny.element.cal_event`), answered by
   `update_el_calendar(insert =, replace =, delete =)` by id; the markup
   is the calendar plus a dialog beside it, so its props and slots are
-  put on the calendar tag in
-  [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md)
-  itself.
+  put on the calendar tag in `.el_calendar_tags()` itself. Like the
+  table it is a spec object with an output form
+  ([`el_calendar_output()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md),
+  [`render_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md));
+  both renders go through
+  [`.el_render_component()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_render_component.md).
+  Event fields follow Element first (`type`, `color`), toastui where
+  Element has none (`start`, `end`, `title`, `body`, `_update` as
+  `list(event, changes)`).
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search);
   [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)

@@ -164,6 +164,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_prop_values.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rename_option_fields.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_render_component.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_resolve.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_restore.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_expr.html</loc></url>
@@ -238,6 +239,8 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_button.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_button_group.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_calendar.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_calendar_events.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_card.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_carousel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_carousel_item.html</loc></url>

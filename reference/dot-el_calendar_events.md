@@ -12,10 +12,14 @@ A calendar's events, as rows for the browser
 
 - events:
 
-  `NULL`, a data.frame or a list of rows, with `date` and `title`;
-  `end`, `type` and `id` optional, any other column kept.
+  `NULL`, a data.frame or a list of rows, with `start`; `end`, `title`,
+  `body`, `type`, `color` and `id` optional, any other column kept.
+
+- arg:
+
+  The update argument the rows came in, which must give ids.
 
 ## Value
 
-Rows, each with an `id` (the row's number when none is given) and dates
+Rows, each with an `id` (the row's number when none is given) and days
 as `"YYYY-MM-DD"`.

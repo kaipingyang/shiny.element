@@ -405,6 +405,13 @@ change.
 - [`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md)
   : The data a table shows
 
+- [`el_calendar_output()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md)
+  [`render_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md)
+  : A calendar as a Shiny output
+
+- [`el_calendar_events()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_events.md)
+  : The events a calendar shows
+
 - [`el_table_column()`](https://kaipingyang.github.io/shiny.element/reference/el_table_column.md)
   :
 
