@@ -407,6 +407,25 @@ for (s in shots) {
     message(sprintf("  x %-34s blank items: %s", s$key, blank))
   }
 
+  # Markup shown as its source -- tags given where a string is read, as a
+  # timeline entry's el_card() was -- and an example that draws nothing
+  # visible, as the icon gallery did when its names were not found: both
+  # passed every other check
+  shown <- js(
+    "(function(){ var r = document.getElementById('shot'); if (!r) return '';
+       var out = [];
+       if (/<(div|span|p|h[1-6]|el-[a-z-]+)[ >]|class=\"el-/.test(r.innerText)) out.push('markup shown as text');
+       var seen = r.innerText.trim() !== '' || Array.from(r.querySelectorAll('*')).some(function(e) {
+         var b = e.getBoundingClientRect(); return b.width > 4 && b.height > 4 &&
+           getComputedStyle(e).visibility !== 'hidden' && e.children.length === 0; });
+       if (!seen) out.push('nothing drawn');
+       return out.join(', '); })()"
+  )
+  if (nzchar(shown %||% "")) {
+    problems <- c(problems, sprintf("%s: %s", s$key, shown))
+    message(sprintf("  x %-34s %s", s$key, shown))
+  }
+
   # A modal's mask is position: fixed, so it covers the viewport and no
   # more; a page longer than the viewport came out with its lower part
   # unmasked under an open dialog. Grow the viewport to the page first.

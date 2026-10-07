@@ -117,6 +117,15 @@ ours = json.load(open("/tmp/elapi/ours.json"))
 
 OWNER = {"el-button": "el_button", "el-option": "el_select", "el-icon": "el_icon"}
 
+# Tags a component draws as its own parts -- the calendar's event dialog,
+# popovers and tags -- are the package's UI, not that component's API:
+# their props are fixed by the part, and a user replaces the part by a slot.
+PARTS = {
+    "el_calendar": {"el-dialog", "el-form", "el-form-item", "el-input", "el-select",
+                    "el-option", "el-switch", "el-date-picker", "el-popover", "el-tag",
+                    "el-button"},
+}
+
 # Props a parent passes down to its children in Element itself
 PROPAGATED = {
     "el-checkbox": {"disabled", "size"}, "el-checkbox-button": {"disabled", "size"},
@@ -247,6 +256,7 @@ for fn, info in sorted(ours.items()):
         # A tag rendered inside another component (el-button in a form's
         # submit row) is that component's own concern, not this one's.
         if tag in OWNER and OWNER[tag] != fn: continue
+        if tag in PARTS.get(fn, set()): continue
         seen.add(tag)
         upa = {camel(x) for x in up[tag].get("Attributes", [])}
         upa -= {p for (t, p) in EXCLUDED if t == tag}
