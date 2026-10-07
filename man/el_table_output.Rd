@@ -47,7 +47,10 @@ events with \code{el_table(events =)} or \code{\link[=el_on]{el_on()}}.
 
 The first render sends the table; a render after it whose columns,
 templates and options are unchanged sends only the data that changed, as
-JSON -- as Shiny's own outputs send values rather than markup.
+JSON -- as Shiny's own outputs send values rather than markup. Because a
+render depends on the last one in the session, \code{render_el_table()} is not
+cached with \code{\link[shiny:bindCache]{shiny::bindCache()}} (as DT's server-side table is not); cache
+the data it shows instead, in a \code{\link[shiny:reactive]{shiny::reactive()}} upstream.
 }
 \examples{
 if (interactive()) {

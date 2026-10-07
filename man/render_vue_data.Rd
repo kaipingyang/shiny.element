@@ -38,6 +38,13 @@ in the component's templates.
 Values travel as \code{\link[=vue_app]{vue_app()}}'s \code{data} does: a list an object, a
 data.frame its rows, \code{\link[=JS]{JS()}} a function; \code{I()} keeps a vector of one an
 array.
+
+Where \code{\link[=render_vue]{render_vue()}} draws a component the server writes, this fills a
+component the UI writes: the template stays where it is, the value comes
+from the server. One output can feed several components' fields, or a
+\code{\link[=vue_store]{vue_store()}} they all read -- shared state, as Vue's guide recommends,
+with the server as its source. It can be cached with
+\code{\link[shiny:bindCache]{shiny::bindCache()}}.
 }
 \examples{
 if (interactive()) {

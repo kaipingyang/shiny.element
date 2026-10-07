@@ -216,3 +216,37 @@ test_that("render_vue_data() sends the value as the page reads data", {
   html <- paste(as.character(vue_data_output("x")), collapse = "")
   expect_match(html, 'class="shiny-vue-data-output"', fixed = TRUE)
 })
+
+test_that("render_vue() and render_vue_data() can be cached", {
+  runs <- 0
+  shiny::testServer(
+    function(input, output, session) {
+      n <- shiny::reactiveVal(1)
+      session$userData$n <- n
+      output$ui <- shiny::bindCache(
+        render_vue(vue_app("a", "<p>{{ n }}</p>", data = list(n = n()))),
+        n()
+      )
+      output$val <- shiny::bindCache(
+        render_vue_data({
+          runs <<- runs + 1
+          list(n = n())
+        }),
+        n()
+      )
+    },
+    {
+      expect_no_warning(output$ui)
+      expect_no_warning(output$val)
+      first <- runs
+      session$userData$n(2)
+      session$flushReact()
+      output$val
+      session$userData$n(1)
+      session$flushReact()
+      # back to a value seen before: from the cache, the expression not run
+      expect_equal(jsonlite::fromJSON(output$val)$value$n, 1)
+      expect_equal(runs, first + 1)
+    }
+  )
+})

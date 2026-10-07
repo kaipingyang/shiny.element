@@ -873,3 +873,15 @@ test_that("el_table_output() trades Shiny's fading for the loading mask", {
   plain <- render_html(el_table_output("tbl", loading = FALSE))
   expect_false(grepl("shiny-vue-loading", plain, fixed = TRUE))
 })
+
+test_that("render_el_table() refuses caching, pointing upstream", {
+  expect_error(
+    shiny::bindCache(render_el_table(el_table(data = head(mtcars))), 1),
+    "Cache the data instead"
+  )
+  # bindEvent() still works on it
+  expect_s3_class(
+    shiny::bindEvent(render_el_table(el_table(data = head(mtcars))), 1),
+    "shiny.render.function"
+  )
+})

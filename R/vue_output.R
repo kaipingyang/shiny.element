@@ -29,7 +29,24 @@
 #'   any markup around them.
 #' @param env,quoted As for [shiny::renderUI()].
 #' @return `vue_output()`, a tag; `render_vue()`, a render function.
-#' @seealso [vue_app()], [update_vue()].
+#'
+#' @section render_vue(), render_vue_data(), update_vue():
+#' Three ways the server shapes a component, by who owns it:
+#'
+#' - `render_vue()` -- the server writes the component: template, options,
+#'   methods, data, dependencies. Rendered again, it keeps what the user did;
+#'   a new template or new methods mount it afresh. As shiny.react's
+#'   `renderReact()` is for React.
+#' - [render_vue_data()] -- the component is written in the UI and one of
+#'   its fields follows a value the server renders: a value, not markup, for
+#'   components whose structure is fixed. One output can feed several
+#'   components, or a [vue_store()] they share.
+#' - [update_vue()] -- an observer sets fields when it decides to: an
+#'   imperative change, sent whether or not the component is shown.
+#'
+#' `render_vue()` can be cached with [shiny::bindCache()], as `renderUI()`
+#' can.
+#' @seealso [vue_app()], [update_vue()], [render_vue_data()].
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
@@ -66,7 +83,9 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
   inner <- shiny::renderUI(expr, env = env, quoted = TRUE)
   shiny::markRenderFunction(
     vue_output,
-    function(shinysession, name, ...) inner(shinysession, name, ...)
+    function(shinysession, name, ...) inner(shinysession, name, ...),
+    # what it sends depends on the expression alone, as renderUI()'s does
+    cacheHint = list(label = "render_vue", userExpr = expr)
   )
 }
 
@@ -213,6 +232,13 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' data.frame its rows, [JS()] a function; `I()` keeps a vector of one an
 #' array.
 #'
+#' Where [render_vue()] draws a component the server writes, this fills a
+#' component the UI writes: the template stays where it is, the value comes
+#' from the server. One output can feed several components' fields, or a
+#' [vue_store()] they all read -- shared state, as Vue's guide recommends,
+#' with the server as its source. It can be cached with
+#' [shiny::bindCache()].
+#'
 #' @param expr An expression returning the value.
 #' @param env,quoted As for [shiny::renderText()].
 #' @param outputId The output's id. Only needed to place the output by
@@ -245,14 +271,18 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' }
 #' @export
 render_vue_data <- function(expr, env = parent.frame(), quoted = FALSE) {
-  func <- shiny::exprToFunction(expr, env, quoted)
+  if (!quoted) {
+    expr <- substitute(expr)
+  }
+  func <- shiny::exprToFunction(expr, env, quoted = TRUE)
   shiny::markRenderFunction(
     vue_data_output,
     function(shinysession, name, ...) {
       value <- func()
       # as `data` travels: rows for a data.frame, functions revived
       .vue_json(list(value = .vue_rows(value)))
-    }
+    },
+    cacheHint = list(label = "render_vue_data", userExpr = expr)
   )
 }
 

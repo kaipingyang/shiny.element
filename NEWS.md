@@ -77,7 +77,11 @@ Shiny input.
   shinyreact's `reactive_output()`: a component's field follows it
   (`vue_app(outputs = c(stats = "stats"))`, `vue_store(outputs =)`). It
   waits while its component is hidden, as outputs do, and
-  `$recalculating.<id>` tells the template while it runs.
+  `$recalculating.<id>` tells the template while it runs. One output can
+  feed several components, or a `vue_store()` they share. It and
+  `render_vue()` can be cached with `bindCache()`; `render_el_table()`,
+  which sends only what changed since its last render, refuses to be and
+  says to cache the data upstream.
 * `vue_component()` -- a child component for `components =`, under its name
   as written or in kebab-case (`todo_item` is `<todo-item>`); the
   dependencies its template carries come with it.

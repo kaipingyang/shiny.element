@@ -329,7 +329,10 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #'
 #' The first render sends the table; a render after it whose columns,
 #' templates and options are unchanged sends only the data that changed, as
-#' JSON -- as Shiny's own outputs send values rather than markup.
+#' JSON -- as Shiny's own outputs send values rather than markup. Because a
+#' render depends on the last one in the session, `render_el_table()` is not
+#' cached with [shiny::bindCache()] (as DT's server-side table is not); cache
+#' the data it shows instead, in a [shiny::reactive()] upstream.
 #'
 #' @param outputId The output's id.
 #' @param width The table's width, as a CSS unit.
@@ -374,7 +377,7 @@ el_table_output <- function(outputId, width = "100%", loading = TRUE) {
 #' @export
 render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
   func <- shiny::exprToFunction(expr, env, quoted)
-  shiny::markRenderFunction(
+  render <- shiny::markRenderFunction(
     el_table_output,
     function(shinysession, name, ...) {
       # the browser asks for the whole table when it cannot apply a patch
@@ -400,7 +403,25 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
       )
       tags <- .el_output_host(table, name)
       .vue_output_value(shinysession, name, tags)
-    }
+    },
+    # it sends what changed since its last render in this session, so a
+    # cached value would be wrong: not cacheable, as DT's server-side table
+    cacheHint = FALSE
+  )
+  class(render) <- c("el_render_table", class(render))
+  render
+}
+
+#' A table output is not cached: cache what it shows
+#' @exportS3Method shiny::bindCache
+#' @noRd
+bindCache.el_render_table <- function(x, ..., cache = "app") {
+  stop(
+    "render_el_table() cannot be cached: a render sends only what changed ",
+    "since the last one in the session. Cache the data instead, upstream:\n",
+    "  rows <- bindCache(reactive(query(input$year)), input$year)\n",
+    "  output$tbl <- render_el_table(el_table(data = rows()))",
+    call. = FALSE
   )
 }
 

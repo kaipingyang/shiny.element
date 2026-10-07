@@ -48,6 +48,26 @@ A field the server sends with the same value as last time is not sent
 again, so it does not undo what the user did; to set a value whatever the
 user did, use \code{\link[=update_vue]{update_vue()}}.
 }
+\section{render_vue(), render_vue_data(), update_vue()}{
+
+Three ways the server shapes a component, by who owns it:
+\itemize{
+\item \code{render_vue()} -- the server writes the component: template, options,
+methods, data, dependencies. Rendered again, it keeps what the user did;
+a new template or new methods mount it afresh. As shiny.react's
+\code{renderReact()} is for React.
+\item \code{\link[=render_vue_data]{render_vue_data()}} -- the component is written in the UI and one of
+its fields follows a value the server renders: a value, not markup, for
+components whose structure is fixed. One output can feed several
+components, or a \code{\link[=vue_store]{vue_store()}} they share.
+\item \code{\link[=update_vue]{update_vue()}} -- an observer sets fields when it decides to: an
+imperative change, sent whether or not the component is shown.
+}
+
+\code{render_vue()} can be cached with \code{\link[shiny:bindCache]{shiny::bindCache()}}, as \code{renderUI()}
+can.
+}
+
 \examples{
 if (interactive()) {
   library(shiny)
@@ -69,5 +89,5 @@ if (interactive()) {
 }
 }
 \seealso{
-\code{\link[=vue_app]{vue_app()}}, \code{\link[=update_vue]{update_vue()}}.
+\code{\link[=vue_app]{vue_app()}}, \code{\link[=update_vue]{update_vue()}}, \code{\link[=render_vue_data]{render_vue_data()}}.
 }
