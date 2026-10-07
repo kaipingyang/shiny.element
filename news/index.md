@@ -516,6 +516,23 @@ slots, table cells, a wrapper’s trigger. At the top level of a page
 nothing compiles them; the browser console now says so instead of
 leaving bare text.
 
+### A calendar of events
+
+`el_calendar(events =)` draws a month planner: each day shows its events
+– `date`, `title`, and optionally `end` for a span, `type` for its
+colour, `id` – as Element’s tags. With `editable = TRUE` the user
+double-clicks a day to add one, clicks one to edit or delete it in
+Element’s dialog, and drags it to another day. As toastui’s calendar has
+it, the server owns the events: each action arrives as a request –
+`input$<id>_add`, `_update` (`list(id, changes, event)`, a move or an
+edit), `_delete` – with its dates as Dates, and the server answers with
+`update_el_calendar(insert =, replace =, delete =)`, by id, or
+`events =` for all of them. `_click` reports a click on an event,
+`_dates` the days drawn, on load and when another month is shown.
+Without Shiny the calendar applies the changes itself. A day cell of
+one’s own can still call `eventsOn(data.day)`. The dialog’s words are
+English unless `event_labels` gives others.
+
 ### Every component is a Shiny input
 
 Each component is a host element carrying its id, with Element’s markup

@@ -165,6 +165,14 @@ column’s type.
   hidden; `$recalculating.<id>` in templates follows its progress.
   Render functions are built on `createRenderFunction()` so they wait
   for promises.
+- `el_calendar(events =, editable =)` is a planner whose events the
+  server owns, as toastui’s: the user’s actions are requests (`_add`,
+  `_update`, `_delete`, typed by `shiny.element.cal_event`), answered by
+  `update_el_calendar(insert =, replace =, delete =)` by id; the markup
+  is the calendar plus a dialog beside it, so its props and slots are
+  put on the calendar tag in
+  [`el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md)
+  itself.
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search);
   [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
