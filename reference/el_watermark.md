@@ -101,8 +101,8 @@ None: it reports nothing.
 
 ``` r
 el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
-#> <div id="el_watermark_8e8d8543-0c30-402e-82e8-df54a5a4fa6c" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_8e8d8543-0c30-402e-82e8-df54a5a4fa6c_container" style="display: contents">
+#> <div id="el_watermark_b3ae145e-59b0-4572-9f3d-d41bf3a4fc18" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_b3ae145e-59b0-4572-9f3d-d41bf3a4fc18_container" style="display: contents">
 #>   <el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset">
 #>     <div style="height: 300px"></div>
 #>   </el-watermark>
