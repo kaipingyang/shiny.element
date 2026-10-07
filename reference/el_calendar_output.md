@@ -70,7 +70,7 @@ reads the events it shows.
 if (interactive()) {
   library(shiny)
   archive <- data.frame(
-    start = Sys.Date() - c(9, 6, 2),
+    date = Sys.Date() - c(9, 6, 2),
     title = c("", "", "Validated"),
     body = c("Raw data", "Archive", "Validated data"),
     color = c("lightgrey", "#EED5B7", "#E9C46B")
@@ -78,9 +78,9 @@ if (interactive()) {
   ui <- el_page(el_calendar_output("snapshot"), verbatimTextOutput("picked"))
   server <- function(input, output, session) {
     output$snapshot <- render_el_calendar(
-      el_calendar(value = max(archive$start), events = archive)
+      el_calendar(value = max(archive$date), events = archive)
     )
-    output$picked <- renderPrint(input$snapshot_click$start)
+    output$picked <- renderPrint(input$snapshot_click$date)
   }
   shinyApp(ui, server)
 }

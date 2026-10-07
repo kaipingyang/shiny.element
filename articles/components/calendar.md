@@ -131,7 +131,7 @@ files on disk – the calendar is an output, as toastui’s is:
 [`el_calendar_output()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md)
 in the UI,
 [`render_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md)
-in the server. Each event is a `start` day, with optionally an `end`, a
+in the server. Each event has a `date`, and optionally an `end`, a
 `title`, a `body` shown on hover, and Element’s tag `type` or a `color`
 of its own; a title left empty draws a block of colour. A click on an
 event arrives as `input$<id>_click`, its days as Dates; the month shown,
@@ -142,7 +142,7 @@ events are sent, and the month the user went to stays.
 
 #'
 archive <- data.frame(
-  start = as.Date("2026-10-20") - c(16, 9, 6, 2),
+  date = as.Date("2026-10-20") - c(16, 9, 6, 2),
   title = c("", "", "", "Validated"),
   body = c("Raw data", "Raw data", "Archive", "Validated data"),
   color = c("lightgrey", "lightgrey", "#EED5B7", "#E9C46B")
@@ -155,9 +155,9 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   output$snapshot <- render_el_calendar(
-    el_calendar(value = max(archive$start), events = archive)
+    el_calendar(value = max(archive$date), events = archive)
   )
-  output$picked <- renderPrint(input$snapshot_click$start)
+  output$picked <- renderPrint(input$snapshot_click$date)
 }
 
 shinyApp(ui, server)
@@ -194,7 +194,7 @@ ui <- el_page(el_calendar_output("plan"))
 server <- function(input, output, session) {
   events <- reactiveVal(data.frame(
     id = 1:3,
-    start = as.Date("2026-10-05") + c(0, 2, 9),
+    date = as.Date("2026-10-05") + c(0, 2, 9),
     end = as.Date(c(NA, "2026-10-09", NA)),
     title = c("Standup", "Conference", "Review"),
     type = c("primary", "success", "warning")
@@ -208,7 +208,7 @@ server <- function(input, output, session) {
       events(),
       data.frame(
         id = max(events()$id) + 1L,
-        start = new$start,
+        date = new$date,
         end = if (is.null(new$end)) as.Date(NA) else new$end,
         title = new$title,
         type = new$type

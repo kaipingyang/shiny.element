@@ -328,6 +328,11 @@
       var tag = all[i].tagName;
       if (tag.indexOf('EL-') !== 0 || warned[tag]) continue;
       warned[tag] = true;
+      if (!window.ElementPlus) {
+        console.warn('[shiny.element] <' + tag.toLowerCase() + '> was not rendered: ' +
+          'Element Plus is not loaded on this page.');
+        continue;
+      }
       console.warn('[shiny.element] <' + tag.toLowerCase() + '> is outside any ' +
         'component and was not rendered. Raw el$ tags work inside one -- ' +
         'el_widget(markup =), template(), a slot, a table cell, a wrapper\'s ' +

@@ -495,6 +495,23 @@ and drawer bind themselves when Shiny is absent, and the scripts bring
 their own jQuery. The website’s examples are live components built this
 way, with a screenshot only where an example needs a server.
 
+### On any page
+
+Every component carries Vue and Element Plus, as Shiny’s inputs carry
+selectize: on
+[`fluidPage()`](https://rdrr.io/pkg/shiny/man/fluidPage.html),
+[`navbarPage()`](https://rdrr.io/pkg/shiny/man/navbarPage.html) or a
+bslib page with no
+[`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
+they used to stay bare `<el-*>` tags.
+[`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
+and
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+now give what belongs to the page – the theme Element follows, its
+locale and global config, the feedback handlers, Element from the CDN.
+Should Element still be missing – a CDN that cannot be reached – the
+console says so rather than blaming the tags’ place.
+
 ### Components rendered by `renderUI()`
 
 A component whose type first appears through
@@ -519,11 +536,11 @@ leaving bare text.
 ### A calendar of events
 
 `el_calendar(events =)` draws each day’s events as Element’s tags: a
-`start` day, optionally an `end` for a span, a `title`, a `body` shown
-on hover, an `id` – toastui’s names – and Element’s tag `type` or a
-`color` of its own; a title left empty draws a block of colour. In an
-app whose events the server reads, the calendar is an output, as
-toastui’s is:
+`date`, as Element names a cell’s day, optionally an `end` for a span, a
+`title`, a `body` shown on hover, an `id` – toastui’s names – and
+Element’s tag `type` or a `color` of its own; a title left empty draws a
+block of colour. In an app whose events the server reads, the calendar
+is an output, as toastui’s is:
 [`el_calendar_output()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md)
 and
 [`render_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md),

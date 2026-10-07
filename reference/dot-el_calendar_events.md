@@ -12,7 +12,7 @@ A calendar's events, as rows for the browser
 
 - events:
 
-  `NULL`, a data.frame or a list of rows, with `start`; `end`, `title`,
+  `NULL`, a data.frame or a list of rows, with `date`; `end`, `title`,
   `body`, `type`, `color` and `id` optional, any other column kept.
 
 - arg:

@@ -67,12 +67,8 @@ el_widget(
 
 - dependency:
 
-  htmlDependency objects to attach. Outside this package pass
-  [`element_plus_dependency()`](https://kaipingyang.github.io/shiny.element/reference/element_plus_dependency.md),
-  unless the page already loads it through
-  [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
-  or
-  [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md).
+  htmlDependency objects to attach, beside Vue, Element Plus and the
+  bridge, which every component carries.
 
 - head:
 

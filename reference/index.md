@@ -9,7 +9,7 @@ The page, its theme, and the scripts and styles a page needs.
 - [`el_theme()`](https://kaipingyang.github.io/shiny.element/reference/el_theme.md)
   : Element Plus's look, as a Bootstrap theme
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
-  : Load All Element-UI Dependencies
+  : Element Plus for a page of your own
 - [`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)
   : Collapse Handler Dependency Languages Element Plus can use for its
   built-in text

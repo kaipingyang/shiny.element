@@ -176,9 +176,9 @@ column’s type.
   [`render_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md));
   both renders go through
   [`.el_render_component()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_render_component.md).
-  Event fields follow Element first (`type`, `color`), toastui where
-  Element has none (`start`, `end`, `title`, `body`, `_update` as
-  `list(event, changes)`).
+  Event fields follow Element first (`date`, as its day cell names it,
+  `type`, `color`), toastui where Element has none (`end`, `title`,
+  `body`, `_update` as `list(event, changes)`).
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search);
   [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
@@ -201,8 +201,21 @@ column’s type.
   dependency `element-plus-theme`).
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
   – the same for other page functions.
-- Every component also attaches what it needs, so it works on any page
-  and without Shiny (static R Markdown, the pkgdown site).
+- Every component – controls through
+  [`.el_vue_dependencies()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_vue_dependencies.md),
+  containers through their binding’s dependency,
+  [`el_row()`](https://kaipingyang.github.io/shiny.element/reference/el_row.md)
+  and
+  [`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md)
+  directly – carries Vue and Element Plus, as Shiny’s inputs carry
+  selectize and htmlwidgets their libraries, so it works on any page and
+  without Shiny (static R Markdown); `test-browser-bare-page.R` runs
+  them on a `fluidPage()` with neither. htmltools keeps the first copy,
+  so a page that loads Element from the CDN keeps it. The theme, locale,
+  global config and feedback handlers belong to the page:
+  [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+  or
+  [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md).
 
 ### Pure tag API
 

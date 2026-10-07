@@ -1,8 +1,17 @@
-# Load All Element-UI Dependencies
+# Element Plus for a page of your own
 
-Convenience function to load Vue, Element-UI, and layout CSS
-dependencies. Use this when you want to use Element-UI components in
-non-el_page layouts (e.g., bslib::page_sidebar, shiny::navbarPage).
+What
+[`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
+gives a page, for other page functions –
+[`bslib::page_sidebar()`](https://rstudio.github.io/bslib/reference/page_sidebar.html),
+[`shiny::navbarPage()`](https://rdrr.io/pkg/shiny/man/navbarPage.html):
+the theme Element follows, its locale and global config, the handlers of
+[`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md)
+and the other feedback services, and Element served from the CDN when
+`offline = FALSE`. Components need none of it to work: each carries Vue
+and Element Plus, so on a page without `use_element()` they show in
+English, Element's own colours and sizes. Place it before the
+components, so its copy of Element is the one kept.
 
 ## Usage
 
