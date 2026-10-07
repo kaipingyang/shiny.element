@@ -140,31 +140,31 @@ test_that("update_el_calendar: NULL fields are excluded", {
 
 test_that("events travel as rows, with ids and days", {
   rows <- jsonlite::fromJSON(as.character(.el_calendar_events(data.frame(
-    start = as.Date("2026-10-05") + 0:1,
+    date = as.Date("2026-10-05") + 0:1,
     end = as.Date(c(NA, "2026-10-09")),
     title = c("a", "b"),
     room = c("A1", "B2")
   ))))
   expect_equal(rows$id, 1:2)
-  expect_equal(rows$start, c("2026-10-05", "2026-10-06"))
+  expect_equal(rows$date, c("2026-10-05", "2026-10-06"))
   expect_equal(rows$end, c(NA, "2026-10-09"))
   # other columns kept
   expect_equal(rows$room, c("A1", "B2"))
   # a list of rows is rows too
   listed <- jsonlite::fromJSON(as.character(.el_calendar_events(
-    list(list(id = "x", start = "2026-10-05", title = "a"))
+    list(list(id = "x", date = "2026-10-05", title = "a"))
   )))
   expect_equal(listed$id, "x")
   expect_length(.el_calendar_events(NULL), 0)
-  expect_error(.el_calendar_events(data.frame(title = "a")), "needs `start`")
+  expect_error(.el_calendar_events(data.frame(title = "a")), "needs `date`")
   # a title is optional: a block of colour alone
   untitled <- jsonlite::fromJSON(as.character(.el_calendar_events(
-    data.frame(start = "2026-10-05", color = "#EED5B7")
+    data.frame(date = "2026-10-05", color = "#EED5B7")
   )))
   expect_equal(untitled$title, "")
   expect_error(
     .el_calendar_events(
-      data.frame(start = "2026-10-05", title = "a"),
+      data.frame(date = "2026-10-05", title = "a"),
       "insert"
     ),
     "gives each event its `id`"
@@ -174,7 +174,7 @@ test_that("events travel as rows, with ids and days", {
 test_that("a calendar with events draws them in its day cells, with the dialog", {
   html <- render_html(el_calendar(
     "plan",
-    events = data.frame(start = "2026-10-05", title = "Standup"),
+    events = data.frame(date = "2026-10-05", title = "Standup"),
     editable = TRUE
   ))
   expect_match(html, "eventsOn(data.day)", fixed = TRUE)
@@ -204,7 +204,7 @@ test_that("a calendar with events draws them in its day cells, with the dialog",
 })
 
 test_that("update_el_calendar() sends all the events or a few, by id", {
-  ev <- data.frame(id = 7, start = "2026-10-05", title = "a")
+  ev <- data.frame(id = 7, date = "2026-10-05", title = "a")
   all <- sent_message(function(s) update_el_calendar(s, "c", events = ev))
   expect_equal(jsonlite::fromJSON(as.character(all$msg$events))$id, 7)
   ins <- sent_message(function(s) update_el_calendar(s, "c", insert = ev))
@@ -226,7 +226,7 @@ test_that("update_el_calendar() sends all the events or a few, by id", {
       update_el_calendar(
         s,
         "c",
-        insert = data.frame(start = "2026-10-05", title = "a")
+        insert = data.frame(date = "2026-10-05", title = "a")
       )
     }),
     "its `id`"
@@ -236,14 +236,14 @@ test_that("update_el_calendar() sends all the events or a few, by id", {
 test_that("the calendar's requests arrive with Dates", {
   handler <- shiny:::inputHandlers$get("shiny.element.cal_event")
   got <- handler(list(
-    event = list(id = 3, start = "2026-10-14", end = "2026-10-18", title = "x"),
-    changes = list(start = "2026-10-16", end = NULL)
+    event = list(id = 3, date = "2026-10-14", end = "2026-10-18", title = "x"),
+    changes = list(date = "2026-10-16", end = NULL)
   ))
-  expect_equal(got$changes$start, as.Date("2026-10-16"))
+  expect_equal(got$changes$date, as.Date("2026-10-16"))
   expect_true("end" %in% names(got$changes))
   expect_null(got$changes$end)
   expect_equal(got$event$end, as.Date("2026-10-18"))
-  expect_equal(got$event$start, as.Date("2026-10-14"))
+  expect_equal(got$event$date, as.Date("2026-10-14"))
   expect_equal(got$event$title, "x")
   dates <- handler(list(
     current = "2026-10-07",
@@ -272,15 +272,15 @@ test_that("the event dialog's words can be changed", {
 })
 
 test_that("a calendar output renders the server's events and keeps a copy", {
-  start <- data.frame(
+  days <- data.frame(
     id = 1:2,
-    start = as.Date("2026-10-05") + c(0, 3),
+    date = as.Date("2026-10-05") + c(0, 3),
     title = c("a", "b"),
     color = c("#EED5B7", NA)
   )
   shiny::testServer(
     function(input, output, session) {
-      ev <- shiny::reactiveVal(start)
+      ev <- shiny::reactiveVal(days)
       session$userData$ev <- ev
       output$cal <- render_el_calendar(el_calendar(events = ev()))
     },
@@ -289,9 +289,9 @@ test_that("a calendar output renders the server's events and keeps a copy", {
       expect_named(first, c("html", "deps"))
       expect_match(first$html, 'id="cal-el"', fixed = TRUE)
       expect_match(first$html, 'data-shiny-vue-id="cal"', fixed = TRUE)
-      expect_equal(.el_table_data(session, "cal"), start)
+      expect_equal(.el_table_data(session, "cal"), days)
       # other events: only they are sent
-      session$userData$ev(start[1, ])
+      session$userData$ev(days[1, ])
       session$flushReact()
       expect_named(output$cal, "patch")
       expect_named(output$cal$patch$fields, "events")
@@ -301,7 +301,7 @@ test_that("a calendar output renders the server's events and keeps a copy", {
         session,
         "cal",
         "insert",
-        data.frame(id = 9L, start = as.Date("2026-10-20"), title = "c")
+        data.frame(id = 9L, date = as.Date("2026-10-20"), title = "c")
       )
       copy <- .el_table_data(session, "cal")
       expect_equal(copy$id, c(1L, 9L))
@@ -310,7 +310,7 @@ test_that("a calendar output renders the server's events and keeps a copy", {
         session,
         "cal",
         "replace",
-        data.frame(id = 1L, start = as.Date("2026-10-06"), title = "a2")
+        data.frame(id = 1L, date = as.Date("2026-10-06"), title = "a2")
       )
       expect_equal(.el_table_data(session, "cal")$title, c("c", "a2"))
       .el_calendar_edit_copy(session, "cal", "delete", 9)
@@ -339,7 +339,7 @@ test_that("a calendar output can be cached", {
       output$cal <- shiny::bindCache(
         render_el_calendar({
           runs <<- runs + 1
-          el_calendar(events = data.frame(start = "2026-10-05", title = n()))
+          el_calendar(events = data.frame(date = "2026-10-05", title = n()))
         }),
         n()
       )
@@ -366,12 +366,12 @@ test_that("update_el_calendar() keeps the server's copy in step", {
   .el_table_rendered(
     session,
     "cal",
-    data.frame(id = 1L, start = as.Date("2026-10-05"), title = "a")
+    data.frame(id = 1L, date = as.Date("2026-10-05"), title = "a")
   )
   update_el_calendar(
     session,
     "cal",
-    insert = data.frame(id = 2L, start = as.Date("2026-10-06"), title = "b")
+    insert = data.frame(id = 2L, date = as.Date("2026-10-06"), title = "b")
   )
   expect_equal(.el_table_data(session, "cal")$id, 1:2)
   update_el_calendar(session, "cal", delete = 1)
@@ -379,7 +379,7 @@ test_that("update_el_calendar() keeps the server's copy in step", {
   update_el_calendar(
     session,
     "cal",
-    events = data.frame(id = 5L, start = "2026-10-09", title = "e")
+    events = data.frame(id = 5L, date = "2026-10-09", title = "e")
   )
   expect_equal(.el_table_data(session, "cal")$id, 5L)
   expect_equal(

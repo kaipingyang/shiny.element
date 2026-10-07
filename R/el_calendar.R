@@ -30,11 +30,13 @@
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param events The events to show: a data.frame, or a list of rows, with
-#'   `start`, the day (a Date, a date-time or `"YYYY-MM-DD"`); optionally
-#'   `end`, the last day of an event spanning several, `title`, `body` (shown
-#'   on hover), `id` (the row's number when absent) -- toastui's names --
-#'   and, from Element's tag, `type` (`"primary"`, `"success"`, `"info"`,
-#'   `"warning"`, `"danger"`) and `color`, a background colour of your own.
+#'   `date`, the day (a Date, a date-time or `"YYYY-MM-DD"`), named as
+#'   Element names the day of a cell; optionally `end`, the last day of an
+#'   event spanning several, `title`, `body` (shown on hover), `id` (the
+#'   row's number when absent) -- toastui's names, where Element has none
+#'   -- and, from Element's tag, `type` (`"primary"`, `"success"`,
+#'   `"info"`, `"warning"`, `"danger"`) or `color`, a background colour of
+#'   your own.
 #'   Any other column travels with the event and comes back in the inputs.
 #'   In a Shiny app whose events come from the server, render the calendar
 #'   as an output: [el_calendar_output()]. A day cell of your own
@@ -44,7 +46,7 @@
 #'   day to add one, click an event to edit or delete it in a dialog, drag
 #'   it to another day to move it (a span keeps its length).
 #' @param event_labels The dialog's words, to change any of: a named list of
-#'   `add`, `edit` (its titles), `title`, `start`, `end`, `type` (its fields),
+#'   `add`, `edit` (its titles), `title`, `date`, `end`, `type` (its fields),
 #'   `save`, `delete`, `cancel` (its buttons) -- `list(add = "新建日程",
 #'   save = "保存")`.
 #'
@@ -54,7 +56,7 @@
 #' | `input$<id>` | on load and when a day is picked | the day, `"YYYY-MM-DD"` |
 #' | `input$<id>_dates` | on load and when another month is shown | `list(current, start, end)`, Dates: the day the calendar is on and the first and last days drawn |
 #' | `input$<id>_click` | an event is clicked | the event, a list with its dates as Dates |
-#' | `input$<id>_add` | the user saves a new event (`editable`) | the event asked for, without an `id`: `list(start, end, title, type)` |
+#' | `input$<id>_add` | the user saves a new event (`editable`) | the event asked for, without an `id`: `list(date, end, title, type)` |
 #' | `input$<id>_update` | the user saves an edit or drops an event on another day | `list(event, changes)`: the event as it is, and what to change -- toastui's shape |
 #' | `input$<id>_delete` | the user deletes an event | the event |
 #'
@@ -93,7 +95,7 @@
 #'   server <- function(input, output, session) {
 #'     events <- reactiveVal(data.frame(
 #'       id = 1:2,
-#'       start = Sys.Date() + c(0, 3),
+#'       date = Sys.Date() + c(0, 3),
 #'       title = c("Standup", "Review"),
 #'       type = c("primary", "warning")
 #'     ))
@@ -106,7 +108,7 @@
 #'         events(),
 #'         data.frame(
 #'           id = max(events()$id) + 1L,
-#'           start = new$start,
+#'           date = new$date,
 #'           title = new$title,
 #'           type = new$type
 #'         )
@@ -407,7 +409,7 @@ update_el_calendar <- function(
 
 #' A calendar's events, as rows for the browser
 #'
-#' @param events `NULL`, a data.frame or a list of rows, with `start`;
+#' @param events `NULL`, a data.frame or a list of rows, with `date`;
 #'   `end`, `title`, `body`, `type`, `color` and `id` optional, any other
 #'   column kept.
 #' @param arg The update argument the rows came in, which must give ids.
@@ -423,7 +425,7 @@ update_el_calendar <- function(
       do.call(rbind, lapply(events, as.data.frame, stringsAsFactors = FALSE)),
       error = function(e) {
         stop(
-          "`events` must be a data.frame, or a list of rows, with `start`.",
+          "`events` must be a data.frame, or a list of rows, with `date`.",
           call. = FALSE
         )
       }
@@ -432,8 +434,8 @@ update_el_calendar <- function(
   if (!nrow(events)) {
     return(I(list()))
   }
-  if (is.null(events$start)) {
-    stop("`events` needs `start`: the day each is on.", call. = FALSE)
+  if (is.null(events$date)) {
+    stop("`events` needs `date`: the day each is on.", call. = FALSE)
   }
   if (is.null(events$title)) {
     events$title <- ""
@@ -445,7 +447,7 @@ update_el_calendar <- function(
     }
     events$id <- seq_len(nrow(events))
   }
-  for (col in intersect(c("start", "end"), names(events))) {
+  for (col in intersect(c("date", "end"), names(events))) {
     events[[col]] <- .el_calendar_day(events[[col]])
   }
   .vue_rows(events)
@@ -515,7 +517,7 @@ update_el_calendar <- function(
           `:title` = "ev.body || ev.title",
           # a block of colour with no title is still named, for screen
           # readers
-          `:aria-label` = "ev.title || ev.body || ev.start",
+          `:aria-label` = "ev.title || ev.body || ev.date",
           `:color` = "ev.color",
           `:style` = "eventStyle(ev)",
           `:draggable` = "editable",
@@ -549,9 +551,9 @@ update_el_calendar <- function(
       `@submit.prevent` = NA,
       field("title", el$input(`v-model` = "eventForm.title")),
       field(
-        "start",
+        "date",
         el$date_picker(
-          `v-model` = "eventForm.start",
+          `v-model` = "eventForm.date",
           type = "date",
           `value-format` = "YYYY-MM-DD",
           `:clearable` = "false",
@@ -621,7 +623,7 @@ update_el_calendar <- function(
     )),
     eventsOn = JS(paste0(
       "function(day) { return (this.events || []).filter(function(e) { ",
-      "var end = e.end || e.start; return e.start <= day && day <= end; }); }"
+      "var end = e.end || e.date; return e.date <= day && day <= end; }); }"
     )),
     # a request to the server, or -- with none -- the change made here
     eventRequest = JS(sprintf(
@@ -641,12 +643,12 @@ update_el_calendar <- function(
     )),
     openAdd = JS(paste0(
       "function(day) { if (!this.editable) return; ",
-      "this.eventForm = {start: day, end: null, title: '', type: 'primary'}; }"
+      "this.eventForm = {date: day, end: null, title: '', type: 'primary'}; }"
     )),
     cancelEvent = JS("function() { this.eventForm = null; }"),
     saveEvent = JS(paste0(
       "function() { var self = this, f = self.eventForm; if (!f || !f.title) return; ",
-      "var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.start) ev.end = null; ",
+      "var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; ",
       "if (ev.id === undefined) { ",
       "self.eventRequest('add', ev, function() { ",
       "ev.id = 'local-' + Date.now(); self.events.push(ev); }); ",
@@ -676,11 +678,11 @@ update_el_calendar <- function(
       "function(day) { var self = this, id = self.eventDragged; ",
       "self.eventDragged = null; if (!self.editable || id === null) return; ",
       "var old = self.events.filter(function(e) { return e.id === id; })[0]; ",
-      "if (!old || old.start === day) return; ",
+      "if (!old || old.date === day) return; ",
       "var parse = function(s) { var p = s.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; ",
       "var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; ",
-      "var shift = parse(day) - parse(old.start); ",
-      "var changes = {start: day}; if (old.end) changes.end = fmt(parse(old.end) + shift); ",
+      "var shift = parse(day) - parse(old.date); ",
+      "var changes = {date: day}; if (old.end) changes.end = fmt(parse(old.end) + shift); ",
       "var ev = Object.assign({}, old, changes); ",
       "self.eventRequest('update', {event: old, changes: changes}, function() { ",
       "self.events.splice(self.events.indexOf(old), 1, ev); }); }"
@@ -750,7 +752,7 @@ update_el_calendar <- function(
     add = "New event",
     edit = "Edit event",
     title = "Title",
-    start = "Date",
+    date = "Date",
     end = "Until",
     type = "Type",
     save = "Save",
@@ -838,7 +840,7 @@ update_el_calendar <- function(
 #' if (interactive()) {
 #'   library(shiny)
 #'   archive <- data.frame(
-#'     start = Sys.Date() - c(9, 6, 2),
+#'     date = Sys.Date() - c(9, 6, 2),
 #'     title = c("", "", "Validated"),
 #'     body = c("Raw data", "Archive", "Validated data"),
 #'     color = c("lightgrey", "#EED5B7", "#E9C46B")
@@ -846,9 +848,9 @@ update_el_calendar <- function(
 #'   ui <- el_page(el_calendar_output("snapshot"), verbatimTextOutput("picked"))
 #'   server <- function(input, output, session) {
 #'     output$snapshot <- render_el_calendar(
-#'       el_calendar(value = max(archive$start), events = archive)
+#'       el_calendar(value = max(archive$date), events = archive)
 #'     )
-#'     output$picked <- renderPrint(input$snapshot_click$start)
+#'     output$picked <- renderPrint(input$snapshot_click$date)
 #'   }
 #'   shinyApp(ui, server)
 #' }

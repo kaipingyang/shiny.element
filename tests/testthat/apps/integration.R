@@ -206,7 +206,7 @@ ui <- el_page(
     value = "2026-10-07",
     events = data.frame(
       id = 1:3,
-      start = as.Date("2026-10-05") + c(0, 2, 9),
+      date = as.Date("2026-10-05") + c(0, 2, 9),
       end = as.Date(c(NA, "2026-10-09", NA)),
       title = c("Standup", "Conference", "Review"),
       type = c("primary", "success", "warning")
@@ -840,7 +840,7 @@ server <- function(input, output, session) {
     cat(
       "plan",
       "=",
-      paste(p$id, format(p$start), p$title, collapse = ";"),
+      paste(p$id, format(p$date), p$title, collapse = ";"),
       "\n"
     )
     if (!is.null(input$plan_dates)) {
@@ -853,7 +853,7 @@ server <- function(input, output, session) {
     }
     cat("plan_click", "=", input$plan_click$title %||% "", "\n")
     if (!is.null(input$ocal_click)) {
-      cat("ocal_click", "=", format(input$ocal_click$start), "\n")
+      cat("ocal_click", "=", format(input$ocal_click$date), "\n")
     }
     cat("ocal", "=", input$ocal %||% "", "\n")
     cat("ocal_shown", "=", NROW(el_calendar_events(id = "ocal")), "\n")
@@ -916,7 +916,7 @@ server <- function(input, output, session) {
   observeEvent(input$otbl_delete, update_el_table(session, "otbl", delete = 1))
   plan <- reactiveVal(data.frame(
     id = 1:3,
-    start = as.Date("2026-10-05") + c(0, 2, 9),
+    date = as.Date("2026-10-05") + c(0, 2, 9),
     end = as.Date(c(NA, "2026-10-09", NA)),
     title = c("Standup", "Conference", "Review"),
     type = c("primary", "success", "warning")
@@ -925,7 +925,7 @@ server <- function(input, output, session) {
     ev <- input$plan_add
     new <- data.frame(
       id = max(plan()$id) + 1L,
-      start = ev$start,
+      date = ev$date,
       end = if (is.null(ev$end)) as.Date(NA) else ev$end,
       title = ev$title,
       type = ev$type
@@ -951,12 +951,12 @@ server <- function(input, output, session) {
   observeEvent(input$ocal_fewer, ocal_n(2))
   output$ocal <- render_el_calendar({
     days <- data.frame(
-      start = as.Date("2026-10-20") - c(9, 6, 2),
+      date = as.Date("2026-10-20") - c(9, 6, 2),
       title = c("", "", "Validated"),
       body = c("Raw data", "Archive", "Validated data"),
       color = c("lightgrey", "#EED5B7", "#E9C46B")
     )[seq_len(ocal_n()), ]
-    el_calendar(value = max(days$start), events = days)
+    el_calendar(value = max(days$date), events = days)
   })
   ctbl_n <- reactiveVal(3)
   ctbl_runs <- 0

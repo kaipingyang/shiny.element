@@ -348,10 +348,11 @@ so instead of leaving bare text.
 ## A calendar of events
 
 `el_calendar(events =)` draws each day's events as Element's tags: a
-`start` day, optionally an `end` for a span, a `title`, a `body` shown on
-hover, an `id` -- toastui's names -- and Element's tag `type` or a `color`
-of its own; a title left empty draws a block of colour. In an app whose
-events the server reads, the calendar is an output, as toastui's is:
+`date`, as Element names a cell's day, optionally an `end` for a span, a
+`title`, a `body` shown on hover, an `id` -- toastui's names -- and
+Element's tag `type` or a `color` of its own; a title left empty draws a
+block of colour. In an app whose events the server reads, the calendar is
+an output, as toastui's is:
 `el_calendar_output()` and `render_el_calendar()`, rendered again by
 patching -- only the events sent, the month the user went to kept --
 cacheable with `bindCache()`, a promise waited for. `el_calendar_events()`

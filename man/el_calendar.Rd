@@ -97,11 +97,13 @@ any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
 
 \item{events}{The events to show: a data.frame, or a list of rows, with
-\code{start}, the day (a Date, a date-time or \code{"YYYY-MM-DD"}); optionally
-\code{end}, the last day of an event spanning several, \code{title}, \code{body} (shown
-on hover), \code{id} (the row's number when absent) -- toastui's names --
-and, from Element's tag, \code{type} (\code{"primary"}, \code{"success"}, \code{"info"},
-\code{"warning"}, \code{"danger"}) and \code{color}, a background colour of your own.
+\code{date}, the day (a Date, a date-time or \code{"YYYY-MM-DD"}), named as
+Element names the day of a cell; optionally \code{end}, the last day of an
+event spanning several, \code{title}, \code{body} (shown on hover), \code{id} (the
+row's number when absent) -- toastui's names, where Element has none
+-- and, from Element's tag, \code{type} (\code{"primary"}, \code{"success"},
+\code{"info"}, \code{"warning"}, \code{"danger"}) or \code{color}, a background colour of
+your own.
 Any other column travels with the event and comes back in the inputs.
 In a Shiny app whose events come from the server, render the calendar
 as an output: \code{\link[=el_calendar_output]{el_calendar_output()}}. A day cell of your own
@@ -113,7 +115,7 @@ day to add one, click an event to edit or delete it in a dialog, drag
 it to another day to move it (a span keeps its length).}
 
 \item{event_labels}{The dialog's words, to change any of: a named list of
-\code{add}, \code{edit} (its titles), \code{title}, \code{start}, \code{end}, \code{type} (its fields),
+\code{add}, \code{edit} (its titles), \code{title}, \code{date}, \code{end}, \code{type} (its fields),
 \code{save}, \code{delete}, \code{cancel} (its buttons) -- \code{list(add = "新建日程", save = "保存")}.}
 
 \item{insert}{Events to add, each with its \code{id}.}
@@ -145,7 +147,7 @@ calendar applies the user's changes itself.
    \verb{input$<id>} \tab on load and when a day is picked \tab the day, \code{"YYYY-MM-DD"} \cr
    \verb{input$<id>_dates} \tab on load and when another month is shown \tab \code{list(current, start, end)}, Dates: the day the calendar is on and the first and last days drawn \cr
    \verb{input$<id>_click} \tab an event is clicked \tab the event, a list with its dates as Dates \cr
-   \verb{input$<id>_add} \tab the user saves a new event (\code{editable}) \tab the event asked for, without an \code{id}: \code{list(start, end, title, type)} \cr
+   \verb{input$<id>_add} \tab the user saves a new event (\code{editable}) \tab the event asked for, without an \code{id}: \code{list(date, end, title, type)} \cr
    \verb{input$<id>_update} \tab the user saves an edit or drops an event on another day \tab \code{list(event, changes)}: the event as it is, and what to change -- toastui's shape \cr
    \verb{input$<id>_delete} \tab the user deletes an event \tab the event \cr
 }
@@ -200,7 +202,7 @@ if (interactive()) {
   server <- function(input, output, session) {
     events <- reactiveVal(data.frame(
       id = 1:2,
-      start = Sys.Date() + c(0, 3),
+      date = Sys.Date() + c(0, 3),
       title = c("Standup", "Review"),
       type = c("primary", "warning")
     ))
@@ -213,7 +215,7 @@ if (interactive()) {
         events(),
         data.frame(
           id = max(events()$id) + 1L,
-          start = new$start,
+          date = new$date,
           title = new$title,
           type = new$type
         )

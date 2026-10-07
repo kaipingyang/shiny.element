@@ -7,7 +7,7 @@
 .el_calendar_events(events, arg = NULL)
 }
 \arguments{
-\item{events}{\code{NULL}, a data.frame or a list of rows, with \code{start};
+\item{events}{\code{NULL}, a data.frame or a list of rows, with \code{date};
 \code{end}, \code{title}, \code{body}, \code{type}, \code{color} and \code{id} optional, any other
 column kept.}
 
