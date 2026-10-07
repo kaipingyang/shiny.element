@@ -230,6 +230,7 @@
     host._shinyVueSpec = { input: spec.input || null, type: spec.type || null,
                            rate: spec.rate || null };
     watchDisabled(host, vm);
+    forwardClick(host, box);
     reportFromOutput(host, vm);
     applyPending(host);
     placeOutputs(host, vm, spec.outputs);
@@ -255,24 +256,38 @@
     else if (window.jQuery) jQuery(document).one('shiny:connected', send);
   }
 
-  // Data outputs a component's fields follow (vue_app(outputs =)): an
+  // A click on the host itself -- shinyjs::click(id), el.click() -- is the
+  // component's: the host has no box to be clicked, so it goes to the first
+  // thing in the component that takes a click. A user's click lands inside
+  // and bubbles up with another target, and is left alone.
+  function forwardClick(host, box) {
+    host.addEventListener('click', function(e) {
+      if (e.target !== host) return;
+      var target = box.querySelector(
+        'button, a[href], input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"])'
+      ) || box.firstElementChild;
+      if (target && typeof target.click === 'function') target.click();
+    });
+  }
+
+  // Data outputs a component's data follows (vue_app(outputs =)): an
   // element for each, which Shiny binds as an output -- visible while the
   // component is, so held back with it when it is hidden
   function placeOutputs(host, vm, outputs) {
-    var ids = Object.keys(outputs || {});
+    var ids = Array.isArray(outputs) ? outputs : (outputs ? [outputs] : []);
     if (!ids.length) return;
     var holder = document.createElement('span');
     holder.setAttribute('data-shiny-vue-outputs', '');
-    ids.forEach(function(field) {
-      var out = document.getElementById(outputs[field]);
+    ids.forEach(function(id) {
+      var out = document.getElementById(id);
       if (!out) {
         out = document.createElement('span');
-        out.id = outputs[field];
+        out.id = id;
         out.className = 'shiny-vue-data-output';
         holder.appendChild(out);
       }
-      (out._svTargets = out._svTargets || []).push({ vm: vm, field: field });
-      if (out._svValue !== undefined) vm[field] = out._svValue;
+      (out._svTargets = out._svTargets || []).push({ vm: vm, host: host });
+      if (out._svFields !== undefined) assignFields(vm, host, id, out._svFields);
     });
     host.appendChild(holder);
     // bound with the page if Shiny has not started yet, here if it has
@@ -281,6 +296,18 @@
     } else if (window.Shiny && Shiny.shinyapp && Shiny.bindAll) {
       Shiny.bindAll(holder);
     }
+  }
+  // A data output's fields, set on a component as update_vue() sets them:
+  // only fields it declares, as Vue tracks no others
+  function assignFields(vm, host, output, fields) {
+    var setupState = vm.$ && vm.$.setupState;
+    Object.keys(fields).forEach(function(k) {
+      if (!(k in vm.$data) && !(setupState && k in setupState)) {
+        warn('output "' + output + '" sets "' + k + '", which is not a field of "' + host.id + '"; declare it in data');
+        return;
+      }
+      vm[k] = fields[k];
+    });
   }
 
   // Updates sent to an output before it drew its component, applied now
@@ -378,6 +405,8 @@
   // carry the attribute over.
   function watchDisabled(host, vm) {
     if (typeof MutationObserver === 'undefined' || !('disabled' in vm.$data)) return;
+    // disabled before it mounted -- shinyjs::disabled() in the UI
+    if (host.hasAttribute('disabled')) vm.disabled = true;
     var obs = new MutationObserver(function() { vm.disabled = host.hasAttribute('disabled'); });
     obs.observe(host, { attributes: true, attributeFilter: ['disabled'] });
     host._shinyVueObserver = obs;
@@ -498,6 +527,8 @@
       return;
     }
     if (!vm) { warn('update: no component with id "' + id + '"'); return; }
+    // announced to screen readers, as Shiny's update*Input() does
+    if (!host.hasAttribute('aria-live')) host.setAttribute('aria-live', 'polite');
     // A function in an update -- a new formatter, a form rule's validator --
     // travels as source too
     if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
@@ -970,19 +1001,17 @@
   });
   Shiny.outputBindings.register(outputBinding, 'shiny.vue.output');
 
-  // render_vue_data(): a value, JSON as the page reads it ({value, evals}),
-  // assigned to the fields that follow the output
+  // render_vue_data(): fields of a component's data, JSON as the page reads
+  // it ({fields, evals}), set on every component following the output
   var dataBinding = new Shiny.OutputBinding();
   jQuery.extend(dataBinding, {
     find: function(scope) { return jQuery(scope).find('.shiny-vue-data-output'); },
     renderValue: function(el, json) {
-      var data = typeof json === 'string' ? JSON.parse(json) : { value: json };
+      var data = typeof json === 'string' ? JSON.parse(json) : { fields: json };
       revive(data, data.evals);
-      el._svValue = data.value;
+      el._svFields = data.fields || {};
       (el._svTargets || []).forEach(function(t) {
-        if (t.field in t.vm.$data || (t.vm.$ && t.vm.$.setupState && t.field in t.vm.$.setupState)) {
-          t.vm[t.field] = data.value;
-        }
+        assignFields(t.vm, t.host, el.id, el._svFields);
       });
     },
     showProgress: function(el, show) {

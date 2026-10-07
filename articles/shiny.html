@@ -421,12 +421,29 @@ needs to be set up beyond what Shiny itself asks for.</p>
 rather than having a native attribute set somewhere underneath.
 <code>reset()</code> puts the components under the element it is given
 back as the page first had them, beside Shiny’s own inputs; to set any
-other value, use the component’s <code>update_el_*()</code>.</p>
+other value, use the component’s <code>update_el_*()</code>.
+<code>hidden()</code> and <code>disabled()</code> wrap a component in
+the UI, <code>click()</code> clicks the button or link inside it, and
+<code>onclick()</code> and <code>onevent()</code> hear events from
+inside it. <code>addClass()</code> puts a class on the component’s host,
+which draws no box of its own (<code>display: contents</code>): style
+the component with its own <code>class</code> argument instead.</p>
 <p><strong>bslib.</strong> Components work in bslib’s containers – a
 sidebar, a card, an accordion, a nav panel not yet shown – and bslib’s
 <code><a href="https://rstudio.github.io/bslib/reference/tooltip.html" class="external-link">tooltip()</a></code> and <code><a href="https://rstudio.github.io/bslib/reference/popover.html" class="external-link">popover()</a></code> take one as their
 trigger. bslib’s <code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">input_dark_mode()</a></code> turns Element Plus’s
-dark mode with Bootstrap’s.</p>
+dark mode with Bootstrap’s. Element’s brand colours follow Bootstrap’s
+CSS variables, so a theme changed while the app runs –
+<code>session$setCurrentTheme()</code>, <code><a href="https://rstudio.github.io/bslib/reference/run_with_themer.html" class="external-link">bslib::bs_themer()</a></code>
+– recolours Element’s components too.</p>
+<p><strong>Busy indicators.</strong> Under
+<code><a href="https://rdrr.io/pkg/shiny/man/useBusyIndicators.html" class="external-link">useBusyIndicators()</a></code> a table output keeps Element’s own
+loading mask while it recalculates, in place of Shiny’s spinner;
+<code>el_table_output(loading = FALSE)</code> gives it Shiny’s.</p>
+<p><strong>Asynchronous work.</strong> Every render function waits for a
+promise, so the result of an <code>ExtendedTask</code> or a
+<code>promises</code> pipeline can be rendered as a table or as a
+component’s data.</p>
 <p><strong>Inserting and removing.</strong> <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">insertUI()</a></code> and
 <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> mount what they add; <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">removeUI()</a></code> on
 a component’s id removes it and destroys its Vue instance, so it stops
@@ -435,7 +452,12 @@ reporting.</p>
 Element draws a failed rule; see the forms article.</p>
 <p><strong>Testing.</strong> shinytest2’s <code>set_inputs()</code> and
 <code>get_values()</code> read and write a component as they do a
-<code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput()</a></code>.</p>
+<code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">textInput()</a></code>. An input with no component of its own behind
+it – a table’s <code>_selection_rows</code>, an event such as
+<code>_row_click</code> – has no input binding, so
+<code>set_inputs()</code> needs
+<code>allow_no_input_binding_ = TRUE</code> for it, and sets the
+server’s value only: the page does not tick the rows.</p>
 </div>
 <div class="section level2">
 <h2 id="nesting-components">Nesting components<a class="anchor" aria-label="anchor" href="#nesting-components"></a>
@@ -825,10 +847,8 @@ input field</td>
 <code>vue_app(outputs =)</code> /
 <code>render_vue_data(expr)</code>
 </td>
-<td>fills a field from an output: a value, not markup</td>
-<td>
-<code><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText()</a></code>, shinyreact’s
-<code>reactive_output()</code>
+<td>sets data fields by name from an output: values, not markup</td>
+<td>shinyreact’s <code>reactive_output()</code>
 </td>
 </tr>
 </tbody>
@@ -848,13 +868,17 @@ draws one the server writes – template, options, methods and data, any
 of which a render can change – as shiny.react’s
 <code>renderReact()</code> draws React. Where the component is written
 in the UI and only its data comes from the server, the component names
-an output in <code>outputs</code> and a field follows it:
-<code><a href="../reference/render_vue_data.html">render_vue_data()</a></code> sends a value – a list, a data.frame’s
-rows, a [JS()] function – not markup, and the template redraws what
-depends on it. It is an output as Shiny knows them: it runs again when
-what it reads changes, waits while its component is hidden, and while it
-runs <code>$recalculating.&lt;id&gt;</code> is <code>true</code>, for
-the template to say so.</p>
+an output in <code>outputs</code> and its data follows it:
+<code><a href="../reference/render_vue_data.html">render_vue_data()</a></code> renders data fields by name –
+<code>list(mean = 1, sd = 2)</code>, each value a number, a list, a
+data.frame’s rows, a [JS()] function – and the fields it names take
+those values, as <code><a href="../reference/update_vue.html">update_vue()</a></code> would set them. As there, a
+field must be declared in <code>data</code>: Vue tracks only the fields
+a component starts with. It is an output as Shiny knows them: it runs
+again when what it reads changes, waits while its component is hidden,
+waits for a promise, and while it runs
+<code>$recalculating.&lt;id&gt;</code> is <code>true</code>, for the
+template to say so.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html" class="external-link">sliderInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Draws"</span>, <span class="fl">10</span>, <span class="fl">1000</span>, <span class="fl">100</span><span class="op">)</span>,</span>
@@ -862,9 +886,9 @@ the template to say so.</p>
 <span>    <span class="st">"summary"</span>,</span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
 <span>      `:style` <span class="op">=</span> <span class="st">"{opacity: $recalculating.stats ? 0.4 : 1}"</span>,</span>
-<span>      <span class="st">"Mean {{ stats.mean }}, sd {{ stats.sd }} of {{ stats.n }} draws"</span></span>
+<span>      <span class="st">"Mean {{ mean }}, sd {{ sd }} of {{ n }} draws"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="cn">NA</span>, sd <span class="op">=</span> <span class="cn">NA</span>, n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="cn">NA</span>, sd <span class="op">=</span> <span class="cn">NA</span>, n <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>    outputs <span class="op">=</span> <span class="st">"stats"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -877,20 +901,25 @@ the template to say so.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../shots/shiny-vue-data.png" alt="The vue-data example, running" style="max-width: 100%"><p>Inside a module the field is named and the id wrapped:
-<code>outputs = c(stats = ns("stats"))</code>.</p>
+<img src="../shots/shiny-vue-data.png" alt="The vue-data example, running" style="max-width: 100%"><p>Inside a module the id is wrapped, as any output’s is:
+<code>outputs = ns("stats")</code>. A component can follow several
+outputs, each setting its own fields:
+<code>outputs = c("stats", "trend")</code>.</p>
 <p>One output can feed several components, or a <code><a href="../reference/vue_store.html">vue_store()</a></code>
 that every component reads – the shared state Vue’s guide recommends,
 with the server as its source:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"sales"</span>, outputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>totals <span class="op">=</span> <span class="st">"totals"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"kpi"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"{{ $store.sales.totals.revenue }}"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"trend"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">i</span><span class="op">(</span><span class="st">"{{ $store.sales.totals.growth }} %"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"sales"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>revenue <span class="op">=</span> <span class="fl">0</span>, growth <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, outputs <span class="op">=</span> <span class="st">"totals"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"kpi"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"{{ $store.sales.revenue }}"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"trend"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">i</span><span class="op">(</span><span class="st">"{{ $store.sales.growth }} %"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">totals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_vue_data.html">render_vue_data</a></span><span class="op">(</span><span class="fu">summarise_sales</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">totals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_vue_data.html">render_vue_data</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">summarise_sales</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">region</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>revenue <span class="op">=</span> <span class="va">s</span><span class="op">$</span><span class="va">revenue</span>, growth <span class="op">=</span> <span class="va">s</span><span class="op">$</span><span class="va">growth</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p><code><a href="../reference/vue_output.html">render_vue()</a></code>, <code><a href="../reference/render_vue_data.html">render_vue_data()</a></code> and
 <code><a href="../reference/el_table_output.html">render_el_table()</a></code> can be cached with

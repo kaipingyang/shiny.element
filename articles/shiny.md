@@ -238,7 +238,12 @@ own `disabled`, so it is drawn disabled as Element draws it rather than
 having a native attribute set somewhere underneath. `reset()` puts the
 components under the element it is given back as the page first had
 them, beside Shiny’s own inputs; to set any other value, use the
-component’s `update_el_*()`.
+component’s `update_el_*()`. `hidden()` and `disabled()` wrap a
+component in the UI, `click()` clicks the button or link inside it, and
+`onclick()` and `onevent()` hear events from inside it. `addClass()`
+puts a class on the component’s host, which draws no box of its own
+(`display: contents`): style the component with its own `class` argument
+instead.
 
 **bslib.** Components work in bslib’s containers – a sidebar, a card, an
 accordion, a nav panel not yet shown – and bslib’s
@@ -247,7 +252,21 @@ and
 [`popover()`](https://rstudio.github.io/bslib/reference/popover.html)
 take one as their trigger. bslib’s
 [`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
-turns Element Plus’s dark mode with Bootstrap’s.
+turns Element Plus’s dark mode with Bootstrap’s. Element’s brand colours
+follow Bootstrap’s CSS variables, so a theme changed while the app runs
+– `session$setCurrentTheme()`,
+[`bslib::bs_themer()`](https://rstudio.github.io/bslib/reference/run_with_themer.html)
+– recolours Element’s components too.
+
+**Busy indicators.** Under
+[`useBusyIndicators()`](https://rdrr.io/pkg/shiny/man/useBusyIndicators.html)
+a table output keeps Element’s own loading mask while it recalculates,
+in place of Shiny’s spinner; `el_table_output(loading = FALSE)` gives it
+Shiny’s.
+
+**Asynchronous work.** Every render function waits for a promise, so the
+result of an `ExtendedTask` or a `promises` pipeline can be rendered as
+a table or as a component’s data.
 
 **Inserting and removing.**
 [`insertUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html) and
@@ -261,7 +280,11 @@ failed rule; see the forms article.
 
 **Testing.** shinytest2’s `set_inputs()` and `get_values()` read and
 write a component as they do a
-[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html).
+[`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html). An input
+with no component of its own behind it – a table’s `_selection_rows`, an
+event such as `_row_click` – has no input binding, so `set_inputs()`
+needs `allow_no_input_binding_ = TRUE` for it, and sets the server’s
+value only: the page does not tick the rows.
 
 ## Nesting components
 
@@ -540,7 +563,7 @@ same:
 | `call_vue(session, id, method, args)` | runs a method; its result comes back as `input$<id>_<method>` | – |
 | `vue_answer(session, id, request, value)` | answers a component that asked the server (`shinyVue.ask()`) | – |
 | `vue_output(id)` / `render_vue(expr)` | draws components from the server, keeping the user’s state | [`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html) / [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) |
-| `vue_app(outputs =)` / `render_vue_data(expr)` | fills a field from an output: a value, not markup | [`renderText()`](https://rdrr.io/pkg/shiny/man/renderPrint.html), shinyreact’s `reactive_output()` |
+| `vue_app(outputs =)` / `render_vue_data(expr)` | sets data fields by name from an output: values, not markup | shinyreact’s `reactive_output()` |
 
 [`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
 differs from [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html)
@@ -558,14 +581,18 @@ Two outputs, by who writes the component.
 draws one the server writes – template, options, methods and data, any
 of which a render can change – as shiny.react’s `renderReact()` draws
 React. Where the component is written in the UI and only its data comes
-from the server, the component names an output in `outputs` and a field
+from the server, the component names an output in `outputs` and its data
 follows it:
 [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
-sends a value – a list, a data.frame’s rows, a \[JS()\] function – not
-markup, and the template redraws what depends on it. It is an output as
-Shiny knows them: it runs again when what it reads changes, waits while
-its component is hidden, and while it runs `$recalculating.<id>` is
-`true`, for the template to say so.
+renders data fields by name – `list(mean = 1, sd = 2)`, each value a
+number, a list, a data.frame’s rows, a \[JS()\] function – and the
+fields it names take those values, as
+[`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
+would set them. As there, a field must be declared in `data`: Vue tracks
+only the fields a component starts with. It is an output as Shiny knows
+them: it runs again when what it reads changes, waits while its
+component is hidden, waits for a promise, and while it runs
+`$recalculating.<id>` is `true`, for the template to say so.
 
 ``` r
 
@@ -575,9 +602,9 @@ ui <- fluidPage(
     "summary",
     tags$p(
       `:style` = "{opacity: $recalculating.stats ? 0.4 : 1}",
-      "Mean {{ stats.mean }}, sd {{ stats.sd }} of {{ stats.n }} draws"
+      "Mean {{ mean }}, sd {{ sd }} of {{ n }} draws"
     ),
-    data = list(stats = list(mean = NA, sd = NA, n = 0)),
+    data = list(mean = NA, sd = NA, n = 0),
     outputs = "stats"
   )
 )
@@ -594,8 +621,9 @@ shinyApp(ui, server)
 
 ![The vue-data example, running](../shots/shiny-vue-data.png)
 
-Inside a module the field is named and the id wrapped:
-`outputs = c(stats = ns("stats"))`.
+Inside a module the id is wrapped, as any output’s is:
+`outputs = ns("stats")`. A component can follow several outputs, each
+setting its own fields: `outputs = c("stats", "trend")`.
 
 One output can feed several components, or a
 [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
@@ -605,13 +633,16 @@ with the server as its source:
 ``` r
 
 ui <- fluidPage(
-  vue_store("sales", outputs = c(totals = "totals")),
-  vue_app("kpi", tags$b("{{ $store.sales.totals.revenue }}")),
-  vue_app("trend", tags$i("{{ $store.sales.totals.growth }} %"))
+  vue_store("sales", data = list(revenue = 0, growth = 0), outputs = "totals"),
+  vue_app("kpi", tags$b("{{ $store.sales.revenue }}")),
+  vue_app("trend", tags$i("{{ $store.sales.growth }} %"))
 )
 
 server <- function(input, output, session) {
-  output$totals <- render_vue_data(summarise_sales(input$region))
+  output$totals <- render_vue_data({
+    s <- summarise_sales(input$region)
+    list(revenue = s$revenue, growth = s$growth)
+  })
 }
 ```
 

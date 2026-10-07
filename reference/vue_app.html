@@ -239,11 +239,11 @@ value made of them. <code>NULL</code>: the component reports no value.</p></dd>
 
 
 <dt id="arg-outputs">outputs<a class="anchor" aria-label="anchor" href="#arg-outputs"></a></dt>
-<dd><p>Fields the server fills, each from an output it renders
-with <code><a href="render_vue_data.html">render_vue_data()</a></code>: <code>c(stats = "stats")</code>, field = output id, or
-<code>"stats"</code> for both. Inside a module, <code>c(stats = ns("stats"))</code>. A field
-not in <code>data</code> starts <code>NULL</code>. Each render sets the field; while Shiny
-recalculates it, <code>$recalculating.&lt;output id&gt;</code> is <code>true</code> in templates.</p></dd>
+<dd><p>Ids of outputs the component's <code>data</code> follows, rendered
+with <code><a href="render_vue_data.html">render_vue_data()</a></code>: each render sets the fields it names, which
+must be in <code>data</code> (or <code>setup()</code>'s state). Inside a module,
+<code>ns("stats")</code>. While Shiny recalculates one, <code>$recalculating.&lt;id&gt;</code> is
+<code>true</code> in templates.</p></dd>
 
 
 <dt id="arg-use">use<a class="anchor" aria-label="anchor" href="#arg-use"></a></dt>

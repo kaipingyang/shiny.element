@@ -104,10 +104,13 @@ as a Shiny input.
   `app.use()`, any plugin with its options). `$emit()` of an event in
   `emits` arrives as `input$<id>_<event>`, several arguments as a list.
 - [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
-  – an output that sends a value, not markup, after shinyreact’s
-  `reactive_output()`: a component’s field follows it
-  (`vue_app(outputs = c(stats = "stats"))`, `vue_store(outputs =)`). It
-  waits while its component is hidden, as outputs do, and
+  – an output that sends a component’s data, not markup, after
+  shinyreact’s `reactive_output()`: the server renders fields by name,
+  `list(mean = 1, sd = 2)`, and the components following the output
+  (`vue_app(outputs = "stats")`, `vue_store(outputs =)`) set them, as
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
+  would – fields declared in `data`, as Vue tracks no others. It waits
+  while its component is hidden, as outputs do, and
   `$recalculating.<id>` tells the template while it runs. One output can
   feed several components, or a
   [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
@@ -116,8 +119,9 @@ as a Shiny input.
   and
   [`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md)
   can be cached with
-  [`bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html); a
-  cached table output still sends each page only what changed for it.
+  [`bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html) and wait
+  for a promise (an `ExtendedTask`’s result); a cached table output
+  still sends each page only what changed for it.
 - [`vue_component()`](https://kaipingyang.github.io/shiny.element/reference/vue_component.md)
   – a child component for `components =`, under its name as written or
   in kebab-case (`todo_item` is `<todo-item>`); the dependencies its
@@ -540,16 +544,37 @@ integration article shows, needs no JavaScript.
 
 ### Shiny conventions
 
+- **shinyjs.** `hidden()` and `disabled()` wrap a component in the UI,
+  and `click()` clicks the button or link inside it, besides `hide()`,
+  [`show()`](https://rdrr.io/r/methods/show.html), `toggle()`,
+  `enable()`, `disable()`, `reset()`, `onclick()`.
+
+- **Themes while the app runs.** Element’s brand colours follow
+  Bootstrap’s CSS variables, so `session$setCurrentTheme()` and
+  [`bs_themer()`](https://rstudio.github.io/bslib/reference/run_with_themer.html)
+  recolour Element’s components; the tints are mixed in the browser, as
+  Sass’s `mix()`.
+
+- **Busy indicators.** Under
+  [`useBusyIndicators()`](https://rdrr.io/pkg/shiny/man/useBusyIndicators.html)
+  a table output keeps Element’s loading mask in place of Shiny’s
+  spinner.
+
+- **Screen readers.** A component an update changes is marked
+  `aria-live`, as Shiny marks an input `update*Input()` changes.
+
 - **Bookmarking.** Every component’s value goes through
   [`shiny::restoreInput()`](https://rdrr.io/pkg/shiny/man/restoreInput.html),
   so a bookmarked page reopens as it was left – inputs, the selected
   tab, open panels, an open dialog, the pager’s page.
+
 - **Dates.**
   [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md)
   reports `Date` for `"date"`, `"dates"` and `"daterange"` with the
   default `value_format`, as
   [`dateInput()`](https://rdrr.io/pkg/shiny/man/dateInput.html) does. A
   `value_format` of your own still reports text in that format.
+
 - **The session argument.** Every server function – `update_el_*()`,
   [`el_message()`](https://kaipingyang.github.io/shiny.element/reference/el_message.md),
   [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
@@ -558,6 +583,7 @@ integration article shows, needs no JavaScript.
   does. Given an id in the session’s place,
   `update_el_input("name", ...)`, it says so and names the call to write
   instead, as Shiny’s own do.
+
 - **Action buttons.**
   [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md)
   and
@@ -571,12 +597,14 @@ integration article shows, needs no JavaScript.
   [`el_dropdown()`](https://kaipingyang.github.io/shiny.element/reference/el_dropdown.md)
   reports each command as an event, so choosing the same item twice runs
   an observer twice.
+
 - **One input per id.**
   [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
   reports to `input$<id>`, as every other input does, rather than
   `input$<id>_value`, and
   [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md)
   reports its page as `input$<id>` rather than `input$<id>_page`.
+
 - **The server loads.** Where Element takes a JavaScript function to
   fetch data, the server can answer instead: a lazy
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md),
@@ -591,15 +619,18 @@ integration article shows, needs no JavaScript.
   sends what is typed as `input$<id>_query`, and
   [`update_el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
   with the matches answers it.
+
 - **Labels and errors from the server.** The `update_el_*()` of every
   input takes `label`, as
   [`updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html)
   does, and `error`, Element’s message for a check only the server can
   make; `""` clears it.
+
 - **Validation.** shinyvalidate’s messages show on a component as
   Element shows a failed form rule: framed in red, the message
   underneath – for a labelled component, under the control, replacing
   any `error` it opened with.
+
 - **Labels.** Every input takes `label`, shown above it or, with
   `label_position = "left"` or `"right"`, beside it – also its
   accessible name. The props of Element’s `el-form-item` that suit a
@@ -610,6 +641,7 @@ integration article shows, needs no JavaScript.
   trigger text is now `button_label`, as
   [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html)’s
   `buttonLabel`.
+
 - **Element themed from the page’s theme.** The `primary`, `success`,
   `warning`, `danger` and `info` of
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)’s
@@ -619,11 +651,13 @@ integration article shows, needs no JavaScript.
   They are set as Element Plus’s CSS variables, as its theming guide
   sets them. `use_element(theme =)` does the same elsewhere; its layout
   CSS argument is now `layout_css`.
+
 - **A tree filters as it stands.**
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
   has a default `filter_node_method` – the label contains the text,
   ignoring case – so `call_el(session, "tree", "filter", list(text))`
   needs no JavaScript; Element itself throws without one.
+
 - **More of upstream.**
   [`el_checkbox()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox.md),
   one box as
@@ -651,6 +685,7 @@ integration article shows, needs no JavaScript.
   (`errors =`). An update can carry
   [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
   functions.
+
 - **Closer to Element’s own behaviour.** Dialogs and drawers stack, lock
   scroll and close on Escape through Element’s popup manager, so they
   share one z-index counter with every Element popup and honour
@@ -658,6 +693,7 @@ integration article shows, needs no JavaScript.
   and a drawer gives focus back. Tabs take the arrow keys and Delete and
   scroll when they overflow; collapse headers take Enter and Space and
   animate; both carry Element’s ARIA.
+
 - **Uploads that fail or are aborted.** Files go up one at a time, as
   [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html) sends
   them; a file that fails, or is stopped with `abort()`, is left out and
@@ -668,12 +704,14 @@ integration article shows, needs no JavaScript.
   and
   [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   name a file or a row for a method that needs it.
+
 - **Server questions are cleaned up.** A lazy load the server never
   answers settles after 30 seconds, and at once when its component is
   removed or the session ends. A remote select or autocomplete search
   with no answer stops loading after the same 30 seconds; an
   autocomplete typed into faster than the server answers shows the
   answer to the last query, not an earlier one.
+
 - **Tags where a string was expected.** Tags in a component’s data – a
   timeline entry’s `content`, a column’s `header_html`, a form item’s
   `label_html` – are sent as the HTML they stand for, not as a
@@ -686,6 +724,7 @@ integration article shows, needs no JavaScript.
   [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
   loses its `icon` argument, which did nothing: Element’s cascader has
   no icon.
+
 - **Found while writing the component pages.**
   [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
   columns nest under group headers (`children`);
@@ -701,6 +740,7 @@ integration article shows, needs no JavaScript.
   [`update_el_infinite_scroll()`](https://kaipingyang.github.io/shiny.element/reference/el_infinite_scroll.md)
   sent field names the component did not have and changed nothing –
   every updater is now checked against its component.
+
 - **Element’s global config.**
   [`el_page()`](https://kaipingyang.github.io/shiny.element/reference/el_page.md)
   and
@@ -712,9 +752,11 @@ integration article shows, needs no JavaScript.
   `checkbox_button`, `scrollbar`, `spinner`, `collapse_transition`) and
   loses `anchor`, `anchor_link` and `loading`, which Element 2 does not
   have as tags.
+
 - **Checked arguments.** An enumerated argument Element does not accept
   – `type = "primry"` – is an error listing the values it does, rather
   than a component drawn in its default style.
+
 - **Templates.** Each component’s template travels as a script the
   browser does not parse: nothing flashes before Vue runs, and camelCase
   attribute names reach Vue unchanged.

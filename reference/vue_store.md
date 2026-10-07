@@ -36,7 +36,7 @@ vue_store(id, data = list(), input = NULL, outputs = NULL)
 
 - outputs:
 
-  Fields filled by outputs, as for
+  Outputs the store's data follows, as for
   [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md).
 
 ## Value

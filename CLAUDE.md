@@ -156,11 +156,15 @@ column’s type.
   `update_vue(value =)` sets the input field; updates reach `data` and
   `setup()` state.
 - [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
-  is an output of values: a component’s field follows it
-  (`vue_app(outputs =)`). The bridge places a `.shiny-vue-data-output`
-  element per output in the host and binds it (`placeOutputs()`), so it
-  is suspended while the component is hidden; `$recalculating.<id>` in
-  templates follows its progress.
+  is an output of a component’s data: it renders fields by name and the
+  components following it (`vue_app(outputs = "id")`) set them as
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
+  would – declared fields only, as Vue tracks no others. The bridge
+  places a `.shiny-vue-data-output` element per output in the host and
+  binds it (`placeOutputs()`), so it is suspended while the component is
+  hidden; `$recalculating.<id>` in templates follows its progress.
+  Render functions are built on `createRenderFunction()` so they wait
+  for promises.
 - `shinyVue.ask(input, question)` lets a component ask the server (lazy
   loaders, remote search);
   [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)

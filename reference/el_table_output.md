@@ -28,7 +28,10 @@ render_el_table(expr, env = parent.frame(), quoted = FALSE)
 - loading:
 
   Whether Element's loading mask covers the table while Shiny
-  recalculates it, in place of Shiny fading the output.
+  recalculates it, in place of Shiny fading the output – and of the
+  spinner
+  [`shiny::useBusyIndicators()`](https://rdrr.io/pkg/shiny/man/useBusyIndicators.html)
+  would draw over it.
 
 - expr:
 

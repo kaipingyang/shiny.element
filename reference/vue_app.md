@@ -83,12 +83,11 @@ vue_app(
 
 - outputs:
 
-  Fields the server fills, each from an output it renders with
+  Ids of outputs the component's `data` follows, rendered with
   [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md):
-  `c(stats = "stats")`, field = output id, or `"stats"` for both. Inside
-  a module, `c(stats = ns("stats"))`. A field not in `data` starts
-  `NULL`. Each render sets the field; while Shiny recalculates it,
-  `$recalculating.<output id>` is `true` in templates.
+  each render sets the fields it names, which must be in `data` (or
+  `setup()`'s state). Inside a module, `ns("stats")`. While Shiny
+  recalculates one, `$recalculating.<id>` is `true` in templates.
 
 - use:
 
