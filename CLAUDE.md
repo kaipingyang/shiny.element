@@ -272,3 +272,8 @@ changing how components are built or rendered.
 
 `.claude/docs/screenshot-recipe.R` is the driver template for looking at a page
 yourself.
+
+`.claude/docs/bridges-survey.md` is how Shiny itself, bslib, htmlwidgets, vueR,
+reactR, shiny.react and shinyreact connect components to Shiny -- read from
+their sources, each claim with its evidence -- and how ours compares. Read it
+before changing how components render, update or report.
