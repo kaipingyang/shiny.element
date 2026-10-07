@@ -74,7 +74,7 @@ cases <- list(
       value = "2026-01-01",
       range = c("2026-01-01", "2026-01-31"),
       controller_type = "select",
-      events = data.frame(date = "2026-01-02", title = "a"),
+      events = data.frame(start = "2026-01-02", title = "a"),
       editable = TRUE
     )
   ),
@@ -338,15 +338,15 @@ test_that("every updater of a Vue component sends only declared fields", {
         data = data.frame(key = 1, label = "a"),
         columns = list(list(prop = "a", label = "A")),
         steps = list(list(title = "S")),
-        events = data.frame(date = "2026-01-02", title = "a"),
-        insert = data.frame(id = 9, date = "2026-01-02", title = "a"),
+        events = data.frame(start = "2026-01-02", title = "a"),
+        insert = data.frame(id = 9, start = "2026-01-02", title = "a"),
         event_labels = list(save = "OK"),
         1
       )
       given <- stats::setNames(list(val), a)
       if (a == "replace") {
         given <- if (fn == "update_el_calendar") {
-          list(replace = data.frame(id = 1, date = "2026-01-02", title = "a"))
+          list(replace = data.frame(id = 1, start = "2026-01-02", title = "a"))
         } else {
           list(replace = 1, at = 1)
         }

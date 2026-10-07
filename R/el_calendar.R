@@ -30,18 +30,21 @@
 #'   any Shiny input; a session given here namespaces `id` once more, with
 #'   a warning.
 #' @param events The events to show: a data.frame, or a list of rows, with
-#'   `date` (a Date or `"YYYY-MM-DD"`) and `title`; optionally `end`, the
-#'   last day of an event spanning several, `type`, Element's tag type
-#'   (`"primary"`, `"success"`, `"info"`, `"warning"`, `"danger"`), and `id`
-#'   (the row's number when absent). Any other column travels with the
-#'   event and comes back in the inputs. A day cell of your own
+#'   `start`, the day (a Date, a date-time or `"YYYY-MM-DD"`); optionally
+#'   `end`, the last day of an event spanning several, `title`, `body` (shown
+#'   on hover), `id` (the row's number when absent) -- toastui's names --
+#'   and, from Element's tag, `type` (`"primary"`, `"success"`, `"info"`,
+#'   `"warning"`, `"danger"`) and `color`, a background colour of your own.
+#'   Any other column travels with the event and comes back in the inputs.
+#'   In a Shiny app whose events come from the server, render the calendar
+#'   as an output: [el_calendar_output()]. A day cell of your own
 #'   (`slots = list(dateCell = ...)`) replaces the one that draws them; call
 #'   `eventsOn(data.day)` in it for the day's events.
 #' @param editable Whether the user can change the events: double-click a
 #'   day to add one, click an event to edit or delete it in a dialog, drag
 #'   it to another day to move it (a span keeps its length).
 #' @param event_labels The dialog's words, to change any of: a named list of
-#'   `add`, `edit` (its titles), `title`, `date`, `end`, `type` (its fields),
+#'   `add`, `edit` (its titles), `title`, `start`, `end`, `type` (its fields),
 #'   `save`, `delete`, `cancel` (its buttons) -- `list(add = "新建日程",
 #'   save = "保存")`.
 #'
@@ -51,8 +54,8 @@
 #' | `input$<id>` | on load and when a day is picked | the day, `"YYYY-MM-DD"` |
 #' | `input$<id>_dates` | on load and when another month is shown | `list(current, start, end)`, Dates: the day the calendar is on and the first and last days drawn |
 #' | `input$<id>_click` | an event is clicked | the event, a list with its dates as Dates |
-#' | `input$<id>_add` | the user saves a new event (`editable`) | the event asked for, without an `id`: `list(date, end, title, type)` |
-#' | `input$<id>_update` | the user saves an edit or drops an event on another day | `list(id, changes, event)`: what changed, and the event as it would be |
+#' | `input$<id>_add` | the user saves a new event (`editable`) | the event asked for, without an `id`: `list(start, end, title, type)` |
+#' | `input$<id>_update` | the user saves an edit or drops an event on another day | `list(event, changes)`: the event as it is, and what to change -- toastui's shape |
 #' | `input$<id>_delete` | the user deletes an event | the event |
 #'
 #' The requests change nothing by themselves: answer them with
@@ -80,47 +83,81 @@
 #' # With date range
 #' el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 #'
-#' # A planner: the server keeps the events and answers each request
+#' # A planner whose events the server keeps, rendered as an output: each
+#' # request changes them, and the calendar is rendered again -- patched,
+#' # only the events sent
 #' if (interactive()) {
 #'   library(shiny)
 #'   library(shiny.element)
-#'   start <- data.frame(
-#'     id = 1:2,
-#'     date = Sys.Date() + c(0, 3),
-#'     title = c("Standup", "Review"),
-#'     type = c("primary", "warning")
-#'   )
-#'   ui <- el_page(el_calendar("plan", events = start, editable = TRUE))
+#'   ui <- el_page(el_calendar_output("plan"))
 #'   server <- function(input, output, session) {
-#'     events <- reactiveVal(start)
+#'     events <- reactiveVal(data.frame(
+#'       id = 1:2,
+#'       start = Sys.Date() + c(0, 3),
+#'       title = c("Standup", "Review"),
+#'       type = c("primary", "warning")
+#'     ))
+#'     output$plan <- render_el_calendar(
+#'       el_calendar(events = events(), editable = TRUE)
+#'     )
 #'     observeEvent(input$plan_add, {
-#'       new <- data.frame(
-#'         id = max(events()$id) + 1L,
-#'         date = input$plan_add$date,
-#'         title = input$plan_add$title,
-#'         type = input$plan_add$type
-#'       )
-#'       events(rbind(events(), new))
-#'       update_el_calendar(session, "plan", insert = new)
+#'       new <- input$plan_add
+#'       events(rbind(
+#'         events(),
+#'         data.frame(
+#'           id = max(events()$id) + 1L,
+#'           start = new$start,
+#'           title = new$title,
+#'           type = new$type
+#'         )
+#'       ))
 #'     })
 #'     observeEvent(input$plan_update, {
 #'       d <- events()
-#'       i <- d$id == input$plan_update$id
+#'       i <- d$id == input$plan_update$event$id
 #'       for (k in intersect(names(input$plan_update$changes), names(d))) {
 #'         d[[k]][i] <- input$plan_update$changes[[k]]
 #'       }
 #'       events(d)
-#'       update_el_calendar(session, "plan", replace = d[i, ])
 #'     })
 #'     observeEvent(input$plan_delete, {
 #'       events(events()[events()$id != input$plan_delete$id, ])
-#'       update_el_calendar(session, "plan", delete = input$plan_delete$id)
 #'     })
 #'   }
 #'   shinyApp(ui, server)
 #' }
 
 el_calendar <- function(
+  id = NULL,
+  value = NULL,
+  range = NULL,
+  label = NULL,
+  label_position = c("top", "left", "right"),
+  label_width = NULL,
+  label_suffix = NULL,
+  required = FALSE,
+  error = NULL,
+  show_message = TRUE,
+  inline_message = FALSE,
+  controller_type = NULL,
+  formatter = NULL,
+  width = NULL,
+  slots = NULL,
+  session = NULL,
+  events = NULL,
+  editable = FALSE,
+  event_labels = NULL
+) {
+  .el_check_choices("el_calendar", environment())
+  # mistakes are reported here, where the calendar is written
+  .el_calendar_events(events)
+  .el_calendar_labels(event_labels)
+  .el_component(".el_calendar_tags", as.list(environment()), "el_calendar")
+}
+
+#' Draw a calendar from its specification
+#' @noRd
+.el_calendar_tags <- function(
   id = NULL,
   value = NULL,
   range = NULL,
@@ -338,6 +375,8 @@ update_el_calendar <- function(
   }
   if (!is.null(events)) {
     message$events <- .el_calendar_events(events)
+    # the server's copy follows what the calendar shows
+    .el_table_data_set(session, ns_id, events)
   }
   if (!is.null(editable)) {
     message$editable <- isTRUE(editable)
@@ -347,13 +386,16 @@ update_el_calendar <- function(
   }
   if (edits[["insert"]] || edits[["replace"]]) {
     op <- if (edits[["insert"]]) "insert" else "replace"
+    rows <- if (op == "insert") insert else replace
     message$calendarEdit <- list(
       op = op,
-      rows = .el_calendar_events(if (op == "insert") insert else replace, op)
+      rows = .el_calendar_events(rows, op)
     )
+    .el_calendar_edit_copy(session, ns_id, op, rows)
   }
   if (edits[["delete"]]) {
     message$calendarEdit <- list(op = "delete", ids = I(delete))
+    .el_calendar_edit_copy(session, ns_id, "delete", delete)
   }
 
   message <- .el_form_item_update(message, label, error)
@@ -365,10 +407,12 @@ update_el_calendar <- function(
 
 #' A calendar's events, as rows for the browser
 #'
-#' @param events `NULL`, a data.frame or a list of rows, with `date` and
-#'   `title`; `end`, `type` and `id` optional, any other column kept.
+#' @param events `NULL`, a data.frame or a list of rows, with `start`;
+#'   `end`, `title`, `body`, `type`, `color` and `id` optional, any other
+#'   column kept.
+#' @param arg The update argument the rows came in, which must give ids.
 #' @return Rows, each with an `id` (the row's number when none is given)
-#'   and dates as `"YYYY-MM-DD"`.
+#'   and days as `"YYYY-MM-DD"`.
 #' @keywords internal
 .el_calendar_events <- function(events, arg = NULL) {
   if (is.null(events)) {
@@ -379,7 +423,7 @@ update_el_calendar <- function(
       do.call(rbind, lapply(events, as.data.frame, stringsAsFactors = FALSE)),
       error = function(e) {
         stop(
-          "`events` must be a data.frame, or a list of rows, with `date` and `title`.",
+          "`events` must be a data.frame, or a list of rows, with `start`.",
           call. = FALSE
         )
       }
@@ -388,14 +432,11 @@ update_el_calendar <- function(
   if (!nrow(events)) {
     return(I(list()))
   }
-  missing <- setdiff(c("date", "title"), names(events))
-  if (length(missing)) {
-    stop(
-      "`events` needs ",
-      paste(sQuote(missing), collapse = " and "),
-      ": the day each is on and what it says.",
-      call. = FALSE
-    )
+  if (is.null(events$start)) {
+    stop("`events` needs `start`: the day each is on.", call. = FALSE)
+  }
+  if (is.null(events$title)) {
+    events$title <- ""
   }
   if (is.null(events$id)) {
     # events added or replaced later are found by id: the server gives it
@@ -404,7 +445,7 @@ update_el_calendar <- function(
     }
     events$id <- seq_len(nrow(events))
   }
-  for (col in intersect(c("date", "end"), names(events))) {
+  for (col in intersect(c("start", "end"), names(events))) {
     events[[col]] <- .el_calendar_day(events[[col]])
   }
   .vue_rows(events)
@@ -424,6 +465,7 @@ update_el_calendar <- function(
 
 # the methods the events layer adds, whose names a slot must not take
 .el_calendar_methods <- c(
+  "eventStyle",
   "eventsOn",
   "clickEvent",
   "openAdd",
@@ -470,7 +512,12 @@ update_el_calendar <- function(
             "width: 100%; justify-content: flex-start; cursor: pointer;",
             "overflow: hidden;"
           ),
-          `:title` = "ev.title",
+          `:title` = "ev.body || ev.title",
+          # a block of colour with no title is still named, for screen
+          # readers
+          `:aria-label` = "ev.title || ev.body || ev.start",
+          `:color` = "ev.color",
+          `:style` = "eventStyle(ev)",
           `:draggable` = "editable",
           `@dragstart` = "dragStart(ev, $event)",
           `@click.stop` = "clickEvent(ev)",
@@ -502,9 +549,9 @@ update_el_calendar <- function(
       `@submit.prevent` = NA,
       field("title", el$input(`v-model` = "eventForm.title")),
       field(
-        "date",
+        "start",
         el$date_picker(
-          `v-model` = "eventForm.date",
+          `v-model` = "eventForm.start",
           type = "date",
           `value-format` = "YYYY-MM-DD",
           `:clearable` = "false",
@@ -567,9 +614,14 @@ update_el_calendar <- function(
 #' @noRd
 .el_calendar_event_methods <- function(ns_id) {
   list(
+    # a colour of the event's own: its border too, and the page's text
+    eventStyle = JS(paste0(
+      "function(ev) { return ev.color ? {borderColor: ev.color, ",
+      "color: 'var(--el-text-color-primary)'} : null; }"
+    )),
     eventsOn = JS(paste0(
       "function(day) { return (this.events || []).filter(function(e) { ",
-      "var end = e.end || e.date; return e.date <= day && day <= end; }); }"
+      "var end = e.end || e.start; return e.start <= day && day <= end; }); }"
     )),
     # a request to the server, or -- with none -- the change made here
     eventRequest = JS(sprintf(
@@ -589,12 +641,12 @@ update_el_calendar <- function(
     )),
     openAdd = JS(paste0(
       "function(day) { if (!this.editable) return; ",
-      "this.eventForm = {date: day, end: null, title: '', type: 'primary'}; }"
+      "this.eventForm = {start: day, end: null, title: '', type: 'primary'}; }"
     )),
     cancelEvent = JS("function() { this.eventForm = null; }"),
     saveEvent = JS(paste0(
       "function() { var self = this, f = self.eventForm; if (!f || !f.title) return; ",
-      "var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; ",
+      "var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.start) ev.end = null; ",
       "if (ev.id === undefined) { ",
       "self.eventRequest('add', ev, function() { ",
       "ev.id = 'local-' + Date.now(); self.events.push(ev); }); ",
@@ -602,7 +654,7 @@ update_el_calendar <- function(
       "var old = self.events.filter(function(e) { return e.id === ev.id; })[0] || {}; ",
       "var changes = {}; Object.keys(ev).forEach(function(k) { ",
       "if (ev[k] !== old[k] && !(ev[k] === null && old[k] === undefined)) changes[k] = ev[k]; }); ",
-      "self.eventRequest('update', {id: ev.id, changes: changes, event: ev}, function() { ",
+      "self.eventRequest('update', {event: old, changes: changes}, function() { ",
       "var i = self.events.indexOf(old); if (i >= 0) self.events.splice(i, 1, ev); }); } ",
       "self.eventForm = null; }"
     )),
@@ -624,13 +676,13 @@ update_el_calendar <- function(
       "function(day) { var self = this, id = self.eventDragged; ",
       "self.eventDragged = null; if (!self.editable || id === null) return; ",
       "var old = self.events.filter(function(e) { return e.id === id; })[0]; ",
-      "if (!old || old.date === day) return; ",
+      "if (!old || old.start === day) return; ",
       "var parse = function(s) { var p = s.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; ",
       "var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; ",
-      "var shift = parse(day) - parse(old.date); ",
-      "var changes = {date: day}; if (old.end) changes.end = fmt(parse(old.end) + shift); ",
+      "var shift = parse(day) - parse(old.start); ",
+      "var changes = {start: day}; if (old.end) changes.end = fmt(parse(old.end) + shift); ",
       "var ev = Object.assign({}, old, changes); ",
-      "self.eventRequest('update', {id: id, changes: changes, event: ev}, function() { ",
+      "self.eventRequest('update', {event: old, changes: changes}, function() { ",
       "self.events.splice(self.events.indexOf(old), 1, ev); }); }"
     )),
     # the days shown, counted off the drawn month: Element's first day of
@@ -698,7 +750,7 @@ update_el_calendar <- function(
     add = "New event",
     edit = "Edit event",
     title = "Title",
-    date = "Date",
+    start = "Date",
     end = "Until",
     type = "Type",
     save = "Save",
@@ -716,4 +768,130 @@ update_el_calendar <- function(
     )
   }
   utils::modifyList(words, labels)
+}
+
+#' The server's copy of a calendar's events, edited as the browser's is
+#' @noRd
+.el_calendar_edit_copy <- function(session, id, op, rows) {
+  if (!.el_table_known(session, id)) {
+    return(invisible(NULL))
+  }
+  events <- .el_table_data(session, id)
+  if (!is.data.frame(events)) {
+    return(invisible(NULL))
+  }
+  if (op == "delete") {
+    events <- events[
+      !as.character(events$id) %in% as.character(rows),
+      ,
+      drop = FALSE
+    ]
+  } else {
+    rows <- as.data.frame(rows, stringsAsFactors = FALSE)
+    if (op == "replace") {
+      events <- events[
+        !as.character(events$id) %in% as.character(rows$id),
+        ,
+        drop = FALSE
+      ]
+    }
+    # the columns of either, the missing ones NA
+    for (col in setdiff(names(rows), names(events))) {
+      events[[col]] <- rep(NA, nrow(events))
+    }
+    for (col in setdiff(names(events), names(rows))) {
+      rows[[col]] <- rep(NA, nrow(rows))
+    }
+    events <- rbind(events, rows[names(events)])
+  }
+  rownames(events) <- NULL
+  .el_table_data_set(session, id, events)
+  invisible(NULL)
+}
+
+# ── as an output ──────────────────────────────────────────────────────────────
+
+#' A calendar as a Shiny output
+#'
+#' The calendar of an app whose events the server reads -- from a
+#' database, a folder, a computation -- as toastui's `calendarOutput()` and
+#' `renderCalendar()`: the page holds `el_calendar_output()`, the server
+#' renders [el_calendar()] into it with its events. Rendering again with
+#' new events patches the calendar in place: the month shown and an open
+#' dialog stay, and only what changed is sent.
+#'
+#' The output's id is the calendar's: `input$<id>` is the day picked and
+#' `input$<id>_click`, `_dates`, `_add`, `_update`, `_delete` are as for
+#' [el_calendar()]; [update_el_calendar()] reaches the calendar by it, and
+#' [el_calendar_events()] reads the events it shows.
+#'
+#' @param outputId The output's id.
+#' @param width The calendar's width, as a CSS unit.
+#' @param loading Whether Element's loading mask covers the calendar while
+#'   Shiny recalculates it, in place of Shiny fading the output.
+#' @param expr An expression returning [el_calendar()], given no `id`.
+#' @param env,quoted As for [shiny::renderUI()].
+#' @return `el_calendar_output()`, a tag; `render_el_calendar()`, a render
+#'   function.
+#' @seealso [el_calendar()], [update_el_calendar()], [el_calendar_events()].
+#' @examples
+#' if (interactive()) {
+#'   library(shiny)
+#'   archive <- data.frame(
+#'     start = Sys.Date() - c(9, 6, 2),
+#'     title = c("", "", "Validated"),
+#'     body = c("Raw data", "Archive", "Validated data"),
+#'     color = c("lightgrey", "#EED5B7", "#E9C46B")
+#'   )
+#'   ui <- el_page(el_calendar_output("snapshot"), verbatimTextOutput("picked"))
+#'   server <- function(input, output, session) {
+#'     output$snapshot <- render_el_calendar(
+#'       el_calendar(value = max(archive$start), events = archive)
+#'     )
+#'     output$picked <- renderPrint(input$snapshot_click$start)
+#'   }
+#'   shinyApp(ui, server)
+#' }
+#' @export
+el_calendar_output <- function(outputId, width = "100%", loading = TRUE) {
+  el_table_output(outputId, width = width, loading = loading)
+}
+
+#' @rdname el_calendar_output
+#' @export
+render_el_calendar <- function(expr, env = parent.frame(), quoted = FALSE) {
+  if (!quoted) {
+    expr <- substitute(expr)
+  }
+  .el_render_component(
+    expr,
+    env,
+    class = "el_calendar",
+    what = "render_el_calendar() renders an el_calendar().",
+    data_arg = "events",
+    output_fn = el_calendar_output,
+    label = "render_el_calendar"
+  )
+}
+
+#' The events a calendar shows
+#'
+#' What the browser holds, as R: the events last rendered with
+#' [render_el_calendar()] or sent with [update_el_calendar()], with every
+#' event [update_el_calendar()] has since inserted, replaced or deleted. The
+#' user's requests (`input$<id>_add`, ...) are not in it until the server
+#' answers them. A reactive read.
+#'
+#' @param session The Shiny session, the current one by default.
+#' @param id The calendar's id, the output's.
+#' @return The events, as given; `NULL` for a calendar the server has not
+#'   rendered or updated.
+#' @seealso [render_el_calendar()], [update_el_calendar()].
+#' @export
+el_calendar_events <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id
+) {
+  .el_check_session(session)
+  el_table_data(session, id)
 }

@@ -70,17 +70,54 @@ el_calendar(
 )
 
 ## in-shiny
+#| shot_js = "document.querySelectorAll('#snapshot .el-calendar-event')[2].click()"
+#| shot_wait = 1.5
+#' ### Days from the server
+#'
+#' In an app whose events the server reads -- from a database, from the
+#' files on disk -- the calendar is an output, as toastui's is:
+#' `el_calendar_output()` in the UI, `render_el_calendar()` in the server.
+#' Each event is a `start` day, with optionally an `end`, a `title`, a
+#' `body` shown on hover, and Element's tag `type` or a `color` of its own;
+#' a title left empty draws a block of colour. A click on an event arrives
+#' as `input$<id>_click`, its days as Dates; the month shown, as
+#' `input$<id>_dates`. Rendered again, the calendar is patched: only the
+#' events are sent, and the month the user went to stays.
+archive <- data.frame(
+  start = as.Date("2026-10-20") - c(16, 9, 6, 2),
+  title = c("", "", "", "Validated"),
+  body = c("Raw data", "Raw data", "Archive", "Validated data"),
+  color = c("lightgrey", "lightgrey", "#EED5B7", "#E9C46B")
+)
+
+ui <- el_page(
+  el_calendar_output("snapshot"),
+  verbatimTextOutput("picked")
+)
+
+server <- function(input, output, session) {
+  output$snapshot <- render_el_calendar(
+    el_calendar(value = max(archive$start), events = archive)
+  )
+  output$picked <- renderPrint(input$snapshot_click$start)
+}
+
+shinyApp(ui, server)
+
+## in-shiny-planner
 #| shot_js = "document.querySelectorAll('#plan .el-calendar-event')[1].click()"
 #| shot_wait = 1.5
 #| shot_sel = ".el-calendar-dialog"
 #' ### A planner
 #'
-#' With `events`, each day shows its events; with `editable = TRUE` the
-#' user double-clicks a day to add one, clicks one to edit or delete it in
-#' a dialog, and drags it to another day. The server owns the events, as
-#' toastui's calendar has it: what the user does arrives as a request and
-#' changes nothing until the server answers with `update_el_calendar()` --
-#' so it can check the change, give a new event its id, or refuse.
+#' With `editable = TRUE` the user double-clicks a day to add an event,
+#' clicks one to edit or delete it in a dialog, and drags it to another day.
+#' The server owns the events, as toastui's calendar has it: what the user
+#' does arrives as a request and changes nothing until the server answers --
+#' here by changing its data, which renders the calendar again; for a large
+#' calendar, `update_el_calendar(insert =, replace =, delete =)` sends only
+#' the events that changed. `el_calendar_events()` reads what the calendar
+#' shows.
 #'
 #' | Input | Value |
 #' |---|---|
@@ -88,47 +125,45 @@ el_calendar(
 #' | `input$plan_dates` | the days drawn, `list(current, start, end)`, Dates |
 #' | `input$plan_click` | the event clicked |
 #' | `input$plan_add` | a new event asked for, without an `id` |
-#' | `input$plan_update` | `list(id, changes, event)`: an edit, or a move |
+#' | `input$plan_update` | `list(event, changes)`: an edit, or a move |
 #' | `input$plan_delete` | the event to delete |
-start <- data.frame(
-  id = 1:3,
-  date = as.Date("2026-10-05") + c(0, 2, 9),
-  end = as.Date(c(NA, "2026-10-09", NA)),
-  title = c("Standup", "Conference", "Review"),
-  type = c("primary", "success", "warning")
-)
-
-ui <- el_page(
-  el_calendar("plan", value = "2026-10-07", events = start, editable = TRUE)
-)
+ui <- el_page(el_calendar_output("plan"))
 
 server <- function(input, output, session) {
-  events <- reactiveVal(start)
+  events <- reactiveVal(data.frame(
+    id = 1:3,
+    start = as.Date("2026-10-05") + c(0, 2, 9),
+    end = as.Date(c(NA, "2026-10-09", NA)),
+    title = c("Standup", "Conference", "Review"),
+    type = c("primary", "success", "warning")
+  ))
+  output$plan <- render_el_calendar(
+    el_calendar(value = "2026-10-07", events = events(), editable = TRUE)
+  )
   observeEvent(input$plan_add, {
-    ev <- input$plan_add
-    new <- data.frame(
-      id = max(events()$id) + 1L,
-      date = ev$date,
-      end = if (is.null(ev$end)) as.Date(NA) else ev$end,
-      title = ev$title,
-      type = ev$type
-    )
-    events(rbind(events(), new))
-    update_el_calendar(session, "plan", insert = new)
+    new <- input$plan_add
+    events(rbind(
+      events(),
+      data.frame(
+        id = max(events()$id) + 1L,
+        start = new$start,
+        end = if (is.null(new$end)) as.Date(NA) else new$end,
+        title = new$title,
+        type = new$type
+      )
+    ))
   })
   observeEvent(input$plan_update, {
     d <- events()
-    i <- d$id == input$plan_update$id
+    i <- d$id == input$plan_update$event$id
     for (k in intersect(names(input$plan_update$changes), names(d))) {
       value <- input$plan_update$changes[[k]]
       d[[k]][i] <- if (is.null(value)) NA else value
     }
     events(d)
-    update_el_calendar(session, "plan", replace = d[i, ])
   })
   observeEvent(input$plan_delete, {
     events(events()[events()$id != input$plan_delete$id, ])
-    update_el_calendar(session, "plan", delete = input$plan_delete$id)
   })
 }
 

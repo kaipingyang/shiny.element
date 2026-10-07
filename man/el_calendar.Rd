@@ -97,11 +97,14 @@ any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
 
 \item{events}{The events to show: a data.frame, or a list of rows, with
-\code{date} (a Date or \code{"YYYY-MM-DD"}) and \code{title}; optionally \code{end}, the
-last day of an event spanning several, \code{type}, Element's tag type
-(\code{"primary"}, \code{"success"}, \code{"info"}, \code{"warning"}, \code{"danger"}), and \code{id}
-(the row's number when absent). Any other column travels with the
-event and comes back in the inputs. A day cell of your own
+\code{start}, the day (a Date, a date-time or \code{"YYYY-MM-DD"}); optionally
+\code{end}, the last day of an event spanning several, \code{title}, \code{body} (shown
+on hover), \code{id} (the row's number when absent) -- toastui's names --
+and, from Element's tag, \code{type} (\code{"primary"}, \code{"success"}, \code{"info"},
+\code{"warning"}, \code{"danger"}) and \code{color}, a background colour of your own.
+Any other column travels with the event and comes back in the inputs.
+In a Shiny app whose events come from the server, render the calendar
+as an output: \code{\link[=el_calendar_output]{el_calendar_output()}}. A day cell of your own
 (\code{slots = list(dateCell = ...)}) replaces the one that draws them; call
 \code{eventsOn(data.day)} in it for the day's events.}
 
@@ -110,7 +113,7 @@ day to add one, click an event to edit or delete it in a dialog, drag
 it to another day to move it (a span keeps its length).}
 
 \item{event_labels}{The dialog's words, to change any of: a named list of
-\code{add}, \code{edit} (its titles), \code{title}, \code{date}, \code{end}, \code{type} (its fields),
+\code{add}, \code{edit} (its titles), \code{title}, \code{start}, \code{end}, \code{type} (its fields),
 \code{save}, \code{delete}, \code{cancel} (its buttons) -- \code{list(add = "新建日程", save = "保存")}.}
 
 \item{insert}{Events to add, each with its \code{id}.}
@@ -142,8 +145,8 @@ calendar applies the user's changes itself.
    \verb{input$<id>} \tab on load and when a day is picked \tab the day, \code{"YYYY-MM-DD"} \cr
    \verb{input$<id>_dates} \tab on load and when another month is shown \tab \code{list(current, start, end)}, Dates: the day the calendar is on and the first and last days drawn \cr
    \verb{input$<id>_click} \tab an event is clicked \tab the event, a list with its dates as Dates \cr
-   \verb{input$<id>_add} \tab the user saves a new event (\code{editable}) \tab the event asked for, without an \code{id}: \code{list(date, end, title, type)} \cr
-   \verb{input$<id>_update} \tab the user saves an edit or drops an event on another day \tab \code{list(id, changes, event)}: what changed, and the event as it would be \cr
+   \verb{input$<id>_add} \tab the user saves a new event (\code{editable}) \tab the event asked for, without an \code{id}: \code{list(start, end, title, type)} \cr
+   \verb{input$<id>_update} \tab the user saves an edit or drops an event on another day \tab \code{list(event, changes)}: the event as it is, and what to change -- toastui's shape \cr
    \verb{input$<id>_delete} \tab the user deletes an event \tab the event \cr
 }
 
@@ -187,41 +190,42 @@ el_calendar(id = "calendar1", value = Sys.Date())
 # With date range
 el_calendar(id = "calendar2", range = c("2025-01-01", "2025-01-31"))
 
-# A planner: the server keeps the events and answers each request
+# A planner whose events the server keeps, rendered as an output: each
+# request changes them, and the calendar is rendered again -- patched,
+# only the events sent
 if (interactive()) {
   library(shiny)
   library(shiny.element)
-  start <- data.frame(
-    id = 1:2,
-    date = Sys.Date() + c(0, 3),
-    title = c("Standup", "Review"),
-    type = c("primary", "warning")
-  )
-  ui <- el_page(el_calendar("plan", events = start, editable = TRUE))
+  ui <- el_page(el_calendar_output("plan"))
   server <- function(input, output, session) {
-    events <- reactiveVal(start)
+    events <- reactiveVal(data.frame(
+      id = 1:2,
+      start = Sys.Date() + c(0, 3),
+      title = c("Standup", "Review"),
+      type = c("primary", "warning")
+    ))
+    output$plan <- render_el_calendar(
+      el_calendar(events = events(), editable = TRUE)
+    )
     observeEvent(input$plan_add, {
-      new <- data.frame(
+      new <- input$plan_add
+      events(rbind(events(), data.frame(
         id = max(events()$id) + 1L,
-        date = input$plan_add$date,
-        title = input$plan_add$title,
-        type = input$plan_add$type
-      )
-      events(rbind(events(), new))
-      update_el_calendar(session, "plan", insert = new)
+        start = new$start,
+        title = new$title,
+        type = new$type
+      )))
     })
     observeEvent(input$plan_update, {
       d <- events()
-      i <- d$id == input$plan_update$id
+      i <- d$id == input$plan_update$event$id
       for (k in intersect(names(input$plan_update$changes), names(d))) {
         d[[k]][i] <- input$plan_update$changes[[k]]
       }
       events(d)
-      update_el_calendar(session, "plan", replace = d[i, ])
     })
     observeEvent(input$plan_delete, {
       events(events()[events()$id != input$plan_delete$id, ])
-      update_el_calendar(session, "plan", delete = input$plan_delete$id)
     })
   }
   shinyApp(ui, server)

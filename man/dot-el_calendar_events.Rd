@@ -7,12 +7,15 @@
 .el_calendar_events(events, arg = NULL)
 }
 \arguments{
-\item{events}{\code{NULL}, a data.frame or a list of rows, with \code{date} and
-\code{title}; \code{end}, \code{type} and \code{id} optional, any other column kept.}
+\item{events}{\code{NULL}, a data.frame or a list of rows, with \code{start};
+\code{end}, \code{title}, \code{body}, \code{type}, \code{color} and \code{id} optional, any other
+column kept.}
+
+\item{arg}{The update argument the rows came in, which must give ids.}
 }
 \value{
 Rows, each with an \code{id} (the row's number when none is given)
-and dates as \code{"YYYY-MM-DD"}.
+and days as \code{"YYYY-MM-DD"}.
 }
 \description{
 A calendar's events, as rows for the browser

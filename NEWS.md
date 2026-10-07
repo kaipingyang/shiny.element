@@ -347,19 +347,26 @@ so instead of leaving bare text.
 
 ## A calendar of events
 
-`el_calendar(events =)` draws a month planner: each day shows its events
--- `date`, `title`, and optionally `end` for a span, `type` for its colour,
-`id` -- as Element's tags. With `editable = TRUE` the user double-clicks a
-day to add one, clicks one to edit or delete it in Element's dialog, and
-drags it to another day. As toastui's calendar has it, the server owns the
-events: each action arrives as a request -- `input$<id>_add`, `_update`
-(`list(id, changes, event)`, a move or an edit), `_delete` -- with its
-dates as Dates, and the server answers with `update_el_calendar(insert =,
-replace =, delete =)`, by id, or `events =` for all of them. `_click`
-reports a click on an event, `_dates` the days drawn, on load and when
-another month is shown. Without Shiny the calendar applies the changes
-itself. A day cell of one's own can still call `eventsOn(data.day)`. The
-dialog's words are English unless `event_labels` gives others.
+`el_calendar(events =)` draws each day's events as Element's tags: a
+`start` day, optionally an `end` for a span, a `title`, a `body` shown on
+hover, an `id` -- toastui's names -- and Element's tag `type` or a `color`
+of its own; a title left empty draws a block of colour. In an app whose
+events the server reads, the calendar is an output, as toastui's is:
+`el_calendar_output()` and `render_el_calendar()`, rendered again by
+patching -- only the events sent, the month the user went to kept --
+cacheable with `bindCache()`, a promise waited for. `el_calendar_events()`
+reads the events it shows.
+
+With `editable = TRUE` the user double-clicks a day to add an event,
+clicks one to edit or delete it in Element's dialog, and drags it to
+another day. As toastui's calendar, the server owns the events: each
+action arrives as a request -- `input$<id>_add`, `_update` (`list(event,
+changes)`, toastui's shape), `_delete` -- with its days as Dates, and the
+server answers by changing its data or with `update_el_calendar(insert =,
+replace =, delete =)`, by id. `_click` reports a click on an event and
+`_dates` the days drawn. Without Shiny the calendar applies changes
+itself. The dialog's words come from `event_labels`; a day cell of one's
+own can call `eventsOn(data.day)`.
 
 ## Every component is a Shiny input
 

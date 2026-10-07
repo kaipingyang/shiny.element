@@ -389,7 +389,9 @@ for (s in shots) {
     var out = [];
     sel.forEach(function(q){
       document.querySelectorAll(q).forEach(function(e){
-        if (e.innerText.trim() || e.querySelector('i, img, svg, input')) return;
+        // named for screen readers: blank on purpose (a block of colour)
+        if (e.innerText.trim() || e.getAttribute('aria-label') ||
+            e.querySelector('i, img, svg, input')) return;
         if (!e.getBoundingClientRect().width) return;
         // A fixed table column is drawn twice, its copy in the main table
         // kept hidden -- empty to innerText, and not a blank entry

@@ -374,6 +374,35 @@ test_that("a calendar's events are requests the server answers", {
   expect_equal(bdump()[["plan_dates"]], "2026-11-01 2026-12-05")
 })
 
+test_that("a calendar output shows the server's events and reports a click", {
+  skip_if_no_browser()
+  tags <- "String(document.querySelectorAll('#ocal .el-calendar-event').length)"
+  expect_equal(bev(tags), "3")
+  expect_equal(
+    bev("document.querySelector('#ocal [data-shiny-vue]').id"),
+    "ocal-el"
+  )
+  vals <- bdump()
+  expect_equal(vals[["ocal"]], "2026-10-18")
+  expect_equal(vals[["ocal_shown"]], "3")
+  # a colour of its own, a body on hover
+  expect_equal(
+    bev(
+      "document.querySelectorAll('#ocal .el-calendar-event')[0].getAttribute('title')"
+    ),
+    "Raw data"
+  )
+  bev("document.querySelectorAll('#ocal .el-calendar-event')[0].click()")
+  Sys.sleep(1.5)
+  expect_equal(bdump()[["ocal_click"]], "2026-10-11")
+  # rendered again with other events: patched, the day it is on moved
+  bclick("#ocal_fewer", wait = 2)
+  expect_equal(bev(tags), "2")
+  vals <- bdump()
+  expect_equal(vals[["ocal"]], "2026-10-14")
+  expect_equal(vals[["ocal_shown"]], "2")
+})
+
 test_that("a cached table output is patched from the cache", {
   skip_if_no_browser()
   rows <- "String(document.querySelectorAll('#ctbl .el-table__body tr').length)"

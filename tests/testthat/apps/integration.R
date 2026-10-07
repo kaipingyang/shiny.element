@@ -206,13 +206,17 @@ ui <- el_page(
     value = "2026-10-07",
     events = data.frame(
       id = 1:3,
-      date = as.Date("2026-10-05") + c(0, 2, 9),
+      start = as.Date("2026-10-05") + c(0, 2, 9),
       end = as.Date(c(NA, "2026-10-09", NA)),
       title = c("Standup", "Conference", "Review"),
       type = c("primary", "success", "warning")
     ),
     editable = TRUE
   ),
+  # a calendar the server renders from its data, read-only, picked by a
+  # click on an event
+  el_calendar_output("ocal"),
+  actionButton("ocal_fewer", "fewer archive days"),
   # a cached table: renders read back from the cache still patch the page
   el_table_output("ctbl"),
   actionButton("ctbl_four", "four rows"),
@@ -833,7 +837,12 @@ server <- function(input, output, session) {
     }
     cat("ctbl_runs", "=", session$userData$ctbl_runs %||% 0, "\n")
     p <- plan()
-    cat("plan", "=", paste(p$id, format(p$date), p$title, collapse = ";"), "\n")
+    cat(
+      "plan",
+      "=",
+      paste(p$id, format(p$start), p$title, collapse = ";"),
+      "\n"
+    )
     if (!is.null(input$plan_dates)) {
       cat(
         "plan_dates",
@@ -843,6 +852,11 @@ server <- function(input, output, session) {
       )
     }
     cat("plan_click", "=", input$plan_click$title %||% "", "\n")
+    if (!is.null(input$ocal_click)) {
+      cat("ocal_click", "=", format(input$ocal_click$start), "\n")
+    }
+    cat("ocal", "=", input$ocal %||% "", "\n")
+    cat("ocal_shown", "=", NROW(el_calendar_events(id = "ocal")), "\n")
     if (!is.null(input$ctbl_selection_change)) {
       cat(
         "ctbl_picked",
@@ -902,7 +916,7 @@ server <- function(input, output, session) {
   observeEvent(input$otbl_delete, update_el_table(session, "otbl", delete = 1))
   plan <- reactiveVal(data.frame(
     id = 1:3,
-    date = as.Date("2026-10-05") + c(0, 2, 9),
+    start = as.Date("2026-10-05") + c(0, 2, 9),
     end = as.Date(c(NA, "2026-10-09", NA)),
     title = c("Standup", "Conference", "Review"),
     type = c("primary", "success", "warning")
@@ -911,7 +925,7 @@ server <- function(input, output, session) {
     ev <- input$plan_add
     new <- data.frame(
       id = max(plan()$id) + 1L,
-      date = ev$date,
+      start = ev$start,
       end = if (is.null(ev$end)) as.Date(NA) else ev$end,
       title = ev$title,
       type = ev$type
@@ -922,7 +936,7 @@ server <- function(input, output, session) {
   observeEvent(input$plan_update, {
     u <- input$plan_update
     d <- plan()
-    i <- which(d$id == u$id)
+    i <- which(d$id == u$event$id)
     for (k in intersect(names(u$changes), names(d))) {
       d[[k]][i] <- if (is.null(u$changes[[k]])) NA else u$changes[[k]]
     }
@@ -932,6 +946,17 @@ server <- function(input, output, session) {
   observeEvent(input$plan_delete, {
     plan(plan()[plan()$id != input$plan_delete$id, ])
     update_el_calendar(session, "plan", delete = input$plan_delete$id)
+  })
+  ocal_n <- reactiveVal(3)
+  observeEvent(input$ocal_fewer, ocal_n(2))
+  output$ocal <- render_el_calendar({
+    days <- data.frame(
+      start = as.Date("2026-10-20") - c(9, 6, 2),
+      title = c("", "", "Validated"),
+      body = c("Raw data", "Archive", "Validated data"),
+      color = c("lightgrey", "#EED5B7", "#E9C46B")
+    )[seq_len(ocal_n()), ]
+    el_calendar(value = max(days$start), events = days)
   })
   ctbl_n <- reactiveVal(3)
   ctbl_runs <- 0

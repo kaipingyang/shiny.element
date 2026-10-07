@@ -396,10 +396,48 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) {
     expr <- substitute(expr)
   }
+  .el_render_component(
+    expr,
+    env,
+    class = "el_table",
+    what = "render_el_table() renders an el_table().",
+    data_arg = "data",
+    output_fn = el_table_output,
+    label = "render_el_table"
+  )
+}
+
+#' A render function for a component drawn in an output of its own id
+#'
+#' What `render_el_table()` and `render_el_calendar()` share: the component
+#' drawn under the output's id, its data kept on the server for its inputs
+#' and [el_table_data()], only what changed sent after the first render,
+#' a promise waited for, and [shiny::bindCache()] keeping the output as it
+#' stands while each page still gets only what changed for it.
+#'
+#' @param expr The expression, quoted.
+#' @param env Its environment.
+#' @param class The component's class: `"el_table"`.
+#' @param what The error when the expression returns something else.
+#' @param data_arg The argument holding the component's data: `"data"`.
+#' @param output_fn The output function.
+#' @param label The render function's name, for its cache hint.
+#' @return A render function, of class `el_render_output`.
+#' @keywords internal
+.el_render_component <- function(
+  expr,
+  env,
+  class,
+  what,
+  data_arg,
+  output_fn,
+  label
+) {
   func <- shiny::exprToFunction(expr, env, quoted = TRUE)
-  # before the expression: the page's request for the whole table, and an
-  # error -- req() included -- emptying the output, so it is drawn whole next
-  table_func <- function() {
+  # before the expression: the page's request for the whole component, and
+  # an error -- req() included -- emptying the output, so it is drawn whole
+  # next
+  component_func <- function() {
     session <- shiny::getDefaultReactiveDomain()
     name <- shiny::getCurrentOutputInfo(session)$name
     .vue_output_redraw(session, name)
@@ -409,39 +447,35 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
     })
   }
   # createRenderFunction(): a promise -- an ExtendedTask's result, an async
-  # query -- is waited for before the table is drawn
+  # query -- is waited for before the component is drawn
   render <- shiny::createRenderFunction(
-    table_func,
-    function(table, shinysession, name, ...) {
-      if (is.null(table)) {
+    component_func,
+    function(component, shinysession, name, ...) {
+      if (is.null(component)) {
         .vue_output_forget(shinysession, name)
         return(NULL)
       }
-      if (!inherits(table, "el_table")) {
-        stop("render_el_table() renders an el_table().", call. = FALSE)
+      if (!inherits(component, class)) {
+        stop(what, call. = FALSE)
       }
-      table$args$id <- name
-      .el_table_rendered(
-        shinysession,
-        name,
-        table$args$data,
-        table$args$rownames
+      component$args$id <- name
+      kept <- list(
+        data = component$args[[data_arg]],
+        rownames = component$args$rownames
       )
-      tags <- .el_output_host(table, name)
+      .el_table_rendered(shinysession, name, kept$data, kept$rownames)
+      tags <- .el_output_host(component, name)
       value <- .vue_output_value(shinysession, name, tags)
-      # the data, for the table's inputs, kept with the cached whole
-      attr(value, "vue_whole")$table <- list(
-        data = table$args$data,
-        rownames = table$args$rownames
-      )
+      # the data, for the component's inputs, kept with the cached whole
+      attr(value, "vue_whole")$table <- kept
       value
     },
-    el_table_output,
+    output_fn,
     NULL,
     # bindCache() keeps the output as it stands, the same for every
     # session; read from the cache, it is compared with what this session's
     # page last got, as a fresh render is
-    cacheHint = list(label = "render_el_table", userExpr = expr),
+    cacheHint = list(label = label, userExpr = expr),
     cacheWriteHook = function(value) attr(value, "vue_whole"),
     cacheReadHook = function(whole) {
       session <- shiny::getDefaultReactiveDomain()
@@ -459,18 +493,18 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
       .vue_output_send(session, name, whole)
     }
   )
-  class(render) <- c("el_render_table", class(render))
+  class(render) <- c("el_render_output", class(render))
   render
 }
 
-#' Caching a table output
+#' Caching a table or calendar output
 #'
 #' Shiny's caching, plus what a cached render cannot do inside: a cached
-#' render runs isolated, so the page's request for the whole table
+#' render runs isolated, so the page's request for the whole component
 #' (`input$<id>__vue_redraw`) is read here, outside it.
 #' @exportS3Method shiny::bindCache
 #' @noRd
-bindCache.el_render_table <- function(x, ..., cache = "app") {
+bindCache.el_render_output <- function(x, ..., cache = "app") {
   cached <- NextMethod()
   render <- function(...) {
     session <- shiny::getDefaultReactiveDomain()
