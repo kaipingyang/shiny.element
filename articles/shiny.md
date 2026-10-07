@@ -615,16 +615,16 @@ server <- function(input, output, session) {
 }
 ```
 
-[`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
-and
+[`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md),
 [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/reference/render_vue_data.md)
+and
+[`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md)
 can be cached with
 [`bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html), as
-Shiny’s own render functions can. A table output cannot: each render
-sends only what changed since the last one in the session, so cache the
-data it shows in a
-[`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html) upstream
-instead.
+Shiny’s own render functions can. A table output caches the table as
+rendered, the same for every session; read back from the cache, it is
+still compared with what each page has, so the page gets only what
+changed.
 
 ### State shared between components
 

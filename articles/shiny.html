@@ -892,11 +892,12 @@ with the server as its source:</p>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">totals</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_vue_data.html">render_vue_data</a></span><span class="op">(</span><span class="fu">summarise_sales</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><code><a href="../reference/vue_output.html">render_vue()</a></code> and <code><a href="../reference/render_vue_data.html">render_vue_data()</a></code> can be
-cached with <code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">bindCache()</a></code>, as Shiny’s own render functions
-can. A table output cannot: each render sends only what changed since
-the last one in the session, so cache the data it shows in a
-<code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive()</a></code> upstream instead.</p>
+<p><code><a href="../reference/vue_output.html">render_vue()</a></code>, <code><a href="../reference/render_vue_data.html">render_vue_data()</a></code> and
+<code><a href="../reference/el_table_output.html">render_el_table()</a></code> can be cached with
+<code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">bindCache()</a></code>, as Shiny’s own render functions can. A table
+output caches the table as rendered, the same for every session; read
+back from the cache, it is still compared with what each page has, so
+the page gets only what changed.</p>
 </div>
 <div class="section level3">
 <h3 id="state-shared-between-components">State shared between components<a class="anchor" aria-label="anchor" href="#state-shared-between-components"></a>

@@ -117,7 +117,10 @@ first render sends markup; later renders with the same template and
 options send only the changed data fields as JSON
 ([`.vue_output_value()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_output_value.md),
 `applyPatch()` in shiny-vue.js), and a page that cannot apply a patch
-asks for the markup with `input$<id>__vue_redraw`.
+asks for the markup with `input$<id>__vue_redraw`. Under `bindCache()`
+the cache keeps the whole output (`.vue_output_whole()`, the same for
+every session, via `cacheWriteHook`) and `cacheReadHook` compares it
+with what the session’s page has (`.vue_output_send()`).
 `el_table_output(loading = TRUE)` shows Element’s mask while Shiny
 recalculates. The data the table shows is kept per session
 (`.el_tables()`, a `reactiveValues()`, read by

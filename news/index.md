@@ -111,13 +111,13 @@ as a Shiny input.
   `$recalculating.<id>` tells the template while it runs. One output can
   feed several components, or a
   [`vue_store()`](https://kaipingyang.github.io/shiny.element/reference/vue_store.md)
-  they share. It and
+  they share. It,
   [`render_vue()`](https://kaipingyang.github.io/shiny.element/reference/vue_output.md)
+  and
+  [`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md)
   can be cached with
-  [`bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html);
-  [`render_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table_output.md),
-  which sends only what changed since its last render, refuses to be and
-  says to cache the data upstream.
+  [`bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html); a
+  cached table output still sends each page only what changed for it.
 - [`vue_component()`](https://kaipingyang.github.io/shiny.element/reference/vue_component.md)
   – a child component for `components =`, under its name as written or
   in kebab-case (`todo_item` is `<todo-item>`); the dependencies its

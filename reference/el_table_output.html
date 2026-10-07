@@ -215,10 +215,9 @@ events with <code>el_table(events =)</code> or <code><a href="el_on.html">el_on(
 <code><a href="el_table_data.html">el_table_data()</a></code> reads the data it shows.</p>
 <p>The first render sends the table; a render after it whose columns,
 templates and options are unchanged sends only the data that changed, as
-JSON – as Shiny's own outputs send values rather than markup. Because a
-render depends on the last one in the session, <code>render_el_table()</code> is not
-cached with <code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">shiny::bindCache()</a></code> (as DT's server-side table is not); cache
-the data it shows instead, in a <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> upstream.</p>
+JSON – as Shiny's own outputs send values rather than markup. With
+<code><a href="https://rdrr.io/pkg/shiny/man/bindCache.html" class="external-link">shiny::bindCache()</a></code> the table as rendered is cached, the same for every
+session, and each session's page still gets only what changed for it.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

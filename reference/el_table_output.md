@@ -70,13 +70,10 @@ reads the data it shows.
 
 The first render sends the table; a render after it whose columns,
 templates and options are unchanged sends only the data that changed, as
-JSON – as Shiny's own outputs send values rather than markup. Because a
-render depends on the last one in the session, `render_el_table()` is
-not cached with
-[`shiny::bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html) (as
-DT's server-side table is not); cache the data it shows instead, in a
-[`shiny::reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html)
-upstream.
+JSON – as Shiny's own outputs send values rather than markup. With
+[`shiny::bindCache()`](https://rdrr.io/pkg/shiny/man/bindCache.html) the
+table as rendered is cached, the same for every session, and each
+session's page still gets only what changed for it.
 
 ## See also
 
