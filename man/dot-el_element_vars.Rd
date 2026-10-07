@@ -14,7 +14,7 @@ A named character vector, names without the \verb{--el-} prefix.
 }
 \description{
 From a \code{\link[bslib:bs_theme]{bslib::bs_theme()}}: its \code{primary}, \code{success}, \code{warning}, \code{danger}
-and \code{info} where they differ from Element's, and whatever was given to
+and \code{info}, which follow Bootstrap's CSS variables, and whatever was given to
 \code{\link[=el_theme]{el_theme()}}'s \code{element}. A plain named list is taken as Element
 variables directly.
 }

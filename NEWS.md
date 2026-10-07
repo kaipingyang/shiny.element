@@ -73,14 +73,17 @@ Shiny input.
   field that is `input$<id>`; several for one value) and `use` (Vue's
   `app.use()`, any plugin with its options). `$emit()` of an event in
   `emits` arrives as `input$<id>_<event>`, several arguments as a list.
-* `render_vue_data()` -- an output that sends a value, not markup, after
-  shinyreact's `reactive_output()`: a component's field follows it
-  (`vue_app(outputs = c(stats = "stats"))`, `vue_store(outputs =)`). It
-  waits while its component is hidden, as outputs do, and
+* `render_vue_data()` -- an output that sends a component's data, not
+  markup, after shinyreact's `reactive_output()`: the server renders fields
+  by name, `list(mean = 1, sd = 2)`, and the components following the
+  output (`vue_app(outputs = "stats")`, `vue_store(outputs =)`) set them,
+  as `update_vue()` would -- fields declared in `data`, as Vue tracks no
+  others. It waits while its component is hidden, as outputs do, and
   `$recalculating.<id>` tells the template while it runs. One output can
   feed several components, or a `vue_store()` they share. It,
-  `render_vue()` and `render_el_table()` can be cached with `bindCache()`;
-  a cached table output still sends each page only what changed for it.
+  `render_vue()` and `render_el_table()` can be cached with `bindCache()`
+  and wait for a promise (an `ExtendedTask`'s result); a cached table
+  output still sends each page only what changed for it.
 * `vue_component()` -- a child component for `components =`, under its name
   as written or in kebab-case (`todo_item` is `<todo-item>`); the
   dependencies its template carries come with it.
@@ -363,6 +366,18 @@ was an input.)
 Shiny integration article shows, needs no JavaScript.
 
 ## Shiny conventions
+
+* **shinyjs.** `hidden()` and `disabled()` wrap a component in the UI,
+  and `click()` clicks the button or link inside it, besides `hide()`,
+  `show()`, `toggle()`, `enable()`, `disable()`, `reset()`, `onclick()`.
+* **Themes while the app runs.** Element's brand colours follow
+  Bootstrap's CSS variables, so `session$setCurrentTheme()` and
+  `bs_themer()` recolour Element's components; the tints are mixed in the
+  browser, as Sass's `mix()`.
+* **Busy indicators.** Under `useBusyIndicators()` a table output keeps
+  Element's loading mask in place of Shiny's spinner.
+* **Screen readers.** A component an update changes is marked
+  `aria-live`, as Shiny marks an input `update*Input()` changes.
 
 * **Bookmarking.** Every component's value goes through
   `shiny::restoreInput()`, so a bookmarked page reopens as it was left --

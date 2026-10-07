@@ -52,7 +52,7 @@ NULL
 #' The Element variables a theme sets
 #'
 #' From a [bslib::bs_theme()]: its `primary`, `success`, `warning`, `danger`
-#' and `info` where they differ from Element's, and whatever was given to
+#' and `info`, which follow Bootstrap's CSS variables, and whatever was given to
 #' [el_theme()]'s `element`. A plain named list is taken as Element
 #' variables directly.
 #'
@@ -67,16 +67,24 @@ NULL
   if (inherits(theme, "bs_theme")) {
     bs <- unlist(bslib::bs_get_variables(theme, names(.el_default_colors)))
     bs <- bs[!is.na(bs) & nzchar(bs)]
+    # Every brand colour is taken, even one equal to Element's: it is
+    # linked to Bootstrap's CSS variable below, so a theme changed while the
+    # app runs reaches it -- el_theme() gives Bootstrap Element's colours,
+    # so the page looks the same until then
     for (n in names(bs)) {
       hex <- tryCatch(.el_hex(bs[[n]]), error = function(e) NA)
-      if (!is.na(hex) && tolower(hex) != .el_default_colors[[n]]) {
-        vars[[paste0("color-", n)]] <- hex
+      if (!is.na(hex)) {
+        vars[[paste0("color-", n)]] <- tolower(hex)
       }
     }
     extra <- attr(theme, "el_element")
   } else {
     extra <- theme
   }
+  # colours taken from Bootstrap's: these follow its CSS variables, so a
+  # theme changed while the app runs (session$setCurrentTheme(),
+  # bs_themer()) reaches Element too
+  from_bs <- names(vars)
   if (length(extra)) {
     extra <- unlist(extra)
     if (is.null(names(extra)) || any(!nzchar(names(extra)))) {
@@ -96,7 +104,9 @@ NULL
       )
     }
     vars[names(extra)] <- as.character(extra)
+    from_bs <- setdiff(from_bs, names(extra))
   }
+  attr(vars, "from_bs") <- from_bs
   vars
 }
 
@@ -126,10 +136,24 @@ NULL
 #' Element Plus's variables, set for a theme
 #'
 #' @param vars Output of [.el_element_vars()].
+#' @param live Whether the theme is the page's Bootstrap theme: its colours
+#'   then follow Bootstrap's CSS variables, live; otherwise they are written
+#'   out, and only those that differ from Element's.
 #' @return An htmlDependency holding the `<style>`, or `NULL` when nothing
 #'   changes.
 #' @keywords internal
-.el_themed_dependency <- function(vars) {
+.el_themed_dependency <- function(vars, live = FALSE) {
+  from_bs <- attr(vars, "from_bs")
+  if (!isTRUE(live) && length(from_bs)) {
+    # a theme that is not the page's: as Element ships, but for what it
+    # changes
+    keep <- !names(vars) %in% from_bs |
+      tolower(vars) != .el_default_colors[sub("^color-", "", names(vars))]
+    keep[is.na(keep)] <- TRUE
+    from_bs <- intersect(from_bs, names(vars)[keep])
+    vars <- vars[keep]
+    attr(vars, "from_bs") <- if (isTRUE(live)) from_bs else character()
+  }
   if (!length(vars)) {
     return(NULL)
   }
@@ -137,9 +161,36 @@ NULL
     "^color-(primary|success|warning|danger|error|info)$",
     names(vars)
   )
+  # A colour Bootstrap's theme gave follows Bootstrap's CSS variable, and
+  # its tints are mixed in the browser (color-mix(), as Sass's mix());
+  # one given to Element alone is written out, its tints mixed here
+  live <- isTRUE(live) & names(vars) %in% attr(vars, "from_bs")
+  bs_name <- function(name) {
+    sub("^color-", "", sub("^color-error$", "color-danger", name))
+  }
+  tint <- function(name, value, is_live, with, weight) {
+    if (is_live) {
+      sprintf(
+        "color-mix(in srgb, var(--el-%s) %d%%, %s)",
+        name,
+        round((1 - weight) * 100),
+        with
+      )
+    } else {
+      .el_mix(value, with, weight)
+    }
+  }
   light <- unlist(Map(
-    function(name, value, is_brand) {
-      out <- sprintf("--el-%s: %s;", name, value)
+    function(name, value, is_brand, is_live) {
+      out <- sprintf(
+        "--el-%s: %s;",
+        name,
+        if (is_live) {
+          sprintf("var(--bs-%s, %s)", bs_name(name), value)
+        } else {
+          value
+        }
+      )
       if (is_brand) {
         for (l in c(3, 5, 7, 8, 9)) {
           out <- c(
@@ -148,24 +199,29 @@ NULL
               "--el-%s-light-%d: %s;",
               name,
               l,
-              .el_mix(value, "#ffffff", l / 10)
+              tint(name, value, is_live, "#ffffff", l / 10)
             )
           )
         }
         out <- c(
           out,
-          sprintf("--el-%s-dark-2: %s;", name, .el_mix(value, "#000000", 0.2))
+          sprintf(
+            "--el-%s-dark-2: %s;",
+            name,
+            tint(name, value, is_live, "#000000", 0.2)
+          )
         )
       }
       out
     },
     names(vars),
     unname(vars),
-    brand
+    brand,
+    live
   ))
   # Element Plus's dark mode mixes the tints against its dark background
   dark <- unlist(Map(
-    function(name, value) {
+    function(name, value, is_live) {
       c(
         vapply(
           c(3, 5, 7, 8, 9),
@@ -174,16 +230,21 @@ NULL
               "--el-%s-light-%d: %s;",
               name,
               l,
-              .el_mix(value, "#141414", l / 10)
+              tint(name, value, is_live, "#141414", l / 10)
             )
           },
           ""
         ),
-        sprintf("--el-%s-dark-2: %s;", name, .el_mix(value, "#ffffff", 0.2))
+        sprintf(
+          "--el-%s-dark-2: %s;",
+          name,
+          tint(name, value, is_live, "#ffffff", 0.2)
+        )
       )
     },
     names(vars)[brand],
-    unname(vars)[brand]
+    unname(vars)[brand],
+    live[brand]
   ))
   css <- paste0(
     ":root {",
@@ -199,4 +260,30 @@ NULL
     head = paste0("<style>", css, "</style>"),
     all_files = FALSE
   )
+}
+
+#' Element's variables for a theme, decided when the page is drawn
+#'
+#' When `theme` is the page's own Bootstrap theme -- [el_page()] gives it to
+#' the page, a bslib page function was given the same one -- Element's
+#' colours follow Bootstrap's CSS variables, so a theme changed while the
+#' app runs reaches them. Any other theme, or one drawn outside a page that
+#' has it, is written out as it stands.
+#'
+#' @param theme A theme, or `NULL`.
+#' @return A tag function giving the dependency, or `NULL`.
+#' @keywords internal
+.el_theme_tag <- function(theme) {
+  if (is.null(theme)) {
+    return(NULL)
+  }
+  # read once, now: reading a theme's variables compiles its Sass
+  vars <- .el_element_vars(theme)
+  htmltools::tagFunction(function() {
+    current <- tryCatch(shiny::getCurrentTheme(), error = function(e) NULL)
+    .el_themed_dependency(
+      vars,
+      live = !is.null(current) && identical(current, theme)
+    )
+  })
 }

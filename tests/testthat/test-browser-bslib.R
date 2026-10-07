@@ -151,6 +151,28 @@ test_that("components work inside bslib and Shiny containers", {
   expect_equal(value("rs_sel"), sel_before)
   expect_equal(value("rs_txt"), '"orig"')
 
+  # shinyjs::hidden() and disabled() wrap a component in the UI; click()
+  # reaches the button inside it
+  expect_equal(size("#sj_hid .el-input"), "0x0")
+  step("do_show_hid")
+  expect_false(size("#sj_hid .el-input") == "0x0")
+  expect_true(js(
+    "document.querySelector('#sj_dis .el-input').classList.contains('is-disabled')"
+  ))
+  clicks <- "(function() { var v = Shiny.shinyapp.$inputValues;
+    var k = Object.keys(v).filter(function(k) { return k.split(':')[0] === 'sj_btn'; })[0];
+    return String(v[k]); })()"
+  expect_equal(js(clicks), "0")
+  step("do_click")
+  expect_equal(js(clicks), "1")
+
+  # session$setCurrentTheme(): Element's colours follow the new theme
+  primary <- "getComputedStyle(document.documentElement).getPropertyValue('--el-color-primary').trim().toLowerCase()"
+  expect_equal(js(primary), "#409eff")
+  step("do_theme")
+  Sys.sleep(4)
+  expect_equal(js(primary), "#198754")
+
   # bslib's tooltip and popover: the host is their trigger, and has a box
   hover <- function(sel) {
     r <- jsonlite::fromJSON(js(sprintf(

@@ -67,10 +67,21 @@ ui <- page_sidebar(
       multiple = TRUE
     ),
     textInput("rs_txt", "text", "orig")
-  )
+  ),
+  # shinyjs's UI wrappers and click() on components
+  shinyjs::hidden(el_input("sj_hid", value = "hidden")),
+  shinyjs::disabled(el_input("sj_dis", value = "disabled")),
+  el_button("sj_btn", "clicked by shinyjs")
 )
 
 server <- function(input, output, session) {
+  observeEvent(input$do_click, shinyjs::click("sj_btn"))
+  observeEvent(input$do_show_hid, shinyjs::show("sj_hid"))
+  # a theme changed while the app runs: Element's colours follow Bootstrap's
+  observeEvent(
+    input$do_theme,
+    session$setCurrentTheme(el_theme(primary = "#198754"))
+  )
   observeEvent(input$modal, {
     showModal(modalDialog(
       el_select("md_sel", choices = c("x", "y"), value = "x"),

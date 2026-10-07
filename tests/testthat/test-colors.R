@@ -29,17 +29,85 @@ test_that("a colour's tints are Sass's mix(), as Element Plus computes them", {
   }
 })
 
-test_that("Element's own theme sets nothing", {
-  expect_length(.el_element_vars(el_theme()), 0)
+test_that("Element's own theme sets nothing, unless it is the page's", {
+  # drawn outside a running app the theme is written out: as Element ships
   expect_null(theme_css(el_page()))
+  expect_null(theme_css(htmltools::tagList(use_element())))
+  # as the page's theme, every brand colour is linked to Bootstrap's -- the
+  # same colours, as el_theme() gives Bootstrap Element's, until the theme
+  # changes while the app runs
+  live <- .el_themed_dependency(.el_element_vars(el_theme()), live = TRUE)$head
+  expect_match(live, "var(--bs-primary, #409eff)", fixed = TRUE)
+  expect_match(live, "var(--bs-danger, #f56c6c)", fixed = TRUE)
 })
 
 test_that("a brand colour sets the variable and its tints, light and dark", {
+  # written out, as Sass's mix() computes the tints
   css <- theme_css(el_page(theme = el_theme(primary = "#7c3aed")))
   expect_match(css, "--el-color-primary: #7c3aed;", fixed = TRUE)
-  expect_match(css, "--el-color-primary-light-9:", fixed = TRUE)
-  expect_match(css, "--el-color-primary-dark-2:", fixed = TRUE)
+  expect_match(
+    css,
+    paste0(
+      "--el-color-primary-light-9: ",
+      .el_mix("#7c3aed", "#ffffff", 0.9),
+      ";"
+    ),
+    fixed = TRUE
+  )
   expect_match(css, "html.dark {", fixed = TRUE)
+  # the page's theme, followed live: the tints are mixed in the browser
+  live <- .el_themed_dependency(
+    .el_element_vars(el_theme(primary = "#7c3aed")),
+    live = TRUE
+  )$head
+  expect_match(
+    live,
+    "--el-color-primary: var(--bs-primary, #7c3aed);",
+    fixed = TRUE
+  )
+  expect_match(
+    live,
+    "--el-color-primary-light-9: color-mix(in srgb, var(--el-color-primary) 10%, #ffffff);",
+    fixed = TRUE
+  )
+  expect_match(
+    live,
+    "--el-color-primary-dark-2: color-mix(in srgb, var(--el-color-primary) 80%, #000000);",
+    fixed = TRUE
+  )
+  expect_match(
+    live,
+    "--el-color-primary-light-3: color-mix(in srgb, var(--el-color-primary) 70%, #141414);",
+    fixed = TRUE
+  )
+})
+
+test_that("the theme is followed live only when it is the page's", {
+  theme <- el_theme(primary = "#7c3aed")
+  shiny::shinyOptions(bootstrapTheme = theme)
+  on.exit(shiny::shinyOptions(bootstrapTheme = NULL))
+  ours <- htmltools::renderTags(.el_theme_tag(theme))$dependencies
+  expect_match(ours[[1]]$head, "var(--bs-primary, #7c3aed)", fixed = TRUE)
+  other <- htmltools::renderTags(
+    .el_theme_tag(el_theme(primary = "#0f766e"))
+  )$dependencies
+  expect_match(other[[1]]$head, "--el-color-primary: #0f766e;", fixed = TRUE)
+})
+
+test_that("a colour given to Element alone is written out, its tints mixed in R", {
+  css <- theme_css(el_page(
+    theme = el_theme(element = list("color-primary" = "#7c3aed"))
+  ))
+  expect_match(css, "--el-color-primary: #7c3aed;", fixed = TRUE)
+  expect_match(
+    css,
+    paste0(
+      "--el-color-primary-light-3: ",
+      .el_mix("#7c3aed", "#ffffff", 0.3),
+      ";"
+    ),
+    fixed = TRUE
+  )
 })
 
 test_that("any other Element Plus variable is set as given", {

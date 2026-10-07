@@ -269,10 +269,6 @@ el_page <- function(
     .el_config_dependency(size, z_index),
     # The theme's colours, and any Element variable it sets, on Element's own
     # components too: Element's stylesheet built for the theme
-    Filter(
-      Negate(is.null),
-      list(.el_themed_dependency(.el_element_vars(theme)))
-    ),
     list(el_feedback_dependency())
   )
   if (!is.null(theme_css) && !inherits(theme_css, "html_dependency")) {
@@ -289,13 +285,19 @@ el_page <- function(
   # Given to fluidPage() rather than attached as dependencies, so that Shiny
   # knows the page's theme -- bslib::bs_themer() and session$setCurrentTheme()
   # work on it.
-  shiny::fluidPage(
+  page <- shiny::fluidPage(
     theme = theme,
     if (!is.null(title)) shiny::titlePanel(title),
     htmltools::attachDependencies(
       htmltools::tags$head(),
       deps
     ),
+    # Element's colours: the page's theme, so they follow it live
+    .el_theme_tag(theme),
     ...
   )
+  # the theme it was given, for a page drawn inside another (the site's
+  # screenshots) to take on
+  attr(page, "el_page_theme") <- theme
+  page
 }

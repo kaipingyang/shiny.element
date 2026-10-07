@@ -336,7 +336,8 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' @param outputId The output's id.
 #' @param width The table's width, as a CSS unit.
 #' @param loading Whether Element's loading mask covers the table while
-#'   Shiny recalculates it, in place of Shiny fading the output.
+#'   Shiny recalculates it, in place of Shiny fading the output -- and of
+#'   the spinner [shiny::useBusyIndicators()] would draw over it.
 #' @param expr An expression returning [el_table()], given no `id`.
 #' @param env,quoted As for [shiny::renderUI()].
 #' @return `el_table_output()`, a tag; `render_el_table()`, a render
@@ -368,7 +369,24 @@ el_table_output <- function(outputId, width = "100%", loading = TRUE) {
       style = if (length(style)) paste(style, collapse = "; "),
       `data-shiny-vue-loading` = if (isTRUE(loading)) NA
     ),
-    .el_vue_dependencies()
+    c(.el_vue_dependencies(), list(.el_output_css()))
+  )
+}
+
+#' An output that shows Element's mask while it recalculates draws no
+#' spinner of Shiny's over it (useBusyIndicators())
+#' @noRd
+.el_output_css <- function() {
+  htmltools::htmlDependency(
+    name = "shiny-element-output",
+    version = as.character(utils::packageVersion("shiny.element")),
+    src = system.file("js", package = "shiny.element"),
+    head = paste0(
+      "<style>[data-shiny-busy-spinners] ",
+      ".shiny-vue-output[data-shiny-vue-loading].recalculating::after ",
+      "{display: none;}</style>"
+    ),
+    all_files = FALSE
   )
 }
 
@@ -379,16 +397,22 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
     expr <- substitute(expr)
   }
   func <- shiny::exprToFunction(expr, env, quoted = TRUE)
-  render <- shiny::markRenderFunction(
-    el_table_output,
-    function(shinysession, name, ...) {
-      # the browser asks for the whole table when it cannot apply a patch
-      .vue_output_redraw(shinysession, name)
-      table <- tryCatch(func(), error = function(e) {
-        # an error, req() included, empties the output: draw it whole next
-        .vue_output_forget(shinysession, name)
-        stop(e)
-      })
+  # before the expression: the page's request for the whole table, and an
+  # error -- req() included -- emptying the output, so it is drawn whole next
+  table_func <- function() {
+    session <- shiny::getDefaultReactiveDomain()
+    name <- shiny::getCurrentOutputInfo(session)$name
+    .vue_output_redraw(session, name)
+    tryCatch(func(), error = function(e) {
+      .vue_output_forget(session, name)
+      stop(e)
+    })
+  }
+  # createRenderFunction(): a promise -- an ExtendedTask's result, an async
+  # query -- is waited for before the table is drawn
+  render <- shiny::createRenderFunction(
+    table_func,
+    function(table, shinysession, name, ...) {
       if (is.null(table)) {
         .vue_output_forget(shinysession, name)
         return(NULL)
@@ -412,6 +436,8 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
       )
       value
     },
+    el_table_output,
+    NULL,
     # bindCache() keeps the output as it stands, the same for every
     # session; read from the cache, it is compared with what this session's
     # page last got, as a fresh render is

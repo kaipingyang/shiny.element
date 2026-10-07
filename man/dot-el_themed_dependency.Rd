@@ -4,10 +4,14 @@
 \alias{.el_themed_dependency}
 \title{Element Plus's variables, set for a theme}
 \usage{
-.el_themed_dependency(vars)
+.el_themed_dependency(vars, live = FALSE)
 }
 \arguments{
 \item{vars}{Output of \code{\link[=.el_element_vars]{.el_element_vars()}}.}
+
+\item{live}{Whether the theme is the page's Bootstrap theme: its colours
+then follow Bootstrap's CSS variables, live; otherwise they are written
+out, and only those that differ from Element's.}
 }
 \value{
 An htmlDependency holding the \verb{<style>}, or \code{NULL} when nothing

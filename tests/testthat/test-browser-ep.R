@@ -193,11 +193,12 @@ test_that("the Vue 3 / Element Plus bridge keeps the Shiny contract", {
   Sys.sleep(1.5)
   expect_equal(vals()[["drw"]], "FALSE")
 
-  # ── theme: CSS variables, tints included; dark mode is Element's own
+  # ── theme: CSS variables, tints included; dark mode is Element's own.
+  # The colour is Bootstrap's variable, which Bootstrap writes in capitals
   expect_equal(
-    trimws(js(
+    tolower(trimws(js(
       "getComputedStyle(document.documentElement).getPropertyValue('--el-color-primary')"
-    )),
+    ))),
     "#7c3aed"
   )
   expect_equal(

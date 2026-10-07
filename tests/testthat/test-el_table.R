@@ -914,3 +914,29 @@ test_that("a cached table output still sends each page only what changed", {
     "shiny.render.function"
   )
 })
+
+test_that("render_el_table() waits for a promise", {
+  skip_if_not_installed("promises")
+  shiny::testServer(
+    function(input, output, session) {
+      output$tbl <- render_el_table(
+        promises::promise_resolve(el_table(data = head(mtcars[, 1:2], 2)))
+      )
+    },
+    {
+      expect_named(output$tbl, c("html", "deps"))
+      expect_equal(nrow(.el_table_data(session, "tbl")), 2)
+    }
+  )
+})
+
+test_that("a masked table output draws no busy spinner of Shiny's", {
+  deps <- htmltools::findDependencies(el_table_output("tbl"))
+  css <- Filter(function(d) d$name == "shiny-element-output", deps)
+  expect_length(css, 1)
+  expect_match(
+    css[[1]]$head,
+    "[data-shiny-busy-spinners] .shiny-vue-output[data-shiny-vue-loading].recalculating::after",
+    fixed = TRUE
+  )
+})

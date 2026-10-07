@@ -177,7 +177,11 @@ writeLines(
     "  content <- lapply(b$ui, function(u) if (is.function(u)) u(req) else u)",
     # chromote's capture at scale 2 resizes the page under a floating card,
     # and a tour's card, sized by its content, collapses to one letter wide
-    "  el_page(tags$style('.el-tour__content { width: var(--el-tour-width) !important; max-width: none !important; }'),",
+    # an example that is a page with its own theme: the frame takes it on,
+    # as the page's Bootstrap is the frame's
+    "  themes <- Filter(Negate(is.null), lapply(b$ui, attr, 'el_page_theme'))",
+    "  el_page(theme = if (length(themes)) themes[[1]] else el_theme(),",
+    "    tags$style('.el-tour__content { width: var(--el-tour-width) !important; max-width: none !important; }'),",
     "    tags$div(id = 'shot',",
     "    style = 'padding:24px; max-width:860px; display:flow-root', content))",
     "}",

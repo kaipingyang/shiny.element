@@ -52,10 +52,6 @@ use_element <- function(
     .el_vue_dependencies(),
     el_locale_dependency(locale),
     .el_config_dependency(size, z_index),
-    Filter(
-      Negate(is.null),
-      list(.el_themed_dependency(.el_element_vars(theme)))
-    ),
     list(el_feedback_dependency())
   )
 
@@ -63,7 +59,8 @@ use_element <- function(
     deps <- c(deps, list(layout_css))
   }
 
-  htmltools::tagList(deps)
+  # the theme's variables, decided when the page is drawn
+  htmltools::tagList(deps, .el_theme_tag(theme))
 }
 
 #' Element Plus Locale Dependency

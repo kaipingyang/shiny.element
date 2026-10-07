@@ -15,7 +15,8 @@ render_el_table(expr, env = parent.frame(), quoted = FALSE)
 \item{width}{The table's width, as a CSS unit.}
 
 \item{loading}{Whether Element's loading mask covers the table while
-Shiny recalculates it, in place of Shiny fading the output.}
+Shiny recalculates it, in place of Shiny fading the output -- and of
+the spinner \code{\link[shiny:useBusyIndicators]{shiny::useBusyIndicators()}} would draw over it.}
 
 \item{expr}{An expression returning \code{\link[=el_table]{el_table()}}, given no \code{id}.}
 

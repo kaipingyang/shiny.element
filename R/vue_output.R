@@ -238,38 +238,41 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 #' Data for a component, from the server
 #'
-#' An output that sends a value rather than markup: a field of the
-#' component's `data` follows it -- "data" as Vue calls a component's state,
-#' whatever the value is: a number, a string, a list, a data.frame's rows, a
-#' function. The component names the output in its `outputs`
-#' (`vue_app(outputs = c(stats = "stats"))`); the server renders the value,
-#' which arrives as JSON and is assigned to the field -- the template
-#' redraws what depends on it, and nothing else is touched. As shinyreact's
-#' `reactive_output()` does for React.
+#' An output that sends a component's `data` -- some of its fields, by name
+#' -- rather than markup: the server renders `list(mean = 1, sd = 2)` and the
+#' fields `mean` and `sd` of every component following the output take those
+#' values; the template redraws what depends on them, and nothing else is
+#' touched. It is the declarative twin of [update_vue()], with the same
+#' rule: a field must be declared in the component's `data` (or returned by
+#' `setup()`), as Vue tracks only the fields a component starts with; one it
+#' does not have is left alone, with a warning in the browser's console.
+#' Fields not in a render keep their values.
 #'
-#' It is an output like any other: rendered again when what it reads
-#' changes, held back while its component is hidden, an error shown as
-#' Shiny shows one. While it recalculates, `$recalculating.<id>` is `true`
-#' in the component's templates.
+#' The component names the output in its `outputs` (`vue_app(outputs =
+#' "stats")`, inside a module `ns("stats")`). It is an output like any
+#' other: rendered again when what it reads changes, held back while its
+#' component is hidden, an error shown as Shiny shows one, a promise -- an
+#' `ExtendedTask`'s result -- waited for. While it recalculates,
+#' `$recalculating.<id>` is `true` in the component's templates. It can be
+#' cached with [shiny::bindCache()].
 #'
 #' Values travel as [vue_app()]'s `data` does: a list an object, a
 #' data.frame its rows, [JS()] a function; `I()` keeps a vector of one an
 #' array.
 #'
-#' Where [render_vue()] draws a component the server writes, this fills a
-#' component the UI writes: the template stays where it is, the value comes
-#' from the server. One output can feed several components' fields, or a
-#' [vue_store()] they all read -- shared state, as Vue's guide recommends,
-#' with the server as its source. It can be cached with
-#' [shiny::bindCache()].
+#' Where [render_vue()] draws a component the server writes, this fills one
+#' the UI writes: the template stays where it is, the data comes from the
+#' server. One output can feed several components, or a [vue_store()] they
+#' all read -- shared state, as Vue's guide recommends, with the server as
+#' its source. As shinyreact's `reactive_output()` does for React.
 #'
-#' @param expr An expression returning the value.
+#' @param expr An expression returning the fields: a named list.
 #' @param env,quoted As for [shiny::renderText()].
 #' @param outputId The output's id. Only needed to place the output by
 #'   hand: a component listing it in `outputs` places it itself.
 #' @return `render_vue_data()`, a render function; `vue_data_output()`, a
 #'   tag.
-#' @seealso [vue_app()], [vue_store()].
+#' @seealso [vue_app()], [vue_store()], [update_vue()].
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
@@ -279,9 +282,9 @@ render_vue <- function(expr, env = parent.frame(), quoted = FALSE) {
 #'       "summary",
 #'       template = htmltools::tags$p(
 #'         `:style` = "{opacity: $recalculating.stats ? 0.5 : 1}",
-#'         "Mean {{ stats.mean }}, sd {{ stats.sd }}"
+#'         "Mean {{ mean }}, sd {{ sd }}"
 #'       ),
-#'       data = list(stats = list(mean = NA, sd = NA)),
+#'       data = list(mean = NA, sd = NA),
 #'       outputs = "stats"
 #'     )
 #'   )
@@ -299,13 +302,30 @@ render_vue_data <- function(expr, env = parent.frame(), quoted = FALSE) {
     expr <- substitute(expr)
   }
   func <- shiny::exprToFunction(expr, env, quoted = TRUE)
-  shiny::markRenderFunction(
-    vue_data_output,
-    function(shinysession, name, ...) {
-      value <- func()
+  # createRenderFunction(): a promise is waited for before it is sent
+  shiny::createRenderFunction(
+    func,
+    function(fields, shinysession, name, ...) {
+      if (is.null(fields)) {
+        fields <- list()
+      }
+      if (
+        !is.list(fields) ||
+          is.data.frame(fields) ||
+          (length(fields) && !.vue_all_named(fields))
+      ) {
+        stop(
+          "render_vue_data() renders fields of a component's data, by ",
+          "name: list(mean = 1, sd = 2). For one value, name its field: ",
+          "list(rows = df).",
+          call. = FALSE
+        )
+      }
       # as `data` travels: rows for a data.frame, functions revived
-      .vue_json(list(value = .vue_rows(value)))
+      .vue_json(list(fields = lapply(fields, .vue_rows)))
     },
+    vue_data_output,
+    NULL,
     cacheHint = list(label = "render_vue_data", userExpr = expr)
   )
 }
@@ -319,25 +339,25 @@ vue_data_output <- function(outputId) {
   )
 }
 
-#' `outputs` as field = output id
+#' Every element named
+#' @noRd
+.vue_all_named <- function(x) {
+  nms <- names(x)
+  !is.null(nms) && all(nzchar(nms))
+}
+
+#' `outputs`: the ids of the outputs a component's data follows
 #' @noRd
 .vue_outputs_arg <- function(outputs) {
   if (!length(outputs)) {
     return(NULL)
   }
-  if (!is.character(outputs)) {
-    stop("`outputs` names output ids: c(field = \"id\").", call. = FALSE)
-  }
-  fields <- names(outputs) %||% rep("", length(outputs))
-  fields[!nzchar(fields)] <- outputs[!nzchar(fields)]
-  bad <- !grepl("^[A-Za-z_$][A-Za-z0-9_$]*$", fields)
-  if (any(bad)) {
+  if (!is.character(outputs) || !is.null(names(outputs))) {
     stop(
-      "`outputs` fills fields, which ",
-      paste(sQuote(fields[bad]), collapse = ", "),
-      " cannot be: name them, c(stats = ns(\"stats\")).",
+      "`outputs` names the outputs a component's data follows: ",
+      "\"stats\", or c(\"stats\", \"trend\").",
       call. = FALSE
     )
   }
-  stats::setNames(unname(outputs), fields)
+  unique(outputs)
 }

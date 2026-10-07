@@ -10,7 +10,7 @@ render_vue_data(expr, env = parent.frame(), quoted = FALSE)
 vue_data_output(outputId)
 }
 \arguments{
-\item{expr}{An expression returning the value.}
+\item{expr}{An expression returning the fields: a named list.}
 
 \item{env, quoted}{As for \code{\link[shiny:renderText]{shiny::renderText()}}.}
 
@@ -22,31 +22,33 @@ hand: a component listing it in \code{outputs} places it itself.}
 tag.
 }
 \description{
-An output that sends a value rather than markup: a field of the
-component's \code{data} follows it -- "data" as Vue calls a component's state,
-whatever the value is: a number, a string, a list, a data.frame's rows, a
-function. The component names the output in its \code{outputs}
-(\code{vue_app(outputs = c(stats = "stats"))}); the server renders the value,
-which arrives as JSON and is assigned to the field -- the template
-redraws what depends on it, and nothing else is touched. As shinyreact's
-\code{reactive_output()} does for React.
+An output that sends a component's \code{data} -- some of its fields, by name
+-- rather than markup: the server renders \code{list(mean = 1, sd = 2)} and the
+fields \code{mean} and \code{sd} of every component following the output take those
+values; the template redraws what depends on them, and nothing else is
+touched. It is the declarative twin of \code{\link[=update_vue]{update_vue()}}, with the same
+rule: a field must be declared in the component's \code{data} (or returned by
+\code{setup()}), as Vue tracks only the fields a component starts with; one it
+does not have is left alone, with a warning in the browser's console.
+Fields not in a render keep their values.
 }
 \details{
-It is an output like any other: rendered again when what it reads
-changes, held back while its component is hidden, an error shown as
-Shiny shows one. While it recalculates, \verb{$recalculating.<id>} is \code{true}
-in the component's templates.
+The component names the output in its \code{outputs} (\code{vue_app(outputs = "stats")}, inside a module \code{ns("stats")}). It is an output like any
+other: rendered again when what it reads changes, held back while its
+component is hidden, an error shown as Shiny shows one, a promise -- an
+\code{ExtendedTask}'s result -- waited for. While it recalculates,
+\verb{$recalculating.<id>} is \code{true} in the component's templates. It can be
+cached with \code{\link[shiny:bindCache]{shiny::bindCache()}}.
 
 Values travel as \code{\link[=vue_app]{vue_app()}}'s \code{data} does: a list an object, a
 data.frame its rows, \code{\link[=JS]{JS()}} a function; \code{I()} keeps a vector of one an
 array.
 
-Where \code{\link[=render_vue]{render_vue()}} draws a component the server writes, this fills a
-component the UI writes: the template stays where it is, the value comes
-from the server. One output can feed several components' fields, or a
-\code{\link[=vue_store]{vue_store()}} they all read -- shared state, as Vue's guide recommends,
-with the server as its source. It can be cached with
-\code{\link[shiny:bindCache]{shiny::bindCache()}}.
+Where \code{\link[=render_vue]{render_vue()}} draws a component the server writes, this fills one
+the UI writes: the template stays where it is, the data comes from the
+server. One output can feed several components, or a \code{\link[=vue_store]{vue_store()}} they
+all read -- shared state, as Vue's guide recommends, with the server as
+its source. As shinyreact's \code{reactive_output()} does for React.
 }
 \examples{
 if (interactive()) {
@@ -57,9 +59,9 @@ if (interactive()) {
       "summary",
       template = htmltools::tags$p(
         `:style` = "{opacity: $recalculating.stats ? 0.5 : 1}",
-        "Mean {{ stats.mean }}, sd {{ stats.sd }}"
+        "Mean {{ mean }}, sd {{ sd }}"
       ),
-      data = list(stats = list(mean = NA, sd = NA)),
+      data = list(mean = NA, sd = NA),
       outputs = "stats"
     )
   )
@@ -73,5 +75,5 @@ if (interactive()) {
 }
 }
 \seealso{
-\code{\link[=vue_app]{vue_app()}}, \code{\link[=vue_store]{vue_store()}}.
+\code{\link[=vue_app]{vue_app()}}, \code{\link[=vue_store]{vue_store()}}, \code{\link[=update_vue]{update_vue()}}.
 }

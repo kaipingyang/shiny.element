@@ -309,7 +309,9 @@ el_widget <- function(
   # Dependencies the markup carried -- an absorbed component's handler, a
   # slot's -- come out of the template with it
   htmltools::attachDependencies(
-    htmltools::tagList(head, host),
+    # no NULL in it: shinyjs's hidden() and disabled() walk the list and
+    # refuse anything but tags
+    do.call(htmltools::tagList, Filter(Negate(is.null), list(head, host))),
     c(
       .el_vue_dependencies(),
       if (inherits(dependency, "html_dependency")) {

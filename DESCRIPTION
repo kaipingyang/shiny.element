@@ -36,6 +36,7 @@ Suggests:
     chromote,
     httpuv,
     pkgload,
+    promises,
     withr,
     knitr,
     rmarkdown

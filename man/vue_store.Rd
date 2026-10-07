@@ -13,7 +13,7 @@ vue_store(id, data = list(), input = NULL, outputs = NULL)
 
 \item{input}{Fields reported as \verb{input$<id>}, as for \code{\link[=vue_app]{vue_app()}}.}
 
-\item{outputs}{Fields filled by outputs, as for \code{\link[=vue_app]{vue_app()}}.}
+\item{outputs}{Outputs the store's data follows, as for \code{\link[=vue_app]{vue_app()}}.}
 }
 \value{
 A tag: a hidden host that holds the store.

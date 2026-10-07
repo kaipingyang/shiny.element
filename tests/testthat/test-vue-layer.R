@@ -176,45 +176,75 @@ test_that("call_el() is call_vue() under Element's name", {
 
 # ── data outputs ──────────────────────────────────────────────────────────────
 
-test_that("vue_app(outputs =) names the fields outputs fill", {
+test_that("vue_app(outputs =) names the outputs its data follows", {
   html <- paste(
     as.character(vue_app(
       "a",
-      "<p>{{ stats }}</p>",
+      "<p>{{ n }}</p>",
       data = list(n = 1),
-      outputs = c(stats = "s_out", "rows")
+      outputs = c("s_out", "rows")
     )),
     collapse = ""
   )
-  expect_match(html, '"outputs":{"stats":"s_out","rows":"rows"}', fixed = TRUE)
-  # fields not in data start empty, so Vue tracks them
-  expect_match(html, '"stats":null', fixed = TRUE)
-  expect_match(html, '"rows":null', fixed = TRUE)
+  expect_match(html, '"outputs":["s_out","rows"]', fixed = TRUE)
+  one <- paste(
+    as.character(vue_app("a", "<p></p>", outputs = "x")),
+    collapse = ""
+  )
+  expect_match(one, '"outputs":["x"]', fixed = TRUE)
   store <- paste(as.character(vue_store("s", outputs = "x")), collapse = "")
-  expect_match(store, '"outputs":{"x":"x"}', fixed = TRUE)
-  expect_error(vue_app("a", "<p></p>", outputs = "m-stats"), "name them")
-  expect_error(vue_app("a", "<p></p>", outputs = 1), "output ids")
+  expect_match(store, '"outputs":["x"]', fixed = TRUE)
+  # module ids pass as they are
+  expect_no_error(vue_app("a", "<p></p>", outputs = "m-stats"))
+  expect_error(vue_app("a", "<p></p>", outputs = 1), "names the outputs")
+  expect_error(
+    vue_app("a", "<p></p>", outputs = c(x = "y")),
+    "names the outputs"
+  )
 })
 
-test_that("render_vue_data() sends the value as the page reads data", {
+test_that("render_vue_data() sends data fields by name, as the page reads data", {
   shiny::testServer(
     function(input, output, session) {
       output$stats <- render_vue_data(list(mean = 2, tags = I("a")))
-      output$rows <- render_vue_data(head(mtcars[, 1:2], 2))
-      output$fmt <- render_vue_data(JS("function(x) { return x; }"))
+      output$rows <- render_vue_data(list(rows = head(mtcars[, 1:2], 2)))
+      output$fmt <- render_vue_data(list(f = JS("function(x) { return x; }")))
+      output$none <- render_vue_data(NULL)
+      output$bad <- render_vue_data(head(mtcars))
+      output$unnamed <- render_vue_data(list(1, 2))
     },
     {
       stats <- jsonlite::fromJSON(output$stats, simplifyVector = FALSE)
-      expect_equal(stats$value, list(mean = 2, tags = list("a")))
+      expect_equal(stats$fields, list(mean = 2, tags = list("a")))
       rows <- jsonlite::fromJSON(output$rows)
-      expect_equal(nrow(rows$value), 2)
-      expect_equal(names(rows$value), c("mpg", "cyl"))
+      expect_equal(nrow(rows$fields$rows), 2)
+      expect_equal(names(rows$fields$rows), c("mpg", "cyl"))
       fmt <- jsonlite::fromJSON(output$fmt)
-      expect_equal(fmt$evals, "value")
+      expect_equal(fmt$evals, "fields.f")
+      expect_equal(jsonlite::fromJSON(output$none)$fields, list())
+      expect_error(output$bad, "by name")
+      expect_error(output$unnamed, "by name")
     }
   )
   html <- paste(as.character(vue_data_output("x")), collapse = "")
   expect_match(html, 'class="shiny-vue-data-output"', fixed = TRUE)
+})
+
+test_that("render functions wait for a promise", {
+  skip_if_not_installed("promises")
+  shiny::testServer(
+    function(input, output, session) {
+      output$data <- render_vue_data(promises::promise_resolve(list(n = 3)))
+      output$ui <- render_vue(promises::promise_resolve(vue_app(
+        "a",
+        "<p></p>"
+      )))
+    },
+    {
+      expect_equal(jsonlite::fromJSON(output$data)$fields$n, 3)
+      expect_named(output$ui, c("html", "deps"))
+    }
+  )
 })
 
 test_that("render_vue() and render_vue_data() can be cached", {
@@ -245,7 +275,7 @@ test_that("render_vue() and render_vue_data() can be cached", {
       session$userData$n(1)
       session$flushReact()
       # back to a value seen before: from the cache, the expression not run
-      expect_equal(jsonlite::fromJSON(output$val)$value$n, 1)
+      expect_equal(jsonlite::fromJSON(output$val)$fields$n, 1)
       expect_equal(runs, first + 1)
     }
   )
