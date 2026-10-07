@@ -10,7 +10,7 @@ el_header(..., height = "60px", style = NULL, class = NULL)
 \item{...}{Content.}
 
 \item{height}{Header height. Defaults to \code{"60px"}, as in Element Plus, which
-sets it inline rather than through the stylesheet.}
+sets it as the CSS variable \verb{--el-<part>-<size>}.}
 
 \item{style}{Extra inline style.}
 

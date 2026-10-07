@@ -10,7 +10,7 @@ el_aside(..., width = "300px", style = NULL, class = NULL)
 \item{...}{Content.}
 
 \item{width}{Aside width. Defaults to \code{"300px"}, as in Element Plus, which
-sets it inline rather than through the stylesheet.}
+sets it as the CSS variable \verb{--el-<part>-<size>}.}
 
 \item{style}{Extra inline style.}
 

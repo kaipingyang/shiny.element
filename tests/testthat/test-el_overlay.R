@@ -409,7 +409,7 @@ test_that("Element Plus's dialog and drawer options reach the markup", {
     "is-draggable",
     'data-draggable="true"',
     'data-overflow="true"',
-    "el-dialog__header h",
+    "el-dialog__header show-close h",
     "el-dialog__body b",
     "el-dialog__footer ft",
     "el-overlay m"
@@ -419,4 +419,32 @@ test_that("Element Plus's dialog and drawer options reach the markup", {
   drawer <- render_html(el_drawer("w1", resizable = TRUE))
   expect_match(drawer, "el-drawer__dragger", fixed = TRUE)
   expect_match(drawer, 'data-resizable="true"', fixed = TRUE)
+})
+
+test_that("a fullscreen dialog leaves its size to is-fullscreen, as Element's", {
+  # an inline --el-dialog-width outranks is-fullscreen's 100%
+  full <- paste(
+    as.character(el_dialog("d", "x", fullscreen = TRUE)),
+    collapse = ""
+  )
+  expect_false(grepl("--el-dialog-width", full, fixed = TRUE))
+  expect_match(full, "el-dialog is-fullscreen", fixed = TRUE)
+  normal <- paste(
+    as.character(el_dialog("d", "x", width = "300px")),
+    collapse = ""
+  )
+  expect_match(normal, "--el-dialog-width: 300px", fixed = TRUE)
+})
+
+test_that("a header with a close button is marked, so a long title clears it", {
+  expect_match(
+    paste(as.character(el_dialog("d", "x")), collapse = ""),
+    'class="el-dialog__header show-close"',
+    fixed = TRUE
+  )
+  expect_match(
+    paste(as.character(el_dialog("d", "x", show_close = FALSE)), collapse = ""),
+    'class="el-dialog__header"',
+    fixed = TRUE
+  )
 })

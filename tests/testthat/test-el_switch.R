@@ -165,3 +165,9 @@ test_that("update_el_switch: NULL fields are excluded from message", {
   expect_null(captured$activeColor)
   expect_null(captured$inactiveColor)
 })
+
+test_that("the colours are Element's CSS variables, its props being gone", {
+  html <- render_html(el_switch("s", active_color = "#13ce66"))
+  expect_match(html, "--el-switch-on-color&#39;: activeColor", fixed = TRUE)
+  expect_false(grepl(":active-color=", html, fixed = TRUE))
+})

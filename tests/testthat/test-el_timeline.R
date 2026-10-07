@@ -93,7 +93,9 @@ test_that("el_timeline: entries reach the Vue data", {
 test_that("el_timeline: content is text by default and HTML on request", {
   plain <- render_html(el_timeline(id = "log", items = demo_items))
   expect_match(plain, "{{ item.content }}", fixed = TRUE)
-  expect_false(grepl("v-html", plain, fixed = TRUE))
+  # markup only for an entry whose content was tags: a string is not marked
+  expect_match(plain, 'v-if="item.contentHtml" v-html', fixed = TRUE)
+  expect_false(grepl("contentHtml\":true", plain, fixed = TRUE))
 
   # v-html does not escape, hence the documented warning.
   rich <- render_html(el_timeline(id = "log", items = demo_items, html = TRUE))
@@ -158,4 +160,19 @@ test_that("update_el_timeline: NULL fields are excluded", {
   out <- sent_message(function(s) update_el_timeline(s, "log", items = list()))
   expect_equal(out$msg$items, list())
   expect_null(out$msg$reverse)
+})
+
+test_that("an entry whose content is tags is drawn as markup", {
+  items <- .el_timeline_items(list(
+    list(content = htmltools::tags$b("bold")),
+    list(content = "<b>text</b>")
+  ))
+  expect_true(items[[1]]$contentHtml)
+  expect_null(items[[2]]$contentHtml)
+  html <- render_html(el_timeline("t", items = list(list(content = "a"))))
+  expect_match(
+    html,
+    'v-if="item.contentHtml" v-html="item.content"',
+    fixed = TRUE
+  )
 })

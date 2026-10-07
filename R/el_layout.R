@@ -34,6 +34,10 @@
     sprintf("padding-left:%gpx", half),
     sprintf("padding-right:%gpx", half)
   )
+  # Element Plus marks a column of a guttered row
+  if (grepl("(^| )el-col( |$)", child$attribs$class %||% "")) {
+    child$attribs$class <- paste(child$attribs$class, "is-guttered")
+  }
   child
 }
 
@@ -47,8 +51,8 @@
 #'
 #' @param ... Child columns ([el_col()]) or other content.
 #' @param gutter Spacing between columns, in pixels.
-#' @param type Set to `"flex"` for the flex layout, which `justify` and
-#'   `align` require.
+#' @param type Element UI's `"flex"`, kept so old code runs: Element Plus's
+#'   row is always a flex row, and `justify` and `align` apply without it.
 #' @param justify Flex horizontal alignment: `"start"` (default), `"center"`,
 #'   `"end"`, `"space-between"` or `"space-around"`.
 #' @param align Flex vertical alignment: `"top"` (default), `"middle"` or
@@ -67,9 +71,8 @@
 #'   el_col(span = 12, "right")
 #' )
 #'
-#' # Centred flex row
+#' # Centred row
 #' el_row(
-#'   type = "flex",
 #'   justify = "center",
 #'   align = "middle",
 #'   el_col(span = 8, "centred")
@@ -86,18 +89,14 @@ el_row <- function(
 ) {
   .el_check_choices("el_row", environment())
   children <- list(...)
-  is_flex <- identical(type, "flex")
-
+  # As Element Plus's row: start has no class of its own, an align always
+  # has one
   classes <- c(
     "el-row",
-    if (is_flex) "el-row--flex",
-    # start / top are the defaults and have no class of their own.
-    if (is_flex && !is.null(justify) && !identical(justify, "start")) {
+    if (!is.null(justify) && !identical(justify, "start")) {
       paste0("is-justify-", justify)
     },
-    if (is_flex && !is.null(align) && !identical(align, "top")) {
-      paste0("is-align-", align)
-    },
+    if (!is.null(align)) paste0("is-align-", align),
     class
   )
 

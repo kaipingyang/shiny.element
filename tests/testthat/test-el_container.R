@@ -20,9 +20,9 @@ test_that(".el_has_class: an extra class does not confuse the match", {
 
 # ── el_container ──────────────────────────────────────────────────────────────
 
-test_that("el_container: renders a div with the el-container class", {
+test_that("el_container: renders Element's section with the el-container class", {
   html <- render_html(el_container())
-  expect_match(html, '<div class="el-container"')
+  expect_match(html, '<section class="el-container"')
   expect_false(grepl("<el-container", html, fixed = TRUE))
 })
 
@@ -78,27 +78,36 @@ test_that("el_container: nested widgets keep their html dependencies", {
 
 # ── header / aside / main / footer ────────────────────────────────────────────
 
-test_that("el_header: defaults to Element UI's 60px, set inline", {
-  # The stylesheet carries no height for .el-header; Element UI emits it inline.
+test_that("el_header: Element's <header>, its height as Element's variable", {
+  # Element Plus sets --el-header-height, which its stylesheet reads
   expect_match(
     render_html(el_header("x")),
-    'class="el-header" style="height:60px"'
+    '<header class="el-header" style="--el-header-height:60px">',
+    fixed = TRUE
   )
-  expect_match(render_html(el_header("x", height = "80px")), "height:80px")
+  expect_match(
+    render_html(el_header("x", height = "80px")),
+    "--el-header-height:80px"
+  )
 })
 
-test_that("el_aside: defaults to Element UI's 300px, set inline", {
+test_that("el_aside: Element's <aside>, its width as Element's variable", {
   expect_match(
     render_html(el_aside("x")),
-    'class="el-aside" style="width:300px"'
+    '<aside class="el-aside" style="--el-aside-width:300px">',
+    fixed = TRUE
   )
-  expect_match(render_html(el_aside("x", width = "200px")), "width:200px")
+  expect_match(
+    render_html(el_aside("x", width = "200px")),
+    "--el-aside-width:200px"
+  )
 })
 
-test_that("el_footer: defaults to Element UI's 60px, set inline", {
+test_that("el_footer: Element's <footer>, its height as Element's variable", {
   expect_match(
     render_html(el_footer("x")),
-    'class="el-footer" style="height:60px"'
+    '<footer class="el-footer" style="--el-footer-height:60px">',
+    fixed = TRUE
   )
 })
 

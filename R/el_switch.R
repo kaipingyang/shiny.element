@@ -9,8 +9,11 @@
 #' @param width Switch width in pixels (integer).
 #' @param active_text Text displayed when switch is on.
 #' @param inactive_text Text displayed when switch is off.
-#' @param active_color Background color when switch is on (e.g. `"#409EFF"`).
-#' @param inactive_color Background color when switch is off.
+#' @param active_color Background color when switch is on (e.g. `"#409EFF"`):
+#'   Element Plus's CSS variable `--el-switch-on-color`, which replaced its
+#'   deprecated `active-color`.
+#' @param inactive_color Background color when switch is off: the CSS variable
+#'   `--el-switch-off-color`, which replaced the deprecated `inactive-color`.
 #' @param active_value Value reported to Shiny when switch is on. Default `TRUE`.
 #' @param inactive_value Value reported to Shiny when switch is off. Default `FALSE`.
 #' @param active_action_icon Component of the icon displayed in action when in
@@ -25,9 +28,9 @@
 #'   `false` is returned or a `Promise` is returned and then is rejected, will
 #'   stop switching. Element Plus's `before-change`
 #'   (`() => Promise<boolean> | boolean`).
-#' @param border_color Border color of the switch ( use CSS var
-#'   `--el-switch-border-color` instead ). Element Plus's `border-color`
-#'   (string).
+#' @param border_color Border color of the switch: the CSS variable
+#'   `--el-switch-border-color`, which replaced Element Plus's deprecated
+#'   `border-color`.
 #' @param inactive_action_icon Component of the icon displayed in action when
 #'   in `off` state. Element Plus's `inactive-action-icon` (string /
 #'   Component). An icon's name, such as `"Search"`.
@@ -127,8 +130,12 @@ el_switch <- function(
     ":disabled" = "disabled",
     ":active-text" = "activeText",
     ":inactive-text" = "inactiveText",
-    ":active-color" = "activeColor",
-    ":inactive-color" = "inactiveColor",
+    # Element Plus 2.x dropped the colour props for its CSS variables
+    ":style" = paste0(
+      "{ '--el-switch-on-color': activeColor || undefined, ",
+      "'--el-switch-off-color': inactiveColor || undefined, ",
+      "'--el-switch-border-color': borderColor || undefined }"
+    ),
     ":active-value" = "activeValue",
     ":inactive-value" = "inactiveValue",
     "@change" = "handleChange"

@@ -16,8 +16,9 @@
 #'
 #' @param class The Element Plus class name, e.g. `"el-header"`.
 #' @param children Child elements.
-#' @param size Inline `height` or `width` value, or `NULL`.
-#' @param size_prop Which CSS property `size` sets.
+#' @param size The `height` or `width`, or `NULL`: Element's CSS variable,
+#'   `--el-header-height`.
+#' @param size_prop Which size it is.
 #' @param style Extra inline style.
 #' @param extra_class Extra CSS classes.
 #' @return A Shiny UI element.
@@ -30,13 +31,15 @@
   style = NULL,
   extra_class = NULL
 ) {
+  # Element's own element and its CSS variable: <header class="el-header"
+  # style="--el-header-height: 80px">, a landmark for screen readers
   htmltools::tag(
-    "div",
+    sub("^el-", "", class),
     c(
       list(class = paste(c(class, extra_class), collapse = " ")),
       list(
         style = .el_style(
-          if (!is.null(size)) sprintf("%s:%s", size_prop, size),
+          if (!is.null(size)) sprintf("--%s-%s:%s", class, size_prop, size),
           style
         )
       ),
@@ -47,7 +50,7 @@
 
 #' Element Plus Container
 #'
-#' Emits `<div class="el-container">` directly.
+#' Emits `<section class="el-container">` directly, as Element does.
 #'
 #' Element's container styles are plain CSS, so no Vue instance is needed --
 #' and none is wanted: one mounted over the container would recompile the
@@ -115,7 +118,7 @@ el_container <- function(
 
   # Element Plus's stylesheet lays the container and its parts out
   htmltools::attachDependencies(
-    htmltools::tag("div", c(attrs, children)),
+    htmltools::tag("section", c(attrs, children)),
     .el_plus_dependencies()
   )
 }
@@ -124,7 +127,7 @@ el_container <- function(
 #'
 #' @param ... Content.
 #' @param height Header height. Defaults to `"60px"`, as in Element Plus, which
-#'   sets it inline rather than through the stylesheet.
+#'   sets it as the CSS variable `--el-<part>-<size>`.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @return A Shiny UI element.
@@ -140,7 +143,7 @@ el_header <- function(..., height = "60px", style = NULL, class = NULL) {
 #'
 #' @param ... Content.
 #' @param width Aside width. Defaults to `"300px"`, as in Element Plus, which
-#'   sets it inline rather than through the stylesheet.
+#'   sets it as the CSS variable `--el-<part>-<size>`.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @return A Shiny UI element.
@@ -170,7 +173,7 @@ el_main <- function(..., style = NULL, class = NULL) {
 #'
 #' @param ... Content.
 #' @param height Footer height. Defaults to `"60px"`, as in Element Plus, which
-#'   sets it inline rather than through the stylesheet.
+#'   sets it as the CSS variable `--el-<part>-<size>`.
 #' @param style Extra inline style.
 #' @param class Extra CSS classes.
 #' @return A Shiny UI element.

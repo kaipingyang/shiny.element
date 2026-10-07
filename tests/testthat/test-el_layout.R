@@ -46,27 +46,28 @@ test_that("el_row: gutter preserves a column's own style", {
   expect_match(html, "color:red; padding-left:10px")
 })
 
-test_that("el_row: flex classes are only added for type = 'flex'", {
-  html <- render_html(el_row(
-    type = "flex",
-    justify = "center",
-    align = "middle"
-  ))
-  expect_match(html, "el-row--flex")
+test_that("el_row: justify and align apply without a type, as in Element Plus", {
+  # Element Plus's row is always flex (row.vue: rowKls)
+  html <- render_html(el_row(justify = "center", align = "middle"))
   expect_match(html, "is-justify-center")
   expect_match(html, "is-align-middle")
-
-  # justify/align are meaningless without flex and must not leak in
-  plain <- render_html(el_row(justify = "center", align = "middle"))
-  expect_false(grepl("is-justify", plain))
-  expect_false(grepl("is-align", plain))
+  expect_false(grepl("el-row--flex", html))
+  # Element UI's type is accepted and changes nothing
+  expect_identical(
+    render_html(el_row(type = "flex", justify = "center")),
+    render_html(el_row(justify = "center"))
+  )
 })
 
-test_that("el_row: default justify/align add no class", {
-  # Element UI ships no .is-justify-start or .is-align-top rule.
-  html <- render_html(el_row(type = "flex", justify = "start", align = "top"))
+test_that("el_row: start has no class, an align always has one", {
+  html <- render_html(el_row(justify = "start", align = "top"))
   expect_false(grepl("is-justify-start", html))
-  expect_false(grepl("is-align-top", html))
+  expect_match(html, "is-align-top")
+})
+
+test_that("el_row: a guttered row's columns are marked, as Element's", {
+  html <- render_html(el_row(gutter = 20, el_col(span = 12, "a")))
+  expect_match(html, 'class="el-col el-col-12 is-guttered"', fixed = TRUE)
 })
 
 test_that("el_row: extra class and style are kept", {

@@ -346,15 +346,8 @@
   }
   out <- vapply(expr, protect, character(1), USE.NAMES = FALSE)
 
-  for (old in names(rename)) {
-    # A whole identifier, not preceded by a dot (obj.value is a member)
-    out <- gsub(
-      paste0("(?<![A-Za-z0-9_$.])", old, "(?![A-Za-z0-9_$])"),
-      rename[[old]],
-      out,
-      perl = TRUE
-    )
-  }
+  # A whole identifier, not preceded by a dot (obj.value is a member)
+  out <- .el_rename_all(out, rename, "(?<![A-Za-z0-9_$.])")
 
   for (i in rev(seq_along(literals))) {
     out <- gsub(sprintf("\u0001%d\u0001", i), literals[[i]], out, fixed = TRUE)
@@ -404,16 +397,39 @@
     return(NULL)
   }
   body <- paste(as.character(js), collapse = "\n")
-  for (old in names(rename)) {
-    # Only fields reached off the instance: this.value, self.value
-    body <- gsub(
-      paste0("((?:this|self)\\.)", old, "(?![A-Za-z0-9_$])"),
-      paste0("\\1", rename[[old]]),
-      body,
-      perl = TRUE
-    )
+  # Only fields reached off the instance: this.value, self.value
+  JS(.el_rename_all(body, rename, "(?<=this\\.|self\\.)"))
+}
+
+
+#' Rename identifiers all at once
+#'
+#' One pass over every name: renamed one after another, a field renamed to
+#' `el3_label` would be renamed again by a rule for `el3_label` -- two
+#' buttons in one popover, absorbed twice over, then showed the second
+#' one's label on both.
+#'
+#' @param x Character vector.
+#' @param rename Named character vector, old name to new.
+#' @param before A lookbehind that must precede a name.
+#' @return `x`, renamed.
+#' @keywords internal
+.el_rename_all <- function(x, rename, before) {
+  if (!length(rename) || !length(x)) {
+    return(x)
   }
-  JS(body)
+  olds <- names(rename)[order(-nchar(names(rename)))]
+  pattern <- paste0(
+    before,
+    "(?:",
+    paste(gsub("$", "\\$", olds, fixed = TRUE), collapse = "|"),
+    ")(?![A-Za-z0-9_$])"
+  )
+  m <- gregexpr(pattern, x, perl = TRUE)
+  regmatches(x, m) <- lapply(regmatches(x, m), function(v) {
+    unname(rename[v])
+  })
+  x
 }
 
 

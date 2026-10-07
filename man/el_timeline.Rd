@@ -68,8 +68,8 @@ A vertical sequence of events.
 \details{
 Entries are rendered with \verb{v-for} from a data field, so
 \code{\link[=update_el_timeline]{update_el_timeline()}} can replace them -- useful for a log that grows.
-Their content is therefore a string rather than markup; pass \code{html = TRUE}
-to render it as HTML.
+Content given as tags -- \code{el_card(...)} -- is drawn as markup; a string
+is text unless \code{html = TRUE}.
 }
 \section{Updating from the server}{
 

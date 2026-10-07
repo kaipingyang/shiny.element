@@ -231,6 +231,7 @@ Three layers, each blind to what the next one catches — see lessons.md §5.
 | Browser | `test-browser.R` + `apps/integration.R` | mounting, interaction, geometry, Vue warnings |
 | Methods | `test-browser-methods.R` + `apps/methods.R` | every documented method runs on a live component |
 | Screenshot | `tools/article-shots.R` | layout and appearance — invisible to the other two |
+| Prop reach | `tools/prop-reach.py` + `tools/prop-reach.R` | an argument's value arriving on Element's component instance |
 
 Browser tests run Vue's development build (`inst/vue3/vue.global.js`,
 `el_page(dev = TRUE)`) and assert zero warnings. They skip

@@ -91,7 +91,11 @@ test_that("el_tabs: the card types carry no active bar", {
 test_that("el_tabs: position sets the root class and every is- modifier", {
   html <- render_html(el_tabs("t1", tabs = demo_tabs, tab_position = "left"))
   expect_match(html, "el-tabs--left", fixed = TRUE)
-  expect_match(html, "el-tabs__header is-left", fixed = TRUE)
+  expect_match(
+    html,
+    "el-tabs__header el-tabs__header-vertical is-left",
+    fixed = TRUE
+  )
   expect_match(html, "el-tabs__nav is-left", fixed = TRUE)
   expect_match(html, "el-tabs__item is-left", fixed = TRUE)
   expect_match(html, 'data-position="left"', fixed = TRUE)

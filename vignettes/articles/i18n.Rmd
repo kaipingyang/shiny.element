@@ -52,7 +52,7 @@ the first day of the week. The format of a date shown in the input is
 `format`, in day.js's tokens (`"YYYY-MM-DD"`); the value Shiny gets is
 `value_format`, unchanged by the language.
 
-```{r dates, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').focus()", shot_wait = 1}
+```{r dates, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#shot .el-input__inner').focus()", shot_sel = ".el-picker__popper", shot_wait = 1}
 ui <- el_page(locale = "fr", el_date_picker("d", format = "DD MMMM YYYY"))
 
 shinyApp(ui, function(input, output, session) {})

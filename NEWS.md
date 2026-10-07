@@ -156,6 +156,22 @@ entry's `hide_timestamp` is new. `insert_el_tab()` takes an
   relies on have moved.
 * `el_calendar()` draws Element Plus's own day cell; it used to fill it with
   a template of its own and colour every `.is-selected` on the page.
+* `el_row(justify =, align =)` apply without `type = "flex"`, Element UI's
+  switch, as Element Plus's row is always flex; a guttered row's columns
+  are marked `is-guttered`.
+* A fullscreen dialog fills the screen: its width and top are left to
+  `is-fullscreen`, as Element does, where they made it half the width. A
+  header with a close button is padded clear of it (`show-close`).
+* `el_switch(active_color =, inactive_color =, border_color =)` work again,
+  as Element Plus's CSS variables: it dropped the props.
+* Two components in one popover (or any wrapper) no longer show the second
+  one's label on both: renaming their fields apart renamed some twice.
+* A timeline entry whose content is tags -- `el_card()` -- is drawn as
+  markup, where it showed its HTML source.
+* Containers are Element's own elements -- `<section>`, `<header>`, `<main>`,
+  `<aside>`, `<footer>` -- with their sizes as its CSS variables; a side
+  tab header is laid out in a column, the "+" is Element's, and the active
+  tab's bar spans its label alone.
 
 ## Documentation, after Element's own
 

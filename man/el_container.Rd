@@ -34,7 +34,7 @@ a warning.}
 A Shiny UI element.
 }
 \description{
-Emits \verb{<div class="el-container">} directly.
+Emits \verb{<section class="el-container">} directly, as Element does.
 }
 \details{
 Element's container styles are plain CSS, so no Vue instance is needed --

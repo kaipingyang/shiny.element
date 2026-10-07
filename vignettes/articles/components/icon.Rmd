@@ -76,13 +76,17 @@ tagList(
 Every icon of `@element-plus/icons-vue`, by the name `el_icon()` takes:
 
 ```{r icons, eval = FALSE, shot = TRUE}
-js <- readLines(
-  system.file(
-    "element-plus",
-    "icons-vue.iife.min.js",
-    package = "shiny.element"
+# the whole script as one string: its licence comment is a line of its own
+js <- paste(
+  readLines(
+    system.file(
+      "element-plus",
+      "icons-vue.iife.min.js",
+      package = "shiny.element"
+    ),
+    warn = FALSE
   ),
-  warn = FALSE
+  collapse = "\n"
 )
 names <- sort(unique(regmatches(
   js,

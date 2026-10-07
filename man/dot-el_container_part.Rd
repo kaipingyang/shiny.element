@@ -18,9 +18,10 @@
 
 \item{children}{Child elements.}
 
-\item{size}{Inline \code{height} or \code{width} value, or \code{NULL}.}
+\item{size}{The \code{height} or \code{width}, or \code{NULL}: Element's CSS variable,
+\code{--el-header-height}.}
 
-\item{size_prop}{Which CSS property \code{size} sets.}
+\item{size_prop}{Which size it is.}
 
 \item{style}{Extra inline style.}
 

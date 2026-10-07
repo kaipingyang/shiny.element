@@ -138,11 +138,12 @@ el_tabs <- function(
   )
 
   new_tab <- if (isTRUE(addable)) {
-    shiny::tags$span(
+    shiny::tags$div(
       class = "el-tabs__new-tab",
       tabindex = "0",
       el_icon(
         if (is.null(add_icon)) "Plus" else .el_icon_name(add_icon),
+        class = "is-icon-plus",
         a11y = "none"
       )
     )
@@ -161,7 +162,17 @@ el_tabs <- function(
         as.character(before_leave)
       },
       shiny::tags$div(
-        class = paste("el-tabs__header", pos_class),
+        class = paste(
+          c(
+            "el-tabs__header",
+            # Element lays a side header's parts out in a column
+            if (tab_position %in% c("left", "right")) {
+              "el-tabs__header-vertical"
+            },
+            pos_class
+          ),
+          collapse = " "
+        ),
         new_tab,
         shiny::tags$div(
           class = paste("el-tabs__nav-wrap", pos_class),

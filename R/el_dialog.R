@@ -129,7 +129,11 @@ el_dialog <- function(
   }
 
   header <- shiny::tags$header(
-    class = paste(c("el-dialog__header", header_class), collapse = " "),
+    # Element pads a header with a close button, so a long title clears it
+    class = paste(
+      c("el-dialog__header", if (show_close) "show-close", header_class),
+      collapse = " "
+    ),
     shiny::tags$span(
       role = "heading",
       `aria-level` = header_aria_level,
@@ -206,9 +210,11 @@ el_dialog <- function(
             collapse = " "
           ),
           tabindex = "-1",
+          # as Element's use-dialog.ts: a fullscreen dialog takes its size
+          # from is-fullscreen, which an inline width would override
           style = paste0(
-            sprintf("--el-dialog-width: %s;", width),
-            if (!isTRUE(align_center)) {
+            if (!fullscreen) sprintf("--el-dialog-width: %s;", width),
+            if (!fullscreen && !isTRUE(align_center)) {
               sprintf(" --el-dialog-margin-top: %s;", top)
             },
             if (!modal && isTRUE(modal_penetrable)) " pointer-events:auto;"

@@ -109,9 +109,12 @@ whether beside the component rather than under it. Element's
 
 \item{inactive_text}{Text displayed when switch is off.}
 
-\item{active_color}{Background color when switch is on (e.g. \code{"#409EFF"}).}
+\item{active_color}{Background color when switch is on (e.g. \code{"#409EFF"}):
+Element Plus's CSS variable \code{--el-switch-on-color}, which replaced its
+deprecated \code{active-color}.}
 
-\item{inactive_color}{Background color when switch is off.}
+\item{inactive_color}{Background color when switch is off: the CSS variable
+\code{--el-switch-off-color}, which replaced the deprecated \code{inactive-color}.}
 
 \item{active_value}{Value reported to Shiny when switch is on. Default \code{TRUE}.}
 
@@ -137,9 +140,9 @@ Component). An icon's name, such as \code{"Search"}.}
 stop switching. Element Plus's \code{before-change}
 (\verb{() => Promise<boolean> | boolean}).}
 
-\item{border_color}{Border color of the switch ( use CSS var
-\code{--el-switch-border-color} instead ). Element Plus's \code{border-color}
-(string).}
+\item{border_color}{Border color of the switch: the CSS variable
+\code{--el-switch-border-color}, which replaced Element Plus's deprecated
+\code{border-color}.}
 
 \item{inactive_action_icon}{Component of the icon displayed in action when
 in \code{off} state. Element Plus's \code{inactive-action-icon} (string /

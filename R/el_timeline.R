@@ -4,8 +4,8 @@
 #'
 #' Entries are rendered with `v-for` from a data field, so
 #' [update_el_timeline()] can replace them -- useful for a log that grows.
-#' Their content is therefore a string rather than markup; pass `html = TRUE`
-#' to render it as HTML.
+#' Content given as tags -- `el_card(...)` -- is drawn as markup; a string
+#' is text unless `html = TRUE`.
 #'
 #' @param id Timeline ID (auto-generated if NULL).
 #' @param items A list of entries, each an [el_timeline_item()] -- or a list
@@ -78,10 +78,15 @@ el_timeline <- function(
   ns_id <- .el_ui_id(id, session)
 
   # One v-for over a data field, so update_el_timeline() can replace the lot.
+  # An entry whose content is tags is markup the app built: shown as such,
+  # where a string stays text unless `html`
   body <- if (html) {
     htmltools::HTML('<span v-html="item.content"></span>')
   } else {
-    htmltools::HTML("{{ item.content }}")
+    htmltools::HTML(paste0(
+      '<span v-if="item.contentHtml" v-html="item.content"></span>',
+      '<template v-else>{{ item.content }}</template>'
+    ))
   }
 
   item_tag <- htmltools::tag(
@@ -148,7 +153,11 @@ el_timeline <- function(
   )
   lapply(items, function(item) {
     kept <- item[intersect(fields, names(item))]
-    kept[!vapply(kept, is.null, logical(1))]
+    kept <- kept[!vapply(kept, is.null, logical(1))]
+    if (inherits(kept$content, c("shiny.tag", "shiny.tag.list", "html"))) {
+      kept$contentHtml <- TRUE
+    }
+    kept
   })
 }
 

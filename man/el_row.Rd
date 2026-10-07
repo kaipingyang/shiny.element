@@ -20,8 +20,8 @@ el_row(
 
 \item{gutter}{Spacing between columns, in pixels.}
 
-\item{type}{Set to \code{"flex"} for the flex layout, which \code{justify} and
-\code{align} require.}
+\item{type}{Element UI's \code{"flex"}, kept so old code runs: Element Plus's
+row is always a flex row, and \code{justify} and \code{align} apply without it.}
 
 \item{justify}{Flex horizontal alignment: \code{"start"} (default), \code{"center"},
 \code{"end"}, \code{"space-between"} or \code{"space-around"}.}
@@ -54,9 +54,8 @@ el_row(
   el_col(span = 12, "right")
 )
 
-# Centred flex row
+# Centred row
 el_row(
-  type = "flex",
   justify = "center",
   align = "middle",
   el_col(span = 8, "centred")
