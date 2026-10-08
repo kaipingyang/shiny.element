@@ -47,7 +47,7 @@ ui <- el_page(
         width = "200px"
       ),
       # lazy tree, folded in
-      el_tree("lazy", lazy = TRUE, is_leaf_field = "leaf"),
+      el_tree("lazy", lazy = TRUE, props = list(isLeaf = "leaf")),
       # cascader with lazy loading
       el_cascader("casc", props = list(lazy = TRUE), width = "200px")
     )

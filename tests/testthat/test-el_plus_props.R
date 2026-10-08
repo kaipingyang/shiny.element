@@ -130,8 +130,8 @@ test_that("props reach select-v2, segmented and tree-v2", {
   expect_true(binds_attr(el_tree_v2("t", props = list(value = "id")), "props"))
 })
 
-test_that("el_tree(class_field =) is Element Plus's props.class", {
-  d <- vue_data_of(el_tree("t", class_field = "cls"))
+test_that("el_tree(props = list(class =)) is Element Plus's props.class", {
+  d <- vue_data_of(el_tree("t", props = list(class = "cls")))
   expect_equal(d$treeProps$class, "cls")
   # left out when not given, rather than sent as an empty object
   expect_null(vue_data_of(el_tree("t"))$treeProps$class)

@@ -53,7 +53,7 @@ them. In short:
   popconfirm take the tooltip's other attributes through `...`.
 * `el_load_children(reject = TRUE)` fails a lazy load, so the node can be
   loaded again; `el_tree_select()` loads lazily from the server as
-  `el_tree()` does. `el_tree(class_field =)`, `el_tree_v2(props =)`,
+  `el_tree()` does. `el_tree(props = list(class =))`, `el_tree_v2(props =)`,
   `el_select(props =)`, `el_select_v2(props =)`, `el_segmented(props =)` and
   `tag_tooltip` are new. `el_tree_node()` names a tree's node for
   `call_el()`.
@@ -104,6 +104,15 @@ Shiny input.
   `shiny.element.dev` does.
 
 ## Breaking changes
+
+* `el_tree()` takes Element Plus's names: its field map is `props =
+  list(label =, children =, disabled =, isLeaf =, class =)`, as
+  `el_tree_select()` and `el_tree_v2()` take it, where it was
+  `label_field`, `children_field`, `disabled_field`, `is_leaf_field` and
+  `class_field`; its keys are `default_expanded_keys` and
+  `default_checked_keys`, as `el_tree_v2()`'s, where they were `expanded`
+  and `checked` -- in `update_el_tree()` too, which can now change `props`.
+  `input$<id>_checked` is unchanged.
 
 Before this first release the API is still allowed to move; from the first
 CRAN release on, a change like these goes through a deprecation first.
@@ -228,8 +237,9 @@ entry's `hide_timestamp` is new. `insert_el_tab()` takes an
   - folded in at different depths -- a tooltip's button beside a select in
     a space -- they no longer fail to build with "Two components inside the
     same wrapper both declare ...";
-  - folded in, a component keeps its id in the page, on the component
-    itself, for CSS and `shinyjs`;
+  - folded in, a component keeps its id in the page, where Element puts it
+    -- a button's `<button>`, a select's or an input's `<input>` -- for CSS
+    and `shinyjs`;
   - a component drawn later inside a config provider -- by `renderUI()` --
     takes its settings and follows their updates; the provider's own
     settings no longer read a child's fields of the same name;
@@ -240,7 +250,18 @@ entry's `hide_timestamp` is new. `insert_el_tab()` takes an
   - tabs drawn hidden -- in a closed dialog, drawer or panel -- measure
     their active bar once shown;
   - a tree's checked keys are reported after `call_el(..., "setChecked")`
-    as after a click.
+    as after a click;
+  - a config provider inside another takes what it leaves unset from the
+    outer one -- a card's shadow, the size of a component drawn later;
+  - `insert_el_tab()` inserts the pane into tabs whose id has a dot or a
+    colon, as Shiny's ids may.
+
+  `inst/examples/combinations/` holds the apps that found these, and the
+  "Putting Components Together" article shows them: wrapped and nested,
+  drawn later, overlays and table cells, modules and forms, components
+  asking the server, awkward ids and values, and a long-running app --
+  180 components, insertUI()/removeUI() and redraws leaving no dropdown
+  behind, a dropped connection.
 
 ## Documentation, after Element's own
 

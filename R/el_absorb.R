@@ -144,9 +144,11 @@
       options <- .el_rename_ref(options, old, ref)
     }
     # its host, which carried the id, is gone: the id goes on the component,
-    # which Element hands to its root, so `#id` still finds it -- for CSS,
-    # for shinyjs::hide("id")
-    if (is.null(markup$attribs$id)) {
+    # which Element hands on -- to its root, or to the inner <input> of a
+    # control taking `id` as a prop, as Shiny's inputs have it -- so `#id`
+    # still finds it, for CSS, for shinyjs
+    # (not on a component drawing no element of its own: Vue would warn)
+    if (is.null(markup$attribs$id) && !markup$name %in% .el_no_root) {
       markup$attribs$id <- host$attribs$id
     }
   }
@@ -661,3 +663,11 @@
   options$mounted <- fix(options$mounted)
   options
 }
+
+
+#' Element components that render no element of their own
+#'
+#' A config provider renders its slot alone: an attribute on it reaches
+#' nothing, and Vue warns.
+#' @keywords internal
+.el_no_root <- c("el-config-provider")

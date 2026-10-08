@@ -60,8 +60,7 @@ test_that("el_tree: the props map names disabled as well as label and children",
 test_that("el_tree: custom field names reach the props map", {
   html <- render_html(el_tree(
     id = "picker",
-    label_field = "name",
-    children_field = "kids",
+    props = list(label = "name", children = "kids"),
     node_key = "key"
   ))
   expect_match(html, '"label":"name"', fixed = TRUE)
@@ -97,8 +96,8 @@ test_that("el_tree: initial expanded and checked keys are arrays", {
   html <- render_html(el_tree(
     id = "picker",
     data = demo_nodes,
-    expanded = "fruit",
-    checked = c("apple", "plum")
+    default_expanded_keys = "fruit",
+    default_checked_keys = c("apple", "plum")
   ))
   expect_match(html, '"expandedKeys":\\["fruit"\\]')
   expect_match(html, '"checkedKeys":\\["apple","plum"\\]')
@@ -147,19 +146,28 @@ test_that("update_el_tree: sends under the right message type", {
 
 test_that("update_el_tree: key arguments are sent as lists", {
   out <- sent_message(function(s) {
-    update_el_tree(s, "picker", expanded = c("a", "b"), checked = "c")
+    update_el_tree(
+      s,
+      "picker",
+      default_expanded_keys = c("a", "b"),
+      default_checked_keys = "c"
+    )
   })
   expect_equal(out$msg$expandedKeys, list("a", "b"))
   expect_equal(out$msg$checkedKeys, list("c"))
 })
 
 test_that("update_el_tree: an empty checked set clears rather than being dropped", {
-  out <- sent_message(function(s) update_el_tree(s, "picker", checked = list()))
+  out <- sent_message(function(s) {
+    update_el_tree(s, "picker", default_checked_keys = list())
+  })
   expect_equal(out$msg$checkedKeys, list())
 })
 
 test_that("update_el_tree: NULL fields are excluded", {
-  out <- sent_message(function(s) update_el_tree(s, "picker", expanded = "a"))
+  out <- sent_message(function(s) {
+    update_el_tree(s, "picker", default_expanded_keys = "a")
+  })
   expect_null(out$msg$treeData)
   expect_null(out$msg$checkedKeys)
 })
@@ -251,10 +259,12 @@ test_that("the field map follows the data's own names", {
   ui <- el_tree(
     "t",
     data = list(list(name = "A")),
-    label_field = "name",
-    children_field = "kids",
-    disabled_field = "locked",
-    is_leaf_field = "leaf"
+    props = list(
+      label = "name",
+      children = "kids",
+      disabled = "locked",
+      is_leaf = "leaf"
+    )
   )
   props <- vue_data_of(ui)$treeProps
   expect_equal(props$label, "name")
@@ -278,14 +288,27 @@ test_that("the field map follows the data's own names", {
   ui <- el_tree(
     "t",
     data = list(list(name = "A")),
-    label_field = "name",
-    children_field = "kids",
-    disabled_field = "locked",
-    is_leaf_field = "leaf"
+    props = list(
+      label = "name",
+      children = "kids",
+      disabled = "locked",
+      is_leaf = "leaf"
+    )
   )
   props <- vue_data_of(ui)$treeProps
   expect_equal(props$label, "name")
   expect_equal(props$children, "kids")
   expect_equal(props$disabled, "locked")
   expect_equal(props$isLeaf, "leaf")
+})
+
+
+test_that("el_tree(props =) is checked, and update_el_tree() can change it", {
+  expect_error(el_tree("t", props = list(lable = "name")), "lable")
+  expect_error(el_tree("t", props = "name"), "named list")
+  out <- sent_message(function(s) {
+    update_el_tree(s, "picker", props = list(label = "name"))
+  })
+  expect_equal(out$msg$treeProps$label, "name")
+  expect_equal(out$msg$treeProps$disabled, "disabled")
 })

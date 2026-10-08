@@ -349,7 +349,7 @@ ui <- el_page(
       )
     )
   ),
-  el_tree("p_lazy", lazy = TRUE, is_leaf_field = "leaf"),
+  el_tree("p_lazy", lazy = TRUE, props = list(isLeaf = "leaf")),
   # a slot's template calls the calendar's method through its ref
   el_calendar(
     "p_cal",

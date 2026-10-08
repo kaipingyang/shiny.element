@@ -28,10 +28,16 @@ browser, step by step, and checks what every step should do.
 A component given to another -- a button to a tooltip, controls to a space,
 a select to an input's slot -- becomes part of its Vue instance. It keeps
 its id all the same: it reports `input$<id>`, `update_el_*()` and
-`call_el()` reach it by that id, and in the page the id is on the component
-itself, for CSS or `shinyjs`. Here controls sit in a space in a collapse in
+`call_el()` reach it by that id, and in the page the id is where Element
+puts it -- a button's `<button>`, a select's or an input's `<input>`, as
+Shiny's own inputs have it -- for CSS or `shinyjs`. Here controls sit in a space in a collapse in
 a tab, inside a config provider, beside a module whose button is wrapped in
 a tooltip; a dialog holds a form, and a popover filters a table output.
+
+A select in a space, or anywhere else that is only as wide as its
+content, wants a width -- `el_select(width = "160px")`, as Element's demos
+give theirs. It has none of its own there, and shrinks to its arrow, the
+chosen label hidden; Element's own `<el-select>` does the same.
 
 A select inside a popover wants `teleported = FALSE`. Otherwise its options
 are drawn outside the popover, and choosing one closes the popover -- as in
@@ -81,4 +87,29 @@ server's answers finding them by their ids. A form in a dialog gains fields
 from the server, which are validated with their own rules.
 
 ```{r server-answers, file = "../inst/examples/combinations/server-answers/app.R", eval = FALSE, shot = TRUE}
+```
+
+## Awkward ids and values
+
+Ids with dots and hyphens, as Shiny allows them -- in a module, in tabs a
+tab is inserted into -- report and update as plain ones do. Labels holding
+markup, quotes, template braces or non-ASCII text are shown as text, never
+run or evaluated. Numeric choices report numbers, an empty checkbox group
+and an empty date report nothing, and a select of 3000 options is updated
+like one of three.
+
+```{r awkward-values, file = "../inst/examples/combinations/awkward-values/app.R", eval = FALSE, shot = TRUE}
+```
+
+## A long-running app
+
+180 components on one page each report. A block of a card, a select, a
+date picker and a tooltip, inserted and removed twenty times, and an
+output redrawn twenty times, leave nothing behind: the dropdowns and
+tooltips Element draws in `<body>` leave with their component. When the
+connection drops and Shiny reconnects, the components report and update as
+before. (Shiny reconnects on a server configured for it;
+`session$allowReconnect("force")` lets it locally too.)
+
+```{r lifecycle, file = "../inst/examples/combinations/lifecycle/app.R", eval = FALSE, shot = TRUE}
 ```

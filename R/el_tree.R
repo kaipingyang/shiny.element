@@ -6,20 +6,17 @@
 #' rather than nested tags, so the nesting is plain R data all the way down.
 #'
 #' @param id Tree ID (auto-generated if NULL).
-#' @param data A list of nodes. Each is a list with the key and label fields
-#'   named by `node_key` and `label_field`, and optionally `children`,
-#'   `disabled` for an uncheckable node, or `isLeaf`.
+#' @param data A list of nodes. Each is a list with its key (`node_key`) and
+#'   its label, and optionally `children`, `disabled` for an uncheckable
+#'   node, or `isLeaf` -- under these names, or those `props` gives.
 #' @param node_key Field holding each node's unique key. The keys are what the
-#'   server sees and what `expanded` and `checked` refer to.
-#' @param label_field,children_field Fields holding a node's label and its
-#'   children.
-#' @param disabled_field Field marking a node disabled. Default `"disabled"`.
-#' @param class_field A node's own class: the field holding it, or a [JS()]
-#'   function of the node's data (and node) returning it, as Element Plus's
-#'   `props.class`.
-#' @param is_leaf_field Field marking a node as a leaf, so lazy loading knows
-#'   not to ask it for children. Default `"isLeaf"`. Element replaces its
-#'   whole field map at once, so all four are sent together.
+#'   server sees and what `default_expanded_keys` and `default_checked_keys`
+#'   refer to.
+#' @param props Which field of a node holds what, as Element Plus's `props`:
+#'   `list(label =, children =, disabled =, isLeaf =, class =)`, each a field
+#'   name or a [JS()] function of the node's data (and node) -- `class` gives
+#'   a node a class of its own. Those left out are Element's: `"label"`,
+#'   `"children"`, `"disabled"`, `"isLeaf"`. `is_leaf` is read as `isLeaf`.
 #' @param show_checkbox Show a checkbox beside every node.
 #' @param check_strictly Treat a parent's checkbox as independent of its
 #'   children, rather than checking them together.
@@ -29,7 +26,11 @@
 #'   expand.
 #' @param accordion Keep only one node expanded per level.
 #' @param highlight_current Highlight the clicked node.
-#' @param expanded,checked Keys to expand and to check initially.
+#' @param default_expanded_keys,default_checked_keys Keys of the nodes to
+#'   expand and to check, as Element Plus's `default-expanded-keys` and
+#'   `default-checked-keys`: the tree keeps its own state from there, and
+#'   reports the checked ones as `input$<id>_checked`. [update_el_tree()]
+#'   sets them again.
 #' @param empty_text Text shown when `data` is empty.
 #' @param check_on_click_leaf Whether to check or uncheck node when clicking
 #'   on leaf node (last children). Element Plus's `check-on-click-leaf`
@@ -127,26 +128,32 @@
 #'   id = "picker",
 #'   data = nodes,
 #'   show_checkbox = TRUE,
-#'   checked = c("apple", "cherry"),
-#'   expanded = "fruit"
+#'   default_checked_keys = c("apple", "cherry"),
+#'   default_expanded_keys = "fruit"
+#' )
+#'
+#' # Nodes whose fields are named otherwise
+#' el_tree(
+#'   data = list(list(
+#'     id = 1,
+#'     name = "Docs",
+#'     kids = list(list(id = 2, name = "R"))
+#'   )),
+#'   props = list(label = "name", children = "kids")
 #' )
 el_tree <- function(
   id = NULL,
   data = list(),
   node_key = "id",
-  label_field = "label",
-  children_field = "children",
-  disabled_field = "disabled",
-  is_leaf_field = "isLeaf",
-  class_field = NULL,
+  props = NULL,
   show_checkbox = FALSE,
   check_strictly = FALSE,
   default_expand_all = FALSE,
   expand_on_click_node = TRUE,
   accordion = FALSE,
   highlight_current = FALSE,
-  expanded = NULL,
-  checked = NULL,
+  default_expanded_keys = NULL,
+  default_checked_keys = NULL,
   empty_text = NULL,
   indent = NULL,
   lazy = NULL,
@@ -277,18 +284,7 @@ el_tree <- function(
 
   vue_data <- list(
     treeData = data,
-    # Element's default props map is replaced wholesale, not merged, so
-    # `disabled` has to be named here or a disabled node renders as normal.
-    treeProps = Filter(
-      Negate(is.null),
-      list(
-        label = label_field,
-        children = children_field,
-        disabled = disabled_field,
-        isLeaf = is_leaf_field,
-        class = class_field
-      )
-    ),
+    treeProps = .el_tree_props(props),
     nodeKey = node_key,
     showCheckbox = show_checkbox,
     checkStrictly = check_strictly,
@@ -296,11 +292,11 @@ el_tree <- function(
     expandOnClickNode = expand_on_click_node,
     accordion = accordion,
     highlightCurrent = highlight_current,
-    expandedKeys = if (is.null(expanded)) list() else as.list(expanded),
-    checkedKeys = if (is.null(checked)) list() else as.list(checked),
+    expandedKeys = as.list(default_expanded_keys),
+    checkedKeys = as.list(default_checked_keys),
     emptyText = if (is.null(empty_text)) NA else empty_text,
     current = "",
-    checked = if (is.null(checked)) list() else as.list(checked)
+    checked = as.list(default_checked_keys)
   )
 
   vue_data$indent <- .el_or_na(indent)
@@ -353,7 +349,7 @@ el_tree <- function(
           "return String(label === undefined ? '' : label).toLowerCase()",
           ".indexOf(String(value).toLowerCase()) !== -1; }"
         )),
-        # update_el_tree(checked =): Element's setCheckedKeys(), which also
+        # update_el_tree(default_checked_keys =): Element's setCheckedKeys(), which also
         # updates the half-checked parents a plain assignment would leave alone
         shinyVueReceive = JS(paste0(
           "function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; ",
@@ -400,7 +396,7 @@ el_tree <- function(
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$go, {
-#'     update_el_tree(session, "picker", checked = c("apple"))
+#'     update_el_tree(session, "picker", default_checked_keys = "apple")
 #'   })
 #' }
 #' @export
@@ -408,8 +404,9 @@ update_el_tree <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   data = NULL,
-  expanded = NULL,
-  checked = NULL,
+  default_expanded_keys = NULL,
+  default_checked_keys = NULL,
+  props = NULL,
   label = NULL,
   error = NULL,
   node_key = NULL,
@@ -441,11 +438,14 @@ update_el_tree <- function(
   if (!is.null(data)) {
     msg$treeData <- data
   }
-  if (!is.null(expanded)) {
-    msg$expandedKeys <- as.list(expanded)
+  if (!is.null(default_expanded_keys)) {
+    msg$expandedKeys <- as.list(default_expanded_keys)
   }
-  if (!is.null(checked)) {
-    msg$checkedKeys <- as.list(checked)
+  if (!is.null(default_checked_keys)) {
+    msg$checkedKeys <- as.list(default_checked_keys)
+  }
+  if (!is.null(props)) {
+    msg$treeProps <- .el_tree_props(props)
   }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
@@ -547,4 +547,51 @@ df_to_tree_data <- function(df, cols, sep = "/") {
     "node-drag-end" = "function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }",
     "node-drop" = "function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }"
   )
+}
+
+
+#' A tree's field map, as Element Plus's `props`
+#'
+#' Element replaces its field map whole rather than merging it, so the
+#' fields not given are filled in with Element's own -- left out, `disabled`
+#' would no longer disable a node.
+#'
+#' @param props A named list, or `NULL`.
+#' @return The full map.
+#' @keywords internal
+.el_tree_props <- function(props) {
+  defaults <- list(
+    label = "label",
+    children = "children",
+    disabled = "disabled",
+    isLeaf = "isLeaf"
+  )
+  if (is.null(props)) {
+    return(defaults)
+  }
+  if (!is.list(props) || is.null(names(props)) || any(!nzchar(names(props)))) {
+    stop(
+      "`props` must be a named list, as `list(label = \"name\")`.",
+      call. = FALSE
+    )
+  }
+  names(props) <- vapply(
+    names(props),
+    .el_camel_case,
+    character(1),
+    USE.NAMES = FALSE
+  )
+  known <- c(names(defaults), "class")
+  unknown <- setdiff(names(props), known)
+  if (length(unknown)) {
+    stop(
+      "`props` has no ",
+      paste0("`", unknown, "`", collapse = ", "),
+      "; a tree's are ",
+      paste0("`", known, "`", collapse = ", "),
+      ".",
+      call. = FALSE
+    )
+  }
+  utils::modifyList(defaults, props)
 }

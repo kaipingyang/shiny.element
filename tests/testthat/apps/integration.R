@@ -393,8 +393,8 @@ ui <- el_page(
     el_tree(
       "tree",
       show_checkbox = TRUE,
-      expanded = "t-fruit",
-      checked = c("t-apple"),
+      default_expanded_keys = "t-fruit",
+      default_checked_keys = "t-apple",
       data = list(
         list(
           id = "t-fruit",
@@ -570,7 +570,12 @@ ui <- el_page(
   actionButton("upd_tag", "tag label"),
   actionButton("upd_go", "update label"),
   actionButton("upd_clear", "clear error"),
-  el_tree("lz_tree", lazy = TRUE, node_key = "id", is_leaf_field = "leaf"),
+  el_tree(
+    "lz_tree",
+    lazy = TRUE,
+    node_key = "id",
+    props = list(isLeaf = "leaf")
+  ),
   el_cascader("lz_casc", props = list(lazy = TRUE)),
   el_select("rm_sel", filterable = TRUE, remote = TRUE),
   # Remote searches no observer answers
@@ -1095,7 +1100,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$tree_check, {
-    update_el_tree(session, "tree", checked = "t-grain")
+    update_el_tree(session, "tree", default_checked_keys = "t-grain")
   })
 
   observeEvent(input$nav_pick, {

@@ -408,7 +408,13 @@ insert_el_tab <- function(
   # binds what is inside; the header item is built by the binding, which knows
   # the tabs' position and closability.
   shiny::insertUI(
-    selector = paste0("#", ns_id, " > .el-tabs__content"),
+    # an id may hold a dot or a colon, as Shiny's may: escaped, or `#a.b`
+    # would look for an element `a` of class `b`
+    selector = paste0(
+      "#",
+      gsub("([^A-Za-z0-9_-])", "\\\\\\1", ns_id),
+      " > .el-tabs__content"
+    ),
     where = "beforeEnd",
     immediate = TRUE,
     session = session,

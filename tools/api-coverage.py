@@ -631,7 +631,7 @@ CONTAINER = {"el-column": "columns", "el-anchor-link": "links", "el-tour-step": 
 NAMED.update({("el-tooltip", "value"): "update_el_tooltip(value =)",
               ("el-popover", "value"): "update_el_popover(value =)",
               ("el-form", "model"): "each field's `value`; update_el_form(model =)",
-              ("el-tree", "props"): "label_field, children_field, disabled_field, is_leaf_field",
+              ("el-tree", "props"): "props",
               ("el-input", "auto-complete"): "(deprecated upstream; `autocomplete`)",
               ("el-select", "auto-complete"): "(deprecated upstream; `autocomplete`)",
               ("el-infinite-scroll", "infinite-scroll-disabled"): "disabled",

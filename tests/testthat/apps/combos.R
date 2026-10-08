@@ -66,6 +66,24 @@ ui <- el_page(
     el_button("check_a", "Check Pear in A"),
     el_button("check_b", "Check Leek in B")
   ),
+  # a provider inside another: what the inner one leaves unset is the outer
+  # one's
+  el_config_provider(
+    id = "outer",
+    card = list(shadow = "never"),
+    size = "large",
+    el_config_provider(
+      id = "inner",
+      el_card(id = "inner_card", "inner card"),
+      uiOutput("inner_dyn")
+    )
+  ),
+  # an id with a dot, as Shiny allows: a tab is inserted by its selector
+  el_tabs(
+    "tabs.dot",
+    tabs = list(list(name = "a", label = "A", content = "a"))
+  ),
+  el_button("add_tab", "Add a tab"),
   el_button("open", "Open the dialog"),
   el_dialog(
     "dlg",
@@ -82,6 +100,7 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   output$dyn <- renderUI(el_button("dyn_btn", "Drawn later"))
+  output$inner_dyn <- renderUI(el_button("inner_btn", "Drawn later, nested"))
   observeEvent(input$size_pick, ignoreInit = TRUE, {
     update_el_config_provider(session, "cfg", size = input$size_pick)
   })
@@ -98,6 +117,9 @@ server <- function(input, output, session) {
     input$check_b,
     call_el(session, "tree_b", "setChecked", list(21, TRUE, FALSE))
   )
+  observeEvent(input$add_tab, {
+    insert_el_tab(session, "tabs.dot", "b", label = "B", content = "b")
+  })
   observeEvent(input$open, update_el_dialog(session, "dlg", visible = TRUE))
 }
 

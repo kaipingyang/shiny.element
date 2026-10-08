@@ -9,19 +9,15 @@ el_tree(
   id = NULL,
   data = list(),
   node_key = "id",
-  label_field = "label",
-  children_field = "children",
-  disabled_field = "disabled",
-  is_leaf_field = "isLeaf",
-  class_field = NULL,
+  props = NULL,
   show_checkbox = FALSE,
   check_strictly = FALSE,
   default_expand_all = FALSE,
   expand_on_click_node = TRUE,
   accordion = FALSE,
   highlight_current = FALSE,
-  expanded = NULL,
-  checked = NULL,
+  default_expanded_keys = NULL,
+  default_checked_keys = NULL,
   empty_text = NULL,
   indent = NULL,
   lazy = NULL,
@@ -54,8 +50,9 @@ update_el_tree(
   session = shiny::getDefaultReactiveDomain(),
   id,
   data = NULL,
-  expanded = NULL,
-  checked = NULL,
+  default_expanded_keys = NULL,
+  default_checked_keys = NULL,
+  props = NULL,
   label = NULL,
   error = NULL,
   node_key = NULL,
@@ -84,25 +81,19 @@ update_el_tree(
 \arguments{
 \item{id}{Tree ID (auto-generated if NULL).}
 
-\item{data}{A list of nodes. Each is a list with the key and label fields
-named by \code{node_key} and \code{label_field}, and optionally \code{children},
-\code{disabled} for an uncheckable node, or \code{isLeaf}.}
+\item{data}{A list of nodes. Each is a list with its key (\code{node_key}) and
+its label, and optionally \code{children}, \code{disabled} for an uncheckable
+node, or \code{isLeaf} -- under these names, or those \code{props} gives.}
 
 \item{node_key}{Field holding each node's unique key. The keys are what the
-server sees and what \code{expanded} and \code{checked} refer to.}
+server sees and what \code{default_expanded_keys} and \code{default_checked_keys}
+refer to.}
 
-\item{label_field, children_field}{Fields holding a node's label and its
-children.}
-
-\item{disabled_field}{Field marking a node disabled. Default \code{"disabled"}.}
-
-\item{is_leaf_field}{Field marking a node as a leaf, so lazy loading knows
-not to ask it for children. Default \code{"isLeaf"}. Element replaces its
-whole field map at once, so all four are sent together.}
-
-\item{class_field}{A node's own class: the field holding it, or a \code{\link[=JS]{JS()}}
-function of the node's data (and node) returning it, as Element Plus's
-\code{props.class}.}
+\item{props}{Which field of a node holds what, as Element Plus's \code{props}:
+\code{list(label =, children =, disabled =, isLeaf =, class =)}, each a field
+name or a \code{\link[=JS]{JS()}} function of the node's data (and node) -- \code{class} gives
+a node a class of its own. Those left out are Element's: \code{"label"},
+\code{"children"}, \code{"disabled"}, \code{"isLeaf"}. \code{is_leaf} is read as \code{isLeaf}.}
 
 \item{show_checkbox}{Show a checkbox beside every node.}
 
@@ -119,7 +110,11 @@ expand.}
 
 \item{highlight_current}{Highlight the clicked node.}
 
-\item{expanded, checked}{Keys to expand and to check initially.}
+\item{default_expanded_keys, default_checked_keys}{Keys of the nodes to
+expand and to check, as Element Plus's \code{default-expanded-keys} and
+\code{default-checked-keys}: the tree keeps its own state from there, and
+reports the checked ones as \verb{input$<id>_checked}. \code{\link[=update_el_tree]{update_el_tree()}}
+sets them again.}
 
 \item{empty_text}{Text shown when \code{data} is empty.}
 
@@ -284,13 +279,23 @@ el_tree(
   id = "picker",
   data = nodes,
   show_checkbox = TRUE,
-  checked = c("apple", "cherry"),
-  expanded = "fruit"
+  default_checked_keys = c("apple", "cherry"),
+  default_expanded_keys = "fruit"
+)
+
+# Nodes whose fields are named otherwise
+el_tree(
+  data = list(list(
+    id = 1,
+    name = "Docs",
+    kids = list(list(id = 2, name = "R"))
+  )),
+  props = list(label = "name", children = "kids")
 )
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_tree(session, "picker", checked = c("apple"))
+    update_el_tree(session, "picker", default_checked_keys = "apple")
   })
 }
 }

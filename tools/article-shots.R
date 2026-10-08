@@ -135,6 +135,9 @@ if (!length(shots)) {
 # serves bslib's Bootstrap at one path per version, so in one process every
 # page gets the stylesheet of the theme compiled last -- and Element, which
 # follows Bootstrap's colours, with it: a purple theme came out blue.
+# every example's screenshot, those taken in an app of their own included:
+# what the stale ones are told apart from
+every_key <- names(shots)
 themed <- vapply(
   shots,
   function(s) grepl("theme\\s*=", s$code) && grepl("el_theme|bs_theme", s$code),
@@ -592,7 +595,7 @@ for (s in shots) {
 if (!length(wanted)) {
   stale <- setdiff(
     list.files(OUTDIR, pattern = "[.]png$"),
-    paste0(names(shots), ".png")
+    paste0(every_key, ".png")
   )
   if (length(stale)) {
     file.remove(file.path(OUTDIR, stale))

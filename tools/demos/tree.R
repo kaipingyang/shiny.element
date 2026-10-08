@@ -66,15 +66,15 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ## custom-leaf
-#' `is_leaf_field` names the field that says a node has no children, so it
-#' draws no expand arrow.
+#' `props = list(isLeaf =)` names the field that says a node has no
+#' children, so it draws no expand arrow.
 #| shot_js = "document.querySelector('#shot .el-tree-node__content').click()", shot_wait = 2
 ui <- el_page(el_tree(
   "zones",
   lazy = TRUE,
   node_key = "id",
   show_checkbox = TRUE,
-  is_leaf_field = "leaf"
+  props = list(isLeaf = "leaf")
 ))
 
 server <- function(input, output, session) {
@@ -102,7 +102,7 @@ shinyApp(ui, server)
 #' `reject()`, and the node can be expanded again to retry. Here the server
 #' refuses the first three tries.
 #| shot_js = "document.querySelector('#shot .el-tree-node__content').click()", shot_wait = 2
-ui <- el_page(el_tree("regions", lazy = TRUE, is_leaf_field = "leaf"))
+ui <- el_page(el_tree("regions", lazy = TRUE, props = list(isLeaf = "leaf")))
 
 server <- function(input, output, session) {
   tries <- 0
@@ -178,15 +178,14 @@ el_tree(
 )
 
 ## default-state
-#' `expanded` and `checked` are Element Plus's `default-expanded-keys` and
-#' `default-checked-keys` -- renamed, since `update_el_tree(checked =)`
-#' changes them later.
+#' The tree keeps its own state from the keys it is given; `update_el_tree()`
+#' sets them again, and `input$defs_checked` reports what is checked.
 el_tree(
   "defs",
   show_checkbox = TRUE,
   node_key = "id",
-  expanded = c(2, 3),
-  checked = 5,
+  default_expanded_keys = c(2, 3),
+  default_checked_keys = 5,
   data = list(
     list(
       id = 1,
@@ -213,7 +212,7 @@ el_tree(
 )
 
 ## checking-tree
-#' `update_el_tree(checked =)` sets them; `call_el()` runs Element Plus's
+#' `update_el_tree(default_checked_keys =)` sets them; `call_el()` runs Element Plus's
 #' `getCheckedKeys()`, `setCheckedKeys()` and the rest.
 #| shot_js = "document.querySelector('#set_container button').click()", shot_wait = 2
 nodes <- list(
@@ -247,8 +246,14 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$set, update_el_tree(id = "tree", checked = c(4, 6)))
-  observeEvent(input$reset, update_el_tree(id = "tree", checked = character(0)))
+  observeEvent(
+    input$set,
+    update_el_tree(id = "tree", default_checked_keys = c(4, 6))
+  )
+  observeEvent(
+    input$reset,
+    update_el_tree(id = "tree", default_checked_keys = character(0))
+  )
   observeEvent(input$get, call_el(session, "tree", "getCheckedKeys"))
   output$keys <- renderPrint(input$tree_checked)
 }
@@ -360,8 +365,8 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ## custom-node-class
-#' `class_field` gives each node a class of its own: a field, or a `JS()`
-#' function of the node's data, Element Plus's `props.class`.
+#' `props = list(class =)` gives each node a class of its own: a field, or a
+#' `JS()` function of the node's data.
 nodes <- list(
   list(
     id = 1,
@@ -400,8 +405,10 @@ tagList(
     show_checkbox = TRUE,
     default_expand_all = TRUE,
     expand_on_click_node = FALSE,
-    class_field = JS(
-      "function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"
+    props = list(
+      class = JS(
+        "function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"
+      )
     )
   ),
   tags$style(HTML(

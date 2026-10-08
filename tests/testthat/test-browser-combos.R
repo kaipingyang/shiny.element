@@ -99,6 +99,24 @@ test_that("components work together: folded, provided, drawn later, hidden", {
   expect_true(checked("tree_b", "Leek"))
   expect_false(checked("tree_a", "Leek"))
 
+  # a provider inside another inherits what it leaves unset: the card's
+  # shadow and, for a component drawn later, the size
+  expect_true(js(
+    "document.querySelector('#outer .el-card').classList.contains('is-never-shadow')"
+  ))
+  expect_true(js("!!document.querySelector('#inner_dyn .el-button--large')"))
+
+  # a tab inserted into tabs whose id has a dot
+  click("add_tab", 2)
+  expect_equal(
+    js("document.querySelectorAll('[id=\"tabs.dot\"] .el-tabs__item').length"),
+    2
+  )
+  expect_equal(
+    js("document.querySelectorAll('[id=\"tabs.dot\"] .el-tab-pane').length"),
+    2
+  )
+
   # tabs drawn in a closed dialog: the active bar is measured once shown
   click("open", 2)
   expect_gt(

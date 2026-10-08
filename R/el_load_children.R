@@ -31,7 +31,7 @@
 #'     "files",
 #'     lazy = TRUE,
 #'     node_key = "id",
-#'     is_leaf_field = "leaf"
+#'     props = list(isLeaf = "leaf")
 #'   ))
 #'   server <- function(input, output, session) {
 #'     observeEvent(input$files_load, {

@@ -224,8 +224,8 @@ ui <- el_page(
                       "picker",
                       data = demo_tree,
                       show_checkbox = TRUE,
-                      checked = "apple",
-                      expanded = "fruit"
+                      default_checked_keys = "apple",
+                      default_expanded_keys = "fruit"
                     )
                   ),
                   el_col(

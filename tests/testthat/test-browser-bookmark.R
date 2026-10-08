@@ -65,6 +65,7 @@ test_that("a bookmark brings every component back", {
   js("document.querySelectorAll('#pg_container .el-pager li')[2].click()")
   js("shinyVue.find('rv').instance.value = 'r'")
   js("shinyVue.find('su').instance.k = 7")
+  js("Shiny.setInputValue('set_folded', 1)")
   Sys.sleep(1.5)
   before <- dump()
 
@@ -82,6 +83,11 @@ test_that("a bookmark brings every component back", {
   expect_equal(after[["rv"]], "r")
   # and an input that setup() defines
   expect_equal(after[["su"]], "7")
+  # and folded into another component, in a module too
+  expect_equal(
+    after[c("sp_sel", "sp_num", "m-pick", "kind")],
+    c(sp_sel = "z", sp_num = "5", `m-pick` = "v", kind = "i")
+  )
   # and on screen, not only in input$
   expect_equal(
     js("document.querySelector('#name_container input').value"),
