@@ -259,6 +259,8 @@ its `name` argument is now `tab`.
 - A timeline entry whose content is tags –
   [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md)
   – is drawn as markup, where it showed its HTML source.
+- `el_carousel_item(style =, class =)`: a slide’s own height, which a
+  carousel of `height = "auto"` takes, as upstream’s example sets it.
 - Containers are Element’s own elements – `<section>`, `<header>`,
   `<main>`, `<aside>`, `<footer>` – with their sizes as its CSS
   variables; a side tab header is laid out in a column, the “+” is

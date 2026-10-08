@@ -364,11 +364,28 @@ Insert customized tags into the slot of `el-select`. `collapse-tags`,
 
 el_select_v2(
   "v2_tag",
-  options = c("Red" = "#ff0000", "Green" = "#00ff00"),
-  value = c("#ff0000"),
+  options = c("Red" = "#ff0000", "Green" = "#00ff00", "Blue" = "#0000ff"),
+  value = c("#ff0000", "#00ff00"),
   multiple = TRUE,
   placeholder = "Please select",
-  width = "240px"
+  width = "240px",
+  slots = list(
+    default = template(
+      htmltools::HTML(paste0(
+        "<div class=\"flex items-center\">",
+        "<el-tag :color=\"item.value\" style=\"margin-right: 8px\" size=\"small\" />",
+        "<span :style=\"{ color: item.value }\">{{ item.label }}</span></div>"
+      )),
+      slot = "default",
+      scope = "{ item }"
+    ),
+    tag = template(
+      htmltools::HTML(
+        "<el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" :aria-label=\"color\" />"
+      ),
+      slot = "tag"
+    )
+  )
 )
 ```
 

@@ -5,7 +5,7 @@ Element Plus's `el-carousel-item`, for `el_carousel(items =)`.
 ## Usage
 
 ``` r
-el_carousel_item(..., name = NULL, label = NULL)
+el_carousel_item(..., name = NULL, label = NULL, style = NULL, class = NULL)
 ```
 
 ## Arguments
@@ -21,6 +21,11 @@ el_carousel_item(..., name = NULL, label = NULL)
 - label:
 
   Text of the slide's indicator.
+
+- style, class:
+
+  The slide's own inline style and classes – a height of its own in a
+  carousel of `height = "auto"`, as upstream's example sets it.
 
 ## Value
 

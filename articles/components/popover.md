@@ -48,6 +48,9 @@ The `trigger` attribute is used to define how popover is triggered:
 `hover`, `click`, `focus` or `contextmenu` . If you want to manually
 control it, you can set `:visible`.
 
+Each button opens its popover as its label says: `contextmenu` on a
+right-click, as the browser’s own menu, not on a left click.
+
 ``` r
 
 tagList(lapply(c("hover", "click", "focus", "contextmenu"), function(t) {
