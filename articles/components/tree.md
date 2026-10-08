@@ -663,7 +663,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `data` | `data` | tree data | [^1]`Array<{[key: string]: any}>` |  | — |
 | `empty-text` | `empty_text` | text displayed when data is void | [^2] |  | — |
 | `node-key` | `node_key` | unique identity key name for nodes, its value should be unique across the whole tree | [^3] |  | — |
-| `props` | `label_field, children_field, disabled_field, is_leaf_field` | configuration options, see the following table | [^4] |  | — |
+| `props` | `props` | configuration options, see the following table | [^4] |  | — |
 | `render-after-expand` | `render_after_expand` | whether to render child nodes only after a parent node is expanded for the first time | [^5] |  | true |
 | `load` | `load` | method for loading subtree data, only works when `lazy` is true | [^6]`(node, resolve, reject) => void` |  | — |
 | `render-content` | `render_content` | render function for tree node | [^7]`(h, { node, data, store }) => void` |  | — |
