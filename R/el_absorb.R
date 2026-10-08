@@ -134,10 +134,20 @@
   markup <- spec$markup
   ref <- NULL
   if (inherits(markup, "shiny.tag")) {
-    ref <- markup$attribs$ref
-    if (is.null(ref)) {
-      ref <- paste0("sv_", gsub("[^A-Za-z0-9_]", "_", host$attribs$id))
-      markup$attribs$ref <- ref
+    # a ref of its own: two trees folded into one instance would share
+    # `tree`, and one's methods reach the other. Its methods' `$refs.tree`
+    # follow the new name.
+    ref <- paste0("sv_", gsub("[^A-Za-z0-9_]", "_", host$attribs$id))
+    old <- markup$attribs$ref
+    markup$attribs$ref <- ref
+    if (!is.null(old) && !identical(old, ref)) {
+      options <- .el_rename_ref(options, old, ref)
+    }
+    # its host, which carried the id, is gone: the id goes on the component,
+    # which Element hands to its root, so `#id` still finds it -- for CSS,
+    # for shinyjs::hide("id")
+    if (is.null(markup$attribs$id)) {
+      markup$attribs$id <- host$attribs$id
     }
   }
   fields <- unique(c(
@@ -180,17 +190,24 @@
   # Two components in one wrapper share a namespace, and most of them declare
   # a label, a type and a disabled. Rather than refuse the pair, rename the
   # later one's fields -- markup, methods and all -- so both can coexist.
+  names_of <- function(p) {
+    unique(c(names(p$data), names(p$methods), names(p$computed)))
+  }
+  # every name any part holds: a prefix must clash with none of them -- a
+  # part folded in twice over already carries `el2_label` from its own merge
+  every <- unique(unlist(lapply(parts, names_of)))
   taken <- character(0)
   for (i in seq_along(parts)) {
-    names_of <- function(p) {
-      unique(c(names(p$data), names(p$methods), names(p$computed)))
-    }
     fields <- names_of(parts[[i]])
     if (!length(fields)) {
       next
     }
     if (length(intersect(taken, fields))) {
-      parts[[i]] <- .el_prefix_absorbed(parts[[i]], paste0("el", i))
+      k <- i
+      while (length(intersect(paste0("el", k, "_", fields), c(every, taken)))) {
+        k <- k + length(parts)
+      }
+      parts[[i]] <- .el_prefix_absorbed(parts[[i]], paste0("el", k))
       fields <- names_of(parts[[i]])
     }
     taken <- c(taken, fields)
@@ -220,24 +237,7 @@
     if (length(out)) out else NULL
   }
 
-  mounts <- Filter(Negate(is.null), lapply(parts, `[[`, "mounted"))
-  mounted <- if (!length(mounts)) {
-    NULL
-  } else {
-    JS(
-      "function() { var self = this; [",
-      paste(vapply(mounts, as.character, character(1)), collapse = ", "),
-      "].forEach(function(f) { f.call(self); }); }"
-    )
-  }
-  # When every hook is only reporting -- what .el_mounted_init() writes --
-  # say so, with every field each reports. el_widget() then binds the
-  # wrapper's own value to Shiny, as it does for any other component, and
-  # reports the absorbed components' under their ids as before.
-  reports <- lapply(mounts, attr, "vue_report")
-  if (length(mounts) && !any(vapply(reports, is.null, logical(1)))) {
-    attr(mounted, "vue_report") <- do.call(c, unname(reports))
-  }
+  mounted <- .el_join_mounted(lapply(parts, `[[`, "mounted"))
 
   list(
     # Renaming rewrites the markup too, so the caller has to use what comes
@@ -542,6 +542,10 @@
 #' @param attrs Further attributes of the tag.
 #' @param width,slots As for [el_widget()].
 #' @param data Further fields of the container's own.
+#' @param wrap A function given the children's markup, returning the tag
+#'   placed in the container instead: markup of the container's own around
+#'   them, whose bindings name the container's fields. Left out of the
+#'   children, it is not renamed with them.
 #' @return A Shiny UI element.
 #' @keywords internal
 .el_wrap_widget <- function(
@@ -553,7 +557,8 @@
   attrs = list(),
   width = NULL,
   slots = NULL,
-  data = list()
+  data = list(),
+  wrap = NULL
 ) {
   own <- list(
     markup = NULL,
@@ -566,12 +571,13 @@
   )
   parts <- lapply(Filter(Negate(is.null), children), .el_absorb)
   merged <- do.call(.el_absorb_merge, c(list(own), parts))
+  inner <- unname(merged$markups[-1])
+  if (is.function(wrap)) {
+    inner <- list(wrap(inner))
+  }
   el_widget(
     id = ns_id,
-    markup = htmltools::tag(
-      tag,
-      c(attrs, props$attrs, events$attrs, unname(merged$markups[-1]))
-    ),
+    markup = htmltools::tag(tag, c(attrs, props$attrs, events$attrs, inner)),
     data = merged$data,
     absorbed = merged$absorbed,
     methods = merged$methods,
@@ -582,4 +588,76 @@
     slots = slots,
     dependency = merged$dependencies
   )
+}
+
+
+#' One mounted hook running several in turn
+#'
+#' When every hook is only reporting -- what .el_mounted_init() writes --
+#' the result says so, with every field each reports: el_widget() then binds
+#' the component's own value to Shiny, as it does for any other, and reports
+#' the folded components' under their ids.
+#'
+#' @param mounts A list of `JS()` hooks, `NULL`s dropped.
+#' @return One hook, or `NULL`.
+#' @keywords internal
+.el_join_mounted <- function(mounts) {
+  mounts <- Filter(Negate(is.null), mounts)
+  if (!length(mounts)) {
+    return(NULL)
+  }
+  if (length(mounts) == 1L) {
+    return(mounts[[1]])
+  }
+  mounted <- JS(
+    "function() { var self = this; [",
+    paste(vapply(mounts, as.character, character(1)), collapse = ", "),
+    "].forEach(function(f) { f.call(self); }); }"
+  )
+  reports <- lapply(mounts, attr, "vue_report")
+  if (!any(vapply(reports, is.null, logical(1)))) {
+    attr(mounted, "vue_report") <- do.call(c, unname(reports))
+  }
+  mounted
+}
+
+
+#' Rename a component's ref in its own functions
+#'
+#' @param options A component's Vue options.
+#' @param old,new The ref's name, and its new one.
+#' @return The options, `$refs.<old>` read as `$refs.<new>` throughout.
+#' @keywords internal
+.el_rename_ref <- function(options, old, new) {
+  pattern <- sprintf(
+    "\\$refs(\\.%1$s(?![A-Za-z0-9_$])|\\[(['\"])%1$s\\2\\])",
+    gsub("([.$])", "\\\\\\1", old)
+  )
+  fix <- function(f) {
+    if (!inherits(f, "JS_EVAL")) {
+      return(f)
+    }
+    out <- JS(gsub(
+      pattern,
+      paste0("$refs.", new),
+      as.character(f),
+      perl = TRUE
+    ))
+    attributes(out) <- attributes(f)
+    out
+  }
+  for (part in c("methods", "computed", "watch")) {
+    if (length(options[[part]])) {
+      options[[part]] <- lapply(options[[part]], function(w) {
+        if (is.list(w) && !inherits(w, "JS_EVAL")) {
+          w$handler <- fix(w$handler)
+          w
+        } else {
+          fix(w)
+        }
+      })
+    }
+  }
+  options$mounted <- fix(options$mounted)
+  options
 }

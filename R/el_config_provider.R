@@ -75,17 +75,33 @@ el_config_provider <- function(
   # The provider's own scope: el_card() and el_dialog() are markup, which
   # Element's ConfigProvider does not reach, and take its card and dialog
   # settings from these attributes (el-events.js)
-  scope <- htmltools::tags$div(
-    class = "el-provider-scope",
-    style = "display: contents",
-    `:data-card-shadow` = "card && card.shadow ? card.shadow : ''",
-    `:data-dialog` = "dialog ? JSON.stringify(dialog) : ''",
-    ...
-  )
+  # The scope is the provider's own markup, around its children: its
+  # bindings name the provider's fields, which a child's renaming must not
+  # touch, so it wraps them rather than being one of them. Object keys are
+  # quoted, so no renaming takes them for fields.
+  scope <- function(children) {
+    htmltools::tags$div(
+      class = "el-provider-scope",
+      style = "display: contents",
+      `:data-card-shadow` = "card && card.shadow ? card.shadow : ''",
+      `:data-dialog` = "dialog ? JSON.stringify(dialog) : ''",
+      # the whole of it, for components drawn inside later -- by
+      # renderUI() -- which are Vue apps of their own, out of its reach
+      `:data-config` = paste0(
+        "JSON.stringify({'locale': locale, 'size': size, 'button': button, ",
+        "'link': link, 'card': card, 'dialog': dialog, 'message': message, ",
+        "'table': table, 'emptyValues': emptyValues, ",
+        "'valueOnClear': valueOnClear, ",
+        "'experimentalFeatures': experimentalFeatures})"
+      ),
+      children
+    )
+  }
   widget <- .el_wrap_widget(
     "el-config-provider",
     ns_id,
-    list(scope),
+    list(...),
+    wrap = scope,
     attrs = list(":locale" = "$elLocale(locale)"),
     data = list(locale = if (is.null(locale)) NA else tolower(locale)),
     props = .el_props(list(

@@ -13,7 +13,8 @@
   attrs = list(),
   width = NULL,
   slots = NULL,
-  data = list()
+  data = list(),
+  wrap = NULL
 )
 }
 \arguments{
@@ -32,6 +33,11 @@
 \item{width, slots}{As for \code{\link[=el_widget]{el_widget()}}.}
 
 \item{data}{Further fields of the container's own.}
+
+\item{wrap}{A function given the children's markup, returning the tag
+placed in the container instead: markup of the container's own around
+them, whose bindings name the container's fields. Left out of the
+children, it is not renamed with them.}
 }
 \value{
 A Shiny UI element.

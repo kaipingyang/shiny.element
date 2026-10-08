@@ -116,3 +116,19 @@ test_that("a watcher on a path follows its field's renaming", {
   expect_match(html, '"el[0-9]+_model\\.sz"')
   expect_false(grepl('"model.sz"', html, fixed = TRUE))
 })
+
+test_that("components folded in at different depths do not clash", {
+  # a tooltip's button renamed to el2_* in the tooltip, and a select renamed
+  # in the space with the same prefix: two el2_label, refused
+  expect_no_error(
+    html <- paste(
+      as.character(el_space(
+        el_tooltip("t", el_button("b", "B"), content = "c"),
+        el_select("s", choices = c("x", "y"))
+      )),
+      collapse = ""
+    )
+  )
+  expect_match(html, '"b":{"fields":', fixed = TRUE)
+  expect_match(html, '"s":{"fields":', fixed = TRUE)
+})

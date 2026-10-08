@@ -87,7 +87,10 @@ tagList(
 )
 
 ## nested-information
-#' A popover holds any UI: a table, or rich content beside an avatar.
+#' A popover holds any UI: a table, or rich content beside an avatar. A
+#' select inside one wants `teleported = FALSE`: its options are otherwise
+#' drawn outside the popover, and choosing one closes it, as in Element
+#' itself.
 #| shot_js = "document.querySelector('#addr .el-button').click()"
 #| shot_sel = ".el-popper"
 #| shot_wait = 1

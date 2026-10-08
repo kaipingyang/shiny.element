@@ -127,9 +127,6 @@ el_widget <- function(
     data <- c(data, props$data)
   }
   label_position <- match.arg(label_position)
-  mounted_given <- mounted
-  methods_given <- methods
-  watch_given <- watch
 
   if (length(slots)) {
     # A component in a slot joins this one's instance: its fields must not
@@ -143,8 +140,16 @@ el_widget <- function(
     absorbed <- c(absorbed, filled$absorbed)
     methods <- c(methods, filled$methods)
     watch <- c(watch, filled$watch)
+    computed <- c(computed, filled$computed)
+    # a component in a slot reports on load as it would on its own
+    mounted <- .el_join_mounted(list(mounted, filled$mounted))
     dependency <- c(dependency, filled$dependencies)
   }
+  # as written, with what the slots brought: what .el_absorb() folds into
+  # another component, before the binding's own value is stripped below
+  mounted_given <- mounted
+  methods_given <- methods
+  watch_given <- watch
 
   if (!is.null(width)) {
     markup <- .el_set_width(markup, width)
@@ -426,6 +431,8 @@ el_widget <- function(
     data = merged$data,
     methods = merged$methods,
     watch = merged$watch,
+    computed = merged$computed,
+    mounted = merged$mounted,
     dependencies = merged$dependencies,
     absorbed = merged$absorbed
   )

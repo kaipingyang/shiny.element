@@ -119,7 +119,10 @@ Other components/elements can be nested in popover. Following is an example of n
 
 replace the `content` attribute with a default `slot`.
 
-A popover holds any UI: a table, or rich content beside an avatar.
+A popover holds any UI: a table, or rich content beside an avatar. A
+select inside one wants `teleported = FALSE`: its options are otherwise
+drawn outside the popover, and choosing one closes it, as in Element
+itself.
 
 ```{r nested-information, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#addr .el-button').click()", shot_sel = ".el-popper", shot_wait = 1, shot_expect = "document.querySelectorAll('.el-popper .el-table__body tr').length === 4"}
 avatar <- "https://avatars.githubusercontent.com/u/72015883?v=4"

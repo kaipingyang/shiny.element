@@ -62,6 +62,8 @@ navbar:
           href: articles/forms.html
         - text: Dashboards
           href: articles/dashboards.html
+        - text: Putting Components Together
+          href: articles/combinations.html
         - text: What Works, and What Does Not
           href: articles/limitations.html
     components:
@@ -263,6 +265,7 @@ articles:
       - shiny
       - forms
       - dashboards
+      - combinations
       - limitations
   - title: Components
     navbar: ~

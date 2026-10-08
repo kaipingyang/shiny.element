@@ -1,0 +1,84 @@
+---
+title: "Putting Components Together"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Putting Components Together}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+source("shots.R")
+```
+
+Each component page shows one component at a time. An app puts them
+together: controls inside a space inside a tab, a form inside a dialog, a
+table inside a drawer, all of it inside a config provider, some of it drawn
+later by the server. Most of what can go wrong only goes wrong then, so
+these apps put the components together on purpose.
+
+Each is a file under `examples/combinations/` in the installed package, run
+as it stands --
+`shiny::runApp(system.file("examples/combinations/drawn-later", package = "shiny.element"))`.
+In the package's sources, `tools/combinations.R` drives each one in a
+browser, step by step, and checks what every step should do.
+
+## Folded in, and nested
+
+A component given to another -- a button to a tooltip, controls to a space,
+a select to an input's slot -- becomes part of its Vue instance. It keeps
+its id all the same: it reports `input$<id>`, `update_el_*()` and
+`call_el()` reach it by that id, and in the page the id is on the component
+itself, for CSS or `shinyjs`. Here controls sit in a space in a collapse in
+a tab, inside a config provider, beside a module whose button is wrapped in
+a tooltip; a dialog holds a form, and a popover filters a table output.
+
+A select inside a popover wants `teleported = FALSE`. Otherwise its options
+are drawn outside the popover, and choosing one closes the popover -- as in
+Element itself.
+
+```{r wrapped-and-nested, file = "../inst/examples/combinations/wrapped-and-nested/app.R", eval = FALSE, shot = TRUE}
+```
+
+## Drawn later
+
+`renderUI()` inside a config provider draws components after it: they take
+its settings all the same, and follow them when
+`update_el_config_provider()` changes them. Two trees in one space each keep
+their own methods, a drawer holds tabs with a table and a calendar output
+drawn while it was closed, and steps follow a button group.
+
+```{r drawn-later, file = "../inst/examples/combinations/drawn-later/app.R", eval = FALSE, shot = TRUE}
+```
+
+## Overlays, and buttons in table cells
+
+A dialog holds tabs and opens a second dialog over it; a message box opens
+over both. Tabs drawn in a closed dialog measure themselves once shown. A
+table's cells hold a popconfirm and a button, whose `rowAction()` reports
+the row; `insertUI()` adds a component and `removeUI()` takes it away.
+
+```{r overlays-and-cells, file = "../inst/examples/combinations/overlays-and-cells/app.R", eval = FALSE, shot = TRUE}
+```
+
+## Modules and forms
+
+A module inside a module, its controls wrapped in a space and a tooltip,
+each updated through its own session. A form sits in a collapsed panel
+inside a watermark: one of its fields reports as it changes
+(`el_form_field(report = TRUE)`), and the server resizes the form with it.
+An editable table in a dialog, a calendar whose events open their editor,
+and a transfer in a drawer complete it.
+
+```{r modules-and-forms, file = "../inst/examples/combinations/modules-and-forms/app.R", eval = FALSE, shot = TRUE}
+```
+
+## Components that ask the server
+
+A select searching remotely, a tree and a cascader loading their children
+lazily -- all three folded into a space inside a config provider, the
+server's answers finding them by their ids. A form in a dialog gains fields
+from the server, which are validated with their own rules.
+
+```{r server-answers, file = "../inst/examples/combinations/server-answers/app.R", eval = FALSE, shot = TRUE}
+```

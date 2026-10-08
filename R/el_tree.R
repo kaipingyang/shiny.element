@@ -260,6 +260,20 @@ el_tree <- function(
   )
 
   tree_attrs <- c(tree_attrs, events$attrs)
+  # Element emits check-change for every node whose state changes, a click's
+  # or a method's -- setChecked() from call_el(), which the check event does
+  # not see: `checked` follows, and is reported, once they have all come
+  events$methods$elEmitCheckChange <- JS(sprintf(
+    paste0(
+      "function() { var self = this; (%s).apply(this, arguments); ",
+      "Promise.resolve().then(function() { if (!self.$refs.tree) return; ",
+      "self.checked = self.$refs.tree.getCheckedKeys(); ",
+      "window.Shiny && Shiny.setInputValue && ",
+      "Shiny.setInputValue('%s_checked', self.checked); }); }"
+    ),
+    events$methods$elEmitCheckChange,
+    ns_id
+  ))
 
   vue_data <- list(
     treeData = data,
