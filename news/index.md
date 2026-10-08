@@ -80,7 +80,7 @@ changed for code written for them. In short:
   [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md)
   loads lazily from the server as
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
-  does. `el_tree(class_field =)`, `el_tree_v2(props =)`,
+  does. `el_tree(props = list(class =))`, `el_tree_v2(props =)`,
   `el_select(props =)`, `el_select_v2(props =)`, `el_segmented(props =)`
   and `tag_tooltip` are new.
   [`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
@@ -155,6 +155,20 @@ as a Shiny input.
   `shiny.element.dev` does.
 
 ### Breaking changes
+
+- [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+  takes Element Plus’s names: its field map is
+  `props = list(label =, children =, disabled =, isLeaf =, class =)`, as
+  [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md)
+  and
+  [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)
+  take it, where it was `label_field`, `children_field`,
+  `disabled_field`, `is_leaf_field` and `class_field`; its keys are
+  `default_expanded_keys` and `default_checked_keys`, as
+  [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)’s,
+  where they were `expanded` and `checked` – in
+  [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+  too, which can now change `props`. `input$<id>_checked` is unchanged.
 
 Before this first release the API is still allowed to move; from the
 first CRAN release on, a change like these goes through a deprecation
@@ -352,8 +366,9 @@ its `name` argument is now `tab`.
   - folded in at different depths – a tooltip’s button beside a select
     in a space – they no longer fail to build with “Two components
     inside the same wrapper both declare …”;
-  - folded in, a component keeps its id in the page, on the component
-    itself, for CSS and `shinyjs`;
+  - folded in, a component keeps its id in the page, where Element puts
+    it – a button’s `<button>`, a select’s or an input’s `<input>` – for
+    CSS and `shinyjs`;
   - a component drawn later inside a config provider – by
     [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) – takes
     its settings and follows their updates; the provider’s own settings
@@ -367,7 +382,19 @@ its `name` argument is now `tab`.
   - tabs drawn hidden – in a closed dialog, drawer or panel – measure
     their active bar once shown;
   - a tree’s checked keys are reported after
-    `call_el(..., "setChecked")` as after a click.
+    `call_el(..., "setChecked")` as after a click;
+  - a config provider inside another takes what it leaves unset from the
+    outer one – a card’s shadow, the size of a component drawn later;
+  - [`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
+    inserts the pane into tabs whose id has a dot or a colon, as Shiny’s
+    ids may.
+
+  `inst/examples/combinations/` holds the apps that found these, and the
+  “Putting Components Together” article shows them: wrapped and nested,
+  drawn later, overlays and table cells, modules and forms, components
+  asking the server, awkward ids and values, and a long-running app –
+  180 components, insertUI()/removeUI() and redraws leaving no dropdown
+  behind, a dropped connection.
 
 ### Documentation, after Element’s own
 

@@ -203,11 +203,18 @@ do.</p>
 space, a select to an input’s slot – becomes part of its Vue instance.
 It keeps its id all the same: it reports <code>input$&lt;id&gt;</code>,
 <code>update_el_*()</code> and <code><a href="../reference/call_el.html">call_el()</a></code> reach it by that
-id, and in the page the id is on the component itself, for CSS or
+id, and in the page the id is where Element puts it – a button’s
+<code>&lt;button&gt;</code>, a select’s or an input’s
+<code>&lt;input&gt;</code>, as Shiny’s own inputs have it – for CSS or
 <code>shinyjs</code>. Here controls sit in a space in a collapse in a
 tab, inside a config provider, beside a module whose button is wrapped
 in a tooltip; a dialog holds a form, and a popover filters a table
 output.</p>
+<p>A select in a space, or anywhere else that is only as wide as its
+content, wants a width – <code>el_select(width = "160px")</code>, as
+Element’s demos give theirs. It has none of its own there, and shrinks
+to its arrow, the chosen label hidden; Element’s own
+<code>&lt;el-select&gt;</code> does the same.</p>
 <p>A select inside a popover wants <code>teleported = FALSE</code>.
 Otherwise its options are drawn outside the popover, and choosing one
 closes the popover – as in Element itself.</p>
@@ -1078,7 +1085,7 @@ rules.</p>
 <span>        width <span class="op">=</span> <span class="st">"200px"</span></span>
 <span>      <span class="op">)</span>,</span>
 <span>      <span class="co"># lazy tree, folded in</span></span>
-<span>      <span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"lazy"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, is_leaf_field <span class="op">=</span> <span class="st">"leaf"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"lazy"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>isLeaf <span class="op">=</span> <span class="st">"leaf"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>      <span class="co"># cascader with lazy loading</span></span>
 <span>      <span class="fu"><a href="../reference/el_cascader.html">el_cascader</a></span><span class="op">(</span><span class="st">"casc"</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lazy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"200px"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -1172,6 +1179,229 @@ rules.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../shots/combinations-server-answers.png" alt="The server-answers example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="awkward-ids-and-values">Awkward ids and values<a class="anchor" aria-label="anchor" href="#awkward-ids-and-values"></a>
+</h2>
+<p>Ids with dots and hyphens, as Shiny allows them – in a module, in
+tabs a tab is inserted into – report and update as plain ones do. Labels
+holding markup, quotes, template braces or non-ASCII text are shown as
+text, never run or evaluated. Numeric choices report numbers, an empty
+checkbox group and an empty date report nothing, and a select of 3000
+options is updated like one of three.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Ids and values an app does not choose with a component in mind: ids with</span></span>
+<span><span class="co"># dots and hyphens, as Shiny allows them, inside a module and in tabs a tab</span></span>
+<span><span class="co"># is inserted into; labels holding markup, quotes, template braces and</span></span>
+<span><span class="co"># non-ASCII text, shown as text; numeric choices, an empty checkbox group,</span></span>
+<span><span class="co"># an empty date, a negative fraction, a range, a select of 3000 options --</span></span>
+<span><span class="co"># reported, and updated. A select in a space is given a width, as in</span></span>
+<span><span class="co"># Element's demos: it has none of its own there, and would shrink to its</span></span>
+<span><span class="co"># arrow.</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co">#   shiny::runApp(system.file("examples/combinations/awkward-values", package = "shiny.element"))</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># tools/combinations.R drives it in a browser and checks each step</span></span>
+<span><span class="co"># (tools/combinations/awkward-values.R).</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mod_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>      <span class="fu">ns</span><span class="op">(</span><span class="st">"pick.one"</span><span class="op">)</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"α"</span> <span class="op">=</span> <span class="st">"a"</span>, <span class="st">"β &amp; γ"</span> <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span>,</span>
+<span>      selected <span class="op">=</span> <span class="st">"a"</span>,</span>
+<span>      width <span class="op">=</span> <span class="st">"120px"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"go"</span><span class="op">)</span>, <span class="st">"Go &lt;b&gt;bold?&lt;/b&gt;"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">mod_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer</a></span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>      <span class="va">input</span><span class="op">$</span><span class="va">go</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"pick.one"</span>, selected <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h4</a></span><span class="op">(</span><span class="st">"Ids with dots and hyphens"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"in.dot"</span>, value <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"sw-dash"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu">mod_ui</span><span class="op">(</span><span class="st">"m.1"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tabs.dot"</span>,</span>
+<span>    tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"a"</span>, label <span class="op">=</span> <span class="st">"A"</span>, content <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"add_tab"</span>, <span class="st">"Add a tab"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h4</a></span><span class="op">(</span><span class="st">"Text that looks like markup"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"lbl"</span>, <span class="st">"&lt;script&gt;alert(1)&lt;/script&gt; &amp; \"quotes\" 'single'"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>      <span class="st">"weird"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&lt;b&gt;x&lt;/b&gt;"</span> <span class="op">=</span> <span class="st">"x"</span>, <span class="st">"naïve café"</span> <span class="op">=</span> <span class="st">"c"</span>, <span class="st">"{{ 1 + 1 }}"</span> <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span>,</span>
+<span>      selected <span class="op">=</span> <span class="st">"x"</span>,</span>
+<span>      width <span class="op">=</span> <span class="st">"160px"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tag1"</span>, label <span class="op">=</span> <span class="st">"{{ 7 * 6 }}"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h4</a></span><span class="op">(</span><span class="st">"Awkward values"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    wrap <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>      <span class="st">"nums"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>One <span class="op">=</span> <span class="fl">1</span>, Two <span class="op">=</span> <span class="fl">2</span>, Ten <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>      selected <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>      width <span class="op">=</span> <span class="st">"120px"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span><span class="st">"empty_cg"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"date_na"</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"num_neg"</span>, value <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, step <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>      <span class="st">"many"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Option"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3000</span><span class="op">)</span>,</span>
+<span>      filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      width <span class="op">=</span> <span class="st">"200px"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"sl_range"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">40</span><span class="op">)</span>, range <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"set_values"</span>, <span class="st">"Set awkward values"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"dump"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">mod_server</span><span class="op">(</span><span class="st">"m.1"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add_tab</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/insert_el_tab.html">insert_el_tab</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tabs.dot"</span>, <span class="st">"b"</span>, label <span class="op">=</span> <span class="st">"B"</span>, content <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">set_values</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/el_input.html">update_el_input</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"in.dot"</span>, value <span class="op">=</span> <span class="st">"a \"quoted\" &lt;tag&gt; &amp; é"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"nums"</span>, selected <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_checkbox_group.html">update_el_checkbox_group</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"empty_cg"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_slider.html">update_el_slider</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"sl_range"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_select.html">update_el_select</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"many"</span>, selected <span class="op">=</span> <span class="st">"Option 2999"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">dump</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    in.dot <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">in.dot</span>,</span>
+<span>    `sw-dash` <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">`sw-dash`</span>,</span>
+<span>    tabs.dot <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">tabs.dot</span>,</span>
+<span>    `m.1-pick.one` <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">`m.1-pick.one`</span>,</span>
+<span>    weird <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">weird</span>,</span>
+<span>    nums <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">nums</span>,</span>
+<span>    empty_cg <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">empty_cg</span>,</span>
+<span>    date_na <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">date_na</span>,</span>
+<span>    num_neg <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">num_neg</span>,</span>
+<span>    sl_range <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">sl_range</span>,</span>
+<span>    many <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">many</span></span>
+<span>  <span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../shots/combinations-awkward-values.png" alt="The awkward-values example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="a-long-running-app">A long-running app<a class="anchor" aria-label="anchor" href="#a-long-running-app"></a>
+</h2>
+<p>180 components on one page each report. A block of a card, a select,
+a date picker and a tooltip, inserted and removed twenty times, and an
+output redrawn twenty times, leave nothing behind: the dropdowns and
+tooltips Element draws in <code>&lt;body&gt;</code> leave with their
+component. When the connection drops and Shiny reconnects, the
+components report and update as before. (Shiny reconnects on a server
+configured for it; <code>session$allowReconnect("force")</code> lets it
+locally too.)</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># What a long-running app does to its components: 180 of them on one page;</span></span>
+<span><span class="co"># a block of a card, a select, a date picker and a tooltip inserted with</span></span>
+<span><span class="co"># insertUI() and removed with removeUI() again and again; an output redrawn</span></span>
+<span><span class="co"># again and again -- each leaving no dropdown or tooltip behind in &lt;body&gt;;</span></span>
+<span><span class="co"># and the connection lost and found again.</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co">#   shiny::runApp(system.file("examples/combinations/lifecycle", package = "shiny.element"))</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co"># tools/combinations.R drives it in a browser and checks each step</span></span>
+<span><span class="co"># (tools/combinations/lifecycle.R).</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kaipingyang.github.io/shiny.element/">shiny.element</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">block</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
+<span>    header <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Block"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"s"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>        choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
+<span>        selected <span class="op">=</span> <span class="st">"a"</span>,</span>
+<span>        width <span class="op">=</span> <span class="st">"100px"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"tt"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="va">i</span><span class="op">)</span>, <span class="st">"Hover"</span><span class="op">)</span>,</span>
+<span>        content <span class="op">=</span> <span class="st">"tip"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="st">"Insert a block"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"remove"</span>, <span class="st">"Remove it"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"redraw"</span>, <span class="st">"Redraw the output"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"slot"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"out"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h4</a></span><span class="op">(</span><span class="st">"Many at once"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"many"</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">120</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"many_sw"</span>, <span class="va">i</span><span class="op">)</span>, value <span class="op">=</span> <span class="va">i</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">60</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"many_sel"</span>, <span class="va">i</span><span class="op">)</span>,</span>
+<span>        choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
+<span>        selected <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>        width <span class="op">=</span> <span class="st">"80px"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"dump"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># reconnect after the connection drops, even when run locally (Shiny</span></span>
+<span>  <span class="co"># reconnects only on a server configured for it otherwise)</span></span>
+<span>  <span class="va">session</span><span class="op">$</span><span class="fu">allowReconnect</span><span class="op">(</span><span class="st">"force"</span><span class="op">)</span></span>
+<span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add</span>, <span class="op">{</span></span>
+<span>    <span class="va">n</span> <span class="op">&lt;&lt;-</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">insertUI</a></span><span class="op">(</span><span class="st">"#slot"</span>, ui <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"blk"</span>, <span class="va">n</span><span class="op">)</span>, <span class="fu">block</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">remove</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">removeUI</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"#blk"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">redraw</span>, <span class="fu">k</span><span class="op">(</span><span class="fu">k</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu">block</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="fu">k</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">dump</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sw1"</span>,</span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">many_sw1</span>,</span>
+<span>    <span class="st">"sw2"</span>,</span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">many_sw2</span>,</span>
+<span>    <span class="st">"sel60"</span>,</span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">many_sel60</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../shots/combinations-lifecycle.png" alt="The lifecycle example, running" style="max-width: 100%">
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

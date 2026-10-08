@@ -102,8 +102,8 @@ disappear when clicked. That being said, you can also tell the Tree in
 advance whether the node is a leaf node, avoiding the render of the
 drop-down button before a leaf node.
 
-`is_leaf_field` names the field that says a node has no children, so it
-draws no expand arrow.
+`props = list(isLeaf =)` names the field that says a node has no
+children, so it draws no expand arrow.
 
 ``` r
 
@@ -112,7 +112,7 @@ ui <- el_page(el_tree(
   lazy = TRUE,
   node_key = "id",
   show_checkbox = TRUE,
-  is_leaf_field = "leaf"
+  props = list(isLeaf = "leaf")
 ))
 
 server <- function(input, output, session) {
@@ -150,7 +150,7 @@ refuses the first three tries.
 
 ``` r
 
-ui <- el_page(el_tree("regions", lazy = TRUE, is_leaf_field = "leaf"))
+ui <- el_page(el_tree("regions", lazy = TRUE, props = list(isLeaf = "leaf")))
 
 server <- function(input, output, session) {
   tries <- 0
@@ -249,9 +249,9 @@ work, `node-key` is required. Its value is the name of a key in the data
 object, and the value of that key should be unique across the whole
 tree.
 
-`expanded` and `checked` are Element Plus’s `default-expanded-keys` and
-`default-checked-keys` – renamed, since `update_el_tree(checked =)`
-changes them later.
+The tree keeps its own state from the keys it is given;
+[`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+sets them again, and `input$defs_checked` reports what is checked.
 
 ``` r
 
@@ -259,8 +259,8 @@ el_tree(
   "defs",
   show_checkbox = TRUE,
   node_key = "id",
-  expanded = c(2, 3),
-  checked = 5,
+  default_expanded_keys = c(2, 3),
+  default_checked_keys = 5,
   data = list(
     list(
       id = 1,
@@ -293,7 +293,7 @@ This example shows how to get and set checked nodes. They both can be
 done in two approaches: node and key. If you are taking the key
 approach, `node-key` is required.
 
-`update_el_tree(checked =)` sets them;
+`update_el_tree(default_checked_keys =)` sets them;
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 runs Element Plus’s `getCheckedKeys()`, `setCheckedKeys()` and the rest.
 
@@ -330,8 +330,14 @@ ui <- el_page(
 )
 
 server <- function(input, output, session) {
-  observeEvent(input$set, update_el_tree(id = "tree", checked = c(4, 6)))
-  observeEvent(input$reset, update_el_tree(id = "tree", checked = character(0)))
+  observeEvent(
+    input$set,
+    update_el_tree(id = "tree", default_checked_keys = c(4, 6))
+  )
+  observeEvent(
+    input$reset,
+    update_el_tree(id = "tree", default_checked_keys = character(0))
+  )
   observeEvent(input$get, call_el(session, "tree", "getCheckedKeys"))
   output$keys <- renderPrint(input$tree_checked)
 }
@@ -471,9 +477,9 @@ The class of tree nodes can be customized
 
 . Use `props.class` to build class name of nodes.
 
-`class_field` gives each node a class of its own: a field, or a
-[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
-function of the node’s data, Element Plus’s `props.class`.
+`props = list(class =)` gives each node a class of its own: a field, or
+a [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+function of the node’s data.
 
 ``` r
 
@@ -515,8 +521,10 @@ tagList(
     show_checkbox = TRUE,
     default_expand_all = TRUE,
     expand_on_click_node = FALSE,
-    class_field = JS(
-      "function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"
+    props = list(
+      class = JS(
+        "function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"
+      )
     )
   ),
   tags$style(HTML(

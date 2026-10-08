@@ -25,12 +25,8 @@ few exceptions. Each is deliberate; the rest translate mechanically
 | Element | Here | Why |
 |----|----|----|
 | `default-active` | `active` | It is the current item, and [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md) changes it – “default” would suggest it is only read once |
-| `default-expanded-keys` | `expanded` | As above, for [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md) |
-| `default-checked-keys` | `checked` | As above |
-| `props` | `label_field`, `children_field`, `disabled_field`, `is_leaf_field`, `class_field` | [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s field map is arguments rather than a nested list |
 | `data` (upload) | `extra_data` | [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s `data` would read as the file, not the fields sent beside it |
 | `width` (popover, popconfirm) | `popover_width`, `popconfirm_width` | Every component takes `width` for its own size; this one sizes the card |
-| `props.class` (tree) | `class_field` | As for the other fields of [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)’s map |
 | `#reference` slot (tooltip) | `reference` | The element the tooltip describes, as for [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md); `trigger` is Element’s own, how it opens |
 | `virtual-ref` | `virtual_ref`, a CSS selector | Element takes the element itself, which R cannot send; the selector is looked up in the browser |
 | `model-value` | `value`, or `visible` (dialog, drawer), `selected` (tabs), `open` (tour) | `v-model`’s prop is the component’s value, read back as `input$<id>` |

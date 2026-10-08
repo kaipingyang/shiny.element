@@ -180,7 +180,7 @@
 <li>
 <code><a href="../reference/el_tooltip.html">el_tooltip()</a></code>’s <code>trigger</code> is Element Plus’s own – how it opens – and the element it describes is <code>reference</code>, as for <code><a href="../reference/el_popover.html">el_popover()</a></code>. <code>el_popconfirm(popconfirm_width =)</code> sizes the prompt. Popover and popconfirm take the tooltip’s other attributes through <code>...</code>.</li>
 <li>
-<code>el_load_children(reject = TRUE)</code> fails a lazy load, so the node can be loaded again; <code><a href="../reference/el_tree_select.html">el_tree_select()</a></code> loads lazily from the server as <code><a href="../reference/el_tree.html">el_tree()</a></code> does. <code>el_tree(class_field =)</code>, <code>el_tree_v2(props =)</code>, <code>el_select(props =)</code>, <code>el_select_v2(props =)</code>, <code>el_segmented(props =)</code> and <code>tag_tooltip</code> are new. <code><a href="../reference/el_table_row.html">el_tree_node()</a></code> names a tree’s node for <code><a href="../reference/call_el.html">call_el()</a></code>.</li>
+<code>el_load_children(reject = TRUE)</code> fails a lazy load, so the node can be loaded again; <code><a href="../reference/el_tree_select.html">el_tree_select()</a></code> loads lazily from the server as <code><a href="../reference/el_tree.html">el_tree()</a></code> does. <code>el_tree(props = list(class =))</code>, <code>el_tree_v2(props =)</code>, <code>el_select(props =)</code>, <code>el_select_v2(props =)</code>, <code>el_segmented(props =)</code> and <code>tag_tooltip</code> are new. <code><a href="../reference/el_table_row.html">el_tree_node()</a></code> names a tree’s node for <code><a href="../reference/call_el.html">call_el()</a></code>.</li>
 <li>
 <code>el_page(dev = TRUE)</code> loads Vue’s development build, which is bundled: until now it loaded the production build either way, so Vue’s warnings never reached the console the tests read.</li>
 </ul></div>
@@ -203,7 +203,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-1-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0"></a></h3>
-<p>Before this first release the API is still allowed to move; from the first CRAN release on, a change like these goes through a deprecation first.</p>
+<ul><li>
+<code><a href="../reference/el_tree.html">el_tree()</a></code> takes Element Plus’s names: its field map is <code>props = list(label =, children =, disabled =, isLeaf =, class =)</code>, as <code><a href="../reference/el_tree_select.html">el_tree_select()</a></code> and <code><a href="../reference/el_tree_v2.html">el_tree_v2()</a></code> take it, where it was <code>label_field</code>, <code>children_field</code>, <code>disabled_field</code>, <code>is_leaf_field</code> and <code>class_field</code>; its keys are <code>default_expanded_keys</code> and <code>default_checked_keys</code>, as <code><a href="../reference/el_tree_v2.html">el_tree_v2()</a></code>’s, where they were <code>expanded</code> and <code>checked</code> – in <code><a href="../reference/el_tree.html">update_el_tree()</a></code> too, which can now change <code>props</code>. <code>input$&lt;id&gt;_checked</code> is unchanged.</li>
+</ul><p>Before this first release the API is still allowed to move; from the first CRAN release on, a change like these goes through a deprecation first.</p>
 <ul><li>
 <code>el_call()</code> is <code><a href="../reference/call_el.html">call_el()</a></code>, <code>update_vue_data()</code> is <code><a href="../reference/update_vue.html">update_vue()</a></code>, and <code>el_widget(report =)</code> is <code>input =</code>.</li>
 <li>
@@ -257,13 +259,16 @@
 <code>el_link(type =, underline =)</code> left <code>NULL</code> follow a config provider.</li>
 <li>Components put together, as an app does, work as they do alone:
 <ul><li>folded in at different depths – a tooltip’s button beside a select in a space – they no longer fail to build with “Two components inside the same wrapper both declare …”;</li>
-<li>folded in, a component keeps its id in the page, on the component itself, for CSS and <code>shinyjs</code>;</li>
+<li>folded in, a component keeps its id in the page, where Element puts it – a button’s <code>&lt;button&gt;</code>, a select’s or an input’s <code>&lt;input&gt;</code> – for CSS and <code>shinyjs</code>;</li>
 <li>a component drawn later inside a config provider – by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> – takes its settings and follows their updates; the provider’s own settings no longer read a child’s fields of the same name;</li>
 <li>a component in a slot of a folded component – a select in an input’s prefix, inside a provider – keeps its methods and reports on load;</li>
 <li>two trees, forms, uploads, carousels or calendars in one wrapper each keep their own methods: <code><a href="../reference/call_el.html">call_el()</a></code> on one reached the other;</li>
 <li>tabs drawn hidden – in a closed dialog, drawer or panel – measure their active bar once shown;</li>
-<li>a tree’s checked keys are reported after <code>call_el(..., "setChecked")</code> as after a click.</li>
-</ul></li>
+<li>a tree’s checked keys are reported after <code>call_el(..., "setChecked")</code> as after a click;</li>
+<li>a config provider inside another takes what it leaves unset from the outer one – a card’s shadow, the size of a component drawn later;</li>
+<li>
+<code><a href="../reference/insert_el_tab.html">insert_el_tab()</a></code> inserts the pane into tabs whose id has a dot or a colon, as Shiny’s ids may.</li>
+</ul><code>inst/examples/combinations/</code> holds the apps that found these, and the “Putting Components Together” article shows them: wrapped and nested, drawn later, overlays and table cells, modules and forms, components asking the server, awkward ids and values, and a long-running app – 180 components, insertUI()/removeUI() and redraws leaving no dropdown behind, a dropped connection.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-after-elements-own-0-1-0">Documentation, after Element’s own<a class="anchor" aria-label="anchor" href="#documentation-after-elements-own-0-1-0"></a></h3>

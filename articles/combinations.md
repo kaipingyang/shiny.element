@@ -19,11 +19,18 @@ space, a select to an input’s slot – becomes part of its Vue instance.
 It keeps its id all the same: it reports `input$<id>`, `update_el_*()`
 and
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
-reach it by that id, and in the page the id is on the component itself,
-for CSS or `shinyjs`. Here controls sit in a space in a collapse in a
-tab, inside a config provider, beside a module whose button is wrapped
-in a tooltip; a dialog holds a form, and a popover filters a table
-output.
+reach it by that id, and in the page the id is where Element puts it – a
+button’s `<button>`, a select’s or an input’s `<input>`, as Shiny’s own
+inputs have it – for CSS or `shinyjs`. Here controls sit in a space in a
+collapse in a tab, inside a config provider, beside a module whose
+button is wrapped in a tooltip; a dialog holds a form, and a popover
+filters a table output.
+
+A select in a space, or anywhere else that is only as wide as its
+content, wants a width – `el_select(width = "160px")`, as Element’s
+demos give theirs. It has none of its own there, and shrinks to its
+arrow, the chosen label hidden; Element’s own `<el-select>` does the
+same.
 
 A select inside a popover wants `teleported = FALSE`. Otherwise its
 options are drawn outside the popover, and choosing one closes the
@@ -916,7 +923,7 @@ ui <- el_page(
         width = "200px"
       ),
       # lazy tree, folded in
-      el_tree("lazy", lazy = TRUE, is_leaf_field = "leaf"),
+      el_tree("lazy", lazy = TRUE, props = list(isLeaf = "leaf")),
       # cascader with lazy loading
       el_cascader("casc", props = list(lazy = TRUE), width = "200px")
     )
@@ -1013,3 +1020,232 @@ shinyApp(ui, server)
 
 ![The server-answers example,
 running](../shots/combinations-server-answers.png)
+
+## Awkward ids and values
+
+Ids with dots and hyphens, as Shiny allows them – in a module, in tabs a
+tab is inserted into – report and update as plain ones do. Labels
+holding markup, quotes, template braces or non-ASCII text are shown as
+text, never run or evaluated. Numeric choices report numbers, an empty
+checkbox group and an empty date report nothing, and a select of 3000
+options is updated like one of three.
+
+``` r
+
+# Ids and values an app does not choose with a component in mind: ids with
+# dots and hyphens, as Shiny allows them, inside a module and in tabs a tab
+# is inserted into; labels holding markup, quotes, template braces and
+# non-ASCII text, shown as text; numeric choices, an empty checkbox group,
+# an empty date, a negative fraction, a range, a select of 3000 options --
+# reported, and updated. A select in a space is given a width, as in
+# Element's demos: it has none of its own there, and would shrink to its
+# arrow.
+#
+#   shiny::runApp(system.file("examples/combinations/awkward-values", package = "shiny.element"))
+#
+# tools/combinations.R drives it in a browser and checks each step
+# (tools/combinations/awkward-values.R).
+
+library(shiny)
+library(shiny.element)
+
+mod_ui <- function(id) {
+  ns <- NS(id)
+  tagList(
+    el_select(
+      ns("pick.one"),
+      choices = c("α" = "a", "β & γ" = "b"),
+      selected = "a",
+      width = "120px"
+    ),
+    el_button(ns("go"), "Go <b>bold?</b>")
+  )
+}
+mod_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    observeEvent(
+      input$go,
+      update_el_select(session, "pick.one", selected = "b")
+    )
+  })
+}
+
+ui <- el_page(
+  h4("Ids with dots and hyphens"),
+  el_space(
+    el_input("in.dot", value = "dotted"),
+    el_switch("sw-dash", value = TRUE),
+    mod_ui("m.1")
+  ),
+  el_tabs(
+    "tabs.dot",
+    tabs = list(list(name = "a", label = "A", content = "a"))
+  ),
+  el_button("add_tab", "Add a tab"),
+  h4("Text that looks like markup"),
+  el_space(
+    el_button("lbl", "<script>alert(1)</script> & \"quotes\" 'single'"),
+    el_select(
+      "weird",
+      choices = c("<b>x</b>" = "x", "naïve café" = "c", "{{ 1 + 1 }}" = "t"),
+      selected = "x",
+      width = "160px"
+    ),
+    el_tag(id = "tag1", label = "{{ 7 * 6 }}")
+  ),
+  h4("Awkward values"),
+  el_space(
+    wrap = TRUE,
+    el_select(
+      "nums",
+      choices = c(One = 1, Two = 2, Ten = 10),
+      selected = 10,
+      width = "120px"
+    ),
+    el_checkbox_group("empty_cg", choices = c("a", "b")),
+    el_date_picker("date_na", value = NULL),
+    el_input_number("num_neg", value = -0.5, step = 0.25),
+    el_select(
+      "many",
+      choices = paste("Option", 1:3000),
+      filterable = TRUE,
+      width = "200px"
+    )
+  ),
+  el_slider("sl_range", value = c(10, 40), range = TRUE),
+  el_button("set_values", "Set awkward values", type = "primary"),
+  verbatimTextOutput("dump")
+)
+
+server <- function(input, output, session) {
+  mod_server("m.1")
+  observeEvent(input$add_tab, {
+    insert_el_tab(session, "tabs.dot", "b", label = "B", content = "b")
+  })
+  observeEvent(input$set_values, {
+    update_el_input(session, "in.dot", value = "a \"quoted\" <tag> & é")
+    update_el_select(session, "nums", selected = 2)
+    update_el_checkbox_group(session, "empty_cg", selected = character())
+    update_el_slider(session, "sl_range", value = c(0, 100))
+    update_el_select(session, "many", selected = "Option 2999")
+  })
+  output$dump <- renderPrint(str(list(
+    in.dot = input$in.dot,
+    `sw-dash` = input$`sw-dash`,
+    tabs.dot = input$tabs.dot,
+    `m.1-pick.one` = input$`m.1-pick.one`,
+    weird = input$weird,
+    nums = input$nums,
+    empty_cg = input$empty_cg,
+    date_na = input$date_na,
+    num_neg = input$num_neg,
+    sl_range = input$sl_range,
+    many = input$many
+  )))
+}
+
+shinyApp(ui, server)
+```
+
+![The awkward-values example,
+running](../shots/combinations-awkward-values.png)
+
+## A long-running app
+
+180 components on one page each report. A block of a card, a select, a
+date picker and a tooltip, inserted and removed twenty times, and an
+output redrawn twenty times, leave nothing behind: the dropdowns and
+tooltips Element draws in `<body>` leave with their component. When the
+connection drops and Shiny reconnects, the components report and update
+as before. (Shiny reconnects on a server configured for it;
+`session$allowReconnect("force")` lets it locally too.)
+
+``` r
+
+# What a long-running app does to its components: 180 of them on one page;
+# a block of a card, a select, a date picker and a tooltip inserted with
+# insertUI() and removed with removeUI() again and again; an output redrawn
+# again and again -- each leaving no dropdown or tooltip behind in <body>;
+# and the connection lost and found again.
+#
+#   shiny::runApp(system.file("examples/combinations/lifecycle", package = "shiny.element"))
+#
+# tools/combinations.R drives it in a browser and checks each step
+# (tools/combinations/lifecycle.R).
+
+library(shiny)
+library(shiny.element)
+
+block <- function(i) {
+  el_card(
+    header = paste("Block", i),
+    el_space(
+      el_select(
+        paste0("s", i),
+        choices = c("a", "b"),
+        selected = "a",
+        width = "100px"
+      ),
+      el_date_picker(paste0("d", i)),
+      el_tooltip(
+        paste0("tt", i),
+        el_button(paste0("b", i), "Hover"),
+        content = "tip"
+      )
+    )
+  )
+}
+
+ui <- el_page(
+  el_space(
+    el_button("add", "Insert a block"),
+    el_button("remove", "Remove it"),
+    el_button("redraw", "Redraw the output")
+  ),
+  tags$div(id = "slot"),
+  uiOutput("out"),
+  h4("Many at once"),
+  tags$div(
+    id = "many",
+    lapply(1:120, function(i) {
+      el_switch(paste0("many_sw", i), value = i %% 2 == 0)
+    }),
+    lapply(1:60, function(i) {
+      el_select(
+        paste0("many_sel", i),
+        choices = c("x", "y"),
+        selected = "y",
+        width = "80px"
+      )
+    })
+  ),
+  verbatimTextOutput("dump")
+)
+
+server <- function(input, output, session) {
+  # reconnect after the connection drops, even when run locally (Shiny
+  # reconnects only on a server configured for it otherwise)
+  session$allowReconnect("force")
+  n <- 0
+  observeEvent(input$add, {
+    n <<- n + 1
+    insertUI("#slot", ui = tags$div(id = paste0("blk", n), block(n)))
+  })
+  observeEvent(input$remove, removeUI(paste0("#blk", n)))
+  k <- reactiveVal(0)
+  observeEvent(input$redraw, k(k() + 1))
+  output$out <- renderUI(block(paste0("r", k())))
+  output$dump <- renderText(paste(
+    "sw1",
+    input$many_sw1,
+    "sw2",
+    input$many_sw2,
+    "sel60",
+    input$many_sel60
+  ))
+}
+
+shinyApp(ui, server)
+```
+
+![The lifecycle example, running](../shots/combinations-lifecycle.png)

@@ -103,11 +103,15 @@
     var host = sv.mountingHost;
     var scope = host && host.parentElement && host.parentElement.closest('.el-provider-scope');
     if (scope && window.Vue && ElementPlus.provideGlobalConfig) {
+      // a provider inside another takes what it leaves unset from the
+      // outer one, as Element's providers merge
       var read = function () {
-        var c = {};
-        try { c = JSON.parse(scope.getAttribute('data-config') || '{}') || {}; } catch (e) {}
         var out = Object.assign({}, opts);
-        Object.keys(c).forEach(function (k) { if (c[k] !== null && c[k] !== undefined) out[k] = c[k]; });
+        se.providerChain(scope).forEach(function (s) {
+          var c = {};
+          try { c = JSON.parse(s.getAttribute('data-config') || '{}') || {}; } catch (e) {}
+          Object.keys(c).forEach(function (k) { if (c[k] !== null && c[k] !== undefined) out[k] = c[k]; });
+        });
         if (typeof out.locale === 'string') out.locale = localeOf(out.locale);
         return out;
       };
@@ -389,17 +393,36 @@
 // card or dialog that left them to Element takes them, as Element's would.
 (function () {
   var se = window.shinyElement = window.shinyElement || {};
+  // a scope and the providers around it, outermost first
+  function chain(scope) {
+    var out = [];
+    for (var s = scope; s; s = s.parentElement && s.parentElement.closest('.el-provider-scope')) {
+      out.unshift(s);
+    }
+    return out;
+  }
+  se.providerChain = chain;
+  // what is the scope's own: not inside a provider nested in it
+  function own(scope, sel) {
+    return Array.prototype.filter.call(scope.querySelectorAll(sel), function (el) {
+      return el.closest('.el-provider-scope') === scope;
+    });
+  }
   function apply(scope) {
     // the components drawn inside it later, apps of their own
     (scope._seFollowers || []).forEach(function (f) { f(); });
-    var shadow = scope.getAttribute('data-card-shadow') || 'always';
-    scope.querySelectorAll('.el-card[data-el-shadow-default]').forEach(function (card) {
+    // a setting left unset is the outer provider's, as Element's providers
+    // merge, and Element's own default only when none sets it
+    var shadow = 'always', dialog = {};
+    chain(scope).forEach(function (s) {
+      shadow = s.getAttribute('data-card-shadow') || shadow;
+      try { Object.assign(dialog, JSON.parse(s.getAttribute('data-dialog') || '{}') || {}); } catch (e) {}
+    });
+    own(scope, '.el-card[data-el-shadow-default]').forEach(function (card) {
       card.classList.remove('is-always-shadow', 'is-hover-shadow', 'is-never-shadow');
       card.classList.add('is-' + shadow + '-shadow');
     });
-    var dialog = {};
-    try { dialog = JSON.parse(scope.getAttribute('data-dialog') || '{}') || {}; } catch (e) {}
-    scope.querySelectorAll('[data-el-overlay=dialog][data-el-dialog-defaults]').forEach(function (el) {
+    own(scope, '[data-el-overlay=dialog][data-el-dialog-defaults]').forEach(function (el) {
       var flags = {};
       el.getAttribute('data-el-dialog-defaults').split(' ').forEach(function (k) {
         if (k) flags[k] = !!dialog[k];

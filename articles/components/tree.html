@@ -288,15 +288,15 @@ added to each node, and if it is a leaf node, the drop-down button will
 disappear when clicked. That being said, you can also tell the Tree in
 advance whether the node is a leaf node, avoiding the render of the
 drop-down button before a leaf node.</p>
-<p><code>is_leaf_field</code> names the field that says a node has no
-children, so it draws no expand arrow.</p>
+<p><code>props = list(isLeaf =)</code> names the field that says a node
+has no children, so it draws no expand arrow.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
 <span>  <span class="st">"zones"</span>,</span>
 <span>  lazy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
 <span>  show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  is_leaf_field <span class="op">=</span> <span class="st">"leaf"</span></span>
+<span>  props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>isLeaf <span class="op">=</span> <span class="st">"leaf"</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
@@ -330,7 +330,7 @@ and allow remote loading to continue.</p>
 Element Plus’s <code>reject()</code>, and the node can be expanded again
 to retry. Here the server refuses the first three tries.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"regions"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, is_leaf_field <span class="op">=</span> <span class="st">"leaf"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span><span class="st">"regions"</span>, lazy <span class="op">=</span> <span class="cn">TRUE</span>, props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>isLeaf <span class="op">=</span> <span class="st">"leaf"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">tries</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
@@ -430,17 +430,16 @@ initially checked nodes respectively. Note that for them to work,
 <code>node-key</code> is required. Its value is the name of a key in the
 data object, and the value of that key should be unique across the whole
 tree.</p>
-<p><code>expanded</code> and <code>checked</code> are Element Plus’s
-<code>default-expanded-keys</code> and <code>default-checked-keys</code>
-– renamed, since <code>update_el_tree(checked =)</code> changes them
-later.</p>
+<p>The tree keeps its own state from the keys it is given;
+<code><a href="../../reference/el_tree.html">update_el_tree()</a></code> sets them again, and
+<code>input$defs_checked</code> reports what is checked.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
 <span>  <span class="st">"defs"</span>,</span>
 <span>  show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>  expanded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
-<span>  checked <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  default_expanded_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  default_checked_keys <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      id <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -479,7 +478,7 @@ later.</p>
 <p>This example shows how to get and set checked nodes. They both can be
 done in two approaches: node and key. If you are taking the key
 approach, <code>node-key</code> is required.</p>
-<p><code>update_el_tree(checked =)</code> sets them;
+<p><code>update_el_tree(default_checked_keys =)</code> sets them;
 <code><a href="../../reference/call_el.html">call_el()</a></code> runs Element Plus’s
 <code>getCheckedKeys()</code>, <code>setCheckedKeys()</code> and the
 rest.</p>
@@ -515,8 +514,14 @@ rest.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">set</span>, <span class="fu"><a href="../../reference/el_tree.html">update_el_tree</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tree"</span>, checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reset</span>, <span class="fu"><a href="../../reference/el_tree.html">update_el_tree</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tree"</span>, checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">set</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tree.html">update_el_tree</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tree"</span>, default_checked_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">reset</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tree.html">update_el_tree</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tree"</span>, default_checked_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">get</span>, <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tree"</span>, <span class="st">"getCheckedKeys"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">keys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tree_checked</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -648,9 +653,8 @@ server, which appends or removes the node in both trees with
 </h2>
 <p>The class of tree nodes can be customized</p>
 <p>. Use <code>props.class</code> to build class name of nodes.</p>
-<p><code>class_field</code> gives each node a class of its own: a field,
-or a <code><a href="../../reference/JS.html">JS()</a></code> function of the node’s data, Element Plus’s
-<code>props.class</code>.</p>
+<p><code>props = list(class =)</code> gives each node a class of its
+own: a field, or a <code><a href="../../reference/JS.html">JS()</a></code> function of the node’s data.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -690,8 +694,10 @@ or a <code><a href="../../reference/JS.html">JS()</a></code> function of the nod
 <span>    show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    expand_on_click_node <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    class_field <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>      <span class="st">"function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"</span></span>
+<span>    props <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      class <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>        <span class="st">"function(data) { return data.isPenultimate ? 'is-penultimate' : ''; }"</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/HTML.html" class="external-link">HTML</a></span><span class="op">(</span></span>

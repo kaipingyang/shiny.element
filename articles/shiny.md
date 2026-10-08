@@ -58,7 +58,7 @@ ui <- el_page(
     show_checkbox = TRUE,
     node_key = "id",
     default_expand_all = TRUE,
-    checked = c("b1", "c"),
+    default_checked_keys = c("b1", "c"),
     data = list(
       list(
         id = "a",
@@ -84,6 +84,13 @@ shinyApp(ui, server)
 ```
 
 ![The methods example, running](../shots/shiny-methods.png)
+
+As with Shiny’s own `update*Input()`, an update or a method call for a
+component that is not on the page yet – one a
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) has still to
+draw – is dropped, with a `[shiny-vue]` warning in the browser’s
+console. Send it from an observer that runs once the component is there,
+as for any Shiny input.
 
 ## Events are event inputs
 

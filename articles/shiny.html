@@ -282,7 +282,7 @@ asynchronously, as <code>input$&lt;id&gt;_&lt;method&gt;</code>:</p>
 <span>    show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
 <span>    default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    checked <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"c"</span><span class="op">)</span>,</span>
+<span>    default_checked_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b1"</span>, <span class="st">"c"</span><span class="op">)</span>,</span>
 <span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>        id <span class="op">=</span> <span class="st">"a"</span>,</span>
@@ -305,7 +305,12 @@ asynchronously, as <code>input$&lt;id&gt;_&lt;method&gt;</code>:</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../shots/shiny-methods.png" alt="The methods example, running" style="max-width: 100%">
+<img src="../shots/shiny-methods.png" alt="The methods example, running" style="max-width: 100%"><p>As with Shiny’s own <code>update*Input()</code>, an update or a
+method call for a component that is not on the page yet – one a
+<code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> has still to draw – is dropped, with a
+<code>[shiny-vue]</code> warning in the browser’s console. Send it from
+an observer that runs once the component is there, as for any Shiny
+input.</p>
 </div>
 <div class="section level2">
 <h2 id="events-are-event-inputs">Events are event inputs<a class="anchor" aria-label="anchor" href="#events-are-event-inputs"></a>
