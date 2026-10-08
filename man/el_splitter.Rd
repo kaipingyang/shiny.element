@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_splitter.R
 \name{el_splitter}
 \alias{el_splitter}
+\alias{update_el_splitter}
 \title{Element Plus Splitter}
 \usage{
 el_splitter(
@@ -11,6 +12,13 @@ el_splitter(
   lazy = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_splitter(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  layout = NULL,
+  lazy = NULL
 )
 }
 \arguments{
@@ -28,6 +36,9 @@ into this one's Vue instance, as \code{\link[=el_button_group]{el_button_group()
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -44,6 +55,15 @@ between them. Give it \code{\link[=el_splitter_panel]{el_splitter_panel()}}s.
 \item \verb{input$<id>_resize_end} -- Element Plus's \code{resize-end} event.
 \item \verb{input$<id>_collapse} -- Element Plus's \code{collapse} event.
 }
+}
+
+\section{Updating from the server}{
+
+\code{update_el_splitter()} changes the component from the server: every argument of
+\code{\link[=el_splitter]{el_splitter()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_splitter()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

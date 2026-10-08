@@ -45,6 +45,42 @@ test_that("every stateful component reports its value on load", {
   }
 })
 
+test_that("Element's own inner inputs are not Shiny inputs", {
+  # Element gives them ids for their labels, and Shiny's text and number
+  # bindings bound every one: input$`el-id-...` beside each component's own
+  skip_if_no_browser()
+  stray <- bev(paste0(
+    "Object.keys(Shiny.shinyapp.$inputValues).filter(function(k) {",
+    " return k.indexOf('el-id-') === 0; }).join(',')"
+  ))
+  expect_identical(stray, "")
+  expect_identical(
+    bev(
+      "String(document.querySelectorAll('input[class*=\"el-\"].shiny-bound-input').length)"
+    ),
+    "0"
+  )
+})
+
+test_that("a component folded into another is updated and called by its id", {
+  skip_if_no_browser()
+  bclick("#abs_go button")
+  expect_identical(
+    bev(
+      "Array.from(document.querySelectorAll('#abs_space .el-button')).map(function(b) { return b.innerText.trim(); }).join(',')"
+    ),
+    "Before,After"
+  )
+  expect_identical(
+    bev("document.querySelector('#abs_space input').value"),
+    "updated"
+  )
+  expect_identical(bdump()[["abs_inp"]], "updated")
+  expect_true(bev(
+    "document.activeElement === document.querySelector('#abs_space input')"
+  ))
+})
+
 test_that("an empty table selection reports NULL, as Shiny does", {
   skip_if_no_browser()
   # Shiny turns an empty JSON array into NULL; matching checkboxGroupInput.

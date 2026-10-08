@@ -42,7 +42,14 @@ update_el_drawer(
   id,
   visible = NULL,
   title = NULL,
-  size = NULL
+  size = NULL,
+  direction = NULL,
+  modal = NULL,
+  with_header = NULL,
+  show_close = NULL,
+  close_on_click_modal = NULL,
+  close_on_press_escape = NULL,
+  lock_scroll = NULL
 )
 }
 \arguments{
@@ -145,7 +152,11 @@ would, through \code{before_close} (\code{closeDrawer()}, Element UI's name, too
 
 \section{Updating from the server}{
 
-Server-side update for \code{\link[=el_drawer]{el_drawer()}}.
+Server-side update for \code{\link[=el_drawer]{el_drawer()}}: whether it shows, its title, its
+size, the edge it slides from (\code{direction}), and how it behaves -- \code{modal},
+\code{with_header}, \code{show_close}, \code{close_on_click_modal},
+\code{close_on_press_escape}, \code{lock_scroll} -- as Element's props, reactive
+there.
 
 \code{update_el_drawer()} is called for its side effect and returns \code{NULL} invisibly.
 }

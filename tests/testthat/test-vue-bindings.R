@@ -44,6 +44,7 @@ undeclared_refs <- function(ui) {
   # :class="data.isSelected ? 'is-selected' : ''" is a class name, not a field.
   # htmltools writes an attribute's quote as &#39;
   exprs <- gsub("&#39;", "'", exprs, fixed = TRUE)
+  exprs <- gsub("&amp;", "&", exprs, fixed = TRUE)
   bare <- gsub("'[^']*'", "", exprs)
   refs <- unique(unlist(lapply(bare, function(e) {
     regmatches(e, gregexpr("[A-Za-z_$][A-Za-z0-9_$]*", e))[[1]]
@@ -92,6 +93,7 @@ undeclared_refs <- function(ui) {
     # the bridge's own global properties (shiny-vue.js, el-events.js)
     "$elRef",
     "$elDate",
+    "$elLocale",
     "$setInput",
     "$shared",
     "$ELEMENT"

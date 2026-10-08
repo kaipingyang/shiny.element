@@ -72,3 +72,40 @@ el_affix <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_affix
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_affix()` changes the component from the server: every argument of
+#' [el_affix()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_affix()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_affix <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  offset = NULL,
+  position = NULL,
+  z_index = NULL,
+  target = NULL,
+  teleported = NULL,
+  append_to = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_affix",
+    list(
+      offset = offset,
+      position = position,
+      z_index = z_index,
+      target = target,
+      teleported = teleported,
+      append_to = append_to
+    )
+  )
+}

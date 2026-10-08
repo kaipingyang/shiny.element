@@ -60,6 +60,9 @@
 #' @param rate How often the value is sent while it changes:
 #'   `list(policy = "debounce", delay = 250)`, as Shiny's `textInput()` does,
 #'   or `"throttle"`. `NULL`, the default, sends every change.
+#' @param absorbed The components folded into this one, by id: their fields
+#'   as named here and the ref on each, so their updates reach them. Built by
+#'   the package's wrappers; leave it `NULL`.
 #' @param props Optional props from `.el_props()`: bound on the root tag of
 #'   `markup`, with their fields added to `data`.
 #' @param type An input type for [shiny::registerInputHandler()], which
@@ -110,7 +113,8 @@ el_widget <- function(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
-  props = NULL
+  props = NULL,
+  absorbed = NULL
 ) {
   container_id <- paste0(id, "_container")
   # Optional props from .el_props(): bound on the component's own tag, the
@@ -136,6 +140,7 @@ el_widget <- function(
     )
     markup <- .el_append_children(markup, filled$markup)
     data <- c(data, filled$data)
+    absorbed <- c(absorbed, filled$absorbed)
     methods <- c(methods, filled$methods)
     watch <- c(watch, filled$watch)
     dependency <- c(dependency, filled$dependencies)
@@ -226,6 +231,11 @@ el_widget <- function(
     # Element layer's plugin (el-events.js)
     use = .vue_use("shinyElement.plugin")
   )
+  # the components folded into this one, which updates by their ids reach
+  # here (.el_absorb())
+  if (length(absorbed)) {
+    spec$absorbed <- absorbed
+  }
   # an id drawn at random (the component was given none): render_vue()
   # does not take a new one for another component
   if (isTRUE(attr(id, "generated"))) {
@@ -303,7 +313,11 @@ el_widget <- function(
       ))
     }
   }
-  attr(host, "el_spec") <- list(options = full, markup = markup)
+  attr(host, "el_spec") <- list(
+    options = full,
+    markup = markup,
+    absorbed = absorbed
+  )
 
   # Dependencies the markup carried -- an absorbed component's handler, a
   # slot's -- come out of the template with it
@@ -412,7 +426,8 @@ el_widget <- function(
     data = merged$data,
     methods = merged$methods,
     watch = merged$watch,
-    dependencies = merged$dependencies
+    dependencies = merged$dependencies,
+    absorbed = merged$absorbed
   )
 }
 

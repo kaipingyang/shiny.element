@@ -108,3 +108,60 @@ el_scrollbar <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_scrollbar
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_scrollbar()` changes the component from the server: every argument of
+#' [el_scrollbar()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_scrollbar()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_scrollbar <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  height = NULL,
+  max_height = NULL,
+  native = NULL,
+  wrap_style = NULL,
+  wrap_class = NULL,
+  view_style = NULL,
+  view_class = NULL,
+  noresize = NULL,
+  always = NULL,
+  min_size = NULL,
+  aria_label = NULL,
+  tabindex = NULL,
+  distance = NULL,
+  tag = NULL,
+  role = NULL,
+  aria_orientation = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_scrollbar",
+    list(
+      height = height,
+      max_height = max_height,
+      native = native,
+      wrap_style = wrap_style,
+      wrap_class = wrap_class,
+      view_style = view_style,
+      view_class = view_class,
+      noresize = noresize,
+      always = always,
+      min_size = min_size,
+      aria_label = aria_label,
+      tabindex = tabindex,
+      distance = distance,
+      tag = tag,
+      role = role,
+      aria_orientation = aria_orientation
+    )
+  )
+}

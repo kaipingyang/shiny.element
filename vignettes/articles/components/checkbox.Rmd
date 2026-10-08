@@ -171,8 +171,26 @@ tags$div(
 
 The `border` attribute adds a border to Checkboxes.
 
+A group's options take `border`, as each `el-checkbox` does.
+
 ```{r with-border, eval = FALSE, shot = TRUE}
 row <- function(...) tags$div(style = "margin-top: 16px", ...)
+bordered <- function(disabled = FALSE) {
+  list(
+    list(
+      label = "Option1",
+      value = "Value1",
+      border = TRUE,
+      disabled = disabled
+    ),
+    list(
+      label = "Option2",
+      value = "Value2",
+      border = TRUE,
+      disabled = disabled
+    )
+  )
+}
 tagList(
   row(
     el_checkbox("cbr1", "Option1", value = TRUE, size = "large", border = TRUE),
@@ -181,7 +199,19 @@ tagList(
   row(
     el_checkbox("cbr3", "Option1", border = TRUE),
     el_checkbox("cbr4", "Option2", value = TRUE, border = TRUE)
-  )
+  ),
+  row(el_checkbox_group(
+    "cbr5",
+    choices = bordered(),
+    selected = "Value1",
+    size = "small"
+  )),
+  row(el_checkbox_group(
+    "cbr6",
+    choices = bordered(disabled = TRUE),
+    selected = "Value1",
+    size = "small"
+  ))
 )
 ```
 

@@ -940,3 +940,34 @@ test_that("a masked table output draws no busy spinner of Shiny's", {
     fixed = TRUE
   )
 })
+
+test_that("loading_options become Element's element-loading-* attributes", {
+  html <- paste(
+    as.character(htmltools::as.tags(el_table(
+      data = data.frame(a = 1),
+      loading = TRUE,
+      loading_options = list(
+        text = "Loading...",
+        svg_view_box = "-10, -10, 50, 50",
+        background = "rgba(122, 122, 122, 0.8)"
+      )
+    ))),
+    collapse = ""
+  )
+  expect_match(html, '"element-loading-text":"Loading..."', fixed = TRUE)
+  expect_match(
+    html,
+    '"element-loading-svg-view-box":"-10, -10, 50, 50"',
+    fixed = TRUE
+  )
+  expect_match(
+    html,
+    '"element-loading-background":"rgba(122, 122, 122, 0.8)"',
+    fixed = TRUE
+  )
+  expect_match(html, 'v-bind="loadingAttrs"', fixed = TRUE)
+  expect_error(
+    el_table(data = data.frame(a = 1), loading_options = list(colour = "red")),
+    "loading_options"
+  )
+})

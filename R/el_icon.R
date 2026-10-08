@@ -105,7 +105,26 @@ el_icon <- function(
           "Install it with: install.packages('fontawesome')"
         )
       }
-      fontawesome::fa_i(name = name, class = class, ...)
+      # size, colour and title as for an Element icon: Font Awesome's glyph
+      # is text, sized by font-size and coloured by color
+      style_val <- paste(
+        c(
+          if (!is.null(size)) {
+            paste0("font-size:", htmltools::validateCssUnit(size), ";")
+          },
+          if (!is.null(color)) paste0("color:", color, ";")
+        ),
+        collapse = ""
+      )
+      do.call(
+        fontawesome::fa_i,
+        c(
+          list(name = name, class = class),
+          if (nzchar(style_val)) list(style = style_val),
+          if (!is.null(title)) list(title = title),
+          list(...)
+        )
+      )
     },
 
     "none" = {

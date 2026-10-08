@@ -10,4 +10,4 @@ el_empty(
 el_empty(image_size = 200)
 
 ## bottom-content
-el_empty(el_button("empty_btn", "Button", type = "primary"))
+el_empty("empty", el_button("empty_btn", "Button", type = "primary"))

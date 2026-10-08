@@ -28,7 +28,10 @@
 #              tooltip, click a button so the server answers.
 #   shot_sel   Extra selectors to include, for overlays Element appends to
 #              <body> rather than inside the component.
-#   shot_wait  Seconds to wait after shot_js. Default 1.5.
+#   shot_wait  Seconds to wait after shot_js -- after each step, when it is
+#              a vector of steps. Default 1.5.
+#   shot_expect JavaScript expressions, each true once shot_js has run: what
+#              the example does, checked rather than only pictured.
 #
 # Every example is also checked: code that fails to run, a page that logs
 # a [Vue warn], a [shiny-vue] error or an exception, or a menu entry, tab or tag
@@ -87,6 +90,7 @@ read_shots <- function(path) {
       target = paste0(article, ":", chunk$label),
       code = code,
       js = chunk$opts$shot_js,
+      expect = chunk$opts$shot_expect,
       sel = chunk$opts$shot_sel,
       wait = chunk$opts$shot_wait %||% 1.5
     )
@@ -351,21 +355,38 @@ for (s in shots) {
   if (!is.null(s$js)) {
     # A selector that matches nothing throws, the interaction never happens,
     # and the picture shows the untouched page -- so a throw is a failure.
-    res <- b$Runtime$evaluate(s$js)
-    if (!is.null(res$exceptionDetails)) {
-      problems <- c(
-        problems,
-        sprintf(
-          "%s: shot_js threw: %s",
-          s$key,
-          res$exceptionDetails$exception$description %||%
-            res$exceptionDetails$text
-        )
-      )
+    # Several steps run one after another, each given time to take effect:
+    # the server answers a click before the next one.
+    threw <- NULL
+    for (step in s$js) {
+      res <- b$Runtime$evaluate(step)
+      if (!is.null(res$exceptionDetails)) {
+        threw <- res$exceptionDetails$exception$description %||%
+          res$exceptionDetails$text
+        break
+      }
+      Sys.sleep(s$wait)
+    }
+    if (!is.null(threw)) {
+      problems <- c(problems, sprintf("%s: shot_js threw: %s", s$key, threw))
       message(sprintf("  x %-34s shot_js threw", s$key))
       next
     }
-    Sys.sleep(s$wait)
+  }
+
+  # What the example is for, checked: each `shot_expect` is a JavaScript
+  # expression that must be true once the interaction is done -- the size
+  # the radio buttons chose, the row the server added. A picture shows it;
+  # this says it.
+  for (want in s$expect) {
+    got <- tryCatch(
+      b$Runtime$evaluate(sprintf("!!(%s)", want))$result$value,
+      error = function(e) FALSE
+    )
+    if (!isTRUE(got)) {
+      problems <- c(problems, sprintf("%s: expected %s", s$key, want))
+      message(sprintf("  x %-34s expected %s", s$key, substr(want, 1, 60)))
+    }
   }
 
   # A server that errors while handling the example's own interaction greys
@@ -521,7 +542,22 @@ for (s in shots) {
   })(%s)",
     jsonlite::toJSON(present)
   )))
-  b$screenshot(out, cliprect = c(rect$x, rect$y, rect$w, rect$h), scale = 2)
+  # Captured within the viewport, grown above to the page's height:
+  # capturing beyond it, as chromote's screenshot() does, resizes the page
+  # for the capture, and a horizontal menu, measuring itself in that
+  # moment, folded every item into its ellipsis
+  shot <- b$Page$captureScreenshot(
+    format = "png",
+    clip = list(
+      x = rect$x,
+      y = rect$y,
+      width = rect$w,
+      height = rect$h,
+      scale = 2
+    ),
+    captureBeyondViewport = FALSE
+  )
+  writeBin(jsonlite::base64_dec(shot$data), out)
   # Back to the session's own size -- clearing the override instead drops
   # to the bare window, shorter than the one the session was opened with
   if (tall) {

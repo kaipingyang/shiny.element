@@ -16,6 +16,8 @@ el_avatar(
   src_set = NULL,
   alt = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 )
@@ -54,6 +56,9 @@ update_el_avatar(
 \item{alt}{Alternative text for the image.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{class, style}{Extra classes and inline style on the avatar, as
+Element passes them to its root.}
 
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component

@@ -4,12 +4,17 @@
 #' button variants including `plain`, `round`, `circle`, and `loading` states.
 #'
 #' @param id Button ID. Auto-generated UUID if `NULL`.
-#' @param label Button text. Ignored (and defaults to `""`) when `circle = TRUE`.
+#' @param label Button text, or tags -- `tagList("Next", el_icon("ArrowRight",
+#'   class = "el-icon--right"))` -- drawn as they are. Ignored (and defaults to
+#'   `""`) when `circle = TRUE`.
 #' @param type Button type: `"default"`, `"primary"`, `"success"`, `"warning"`,
-#'   `"danger"`, `"info"`, `"text"`.
+#'   `"danger"`, `"info"`, `"text"`. `NULL` leaves it to a config provider's
+#'   `button` settings, or Element's default.
 #' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
-#' @param plain Whether to use the plain (hollow) style. Default `FALSE`.
-#' @param round Whether to use rounded corners. Default `FALSE`.
+#' @param plain Whether to use the plain (hollow) style.
+#' @param round Whether to use rounded corners. `plain` and `round` left
+#'   `NULL` are off, or a config provider's [el_config_provider(button
+#'   =)][el_config_provider].
 #' @param circle Whether to render as a circle button (icon only, no label).
 #'   Default `FALSE`.
 #' @param loading Whether to show loading spinner. Disables click while active.
@@ -46,6 +51,8 @@
 #'   once more, with a warning. In `update_el_button()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
 #' @param autofocus Whether the button takes focus on page load. Default `FALSE`.
+#' @param class,style Extra classes and inline style on the button, as
+#'   Element passes them to its root.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -83,10 +90,10 @@
 el_button <- function(
   id = NULL,
   label = "Button",
-  type = "default",
+  type = NULL,
   size = NULL,
-  plain = FALSE,
-  round = FALSE,
+  plain = NULL,
+  round = NULL,
   circle = FALSE,
   loading = FALSE,
   disabled = FALSE,
@@ -102,6 +109,8 @@ el_button <- function(
   loading_icon = NULL,
   tag = NULL,
   text = NULL,
+  class = NULL,
+  style = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -118,15 +127,20 @@ el_button <- function(
   }
 
   # Vue binding attributes
+  # Left unset, type, plain and round are a config provider's, or Element's
+  # default: Element reads `props.plain ?? config.plain`, so a FALSE bound
+  # here would hide the provider's
   btn_attrs <- list(
-    ":type" = "type",
-    ":plain" = "plain",
-    ":round" = "round",
+    ":type" = .el_optional_bind("type"),
+    ":plain" = .el_optional_bind("plain"),
+    ":round" = .el_optional_bind("round"),
     ":circle" = "circle",
     ":loading" = "loading",
     ":disabled" = "disabled",
     ":native-type" = "native_type",
-    "@click" = "handleClick"
+    "@click" = "handleClick",
+    class = class,
+    style = style
   )
   btn_attrs[[":size"]] <- .el_optional_bind("size")
   # Upstream's `icon` is an Element icon class name. A tag is accepted too, and
@@ -134,10 +148,16 @@ el_button <- function(
   # here -- but only a class name can be changed later by update_el_button().
   btn_attrs[[":icon"]] <- .el_optional_bind("icon")
   btn_attrs[[":autofocus"]] <- .el_optional_bind("autofocus")
+  # a label of tags -- text and an icon after it, as Element's demos put
+  # one -- is markup; text stays a field update_el_button() can change
+  markup_label <- inherits(label, c("shiny.tag", "shiny.tag.list", "html"))
   btn_content <- shiny::tagList(
     if (inherits(icon, "shiny.tag")) icon,
-    "{{label}}"
+    if (markup_label) label else "{{label}}"
   )
+  if (markup_label) {
+    label <- ""
+  }
 
   el_widget(
     props = .el_props(list(
@@ -155,10 +175,10 @@ el_button <- function(
     markup = htmltools::tag("el-button", append(btn_attrs, btn_content)),
     data = list(
       label = label,
-      type = type,
+      type = .el_or_na(type),
       size = size,
-      plain = plain,
-      round = round,
+      plain = .el_or_na(plain),
+      round = .el_or_na(round),
       circle = circle,
       loading = loading,
       disabled = disabled,

@@ -59,11 +59,44 @@ el_button_group <- function(
     ),
     markup = htmltools::tag("el-button-group", unname(merged$markups[-1])),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,
     mounted = merged$mounted,
     width = width,
     dependency = merged$dependencies
+  )
+}
+
+
+#' @rdname el_button_group
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_button_group()` changes the component from the server: every argument of
+#' [el_button_group()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_button_group()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_button_group <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  size = NULL,
+  type = NULL,
+  direction = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_button_group",
+    list(
+      size = size,
+      type = type,
+      direction = direction
+    ),
+    prefix = "bg"
   )
 }

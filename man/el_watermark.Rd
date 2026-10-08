@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_watermark.R
 \name{el_watermark}
 \alias{el_watermark}
+\alias{update_el_watermark}
 \title{Element Plus Watermark}
 \usage{
 el_watermark(
@@ -18,6 +19,20 @@ el_watermark(
   offset = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_watermark(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  watermark_width = NULL,
+  height = NULL,
+  rotate = NULL,
+  z_index = NULL,
+  image = NULL,
+  content = NULL,
+  font = NULL,
+  gap = NULL,
+  offset = NULL
 )
 }
 \arguments{
@@ -54,6 +69,9 @@ container. The default is \code{gap/2}. Element Plus's \code{offset} (\verb{[num
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -64,6 +82,15 @@ Text or an image repeated over its content, faintly.
 \section{Shiny inputs}{
 
 None: it reports nothing.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_watermark()} changes the component from the server: every argument of
+\code{\link[=el_watermark]{el_watermark()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_watermark()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

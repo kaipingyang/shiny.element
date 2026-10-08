@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_affix.R
 \name{el_affix}
 \alias{el_affix}
+\alias{update_el_affix}
 \title{Element Plus Affix}
 \usage{
 el_affix(
@@ -15,6 +16,17 @@ el_affix(
   append_to = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_affix(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  offset = NULL,
+  position = NULL,
+  z_index = NULL,
+  target = NULL,
+  teleported = NULL,
+  append_to = NULL
 )
 }
 \arguments{
@@ -44,6 +56,9 @@ teleported to where \code{append-to} sets. Element Plus's \code{teleported}
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -63,6 +78,15 @@ to it.
 \section{Element methods}{
 
 Callable with \code{\link[=call_el]{call_el()}}: \code{update()}, \code{updateRoot()}.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_affix()} changes the component from the server: every argument of
+\code{\link[=el_affix]{el_affix()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_affix()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

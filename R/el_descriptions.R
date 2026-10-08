@@ -136,6 +136,7 @@ el_descriptions <- function(
     id = ns_id,
     markup = htmltools::tag("el-descriptions", c(attrs, unname(item_tags))),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,
@@ -228,9 +229,12 @@ update_el_descriptions <- function(
   extra = NULL,
   column = NULL,
   direction = NULL,
-  border = NULL
+  border = NULL,
+  size = NULL,
+  label_width = NULL
 ) {
   .el_check_session(session)
+  .el_check_choices("el_descriptions", environment())
   msg <- list(id = session$ns(id))
   if (!is.null(title)) {
     msg$dTitle <- title
@@ -246,6 +250,12 @@ update_el_descriptions <- function(
   }
   if (!is.null(border)) {
     msg$dBorder <- border
+  }
+  if (!is.null(size)) {
+    msg$dSize <- size
+  }
+  if (!is.null(label_width)) {
+    msg$dLabelWidth <- label_width
   }
   .el_send_update(session, msg)
   invisible(NULL)

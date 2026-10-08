@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_text.R
 \name{el_text}
 \alias{el_text}
+\alias{update_el_text}
 \title{Element Plus Text}
 \usage{
 el_text(
@@ -14,6 +15,16 @@ el_text(
   tag = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_text(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  type = NULL,
+  size = NULL,
+  truncated = NULL,
+  line_clamp = NULL,
+  tag = NULL
 )
 }
 \arguments{
@@ -39,6 +50,9 @@ number).}
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -50,6 +64,15 @@ lines if asked.
 \section{Shiny inputs}{
 
 None: it reports nothing.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_text()} changes the component from the server: every argument of
+\code{\link[=el_text]{el_text()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_text()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

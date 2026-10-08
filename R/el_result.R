@@ -4,7 +4,7 @@
 #' what to do next.
 #'
 #' @param id Component ID. Auto-generated if `NULL`.
-#' @param icon `"success"`, `"warning"`, `"info"` or `"error"`.
+#' @param icon `"primary"`, `"success"`, `"warning"`, `"info"` or `"error"`.
 #' @param title Headline.
 #' @param sub_title Detail under the headline.
 #' @param ... What to do next, shown under the text -- usually buttons. A
@@ -12,7 +12,7 @@
 #'   reporting its inputs.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `icon`, `title`,
-#'   `subTitle`, `extra`.
+#'   `sub-title`, `extra`.
 #' @param session In `el_result()`, deprecated: inside a module, wrap `id` in
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_result()`, the Shiny session, the
@@ -75,6 +75,7 @@ el_result <- function(
     id = ns_id,
     markup = htmltools::tag("el-result", c(attrs, children)),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,

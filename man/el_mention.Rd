@@ -45,6 +45,7 @@ update_el_mention(
   disabled = NULL,
   label = NULL,
   error = NULL,
+  options = NULL,
   props = NULL,
   prefix = NULL,
   split = NULL,
@@ -165,9 +166,12 @@ do.
 
 \itemize{
 \item \verb{input$<id>} -- the value, on load and on every change.
-\item \verb{input$<id>_search} -- Element Plus's \code{search} event.
-\item \verb{input$<id>_select} -- Element Plus's \code{select} event.
-\item \verb{input$<id>_whole_remove} -- Element Plus's \code{whole-remove} event.
+\item \verb{input$<id>_search} -- Element Plus's \code{search} event, as it is typed
+after a prefix: \code{list(pattern, prefix)}, the text and the prefix.
+Answer it with \code{\link[=update_el_mention]{update_el_mention()}}'s \code{options} (and \code{loading}).
+\item \verb{input$<id>_select} -- Element Plus's \code{select} event: \code{list(option, prefix)}.
+\item \verb{input$<id>_whole_remove} -- Element Plus's \code{whole-remove} event:
+\code{list(pattern, prefix)}.
 }
 }
 

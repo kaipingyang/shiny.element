@@ -102,6 +102,14 @@ ui <- el_page(
   # Initial values: every one of these reported NULL until mount-time reporting
   # was added.
   el_input("inp", value = "hello"),
+  # Folded into the space's instance: updated and called by their own ids
+  el_space(
+    id = "abs_space",
+    el_button("abs_btn", "Before"),
+    el_button("abs_btn2", "Second"),
+    el_input("abs_inp", value = "x")
+  ),
+  el_button("abs_go", "Update the folded ones"),
   el_select("sel", choices = c(A = "a", B = "b"), selected = "b"),
   el_switch("sw", value = TRUE),
   el_slider("sld", value = 42),
@@ -592,6 +600,12 @@ ui <- el_page(
 server <- function(input, output, session) {
   mod_server("mod")
 
+  observeEvent(input$abs_go, {
+    update_el_button(session, "abs_btn2", label = "After")
+    update_el_input(session, "abs_inp", value = "updated")
+    call_el(session, "abs_inp", "focus")
+  })
+
   if (requireNamespace("shinyvalidate", quietly = TRUE)) {
     iv <- shinyvalidate::InputValidator$new()
     iv$add_rule("val_email", shinyvalidate::sv_required("An email, please"))
@@ -745,6 +759,7 @@ server <- function(input, output, session) {
     invalidateLater(1000, session)
     ids <- c(
       "inp",
+      "abs_inp",
       "sel",
       "sw",
       "sld",

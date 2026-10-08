@@ -18,7 +18,10 @@ el_collapse(
 update_el_collapse(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  value = NULL
+  value = NULL,
+  accordion = NULL,
+  expand_icon_position = NULL,
+  before_collapse = NULL
 )
 }
 \arguments{
@@ -73,7 +76,8 @@ every change. Empty when all are closed, which Shiny reports as \code{NULL}.
 
 \section{Updating from the server}{
 
-Server-side update for \code{\link[=el_collapse]{el_collapse()}}.
+Server-side update for \code{\link[=el_collapse]{el_collapse()}}: the open panels, \code{accordion},
+\code{expand_icon_position} and \code{before_collapse} (\code{NA} for none).
 
 \code{update_el_collapse()} is called for its side effect and returns \code{NULL} invisibly.
 }

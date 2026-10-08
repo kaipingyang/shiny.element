@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_splitter_panel.R
 \name{el_splitter_panel}
 \alias{el_splitter_panel}
+\alias{update_el_splitter_panel}
 \title{Element Plus Splitter Panel}
 \usage{
 el_splitter_panel(
@@ -14,6 +15,16 @@ el_splitter_panel(
   collapsible = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_splitter_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  size = NULL,
+  min = NULL,
+  max = NULL,
+  resizable = NULL,
+  collapsible = NULL
 )
 }
 \arguments{
@@ -41,6 +52,9 @@ Plus's \code{max} (string / number).}
 
 \item{slots}{Named list of Element slot contents: \code{start-collapsible},
 \code{end-collapsible}. A scoped slot is written with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -53,3 +67,22 @@ One panel of an \code{\link[=el_splitter]{el_splitter()}}.
 None: it reports nothing.
 }
 
+\section{Updating from the server}{
+
+\code{update_el_splitter_panel()} changes a panel's settings: one inside an
+\code{\link[=el_splitter]{el_splitter()}} is folded into the splitter's instance and still answers
+to its own \code{id}. One left \code{NULL} stays as it is; \code{NA} returns it to
+Element's default.
+
+\code{update_el_splitter_panel()} is called for its side effect and returns
+\code{NULL} invisibly.
+}
+
+\examples{
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$lock, {
+    update_el_splitter_panel(session, "side", resizable = !input$lock)
+  })
+}
+}

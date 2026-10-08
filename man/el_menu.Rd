@@ -29,6 +29,8 @@ el_menu(
   popper_offset = NULL,
   popper_style = NULL,
   show_timeout = NULL,
+  class = NULL,
+  style = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -126,6 +128,10 @@ Element Plus's \code{popper-style} (string / object).}
 
 \item{show_timeout}{Control timeout for all menus before showing. Element
 Plus's \code{show-timeout} (number).}
+
+\item{class, style}{Extra classes and inline style on the menu, as
+Element passes them to its root: Element's examples style theirs by a
+class of their own.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

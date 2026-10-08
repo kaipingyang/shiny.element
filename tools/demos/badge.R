@@ -1,4 +1,7 @@
 ## basic
+#| shot_js = "document.querySelector('#bd_menu .el-dropdown-link').click()"
+#| shot_sel = ".el-dropdown__popper"
+#| shot_expect = "document.querySelectorAll('.el-dropdown-menu .mark .el-badge__content').length === 2"
 item <- function(...) tags$span(style = "margin-right: 40px", ...)
 tagList(
   item(el_badge(value = 12, el_button("bd1", "comments"))),
@@ -9,7 +12,26 @@ tagList(
     value = 1,
     color = "green",
     el_button("bd5", "custom background")
-  ))
+  )),
+  el_dropdown(
+    "bd_menu",
+    trigger = "click",
+    trigger_label = tags$span(
+      class = "el-dropdown-link",
+      "Click Me",
+      el_icon("CaretBottom", class = "el-icon--right")
+    ),
+    items = list(
+      el_dropdown_item(
+        "comments",
+        tagList("comments", el$badge(class = "mark", `:value` = "12"))
+      ),
+      el_dropdown_item(
+        "replies",
+        tagList("replies", el$badge(class = "mark", `:value` = "3"))
+      )
+    )
+  )
 )
 
 ## max

@@ -27,7 +27,9 @@ update_el_descriptions(
   extra = NULL,
   column = NULL,
   direction = NULL,
-  border = NULL
+  border = NULL,
+  size = NULL,
+  label_width = NULL
 )
 }
 \arguments{

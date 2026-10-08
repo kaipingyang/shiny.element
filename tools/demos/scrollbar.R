@@ -26,30 +26,75 @@ item <- function(i) {
 el_scrollbar(tags$div(style = "display: flex", lapply(1:50, item)))
 
 ## max-height
-item <- function(i) {
-  tags$p(
-    style = paste(
-      "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
-      "border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"
-    ),
-    i
-  )
+#' The buttons add and delete items: the scrollbar appears once they pass
+#' `max_height`.
+#| shot_js = c("document.querySelectorAll('button')[0].click()", "document.querySelectorAll('button')[0].click()", "document.querySelectorAll('button')[0].click()", "document.querySelectorAll('button')[0].click()", "document.querySelectorAll('button')[0].click()")
+#| shot_expect = c("document.querySelectorAll('.scrollbar-demo-item').length === 8", "document.querySelector('.el-scrollbar__wrap').clientHeight === 400")
+ui <- el_page(
+  tags$style(
+    ".scrollbar-demo-item { display: flex; align-items: center;
+       justify-content: center; height: 50px; margin: 10px; text-align: center;
+       border-radius: 4px; background: var(--el-color-primary-light-9);
+       color: var(--el-color-primary); }"
+  ),
+  el_button("sb_add", "Add Item"),
+  el_button("sb_delete", "Delete Item"),
+  el_scrollbar(max_height = "400px", uiOutput("sb_items"))
+)
+server <- function(input, output, session) {
+  count <- reactiveVal(3)
+  observeEvent(input$sb_add, count(count() + 1))
+  observeEvent(input$sb_delete, count(max(0, count() - 1)))
+  output$sb_items <- renderUI({
+    lapply(seq_len(count()), function(i) {
+      tags$p(class = "scrollbar-demo-item", i)
+    })
+  })
 }
-el_scrollbar(max_height = "400px", lapply(1:3, item))
+shinyApp(ui, server)
 
 ## manual-scroll
-#' `call_el(session, "sb", "setScrollTop", list(200))` scrolls it from the
-#' server; `input$<id>_scroll` reports where it is.
-item <- function(i) {
-  tags$p(
-    style = paste(
-      "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
-      "border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"
-    ),
-    i
+#' The slider scrolls the area from the server, `call_el(session, "sb",
+#' "setScrollTop", list(px))`, and follows it back: `input$sb_scroll` says
+#' where it is. Twenty items of 60px and a margin make 1210px, 830px more
+#' than the 380px shown.
+#| shot_js = "Shiny.setInputValue('sb_slider', 300)"
+#| shot_wait = 2
+#| shot_expect = "Math.abs(document.querySelector('#sb .el-scrollbar__wrap').scrollTop - 300) < 2"
+ui <- el_page(
+  tags$style(
+    ".scrollbar-demo-item { display: flex; align-items: center;
+       justify-content: center; height: 50px; margin: 10px; text-align: center;
+       border-radius: 4px; background: var(--el-color-primary-light-9);
+       color: var(--el-color-primary); }
+     .el-slider { margin-top: 20px; }"
+  ),
+  el_scrollbar(
+    id = "sb",
+    height = "400px",
+    always = TRUE,
+    tags$div(lapply(1:20, function(i) tags$p(class = "scrollbar-demo-item", i)))
+  ),
+  el_slider(
+    "sb_slider",
+    value = 0,
+    max = 830,
+    format_tooltip = JS("function(value) { return value + ' px'; }")
   )
+)
+server <- function(input, output, session) {
+  observeEvent(input$sb_slider, ignoreInit = TRUE, {
+    call_el(session, "sb", "setScrollTop", list(input$sb_slider))
+  })
+  observeEvent(input$sb_scroll, {
+    update_el_slider(
+      session,
+      "sb_slider",
+      value = round(input$sb_scroll$scrollTop)
+    )
+  })
 }
-el_scrollbar(id = "sb", height = "400px", always = TRUE, lapply(1:20, item))
+shinyApp(ui, server)
 
 ## infinite-scroll
 #' Reaching an end is `input$<id>_end_reached`: `"bottom"`, `"top"`, ...

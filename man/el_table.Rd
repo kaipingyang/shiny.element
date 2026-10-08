@@ -46,6 +46,7 @@ el_table(
   width = NULL,
   slots = NULL,
   loading = FALSE,
+  loading_options = NULL,
   allow_drag_last_column = NULL,
   append_filter_panel_to = NULL,
   flexible = NULL,
@@ -74,6 +75,7 @@ update_el_table(
   border = NULL,
   selection = NULL,
   loading = NULL,
+  loading_options = NULL,
   stripe = NULL,
   size = NULL,
   height = NULL,
@@ -239,6 +241,11 @@ the template with \code{\link[=template]{template()}}.}
 \item{loading}{Whether to cover the table with Element's loading mask, as
 its \code{v-loading} does. \code{\link[=update_el_table]{update_el_table()}} turns it on and off around
 slow work.}
+
+\item{loading_options}{How the mask looks, as a list with the names of
+\code{\link[=el_loading]{el_loading()}}'s arguments -- \code{text}, \code{spinner}, \code{svg}, \code{svg_view_box},
+\code{background}, \code{custom_class} -- Element's \verb{element-loading-*}
+attributes.}
 
 \item{allow_drag_last_column}{Whether to allow drag the last column.
 Element Plus's \code{allow-drag-last-column} (boolean).}

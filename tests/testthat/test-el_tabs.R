@@ -315,3 +315,20 @@ test_that("the binding reports Element's tab events", {
   expect_match(js, "Shiny.bindAll", fixed = TRUE)
   expect_match(js, "Shiny.unbindAll", fixed = TRUE)
 })
+
+test_that("a tab closable on its own is marked so", {
+  html <- paste(
+    as.character(el_tabs(
+      "t",
+      tabs = list(
+        list(name = "a", label = "A", closable = TRUE),
+        list(name = "b", label = "B")
+      )
+    )),
+    collapse = ""
+  )
+  expect_equal(
+    lengths(regmatches(html, gregexpr('data-closable-own="true"', html))),
+    1
+  )
+})

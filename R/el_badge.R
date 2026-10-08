@@ -93,6 +93,7 @@ el_badge <- function(
         )
       ),
       data = merged$data,
+      absorbed = merged$absorbed,
       methods = merged$methods,
       watch = merged$watch,
       computed = merged$computed,

@@ -14,6 +14,9 @@
 #' @param throttle Delay in milliseconds before the placeholder appears, so
 #'   a fast load does not flash it.
 #' @param width Component width, as a CSS unit.
+#' @param class,style Extra classes and inline style on the skeleton, as
+#'   Element passes them to its root: `style = "display: flex; gap: 8px"`
+#'   lays several copies of the placeholder side by side.
 #' @param slots Named list of Element slot contents. `template` replaces the
 #'   placeholder's shape; build it from [el_skeleton_item()].
 #' @param session In `el_skeleton()`, deprecated: inside a module, wrap `id` in
@@ -46,6 +49,8 @@ el_skeleton <- function(
   count = NULL,
   throttle = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 ) {
@@ -77,7 +82,9 @@ el_skeleton <- function(
     ":rows" = .el_optional_bind("skRows"),
     ":animated" = .el_optional_bind("skAnimated"),
     ":count" = .el_optional_bind("skCount"),
-    ":throttle" = .el_optional_bind("skThrottle")
+    ":throttle" = .el_optional_bind("skThrottle"),
+    class = class,
+    style = style
   )
   content <- merged$markups[-1]
   children <- if (length(content)) {
@@ -90,6 +97,7 @@ el_skeleton <- function(
     id = ns_id,
     markup = htmltools::tag("el-skeleton", c(attrs, children)),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,
@@ -119,7 +127,9 @@ update_el_skeleton <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
   loading = NULL,
-  rows = NULL
+  rows = NULL,
+  animated = NULL,
+  count = NULL
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
@@ -128,6 +138,12 @@ update_el_skeleton <- function(
   }
   if (!is.null(rows)) {
     msg$skRows <- rows
+  }
+  if (!is.null(animated)) {
+    msg$skAnimated <- animated
+  }
+  if (!is.null(count)) {
+    msg$skCount <- count
   }
   .el_send_update(session, msg)
   invisible(NULL)

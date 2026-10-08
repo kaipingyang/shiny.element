@@ -137,9 +137,13 @@ el_tabs <- function(
     collapse = " "
   )
 
+  vertical <- tab_position %in% c("left", "right")
   new_tab <- if (isTRUE(addable)) {
     shiny::tags$div(
-      class = "el-tabs__new-tab",
+      class = paste(
+        c("el-tabs__new-tab", if (vertical) "el-tabs__new-tab-vertical"),
+        collapse = " "
+      ),
       tabindex = "0",
       el_icon(
         if (is.null(add_icon)) "Plus" else .el_icon_name(add_icon),
@@ -148,6 +152,35 @@ el_tabs <- function(
       )
     )
   }
+
+  header <- shiny::tags$div(
+    class = paste(
+      c(
+        "el-tabs__header",
+        # Element lays a side header's parts out in a column
+        if (vertical) "el-tabs__header-vertical",
+        pos_class
+      ),
+      collapse = " "
+    ),
+    shiny::tags$div(
+      class = paste("el-tabs__nav-wrap", pos_class),
+      shiny::tags$div(
+        class = "el-tabs__nav-scroll",
+        shiny::tags$div(
+          role = "tablist",
+          class = paste(
+            c("el-tabs__nav", pos_class, if (stretch) "is-stretch"),
+            collapse = " "
+          ),
+          bar,
+          items
+        )
+      )
+    ),
+    new_tab
+  )
+  content <- shiny::tags$div(class = "el-tabs__content", panes)
 
   htmltools::attachDependencies(
     shiny::tags$div(
@@ -161,36 +194,11 @@ el_tabs <- function(
       `data-before-leave` = if (!is.null(before_leave)) {
         as.character(before_leave)
       },
-      shiny::tags$div(
-        class = paste(
-          c(
-            "el-tabs__header",
-            # Element lays a side header's parts out in a column
-            if (tab_position %in% c("left", "right")) {
-              "el-tabs__header-vertical"
-            },
-            pos_class
-          ),
-          collapse = " "
-        ),
-        new_tab,
-        shiny::tags$div(
-          class = paste("el-tabs__nav-wrap", pos_class),
-          shiny::tags$div(
-            class = "el-tabs__nav-scroll",
-            shiny::tags$div(
-              role = "tablist",
-              class = paste(
-                c("el-tabs__nav", pos_class, if (stretch) "is-stretch"),
-                collapse = " "
-              ),
-              bar,
-              items
-            )
-          )
-        )
-      ),
-      shiny::tags$div(class = "el-tabs__content", panes)
+      # as Element's tabs.tsx: the header holds the nav, then the "+"; it
+      # comes after the panes when the tabs sit at the bottom or right
+      if (tab_position %in% c("bottom", "right")) content,
+      header,
+      if (!tab_position %in% c("bottom", "right")) content
     ),
     el_tabs_dependency()
   )
@@ -226,6 +234,8 @@ el_tabs <- function(
       collapse = " "
     ),
     `data-el-name` = t$name,
+    # closable on its own: stays so when the tabs' closable is turned off
+    `data-closable-own` = if (isTRUE(t$closable)) "true",
     t$label,
     if (closable) el_icon("Close", class = "is-icon-close", a11y = "none")
   )
@@ -265,7 +275,9 @@ el_tabs <- function(
 
 #' @rdname el_tabs
 #' @section Updating from the server:
-#' Server-side update for [el_tabs()].
+#' Server-side update for [el_tabs()]: the tab selected, and the tabs' look
+#' -- `type` (`NA` for plain), `tab_position`, `closable`, `addable`,
+#' `editable`, `stretch` -- as Element's props, all reactive there.
 #'
 #' `update_el_tabs()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
@@ -279,12 +291,46 @@ el_tabs <- function(
 update_el_tabs <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  selected = NULL
+  selected = NULL,
+  type = NULL,
+  tab_position = NULL,
+  closable = NULL,
+  addable = NULL,
+  editable = NULL,
+  stretch = NULL
 ) {
   .el_check_session(session)
+  .el_check_choices(
+    "el_tabs",
+    list2env(Filter(
+      Negate(is.null),
+      list(type = if (!identical(type, NA)) type, tab_position = tab_position)
+    ))
+  )
   msg <- list()
   if (!is.null(selected)) {
     msg$selected <- selected
+  }
+  # NA: Element's plain tabs
+  if (!is.null(type)) {
+    msg["type"] <- list(if (identical(type, NA)) "" else type)
+  }
+  if (!is.null(tab_position)) {
+    msg$tabPosition <- tab_position
+  }
+  # Element's editable is closable and addable together
+  if (isTRUE(editable)) {
+    closable <- closable %||% TRUE
+    addable <- addable %||% TRUE
+  }
+  if (!is.null(closable)) {
+    msg$closable <- isTRUE(closable)
+  }
+  if (!is.null(addable)) {
+    msg$addable <- isTRUE(addable)
+  }
+  if (!is.null(stretch)) {
+    msg$stretch <- isTRUE(stretch)
   }
   session$sendInputMessage(id, msg)
   invisible(NULL)

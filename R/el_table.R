@@ -584,6 +584,10 @@
 #' @param loading Whether to cover the table with Element's loading mask, as
 #'   its `v-loading` does. [update_el_table()] turns it on and off around
 #'   slow work.
+#' @param loading_options How the mask looks, as a list with the names of
+#'   [el_loading()]'s arguments -- `text`, `spinner`, `svg`, `svg_view_box`,
+#'   `background`, `custom_class` -- Element's `element-loading-*`
+#'   attributes.
 #' @param slots Named list of Element slot contents, such as
 #'   `list(empty = shiny::tags$b("Nothing yet"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
@@ -744,6 +748,7 @@ el_table <- function(
   width = NULL,
   slots = NULL,
   loading = FALSE,
+  loading_options = NULL,
   allow_drag_last_column = NULL,
   append_filter_panel_to = NULL,
   flexible = NULL,
@@ -769,6 +774,7 @@ el_table <- function(
   rm(args)
   .el_table_sanitize_columns(columns)
   .el_check_events(events, "el-table", .el_table_events)
+  .el_loading_attrs(loading_options)
   .el_component(".el_table_tags", as.list(environment()), "el_table")
 }
 
@@ -815,6 +821,7 @@ el_table <- function(
   width = NULL,
   slots = NULL,
   loading = FALSE,
+  loading_options = NULL,
   allow_drag_last_column = NULL,
   append_filter_panel_to = NULL,
   flexible = NULL,
@@ -1065,6 +1072,9 @@ el_table <- function(
     # Always bound: selection can be switched on later by update_el_table().
     "@selection-change" = "handleSelectionChange"
   )
+  # element-loading-* on the table's root, where v-loading reads them as
+  # the mask opens: a field, so update_el_table() can change them
+  table_attrs[["v-bind"]] <- "loadingAttrs"
 
   # Element's events: the state changes every table reports, and any other
   # asked for with `events` or el_on() -- unnamed as <id>_<event>, named as
@@ -1195,6 +1205,7 @@ el_table <- function(
       # rows ticked when the app was bookmarked, ticked again once drawn
       restoredRows = .el_restore(paste0(ns_id, "_selection_rows"), list()),
       loading = isTRUE(loading),
+      loadingAttrs = .el_loading_attrs(loading_options),
       stripe = .el_or_na(stripe),
       size = .el_or_na(size),
       height = .el_or_na(height),
@@ -1418,6 +1429,7 @@ update_el_table <- function(
   border = NULL,
   selection = NULL,
   loading = NULL,
+  loading_options = NULL,
   stripe = NULL,
   size = NULL,
   height = NULL,
@@ -1542,6 +1554,9 @@ update_el_table <- function(
   }
   if (!is.null(selection)) {
     msg$selection <- selection
+  }
+  if (!is.null(loading_options)) {
+    msg$loadingAttrs <- .el_loading_attrs(loading_options)
   }
   if (!is.null(loading)) {
     msg$loading <- loading
@@ -1739,3 +1754,34 @@ update_el_table <- function(
   "filter-change",
   "expand-change"
 )
+
+
+#' Element's element-loading-* attributes
+#'
+#' @param options A list named as [el_loading()]'s arguments, or `NULL`.
+#' @return A named list of attributes.
+#' @keywords internal
+.el_loading_attrs <- function(options) {
+  if (!length(options)) {
+    return(stats::setNames(list(), character()))
+  }
+  known <- c(
+    "text",
+    "spinner",
+    "svg",
+    "svg_view_box",
+    "background",
+    "custom_class"
+  )
+  if (is.null(names(options)) || length(setdiff(names(options), known))) {
+    stop(
+      "`loading_options` takes ",
+      paste0("`", known, "`", collapse = ", "),
+      call. = FALSE
+    )
+  }
+  stats::setNames(
+    lapply(options, as.character),
+    paste0("element-loading-", gsub("_", "-", names(options), fixed = TRUE))
+  )
+}

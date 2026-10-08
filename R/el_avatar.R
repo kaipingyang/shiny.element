@@ -13,6 +13,8 @@
 #' @param src_set Candidate image sources, as a `srcset` string.
 #' @param alt Alternative text for the image.
 #' @param width Component width, as a CSS unit.
+#' @param class,style Extra classes and inline style on the avatar, as
+#'   Element passes them to its root.
 #' @param session In `el_avatar()`, deprecated: inside a module, wrap `id` in
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_avatar()`, the Shiny session, the
@@ -42,6 +44,8 @@ el_avatar <- function(
   src_set = NULL,
   alt = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 ) {
@@ -58,7 +62,9 @@ el_avatar <- function(
     ":shape" = .el_optional_bind("shape"),
     ":fit" = .el_optional_bind("fit"),
     ":src-set" = .el_optional_bind("srcSet"),
-    ":alt" = .el_optional_bind("alt")
+    ":alt" = .el_optional_bind("alt"),
+    class = class,
+    style = style
   )
   events <- .el_event_bindings(ns_id, "error")
   avatar_attrs <- c(avatar_attrs, events$attrs)

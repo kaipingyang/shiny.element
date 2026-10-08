@@ -110,32 +110,41 @@ el_tree_v2(
 
 The content of tree nodes can be customized, so you can add icons or buttons as you will
 
-The default slot, scoped with `node`, draws each node.
+The default slot, scoped with `node`, draws each node: an icon by its
+state, and a prefix coloured by whether it is a leaf.
 
-```{r custom-node, eval = FALSE, shot = TRUE}
-make_nodes <- function(depth, prefix = "") {
-  lapply(1:10, function(i) {
-    key <- paste0(prefix, i)
-    node <- list(id = key, label = paste("Node", key))
-    if (depth > 1) {
-      node$children <- make_nodes(depth - 1, paste0(key, "-"))
+```{r custom-node, eval = FALSE, shot = TRUE, shot_js = c("document.querySelectorAll('#tv2_cus .el-tree-node__content')[0].click()", "document.querySelectorAll('#tv2_cus .el-tree-node__content')[1].click()"), shot_expect = c("document.querySelectorAll('#tv2_cus [data-el-icon=FolderOpened], #tv2_cus .el-tree-node__content .el-icon--left').length > 0", "document.querySelectorAll('#tv2_cus .prefix.is-leaf').length > 0")}
+make_nodes <- function(depth, key = "node") {
+  lapply(seq_len(if (depth == 1) 10 else 4), function(i) {
+    id <- paste0(key, "-", i)
+    node <- list(id = id, label = id)
+    if (depth < 3) {
+      node$children <- make_nodes(depth + 1, id)
     }
     node
   })
 }
-el_tree_v2(
-  "tv2_cus",
-  data = make_nodes(3),
-  height = 208,
-  slots = list(
-    default = template(
-      tags$span(
-        class = "prefix",
-        style = "color: var(--el-color-primary); margin-right: 6px",
-        "[{{ node.isLeaf ? 'leaf' : 'node' }}]"
-      ),
-      tags$span("{{ node.label }}"),
-      scope = "{ node }"
+tagList(
+  tags$style(
+    ".prefix { color: var(--el-color-primary); margin-right: 10px; }
+     .prefix.is-leaf { color: var(--el-color-success); }"
+  ),
+  el_tree_v2(
+    "tv2_cus",
+    data = make_nodes(1),
+    props = list(value = "id", label = "label", children = "children"),
+    height = 200,
+    width = "600px",
+    slots = list(
+      default = template(
+        scope = "{ node }",
+        htmltools::HTML(paste0(
+          "<el-icon class=\"el-icon--left\"><Document v-if=\"node.isLeaf\" />",
+          "<Folder v-else-if=\"!node.expanded\" /><FolderOpened v-else /></el-icon>",
+          "<span class=\"prefix\" :class=\"{ 'is-leaf': node.isLeaf }\">[ElementPlus]</span>",
+          "<span>{{ node.label }}</span>"
+        ))
+      )
     )
   )
 )

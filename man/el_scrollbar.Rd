@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_scrollbar.R
 \name{el_scrollbar}
 \alias{el_scrollbar}
+\alias{update_el_scrollbar}
 \title{Element Plus Scrollbar}
 \usage{
 el_scrollbar(
@@ -25,6 +26,27 @@ el_scrollbar(
   distance = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_scrollbar(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  height = NULL,
+  max_height = NULL,
+  native = NULL,
+  wrap_style = NULL,
+  wrap_class = NULL,
+  view_style = NULL,
+  view_class = NULL,
+  noresize = NULL,
+  always = NULL,
+  min_size = NULL,
+  aria_label = NULL,
+  tabindex = NULL,
+  distance = NULL,
+  tag = NULL,
+  role = NULL,
+  aria_orientation = NULL
 )
 }
 \arguments{
@@ -80,6 +102,9 @@ Element Plus's \code{noresize} (boolean).}
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -98,6 +123,15 @@ A scroll area with Element's own thin scrollbars.
 \section{Element methods}{
 
 Callable with \code{\link[=call_el]{call_el()}}: \code{handleScroll()}, \code{scrollTo()}, \code{setScrollTop()}, \code{setScrollLeft()}, \code{update()}.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_scrollbar()} changes the component from the server: every argument of
+\code{\link[=el_scrollbar]{el_scrollbar()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_scrollbar()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

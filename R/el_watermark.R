@@ -78,3 +78,47 @@ el_watermark <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_watermark
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_watermark()` changes the component from the server: every argument of
+#' [el_watermark()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_watermark()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_watermark <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  watermark_width = NULL,
+  height = NULL,
+  rotate = NULL,
+  z_index = NULL,
+  image = NULL,
+  content = NULL,
+  font = NULL,
+  gap = NULL,
+  offset = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_watermark",
+    list(
+      watermark_width = watermark_width,
+      height = height,
+      rotate = rotate,
+      z_index = z_index,
+      image = image,
+      content = content,
+      font = font,
+      gap = gap,
+      offset = offset
+    ),
+    rename = c(watermark_width = "width")
+  )
+}

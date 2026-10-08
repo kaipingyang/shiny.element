@@ -59,3 +59,38 @@ el_text <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_text
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_text()` changes the component from the server: every argument of
+#' [el_text()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_text()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_text <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  type = NULL,
+  size = NULL,
+  truncated = NULL,
+  line_clamp = NULL,
+  tag = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_text",
+    list(
+      type = type,
+      size = size,
+      truncated = truncated,
+      line_clamp = line_clamp,
+      tag = tag
+    )
+  )
+}

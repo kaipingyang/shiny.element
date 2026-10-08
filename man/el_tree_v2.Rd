@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_tree_v2.R
 \name{el_tree_v2}
 \alias{el_tree_v2}
+\alias{update_el_tree_v2}
 \title{Element Plus Virtualized Tree}
 \usage{
 el_tree_v2(
@@ -26,6 +27,27 @@ el_tree_v2(
   height = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_tree_v2(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  empty_text = NULL,
+  highlight_current = NULL,
+  expand_on_click_node = NULL,
+  check_on_click_node = NULL,
+  check_on_click_leaf = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  indent = NULL,
+  icon = NULL,
+  item_size = NULL,
+  scrollbar_always_on = NULL,
+  props = NULL,
+  height = NULL,
+  current_node_key = NULL,
+  filter_method = NULL
 )
 }
 \arguments{
@@ -94,6 +116,9 @@ a \code{\link[=JS]{JS()}} function of the node's data returning its class.}
 
 \item{slots}{Named list of Element slot contents: \code{empty}. A scoped slot is
 written with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -113,6 +138,15 @@ A tree drawing only the nodes in view, for tens of thousands of nodes.
 \item \verb{input$<id>_node_expand} -- Element Plus's \code{node-expand} event.
 \item \verb{input$<id>_node_collapse} -- Element Plus's \code{node-collapse} event.
 }
+}
+
+\section{Updating from the server}{
+
+\code{update_el_tree_v2()} changes the component from the server: every argument of
+\code{\link[=el_tree_v2]{el_tree_v2()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_tree_v2()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

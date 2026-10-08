@@ -31,7 +31,7 @@ update_el_result(
 shiny.element component here is absorbed, not nested, and keeps
 reporting its inputs.}
 
-\item{icon}{\code{"success"}, \code{"warning"}, \code{"info"} or \code{"error"}.}
+\item{icon}{\code{"primary"}, \code{"success"}, \code{"warning"}, \code{"info"} or \code{"error"}.}
 
 \item{title}{Headline.}
 
@@ -40,7 +40,7 @@ reporting its inputs.}
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents: \code{icon}, \code{title},
-\code{subTitle}, \code{extra}.}
+\code{sub-title}, \code{extra}.}
 
 \item{session}{In \code{el_result()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}

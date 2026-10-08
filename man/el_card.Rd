@@ -8,11 +8,13 @@ el_card(
   ...,
   header = NULL,
   body_style = NULL,
-  shadow = "always",
+  shadow = NULL,
   footer = NULL,
   header_class = NULL,
   body_class = NULL,
-  footer_class = NULL
+  footer_class = NULL,
+  class = NULL,
+  style = NULL
 )
 }
 \arguments{
@@ -23,13 +25,17 @@ el_card(
 \item{body_style}{CSS for the card body, a string or a named list. \code{NULL}
 for default.}
 
-\item{shadow}{Shadow display trigger: \code{"always"} (default), \code{"hover"},
-or \code{"never"}.}
+\item{shadow}{Shadow display trigger: \code{"always"}, \code{"hover"} or \code{"never"}.
+\code{NULL}, the default, is Element's \code{"always"}, or a config provider's
+\link[=el_config_provider]{el_config_provider(card =)}.}
 
 \item{footer}{Footer content (string or tag). \code{NULL} for no footer.}
 
 \item{header_class, body_class, footer_class}{Extra class names for the
 header, the body and the footer.}
+
+\item{class, style}{Extra classes and inline style on the card itself, as
+Element passes them to its root.}
 }
 \value{
 An \code{htmltools} tag.

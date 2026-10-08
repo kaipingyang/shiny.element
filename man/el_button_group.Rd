@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_button_group.R
 \name{el_button_group}
 \alias{el_button_group}
+\alias{update_el_button_group}
 \title{Element Plus Button Group}
 \usage{
 el_button_group(
@@ -11,6 +12,14 @@ el_button_group(
   type = NULL,
   direction = NULL,
   width = NULL
+)
+
+update_el_button_group(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  size = NULL,
+  type = NULL,
+  direction = NULL
 )
 }
 \arguments{
@@ -26,6 +35,9 @@ Element Plus's group hands them down: \code{size} \code{"large"}, \code{"default
 \item{direction}{\code{"horizontal"} (default) or \code{"vertical"}.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -42,6 +54,15 @@ children, which a button with a host of its own would not be. So
 \code{update_el_button()} cannot reach them; set their fields with
 \code{\link[=update_vue]{update_vue()}} on the group's id.
 }
+\section{Updating from the server}{
+
+\code{update_el_button_group()} changes the component from the server: every argument of
+\code{\link[=el_button_group]{el_button_group()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_button_group()} is called for its side effect and returns \code{NULL} invisibly.
+}
+
 \examples{
 el_button_group(
   el_button("prev", "Previous", icon = "ArrowLeft", type = "primary"),

@@ -174,6 +174,56 @@ entry's `hide_timestamp` is new. `insert_el_tab()` takes an
   `<aside>`, `<footer>` -- with their sizes as its CSS variables; a side
   tab header is laid out in a column, the "+" is Element's, and the active
   tab's bar spans its label alone.
+* A component folded into another -- a button in a group or a space, a
+  select in an input's slot, a panel in a splitter -- answers to its own id
+  again: its `update_el_*()` and `call_el()` reach it through the
+  instance that took it in, where they were dropped with a warning.
+* Element's own inner inputs are no longer bound by Shiny: it gives them
+  ids for their labels, and each input, select and picker on a page
+  reported a stray `input$`el-id-...``.
+* A multiple select's one choice -- `el_select(multiple = TRUE, selected =
+  "a")`, `el_select_v2()`, an update -- is a selection of one; it showed
+  nothing selected.
+* A datetime picker keeps its time: `value_format` defaults to
+  `"YYYY-MM-DD HH:mm:ss"` for `"datetime"` and `"datetimerange"`, and the
+  box shows Element's format for the type (`format = NULL`), where both
+  were `"YYYY-MM-DD"`. `update_el_date_picker(format =)` is new.
+* A form inside a container keeps working: renaming its fields apart turned
+  `v-model` into a directive Vue could not resolve.
+* `el_form_item()` puts several fields under one label, in columns, each
+  with its own rules, as Element's examples nest them. Form fields can be
+  `"select-v2"`, `"segmented"`, `"input-tag"`, `"mention"` and
+  `"mention-textarea"`; radio and checkbox groups take `button = TRUE` and
+  `border = TRUE`; `report = TRUE` reports a field as it changes, as
+  `input$<form>_<prop>`. `update_el_form(label_position =)` is new. Radios
+  and checkboxes take their value as Element Plus's `value`, not `label`.
+* A config provider's settings reach what is inside: `button` (`type`,
+  `plain`, `round` left `NULL` now), `link`, `card` (its shadow), `dialog`
+  (`align_center`, `draggable`, `overflow`), `locale` (by code, updatable);
+  a destroy-on-close dialog inside one keeps its content.
+* Updates for every setting that can change: `update_el_space()`,
+  `update_el_splitter()`, `update_el_splitter_panel()`, `update_el_text()`,
+  `update_el_watermark()`, `update_el_scrollbar()`, `update_el_anchor()`,
+  `update_el_affix()`, `update_el_tree_v2()`, `update_el_avatar_group()`,
+  `update_el_button_group()`, `update_el_config_provider()`; and more of
+  them in `update_el_tabs()` (position, type, closable, addable, stretch),
+  `update_el_collapse()`, `update_el_dialog()`, `update_el_drawer()`,
+  `update_el_descriptions()` (size, label width), `update_el_mention()`
+  (options, so a search can be answered), `update_el_skeleton()`
+  (animated, count) and `update_el_table()` (`loading_options`).
+* `el_table(loading_options =)` sets the mask's text, spinner, svg and
+  background, Element's `element-loading-*`.
+* `class` and `style` on the component itself, as Element passes them to
+  its root: `el_button()`, `el_card()`, `el_avatar()`, `el_image()` (whose
+  `fit` needs a box), `el_menu()`, `el_skeleton()`, `el_divider()`.
+  `el_card(body_style =)` takes Element's camelCase names.
+* A dropdown's trigger given as a tag is the trigger itself, where it was
+  wrapped in a span that took its focus and aria attributes.
+* `input$<id>_search` of a mention is `list(pattern, prefix)`.
+* An `id` that is not a string is refused with an error: a component given
+  first to `el_result()`, `el_empty()` or `el_skeleton()` -- whose first
+  argument is the id -- vanished without one.
+* `el_link(type =, underline =)` left `NULL` follow a config provider.
 
 ## Documentation, after Element's own
 
@@ -187,6 +237,11 @@ what Element's documentation does not: forms and validation, Shiny
 integration (events, methods, modules, bookmarking, data from the server,
 components of your own), theming and languages, and what differs from
 Element in a browser.
+
+Each demo is upstream's whole: its controls too -- the radio buttons that
+resize, the switches that toggle, the buttons that open a preview -- as a
+Shiny app whose server does what upstream's script does, each checked in a
+browser (`shot_expect` in `tools/article-shots.R`) for doing it.
 
 ## Components
 

@@ -111,6 +111,7 @@ el_infinite_scroll <- function(
     id = ns_id,
     markup = htmltools::tag("div", c(attrs, merged$markups[-1])),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,

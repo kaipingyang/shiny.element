@@ -8,10 +8,10 @@
 el_button(
   id = NULL,
   label = "Button",
-  type = "default",
+  type = NULL,
   size = NULL,
-  plain = FALSE,
-  round = FALSE,
+  plain = NULL,
+  round = NULL,
   circle = FALSE,
   loading = FALSE,
   disabled = FALSE,
@@ -27,6 +27,8 @@ el_button(
   loading_icon = NULL,
   tag = NULL,
   text = NULL,
+  class = NULL,
+  style = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -59,16 +61,19 @@ update_el_button(
 \arguments{
 \item{id}{Button ID. Auto-generated UUID if \code{NULL}.}
 
-\item{label}{Button text. Ignored (and defaults to \code{""}) when \code{circle = TRUE}.}
+\item{label}{Button text, or tags -- \code{tagList("Next", el_icon("ArrowRight", class = "el-icon--right"))} -- drawn as they are. Ignored (and defaults to
+\code{""}) when \code{circle = TRUE}.}
 
 \item{type}{Button type: \code{"default"}, \code{"primary"}, \code{"success"}, \code{"warning"},
-\code{"danger"}, \code{"info"}, \code{"text"}.}
+\code{"danger"}, \code{"info"}, \code{"text"}. \code{NULL} leaves it to a config provider's
+\code{button} settings, or Element's default.}
 
 \item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
-\item{plain}{Whether to use the plain (hollow) style. Default \code{FALSE}.}
+\item{plain}{Whether to use the plain (hollow) style.}
 
-\item{round}{Whether to use rounded corners. Default \code{FALSE}.}
+\item{round}{Whether to use rounded corners. \code{plain} and \code{round} left
+\code{NULL} are off, or a config provider's \link[=el_config_provider]{el_config_provider(button =)}.}
 
 \item{circle}{Whether to render as a circle button (icon only, no label).
 Default \code{FALSE}.}
@@ -116,6 +121,9 @@ An icon's name, such as \code{"Search"}.}
 
 \item{text}{Determine whether it's a text button. Element Plus's \code{text}
 (boolean).}
+
+\item{class, style}{Extra classes and inline style on the button, as
+Element passes them to its root.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

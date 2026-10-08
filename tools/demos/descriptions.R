@@ -8,7 +8,7 @@ el_descriptions(
     el_descriptions_item("Place", "Suzhou"),
     el_descriptions_item(
       "Remarks",
-      el_tag("desc_tag", "School", size = "small")
+      el_tag(label = "School", size = "small")
     ),
     el_descriptions_item(
       "Address",
@@ -18,83 +18,178 @@ el_descriptions(
 )
 
 ## sizes
-items <- list(
-  list(label = tagList(el_icon("User"), " Username"), content = "kooriookami"),
+#' The radios resize both lists with `update_el_descriptions(size =)`.
+#| shot_js = "document.querySelectorAll('#desc_size .el-radio')[0].click()"
+#| shot_expect = c("document.querySelectorAll('.el-descriptions--large').length === 2", "document.querySelectorAll('.el-descriptions .el-tag').length === 2")
+label <- function(icon, text) {
+  tags$div(
+    class = "cell-item",
+    el_icon(icon, style = "margin-right: 6px"),
+    text
+  )
+}
+items <- function() {
   list(
-    label = tagList(el_icon("Iphone"), " Telephone"),
-    content = "18100000000"
+    list(label = label("User", "Username"), content = "kooriookami"),
+    list(label = label("Iphone", "Telephone"), content = "18100000000"),
+    list(label = label("Location", "Place"), content = "Suzhou"),
+    list(
+      label = label("Tickets", "Remarks"),
+      content = el_tag(label = "School", size = "small")
+    ),
+    list(
+      label = label("OfficeBuilding", "Address"),
+      content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
+    )
+  )
+}
+ui <- el_page(
+  tags$style(
+    ".el-descriptions { margin-top: 20px; }
+     .cell-item { display: flex; align-items: center; }"
   ),
-  list(label = tagList(el_icon("Location"), " Place"), content = "Suzhou"),
-  list(
-    label = tagList(el_icon("OfficeBuilding"), " Address"),
-    content = "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
+  el_radio_group(
+    "desc_size",
+    choices = c(Large = "large", Default = "default", Small = "small"),
+    selected = "default"
+  ),
+  el_descriptions(
+    "desc_border",
+    title = "With border",
+    column = 3,
+    size = "default",
+    border = TRUE,
+    items = items(),
+    slots = list(extra = el_button("desc_op1", "Operation", type = "primary"))
+  ),
+  el_descriptions(
+    "desc_plain",
+    title = "Without border",
+    column = 3,
+    size = "default",
+    items = items(),
+    slots = list(extra = el_button("desc_op2", "Operation", type = "primary"))
   )
 )
-tagList(lapply(c("large", "default", "small"), function(s) {
-  el_descriptions(
-    paste0("desc_", s),
-    title = paste("With border,", s),
-    column = 3,
-    size = s,
-    border = TRUE,
-    items = items
-  )
-}))
+server <- function(input, output, session) {
+  observeEvent(input$desc_size, ignoreInit = TRUE, {
+    for (id in c("desc_border", "desc_plain")) {
+      update_el_descriptions(session, id, size = input$desc_size)
+    }
+  })
+}
+shinyApp(ui, server)
 
 ## vertical-list
-el_descriptions(
-  "desc_v",
-  title = "Vertical list with border",
-  direction = "vertical",
-  column = 4,
-  border = TRUE,
-  items = list(
+#' The radios resize both lists with `update_el_descriptions(size =)`.
+#| shot_js = "document.querySelectorAll('#desc_v_size .el-radio')[2].click()"
+#| shot_expect = "document.querySelectorAll('.el-descriptions--small').length === 2"
+items <- function() {
+  list(
     el_descriptions_item("Username", "kooriookami"),
     el_descriptions_item("Telephone", "18100000000"),
     el_descriptions_item("Place", "Suzhou", span = 2),
-    el_descriptions_item(
-      "Remarks",
-      el_tag("desc_tag_v", "School", size = "small")
-    ),
+    el_descriptions_item("Remarks", el_tag(label = "School", size = "small")),
     el_descriptions_item(
       "Address",
       "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
     )
   )
+}
+ui <- el_page(
+  el_radio_group(
+    "desc_v_size",
+    choices = c(Large = "large", Default = "default", Small = "small"),
+    selected = "default"
+  ),
+  el_descriptions(
+    "desc_v",
+    title = "Vertical list with border",
+    direction = "vertical",
+    column = 4,
+    size = "default",
+    border = TRUE,
+    items = items()
+  ),
+  tags$div(
+    style = "margin-top: 28px",
+    el_descriptions(
+      "desc_v_plain",
+      title = "Vertical list without border",
+      direction = "vertical",
+      column = 4,
+      size = "default",
+      items = items()
+    )
+  )
 )
+server <- function(input, output, session) {
+  observeEvent(input$desc_v_size, ignoreInit = TRUE, {
+    for (id in c("desc_v", "desc_v_plain")) {
+      update_el_descriptions(session, id, size = input$desc_v_size)
+    }
+  })
+}
+shinyApp(ui, server)
 
 ## rowspan
-el_descriptions(
-  "desc_rs",
-  title = "Width horizontal list",
-  border = TRUE,
-  items = list(
+#| shot_expect = "document.querySelectorAll('.el-descriptions td[rowspan=\"2\"], .el-descriptions th[rowspan=\"2\"]').length >= 2"
+items <- function() {
+  list(
     el_descriptions_item(
       "Photo",
       el_image(
-        src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-        alt = "A hamburger",
-        fit = "cover",
-        width = "100px"
+        src = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+        style = "width: 100px; height: 100px"
       ),
       rowspan = 2,
       width = 140,
       align = "center"
     ),
     el_descriptions_item("Username", "kooriookami"),
+    el_descriptions_item("Telephone", "18100000000"),
     el_descriptions_item("Place", "Suzhou"),
+    el_descriptions_item("Remarks", el_tag(label = "School", size = "small")),
     el_descriptions_item(
       "Address",
       "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
     )
   )
+}
+tagList(
+  el_descriptions(
+    "desc_rs",
+    title = "Width horizontal list",
+    border = TRUE,
+    items = items()
+  ),
+  tags$div(
+    style = "margin-top: 20px",
+    el_descriptions(
+      "desc_rs_v",
+      title = "Width vertical list",
+      direction = "vertical",
+      border = TRUE,
+      items = items()
+    )
+  )
 )
 
 ## customized-style
+#| shot_expect = "document.querySelector('.my-label') && document.querySelector('.my-content')"
+item <- function(label, content, ...) {
+  el_descriptions_item(
+    label,
+    content,
+    label_align = "right",
+    align = "center",
+    ...
+  )
+}
 tagList(
   tags$style(
     ".my-label { background: var(--el-color-success-light-9) !important; }
-              .my-content { background: var(--el-color-danger-light-9); }"
+     .my-content { background: var(--el-color-danger-light-9); }"
   ),
   el_descriptions(
     "desc_style",
@@ -102,26 +197,19 @@ tagList(
     column = 3,
     border = TRUE,
     items = list(
-      el_descriptions_item(
+      item(
         "Username",
         "kooriookami",
-        label_align = "right",
-        align = "center",
         label_class_name = "my-label",
         class_name = "my-content",
         width = "150px"
       ),
-      el_descriptions_item(
-        "Telephone",
-        "18100000000",
-        label_align = "right",
-        align = "center"
-      ),
-      el_descriptions_item(
-        "Place",
-        "Suzhou",
-        label_align = "right",
-        align = "center"
+      item("Telephone", "18100000000"),
+      item("Place", "Suzhou"),
+      item("Remarks", el_tag(label = "School", size = "small")),
+      item(
+        "Address",
+        "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
       )
     )
   )

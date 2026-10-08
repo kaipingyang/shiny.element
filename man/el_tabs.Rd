@@ -23,7 +23,13 @@ el_tabs(
 update_el_tabs(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  selected = NULL
+  selected = NULL,
+  type = NULL,
+  tab_position = NULL,
+  closable = NULL,
+  addable = NULL,
+  editable = NULL,
+  stretch = NULL
 )
 }
 \arguments{
@@ -98,7 +104,9 @@ a list of \code{target} (the tab name, or \code{NULL} for an add) and \code{acti
 
 \section{Updating from the server}{
 
-Server-side update for \code{\link[=el_tabs]{el_tabs()}}.
+Server-side update for \code{\link[=el_tabs]{el_tabs()}}: the tab selected, and the tabs' look
+-- \code{type} (\code{NA} for plain), \code{tab_position}, \code{closable}, \code{addable},
+\code{editable}, \code{stretch} -- as Element's props, all reactive there.
 
 \code{update_el_tabs()} is called for its side effect and returns \code{NULL} invisibly.
 }

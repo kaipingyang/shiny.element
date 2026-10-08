@@ -28,7 +28,8 @@ el_widget(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
-  props = NULL
+  props = NULL,
+  absorbed = NULL
 )
 }
 \arguments{
@@ -101,6 +102,10 @@ whether beside the component rather than under it. Element's
 
 \item{props}{Optional props from \code{.el_props()}: bound on the root tag of
 \code{markup}, with their fields added to \code{data}.}
+
+\item{absorbed}{The components folded into this one, by id: their fields
+as named here and the ref on each, so their updates reach them. Built by
+the package's wrappers; leave it \code{NULL}.}
 }
 \value{
 A Shiny UI element with its dependencies attached.

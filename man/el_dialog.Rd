@@ -26,9 +26,9 @@ el_dialog(
   before_close = NULL,
   modal_penetrable = FALSE,
   close_icon = NULL,
-  align_center = FALSE,
-  draggable = FALSE,
-  overflow = FALSE,
+  align_center = NULL,
+  draggable = NULL,
+  overflow = NULL,
   modal_class = NULL,
   header_class = NULL,
   body_class = NULL,
@@ -47,7 +47,18 @@ update_el_dialog(
   id,
   visible = NULL,
   title = NULL,
-  width = NULL
+  width = NULL,
+  top = NULL,
+  fullscreen = NULL,
+  modal = NULL,
+  close_on_click_modal = NULL,
+  close_on_press_escape = NULL,
+  show_close = NULL,
+  center = NULL,
+  lock_scroll = NULL,
+  draggable = NULL,
+  overflow = NULL,
+  align_center = NULL
 )
 }
 \arguments{
@@ -101,7 +112,9 @@ beneath, when \code{modal = FALSE}.}
 
 \item{draggable}{Let the dialog be dragged by its header.}
 
-\item{overflow}{With \code{draggable}, let it be dragged past the viewport.}
+\item{overflow}{With \code{draggable}, let it be dragged past the viewport.
+\code{align_center}, \code{draggable} and \code{overflow} left \code{NULL} are off, or a
+config provider's \link[=el_config_provider]{el_config_provider(dialog =)}.}
 
 \item{modal_class, header_class, body_class, footer_class}{Extra class names
 for the backdrop, the header, the body and the footer.}
@@ -159,7 +172,11 @@ Callable with \code{\link[=call_el]{call_el()}}: \code{resetPosition()} puts a d
 
 \section{Updating from the server}{
 
-Server-side update for \code{\link[=el_dialog]{el_dialog()}}.
+Server-side update for \code{\link[=el_dialog]{el_dialog()}}: whether it shows, its title and
+width, and how it looks and behaves -- \code{top}, \code{fullscreen}, \code{modal},
+\code{close_on_click_modal}, \code{close_on_press_escape}, \code{show_close}, \code{center},
+\code{lock_scroll}, \code{draggable}, \code{overflow}, \code{align_center} -- as Element's
+props, reactive there.
 
 \code{update_el_dialog()} is called for its side effect and returns \code{NULL} invisibly.
 }

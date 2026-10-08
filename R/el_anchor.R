@@ -118,3 +118,44 @@ el_anchor <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_anchor
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_anchor()` changes the component from the server: every argument of
+#' [el_anchor()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_anchor()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_anchor <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  offset = NULL,
+  bound = NULL,
+  duration = NULL,
+  marker = NULL,
+  type = NULL,
+  direction = NULL,
+  select_scroll_top = NULL,
+  container = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_anchor",
+    list(
+      offset = offset,
+      bound = bound,
+      duration = duration,
+      marker = marker,
+      type = type,
+      direction = direction,
+      select_scroll_top = select_scroll_top,
+      container = container
+    )
+  )
+}

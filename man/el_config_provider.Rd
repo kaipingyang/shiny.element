@@ -2,11 +2,13 @@
 % Please edit documentation in R/el_config_provider.R
 \name{el_config_provider}
 \alias{el_config_provider}
+\alias{update_el_config_provider}
 \title{Element Plus Config Provider}
 \usage{
 el_config_provider(
   ...,
   id = NULL,
+  locale = NULL,
   size = NULL,
   button = NULL,
   link = NULL,
@@ -16,8 +18,25 @@ el_config_provider(
   empty_values = NULL,
   value_on_clear = NULL,
   table = NULL,
+  card = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_config_provider(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  locale = NULL,
+  card = NULL,
+  size = NULL,
+  button = NULL,
+  link = NULL,
+  dialog = NULL,
+  message = NULL,
+  experimental_features = NULL,
+  empty_values = NULL,
+  value_on_clear = NULL,
+  table = NULL
 )
 }
 \arguments{
@@ -25,6 +44,10 @@ el_config_provider(
 into this one's Vue instance, as \code{\link[=el_button_group]{el_button_group()}} folds its buttons.}
 
 \item{id}{Component ID. Auto-generated if \code{NULL}.}
+
+\item{locale}{The language of the components inside it, as
+\code{\link[=el_locale_dependency]{el_locale_dependency()}} names one (\code{"zh-cn"}), where \code{el_page(locale =)}
+sets the page's. Element Plus's \code{locale}.}
 
 \item{size}{Global component size. Element Plus's \code{size} ('large' |
 'default' | 'small').}
@@ -55,22 +78,38 @@ all features are default to be set to false. Element Plus's
 \item{table}{Table related configuration, see the following table. Element
 Plus's \code{table} (object). Give it as \code{\link[=JS]{JS()}}.}
 
+\item{card}{Card related configuration: \code{list(shadow = "hover")}, for the
+cards inside it that set no shadow of their own. Element Plus's \code{card}.}
+
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
 }
 \description{
 Settings for the components inside it: their size, the button and link
-defaults, the dialog's and message's, the empty values. The page's own --
-locale, size, z-index -- are el_page()'s.
+defaults, the card's, the dialog's and message's, the empty values, and
+their language. The page's own -- its locale, size, z-index -- are
+el_page()'s.
 }
 \section{Shiny inputs}{
 
 None: it reports nothing.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_config_provider()} changes the component from the server: every argument of
+\code{\link[=el_config_provider]{el_config_provider()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_config_provider()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

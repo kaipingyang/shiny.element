@@ -111,7 +111,7 @@ el_tree_select <- function(
     if (is.null(value)) {
       if (isTRUE(multiple)) list() else NA
     } else if (isTRUE(multiple)) {
-      as.list(value)
+      as.list(unname(value))
     } else {
       value
     }

@@ -12,60 +12,54 @@ Used to give feedback on the result of user's operation or access exception.
 
 `primary` has been added in 2.9.11.
 
-```{r basic-usage, eval = FALSE, shot = TRUE}
+```{r basic-usage, eval = FALSE, shot = TRUE, shot_expect = "document.querySelectorAll('.el-result .el-button').length === 5"}
+tip <- function(
+  icon,
+  title,
+  sub_title = "Please follow the instructions",
+  ...
+) {
+  el_col(
+    sm = 12,
+    lg = 6,
+    xl = 4,
+    el_result(
+      paste0("res_", icon),
+      icon = icon,
+      title = title,
+      sub_title = sub_title,
+      el_button(label = "Back", type = "primary"),
+      ...
+    )
+  )
+}
 el_row(
-  el_col(
-    span = 6,
-    el_result(
-      icon = "success",
-      title = "Success Tip",
-      sub_title = "Please follow the instructions",
-      el_button("res1", "Back", type = "primary")
-    )
-  ),
-  el_col(
-    span = 6,
-    el_result(
-      icon = "warning",
-      title = "Warning Tip",
-      sub_title = "Please follow the instructions",
-      el_button("res2", "Back", type = "primary")
-    )
-  ),
-  el_col(
-    span = 6,
-    el_result(
-      icon = "error",
-      title = "Error Tip",
-      sub_title = "Please follow the instructions",
-      el_button("res3", "Back", type = "primary")
-    )
-  ),
-  el_col(
-    span = 6,
-    el_result(
-      icon = "info",
-      title = "Info Tip",
-      sub_title = "Please follow the instructions",
-      el_button("res4", "Back", type = "primary")
-    )
+  tip("primary", "Primary Tip"),
+  tip("success", "Success Tip"),
+  tip("warning", "Warning Tip"),
+  tip("error", "Error Tip"),
+  tip(
+    "info",
+    "Info Tip",
+    sub_title = NULL,
+    slots = list(`sub-title` = tags$p("Using slot as subtitle"))
   )
 )
 ```
 
 ## Customized content
 
-```{r customized-content, eval = FALSE, shot = TRUE}
+```{r customized-content, eval = FALSE, shot = TRUE, shot_expect = "document.querySelector('.el-result .el-image img')"}
 el_result(
+  "res_404",
   title = "404",
   sub_title = "Sorry, request error",
+  el_button(label = "Back", type = "primary"),
   slots = list(
-    icon = tags$img(
-      src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-      alt = "A hamburger"
+    icon = el_image(
+      src = "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
     )
-  ),
-  el_button("res_back", "Back", type = "primary")
+  )
 )
 ```
 

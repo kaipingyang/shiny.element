@@ -187,7 +187,8 @@ el_collapse_dependency <- function() {
 
 #' @rdname el_collapse
 #' @section Updating from the server:
-#' Server-side update for [el_collapse()].
+#' Server-side update for [el_collapse()]: the open panels, `accordion`,
+#' `expand_icon_position` and `before_collapse` (`NA` for none).
 #'
 #' `update_el_collapse()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
@@ -201,7 +202,10 @@ el_collapse_dependency <- function() {
 update_el_collapse <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  value = NULL
+  value = NULL,
+  accordion = NULL,
+  expand_icon_position = NULL,
+  before_collapse = NULL
 ) {
   .el_check_session(session)
   msg <- list()
@@ -209,6 +213,23 @@ update_el_collapse <- function(
   # element, and Shiny routes the message to it by id.
   if (!is.null(value)) {
     msg$value <- as.list(value)
+  }
+  if (!is.null(accordion)) {
+    msg$accordion <- isTRUE(accordion)
+  }
+  if (!is.null(expand_icon_position)) {
+    msg$expandIconPosition <- match.arg(
+      expand_icon_position,
+      c("right", "left")
+    )
+  }
+  # NA: none, every panel toggles
+  if (!is.null(before_collapse)) {
+    msg$beforeCollapse <- if (identical(before_collapse, NA)) {
+      ""
+    } else {
+      as.character(before_collapse)
+    }
   }
   session$sendInputMessage(id, msg)
   invisible(NULL)

@@ -138,3 +138,60 @@ el_tree_v2 <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_tree_v2
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_tree_v2()` changes the component from the server: every argument of
+#' [el_tree_v2()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_tree_v2()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_tree_v2 <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  empty_text = NULL,
+  highlight_current = NULL,
+  expand_on_click_node = NULL,
+  check_on_click_node = NULL,
+  check_on_click_leaf = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  indent = NULL,
+  icon = NULL,
+  item_size = NULL,
+  scrollbar_always_on = NULL,
+  props = NULL,
+  height = NULL,
+  current_node_key = NULL,
+  filter_method = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_tree_v2",
+    list(
+      data = data,
+      empty_text = empty_text,
+      highlight_current = highlight_current,
+      expand_on_click_node = expand_on_click_node,
+      check_on_click_node = check_on_click_node,
+      check_on_click_leaf = check_on_click_leaf,
+      show_checkbox = show_checkbox,
+      check_strictly = check_strictly,
+      indent = indent,
+      icon = icon,
+      item_size = item_size,
+      scrollbar_always_on = scrollbar_always_on,
+      props = props,
+      height = height,
+      current_node_key = current_node_key,
+      filter_method = filter_method
+    )
+  )
+}

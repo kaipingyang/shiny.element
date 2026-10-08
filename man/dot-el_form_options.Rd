@@ -12,12 +12,12 @@
 \item{option_tag}{The child tag this control uses.}
 }
 \value{
-A list of \code{list(label=, value=, text=)} items.
+A list of \code{list(label=, value=, text=)} items, \code{label} only for
+\code{el-option}.
 }
 \description{
 \code{el-option} takes the display text as its \code{label} attribute, while
-\code{el-radio} and \code{el-checkbox} use \code{label} as the \emph{value} and take the display
-text as their default slot. Normalising here keeps one template able to
-render all three.
+\code{el-radio} and \code{el-checkbox} take the display text as their default slot.
+Normalising here keeps one template able to render all three.
 }
 \keyword{internal}

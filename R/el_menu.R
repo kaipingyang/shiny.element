@@ -155,6 +155,9 @@
 #' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
 #' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
 #' @param router Whether to use vue-router mode, taking each index as a path.
+#' @param class,style Extra classes and inline style on the menu, as
+#'   Element passes them to its root: Element's examples style theirs by a
+#'   class of their own.
 #' @param width Component width, as a CSS unit -- `"200px"`, `"50%"`, or a
 #'   number taken as pixels. Element's own markup carries it, so it behaves
 #'   like the `width` argument of a Shiny input.
@@ -231,6 +234,8 @@ el_menu <- function(
   popper_offset = NULL,
   popper_style = NULL,
   show_timeout = NULL,
+  class = NULL,
+  style = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -314,7 +319,10 @@ el_menu <- function(
       show_timeout = show_timeout
     )),
     id = ns_id,
-    markup = htmltools::tag("el-menu", c(menu_attrs, .el_menu_nodes(items))),
+    markup = htmltools::tag(
+      "el-menu",
+      c(menu_attrs, list(class = class, style = style), .el_menu_nodes(items))
+    ),
     data = vue_data,
     methods = c(
       events$methods,

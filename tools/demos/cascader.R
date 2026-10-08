@@ -380,30 +380,63 @@ tagList(
 )
 
 ## check-on-click-node
+#| shot_js = c("document.querySelector('#show_prefix .el-switch').click()", "document.querySelector('#cas_c1 .el-input__inner').click()")
+#| shot_sel = ".el-cascader__dropdown"
+#| shot_expect = c("document.querySelector('.el-cascader__dropdown .el-cascader-node')", "!document.querySelector('.el-cascader__dropdown .el-cascader-node .el-radio')")
+#' The switch shows or hides each node's prefix -- its radio or checkbox --
+#' with `update_el_cascader(props =)`.
 tree <- list(list(
   value = "guide",
   label = "Guide",
   children = list(
-    list(value = "disciplines", label = "Disciplines"),
-    list(value = "navigation", label = "Navigation")
+    list(
+      value = "disciplines",
+      label = "Disciplines",
+      children = list(list(value = "consistency", label = "Consistency"))
+    ),
+    list(
+      value = "navigation",
+      label = "Navigation",
+      children = list(list(value = "side nav", label = "Side Navigation"))
+    )
   )
 ))
-tagList(
+strict <- function(prefix) {
+  list(showPrefix = prefix, checkStrictly = TRUE, checkOnClickNode = TRUE)
+}
+multiple <- function(prefix) {
+  list(showPrefix = prefix, multiple = TRUE, checkOnClickNode = TRUE)
+}
+ui <- el_page(
+  el_switch(
+    "show_prefix",
+    value = TRUE,
+    active_text = "show prefix",
+    inactive_text = "hide prefix"
+  ),
   tags$p("checkStrictly | Single mode"),
   el_cascader(
     "cas_c1",
     options = tree,
     clearable = TRUE,
-    props = list(checkStrictly = TRUE, checkOnClickNode = TRUE)
+    props = strict(TRUE)
   ),
-  tags$p("checkStrictly | Multiple mode"),
+  tags$p("Multiple mode"),
   el_cascader(
     "cas_c2",
     options = tree,
     clearable = TRUE,
-    props = list(multiple = TRUE, checkStrictly = TRUE, checkOnClickNode = TRUE)
+    show_checked_strategy = "parent",
+    props = multiple(TRUE)
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$show_prefix, ignoreInit = TRUE, {
+    update_el_cascader(session, "cas_c1", props = strict(input$show_prefix))
+    update_el_cascader(session, "cas_c2", props = multiple(input$show_prefix))
+  })
+}
+shinyApp(ui, server)
 
 ## custom-header-footer
 tree <- list(list(

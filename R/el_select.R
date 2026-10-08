@@ -358,7 +358,14 @@ el_select <- function(
   select_attrs <- c(select_attrs, events$attrs)
   # Build Vue data
   vue_data <- list(
-    value = if (is.null(selected)) (if (multiple) list() else "") else selected,
+    # A multiple select's value is an array, one choice or several
+    value = if (is.null(selected)) {
+      if (multiple) list() else ""
+    } else if (isTRUE(multiple)) {
+      as.list(unname(selected))
+    } else {
+      selected
+    },
     options = .el_select_choices(choices)$options,
     groups = .el_select_choices(choices)$groups,
     multiple = multiple,
@@ -451,6 +458,13 @@ el_select <- function(
         handleChange = JS(sprintf(
           "function(value) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', value); }",
           ns_id
+        )),
+        # update_el_select(selected = "a") on a multiple select, as
+        # updateSelectInput() takes it: one choice is an array of one
+        shinyVueReceive = JS(paste0(
+          "function(d) { var multiple = 'multiple' in d ? d.multiple : this.multiple; ",
+          "if ('value' in d && multiple && d.value !== null && !Array.isArray(d.value)) ",
+          "d.value = [d.value]; return d; }"
         ))
       )
     ),

@@ -57,3 +57,47 @@ el_splitter_panel <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_splitter_panel
+#' @section Updating from the server:
+#' `update_el_splitter_panel()` changes a panel's settings: one inside an
+#' [el_splitter()] is folded into the splitter's instance and still answers
+#' to its own `id`. One left `NULL` stays as it is; `NA` returns it to
+#' Element's default.
+#'
+#' `update_el_splitter_panel()` is called for its side effect and returns
+#' `NULL` invisibly.
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @examples
+#' if (interactive()) {
+#'   # inside a server function
+#'   observeEvent(input$lock, {
+#'     update_el_splitter_panel(session, "side", resizable = !input$lock)
+#'   })
+#' }
+#' @export
+update_el_splitter_panel <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  size = NULL,
+  min = NULL,
+  max = NULL,
+  resizable = NULL,
+  collapsible = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_splitter_panel",
+    list(
+      size = size,
+      min = min,
+      max = max,
+      resizable = resizable,
+      collapsible = collapsible
+    )
+  )
+}

@@ -172,6 +172,7 @@ el_popconfirm <- function(
     id = ns_id,
     markup = htmltools::tag("el-popconfirm", c(attrs, children)),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,

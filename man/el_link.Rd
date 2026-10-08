@@ -8,8 +8,8 @@
 el_link(
   label = "Link",
   href = NULL,
-  type = "default",
-  underline = "hover",
+  type = NULL,
+  underline = NULL,
   disabled = FALSE,
   icon = NULL,
   id = NULL,
@@ -33,12 +33,14 @@ update_el_link(
 
 \item{href}{URL target. \code{NULL} for a non-navigating link.}
 
-\item{type}{Link colour type: \code{"default"} (default), \code{"primary"},
-\code{"success"}, \code{"warning"}, \code{"danger"}, \code{"info"}.}
+\item{type}{Link colour type: \code{"default"}, \code{"primary"}, \code{"success"},
+\code{"warning"}, \code{"danger"}, \code{"info"}.}
 
-\item{underline}{When the link is underlined: \code{"hover"} (the default),
-\code{"always"} or \code{"never"}. \code{TRUE} and \code{FALSE}, Element UI's form, are
-\code{"hover"} and \code{"never"}.}
+\item{underline}{When the link is underlined: \code{"hover"}, \code{"always"} or
+\code{"never"}. \code{TRUE} and \code{FALSE}, Element UI's form, are \code{"hover"} and
+\code{"never"}. \code{type} and \code{underline} left \code{NULL} are \code{"default"} and
+\code{"hover"}, or for a link with an \code{id} a config provider's
+\link[=el_config_provider]{el_config_provider(link =)}.}
 
 \item{disabled}{Whether the link is disabled. Default \code{FALSE}.}
 

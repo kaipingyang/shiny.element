@@ -30,7 +30,8 @@
     watch = list(),
     computed = list(),
     mounted = NULL,
-    dependencies = list()
+    dependencies = list(),
+    absorbed = NULL
   )
   if (is.null(ui)) {
     return(empty)
@@ -107,7 +108,8 @@
       watch = merged$watch %||% list(),
       computed = merged$computed %||% list(),
       mounted = merged$mounted,
-      dependencies = merged$dependencies
+      dependencies = merged$dependencies,
+      absorbed = merged$absorbed
     ))
   }
   if (!inherits(ui, "shiny.tag.list")) {
@@ -126,8 +128,35 @@
 
   spec <- attr(host, "el_spec")
   options <- spec$options
+  # Folded in, it keeps answering to its id: the host that takes it lists
+  # it, with its fields' names (renamed below if they clash) and a ref on its
+  # component for the methods call_vue() names
+  markup <- spec$markup
+  ref <- NULL
+  if (inherits(markup, "shiny.tag")) {
+    ref <- markup$attribs$ref
+    if (is.null(ref)) {
+      ref <- paste0("sv_", gsub("[^A-Za-z0-9_]", "_", host$attribs$id))
+      markup$attribs$ref <- ref
+    }
+  }
+  fields <- unique(c(
+    names(options$data),
+    names(options$methods),
+    names(options$computed)
+  ))
+  report <- attr(options$mounted, "vue_report")
+  input <- unname(report[names(report) == host$attribs$id])
+  own <- stats::setNames(
+    list(c(
+      list(fields = as.list(stats::setNames(fields, fields)), ref = ref),
+      if (length(input) == 1L && input %in% fields) list(input = input)
+    )),
+    host$attribs$id
+  )
   list(
-    markup = spec$markup,
+    absorbed = c(own, spec$absorbed),
+    markup = markup,
     data = if (is.null(options$data)) list() else options$data,
     methods = if (is.null(options$methods)) list() else options$methods,
     watch = if (is.null(options$watch)) list() else options$watch,
@@ -223,7 +252,8 @@
     dependencies = unlist(
       lapply(parts, `[[`, "dependencies"),
       recursive = FALSE
-    )
+    ),
+    absorbed = do.call(c, lapply(parts, `[[`, "absorbed"))
   )
 }
 
@@ -274,17 +304,32 @@
   absorbed$methods <- rename_keys(absorbed$methods)
   absorbed$computed <- rename_keys(absorbed$computed)
   if (length(absorbed$watch)) {
+    # a key may be a path, `model.size`: its first segment is the field
     absorbed$watch <- stats::setNames(
       absorbed$watch,
       vapply(
         names(absorbed$watch),
-        function(n) if (!is.na(rename[n])) rename[[n]] else n,
+        function(n) {
+          head <- sub("[.[].*$", "", n)
+          if (!is.na(rename[head])) {
+            paste0(rename[[head]], substring(n, nchar(head) + 1L))
+          } else {
+            n
+          }
+        },
         character(1)
       )
     )
   }
 
   absorbed$markup <- .el_rewrite_markup(absorbed$markup, rename)
+  # the folded components' fields, as their ids' updates now find them
+  absorbed$absorbed <- lapply(absorbed$absorbed, function(entry) {
+    entry$fields <- lapply(entry$fields, function(f) {
+      if (f %in% names(rename)) rename[[f]] else f
+    })
+    entry
+  })
   absorbed$methods <- lapply(absorbed$methods, .el_rewrite_js, rename = rename)
   absorbed$computed <- lapply(
     absorbed$computed,
@@ -378,11 +423,59 @@
   if (is.list(ui)) {
     return(lapply(ui, .el_rewrite_markup, rename = rename))
   }
-  # Interpolation in a text node: {{label}}
+  # Markup written as a string -- el_form()'s template -- is rewritten where
+  # an expression can be: binding values and interpolations. Rewritten whole,
+  # a field named `model` turned `v-model` itself into `v-el3_model`.
+  if (inherits(ui, "html")) {
+    if (grepl("<", ui, fixed = TRUE)) {
+      return(htmltools::HTML(.el_rewrite_html(as.character(ui), rename)))
+    }
+    if (grepl("\\{\\{", ui)) {
+      return(htmltools::HTML(.el_rewrite_expr(as.character(ui), rename)))
+    }
+    return(ui)
+  }
+  # Interpolation in a text node: {{label}}. Text is escaped first, as
+  # htmltools would have: returned as HTML, it would go out as written
   if (is.character(ui) && grepl("\\{\\{", ui)) {
-    return(htmltools::HTML(.el_rewrite_expr(as.character(ui), rename)))
+    return(htmltools::HTML(
+      .el_rewrite_expr(htmltools::htmlEscape(as.character(ui)), rename)
+    ))
   }
   ui
+}
+
+
+#' Rewrite field names in markup written as a string
+#'
+#' @param html Markup, one string.
+#' @param rename Named character vector, old name to new.
+#' @return The markup, its binding values and interpolations rewritten.
+#' @keywords internal
+.el_rewrite_html <- function(html, rename) {
+  rewrite <- function(x, pattern, inner) {
+    m <- gregexpr(pattern, x, perl = TRUE)
+    regmatches(x, m) <- lapply(regmatches(x, m), function(v) {
+      vapply(v, inner, character(1), USE.NAMES = FALSE)
+    })
+    x
+  }
+  # :prop="...", @event="...", v-if="...", but not a slot's scope
+  html <- rewrite(
+    html,
+    "(?<=\\s)(?:[:@][^\\s=\"]+|v-(?!slot)[^\\s=\"]+)=\"[^\"]*\"",
+    function(attr) {
+      eq <- regexpr("=", attr, fixed = TRUE)
+      value <- substr(attr, eq + 2L, nchar(attr) - 1L)
+      paste0(
+        substr(attr, 1L, eq),
+        "\"",
+        .el_rewrite_expr(value, rename),
+        "\""
+      )
+    }
+  )
+  rewrite(html, "\\{\\{[^}]*\\}\\}", function(x) .el_rewrite_expr(x, rename))
 }
 
 
@@ -480,6 +573,7 @@
       c(attrs, props$attrs, events$attrs, unname(merged$markups[-1]))
     ),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,

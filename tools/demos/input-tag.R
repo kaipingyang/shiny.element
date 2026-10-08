@@ -6,91 +6,163 @@ el_input_tag(
 )
 
 ## trigger
-el_input_tag(
-  "tags_space",
-  trigger = "Space",
-  placeholder = "Please input",
-  aria_label = "Please click the Space key after input"
+#' The segmented control sets the key that makes a tag, with
+#' `update_el_input_tag(trigger =)`.
+#| shot_js = c("Array.from(document.querySelectorAll('#tags_key .el-segmented__item')).find(function(i) { return i.innerText.trim() === 'Enter'; }).click()", "var i = document.querySelector('#tags_trigger input'); i.value = 'one'; i.dispatchEvent(new Event('input')); i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', code: 'Enter', bubbles: true}))")
+#| shot_expect = "document.querySelectorAll('#tags_trigger .el-tag').length === 1"
+ui <- el_page(
+  tags$div(
+    el_segmented("tags_key", value = "Space", options = c("Enter", "Space"))
+  ),
+  tags$br(),
+  el_input_tag("tags_trigger", trigger = "Space", placeholder = "Please input")
 )
+server <- function(input, output, session) {
+  observeEvent(input$tags_key, ignoreInit = TRUE, {
+    update_el_input_tag(session, "tags_trigger", trigger = input$tags_key)
+  })
+}
+shinyApp(ui, server)
 
 ## max
-el_input_tag("tags_max", max = 3, placeholder = "Please input")
+el_input_tag("tags_max", max = 3, placeholder = "enter up to 3 tags")
 
 ## collapse
+#| shot_expect = "document.querySelectorAll('.el-input-tag')[2].querySelectorAll('.el-tag').length === 4"
+words <- c("tag1", "tag2", "tag3", "tag4", "tag5")
 tags$div(
-  style = "display: grid; gap: 16px",
+  tags$p("use collapse-tags"),
   el_input_tag(
     "tags_col1",
-    value = c("tag1", "tag2", "tag3"),
-    collapse_tags = TRUE
+    value = words,
+    collapse_tags = TRUE,
+    placeholder = "Please input",
+    aria_label = "Please click the Enter key after input"
   ),
+  tags$p("use collapse-tags-tooltip"),
   el_input_tag(
     "tags_col2",
-    value = c("tag1", "tag2", "tag3"),
+    value = words,
     collapse_tags = TRUE,
-    collapse_tags_tooltip = TRUE
+    collapse_tags_tooltip = TRUE,
+    placeholder = "Please input",
+    aria_label = "Please click the Enter key after input"
   ),
+  tags$p("use max-collapse-tags"),
   el_input_tag(
     "tags_col3",
-    value = c("tag1", "tag2", "tag3", "tag4"),
+    value = words,
     collapse_tags = TRUE,
-    max_collapse_tags = 2
+    collapse_tags_tooltip = TRUE,
+    max_collapse_tags = 3,
+    placeholder = "Please input",
+    aria_label = "Please click the Enter key after input"
   )
 )
 
 ## disabled
-el_input_tag("tags_dis", value = c("tag1", "tag2"), disabled = TRUE)
+el_input_tag(
+  "tags_dis",
+  value = c("tag1", "tag2", "tag3"),
+  disabled = TRUE,
+  placeholder = "Please input"
+)
 
 ## clearable
-el_input_tag("tags_clear", value = c("tag1", "tag2"), clearable = TRUE)
+el_input_tag(
+  "tags_clear",
+  value = c("tag1", "tag2", "tag3"),
+  clearable = TRUE,
+  placeholder = "Please input"
+)
 
 ## clear-icon
 el_input_tag(
   "tags_clear_icon",
-  value = c("tag1", "tag2"),
+  value = c("custom", "clear", "icon"),
   clearable = TRUE,
-  clear_icon = "CloseBold"
+  clear_icon = "CloseBold",
+  placeholder = "Custom clear icon"
 )
 
 ## draggable
-el_input_tag("tags_drag", value = c("tag1", "tag2", "tag3"), draggable = TRUE)
+el_input_tag(
+  "tags_drag",
+  value = c("tag1", "tag2", "tag3"),
+  draggable = TRUE,
+  placeholder = "Please input"
+)
 
 ## delimiter
 el_input_tag(
   "tags_delim",
+  draggable = TRUE,
   delimiter = ",",
-  placeholder = "Please input",
-  aria_label = "Please input a comma after input"
+  placeholder = "Try to separate words with ,"
 )
 
 ## size
-tags$div(
-  style = "display: grid; gap: 16px",
+tagList(
   el_input_tag("tags_l", size = "large", placeholder = "Please input"),
+  tags$br(),
   el_input_tag("tags_d", placeholder = "Please input"),
+  tags$br(),
   el_input_tag("tags_s", size = "small", placeholder = "Please input")
 )
 
 ## tag
-el_input_tag(
-  "tags_tpl",
-  value = c("tag1", "tag2"),
-  tag_type = "primary",
-  tag_effect = "plain",
-  slots = list(
-    tag = template(
-      htmltools::HTML(
-        "<div class=\"flex items-center\"><el-icon><ElementPlus /></el-icon><span>{{ value }}</span></div>"
-      ),
-      slot = "tag",
-      scope = "{ value }"
+#' The segmented controls set the tags' `tag_type` and `tag_effect`, with
+#' `update_el_input_tag()`; the `tag` slot draws each one.
+#| shot_js = c("Array.from(document.querySelectorAll('#tags_type .el-segmented__item')).find(function(i) { return i.innerText.trim() === 'success'; }).click()", "Array.from(document.querySelectorAll('#tags_effect .el-segmented__item')).find(function(i) { return i.innerText.trim() === 'dark'; }).click()")
+#| shot_expect = c("document.querySelectorAll('#tags_tpl .el-tag--success.el-tag--dark').length === 3", "document.querySelectorAll('#tags_tpl .el-tag [data-el-icon], #tags_tpl .el-tag .el-icon').length >= 3")
+ui <- el_page(
+  tags$div(
+    style = "display: flex; gap: 20px",
+    el_segmented(
+      "tags_type",
+      value = "primary",
+      options = c("primary", "success", "info", "warning", "danger")
+    ),
+    el_segmented(
+      "tags_effect",
+      value = "plain",
+      options = c("light", "dark", "plain")
+    )
+  ),
+  tags$br(),
+  el_input_tag(
+    "tags_tpl",
+    value = c("tag1", "tag2", "tag3"),
+    tag_type = "primary",
+    tag_effect = "plain",
+    placeholder = "Please input",
+    slots = list(
+      tag = template(
+        slot = "tag",
+        scope = "{ value }",
+        tags$div(
+          style = "display: flex; align-items: center",
+          el_icon("ElementPlus", style = "margin-right: 4px"),
+          tags$span("{{ value }}")
+        )
+      )
     )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$tags_type, ignoreInit = TRUE, {
+    update_el_input_tag(session, "tags_tpl", tag_type = input$tags_type)
+  })
+  observeEvent(input$tags_effect, ignoreInit = TRUE, {
+    update_el_input_tag(session, "tags_tpl", tag_effect = input$tags_effect)
+  })
+}
+shinyApp(ui, server)
 
 ## prefix-suffix
 el_input_tag(
   "tags_ps",
+  clearable = TRUE,
   placeholder = "Please input",
-  slots = list(prefix = el_icon("CollectionTag"), suffix = el_icon("Search"))
+  slots = list(prefix = el_icon("ElementPlus"), suffix = el_icon("Search"))
 )

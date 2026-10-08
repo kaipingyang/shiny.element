@@ -11,6 +11,9 @@ el_form_field(
   value = NULL,
   choices = NULL,
   rules = NULL,
+  report = FALSE,
+  button = FALSE,
+  border = NULL,
   ...
 )
 }
@@ -23,7 +26,8 @@ el_form_field(
 \code{"radio-group"}, \code{"checkbox-group"}, \code{"checkbox"} (one box, \code{TRUE} or
 \code{FALSE}), \code{"switch"}, \code{"slider"}, \code{"date-picker"}, \code{"time-picker"},
 \code{"time-select"}, \code{"rate"}, \code{"cascader"}, \code{"cascader-panel"},
-\code{"color-picker"}, \code{"autocomplete"} or \code{"transfer"}. Their props go in
+\code{"color-picker"}, \code{"autocomplete"}, \code{"transfer"}, \code{"select-v2"},
+\code{"segmented"}, \code{"input-tag"}, \code{"mention"} or \code{"mention-textarea"}. Their props go in
 \code{...}: a cascader's \code{options}, a transfer's \code{data}.}
 
 \item{label}{Label text.}
@@ -37,6 +41,16 @@ user types. A named vector \code{c(Label = value)} or a list of
 \code{list(value=, label=)}. For \code{"checkbox"}, the box's text is \code{label}.}
 
 \item{rules}{A single \code{\link[=el_rule]{el_rule()}} or a list of them.}
+
+\item{report}{Whether the field also reports its value on load and on
+every change, as \verb{input$<form id>_<prop>}, as a standalone input would --
+for a control that changes the page, such as a size switch. The form's
+own \verb{input$<form id>} still waits for a submit. A field added later by
+\code{\link[=update_el_form]{update_el_form()}}\verb{(fields =)} reports with the submit only.}
+
+\item{button, border}{For \code{"radio-group"} and \code{"checkbox-group"}: draw the
+choices as buttons (\code{el-radio-button}, \code{el-checkbox-button}), or as
+boxes with a border.}
 
 \item{...}{Further props. Element's form-item props -- \code{required},
 \code{error}, \code{label_width}, \code{label_position}, \code{size}, \code{show_message},

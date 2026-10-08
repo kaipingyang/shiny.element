@@ -119,26 +119,25 @@ el_drawer <- function(
   vertical <- direction %in% c("ttb", "btt")
   title_id <- paste0(ns_id, "-title")
 
-  header <- if (with_header) {
-    shiny::tags$header(
-      class = paste(c("el-drawer__header", header_class), collapse = " "),
-      shiny::tags$span(
-        id = title_id,
-        role = "heading",
-        `aria-level` = header_aria_level,
-        class = "el-drawer__title",
-        title
-      ),
-      if (show_close) {
-        shiny::tags$button(
-          `aria-label` = paste("close", title),
-          type = "button",
-          class = "el-drawer__close-btn",
-          .el_close_icon("el-drawer__close")
-        )
-      }
+  # Hidden rather than left out, so update_el_drawer() can show them
+  header <- shiny::tags$header(
+    class = paste(c("el-drawer__header", header_class), collapse = " "),
+    style = if (!with_header) "display:none",
+    shiny::tags$span(
+      id = title_id,
+      role = "heading",
+      `aria-level` = header_aria_level,
+      class = "el-drawer__title",
+      title
+    ),
+    shiny::tags$button(
+      `aria-label` = paste("close", title),
+      type = "button",
+      class = "el-drawer__close-btn",
+      style = if (!show_close) "display:none",
+      .el_close_icon("el-drawer__close")
     )
-  }
+  )
 
   htmltools::attachDependencies(
     shiny::tags$div(
@@ -200,7 +199,11 @@ el_drawer <- function(
 
 #' @rdname el_drawer
 #' @section Updating from the server:
-#' Server-side update for [el_drawer()].
+#' Server-side update for [el_drawer()]: whether it shows, its title, its
+#' size, the edge it slides from (`direction`), and how it behaves -- `modal`,
+#' `with_header`, `show_close`, `close_on_click_modal`,
+#' `close_on_press_escape`, `lock_scroll` -- as Element's props, reactive
+#' there.
 #'
 #' `update_el_drawer()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
@@ -216,10 +219,27 @@ update_el_drawer <- function(
   id,
   visible = NULL,
   title = NULL,
-  size = NULL
+  size = NULL,
+  direction = NULL,
+  modal = NULL,
+  with_header = NULL,
+  show_close = NULL,
+  close_on_click_modal = NULL,
+  close_on_press_escape = NULL,
+  lock_scroll = NULL
 ) {
   .el_check_session(session)
-  msg <- list()
+  msg <- .el_overlay_flags(list(
+    modal = modal,
+    with_header = with_header,
+    show_close = show_close,
+    close_on_click_modal = close_on_click_modal,
+    close_on_press_escape = close_on_press_escape,
+    lock_scroll = lock_scroll
+  ))
+  if (!is.null(direction)) {
+    msg$direction <- match.arg(direction, c("rtl", "ltr", "ttb", "btt"))
+  }
   if (!is.null(visible)) {
     msg$visible <- visible
   }

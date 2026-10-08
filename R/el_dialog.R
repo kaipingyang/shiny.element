@@ -27,6 +27,8 @@
 #' @param align_center Centre the dialog in the viewport, vertically too.
 #' @param draggable Let the dialog be dragged by its header.
 #' @param overflow With `draggable`, let it be dragged past the viewport.
+#'   `align_center`, `draggable` and `overflow` left `NULL` are off, or a
+#'   config provider's [el_config_provider(dialog =)][el_config_provider].
 #' @param lock_scroll Whether the page stops scrolling while it is open.
 #' @param custom_class Extra class name for the panel.
 #' @param modal_class,header_class,body_class,footer_class Extra class names
@@ -104,9 +106,9 @@ el_dialog <- function(
   before_close = NULL,
   modal_penetrable = FALSE,
   close_icon = NULL,
-  align_center = FALSE,
-  draggable = FALSE,
-  overflow = FALSE,
+  align_center = NULL,
+  draggable = NULL,
+  overflow = NULL,
   modal_class = NULL,
   header_class = NULL,
   body_class = NULL,
@@ -140,18 +142,18 @@ el_dialog <- function(
       class = "el-dialog__title",
       title
     ),
-    if (show_close) {
-      shiny::tags$button(
-        type = "button",
-        `aria-label` = "Close",
-        class = "el-dialog__headerbtn",
-        if (is.null(close_icon)) {
-          .el_close_icon("el-dialog__close")
-        } else {
-          el_icon(.el_icon_name(close_icon), class = "el-dialog__close")
-        }
-      )
-    }
+    # hidden rather than left out, so update_el_dialog() can show it
+    shiny::tags$button(
+      type = "button",
+      `aria-label` = "Close",
+      class = "el-dialog__headerbtn",
+      style = if (!show_close) "display:none",
+      if (is.null(close_icon)) {
+        .el_close_icon("el-dialog__close")
+      } else {
+        el_icon(.el_icon_name(close_icon), class = "el-dialog__close")
+      }
+    )
   )
 
   # Element Plus: the overlay (the mask) holds a full-screen box that holds
@@ -178,6 +180,12 @@ el_dialog <- function(
       `data-z-index` = z_index,
       `data-transition` = transition,
       `data-draggable` = if (isTRUE(draggable)) "true",
+      # what a config provider may set, the dialog having left it
+      `data-el-dialog-defaults` = .el_null_names(list(
+        alignCenter = align_center,
+        draggable = draggable,
+        overflow = overflow
+      )),
       `data-overflow` = if (isTRUE(overflow)) "true",
       `data-destroy-on-close` = tolower(as.character(destroy_on_close)),
       `data-before-close` = if (!is.null(before_close)) {
@@ -245,7 +253,11 @@ el_dialog <- function(
 
 #' @rdname el_dialog
 #' @section Updating from the server:
-#' Server-side update for [el_dialog()].
+#' Server-side update for [el_dialog()]: whether it shows, its title and
+#' width, and how it looks and behaves -- `top`, `fullscreen`, `modal`,
+#' `close_on_click_modal`, `close_on_press_escape`, `show_close`, `center`,
+#' `lock_scroll`, `draggable`, `overflow`, `align_center` -- as Element's
+#' props, reactive there.
 #'
 #' `update_el_dialog()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
@@ -261,10 +273,33 @@ update_el_dialog <- function(
   id,
   visible = NULL,
   title = NULL,
-  width = NULL
+  width = NULL,
+  top = NULL,
+  fullscreen = NULL,
+  modal = NULL,
+  close_on_click_modal = NULL,
+  close_on_press_escape = NULL,
+  show_close = NULL,
+  center = NULL,
+  lock_scroll = NULL,
+  draggable = NULL,
+  overflow = NULL,
+  align_center = NULL
 ) {
   .el_check_session(session)
-  msg <- list()
+  msg <- .el_overlay_flags(list(
+    top = top,
+    fullscreen = fullscreen,
+    modal = modal,
+    close_on_click_modal = close_on_click_modal,
+    close_on_press_escape = close_on_press_escape,
+    show_close = show_close,
+    center = center,
+    lock_scroll = lock_scroll,
+    draggable = draggable,
+    overflow = overflow,
+    align_center = align_center
+  ))
   if (!is.null(visible)) {
     msg$visible <- visible
   }
@@ -322,4 +357,26 @@ el_overlay_dependency <- function() {
     htmltools::tag("template", list(`data-el-pristine` = "true", content)),
     if (isTRUE(visible)) shiny::tags$div(`data-el-live` = "true", content)
   )
+}
+
+
+#' An overlay's settings for its update message
+#'
+#' The dialog's and drawer's behaviours, Element's props all reactive there:
+#' given ones as their camelCase fields, logical ones as `TRUE`/`FALSE`.
+#' @param values Named list; `NULL` ones are left out.
+#' @return A list of fields.
+#' @keywords internal
+.el_overlay_flags <- function(values) {
+  values <- values[!vapply(values, is.null, logical(1))]
+  out <- lapply(values, function(v) if (is.logical(v)) isTRUE(v) else v)
+  stats::setNames(out, vapply(names(values), .el_camel_case, ""))
+}
+
+
+#' The names of the settings left `NULL`, as one attribute
+#' @noRd
+.el_null_names <- function(x) {
+  left <- names(x)[vapply(x, is.null, logical(1))]
+  if (length(left)) paste(left, collapse = " ")
 }

@@ -35,6 +35,7 @@ update_el_form(
   model = NULL,
   rules = NULL,
   label_width = NULL,
+  label_position = NULL,
   fields = NULL,
   errors = NULL,
   inline = NULL,

@@ -48,6 +48,29 @@ test_that("el_date_picker: value_format appears in Vue data", {
   expect_match(html, '"valueFormat"\\s*:\\s*"YYYY-MM-DD"')
 })
 
+test_that("el_date_picker: a datetime keeps its time, shown as Element shows it", {
+  # Element's default formats depend on the type; a date-only value format
+  # would drop the time a datetime picker is for
+  html <- render_html(el_date_picker("dp1", type = "datetime"))
+  expect_match(html, '"valueFormat"\\s*:\\s*"YYYY-MM-DD HH:mm:ss"')
+  expect_match(html, '"displayFormat"\\s*:\\s*null')
+  expect_match(html, "displayFormat === null ? undefined", fixed = TRUE)
+  month <- render_html(el_date_picker("dp1", type = "month"))
+  expect_match(month, '"valueFormat"\\s*:\\s*"YYYY-MM-DD"')
+  shown <- render_html(el_date_picker("dp1", format = "YYYY/MM/DD"))
+  expect_match(shown, '"displayFormat"\\s*:\\s*"YYYY/MM/DD"')
+})
+
+test_that("update_el_date_picker: format sets the display format", {
+  sent <- NULL
+  s <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) sent <<- msg
+  )
+  update_el_date_picker(s, "dp1", format = "yyyy/MM/dd")
+  expect_equal(sent$displayFormat, "YYYY/MM/DD")
+})
+
 # ── value 处理 ────────────────────────────────────────────────────────────────
 
 test_that("el_date_picker: NULL value initialises as empty string for date type", {

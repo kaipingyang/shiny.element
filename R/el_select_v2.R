@@ -308,13 +308,32 @@ el_select_v2 <- function(
       popper_append_to_body = popper_append_to_body,
       tabindex = tabindex
     )),
-    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+    # A multiple select's value is an array, one choice or several
+    data = list(
+      value = .el_restore(
+        ns_id,
+        if (is.null(value)) {
+          if (isTRUE(multiple)) list() else NA
+        } else if (isTRUE(multiple)) {
+          as.list(unname(value))
+        } else {
+          value
+        }
+      )
+    ),
     methods = c(
       events$methods,
       list(
         handleChange = JS(sprintf(
           "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",
           ns_id
+        )),
+        # update_el_select_v2(value = "a") on a multiple select: a
+        # selection of one
+        shinyVueReceive = JS(paste0(
+          "function(d) { var multiple = 'multiple' in d ? d.multiple : this.multiple; ",
+          "if ('value' in d && multiple && d.value !== null && !Array.isArray(d.value)) ",
+          "d.value = [d.value]; return d; }"
         ))
       )
     ),

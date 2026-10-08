@@ -27,29 +27,69 @@ el_row(
 )
 
 ## countdown
-#' `input$<id>_finish` fires at zero.
-el_row(
+#' `input$<id>_finish` fires at zero. Reset sets the second one's `value`
+#' again, with `update_el_countdown()`.
+#| shot_js = "document.querySelector('#cd_reset button').click()"
+#| shot_expect = "/^4[78]:/.test(document.querySelectorAll('.el-statistic__number')[1].innerText.trim())"
+next_month <- as.POSIXct(
+  format(seq(Sys.Date(), by = "month", length.out = 2)[2], "%Y-%m-01")
+)
+col <- function(...) {
   el_col(
-    span = 8,
-    el_countdown(title = "Start to grab", value = Sys.time() + 1000)
-  ),
-  el_col(
-    span = 8,
-    el_countdown(
-      title = "Remaining VIP time",
-      format = "HH:mm:ss",
-      value = Sys.time() + 60 * 60 * 24 * 2
-    )
-  ),
-  el_col(
-    span = 8,
-    el_countdown(
-      format = "DD [days] HH:mm:ss",
-      value = Sys.time() + 60 * 60 * 24 * 7,
-      slots = list(title = "Next month")
+    xs = 24,
+    sm = 12,
+    md = 8,
+    style = "text-align: center; margin-bottom: 16px",
+    ...
+  )
+}
+ui <- el_page(
+  el_row(
+    gutter = 16,
+    col(el_countdown(
+      "cd_grab",
+      title = "Start to grab",
+      value = Sys.time() + 60 * 60 * 7
+    )),
+    col(
+      el_countdown(
+        "cd_vip",
+        title = "Remaining VIP time",
+        format = "HH:mm:ss",
+        value = Sys.time() + 60 * 60 * 24 * 2 - 60 * 60
+      ),
+      tags$div(
+        style = "margin-top: 8px",
+        el_button("cd_reset", "Reset", type = "primary")
+      )
+    ),
+    col(
+      el_countdown(
+        "cd_month",
+        format = "DD [days] HH:mm:ss",
+        value = next_month,
+        slots = list(
+          title = tags$div(
+            style = "display: inline-flex; align-items: center",
+            el_icon("Calendar", size = 12, style = "margin-right: 4px"),
+            "Still to go until next month"
+          )
+        )
+      ),
+      tags$div(style = "margin-top: 8px", format(next_month, "%Y-%m-%d"))
     )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$cd_reset, {
+    update_el_countdown(
+      session,
+      "cd_vip",
+      value = Sys.time() + 60 * 60 * 24 * 2
+    )
+  })
+}
+shinyApp(ui, server)
 
 ## card
 card <- function(title, value, delta, up) {

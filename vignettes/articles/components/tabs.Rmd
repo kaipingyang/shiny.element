@@ -71,17 +71,34 @@ You can use `tab-position` attribute to set the tab's position.
 
 You can choose from four directions: `tabPosition="left|right|top|bottom"`
 
-```{r tab-position, eval = FALSE, shot = TRUE}
-el_tabs(
-  "pos",
-  tab_position = "left",
-  tabs = list(
-    el_tab_pane("User", "User", name = "first"),
-    el_tab_pane("Config", "Config", name = "second"),
-    el_tab_pane("Role", "Role", name = "third"),
-    el_tab_pane("Task", "Task", name = "fourth")
+The radios move the tabs, with `update_el_tabs(tab_position =)`.
+
+```{r tab-position, eval = FALSE, shot = TRUE, shot_js = "Array.from(document.querySelectorAll('#position .el-radio-button')).find(function(r){ return r.innerText.trim() === 'left'; }).click()", shot_expect = c("document.querySelector('#tabs_pos.el-tabs--left .el-tabs__header.is-left.el-tabs__header-vertical')", "document.querySelector('#tabs_pos').firstElementChild.classList.contains('el-tabs__header')")}
+ui <- el_page(
+  el_radio_group(
+    "position",
+    choices = c("top", "right", "bottom", "left"),
+    value = "top",
+    button = TRUE
+  ),
+  tags$div(style = "height: 16px"),
+  el_tabs(
+    "tabs_pos",
+    tab_position = "top",
+    tabs = list(
+      el_tab_pane("User", "User"),
+      el_tab_pane("Config", "Config"),
+      el_tab_pane("Role", "Role"),
+      el_tab_pane("Task", "Task")
+    )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$position, ignoreInit = TRUE, {
+    update_el_tabs(session, "tabs_pos", tab_position = input$position)
+  })
+}
+shinyApp(ui, server)
 ```
 
 ## Custom Tab

@@ -103,10 +103,16 @@ live_demo <- function(options) {
   ui <- list()
   for (e in parse(text = options$code)) {
     v <- withVisible(eval(e, env))
+    # a component given as its specification -- el_table(), el_calendar()
+    # -- is drawn as it would be in a page: as.tags()
     if (
-      v$visible && inherits(v$value, c("shiny.tag", "shiny.tag.list", "html"))
+      v$visible &&
+        inherits(
+          v$value,
+          c("shiny.tag", "shiny.tag.list", "html", "el_component")
+        )
     ) {
-      ui <- c(ui, list(v$value))
+      ui <- c(ui, list(htmltools::as.tags(v$value)))
     }
   }
 

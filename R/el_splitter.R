@@ -55,3 +55,32 @@ el_splitter <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_splitter
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_splitter()` changes the component from the server: every argument of
+#' [el_splitter()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_splitter()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_splitter <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  layout = NULL,
+  lazy = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_splitter",
+    list(
+      layout = layout,
+      lazy = lazy
+    )
+  )
+}

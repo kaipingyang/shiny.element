@@ -216,6 +216,7 @@ el_popover <- function(
     id = ns_id,
     markup = htmltools::tag("el-popover", c(attrs, children)),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,

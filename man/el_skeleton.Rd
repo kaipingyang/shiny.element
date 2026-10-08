@@ -14,6 +14,8 @@ el_skeleton(
   count = NULL,
   throttle = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 )
@@ -22,7 +24,9 @@ update_el_skeleton(
   session = shiny::getDefaultReactiveDomain(),
   id,
   loading = NULL,
-  rows = NULL
+  rows = NULL,
+  animated = NULL,
+  count = NULL
 )
 }
 \arguments{
@@ -43,6 +47,10 @@ shiny.element component here is absorbed, not nested.}
 a fast load does not flash it.}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{class, style}{Extra classes and inline style on the skeleton, as
+Element passes them to its root: \code{style = "display: flex; gap: 8px"}
+lays several copies of the placeholder side by side.}
 
 \item{slots}{Named list of Element slot contents. \code{template} replaces the
 placeholder's shape; build it from \code{\link[=el_skeleton_item]{el_skeleton_item()}}.}

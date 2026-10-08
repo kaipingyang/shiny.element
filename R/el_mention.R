@@ -46,9 +46,13 @@
 #'
 #' @section Shiny inputs:
 #' - `input$<id>` -- the value, on load and on every change.
-#' - `input$<id>_search` -- Element Plus's `search` event.
-#' - `input$<id>_select` -- Element Plus's `select` event.
-#' - `input$<id>_whole_remove` -- Element Plus's `whole-remove` event.
+#' - `input$<id>_search` -- Element Plus's `search` event, as it is typed
+#'   after a prefix: `list(pattern, prefix)`, the text and the prefix.
+#'   Answer it with [update_el_mention()]'s `options` (and `loading`).
+#' - `input$<id>_select` -- Element Plus's `select` event: `list(option,
+#'   prefix)`.
+#' - `input$<id>_whole_remove` -- Element Plus's `whole-remove` event:
+#'   `list(pattern, prefix)`.
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -96,7 +100,15 @@ el_mention <- function(
     id <- .el_auto_id("el_mention")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("search", "select", "whole-remove"))
+  events <- .el_event_bindings(
+    ns_id,
+    c("search", "select", "whole-remove"),
+    shapes = list(
+      search = "function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }",
+      select = "function(option, prefix) { return {option: option, prefix: prefix}; }",
+      `whole-remove` = "function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }"
+    )
+  )
   attrs <- c(list("v-model" = "value"), events$attrs)
   el_widget(
     label = label,
@@ -168,6 +180,7 @@ update_el_mention <- function(
   disabled = NULL,
   label = NULL,
   error = NULL,
+  options = NULL,
   props = NULL,
   prefix = NULL,
   split = NULL,
@@ -201,6 +214,7 @@ update_el_mention <- function(
       Filter(
         Negate(is.null),
         list(
+          options = if (!is.null(options)) .el_normalize_choices(options),
           props = props,
           prefix = prefix,
           split = split,

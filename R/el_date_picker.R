@@ -11,10 +11,12 @@
 #'   `"datetimerange"`, `"month"`, `"year"`, `"week"`.
 #' @param value_format Format string returned to Shiny when a date is selected,
 #'   in day.js's tokens, as Element Plus takes it (e.g., `"YYYY-MM-DD"`).
-#'   Default `"YYYY-MM-DD"`. Element UI's tokens -- `"yyyy-MM-dd"`,
-#'   `"timestamp"` -- are translated.
+#'   `NULL` (default) is `"YYYY-MM-DD HH:mm:ss"` for `"datetime"` and
+#'   `"datetimerange"` and `"YYYY-MM-DD"` for the rest. Element UI's tokens
+#'   -- `"yyyy-MM-dd"`, `"timestamp"` -- are translated.
 #' @param format Display format shown in the input box, in day.js's tokens.
-#'   `NULL` (default) falls back to `value_format`.
+#'   `NULL` (default) is Element's for the type: `"YYYY-MM-DD HH:mm:ss"` for
+#'   a datetime, `"YYYY-MM"` for a month, `"YYYY"` for a year, and so on.
 #' @param placeholder Placeholder text for non-range types.
 #' @param start_placeholder Placeholder for the start input in range types.
 #' @param end_placeholder Placeholder for the end input in range types.
@@ -144,7 +146,7 @@ el_date_picker <- function(
   id = NULL,
   value = NULL,
   type = "date",
-  value_format = "YYYY-MM-DD",
+  value_format = NULL,
   format = NULL,
   placeholder = NULL,
   start_placeholder = NULL,
@@ -218,16 +220,17 @@ el_date_picker <- function(
   }
 
   # Element UI's date tokens, as day.js spells them
-  value_format <- .el_dayjs_format(value_format)
+  # Element emits a Date without a value format; Shiny is given a string
+  value_format <- .el_dayjs_format(value_format) %||%
+    if (grepl("^datetime", type)) "YYYY-MM-DD HH:mm:ss" else "YYYY-MM-DD"
   format <- .el_dayjs_format(format)
-  display_format <- if (!is.null(format)) format else value_format
 
   # Vue binding attributes
   picker_attrs <- list(
     "v-model" = "value",
     ":type" = "type",
     ":value-format" = "valueFormat",
-    ":format" = "displayFormat",
+    ":format" = .el_optional_bind("displayFormat"),
     ":clearable" = "clearable",
     ":disabled" = "disabled",
     ":editable" = "editable",
@@ -267,7 +270,7 @@ el_date_picker <- function(
     value = init_value,
     type = type,
     valueFormat = value_format,
-    displayFormat = display_format,
+    displayFormat = .el_or_na(format),
     clearable = clearable,
     disabled = disabled,
     editable = editable,
@@ -375,6 +378,7 @@ update_el_date_picker <- function(
   label = NULL,
   error = NULL,
   value_format = NULL,
+  format = NULL,
   start_placeholder = NULL,
   end_placeholder = NULL,
   editable = NULL,
@@ -420,6 +424,9 @@ update_el_date_picker <- function(
   }
   if (!is.null(type)) {
     msg$type <- type
+  }
+  if (!is.null(format)) {
+    msg$displayFormat <- .el_dayjs_format(format)
   }
   if (!is.null(clearable)) {
     msg$clearable <- clearable

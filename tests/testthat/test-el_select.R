@@ -351,3 +351,31 @@ test_that("every field update_el_select sets is declared on the instance", {
   fields <- setdiff(names(s$captured()$msg), "id")
   expect_true(all(fields %in% names(vue_data_of(el_select("s1", c(A = "a"))))))
 })
+
+test_that("a multiple select's one choice is an array", {
+  html <- paste(
+    as.character(el_select(
+      "s",
+      choices = c("a", "b"),
+      selected = "a",
+      multiple = TRUE
+    )),
+    collapse = ""
+  )
+  expect_match(html, '"value":["a"]', fixed = TRUE)
+  # and an update of one choice is made one too, in the browser
+  expect_match(html, "d.value = [d.value]", fixed = TRUE)
+})
+
+test_that("a named selection is still an array", {
+  html <- paste(
+    as.character(el_select(
+      "s",
+      choices = c(Apple = "a", Pear = "p"),
+      selected = c(Apple = "a"),
+      multiple = TRUE
+    )),
+    collapse = ""
+  )
+  expect_match(html, '"value":["a"]', fixed = TRUE)
+})

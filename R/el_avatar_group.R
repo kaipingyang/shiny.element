@@ -88,3 +88,50 @@ el_avatar_group <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_avatar_group
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_avatar_group()` changes the component from the server: every argument of
+#' [el_avatar_group()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_avatar_group()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_avatar_group <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  size = NULL,
+  shape = NULL,
+  collapse_avatars = NULL,
+  collapse_avatars_tooltip = NULL,
+  max_collapse_avatars = NULL,
+  effect = NULL,
+  placement = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  collapse_class = NULL,
+  collapse_style = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_avatar_group",
+    list(
+      size = size,
+      shape = shape,
+      collapse_avatars = collapse_avatars,
+      collapse_avatars_tooltip = collapse_avatars_tooltip,
+      max_collapse_avatars = max_collapse_avatars,
+      effect = effect,
+      placement = placement,
+      popper_class = popper_class,
+      popper_style = popper_style,
+      collapse_class = collapse_class,
+      collapse_style = collapse_style
+    )
+  )
+}

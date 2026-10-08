@@ -8,7 +8,9 @@ el_divider(
   content = NULL,
   direction = "horizontal",
   content_position = "center",
-  border_style = "solid"
+  border_style = "solid",
+  class = NULL,
+  style = NULL
 )
 }
 \arguments{
@@ -22,6 +24,10 @@ el_divider(
 
 \item{border_style}{The line's style, as CSS \code{border-style}: \code{"solid"}
 (the default), \code{"dashed"}, \code{"dotted"}.}
+
+\item{class, style}{Extra classes and inline style, as Element passes them
+to its root -- \code{style = "height: auto"} for a vertical divider that
+stretches in a flex row.}
 }
 \value{
 An \code{htmltools} tag.

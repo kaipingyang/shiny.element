@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_avatar_group.R
 \name{el_avatar_group}
 \alias{el_avatar_group}
+\alias{update_el_avatar_group}
 \title{Element Plus Avatar Group}
 \usage{
 el_avatar_group(
@@ -20,6 +21,22 @@ el_avatar_group(
   collapse_style = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_avatar_group(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  size = NULL,
+  shape = NULL,
+  collapse_avatars = NULL,
+  collapse_avatars_tooltip = NULL,
+  max_collapse_avatars = NULL,
+  effect = NULL,
+  placement = NULL,
+  popper_class = NULL,
+  popper_style = NULL,
+  collapse_class = NULL,
+  collapse_style = NULL
 )
 }
 \arguments{
@@ -66,6 +83,9 @@ Plus's \code{collapse-class} (string).}
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -76,6 +96,15 @@ Avatars overlapping in a row, the overflow collapsed into a count.
 \section{Shiny inputs}{
 
 None: it reports nothing.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_avatar_group()} changes the component from the server: every argument of
+\code{\link[=el_avatar_group]{el_avatar_group()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_avatar_group()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

@@ -216,6 +216,7 @@ el_tooltip <- function(
     id = ns_id,
     markup = htmltools::tag("el-tooltip", c(attrs, list(merged$markups[[2]]))),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,

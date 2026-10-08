@@ -4,11 +4,13 @@
 #'
 #' @param label Link text. Accepts a string or HTML tag.
 #' @param href URL target. `NULL` for a non-navigating link.
-#' @param type Link colour type: `"default"` (default), `"primary"`,
-#'   `"success"`, `"warning"`, `"danger"`, `"info"`.
-#' @param underline When the link is underlined: `"hover"` (the default),
-#'   `"always"` or `"never"`. `TRUE` and `FALSE`, Element UI's form, are
-#'   `"hover"` and `"never"`.
+#' @param type Link colour type: `"default"`, `"primary"`, `"success"`,
+#'   `"warning"`, `"danger"`, `"info"`.
+#' @param underline When the link is underlined: `"hover"`, `"always"` or
+#'   `"never"`. `TRUE` and `FALSE`, Element UI's form, are `"hover"` and
+#'   `"never"`. `type` and `underline` left `NULL` are `"default"` and
+#'   `"hover"`, or for a link with an `id` a config provider's
+#'   [el_config_provider(link =)][el_config_provider].
 #' @param target Where the link opens, as an `<a>`'s `target`. Default
 #'   `"_self"`.
 #' @param disabled Whether the link is disabled. Default `FALSE`.
@@ -37,8 +39,8 @@
 el_link <- function(
   label = "Link",
   href = NULL,
-  type = "default",
-  underline = "hover",
+  type = NULL,
+  underline = NULL,
   disabled = FALSE,
   icon = NULL,
   id = NULL,
@@ -53,7 +55,9 @@ el_link <- function(
   if (isFALSE(underline)) {
     underline <- "never"
   }
-  underline <- match.arg(underline, c("hover", "always", "never"))
+  if (!is.null(underline)) {
+    underline <- match.arg(underline, c("hover", "always", "never"))
+  }
   icon <- .el_icon_name(icon)
   if (!is.null(id)) {
     ns_id <- .el_ui_id(id, NULL)
@@ -63,9 +67,9 @@ el_link <- function(
         "el-link",
         list(
           ":href" = "href === null ? undefined : href",
-          ":type" = "type",
+          ":type" = .el_optional_bind("type"),
           ":target" = "target",
-          ":underline" = "underline",
+          ":underline" = .el_optional_bind("underline"),
           ":disabled" = "disabled",
           ":icon" = "icon === null ? undefined : icon",
           "@click" = "handleClick",
@@ -75,9 +79,9 @@ el_link <- function(
       data = list(
         text = label,
         href = .el_or_na(href),
-        type = type,
+        type = .el_or_na(type),
         target = target,
-        underline = underline,
+        underline = .el_or_na(underline),
         disabled = disabled,
         icon = .el_or_na(icon),
         count = 0L
@@ -96,6 +100,8 @@ el_link <- function(
       type = "shiny.action"
     ))
   }
+  type <- type %||% "default"
+  underline <- underline %||% "hover"
   link_classes <- c(
     "el-link",
     paste0("el-link--", type),

@@ -168,11 +168,12 @@ test_that("centre and close-button options are respected", {
     "el-dialog--center",
     fixed = TRUE
   )
-  expect_false(grepl(
-    "el-dialog__headerbtn",
+  # hidden rather than left out, so an update can show it again
+  expect_match(
     render_html(el_dialog("d1", show_close = FALSE)),
+    'class="el-dialog__headerbtn" style="display:none"',
     fixed = TRUE
-  ))
+  )
 })
 
 test_that("drawer direction drives both the class and which axis is sized", {
@@ -188,12 +189,12 @@ test_that("drawer direction drives both the class and which axis is sized", {
   }
 })
 
-test_that("drawer header can be dropped entirely", {
-  expect_false(grepl(
-    "el-drawer__header",
+test_that("drawer header is hidden without one, so an update can show it", {
+  expect_match(
     render_html(el_drawer("w1", with_header = FALSE)),
+    'class="el-drawer__header" style="display:none"',
     fixed = TRUE
-  ))
+  )
 })
 
 # ── update functions ──────────────────────────────────────────────────────────

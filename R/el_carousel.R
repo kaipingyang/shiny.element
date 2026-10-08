@@ -211,6 +211,7 @@ el_carousel <- function(
       c(carousel_attrs, unname(item_tags))
     ),
     data = merged$data,
+    absorbed = merged$absorbed,
     # update_el_carousel(active =) moves the carousel rather than set a field
     methods = c(
       merged$methods,

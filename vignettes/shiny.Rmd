@@ -305,12 +305,11 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-This costs one thing. An absorbed component has no host of its own, so
-nothing to send its `update_el_*()` to, and that stops working -- the
-browser console says so, with a `[shiny-vue]` warning naming the id.
-Drive it through the wrapper instead:
+An absorbed component has no host of its own, but it keeps its id: the
+wrapper lists the components it took in, and `update_el_*()` and
+`call_el()` for that id reach it through the wrapper's instance.
 
-```{r absorbed-update, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#busy_container button').click()", shot_wait = 2}
+```{r absorbed-update, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#busy_container button').click()", shot_wait = 2, shot_expect = "document.querySelector('.el-button.is-loading').innerText.trim() === 'Saving...'"}
 ui <- el_page(
   el_tooltip(
     "hint",
@@ -322,9 +321,7 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   observeEvent(input$busy, {
-    # Not update_el_button(session, "save", ...): the button has no host
-    # of its own any more. Its fields live on the tooltip.
-    update_vue(session, "hint", label = "Saving...", loading = TRUE)
+    update_el_button(session, "save", label = "Saving...", loading = TRUE)
   })
 }
 
@@ -333,9 +330,9 @@ shinyApp(ui, server)
 
 If two absorbed components declare the same field -- most declare a `label`, a
 `type` and a `disabled` -- the second one's fields are renamed on the way in
-(`el3_label`), and the markup that names them is rewritten to match. You only
-notice when reaching in with `update_vue()`, where the renamed field is
-what to set.
+(`el3_label`), and the markup that names them is rewritten to match. Updates
+by the component's id follow the renaming; `update_vue()` on the wrapper's
+id sets the fields under the names they have there.
 
 ## Slots
 

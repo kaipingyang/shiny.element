@@ -38,12 +38,51 @@ test_that(".el_form_options: el-option takes the text as its label attribute", {
   expect_equal(opts[[1]], list(label = "Beijing", value = "bj", text = ""))
 })
 
-test_that(".el_form_options: el-radio uses label as the value and text as the slot", {
-  # Element UI's radio and checkbox differ from option here; one template
-  # renders all three only because this is normalised first.
+test_that(".el_form_options: el-radio takes the value as value and text as the slot", {
+  # Element Plus's radio and checkbox take `value`; `label` as the value is
+  # Element UI's form, deprecated
   opts <- .el_form_options(c(Basic = "a"), "el-radio")
-  expect_equal(opts[[1]], list(label = "a", text = "Basic"))
-  expect_null(opts[[1]]$value)
+  expect_equal(opts[[1]], list(value = "a", text = "Basic"))
+  expect_null(opts[[1]]$label)
+})
+
+test_that("el_form_item puts several fields under one label, each with its rules", {
+  f <- el_form(
+    id = "f",
+    el_form_item(
+      "Activity time",
+      el_form_field(
+        "date1",
+        "date-picker",
+        rules = el_rule(required = TRUE, message = "Pick a date")
+      ),
+      "-",
+      el_form_field("date2", "time-picker"),
+      required = TRUE
+    ),
+    el_form_field("name", "input", label = "Name")
+  )
+  html <- paste(as.character(f), collapse = "")
+  # both fields are in the model and the first one's rule on the form
+  expect_match(html, '"model":{"date1":"","date2":"","name":""}', fixed = TRUE)
+  expect_match(html, '"rules":{"date1":', fixed = TRUE)
+  expect_match(html, '"parts":[{"prop":"date1"', fixed = TRUE)
+  expect_match(html, '{"separator":"-","span":2,"key":"sep2"}', fixed = TRUE)
+  expect_match(html, '"span":11', fixed = TRUE)
+  expect_match(html, '<el-form-item v-else :prop="p.prop"', fixed = TRUE)
+  expect_error(
+    el_form_item("x", el_form_field("a"), "-", spans = 24),
+    "one span per entry"
+  )
+})
+
+test_that("select-v2 and segmented fields take their choices as options", {
+  f <- el_form_field("loc", "segmented", choices = c("Home", "Company"))
+  expect_equal(f$tag, "el-segmented")
+  expect_equal(f$props$options[[2]], list(label = "Company", value = "Company"))
+  v2 <- el_form_field("n", "select-v2", choices = c(One = 1))
+  expect_equal(v2$props$options[[1]], list(label = "One", value = 1))
+  expect_null(v2$optionTag)
 })
 
 test_that(".el_form_options: NULL choices give NULL", {
@@ -320,4 +359,31 @@ test_that("the form's receiver handles every operation it is sent", {
   )) {
     expect_match(m$shinyVueReceive, op, fixed = TRUE)
   }
+})
+
+test_that("el_form_item's columns are whole, and buttons are for choices", {
+  item <- el_form_item(
+    "x",
+    el_form_field("a"),
+    el_form_field("b"),
+    el_form_field("c"),
+    el_form_field("d"),
+    el_form_field("e")
+  )
+  spans <- vapply(item$parts, `[[`, numeric(1), "span")
+  expect_true(all(spans == round(spans)))
+  expect_equal(sum(spans), 24)
+  expect_error(el_form_field("a", "select", button = TRUE), "radio-group")
+})
+
+test_that("a reported field reports on load through the mounted hook", {
+  html <- paste(
+    as.character(el_form(
+      id = "f",
+      el_form_field("sz", "radio-group", choices = c("a", "b"), report = TRUE)
+    )),
+    collapse = ""
+  )
+  expect_match(html, 'f_sz[\\\\"]*, self[.]model[.]sz')
+  expect_false(grepl('"immediate"', html, fixed = TRUE))
 })

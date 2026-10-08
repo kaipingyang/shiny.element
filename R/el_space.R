@@ -68,3 +68,42 @@ el_space <- function(
     slots = slots
   )
 }
+
+
+#' @rdname el_space
+#' @param session Shiny session; the current one by default, as for
+#'   [shiny::updateTextInput()].
+#' @section Updating from the server:
+#' `update_el_space()` changes the component from the server: every argument of
+#' [el_space()] that can change once it is drawn, under the same name. One left
+#' `NULL` stays as it is; `NA` returns it to Element's default.
+#'
+#' `update_el_space()` is called for its side effect and returns `NULL` invisibly.
+#' @export
+update_el_space <- function(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  alignment = NULL,
+  direction = NULL,
+  spacer = NULL,
+  size = NULL,
+  wrap = NULL,
+  fill = NULL,
+  fill_ratio = NULL
+) {
+  .el_check_session(session)
+  .el_send_props_update(
+    session,
+    id,
+    "el_space",
+    list(
+      alignment = alignment,
+      direction = direction,
+      spacer = spacer,
+      size = size,
+      wrap = wrap,
+      fill = fill,
+      fill_ratio = fill_ratio
+    )
+  )
+}

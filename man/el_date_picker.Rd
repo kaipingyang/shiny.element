@@ -9,7 +9,7 @@ el_date_picker(
   id = NULL,
   value = NULL,
   type = "date",
-  value_format = "YYYY-MM-DD",
+  value_format = NULL,
   format = NULL,
   placeholder = NULL,
   start_placeholder = NULL,
@@ -75,6 +75,7 @@ update_el_date_picker(
   label = NULL,
   error = NULL,
   value_format = NULL,
+  format = NULL,
   start_placeholder = NULL,
   end_placeholder = NULL,
   editable = NULL,
@@ -122,11 +123,13 @@ update_el_date_picker(
 
 \item{value_format}{Format string returned to Shiny when a date is selected,
 in day.js's tokens, as Element Plus takes it (e.g., \code{"YYYY-MM-DD"}).
-Default \code{"YYYY-MM-DD"}. Element UI's tokens -- \code{"yyyy-MM-dd"},
-\code{"timestamp"} -- are translated.}
+\code{NULL} (default) is \code{"YYYY-MM-DD HH:mm:ss"} for \code{"datetime"} and
+\code{"datetimerange"} and \code{"YYYY-MM-DD"} for the rest. Element UI's tokens
+-- \code{"yyyy-MM-dd"}, \code{"timestamp"} -- are translated.}
 
 \item{format}{Display format shown in the input box, in day.js's tokens.
-\code{NULL} (default) falls back to \code{value_format}.}
+\code{NULL} (default) is Element's for the type: \code{"YYYY-MM-DD HH:mm:ss"} for
+a datetime, \code{"YYYY-MM"} for a month, \code{"YYYY"} for a year, and so on.}
 
 \item{placeholder}{Placeholder text for non-range types.}
 

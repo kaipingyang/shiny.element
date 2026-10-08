@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_anchor.R
 \name{el_anchor}
 \alias{el_anchor}
+\alias{update_el_anchor}
 \title{Element Plus Anchor}
 \usage{
 el_anchor(
@@ -17,6 +18,19 @@ el_anchor(
   select_scroll_top = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_anchor(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  offset = NULL,
+  bound = NULL,
+  duration = NULL,
+  marker = NULL,
+  type = NULL,
+  direction = NULL,
+  select_scroll_top = NULL,
+  container = NULL
 )
 }
 \arguments{
@@ -48,6 +62,9 @@ section is scrolled to the top.}
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -67,6 +84,15 @@ scrolls.
 \section{Element methods}{
 
 Callable with \code{\link[=call_el]{call_el()}}: \code{scrollTo(href)}.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_anchor()} changes the component from the server: every argument of
+\code{\link[=el_anchor]{el_anchor()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_anchor()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

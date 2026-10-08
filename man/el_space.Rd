@@ -2,6 +2,7 @@
 % Please edit documentation in R/el_space.R
 \name{el_space}
 \alias{el_space}
+\alias{update_el_space}
 \title{Element Plus Space}
 \usage{
 el_space(
@@ -16,6 +17,18 @@ el_space(
   fill_ratio = NULL,
   width = NULL,
   slots = NULL
+)
+
+update_el_space(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  alignment = NULL,
+  direction = NULL,
+  spacer = NULL,
+  size = NULL,
+  wrap = NULL,
+  fill = NULL,
+  fill_ratio = NULL
 )
 }
 \arguments{
@@ -44,6 +57,9 @@ into this one's Vue instance, as \code{\link[=el_button_group]{el_button_group()
 
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
+
+\item{session}{Shiny session; the current one by default, as for
+\code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
 \value{
 A Shiny UI element.
@@ -54,6 +70,15 @@ Even spacing between its items, in a row or a column, wrapping if asked.
 \section{Shiny inputs}{
 
 None: it reports nothing.
+}
+
+\section{Updating from the server}{
+
+\code{update_el_space()} changes the component from the server: every argument of
+\code{\link[=el_space]{el_space()}} that can change once it is drawn, under the same name. One left
+\code{NULL} stays as it is; \code{NA} returns it to Element's default.
+
+\code{update_el_space()} is called for its side effect and returns \code{NULL} invisibly.
 }
 
 \examples{

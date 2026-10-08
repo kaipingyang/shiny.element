@@ -28,6 +28,8 @@ el_image(
   show_progress = NULL,
   zoom_rate = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 )
@@ -118,6 +120,10 @@ Element Plus's \code{show-progress} (boolean).}
 Plus's \code{zoom-rate} (number).}
 
 \item{width}{Component width, as a CSS unit.}
+
+\item{class, style}{Extra classes and inline style on the image's box, as
+Element passes them through: \code{style = "width: 100px; height: 100px"}
+gives \code{fit} a box to fit the picture to.}
 
 \item{slots}{Named list of Element slot contents, such as
 \code{list(title = shiny::tags$b("Bold"))}. A shiny.element component

@@ -1,16 +1,19 @@
 ## basic
-el_space(lapply(
+tags$div(lapply(
   c("default", "primary", "success", "info", "warning", "danger"),
   function(t) {
-    el_text(tools::toTitleCase(t), type = if (t != "default") t)
+    tags$span(
+      style = "margin: 0 4px",
+      el_text(tools::toTitleCase(t), type = if (t != "default") t)
+    )
   }
 ))
 
 ## sizes
-el_space(
-  el_text("Large", size = "large"),
-  el_text("Default"),
-  el_text("Small", size = "small")
+tags$div(
+  tags$span(style = "margin: 0 4px", el_text("Large", size = "large")),
+  tags$span(style = "margin: 0 4px", el_text("Default")),
+  tags$span(style = "margin: 0 4px", el_text("Small", size = "small"))
 )
 
 ## truncated
@@ -49,11 +52,18 @@ el_space(
 )
 
 ## mixed
-tagList(
-  tags$p(el_text(el_icon("ElementPlus"), " Element-Plus")),
-  tags$p(el_text("Rate"), el_rate("txt_rate")),
-  tags$p(
-    el_text("This is text mixed icon ", el_icon("Bell"), " and component"),
+#| shot_expect = "document.querySelectorAll('.el-space .el-text .el-button').length === 1"
+el_space(
+  direction = "vertical",
+  el_text(el_icon("ElementPlus"), " Element-Plus"),
+  el_row(
+    el_text("Rate"),
+    tags$span(style = "margin-left: 4px", el_rate("txt_rate"))
+  ),
+  el_text(
+    "This is text mixed icon ",
+    el_icon("Bell"),
+    " and component ",
     el_button("txt_btn", "Button")
   )
 )

@@ -39,6 +39,16 @@
   "time-select" = list(tag = "el-time-select"),
   "autocomplete" = list(tag = "el-autocomplete"),
   "transfer" = list(tag = "el-transfer"),
+  # choices given as the component's `options` prop
+  "select-v2" = list(tag = "el-select-v2", as_options = TRUE),
+  "segmented" = list(tag = "el-segmented", as_options = TRUE),
+  "input-tag" = list(tag = "el-input-tag"),
+  "mention" = list(tag = "el-mention", as_options = TRUE),
+  "mention-textarea" = list(
+    tag = "el-mention",
+    props = list(type = "textarea"),
+    as_options = TRUE
+  ),
   # One box, true or false -- "I agree to the terms"
   "checkbox" = list(tag = "el-checkbox")
 )
@@ -62,6 +72,7 @@
     "cascader" = list(),
     "cascader-panel" = list(),
     "transfer" = list(),
+    "input-tag" = list(),
     ""
   )
 }
@@ -78,13 +89,13 @@
 #' Shape choices for a control's option tag
 #'
 #' `el-option` takes the display text as its `label` attribute, while
-#' `el-radio` and `el-checkbox` use `label` as the *value* and take the display
-#' text as their default slot. Normalising here keeps one template able to
-#' render all three.
+#' `el-radio` and `el-checkbox` take the display text as their default slot.
+#' Normalising here keeps one template able to render all three.
 #'
 #' @param choices Anything [.el_normalize_choices()] accepts.
 #' @param option_tag The child tag this control uses.
-#' @return A list of `list(label=, value=, text=)` items.
+#' @return A list of `list(label=, value=, text=)` items, `label` only for
+#'   `el-option`.
 #' @keywords internal
 .el_form_options <- function(choices, option_tag) {
   if (is.null(choices)) {
@@ -95,7 +106,7 @@
     if (identical(option_tag, "el-option")) {
       list(label = opt$label, value = opt$value, text = "")
     } else {
-      list(label = opt$value, text = opt$label)
+      list(value = opt$value, text = opt$label)
     }
   })
 }
@@ -217,7 +228,8 @@ el_rule <- function(
 #'   `"radio-group"`, `"checkbox-group"`, `"checkbox"` (one box, `TRUE` or
 #'   `FALSE`), `"switch"`, `"slider"`, `"date-picker"`, `"time-picker"`,
 #'   `"time-select"`, `"rate"`, `"cascader"`, `"cascader-panel"`,
-#'   `"color-picker"`, `"autocomplete"` or `"transfer"`. Their props go in
+#'   `"color-picker"`, `"autocomplete"`, `"transfer"`, `"select-v2"`,
+#'   `"segmented"`, `"input-tag"`, `"mention"` or `"mention-textarea"`. Their props go in
 #'   `...`: a cascader's `options`, a transfer's `data`.
 #' @param label Label text.
 #' @param value Initial value. Defaults to the type's empty value, which is also
@@ -227,6 +239,14 @@ el_rule <- function(
 #'   user types. A named vector `c(Label = value)` or a list of
 #'   `list(value=, label=)`. For `"checkbox"`, the box's text is `label`.
 #' @param rules A single [el_rule()] or a list of them.
+#' @param report Whether the field also reports its value on load and on
+#'   every change, as `input$<form id>_<prop>`, as a standalone input would --
+#'   for a control that changes the page, such as a size switch. The form's
+#'   own `input$<form id>` still waits for a submit. A field added later by
+#'   [update_el_form()]`(fields =)` reports with the submit only.
+#' @param button,border For `"radio-group"` and `"checkbox-group"`: draw the
+#'   choices as buttons (`el-radio-button`, `el-checkbox-button`), or as
+#'   boxes with a border.
 #' @param ... Further props. Element's form-item props -- `required`,
 #'   `error`, `label_width`, `label_position`, `size`, `show_message`,
 #'   `inline_message`, `validate_status`, `for`, and
@@ -264,6 +284,9 @@ el_form_field <- function(
   value = NULL,
   choices = NULL,
   rules = NULL,
+  report = FALSE,
+  button = FALSE,
+  border = NULL,
   ...
 ) {
   spec <- .el_form_tags[[type]]
@@ -342,11 +365,106 @@ el_form_field <- function(
     field$text <- label
     field$label <- NULL
   }
-  if (!is.null(spec$option)) {
-    field$optionTag <- spec$option
+  if (
+    (isTRUE(button) || !is.null(border)) &&
+      !type %in% c("radio-group", "checkbox-group")
+  ) {
+    stop(
+      "`button` and `border` are for \"radio-group\" and ",
+      "\"checkbox-group\" fields.",
+      call. = FALSE
+    )
+  }
+  if (!is.null(spec[["option"]])) {
+    field$optionTag <- if (isTRUE(button)) {
+      paste0(spec$option, "-button")
+    } else {
+      spec$option
+    }
     field$options <- .el_form_options(choices, spec$option)
+    if (!is.null(border)) {
+      field$optionProps <- list(border = border)
+    }
+  }
+  if (isTRUE(report)) {
+    field$report <- TRUE
+  }
+  if (isTRUE(spec$as_options) && !is.null(choices)) {
+    field$props$options <- lapply(.el_normalize_choices(choices), function(o) {
+      list(label = o$label, value = o$value)
+    })
   }
   field
+}
+
+#' Several form fields under one label
+#'
+#' Element's form item holding more than one control, each with a form item
+#' of its own for its value and rules, laid out in columns -- a date beside a
+#' time, as Element's own examples write it.
+#'
+#' @param label Label text.
+#' @param ... Fields, from [el_form_field()] (whose `label` is not shown),
+#'   and strings drawn between them, such as `"-"`.
+#' @param spans Column spans out of 24, one per entry in `...`. By default
+#'   a string takes 2 and the fields share the rest.
+#' @param required Whether to mark the label as required. The fields' own
+#'   [el_rule()]s do the checking.
+#' @param gutter Space between the columns, in pixels, as [el_row()]'s.
+#' @return A field declaration, for [el_form()].
+#' @export
+#' @examples
+#' el_form(
+#'   el_form_item(
+#'     "Activity time",
+#'     el_form_field("date1", "date-picker", style = "width: 100%"),
+#'     "-",
+#'     el_form_field("date2", "time-picker", style = "width: 100%")
+#'   )
+#' )
+el_form_item <- function(
+  label = NULL,
+  ...,
+  spans = NULL,
+  required = NULL,
+  gutter = NULL
+) {
+  parts <- list(...)
+  text <- vapply(parts, is.character, logical(1))
+  if (is.null(spans)) {
+    # whole columns: the fields share what the strings leave, the last one
+    # taking any remainder
+    n <- max(1, sum(!text))
+    each <- (24 - 2 * sum(text)) %/% n
+    spans <- ifelse(text, 2, each)
+    last <- utils::tail(which(!text), 1)
+    if (length(last)) {
+      spans[last] <- 24 - sum(spans[-last])
+    }
+  }
+  if (length(spans) != length(parts)) {
+    stop("`spans` needs one span per entry in `...`.", call. = FALSE)
+  }
+  parts <- Map(
+    function(part, span, i) {
+      if (is.character(part)) {
+        list(separator = part, span = span, key = paste0("sep", i))
+      } else {
+        part$label <- NULL
+        part$span <- span
+        part
+      }
+    },
+    parts,
+    spans,
+    seq_along(parts)
+  )
+  props <- unlist(lapply(parts, function(p) p$prop))
+  c(
+    list(key = paste(props, collapse = "+"), label = label, parts = parts),
+    if (!is.null(required)) list(required = required),
+    if (!is.null(gutter)) list(gutter = gutter)
+  )
 }
 
 #' Element Plus Form
@@ -514,22 +632,30 @@ el_form <- function(
     fields <- list()
   }
 
+  # an el_form_item()'s fields are the form's as much as the rest
+  flat <- .el_form_flatten(fields)
   model <- stats::setNames(
-    lapply(fields, function(f) f$value),
-    vapply(fields, function(f) f$prop, character(1))
+    lapply(flat, function(f) f$value),
+    vapply(flat, function(f) f$prop, character(1))
   )
   rules <- Filter(
     Negate(is.null),
     stats::setNames(
-      lapply(fields, function(f) f$rules),
-      vapply(fields, function(f) f$prop, character(1))
+      lapply(flat, function(f) f$rules),
+      vapply(flat, function(f) f$prop, character(1))
     )
   )
   # `value` and `rules` live on the form, not on the control.
-  fields <- lapply(fields, function(f) {
+  strip <- function(f) {
     f$value <- NULL
     f$rules <- NULL
     f
+  }
+  fields <- lapply(fields, function(f) {
+    if (!is.null(f$parts)) {
+      f$parts <- lapply(f$parts, strip)
+    }
+    strip(f)
   })
 
   form_attrs <- list(
@@ -558,9 +684,25 @@ el_form <- function(
   form_attrs <- c(form_attrs, events$attrs)
   # One template for every control type. `component :is` dispatches on the tag
   # name, so adding a type means adding a row to .el_form_tags, not a branch.
+  control <- function(v) {
+    sprintf(
+      paste0(
+        '<component :is="%1$s.tag" v-model="model[%1$s.prop]" v-bind="%1$s.props">',
+        '<template v-if="%1$s.text">{{ %1$s.text }}</template>',
+        '<component v-for="o in (%1$s.options || [])" :is="%1$s.optionTag" ',
+        ':key="o.value" v-bind="%1$s.optionProps" ',
+        # An el-option draws its label itself; filling its slot with the empty
+        # text would replace it with nothing (Vue 3 draws a slot given only an
+        # empty string), so the slot is filled only when there is text
+        ':label="o.label" :value="o.value"><template v-if="o.text">{{ o.text }}</template></component>',
+        '</component>'
+      ),
+      v
+    )
+  }
   field_items <- htmltools::HTML(paste0(
     paste0(
-      '<el-form-item v-for="f in fields" :key="f.prop" :prop="f.prop" ',
+      '<el-form-item v-for="f in fields" :key="f.key || f.prop" :prop="f.prop" ',
       # Per-field props read off the field object: a field may carry
       # required, rules, error, label-width or size of its own.
       ':label="f.label" :required="f.required" :rules="f.rules" ',
@@ -582,14 +724,20 @@ el_form <- function(
       '<span v-else>{{scope.error}}</span>',
       '</div></template>'
     ),
-    '<component :is="f.tag" v-model="model[f.prop]" v-bind="f.props">',
-    '<template v-if="f.text">{{ f.text }}</template>',
-    '<component v-for="o in (f.options || [])" :is="f.optionTag" :key="o.label" ',
-    # An el-option draws its label itself; filling its slot with the empty
-    # text would replace it with nothing (Vue 3 draws a slot given only an
-    # empty string), so the slot is filled only when there is text
-    ':label="o.label" :value="o.value"><template v-if="o.text">{{ o.text }}</template></component>',
-    '</component>',
+    # el_form_item(): columns, each field in a form item of its own, as
+    # Element's examples nest them
+    '<el-row v-if="f.parts" :gutter="f.gutter" style="width: 100%">',
+    '<el-col v-for="p in f.parts" :key="p.key || p.prop" :span="p.span" ',
+    ':style="p.separator ? \'text-align: center\' : undefined">',
+    '<span v-if="p.separator" style="color: var(--el-text-color-secondary)">',
+    '{{ p.separator }}</span>',
+    '<el-form-item v-else :prop="p.prop" :required="p.required" ',
+    ':error="p.error" :size="p.size" :show-message="p.showMessage">',
+    control("p"),
+    '</el-form-item></el-col></el-row>',
+    '<template v-else>',
+    control("f"),
+    '</template>',
     '</el-form-item>'
   ))
 
@@ -669,8 +817,11 @@ el_form <- function(
           "self.model[k] = d.model[k]; }); delete d.model; } ",
           # The whole field list: kept values stay, new fields start from
           # their own, removed ones leave the model, rules travel with fields
+          # an el_form_item()'s fields are in its parts
+          "function each(fs, cb) { fs.forEach(function(f) { ",
+          "(f.parts || [f]).forEach(function(p) { if (p.prop) cb(p); }); }); } ",
           "if (d['.fields']) { var model = {}, rules = {}; ",
-          "d['.fields'].forEach(function(f) { ",
+          "each(d['.fields'], function(f) { ",
           "model[f.prop] = Object.prototype.hasOwnProperty.call(self.model, f.prop) ? ",
           "self.model[f.prop] : f.value; if (f.rules) rules[f.prop] = f.rules; ",
           "delete f.value; delete f.rules; }); ",
@@ -678,8 +829,8 @@ el_form <- function(
           "delete d['.fields']; } ",
           # Element's error prop on each field: the form item shows it at once
           "if (d['.errors']) { Object.keys(d['.errors']).forEach(function(k) { ",
-          "self.fields.forEach(function(f, i) { if (f.prop === k) ",
-          "self.fields[i].error = d['.errors'][k] || ''; }); }); ",
+          "each(self.fields, function(f) { if (f.prop === k) ",
+          "f.error = d['.errors'][k] || ''; }); }); ",
           "delete d['.errors']; } ",
           "if (action === 'validate') self.handleSubmit(); ",
           "else if (action === 'reset') self.handleReset(); ",
@@ -697,10 +848,52 @@ el_form <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("model", ns_id)),
+    # el_form_field(report = TRUE): reported as a standalone input is, on
+    # load once Shiny is connected, and on every change
+    watch = .el_form_watch(flat, ns_id),
+    mounted = .el_mounted_init(c(
+      stats::setNames("model", ns_id),
+      .el_form_reported(flat, ns_id)
+    )),
     width = width,
     slots = slots
   )
+}
+
+#' Watchers reporting the fields given `report = TRUE`
+#'
+#' @param fields The form's fields, flattened.
+#' @param ns_id The form's id.
+#' @return A named list of watchers, or `NULL`.
+#' @keywords internal
+.el_form_watch <- function(fields, ns_id) {
+  reported <- .el_form_reported(fields, ns_id)
+  if (!length(reported)) {
+    return(NULL)
+  }
+  stats::setNames(
+    lapply(names(reported), function(input) {
+      JS(sprintf(
+        "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, v); }",
+        jsonlite::toJSON(input, auto_unbox = TRUE)
+      ))
+    }),
+    unname(reported)
+  )
+}
+
+#' The fields given `report = TRUE`, as inputs and the paths they report
+#'
+#' @param fields The form's fields, flattened.
+#' @param ns_id The form's id.
+#' @return A named character vector: `model.<prop>` named `<id>_<prop>`.
+#' @keywords internal
+.el_form_reported <- function(fields, ns_id) {
+  props <- unlist(lapply(fields, function(f) if (isTRUE(f$report)) f$prop))
+  if (!length(props)) {
+    return(character())
+  }
+  stats::setNames(paste0("model.", props), paste0(ns_id, "_", props))
 }
 
 #' @rdname el_form
@@ -743,6 +936,7 @@ update_el_form <- function(
   model = NULL,
   rules = NULL,
   label_width = NULL,
+  label_position = NULL,
   fields = NULL,
   errors = NULL,
   inline = NULL,
@@ -758,6 +952,7 @@ update_el_form <- function(
   scroll_to_error = NULL
 ) {
   .el_check_session(session)
+  .el_check_choices("el_form", environment())
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
 
@@ -769,6 +964,9 @@ update_el_form <- function(
   }
   if (!is.null(label_width)) {
     msg$labelWidth <- label_width
+  }
+  if (!is.null(label_position)) {
+    msg$labelPosition <- label_position
   }
   if (!is.null(fields)) {
     msg$.fields <- unname(fields)
@@ -882,4 +1080,23 @@ el_form_clear_validate <- function(
   msg$.action <- "clearValidate"
   .el_send_update(session, msg)
   invisible(NULL)
+}
+
+
+#' The fields of a form, with those of each el_form_item() in place
+#'
+#' @param fields Fields from [el_form_field()] and [el_form_item()].
+#' @return A flat list of the fields.
+#' @keywords internal
+.el_form_flatten <- function(fields) {
+  unlist(
+    lapply(fields, function(f) {
+      if (is.null(f$parts)) {
+        list(f)
+      } else {
+        Filter(function(p) !is.null(p$prop), f$parts)
+      }
+    }),
+    recursive = FALSE
+  )
 }

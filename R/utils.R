@@ -149,6 +149,22 @@
 #' @return The id the component uses.
 #' @keywords internal
 .el_ui_id <- function(id, session = NULL) {
+  if (is.numeric(id) && length(id) == 1L && !is.na(id)) {
+    id <- as.character(id)
+  }
+  if (!is.character(id) || length(id) != 1L || is.na(id)) {
+    # A component given first lands here, the id being the first argument
+    stop(
+      "`id` must be a single string, not ",
+      if (inherits(id, c("shiny.tag", "shiny.tag.list"))) {
+        "a tag: name the argument it is meant for"
+      } else {
+        class(id)[1]
+      },
+      ".",
+      call. = FALSE
+    )
+  }
   generated <- attr(id, "generated")
   # Set by the package's own articles, which render many examples on one page:
   # two that both use "city" would otherwise share one id.
@@ -847,4 +863,34 @@
   hit <- nms %in% names(rename)
   fields[hit] <- rename[nms[hit]]
   stats::setNames(.el_prop_values(dots), fields)
+}
+
+
+#' Send an update of a component's props
+#'
+#' For the components whose props are all bound through [.el_props()]: the
+#' fields are named as the component's own, prefix and renames included, so
+#' an update reaches what the UI declared.
+#'
+#' @param session The Shiny session.
+#' @param id The component's id.
+#' @param fn The UI function, whose arguments the values are checked against.
+#' @param values Named list of the arguments given; `NULL` ones are left out.
+#' @param prefix,rename As for [.el_props()].
+#' @return `NULL`, invisibly.
+#' @keywords internal
+.el_send_props_update <- function(
+  session,
+  id,
+  fn,
+  values,
+  prefix = NULL,
+  rename = NULL
+) {
+  .el_check_session(session)
+  values <- values[!vapply(values, is.null, logical(1))]
+  .el_check_choices(fn, list2env(values))
+  msg <- c(list(id = session$ns(id)), .el_props(values, prefix, rename)$data)
+  .el_send_update(session, msg)
+  invisible(NULL)
 }

@@ -17,6 +17,9 @@
 #' @param initial_index Which image of `preview_src_list` the preview opens
 #'   on, 0-based.
 #' @param width Component width, as a CSS unit.
+#' @param class,style Extra classes and inline style on the image's box, as
+#'   Element passes them through: `style = "width: 100px; height: 100px"`
+#'   gives `fit` a box to fit the picture to.
 #' @param close_on_press_escape Whether the image-viewer can be closed by
 #'   pressing ESC. Element Plus's `close-on-press-escape` (boolean).
 #' @param crossorigin Native attribute crossorigin. Element Plus's
@@ -90,6 +93,8 @@ el_image <- function(
   show_progress = NULL,
   zoom_rate = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 ) {
@@ -107,7 +112,9 @@ el_image <- function(
     ":scroll-container" = .el_optional_bind("scrollContainer"),
     ":preview-src-list" = .el_optional_bind("previewSrcList"),
     ":z-index" = .el_optional_bind("zIndex"),
-    ":initial-index" = .el_optional_bind("initialIndex")
+    ":initial-index" = .el_optional_bind("initialIndex"),
+    class = class,
+    style = style
   )
   events <- .el_event_bindings(
     ns_id,

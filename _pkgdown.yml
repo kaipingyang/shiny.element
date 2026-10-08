@@ -322,6 +322,7 @@ reference:
       - el_date_picker_panel
       - el_form
       - el_form_field
+      - el_form_item
       - el_rule
       - el_form_validate
       - el_form_reset

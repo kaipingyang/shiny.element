@@ -246,9 +246,13 @@ el_dropdown <- function(
         '<el-icon class="el-icon--right"><arrow-down /></el-icon>'
       )
     )
+  } else if (inherits(trigger_label, "shiny.tag")) {
+    # A tag is the trigger as given -- a button, an icon, an avatar -- with
+    # no arrow added, as Element's own examples write it: Element puts its
+    # focus and aria attributes on it
+    trigger_label
   } else {
-    # A tag is the trigger as given -- an icon, an avatar -- with no arrow
-    # added, as Element's own examples write it.
+    # Element's trigger is one element
     shiny::tags$span(class = "el-dropdown-link", trigger_label)
   }
 
@@ -275,6 +279,7 @@ el_dropdown <- function(
       c(dd_attrs, list(trigger_content, menu_tag))
     ),
     data = merged$data,
+    absorbed = merged$absorbed,
     methods = merged$methods,
     watch = merged$watch,
     computed = merged$computed,
