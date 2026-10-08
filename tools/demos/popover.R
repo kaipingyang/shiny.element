@@ -26,6 +26,8 @@ tags$div(
 
 ## basic-usage
 #| shot_js = "document.querySelectorAll('#shot button')[1].click()", shot_sel = ".el-popper", shot_wait = 1
+#' Each button opens its popover as its label says: `contextmenu` on a
+#' right-click, as the browser's own menu, not on a left click.
 tagList(lapply(c("hover", "click", "focus", "contextmenu"), function(t) {
   el_popover(
     paste0("p_", t),

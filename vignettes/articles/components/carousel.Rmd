@@ -14,7 +14,9 @@ Combine `el-carousel` with `el-carousel-item`, and you'll get a carousel. Conten
 
 ```{r basic, eval = FALSE, shot = TRUE}
 slides <- function(n) {
-  lapply(seq_len(n), function(i) el_carousel_item(tags$h3(i)))
+  lapply(seq_len(n), function(i) {
+    el_carousel_item(tags$div(class = "demo-slide", i))
+  })
 }
 tagList(
   tags$span(
@@ -35,7 +37,9 @@ Enabling motion blur enhances the dynamism and smoothness of the carousel. By de
 
 ```{r motion-blur, eval = FALSE, shot = TRUE}
 slides <- function(n) {
-  lapply(seq_len(n), function(i) el_carousel_item(tags$h3(i)))
+  lapply(seq_len(n), function(i) {
+    el_carousel_item(tags$div(class = "demo-slide", i))
+  })
 }
 tagList(
   tags$span(class = "demonstration", "Motion blur the switch (default)"),
@@ -67,7 +71,9 @@ The `indicator-position` attribute determines where the indicators are located. 
 el_carousel(
   "car_ind",
   indicator_position = "outside",
-  items = lapply(1:4, function(i) el_carousel_item(tags$h3(i)))
+  items = lapply(1:4, function(i) {
+    el_carousel_item(tags$div(class = "demo-slide", i))
+  })
 )
 ```
 
@@ -82,7 +88,9 @@ el_carousel(
   "car_arrow",
   interval = 5000,
   arrow = "always",
-  items = lapply(1:4, function(i) el_carousel_item(tags$h3(i)))
+  items = lapply(1:4, function(i) {
+    el_carousel_item(tags$div(class = "demo-slide", i))
+  })
 )
 ```
 
@@ -90,17 +98,22 @@ el_carousel(
 
 When the `height` of `carousel` is set to `auto`, the `carousel` height will be automatically set according to the height of the `carousel item`
 
-`height = "auto"` takes each slide's own height.
+`height = "auto"` takes the height of the slide showing: each slide
+sets its own, with `style`.
 
 ```{r auto-height, eval = FALSE, shot = TRUE}
 el_carousel(
   "car_auto",
   height = "auto",
   items = lapply(c(100, 200, 300), function(h) {
-    el_carousel_item(tags$h3(
-      style = sprintf("height: %dpx", h),
-      sprintf("height %dpx", h)
-    ))
+    el_carousel_item(
+      tags$div(
+        class = "demo-slide",
+        style = sprintf("line-height: %dpx", h),
+        sprintf("height %dpx", h)
+      ),
+      style = sprintf("height: %dpx", h)
+    )
   })
 )
 ```
@@ -117,7 +130,9 @@ el_carousel(
   interval = 4000,
   type = "card",
   height = "200px",
-  items = lapply(1:6, function(i) el_carousel_item(tags$h3(i)))
+  items = lapply(1:6, function(i) {
+    el_carousel_item(tags$div(class = "demo-slide", i))
+  })
 )
 ```
 
@@ -127,7 +142,9 @@ By default, `direction` is `horizontal`. Let carousel be displayed in the vertic
 
 ```{r vertical, eval = FALSE, shot = TRUE}
 slides <- function(n) {
-  lapply(seq_len(n), function(i) el_carousel_item(tags$h3(i)))
+  lapply(seq_len(n), function(i) {
+    el_carousel_item(tags$div(class = "demo-slide", i))
+  })
 }
 tagList(
   tags$p(class = "demonstration", "normal vertical layout"),

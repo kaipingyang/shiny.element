@@ -166,3 +166,23 @@ test_that("an update moves the carousel through setActiveItem", {
   ))$methods
   expect_match(m$shinyVueReceive, "setActiveItem", fixed = TRUE)
 })
+
+test_that("a slide takes its own style and class, as upstream's auto height needs", {
+  html <- paste(
+    as.character(el_carousel(
+      "c",
+      height = "auto",
+      items = list(el_carousel_item(
+        "a",
+        style = "height: 100px",
+        class = "tall"
+      ))
+    )),
+    collapse = ""
+  )
+  expect_match(
+    html,
+    '<el-carousel-item style="height: 100px" class="tall">',
+    fixed = TRUE
+  )
+})

@@ -343,13 +343,14 @@ el_select(
   multiple = TRUE,
   placeholder = "Select",
   width = "240px",
+  # the tag slot's scope is `{ data, selectDisabled, deleteTag }`; `value`,
+  # with none written, is the select's own value
   slots = list(
     tag = template(
       htmltools::HTML(
-        "<el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" closable :style=\"{ color: '#fff' }\">{{ color }}</el-tag>"
+        "<el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" :aria-label=\"color\" />"
       ),
-      slot = "tag",
-      scope = "{ value }"
+      slot = "tag"
     )
   )
 )

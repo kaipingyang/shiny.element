@@ -246,6 +246,9 @@ el_descriptions_item <- function(
 #' @param ... The slide's content.
 #' @param name The slide's value, `input$<id>` while it is showing.
 #' @param label Text of the slide's indicator.
+#' @param style,class The slide's own inline style and classes -- a height
+#'   of its own in a carousel of `height = "auto"`, as upstream's example
+#'   sets it.
 #' @return A slide, for `el_carousel(items =)`.
 #' @family items
 #' @examples
@@ -257,10 +260,22 @@ el_descriptions_item <- function(
 #'   )
 #' )
 #' @export
-el_carousel_item <- function(..., name = NULL, label = NULL) {
+el_carousel_item <- function(
+  ...,
+  name = NULL,
+  label = NULL,
+  style = NULL,
+  class = NULL
+) {
   .el_item(
     "el_carousel_item",
-    list(content = .el_item_content(...), name = name, label = label)
+    list(
+      content = .el_item_content(...),
+      name = name,
+      label = label,
+      style = style,
+      class = class
+    )
   )
 }
 

@@ -168,6 +168,8 @@ entry's `hide_timestamp` is new. `insert_el_tab()` takes an
   one's label on both: renaming their fields apart renamed some twice.
 * A timeline entry whose content is tags -- `el_card()` -- is drawn as
   markup, where it showed its HTML source.
+* `el_carousel_item(style =, class =)`: a slide's own height, which a
+  carousel of `height = "auto"` takes, as upstream's example sets it.
 * Containers are Element's own elements -- `<section>`, `<header>`, `<main>`,
   `<aside>`, `<footer>` -- with their sizes as its CSS variables; a side
   tab header is laid out in a column, the "+" is Element's, and the active

@@ -4,7 +4,7 @@
 \alias{el_carousel_item}
 \title{A slide of \code{\link[=el_carousel]{el_carousel()}}}
 \usage{
-el_carousel_item(..., name = NULL, label = NULL)
+el_carousel_item(..., name = NULL, label = NULL, style = NULL, class = NULL)
 }
 \arguments{
 \item{...}{The slide's content.}
@@ -12,6 +12,10 @@ el_carousel_item(..., name = NULL, label = NULL)
 \item{name}{The slide's value, \verb{input$<id>} while it is showing.}
 
 \item{label}{Text of the slide's indicator.}
+
+\item{style, class}{The slide's own inline style and classes -- a height
+of its own in a carousel of \code{height = "auto"}, as upstream's example
+sets it.}
 }
 \value{
 A slide, for \code{el_carousel(items =)}.

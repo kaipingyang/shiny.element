@@ -84,6 +84,7 @@ read_shots <- function(path) {
     }
     out[[key]] <- list(
       key = key,
+      target = paste0(article, ":", chunk$label),
       code = code,
       js = chunk$opts$shot_js,
       sel = chunk$opts$shot_sel,
@@ -124,6 +125,36 @@ if (length(wanted)) {
 }
 if (!length(shots)) {
   stop("no example chunks matched")
+}
+
+# An example with a theme of its own runs in an app of its own. Shiny
+# serves bslib's Bootstrap at one path per version, so in one process every
+# page gets the stylesheet of the theme compiled last -- and Element, which
+# follows Bootstrap's colours, with it: a purple theme came out blue.
+themed <- vapply(
+  shots,
+  function(s) grepl("theme\\s*=", s$code) && grepl("el_theme|bs_theme", s$code),
+  logical(1)
+)
+if (any(themed) && length(shots) > 1) {
+  own <- vapply(shots[themed], `[[`, "", "target")
+  shots <- shots[!themed]
+  status <- vapply(
+    own,
+    function(k) {
+      system2(
+        file.path(R.home("bin"), "Rscript"),
+        c(shQuote(file.path(PKG, "tools", "article-shots.R")), shQuote(k))
+      )
+    },
+    integer(1)
+  )
+  if (!length(shots)) {
+    quit(status = as.integer(any(status != 0)))
+  }
+  themed_failed <- any(status != 0)
+} else {
+  themed_failed <- FALSE
 }
 message(sprintf("%d examples", length(shots)))
 
@@ -533,7 +564,7 @@ if (!length(wanted)) {
   }
 }
 
-if (length(problems)) {
+if (length(problems) || themed_failed) {
   message(
     "\n",
     length(problems),

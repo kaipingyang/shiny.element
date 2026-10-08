@@ -153,3 +153,21 @@ nav#toc .nav-link.active, #toc .nav-link.active {
 .ov-card-body { display: flex; justify-content: center; align-items: center; aspect-ratio: 280 / 180; }
 .ov-card-body svg { width: 100%; height: 100%; }
 .ov-credit { margin-top: 32px; color: var(--el-text-color-secondary); font-size: 13px; }
+
+/* The carousel examples' slides, as upstream's demos style them. Not
+   headings: pkgdown's table of contents takes every h2-h6 on the page, and
+   a slide's "1" became an entry and a selector it could not parse. */
+.el-carousel__item .demo-slide {
+  color: #475669;
+  opacity: 0.75;
+  font-size: 18px;
+  line-height: 150px;
+  margin: 0;
+  text-align: center;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}

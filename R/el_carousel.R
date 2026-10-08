@@ -188,6 +188,8 @@ el_carousel <- function(
       if (!is.null(item$label)) {
         attrs$label <- item$label
       }
+      attrs$style <- item$style
+      attrs$class <- item$class
       htmltools::tag("el-carousel-item", c(attrs, list(content)))
     },
     items,
