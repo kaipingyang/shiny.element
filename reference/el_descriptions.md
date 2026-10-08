@@ -130,7 +130,7 @@ el_descriptions(
 #>   <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
 #>     <el-descriptions-item label="Name">Ada Lovelace</el-descriptions-item>
 #>     <el-descriptions-item label="Plan">
-#>       <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_plan">{{label}}</el-tag>
+#>       <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_plan" id="plan">{{label}}</el-tag>
 #>     </el-descriptions-item>
 #>     <el-descriptions-item label="Address" :span="2">12 St James's Square, London</el-descriptions-item>
 #>   </el-descriptions>

@@ -41,6 +41,7 @@ taken first, so a child's field of the same name is the one renamed."></head><bo
     <li><a class="dropdown-item" href="../articles/shiny.html">Shiny Integration</a></li>
     <li><a class="dropdown-item" href="../articles/forms.html">Forms and Validation</a></li>
     <li><a class="dropdown-item" href="../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../articles/combinations.html">Putting Components Together</a></li>
     <li><a class="dropdown-item" href="../articles/limitations.html">What Works, and What Does Not</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -180,7 +181,8 @@ taken first, so a child's field of the same name is the one renamed.</p>
 <span>  attrs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  wrap <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -218,6 +220,13 @@ taken first, so a child's field of the same name is the one renamed.</p>
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>Further fields of the container's own.</p></dd>
+
+
+<dt id="arg-wrap">wrap<a class="anchor" aria-label="anchor" href="#arg-wrap"></a></dt>
+<dd><p>A function given the children's markup, returning the tag
+placed in the container instead: markup of the container's own around
+them, whose bindings name the container's fields. Left out of the
+children, it is not renamed with them.</p></dd>
 
 </dl></div>
     <div class="section level2">

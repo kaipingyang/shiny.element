@@ -33,6 +33,7 @@
     <li><a class="dropdown-item" href="../articles/shiny.html">Shiny Integration</a></li>
     <li><a class="dropdown-item" href="../articles/forms.html">Forms and Validation</a></li>
     <li><a class="dropdown-item" href="../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../articles/combinations.html">Putting Components Together</a></li>
     <li><a class="dropdown-item" href="../articles/limitations.html">What Works, and What Does Not</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -283,7 +284,7 @@ them.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-descriptions-item label="Name"&gt;Ada Lovelace&lt;/el-descriptions-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-descriptions-item label="Plan"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_plan"&gt;{{label}}&lt;/el-tag&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_plan" id="plan"&gt;{{label}}&lt;/el-tag&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-descriptions-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-descriptions-item label="Address" :span="2"&gt;12 St James's Square, London&lt;/el-descriptions-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-descriptions&gt;</span>

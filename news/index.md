@@ -348,6 +348,26 @@ its `name` argument is now `tab`.
   [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)
   – whose first argument is the id – vanished without one.
 - `el_link(type =, underline =)` left `NULL` follow a config provider.
+- Components put together, as an app does, work as they do alone:
+  - folded in at different depths – a tooltip’s button beside a select
+    in a space – they no longer fail to build with “Two components
+    inside the same wrapper both declare …”;
+  - folded in, a component keeps its id in the page, on the component
+    itself, for CSS and `shinyjs`;
+  - a component drawn later inside a config provider – by
+    [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) – takes
+    its settings and follows their updates; the provider’s own settings
+    no longer read a child’s fields of the same name;
+  - a component in a slot of a folded component – a select in an input’s
+    prefix, inside a provider – keeps its methods and reports on load;
+  - two trees, forms, uploads, carousels or calendars in one wrapper
+    each keep their own methods:
+    [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
+    on one reached the other;
+  - tabs drawn hidden – in a closed dialog, drawer or panel – measure
+    their active bar once shown;
+  - a tree’s checked keys are reported after
+    `call_el(..., "setChecked")` as after a click.
 
 ### Documentation, after Element’s own
 

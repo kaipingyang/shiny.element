@@ -49,6 +49,7 @@
     <li><a class="dropdown-item" href="../../articles/shiny.html">Shiny Integration</a></li>
     <li><a class="dropdown-item" href="../../articles/forms.html">Forms and Validation</a></li>
     <li><a class="dropdown-item" href="../../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../../articles/combinations.html">Putting Components Together</a></li>
     <li><a class="dropdown-item" href="../../articles/limitations.html">What Works, and What Does Not</a></li>
   </ul>
 </li>
@@ -197,8 +198,8 @@ interactions for your end users, you can choose
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-usage-el_skeleton_238196c7-0545-409d-904e-b65a68f6fca3" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_skeleton_238196c7-0545-409d-904e-b65a68f6fca3_container" style="display: contents">
+  <div id="basic-usage-el_skeleton_152753eb-89cf-4fb5-90ba-ff5d566b73dd" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-el_skeleton_152753eb-89cf-4fb5-90ba-ff5d566b73dd_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"></el-skeleton>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":null,"skAnimated":null,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>
@@ -214,8 +215,8 @@ with 33% width of the others.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="configurable-rows-el_skeleton_f76a117c-b7d1-4261-b1b6-aca4949a96ca" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="configurable-rows-el_skeleton_f76a117c-b7d1-4261-b1b6-aca4949a96ca_container" style="display: contents">
+  <div id="configurable-rows-el_skeleton_6429e51e-b137-41a7-b49c-9362c510af4f" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="configurable-rows-el_skeleton_6429e51e-b137-41a7-b49c-9362c510af4f_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"></el-skeleton>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":5,"skAnimated":null,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>
@@ -230,8 +231,8 @@ of <code>el-skeleton</code> will show animation</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_skeleton.html">el_skeleton</a></span><span class="op">(</span>rows <span class="op">=</span> <span class="fl">5</span>, animated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="animation-el_skeleton_8e4fb065-2093-4b4a-a859-8d273ad0f94e" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="animation-el_skeleton_8e4fb065-2093-4b4a-a859-8d273ad0f94e_container" style="display: contents">
+  <div id="animation-el_skeleton_43c62f56-5b59-4806-a2a7-d4b1dcb932ad" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="animation-el_skeleton_43c62f56-5b59-4806-a2a7-d4b1dcb932ad_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"></el-skeleton>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":5,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>
@@ -271,8 +272,8 @@ difference.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="customized-template-el_skeleton_ec720725-d8d3-452f-8e00-52033e977716" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="customized-template-el_skeleton_ec720725-d8d3-452f-8e00-52033e977716_container" style="display: contents">
+  <div id="customized-template-el_skeleton_78bb418f-5c78-4d1f-9137-bc6d6c2f1dff" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customized-template-el_skeleton_78bb418f-5c78-4d1f-9137-bc6d6c2f1dff_container" style="display: contents">
   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle" style="width: 240px">
     <template v-slot:template>
       <el-skeleton-item variant="image" style="width: 240px; height: 240px"></el-skeleton-item>

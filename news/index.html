@@ -33,6 +33,7 @@
     <li><a class="dropdown-item" href="../articles/shiny.html">Shiny Integration</a></li>
     <li><a class="dropdown-item" href="../articles/forms.html">Forms and Validation</a></li>
     <li><a class="dropdown-item" href="../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../articles/combinations.html">Putting Components Together</a></li>
     <li><a class="dropdown-item" href="../articles/limitations.html">What Works, and What Does Not</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -254,6 +255,15 @@
 <li>An <code>id</code> that is not a string is refused with an error: a component given first to <code><a href="../reference/el_result.html">el_result()</a></code>, <code><a href="../reference/el_empty.html">el_empty()</a></code> or <code><a href="../reference/el_skeleton.html">el_skeleton()</a></code> – whose first argument is the id – vanished without one.</li>
 <li>
 <code>el_link(type =, underline =)</code> left <code>NULL</code> follow a config provider.</li>
+<li>Components put together, as an app does, work as they do alone:
+<ul><li>folded in at different depths – a tooltip’s button beside a select in a space – they no longer fail to build with “Two components inside the same wrapper both declare …”;</li>
+<li>folded in, a component keeps its id in the page, on the component itself, for CSS and <code>shinyjs</code>;</li>
+<li>a component drawn later inside a config provider – by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> – takes its settings and follows their updates; the provider’s own settings no longer read a child’s fields of the same name;</li>
+<li>a component in a slot of a folded component – a select in an input’s prefix, inside a provider – keeps its methods and reports on load;</li>
+<li>two trees, forms, uploads, carousels or calendars in one wrapper each keep their own methods: <code><a href="../reference/call_el.html">call_el()</a></code> on one reached the other;</li>
+<li>tabs drawn hidden – in a closed dialog, drawer or panel – measure their active bar once shown;</li>
+<li>a tree’s checked keys are reported after <code>call_el(..., "setChecked")</code> as after a click.</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-after-elements-own-0-1-0">Documentation, after Element’s own<a class="anchor" aria-label="anchor" href="#documentation-after-elements-own-0-1-0"></a></h3>

@@ -197,12 +197,15 @@
     // Vue plugins the component asks for (`use`), by their global names --
     // a component library, an i18n plugin: app.use() on each
     // -- a name, or {name, options} for a plugin that takes them
+    // the host being mounted, for a plugin to read what is around it
+    sv.mountingHost = host;
     (spec.use || []).forEach(function(p) {
       var name = typeof p === 'string' ? p : p.name;
       var plugin = name.split('.').reduce(function(o, k) { return o && o[k]; }, window);
       if (plugin) app.use(plugin, typeof p === 'string' ? undefined : p.options);
       else if (window.console) console.warn('[shiny-vue] "' + host.id + '" asks for plugin ' + name + ', which is not on the page');
     });
+    sv.mountingHost = null;
     // The app's root goes into a box of its own: Vue 3 owns its container
     var box = document.createElement('div');
     box.setAttribute('data-shiny-vue-root', '');

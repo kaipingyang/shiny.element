@@ -429,11 +429,20 @@
       // The bar and the scrolling are worked out from rendered sizes, so
       // they have to be redone when the layout changes.
       $(window).on('resize.elTabs' + el.id, function() { moveBar(el); scrollToActive(el); });
+      // and when the tabs themselves are resized -- shown at last, in a
+      // dialog, a drawer or a collapsed panel that was closed when they
+      // were drawn, where every size was 0
+      if (typeof ResizeObserver !== 'undefined') {
+        var nav = el.querySelector('.el-tabs__nav-wrap') || el;
+        el._elTabsResize = new ResizeObserver(function() { moveBar(el); });
+        el._elTabsResize.observe(nav);
+      }
     },
 
     unsubscribe: function(el) {
       $(el).off('.elTabs');
       $(window).off('resize.elTabs' + el.id);
+      if (el._elTabsResize) { el._elTabsResize.disconnect(); el._elTabsResize = null; }
     },
 
     receiveMessage: function(el, data) {

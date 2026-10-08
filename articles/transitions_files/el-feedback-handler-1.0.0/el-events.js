@@ -83,6 +83,13 @@
   // itself with the page's config (locale, size, z-index, from el_page()),
   // and what this package adds to it -- the icons by name, $ELEMENT, $elRef,
   // $elDate. A component that does not ask for it does not get it.
+  function localeOf(code) {
+    if (!code) return undefined;
+    var name = 'ElementPlusLocale' + String(code).toLowerCase().split('-').map(function (p) {
+      return p.charAt(0).toUpperCase() + p.slice(1);
+    }).join('');
+    return window[name] || (window.ElementPlus && ElementPlus.en) || undefined;
+  }
   se.plugin = { install: function (app, given) {
     if (!window.ElementPlus) return;
     var cfg = Object.assign({}, window.shinyElementConfig || {}, given || {});
@@ -90,7 +97,33 @@
     if (cfg.locale) opts.locale = cfg.locale;
     if (cfg.size) opts.size = cfg.size;
     if (cfg.zIndex) opts.zIndex = cfg.zIndex;
-    app.use(window.ElementPlus, opts);
+    // A component drawn inside a config provider after it -- by renderUI()
+    // -- is an app of its own, which the provider's provide() cannot reach:
+    // it takes the provider's settings from its scope, and follows them
+    var host = sv.mountingHost;
+    var scope = host && host.parentElement && host.parentElement.closest('.el-provider-scope');
+    if (scope && window.Vue && ElementPlus.provideGlobalConfig) {
+      var read = function () {
+        var c = {};
+        try { c = JSON.parse(scope.getAttribute('data-config') || '{}') || {}; } catch (e) {}
+        var out = Object.assign({}, opts);
+        Object.keys(c).forEach(function (k) { if (c[k] !== null && c[k] !== undefined) out[k] = c[k]; });
+        if (typeof out.locale === 'string') out.locale = localeOf(out.locale);
+        return out;
+      };
+      var state = Vue.ref(read());
+      app.use(window.ElementPlus);
+      ElementPlus.provideGlobalConfig(state, app);
+      var follow = function () { state.value = read(); };
+      (scope._seFollowers = scope._seFollowers || []).push(follow);
+      if (typeof app.onUnmount === 'function') {
+        app.onUnmount(function () {
+          scope._seFollowers = scope._seFollowers.filter(function (f) { return f !== follow; });
+        });
+      }
+    } else {
+      app.use(window.ElementPlus, opts);
+    }
     // The page's size, for markup around a component -- its form item --
     // to follow as Element Plus's own components do
     app.config.globalProperties.$ELEMENT = { size: cfg.size || '' };
@@ -124,13 +157,7 @@
     // A config provider's locale, given by code ("zh-cn"): the locale file
     // its R function loaded defines ElementPlusLocaleZhCn. English is
     // Element's own.
-    app.config.globalProperties.$elLocale = function (code) {
-      if (!code) return undefined;
-      var name = 'ElementPlusLocale' + String(code).toLowerCase().split('-').map(function (p) {
-        return p.charAt(0).toUpperCase() + p.slice(1);
-      }).join('');
-      return window[name] || (window.ElementPlus && ElementPlus.en) || undefined;
-    };
+    app.config.globalProperties.$elLocale = localeOf;
     // A picker's default-value and default-time are Dates; R sends text --
     // "2010-10-01", "2010-10-01 12:00:00", "12:00:00" -- read in local time
     // so a day never shifts with the time zone. A pair maps item by item.
@@ -363,6 +390,8 @@
 (function () {
   var se = window.shinyElement = window.shinyElement || {};
   function apply(scope) {
+    // the components drawn inside it later, apps of their own
+    (scope._seFollowers || []).forEach(function (f) { f(); });
     var shadow = scope.getAttribute('data-card-shadow') || 'always';
     scope.querySelectorAll('.el-card[data-el-shadow-default]').forEach(function (card) {
       card.classList.remove('is-always-shadow', 'is-hover-shadow', 'is-never-shadow');
@@ -395,7 +424,7 @@
     }
   }).observe(document.documentElement, {
     childList: true, subtree: true, attributes: true,
-    attributeFilter: ['data-card-shadow', 'data-dialog']
+    attributeFilter: ['data-card-shadow', 'data-dialog', 'data-config']
   });
 })();
 

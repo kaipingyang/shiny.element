@@ -19,6 +19,8 @@
   integration](https://kaipingyang.github.io/shiny.element/articles/shiny.md):
 - [Forms](https://kaipingyang.github.io/shiny.element/articles/forms.md):
 - [Dashboards](https://kaipingyang.github.io/shiny.element/articles/dashboards.md):
+- [Putting Components
+  Together](https://kaipingyang.github.io/shiny.element/articles/combinations.md):
 - [What works, and what does
   not](https://kaipingyang.github.io/shiny.element/articles/limitations.md):
 

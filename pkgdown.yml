@@ -21,6 +21,7 @@ articles:
   articles/components/color-picker-panel: components/color-picker-panel.html
   articles/components/color-picker: components/color-picker.html
   articles/components/color: components/color.html
+  combinations: combinations.html
   articles/components: components.html
   articles/components/config-provider: components/config-provider.html
   articles/components/container: components/container.html
@@ -97,7 +98,7 @@ articles:
   articles/components/typography: components/typography.html
   articles/components/upload: components/upload.html
   articles/components/watermark: components/watermark.html
-last_built: 2026-10-08T10:56Z
+last_built: 2026-10-08T15:26Z
 urls:
   reference: https://kaipingyang.github.io/shiny.element/reference
   article: https://kaipingyang.github.io/shiny.element/articles

@@ -19,7 +19,8 @@ taken first, so a child's field of the same name is the one renamed.
   attrs = list(),
   width = NULL,
   slots = NULL,
-  data = list()
+  data = list(),
+  wrap = NULL
 )
 ```
 
@@ -61,6 +62,13 @@ taken first, so a child's field of the same name is the one renamed.
 - data:
 
   Further fields of the container's own.
+
+- wrap:
+
+  A function given the children's markup, returning the tag placed in
+  the container instead: markup of the container's own around them,
+  whose bindings name the container's fields. Left out of the children,
+  it is not renamed with them.
 
 ## Value
 

@@ -358,7 +358,9 @@ shinyApp(ui, server)
 An absorbed component has no host of its own, but it keeps its id: the
 wrapper lists the components it took in, and `update_el_*()` and
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
-for that id reach it through the wrapper’s instance.
+for that id reach it through the wrapper’s instance. In the page the id
+is on the component itself, as Element hands it on – a button’s
+`<button>`, an input’s `<input>` – rather than on a host around it.
 
 ``` r
 

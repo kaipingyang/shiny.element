@@ -49,6 +49,7 @@
     <li><a class="dropdown-item" href="../articles/shiny.html">Shiny Integration</a></li>
     <li><a class="dropdown-item" href="../articles/forms.html">Forms and Validation</a></li>
     <li><a class="dropdown-item" href="../articles/dashboards.html">Dashboards</a></li>
+    <li><a class="dropdown-item" href="../articles/combinations.html">Putting Components Together</a></li>
     <li><a class="dropdown-item" href="../articles/limitations.html">What Works, and What Does Not</a></li>
   </ul>
 </li>
@@ -565,7 +566,10 @@ carrying both sets of markup, data and methods.</p>
 <img src="../shots/shiny-absorb.png" alt="The absorb example, running" style="max-width: 100%"><p>An absorbed component has no host of its own, but it keeps its id:
 the wrapper lists the components it took in, and
 <code>update_el_*()</code> and <code><a href="../reference/call_el.html">call_el()</a></code> for that id reach
-it through the wrapper’s instance.</p>
+it through the wrapper’s instance. In the page the id is on the
+component itself, as Element hands it on – a button’s
+<code>&lt;button&gt;</code>, an input’s <code>&lt;input&gt;</code> –
+rather than on a host around it.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
