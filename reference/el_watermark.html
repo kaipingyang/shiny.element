@@ -173,6 +173,20 @@
 <span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_watermark</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  watermark_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rotate <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  z_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  image <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  content <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  font <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  offset <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -239,6 +253,11 @@ container. The default is <code>gap/2</code>. Element Plus's <code>offset</code>
 <dd><p>Named list of Element slot contents. A scoped slot is written
 with <code><a href="template.html">template()</a></code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -250,12 +269,21 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
 
 <p>None: it reports nothing.</p>
     </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p><code>update_el_watermark()</code> changes the component from the server: every argument of
+<code>el_watermark()</code> that can change once it is drawn, under the same name. One left
+<code>NULL</code> stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_watermark()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_watermark</span><span class="op">(</span>content <span class="op">=</span> <span class="st">"Confidential"</span>, <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 300px"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_watermark_e02178d2-b86f-40a4-b85d-e13753459ff3" data-shiny-vue style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_watermark_e02178d2-b86f-40a4-b85d-e13753459ff3_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_watermark_f271a5bb-1665-4d58-8269-c3bc8bf47eee" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_watermark_f271a5bb-1665-4d58-8269-c3bc8bf47eee_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div style="height: 300px"&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-watermark&gt;</span>

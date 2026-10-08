@@ -126,7 +126,16 @@
     if (!tpl) return;
     var live = document.createElement('div');
     live.setAttribute('data-el-live', 'true');
-    live.appendChild(document.importNode(tpl.content, true));
+    // A dialog drawn by a Vue wrapper (a config provider) has its <template>
+    // rendered by Vue, which puts the children on the element, not in
+    // .content: they are the wrapper's live nodes, moved in and back out,
+    // where a copy would have none of Vue's listeners
+    if (tpl.content.childNodes.length) {
+      live.appendChild(document.importNode(tpl.content, true));
+    } else {
+      while (tpl.firstChild) live.appendChild(tpl.firstChild);
+      live._elFrom = tpl;
+    }
     body.appendChild(live);
     // Shiny's bindAll() mounts the components inside; without Shiny, mount them here
     if (!hasShiny && window.shinyVue) window.shinyVue.mount(live);
@@ -138,6 +147,9 @@
     var live = body && body.querySelector(':scope > [data-el-live]');
     if (!live) return;
     hasShiny && Shiny.unbindAll(live);
+    if (live._elFrom) {
+      while (live.firstChild) live._elFrom.appendChild(live.firstChild);
+    }
     live.parentNode.removeChild(live);
   }
 
@@ -285,7 +297,7 @@
           handleClose: function() { requestClose(el); },
           resetPosition: function() { resetPosition(el); }
         };
-        if (el.getAttribute('data-draggable') === 'true') draggable(el);
+        draggable(el);
         if (el.getAttribute('data-resizable') === 'true') resizable(el);
       },
 
@@ -311,6 +323,7 @@
       },
 
       receiveMessage: function(el, data) {
+        applyFlags(el, data);
         if (data.hasOwnProperty('visible')) this.setValue(el, data.visible);
         if (data.hasOwnProperty('title')) {
           var t = el.querySelector('.el-dialog__title, .el-drawer__title');
@@ -320,6 +333,21 @@
           var panel = el.querySelector('.el-dialog');
           // a fullscreen dialog's size is is-fullscreen's, as in Element
           if (panel && !panel.classList.contains('is-fullscreen')) panel.style.setProperty('--el-dialog-width', data.width);
+        }
+        if (data.hasOwnProperty('direction')) {
+          var d = el.querySelector('.el-drawer');
+          if (d) {
+            var was = (d.className.match(/\b(rtl|ltr|ttb|btt)\b/) || [])[1] || 'rtl';
+            var wasV = was === 'ttb' || was === 'btt', isV = data.direction === 'ttb' || data.direction === 'btt';
+            d.classList.remove(was);
+            d.classList.add(data.direction);
+            // the size moves to the other dimension with the edge
+            if (wasV !== isV) {
+              var sz = d.style[wasV ? 'height' : 'width'];
+              d.style[wasV ? 'height' : 'width'] = '';
+              if (sz) d.style[isV ? 'height' : 'width'] = sz;
+            }
+          }
         }
         if (data.hasOwnProperty('size')) {
           var drawer = el.querySelector('.el-drawer');
@@ -335,13 +363,84 @@
     else standalone(binding);
   }
 
+  // An overlay's behaviour changed from the server -- update_el_dialog(),
+  // update_el_drawer(), a config provider -- as Element's props change it:
+  // the attributes the binding reads as the user acts, and the classes
+  // Element's stylesheet reads
+  // reached by a config provider's dialog settings (el-events.js)
+  (window.shinyElement = window.shinyElement || {}).applyOverlayFlags = function(el, d) {
+    applyFlags(el, d);
+  };
+  function applyFlags(el, d) {
+    var panel = el.querySelector('.el-dialog') || el.querySelector('.el-drawer');
+    var attr = function(name, v) { el.setAttribute(name, v ? 'true' : 'false'); };
+    // close-on-click-modal is kept as asked, so a backdrop brought back
+    // closes the dialog again; asked for nothing, Element's default is true
+    if (d.hasOwnProperty('closeOnClickModal')) el._elMaskWanted = !!d.closeOnClickModal;
+    if (el._elMaskWanted === undefined) {
+      // what the markup was drawn with: without a backdrop it says false
+      // whatever was asked, so Element's default stands
+      el._elMaskWanted = el.getAttribute('data-modal') === 'false' ||
+        el.getAttribute('data-mask-close') !== 'false';
+    }
+    if (d.hasOwnProperty('modal')) {
+      attr('data-modal', d.modal);
+      el.style.backgroundColor = d.modal ? '' : 'transparent';
+    }
+    if (d.hasOwnProperty('modal') || d.hasOwnProperty('closeOnClickModal')) {
+      attr('data-mask-close', el._elMaskWanted && el.getAttribute('data-modal') !== 'false');
+    }
+    if (d.hasOwnProperty('closeOnPressEscape')) attr('data-esc-close', d.closeOnPressEscape);
+    if (d.hasOwnProperty('lockScroll')) attr('data-lock-scroll', d.lockScroll);
+    if (d.hasOwnProperty('overflow')) attr('data-overflow', d.overflow);
+    if (d.hasOwnProperty('draggable')) {
+      attr('data-draggable', d.draggable);
+      if (panel) panel.classList.toggle('is-draggable', !!d.draggable);
+    }
+    if (!panel) return;
+    if (d.hasOwnProperty('center')) panel.classList.toggle('el-dialog--center', !!d.center);
+    if (d.hasOwnProperty('alignCenter')) {
+      panel.classList.toggle('is-align-center', !!d.alignCenter);
+      var box = el.querySelector('.el-overlay-dialog');
+      if (box) box.style.display = d.alignCenter ? 'flex' : '';
+    }
+    if (d.hasOwnProperty('top')) panel.style.setProperty('--el-dialog-margin-top', d.top);
+    if (d.hasOwnProperty('fullscreen')) {
+      panel.classList.toggle('is-fullscreen', !!d.fullscreen);
+      // as Element: a fullscreen dialog has no width or top of its own,
+      // which would outrank is-fullscreen's; they come back after
+      ['--el-dialog-width', '--el-dialog-margin-top'].forEach(function(v) {
+        var key = '_el' + v;
+        if (d.fullscreen) {
+          var had = panel.style.getPropertyValue(v);
+          if (had) { panel[key] = had; panel.style.removeProperty(v); }
+        } else if (panel[key]) {
+          panel.style.setProperty(v, panel[key]);
+        }
+      });
+    }
+    if (d.hasOwnProperty('showClose')) {
+      var btn = panel.querySelector('.el-dialog__headerbtn, .el-drawer__close-btn');
+      if (btn) btn.style.display = d.showClose ? '' : 'none';
+      var head = panel.querySelector('.el-dialog__header');
+      if (head) head.classList.toggle('show-close', !!d.showClose);
+    }
+    if (d.hasOwnProperty('withHeader')) {
+      var dh = panel.querySelector('.el-drawer__header');
+      if (dh) dh.style.display = d.withHeader ? '' : 'none';
+    }
+  }
+
   // draggable: the dialog moves with its header, kept inside the viewport
-  // unless `overflow` lets it out; resetPosition() puts it back
+  // unless `overflow` lets it out; resetPosition() puts it back. Whether it
+  // drags is read as the header is pressed, so an update can turn it on.
   function draggable(wrapper) {
     var panel = wrapper.querySelector('.el-dialog');
     var header = panel && panel.querySelector('.el-dialog__header');
-    if (!header) return;
+    if (!header || header._elDrag) return;
+    header._elDrag = true;
     header.addEventListener('mousedown', function(e) {
+      if (wrapper.getAttribute('data-draggable') !== 'true') return;
       if (e.target.closest('.el-dialog__headerbtn')) return;
       var x0 = e.clientX, y0 = e.clientY;
       var dx0 = panel._elDx || 0, dy0 = panel._elDy || 0;
@@ -376,14 +475,17 @@
     var panel = wrapper.querySelector('.el-drawer');
     var dragger = panel && panel.querySelector('.el-drawer__dragger');
     if (!dragger) return;
-    var dir = (panel.className.match(/\b(rtl|ltr|ttb|btt)\b/) || [])[1] || 'rtl';
-    var vertical = dir === 'ttb' || dir === 'btt';
+    // the edge it slides from, read as a drag starts: update_el_drawer()
+    // can change it
+    var dir, vertical;
     function sizeNow() { var r = panel.getBoundingClientRect(); return vertical ? r.height : r.width; }
     function send(what, v) {
       hasShiny && Shiny.setInputValue && Shiny.setInputValue(wrapper.id + what, v, { priority: 'event' });
     }
     dragger.addEventListener('mousedown', function(e) {
       e.preventDefault();
+      dir = (panel.className.match(/\b(rtl|ltr|ttb|btt)\b/) || [])[1] || 'rtl';
+      vertical = dir === 'ttb' || dir === 'btt';
       var start = vertical ? e.clientY : e.clientX, size0 = sizeNow();
       var sign = (dir === 'rtl' || dir === 'btt') ? -1 : 1;
       send('_resize_start', Math.round(size0));

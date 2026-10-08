@@ -166,11 +166,13 @@ and <code>never</code> shadow modes.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  header <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  body_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  shadow <span class="op">=</span> <span class="st">"always"</span>,</span>
+<span>  shadow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  footer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  header_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  body_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  footer_class <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  footer_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  style <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -192,8 +194,9 @@ for default.</p></dd>
 
 
 <dt id="arg-shadow">shadow<a class="anchor" aria-label="anchor" href="#arg-shadow"></a></dt>
-<dd><p>Shadow display trigger: <code>"always"</code> (default), <code>"hover"</code>,
-or <code>"never"</code>.</p></dd>
+<dd><p>Shadow display trigger: <code>"always"</code>, <code>"hover"</code> or <code>"never"</code>.
+<code>NULL</code>, the default, is Element's <code>"always"</code>, or a config provider's
+<a href="el_config_provider.html">el_config_provider(card =)</a>.</p></dd>
 
 
 <dt id="arg-footer">footer<a class="anchor" aria-label="anchor" href="#arg-footer"></a></dt>
@@ -204,6 +207,11 @@ or <code>"never"</code>.</p></dd>
 <dd><p>Extra class names for the
 header, the body and the footer.</p></dd>
 
+
+<dt id="arg-class-style">class, style<a class="anchor" aria-label="anchor" href="#arg-class-style"></a></dt>
+<dd><p>Extra classes and inline style on the card itself, as
+Element passes them to its root.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -213,7 +221,7 @@ header, the body and the footer.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_card</span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Card body text."</span><span class="op">)</span>, header <span class="op">=</span> <span class="st">"My Card"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-card is-always-shadow"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-card is-always-shadow" data-el-shadow-default="true"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-card__header"&gt;My Card&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-card__body"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;Card body text.&lt;/p&gt;</span>

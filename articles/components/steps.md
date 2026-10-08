@@ -15,21 +15,31 @@ the step needs to be fixed which accepts `Number` type. The unit of the
 `finish-status` attribute can change the state of the steps that have
 been completed.
 
-`update_el_steps(active =)` moves it, as the demo’s button does.
+The button moves it on with `update_el_steps(active =)`.
 
 ``` r
 
-el_steps(
-  "st_basic",
-  active = 0,
-  finish_status = "success",
-  steps = list(
-    el_step("Step 1"),
-    el_step("Step 2"),
-    el_step("Step 3")
-  )
+ui <- el_page(
+  el_steps(
+    "st_basic",
+    active = 0,
+    finish_status = "success",
+    width = "600px",
+    steps = list(el_step("Step 1"), el_step("Step 2"), el_step("Step 3"))
+  ),
+  el_button("st_next", "Next step", style = "margin-top: 12px")
 )
+server <- function(input, output, session) {
+  active <- reactiveVal(0)
+  observeEvent(input$st_next, {
+    active(if (active() > 2) 0 else active() + 1)
+    update_el_steps(session, "st_basic", active = active())
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The basic example, running](../../shots/steps-basic.png)
 
 ## Step bar that contains status
 

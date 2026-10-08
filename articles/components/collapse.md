@@ -188,63 +188,150 @@ Operation feedback.
 using the `expand-icon-position` attribute, you can customize icon
 position.
 
+The switch moves each header’s icon, with
+`update_el_collapse( expand_icon_position =)`.
+
 ``` r
 
-el_collapse(
-  "coll_pos",
-  expand_icon_position = "left",
-  items = list(
-    el_collapse_item(
-      "Consistency",
-      tags$div("Consistent with real life."),
-      name = "1"
-    ),
-    el_collapse_item("Feedback", tags$div("Operation feedback."), name = "2")
+ui <- el_page(
+  tags$div(
+    style = "display: flex; align-items: center; margin-bottom: 16px",
+    tags$span(style = "margin-right: 16px", "expand icon position: "),
+    el_switch(
+      "position",
+      value = "left",
+      inactive_value = "left",
+      active_value = "right",
+      inactive_text = "left",
+      active_text = "right",
+      inactive_color = "#88b8fe"
+    )
+  ),
+  el_collapse(
+    "coll_pos",
+    expand_icon_position = "left",
+    items = list(
+      el_collapse_item(
+        "Consistency",
+        tags$div(
+          "Consistent with real life: in line with the process and logic of",
+          "real life, and comply with languages and habits that the users are",
+          "used to;"
+        ),
+        tags$div(
+          "Consistent within interface: all elements should be consistent,",
+          "such as: design style, icons and texts, position of elements, etc."
+        ),
+        name = "1"
+      ),
+      el_collapse_item(
+        "Feedback",
+        tags$div(
+          "Operation feedback: enable the users to clearly perceive their",
+          "operations by style updates and interactive effects;"
+        ),
+        tags$div(
+          "Visual feedback: reflect current state by updating or rearranging",
+          "elements of the page."
+        ),
+        name = "2"
+      ),
+      el_collapse_item(
+        "Efficiency",
+        tags$div(
+          "Simplify the process: keep operating process simple and intuitive;"
+        ),
+        tags$div(
+          "Definite and clear: enunciate your intentions clearly so that the",
+          "users can quickly understand and make decisions;"
+        ),
+        name = "3"
+      )
+    )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$position, ignoreInit = TRUE, {
+    update_el_collapse(
+      session,
+      "coll_pos",
+      expand_icon_position = input$position
+    )
+  })
+}
+shinyApp(ui, server)
 ```
 
-Consistency
-
-Consistent with real life.
-
-Feedback
-
-Operation feedback.
+![The custom-icon-position example,
+running](../../shots/collapse-custom-icon-position.png)
 
 ## Prevent collapsing
 
 set the `before-collapse` property, If `false` is returned or a
 `Promise` is returned and then is rejected, will stop collapsing.
 
-`before_collapse` may hold a panel as it is: return `false`, or a
-promise.
+`before_collapse` returns a promise: the panel turns after a second, or
+stays, as the switch says. The switch replaces the function with
+`update_el_collapse(before_collapse =)`.
 
 ``` r
 
-el_collapse(
-  "coll_guard",
-  before_collapse = JS(
-    "function(name) { return confirm('Toggle ' + name + '?'); }"
+guard <- function(allow) {
+  JS(sprintf(
+    "function() { return new Promise(function(resolve) { setTimeout(function() { resolve(%s); }, 1000); }); }",
+    tolower(allow)
+  ))
+}
+ui <- el_page(
+  tags$div(
+    style = "display: flex; align-items: center; margin-bottom: 16px",
+    tags$span(style = "margin-right: 16px", "before collapse return: "),
+    el_switch(
+      "before",
+      value = TRUE,
+      inactive_text = "false",
+      active_text = "true"
+    )
   ),
-  items = list(
-    el_collapse_item(
-      "Consistency",
-      tags$div("Consistent with real life."),
-      name = "1"
-    ),
-    el_collapse_item("Feedback", tags$div("Operation feedback."), name = "2")
+  el_collapse(
+    "coll_guard",
+    value = "1",
+    before_collapse = guard(TRUE),
+    items = list(
+      el_collapse_item(
+        "Consistency",
+        tags$div(
+          "Consistent with real life: in line with the process and logic of",
+          "real life, and comply with languages and habits that the users are",
+          "used to;"
+        ),
+        name = "1"
+      ),
+      el_collapse_item(
+        "Feedback",
+        tags$div(
+          "Operation feedback: enable the users to clearly perceive their",
+          "operations by style updates and interactive effects;"
+        ),
+        name = "2"
+      )
+    )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$before, ignoreInit = TRUE, {
+    update_el_collapse(
+      session,
+      "coll_guard",
+      before_collapse = guard(input$before)
+    )
+  })
+}
+shinyApp(ui, server)
 ```
 
-Consistency
-
-Consistent with real life.
-
-Feedback
-
-Operation feedback.
+![The prevent-collapsing example,
+running](../../shots/collapse-prevent-collapsing.png)
 
 ## API
 

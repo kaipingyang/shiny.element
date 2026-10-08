@@ -185,6 +185,8 @@ full-screen preview.</p>
 <span>  show_progress <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  zoom_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  style <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
@@ -322,6 +324,12 @@ Plus's <code>zoom-rate</code> (number).</p></dd>
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
 <dd><p>Component width, as a CSS unit.</p></dd>
+
+
+<dt id="arg-class-style">class, style<a class="anchor" aria-label="anchor" href="#arg-class-style"></a></dt>
+<dd><p>Extra classes and inline style on the image's box, as
+Element passes them through: <code>style = "width: 100px; height: 100px"</code>
+gives <code>fit</code> a box to fit the picture to.</p></dd>
 
 
 <dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>

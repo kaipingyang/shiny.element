@@ -27,6 +27,27 @@ el_scrollbar(
   width = NULL,
   slots = NULL
 )
+
+update_el_scrollbar(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  height = NULL,
+  max_height = NULL,
+  native = NULL,
+  wrap_style = NULL,
+  wrap_class = NULL,
+  view_style = NULL,
+  view_class = NULL,
+  noresize = NULL,
+  always = NULL,
+  min_size = NULL,
+  aria_label = NULL,
+  tabindex = NULL,
+  distance = NULL,
+  tag = NULL,
+  role = NULL,
+  aria_orientation = NULL
+)
 ```
 
 ## Arguments
@@ -124,6 +145,11 @@ el_scrollbar(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -141,12 +167,22 @@ Callable with
 `handleScroll()`, `scrollTo()`, `setScrollTop()`, `setScrollLeft()`,
 [`update()`](https://rdrr.io/r/stats/update.html).
 
+## Updating from the server
+
+`update_el_scrollbar()` changes the component from the server: every
+argument of `el_scrollbar()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_scrollbar()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
 el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
-#> <div id="el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc_container" style="display: contents">
+#> <div id="el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00_container" style="display: contents">
 #>   <el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @scroll="elEmitScroll" @end-reached="elEmitEndReached">
 #>     <p>1</p>
 #>     <p>2</p>
@@ -170,6 +206,6 @@ el_scrollbar(height = "200px", lapply(1:20, function(i) shiny::tags$p(i)))
 #>     <p>20</p>
 #>   </el-scrollbar>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc', 'scroll', arguments, 200); }","elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00', 'scroll', arguments, 200); }","elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}</script>
 #> </div>
 ```

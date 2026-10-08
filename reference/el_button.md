@@ -10,10 +10,10 @@ states.
 el_button(
   id = NULL,
   label = "Button",
-  type = "default",
+  type = NULL,
   size = NULL,
-  plain = FALSE,
-  round = FALSE,
+  plain = NULL,
+  round = NULL,
   circle = FALSE,
   loading = FALSE,
   disabled = FALSE,
@@ -29,6 +29,8 @@ el_button(
   loading_icon = NULL,
   tag = NULL,
   text = NULL,
+  class = NULL,
+  style = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -67,12 +69,16 @@ update_el_button(
 
 - label:
 
-  Button text. Ignored (and defaults to `""`) when `circle = TRUE`.
+  Button text, or tags –
+  `tagList("Next", el_icon("ArrowRight", class = "el-icon--right"))` –
+  drawn as they are. Ignored (and defaults to `""`) when
+  `circle = TRUE`.
 
 - type:
 
   Button type: `"default"`, `"primary"`, `"success"`, `"warning"`,
-  `"danger"`, `"info"`, `"text"`.
+  `"danger"`, `"info"`, `"text"`. `NULL` leaves it to a config
+  provider's `button` settings, or Element's default.
 
 - size:
 
@@ -81,11 +87,13 @@ update_el_button(
 
 - plain:
 
-  Whether to use the plain (hollow) style. Default `FALSE`.
+  Whether to use the plain (hollow) style.
 
 - round:
 
-  Whether to use rounded corners. Default `FALSE`.
+  Whether to use rounded corners. `plain` and `round` left `NULL` are
+  off, or a config provider's [el_config_provider(button
+  =)](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md).
 
 - circle:
 
@@ -162,6 +170,11 @@ update_el_button(
 
   Determine whether it's a text button. Element Plus's `text` (boolean).
 
+- class, style:
+
+  Extra classes and inline style on the button, as Element passes them
+  to its root.
+
 - width:
 
   Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
@@ -217,9 +230,9 @@ invisibly.
 el_button("btn_primary", "Primary", type = "primary")
 #> <div id="btn_primary" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="btn_primary_container" style="display: contents">
-#>   <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+#>   <el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #> </div>
 
 # Shiny app example

@@ -42,7 +42,14 @@ update_el_drawer(
   id,
   visible = NULL,
   title = NULL,
-  size = NULL
+  size = NULL,
+  direction = NULL,
+  modal = NULL,
+  with_header = NULL,
+  show_close = NULL,
+  close_on_click_modal = NULL,
+  close_on_press_escape = NULL,
+  lock_scroll = NULL
 )
 ```
 
@@ -198,7 +205,11 @@ Callable with
 
 ## Updating from the server
 
-Server-side update for `el_drawer()`.
+Server-side update for `el_drawer()`: whether it shows, its title, its
+size, the edge it slides from (`direction`), and how it behaves –
+`modal`, `with_header`, `show_close`, `close_on_click_modal`,
+`close_on_press_escape`, `lock_scroll` – as Element's props, reactive
+there.
 
 `update_el_drawer()` is called for its side effect and returns `NULL`
 invisibly.

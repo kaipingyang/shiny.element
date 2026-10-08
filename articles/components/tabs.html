@@ -317,40 +317,35 @@ tab.</p>
 position.</p>
 <p>You can choose from four directions:
 <code>tabPosition="left|right|top|bottom"</code></p>
+<p>The radios move the tabs, with
+<code>update_el_tabs(tab_position =)</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
-<span>  <span class="st">"pos"</span>,</span>
-<span>  tab_position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"User"</span>, <span class="st">"User"</span>, name <span class="op">=</span> <span class="st">"first"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Config"</span>, <span class="st">"Config"</span>, name <span class="op">=</span> <span class="st">"second"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Role"</span>, <span class="st">"Role"</span>, name <span class="op">=</span> <span class="st">"third"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Task"</span>, <span class="st">"Task"</span>, name <span class="op">=</span> <span class="st">"fourth"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"position"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"right"</span>, <span class="st">"bottom"</span>, <span class="st">"left"</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>    button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 16px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tabs_pos"</span>,</span>
+<span>    tab_position <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>    tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"User"</span>, <span class="st">"User"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Config"</span>, <span class="st">"Config"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Role"</span>, <span class="st">"Role"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Task"</span>, <span class="st">"Task"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="tab-position-pos" class="el-tabs el-tabs--left" data-el-tabs="true" data-position="left" data-carded="false" data-closable="false">
-    <div class="el-tabs__header el-tabs__header-vertical is-left">
-      <div class="el-tabs__nav-wrap is-left">
-        <div class="el-tabs__nav-scroll">
-          <div role="tablist" class="el-tabs__nav is-left">
-            <div class="el-tabs__active-bar is-left"></div>
-            <div id="tab-position-pos-tab-first" role="tab" aria-controls="tab-position-pos-pane-first" aria-selected="true" tabindex="0" class="el-tabs__item is-left is-active" data-el-name="first">User</div>
-            <div id="tab-position-pos-tab-second" role="tab" aria-controls="tab-position-pos-pane-second" tabindex="-1" class="el-tabs__item is-left" data-el-name="second">Config</div>
-            <div id="tab-position-pos-tab-third" role="tab" aria-controls="tab-position-pos-pane-third" tabindex="-1" class="el-tabs__item is-left" data-el-name="third">Role</div>
-            <div id="tab-position-pos-tab-fourth" role="tab" aria-controls="tab-position-pos-pane-fourth" tabindex="-1" class="el-tabs__item is-left" data-el-name="fourth">Task</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="el-tabs__content">
-      <div role="tabpanel" id="tab-position-pos-pane-first" aria-labelledby="tab-position-pos-tab-first" class="el-tab-pane" data-el-name="first">User</div>
-      <div role="tabpanel" id="tab-position-pos-pane-second" aria-labelledby="tab-position-pos-tab-second" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="second">Config</div>
-      <div role="tabpanel" id="tab-position-pos-pane-third" aria-labelledby="tab-position-pos-tab-third" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="third">Role</div>
-      <div role="tabpanel" id="tab-position-pos-pane-fourth" aria-labelledby="tab-position-pos-tab-fourth" aria-hidden="true" class="el-tab-pane" style="display:none" data-el-name="fourth">Task</div>
-    </div>
-  </div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">position</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tabs.html">update_el_tabs</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tabs_pos"</span>, tab_position <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">position</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/tabs-tab-position.png" alt="The tab-position example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="custom-tab">Custom Tab<a class="anchor" aria-label="anchor" href="#custom-tab"></a>
@@ -447,9 +442,6 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 <div class="el-demo">
   <div id="customized-add-button-icon-icon" class="el-tabs el-tabs--top el-tabs--card" data-el-tabs="true" data-position="top" data-carded="true" data-closable="true">
     <div class="el-tabs__header is-top">
-      <div class="el-tabs__new-tab" tabindex="0">
-        <i class="el-icon is-icon-plus" data-el-icon="CirclePlus"></i>
-      </div>
       <div class="el-tabs__nav-wrap is-top">
         <div class="el-tabs__nav-scroll">
           <div role="tablist" class="el-tabs__nav is-top">
@@ -463,6 +455,9 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
             </div>
           </div>
         </div>
+      </div>
+      <div class="el-tabs__new-tab" tabindex="0">
+        <i class="el-icon is-icon-plus" data-el-icon="CirclePlus"></i>
       </div>
     </div>
     <div class="el-tabs__content">

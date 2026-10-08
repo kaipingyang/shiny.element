@@ -180,9 +180,9 @@
 <span>  before_close <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  modal_penetrable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  close_icon <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  align_center <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  draggable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  overflow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  align_center <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  draggable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  overflow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  modal_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  header_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  body_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -201,7 +201,18 @@
 <span>  <span class="va">id</span>,</span>
 <span>  visible <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  width <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  top <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fullscreen <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_click_modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_close <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lock_scroll <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  draggable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  overflow <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  align_center <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -304,7 +315,9 @@ beneath, when <code>modal = FALSE</code>.</p></dd>
 
 
 <dt id="arg-overflow">overflow<a class="anchor" aria-label="anchor" href="#arg-overflow"></a></dt>
-<dd><p>With <code>draggable</code>, let it be dragged past the viewport.</p></dd>
+<dd><p>With <code>draggable</code>, let it be dragged past the viewport.
+<code>align_center</code>, <code>draggable</code> and <code>overflow</code> left <code>NULL</code> are off, or a
+config provider's <a href="el_config_provider.html">el_config_provider(dialog =)</a>.</p></dd>
 
 
 <dt id="arg-modal-class-header-class-body-class-footer-class">modal_class, header_class, body_class, footer_class<a class="anchor" aria-label="anchor" href="#arg-modal-class-header-class-body-class-footer-class"></a></dt>
@@ -378,7 +391,11 @@ moves into it on opening, and back on closing.</p></li>
     <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
 
 
-<p>Server-side update for <code>el_dialog()</code>.</p>
+<p>Server-side update for <code>el_dialog()</code>: whether it shows, its title and
+width, and how it looks and behaves – <code>top</code>, <code>fullscreen</code>, <code>modal</code>,
+<code>close_on_click_modal</code>, <code>close_on_press_escape</code>, <code>show_close</code>, <code>center</code>,
+<code>lock_scroll</code>, <code>draggable</code>, <code>overflow</code>, <code>align_center</code> – as Element's
+props, reactive there.</p>
 <p><code>update_el_dialog()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
     </div>
 
@@ -390,7 +407,7 @@ moves into it on opening, and back on closing.</p></li>
 <span class="r-in"><span>  content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Are you sure?"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  footer <span class="op">=</span> <span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"ok"</span>, <span class="st">"OK"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Confirm"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div class="el-dialog" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;header class="el-dialog__header show-close"&gt;</span>
@@ -405,9 +422,9 @@ moves into it on opening, and back on closing.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;footer class="el-dialog__footer"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;div id="ok" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="ok_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text"&gt;{{label}}&lt;/el-button&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text"&gt;{{label}}&lt;/el-button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"label":"OK","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"label":"OK","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/footer&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
@@ -421,7 +438,7 @@ moves into it on opening, and back on closing.</p></li>
 <span class="r-in"><span>  draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  content <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span><span class="op">)</span>, <span class="fu"><a href="el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"live"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-destroy-on-close="false"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Filters"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div class="el-dialog is-draggable" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;header class="el-dialog__header show-close"&gt;</span>

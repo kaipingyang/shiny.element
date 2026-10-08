@@ -1,9 +1,8 @@
 # Shape choices for a control's option tag
 
 `el-option` takes the display text as its `label` attribute, while
-`el-radio` and `el-checkbox` use `label` as the *value* and take the
-display text as their default slot. Normalising here keeps one template
-able to render all three.
+`el-radio` and `el-checkbox` take the display text as their default
+slot. Normalising here keeps one template able to render all three.
 
 ## Usage
 
@@ -25,4 +24,5 @@ able to render all three.
 
 ## Value
 
-A list of `list(label=, value=, text=)` items.
+A list of `list(label=, value=, text=)` items, `label` only for
+`el-option`.

@@ -49,22 +49,52 @@ The `trigger` attribute is used to define how popover is triggered:
 control it, you can set `:visible`.
 
 Each button opens its popover as its label says: `contextmenu` on a
-right-click, as the browser’s own menu, not on a left click.
+right-click, as the browser’s own menu, not on a left click. The last
+one is opened and closed by the server, `update_el_popover(visible =)`.
 
 ``` r
 
-tagList(lapply(c("hover", "click", "focus", "contextmenu"), function(t) {
+pop <- function(id, label, trigger, placement = NULL, ...) {
   el_popover(
-    paste0("p_", t),
-    reference = el$button(t),
-    trigger = t,
+    id,
+    reference = el_button(label = label),
+    trigger = trigger,
+    placement = placement,
     title = "Title",
     popover_width = 200,
+    content = "this is content, this is content, this is content",
+    ...
+  )
+}
+ui <- el_page(
+  tags$style(".el-button + .el-button { margin-left: 8px; }"),
+  pop("p_hover", "Hover to activate", "hover", "top-start"),
+  pop("p_click", "Click to activate", "click", "bottom"),
+  pop("p_focus", "Focus to activate", "focus", "right"),
+  pop("p_contextmenu", "contextmenu to activate", "contextmenu"),
+  el_popover(
+    "p_manual",
+    reference = el_button("p_manual_btn", "Manual to activate"),
+    visible = FALSE,
     placement = "bottom",
+    title = "Title",
+    popover_width = 200,
     content = "this is content, this is content, this is content"
   )
-}))
+)
+server <- function(input, output, session) {
+  observeEvent(input$p_manual_btn, {
+    update_el_popover(
+      session,
+      "p_manual",
+      visible = input$p_manual_btn %% 2 == 1
+    )
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The basic-usage example, running](../../shots/popover-basic-usage.png)
 
 ## Virtual triggering
 
@@ -104,19 +134,65 @@ example of nested table.
 
 replace the `content` attribute with a default `slot`.
 
+A popover holds any UI: a table, or rich content beside an avatar.
+
 ``` r
 
-el_popover(
-  "addr",
-  reference = el$button("Click to activate"),
-  trigger = "click",
-  popover_width = 400,
-  placement = "right",
-  body = el_table(
-    data = data.frame(
-      date = c("2016-05-02", "2016-05-04"),
-      name = c("Jack", "Jack"),
-      address = c("New York City", "New York City")
+avatar <- "https://avatars.githubusercontent.com/u/72015883?v=4"
+tags$div(
+  style = "display: flex; align-items: center",
+  el_popover(
+    "addr",
+    reference = el_button(
+      label = "Click to activate",
+      style = "margin-right: 16px"
+    ),
+    trigger = "click",
+    popover_width = 400,
+    placement = "right",
+    body = el_table(
+      data = data.frame(
+        date = c("2016-05-02", "2016-05-04", "2016-05-01", "2016-05-03"),
+        name = "Jack",
+        address = "New York City"
+      ),
+      columns = list(
+        el_table_column("date", "date", width = 150),
+        el_table_column("name", "name", width = 100),
+        el_table_column("address", "address", width = 300)
+      )
+    )
+  ),
+  el_popover(
+    "rich",
+    reference = el_avatar(src = avatar),
+    popover_width = 300,
+    popper_style = paste(
+      "box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px,",
+      "rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;"
+    ),
+    body = tags$div(
+      class = "demo-rich-conent",
+      style = "display: flex; gap: 16px; flex-direction: column",
+      el_avatar(size = 60, src = avatar, style = "margin-bottom: 8px"),
+      tags$div(
+        tags$p(
+          class = "demo-rich-content__name",
+          style = "margin: 0; font-weight: 500",
+          "Element Plus"
+        ),
+        tags$p(
+          class = "demo-rich-content__mention",
+          style = "margin: 0; font-size: 14px; color: var(--el-color-info)",
+          "@element-plus"
+        )
+      ),
+      tags$p(
+        class = "demo-rich-content__desc",
+        style = "margin: 0",
+        "Element Plus, a Vue 3 based component library for developers,",
+        "designers and product managers"
+      )
     )
   )
 )

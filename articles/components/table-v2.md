@@ -217,42 +217,44 @@ grid_columns <- function(cols = 10, width = 150) {
 df <- grid()
 df$checked <- FALSE
 report <- "$setInput('tv_sel_checked', data.filter(r => r.checked).map(r => r.id))"
-el_table_v2(
-  "tv_sel",
-  data = df,
-  columns = c(
-    list(el_table_v2_column("selection", width = 50)),
-    grid_columns()
-  ),
-  table_v2_width = 700,
-  height = 400,
-  fixed = TRUE,
-  slots = list(
-    cell = template(
-      HTML(paste0(
-        "<el-checkbox v-if=\"column.key === 'selection'\" ",
-        "v-model=\"rowData.checked\" @change=\"",
-        report,
-        "\" />",
-        "<div v-else class=\"el-table-v2__cell-text\">",
-        "{{ rowData[column.dataKey] }}</div>"
-      )),
-      slot = "cell",
-      scope = "{ rowData, column }"
+tags$div(
+  style = "height: 400px",
+  el_table_v2(
+    "tv_sel",
+    data = df,
+    columns = c(
+      list(el_table_v2_column("selection", width = 50)),
+      grid_columns()
     ),
-    "header-cell" = template(
-      HTML(paste0(
-        "<el-checkbox v-if=\"column.key === 'selection'\" ",
-        ":model-value=\"data.every(r => r.checked)\" ",
-        ":indeterminate=\"data.some(r => r.checked) && !data.every(r => r.checked)\" ",
-        "@change=\"v => { data.forEach(r => r.checked = v); ",
-        report,
-        " }\" />",
-        "<div v-else class=\"el-table-v2__header-cell-text\">",
-        "{{ column.title }}</div>"
-      )),
-      slot = "header-cell",
-      scope = "{ column }"
+    auto_resize = TRUE,
+    fixed = TRUE,
+    slots = list(
+      cell = template(
+        HTML(paste0(
+          "<el-checkbox v-if=\"column.key === 'selection'\" ",
+          "v-model=\"rowData.checked\" @change=\"",
+          report,
+          "\" />",
+          "<div v-else class=\"el-table-v2__cell-text\">",
+          "{{ rowData[column.dataKey] }}</div>"
+        )),
+        slot = "cell",
+        scope = "{ rowData, column }"
+      ),
+      "header-cell" = template(
+        HTML(paste0(
+          "<el-checkbox v-if=\"column.key === 'selection'\" ",
+          ":model-value=\"data.every(r => r.checked)\" ",
+          ":indeterminate=\"data.some(r => r.checked) && !data.every(r => r.checked)\" ",
+          "@change=\"v => { data.forEach(r => r.checked = v); ",
+          report,
+          " }\" />",
+          "<div v-else class=\"el-table-v2__header-cell-text\">",
+          "{{ column.title }}</div>"
+        )),
+        slot = "header-cell",
+        scope = "{ column }"
+      )
     )
   )
 )
@@ -292,30 +294,32 @@ df <- grid()
 df$editing <- FALSE
 cols <- grid_columns()
 cols[[1]]$title <- "Editable Column"
-el_table_v2(
-  "tv_edit",
-  data = df,
-  columns = cols,
-  table_v2_width = 700,
-  height = 400,
-  fixed = TRUE,
-  slots = list(
-    cell = template(
-      HTML(paste0(
-        "<template v-if=\"column.key === 'column-0'\">",
-        "<el-input v-if=\"rowData.editing\" v-model=\"rowData[column.dataKey]\" ",
-        ":ref=\"el => el && el.focus()\" ",
-        "@blur=\"rowData.editing = false\" ",
-        "@keydown.enter=\"rowData.editing = false\" ",
-        "@change=\"v => $setInput('tv_edit_edited', {id: rowData.id, value: v})\" />",
-        "<div v-else class=\"table-v2-inline-editing-trigger\" ",
-        "@click=\"rowData.editing = true\">{{ rowData[column.dataKey] }}</div>",
-        "</template>",
-        "<div v-else class=\"el-table-v2__cell-text\">",
-        "{{ rowData[column.dataKey] }}</div>"
-      )),
-      slot = "cell",
-      scope = "{ rowData, column }"
+tags$div(
+  style = "height: 400px",
+  el_table_v2(
+    "tv_edit",
+    data = df,
+    columns = cols,
+    auto_resize = TRUE,
+    fixed = TRUE,
+    slots = list(
+      cell = template(
+        HTML(paste0(
+          "<template v-if=\"column.key === 'column-0'\">",
+          "<el-input v-if=\"rowData.editing\" v-model=\"rowData[column.dataKey]\" ",
+          ":ref=\"el => el && el.focus()\" ",
+          "@blur=\"rowData.editing = false\" ",
+          "@keydown.enter=\"rowData.editing = false\" ",
+          "@change=\"v => $setInput('tv_edit_edited', {id: rowData.id, value: v})\" />",
+          "<div v-else class=\"table-v2-inline-editing-trigger\" ",
+          "@click=\"rowData.editing = true\">{{ rowData[column.dataKey] }}</div>",
+          "</template>",
+          "<div v-else class=\"el-table-v2__cell-text\">",
+          "{{ rowData[column.dataKey] }}</div>"
+        )),
+        slot = "cell",
+        scope = "{ rowData, column }"
+      )
     )
   )
 )
@@ -934,21 +938,23 @@ tagList(
     " { background: var(--el-table-row-hover-bg-color); }",
     collapse = "\n"
   ))),
-  el_table_v2(
-    "tv_cross",
-    data = grid(),
-    columns = cols,
-    table_v2_width = 700,
-    height = 400,
-    cell_props = JS(
-      "function({ columnIndex }) {
-        var table = function(e) { return e.currentTarget.closest('.el-table-v2'); };
-        return {
-          'data-key': 'hovering-col-' + columnIndex,
-          onMouseenter: function(e) { table(e).setAttribute('data-hover-col', columnIndex); },
-          onMouseleave: function(e) { table(e).removeAttribute('data-hover-col'); }
-        };
-      }"
+  tags$div(
+    style = "height: 400px",
+    el_table_v2(
+      "tv_cross",
+      data = grid(),
+      columns = cols,
+      auto_resize = TRUE,
+      cell_props = JS(
+        "function({ columnIndex }) {
+          var table = function(e) { return e.currentTarget.closest('.el-table-v2'); };
+          return {
+            'data-key': 'hovering-col-' + columnIndex,
+            onMouseenter: function(e) { table(e).setAttribute('data-hover-col', columnIndex); },
+            onMouseleave: function(e) { table(e).removeAttribute('data-hover-col'); }
+          };
+        }"
+      )
     )
   )
 )

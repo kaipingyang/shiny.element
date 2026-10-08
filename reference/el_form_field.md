@@ -12,6 +12,9 @@ el_form_field(
   value = NULL,
   choices = NULL,
   rules = NULL,
+  report = FALSE,
+  button = FALSE,
+  border = NULL,
   ...
 )
 ```
@@ -30,9 +33,10 @@ el_form_field(
   `"input-number"`, `"select"`, `"radio-group"`, `"checkbox-group"`,
   `"checkbox"` (one box, `TRUE` or `FALSE`), `"switch"`, `"slider"`,
   `"date-picker"`, `"time-picker"`, `"time-select"`, `"rate"`,
-  `"cascader"`, `"cascader-panel"`, `"color-picker"`, `"autocomplete"`
-  or `"transfer"`. Their props go in `...`: a cascader's `options`, a
-  transfer's `data`.
+  `"cascader"`, `"cascader-panel"`, `"color-picker"`, `"autocomplete"`,
+  `"transfer"`, `"select-v2"`, `"segmented"`, `"input-tag"`, `"mention"`
+  or `"mention-textarea"`. Their props go in `...`: a cascader's
+  `options`, a transfer's `data`.
 
 - label:
 
@@ -55,6 +59,21 @@ el_form_field(
   A single
   [`el_rule()`](https://kaipingyang.github.io/shiny.element/reference/el_rule.md)
   or a list of them.
+
+- report:
+
+  Whether the field also reports its value on load and on every change,
+  as `input$<form id>_<prop>`, as a standalone input would – for a
+  control that changes the page, such as a size switch. The form's own
+  `input$<form id>` still waits for a submit. A field added later by
+  [`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md)`(fields =)`
+  reports with the submit only.
+
+- button, border:
+
+  For `"radio-group"` and `"checkbox-group"`: draw the choices as
+  buttons (`el-radio-button`, `el-checkbox-button`), or as boxes with a
+  border.
 
 - ...:
 

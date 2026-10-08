@@ -225,15 +225,15 @@ transitions to value.</p>
 <div class="el-demo">
   <div class="el-row">
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_0807416e-9590-4fd1-adf7-e0dc05313ce3" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_0807416e-9590-4fd1-adf7-e0dc05313ce3_container" style="display: contents">
+      <div id="basic-el_statistic_84d7480a-6c8e-4a98-b43e-70b313670171" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_84d7480a-6c8e-4a98-b43e-70b313670171_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":268500,"title":"Daily active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>
     </div>
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_cce43fa5-bce1-4156-9fd7-2003888098c9" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_cce43fa5-bce1-4156-9fd7-2003888098c9_container" style="display: contents">
+      <div id="basic-el_statistic_7c545031-308c-4868-bcfc-97cc012f89a4" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_7c545031-308c-4868-bcfc-97cc012f89a4_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter">
     <template v-slot:title>
       <div style="display: inline-flex; align-items: center">
@@ -247,15 +247,15 @@ transitions to value.</p>
 </div>
     </div>
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_b3dea65e-b115-4e12-826e-bd63bbcd75c2" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_b3dea65e-b115-4e12-826e-bd63bbcd75c2_container" style="display: contents">
+      <div id="basic-el_statistic_6ef6aa3d-8a36-4ce7-b75d-70a33a44d3e6" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_6ef6aa3d-8a36-4ce7-b75d-70a33a44d3e6_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":172000,"title":"Total Transactions","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>
     </div>
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_2f8d1e34-806b-411a-baa0-440f118e4342" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_2f8d1e34-806b-411a-baa0-440f118e4342_container" style="display: contents">
+      <div id="basic-el_statistic_fffac686-ee32-4a6c-8734-cebd76b30a9b" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_fffac686-ee32-4a6c-8734-cebd76b30a9b_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter">
     <template v-slot:suffix>
       <i class="el-icon" data-el-icon="ChatLineRound" aria-hidden="true" role="img"></i>
@@ -272,58 +272,70 @@ transitions to value.</p>
 </h2>
 <p>Countdown component, support to add other components control
 countdown.</p>
-<p><code>input$&lt;id&gt;_finish</code> fires at zero.</p>
+<p><code>input$&lt;id&gt;_finish</code> fires at zero. Reset sets the
+second one’s <code>value</code> again, with
+<code><a href="../../reference/el_statistic.html">update_el_countdown()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">next_month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"month"</span>, length.out <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"%Y-%m-01"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">col</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
-<span>    span <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_statistic.html">el_countdown</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Start to grab"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1000</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
-<span>    span <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_statistic.html">el_countdown</a></span><span class="op">(</span></span>
-<span>      title <span class="op">=</span> <span class="st">"Remaining VIP time"</span>,</span>
-<span>      format <span class="op">=</span> <span class="st">"HH:mm:ss"</span>,</span>
-<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">2</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
-<span>    span <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_statistic.html">el_countdown</a></span><span class="op">(</span></span>
-<span>      format <span class="op">=</span> <span class="st">"DD [days] HH:mm:ss"</span>,</span>
-<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">7</span>,</span>
-<span>      slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Next month"</span><span class="op">)</span></span>
+<span>    xs <span class="op">=</span> <span class="fl">24</span>,</span>
+<span>    sm <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>    md <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>    style <span class="op">=</span> <span class="st">"text-align: center; margin-bottom: 16px"</span>,</span>
+<span>    <span class="va">...</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
+<span>    gutter <span class="op">=</span> <span class="fl">16</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/col.html" class="external-link">col</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_statistic.html">el_countdown</a></span><span class="op">(</span></span>
+<span>      <span class="st">"cd_grab"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Start to grab"</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">7</span></span>
+<span>    <span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/col.html" class="external-link">col</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_statistic.html">el_countdown</a></span><span class="op">(</span></span>
+<span>        <span class="st">"cd_vip"</span>,</span>
+<span>        title <span class="op">=</span> <span class="st">"Remaining VIP time"</span>,</span>
+<span>        format <span class="op">=</span> <span class="st">"HH:mm:ss"</span>,</span>
+<span>        value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">-</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        style <span class="op">=</span> <span class="st">"margin-top: 8px"</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cd_reset"</span>, <span class="st">"Reset"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/col.html" class="external-link">col</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_statistic.html">el_countdown</a></span><span class="op">(</span></span>
+<span>        <span class="st">"cd_month"</span>,</span>
+<span>        format <span class="op">=</span> <span class="st">"DD [days] HH:mm:ss"</span>,</span>
+<span>        value <span class="op">=</span> <span class="va">next_month</span>,</span>
+<span>        slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>            style <span class="op">=</span> <span class="st">"display: inline-flex; align-items: center"</span>,</span>
+<span>            <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Calendar"</span>, size <span class="op">=</span> <span class="fl">12</span>, style <span class="op">=</span> <span class="st">"margin-right: 4px"</span><span class="op">)</span>,</span>
+<span>            <span class="st">"Still to go until next month"</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 8px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">next_month</span>, <span class="st">"%Y-%m-%d"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div class="el-row">
-    <div class="el-col el-col-8">
-      <div id="countdown-el_countdown_188a1aff-911a-40f6-b94b-e52e49913cec" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="countdown-el_countdown_188a1aff-911a-40f6-b94b-e52e49913cec_container" style="display: contents">
-  <el-countdown :value="value" @finish="elEmitFinish" @change="elEmitChange" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791436181091.93,"title":"Start to grab","prefix":null,"suffix":null,"format":null,"valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-el_countdown_188a1aff-911a-40f6-b94b-e52e49913cec', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-el_countdown_188a1aff-911a-40f6-b94b-e52e49913cec', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
-</div>
-    </div>
-    <div class="el-col el-col-8">
-      <div id="countdown-el_countdown_60279636-46f5-4b6e-9bff-18b75d488fe3" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="countdown-el_countdown_60279636-46f5-4b6e-9bff-18b75d488fe3_container" style="display: contents">
-  <el-countdown :value="value" @finish="elEmitFinish" @change="elEmitChange" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791607981097.13,"title":"Remaining VIP time","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-el_countdown_60279636-46f5-4b6e-9bff-18b75d488fe3', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-el_countdown_60279636-46f5-4b6e-9bff-18b75d488fe3', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
-</div>
-    </div>
-    <div class="el-col el-col-8">
-      <div id="countdown-el_countdown_6bc4a632-c57d-4fb6-93ed-94e8f3194ac1" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="countdown-el_countdown_6bc4a632-c57d-4fb6-93ed-94e8f3194ac1_container" style="display: contents">
-  <el-countdown :value="value" @finish="elEmitFinish" @change="elEmitChange" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle">
-    <template v-slot:title>Next month</template>
-  </el-countdown>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1792039981100.14,"title":null,"prefix":null,"suffix":null,"format":"DD [days] HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-el_countdown_6bc4a632-c57d-4fb6-93ed-94e8f3194ac1', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('countdown-el_countdown_6bc4a632-c57d-4fb6-93ed-94e8f3194ac1', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
-</div>
-    </div>
-  </div>
-</div>
-<blockquote>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cd_reset</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_statistic.html">update_el_countdown</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"cd_vip"</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">2</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/statistic-countdown.png" alt="The countdown example, running" style="max-width: 100%"><blockquote>
 <p><strong>Tip</strong></p>
 <p>In formatting it is suggested to be in the range of days</p>
 </blockquote>
@@ -366,8 +378,8 @@ countdown.</p>
   <div class="el-row" style="margin-left:-8px; margin-right:-8px">
     <div class="el-col el-col-8 is-guttered" style="padding-left:8px; padding-right:8px">
       <div style="height: 100%; padding: 16px; border-radius: 4px; background: var(--el-bg-color-overlay)">
-        <div id="card-el_statistic_4577639e-32cd-4400-a26f-9c44cacda66d" data-shiny-vue style="display: contents">
-          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_4577639e-32cd-4400-a26f-9c44cacda66d_container" style="display: contents">
+        <div id="card-el_statistic_f0388945-100a-4661-aa28-5f795ac1df77" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_f0388945-100a-4661-aa28-5f795ac1df77_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":98500,"title":"Daily active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>
@@ -382,8 +394,8 @@ countdown.</p>
     </div>
     <div class="el-col el-col-8 is-guttered" style="padding-left:8px; padding-right:8px">
       <div style="height: 100%; padding: 16px; border-radius: 4px; background: var(--el-bg-color-overlay)">
-        <div id="card-el_statistic_d90548e1-6cbf-48d4-af65-0a6f72ecb74d" data-shiny-vue style="display: contents">
-          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_d90548e1-6cbf-48d4-af65-0a6f72ecb74d_container" style="display: contents">
+        <div id="card-el_statistic_0032441a-523c-42c8-8946-95dcf1b16dd5" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_0032441a-523c-42c8-8946-95dcf1b16dd5_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":693700,"title":"Monthly Active Users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>
@@ -398,8 +410,8 @@ countdown.</p>
     </div>
     <div class="el-col el-col-8 is-guttered" style="padding-left:8px; padding-right:8px">
       <div style="height: 100%; padding: 16px; border-radius: 4px; background: var(--el-bg-color-overlay)">
-        <div id="card-el_statistic_0ff46b85-ecb8-4e13-9bc2-2da0094685bb" data-shiny-vue style="display: contents">
-          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_0ff46b85-ecb8-4e13-9bc2-2da0094685bb_container" style="display: contents">
+        <div id="card-el_statistic_d4e9729c-80d9-4350-8931-b3034d996ee3" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_d4e9729c-80d9-4350-8931-b3034d996ee3_container" style="display: contents">
   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":72000,"title":"New transactions today","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 </div>

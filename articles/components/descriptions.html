@@ -201,7 +201,7 @@
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Place"</span>, <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Remarks"</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"desc_tag"</span>, <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Address"</span>,</span>
@@ -217,211 +217,176 @@
     <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
     <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
     <el-descriptions-item label="Remarks">
-      <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round">{{label}}</el-tag>
+      <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_basic_usage_el_tag_ab3e5581_eb5b_467c_bb5b_5f918c1655fe">{{label}}</el-tag>
     </el-descriptions-item>
     <el-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province</el-descriptions-item>
   </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"User Info","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"label":"School","type":null,"closable":false,"size":"small","effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-usage-desc_tag:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-usage-desc_tag_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-usage-desc_tag:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"User Info","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"label":"School","type":null,"closable":false,"size":"small","effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-usage-el_tag_ab3e5581-eb5b-467c-bb5b-5f918c1655fe:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-usage-el_tag_ab3e5581-eb5b-467c-bb5b-5f918c1655fe_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-usage-el_tag_ab3e5581-eb5b-467c-bb5b-5f918c1655fe:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"basic-usage-el_tag_ab3e5581-eb5b-467c-bb5b-5f918c1655fe":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_basic_usage_el_tag_ab3e5581_eb5b_467c_bb5b_5f918c1655fe"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="sizes">Sizes<a class="anchor" aria-label="anchor" href="#sizes"></a>
 </h2>
+<p>The radios resize both lists with
+<code>update_el_descriptions(size =)</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"User"</span><span class="op">)</span>, <span class="st">" Username"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">label</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">icon</span>, <span class="va">text</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"cell-item"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="va">icon</span>, style <span class="op">=</span> <span class="st">"margin-right: 6px"</span><span class="op">)</span>,</span>
+<span>    <span class="va">text</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">items</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Iphone"</span><span class="op">)</span>, <span class="st">" Telephone"</span><span class="op">)</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"18100000000"</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu">label</span><span class="op">(</span><span class="st">"User"</span>, <span class="st">"Username"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu">label</span><span class="op">(</span><span class="st">"Iphone"</span>, <span class="st">"Telephone"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"18100000000"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu">label</span><span class="op">(</span><span class="st">"Location"</span>, <span class="st">"Place"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="fu">label</span><span class="op">(</span><span class="st">"Tickets"</span>, <span class="st">"Remarks"</span><span class="op">)</span>,</span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="fu">label</span><span class="op">(</span><span class="st">"OfficeBuilding"</span>, <span class="st">"Address"</span><span class="op">)</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">".el-descriptions { margin-top: 20px; }</span></span>
+<span><span class="st">     .cell-item { display: flex; align-items: center; }"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Location"</span><span class="op">)</span>, <span class="st">" Place"</span><span class="op">)</span>, content <span class="op">=</span> <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    label <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"OfficeBuilding"</span><span class="op">)</span>, <span class="st">" Address"</span><span class="op">)</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"desc_size"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Large <span class="op">=</span> <span class="st">"large"</span>, Default <span class="op">=</span> <span class="st">"default"</span>, Small <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"default"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>    <span class="st">"desc_border"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"With border"</span>,</span>
+<span>    column <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu">items</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>extra <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"desc_op1"</span>, <span class="st">"Operation"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>    <span class="st">"desc_plain"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Without border"</span>,</span>
+<span>    column <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu">items</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>extra <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"desc_op2"</span>, <span class="st">"Operation"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"desc_"</span>, <span class="va">s</span><span class="op">)</span>,</span>
-<span>    title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"With border,"</span>, <span class="va">s</span><span class="op">)</span>,</span>
-<span>    column <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>    size <span class="op">=</span> <span class="va">s</span>,</span>
-<span>    border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    items <span class="op">=</span> <span class="va">items</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="sizes-desc_large" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="sizes-desc_large_container" style="display: contents">
-  <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="User" aria-hidden="true" role="img"></i>
-         Username
-      </template>
-      kooriookami
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="Iphone" aria-hidden="true" role="img"></i>
-         Telephone
-      </template>
-      18100000000
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="Location" aria-hidden="true" role="img"></i>
-         Place
-      </template>
-      Suzhou
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="OfficeBuilding" aria-hidden="true" role="img"></i>
-         Address
-      </template>
-      No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-    </el-descriptions-item>
-  </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"With border, large","dExtra":null,"dColumn":3,"dDirection":null,"dBorder":true,"dSize":"large","dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-  <div id="sizes-desc_default" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="sizes-desc_default_container" style="display: contents">
-  <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="User" aria-hidden="true" role="img"></i>
-         Username
-      </template>
-      kooriookami
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="Iphone" aria-hidden="true" role="img"></i>
-         Telephone
-      </template>
-      18100000000
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="Location" aria-hidden="true" role="img"></i>
-         Place
-      </template>
-      Suzhou
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="OfficeBuilding" aria-hidden="true" role="img"></i>
-         Address
-      </template>
-      No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-    </el-descriptions-item>
-  </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"With border, default","dExtra":null,"dColumn":3,"dDirection":null,"dBorder":true,"dSize":"default","dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-  <div id="sizes-desc_small" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="sizes-desc_small_container" style="display: contents">
-  <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="User" aria-hidden="true" role="img"></i>
-         Username
-      </template>
-      kooriookami
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="Iphone" aria-hidden="true" role="img"></i>
-         Telephone
-      </template>
-      18100000000
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="Location" aria-hidden="true" role="img"></i>
-         Place
-      </template>
-      Suzhou
-    </el-descriptions-item>
-    <el-descriptions-item>
-      <template v-slot:label>
-        <i class="el-icon" data-el-icon="OfficeBuilding" aria-hidden="true" role="img"></i>
-         Address
-      </template>
-      No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-    </el-descriptions-item>
-  </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"With border, small","dExtra":null,"dColumn":3,"dDirection":null,"dBorder":true,"dSize":"small","dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-</div>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">desc_size</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"desc_border"</span>, <span class="st">"desc_plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../../reference/el_descriptions.html">update_el_descriptions</a></span><span class="op">(</span><span class="va">session</span>, <span class="va">id</span>, size <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desc_size</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/descriptions-sizes.png" alt="The sizes example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="vertical-list">Vertical List<a class="anchor" aria-label="anchor" href="#vertical-list"></a>
 </h2>
+<p>The radios resize both lists with
+<code>update_el_descriptions(size =)</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
-<span>  <span class="st">"desc_v"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Vertical list with border"</span>,</span>
-<span>  direction <span class="op">=</span> <span class="st">"vertical"</span>,</span>
-<span>  column <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>  border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Username"</span>, <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Telephone"</span>, <span class="st">"18100000000"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Place"</span>, <span class="st">"Suzhou"</span>, span <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Remarks"</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span><span class="st">"desc_tag_v"</span>, <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Remarks"</span>, <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Address"</span>,</span>
 <span>      <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="vertical-list-desc_v" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="vertical-list-desc_v_container" style="display: contents">
-  <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
-    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-    <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
-    <el-descriptions-item label="Remarks">
-      <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round">{{label}}</el-tag>
-    </el-descriptions-item>
-    <el-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province</el-descriptions-item>
-  </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Vertical list with border","dExtra":null,"dColumn":4,"dDirection":"vertical","dBorder":true,"dSize":null,"label":"School","type":null,"closable":false,"size":"small","effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-list-desc_tag_v:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vertical-list-desc_tag_v_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"vertical-list-desc_tag_v:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
-</div>
-</div>
+<span><span class="op">}</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"desc_v_size"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Large <span class="op">=</span> <span class="st">"large"</span>, Default <span class="op">=</span> <span class="st">"default"</span>, Small <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"default"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>    <span class="st">"desc_v"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Vertical list with border"</span>,</span>
+<span>    direction <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>    column <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu">items</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"margin-top: 28px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>      <span class="st">"desc_v_plain"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Vertical list without border"</span>,</span>
+<span>      direction <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>      column <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>      size <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>      items <span class="op">=</span> <span class="fu">items</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">desc_v_size</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"desc_v"</span>, <span class="st">"desc_v_plain"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../../reference/el_descriptions.html">update_el_descriptions</a></span><span class="op">(</span><span class="va">session</span>, <span class="va">id</span>, size <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desc_v_size</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/descriptions-vertical-list.png" alt="The vertical-list example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="rowspan">Rowspan<a class="anchor" aria-label="anchor" href="#rowspan"></a>
 </h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
-<span>  <span class="st">"desc_rs"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Width horizontal list"</span>,</span>
-<span>  border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Photo"</span>,</span>
 <span>      <span class="fu"><a href="../../reference/el_image.html">el_image</a></span><span class="op">(</span></span>
-<span>        src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
-<span>        alt <span class="op">=</span> <span class="st">"A hamburger"</span>,</span>
-<span>        fit <span class="op">=</span> <span class="st">"cover"</span>,</span>
-<span>        width <span class="op">=</span> <span class="st">"100px"</span></span>
+<span>        src <span class="op">=</span> <span class="st">"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"</span>,</span>
+<span>        style <span class="op">=</span> <span class="st">"width: 100px; height: 100px"</span></span>
 <span>      <span class="op">)</span>,</span>
 <span>      rowspan <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>      width <span class="op">=</span> <span class="fl">140</span>,</span>
 <span>      align <span class="op">=</span> <span class="st">"center"</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Username"</span>, <span class="st">"kooriookami"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Telephone"</span>, <span class="st">"18100000000"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Place"</span>, <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span><span class="st">"Remarks"</span>, <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Address"</span>,</span>
 <span>      <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>    <span class="st">"desc_rs"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Width horizontal list"</span>,</span>
+<span>    border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu">items</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"margin-top: 20px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
+<span>      <span class="st">"desc_rs_v"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Width vertical list"</span>,</span>
+<span>      direction <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>      border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      items <span class="op">=</span> <span class="fu">items</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -430,24 +395,55 @@
     <script type="text/x-template" data-shiny-vue-template><div id="rowspan-desc_rs_container" style="display: contents">
   <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
     <el-descriptions-item label="Photo" :rowspan="2" :width="140" :align="&quot;center&quot;">
-      <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 100px"></el-image>
+      <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" style="width: 100px; height: 100px" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" ref="sv_rowspan_el_image_9b6e7dab_53ab_47ea_a9c7_110d178748a2"></el-image>
     </el-descriptions-item>
     <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
+    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
     <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
+    <el-descriptions-item label="Remarks">
+      <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_rowspan_el_tag_4f81fa17_8259_4d1e_a568_d8e7a4ae0791">{{label}}</el-tag>
+    </el-descriptions-item>
     <el-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province</el-descriptions-item>
   </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Width horizontal list","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"src":"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png","fit":"cover","alt":"A hamburger","lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null,"dLabelWidth":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('rowspan-el_image_fd4fa8e0-fae4-41b1-a027-80416d5bcdf1', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('rowspan-el_image_fd4fa8e0-fae4-41b1-a027-80416d5bcdf1', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('rowspan-el_image_fd4fa8e0-fae4-41b1-a027-80416d5bcdf1', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('rowspan-el_image_fd4fa8e0-fae4-41b1-a027-80416d5bcdf1', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('rowspan-el_image_fd4fa8e0-fae4-41b1-a027-80416d5bcdf1', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Width horizontal list","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"src":"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null,"label":"School","type":null,"closable":false,"size":"small","effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('rowspan-el_image_9b6e7dab-53ab-47ea-a9c7-110d178748a2', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('rowspan-el_image_9b6e7dab-53ab-47ea-a9c7-110d178748a2', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('rowspan-el_image_9b6e7dab-53ab-47ea-a9c7-110d178748a2', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('rowspan-el_image_9b6e7dab-53ab-47ea-a9c7-110d178748a2', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('rowspan-el_image_9b6e7dab-53ab-47ea-a9c7-110d178748a2', 'switch', arguments); }","handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('rowspan-el_tag_4f81fa17-8259-4d1e-a568-d8e7a4ae0791:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('rowspan-el_tag_4f81fa17-8259-4d1e-a568-d8e7a4ae0791_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"rowspan-el_tag_4f81fa17-8259-4d1e-a568-d8e7a4ae0791:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"rowspan-el_image_9b6e7dab-53ab-47ea-a9c7-110d178748a2":{"fields":{"src":"src","fit":"fit","alt":"alt","lazy":"lazy","scrollContainer":"scrollContainer","previewSrcList":"previewSrcList","zIndex":"zIndex","initialIndex":"initialIndex","closeOnPressEscape":"closeOnPressEscape","crossorigin":"crossorigin","hideOnClickModal":"hideOnClickModal","infinite":"infinite","loading":"loading","maxScale":"maxScale","minScale":"minScale","previewTeleported":"previewTeleported","referrerpolicy":"referrerpolicy","scale":"scale","showProgress":"showProgress","zoomRate":"zoomRate","elEmitLoad":"elEmitLoad","elEmitError":"elEmitError","elEmitClose":"elEmitClose","elEmitShow":"elEmitShow","elEmitSwitch":"elEmitSwitch"},"ref":"sv_rowspan_el_image_9b6e7dab_53ab_47ea_a9c7_110d178748a2"},"rowspan-el_tag_4f81fa17-8259-4d1e-a568-d8e7a4ae0791":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_rowspan_el_tag_4f81fa17_8259_4d1e_a568_d8e7a4ae0791"}},"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch","options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
 </div>
+  <div style="margin-top: 20px">
+    <div id="rowspan-desc_rs_v" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="rowspan-desc_rs_v_container" style="display: contents">
+  <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
+    <el-descriptions-item label="Photo" :rowspan="2" :width="140" :align="&quot;center&quot;">
+      <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" style="width: 100px; height: 100px" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" ref="sv_rowspan_el_image_cd2c94d0_d409_45a4_8082_e616d1dd3cfa"></el-image>
+    </el-descriptions-item>
+    <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
+    <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
+    <el-descriptions-item label="Place">Suzhou</el-descriptions-item>
+    <el-descriptions-item label="Remarks">
+      <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_rowspan_el_tag_a207f336_c86f_4876_b295_7b50febb093f">{{label}}</el-tag>
+    </el-descriptions-item>
+    <el-descriptions-item label="Address">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province</el-descriptions-item>
+  </el-descriptions>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Width vertical list","dExtra":null,"dColumn":null,"dDirection":"vertical","dBorder":true,"dSize":null,"src":"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null,"label":"School","type":null,"closable":false,"size":"small","effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('rowspan-el_image_cd2c94d0-d409-45a4-8082-e616d1dd3cfa', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('rowspan-el_image_cd2c94d0-d409-45a4-8082-e616d1dd3cfa', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('rowspan-el_image_cd2c94d0-d409-45a4-8082-e616d1dd3cfa', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('rowspan-el_image_cd2c94d0-d409-45a4-8082-e616d1dd3cfa', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('rowspan-el_image_cd2c94d0-d409-45a4-8082-e616d1dd3cfa', 'switch', arguments); }","handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('rowspan-el_tag_a207f336-c86f-4876-b295-7b50febb093f:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('rowspan-el_tag_a207f336-c86f-4876-b295-7b50febb093f_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"rowspan-el_tag_a207f336-c86f-4876-b295-7b50febb093f:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"rowspan-el_image_cd2c94d0-d409-45a4-8082-e616d1dd3cfa":{"fields":{"src":"src","fit":"fit","alt":"alt","lazy":"lazy","scrollContainer":"scrollContainer","previewSrcList":"previewSrcList","zIndex":"zIndex","initialIndex":"initialIndex","closeOnPressEscape":"closeOnPressEscape","crossorigin":"crossorigin","hideOnClickModal":"hideOnClickModal","infinite":"infinite","loading":"loading","maxScale":"maxScale","minScale":"minScale","previewTeleported":"previewTeleported","referrerpolicy":"referrerpolicy","scale":"scale","showProgress":"showProgress","zoomRate":"zoomRate","elEmitLoad":"elEmitLoad","elEmitError":"elEmitError","elEmitClose":"elEmitClose","elEmitShow":"elEmitShow","elEmitSwitch":"elEmitSwitch"},"ref":"sv_rowspan_el_image_cd2c94d0_d409_45a4_8082_e616d1dd3cfa"},"rowspan-el_tag_a207f336-c86f-4876-b295-7b50febb093f":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_rowspan_el_tag_a207f336_c86f_4876_b295_7b50febb093f"}},"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch","options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
+</div>
+  </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="customized-style">Customized Style<a class="anchor" aria-label="anchor" href="#customized-style"></a>
 </h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">label</span>, <span class="va">content</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
+<span>    <span class="va">label</span>,</span>
+<span>    <span class="va">content</span>,</span>
+<span>    label_align <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>    align <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>    <span class="va">...</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
 <span>    <span class="st">".my-label { background: var(--el-color-success-light-9) !important; }</span></span>
-<span><span class="st">              .my-content { background: var(--el-color-danger-light-9); }"</span></span>
+<span><span class="st">     .my-content { background: var(--el-color-danger-light-9); }"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_descriptions.html">el_descriptions</a></span><span class="op">(</span></span>
 <span>    <span class="st">"desc_style"</span>,</span>
@@ -455,41 +451,38 @@
 <span>    column <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>    border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
+<span>      <span class="fu">item</span><span class="op">(</span></span>
 <span>        <span class="st">"Username"</span>,</span>
 <span>        <span class="st">"kooriookami"</span>,</span>
-<span>        label_align <span class="op">=</span> <span class="st">"right"</span>,</span>
-<span>        align <span class="op">=</span> <span class="st">"center"</span>,</span>
 <span>        label_class_name <span class="op">=</span> <span class="st">"my-label"</span>,</span>
 <span>        class_name <span class="op">=</span> <span class="st">"my-content"</span>,</span>
 <span>        width <span class="op">=</span> <span class="st">"150px"</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Telephone"</span>,</span>
-<span>        <span class="st">"18100000000"</span>,</span>
-<span>        label_align <span class="op">=</span> <span class="st">"right"</span>,</span>
-<span>        align <span class="op">=</span> <span class="st">"center"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_descriptions_item.html">el_descriptions_item</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Place"</span>,</span>
-<span>        <span class="st">"Suzhou"</span>,</span>
-<span>        label_align <span class="op">=</span> <span class="st">"right"</span>,</span>
-<span>        align <span class="op">=</span> <span class="st">"center"</span></span>
+<span>      <span class="fu">item</span><span class="op">(</span><span class="st">"Telephone"</span>, <span class="st">"18100000000"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">item</span><span class="op">(</span><span class="st">"Place"</span>, <span class="st">"Suzhou"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">item</span><span class="op">(</span><span class="st">"Remarks"</span>, <span class="fu"><a href="../../reference/el_tag.html">el_tag</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"School"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu">item</span><span class="op">(</span></span>
+<span>        <span class="st">"Address"</span>,</span>
+<span>        <span class="st">"No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <style>.my-label { background: var(--el-color-success-light-9) !important; }
-              .my-content { background: var(--el-color-danger-light-9); }</style>
+     .my-content { background: var(--el-color-danger-light-9); }</style>
 <div id="customized-style-desc_style" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customized-style-desc_style_container" style="display: contents">
   <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
     <el-descriptions-item label="Username" :width="&quot;150px&quot;" :align="&quot;center&quot;" :label-align="&quot;right&quot;" :class-name="&quot;my-content&quot;" :label-class-name="&quot;my-label&quot;">kooriookami</el-descriptions-item>
     <el-descriptions-item label="Telephone" :align="&quot;center&quot;" :label-align="&quot;right&quot;">18100000000</el-descriptions-item>
     <el-descriptions-item label="Place" :align="&quot;center&quot;" :label-align="&quot;right&quot;">Suzhou</el-descriptions-item>
+    <el-descriptions-item label="Remarks" :align="&quot;center&quot;" :label-align="&quot;right&quot;">
+      <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round" ref="sv_customized_style_el_tag_24de7296_44a7_485b_85ee_b3e03d4ffe9e">{{label}}</el-tag>
+    </el-descriptions-item>
+    <el-descriptions-item label="Address" :align="&quot;center&quot;" :label-align="&quot;right&quot;">No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province</el-descriptions-item>
   </el-descriptions>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Customized style list","dExtra":null,"dColumn":3,"dDirection":null,"dBorder":true,"dSize":null,"dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Customized style list","dExtra":null,"dColumn":3,"dDirection":null,"dBorder":true,"dSize":null,"label":"School","type":null,"closable":false,"size":"small","effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('customized-style-el_tag_24de7296-44a7-485b-85ee-b3e03d4ffe9e:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('customized-style-el_tag_24de7296-44a7-485b-85ee-b3e03d4ffe9e_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"customized-style-el_tag_24de7296-44a7-485b-85ee-b3e03d4ffe9e:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"customized-style-el_tag_24de7296-44a7-485b-85ee-b3e03d4ffe9e":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_customized_style_el_tag_24de7296_44a7_485b_85ee_b3e03d4ffe9e"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
 </div>
 </div>
 </div>

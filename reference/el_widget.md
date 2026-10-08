@@ -34,7 +34,8 @@ el_widget(
   error = NULL,
   show_message = TRUE,
   inline_message = FALSE,
-  props = NULL
+  props = NULL,
+  absorbed = NULL
 )
 ```
 
@@ -160,6 +161,12 @@ el_widget(
   Optional props from
   [`.el_props()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_props.md):
   bound on the root tag of `markup`, with their fields added to `data`.
+
+- absorbed:
+
+  The components folded into this one, by id: their fields as named here
+  and the ref on each, so their updates reach them. Built by the
+  package's wrappers; leave it `NULL`.
 
 ## Value
 

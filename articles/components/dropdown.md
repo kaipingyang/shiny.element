@@ -32,23 +32,28 @@ Set `placement` property to make dropdown appear in different locations.
 ``` r
 
 items <- list(
-  list(command = "1", label = "The Action 1st"),
-  list(command = "2", label = "The Action 2nd"),
-  list(command = "3", label = "The Action 3rd")
+  el_dropdown_item("1", "The Action 1st"),
+  el_dropdown_item("2", "The Action 2nd"),
+  el_dropdown_item("3", "The Action 3rd")
+)
+placements <- c(
+  topStart = "top-start",
+  top = "top",
+  topEnd = "top-end",
+  bottomStart = "bottom-start",
+  bottom = "bottom",
+  bottomEnd = "bottom-end"
 )
 tags$div(
-  style = "display: flex; flex-wrap: wrap; gap: 16px",
-  lapply(
-    c("top-start", "top", "top-end", "bottom-start", "bottom", "bottom-end"),
-    function(p) {
-      el_dropdown(
-        paste0("dd_", p),
-        placement = p,
-        items = items,
-        trigger_label = el_button(paste0("ddb_", p), p)
-      )
-    }
-  )
+  style = "display: flex; flex-wrap: wrap; align-items: center; gap: 16px",
+  lapply(names(placements), function(label) {
+    el_dropdown(
+      paste0("dd_", label),
+      placement = placements[[label]],
+      items = items,
+      trigger_label = el_button(label = label)
+    )
+  })
 )
 ```
 
@@ -61,28 +66,36 @@ with the left button being a normal button and right one the actual
 triggering target. If you wanna insert a separator line between item
 three and item four, just add the `divided` attribute to item four.
 
+With `split_button = TRUE` the left part is a button of its own: its
+clicks are `input$dd_split_click`.
+
 ``` r
 
-items <- list(
-  list(command = "a", label = "Action 1"),
-  list(command = "b", label = "Action 2"),
-  list(command = "c", label = "Action 3")
-)
+items <- function(divided = NULL) {
+  lapply(1:5, function(i) {
+    el_dropdown_item(
+      paste0("a", i),
+      paste("Action", i),
+      divided = if (i == 4) divided
+    )
+  })
+}
 tags$div(
-  style = "display: flex; gap: 16px",
+  style = "display: flex; flex-wrap: wrap; align-items: center; gap: 16px",
   el_dropdown(
     "dd_btn",
-    items = items,
+    items = items(),
     trigger_label = el_button(
-      "dd_btn_t",
-      "Dropdown List",
-      type = "primary",
-      icon = "ArrowDown"
+      label = tagList(
+        "Dropdown List",
+        el_icon("ArrowDown", class = "el-icon--right")
+      ),
+      type = "primary"
     )
   ),
   el_dropdown(
     "dd_split",
-    items = items,
+    items = items(divided = TRUE),
     split_button = TRUE,
     type = "primary",
     trigger_label = "Dropdown List"
@@ -99,33 +112,35 @@ Use the attribute `trigger`. By default, it is `hover`.
 ``` r
 
 items <- list(
-  list(command = "a", label = "Action 1", icon = "Plus"),
-  list(command = "b", label = "Action 2", icon = "CirclePlusFilled"),
-  list(command = "c", label = "Action 3", icon = "CirclePlus")
+  el_dropdown_item("a", "Action 1", icon = "Plus"),
+  el_dropdown_item("b", "Action 2", icon = "CirclePlusFilled"),
+  el_dropdown_item("c", "Action 3", icon = "CirclePlus"),
+  el_dropdown_item("d", "Action 4", icon = "Check"),
+  el_dropdown_item("e", "Action 5", icon = "CircleCheck")
 )
-tags$div(
-  style = "display: flex; gap: 40px",
-  tagList(
-    tags$div("hover to trigger"),
-    el_dropdown("dd_hover", items = items, trigger_label = "Dropdown List")
-  ),
-  tagList(
-    tags$div("click to trigger"),
+col <- function(title, id, trigger) {
+  el_col(
+    span = 8,
+    tags$span(class = "demonstration", title),
     el_dropdown(
-      "dd_click",
+      id,
       items = items,
-      trigger = "click",
+      trigger = trigger,
       trigger_label = "Dropdown List"
     )
+  )
+}
+tagList(
+  tags$style(
+    ".block-col-2 .demonstration { display: block; margin-bottom: 20px;
+       color: var(--el-text-color-secondary); font-size: 14px; }
+     .block-col-2 .el-dropdown-link { display: flex; align-items: center; }"
   ),
-  tagList(
-    tags$div("right click to trigger"),
-    el_dropdown(
-      "dd_ctx",
-      items = items,
-      trigger = "contextmenu",
-      trigger_label = "Dropdown List"
-    )
+  el_row(
+    class = "block-col-2",
+    col("hover to trigger", "dd_hover", "hover"),
+    col("click to trigger", "dd_click", "click"),
+    col("right click to trigger", "dd_ctx", "contextmenu")
   )
 )
 ```
@@ -182,21 +197,59 @@ el_dropdown(
 You can open or close the dropdown menu by manually use `handleOpen` or
 `handleClose`
 
-`call_el(session, "dd_m", "handleOpen")` opens it from the server;
-`"handleClose"` closes it.
+`call_el(session, id, "handleOpen")` opens a dropdown from the server
+and `"handleClose"` closes it; `input$<id>_visible_change` says when one
+opens or closes.
 
 ``` r
 
-el_dropdown(
-  "dd_m",
-  trigger = "contextmenu",
-  trigger_label = "Dropdown List",
-  items = list(
-    el_dropdown_item("a", "Action 1"),
-    el_dropdown_item("b", "Action 2")
+items <- list(
+  el_dropdown_item("1", "Action 1"),
+  el_dropdown_item("2", "Action 2"),
+  el_dropdown_item("3", "Action 3"),
+  el_dropdown_item("4", "Action 4", disabled = TRUE),
+  el_dropdown_item("5", "Action 5", divided = TRUE)
+)
+ui <- el_page(
+  tags$div(
+    style = "font-size: 14px",
+    tags$p(
+      "open(close) the Dropdown list2 will close(open) the Dropdown List1."
+    )
+  ),
+  tags$div(style = "margin: 15px", el_button("dd_show", "show")),
+  tags$div(
+    style = "display: flex; gap: 30px",
+    el_dropdown(
+      "dd_list1",
+      trigger = "contextmenu",
+      trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List1"),
+      items = items
+    ),
+    el_dropdown(
+      "dd_list2",
+      trigger = "contextmenu",
+      trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List2"),
+      items = items
+    )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$dd_show, call_el(session, "dd_list1", "handleOpen"))
+  observeEvent(input$dd_list2_visible_change, {
+    method <- if (isTRUE(input$dd_list2_visible_change)) {
+      "handleClose"
+    } else {
+      "handleOpen"
+    }
+    call_el(session, "dd_list1", method)
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The dropdown-methods example,
+running](../../shots/dropdown-dropdown-methods.png)
 
 ## Sizes
 

@@ -313,34 +313,44 @@ hook checks the file before it goes.</p>
 </h2>
 <p>Use <code>list-type</code> to change the fileList style.</p>
 <p><code>list_type = "picture-card"</code>: each file a card with its
-thumbnail, drawn in the browser from the file itself.</p>
+thumbnail. A card’s preview button reports the file through
+<code>on_preview</code>, and the server shows it in a dialog.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_upload.html">el_upload</a></span><span class="op">(</span></span>
-<span>  <span class="st">"photos"</span>,</span>
-<span>  list_type <span class="op">=</span> <span class="st">"picture-card"</span>,</span>
-<span>  accept <span class="op">=</span> <span class="st">"image/*"</span>,</span>
-<span>  multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  file_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="st">"food.jpeg"</span>,</span>
-<span>    url <span class="op">=</span> <span class="st">"https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg"</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="photo-wall-photos" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="photo-wall-photos_container" style="display: contents">
-  <el-upload ref="upload" name="" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">
-    <el-icon class="el-icon--upload" v-if="drag">
-      <upload-filled></upload-filled>
-    </el-icon>
-    <div class="el-upload__text" v-if="drag">{{buttonLabel}}</div>
-    <el-icon v-else-if="listType === &#39;picture-card&#39;">
-      <plus></plus>
-    </el-icon>
-    <el-button v-else size="small" type="primary">{{buttonLabel}}</el-button>
-  </el-upload>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"drag":false,"buttonLabel":"Upload","multiple":true,"showFileList":true,"listType":"picture-card","autoUpload":true,"disabled":false,"accept":"image/*","limit":null,"succeeded":[],"failed":"","headers":null,"extraData":null,"fileList":[{"name":"food.jpeg","url":"https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg"}],"withCredentials":null,"beforeUpload":null,"beforeRemove":null,"onChange":null,"onProgress":null,"onPreview":null,"onRemove":null,"onExceed":null,"crossorigin":null,"directory":null},"methods":{"handleSuccess":"function(response, file, fileList) { this.succeeded = fileList.filter(function(f) { return f.status === 'success'; }).map(function(f) { return f.name; }); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('photo-wall-photos_success', this.succeeded); }","handleError":"function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('photo-wall-photos_error', file.name, {priority: 'event'}); }","shinyUpload":"function(options) {\n  var self = this, inputId = \"photo-wall-photos\";\n  if (!window.Shiny || !Shiny.shinyapp) {\n    options.onError(new Error('no Shiny session to upload to'));\n    return Object.defineProperty(Object.create(XMLHttpRequest.prototype), 'abort', { value: function() {} });\n  }\n  var entry = { o: options, aborted: false, failed: false, xhr: null };\n  self._queue = self._queue || [];\n  self._queue.push(entry);\n  if (!self._flushing) {\n    self._flushing = true;\n    Promise.resolve().then(function() {\n      self._flushing = false;\n      runJob(self._queue.splice(0));\n    });\n  }\n  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n  function abandon(res) {\n    window.Shiny && Shiny.setInputValue && Shiny.setInputValue('.shiny_element_upload_abandon:shiny.element.upload_abandon',\n                        res.jobId, { priority: 'event' });\n  }\n  function runJob(batch) {\n    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n    if (!batch.length) return;\n    var info = batch.map(function(e) {\n      return { name: e.o.file.name, size: e.o.file.size, type: e.o.file.type };\n    });\n    Shiny.shinyapp.makeRequest('uploadInit', [info], function(res) {\n      postNext(batch, 0, res);\n    }, function(err) {\n      warn('uploadInit: ' + err);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  function postNext(batch, i, res) {\n    if (i === batch.length) return finish(batch, res);\n    var e = batch[i];\n    if (e.aborted) { abandon(res); return runJob(batch); }\n    e.xhr = $.ajax(res.uploadUrl, {\n      type: 'POST', cache: false, data: e.o.file,\n      processData: false, contentType: 'application/octet-stream',\n      xhr: function() {\n        var x = new window.XMLHttpRequest();\n        x.upload.addEventListener('progress', function(ev) {\n          if (ev.lengthComputable) {\n            e.o.onProgress({ percent: Math.min(99, Math.round(ev.loaded / ev.total * 100)) });\n          }\n        });\n        return x;\n      },\n      success: function() { e.xhr = null; postNext(batch, i + 1, res); },\n      error: function(x, status) {\n        e.xhr = null;\n        if (!e.aborted) {\n          e.failed = true;\n          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n        }\n        abandon(res);\n        runJob(batch);\n      }\n    });\n  }\n  function finish(batch, res) {\n    if (batch.some(function(e) { return e.aborted; })) { abandon(res); return runJob(batch); }\n    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n    }, function(err) {\n      warn('uploadEnd: ' + err);\n      abandon(res);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  var handle = Object.create(XMLHttpRequest.prototype);\n  Object.defineProperty(handle, 'abort', { value: function() {\n    entry.aborted = true;\n    if (entry.xhr) entry.xhr.abort();\n  } });\n  return handle;\n}","shinyVueReceive":"function(d) { if (d['.action'] === 'clear') { if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('photo-wall-photos_success', []); } delete d['.action']; return d; }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleSuccess","options.methods.handleError","options.methods.shinyUpload","options.methods.shinyVueReceive"]}</script>
-</div>
-</div>
+<code class="sourceCode R"><span><span class="va">food</span> <span class="op">&lt;-</span> <span class="st">"https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg"</span></span>
+<span><span class="va">plant</span> <span class="op">&lt;-</span> <span class="st">"https://element-plus.org/images/plant-1.png"</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_upload.html">el_upload</a></span><span class="op">(</span></span>
+<span>    <span class="st">"photos"</span>,</span>
+<span>    list_type <span class="op">=</span> <span class="st">"picture-card"</span>,</span>
+<span>    accept <span class="op">=</span> <span class="st">"image/*"</span>,</span>
+<span>    multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    file_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"food.jpeg"</span>, url <span class="op">=</span> <span class="va">food</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"plant-1.png"</span>, url <span class="op">=</span> <span class="va">plant</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"food.jpeg"</span>, url <span class="op">=</span> <span class="va">food</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    on_preview <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function(file) { Shiny.setInputValue('photos_preview', file.url, {priority: 'event'}); }"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>default <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Plus"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"photo_dialog"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"photo_shown"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">photo_shown</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">photos_preview</span><span class="op">)</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"width: 100%"</span>,</span>
+<span>      src <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">photos_preview</span>,</span>
+<span>      alt <span class="op">=</span> <span class="st">"Preview Image"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">photos_preview</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"photo_dialog"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/upload-photo-wall.png" alt="The photo-wall example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="custom-thumbnail">Custom Thumbnail<a class="anchor" aria-label="anchor" href="#custom-thumbnail"></a>
@@ -348,49 +358,69 @@ thumbnail, drawn in the browser from the file itself.</p>
 <p>Use <code>scoped-slot</code> to change default thumbnail
 template.</p>
 <p>The <code>file</code> slot, scoped with <code>file</code>, draws each
-card.</p>
+card, with buttons of its own: zoom reports the file and the server
+shows it in a dialog.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_upload.html">el_upload</a></span><span class="op">(</span></span>
-<span>  <span class="st">"thumbs"</span>,</span>
-<span>  list_type <span class="op">=</span> <span class="st">"picture-card"</span>,</span>
-<span>  auto_upload <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  accept <span class="op">=</span> <span class="st">"image/*"</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    default <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Plus"</span><span class="op">)</span>,</span>
-<span>    file <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
-<span>          class <span class="op">=</span> <span class="st">"el-upload-list__item-thumbnail"</span>,</span>
-<span>          `:src` <span class="op">=</span> <span class="st">"file.url"</span>,</span>
-<span>          alt <span class="op">=</span> <span class="st">""</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
-<span>          class <span class="op">=</span> <span class="st">"el-upload-list__item-actions"</span>,</span>
-<span>          <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"el-upload-list__item-delete"</span>, <span class="st">"{{ file.name }}"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_upload.html">el_upload</a></span><span class="op">(</span></span>
+<span>    <span class="st">"thumbs"</span>,</span>
+<span>    list_type <span class="op">=</span> <span class="st">"picture-card"</span>,</span>
+<span>    auto_upload <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    accept <span class="op">=</span> <span class="st">"image/*"</span>,</span>
+<span>    file_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      name <span class="op">=</span> <span class="st">"food.jpeg"</span>,</span>
+<span>      url <span class="op">=</span> <span class="st">"https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg"</span></span>
+<span>    <span class="op">)</span><span class="op">)</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      default <span class="op">=</span> <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Plus"</span><span class="op">)</span>,</span>
+<span>      file <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>        slot <span class="op">=</span> <span class="st">"file"</span>,</span>
+<span>        scope <span class="op">=</span> <span class="st">"{ file }"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
+<span>            class <span class="op">=</span> <span class="st">"el-upload-list__item-thumbnail"</span>,</span>
+<span>            `:src` <span class="op">=</span> <span class="st">"file.url"</span>,</span>
+<span>            alt <span class="op">=</span> <span class="st">""</span></span>
+<span>          <span class="op">)</span>,</span>
+<span>          <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>            class <span class="op">=</span> <span class="st">"el-upload-list__item-actions"</span>,</span>
+<span>            <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>              class <span class="op">=</span> <span class="st">"el-upload-list__item-preview"</span>,</span>
+<span>              `@click` <span class="op">=</span> <span class="st">"$setInput('thumbs_preview', file.url)"</span>,</span>
+<span>              <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"ZoomIn"</span><span class="op">)</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>              class <span class="op">=</span> <span class="st">"el-upload-list__item-delete"</span>,</span>
+<span>              `@click` <span class="op">=</span> <span class="st">"$setInput('thumbs_download', file.name)"</span>,</span>
+<span>              <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Download"</span><span class="op">)</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>              class <span class="op">=</span> <span class="st">"el-upload-list__item-delete"</span>,</span>
+<span>              `@click` <span class="op">=</span> <span class="st">"$setInput('thumbs_remove', file.name)"</span>,</span>
+<span>              <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"Delete"</span><span class="op">)</span></span>
+<span>            <span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      slot <span class="op">=</span> <span class="st">"file"</span>,</span>
-<span>      scope <span class="op">=</span> <span class="st">"{ file }"</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="custom-thumbnail-thumbs" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="custom-thumbnail-thumbs_container" style="display: contents">
-  <el-upload ref="upload" name="" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">
-    <template v-slot:default>
-      <i class="el-icon" data-el-icon="Plus" aria-hidden="true" role="img"></i>
-    </template>
-    <template v-slot:file="{ file }"><div>
-  <img class="el-upload-list__item-thumbnail" :src="file.url" alt=""/>
-  <span class="el-upload-list__item-actions">
-    <span class="el-upload-list__item-delete">{{ file.name }}</span>
-  </span>
-</div></template>
-  </el-upload>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"drag":false,"buttonLabel":"Upload","multiple":false,"showFileList":true,"listType":"picture-card","autoUpload":false,"disabled":false,"accept":"image/*","limit":null,"succeeded":[],"failed":"","headers":null,"extraData":null,"fileList":[],"withCredentials":null,"beforeUpload":null,"beforeRemove":null,"onChange":null,"onProgress":null,"onPreview":null,"onRemove":null,"onExceed":null,"crossorigin":null,"directory":null},"methods":{"handleSuccess":"function(response, file, fileList) { this.succeeded = fileList.filter(function(f) { return f.status === 'success'; }).map(function(f) { return f.name; }); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('custom-thumbnail-thumbs_success', this.succeeded); }","handleError":"function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('custom-thumbnail-thumbs_error', file.name, {priority: 'event'}); }","shinyUpload":"function(options) {\n  var self = this, inputId = \"custom-thumbnail-thumbs\";\n  if (!window.Shiny || !Shiny.shinyapp) {\n    options.onError(new Error('no Shiny session to upload to'));\n    return Object.defineProperty(Object.create(XMLHttpRequest.prototype), 'abort', { value: function() {} });\n  }\n  var entry = { o: options, aborted: false, failed: false, xhr: null };\n  self._queue = self._queue || [];\n  self._queue.push(entry);\n  if (!self._flushing) {\n    self._flushing = true;\n    Promise.resolve().then(function() {\n      self._flushing = false;\n      runJob(self._queue.splice(0));\n    });\n  }\n  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n  function abandon(res) {\n    window.Shiny && Shiny.setInputValue && Shiny.setInputValue('.shiny_element_upload_abandon:shiny.element.upload_abandon',\n                        res.jobId, { priority: 'event' });\n  }\n  function runJob(batch) {\n    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n    if (!batch.length) return;\n    var info = batch.map(function(e) {\n      return { name: e.o.file.name, size: e.o.file.size, type: e.o.file.type };\n    });\n    Shiny.shinyapp.makeRequest('uploadInit', [info], function(res) {\n      postNext(batch, 0, res);\n    }, function(err) {\n      warn('uploadInit: ' + err);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  function postNext(batch, i, res) {\n    if (i === batch.length) return finish(batch, res);\n    var e = batch[i];\n    if (e.aborted) { abandon(res); return runJob(batch); }\n    e.xhr = $.ajax(res.uploadUrl, {\n      type: 'POST', cache: false, data: e.o.file,\n      processData: false, contentType: 'application/octet-stream',\n      xhr: function() {\n        var x = new window.XMLHttpRequest();\n        x.upload.addEventListener('progress', function(ev) {\n          if (ev.lengthComputable) {\n            e.o.onProgress({ percent: Math.min(99, Math.round(ev.loaded / ev.total * 100)) });\n          }\n        });\n        return x;\n      },\n      success: function() { e.xhr = null; postNext(batch, i + 1, res); },\n      error: function(x, status) {\n        e.xhr = null;\n        if (!e.aborted) {\n          e.failed = true;\n          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n        }\n        abandon(res);\n        runJob(batch);\n      }\n    });\n  }\n  function finish(batch, res) {\n    if (batch.some(function(e) { return e.aborted; })) { abandon(res); return runJob(batch); }\n    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n    }, function(err) {\n      warn('uploadEnd: ' + err);\n      abandon(res);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  var handle = Object.create(XMLHttpRequest.prototype);\n  Object.defineProperty(handle, 'abort', { value: function() {\n    entry.aborted = true;\n    if (entry.xhr) entry.xhr.abort();\n  } });\n  return handle;\n}","shinyVueReceive":"function(d) { if (d['.action'] === 'clear') { if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('custom-thumbnail-thumbs_success', []); } delete d['.action']; return d; }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleSuccess","options.methods.handleError","options.methods.shinyUpload","options.methods.shinyVueReceive"]}</script>
-</div>
-</div>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span><span class="st">"thumb_dialog"</span>, content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"thumb_shown"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">thumb_shown</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">thumbs_preview</span><span class="op">)</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"width: 100%"</span>,</span>
+<span>      src <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">thumbs_preview</span>,</span>
+<span>      alt <span class="op">=</span> <span class="st">"Preview Image"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">thumbs_preview</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"thumb_dialog"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/upload-custom-thumbnail.png" alt="The custom-thumbnail example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="file-list-with-thumbnail">File List with Thumbnail<a class="anchor" aria-label="anchor" href="#file-list-with-thumbnail"></a>
@@ -502,23 +532,37 @@ three files is a line of JavaScript.</p>
 <p>After enabling it, only folders can be selected, and after selecting
 a folder, the files within the folder will be flattened.</p>
 <p><code>directory = TRUE</code> picks a folder, and uploads every file
-in it.</p>
+in it; here dropped or chosen in the drag area.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_upload.html">el_upload</a></span><span class="op">(</span><span class="st">"folder"</span>, directory <span class="op">=</span> <span class="cn">TRUE</span>, button_label <span class="op">=</span> <span class="st">"Upload directory"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_upload.html">el_upload</a></span><span class="op">(</span></span>
+<span>  <span class="st">"folder"</span>,</span>
+<span>  drag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  directory <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    default <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"UploadFilled"</span>, class <span class="op">=</span> <span class="st">"el-icon--upload"</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        class <span class="op">=</span> <span class="st">"el-upload__text"</span>,</span>
+<span>        <span class="st">"Drop directory here or "</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">em</span><span class="op">(</span><span class="st">"click to upload"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="directory-folder" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="directory-folder_container" style="display: contents">
   <el-upload ref="upload" name="" action="#" :multiple="multiple" :show-file-list="showFileList" :list-type="listType" :auto-upload="autoUpload" :disabled="disabled" :accept="accept === null ? undefined : accept" :limit="limit === null ? undefined : limit" :on-success="handleSuccess" :on-error="handleError" :drag="drag" :headers="headers === null ? undefined : headers" :data="extraData === null ? undefined : extraData" v-model:file-list="fileList" :with-credentials="withCredentials === null ? undefined : withCredentials" :before-upload="beforeUpload === null ? undefined : beforeUpload" :before-remove="beforeRemove === null ? undefined : beforeRemove" :on-change="onChange === null ? undefined : onChange" :on-progress="onProgress === null ? undefined : onProgress" :on-preview="onPreview === null ? undefined : onPreview" :on-remove="onRemove === null ? undefined : onRemove" :on-exceed="onExceed === null ? undefined : onExceed" :http-request="shinyUpload" :crossorigin="crossorigin === null ? undefined : crossorigin" :directory="directory === null ? undefined : directory">
-    <el-icon class="el-icon--upload" v-if="drag">
-      <upload-filled></upload-filled>
-    </el-icon>
-    <div class="el-upload__text" v-if="drag">{{buttonLabel}}</div>
-    <el-icon v-else-if="listType === &#39;picture-card&#39;">
-      <plus></plus>
-    </el-icon>
-    <el-button v-else size="small" type="primary">{{buttonLabel}}</el-button>
+    <template v-slot:default>
+      <i class="el-icon el-icon--upload" data-el-icon="UploadFilled" aria-hidden="true" role="img"></i>
+      <div class="el-upload__text">
+        Drop directory here or 
+        <em>click to upload</em>
+      </div>
+    </template>
   </el-upload>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"drag":false,"buttonLabel":"Upload directory","multiple":false,"showFileList":true,"listType":"text","autoUpload":true,"disabled":false,"accept":null,"limit":null,"succeeded":[],"failed":"","headers":null,"extraData":null,"fileList":[],"withCredentials":null,"beforeUpload":null,"beforeRemove":null,"onChange":null,"onProgress":null,"onPreview":null,"onRemove":null,"onExceed":null,"crossorigin":null,"directory":true},"methods":{"handleSuccess":"function(response, file, fileList) { this.succeeded = fileList.filter(function(f) { return f.status === 'success'; }).map(function(f) { return f.name; }); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('directory-folder_success', this.succeeded); }","handleError":"function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('directory-folder_error', file.name, {priority: 'event'}); }","shinyUpload":"function(options) {\n  var self = this, inputId = \"directory-folder\";\n  if (!window.Shiny || !Shiny.shinyapp) {\n    options.onError(new Error('no Shiny session to upload to'));\n    return Object.defineProperty(Object.create(XMLHttpRequest.prototype), 'abort', { value: function() {} });\n  }\n  var entry = { o: options, aborted: false, failed: false, xhr: null };\n  self._queue = self._queue || [];\n  self._queue.push(entry);\n  if (!self._flushing) {\n    self._flushing = true;\n    Promise.resolve().then(function() {\n      self._flushing = false;\n      runJob(self._queue.splice(0));\n    });\n  }\n  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n  function abandon(res) {\n    window.Shiny && Shiny.setInputValue && Shiny.setInputValue('.shiny_element_upload_abandon:shiny.element.upload_abandon',\n                        res.jobId, { priority: 'event' });\n  }\n  function runJob(batch) {\n    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n    if (!batch.length) return;\n    var info = batch.map(function(e) {\n      return { name: e.o.file.name, size: e.o.file.size, type: e.o.file.type };\n    });\n    Shiny.shinyapp.makeRequest('uploadInit', [info], function(res) {\n      postNext(batch, 0, res);\n    }, function(err) {\n      warn('uploadInit: ' + err);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  function postNext(batch, i, res) {\n    if (i === batch.length) return finish(batch, res);\n    var e = batch[i];\n    if (e.aborted) { abandon(res); return runJob(batch); }\n    e.xhr = $.ajax(res.uploadUrl, {\n      type: 'POST', cache: false, data: e.o.file,\n      processData: false, contentType: 'application/octet-stream',\n      xhr: function() {\n        var x = new window.XMLHttpRequest();\n        x.upload.addEventListener('progress', function(ev) {\n          if (ev.lengthComputable) {\n            e.o.onProgress({ percent: Math.min(99, Math.round(ev.loaded / ev.total * 100)) });\n          }\n        });\n        return x;\n      },\n      success: function() { e.xhr = null; postNext(batch, i + 1, res); },\n      error: function(x, status) {\n        e.xhr = null;\n        if (!e.aborted) {\n          e.failed = true;\n          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n        }\n        abandon(res);\n        runJob(batch);\n      }\n    });\n  }\n  function finish(batch, res) {\n    if (batch.some(function(e) { return e.aborted; })) { abandon(res); return runJob(batch); }\n    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n    }, function(err) {\n      warn('uploadEnd: ' + err);\n      abandon(res);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  var handle = Object.create(XMLHttpRequest.prototype);\n  Object.defineProperty(handle, 'abort', { value: function() {\n    entry.aborted = true;\n    if (entry.xhr) entry.xhr.abort();\n  } });\n  return handle;\n}","shinyVueReceive":"function(d) { if (d['.action'] === 'clear') { if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('directory-folder_success', []); } delete d['.action']; return d; }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleSuccess","options.methods.handleError","options.methods.shinyUpload","options.methods.shinyVueReceive"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"drag":true,"buttonLabel":"Upload","multiple":true,"showFileList":true,"listType":"text","autoUpload":true,"disabled":false,"accept":null,"limit":null,"succeeded":[],"failed":"","headers":null,"extraData":null,"fileList":[],"withCredentials":null,"beforeUpload":null,"beforeRemove":null,"onChange":null,"onProgress":null,"onPreview":null,"onRemove":null,"onExceed":null,"crossorigin":null,"directory":true},"methods":{"handleSuccess":"function(response, file, fileList) { this.succeeded = fileList.filter(function(f) { return f.status === 'success'; }).map(function(f) { return f.name; }); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('directory-folder_success', this.succeeded); }","handleError":"function(err, file) { this.failed = file.name; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('directory-folder_error', file.name, {priority: 'event'}); }","shinyUpload":"function(options) {\n  var self = this, inputId = \"directory-folder\";\n  if (!window.Shiny || !Shiny.shinyapp) {\n    options.onError(new Error('no Shiny session to upload to'));\n    return Object.defineProperty(Object.create(XMLHttpRequest.prototype), 'abort', { value: function() {} });\n  }\n  var entry = { o: options, aborted: false, failed: false, xhr: null };\n  self._queue = self._queue || [];\n  self._queue.push(entry);\n  if (!self._flushing) {\n    self._flushing = true;\n    Promise.resolve().then(function() {\n      self._flushing = false;\n      runJob(self._queue.splice(0));\n    });\n  }\n  function warn(m) { if (window.console) console.warn('[shiny.element] upload: ' + m); }\n  function abandon(res) {\n    window.Shiny && Shiny.setInputValue && Shiny.setInputValue('.shiny_element_upload_abandon:shiny.element.upload_abandon',\n                        res.jobId, { priority: 'event' });\n  }\n  function runJob(batch) {\n    batch = batch.filter(function(e) { return !e.aborted && !e.failed; });\n    if (!batch.length) return;\n    var info = batch.map(function(e) {\n      return { name: e.o.file.name, size: e.o.file.size, type: e.o.file.type };\n    });\n    Shiny.shinyapp.makeRequest('uploadInit', [info], function(res) {\n      postNext(batch, 0, res);\n    }, function(err) {\n      warn('uploadInit: ' + err);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  function postNext(batch, i, res) {\n    if (i === batch.length) return finish(batch, res);\n    var e = batch[i];\n    if (e.aborted) { abandon(res); return runJob(batch); }\n    e.xhr = $.ajax(res.uploadUrl, {\n      type: 'POST', cache: false, data: e.o.file,\n      processData: false, contentType: 'application/octet-stream',\n      xhr: function() {\n        var x = new window.XMLHttpRequest();\n        x.upload.addEventListener('progress', function(ev) {\n          if (ev.lengthComputable) {\n            e.o.onProgress({ percent: Math.min(99, Math.round(ev.loaded / ev.total * 100)) });\n          }\n        });\n        return x;\n      },\n      success: function() { e.xhr = null; postNext(batch, i + 1, res); },\n      error: function(x, status) {\n        e.xhr = null;\n        if (!e.aborted) {\n          e.failed = true;\n          e.o.onError(new Error('Upload failed for ' + e.o.file.name + ': ' + (status || 'error')));\n        }\n        abandon(res);\n        runJob(batch);\n      }\n    });\n  }\n  function finish(batch, res) {\n    if (batch.some(function(e) { return e.aborted; })) { abandon(res); return runJob(batch); }\n    Shiny.shinyapp.makeRequest('uploadEnd', [res.jobId, inputId], function() {\n      batch.forEach(function(e) { if (!e.aborted) e.o.onSuccess({ ok: true }); });\n    }, function(err) {\n      warn('uploadEnd: ' + err);\n      abandon(res);\n      batch.forEach(function(e) { e.failed = true; e.o.onError(new Error(String(err))); });\n    });\n  }\n  var handle = Object.create(XMLHttpRequest.prototype);\n  Object.defineProperty(handle, 'abort', { value: function() {\n    entry.aborted = true;\n    if (entry.xhr) entry.xhr.abort();\n  } });\n  return handle;\n}","shinyVueReceive":"function(d) { if (d['.action'] === 'clear') { if (this.$refs.upload) this.$refs.upload.clearFiles(); this.succeeded = []; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('directory-folder_success', []); } delete d['.action']; return d; }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleSuccess","options.methods.handleError","options.methods.shinyUpload","options.methods.shinyVueReceive"]}</script>
 </div>
 </div>
 </div>

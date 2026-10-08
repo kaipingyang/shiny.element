@@ -30,6 +30,8 @@ el_menu(
   popper_offset = NULL,
   popper_style = NULL,
   show_timeout = NULL,
+  class = NULL,
+  style = NULL,
   width = NULL,
   slots = NULL,
   session = NULL
@@ -175,6 +177,11 @@ update_el_menu(
 
   Control timeout for all menus before showing. Element Plus's
   `show-timeout` (number).
+
+- class, style:
+
+  Extra classes and inline style on the menu, as Element passes them to
+  its root: Element's examples style theirs by a class of their own.
 
 - width:
 

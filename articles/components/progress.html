@@ -301,48 +301,54 @@ description inside the progress bar.</p>
 </h2>
 <p>You can use <code>color</code> attr to set the progress bar color. it
 accepts color string, function, or array.</p>
+<p>The buttons step every bar by ten, with
+<code><a href="../../reference/el_progress.html">update_el_progress()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 15px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prc1"</span>, percentage <span class="op">=</span> <span class="fl">20</span>, color <span class="op">=</span> <span class="st">"#409eff"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
-<span>    <span class="st">"prc2"</span>,</span>
-<span>    percentage <span class="op">=</span> <span class="fl">40</span>,</span>
-<span>    color <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>      <span class="st">"function(p) { return p &lt; 30 ? '#909399' : p &lt; 70 ? '#e6a23c' : '#67c23a'; }"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#f56c6c"</span>, percentage <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e6a23c"</span>, percentage <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#5cb87a"</span>, percentage <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989fa"</span>, percentage <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#6f7ad3"</span>, percentage <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prc1"</span>, <span class="st">"prc2"</span>, <span class="st">"prc3"</span>, <span class="st">"prc4"</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">".demo-progress .el-progress--line { margin-bottom: 15px; max-width: 600px; }"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
-<span>    <span class="st">"prc3"</span>,</span>
-<span>    percentage <span class="op">=</span> <span class="fl">60</span>,</span>
-<span>    color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#f56c6c"</span>, percentage <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e6a23c"</span>, percentage <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#5cb87a"</span>, percentage <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989fa"</span>, percentage <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#6f7ad3"</span>, percentage <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"demo-progress"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prc1"</span>, percentage <span class="op">=</span> <span class="fl">20</span>, color <span class="op">=</span> <span class="st">"#409eff"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
+<span>      <span class="st">"prc2"</span>,</span>
+<span>      percentage <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>      color <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>        <span class="st">"function(p) { return p &lt; 30 ? '#909399' : p &lt; 70 ? '#e6a23c' : '#67c23a'; }"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prc3"</span>, percentage <span class="op">=</span> <span class="fl">20</span>, color <span class="op">=</span> <span class="va">colors</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prc4"</span>, percentage <span class="op">=</span> <span class="fl">20</span>, color <span class="op">=</span> <span class="va">colors</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button_group.html">el_button_group</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"prc_minus"</span>, label <span class="op">=</span> <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Minus"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"prc_plus"</span>, label <span class="op">=</span> <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Plus"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div style="max-width: 600px; display: grid; gap: 15px">
-    <div id="custom-color-prc1" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="custom-color-prc1_container" style="display: contents">
-  <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":20,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"#409eff","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-    <div id="custom-color-prc2" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="custom-color-prc2_container" style="display: contents">
-  <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":40,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"function(p) { return p < 30 ? '#909399' : p < 70 ? '#e6a23c' : '#67c23a'; }","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.data.color"]}</script>
-</div>
-    <div id="custom-color-prc3" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="custom-color-prc3_container" style="display: contents">
-  <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":60,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":[{"color":"#f56c6c","percentage":20},{"color":"#e6a23c","percentage":40},{"color":"#5cb87a","percentage":60},{"color":"#1989fa","percentage":80},{"color":"#6f7ad3","percentage":100}],"strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-  </div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span>
+<span>  <span class="va">step</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">by</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">percentage</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu">percentage</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="va">by</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="va">ids</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../../reference/el_progress.html">update_el_progress</a></span><span class="op">(</span><span class="va">session</span>, <span class="va">id</span>, percentage <span class="op">=</span> <span class="fu">percentage</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">prc_minus</span>, <span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">prc_plus</span>, <span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/progress-custom-color.png" alt="The custom-color example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="circular-progress-bar">Circular progress bar<a class="anchor" aria-label="anchor" href="#circular-progress-bar"></a>
@@ -394,26 +400,46 @@ change the size of circle.</p>
 </h2>
 <p>You also can specify <code>type</code> attribute to
 <code>dashboard</code> to use dashboard progress bar.</p>
+<p>The buttons step the first dial; the second goes round on its own,
+updated from the server every half second.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
-<span>  <span class="st">"prd"</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"dashboard"</span>,</span>
-<span>  percentage <span class="op">=</span> <span class="fl">70</span>,</span>
-<span>  color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#f56c6c"</span>, percentage <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e6a23c"</span>, percentage <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#5cb87a"</span>, percentage <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989fa"</span>, percentage <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#6f7ad3"</span>, percentage <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#f56c6c"</span>, percentage <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#e6a23c"</span>, percentage <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#5cb87a"</span>, percentage <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#1989fa"</span>, percentage <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#6f7ad3"</span>, percentage <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"demo-progress"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prd1"</span>, type <span class="op">=</span> <span class="st">"dashboard"</span>, percentage <span class="op">=</span> <span class="fl">10</span>, color <span class="op">=</span> <span class="va">colors</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prd2"</span>, type <span class="op">=</span> <span class="st">"dashboard"</span>, percentage <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="va">colors</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button_group.html">el_button_group</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"prd_minus"</span>, label <span class="op">=</span> <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Minus"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"prd_plus"</span>, label <span class="op">=</span> <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Plus"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="dashboard-progress-bar-prd" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="dashboard-progress-bar-prd_container" style="display: contents">
-  <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":70,"type":"dashboard","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":[{"color":"#f56c6c","percentage":20},{"color":"#e6a23c","percentage":40},{"color":"#5cb87a","percentage":60},{"color":"#1989fa","percentage":80},{"color":"#6f7ad3","percentage":100}],"strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="va">step</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">by</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">percentage</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu">percentage</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="va">by</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">update_el_progress</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"prd1"</span>, percentage <span class="op">=</span> <span class="fu">percentage</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">prd_minus</span>, <span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">prd_plus</span>, <span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">going</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/invalidateLater.html" class="external-link">invalidateLater</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
+<span>    <span class="fu">going</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="fu">going</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">100</span> <span class="op">+</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">update_el_progress</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"prd2"</span>, percentage <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="fu">going</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/progress-dashboard-progress-bar.png" alt="The dashboard-progress-bar example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="customized-content">Customized content<a class="anchor" aria-label="anchor" href="#customized-content"></a>
@@ -447,10 +473,10 @@ change the size of circle.</p>
       <script type="text/x-template" data-shiny-vue-template><div id="customized-content-prx1_container" style="display: contents">
   <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow">
     <template v-slot:default>
-      <el-button :type="el2_type" :plain="el2_plain" :round="el2_round" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" :size="el2_size === null ? undefined : el2_size" :icon="el2_icon === null ? undefined : el2_icon" :autofocus="el2_autofocus === null ? undefined : el2_autofocus" :auto-insert-space="el2_autoInsertSpace === null ? undefined : el2_autoInsertSpace" :bg="el2_bg === null ? undefined : el2_bg" :color="el2_color === null ? undefined : el2_color" :dark="el2_dark === null ? undefined : el2_dark" :dashed="el2_dashed === null ? undefined : el2_dashed" :link="el2_link === null ? undefined : el2_link" :loading-icon="el2_loadingIcon === null ? undefined : el2_loadingIcon" :tag="el2_tag === null ? undefined : el2_tag" :text="el2_text === null ? undefined : el2_text">{{el2_label}}</el-button>
+      <el-button :type="el2_type === null ? undefined : el2_type" :plain="el2_plain === null ? undefined : el2_plain" :round="el2_round === null ? undefined : el2_round" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" :size="el2_size === null ? undefined : el2_size" :icon="el2_icon === null ? undefined : el2_icon" :autofocus="el2_autofocus === null ? undefined : el2_autofocus" :auto-insert-space="el2_autoInsertSpace === null ? undefined : el2_autoInsertSpace" :bg="el2_bg === null ? undefined : el2_bg" :color="el2_color === null ? undefined : el2_color" :dark="el2_dark === null ? undefined : el2_dark" :dashed="el2_dashed === null ? undefined : el2_dashed" :link="el2_link === null ? undefined : el2_link" :loading-icon="el2_loadingIcon === null ? undefined : el2_loadingIcon" :tag="el2_tag === null ? undefined : el2_tag" :text="el2_text === null ? undefined : el2_text" ref="sv_customized_content_prx_b">{{el2_label}}</el-button>
     </template>
   </el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":50,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null,"el2_label":"Content","el2_type":"default","el2_size":null,"el2_plain":false,"el2_round":false,"el2_circle":false,"el2_loading":false,"el2_disabled":false,"el2_native_type":"button","el2_icon":null,"el2_count":0,"el2_autofocus":false,"el2_autoInsertSpace":null,"el2_bg":null,"el2_color":null,"el2_dark":null,"el2_dashed":null,"el2_link":null,"el2_loadingIcon":null,"el2_tag":null,"el2_text":true},"methods":{"el2_handleClick":"function() { if (this.el2_disabled || this.el2_loading) return; this.el2_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('customized-content-prx_b:shiny.action', this.el2_count); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.el2_handleClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":50,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null,"el2_label":"Content","el2_type":null,"el2_size":null,"el2_plain":null,"el2_round":null,"el2_circle":false,"el2_loading":false,"el2_disabled":false,"el2_native_type":"button","el2_icon":null,"el2_count":0,"el2_autofocus":false,"el2_autoInsertSpace":null,"el2_bg":null,"el2_color":null,"el2_dark":null,"el2_dashed":null,"el2_link":null,"el2_loadingIcon":null,"el2_tag":null,"el2_text":true},"methods":{"el2_handleClick":"function() { if (this.el2_disabled || this.el2_loading) return; this.el2_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('customized-content-prx_b:shiny.action', this.el2_count); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"customized-content-prx_b":{"fields":{"label":"el2_label","type":"el2_type","size":"el2_size","plain":"el2_plain","round":"el2_round","circle":"el2_circle","loading":"el2_loading","disabled":"el2_disabled","native_type":"el2_native_type","icon":"el2_icon","count":"el2_count","autofocus":"el2_autofocus","autoInsertSpace":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loadingIcon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text","handleClick":"el2_handleClick"},"ref":"sv_customized_content_prx_b"}},"evals":["options.methods.el2_handleClick"]}</script>
 </div>
     <div id="customized-content-prx2" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="customized-content-prx2_container" style="display: contents">
@@ -510,47 +536,64 @@ duration.</p>
 <p>Use <code>striped</code> attribute to set striped progress. You can
 use <code>striped-flow</code> to get the stripes to flow, with
 <code>duration</code> to control the animation duration.</p>
+<p>The buttons step the last bar by ten, and its stripes’
+<code>duration</code> with it.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="st">"max-width: 600px; display: grid; gap: 15px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prs1"</span>, percentage <span class="op">=</span> <span class="fl">50</span>, stroke_width <span class="op">=</span> <span class="fl">15</span>, striped <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
-<span>    <span class="st">"prs2"</span>,</span>
-<span>    percentage <span class="op">=</span> <span class="fl">30</span>,</span>
-<span>    stroke_width <span class="op">=</span> <span class="fl">15</span>,</span>
-<span>    status <span class="op">=</span> <span class="st">"warning"</span>,</span>
-<span>    striped <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    striped_flow <span class="op">=</span> <span class="cn">TRUE</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">".demo-progress .el-progress--line { margin-bottom: 15px; max-width: 600px; }"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
-<span>    <span class="st">"prs3"</span>,</span>
-<span>    percentage <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    stroke_width <span class="op">=</span> <span class="fl">15</span>,</span>
-<span>    status <span class="op">=</span> <span class="st">"success"</span>,</span>
-<span>    striped <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    striped_flow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    duration <span class="op">=</span> <span class="fl">10</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"demo-progress"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span><span class="st">"prs1"</span>, percentage <span class="op">=</span> <span class="fl">50</span>, stroke_width <span class="op">=</span> <span class="fl">15</span>, striped <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
+<span>      <span class="st">"prs2"</span>,</span>
+<span>      percentage <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>      stroke_width <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>      status <span class="op">=</span> <span class="st">"warning"</span>,</span>
+<span>      striped <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      striped_flow <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
+<span>      <span class="st">"prs3"</span>,</span>
+<span>      percentage <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>      stroke_width <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>      status <span class="op">=</span> <span class="st">"success"</span>,</span>
+<span>      striped <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      striped_flow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      duration <span class="op">=</span> <span class="fl">10</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
+<span>      <span class="st">"prs4"</span>,</span>
+<span>      percentage <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>      stroke_width <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>      status <span class="op">=</span> <span class="st">"exception"</span>,</span>
+<span>      striped <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      striped_flow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      duration <span class="op">=</span> <span class="fl">7</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_button_group.html">el_button_group</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"prs_minus"</span>, label <span class="op">=</span> <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Minus"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"prs_plus"</span>, label <span class="op">=</span> <span class="cn">NULL</span>, icon <span class="op">=</span> <span class="st">"Plus"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div style="max-width: 600px; display: grid; gap: 15px">
-    <div id="striped-progress-prs1" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="striped-progress-prs1_container" style="display: contents">
-  <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":50,"type":"line","strokeWidth":15,"textInside":false,"showText":true,"width":126,"status":null,"color":"","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":true,"stripedFlow":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-    <div id="striped-progress-prs2" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="striped-progress-prs2_container" style="display: contents">
-  <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":30,"type":"line","strokeWidth":15,"textInside":false,"showText":true,"width":126,"status":"warning","color":"","strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":true,"stripedFlow":true}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-    <div id="striped-progress-prs3" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="striped-progress-prs3_container" style="display: contents">
-  <el-progress :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :status="status === null ? undefined : status" :color="color" :stroke-linecap="strokeLinecap === null ? undefined : strokeLinecap" :format="format === null ? undefined : format" :duration="duration === null ? undefined : duration" :indeterminate="indeterminate === null ? undefined : indeterminate" :striped="striped === null ? undefined : striped" :striped-flow="stripedFlow === null ? undefined : stripedFlow"></el-progress>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":100,"type":"line","strokeWidth":15,"textInside":false,"showText":true,"width":126,"status":"success","color":"","strokeLinecap":null,"format":null,"duration":10,"indeterminate":null,"striped":true,"stripedFlow":true}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
-</div>
-  </div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">70</span><span class="op">)</span></span>
+<span>  <span class="va">step</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">by</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">percentage</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu">percentage</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="va">by</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_progress.html">update_el_progress</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"prs4"</span>,</span>
+<span>      percentage <span class="op">=</span> <span class="fu">percentage</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fu">percentage</span><span class="op">(</span><span class="op">)</span> <span class="op">/</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">prs_minus</span>, <span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">prs_plus</span>, <span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/progress-striped-progress.png" alt="The striped-progress example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

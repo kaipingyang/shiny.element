@@ -9,30 +9,70 @@ Back is `input$<id>_back`.
 
 ``` r
 
-el_page_header(
-  "ph_full",
-  slots = list(
-    breadcrumb = el_breadcrumb(
-      "ph_crumbs",
-      items = list(
-        list(label = "homepage", to = "./page-header.html"),
-        list(label = "route 1"),
-        list(label = "route 2")
-      )
-    ),
-    content = tags$div(
-      style = "display: flex; align-items: center",
-      el_avatar(
-        size = 32,
-        src = "https://avatars.githubusercontent.com/u/72015883?v=4"
+avatar <- "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+tags$div(
+  `aria-label` = "A complete example of page header",
+  el_page_header(
+    "ph_full",
+    slots = list(
+      breadcrumb = el_breadcrumb(
+        "ph_crumbs",
+        separator = "/",
+        items = list(
+          list(label = "homepage", to = "./page-header.html"),
+          list(label = "route 1"),
+          list(label = "route 2")
+        )
       ),
-      tags$span(style = "margin: 0 12px; font-weight: 600", "Title"),
-      tags$span(style = "margin-right: 12px; font-size: 13px", "Sub title"),
-      el_tag("ph_tag", "Default")
-    ),
-    extra = tags$div(
-      el_button("ph_print", "Print"),
-      el_button("ph_edit", "Edit", type = "primary")
+      content = tags$div(
+        style = "display: flex; align-items: center",
+        el_avatar(size = 32, src = avatar, style = "margin-right: 12px"),
+        tags$span(
+          style = "margin-right: 12px; font-size: 18px; font-weight: 600",
+          "Title"
+        ),
+        tags$span(
+          style = "margin-right: 8px; font-size: 14px; color: var(--el-text-color-regular)",
+          "Sub title"
+        ),
+        el_tag(label = "Default")
+      ),
+      extra = tags$div(
+        style = "display: flex; align-items: center; gap: 8px",
+        el_button(label = "Print"),
+        el_button(label = "Edit", type = "primary")
+      ),
+      default = tagList(
+        tags$div(
+          style = "margin-top: 16px",
+          el_descriptions(
+            column = 3,
+            size = "small",
+            items = list(
+              el_descriptions_item("Username", "kooriookami"),
+              el_descriptions_item("Telephone", "18100000000"),
+              el_descriptions_item("Place", "Suzhou"),
+              el_descriptions_item(
+                "Remarks",
+                el_tag(label = "School", size = "small")
+              ),
+              el_descriptions_item(
+                "Address",
+                "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
+              )
+            )
+          )
+        ),
+        tags$p(
+          style = "margin-top: 16px; font-size: 14px",
+          "Element Plus team uses ",
+          tags$b("weekly"),
+          " release strategy under normal circumstance, but critical bug",
+          " fixes would require hotfix so the actual release number ",
+          tags$b("could be"),
+          " more than 1 per week."
+        )
+      )
     )
   )
 )
@@ -115,12 +155,25 @@ el_page_header(
   slots = list(
     content = tags$div(
       style = "display: flex; align-items: center",
-      el_avatar(size = 32, content = "T"),
-      tags$span(style = "margin-left: 12px; font-weight: 600", "Title")
+      el_avatar(
+        size = 32,
+        src = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+        style = "margin-right: 12px"
+      ),
+      tags$span(
+        style = "margin-right: 12px; font-size: 18px; font-weight: 600",
+        "Title"
+      ),
+      tags$span(
+        style = "margin-right: 8px; font-size: 14px; color: var(--el-text-color-regular)",
+        "Sub title"
+      ),
+      el_tag(label = "Default")
     ),
     extra = tags$div(
-      el_button("ph_x1", "Print"),
-      el_button("ph_x2", "Edit", type = "primary")
+      style = "display: flex; align-items: center; gap: 8px",
+      el_button(label = "Print"),
+      el_button(label = "Edit", type = "primary")
     )
   )
 )

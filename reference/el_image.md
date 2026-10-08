@@ -29,6 +29,8 @@ el_image(
   show_progress = NULL,
   zoom_rate = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 )
@@ -164,6 +166,12 @@ update_el_image(
 - width:
 
   Component width, as a CSS unit.
+
+- class, style:
+
+  Extra classes and inline style on the image's box, as Element passes
+  them through: `style = "width: 100px; height: 100px"` gives `fit` a
+  box to fit the picture to.
 
 - slots:
 

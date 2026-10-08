@@ -469,45 +469,77 @@ of panel item with named slots, which makes adding custom content.</p>
 </h2>
 <p>using the <code>expand-icon-position</code> attribute, you can
 customize icon position.</p>
+<p>The switch moves each header’s icon, with
+<code>update_el_collapse( expand_icon_position =)</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
-<span>  <span class="st">"coll_pos"</span>,</span>
-<span>  expand_icon_position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Consistency"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span>,</span>
-<span>      name <span class="op">=</span> <span class="st">"1"</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span><span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; margin-bottom: 16px"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-right: 16px"</span>, <span class="st">"expand icon position: "</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>      <span class="st">"position"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>      inactive_value <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>      active_value <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>      inactive_text <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>      active_text <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>      inactive_color <span class="op">=</span> <span class="st">"#88b8fe"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>    <span class="st">"coll_pos"</span>,</span>
+<span>    expand_icon_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Consistency"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Consistent with real life: in line with the process and logic of"</span>,</span>
+<span>          <span class="st">"real life, and comply with languages and habits that the users are"</span>,</span>
+<span>          <span class="st">"used to;"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Consistent within interface: all elements should be consistent,"</span>,</span>
+<span>          <span class="st">"such as: design style, icons and texts, position of elements, etc."</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        name <span class="op">=</span> <span class="st">"1"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Feedback"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Operation feedback: enable the users to clearly perceive their"</span>,</span>
+<span>          <span class="st">"operations by style updates and interactive effects;"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Visual feedback: reflect current state by updating or rearranging"</span>,</span>
+<span>          <span class="st">"elements of the page."</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        name <span class="op">=</span> <span class="st">"2"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Efficiency"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Simplify the process: keep operating process simple and intuitive;"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Definite and clear: enunciate your intentions clearly so that the"</span>,</span>
+<span>          <span class="st">"users can quickly understand and make decisions;"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        name <span class="op">=</span> <span class="st">"3"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="custom-icon-position-coll_pos" class="el-collapse el-collapse-icon-position-left" data-el-collapse="true" data-accordion="false">
-    <div class="el-collapse-item" data-el-name="1">
-      <div id="custom-icon-position-coll_pos-head-1" role="button" tabindex="0" aria-expanded="false" aria-controls="custom-icon-position-coll_pos-content-1" aria-describedby="custom-icon-position-coll_pos-content-1" class="el-collapse-item__header">
-        <span class="el-collapse-item__title">Consistency</span>
-        <i class="el-icon el-collapse-item__arrow" data-el-icon="ArrowRight"></i>
-      </div>
-      <div id="custom-icon-position-coll_pos-content-1" role="region" aria-hidden="true" aria-labelledby="custom-icon-position-coll_pos-head-1" class="el-collapse-item__wrap" style="display:none">
-        <div class="el-collapse-item__content">
-          <div>Consistent with real life.</div>
-        </div>
-      </div>
-    </div>
-    <div class="el-collapse-item" data-el-name="2">
-      <div id="custom-icon-position-coll_pos-head-2" role="button" tabindex="0" aria-expanded="false" aria-controls="custom-icon-position-coll_pos-content-2" aria-describedby="custom-icon-position-coll_pos-content-2" class="el-collapse-item__header">
-        <span class="el-collapse-item__title">Feedback</span>
-        <i class="el-icon el-collapse-item__arrow" data-el-icon="ArrowRight"></i>
-      </div>
-      <div id="custom-icon-position-coll_pos-content-2" role="region" aria-hidden="true" aria-labelledby="custom-icon-position-coll_pos-head-2" class="el-collapse-item__wrap" style="display:none">
-        <div class="el-collapse-item__content">
-          <div>Operation feedback.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">position</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_collapse.html">update_el_collapse</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"coll_pos"</span>,</span>
+<span>      expand_icon_position <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">position</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/collapse-custom-icon-position.png" alt="The custom-icon-position example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="prevent-collapsing">Prevent collapsing<a class="anchor" aria-label="anchor" href="#prevent-collapsing"></a>
@@ -515,49 +547,63 @@ customize icon position.</p>
 <p>set the <code>before-collapse</code> property, If <code>false</code>
 is returned or a <code>Promise</code> is returned and then is rejected,
 will stop collapsing.</p>
-<p><code>before_collapse</code> may hold a panel as it is: return
-<code>false</code>, or a promise.</p>
+<p><code>before_collapse</code> returns a promise: the panel turns after
+a second, or stays, as the switch says. The switch replaces the function
+with <code>update_el_collapse(before_collapse =)</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
-<span>  <span class="st">"coll_guard"</span>,</span>
-<span>  before_collapse <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>    <span class="st">"function(name) { return confirm('Toggle ' + name + '?'); }"</span></span>
+<code class="sourceCode R"><span><span class="va">guard</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">allow</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function() { return new Promise(function(resolve) { setTimeout(function() { resolve(%s); }, 1000); }); }"</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">allow</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; margin-bottom: 16px"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-right: 16px"</span>, <span class="st">"before collapse return: "</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>      <span class="st">"before"</span>,</span>
+<span>      value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      inactive_text <span class="op">=</span> <span class="st">"false"</span>,</span>
+<span>      active_text <span class="op">=</span> <span class="st">"true"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Consistency"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Consistent with real life."</span><span class="op">)</span>,</span>
-<span>      name <span class="op">=</span> <span class="st">"1"</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span><span class="st">"Feedback"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"Operation feedback."</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
+<span>    <span class="st">"coll_guard"</span>,</span>
+<span>    value <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    before_collapse <span class="op">=</span> <span class="fu">guard</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Consistency"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Consistent with real life: in line with the process and logic of"</span>,</span>
+<span>          <span class="st">"real life, and comply with languages and habits that the users are"</span>,</span>
+<span>          <span class="st">"used to;"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        name <span class="op">=</span> <span class="st">"1"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Feedback"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          <span class="st">"Operation feedback: enable the users to clearly perceive their"</span>,</span>
+<span>          <span class="st">"operations by style updates and interactive effects;"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        name <span class="op">=</span> <span class="st">"2"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="prevent-collapsing-coll_guard" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false" data-before-collapse="function(name) { return confirm('Toggle ' + name + '?'); }">
-    <div class="el-collapse-item" data-el-name="1">
-      <div id="prevent-collapsing-coll_guard-head-1" role="button" tabindex="0" aria-expanded="false" aria-controls="prevent-collapsing-coll_guard-content-1" aria-describedby="prevent-collapsing-coll_guard-content-1" class="el-collapse-item__header">
-        <span class="el-collapse-item__title">Consistency</span>
-        <i class="el-icon el-collapse-item__arrow" data-el-icon="ArrowRight"></i>
-      </div>
-      <div id="prevent-collapsing-coll_guard-content-1" role="region" aria-hidden="true" aria-labelledby="prevent-collapsing-coll_guard-head-1" class="el-collapse-item__wrap" style="display:none">
-        <div class="el-collapse-item__content">
-          <div>Consistent with real life.</div>
-        </div>
-      </div>
-    </div>
-    <div class="el-collapse-item" data-el-name="2">
-      <div id="prevent-collapsing-coll_guard-head-2" role="button" tabindex="0" aria-expanded="false" aria-controls="prevent-collapsing-coll_guard-content-2" aria-describedby="prevent-collapsing-coll_guard-content-2" class="el-collapse-item__header">
-        <span class="el-collapse-item__title">Feedback</span>
-        <i class="el-icon el-collapse-item__arrow" data-el-icon="ArrowRight"></i>
-      </div>
-      <div id="prevent-collapsing-coll_guard-content-2" role="region" aria-hidden="true" aria-labelledby="prevent-collapsing-coll_guard-head-2" class="el-collapse-item__wrap" style="display:none">
-        <div class="el-collapse-item__content">
-          <div>Operation feedback.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">before</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_collapse.html">update_el_collapse</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"coll_guard"</span>,</span>
+<span>      before_collapse <span class="op">=</span> <span class="fu">guard</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">before</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/collapse-prevent-collapsing.png" alt="The prevent-collapsing example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

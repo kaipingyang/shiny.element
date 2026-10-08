@@ -21,11 +21,11 @@ Using Space to provide space
 
 card <- function(i) {
   el_card(
-    width = "250px",
+    style = "width: 250px",
     header = tags$div(
       style = "display: flex; justify-content: space-between; align-items: center",
       tags$span("Card name"),
-      el_button(paste0("sp_op", i), "Operation button", text = TRUE)
+      el_button(label = "Operation button", text = TRUE)
     ),
     lapply(1:4, function(o) tags$div(paste("List item", o)))
   )
@@ -44,9 +44,13 @@ We also provide vertical layout.
 
 card <- function(i) {
   el_card(
-    width = "250px",
-    header = "Card name",
-    lapply(1:2, function(o) tags$div(paste("List item", o)))
+    style = "width: 250px",
+    header = tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center",
+      tags$span("Card name"),
+      el_button(label = "Operation button", text = TRUE)
+    ),
+    lapply(1:4, function(o) tags$div(paste("List item", o)))
   )
 }
 el_space(direction = "vertical", lapply(1:2, card))
@@ -63,31 +67,77 @@ these size corresponds to `8px`, `12px`, `16px`. The default size is
 You can also using customized size to override it. Refer to the next
 part.
 
+The radios set the inner space’s `size` with
+[`update_el_space()`](https://kaipingyang.github.io/shiny.element/reference/el_space.md).
+
 ``` r
 
 card <- function(i) {
-  el_card(width = "250px", header = "Card name", tags$div("List item"))
+  el_card(
+    style = "width: 250px",
+    header = tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center",
+      tags$span("Card name"),
+      el_button(label = "Operation button", text = TRUE)
+    ),
+    lapply(1:4, function(o) tags$div(paste("List item", o)))
+  )
 }
-el_space(
-  direction = "vertical",
-  alignment = "start",
-  size = 30,
-  el_space(size = "large", lapply(1:2, card))
+ui <- el_page(
+  tags$div(
+    style = "display: flex; flex-direction: column; align-items: flex-start; gap: 30px",
+    el_radio_group(
+      "sp_size",
+      choices = c(Large = "large", Default = "default", Small = "small"),
+      selected = "default"
+    ),
+    el_space(id = "sp_cards", wrap = TRUE, size = "default", lapply(1:3, card))
+  )
 )
+server <- function(input, output, session) {
+  observeEvent(input$sp_size, ignoreInit = TRUE, {
+    update_el_space(session, "sp_cards", size = input$sp_size)
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The control-size example, running](../../shots/space-control-size.png)
 
 ## Customized Size
 
 Sometimes built-in sizes could not meet the business needs, we can use
 custom size (number type) to control the space between items.
 
+The slider sets the space’s `size` in pixels.
+
 ``` r
 
 card <- function(i) {
-  el_card(width = "250px", header = "Card name", tags$div("List item"))
+  el_card(
+    style = "width: 250px",
+    header = tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center",
+      tags$span("Card name"),
+      el_button(label = "Operation button", text = TRUE)
+    ),
+    lapply(1:4, function(o) tags$div(paste("List item", o)))
+  )
 }
-el_space(wrap = TRUE, size = 20, lapply(1:2, card))
+ui <- el_page(
+  el_slider("sp_px", value = 20),
+  el_space(id = "sp_px_cards", wrap = TRUE, size = 20, lapply(1:2, card))
+)
+server <- function(input, output, session) {
+  observeEvent(input$sp_px, ignoreInit = TRUE, {
+    update_el_space(session, "sp_px_cards", size = input$sp_px)
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The customized-size example,
+running](../../shots/space-customized-size.png)
 
 > **Tip**
 >
@@ -108,7 +158,7 @@ Using `wrap` to control line wrap
 el_space(
   wrap = TRUE,
   lapply(1:20, function(i) {
-    el_button(paste0("sp_w", i), "Text button", text = TRUE)
+    tags$div(el_button(label = "Text button", text = TRUE))
   })
 )
 ```
@@ -125,8 +175,7 @@ to help us.
 el_space(
   size = 10,
   spacer = "|",
-  el_button("sp_l1", "button 1"),
-  el_button("sp_l2", "button 2")
+  lapply(1:2, function(i) tags$div(el_button(label = paste("button", i))))
 )
 ```
 
@@ -141,8 +190,7 @@ code.
 el_space(
   size = 10,
   spacer = JS("Vue.h(ElementPlus.ElDivider, { direction: 'vertical' })"),
-  el_button("sp_v1", "button 1"),
-  el_button("sp_v2", "button 2")
+  lapply(1:2, function(i) tags$div(el_button(label = paste("button", i))))
 )
 ```
 
@@ -156,13 +204,25 @@ Using `alignment`
 
 ``` r
 
-tags$div(
-  style = "width: 240px; margin-bottom: 8px; padding: 8px; border: 1px solid var(--el-border-color)",
-  el_space(
-    "string",
-    el_button("sp_a", "button"),
-    el_card(header = "header", "body")
+box <- function(alignment = NULL) {
+  tags$div(
+    class = "alignment-container",
+    el_space(
+      alignment = alignment,
+      "string",
+      el_button(label = "button"),
+      el_card(header = "header", "body")
+    )
   )
+}
+tagList(
+  tags$style(
+    ".alignment-container { width: 240px; margin-bottom: 20px; padding: 8px;
+       border: 1px solid var(--el-border-color); }"
+  ),
+  box(),
+  box("flex-start"),
+  box("flex-end")
 )
 ```
 
@@ -176,14 +236,38 @@ node will automatically adapt to the width of the container.
 
 Use fill to automatically fill the container with child nodes
 
+The switch sets `fill` with
+[`update_el_space()`](https://kaipingyang.github.io/shiny.element/reference/el_space.md).
+
 ``` r
 
-el_space(
-  fill = TRUE,
-  wrap = TRUE,
-  lapply(1:3, function(i) el_card(header = "Card name", "List item"))
+card <- function(i) {
+  el_card(
+    header = tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center",
+      tags$span("Card name"),
+      el_button(label = "Operation button", text = TRUE)
+    ),
+    lapply(1:4, function(o) tags$div(paste("List item", o)))
+  )
+}
+ui <- el_page(
+  tags$div(
+    style = "margin-bottom: 15px",
+    "fill: ",
+    el_switch("sp_fill_on", value = TRUE)
+  ),
+  el_space(id = "sp_fill", fill = TRUE, wrap = TRUE, lapply(1:3, card))
 )
+server <- function(input, output, session) {
+  observeEvent(input$sp_fill_on, ignoreInit = TRUE, {
+    update_el_space(session, "sp_fill", fill = input$sp_fill_on)
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The fill example, running](../../shots/space-fill.png)
 
 You can also use the `fillRatio` parameter to customize the filling
 ratio. The default value is `100`, which represents filling based on the
@@ -195,15 +279,57 @@ following example.
 
 Use fillRatio to customize the fill ratio
 
+The radios set `direction`, the slider `fill_ratio`.
+
 ``` r
 
-el_space(
-  fill = TRUE,
-  fill_ratio = 30,
-  wrap = TRUE,
-  lapply(1:5, function(i) el_card(header = "Card name", "List item"))
+card <- function(i) {
+  el_card(
+    header = tags$div(
+      style = "display: flex; justify-content: space-between; align-items: center",
+      tags$span("Card name"),
+      el_button(label = "Operation button", text = TRUE)
+    ),
+    lapply(1:4, function(o) tags$div(paste("List item", o)))
+  )
+}
+ui <- el_page(
+  tags$div(
+    style = "margin-bottom: 15px",
+    "direction: ",
+    el_radio_group(
+      "sp_dir",
+      choices = c("horizontal", "vertical"),
+      selected = "horizontal"
+    )
+  ),
+  tags$div(
+    style = "margin-bottom: 15px",
+    "fillRatio:",
+    el_slider("sp_ratio", value = 30)
+  ),
+  el_space(
+    id = "sp_ratio_cards",
+    fill = TRUE,
+    wrap = TRUE,
+    fill_ratio = 30,
+    direction = "horizontal",
+    width = "100%",
+    lapply(1:5, card)
+  )
 )
+server <- function(input, output, session) {
+  observeEvent(input$sp_dir, ignoreInit = TRUE, {
+    update_el_space(session, "sp_ratio_cards", direction = input$sp_dir)
+  })
+  observeEvent(input$sp_ratio, ignoreInit = TRUE, {
+    update_el_space(session, "sp_ratio_cards", fill_ratio = input$sp_ratio)
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The fill-ratio example, running](../../shots/space-fill-ratio.png)
 
 ## API
 

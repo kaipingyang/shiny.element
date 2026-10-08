@@ -174,6 +174,8 @@ switch it off from the server once the work is done.</p>
 <span>  count <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  throttle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  style <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
@@ -182,7 +184,9 @@ switch it off from the server once the work is done.</p>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">id</span>,</span>
 <span>  loading <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  rows <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  rows <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  animated <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  count <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -222,6 +226,12 @@ a fast load does not flash it.</p></dd>
 
 <dt id="arg-width">width<a class="anchor" aria-label="anchor" href="#arg-width"></a></dt>
 <dd><p>Component width, as a CSS unit.</p></dd>
+
+
+<dt id="arg-class-style">class, style<a class="anchor" aria-label="anchor" href="#arg-class-style"></a></dt>
+<dd><p>Extra classes and inline style on the skeleton, as
+Element passes them to its root: <code>style = "display: flex; gap: 8px"</code>
+lays several copies of the placeholder side by side.</p></dd>
 
 
 <dt id="arg-slots">slots<a class="anchor" aria-label="anchor" href="#arg-slots"></a></dt>

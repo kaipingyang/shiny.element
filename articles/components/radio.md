@@ -64,8 +64,8 @@ You just need to add the `disabled` attribute.
 
 el_radio_group(
   "rd_dis",
-  choices = c("Option A" = "a", "Option B" = "b"),
-  selected = "a",
+  choices = c("Option A" = "disabled", "Option B" = "selected and disabled"),
+  selected = "selected and disabled",
   disabled = TRUE
 )
 ```

@@ -209,14 +209,46 @@
 <p>By default the date-picker-panel is bordered but in some case you
 don’t want it. For example <code>DatePicker</code> don’t inherit
 <code>border</code>.</p>
+<p><code>border = FALSE</code>: the panel on its own, and inside a
+card.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span><span class="st">"dpp_border"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"text-align: center"</span>, <span class="st">"No border:"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; gap: 16px; justify-content: center"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"padding: 20px"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span><span class="st">"dpp_border"</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"vertical"</span>, style <span class="op">=</span> <span class="st">"height: auto"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span><span class="st">"dpp_border_card"</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="border-dpp_border" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="border-dpp_border_container" style="display: contents">
+  <div>
+    <div style="text-align: center">No border:</div>
+    <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center">
+      <div style="padding: 20px">
+        <div id="border-dpp_border" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="border-dpp_border_container" style="display: contents">
   <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-08","border":false,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('border-dpp_border', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('border-dpp_border', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('border-dpp_border', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":false,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('border-dpp_border', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('border-dpp_border', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('border-dpp_border', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
 </div>
+      </div>
+      <div class="el-divider el-divider--vertical" role="separator" style="--el-border-style:solid; height: auto"></div>
+      <div class="el-card is-always-shadow" data-el-shadow-default="true">
+        <div class="el-card__body">
+          <div id="border-dpp_border_card" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="border-dpp_border_card_container" style="display: contents">
+  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":false,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('border-dpp_border_card', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('border-dpp_border_card', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('border-dpp_border_card', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 <div class="section level2">
@@ -224,71 +256,80 @@ don’t want it. For example <code>DatePicker</code> don’t inherit
 </h2>
 <p>The <code>disabled</code> attribute determines if the date picker is
 fully disabled.</p>
+<p>The switch disables the panel with
+<code>update_el_date_picker_panel(disabled =)</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span><span class="st">"dpp_dis"</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="disabled-dpp_dis" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="disabled-dpp_dis_container" style="display: contents">
-  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-08","border":null,"disabled":true,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('disabled-dpp_dis', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('disabled-dpp_dis', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('disabled-dpp_dis', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
-</div>
-</div>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; flex-direction: column; align-items: center"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dpp_switch"</span>,</span>
+<span>      value <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      active_text <span class="op">=</span> <span class="st">"Disabled"</span>,</span>
+<span>      inactive_text <span class="op">=</span> <span class="st">"Enabled"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span><span class="st">"dpp_dis"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dpp_switch</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker_panel.html">update_el_date_picker_panel</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"dpp_dis"</span>, disabled <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">dpp_switch</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/date-picker-panel-disabled.png" alt="The disabled example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="types">Types<a class="anchor" aria-label="anchor" href="#types"></a>
 </h2>
 <p>The measurement is determined by the <code>type</code> attribute.</p>
-<p>Every type the picker has, its panel open.</p>
+<p>The select changes the panel’s <code>type</code>, and clears its
+value as it does (<code>value = NA</code>).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="st">"display: grid; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"date"</span>, <span class="st">"week"</span>, <span class="st">"month"</span>, <span class="st">"year"</span>, <span class="st">"daterange"</span>, <span class="st">"monthrange"</span><span class="op">)</span>,</span>
-<span>    <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"dpp_"</span>, <span class="va">t</span><span class="op">)</span>, type <span class="op">=</span> <span class="va">t</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
+<code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"year"</span>,</span>
+<span>  <span class="st">"years"</span>,</span>
+<span>  <span class="st">"month"</span>,</span>
+<span>  <span class="st">"months"</span>,</span>
+<span>  <span class="st">"date"</span>,</span>
+<span>  <span class="st">"dates"</span>,</span>
+<span>  <span class="st">"week"</span>,</span>
+<span>  <span class="st">"quarter"</span>,</span>
+<span>  <span class="st">"quarters"</span>,</span>
+<span>  <span class="st">"quarterrange"</span>,</span>
+<span>  <span class="st">"datetime"</span>,</span>
+<span>  <span class="st">"datetimerange"</span>,</span>
+<span>  <span class="st">"daterange"</span>,</span>
+<span>  <span class="st">"monthrange"</span>,</span>
+<span>  <span class="st">"yearrange"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; gap: 16px"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"display: flex; flex-direction: column; flex-basis: 150px; gap: 4px"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Type:"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"dpp_type"</span>, choices <span class="op">=</span> <span class="va">types</span>, selected <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; justify-content: center"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span><span class="st">"dpp_all"</span>, type <span class="op">=</span> <span class="st">"date"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div style="display: grid; gap: 16px">
-    <div>date</div>
-    <div id="all-types-dpp_date" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_date_container" style="display: contents">
-  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":"date","defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('all-types-dpp_date', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('all-types-dpp_date', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('all-types-dpp_date', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
-</div>
-    <div>week</div>
-    <div id="all-types-dpp_week" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_week_container" style="display: contents">
-  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":"week","defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('all-types-dpp_week', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('all-types-dpp_week', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('all-types-dpp_week', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
-</div>
-    <div>month</div>
-    <div id="all-types-dpp_month" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_month_container" style="display: contents">
-  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":"month","defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('all-types-dpp_month', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('all-types-dpp_month', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('all-types-dpp_month', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
-</div>
-    <div>year</div>
-    <div id="all-types-dpp_year" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_year_container" style="display: contents">
-  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":"year","defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('all-types-dpp_year', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('all-types-dpp_year', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('all-types-dpp_year', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
-</div>
-    <div>daterange</div>
-    <div id="all-types-dpp_daterange" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_daterange_container" style="display: contents">
-  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":"daterange","defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('all-types-dpp_daterange', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('all-types-dpp_daterange', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('all-types-dpp_daterange', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
-</div>
-    <div>monthrange</div>
-    <div id="all-types-dpp_monthrange" data-shiny-vue style="display: contents">
-      <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_monthrange_container" style="display: contents">
-  <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":"monthrange","defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('all-types-dpp_monthrange', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('all-types-dpp_monthrange', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('all-types-dpp_monthrange', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
-</div>
-  </div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dpp_type</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker_panel.html">update_el_date_picker_panel</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"dpp_all"</span>,</span>
+<span>      type <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">dpp_type</span>,</span>
+<span>      value <span class="op">=</span> <span class="cn">NA</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/date-picker-panel-all-types.png" alt="The all-types example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="localization">Localization<a class="anchor" aria-label="anchor" href="#localization"></a>

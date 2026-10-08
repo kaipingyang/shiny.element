@@ -16,51 +16,116 @@ el_date_picker_panel("dpp", value = Sys.Date())
 By default the date-picker-panel is bordered but in some case you don’t
 want it. For example `DatePicker` don’t inherit `border`.
 
+`border = FALSE`: the panel on its own, and inside a card.
+
 ``` r
 
-el_date_picker_panel("dpp_border", value = Sys.Date(), border = FALSE)
+tags$div(
+  tags$div(style = "text-align: center", "No border:"),
+  el_divider(),
+  tags$div(
+    style = "display: flex; flex-wrap: wrap; gap: 16px; justify-content: center",
+    tags$div(
+      style = "padding: 20px",
+      el_date_picker_panel("dpp_border", border = FALSE)
+    ),
+    el_divider(direction = "vertical", style = "height: auto"),
+    el_card(el_date_picker_panel("dpp_border_card", border = FALSE))
+  )
+)
 ```
+
+No border:
 
 ## Disabled
 
 The `disabled` attribute determines if the date picker is fully
 disabled.
 
+The switch disables the panel with
+`update_el_date_picker_panel(disabled =)`.
+
 ``` r
 
-el_date_picker_panel("dpp_dis", value = Sys.Date(), disabled = TRUE)
+ui <- el_page(
+  tags$div(
+    style = "display: flex; flex-direction: column; align-items: center",
+    el_switch(
+      "dpp_switch",
+      value = TRUE,
+      active_text = "Disabled",
+      inactive_text = "Enabled"
+    ),
+    el_date_picker_panel("dpp_dis", disabled = TRUE)
+  )
+)
+server <- function(input, output, session) {
+  observeEvent(input$dpp_switch, {
+    update_el_date_picker_panel(session, "dpp_dis", disabled = input$dpp_switch)
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The disabled example,
+running](../../shots/date-picker-panel-disabled.png)
 
 ## Types
 
 The measurement is determined by the `type` attribute.
 
-Every type the picker has, its panel open.
+The select changes the panel’s `type`, and clears its value as it does
+(`value = NA`).
 
 ``` r
 
-tags$div(
-  style = "display: grid; gap: 16px",
-  lapply(
-    c("date", "week", "month", "year", "daterange", "monthrange"),
-    function(t) {
-      tagList(tags$div(t), el_date_picker_panel(paste0("dpp_", t), type = t))
-    }
+types <- c(
+  "year",
+  "years",
+  "month",
+  "months",
+  "date",
+  "dates",
+  "week",
+  "quarter",
+  "quarters",
+  "quarterrange",
+  "datetime",
+  "datetimerange",
+  "daterange",
+  "monthrange",
+  "yearrange"
+)
+ui <- el_page(
+  tags$div(
+    style = "display: flex; gap: 16px",
+    tags$div(
+      style = "display: flex; flex-direction: column; flex-basis: 150px; gap: 4px",
+      tags$span("Type:"),
+      el_select("dpp_type", choices = types, selected = "date")
+    )
+  ),
+  el_divider(),
+  tags$div(
+    style = "display: flex; justify-content: center",
+    el_date_picker_panel("dpp_all", type = "date")
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$dpp_type, ignoreInit = TRUE, {
+    update_el_date_picker_panel(
+      session,
+      "dpp_all",
+      type = input$dpp_type,
+      value = NA
+    )
+  })
+}
+shinyApp(ui, server)
 ```
 
-date
-
-week
-
-month
-
-year
-
-daterange
-
-monthrange
+![The all-types example,
+running](../../shots/date-picker-panel-all-types.png)
 
 ## Localization
 

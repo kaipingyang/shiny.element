@@ -34,7 +34,8 @@ ColorPickerPanel supports predefined color options
 
 el_color_picker_panel(
   "cpp_pre",
-  value = "#ff4500",
+  value = "rgba(255, 69, 0, 0.68)",
+  show_alpha = TRUE,
   predefine = c(
     "#ff4500",
     "#ff8c00",
@@ -42,7 +43,14 @@ el_color_picker_panel(
     "#90ee90",
     "#00ced1",
     "#1e90ff",
-    "#c71585"
+    "#c71585",
+    "rgba(255, 69, 0, 0.68)",
+    "rgb(255, 120, 0)",
+    "hsv(51, 100, 98)",
+    "hsva(120, 40, 94, 0.5)",
+    "hsl(181, 100%, 37%)",
+    "hsla(209, 100%, 56%, 0.73)",
+    "#c7158577"
   )
 )
 ```
@@ -54,8 +62,24 @@ want it.
 
 ``` r
 
-el_color_picker_panel("cpp_border", value = "#409EFF", border = FALSE)
+tagList(
+  tags$div(style = "text-align: center", "No border:"),
+  el_divider(),
+  tags$div(
+    style = "display: flex; flex-wrap: wrap; justify-content: center; gap: 16px",
+    tags$div(
+      style = "padding: 20px",
+      el_color_picker_panel("cpp_border1", value = "#409EFF", border = FALSE)
+    ),
+    el_divider(direction = "vertical", style = "height: auto"),
+    el_card(
+      el_color_picker_panel("cpp_border2", value = "#409EFF", border = FALSE)
+    )
+  )
+)
 ```
+
+No border:
 
 ## Disabled
 
@@ -64,7 +88,21 @@ disabled.
 
 ``` r
 
-el_color_picker_panel("cpp_dis", value = "#409EFF", disabled = TRUE)
+el_color_picker_panel(
+  "cpp_dis",
+  value = "#ff6900",
+  disabled = TRUE,
+  show_alpha = TRUE,
+  predefine = c(
+    "#ff4500",
+    "#ff8c00",
+    "#ffd700",
+    "#90ee90",
+    "#00ced1",
+    "#1e90ff",
+    "#c71585"
+  )
+)
 ```
 
 ## API

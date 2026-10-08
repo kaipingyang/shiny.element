@@ -166,6 +166,9 @@
 <span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  choices <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rules <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  report <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  button <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -185,7 +188,8 @@
 <code>"radio-group"</code>, <code>"checkbox-group"</code>, <code>"checkbox"</code> (one box, <code>TRUE</code> or
 <code>FALSE</code>), <code>"switch"</code>, <code>"slider"</code>, <code>"date-picker"</code>, <code>"time-picker"</code>,
 <code>"time-select"</code>, <code>"rate"</code>, <code>"cascader"</code>, <code>"cascader-panel"</code>,
-<code>"color-picker"</code>, <code>"autocomplete"</code> or <code>"transfer"</code>. Their props go in
+<code>"color-picker"</code>, <code>"autocomplete"</code>, <code>"transfer"</code>, <code>"select-v2"</code>,
+<code>"segmented"</code>, <code>"input-tag"</code>, <code>"mention"</code> or <code>"mention-textarea"</code>. Their props go in
 <code>...</code>: a cascader's <code>options</code>, a transfer's <code>data</code>.</p></dd>
 
 
@@ -207,6 +211,20 @@ user types. A named vector <code>c(Label = value)</code> or a list of
 
 <dt id="arg-rules">rules<a class="anchor" aria-label="anchor" href="#arg-rules"></a></dt>
 <dd><p>A single <code><a href="el_rule.html">el_rule()</a></code> or a list of them.</p></dd>
+
+
+<dt id="arg-report">report<a class="anchor" aria-label="anchor" href="#arg-report"></a></dt>
+<dd><p>Whether the field also reports its value on load and on
+every change, as <code>input$&lt;form id&gt;_&lt;prop&gt;</code>, as a standalone input would –
+for a control that changes the page, such as a size switch. The form's
+own <code>input$&lt;form id&gt;</code> still waits for a submit. A field added later by
+<code><a href="el_form.html">update_el_form()</a></code><code>(fields =)</code> reports with the submit only.</p></dd>
+
+
+<dt id="arg-button-border">button, border<a class="anchor" aria-label="anchor" href="#arg-button-border"></a></dt>
+<dd><p>For <code>"radio-group"</code> and <code>"checkbox-group"</code>: draw the
+choices as buttons (<code>el-radio-button</code>, <code>el-checkbox-button</code>), or as
+boxes with a border.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

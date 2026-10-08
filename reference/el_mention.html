@@ -202,6 +202,7 @@ do.</p>
 <span>  disabled <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  options <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  split <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -376,9 +377,12 @@ whether beside the component rather than under it. Element's
 
 
 <ul><li><p><code>input$&lt;id&gt;</code> – the value, on load and on every change.</p></li>
-<li><p><code>input$&lt;id&gt;_search</code> – Element Plus's <code>search</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_select</code> – Element Plus's <code>select</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_whole_remove</code> – Element Plus's <code>whole-remove</code> event.</p></li>
+<li><p><code>input$&lt;id&gt;_search</code> – Element Plus's <code>search</code> event, as it is typed
+after a prefix: <code>list(pattern, prefix)</code>, the text and the prefix.
+Answer it with <code>update_el_mention()</code>'s <code>options</code> (and <code>loading</code>).</p></li>
+<li><p><code>input$&lt;id&gt;_select</code> – Element Plus's <code>select</code> event: <code>list(option, prefix)</code>.</p></li>
+<li><p><code>input$&lt;id&gt;_whole_remove</code> – Element Plus's <code>whole-remove</code> event:
+<code>list(pattern, prefix)</code>.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
@@ -398,7 +402,7 @@ stays as it is; <code>NA</code> returns it to Element's default.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="msg_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-mention v-model="value" @search="elEmitSearch" @select="elEmitSelect" @whole-remove="elEmitWholeRemove" :options="options === null ? undefined : options" :props="props === null ? undefined : props" :prefix="prefix === null ? undefined : prefix" :split="split === null ? undefined : split" :filter-option="filterOption === null ? undefined : filterOption" :placement="placement === null ? undefined : placement" :show-arrow="showArrow === null ? undefined : showArrow" :offset="offset === null ? undefined : offset" :whole="whole === null ? undefined : whole" :check-is-whole="checkIsWhole === null ? undefined : checkIsWhole" :loading="loading === null ? undefined : loading" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :popper-options="popperOptions === null ? undefined : popperOptions" :placeholder="placeholder === null ? undefined : placeholder" :disabled="disabled === null ? undefined : disabled" :type="type === null ? undefined : type" :rows="rows === null ? undefined : rows"&gt;&lt;/el-mention&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"options":[{"value":"Ada","label":"Ada"},{"value":"Grace","label":"Grace"},{"value":"Linus","label":"Linus"}],"props":null,"prefix":null,"split":null,"filterOption":null,"placement":null,"showArrow":null,"offset":null,"whole":null,"checkIsWhole":null,"loading":null,"popperClass":null,"popperStyle":null,"popperOptions":null,"placeholder":"Type @","disabled":null,"type":null,"rows":null},"methods":{"elEmitSearch":"function() { window.shinyVue.emit('msg', 'search', arguments); }","elEmitSelect":"function() { window.shinyVue.emit('msg', 'select', arguments); }","elEmitWholeRemove":"function() { window.shinyVue.emit('msg', 'whole_remove', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSearch","options.methods.elEmitSelect","options.methods.elEmitWholeRemove","options.watch.value"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"options":[{"value":"Ada","label":"Ada"},{"value":"Grace","label":"Grace"},{"value":"Linus","label":"Linus"}],"props":null,"prefix":null,"split":null,"filterOption":null,"placement":null,"showArrow":null,"offset":null,"whole":null,"checkIsWhole":null,"loading":null,"popperClass":null,"popperStyle":null,"popperOptions":null,"placeholder":"Type @","disabled":null,"type":null,"rows":null},"methods":{"elEmitSearch":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'search', [v]); }","elEmitSelect":"function() { var shape = function(option, prefix) { return {option: option, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'select', [v]); }","elEmitWholeRemove":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'whole_remove', [v]); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSearch","options.methods.elEmitSelect","options.methods.elEmitWholeRemove","options.watch.value"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>

@@ -48,41 +48,87 @@ el_scrollbar(tags$div(style = "display: flex", lapply(1:50, item)))
 The scrollbar is displayed only when the element height exceeds the max
 height.
 
+The buttons add and delete items: the scrollbar appears once they pass
+`max_height`.
+
 ``` r
 
-item <- function(i) {
-  tags$p(
-    style = paste(
-      "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
-      "border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"
-    ),
-    i
-  )
+ui <- el_page(
+  tags$style(
+    ".scrollbar-demo-item { display: flex; align-items: center;
+       justify-content: center; height: 50px; margin: 10px; text-align: center;
+       border-radius: 4px; background: var(--el-color-primary-light-9);
+       color: var(--el-color-primary); }"
+  ),
+  el_button("sb_add", "Add Item"),
+  el_button("sb_delete", "Delete Item"),
+  el_scrollbar(max_height = "400px", uiOutput("sb_items"))
+)
+server <- function(input, output, session) {
+  count <- reactiveVal(3)
+  observeEvent(input$sb_add, count(count() + 1))
+  observeEvent(input$sb_delete, count(max(0, count() - 1)))
+  output$sb_items <- renderUI({
+    lapply(seq_len(count()), function(i) {
+      tags$p(class = "scrollbar-demo-item", i)
+    })
+  })
 }
-el_scrollbar(max_height = "400px", lapply(1:3, item))
+shinyApp(ui, server)
 ```
+
+![The max-height example, running](../../shots/scrollbar-max-height.png)
 
 ## Manual scroll
 
 Use `setScrollTop` and `setScrollLeft` methods can control scrollbar
 manually.
 
-`call_el(session, "sb", "setScrollTop", list(200))` scrolls it from the
-server; `input$<id>_scroll` reports where it is.
+The slider scrolls the area from the server,
+`call_el(session, "sb", "setScrollTop", list(px))`, and follows it back:
+`input$sb_scroll` says where it is. Twenty items of 60px and a margin
+make 1210px, 830px more than the 380px shown.
 
 ``` r
 
-item <- function(i) {
-  tags$p(
-    style = paste(
-      "display: flex; align-items: center; justify-content: center; height: 50px; margin: 10px;",
-      "border-radius: 4px; background: var(--el-color-primary-light-9); color: var(--el-color-primary)"
-    ),
-    i
+ui <- el_page(
+  tags$style(
+    ".scrollbar-demo-item { display: flex; align-items: center;
+       justify-content: center; height: 50px; margin: 10px; text-align: center;
+       border-radius: 4px; background: var(--el-color-primary-light-9);
+       color: var(--el-color-primary); }
+     .el-slider { margin-top: 20px; }"
+  ),
+  el_scrollbar(
+    id = "sb",
+    height = "400px",
+    always = TRUE,
+    tags$div(lapply(1:20, function(i) tags$p(class = "scrollbar-demo-item", i)))
+  ),
+  el_slider(
+    "sb_slider",
+    value = 0,
+    max = 830,
+    format_tooltip = JS("function(value) { return value + ' px'; }")
   )
+)
+server <- function(input, output, session) {
+  observeEvent(input$sb_slider, ignoreInit = TRUE, {
+    call_el(session, "sb", "setScrollTop", list(input$sb_slider))
+  })
+  observeEvent(input$sb_scroll, {
+    update_el_slider(
+      session,
+      "sb_slider",
+      value = round(input$sb_scroll$scrollTop)
+    )
+  })
 }
-el_scrollbar(id = "sb", height = "400px", always = TRUE, lapply(1:20, item))
+shinyApp(ui, server)
 ```
+
+![The manual-scroll example,
+running](../../shots/scrollbar-manual-scroll.png)
 
 ## Infinite scroll
 

@@ -132,10 +132,13 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_element_vars.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_event_bindings.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_empty_value.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_flatten.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_item_size_class.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_item_update.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_options.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_reported.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_tags.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_form_watch.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_has_class.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_hex.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_host_style.html</loc></url>
@@ -151,6 +154,8 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_labelled.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_lazy_load_method.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_lazy_props.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_loading_attrs.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_locale_file.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_item_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_menu_nodes.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_mix.html</loc></url>
@@ -160,6 +165,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_optional_bind.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_or_na.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_overlay_content.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_overlay_flags.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_plus_dependencies.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_prefix_absorbed.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_prop_values.html</loc></url>
@@ -170,9 +176,11 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_resolve.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_restore.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_expr.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_html.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_js.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_rewrite_markup.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_select_choices.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_send_props_update.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_send_update.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_service_options.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/dot-el_set_width.html</loc></url>
@@ -276,6 +284,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_form.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_form_clear_validate.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_form_field.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_form_item.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_form_reset.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_form_validate.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_header.html</loc></url>

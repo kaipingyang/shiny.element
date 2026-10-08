@@ -86,22 +86,17 @@ Set `controls-position` to decide the position of control buttons.
 ``` r
 
 tags$div(
-  style = "display: flex; gap: 16px",
-  el_input_number(
-    "num_ctl",
-    value = 1,
-    min = 1,
-    max = 10,
-    controls_position = "right",
-    size = "large"
-  ),
-  el_input_number(
-    "num_ctl2",
-    value = 1,
-    min = 1,
-    max = 10,
-    controls_position = "right"
-  )
+  style = "display: flex; flex-wrap: wrap; align-items: center; gap: 16px",
+  lapply(c("large", "default", "small"), function(size) {
+    el_input_number(
+      paste0("num_ctl_", size),
+      value = 1,
+      min = 1,
+      max = 10,
+      controls_position = "right",
+      size = size
+    )
+  })
 )
 ```
 
@@ -111,14 +106,30 @@ Use `decrease-icon` and `increase-icon` to set custom icons.
 
 ``` r
 
-el_input_number(
-  "num_custom",
-  value = 1,
-  min = 1,
-  max = 10,
-  slots = list(
-    `decrease-icon` = el_icon("ArrowDown"),
-    `increase-icon` = el_icon("ArrowUp")
+el_space(
+  direction = "vertical",
+  el_space(
+    el_input_number("num_custom1", value = 1),
+    el_input_number(
+      "num_custom2",
+      value = 1,
+      slots = list(
+        `decrease-icon` = el_icon("ArrowDown"),
+        `increase-icon` = el_icon("ArrowUp")
+      )
+    )
+  ),
+  el_space(
+    el_input_number("num_custom3", value = 1, controls_position = "right"),
+    el_input_number(
+      "num_custom4",
+      value = 1,
+      controls_position = "right",
+      slots = list(
+        `decrease-icon` = el_icon("Minus"),
+        `increase-icon` = el_icon("Plus")
+      )
+    )
   )
 )
 ```
@@ -129,21 +140,20 @@ Use the prefix and suffix named slots.
 
 ``` r
 
-tags$div(
-  style = "display: grid; gap: 16px",
+el_space(
   el_input_number(
     "num_pre",
-    value = 18,
+    value = 1,
     min = 1,
-    max = 100,
-    slots = list(prefix = "￥")
+    max = 10,
+    slots = list(prefix = tags$span("￥"))
   ),
   el_input_number(
     "num_suf",
-    value = 100,
+    value = 1,
     min = 1,
-    max = 100,
-    slots = list(suffix = "RMB")
+    max = 10,
+    slots = list(suffix = tags$span("RMB"))
   )
 )
 ```
@@ -170,7 +180,7 @@ parsed number is written to `model-value`; when parsing returns `NaN`,
 
 el_input_number(
   "num_fmt",
-  value = 1234.5,
+  value = 10000,
   formatter = JS(
     "function(value) { return `$ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }"
   ),

@@ -17,12 +17,18 @@ A table’s own `loading` draws Element Plus’s mask over it, as
 
 ``` r
 
+table_data <- data.frame(
+  date = c("2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "John Smith",
+  address = "No.1518,  Jinshajiang Road, Putuo District"
+)
 el_table(
   loading = TRUE,
-  data = data.frame(
-    Date = c("2016-05-02", "2016-05-04", "2016-05-01"),
-    Name = c("John Smith", "John Smith", "John Smith"),
-    Address = rep("No.1518,  Jinshajiang Road, Putuo District", 3)
+  data = table_data,
+  columns = list(
+    el_table_column("date", "Date", width = 180),
+    el_table_column("name", "Name", width = 180),
+    el_table_column("address", "Address")
   )
 )
 ```
@@ -37,36 +43,58 @@ the `element-loading-spinner / element-loading-svg` and
 `element-loading-background` attributes are used to set the svg icon,
 background color value, and loading icon, respectively.
 
+`loading_options` sets the mask’s text, spinner and background, as the
+`element-loading-*` attributes do.
 [`el_loading()`](https://kaipingyang.github.io/shiny.element/reference/el_loading.md)
-covers an element of your choice, with your text, spinner and
-background.
+covers an element of your choice from the server with the same options.
 
 ``` r
 
-ui <- el_page(
-  el_button("go", "Cover the table"),
-  tags$div(
-    id = "covered",
-    el_table(data = data.frame(Date = "2016-05-02", Name = "John"))
-  )
+table_data <- data.frame(
+  date = c("2016-05-02", "2016-05-04", "2016-05-01"),
+  name = "John Smith",
+  address = "No.1518,  Jinshajiang Road, Putuo District"
 )
-server <- function(input, output, session) {
-  observeEvent(
-    input$go,
-    el_loading(
-      session,
-      "covering",
-      target = "#covered",
+columns <- list(
+  el_table_column("date", "Date", width = 180),
+  el_table_column("name", "Name", width = 180),
+  el_table_column("address", "Address")
+)
+svg <- '
+  <path class="path" d="
+    M 30 15
+    L 28 17
+    M 25.61 25.61
+    A 15 15, 0, 0, 1, 15 30
+    A 15 15, 0, 1, 1, 27.99 7.5
+    L 15 15
+  " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>'
+tagList(
+  tags$style(
+    ".example-showcase .el-loading-mask { z-index: 9; }"
+  ),
+  el_table(
+    loading = TRUE,
+    loading_options = list(
       text = "Loading...",
+      spinner = svg,
+      svg_view_box = "-10, -10, 50, 50",
       background = "rgba(122, 122, 122, 0.8)"
+    ),
+    data = table_data,
+    columns = columns
+  ),
+  tags$div(
+    class = "custom-loading-svg",
+    el_table(
+      loading = TRUE,
+      loading_options = list(svg = svg, svg_view_box = "-10, -10, 50, 50"),
+      data = table_data,
+      columns = columns
     )
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The customization example,
-running](../../shots/loading-customization.png)
 
 > **Warning**
 >
@@ -88,19 +116,24 @@ When used as a directive, a full screen Loading requires the
 you wish to disable scrolling on body, you can add another modifier
 `lock`. When used as a service, Loading will be full screen by default.
 
+`el_loading(fullscreen = TRUE)` covers the page until
+[`el_loading_close()`](https://kaipingyang.github.io/shiny.element/reference/el_loading_close.md);
+`lock` stops it scrolling meanwhile.
+
 ``` r
 
-ui <- el_page(el_button("full", "As a service", type = "primary"))
+ui <- el_page(
+  el_button("full_directive", "As a directive", type = "primary"),
+  el_button("full_service", "As a service", type = "primary")
+)
 server <- function(input, output, session) {
-  observeEvent(input$full, {
-    el_loading(
-      session,
-      "page",
-      text = "Loading",
-      fullscreen = TRUE,
-      lock = TRUE
-    )
+  cover <- function(...) {
+    el_loading(session, "page", fullscreen = TRUE, lock = TRUE, ...)
     later::later(function() el_loading_close(session, "page"), 2)
+  }
+  observeEvent(input$full_directive, cover())
+  observeEvent(input$full_service, {
+    cover(text = "Loading", background = "rgba(0, 0, 0, 0.7)")
   })
 }
 shinyApp(ui, server)

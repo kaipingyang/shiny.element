@@ -169,6 +169,13 @@ between them. Give it <code><a href="el_splitter_panel.html">el_splitter_panel()
 <span>  lazy <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_splitter</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lazy <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -202,6 +209,11 @@ into this one's Vue instance, as <code><a href="el_button_group.html">el_button_
 <dd><p>Named list of Element slot contents. A scoped slot is written
 with <code><a href="template.html">template()</a></code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -216,18 +228,27 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
 <li><p><code>input$&lt;id&gt;_resize_end</code> – Element Plus's <code>resize-end</code> event.</p></li>
 <li><p><code>input$&lt;id&gt;_collapse</code> – Element Plus's <code>collapse</code> event.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p><code>update_el_splitter()</code> changes the component from the server: every argument of
+<code>el_splitter()</code> that can change once it is drawn, under the same name. One left
+<code>NULL</code> stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_splitter()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_splitter</span><span class="op">(</span><span class="fu"><a href="el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="st">"Left"</span>, size <span class="op">=</span> <span class="st">"30%"</span><span class="op">)</span>, <span class="fu"><a href="el_splitter_panel.html">el_splitter_panel</a></span><span class="op">(</span><span class="st">"Right"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9" data-shiny-vue style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible"&gt;Left&lt;/el-splitter-panel&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-splitter-panel :size="el3_size === null ? undefined : el3_size" :min="el3_min === null ? undefined : el3_min" :max="el3_max === null ? undefined : el3_max" :resizable="el3_resizable === null ? undefined : el3_resizable" :collapsible="el3_collapsible === null ? undefined : el3_collapsible"&gt;Right&lt;/el-splitter-panel&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible" ref="sv_el_splitter_panel_798e665b_e0c1_4f04_91ce_b637755e2bb1"&gt;Left&lt;/el-splitter-panel&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-splitter-panel :size="el3_size === null ? undefined : el3_size" :min="el3_min === null ? undefined : el3_min" :max="el3_max === null ? undefined : el3_max" :resizable="el3_resizable === null ? undefined : el3_resizable" :collapsible="el3_collapsible === null ? undefined : el3_collapsible" ref="sv_el_splitter_panel_e2ddf3d7_7442_45b9_8748_f502445193c4"&gt;Right&lt;/el-splitter-panel&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-splitter&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'resize', arguments, 200); }","elEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'resize', arguments, 200); }","elEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"el_splitter_panel_798e665b-e0c1-4f04-91ce-b637755e2bb1":{"fields":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"ref":"sv_el_splitter_panel_798e665b_e0c1_4f04_91ce_b637755e2bb1"},"el_splitter_panel_e2ddf3d7-7442-45b9-8748-f502445193c4":{"fields":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"},"ref":"sv_el_splitter_panel_e2ddf3d7_7442_45b9_8748_f502445193c4"}},"generated":true,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>

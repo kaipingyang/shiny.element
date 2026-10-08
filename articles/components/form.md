@@ -16,11 +16,15 @@ and `checkbox`.
 In each `form` component, you need a `form-item` field to be the
 container of your input item.
 
+[`el_form_item()`](https://kaipingyang.github.io/shiny.element/reference/el_form_item.md)
+puts the date and the time under one label, in columns.
+
 ``` r
 
 el_form(
   id = "activity",
-  label_width = "120px",
+  label_width = "auto",
+  width = "600px",
   submit_label = "Create",
   reset_label = "Cancel",
   el_form_field("name", "input", label = "Activity name"),
@@ -31,11 +35,21 @@ el_form(
     choices = c("Zone one" = "shanghai", "Zone two" = "beijing"),
     placeholder = "please select your zone"
   ),
-  el_form_field(
-    "date",
-    "date-picker",
-    label = "Activity time",
-    placeholder = "Pick a date"
+  el_form_item(
+    "Activity time",
+    el_form_field(
+      "date1",
+      "date-picker",
+      placeholder = "Pick a date",
+      style = "width: 100%"
+    ),
+    "-",
+    el_form_field(
+      "date2",
+      "time-picker",
+      placeholder = "Pick a time",
+      style = "width: 100%"
+    )
   ),
   el_form_field("delivery", "switch", label = "Instant delivery"),
   el_form_field(
@@ -45,7 +59,8 @@ el_form(
     choices = c(
       "Online activities",
       "Promotion activities",
-      "Offline activities"
+      "Offline activities",
+      "Simple brand exposure"
     )
   ),
   el_form_field(
@@ -82,18 +97,29 @@ Set the `inline` attribute to `true` and the form will be inline.
 el_form(
   id = "search",
   inline = TRUE,
+  label_width = NULL,
   submit_label = "Query",
   el_form_field(
     "user",
     "input",
     label = "Approved by",
-    placeholder = "Approved by"
+    placeholder = "Approved by",
+    clearable = TRUE
   ),
   el_form_field(
     "region",
     "select",
     label = "Activity zone",
-    choices = c("Zone one" = "shanghai", "Zone two" = "beijing")
+    choices = c("Zone one" = "shanghai", "Zone two" = "beijing"),
+    placeholder = "Activity zone",
+    clearable = TRUE
+  ),
+  el_form_field(
+    "date",
+    "date-picker",
+    label = "Activity time",
+    placeholder = "Pick a date",
+    clearable = TRUE
   )
 )
 ```
@@ -110,26 +136,88 @@ The `label-position` attribute decides how labels align, it can be `top`
 or `left`. When set to `top`, labels will be placed at the top of the
 form field.
 
-`label_position` puts the labels `"right"` (the default), `"left"` or on
-`"top"`; a field’s own `label_position` overrides it.
+The two radio groups are fields with `report = TRUE`: they report as
+`input$align_position` and `input$align_item_position` as they change,
+and the server moves the labels – the form’s with
+`update_el_form(label_position =)`, the fields’ by giving the fields
+again with their own `label_position`.
 
 ``` r
 
-el_form(
-  id = "aligned",
-  label_position = "top",
-  submit_label = NULL,
-  width = "360px",
-  el_form_field("name", "input", label = "Name"),
-  el_form_field(
-    "region",
-    "input",
-    label = "Activity zone",
-    label_position = "right"
-  ),
-  el_form_field("type", "input", label = "Activity form")
+positions <- c(Left = "left", Right = "right", Top = "top")
+fields <- function(item_position = "") {
+  list(
+    el_form_field(
+      "position",
+      "radio-group",
+      label = "Form Align",
+      label_position = "right",
+      choices = positions,
+      value = "right",
+      button = TRUE,
+      report = TRUE
+    ),
+    el_form_field(
+      "item_position",
+      "radio-group",
+      label = "Form Item Align",
+      label_position = "right",
+      choices = c(Empty = "", positions),
+      value = item_position,
+      button = TRUE,
+      report = TRUE
+    ),
+    el_form_field(
+      "name",
+      "input",
+      label = "Name",
+      label_position = item_position
+    ),
+    el_form_field(
+      "region",
+      "input",
+      label = "Activity zone",
+      label_position = item_position
+    ),
+    el_form_field(
+      "type",
+      "input",
+      label = "Activity form",
+      label_position = item_position
+    )
+  )
+}
+ui <- el_page(
+  do.call(
+    el_form,
+    c(
+      list(
+        id = "align",
+        label_position = "right",
+        label_width = "auto",
+        width = "600px",
+        submit_label = NULL
+      ),
+      fields()
+    )
+  )
 )
+server <- function(input, output, session) {
+  observeEvent(input$align_position, ignoreInit = TRUE, {
+    update_el_form(session, "align", label_position = input$align_position)
+  })
+  observeEvent(input$align_item_position, ignoreInit = TRUE, {
+    update_el_form(
+      session,
+      "align",
+      fields = fields(input$align_item_position)
+    )
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The alignment example, running](../../shots/form-alignment.png)
 
 ## Validation
 
@@ -225,8 +313,9 @@ ui <- el_page(el_form(
     rules = el_rule(
       trigger = "blur",
       validator = JS(
-        "function(rule, value, callback) {",
-        "  value ? callback() : callback(new Error('Please input the password again'));",
+        "function(rule, value, callback, source) {",
+        "  if (!value) return callback(new Error('Please input the password again'));",
+        "  value !== source.pass ? callback(new Error(\"Two inputs don't match!\")) : callback();",
         "}"
       )
     )
@@ -370,29 +459,86 @@ Similarly, FormItem also has a `size` attribute.
 Still you can fine tune each component’s `size` if you don’t want that
 component to inherit its size from From or FormItem.
 
+The radio buttons set the form’s `size` and `label_position` with
+[`update_el_form()`](https://kaipingyang.github.io/shiny.element/reference/el_form.md).
+
 ``` r
 
-el_form(
-  id = "small",
-  size = "small",
-  label_width = "120px",
-  submit_label = "Create",
-  width = "480px",
-  el_form_field("name", "input", label = "Activity name"),
-  el_form_field(
-    "region",
-    "select",
-    label = "Activity zone",
-    choices = c("Zone one" = "shanghai", "Zone two" = "beijing")
+ui <- el_page(
+  tags$div(
+    el_radio_group(
+      "form_size",
+      choices = c("large", "default", "small"),
+      selected = "default",
+      button = TRUE
+    ),
+    el_radio_group(
+      "form_position",
+      choices = c(Left = "left", Right = "right", Top = "top"),
+      selected = "right",
+      button = TRUE
+    )
   ),
-  el_form_field(
-    "resource",
-    "radio-group",
-    label = "Resources",
-    choices = c("Sponsor", "Venue")
+  tags$br(),
+  el_form(
+    id = "sized",
+    label_width = "auto",
+    label_position = "right",
+    width = "600px",
+    submit_label = "Create",
+    reset_label = "Cancel",
+    el_form_field("name", "input", label = "Activity name"),
+    el_form_field(
+      "region",
+      "select",
+      label = "Activity zone",
+      choices = c("Zone one" = "shanghai", "Zone two" = "beijing"),
+      placeholder = "please select your zone"
+    ),
+    el_form_item(
+      "Activity time",
+      el_form_field(
+        "date1",
+        "date-picker",
+        placeholder = "Pick a date",
+        style = "width: 100%"
+      ),
+      "-",
+      el_form_field(
+        "date2",
+        "time-picker",
+        placeholder = "Pick a time",
+        style = "width: 100%"
+      )
+    ),
+    el_form_field(
+      "type",
+      "checkbox-group",
+      label = "Activity type",
+      choices = c("Online activities", "Promotion activities"),
+      button = TRUE
+    ),
+    el_form_field(
+      "resource",
+      "radio-group",
+      label = "Resources",
+      choices = c("Sponsor", "Venue"),
+      border = TRUE
+    )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$form_size, ignoreInit = TRUE, {
+    update_el_form(session, "sized", size = input$form_size)
+  })
+  observeEvent(input$form_position, ignoreInit = TRUE, {
+    update_el_form(session, "sized", label_position = input$form_position)
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The size-control example, running](../../shots/form-size-control.png)
 
 ## Accessibility
 
@@ -405,23 +551,62 @@ be attached to that input. However, if multiple inputs are inside of the
 is your responsibility to assign assistive labels to the individual
 inputs.
 
-Each field’s label is tied to its control, so a screen reader announces
-it; a field with no label of its own takes `aria_label`.
+A field’s label is tied to its control, so a screen reader announces it.
+Under a label for a group, each control needs a label of its own:
+`aria_label`. The notes are beside the forms here, a form holding only
+fields.
 
 ``` r
 
-el_form(
-  id = "a11y",
-  label_width = "auto",
-  submit_label = NULL,
-  width = "480px",
-  el_form_field(
-    "fullname",
-    "input",
-    label = "Full name",
-    placeholder = "First and last name"
+el_space(
+  fill = TRUE,
+  direction = "vertical",
+  width = "600px",
+  el_alert(
+    type = "info",
+    show_icon = TRUE,
+    closable = FALSE,
+    title = '"Full Name" label is automatically attached to the input:'
   ),
-  el_form_field("email", "input", label = "Email", aria_label = "Email address")
+  el_form(
+    id = "a11y_name",
+    label_position = "left",
+    label_width = "140px",
+    submit_label = NULL,
+    el_form_field("full_name", "input", label = "Full Name")
+  ),
+  el_alert(
+    type = "info",
+    show_icon = TRUE,
+    closable = FALSE,
+    title = paste(
+      '"Your Information" serves as a label for the group of inputs.',
+      "You must specify labels on the individal inputs. Placeholders are",
+      'not replacements for using the "label" attribute.'
+    )
+  ),
+  el_form(
+    id = "a11y_group",
+    label_position = "left",
+    label_width = "140px",
+    submit_label = NULL,
+    el_form_item(
+      "Your Information",
+      el_form_field(
+        "first_name",
+        "input",
+        aria_label = "First Name",
+        placeholder = "First Name"
+      ),
+      el_form_field(
+        "last_name",
+        "input",
+        aria_label = "Last Name",
+        placeholder = "Last Name"
+      ),
+      gutter = 20
+    )
+  )
 )
 ```
 

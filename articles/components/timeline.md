@@ -31,37 +31,40 @@ Use `mode` to control the relative position of timeline and content.
 > check to ensure the layout is correct.
 
 `mode` puts the content after the line (`"start"`), before it (`"end"`),
-or on alternate sides.
+or on alternate sides; the radio buttons set it with
+[`update_el_timeline()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline.md).
 
 ``` r
 
-tagList(lapply(
-  c("start", "alternate", "alternate-reverse", "end"),
-  function(m) {
-    tags$div(
-      style = "margin-bottom: 20px",
-      tags$b(m),
-      el_timeline(
-        paste0("tl_", gsub("-", "_", m)),
-        mode = m,
-        items = list(
-          el_timeline_item("Event start", timestamp = "2018-04-15"),
-          el_timeline_item("Approved", timestamp = "2018-04-13"),
-          el_timeline_item("Success", timestamp = "2018-04-11")
-        )
+ui <- el_page(
+  el_radio_group(
+    "tl_mode_pick",
+    choices = c("start", "alternate", "alternate-reverse", "end"),
+    selected = "start",
+    button = TRUE
+  ),
+  tags$div(
+    style = "margin-top: 16px",
+    el_timeline(
+      "tl_mode",
+      mode = "start",
+      items = list(
+        el_timeline_item("Event start", timestamp = "2018-04-15"),
+        el_timeline_item("Approved", timestamp = "2018-04-13"),
+        el_timeline_item("Success", timestamp = "2018-04-11")
       )
     )
-  }
-))
+  )
+)
+server <- function(input, output, session) {
+  observeEvent(input$tl_mode_pick, ignoreInit = TRUE, {
+    update_el_timeline(session, "tl_mode", mode = input$tl_mode_pick)
+  })
+}
+shinyApp(ui, server)
 ```
 
-**start**
-
-**alternate**
-
-**alternate-reverse**
-
-**end**
+![The mode example, running](../../shots/timeline-mode.png)
 
 ## Custom node
 

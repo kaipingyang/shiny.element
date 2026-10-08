@@ -17,6 +17,16 @@ el_splitter_panel(
   width = NULL,
   slots = NULL
 )
+
+update_el_splitter_panel(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  size = NULL,
+  min = NULL,
+  max = NULL,
+  resizable = NULL,
+  collapsible = NULL
+)
 ```
 
 ## Arguments
@@ -67,6 +77,11 @@ el_splitter_panel(
   `end-collapsible`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -74,3 +89,25 @@ A Shiny UI element.
 ## Shiny inputs
 
 None: it reports nothing.
+
+## Updating from the server
+
+`update_el_splitter_panel()` changes a panel's settings: one inside an
+[`el_splitter()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter.md)
+is folded into the splitter's instance and still answers to its own
+`id`. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_splitter_panel()` is called for its side effect and returns
+`NULL` invisibly.
+
+## Examples
+
+``` r
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$lock, {
+    update_el_splitter_panel(session, "side", resizable = !input$lock)
+  })
+}
+```

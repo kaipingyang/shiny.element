@@ -196,7 +196,14 @@
 <span>  <span class="va">id</span>,</span>
 <span>  visible <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  size <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  with_header <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  show_close <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_click_modal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  close_on_press_escape <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lock_scroll <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -354,7 +361,11 @@ would, through <code>before_close</code> (<code>closeDrawer()</code>, Element UI
     <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
 
 
-<p>Server-side update for <code>el_drawer()</code>.</p>
+<p>Server-side update for <code>el_drawer()</code>: whether it shows, its title, its
+size, the edge it slides from (<code>direction</code>), and how it behaves – <code>modal</code>,
+<code>with_header</code>, <code>show_close</code>, <code>close_on_click_modal</code>,
+<code>close_on_press_escape</code>, <code>lock_scroll</code> – as Element's props, reactive
+there.</p>
 <p><code>update_el_drawer()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
     </div>
 

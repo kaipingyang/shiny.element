@@ -18,6 +18,17 @@ el_affix(
   width = NULL,
   slots = NULL
 )
+
+update_el_affix(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  offset = NULL,
+  position = NULL,
+  z_index = NULL,
+  target = NULL,
+  teleported = NULL,
+  append_to = NULL
+)
 ```
 
 ## Arguments
@@ -68,6 +79,11 @@ el_affix(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -84,16 +100,26 @@ Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 [`update()`](https://rdrr.io/r/stats/update.html), `updateRoot()`.
 
+## Updating from the server
+
+`update_el_affix()` changes the component from the server: every
+argument of `el_affix()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_affix()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
 el_affix(el_button("top", "Stays on top"), offset = 120)
-#> <div id="el_affix_92c310df-ff46-43ac-bcd1-b314ab4ac341" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_affix_92c310df-ff46-43ac-bcd1-b314ab4ac341_container" style="display: contents">
+#> <div id="el_affix_c7843da7-8416-4ea9-9ee6-20b7b2a691e6" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_affix_c7843da7-8416-4ea9-9ee6-20b7b2a691e6_container" style="display: contents">
 #>   <el-affix :offset="offset === null ? undefined : offset" :position="position === null ? undefined : position" :target="target === null ? undefined : target" :z-index="zIndex === null ? undefined : zIndex" :teleported="teleported === null ? undefined : teleported" :append-to="appendTo === null ? undefined : appendTo" @change="elEmitChange" @scroll="elEmitScroll">
-#>     <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+#>     <el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text" ref="sv_top">{{label}}</el-button>
 #>   </el-affix>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":120,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"label":"Stays on top","type":"default","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('el_affix_92c310df-ff46-43ac-bcd1-b314ab4ac341', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('el_affix_92c310df-ff46-43ac-bcd1-b314ab4ac341', 'scroll', arguments, 200); }","handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('top:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"top:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.handleClick","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":120,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"label":"Stays on top","type":null,"size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('el_affix_c7843da7-8416-4ea9-9ee6-20b7b2a691e6', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('el_affix_c7843da7-8416-4ea9-9ee6-20b7b2a691e6', 'scroll', arguments, 200); }","handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('top:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"top:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"top":{"fields":{"label":"label","type":"type","size":"size","plain":"plain","round":"round","circle":"circle","loading":"loading","disabled":"disabled","native_type":"native_type","icon":"icon","count":"count","autofocus":"autofocus","autoInsertSpace":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loadingIcon":"loadingIcon","tag":"tag","text":"text","handleClick":"handleClick"},"ref":"sv_top"}},"generated":true,"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.handleClick","options.mounted"]}</script>
 #> </div>
 ```

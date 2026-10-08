@@ -487,8 +487,26 @@ limit the number of checked items.</p>
 <h2 id="with-borders">With borders<a class="anchor" aria-label="anchor" href="#with-borders"></a>
 </h2>
 <p>The <code>border</code> attribute adds a border to Checkboxes.</p>
+<p>A group’s options take <code>border</code>, as each
+<code>el-checkbox</code> does.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-top: 16px"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="va">bordered</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">disabled</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Option1"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"Value1"</span>,</span>
+<span>      border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      disabled <span class="op">=</span> <span class="va">disabled</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      label <span class="op">=</span> <span class="st">"Option2"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"Value2"</span>,</span>
+<span>      border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      disabled <span class="op">=</span> <span class="va">disabled</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr1"</span>, <span class="st">"Option1"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, size <span class="op">=</span> <span class="st">"large"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -497,7 +515,19 @@ limit the number of checked items.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr3"</span>, <span class="st">"Option1"</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_checkbox.html">el_checkbox</a></span><span class="op">(</span><span class="st">"cbr4"</span>, <span class="st">"Option2"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, border <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cbr5"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu">bordered</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Value1"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_checkbox_group.html">el_checkbox_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"cbr6"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu">bordered</span><span class="op">(</span>disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Value1"</span>,</span>
+<span>    size <span class="op">=</span> <span class="st">"small"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="margin-top: 16px">
@@ -522,6 +552,24 @@ limit the number of checked items.</p>
       <script type="text/x-template" data-shiny-vue-template><div id="with-border-cbr4_container" style="display: contents">
   <el-checkbox v-model="value" :label="text" @change="handleChange" :indeterminate="indeterminate === null ? undefined : indeterminate" :disabled="disabled === null ? undefined : disabled" :border="border === null ? undefined : border" :size="size === null ? undefined : size" :true-label="trueLabel === null ? undefined : trueLabel" :false-label="falseLabel === null ? undefined : falseLabel" :name="name === null ? undefined : name" :checked="checked === null ? undefined : checked" :aria-controls="ariaControls === null ? undefined : ariaControls" :aria-label="ariaLabel === null ? undefined : ariaLabel" :controls="controls === null ? undefined : controls" :false-value="falseValue === null ? undefined : falseValue" :tabindex="tabindex === null ? undefined : tabindex" :true-value="trueValue === null ? undefined : trueValue" :validate-event="validateEvent === null ? undefined : validateEvent"></el-checkbox>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":true,"text":"Option2","indeterminate":null,"disabled":null,"border":true,"size":null,"trueLabel":null,"falseLabel":null,"name":null,"checked":null,"ariaControls":null,"ariaLabel":null,"controls":null,"falseValue":null,"tabindex":null,"trueValue":null,"validateEvent":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+  <div style="margin-top: 16px">
+    <div id="with-border-cbr5" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-border-cbr5_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
+  </el-checkbox-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Value1"],"options":[{"label":"Option1","value":"Value1","border":true,"disabled":false},{"label":"Option2","value":"Value2","border":true,"disabled":false}],"disabled":false,"size":"small","min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('with-border-cbr5', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  </div>
+  <div style="margin-top: 16px">
+    <div id="with-border-cbr6" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="with-border-cbr6_container" style="display: contents">
+  <el-checkbox-group v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor" :aria-label="ariaLabel === null ? undefined : ariaLabel" :props="props === null ? undefined : props" :tag="tag === null ? undefined : tag" :type="type === null ? undefined : type" :validate-event="validateEvent === null ? undefined : validateEvent">
+    <el-checkbox :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)" :checked="opt.checked" :indeterminate="opt.indeterminate" :true-label="opt.trueLabel" :false-label="opt.falseLabel">{{opt.label}}</el-checkbox>
+  </el-checkbox-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["Value1"],"options":[{"label":"Option1","value":"Value1","border":true,"disabled":true},{"label":"Option2","value":"Value2","border":true,"disabled":true}],"disabled":false,"size":"small","min":null,"max":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"tag":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('with-border-cbr6', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
   </div>
 </div>

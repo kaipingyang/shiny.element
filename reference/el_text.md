@@ -17,6 +17,16 @@ el_text(
   width = NULL,
   slots = NULL
 )
+
+update_el_text(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  type = NULL,
+  size = NULL,
+  truncated = NULL,
+  line_clamp = NULL,
+  tag = NULL
+)
 ```
 
 ## Arguments
@@ -62,6 +72,11 @@ el_text(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -70,19 +85,28 @@ A Shiny UI element.
 
 None: it reports nothing.
 
+## Updating from the server
+
+`update_el_text()` changes the component from the server: every argument
+of `el_text()` that can change once it is drawn, under the same name.
+One left `NULL` stays as it is; `NA` returns it to Element's default.
+
+`update_el_text()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
 el_text("Primary text", type = "primary")
-#> <div id="el_text_86e21981-8f1b-492e-af33-3b315b413487" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_86e21981-8f1b-492e-af33-3b315b413487_container" style="display: contents">
+#> <div id="el_text_03ecf47f-ffc1-4138-b316-5f914d6d61b2" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_03ecf47f-ffc1-4138-b316-5f914d6d61b2_container" style="display: contents">
 #>   <el-text :type="type === null ? undefined : type" :size="size === null ? undefined : size" :truncated="truncated === null ? undefined : truncated" :line-clamp="lineClamp === null ? undefined : lineClamp" :tag="tag === null ? undefined : tag">Primary text</el-text>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"type":"primary","size":null,"truncated":null,"lineClamp":null,"tag":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
 #> </div>
 el_text(strrep("A long sentence. ", 20), truncated = TRUE)
-#> <div id="el_text_57aca8bc-5f34-42eb-97bb-87f0bec1b7ed" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_57aca8bc-5f34-42eb-97bb-87f0bec1b7ed_container" style="display: contents">
+#> <div id="el_text_bd3b2f53-c045-4551-b2d4-ea3291e3fc34" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_bd3b2f53-c045-4551-b2d4-ea3291e3fc34_container" style="display: contents">
 #>   <el-text :type="type === null ? undefined : type" :size="size === null ? undefined : size" :truncated="truncated === null ? undefined : truncated" :line-clamp="lineClamp === null ? undefined : lineClamp" :tag="tag === null ? undefined : tag">A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. </el-text>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"type":null,"size":null,"truncated":true,"lineClamp":null,"tag":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>

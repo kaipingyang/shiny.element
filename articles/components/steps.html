@@ -201,30 +201,28 @@ fixed which accepts <code>Number</code> type. The unit of the
 <code>space</code> attribute is <code>px</code>. If not set, it is
 responsive. Setting the <code>finish-status</code> attribute can change
 the state of the steps that have been completed.</p>
-<p><code>update_el_steps(active =)</code> moves it, as the demo’s button
-does.</p>
+<p>The button moves it on with
+<code>update_el_steps(active =)</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span></span>
-<span>  <span class="st">"st_basic"</span>,</span>
-<span>  active <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  finish_status <span class="op">=</span> <span class="st">"success"</span>,</span>
-<span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 1"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 2"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 3"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="basic-st_basic" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-st_basic_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
-    <el-step title="Step 1"></el-step>
-    <el-step title="Step 2"></el-step>
-    <el-step title="Step 3"></el-step>
-  </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('basic-st_basic', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
-</div>
-</div>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span></span>
+<span>    <span class="st">"st_basic"</span>,</span>
+<span>    active <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>    finish_status <span class="op">=</span> <span class="st">"success"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"600px"</span>,</span>
+<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 1"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 2"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"st_next"</span>, <span class="st">"Next step"</span>, style <span class="op">=</span> <span class="st">"margin-top: 12px"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">active</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">st_next</span>, <span class="op">{</span></span>
+<span>    <span class="fu">active</span><span class="op">(</span><span class="kw">if</span> <span class="op">(</span><span class="fu">active</span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="fl">0</span> <span class="kw">else</span> <span class="fu">active</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_steps.html">update_el_steps</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"st_basic"</span>, active <span class="op">=</span> <span class="fu">active</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/steps-basic.png" alt="The basic example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="step-bar-that-contains-status">Step bar that contains status<a class="anchor" aria-label="anchor" href="#step-bar-that-contains-status"></a>

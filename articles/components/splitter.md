@@ -53,6 +53,10 @@ Configuring `collapsible` provides quick shrinking capability. You can
 use the `min` property to prevent expanding through dragging after
 collapsing.
 
+The switch makes the panels collapsible or not, each by its own id with
+[`update_el_splitter_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter_panel.md)
+– the inner splitter’s too.
+
 ``` r
 
 panel <- function(x) {
@@ -61,20 +65,56 @@ panel <- function(x) {
     x
   )
 }
-tags$div(
-  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(
-    el_splitter_panel(collapsible = TRUE, min = 50, panel(1)),
-    el_splitter_panel(collapsible = TRUE, panel(2)),
-    el_splitter_panel(panel(3))
+collapsible <- c("spl_p1", "spl_p2", "spl_p4", "spl_p4a", "spl_p4b")
+ui <- el_page(
+  tags$div(
+    style = "margin-bottom: 8px",
+    el_switch(
+      "spl_collapsible",
+      value = TRUE,
+      active_text = "enable",
+      inactive_text = "disable",
+      inline_prompt = TRUE
+    )
+  ),
+  tags$div(
+    style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+    el_splitter(
+      el_splitter_panel(id = "spl_p1", collapsible = TRUE, min = 50, panel(1)),
+      el_splitter_panel(id = "spl_p2", collapsible = TRUE, panel(2)),
+      el_splitter_panel(panel(3)),
+      el_splitter_panel(
+        id = "spl_p4",
+        collapsible = TRUE,
+        el_splitter(
+          layout = "vertical",
+          el_splitter_panel(id = "spl_p4a", collapsible = TRUE, panel(4)),
+          el_splitter_panel(id = "spl_p4b", collapsible = TRUE, panel(5))
+        )
+      )
+    )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$spl_collapsible, ignoreInit = TRUE, {
+    for (id in collapsible) {
+      update_el_splitter_panel(session, id, collapsible = input$spl_collapsible)
+    }
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The collapsible example,
+running](../../shots/splitter-collapsible.png)
 
 ## Disable drag
 
 When either panel disables `resizable`, dragging will be disabled.
 
+The switch lets the middle panel be dragged or not, with
+`update_el_splitter_panel(resizable =)`.
+
 ``` r
 
 panel <- function(x) {
@@ -83,14 +123,47 @@ panel <- function(x) {
     x
   )
 }
-tags$div(
-  style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
-  el_splitter(
-    el_splitter_panel(resizable = FALSE, panel(1)),
-    el_splitter_panel(panel(2))
+ui <- el_page(
+  tags$div(
+    style = "margin-bottom: 8px",
+    el_switch(
+      "spl_resizable",
+      value = FALSE,
+      active_text = "enable",
+      inactive_text = "disable",
+      inline_prompt = TRUE
+    )
+  ),
+  tags$div(
+    style = "height: 250px; box-shadow: var(--el-border-color-light) 0px 0px 10px",
+    el_splitter(
+      el_splitter_panel(panel(1)),
+      el_splitter_panel(
+        id = "spl_middle",
+        resizable = FALSE,
+        panel(uiOutput("spl_drag"))
+      ),
+      el_splitter_panel(panel(3))
+    )
   )
 )
+server <- function(input, output, session) {
+  output$spl_drag <- renderUI({
+    paste("drag", if (isTRUE(input$spl_resizable)) "enable" else "disable")
+  })
+  observeEvent(input$spl_resizable, ignoreInit = TRUE, {
+    update_el_splitter_panel(
+      session,
+      "spl_middle",
+      resizable = input$spl_resizable
+    )
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The disabledrag example,
+running](../../shots/splitter-disabledrag.png)
 
 ## Panel size
 

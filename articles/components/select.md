@@ -445,19 +445,40 @@ You can customize label.
 
 ``` r
 
-el_select(
-  "sel_label",
-  choices = c("Option1", "Option2", "Option3"),
-  selected = "Option1",
-  width = "240px",
-  slots = list(
-    label = template(
-      htmltools::HTML(
-        "<span>{{ label }}: </span><span style=\"font-weight: bold\">{{ value }}</span>"
-      ),
-      slot = "label",
-      scope = "{ label, value }"
-    )
+options <- c(
+  Label1 = "Option1",
+  Label2 = "Option2",
+  Label3 = "Option3",
+  Label4 = "Option4",
+  Label5 = "Option5"
+)
+label <- template(
+  slot = "label",
+  scope = "{ label, value }",
+  htmltools::HTML(
+    "<span>{{ label }}: </span><span style=\"font-weight: bold\">{{ value }}</span>"
+  )
+)
+tags$div(
+  style = "display: flex; flex-wrap: wrap; gap: 16px; align-items: center",
+  el_select(
+    "sel_label",
+    choices = options,
+    selected = "Option1",
+    placeholder = "Select",
+    clearable = TRUE,
+    width = "240px",
+    slots = list(label = label)
+  ),
+  el_select(
+    "sel_label_multi",
+    choices = options,
+    selected = "Option1",
+    multiple = TRUE,
+    placeholder = "Select",
+    clearable = TRUE,
+    width = "240px",
+    slots = list(label = label)
   )
 )
 ```

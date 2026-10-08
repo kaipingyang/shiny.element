@@ -15,6 +15,13 @@ el_splitter(
   width = NULL,
   slots = NULL
 )
+
+update_el_splitter(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  layout = NULL,
+  lazy = NULL
+)
 ```
 
 ## Arguments
@@ -48,6 +55,11 @@ el_splitter(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -62,17 +74,27 @@ A Shiny UI element.
 
 - `input$<id>_collapse` – Element Plus's `collapse` event.
 
+## Updating from the server
+
+`update_el_splitter()` changes the component from the server: every
+argument of `el_splitter()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_splitter()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
 el_splitter(el_splitter_panel("Left", size = "30%"), el_splitter_panel("Right"))
-#> <div id="el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9_container" style="display: contents">
+#> <div id="el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285_container" style="display: contents">
 #>   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
-#>     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible">Left</el-splitter-panel>
-#>     <el-splitter-panel :size="el3_size === null ? undefined : el3_size" :min="el3_min === null ? undefined : el3_min" :max="el3_max === null ? undefined : el3_max" :resizable="el3_resizable === null ? undefined : el3_resizable" :collapsible="el3_collapsible === null ? undefined : el3_collapsible">Right</el-splitter-panel>
+#>     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible" ref="sv_el_splitter_panel_798e665b_e0c1_4f04_91ce_b637755e2bb1">Left</el-splitter-panel>
+#>     <el-splitter-panel :size="el3_size === null ? undefined : el3_size" :min="el3_min === null ? undefined : el3_min" :max="el3_max === null ? undefined : el3_max" :resizable="el3_resizable === null ? undefined : el3_resizable" :collapsible="el3_collapsible === null ? undefined : el3_collapsible" ref="sv_el_splitter_panel_e2ddf3d7_7442_45b9_8748_f502445193c4">Right</el-splitter-panel>
 #>   </el-splitter>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'resize', arguments, 200); }","elEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('el_splitter_2e5c63cf-0c27-49e6-951a-915812a711a9', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'resize', arguments, 200); }","elEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('el_splitter_e169165f-3d52-4067-9ad4-13dcd6f5a285', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"el_splitter_panel_798e665b-e0c1-4f04-91ce-b637755e2bb1":{"fields":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"ref":"sv_el_splitter_panel_798e665b_e0c1_4f04_91ce_b637755e2bb1"},"el_splitter_panel_e2ddf3d7-7442-45b9-8748-f502445193c4":{"fields":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"},"ref":"sv_el_splitter_panel_e2ddf3d7_7442_45b9_8748_f502445193c4"}},"generated":true,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
 #> </div>
 ```

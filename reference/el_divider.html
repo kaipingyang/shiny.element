@@ -163,7 +163,9 @@
 <span>  content <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  direction <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
 <span>  content_position <span class="op">=</span> <span class="st">"center"</span>,</span>
-<span>  border_style <span class="op">=</span> <span class="st">"solid"</span></span>
+<span>  border_style <span class="op">=</span> <span class="st">"solid"</span>,</span>
+<span>  class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  style <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -189,6 +191,12 @@
 <dd><p>The line's style, as CSS <code>border-style</code>: <code>"solid"</code>
 (the default), <code>"dashed"</code>, <code>"dotted"</code>.</p></dd>
 
+
+<dt id="arg-class-style">class, style<a class="anchor" aria-label="anchor" href="#arg-class-style"></a></dt>
+<dd><p>Extra classes and inline style, as Element passes them
+to its root – <code>style = "height: auto"</code> for a vertical divider that
+stretches in a flex row.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -198,13 +206,13 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_divider</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-divider el-divider--horizontal" role="separator"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"&gt;&lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu">el_divider</span><span class="op">(</span><span class="st">"Title Text"</span>, content_position <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-divider el-divider--horizontal" role="separator"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="el-divider__text is-left"&gt;Title Text&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu">el_divider</span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"vertical"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-divider el-divider--vertical" role="separator"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="el-divider el-divider--vertical" role="separator" style="--el-border-style:solid"&gt;&lt;/div&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

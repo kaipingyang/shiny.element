@@ -21,7 +21,7 @@ items <- data.frame(
   label = paste("Option", 1:15),
   disabled = 1:15 %% 4 == 0
 )
-el_transfer("basic", data = items, value = c(1, 4))
+el_transfer("basic", data = items)
 ```
 
 ## Filterable
@@ -36,6 +36,8 @@ search keyword and each data item to it whenever the keyword changes.
 For a certain data item, if the method returns true, it will be included
 in the result list.
 
+`filter_method` searches the states by their initials.
+
 ``` r
 
 states <- c(
@@ -45,12 +47,19 @@ states <- c(
   "Texas",
   "Florida",
   "Colorado",
-  "Connecticut"
+  "Connecticut "
 )
 el_transfer(
   "states",
-  data = data.frame(key = seq_along(states), label = states),
+  data = data.frame(
+    label = states,
+    key = seq_along(states) - 1,
+    initial = c("CA", "IL", "MD", "TX", "FL", "CO", "CT")
+  ),
   filterable = TRUE,
+  filter_method = JS(
+    "function(query, item) { return item.initial.toLowerCase().includes(query.toLowerCase()); }"
+  ),
   filter_placeholder = "State Abbreviations"
 )
 ```
@@ -71,28 +80,76 @@ event. Note that this demo can’t run in JSFiddle because it doesn’t
 support JSX syntax. In a real project, `render-content` will work if
 relevant dependencies are correctly configured.
 
-`titles`, `button_texts` and `format` relabel it; the default slot,
-scoped with `option`, draws each item.
+The first draws each item with `render_content`, a function given `h`;
+the second with the default slot, scoped with `option`. Both relabel the
+panels and buttons, start with items checked, and put a button in each
+footer.
 
 ``` r
 
-items <- data.frame(key = 1:15, label = paste("Option", 1:15))
-el_transfer(
-  "custom",
-  data = items,
-  value = 1,
-  filterable = TRUE,
-  titles = c("Source", "Target"),
-  button_texts = c("To left", "To right"),
-  format = list(noChecked = "${total}", hasChecked = "${checked}/${total}"),
-  slots = list(
-    default = template(
-      tags$span("{{ option.key }} - {{ option.label }}"),
-      scope = "{ option }"
+items <- data.frame(
+  key = 1:15,
+  label = paste("Option", 1:15),
+  disabled = 1:15 %% 4 == 0
+)
+custom <- function(id, ...) {
+  tags$div(
+    style = "text-align: center",
+    el_transfer(
+      id,
+      data = items,
+      value = 1,
+      filterable = TRUE,
+      left_default_checked = c(2, 3),
+      right_default_checked = 1,
+      titles = c("Source", "Target"),
+      button_texts = c("To left", "To right"),
+      format = list(noChecked = "${total}", hasChecked = "${checked}/${total}"),
+      ...
+    )
+  )
+}
+footers <- function(side) {
+  el_button(label = "Operation", size = "small", class = "transfer-footer")
+}
+tagList(
+  tags$style(
+    ".transfer-footer { margin-left: 15px; padding: 6px 5px; }
+     #custom_render .el-transfer, #custom_slot .el-transfer {
+       text-align: left; display: inline-block; }"
+  ),
+  tags$p(
+    style = "text-align: center; margin: 0 0 20px",
+    "Customize data items using render-content"
+  ),
+  custom(
+    "custom_render",
+    render_content = JS(
+      "function(h, option) { return h('span', null, option.label); }"
+    ),
+    slots = list(`left-footer` = footers(), `right-footer` = footers())
+  ),
+  tags$p(
+    style = "text-align: center; margin: 50px 0 20px",
+    "Customize data items using scoped slot"
+  ),
+  custom(
+    "custom_slot",
+    slots = list(
+      default = template(
+        tags$span("{{ option.key }} - {{ option.label }}"),
+        scope = "{ option }"
+      ),
+      `left-footer` = footers(),
+      `right-footer` = footers()
     )
   )
 )
 ```
+
+Customize data items using render-content
+
+Customize data items using scoped slot
 
 ## Custom empty content
 
@@ -102,15 +159,30 @@ filtering results are found.
 Use `left-empty` and `right-empty` slots to customize the empty content
 for each panel.
 
+The `left-empty` and `right-empty` slots draw an empty list: the right
+one at the start.
+
 ``` r
 
-items <- data.frame(key = integer(0), label = character(0))
+items <- data.frame(
+  key = 1:15,
+  label = paste("Option", 1:15),
+  disabled = 1:15 %% 4 == 0
+)
 el_transfer(
   "empty",
   data = items,
   slots = list(
-    leftEmpty = el_empty(image_size = 60, description = "No data"),
-    rightEmpty = el_empty(image_size = 60, description = "No data")
+    `left-empty` = el_empty(
+      "empty_left",
+      image_size = 60,
+      description = "No data"
+    ),
+    `right-empty` = el_empty(
+      "empty_right",
+      image_size = 60,
+      description = "No data"
+    )
   )
 )
 ```
@@ -129,7 +201,11 @@ Items whose fields are named otherwise: `props` says which is which.
 
 ``` r
 
-items <- data.frame(value = 1:15, desc = paste("Option", 1:15))
+items <- data.frame(
+  value = 1:15,
+  desc = paste("Option", 1:15),
+  disabled = 1:15 %% 4 == 0
+)
 el_transfer(
   "aliases",
   data = items,
@@ -149,14 +225,12 @@ customize the item height with `item-size`. Default item size is 30px.
 
 ``` r
 
-items <- data.frame(key = 1:10000, label = paste("Option", 1:10000))
-el_transfer(
-  "virtual",
-  data = items,
-  virtual_scroll = TRUE,
-  item_size = 34,
-  filterable = TRUE
+items <- data.frame(
+  key = 1:2000,
+  label = paste("Option", 1:2000),
+  disabled = 1:2000 %% 4 == 0
 )
+el_transfer("virtual", data = items, virtual_scroll = TRUE, item_size = 30)
 ```
 
 ## API

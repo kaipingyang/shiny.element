@@ -265,6 +265,89 @@ its `name` argument is now `tab`.
   `<main>`, `<aside>`, `<footer>` – with their sizes as its CSS
   variables; a side tab header is laid out in a column, the “+” is
   Element’s, and the active tab’s bar spans its label alone.
+- A component folded into another – a button in a group or a space, a
+  select in an input’s slot, a panel in a splitter – answers to its own
+  id again: its `update_el_*()` and
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
+  reach it through the instance that took it in, where they were dropped
+  with a warning.
+- Element’s own inner inputs are no longer bound by Shiny: it gives them
+  ids for their labels, and each input, select and picker on a page
+  reported a stray `input$`el-id-…\`\`.
+- A multiple select’s one choice –
+  `el_select(multiple = TRUE, selected = "a")`,
+  [`el_select_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_select_v2.md),
+  an update – is a selection of one; it showed nothing selected.
+- A datetime picker keeps its time: `value_format` defaults to
+  `"YYYY-MM-DD HH:mm:ss"` for `"datetime"` and `"datetimerange"`, and
+  the box shows Element’s format for the type (`format = NULL`), where
+  both were `"YYYY-MM-DD"`. `update_el_date_picker(format =)` is new.
+- A form inside a container keeps working: renaming its fields apart
+  turned `v-model` into a directive Vue could not resolve.
+- [`el_form_item()`](https://kaipingyang.github.io/shiny.element/reference/el_form_item.md)
+  puts several fields under one label, in columns, each with its own
+  rules, as Element’s examples nest them. Form fields can be
+  `"select-v2"`, `"segmented"`, `"input-tag"`, `"mention"` and
+  `"mention-textarea"`; radio and checkbox groups take `button = TRUE`
+  and `border = TRUE`; `report = TRUE` reports a field as it changes, as
+  `input$<form>_<prop>`. `update_el_form(label_position =)` is new.
+  Radios and checkboxes take their value as Element Plus’s `value`, not
+  `label`.
+- A config provider’s settings reach what is inside: `button` (`type`,
+  `plain`, `round` left `NULL` now), `link`, `card` (its shadow),
+  `dialog` (`align_center`, `draggable`, `overflow`), `locale` (by code,
+  updatable); a destroy-on-close dialog inside one keeps its content.
+- Updates for every setting that can change:
+  [`update_el_space()`](https://kaipingyang.github.io/shiny.element/reference/el_space.md),
+  [`update_el_splitter()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter.md),
+  [`update_el_splitter_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter_panel.md),
+  [`update_el_text()`](https://kaipingyang.github.io/shiny.element/reference/el_text.md),
+  [`update_el_watermark()`](https://kaipingyang.github.io/shiny.element/reference/el_watermark.md),
+  [`update_el_scrollbar()`](https://kaipingyang.github.io/shiny.element/reference/el_scrollbar.md),
+  [`update_el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md),
+  [`update_el_affix()`](https://kaipingyang.github.io/shiny.element/reference/el_affix.md),
+  [`update_el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md),
+  [`update_el_avatar_group()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar_group.md),
+  [`update_el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md),
+  [`update_el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md);
+  and more of them in
+  [`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+  (position, type, closable, addable, stretch),
+  [`update_el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md),
+  [`update_el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md),
+  [`update_el_drawer()`](https://kaipingyang.github.io/shiny.element/reference/el_drawer.md),
+  [`update_el_descriptions()`](https://kaipingyang.github.io/shiny.element/reference/el_descriptions.md)
+  (size, label width),
+  [`update_el_mention()`](https://kaipingyang.github.io/shiny.element/reference/el_mention.md)
+  (options, so a search can be answered),
+  [`update_el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)
+  (animated, count) and
+  [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
+  (`loading_options`).
+- `el_table(loading_options =)` sets the mask’s text, spinner, svg and
+  background, Element’s `element-loading-*`.
+- `class` and `style` on the component itself, as Element passes them to
+  its root:
+  [`el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md),
+  [`el_card()`](https://kaipingyang.github.io/shiny.element/reference/el_card.md),
+  [`el_avatar()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar.md),
+  [`el_image()`](https://kaipingyang.github.io/shiny.element/reference/el_image.md)
+  (whose `fit` needs a box),
+  [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md),
+  [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md),
+  [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md).
+  `el_card(body_style =)` takes Element’s camelCase names.
+- A dropdown’s trigger given as a tag is the trigger itself, where it
+  was wrapped in a span that took its focus and aria attributes.
+- `input$<id>_search` of a mention is `list(pattern, prefix)`.
+- An `id` that is not a string is refused with an error: a component
+  given first to
+  [`el_result()`](https://kaipingyang.github.io/shiny.element/reference/el_result.md),
+  [`el_empty()`](https://kaipingyang.github.io/shiny.element/reference/el_empty.md)
+  or
+  [`el_skeleton()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton.md)
+  – whose first argument is the id – vanished without one.
+- `el_link(type =, underline =)` left `NULL` follow a config provider.
 
 ### Documentation, after Element’s own
 
@@ -277,6 +360,11 @@ method and slot is in R. The guides cover what Element’s documentation
 does not: forms and validation, Shiny integration (events, methods,
 modules, bookmarking, data from the server, components of your own),
 theming and languages, and what differs from Element in a browser.
+
+Each demo is upstream’s whole: its controls too – the radio buttons that
+resize, the switches that toggle, the buttons that open a preview – as a
+Shiny app whose server does what upstream’s script does, each checked in
+a browser (`shot_expect` in `tools/article-shots.R`) for doing it.
 
 ### Components
 

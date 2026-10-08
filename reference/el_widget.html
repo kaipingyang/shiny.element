@@ -198,7 +198,8 @@ destroys its Vue instance, and its value is <code>input$&lt;id&gt;</code>.</p>
 <span>  error <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  props <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  absorbed <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -314,6 +315,12 @@ whether beside the component rather than under it. Element's
 <dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
 <dd><p>Optional props from <code><a href="dot-el_props.html">.el_props()</a></code>: bound on the root tag of
 <code>markup</code>, with their fields added to <code>data</code>.</p></dd>
+
+
+<dt id="arg-absorbed">absorbed<a class="anchor" aria-label="anchor" href="#arg-absorbed"></a></dt>
+<dd><p>The components folded into this one, by id: their fields
+as named here and the ref on each, so their updates reach them. Built by
+the package's wrappers; leave it <code>NULL</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

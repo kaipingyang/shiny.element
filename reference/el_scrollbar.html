@@ -180,6 +180,27 @@
 <span>  distance <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">update_el_scrollbar</span><span class="op">(</span></span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  native <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  wrap_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  wrap_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  view_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  view_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  noresize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  always <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  distance <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tag <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  role <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aria_orientation <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -279,6 +300,11 @@ Element Plus's <code>noresize</code> (boolean).</p></dd>
 <dd><p>Named list of Element slot contents. A scoped slot is written
 with <code><a href="template.html">template()</a></code>.</p></dd>
 
+
+<dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
+<dd><p>Shiny session; the current one by default, as for
+<code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -297,12 +323,21 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
 
 <p>Callable with <code><a href="call_el.html">call_el()</a></code>: <code>handleScroll()</code>, <code>scrollTo()</code>, <code>setScrollTop()</code>, <code>setScrollLeft()</code>, <code><a href="https://rdrr.io/r/stats/update.html" class="external-link">update()</a></code>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
+
+
+<p><code>update_el_scrollbar()</code> changes the component from the server: every argument of
+<code>el_scrollbar()</code> that can change once it is drawn, under the same name. One left
+<code>NULL</code> stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p><code>update_el_scrollbar()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_scrollbar</span><span class="op">(</span>height <span class="op">=</span> <span class="st">"200px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc" data-shiny-vue style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @scroll="elEmitScroll" @end-reached="elEmitEndReached"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;1&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;2&lt;/p&gt;</span>
@@ -326,7 +361,7 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;20&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-scrollbar&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc', 'scroll', arguments, 200); }","elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_40147d14-b2e1-4ecd-b0f9-b36f5aedf3cc', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00', 'scroll', arguments, 200); }","elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_a645b643-0a21-49a3-a52c-e7c6e1553d00', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>

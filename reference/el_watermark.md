@@ -20,6 +20,20 @@ el_watermark(
   width = NULL,
   slots = NULL
 )
+
+update_el_watermark(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  watermark_width = NULL,
+  height = NULL,
+  rotate = NULL,
+  z_index = NULL,
+  image = NULL,
+  content = NULL,
+  font = NULL,
+  gap = NULL,
+  offset = NULL
+)
 ```
 
 ## Arguments
@@ -89,6 +103,11 @@ el_watermark(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -97,12 +116,22 @@ A Shiny UI element.
 
 None: it reports nothing.
 
+## Updating from the server
+
+`update_el_watermark()` changes the component from the server: every
+argument of `el_watermark()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_watermark()` is called for its side effect and returns `NULL`
+invisibly.
+
 ## Examples
 
 ``` r
 el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
-#> <div id="el_watermark_e02178d2-b86f-40a4-b85d-e13753459ff3" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_e02178d2-b86f-40a4-b85d-e13753459ff3_container" style="display: contents">
+#> <div id="el_watermark_f271a5bb-1665-4d58-8269-c3bc8bf47eee" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_f271a5bb-1665-4d58-8269-c3bc8bf47eee_container" style="display: contents">
 #>   <el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset">
 #>     <div style="height: 300px"></div>
 #>   </el-watermark>

@@ -362,28 +362,36 @@ Insert customized tags into the slot of `el-select`. `collapse-tags`,
 
 ``` r
 
+colors <- c(
+  red = "#E63415",
+  orange = "#FF6600",
+  yellow = "#FFDE0A",
+  green = "#1EC79D",
+  cyan = "#14CCCC",
+  blue = "#4167F0",
+  purple = "#6222C9"
+)
 el_select_v2(
   "v2_tag",
-  options = c("Red" = "#ff0000", "Green" = "#00ff00", "Blue" = "#0000ff"),
-  value = c("#ff0000", "#00ff00"),
+  options = colors,
   multiple = TRUE,
-  placeholder = "Please select",
+  placeholder = "Select",
   width = "240px",
   slots = list(
     default = template(
-      htmltools::HTML(paste0(
-        "<div class=\"flex items-center\">",
-        "<el-tag :color=\"item.value\" style=\"margin-right: 8px\" size=\"small\" />",
-        "<span :style=\"{ color: item.value }\">{{ item.label }}</span></div>"
-      )),
       slot = "default",
-      scope = "{ item }"
+      scope = "{ item }",
+      htmltools::HTML(paste0(
+        "<div style=\"display: flex; align-items: center\">",
+        "<el-tag :color=\"item.value\" :aria-label=\"item.label\" style=\"margin-right: 8px\" size=\"small\" />",
+        "<span :style=\"{ color: item.value }\">{{ item.label }}</span></div>"
+      ))
     ),
     tag = template(
+      slot = "tag",
       htmltools::HTML(
         "<el-tag v-for=\"color in value\" :key=\"color\" :color=\"color\" :aria-label=\"color\" />"
-      ),
-      slot = "tag"
+      )
     )
   )
 )
@@ -434,17 +442,40 @@ You can customize label.
 
 ``` r
 
-el_select_v2(
-  "v2_label",
-  options = c("Option1", "Option2"),
-  value = "Option1",
-  width = "240px",
-  slots = list(
-    label = template(
-      htmltools::HTML("<span>{{ label }}: </span><b>{{ value }}</b>"),
-      slot = "label",
-      scope = "{ label, value }"
-    )
+options <- c(
+  Label1 = "Option1",
+  Label2 = "Option2",
+  Label3 = "Option3",
+  Label4 = "Option4",
+  Label5 = "Option5"
+)
+label <- template(
+  slot = "label",
+  scope = "{ label, value }",
+  htmltools::HTML(
+    "<span>{{ label }}: </span><span style=\"font-weight: bold\">{{ value }}</span>"
+  )
+)
+tags$div(
+  style = "display: flex; flex-wrap: wrap; gap: 16px; align-items: center",
+  el_select_v2(
+    "v2_label",
+    options = options,
+    value = "Option1",
+    placeholder = "Select",
+    clearable = TRUE,
+    width = "240px",
+    slots = list(label = label)
+  ),
+  el_select_v2(
+    "v2_label_multi",
+    options = options,
+    value = "Option1",
+    multiple = TRUE,
+    placeholder = "Select",
+    clearable = TRUE,
+    width = "240px",
+    slots = list(label = label)
   )
 )
 ```

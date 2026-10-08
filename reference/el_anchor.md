@@ -20,6 +20,19 @@ el_anchor(
   width = NULL,
   slots = NULL
 )
+
+update_el_anchor(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  offset = NULL,
+  bound = NULL,
+  duration = NULL,
+  marker = NULL,
+  type = NULL,
+  direction = NULL,
+  select_scroll_top = NULL,
+  container = NULL
+)
 ```
 
 ## Arguments
@@ -77,6 +90,11 @@ el_anchor(
 
   Named list of Element slot contents.
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -92,6 +110,16 @@ A Shiny UI element.
 Callable with
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md):
 `scrollTo(href)`.
+
+## Updating from the server
+
+`update_el_anchor()` changes the component from the server: every
+argument of `el_anchor()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_anchor()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 

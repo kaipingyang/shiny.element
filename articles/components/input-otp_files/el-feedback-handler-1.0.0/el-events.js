@@ -121,6 +121,16 @@
       st.el = st.cur;
       return boxOf(st.cur);
     };
+    // A config provider's locale, given by code ("zh-cn"): the locale file
+    // its R function loaded defines ElementPlusLocaleZhCn. English is
+    // Element's own.
+    app.config.globalProperties.$elLocale = function (code) {
+      if (!code) return undefined;
+      var name = 'ElementPlusLocale' + String(code).toLowerCase().split('-').map(function (p) {
+        return p.charAt(0).toUpperCase() + p.slice(1);
+      }).join('');
+      return window[name] || (window.ElementPlus && ElementPlus.en) || undefined;
+    };
     // A picker's default-value and default-time are Dates; R sends text --
     // "2010-10-01", "2010-10-01 12:00:00", "12:00:00" -- read in local time
     // so a day never shifts with the time zone. A pair maps item by item.
@@ -343,4 +353,74 @@
   if (document.readyState === 'complete') later();
   else window.addEventListener('load', later);
   if (window.jQuery) jQuery(document).on('shiny:value', later);
+})();
+
+// A config provider's card and dialog settings, for what this package draws
+// as markup inside it: Element's ConfigProvider reaches its own el-card and
+// el-dialog components, but el_card() and el_dialog() are plain markup with
+// a binding. The provider's scope carries the settings as attributes; each
+// card or dialog that left them to Element takes them, as Element's would.
+(function () {
+  var se = window.shinyElement = window.shinyElement || {};
+  function apply(scope) {
+    var shadow = scope.getAttribute('data-card-shadow') || 'always';
+    scope.querySelectorAll('.el-card[data-el-shadow-default]').forEach(function (card) {
+      card.classList.remove('is-always-shadow', 'is-hover-shadow', 'is-never-shadow');
+      card.classList.add('is-' + shadow + '-shadow');
+    });
+    var dialog = {};
+    try { dialog = JSON.parse(scope.getAttribute('data-dialog') || '{}') || {}; } catch (e) {}
+    scope.querySelectorAll('[data-el-overlay=dialog][data-el-dialog-defaults]').forEach(function (el) {
+      var flags = {};
+      el.getAttribute('data-el-dialog-defaults').split(' ').forEach(function (k) {
+        if (k) flags[k] = !!dialog[k];
+      });
+      if (se.applyOverlayFlags) se.applyOverlayFlags(el, flags);
+    });
+  }
+  se.applyProvider = apply;
+  if (typeof document === 'undefined' || typeof MutationObserver === 'undefined') return;
+  var queued = false;
+  function all() {
+    queued = false;
+    document.querySelectorAll('.el-provider-scope').forEach(apply);
+  }
+  new MutationObserver(function (records) {
+    for (var i = 0; i < records.length; i++) {
+      var r = records[i];
+      if (r.type === 'attributes' || r.addedNodes.length) {
+        if (!queued) { queued = true; requestAnimationFrame(all); }
+        return;
+      }
+    }
+  }).observe(document.documentElement, {
+    childList: true, subtree: true, attributes: true,
+    attributeFilter: ['data-card-shadow', 'data-dialog']
+  });
+})();
+
+// Element gives the inputs inside its components ids of their own, for
+// their labels -- `el-id-1024-7` -- and Shiny's text, number and password
+// bindings bind every such input that has an id: each select, input and
+// picker on a page reported a stray input$`el-id-...` besides its own, and
+// a date panel's header inputs did, teleported out of their component.
+// They are Element's, not the page's: Shiny's bindings pass them over.
+(function () {
+  if (!window.Shiny || !Shiny.inputBindings || !window.jQuery) return;
+  // Element's own: an input or textarea carrying one of its classes --
+  // el-input__inner, el-select__input, el-range-input -- not a page's
+  // input that happens to sit in a popover
+  function elements(el) {
+    if (!el.classList || !/^(INPUT|TEXTAREA)$/.test(el.tagName)) return false;
+    return Array.prototype.some.call(el.classList, function (c) { return c.indexOf('el-') === 0; });
+  }
+  Shiny.inputBindings.getBindings().forEach(function (entry) {
+    var binding = entry.binding;
+    if (!binding || binding._elSkipsElement || typeof binding.find !== 'function') return;
+    var find = binding.find;
+    binding.find = function (scope) {
+      return jQuery(find.call(this, scope)).filter(function () { return !elements(this); });
+    };
+    binding._elSkipsElement = true;
+  });
 })();

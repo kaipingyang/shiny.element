@@ -199,17 +199,17 @@ optional, and its content distribution depends on a named slot.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>  header <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"card-header"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Card name"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  footer <span class="op">=</span> <span class="st">"Footer content"</span>,</span>
-<span>  width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 480px"</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">o</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"text item"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"List item"</span>, <span class="va">o</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div class="el-card is-always-shadow">
+  <div class="el-card is-always-shadow" style="max-width: 480px" data-el-shadow-default="true">
     <div class="el-card__header">
       <div class="card-header">
         <span>Card name</span>
       </div>
     </div>
-    <div class="el-card__body" width="480px">
+    <div class="el-card__body">
       <p class="text item">List item 1</p>
       <p class="text item">List item 2</p>
       <p class="text item">List item 3</p>
@@ -225,12 +225,12 @@ optional, and its content distribution depends on a named slot.</p>
 <p>The header part can be omitted.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
-<span>  width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 480px"</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="kw">function</span><span class="op">(</span><span class="va">o</span><span class="op">)</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"text item"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"List item"</span>, <span class="va">o</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div class="el-card is-always-shadow">
-    <div class="el-card__body" width="480px">
+  <div class="el-card is-always-shadow" style="max-width: 480px" data-el-shadow-default="true">
+    <div class="el-card__body">
       <p class="text item">List item 1</p>
       <p class="text item">List item 2</p>
       <p class="text item">List item 3</p>
@@ -248,7 +248,7 @@ optional, and its content distribution depends on a named slot.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span></span>
 <span>  header <span class="op">=</span> <span class="st">"Yummy hamburger"</span>,</span>
-<span>  width <span class="op">=</span> <span class="st">"480px"</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 480px"</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
 <span>    src <span class="op">=</span> <span class="st">"https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"</span>,</span>
 <span>    alt <span class="op">=</span> <span class="st">"A hamburger"</span>,</span>
@@ -256,9 +256,9 @@ optional, and its content distribution depends on a named slot.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div class="el-card is-always-shadow">
+  <div class="el-card is-always-shadow" style="max-width: 480px" data-el-shadow-default="true">
     <div class="el-card__header">Yummy hamburger</div>
-    <div class="el-card__body" width="480px">
+    <div class="el-card__body">
       <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" alt="A hamburger" style="width: 100%">
 </div>
   </div>
@@ -274,20 +274,20 @@ are displayed. It can be <code>always</code>, <code>hover</code> or
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>  style <span class="op">=</span> <span class="st">"display: flex; flex-wrap: wrap; gap: 16px"</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Always"</span>, shadow <span class="op">=</span> <span class="st">"always"</span>, width <span class="op">=</span> <span class="st">"480px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Hover"</span>, shadow <span class="op">=</span> <span class="st">"hover"</span>, width <span class="op">=</span> <span class="st">"480px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Never"</span>, shadow <span class="op">=</span> <span class="st">"never"</span>, width <span class="op">=</span> <span class="st">"480px"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Always"</span>, shadow <span class="op">=</span> <span class="st">"always"</span>, style <span class="op">=</span> <span class="st">"width: 480px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Hover"</span>, shadow <span class="op">=</span> <span class="st">"hover"</span>, style <span class="op">=</span> <span class="st">"width: 480px"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Never"</span>, shadow <span class="op">=</span> <span class="st">"never"</span>, style <span class="op">=</span> <span class="st">"width: 480px"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div style="display: flex; flex-wrap: wrap; gap: 16px">
-    <div class="el-card is-always-shadow">
-      <div class="el-card__body" width="480px">Always</div>
+    <div class="el-card is-always-shadow" style="width: 480px">
+      <div class="el-card__body">Always</div>
     </div>
-    <div class="el-card is-hover-shadow">
-      <div class="el-card__body" width="480px">Hover</div>
+    <div class="el-card is-hover-shadow" style="width: 480px">
+      <div class="el-card__body">Hover</div>
     </div>
-    <div class="el-card is-never-shadow">
-      <div class="el-card__body" width="480px">Never</div>
+    <div class="el-card is-never-shadow" style="width: 480px">
+      <div class="el-card__body">Never</div>
     </div>
   </div>
 </div>

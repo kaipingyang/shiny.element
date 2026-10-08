@@ -11,62 +11,240 @@ switching feature.
 
 Use two attributes to provide i18n related config
 
-The page’s language and z-index are `el_page(locale =, z_index =)`,
-given to every component; a config provider sets the rest for what is
-inside it – here the size of a table’s pagination and input.
+The button switches the language of what is inside the provider, with
+`update_el_config_provider(locale =)`: the table’s empty text, the
+pagination’s words. The page’s own language is `el_page(locale =)`.
 
 ``` r
 
-el_config_provider(
-  size = "small",
-  el_input("cfg_inp", placeholder = "Small, from the provider"),
-  el_pagination("cfg_pg", total = 100)
+ui <- el_page(
+  el_button("toggle", "Switch Language"),
+  tags$br(),
+  el_config_provider(
+    id = "cfg",
+    locale = "zh-cn",
+    el_table(data = data.frame(date = character(), name = character())),
+    el_pagination("cfg_pg", total = 100, layout = "total, prev, pager, next")
+  )
 )
+server <- function(input, output, session) {
+  language <- reactiveVal("zh-cn")
+  observeEvent(input$toggle, {
+    language(if (language() == "zh-cn") "en" else "zh-cn")
+    update_el_config_provider(session, "cfg", locale = language())
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The usage example, running](../../shots/config-provider-usage.png)
 
 ## Button Configurations
 
+The checkboxes and the select change the provider’s `button` settings,
+which the button inside takes as its defaults.
+
 ``` r
 
-el_config_provider(
-  button = list(
-    autoInsertSpace = TRUE,
-    plain = TRUE,
-    round = TRUE,
-    type = "primary"
+ui <- el_page(
+  tags$div(
+    el_checkbox("cfg_space", "autoInsertSpace", value = TRUE),
+    el_checkbox("cfg_plain", "plain", value = TRUE),
+    el_checkbox("cfg_round", "round", value = TRUE),
+    el_checkbox("cfg_dashed", "dashed"),
+    el_checkbox("cfg_text", "text"),
+    el_select(
+      "cfg_type",
+      choices = c("primary", "success", "warning", "danger", "info", "default"),
+      selected = "default",
+      width = "150px"
+    )
   ),
-  el_button("cfg_b1", "中文"),
-  el_button("cfg_b2", "Button")
+  el_divider(),
+  el_config_provider(
+    id = "cfg",
+    button = list(
+      autoInsertSpace = TRUE,
+      type = "default",
+      plain = TRUE,
+      round = TRUE,
+      text = FALSE,
+      dashed = FALSE
+    ),
+    el_button("cfg_btn", "中文")
+  )
 )
+server <- function(input, output, session) {
+  observe({
+    update_el_config_provider(
+      session,
+      "cfg",
+      button = list(
+        autoInsertSpace = isTRUE(input$cfg_space),
+        type = input$cfg_type %||% "default",
+        plain = isTRUE(input$cfg_plain),
+        round = isTRUE(input$cfg_round),
+        text = isTRUE(input$cfg_text),
+        dashed = isTRUE(input$cfg_dashed)
+      )
+    )
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The button example, running](../../shots/config-provider-button.png)
 
 ## Link Configurations
 
+The selects change the provider’s `link` settings, which the link inside
+takes as its defaults.
+
 ``` r
 
-el_config_provider(
-  link = list(type = "success", underline = "always"),
-  el_link("Link", id = "cfg_link")
+ui <- el_page(
+  tags$div(
+    style = "display: flex; gap: 16px",
+    tags$div(
+      style = "display: flex; flex-direction: column; gap: 4px; flex-basis: 150px",
+      tags$span("Type:"),
+      el_select(
+        "cfg_type",
+        choices = c(
+          "primary",
+          "success",
+          "warning",
+          "info",
+          "danger",
+          "default"
+        ),
+        selected = "success"
+      )
+    ),
+    tags$div(
+      style = "display: flex; flex-direction: column; gap: 4px; flex-basis: 150px",
+      tags$span("Underline:"),
+      el_select(
+        "cfg_underline",
+        choices = c("always", "never", "hover"),
+        selected = "always"
+      )
+    )
+  ),
+  el_divider(),
+  el_config_provider(
+    id = "cfg",
+    link = list(type = "success", underline = "always"),
+    el_link("Link desu!", id = "cfg_link")
+  )
 )
+server <- function(input, output, session) {
+  observe({
+    update_el_config_provider(
+      session,
+      "cfg",
+      link = list(type = input$cfg_type, underline = input$cfg_underline)
+    )
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The link example, running](../../shots/config-provider-link.png)
 
 ## Card Configurations
 
+The radios change the provider’s `card` settings, which a card inside
+takes when it sets no `shadow` of its own.
+
 ``` r
 
-el_config_provider(card = list(shadow = "hover"), el_card("Card desu!"))
+ui <- el_page(
+  "Shadow:",
+  el_radio_group(
+    "cfg_shadow",
+    choices = c("always", "hover", "never"),
+    value = "always"
+  ),
+  el_divider(),
+  el_config_provider(
+    id = "cfg",
+    card = list(shadow = "always"),
+    el_card("Card desu!")
+  )
+)
+server <- function(input, output, session) {
+  observeEvent(input$cfg_shadow, ignoreInit = TRUE, {
+    update_el_config_provider(
+      session,
+      "cfg",
+      card = list(shadow = input$cfg_shadow)
+    )
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The card example, running](../../shots/config-provider-card.png)
 
 ## Dialog Configurations
 
+The switches change the provider’s `dialog` settings, which the dialog
+inside takes as its defaults. Element’s `transition` setting is not
+taken: the dialog is markup and plays Element’s own `dialog-fade`.
+
 ``` r
 
-el_config_provider(
-  dialog = list(alignCenter = TRUE, draggable = TRUE),
-  el_button("cfg_open", "Open dialog"),
-  el_dialog("cfg_dlg", title = "Tips", content = "This is a message")
+ui <- el_page(
+  tags$div(
+    style = "display: flex; flex-direction: column; gap: 16px",
+    el_switch("cfg_align", active_text = "alignCenter"),
+    tags$div(
+      style = "display: flex; gap: 16px",
+      el_switch("cfg_drag", active_text = "draggable"),
+      el_switch("cfg_overflow", active_text = "overflow", disabled = TRUE)
+    ),
+    tags$div(
+      el_button("cfg_open", "Open Dialog", type = "primary", size = "small")
+    )
+  ),
+  el_config_provider(
+    id = "cfg",
+    dialog = list(alignCenter = FALSE, draggable = FALSE, overflow = FALSE),
+    el_dialog(
+      "cfg_dlg",
+      title = "Dialog Title",
+      destroy_on_close = TRUE,
+      content = "Dialog Content"
+    )
+  )
 )
+server <- function(input, output, session) {
+  observe({
+    update_el_switch(
+      session,
+      "cfg_overflow",
+      disabled = !isTRUE(input$cfg_drag)
+    )
+    update_el_config_provider(
+      session,
+      "cfg",
+      dialog = list(
+        alignCenter = isTRUE(input$cfg_align),
+        draggable = isTRUE(input$cfg_drag),
+        overflow = isTRUE(input$cfg_overflow)
+      )
+    )
+  })
+  observeEvent(
+    input$cfg_open,
+    update_el_dialog(session, "cfg_dlg", visible = TRUE)
+  )
+}
+shinyApp(ui, server)
 ```
+
+![The dialog example, running](../../shots/config-provider-dialog.png)
 
 ## Message Configurations
 
@@ -131,19 +309,65 @@ el_config_provider(
 
 ## Table Configurations
 
+The checkbox and the select change the provider’s `table` settings: a
+column that sets no `show_overflow_tooltip` of its own takes them.
+
 ``` r
 
-el_config_provider(
-  table = list(showOverflowTooltip = TRUE, tooltipEffect = "light"),
-  el_table(
-    data = data.frame(
-      date = "2016-05-03",
-      name = "Tom",
-      address = "No. 189, Grove St, Los Angeles, a very long address that overflows"
+ui <- el_page(
+  tags$div(
+    el_checkbox("cfg_tip", "showOverflowTooltip", value = TRUE),
+    el_select(
+      "cfg_effect",
+      choices = c(dark = "dark", light = "light"),
+      selected = "dark",
+      width = "150px"
+    )
+  ),
+  el_divider(),
+  el_config_provider(
+    id = "cfg",
+    table = list(showOverflowTooltip = TRUE, tooltipEffect = "dark"),
+    el_table(
+      data = data.frame(
+        date = c("2016-05-03", "2016-05-02", "2016-05-04"),
+        name = "Tom",
+        address = "No. 189, Grove St, Los Angeles, a long address for the cell"
+      ),
+      selection = TRUE,
+      columns = list(
+        el_table_column("date", "Date", width = 120),
+        el_table_column("name", "Name", width = 120),
+        el_table_column(
+          "address",
+          "Address (inherited from config-provider)",
+          width = 300
+        ),
+        el_table_column(
+          "address",
+          "Address (explicit false)",
+          show_overflow_tooltip = FALSE
+        )
+      )
     )
   )
 )
+server <- function(input, output, session) {
+  observe({
+    update_el_config_provider(
+      session,
+      "cfg",
+      table = list(
+        showOverflowTooltip = isTRUE(input$cfg_tip),
+        tooltipEffect = input$cfg_effect
+      )
+    )
+  })
+}
+shinyApp(ui, server)
 ```
+
+![The table example, running](../../shots/config-provider-table.png)
 
 ## Experimental features
 

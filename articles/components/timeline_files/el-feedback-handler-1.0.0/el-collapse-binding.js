@@ -127,10 +127,15 @@
 
       // before-collapse: a function that may return false, or a promise, to
       // keep the panel as it is
-      var guard = el.getAttribute('data-before-collapse');
-      guard = guard ? eval('(' + guard + ')') : null;
+      // read as each panel toggles, so update_el_collapse() can change it
       function toggle(panel) {
         if (panel.classList.contains('is-disabled')) return;
+        var src = el.getAttribute('data-before-collapse');
+        if (src !== el._guardSrc) {
+          el._guardSrc = src;
+          el._guard = src ? eval('(' + src + ')') : null;
+        }
+        var guard = el._guard;
         if (!guard) return flip(panel);
         var r = guard(panel.getAttribute('data-el-name'));
         if (r === false) return;
@@ -180,6 +185,17 @@
     },
 
     receiveMessage: function(el, data) {
+      if (data.hasOwnProperty('accordion')) {
+        el.setAttribute('data-accordion', data.accordion ? 'true' : 'false');
+      }
+      if (data.hasOwnProperty('expandIconPosition')) {
+        el.classList.remove('el-collapse-icon-position-left', 'el-collapse-icon-position-right');
+        el.classList.add('el-collapse-icon-position-' + data.expandIconPosition);
+      }
+      if (data.hasOwnProperty('beforeCollapse')) {
+        if (data.beforeCollapse) el.setAttribute('data-before-collapse', data.beforeCollapse);
+        else el.removeAttribute('data-before-collapse');
+      }
       if (data.hasOwnProperty('value')) {
         this.setValue(el, data.value);
         $(el).trigger('elCollapseChange');

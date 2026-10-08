@@ -17,6 +17,8 @@ el_skeleton(
   count = NULL,
   throttle = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 )
@@ -25,7 +27,9 @@ update_el_skeleton(
   session = shiny::getDefaultReactiveDomain(),
   id,
   loading = NULL,
-  rows = NULL
+  rows = NULL,
+  animated = NULL,
+  count = NULL
 )
 ```
 
@@ -64,6 +68,12 @@ update_el_skeleton(
 - width:
 
   Component width, as a CSS unit.
+
+- class, style:
+
+  Extra classes and inline style on the skeleton, as Element passes them
+  to its root: `style = "display: flex; gap: 8px"` lays several copies
+  of the placeholder side by side.
 
 - slots:
 

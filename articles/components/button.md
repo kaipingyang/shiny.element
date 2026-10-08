@@ -167,29 +167,44 @@ In 2.11.9 you can use the `direction` attribute.
 
 Use tag `<el-button-group>` to group your buttons.
 
-The group’s direction set in R; Element Plus’s demo switches it with a
-radio.
+The radios turn the second group, with
+`update_el_button_group(direction =)`.
 
 ``` r
 
-tagList(
+ui <- el_page(
   el_button_group(
     el_button("prev", "Previous Page", type = "primary", icon = "ArrowLeft"),
-    el_button("next", "Next Page", type = "primary", icon = "ArrowRight")
+    el_button(
+      "next",
+      tagList("Next Page", el_icon("ArrowRight", class = "el-icon--right")),
+      type = "primary"
+    )
   ),
   tags$br(),
+  el_radio_group(
+    "direction",
+    choices = c(Horizontal = "horizontal", Vertical = "vertical"),
+    value = "horizontal"
+  ),
   tags$br(),
   el_button_group(
-    direction = "vertical",
+    id = "dir_group",
+    direction = "horizontal",
     el_button("g1", NULL, type = "primary", icon = "House"),
     el_button("g2", NULL, type = "primary", icon = "Operation"),
     el_button("g3", NULL, type = "primary", icon = "Notification")
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$direction, ignoreInit = TRUE, {
+    update_el_button_group(session, "dir_group", direction = input$direction)
+  })
+}
+shinyApp(ui, server)
 ```
 
-  
-  
+![The group example, running](../../shots/button-group.png)
 
 ## Loading Button
 

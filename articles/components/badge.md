@@ -20,7 +20,26 @@ tagList(
     value = 1,
     color = "green",
     el_button("bd5", "custom background")
-  ))
+  )),
+  el_dropdown(
+    "bd_menu",
+    trigger = "click",
+    trigger_label = tags$span(
+      class = "el-dropdown-link",
+      "Click Me",
+      el_icon("CaretBottom", class = "el-icon--right")
+    ),
+    items = list(
+      el_dropdown_item(
+        "comments",
+        tagList("comments", el$badge(class = "mark", `:value` = "12"))
+      ),
+      el_dropdown_item(
+        "replies",
+        tagList("replies", el$badge(class = "mark", `:value` = "3"))
+      )
+    )
+  )
 )
 ```
 

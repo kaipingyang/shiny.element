@@ -22,6 +22,7 @@ The page, its theme, and the scripts and styles a page needs.
 - [`el_feedback_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_feedback_dependency.md)
   : Feedback Handler Dependency
 - [`el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md)
+  [`update_el_config_provider()`](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md)
   : Element Plus Config Provider
 
 ## Basic
@@ -32,6 +33,7 @@ As in Element Plus’s documentation.
   [`update_el_button()`](https://kaipingyang.github.io/shiny.element/reference/el_button.md)
   : Element Plus Button with Vue Instance
 - [`el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md)
+  [`update_el_button_group()`](https://kaipingyang.github.io/shiny.element/reference/el_button_group.md)
   : Element Plus Button Group
 - [`el_container()`](https://kaipingyang.github.io/shiny.element/reference/el_container.md)
   : Element Plus Container
@@ -53,14 +55,19 @@ As in Element Plus’s documentation.
   [`update_el_link()`](https://kaipingyang.github.io/shiny.element/reference/el_link.md)
   : Element Plus Link
 - [`el_text()`](https://kaipingyang.github.io/shiny.element/reference/el_text.md)
+  [`update_el_text()`](https://kaipingyang.github.io/shiny.element/reference/el_text.md)
   : Element Plus Text
 - [`el_scrollbar()`](https://kaipingyang.github.io/shiny.element/reference/el_scrollbar.md)
+  [`update_el_scrollbar()`](https://kaipingyang.github.io/shiny.element/reference/el_scrollbar.md)
   : Element Plus Scrollbar
 - [`el_space()`](https://kaipingyang.github.io/shiny.element/reference/el_space.md)
+  [`update_el_space()`](https://kaipingyang.github.io/shiny.element/reference/el_space.md)
   : Element Plus Space
 - [`el_splitter()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter.md)
+  [`update_el_splitter()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter.md)
   : Element Plus Splitter
 - [`el_splitter_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter_panel.md)
+  [`update_el_splitter_panel()`](https://kaipingyang.github.io/shiny.element/reference/el_splitter_panel.md)
   : Element Plus Splitter Panel
 
 ## Form
@@ -103,6 +110,8 @@ change.
   : Element Plus Form
 - [`el_form_field()`](https://kaipingyang.github.io/shiny.element/reference/el_form_field.md)
   : Declare a form field
+- [`el_form_item()`](https://kaipingyang.github.io/shiny.element/reference/el_form_item.md)
+  : Several form fields under one label
 - [`el_rule()`](https://kaipingyang.github.io/shiny.element/reference/el_rule.md)
   : Declare a validation rule
 - [`el_form_validate()`](https://kaipingyang.github.io/shiny.element/reference/el_form_validate.md)
@@ -171,6 +180,7 @@ change.
   : Element Plus Avatar
 
 - [`el_avatar_group()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar_group.md)
+  [`update_el_avatar_group()`](https://kaipingyang.github.io/shiny.element/reference/el_avatar_group.md)
   : Element Plus Avatar Group
 
 - [`el_badge()`](https://kaipingyang.github.io/shiny.element/reference/el_badge.md)
@@ -323,6 +333,7 @@ change.
   : Build tree data from a data frame
 
 - [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)
+  [`update_el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)
   : Element Plus Virtualized Tree
 
 - [`el_statistic()`](https://kaipingyang.github.io/shiny.element/reference/el_statistic.md)
@@ -338,9 +349,11 @@ change.
 ## Navigation
 
 - [`el_affix()`](https://kaipingyang.github.io/shiny.element/reference/el_affix.md)
+  [`update_el_affix()`](https://kaipingyang.github.io/shiny.element/reference/el_affix.md)
   : Element Plus Affix
 
 - [`el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md)
+  [`update_el_anchor()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor.md)
   : Element Plus Anchor
 
 - [`el_anchor_link()`](https://kaipingyang.github.io/shiny.element/reference/el_anchor_link.md)
@@ -457,6 +470,7 @@ the server.
 - [`el_divider()`](https://kaipingyang.github.io/shiny.element/reference/el_divider.md)
   : Element Plus Divider
 - [`el_watermark()`](https://kaipingyang.github.io/shiny.element/reference/el_watermark.md)
+  [`update_el_watermark()`](https://kaipingyang.github.io/shiny.element/reference/el_watermark.md)
   : Element Plus Watermark
 
 ## From the server

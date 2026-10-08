@@ -175,7 +175,29 @@
 <link href="shiny_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
 <link href="shiny_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
 <script src="shiny_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="shiny_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="shiny_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="shiny_files/el-events-1.0.0/el-events.js"></script><script src="shiny_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="shiny_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
-<script src="shiny_files/el-collapse-binding-1.0.0/el-collapse-binding.js"></script><div class="row">
+<script src="shiny_files/el-collapse-binding-1.0.0/el-collapse-binding.js"></script><style>.el-calendar-cell { height: 100%; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.el-calendar-cell.is-selecting { background-color: var(--el-color-primary-light-9); }
+.el-calendar-cell__events { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.el-calendar-cell__events.is-scrolling { overflow-y: auto; }
+.el-calendar-event { width: 100%; justify-content: flex-start; cursor: pointer; overflow: hidden; flex-shrink: 0; }
+.el-calendar-event .el-tag__content { overflow: hidden; text-overflow: ellipsis; }
+.el-calendar-cell__head { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
+.el-calendar-more { font-size: 12px; color: var(--el-color-primary); cursor: pointer; white-space: nowrap; }
+.el-calendar-more:hover { text-decoration: underline; }
+.el-calendar-more__list { display: flex; flex-direction: column; gap: 4px; }
+.el-calendar-more__day { font-weight: 600; margin-bottom: 2px; }
+.el-calendar-detail { display: flex; flex-direction: column; gap: 6px; }
+.el-calendar-detail__title { font-weight: 600; font-size: 14px; color: var(--el-text-color-primary); }
+.el-calendar-detail__when, .el-calendar-detail__calendar { color: var(--el-text-color-secondary); }
+.el-calendar-detail__body { white-space: pre-wrap; }
+.el-calendar.is-hide-col-1 .el-calendar-table tr > :nth-child(1) { display: none; }
+.el-calendar.is-hide-col-2 .el-calendar-table tr > :nth-child(2) { display: none; }
+.el-calendar.is-hide-col-3 .el-calendar-table tr > :nth-child(3) { display: none; }
+.el-calendar.is-hide-col-4 .el-calendar-table tr > :nth-child(4) { display: none; }
+.el-calendar.is-hide-col-5 .el-calendar-table tr > :nth-child(5) { display: none; }
+.el-calendar.is-hide-col-6 .el-calendar-table tr > :nth-child(6) { display: none; }
+.el-calendar.is-hide-col-7 .el-calendar-table tr > :nth-child(7) { display: none; }</style>
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Shiny integration</h1>
@@ -540,10 +562,10 @@ carrying both sets of markup, data and methods.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../shots/shiny-absorb.png" alt="The absorb example, running" style="max-width: 100%"><p>This costs one thing. An absorbed component has no host of its own,
-so nothing to send its <code>update_el_*()</code> to, and that stops
-working – the browser console says so, with a <code>[shiny-vue]</code>
-warning naming the id. Drive it through the wrapper instead:</p>
+<img src="../shots/shiny-absorb.png" alt="The absorb example, running" style="max-width: 100%"><p>An absorbed component has no host of its own, but it keeps its id:
+the wrapper lists the components it took in, and
+<code>update_el_*()</code> and <code><a href="../reference/call_el.html">call_el()</a></code> for that id reach
+it through the wrapper’s instance.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
@@ -556,9 +578,7 @@ warning naming the id. Drive it through the wrapper instead:</p>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">busy</span>, <span class="op">{</span></span>
-<span>    <span class="co"># Not update_el_button(session, "save", ...): the button has no host</span></span>
-<span>    <span class="co"># of its own any more. Its fields live on the tooltip.</span></span>
-<span>    <span class="fu"><a href="../reference/update_vue.html">update_vue</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"hint"</span>, label <span class="op">=</span> <span class="st">"Saving..."</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/el_button.html">update_el_button</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"save"</span>, label <span class="op">=</span> <span class="st">"Saving..."</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -567,8 +587,9 @@ warning naming the id. Drive it through the wrapper instead:</p>
 <code>label</code>, a <code>type</code> and a <code>disabled</code> –
 the second one’s fields are renamed on the way in
 (<code>el3_label</code>), and the markup that names them is rewritten to
-match. You only notice when reaching in with <code><a href="../reference/update_vue.html">update_vue()</a></code>,
-where the renamed field is what to set.</p>
+match. Updates by the component’s id follow the renaming;
+<code><a href="../reference/update_vue.html">update_vue()</a></code> on the wrapper’s id sets the fields under the
+names they have there.</p>
 </div>
 <div class="section level2">
 <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
@@ -615,7 +636,57 @@ and passed through untouched:</p>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo"></div>
+<div class="el-demo">
+  <div id="scoped-slot-cal" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="scoped-slot-cal_container" style="display: contents">
+  <el-calendar ref="calendar" :key="&#39;week-&#39; + weekStart()" :model-value="elDate(value)" @update:model-value="elPick" :class="calendarClass()" :range="range === null ? undefined : range.map(elDate)" :controller-type="controllerType === null ? undefined : controllerType" :formatter="formatter === null ? undefined : formatter"><template v-slot:date-cell="{date, data}"><div>{{ data.day.slice(8) }}<b v-if="data.day.slice(8) === '15'" style="color:#F56C6C"> due</b></div></template></el-calendar>
+  <el-popover :visible="eventMore !== null" :virtual-ref="eventAnchor" virtual-triggering placement="bottom" :width="220" popper-class="el-calendar-popover">
+    <div v-if="eventMore !== null" class="el-calendar-more__list">
+      <div class="el-calendar-more__day">{{ eventMore }}</div>
+      <el-tag v-for="ev in eventsOn(eventMore)" :key="ev.id" :type="eventType(ev)" size="small" class="el-calendar-event" :title="ev.body || ev.title" :aria-label="ev.title || ev.body || ev.date" :color="eventColor(ev)" :style="eventStyle(ev)" @click.stop="clickEvent(ev, $event, true)">{{ eventLabel(ev, eventMore) }}</el-tag>
+    </div>
+  </el-popover>
+  <el-popover :visible="eventDetail !== null" :virtual-ref="eventAnchor" virtual-triggering placement="right" :width="260" popper-class="el-calendar-popover">
+    <div v-if="eventDetail !== null" class="el-calendar-detail">
+      <div class="el-calendar-detail__title">{{ eventDetail.title }}</div>
+      <div class="el-calendar-detail__when">{{ eventWhen(eventDetail) }}</div>
+      <div v-if="eventCalendar(eventDetail)" class="el-calendar-detail__calendar">{{ eventCalendar(eventDetail).name || eventCalendar(eventDetail).id }}</div>
+      <div v-if="eventDetail.body" class="el-calendar-detail__body">{{ eventDetail.body }}</div>
+    </div>
+  </el-popover>
+  <el-dialog :model-value="eventForm !== null" @update:model-value="$event || cancelEvent()" :title="eventForm &amp;&amp; eventForm.id !== undefined ? eventLabels.edit : eventLabels.add" width="460px" append-to-body class="el-calendar-dialog">
+    <el-form v-if="eventForm" label-width="72px" @submit.prevent>
+      <el-form-item :label="eventLabels.title">
+        <el-input v-model="eventForm.title"></el-input>
+      </el-form-item>
+      <el-form-item :label="eventLabels.allday">
+        <el-switch :model-value="isAllday(eventForm)" @update:model-value="setAllday"></el-switch>
+      </el-form-item>
+      <el-form-item :label="eventLabels.date">
+        <el-date-picker v-model="eventForm.date" :type="isAllday(eventForm) ? &#39;date&#39; : &#39;datetime&#39;" :value-format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" :format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" style="width: 100%" :clearable="false"></el-date-picker>
+      </el-form-item>
+      <el-form-item :label="eventLabels.end">
+        <el-date-picker v-model="eventForm.end" :type="isAllday(eventForm) ? &#39;date&#39; : &#39;datetime&#39;" :value-format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" :format="isAllday(eventForm) ? &#39;YYYY-MM-DD&#39; : &#39;YYYY-MM-DD HH:mm&#39;" style="width: 100%"></el-date-picker>
+      </el-form-item>
+      <el-form-item :label="eventLabels.calendar" v-if="calendars.length">
+        <el-select v-model="eventForm.calendarId">
+          <el-option v-for="c in calendars" :key="c.id" :label="c.name || c.id" :value="c.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item :label="eventLabels.type">
+        <el-select v-model="eventForm.type" :placeholder="eventType(eventForm)">
+          <el-option v-for="t in [&#39;primary&#39;, &#39;success&#39;, &#39;info&#39;, &#39;warning&#39;, &#39;danger&#39;]" :key="t" :label="t" :value="t"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item :label="eventLabels.body">
+        <el-input v-model="eventForm.body" type="textarea" :rows="2"></el-input>
+      </el-form-item>
+    </el-form>
+    <template v-slot:footer><el-button v-if="eventForm &amp;&amp; eventForm.id !== undefined" type="danger" plain @click="deleteEvent">{{ eventLabels.delete }}</el-button><el-button @click="cancelEvent">{{ eventLabels.cancel }}</el-button><el-button type="primary" @click="saveEvent" :disabled="!eventForm || !eventForm.date">{{ eventLabels.save }}</el-button></template>
+  </el-dialog>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-03-15","range":null,"events":[],"editable":false,"calendars":[],"visibleEventCount":null,"useDetailPopup":false,"firstDayOfWeek":null,"workweek":false,"eventForm":null,"eventDragged":null,"eventDetail":null,"eventMore":null,"eventAnchor":null,"eventSelect":null,"eventLabels":{"add":"New event","edit":"Edit event","title":"Title","allday":"All day","date":"Date","end":"Until","calendar":"Calendar","type":"Type","body":"Details","save":"Save","delete":"Delete","cancel":"Cancel","more":"+{n} more"},"controllerType":null,"formatter":null},"methods":{"eventCalendar":"function(ev) { if (!ev || ev.calendarId === undefined || ev.calendarId === null) return null; var id = String(ev.calendarId); return (this.calendars || []).filter(function(c) { return String(c.id) === id; })[0] || null; }","eventType":"function(ev) { var c = this.eventCalendar(ev); return ev.type || (c && c.type) || 'primary'; }","eventColor":"function(ev) { var c = this.eventCalendar(ev); return ev.color || (c && c.color) || undefined; }","eventStyle":"function(ev) { var col = this.eventColor(ev); return col ? {borderColor: col, color: 'var(--el-text-color-primary)'} : null; }","eventLabel":"function(ev, day) { var d = String(ev.date); return (d.length > 10 && d.slice(0, 10) === day ? d.slice(11, 16) + ' ' : '') + (ev.title || ''); }","eventWhen":"function(ev) { if (!ev) return ''; var d = String(ev.date), e = ev.end ? String(ev.end) : ''; if (!e) return d; return d + ' – ' + (e.slice(0, 10) === d.slice(0, 10) ? e.slice(11) : e); }","eventsOn":"function(day) { var self = this; var on = (self.events || []).filter(function(e) { if (e.isVisible === false) return false; var c = self.eventCalendar(e); if (c && c.isVisible === false) return false; var start = String(e.date).slice(0, 10), end = e.end ? String(e.end).slice(0, 10) : start; return start <= day && day <= end; }); var key = function(e) { var d = String(e.date); return d.length > 10 && d.slice(0, 10) === day ? d.slice(11) : ''; }; return on.map(function(e, i) { return [e, i]; }).sort(function(a, b) { var ka = key(a[0]), kb = key(b[0]); return ka < kb ? -1 : ka > kb ? 1 : a[1] - b[1]; }).map(function(p) { return p[0]; }); }","eventsShown":"function(day) { var all = this.eventsOn(day), n = this.visibleEventCount; return n && all.length > n ? all.slice(0, n) : all; }","eventsHidden":"function(day) { var n = this.visibleEventCount; if (!n) return 0; return Math.max(0, this.eventsOn(day).length - n); }","moreLabel":"function(day) { return String(this.eventLabels.more).replace('{n}', this.eventsHidden(day)); }","canEdit":"function(ev) { return !!this.editable && !ev.isReadOnly; }","isAllday":"function(f) { return !f || !f.date || String(f.date).length <= 10; }","setAllday":"function(on) { var f = this.eventForm; if (!f || !f.date) return; var day = function(s) { return String(s).slice(0, 10); }; if (on) { f.date = day(f.date); if (f.end) f.end = day(f.end); } else { f.date = day(f.date) + ' 09:00'; if (f.end) f.end = day(f.end) + ' 10:00'; } }","eventRequest":"function(kind, value, apply) { if (window.Shiny && Shiny.setInputValue) { Shiny.setInputValue('scoped-slot-cal_' + kind + ':shiny.element.cal_event', window.shinyVue.plain(value), {priority: 'event'}); } else if (apply) { apply.call(this); } }","clickEvent":"function(ev, e, fromMore) { var self = this; self.eventRequest('click', ev); var anchor = fromMore ? self.eventAnchor : (e && e.currentTarget) || null; self.closePopovers(); if (self.canEdit(ev)) { self.eventForm = Object.assign({}, ev, {end: ev.end || null}); return; } if (self.useDetailPopup && anchor) { self.eventAnchor = anchor; self.eventDetail = ev; self.listenOutside(); } }","openMore":"function(day, e) { this.closePopovers(); this.eventAnchor = e.currentTarget; this.eventMore = day; this.listenOutside(); }","closePopovers":"function() { this.eventMore = null; this.eventDetail = null; }","listenOutside":"function() { var self = this; if (self._outside) return; var off = function() { document.removeEventListener('mousedown', down, true); document.removeEventListener('keydown', key, true); self._outside = null; }; var down = function(e) { var t = e.target; if (t.closest && (t.closest('.el-calendar-popover') || t === self.eventAnchor)) return; self.closePopovers(); off(); }; var key = function(e) { if (e.key === 'Escape') { self.closePopovers(); off(); } }; self._outside = off; document.addEventListener('mousedown', down, true); document.addEventListener('keydown', key, true); }","openAdd":"function(day, end) { if (!this.editable) return; this.closePopovers(); var f = {date: day, end: end && end !== day ? end : null, title: '', type: 'primary', body: ''}; if (this.calendars && this.calendars.length) f.calendarId = this.calendars[0].id; this.eventForm = f; }","cancelEvent":"function() { this.eventForm = null; }","saveEvent":"function() { var self = this, f = self.eventForm; if (!f || !f.date) return; var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; if (ev.id === undefined) { self.eventRequest('add', ev, function() { ev.id = 'local-' + Date.now(); self.events.push(ev); }); } else { var old = self.events.filter(function(e) { return e.id === ev.id; })[0] || {}; var changes = {}; Object.keys(ev).forEach(function(k) { if (ev[k] !== old[k] && !(ev[k] === null && old[k] === undefined)) changes[k] = ev[k]; }); self.eventRequest('update', {event: old, changes: changes}, function() { var i = self.events.indexOf(old); if (i >= 0) self.events.splice(i, 1, ev); }); } self.eventForm = null; }","deleteEvent":"function() { var self = this, f = self.eventForm; if (!f) return; var old = self.events.filter(function(e) { return e.id === f.id; })[0]; if (old) self.eventRequest('delete', old, function() { self.events.splice(self.events.indexOf(old), 1); }); self.eventForm = null; }","dragStart":"function(ev, e) { if (!this.canEdit(ev)) { e.preventDefault(); return; } this.closePopovers(); this.eventDragged = ev.id; if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(ev.id)); } }","dropOn":"function(day) { var self = this, id = self.eventDragged; self.eventDragged = null; if (!self.editable || id === null) return; var old = self.events.filter(function(e) { return e.id === id; })[0]; if (!old || String(old.date).slice(0, 10) === day) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var shift = parse(day) - parse(old.date); var changes = {date: day + String(old.date).slice(10)}; if (old.end) changes.end = fmt(parse(old.end) + shift) + String(old.end).slice(10); var ev = Object.assign({}, old, changes); self.eventRequest('update', {event: old, changes: changes}, function() { self.events.splice(self.events.indexOf(old), 1, ev); }); }","selectStart":"function(day, e) { var self = this; if (!self.editable || e.button !== 0) return; self.eventSelect = {from: day, to: day}; var up = function() { document.removeEventListener('mouseup', up, true); self.selectEnd(); }; document.addEventListener('mouseup', up, true); }","selectMove":"function(day) { if (this.eventSelect) this.eventSelect.to = day; }","selectEnd":"function() { var s = this.eventSelect; this.eventSelect = null; if (!s || s.from === s.to) return; this.openAdd(s.from < s.to ? s.from : s.to, s.from < s.to ? s.to : s.from); }","inSelection":"function(day) { var s = this.eventSelect; if (!s || s.from === s.to) return false; var a = s.from < s.to ? s.from : s.to, b = s.from < s.to ? s.to : s.from; return a <= day && day <= b; }","weekStart":"function() { var dj = window.ElementPlus && ElementPlus.dayjs; var fdw = this.firstDayOfWeek; if (!dj) return fdw === null || fdw === undefined ? 0 : fdw; var loc = dj.Ls && dj.Ls[dj.locale()]; if (fdw === null || fdw === undefined || !loc) return dj.localeData ? dj.localeData().firstDayOfWeek() : 0; var had = Object.prototype.hasOwnProperty.call(loc, 'weekStart'), old = loc.weekStart; loc.weekStart = fdw; Promise.resolve().then(function() { if (had) loc.weekStart = old; else delete loc.weekStart; }); return fdw; }","calendarClass":"function() { var out = ['el-calendar--events']; if (!this.workweek) return out; var s = this.firstDayOfWeek; if (s === null || s === undefined) { var dj = window.ElementPlus && ElementPlus.dayjs; s = dj && dj.localeData ? dj.localeData().firstDayOfWeek() : 0; } [0, 6].forEach(function(w) { out.push('is-hide-col-' + (((w - s + 7) % 7) + 1)); }); return out; }","reportDates":"function() { var self = this; self.$nextTick(function() { var root = self.$el && self.$el.querySelectorAll ? self.$el : null; if (!root || !window.Shiny || !Shiny.setInputValue) return; var cells = root.querySelectorAll('.el-calendar-table td'); if (!cells.length) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var start, end; if (self.range && self.range.length) { start = parse(self.range[0]); end = start + (cells.length - 1) * 864e5; } else { var v = String(self.value).slice(0, 10).split('-'); var first = Date.UTC(+v[0], +v[1] - 1, 1); var prev = root.querySelectorAll('.el-calendar-table td.prev').length; start = first - prev * 864e5; end = start + (cells.length - 1) * 864e5; } Shiny.setInputValue('scoped-slot-cal_dates:shiny.element.cal_event', {current: String(self.value).slice(0, 10), start: fmt(start), end: fmt(end)}); }); }","shinyVueReceive":"function(d) { if (!('calendarEdit' in d)) return d; var e = d.calendarEdit, events = this.events, rows = e.rows || []; delete d.calendarEdit; var at = function(id) { for (var i = 0; i < events.length; i++) if (String(events[i].id) === String(id)) return i; return -1; }; if (e.op === 'insert') rows.forEach(function(r) { events.push(r); }); else if (e.op === 'replace') rows.forEach(function(r) { var i = at(r.id); if (i >= 0) events.splice(i, 1, r); else events.push(r); }); else if (e.op === 'delete') [].concat(e.ids || []).forEach(function(id) { var i = at(id); if (i >= 0) events.splice(i, 1); }); return d; }","elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal, oldVal) { if (!oldVal || String(newVal).slice(0, 7) !== String(oldVal).slice(0, 7)) this.reportDates(); }","range":{"immediate":true,"handler":"function() { this.reportDates(); }"},"firstDayOfWeek":"function() { this.reportDates(); }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.eventCalendar","options.methods.eventType","options.methods.eventColor","options.methods.eventStyle","options.methods.eventLabel","options.methods.eventWhen","options.methods.eventsOn","options.methods.eventsShown","options.methods.eventsHidden","options.methods.moreLabel","options.methods.canEdit","options.methods.isAllday","options.methods.setAllday","options.methods.eventRequest","options.methods.clickEvent","options.methods.openMore","options.methods.closePopovers","options.methods.listenOutside","options.methods.openAdd","options.methods.cancelEvent","options.methods.saveEvent","options.methods.deleteEvent","options.methods.dragStart","options.methods.dropOn","options.methods.selectStart","options.methods.selectMove","options.methods.selectEnd","options.methods.inSelection","options.methods.weekStart","options.methods.calendarClass","options.methods.reportDates","options.methods.shinyVueReceive","options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value","options.watch.range.handler","options.watch.firstDayOfWeek"]}</script>
+</div>
+</div>
 <p>Filling a slot replaces what Element put there, default and all.
 Element’s <code>el-form-item</code> error slot, for instance, wraps the
 message in <code>div.el-form-item__error</code>; a template that renders
@@ -648,8 +719,8 @@ trigger.</p>
 </div>
   <div id="raw-tags-save" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="raw-tags-save_container" style="display: contents">
-  <el-button :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"A component","type":"primary","size":null,"plain":false,"round":false,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+  <el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"A component","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
 <p>Placed at the top level of a page, the same <code>el$button()</code>

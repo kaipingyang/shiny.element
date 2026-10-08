@@ -234,6 +234,84 @@
     if (callback) callback(false);
   }
 
+  // The tabs' look, changed from the server as Element's props change it:
+  // the header's own classes and place, not those of components in the panes
+  function header(el) { return el.querySelector(':scope > .el-tabs__header'); }
+
+  function setPosition(el, pos) {
+    var old = el.getAttribute('data-position') || 'top';
+    if (!pos || old === pos) return;
+    var h = header(el), content = el.querySelector(':scope > .el-tabs__content');
+    el.classList.remove('el-tabs--' + old);
+    el.classList.add('el-tabs--' + pos);
+    [h].concat(Array.prototype.slice.call(h.querySelectorAll('.is-' + old))).forEach(function(n) {
+      n.classList.remove('is-' + old);
+      n.classList.add('is-' + pos);
+    });
+    var vertical = pos === 'left' || pos === 'right';
+    h.classList.toggle('el-tabs__header-vertical', vertical);
+    var plus = h.querySelector('.el-tabs__new-tab');
+    if (plus) plus.classList.toggle('el-tabs__new-tab-vertical', vertical);
+    // Element puts the panes first at the bottom and the right
+    if (pos === 'bottom' || pos === 'right') el.insertBefore(content, h);
+    else el.insertBefore(h, content);
+    el.setAttribute('data-position', pos);
+    var bar = el.querySelector('.el-tabs__active-bar');
+    if (bar) { bar.style.width = ''; bar.style.height = ''; bar.style.transform = ''; }
+    moveBar(el);
+  }
+
+  function setType(el, type) {
+    ['card', 'border-card'].forEach(function(t) { el.classList.remove('el-tabs--' + t); });
+    if (type) el.classList.add('el-tabs--' + type);
+    el.setAttribute('data-carded', type ? 'true' : 'false');
+    // the card types show the active tab by its border, with no bar
+    var nav = el.querySelector('.el-tabs__nav'), bar = nav.querySelector('.el-tabs__active-bar');
+    if (type && bar) bar.parentNode.removeChild(bar);
+    if (!type && !bar) {
+      bar = document.createElement('div');
+      bar.className = 'el-tabs__active-bar is-' + (el.getAttribute('data-position') || 'top');
+      nav.insertBefore(bar, nav.firstChild);
+      moveBar(el);
+    }
+  }
+
+  function setClosable(el, on) {
+    el.setAttribute('data-closable', on ? 'true' : 'false');
+    el.querySelectorAll('.el-tabs__item').forEach(function(item) {
+      var x = item.querySelector('.is-icon-close');
+      var can = (on || item.getAttribute('data-closable-own') === 'true') &&
+        !item.classList.contains('is-disabled');
+      item.classList.toggle('is-closable', can);
+      if (can && !x) {
+        x = document.createElement('i');
+        x.className = 'el-icon is-icon-close';
+        x.setAttribute('data-el-icon', 'Close');
+        item.appendChild(x);
+      } else if (!can && x) {
+        x.parentNode.removeChild(x);
+      }
+    });
+    moveBar(el);
+  }
+
+  function setAddable(el, on) {
+    var h = header(el), plus = h.querySelector('.el-tabs__new-tab');
+    if (on && !plus) {
+      plus = document.createElement('div');
+      var pos = el.getAttribute('data-position');
+      plus.className = 'el-tabs__new-tab' + (pos === 'left' || pos === 'right' ? ' el-tabs__new-tab-vertical' : '');
+      plus.setAttribute('tabindex', '0');
+      var i = document.createElement('i');
+      i.className = 'el-icon is-icon-plus';
+      i.setAttribute('data-el-icon', 'Plus');
+      plus.appendChild(i);
+      h.appendChild(plus);
+    } else if (!on && plus) {
+      plus.parentNode.removeChild(plus);
+    }
+  }
+
   function addItem(el, tab) {
     var nav = el.querySelector('.el-tabs__nav');
     var pos = 'is-' + (el.getAttribute('data-position') || 'top');
@@ -359,6 +437,13 @@
     },
 
     receiveMessage: function(el, data) {
+      if (data.hasOwnProperty('tabPosition')) setPosition(el, data.tabPosition);
+      if (data.hasOwnProperty('type')) setType(el, data.type);
+      if (data.hasOwnProperty('stretch')) {
+        el.querySelector('.el-tabs__nav').classList.toggle('is-stretch', !!data.stretch);
+      }
+      if (data.hasOwnProperty('closable')) setClosable(el, !!data.closable);
+      if (data.hasOwnProperty('addable')) setAddable(el, !!data.addable);
       if (data.add_tab) addItem(el, data.add_tab);
       if (data.remove_tab) removeTab(el, data.remove_tab);
       if (data.hasOwnProperty('selected') && data.selected !== null) {

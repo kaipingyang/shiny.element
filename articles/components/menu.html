@@ -202,8 +202,7 @@ sub-menu component to create a second level menu. Menu provides
 <code>background-color</code>, <code>text-color</code> and
 <code>active-text-color</code> to customize the colors.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">workspace</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Workspace"</span>,</span>
 <span>    <span class="st">"2"</span>,</span>
@@ -214,9 +213,14 @@ sub-menu component to create a second level menu. Menu provides
 <span>      <span class="st">"item four"</span>,</span>
 <span>      <span class="st">"2-4"</span>,</span>
 <span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-4-1"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-4-2"</span><span class="op">)</span></span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-4-2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"2-4-3"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">items</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">workspace</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Info"</span>, <span class="st">"3"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Orders"</span>, <span class="st">"4"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -224,16 +228,16 @@ sub-menu component to create a second level menu. Menu provides
 <span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
 <span>    <span class="st">"top_menu"</span>,</span>
 <span>    active <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    class <span class="op">=</span> <span class="st">"el-menu-demo"</span>,</span>
 <span>    mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
-<span>    ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    items <span class="op">=</span> <span class="va">items</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 20px"</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 24px"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
 <span>    <span class="st">"top_menu_dark"</span>,</span>
 <span>    active <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    class <span class="op">=</span> <span class="st">"el-menu-demo"</span>,</span>
 <span>    mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
-<span>    ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    background_color <span class="op">=</span> <span class="st">"#545c64"</span>,</span>
 <span>    text_color <span class="op">=</span> <span class="st">"#fff"</span>,</span>
 <span>    active_text_color <span class="op">=</span> <span class="st">"#ffd04b"</span>,</span>
@@ -243,7 +247,7 @@ sub-menu component to create a second level menu. Menu provides
 <div class="el-demo">
   <div id="basic-top_menu" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-top_menu_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" class="el-menu-demo" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
       <span>Processing Center</span>
     </el-menu-item>
@@ -270,6 +274,9 @@ sub-menu component to create a second level menu. Menu provides
         <el-menu-item index="2-4-2" @click="elMenuItemClick(&quot;2-4-2&quot;)">
           <span>item two</span>
         </el-menu-item>
+        <el-menu-item index="2-4-3" @click="elMenuItemClick(&quot;2-4-3&quot;)">
+          <span>item three</span>
+        </el-menu-item>
       </el-sub-menu>
     </el-sub-menu>
     <el-menu-item index="3" :disabled="true" @click="elMenuItemClick(&quot;3&quot;)">
@@ -279,12 +286,12 @@ sub-menu component to create a second level menu. Menu provides
       <span>Orders</span>
     </el-menu-item>
   </el-menu>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-top_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-top_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 </div>
-  <div style="height: 20px"></div>
+  <div style="height: 24px"></div>
   <div id="basic-top_menu_dark" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-top_menu_dark_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" class="el-menu-demo" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
       <span>Processing Center</span>
     </el-menu-item>
@@ -311,6 +318,9 @@ sub-menu component to create a second level menu. Menu provides
         <el-menu-item index="2-4-2" @click="elMenuItemClick(&quot;2-4-2&quot;)">
           <span>item two</span>
         </el-menu-item>
+        <el-menu-item index="2-4-3" @click="elMenuItemClick(&quot;2-4-3&quot;)">
+          <span>item three</span>
+        </el-menu-item>
       </el-sub-menu>
     </el-sub-menu>
     <el-menu-item index="3" :disabled="true" @click="elMenuItemClick(&quot;3&quot;)">
@@ -320,7 +330,7 @@ sub-menu component to create a second level menu. Menu provides
       <span>Orders</span>
     </el-menu-item>
   </el-menu>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":"#545c64","textColor":"#fff","activeTextColor":"#ffd04b","path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu_dark', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu_dark', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_dark_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_dark_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-top_menu_dark_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":"#545c64","textColor":"#fff","activeTextColor":"#ffd04b","path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu_dark', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-top_menu_dark', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_dark_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-top_menu_dark_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-top_menu_dark_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 </div>
 </div>
 </div>
@@ -328,24 +338,55 @@ sub-menu component to create a second level menu. Menu provides
 <h2 id="left-and-right">Left And Right<a class="anchor" aria-label="anchor" href="#left-and-right"></a>
 </h2>
 <p>You can make the menu items to the left or right.</p>
+<p>The first item is pushed to the left by its own
+<code>margin-right: auto</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
-<span>  <span class="st">"lr_menu"</span>,</span>
-<span>  active <span class="op">=</span> <span class="st">"1"</span>,</span>
-<span>  mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
-<span>  ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"LOGO"</span>, <span class="st">"0"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span><span class="st">"Workspace"</span>, <span class="st">"2"</span>, <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-1"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">".el-menu--horizontal &gt; .el-menu-item:nth-child(1) { margin-right: auto; }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
+<span>    <span class="st">"lr_menu"</span>,</span>
+<span>    active <span class="op">=</span> <span class="st">"1"</span>,</span>
+<span>    class <span class="op">=</span> <span class="st">"el-menu-demo"</span>,</span>
+<span>    mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>    ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">img</span><span class="op">(</span></span>
+<span>          style <span class="op">=</span> <span class="st">"width: 100px"</span>,</span>
+<span>          src <span class="op">=</span> <span class="st">"https://element-plus.org/images/element-plus-logo.svg"</span>,</span>
+<span>          alt <span class="op">=</span> <span class="st">"Element logo"</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="st">"0"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Workspace"</span>,</span>
+<span>        <span class="st">"2"</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-1"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-2"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"2-3"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>          <span class="st">"item four"</span>,</span>
+<span>          <span class="st">"2-4"</span>,</span>
+<span>          <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-4-1"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-4-2"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"2-4-3"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="left-and-right-lr_menu" data-shiny-vue style="display: contents">
+  <style>.el-menu--horizontal &gt; .el-menu-item:nth-child(1) { margin-right: auto; }</style>
+<div id="left-and-right-lr_menu" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="left-and-right-lr_menu_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" class="el-menu-demo" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-menu-item index="0" @click="elMenuItemClick(&quot;0&quot;)">
-      <span>LOGO</span>
+      <span>
+        <img style="width: 100px" src="https://element-plus.org/images/element-plus-logo.svg" alt="Element logo"/>
+      </span>
     </el-menu-item>
     <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
       <span>Processing Center</span>
@@ -357,6 +398,26 @@ sub-menu component to create a second level menu. Menu provides
       <el-menu-item index="2-1" @click="elMenuItemClick(&quot;2-1&quot;)">
         <span>item one</span>
       </el-menu-item>
+      <el-menu-item index="2-2" @click="elMenuItemClick(&quot;2-2&quot;)">
+        <span>item two</span>
+      </el-menu-item>
+      <el-menu-item index="2-3" @click="elMenuItemClick(&quot;2-3&quot;)">
+        <span>item three</span>
+      </el-menu-item>
+      <el-sub-menu index="2-4">
+        <template v-slot:title>
+          <span>item four</span>
+        </template>
+        <el-menu-item index="2-4-1" @click="elMenuItemClick(&quot;2-4-1&quot;)">
+          <span>item one</span>
+        </el-menu-item>
+        <el-menu-item index="2-4-2" @click="elMenuItemClick(&quot;2-4-2&quot;)">
+          <span>item two</span>
+        </el-menu-item>
+        <el-menu-item index="2-4-3" @click="elMenuItemClick(&quot;2-4-3&quot;)">
+          <span>item three</span>
+        </el-menu-item>
+      </el-sub-menu>
     </el-sub-menu>
   </el-menu>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"1","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('left-and-right-lr_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('left-and-right-lr_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('left-and-right-lr_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('left-and-right-lr_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"left-and-right-lr_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
@@ -389,17 +450,24 @@ slot.</p>
 <span>  <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Four"</span>, <span class="st">"4"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
+<span>  class <span class="op">=</span> <span class="st">"tac"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
 <span>    span <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">h5</span><span class="op">(</span><span class="st">"Default colors"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span><span class="st">"v_menu"</span>, active <span class="op">=</span> <span class="st">"2"</span>, items <span class="op">=</span> <span class="va">items</span><span class="op">)</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">h5</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 8px"</span>, <span class="st">"Default colors"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
+<span>      <span class="st">"v_menu"</span>,</span>
+<span>      active <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>      class <span class="op">=</span> <span class="st">"el-menu-vertical-demo"</span>,</span>
+<span>      items <span class="op">=</span> <span class="va">items</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
 <span>    span <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">h5</span><span class="op">(</span><span class="st">"Custom colors"</span><span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">h5</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-bottom: 8px"</span>, <span class="st">"Custom colors"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
 <span>      <span class="st">"v_menu_dark"</span>,</span>
 <span>      active <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>      class <span class="op">=</span> <span class="st">"el-menu-vertical-demo"</span>,</span>
 <span>      items <span class="op">=</span> <span class="va">items</span>,</span>
 <span>      background_color <span class="op">=</span> <span class="st">"#545c64"</span>,</span>
 <span>      text_color <span class="op">=</span> <span class="st">"#fff"</span>,</span>
@@ -408,12 +476,12 @@ slot.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div class="el-row">
+  <div class="el-row tac">
     <div class="el-col el-col-12">
-      <h5>Default colors</h5>
+      <h5 style="margin-bottom: 8px">Default colors</h5>
       <div id="vertical-v_menu" data-shiny-vue style="display: contents">
         <script type="text/x-template" data-shiny-vue-template><div id="vertical-v_menu_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" class="el-menu-vertical-demo" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-sub-menu index="1">
       <template v-slot:title>
         <el-icon><Location /></el-icon>
@@ -458,10 +526,10 @@ slot.</p>
 </div>
     </div>
     <div class="el-col el-col-12">
-      <h5>Custom colors</h5>
+      <h5 style="margin-bottom: 8px">Custom colors</h5>
       <div id="vertical-v_menu_dark" data-shiny-vue style="display: contents">
         <script type="text/x-template" data-shiny-vue-template><div id="vertical-v_menu_dark_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" class="el-menu-vertical-demo" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-sub-menu index="1">
       <template v-slot:title>
         <el-icon><Location /></el-icon>
@@ -512,56 +580,58 @@ slot.</p>
 <h2 id="collapse">Collapse<a class="anchor" aria-label="anchor" href="#collapse"></a>
 </h2>
 <p>Vertical Menu could be collapsed.</p>
+<p>The radio buttons fold the menu with
+<code>update_el_menu(collapse =)</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
-<span>  <span class="st">"col_menu"</span>,</span>
-<span>  active <span class="op">=</span> <span class="st">"2"</span>,</span>
-<span>  collapse <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Navigator One"</span>,</span>
-<span>      <span class="st">"1"</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"1-1"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"1-2"</span><span class="op">)</span>,</span>
-<span>      icon <span class="op">=</span> <span class="st">"Location"</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Two"</span>, <span class="st">"2"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Three"</span>, <span class="st">"3"</span>, icon <span class="op">=</span> <span class="st">"Document"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Four"</span>, <span class="st">"4"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">".el-menu-vertical-demo:not(.el-menu--collapse) { width: 200px;</span></span>
+<span><span class="st">       min-height: 400px; }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>      <span class="st">"menu_fold"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="st">"expand"</span>, collapse <span class="op">=</span> <span class="st">"collapse"</span><span class="op">)</span>,</span>
+<span>      selected <span class="op">=</span> <span class="st">"collapse"</span>,</span>
+<span>      button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
+<span>    <span class="st">"col_menu"</span>,</span>
+<span>    active <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    class <span class="op">=</span> <span class="st">"el-menu-vertical-demo"</span>,</span>
+<span>    collapse <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>        <span class="st">"Navigator One"</span>,</span>
+<span>        <span class="st">"1"</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item_group</a></span><span class="op">(</span></span>
+<span>          <span class="st">"Group One"</span>,</span>
+<span>          <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"1-1"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"1-2"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item_group</a></span><span class="op">(</span><span class="st">"Group Two"</span>, <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"1-3"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span><span class="st">"item four"</span>, <span class="st">"1-4"</span>, <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"1-4-1"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        icon <span class="op">=</span> <span class="st">"Location"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Two"</span>, <span class="st">"2"</span>, icon <span class="op">=</span> <span class="st">"Menu"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Three"</span>, <span class="st">"3"</span>, icon <span class="op">=</span> <span class="st">"Document"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Navigator Four"</span>, <span class="st">"4"</span>, icon <span class="op">=</span> <span class="st">"Setting"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="collapse-col_menu" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="collapse-col_menu_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
-    <el-sub-menu index="1">
-      <template v-slot:title>
-        <el-icon><Location /></el-icon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item index="1-1" @click="elMenuItemClick(&quot;1-1&quot;)">
-        <span>item one</span>
-      </el-menu-item>
-      <el-menu-item index="1-2" @click="elMenuItemClick(&quot;1-2&quot;)">
-        <span>item two</span>
-      </el-menu-item>
-    </el-sub-menu>
-    <el-menu-item index="2" @click="elMenuItemClick(&quot;2&quot;)">
-      <el-icon><Menu /></el-icon>
-      <span>Navigator Two</span>
-    </el-menu-item>
-    <el-menu-item index="3" @click="elMenuItemClick(&quot;3&quot;)">
-      <el-icon><Document /></el-icon>
-      <span>Navigator Three</span>
-    </el-menu-item>
-    <el-menu-item index="4" @click="elMenuItemClick(&quot;4&quot;)">
-      <el-icon><Setting /></el-icon>
-      <span>Navigator Four</span>
-    </el-menu-item>
-  </el-menu>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"2","mode":"vertical","collapse":true,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":null,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":null,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('collapse-col_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('collapse-col_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('collapse-col_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('collapse-col_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"collapse-col_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
-</div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">menu_fold</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_menu.html">update_el_menu</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"col_menu"</span>,</span>
+<span>      collapse <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">menu_fold</span> <span class="op">==</span> <span class="st">"collapse"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/menu-collapse.png" alt="The collapse example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="popper-offset">Popper Offset<a class="anchor" aria-label="anchor" href="#popper-offset"></a>
@@ -571,9 +641,11 @@ slot.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
 <span>  <span class="st">"off_menu"</span>,</span>
+<span>  class <span class="op">=</span> <span class="st">"el-menu-popper-demo"</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>  ellipsis <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  popper_offset <span class="op">=</span> <span class="fl">16</span>,</span>
-<span>  ellipsis <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"max-width: 600px"</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Processing Center"</span>, <span class="st">"1"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
@@ -581,18 +653,43 @@ slot.</p>
 <span>      <span class="st">"2"</span>,</span>
 <span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-1"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"2-3"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>        <span class="st">"item four"</span>,</span>
+<span>        <span class="st">"2-4"</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"2-4-1"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"2-4-2"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"2-4-3"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Override Popper Offset"</span>,</span>
+<span>      <span class="st">"3"</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"3-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"3-2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"3-3"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_menu_item.html">el_sub_menu</a></span><span class="op">(</span></span>
+<span>        <span class="st">"override child"</span>,</span>
+<span>        <span class="st">"3-4"</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item one"</span>, <span class="st">"3-4-1"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item two"</span>, <span class="st">"3-4-2"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"item three"</span>, <span class="st">"3-4-3"</span><span class="op">)</span>,</span>
+<span>        popper_offset <span class="op">=</span> <span class="fl">20</span></span>
+<span>      <span class="op">)</span>,</span>
 <span>      popper_offset <span class="op">=</span> <span class="fl">8</span></span>
-<span>    <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Info"</span>, <span class="st">"4"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Orders"</span>, <span class="st">"5"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="popper-offset-off_menu" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="popper-offset-off_menu_container" style="display: contents">
-  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
+  <el-menu :default-active="active" :mode="mode" :collapse="collapse" :unique-opened="uniqueOpened" :background-color="backgroundColor === null ? undefined : backgroundColor" :text-color="textColor === null ? undefined : textColor" :active-text-color="activeTextColor === null ? undefined : activeTextColor" @select="handleSelect" :default-openeds="defaultOpeneds === null ? undefined : defaultOpeneds" :menu-trigger="menuTrigger === null ? undefined : menuTrigger" :collapse-transition="collapseTransition === null ? undefined : collapseTransition" :router="router === null ? undefined : router" @open="elEmitOpen" @close="elEmitClose" class="el-menu-popper-demo" style="max-width: 600px" :close-on-click-outside="closeOnClickOutside === null ? undefined : closeOnClickOutside" :ellipsis="ellipsis === null ? undefined : ellipsis" :ellipsis-icon="ellipsisIcon === null ? undefined : ellipsisIcon" :hide-timeout="hideTimeout === null ? undefined : hideTimeout" :persistent="persistent === null ? undefined : persistent" :popper-class="popperClass === null ? undefined : popperClass" :popper-effect="popperEffect === null ? undefined : popperEffect" :popper-offset="popperOffset === null ? undefined : popperOffset" :popper-style="popperStyle === null ? undefined : popperStyle" :show-timeout="showTimeout === null ? undefined : showTimeout">
     <el-menu-item index="1" @click="elMenuItemClick(&quot;1&quot;)">
       <span>Processing Center</span>
     </el-menu-item>
-    <el-sub-menu index="2" :popper-offset="8">
+    <el-sub-menu index="2">
       <template v-slot:title>
         <span>Workspace</span>
       </template>
@@ -602,9 +699,60 @@ slot.</p>
       <el-menu-item index="2-2" @click="elMenuItemClick(&quot;2-2&quot;)">
         <span>item two</span>
       </el-menu-item>
+      <el-menu-item index="2-3" @click="elMenuItemClick(&quot;2-3&quot;)">
+        <span>item three</span>
+      </el-menu-item>
+      <el-sub-menu index="2-4">
+        <template v-slot:title>
+          <span>item four</span>
+        </template>
+        <el-menu-item index="2-4-1" @click="elMenuItemClick(&quot;2-4-1&quot;)">
+          <span>item one</span>
+        </el-menu-item>
+        <el-menu-item index="2-4-2" @click="elMenuItemClick(&quot;2-4-2&quot;)">
+          <span>item two</span>
+        </el-menu-item>
+        <el-menu-item index="2-4-3" @click="elMenuItemClick(&quot;2-4-3&quot;)">
+          <span>item three</span>
+        </el-menu-item>
+      </el-sub-menu>
     </el-sub-menu>
+    <el-sub-menu index="3" :popper-offset="8">
+      <template v-slot:title>
+        <span>Override Popper Offset</span>
+      </template>
+      <el-menu-item index="3-1" @click="elMenuItemClick(&quot;3-1&quot;)">
+        <span>item one</span>
+      </el-menu-item>
+      <el-menu-item index="3-2" @click="elMenuItemClick(&quot;3-2&quot;)">
+        <span>item two</span>
+      </el-menu-item>
+      <el-menu-item index="3-3" @click="elMenuItemClick(&quot;3-3&quot;)">
+        <span>item three</span>
+      </el-menu-item>
+      <el-sub-menu index="3-4" :popper-offset="20">
+        <template v-slot:title>
+          <span>override child</span>
+        </template>
+        <el-menu-item index="3-4-1" @click="elMenuItemClick(&quot;3-4-1&quot;)">
+          <span>item one</span>
+        </el-menu-item>
+        <el-menu-item index="3-4-2" @click="elMenuItemClick(&quot;3-4-2&quot;)">
+          <span>item two</span>
+        </el-menu-item>
+        <el-menu-item index="3-4-3" @click="elMenuItemClick(&quot;3-4-3&quot;)">
+          <span>item three</span>
+        </el-menu-item>
+      </el-sub-menu>
+    </el-sub-menu>
+    <el-menu-item index="4" :disabled="true" @click="elMenuItemClick(&quot;4&quot;)">
+      <span>Info</span>
+    </el-menu-item>
+    <el-menu-item index="5" @click="elMenuItemClick(&quot;5&quot;)">
+      <span>Orders</span>
+    </el-menu-item>
   </el-menu>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":false,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":16,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('popper-offset-off_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('popper-offset-off_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('popper-offset-off_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('popper-offset-off_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"popper-offset-off_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":"","mode":"horizontal","collapse":false,"uniqueOpened":false,"backgroundColor":null,"textColor":null,"activeTextColor":null,"path":[],"defaultOpeneds":null,"menuTrigger":null,"collapseTransition":null,"router":null,"closeOnClickOutside":null,"ellipsis":true,"ellipsisIcon":null,"hideTimeout":null,"persistent":null,"popperClass":null,"popperEffect":null,"popperOffset":16,"popperStyle":null,"showTimeout":null},"methods":{"elEmitOpen":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('popper-offset-off_menu', 'open', [v]); }","elEmitClose":"function() { var shape = function(index, path) { return {index: index, path: path}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('popper-offset-off_menu', 'close', [v]); }","elMenuItemClick":"function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('popper-offset-off_menu_item_click', index, {priority: 'event'}); }","handleSelect":"function(index, indexPath) { var self = this; self.active = index; self.path = indexPath; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('popper-offset-off_menu_path', indexPath); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"popper-offset-off_menu_path\", self.path); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"active || null","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitOpen","options.methods.elEmitClose","options.methods.elMenuItemClick","options.methods.handleSelect","options.mounted"]}</script>
 </div>
 </div>
 </div>

@@ -16,26 +16,60 @@ Picker.
 
 ``` r
 
+block <- function(title, picker) {
+  tags$div(class = "block", tags$span(class = "demonstration", title), picker)
+}
 tagList(
-  tags$div("Default"),
-  el_date_picker(
-    "dtp1",
-    type = "datetime",
-    placeholder = "Select date and time"
+  tags$style(
+    ".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }
+     .demo-datetime-picker .block { padding: 30px 0; text-align: center;
+       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+     .demo-datetime-picker .block:last-child { border-right: none; }
+     .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;
+       color: var(--el-text-color-secondary); font-size: 14px; }"
   ),
-  tags$div("With shortcuts"),
-  el_date_picker(
-    "dtp2",
-    type = "datetime",
-    placeholder = "Select date and time",
-    shortcuts = list(list(text = "Today", value = JS("new Date()")))
-  ),
-  tags$div("With default time"),
-  el_date_picker(
-    "dtp3",
-    type = "datetime",
-    placeholder = "Select date and time",
-    default_time = JS("new Date(2000, 1, 1, 12, 0, 0)")
+  tags$div(
+    class = "demo-datetime-picker",
+    block(
+      "Default",
+      el_date_picker(
+        "dtp1",
+        type = "datetime",
+        placeholder = "Select date and time"
+      )
+    ),
+    block(
+      "With shortcuts",
+      el_date_picker(
+        "dtp2",
+        type = "datetime",
+        placeholder = "Select date and time",
+        shortcuts = list(
+          list(text = "Today", value = JS("new Date()")),
+          list(
+            text = "Yesterday",
+            value = JS(
+              "function() { var d = new Date(); d.setDate(d.getDate() - 1); return d; }"
+            )
+          ),
+          list(
+            text = "A week ago",
+            value = JS(
+              "function() { var d = new Date(); d.setDate(d.getDate() - 7); return d; }"
+            )
+          )
+        )
+      )
+    ),
+    block(
+      "With default time",
+      el_date_picker(
+        "dtp3",
+        type = "datetime",
+        placeholder = "Select date and time",
+        default_time = JS("new Date(2000, 1, 1, 12, 0, 0)")
+      )
+    )
   )
 )
 ```
@@ -61,17 +95,60 @@ of all available formats of Day.js.
 >
 > Pay attention to capitalization
 
+What each picker reports is `input$<id>`: in the format `value_format`
+names, `"x"` a timestamp. `format` is what the box shows.
+
 ``` r
 
-el_date_picker(
-  "dtp_fmt",
-  type = "datetime",
-  placeholder = "Pick a Date",
-  format = "YYYY/MM/DD hh:mm:ss",
-  date_format = "YYYY/MM/DD ddd",
-  time_format = "A hh:mm:ss"
+block <- function(title, id, ...) {
+  tags$div(
+    class = "block",
+    tags$span(class = "demonstration", title),
+    tags$div(class = "demonstration", textOutput(paste0(id, "_value"))),
+    el_date_picker(id, type = "datetime", placeholder = "Pick a Date", ...)
+  )
+}
+ui <- el_page(
+  tags$style(
+    ".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }
+     .demo-datetime-picker .block { padding: 30px 0; text-align: center;
+       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+     .demo-datetime-picker .block:last-child { border-right: none; }
+     .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;
+       color: var(--el-text-color-secondary); font-size: 14px; }"
+  ),
+  tags$div(
+    class = "demo-datetime-picker",
+    block("Default value format", "dtp_fmt1", format = "YYYY/MM/DD HH:mm:ss"),
+    block(
+      "Use value-format",
+      "dtp_fmt2",
+      format = "YYYY/MM/DD hh:mm:ss",
+      value_format = "YYYY-MM-DD h:m:s a"
+    ),
+    block(
+      "Timestamp",
+      "dtp_fmt3",
+      format = "YYYY/MM/DD hh:mm:ss",
+      value_format = "x"
+    )
+  )
 )
+server <- function(input, output, session) {
+  for (id in c("dtp_fmt1", "dtp_fmt2", "dtp_fmt3")) {
+    local({
+      id <- id
+      output[[paste0(id, "_value")]] <- renderText({
+        paste("Value:", format(input[[id]], scientific = FALSE))
+      })
+    })
+  }
+}
+shinyApp(ui, server)
 ```
+
+![The date-and-time-formats example,
+running](../../shots/datetime-picker-date-and-time-formats.png)
 
 ## Date and time formats in dropdown panel
 
@@ -80,12 +157,41 @@ in the dropdown panel’s input box.
 
 ``` r
 
-el_date_picker(
-  "dtp_fmt_panel",
-  type = "datetime",
-  placeholder = "Pick a Date",
-  date_format = "YYYY/MM/DD",
-  time_format = "hh:mm:ss"
+tagList(
+  tags$style(
+    ".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap;
+       justify-content: space-around; align-items: stretch; }
+     .demo-datetime-picker .block { padding: 30px 0; text-align: center;
+       min-width: 300px; flex: 1; }
+     .demo-datetime-picker .line { width: 1px; background-color: var(--el-border-color); }"
+  ),
+  tags$div(
+    class = "demo-datetime-picker",
+    tags$div(
+      class = "block",
+      el_date_picker(
+        "dtp_fmt_panel",
+        type = "datetime",
+        placeholder = "Pick a Date",
+        format = "YYYY-MM-DD HH:mm:ss",
+        date_format = "MMM DD, YYYY",
+        time_format = "HH:mm"
+      )
+    ),
+    tags$div(class = "line"),
+    tags$div(
+      class = "block",
+      el_date_picker(
+        "dtp_fmt_range",
+        type = "datetimerange",
+        start_placeholder = "Start date",
+        end_placeholder = "End date",
+        format = "YYYY-MM-DD HH:mm:ss",
+        date_format = "YYYY/MM/DD ddd",
+        time_format = "A hh:mm:ss"
+      )
+    )
+  )
 )
 ```
 
@@ -95,14 +201,62 @@ You can select date and time range by setting `type` to `datetimerange`.
 
 ``` r
 
-el_date_picker(
-  "dtp_range",
-  type = "datetimerange",
-  range_separator = "To",
-  start_placeholder = "Start date",
-  end_placeholder = "End date"
+block <- function(title, picker) {
+  tags$div(class = "block", tags$span(class = "demonstration", title), picker)
+}
+range_back <- function(text, step) {
+  list(
+    text = text,
+    value = JS(sprintf(
+      "function() { var e = new Date(), s = new Date(); %s; return [s, e]; }",
+      step
+    ))
+  )
+}
+tagList(
+  tags$style(
+    ".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }
+     .demo-datetime-picker .block { padding: 30px 0; text-align: center;
+       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+     .demo-datetime-picker .block:last-child { border-right: none; }
+     .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;
+       color: var(--el-text-color-secondary); font-size: 14px; }"
+  ),
+  tags$div(
+    class = "demo-datetime-picker",
+    block(
+      "Default",
+      el_date_picker(
+        "dtp_range",
+        type = "datetimerange",
+        value = c("2000-11-10 10:10:00", "2000-11-11 10:10:00"),
+        range_separator = "To",
+        start_placeholder = "Start date",
+        end_placeholder = "End date"
+      )
+    ),
+    block(
+      "With shortcuts",
+      el_date_picker(
+        "dtp_range_quick",
+        type = "datetimerange",
+        range_separator = "To",
+        start_placeholder = "Start date",
+        end_placeholder = "End date",
+        shortcuts = list(
+          range_back("Last week", "s.setDate(s.getDate() - 7)"),
+          range_back("Last month", "s.setMonth(s.getMonth() - 1)"),
+          range_back("Last 3 months", "s.setMonth(s.getMonth() - 3)")
+        )
+      )
+    )
+  )
 )
 ```
+
+Default
+
+With shortcuts
 
 ## Single Panel
 
@@ -111,14 +265,17 @@ the `single-panel` attribute.
 
 ``` r
 
-el_date_picker(
-  "dtp_single",
-  type = "datetimerange",
-  single_panel = TRUE,
-  start_placeholder = "Start date",
-  end_placeholder = "End date"
+tags$div(
+  style = "padding: 30px 0; text-align: center",
+  tags$span(
+    style = "display: block; margin-bottom: 20px; color: var(--el-text-color-secondary); font-size: 14px",
+    "single-panel"
+  ),
+  el_date_picker("dtp_single", type = "datetimerange", single_panel = TRUE)
 )
 ```
+
+single-panel
 
 ## Default time value for start date and end date
 
@@ -131,17 +288,50 @@ time value of the end date.
 
 ``` r
 
-el_date_picker(
-  "dtp_dt",
-  type = "datetimerange",
-  start_placeholder = "Start Date",
-  end_placeholder = "End Date",
-  default_time = list(
-    JS("new Date(2000, 1, 1, 0, 0, 0)"),
-    JS("new Date(2000, 2, 1, 23, 59, 59)")
+block <- function(title, picker) {
+  tags$div(class = "block", tags$span(class = "demonstration", title), picker)
+}
+tagList(
+  tags$style(
+    ".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }
+     .demo-datetime-picker .block { padding: 30px 0; text-align: center;
+       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+     .demo-datetime-picker .block:last-child { border-right: none; }
+     .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;
+       color: var(--el-text-color-secondary); font-size: 14px; }"
+  ),
+  tags$div(
+    class = "demo-datetime-picker",
+    block(
+      "Start and end date time 12:00:00",
+      el_date_picker(
+        "dtp_dt1",
+        type = "datetimerange",
+        start_placeholder = "Start Date",
+        end_placeholder = "End Date",
+        default_time = JS("new Date(2000, 1, 1, 12, 0, 0)")
+      )
+    ),
+    block(
+      "Start date time 12:00:00, end date time 08:00:00",
+      el_date_picker(
+        "dtp_dt2",
+        type = "datetimerange",
+        start_placeholder = "Start Date",
+        end_placeholder = "End Date",
+        default_time = list(
+          JS("new Date(2000, 1, 1, 12, 0, 0)"),
+          JS("new Date(2000, 2, 1, 8, 0, 0)")
+        )
+      )
+    )
   )
 )
 ```
+
+Start and end date time 12:00:00
+
+Start date time 12:00:00, end date time 08:00:00
 
 ## Custom icon
 
@@ -149,13 +339,49 @@ Custom icons available with slots.
 
 ``` r
 
-el_date_picker(
-  "dtp_icons",
-  type = "datetime",
-  placeholder = "Pick a Date",
-  slots = list(
-    `prev-month` = el_icon("CaretLeft"),
-    `next-month` = el_icon("CaretRight")
+arrows <- list(
+  `prev-month` = el_icon("CaretLeft"),
+  `next-month` = el_icon("CaretRight"),
+  `prev-year` = el_icon("Back"),
+  `next-year` = el_icon("Right")
+)
+tagList(
+  tags$style(
+    ".demo-datetime-picker-icon { display: flex; width: 100%; flex-wrap: wrap;
+       justify-content: space-around; align-items: stretch; }
+     .demo-datetime-picker-icon .block { padding: 30px 0; text-align: center;
+       min-width: 300px; flex: 1; }
+     .demo-datetime-picker-icon .line { width: 1px; background-color: var(--el-border-color); }"
+  ),
+  tags$div(
+    class = "demo-datetime-picker-icon",
+    tags$div(
+      class = "block",
+      el_date_picker(
+        "dtp_icons",
+        type = "datetime",
+        placeholder = "Pick a Date",
+        format = "YYYY-MM-DD HH:mm:ss",
+        date_format = "MMM DD, YYYY",
+        time_format = "HH:mm",
+        slots = arrows
+      )
+    ),
+    tags$div(class = "line"),
+    tags$div(
+      class = "block",
+      el_date_picker(
+        "dtp_icons_range",
+        type = "datetimerange",
+        start_placeholder = "Start date",
+        end_placeholder = "End date",
+        format = "YYYY-MM-DD HH:mm:ss",
+        date_format = "YYYY/MM/DD ddd",
+        time_format = "A hh:mm:ss",
+        unlink_panels = TRUE,
+        slots = arrows
+      )
+    )
   )
 )
 ```

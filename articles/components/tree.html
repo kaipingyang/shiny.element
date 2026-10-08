@@ -539,49 +539,108 @@ Note that the <code>render-content</code> demo can’t run in JSFiddle
 because it doesn’t support JSX syntax. In a real project,
 <code>render-content</code> will work if relevant dependencies are
 correctly configured.</p>
-<p>The default slot, scoped with <code>node</code> and
-<code>data</code>, draws each node.</p>
+<p>The first tree draws its nodes with <code>render_content</code>, a
+function given <code>h</code>; the second with the default slot, scoped
+with <code>node</code> and <code>data</code>. Their buttons ask the
+server, which appends or removes the node in both trees with
+<code>call_el(session, id, "append" | "remove", ...)</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
-<span>  <span class="st">"cus"</span>,</span>
-<span>  node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>  default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  expand_on_click_node <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>    label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
-<span>    children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Level two 1-2"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">node</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">label</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="va">id</span>, label <span class="op">=</span> <span class="va">label</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">tree_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="fu">node</span><span class="op">(</span></span>
+<span>    <span class="fl">1</span>,</span>
+<span>    <span class="st">"Level one 1"</span>,</span>
+<span>    <span class="fu">node</span><span class="op">(</span></span>
+<span>      <span class="fl">4</span>,</span>
+<span>      <span class="st">"Level two 1-1"</span>,</span>
+<span>      <span class="fu">node</span><span class="op">(</span><span class="fl">9</span>, <span class="st">"Level three 1-1-1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">node</span><span class="op">(</span><span class="fl">10</span>, <span class="st">"Level three 1-1-2"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span><span class="op">)</span>,</span>
-<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
-<span>        style <span class="op">=</span> <span class="st">"flex: 1; display: flex; justify-content: space-between; padding-right: 8px"</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ node.label }}"</span><span class="op">)</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
-<span>          <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>link <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"primary"</span>, size <span class="op">=</span> <span class="st">"small"</span>, <span class="st">"Append"</span><span class="op">)</span>,</span>
-<span>          <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>link <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"danger"</span>, size <span class="op">=</span> <span class="st">"small"</span>, <span class="st">"Delete"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu">node</span><span class="op">(</span><span class="fl">2</span>, <span class="st">"Level one 2"</span>, <span class="fu">node</span><span class="op">(</span><span class="fl">5</span>, <span class="st">"Level two 2-1"</span><span class="op">)</span>, <span class="fu">node</span><span class="op">(</span><span class="fl">6</span>, <span class="st">"Level two 2-2"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu">node</span><span class="op">(</span><span class="fl">3</span>, <span class="st">"Level one 3"</span>, <span class="fu">node</span><span class="op">(</span><span class="fl">7</span>, <span class="st">"Level two 3-1"</span><span class="op">)</span>, <span class="fu">node</span><span class="op">(</span><span class="fl">8</span>, <span class="st">"Level two 3-2"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
+<span>    <span class="va">id</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">tree_data</span>,</span>
+<span>    show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    expand_on_click_node <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"600px"</span>,</span>
+<span>    <span class="va">...</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>    <span class="st">".custom-tree-node { flex: 1; display: flex; align-items: center;</span></span>
+<span><span class="st">       justify-content: space-between; font-size: 14px; padding-right: 8px; }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Using render-content"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">tree</span><span class="op">(</span></span>
+<span>    <span class="st">"cus_render"</span>,</span>
+<span>    render_content <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function(h, ctx) {"</span>,</span>
+<span>      <span class="st">"  var send = function(what) { Shiny.setInputValue('cus_' + what, ctx.data.id, {priority: 'event'}); };"</span>,</span>
+<span>      <span class="st">"  return h('div', { class: 'custom-tree-node' }, ["</span>,</span>
+<span>      <span class="st">"    h('span', null, ctx.node.label),"</span>,</span>
+<span>      <span class="st">"    h('div', null, ["</span>,</span>
+<span>      <span class="st">"      h(ElementPlus.ElButton, { type: 'primary', link: true, onClick: function() { send('append'); } }, { default: function() { return 'Append'; } }),"</span>,</span>
+<span>      <span class="st">"      h(ElementPlus.ElButton, { type: 'danger', link: true, style: 'margin-left: 4px', onClick: function() { send('remove'); } }, { default: function() { return 'Delete'; } })"</span>,</span>
+<span>      <span class="st">"    ])"</span>,</span>
+<span>      <span class="st">"  ]);"</span>,</span>
+<span>      <span class="st">"}"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Using scoped slot"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">tree</span><span class="op">(</span></span>
+<span>    <span class="st">"cus_slot"</span>,</span>
+<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      default <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>        scope <span class="op">=</span> <span class="st">"{ node, data }"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>          class <span class="op">=</span> <span class="st">"custom-tree-node"</span>,</span>
+<span>          <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ node.label }}"</span><span class="op">)</span>,</span>
+<span>          <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>            <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
+<span>              type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>              link <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>              `@click` <span class="op">=</span> <span class="st">"$setInput('cus_append', data.id)"</span>,</span>
+<span>              <span class="st">"Append"</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
+<span>              style <span class="op">=</span> <span class="st">"margin-left: 4px"</span>,</span>
+<span>              type <span class="op">=</span> <span class="st">"danger"</span>,</span>
+<span>              link <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>              `@click` <span class="op">=</span> <span class="st">"$setInput('cus_remove', data.id)"</span>,</span>
+<span>              <span class="st">"Delete"</span></span>
+<span>            <span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      scope <span class="op">=</span> <span class="st">"{ node, data }"</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="el-demo">
-  <div id="customized-node-cus" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="customized-node-cus_container" style="display: contents">
-  <el-tree ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" :empty-text="emptyText === null ? undefined : emptyText" @node-click="handleNodeClick" @check="handleCheck" :indent="indent === null ? undefined : indent" :lazy="lazy === null ? undefined : lazy" :draggable="draggable === null ? undefined : draggable" :auto-expand-parent="autoExpandParent === null ? undefined : autoExpandParent" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :current-node-key="currentNodeKey === null ? undefined : currentNodeKey" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" :render-content="renderContent === null ? undefined : renderContent" :allow-drag="allowDrag === null ? undefined : allowDrag" :allow-drop="allowDrop === null ? undefined : allowDrop" @check-change="elEmitCheckChange" @current-change="elEmitCurrentChange" @node-expand="elEmitNodeExpand" @node-collapse="elEmitNodeCollapse" @node-contextmenu="elEmitNodeContextmenu" @node-drag-start="elEmitNodeDragStart" @node-drag-enter="elEmitNodeDragEnter" @node-drag-leave="elEmitNodeDragLeave" @node-drag-over="elEmitNodeDragOver" @node-drag-end="elEmitNodeDragEnd" @node-drop="elEmitNodeDrop" :check-on-click-leaf="checkOnClickLeaf === null ? undefined : checkOnClickLeaf" :icon="icon === null ? undefined : icon"><template v-slot:default="{ node, data }"><span style="flex: 1; display: flex; justify-content: space-between; padding-right: 8px">
-  <span>{{ node.label }}</span>
-  <span>
-    <el-button link type="primary" size="small">Append</el-button>
-    <el-button link type="danger" size="small">Delete</el-button>
-  </span>
-</span></template></el-tree>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"},{"id":5,"label":"Level two 1-2"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":false,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"emptyText":null,"current":"","checked":[],"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"load":null,"filterNodeMethod":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"elEmitCheckChange":"function() { var shape = function(data, checked, indeterminate) { return {data: data, checked: checked, indeterminate: indeterminate}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'check_change', [v]); }","elEmitCurrentChange":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'current_change', [v]); }","elEmitNodeExpand":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_expand', [v]); }","elEmitNodeCollapse":"function() { var shape = function(data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_collapse', [v]); }","elEmitNodeContextmenu":"function() { var shape = function(event, data, node) { return {data: data, key: node && node.key, level: node && node.level}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_contextmenu', [v]); }","elEmitNodeDragStart":"function() { var shape = function(node) { return {data: node && node.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_start', [v]); }","elEmitNodeDragEnter":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_enter', [v]); }","elEmitNodeDragLeave":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_leave', [v]); }","elEmitNodeDragOver":"function() { var shape = function(dragging, drop) { return {dragging: dragging && dragging.data, drop: drop && drop.data}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_over', [v], 200); }","elEmitNodeDragEnd":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drag_end', [v]); }","elEmitNodeDrop":"function() { var shape = function(dragging, drop, type) { return {dragging: dragging && dragging.data, drop: drop && drop.data, type: type}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('customized-node-cus', 'node_drop', [v]); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('customized-node-cus_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('customized-node-cus_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"customized-node-cus_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCheckChange","options.methods.elEmitCurrentChange","options.methods.elEmitNodeExpand","options.methods.elEmitNodeCollapse","options.methods.elEmitNodeContextmenu","options.methods.elEmitNodeDragStart","options.methods.elEmitNodeDragEnter","options.methods.elEmitNodeDragLeave","options.methods.elEmitNodeDragOver","options.methods.elEmitNodeDragEnd","options.methods.elEmitNodeDrop","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
-</div>
-</div>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">next_id</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cus_append</span>, <span class="op">{</span></span>
+<span>    <span class="va">child</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="va">next_id</span>, label <span class="op">=</span> <span class="st">"testtest"</span>, children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">next_id</span> <span class="op">&lt;&lt;-</span> <span class="va">next_id</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cus_render"</span>, <span class="st">"cus_slot"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span><span class="va">session</span>, <span class="va">id</span>, <span class="st">"append"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">child</span>, <span class="va">input</span><span class="op">$</span><span class="va">cus_append</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cus_remove</span>, <span class="op">{</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cus_render"</span>, <span class="st">"cus_slot"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span><span class="va">session</span>, <span class="va">id</span>, <span class="st">"remove"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cus_remove</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/tree-customized-node.png" alt="The customized-node example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="custom-node-class">Custom node class<a class="anchor" aria-label="anchor" href="#custom-node-class"></a>

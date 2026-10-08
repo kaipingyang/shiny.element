@@ -119,35 +119,38 @@ You can use `tab-position` attribute to set the tab’s position.
 You can choose from four directions:
 `tabPosition="left|right|top|bottom"`
 
+The radios move the tabs, with `update_el_tabs(tab_position =)`.
+
 ``` r
 
-el_tabs(
-  "pos",
-  tab_position = "left",
-  tabs = list(
-    el_tab_pane("User", "User", name = "first"),
-    el_tab_pane("Config", "Config", name = "second"),
-    el_tab_pane("Role", "Role", name = "third"),
-    el_tab_pane("Task", "Task", name = "fourth")
+ui <- el_page(
+  el_radio_group(
+    "position",
+    choices = c("top", "right", "bottom", "left"),
+    value = "top",
+    button = TRUE
+  ),
+  tags$div(style = "height: 16px"),
+  el_tabs(
+    "tabs_pos",
+    tab_position = "top",
+    tabs = list(
+      el_tab_pane("User", "User"),
+      el_tab_pane("Config", "Config"),
+      el_tab_pane("Role", "Role"),
+      el_tab_pane("Task", "Task")
+    )
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$position, ignoreInit = TRUE, {
+    update_el_tabs(session, "tabs_pos", tab_position = input$position)
+  })
+}
+shinyApp(ui, server)
 ```
 
-User
-
-Config
-
-Role
-
-Task
-
-User
-
-Config
-
-Role
-
-Task
+![The tab-position example, running](../../shots/tabs-tab-position.png)
 
 ## Custom Tab
 

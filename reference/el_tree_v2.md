@@ -28,6 +28,27 @@ el_tree_v2(
   width = NULL,
   slots = NULL
 )
+
+update_el_tree_v2(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  data = NULL,
+  empty_text = NULL,
+  highlight_current = NULL,
+  expand_on_click_node = NULL,
+  check_on_click_node = NULL,
+  check_on_click_leaf = NULL,
+  show_checkbox = NULL,
+  check_strictly = NULL,
+  indent = NULL,
+  icon = NULL,
+  item_size = NULL,
+  scrollbar_always_on = NULL,
+  props = NULL,
+  height = NULL,
+  current_node_key = NULL,
+  filter_method = NULL
+)
 ```
 
 ## Arguments
@@ -140,6 +161,11 @@ el_tree_v2(
   with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
 ## Value
 
 A Shiny UI element.
@@ -162,6 +188,16 @@ A Shiny UI element.
 - `input$<id>_node_expand` – Element Plus's `node-expand` event.
 
 - `input$<id>_node_collapse` – Element Plus's `node-collapse` event.
+
+## Updating from the server
+
+`update_el_tree_v2()` changes the component from the server: every
+argument of `el_tree_v2()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_tree_v2()` is called for its side effect and returns `NULL`
+invisibly.
 
 ## Examples
 

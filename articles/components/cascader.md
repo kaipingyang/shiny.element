@@ -573,37 +573,67 @@ Toggle the visibility of the prefix with `showPrefix`. :::tip Add
 `checkOnClickLeaf` to check only the leaf node (last children), enabled
 by default. :::
 
+The switch shows or hides each node’s prefix – its radio or checkbox –
+with `update_el_cascader(props =)`.
+
 ``` r
 
 tree <- list(list(
   value = "guide",
   label = "Guide",
   children = list(
-    list(value = "disciplines", label = "Disciplines"),
-    list(value = "navigation", label = "Navigation")
+    list(
+      value = "disciplines",
+      label = "Disciplines",
+      children = list(list(value = "consistency", label = "Consistency"))
+    ),
+    list(
+      value = "navigation",
+      label = "Navigation",
+      children = list(list(value = "side nav", label = "Side Navigation"))
+    )
   )
 ))
-tagList(
+strict <- function(prefix) {
+  list(showPrefix = prefix, checkStrictly = TRUE, checkOnClickNode = TRUE)
+}
+multiple <- function(prefix) {
+  list(showPrefix = prefix, multiple = TRUE, checkOnClickNode = TRUE)
+}
+ui <- el_page(
+  el_switch(
+    "show_prefix",
+    value = TRUE,
+    active_text = "show prefix",
+    inactive_text = "hide prefix"
+  ),
   tags$p("checkStrictly | Single mode"),
   el_cascader(
     "cas_c1",
     options = tree,
     clearable = TRUE,
-    props = list(checkStrictly = TRUE, checkOnClickNode = TRUE)
+    props = strict(TRUE)
   ),
-  tags$p("checkStrictly | Multiple mode"),
+  tags$p("Multiple mode"),
   el_cascader(
     "cas_c2",
     options = tree,
     clearable = TRUE,
-    props = list(multiple = TRUE, checkStrictly = TRUE, checkOnClickNode = TRUE)
+    show_checked_strategy = "parent",
+    props = multiple(TRUE)
   )
 )
+server <- function(input, output, session) {
+  observeEvent(input$show_prefix, ignoreInit = TRUE, {
+    update_el_cascader(session, "cas_c1", props = strict(input$show_prefix))
+    update_el_cascader(session, "cas_c2", props = multiple(input$show_prefix))
+  })
+}
+shinyApp(ui, server)
 ```
 
-checkStrictly \| Single mode
-
-checkStrictly \| Multiple mode
+![The check-on-click-node example,
+running](../../shots/cascader-check-on-click-node.png)
 
 ## Custom Header & Footer
 

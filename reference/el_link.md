@@ -8,8 +8,8 @@ A styled hyperlink that follows Element Plus's design language.
 el_link(
   label = "Link",
   href = NULL,
-  type = "default",
-  underline = "hover",
+  type = NULL,
+  underline = NULL,
   disabled = FALSE,
   icon = NULL,
   id = NULL,
@@ -41,14 +41,16 @@ update_el_link(
 
 - type:
 
-  Link colour type: `"default"` (default), `"primary"`, `"success"`,
-  `"warning"`, `"danger"`, `"info"`.
+  Link colour type: `"default"`, `"primary"`, `"success"`, `"warning"`,
+  `"danger"`, `"info"`.
 
 - underline:
 
-  When the link is underlined: `"hover"` (the default), `"always"` or
-  `"never"`. `TRUE` and `FALSE`, Element UI's form, are `"hover"` and
-  `"never"`.
+  When the link is underlined: `"hover"`, `"always"` or `"never"`.
+  `TRUE` and `FALSE`, Element UI's form, are `"hover"` and `"never"`.
+  `type` and `underline` left `NULL` are `"default"` and `"hover"`, or
+  for a link with an `id` a config provider's [el_config_provider(link
+  =)](https://kaipingyang.github.io/shiny.element/reference/el_config_provider.md).
 
 - disabled:
 
@@ -118,9 +120,9 @@ el_link("With icon", icon = "el-icon-edit", type = "success")
 el_link("Show more", id = "more", type = "primary")
 #> <div id="more" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="more_container" style="display: contents">
-#>   <el-link :href="href === null ? undefined : href" :type="type" :target="target" :underline="underline" :disabled="disabled" :icon="icon === null ? undefined : icon" @click="handleClick">{{ text }}</el-link>
+#>   <el-link :href="href === null ? undefined : href" :type="type === null ? undefined : type" :target="target" :underline="underline === null ? undefined : underline" :disabled="disabled" :icon="icon === null ? undefined : icon" @click="handleClick">{{ text }}</el-link>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"text":"Show more","href":null,"type":"primary","target":"_self","underline":"hover","disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"text":"Show more","href":null,"type":"primary","target":"_self","underline":null,"disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

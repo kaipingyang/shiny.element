@@ -16,6 +16,8 @@ el_avatar(
   src_set = NULL,
   alt = NULL,
   width = NULL,
+  class = NULL,
+  style = NULL,
   slots = NULL,
   session = NULL
 )
@@ -77,6 +79,11 @@ update_el_avatar(
 - width:
 
   Component width, as a CSS unit.
+
+- class, style:
+
+  Extra classes and inline style on the avatar, as Element passes them
+  to its root.
 
 - slots:
 

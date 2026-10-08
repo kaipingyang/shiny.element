@@ -517,8 +517,74 @@
   // the component instance under a host's: a table's el-table
   sv.componentOf = componentOf;
 
+  // A component folded into another -- a button in a group, a select in an
+  // input's slot -- has no host of its own: the one that took it in lists it
+  // in its spec's `absorbed`, {id: {fields: {name: name as renamed}, ref}},
+  // and its updates and method calls go to that host's instance, under its
+  // fields' names there.
+  function absorbedBy(id) {
+    var hosts = document.querySelectorAll(HOST);
+    for (var i = 0; i < hosts.length; i++) {
+      var h = hosts[i];
+      if (h._svAbsorbed === undefined) {
+        var opt = h.querySelector(':scope > script[data-shiny-vue-options]');
+        var spec = null;
+        try { spec = opt && /"absorbed"/.test(opt.textContent) ? JSON.parse(opt.textContent) : null; }
+        catch (e) { spec = null; }
+        h._svAbsorbed = (spec && spec.absorbed) || null;
+      }
+      if (h._svAbsorbed && Object.prototype.hasOwnProperty.call(h._svAbsorbed, id)) {
+        return { host: h, entry: h._svAbsorbed[id] };
+      }
+    }
+    return null;
+  }
+
+  function updateAbsorbed(id, data) {
+    var found = absorbedBy(id);
+    if (!found) return false;
+    var vm = mount(found.host);
+    if (!vm) return false;
+    var fields = found.entry.fields || {};
+    if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
+    var rest = {};
+    Object.keys(data).forEach(function(k) {
+      if (k === 'id') return;
+      if (k === '.value') {
+        // the component's value, whichever field that is
+        if (found.entry.input) rest[found.entry.input] = data[k];
+        else warn('update: "' + id + '" has no value to set');
+      } else if (k === '.resolve' && typeof sv.hooks[k] === 'function') {
+        // an answer to a question it asked: not tied to its host
+        sv.hooks[k](found.host, data[k], vm);
+      } else if (k.charAt(0) === '.') {
+        warn('update: "' + id + '" is folded into "' + found.host.id + '"; its ' + k + ' was ignored');
+      } else {
+        rest[k] = data[k];
+      }
+    });
+    var receive = fields.shinyVueReceive;
+    if (receive && typeof vm[receive] === 'function') rest = vm[receive](rest) || {};
+    Object.keys(rest).forEach(function(k) {
+      var name = fields[k];
+      if (!name || !(name in vm.$data)) {
+        warn('update: "' + k + '" is not a field of "' + id + '"; the update was ignored');
+        return;
+      }
+      var v = rest[k];
+      if (Array.isArray(vm[name]) && v !== null && v !== undefined && !Array.isArray(v) &&
+          typeof v !== 'object') {
+        v = [v];
+      }
+      vm[name] = v;
+    });
+    if (vm._svReport) vm._svReport();
+    return true;
+  }
+
   sv.update = function(id, data) {
     var host = byId(id);
+    if ((!host || !host.hasAttribute('data-shiny-vue')) && updateAbsorbed(id, data)) return;
     var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
     // An output not drawn yet -- an update sent while the server renders it,
     // from an observer of an input that reports on load -- gets it once drawn
@@ -696,8 +762,25 @@
       return;
     }
     var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
+    var target = null, owner = vm;
+    if (!vm) {
+      // folded into another: its component is the ref it was marked with,
+      // and its fields are found under the names they were given there
+      var found = absorbedBy(msg.id);
+      vm = found ? mount(found.host) : null;
+      if (vm && found.entry.ref) {
+        target = vm.$refs[found.entry.ref];
+        if (Array.isArray(target)) target = target[0];
+      }
+      if (vm) {
+        var fields = found.entry.fields || {};
+        owner = typeof Proxy === 'function' ? new Proxy(vm, {
+          get: function(t, k) { return t[typeof k === 'string' && fields[k] ? fields[k] : k]; }
+        }) : vm;
+      }
+    }
     if (!vm) { warn('call: no component with id "' + msg.id + '"'); return; }
-    var target = componentOf(vm, msg.component);
+    target = target || componentOf(vm, msg.component);
     if (!target) { warn('call: no component under "' + msg.id + '"'); return; }
     // An argument that names an object the component holds -- a table's
     // row, an upload's file -- by an index or a name, since the object
@@ -706,7 +789,7 @@
       if (!a || typeof a !== 'object' || !a['.ref']) return a;
       var resolve = sv.refs[a['.ref']];
       if (!resolve) { warn('call: no way to find a "' + a['.ref'] + '"'); return a; }
-      var found = resolve(a.value, vm, target);
+      var found = resolve(a.value, owner, target);
       if (found === undefined) warn('call: no ' + a['.ref'] + ' ' + JSON.stringify(a.value) + ' in "' + msg.id + '"');
       return found;
     });

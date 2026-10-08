@@ -35,7 +35,7 @@ Use the default slot to insert content at the bottom.
 
 ``` r
 
-el_empty(el_button("empty_btn", "Button", type = "primary"))
+el_empty("empty", el_button("empty_btn", "Button", type = "primary"))
 ```
 
 ## Custom styles
