@@ -222,23 +222,42 @@ You can customize icons for different node states. Tree nodes expose the
 render different icons based on the node’s state: leaf nodes, expanded
 nodes, or collapsed nodes.
 
+The default slot, scoped with `node`, draws each node’s icon by its
+state: a folder, open or shut, or a document for a leaf.
+
 ``` r
 
-make_nodes <- function(depth, prefix = "") {
-  lapply(1:10, function(i) {
-    key <- paste0(prefix, i)
-    node <- list(id = key, label = paste("Node", key))
-    if (depth > 1) {
-      node$children <- make_nodes(depth - 1, paste0(key, "-"))
+make_nodes <- function(depth, key = "node") {
+  lapply(seq_len(if (depth == 1) 10 else 4), function(i) {
+    id <- paste0(key, "-", i)
+    node <- list(id = id, label = id)
+    if (depth < 3) {
+      node$children <- make_nodes(depth + 1, id)
     }
     node
   })
 }
-el_tree_v2(
-  "tv2_icon",
-  data = make_nodes(3),
-  icon = "ArrowRightBold",
-  height = 208
+tagList(
+  tags$style(
+    ".node-icon { margin-right: 5px; color: var(--el-color-warning); }"
+  ),
+  el_tree_v2(
+    "tv2_icon",
+    data = make_nodes(1),
+    props = list(value = "id", label = "label", children = "children"),
+    height = 200,
+    width = "600px",
+    slots = list(
+      default = template(
+        scope = "{ node }",
+        htmltools::HTML(paste0(
+          "<el-icon class=\"node-icon\" :class=\"{ 'is-leaf': node.isLeaf }\">",
+          "<Document v-if=\"node.isLeaf\" /><Folder v-else-if=\"!node.expanded\" />",
+          "<FolderOpened v-else /></el-icon><span>{{ node.label }}</span>"
+        ))
+      )
+    )
+  )
 )
 ```
 
