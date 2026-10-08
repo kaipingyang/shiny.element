@@ -18204,7 +18204,7 @@
 "type": "^[object]",
 "accepted": "",
 "default": "—",
-"r": "`label_field, children_field, disabled_field, is_leaf_field`"
+"r": "`props`"
 },
 {
 "name": "render-after-expand",
