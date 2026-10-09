@@ -652,6 +652,8 @@ the user’s state across renders, shared state, and the server’s way in.
   : Set fields of a Vue component from the server
 - [`call_vue()`](https://kaipingyang.github.io/shiny.element/reference/call_vue.md)
   : Call a method of a Vue component from the server
+- [`flush_vue()`](https://kaipingyang.github.io/shiny.element/reference/flush_vue.md)
+  : Send queued updates now
 - [`vue_answer()`](https://kaipingyang.github.io/shiny.element/reference/vue_answer.md)
   : Answer a Vue component that asked the server
 

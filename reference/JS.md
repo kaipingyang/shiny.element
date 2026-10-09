@@ -5,7 +5,8 @@ A prop that takes a function – a table's `formatter`, a tree's
 source marked with `JS()`, which the page evaluates rather than passing
 on as text. It is the same mark
 [`htmlwidgets::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html)
-makes, so either works, and so does `DT::JS()`.
+makes, so either works, and so does
+[`DT::JS()`](https://rdrr.io/pkg/htmlwidgets/man/JS.html).
 
 ## Usage
 

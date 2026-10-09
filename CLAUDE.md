@@ -135,12 +135,25 @@ column’s type.
 
 ### Server to browser
 
+- Updates and method calls are queued per session and sent with the
+  flush, in `session$onFlushed()` – as Shiny’s `sendInputMessage()` and
+  DT’s and leaflet’s proxies
+  ([`.vue_send()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_send.md),
+  `R/vue_utils.R`);
+  [`flush_vue()`](https://kaipingyang.github.io/shiny.element/reference/flush_vue.md)
+  sends them at once,
+  [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md)
+  is sent at once. A session that cannot be asked for a flush (mocks,
+  `testServer()`) is sent to at once.
 - `update_el_*()` and
   [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md)
   send one custom message, `shinyVueUpdate`, a flat
   `{id, fields..., .action}`
   ([`.el_send_update()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_send_update.md)).
-  The bridge finds the host by id, bound or not – Shiny’s input messages
+  `.edit` (rows inserted, replaced, deleted by position or key) and
+  `.set` (values by path) change a field in place
+  (`update_vue(insert =, ...)`); the table and calendar use them. The
+  bridge finds the host by id, bound or not – Shiny’s input messages
   reach only bound inputs – runs `sv.hooks` for dot-keys (`.label`,
   `.error`, `.resolve`), then the component’s `shinyVueReceive(data)` if
   it has one (for method calls: form, carousel, tree, upload), then
@@ -221,6 +234,21 @@ column’s type.
   or
   [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md).
 
+### Shiny UI inside a template: islands
+
+[`.vue_islands()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_islands.md)
+(`R/vue_app.R`), run by
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+and
+[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md),
+takes Shiny UI out of a template – a tag with a Shiny input’s, output’s
+or htmlwidget’s class, a host (`data-shiny-vue`), `data-display-if`, or
+`data-shiny-island` (the Element containers carry it) – into a hidden
+holder in the host, and leaves `<shiny-island name="k">`, which the
+bridge registers in every app: it moves the UI in when Vue shows it and
+back out when Vue removes it. Loose `<script>`/`<style>` go to the
+holder too.
+
 ### Pure tag API
 
 `el` (`R/el_tags.R`) holds a tag generator for every component Element
@@ -273,8 +301,14 @@ there, descriptions from Element’s docs):
 prints it, every component’s `events` is checked against it, and each
 help page’s “Shiny inputs” table is generated from it
 (`` `r .el_events_md("el_x")` ``). Containers read their reported events
-from `data-el-events`. Design records:
-`.claude/plans/shiny-style-components-2026-10-06.md`,
+from `data-el-events`. The forwarding itself, its check and `on` are the
+Vue layer’s (`R/vue_events.R`:
+[`.vue_event_bindings()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_event_bindings.md),
+[`.vue_events_check()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_events_check.md),
+[`.vue_on_bindings()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_on_bindings.md)),
+also behind `vue_app(events =, on =)`. Task buttons
+(`el_button(task = TRUE)`) speak bslib’s `bslib.taskbutton` protocol.
+Design records: `.claude/plans/shiny-style-components-2026-10-06.md`,
 `.claude/plans/names-and-events-2026-10-09.md`.
 
 ### Adding a new component

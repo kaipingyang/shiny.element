@@ -63,7 +63,7 @@ el_collapse(
     el_collapse_item("Feedback", "Operation feedback.", disabled = TRUE)
   )
 )
-#> <div id="c" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">
+#> <div id="c" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-shiny-island data-accordion="false">
 #>   <div class="el-collapse-item" data-el-name="Consistency">
 #>     <div id="c-head-Consistency" role="button" tabindex="0" aria-expanded="false" aria-controls="c-content-Consistency" aria-describedby="c-content-Consistency" class="el-collapse-item__header">
 #>       <span class="el-collapse-item__title">Consistency</span>

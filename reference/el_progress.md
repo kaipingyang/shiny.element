@@ -153,6 +153,12 @@ Every other argument of `el_progress()` that can change once it is drawn
 is an argument here too, under the same name. One left `NULL` stays as
 it is; `NA` returns it to Element's default.
 
+Unlike the other updates, which go with the flush
+([`flush_vue()`](https://kaipingyang.github.io/shiny.element/reference/flush_vue.md)),
+it is sent at once, as
+[`shiny::withProgress()`](https://rdrr.io/pkg/shiny/man/withProgress.html)
+reports: a loop updating it shows every step.
+
 `update_el_progress()` is called for its side effect and returns `NULL`
 invisibly.
 

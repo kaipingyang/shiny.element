@@ -22,9 +22,13 @@ vue_app(
   components = NULL,
   ...,
   input = NULL,
+  type = NULL,
+  rate = NULL,
   outputs = NULL,
   use = NULL,
-  dependencies = NULL
+  dependencies = NULL,
+  events = NULL,
+  on = NULL
 )
 ```
 
@@ -81,6 +85,21 @@ vue_app(
   The field whose value is `input$<id>`, or several, for one value made
   of them. `NULL`: the component reports no value.
 
+- type:
+
+  An input handler for the value, as Shiny's inputs have: the name given
+  to
+  [`shiny::registerInputHandler()`](https://rdrr.io/pkg/shiny/man/registerInputHandler.html),
+  which converts the value on its way into R – `"shiny.date"` makes a
+  `"2026-01-31"` a `Date`.
+
+- rate:
+
+  How often the value is sent while it changes: `"debounce"` or
+  `"throttle"` (250 ms), or `list(policy = "debounce", delay = 500)`, as
+  Shiny's [`textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html)
+  debounces. `NULL` sends every change.
+
 - outputs:
 
   Ids of outputs the component's `data` follows, rendered with
@@ -91,13 +110,33 @@ vue_app(
 
 - use:
 
-  Vue plugins to install, by the global name each is loaded under:
-  `"MyPlugin"`, or with options, `list(MyPlugin = list(...))`.
+  Vue plugins to install: by the global name each is loaded under,
+  `"MyPlugin"`, or with options, `list(MyPlugin = list(...))`; or
+  written here,
+  `JS("{ install(app) { app.config.errorHandler = ... } }")` – the way
+  to reach the app's own configuration.
 
 - dependencies:
 
   [`htmltools::htmlDependency()`](https://rstudio.github.io/htmltools/reference/htmlDependency.html)s
   the component needs: the plugins' scripts and stylesheets.
+
+- events:
+
+  Events of the template's root – a library's component there, or a DOM
+  event – each reported as `input$<id>_<event>`, by its name in
+  snake_case or Vue's: `events = "row_click"`. Arguments travel as
+  `emits`' do – one as itself, several as `list(arg1, arg2, ...)`, a key
+  pressed as `list(key, code, ctrl, shift, alt, meta)`, DOM objects
+  dropped. The template must then be one tag.
+
+- on:
+
+  Handlers of your own for events of the template's root: a named list
+  of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, each called with `report` and the event's arguments;
+  `report(name, value)` sets `input$<id>_<name>`.
 
 ## Value
 

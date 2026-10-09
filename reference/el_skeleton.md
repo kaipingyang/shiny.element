@@ -120,11 +120,16 @@ el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
 #>   <script type="text/x-template" data-shiny-vue-template><div id="report_container" style="display: contents">
 #>   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle">
 #>     <div>
-#>       <div id="summary" class="shiny-html-output shiny-table-output"></div>
+#>       <shiny-island name="1"></shiny-island>
 #>     </div>
 #>   </el-skeleton>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <div data-shiny-vue-islands style="display: none">
+#>     <div data-shiny-island-of="1" style="display: contents">
+#>       <div id="summary" class="shiny-html-output shiny-table-output"></div>
+#>     </div>
+#>   </div>
 #> </div>
 
 if (interactive()) {

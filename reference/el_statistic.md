@@ -214,9 +214,9 @@ el_countdown(
 )
 #> <div id="sale" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sale_container" style="display: contents">
-#>   <el-countdown :value="value" @finish="elEmitFinish" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
+#>   <el-countdown :value="value" @finish="svEmitFinish" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791543657195.83,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791574782760.91,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"svEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.svEmitFinish"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

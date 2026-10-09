@@ -54,8 +54,8 @@ el_skeleton(
     )
   )
 )
-#> <div id="el_skeleton_6fcf262c-3893-4aab-8066-3ab8dff89e86" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_skeleton_6fcf262c-3893-4aab-8066-3ab8dff89e86_container" style="display: contents">
+#> <div id="el_skeleton_c1225a92-9748-4524-b450-a4e3e105733c" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_skeleton_c1225a92-9748-4524-b450-a4e3e105733c_container" style="display: contents">
 #>   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle">
 #>     <template v-slot:template>
 #>       <el-skeleton-item variant="image" style="width: 240px; height: 240px"></el-skeleton-item>

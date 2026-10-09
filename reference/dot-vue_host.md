@@ -6,7 +6,7 @@ spec
 ## Usage
 
 ``` r
-.vue_host(id, template, spec, dependencies = list())
+.vue_host(id, template, spec, dependencies = list(), islands = NULL)
 ```
 
 ## Arguments

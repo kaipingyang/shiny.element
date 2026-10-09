@@ -9,7 +9,7 @@ update it from the server with update_el_progress()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -309,6 +309,9 @@ current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/upda
 <p>Every other argument of <code>el_progress()</code> that can change once it is
 drawn is an argument here too, under the same name. One left <code>NULL</code>
 stays as it is; <code>NA</code> returns it to Element's default.</p>
+<p>Unlike the other updates, which go with the flush (<code><a href="flush_vue.html">flush_vue()</a></code>), it is
+sent at once, as <code><a href="https://rdrr.io/pkg/shiny/man/withProgress.html" class="external-link">shiny::withProgress()</a></code> reports: a loop updating it
+shows every step.</p>
 <p><code>update_el_progress()</code> is called for its side effect and returns <code>NULL</code> invisibly.</p>
     </div>
 

@@ -1,5 +1,89 @@
 # Changelog
 
+## shiny.element 0.3.0
+
+The Vue layer, reviewed against vueR, vuer, reactR, shiny.react and
+shinyreact for three things: all of Vue, all of Shiny and shinyjs, and
+libraries other than Element built on it.
+
+### Breaking changes
+
+- Updates and method calls are sent with the flush, as Shiny’s own
+  `update*Input()` are – after the outputs the same observers
+  recalculated – where they were sent at once: every `update_el_*()`,
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md),
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/reference/update_vue.md),
+  [`call_vue()`](https://kaipingyang.github.io/shiny.element/reference/call_vue.md),
+  [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md)
+  and
+  [`vue_answer()`](https://kaipingyang.github.io/shiny.element/reference/vue_answer.md).
+  A component an observer re-renders and updates now gets the update
+  once drawn; before, the update reached the component being replaced
+  and was lost. An update made before a long computation in the same
+  observer shows after it, as Shiny’s do:
+  [`flush_vue()`](https://kaipingyang.github.io/shiny.element/reference/flush_vue.md)
+  sends it at once.
+  [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/reference/el_progress.md)
+  is still sent at once, as
+  [`withProgress()`](https://rdrr.io/pkg/shiny/man/withProgress.html)
+  is.
+- The methods the package generates to forward events are `svEmit*` and
+  `svOn*` (were `elEmit*`, `elOn*`), as they now belong to the Vue
+  layer.
+
+### New features
+
+- `flush_vue({ ... })` sends the updates made in it, and those queued
+  before, at once;
+  [`flush_vue()`](https://kaipingyang.github.io/shiny.element/reference/flush_vue.md)
+  alone sends what is queued.
+- `el_button(task = TRUE)`: a task button, as bslib’s
+  [`input_task_button()`](https://rstudio.github.io/bslib/reference/input_task_button.html)
+  – Element’s loading state from the click, set in the browser, until
+  the server has handled the click, or, bound with
+  [`bslib::bind_task_button()`](https://rstudio.github.io/bslib/reference/bind_task_button.html),
+  until an `ExtendedTask` is done. It speaks bslib’s protocol, so
+  bslib’s own server code drives it; folded into a tooltip it works too.
+- Shiny UI inside a Vue template – an input, an output, an htmlwidget, a
+  [`conditionalPanel()`](https://rdrr.io/pkg/shiny/man/conditionalPanel.html),
+  a component of this package – is kept out of Vue’s compiling and moved
+  into place, so `v-if` and `v-for` can show and hide it: it keeps its
+  binding and the user’s input, and an output hidden this way waits, as
+  one in a hidden tab does. Before, it lost its binding once Vue drew it
+  again, an htmlwidget lost its data, and a component function in a
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+  template broke the template.
+- `update_vue(insert =, replace =, delete =, at =, key =)` changes a
+  list field in place, by position or by a key field, and
+  `update_vue(set =)` sets values by path (`"items[3].done"`): a long
+  list or a deep object is not sent whole. The table’s and the
+  calendar’s `insert`, `replace` and `delete` are built on it.
+- `vue_app(type =, rate =)`: an input handler and a rate policy for the
+  value, as Shiny’s inputs and
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
+  have.
+- `vue_app(events =, on =)`: events of the template’s root forwarded as
+  `input$<id>_<event>`, and handlers of one’s own – the machinery
+  Element’s components use, now in the Vue layer for any library.
+- `vue_app(use = JS("{ install(app) { ... } }"))`: a plugin written in
+  R, the way to reach `app.config`.
+- Templates read `$inputs.<id>` (another input’s value), `$errors.<id>`
+  (a data output’s error) and `$busy` (the server working), beside
+  `$recalculating.<id>`.
+- Composables for `setup()`, as shinyreact’s hooks:
+  `shinyVue.useInput(name, initial)`, `shinyVue.useInputValue(name)`,
+  `shinyVue.useOutput(id)` (its `value`, `recalculating` and `error`)
+  and `shinyVue.useBusy()`.
+- Input messages to a component folded into another – which has no
+  binding of its own – reach it.
+
+### Documentation
+
+- “Shiny integration”: when an update arrives and
+  [`flush_vue()`](https://kaipingyang.github.io/shiny.element/reference/flush_vue.md),
+  task buttons, changing data in place, what a template can read of
+  Shiny, the composables, Shiny UI inside a template.
+
 ## shiny.element 0.2.0
 
 ### Breaking changes

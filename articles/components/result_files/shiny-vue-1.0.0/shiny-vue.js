@@ -160,6 +160,132 @@
     if (!recalculating) recalculating = Vue.reactive({});
     return recalculating;
   };
+  // A data output's error, by output id -- $errors.<id>: {message, type},
+  // gone once it renders again -- as Shiny draws an output's error
+  var errors = null;
+  sv.errors = function() {
+    if (!errors) errors = Vue.reactive({});
+    return errors;
+  };
+  // Shiny's input values, by id without a :type -- $inputs.<id>: what a
+  // template can read of the page's other inputs, as the server sees them
+  // (read-only: an input is set through its own component, or $setInput)
+  var inputs = null;
+  sv.inputs = function() {
+    if (!inputs) {
+      inputs = Vue.reactive({});
+      var put = function(name, value) { inputs[String(name).replace(/:.*$/, '')] = value; };
+      if (window.Shiny && Shiny.shinyapp && Shiny.shinyapp.$inputValues) {
+        Object.keys(Shiny.shinyapp.$inputValues).forEach(function(k) {
+          if (k.charAt(0) !== '.') put(k, Shiny.shinyapp.$inputValues[k]);
+        });
+      }
+      if (window.jQuery) {
+        jQuery(document).on('shiny:inputchanged', function(e) {
+          if (e.name && String(e.name).charAt(0) !== '.') put(e.name, plain(e.value));
+        });
+      }
+    }
+    return inputs;
+  };
+  // The values data outputs rendered, by output id: what useOutput() reads
+  var outputValues = null;
+  sv.outputValues = function() {
+    if (!outputValues) outputValues = Vue.reactive({});
+    return outputValues;
+  };
+
+  // Composables, for setup(): what templates read as $inputs, $busy,
+  // $recalculating and $errors, and an input of one's own -- shinyreact's
+  // hooks, the Vue way. Ids are the page's, a module's namespace included.
+  //
+  //   setup() {
+  //     const pick = shinyVue.useInput('pick', 'a');   // a ref, input$pick
+  //     const n = shinyVue.useInputValue('counter');    // another input
+  //     const stats = shinyVue.useOutput('stats');      // {value, recalculating, error}
+  //     const busy = shinyVue.useBusy();
+  //     return { pick, n, stats, busy };
+  //   }
+  sv.useInput = function(name, initial, opts) {
+    var inputs = sv.inputs();
+    var value = Vue.ref(name in inputs ? inputs[name] : initial);
+    var send = function(v) {
+      if (window.Shiny && Shiny.setInputValue) Shiny.setInputValue(name, plain(v), opts || {});
+    };
+    // sent on load, as an input is, and on every change
+    if (window.Shiny && Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send(value.value);
+    else if (window.jQuery) jQuery(document).one('shiny:connected', function() { send(value.value); });
+    Vue.watch(value, send, { deep: true });
+    // and follows the input when something else sets it
+    Vue.watch(function() { return inputs[name]; }, function(v) {
+      if (JSON.stringify(v) !== JSON.stringify(plain(value.value))) value.value = v;
+    });
+    return value;
+  };
+  sv.useInputValue = function(name) {
+    var inputs = sv.inputs();
+    return Vue.computed(function() { return inputs[name]; });
+  };
+  sv.useOutput = function(id) {
+    var values = sv.outputValues(), recalc = sv.recalculating(), errs = sv.errors();
+    // an output of render_vue_data(): placed in the component, as `outputs`
+    // places it, so Shiny holds it back while the component is hidden
+    if (sv.mountingHost && !document.getElementById(id)) placeOutputs(sv.mountingHost, null, [id]);
+    return Vue.reactive({
+      value: Vue.computed(function() { return values[id]; }),
+      recalculating: Vue.computed(function() { return !!recalc[id]; }),
+      error: Vue.computed(function() { return errs[id] || null; })
+    });
+  };
+  sv.useBusy = function() {
+    var state = sv.state();
+    return Vue.computed(function() { return state.busy; });
+  };
+
+  // Whether the server is working -- $busy, as Shiny's shiny:busy and
+  // shiny:idle tell it
+  var shinyState = null;
+  sv.state = function() {
+    if (!shinyState) {
+      shinyState = Vue.reactive({ busy: false });
+      if (window.jQuery) {
+        jQuery(document).on('shiny:busy', function() { shinyState.busy = true; });
+        jQuery(document).on('shiny:idle', function() { shinyState.busy = false; });
+      }
+      if (document.documentElement.classList.contains('shiny-busy')) shinyState.busy = true;
+    }
+    return shinyState;
+  };
+
+  function islandHolder(host) {
+    return host.querySelector(':scope > [data-shiny-vue-islands]');
+  }
+  function islandComponent(host) {
+    return {
+      props: ['name'],
+      render: function() {
+        return Vue.h('div', { class: 'shiny-island', style: 'display: contents' });
+      },
+      mounted: function() {
+        var holder = islandHolder(host);
+        var node = holder && holder.querySelector(':scope > [data-shiny-island-of="' + this.name + '"]');
+        if (!node) {
+          warn('"' + host.id + '": Shiny UI number ' + this.name + ' is shown once only -- it is elsewhere already');
+          return;
+        }
+        this.$el.appendChild(node);
+        // Shiny looks again at what is visible: an output held back while
+        // hidden is drawn now
+        if (window.jQuery) jQuery(node).trigger('shown');
+      },
+      beforeUnmount: function() {
+        var holder = islandHolder(host), node = this.$el.firstElementChild;
+        if (!holder || !node) return;
+        holder.appendChild(node);
+        if (window.jQuery) jQuery(node).trigger('hidden');
+      }
+    };
+  }
 
   function mount(host) {
     if (host._shinyVue) return host._shinyVue;
@@ -199,14 +325,27 @@
         Shiny.setInputValue(name, plain(value), opts || { priority: 'event' });
       }
     };
+    // Shiny UI taken out of the template (.vue_islands() in R): kept in the
+    // host's hidden holder, moved in while Vue shows its place and back out
+    // -- its bindings and state kept, its outputs suspended -- when Vue
+    // removes it
+    app.component('shiny-island', islandComponent(host));
     app.config.globalProperties.$store = sv.stores();
     app.config.globalProperties.$recalculating = sv.recalculating();
+    app.config.globalProperties.$errors = sv.errors();
+    app.config.globalProperties.$inputs = Vue.readonly(sv.inputs());
+    // a getter, so a template reading $busy follows it
+    Object.defineProperty(app.config.globalProperties, '$busy', {
+      get: function() { return sv.state().busy; }, enumerable: true, configurable: true
+    });
     // Vue plugins the component asks for (`use`), by their global names --
     // a component library, an i18n plugin: app.use() on each
     // -- a name, or {name, options} for a plugin that takes them
     // the host being mounted, for a plugin to read what is around it
     sv.mountingHost = host;
+    // -- or a plugin written in R, revived here: {plugin}
     (spec.use || []).forEach(function(p) {
+      if (p && typeof p === 'object' && p.plugin) { app.use(p.plugin); return; }
       var name = typeof p === 'string' ? p : p.name;
       var plugin = name.split('.').reduce(function(o, k) { return o && o[k]; }, window);
       if (plugin) app.use(plugin, typeof p === 'string' ? undefined : p.options);
@@ -222,8 +361,12 @@
     // rest of the page carries on
     var vm;
     try {
+      // the host being mounted, for setup()'s composables (useOutput())
+      sv.mountingHost = host;
       vm = app.mount(box);
+      sv.mountingHost = null;
     } catch (e) {
+      sv.mountingHost = null;
       if (window.console) console.error('[shiny-vue] "' + host.id + '" could not be mounted: ' + e.message);
       try { app.unmount(); } catch (e2) {}
       if (box.parentNode) box.parentNode.removeChild(box);
@@ -296,8 +439,11 @@
         out.className = 'shiny-vue-data-output';
         holder.appendChild(out);
       }
-      (out._svTargets = out._svTargets || []).push({ vm: vm, host: host });
-      if (out._svFields !== undefined) assignFields(vm, host, id, out._svFields);
+      // a component's fields follow it; useOutput() only reads it
+      if (vm) {
+        (out._svTargets = out._svTargets || []).push({ vm: vm, host: host });
+        if (out._svFields !== undefined) assignFields(vm, host, id, out._svFields);
+      }
     });
     host.appendChild(holder);
     // bound with the page if Shiny has not started yet, here if it has
@@ -550,6 +696,69 @@
     return null;
   }
 
+  // Changes made in place (update_vue(insert =, replace =, delete =, set =)):
+  // `.edit` splices a list field -- rows inserted at a position, replaced or
+  // deleted by position, or by a key field's value -- and `.set` assigns
+  // by path ("items", 2, "done"), so a long list or a deep object is not
+  // sent whole. `nameOf` gives the field's name in the instance (a folded
+  // component's are renamed), or null. A component that has to know --
+  // a table renumbering its selection -- gets shinyVueEdited(edit).
+  function applyEdits(vm, data, nameOf, id) {
+    var e = data['.edit'];
+    if (e) {
+      delete data['.edit'];
+      var name = nameOf(e.field), list = name ? vm[name] : null;
+      if (!Array.isArray(list)) {
+        warn('update: "' + e.field + '" is not a list of "' + id + '"; the edit was ignored');
+      } else {
+        var rows = e.rows || [], at = e.at === null || e.at === undefined ? [] : [].concat(e.at);
+        var find = function(v) {
+          for (var i = 0; i < list.length; i++) {
+            if (list[i] && String(list[i][e.key]) === String(v)) return i;
+          }
+          return -1;
+        };
+        if (e.op === 'insert') {
+          var i0 = at.length ? at[0] - 1 : list.length;
+          list.splice.apply(list, [i0, 0].concat(rows));
+        } else if (e.op === 'replace') {
+          rows.forEach(function(r, k) {
+            if (e.key) {
+              // by key: the row with that key, or a new one at the end
+              var i = find(r[e.key]);
+              if (i >= 0) list.splice(i, 1, r); else list.push(r);
+            } else if (at[k] !== undefined) {
+              list.splice(at[k] - 1, 1, r);
+            }
+          });
+        } else if (e.op === 'delete') {
+          var idx = e.key ? at.map(find).filter(function(i) { return i >= 0; })
+                          : at.map(function(i) { return i - 1; });
+          idx.sort(function(a, b) { return b - a; }).forEach(function(i) { list.splice(i, 1); });
+        }
+        if (typeof vm.shinyVueEdited === 'function') vm.shinyVueEdited(e);
+      }
+    }
+    var sets = data['.set'];
+    if (sets) {
+      delete data['.set'];
+      sets.forEach(function(st) {
+        var parts = [].concat(st.path), first = nameOf(parts[0]);
+        if (!first) { warn('update: "' + parts[0] + '" is not a field of "' + id + '"; the update was ignored'); return; }
+        parts[0] = first;
+        var o = vm;
+        for (var i = 0; i < parts.length - 1; i++) {
+          o = o[parts[i]];
+          if (o === null || typeof o !== 'object') {
+            warn('update: "' + st.path.join('.') + '" of "' + id + '" does not exist; the update was ignored');
+            return;
+          }
+        }
+        o[parts[parts.length - 1]] = st.value;
+      });
+    }
+  }
+
   function updateAbsorbed(id, data) {
     var found = absorbedBy(id);
     if (!found) return false;
@@ -557,6 +766,10 @@
     if (!vm) return false;
     var fields = found.entry.fields || {};
     if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
+    applyEdits(vm, data, function(f) {
+      var n = fields[f];
+      return n && n in vm.$data ? n : null;
+    }, id);
     var rest = {};
     Object.keys(data).forEach(function(k) {
       if (k === 'id') return;
@@ -608,6 +821,10 @@
     // A function in an update -- a new formatter, a form rule's validator --
     // travels as source too
     if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
+    var setupFields = vm.$ && vm.$.setupState;
+    applyEdits(vm, data, function(f) {
+      return f in vm.$data || (setupFields && f in setupFields) ? f : null;
+    }, id);
     var rest = {};
     Object.keys(data).forEach(function(k) {
       if (k === 'id' || k === '.value') return;
@@ -830,6 +1047,23 @@
   if (hasShiny && Shiny.addCustomMessageHandler) {
     Shiny.addCustomMessageHandler('shinyVueUpdate', function(msg) { sv.update(msg.id, msg); });
     Shiny.addCustomMessageHandler('shinyVueCall', sv.call);
+  }
+  // session$sendInputMessage() reaches only a bound input; a component
+  // folded into another has no binding of its own, so its messages -- bslib's
+  // update_task_button() to a task button in a tooltip -- are taken here
+  if (hasShiny && window.jQuery) {
+    jQuery(document).on('shiny:message', function(e) {
+      var msgs = e.message && e.message.inputMessages;
+      if (!msgs || !msgs.length) return;
+      msgs.forEach(function(m) {
+        if (!m || !m.id) return;
+        // a bound input gets it from Shiny; a folded component keeps only
+        // its id on its markup, unbound
+        var el = document.getElementById(m.id);
+        if (el && el.classList.contains('shiny-bound-input')) return;
+        if (absorbedBy(m.id)) sv.update(m.id, jQuery.extend({}, m.message));
+      });
+    });
   }
   if (!hasShiny) {
     // A page with no Shiny -- R Markdown, a static site: mount once it is there
@@ -1100,9 +1334,11 @@
   jQuery.extend(dataBinding, {
     find: function(scope) { return jQuery(scope).find('.shiny-vue-data-output'); },
     renderValue: function(el, json) {
+      delete sv.errors()[el.id];
       var data = typeof json === 'string' ? JSON.parse(json) : { fields: json };
       revive(data, data.evals);
       el._svFields = data.fields || {};
+      sv.outputValues()[el.id] = el._svFields;
       (el._svTargets || []).forEach(function(t) {
         assignFields(t.vm, t.host, el.id, el._svFields);
       });
@@ -1110,6 +1346,15 @@
     showProgress: function(el, show) {
       Shiny.OutputBinding.prototype.showProgress.call(this, el, show);
       sv.recalculating()[el.id] = !!show;
+    },
+    // the error reaches the components, $errors.<id>; the element itself,
+    // hidden in them, shows nothing. A silent req() is not an error.
+    renderError: function(el, err) {
+      if (!err || !err.message) { delete sv.errors()[el.id]; return; }
+      sv.errors()[el.id] = { message: err.message, type: err.type || null };
+    },
+    clearError: function(el) {
+      delete sv.errors()[el.id];
     }
   });
   Shiny.outputBindings.register(dataBinding, 'shiny.vue.data');

@@ -9,7 +9,7 @@ names such an operation.
 ## Usage
 
 ``` r
-.el_send_update(session, msg)
+.el_send_update(session, msg, immediate = FALSE)
 ```
 
 ## Arguments

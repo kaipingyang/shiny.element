@@ -16,6 +16,7 @@ el_button(
   round = NULL,
   circle = FALSE,
   loading = FALSE,
+  task = FALSE,
   disabled = FALSE,
   icon = NULL,
   native_type = "button",
@@ -103,8 +104,20 @@ update_el_button(
 
 - loading:
 
-  Whether to show loading spinner. Disables click while active. Default
-  `FALSE`.
+  Whether to show loading spinner. Disables click while active.
+
+- task:
+
+  A task button, as
+  [`bslib::input_task_button()`](https://rstudio.github.io/bslib/reference/input_task_button.html):
+  clicked, it shows Element's loading state at once, in the browser,
+  until the server has handled the click – the observers it runs are
+  done – or, bound to an
+  [shiny::ExtendedTask](https://rdrr.io/pkg/shiny/man/ExtendedTask.html)
+  with
+  [`bslib::bind_task_button()`](https://rstudio.github.io/bslib/reference/bind_task_button.html),
+  until the task is. `input$<id>` counts the clicks, as for any button.
+  Default `FALSE`.
 
 - disabled:
 
@@ -251,7 +264,7 @@ el_button("btn_primary", "Primary", type = "primary")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="btn_primary_container" style="display: contents">
 #>   <el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Primary","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"state":"ready","autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #> </div>
 
 # Shiny app example

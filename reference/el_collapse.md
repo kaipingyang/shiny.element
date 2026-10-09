@@ -127,7 +127,7 @@ el_collapse(
   ),
   value = "p1"
 )
-#> <div id="col1" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">
+#> <div id="col1" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-shiny-island data-accordion="false">
 #>   <div class="el-collapse-item is-active" data-el-name="p1">
 #>     <div id="col1-head-p1" role="button" tabindex="0" aria-expanded="true" aria-controls="col1-content-p1" aria-describedby="col1-content-p1" class="el-collapse-item__header is-active">
 #>       <span class="el-collapse-item__title">Panel 1</span>
@@ -163,7 +163,7 @@ el_collapse(
     )
   )
 )
-#> <div id="col2" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">
+#> <div id="col2" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-shiny-island data-accordion="false">
 #>   <div class="el-collapse-item" data-el-name="f">
 #>     <div id="col2-head-f" role="button" tabindex="0" aria-expanded="false" aria-controls="col2-content-f" aria-describedby="col2-content-f" class="el-collapse-item__header">
 #>       <span class="el-collapse-item__title">Filters</span>

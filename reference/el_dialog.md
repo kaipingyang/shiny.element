@@ -268,7 +268,7 @@ el_dialog(
   content = shiny::tags$p("Are you sure?"),
   footer = el_button("ok", "OK", type = "primary")
 )
-#> <div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+#> <div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
 #>   <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Confirm">
 #>     <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;">
 #>       <header class="el-dialog__header show-close">
@@ -285,7 +285,7 @@ el_dialog(
 #>           <script type="text/x-template" data-shiny-vue-template><div id="ok_container" style="display: contents">
 #>   <el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
 #> </div></script>
-#>           <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"OK","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+#>           <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"OK","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"state":"ready","autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 #>         </div>
 #>       </footer>
 #>     </div>
@@ -299,7 +299,7 @@ el_dialog(
   draggable = TRUE,
   content = shiny::tagList(el_input("q"), el_switch("live"))
 )
-#> <div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false">
+#> <div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false">
 #>   <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Filters">
 #>     <div class="el-dialog is-draggable" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;">
 #>       <header class="el-dialog__header show-close">

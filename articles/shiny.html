@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -311,6 +311,51 @@ method call for a component that is not on the page yet – one a
 <code>[shiny-vue]</code> warning in the browser’s console. Send it from
 an observer that runs once the component is there, as for any Shiny
 input.</p>
+<div class="section level3">
+<h3 id="when-an-update-arrives">When an update arrives<a class="anchor" aria-label="anchor" href="#when-an-update-arrives"></a>
+</h3>
+<p>Shiny’s own <code>update*Input()</code> do not send at once: the
+message waits for the flush, and goes with the outputs that the same
+observers recalculated. The updates and method calls here do the same –
+every <code>update_el_*()</code>, <code><a href="../reference/call_el.html">call_el()</a></code>,
+<code><a href="../reference/update_vue.html">update_vue()</a></code>, <code><a href="../reference/call_vue.html">call_vue()</a></code> – so a component an
+observer re-renders and updates is updated once drawn again. A progress
+bar is the exception, as <code><a href="https://rdrr.io/pkg/shiny/man/withProgress.html" class="external-link">withProgress()</a></code> is:
+<code><a href="../reference/el_progress.html">update_el_progress()</a></code> is sent at once.</p>
+<p>An update made before a long computation in the same observer
+therefore shows after it. <code><a href="../reference/flush_vue.html">flush_vue()</a></code> sends what is queued
+at once:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">run</span>, <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/flush_vue.html">flush_vue</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tbl"</span>, loading <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">slow_query</span><span class="op">(</span><span class="op">)</span> <span class="co"># the table shows its mask meanwhile</span></span>
+<span>  <span class="fu"><a href="../reference/el_table.html">update_el_table</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tbl"</span>, data <span class="op">=</span> <span class="va">result</span>, loading <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>Often there is a better way. A computation in an
+<code>ExtendedTask</code> leaves the observer at once, and its updates
+go with that flush. A button that shows it is working needs no server at
+all: <code>el_button(task = TRUE)</code> turns to Element’s loading
+state in the browser when clicked, and back once the server has handled
+the click – or, bound with <code><a href="https://rstudio.github.io/bslib/reference/bind_task_button.html" class="external-link">bslib::bind_task_button()</a></code>, once
+the task is done – as bslib’s <code><a href="https://rstudio.github.io/bslib/reference/input_task_button.html" class="external-link">input_task_button()</a></code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, task <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">save</span> <span class="op">&lt;-</span> <span class="va"><a href="https://rdrr.io/pkg/shiny/man/ExtendedTask.html" class="external-link">ExtendedTask</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">promises</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/promises/reference/promise.html" class="external-link">promise</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">resolve</span>, <span class="va">reject</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">later</span><span class="fu">::</span><span class="fu"><a href="https://later.r-lib.org/reference/later.html" class="external-link">later</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu">resolve</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/bind_task_button.html" class="external-link">bind_task_button</a></span><span class="op">(</span><span class="va">save</span>, <span class="st">"save"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">save</span>, <span class="va">save</span><span class="op">$</span><span class="fu">invoke</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../shots/shiny-task-button.png" alt="The task-button example, running" style="max-width: 100%">
+</div>
 </div>
 <div class="section level2">
 <h2 id="which-events-reach-the-server">Which events reach the server<a class="anchor" aria-label="anchor" href="#which-events-reach-the-server"></a>
@@ -327,7 +372,7 @@ snake_case; it arrives as <code>input$&lt;id&gt;_&lt;event&gt;</code>.
 <code><a href="../reference/el_events.html">el_events()</a></code> lists what a component reports, and which it
 reports unasked; its help page lists the same under “Shiny inputs”, and
 a name it does not have is an error that lists them:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_events.html">el_events</a></span><span class="op">(</span><span class="st">"el_tree"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; el_tree() reports, as input$&lt;id&gt;...:</span></span>
 <span><span class="co">#&gt;</span></span>
@@ -350,7 +395,7 @@ a <code><a href="../reference/JS.html">JS()</a></code> function called with <cod
 event’s arguments. <code>report(name, value)</code> sets
 <code>input$&lt;id&gt;_&lt;name&gt;</code>, namespaced in a module as
 the id is, the same rule as every other input:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
 <span>    <span class="st">"q"</span>,</span>
@@ -381,7 +426,7 @@ output that only reads the value sees nothing new the second time.</p>
 <p>Here is the same row clicked twice. The output reading the value
 shows where the last click landed; only the observer knows there were
 two:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_table_output.html">el_table_output</a></span><span class="op">(</span><span class="st">"tbl"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"polled"</span><span class="op">)</span>,</span>
@@ -424,7 +469,7 @@ module too, and for the inputs a component adds to its id –
 <code>input$rows_selection_change</code>. An output is the same:
 <code>el_table_output(ns("rows"))</code> in the UI,
 <code>output$rows</code> in the server.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">orders_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
@@ -485,7 +530,7 @@ every component’s value comes back from a bookmark – including where a
 container is: the open tab, the open panels of a collapse, an open
 dialog or drawer, the menu’s current item, the pager’s page. Nothing
 needs to be set up beyond what Shiny itself asks for.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">request</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -558,7 +603,7 @@ differently.</p>
 own CSS classes and drive their state through a Shiny input binding.
 They hold anything, and what is inside keeps working as it would on its
 own.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
 <span>  <span class="st">"panels"</span>,</span>
 <span>  value <span class="op">=</span> <span class="st">"one"</span>,</span>
@@ -575,7 +620,7 @@ own.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="container-panels" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-accordion="false">
+  <div id="container-panels" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-shiny-island data-accordion="false">
     <div class="el-collapse-item is-active" data-el-name="one">
       <div id="container-panels-head-one" role="button" tabindex="0" aria-expanded="true" aria-controls="container-panels-content-one" aria-describedby="container-panels-content-one" class="el-collapse-item__header is-active">
         <span class="el-collapse-item__title">Settings</span>
@@ -615,7 +660,7 @@ own.</p>
 compile their content into their own Vue instance, so a component handed
 to one is folded in rather than nested: the two become a single instance
 carrying both sets of markup, data and methods.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
@@ -634,7 +679,7 @@ it through the wrapper’s instance. In the page the id is on the
 component itself, as Element hands it on – a button’s
 <code>&lt;button&gt;</code>, an input’s <code>&lt;input&gt;</code> –
 rather than on a host around it.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
 <span>    <span class="st">"hint"</span>,</span>
@@ -663,7 +708,7 @@ names they have there.</p>
 <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
 </h2>
 <p>Every component takes <code>slots</code>, a named list:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
 <span>  <span class="st">"problem"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"error"</span>,</span>
@@ -688,7 +733,7 @@ names they have there.</p>
 <p>A scoped slot – one where Element hands the template variables that
 only exist while Vue renders – is written with <code><a href="../reference/template.html">template()</a></code>
 and passed through untouched:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
 <span>  <span class="st">"cal"</span>,</span>
 <span>  value <span class="op">=</span> <span class="st">"2026-03-15"</span>,</span>
@@ -752,7 +797,7 @@ and passed through untouched:</p>
     </el-form>
     <template v-slot:footer><el-button v-if="eventForm &amp;&amp; eventForm.id !== undefined" type="danger" plain @click="deleteEvent">{{ eventLabels.delete }}</el-button><el-button @click="cancelEvent">{{ eventLabels.cancel }}</el-button><el-button type="primary" @click="saveEvent" :disabled="!eventForm || !eventForm.date">{{ eventLabels.save }}</el-button></template>
   </el-dialog>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-03-15","range":null,"events":[],"editable":false,"calendars":[],"visibleEventCount":null,"useDetailPopup":false,"firstDayOfWeek":null,"workweek":false,"eventForm":null,"eventDragged":null,"eventDetail":null,"eventMore":null,"eventAnchor":null,"eventSelect":null,"eventLabels":{"add":"New event","edit":"Edit event","title":"Title","allday":"All day","date":"Date","end":"Until","calendar":"Calendar","type":"Type","body":"Details","save":"Save","delete":"Delete","cancel":"Cancel","more":"+{n} more"},"controllerType":null,"formatter":null},"methods":{"eventCalendar":"function(ev) { if (!ev || ev.calendarId === undefined || ev.calendarId === null) return null; var id = String(ev.calendarId); return (this.calendars || []).filter(function(c) { return String(c.id) === id; })[0] || null; }","eventType":"function(ev) { var c = this.eventCalendar(ev); return ev.type || (c && c.type) || 'primary'; }","eventColor":"function(ev) { var c = this.eventCalendar(ev); return ev.color || (c && c.color) || undefined; }","eventStyle":"function(ev) { var col = this.eventColor(ev); return col ? {borderColor: col, color: 'var(--el-text-color-primary)'} : null; }","eventLabel":"function(ev, day) { var d = String(ev.date); return (d.length > 10 && d.slice(0, 10) === day ? d.slice(11, 16) + ' ' : '') + (ev.title || ''); }","eventWhen":"function(ev) { if (!ev) return ''; var d = String(ev.date), e = ev.end ? String(ev.end) : ''; if (!e) return d; return d + ' – ' + (e.slice(0, 10) === d.slice(0, 10) ? e.slice(11) : e); }","eventsOn":"function(day) { var self = this; var on = (self.events || []).filter(function(e) { if (e.isVisible === false) return false; var c = self.eventCalendar(e); if (c && c.isVisible === false) return false; var start = String(e.date).slice(0, 10), end = e.end ? String(e.end).slice(0, 10) : start; return start <= day && day <= end; }); var key = function(e) { var d = String(e.date); return d.length > 10 && d.slice(0, 10) === day ? d.slice(11) : ''; }; return on.map(function(e, i) { return [e, i]; }).sort(function(a, b) { var ka = key(a[0]), kb = key(b[0]); return ka < kb ? -1 : ka > kb ? 1 : a[1] - b[1]; }).map(function(p) { return p[0]; }); }","eventsShown":"function(day) { var all = this.eventsOn(day), n = this.visibleEventCount; return n && all.length > n ? all.slice(0, n) : all; }","eventsHidden":"function(day) { var n = this.visibleEventCount; if (!n) return 0; return Math.max(0, this.eventsOn(day).length - n); }","moreLabel":"function(day) { return String(this.eventLabels.more).replace('{n}', this.eventsHidden(day)); }","canEdit":"function(ev) { return !!this.editable && !ev.isReadOnly; }","isAllday":"function(f) { return !f || !f.date || String(f.date).length <= 10; }","setAllday":"function(on) { var f = this.eventForm; if (!f || !f.date) return; var day = function(s) { return String(s).slice(0, 10); }; if (on) { f.date = day(f.date); if (f.end) f.end = day(f.end); } else { f.date = day(f.date) + ' 09:00'; if (f.end) f.end = day(f.end) + ' 10:00'; } }","eventRequest":"function(kind, value, apply) { if (window.Shiny && Shiny.setInputValue) { Shiny.setInputValue('scoped-slot-cal_' + kind + ':shiny.element.cal_event', window.shinyVue.plain(value), {priority: 'event'}); } else if (apply) { apply.call(this); } }","clickEvent":"function(ev, e, fromMore) { var self = this; self.eventRequest('click', ev); var anchor = fromMore ? self.eventAnchor : (e && e.currentTarget) || null; self.closePopovers(); if (self.canEdit(ev)) { self.eventForm = Object.assign({}, ev, {end: ev.end || null}); return; } if (self.useDetailPopup && anchor) { self.eventAnchor = anchor; self.eventDetail = ev; self.listenOutside(); } }","openMore":"function(day, e) { this.closePopovers(); this.eventAnchor = e.currentTarget; this.eventMore = day; this.listenOutside(); }","closePopovers":"function() { this.eventMore = null; this.eventDetail = null; }","listenOutside":"function() { var self = this; if (self._outside) return; var off = function() { document.removeEventListener('mousedown', down, true); document.removeEventListener('keydown', key, true); self._outside = null; }; var down = function(e) { var t = e.target; if (t.closest && (t.closest('.el-calendar-popover') || t === self.eventAnchor)) return; self.closePopovers(); off(); }; var key = function(e) { if (e.key === 'Escape') { self.closePopovers(); off(); } }; self._outside = off; document.addEventListener('mousedown', down, true); document.addEventListener('keydown', key, true); }","openAdd":"function(day, end) { if (!this.editable) return; this.closePopovers(); var f = {date: day, end: end && end !== day ? end : null, title: '', type: 'primary', body: ''}; if (this.calendars && this.calendars.length) f.calendarId = this.calendars[0].id; this.eventForm = f; }","cancelEvent":"function() { this.eventForm = null; }","saveEvent":"function() { var self = this, f = self.eventForm; if (!f || !f.date) return; var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; if (ev.id === undefined) { self.eventRequest('add', ev, function() { ev.id = 'local-' + Date.now(); self.events.push(ev); }); } else { var old = self.events.filter(function(e) { return e.id === ev.id; })[0] || {}; var changes = {}; Object.keys(ev).forEach(function(k) { if (ev[k] !== old[k] && !(ev[k] === null && old[k] === undefined)) changes[k] = ev[k]; }); self.eventRequest('update', {event: old, changes: changes}, function() { var i = self.events.indexOf(old); if (i >= 0) self.events.splice(i, 1, ev); }); } self.eventForm = null; }","deleteEvent":"function() { var self = this, f = self.eventForm; if (!f) return; var old = self.events.filter(function(e) { return e.id === f.id; })[0]; if (old) self.eventRequest('delete', old, function() { self.events.splice(self.events.indexOf(old), 1); }); self.eventForm = null; }","dragStart":"function(ev, e) { if (!this.canEdit(ev)) { e.preventDefault(); return; } this.closePopovers(); this.eventDragged = ev.id; if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(ev.id)); } }","dropOn":"function(day) { var self = this, id = self.eventDragged; self.eventDragged = null; if (!self.editable || id === null) return; var old = self.events.filter(function(e) { return e.id === id; })[0]; if (!old || String(old.date).slice(0, 10) === day) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var shift = parse(day) - parse(old.date); var changes = {date: day + String(old.date).slice(10)}; if (old.end) changes.end = fmt(parse(old.end) + shift) + String(old.end).slice(10); var ev = Object.assign({}, old, changes); self.eventRequest('update', {event: old, changes: changes}, function() { self.events.splice(self.events.indexOf(old), 1, ev); }); }","selectStart":"function(day, e) { var self = this; if (!self.editable || e.button !== 0) return; self.eventSelect = {from: day, to: day}; var up = function() { document.removeEventListener('mouseup', up, true); self.selectEnd(); }; document.addEventListener('mouseup', up, true); }","selectMove":"function(day) { if (this.eventSelect) this.eventSelect.to = day; }","selectEnd":"function() { var s = this.eventSelect; this.eventSelect = null; if (!s || s.from === s.to) return; this.openAdd(s.from < s.to ? s.from : s.to, s.from < s.to ? s.to : s.from); }","inSelection":"function(day) { var s = this.eventSelect; if (!s || s.from === s.to) return false; var a = s.from < s.to ? s.from : s.to, b = s.from < s.to ? s.to : s.from; return a <= day && day <= b; }","weekStart":"function() { var dj = window.ElementPlus && ElementPlus.dayjs; var fdw = this.firstDayOfWeek; if (!dj) return fdw === null || fdw === undefined ? 0 : fdw; var loc = dj.Ls && dj.Ls[dj.locale()]; if (fdw === null || fdw === undefined || !loc) return dj.localeData ? dj.localeData().firstDayOfWeek() : 0; var had = Object.prototype.hasOwnProperty.call(loc, 'weekStart'), old = loc.weekStart; loc.weekStart = fdw; Promise.resolve().then(function() { if (had) loc.weekStart = old; else delete loc.weekStart; }); return fdw; }","calendarClass":"function() { var out = ['el-calendar--events']; if (!this.workweek) return out; var s = this.firstDayOfWeek; if (s === null || s === undefined) { var dj = window.ElementPlus && ElementPlus.dayjs; s = dj && dj.localeData ? dj.localeData().firstDayOfWeek() : 0; } [0, 6].forEach(function(w) { out.push('is-hide-col-' + (((w - s + 7) % 7) + 1)); }); return out; }","reportDates":"function() { var self = this; self.$nextTick(function() { var root = self.$el && self.$el.querySelectorAll ? self.$el : null; if (!root || !window.Shiny || !Shiny.setInputValue) return; var cells = root.querySelectorAll('.el-calendar-table td'); if (!cells.length) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var start, end; if (self.range && self.range.length) { start = parse(self.range[0]); end = start + (cells.length - 1) * 864e5; } else { var v = String(self.value).slice(0, 10).split('-'); var first = Date.UTC(+v[0], +v[1] - 1, 1); var prev = root.querySelectorAll('.el-calendar-table td.prev').length; start = first - prev * 864e5; end = start + (cells.length - 1) * 864e5; } Shiny.setInputValue('scoped-slot-cal_dates:shiny.element.cal_event', {current: String(self.value).slice(0, 10), start: fmt(start), end: fmt(end)}); }); }","shinyVueReceive":"function(d) { if (!('calendarEdit' in d)) return d; var e = d.calendarEdit, events = this.events, rows = e.rows || []; delete d.calendarEdit; var at = function(id) { for (var i = 0; i < events.length; i++) if (String(events[i].id) === String(id)) return i; return -1; }; if (e.op === 'insert') rows.forEach(function(r) { events.push(r); }); else if (e.op === 'replace') rows.forEach(function(r) { var i = at(r.id); if (i >= 0) events.splice(i, 1, r); else events.push(r); }); else if (e.op === 'delete') [].concat(e.ids || []).forEach(function(id) { var i = at(id); if (i >= 0) events.splice(i, 1); }); return d; }","elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal, oldVal) { if (!oldVal || String(newVal).slice(0, 7) !== String(oldVal).slice(0, 7)) this.reportDates(); }","range":{"immediate":true,"handler":"function() { this.reportDates(); }"},"firstDayOfWeek":"function() { this.reportDates(); }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.eventCalendar","options.methods.eventType","options.methods.eventColor","options.methods.eventStyle","options.methods.eventLabel","options.methods.eventWhen","options.methods.eventsOn","options.methods.eventsShown","options.methods.eventsHidden","options.methods.moreLabel","options.methods.canEdit","options.methods.isAllday","options.methods.setAllday","options.methods.eventRequest","options.methods.clickEvent","options.methods.openMore","options.methods.closePopovers","options.methods.listenOutside","options.methods.openAdd","options.methods.cancelEvent","options.methods.saveEvent","options.methods.deleteEvent","options.methods.dragStart","options.methods.dropOn","options.methods.selectStart","options.methods.selectMove","options.methods.selectEnd","options.methods.inSelection","options.methods.weekStart","options.methods.calendarClass","options.methods.reportDates","options.methods.shinyVueReceive","options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value","options.watch.range.handler","options.watch.firstDayOfWeek"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-03-15","range":null,"events":[],"editable":false,"calendars":[],"visibleEventCount":null,"useDetailPopup":false,"firstDayOfWeek":null,"workweek":false,"eventForm":null,"eventDragged":null,"eventDetail":null,"eventMore":null,"eventAnchor":null,"eventSelect":null,"eventLabels":{"add":"New event","edit":"Edit event","title":"Title","allday":"All day","date":"Date","end":"Until","calendar":"Calendar","type":"Type","body":"Details","save":"Save","delete":"Delete","cancel":"Cancel","more":"+{n} more"},"controllerType":null,"formatter":null},"methods":{"eventCalendar":"function(ev) { if (!ev || ev.calendarId === undefined || ev.calendarId === null) return null; var id = String(ev.calendarId); return (this.calendars || []).filter(function(c) { return String(c.id) === id; })[0] || null; }","eventType":"function(ev) { var c = this.eventCalendar(ev); return ev.type || (c && c.type) || 'primary'; }","eventColor":"function(ev) { var c = this.eventCalendar(ev); return ev.color || (c && c.color) || undefined; }","eventStyle":"function(ev) { var col = this.eventColor(ev); return col ? {borderColor: col, color: 'var(--el-text-color-primary)'} : null; }","eventLabel":"function(ev, day) { var d = String(ev.date); return (d.length > 10 && d.slice(0, 10) === day ? d.slice(11, 16) + ' ' : '') + (ev.title || ''); }","eventWhen":"function(ev) { if (!ev) return ''; var d = String(ev.date), e = ev.end ? String(ev.end) : ''; if (!e) return d; return d + ' – ' + (e.slice(0, 10) === d.slice(0, 10) ? e.slice(11) : e); }","eventsOn":"function(day) { var self = this; var on = (self.events || []).filter(function(e) { if (e.isVisible === false) return false; var c = self.eventCalendar(e); if (c && c.isVisible === false) return false; var start = String(e.date).slice(0, 10), end = e.end ? String(e.end).slice(0, 10) : start; return start <= day && day <= end; }); var key = function(e) { var d = String(e.date); return d.length > 10 && d.slice(0, 10) === day ? d.slice(11) : ''; }; return on.map(function(e, i) { return [e, i]; }).sort(function(a, b) { var ka = key(a[0]), kb = key(b[0]); return ka < kb ? -1 : ka > kb ? 1 : a[1] - b[1]; }).map(function(p) { return p[0]; }); }","eventsShown":"function(day) { var all = this.eventsOn(day), n = this.visibleEventCount; return n && all.length > n ? all.slice(0, n) : all; }","eventsHidden":"function(day) { var n = this.visibleEventCount; if (!n) return 0; return Math.max(0, this.eventsOn(day).length - n); }","moreLabel":"function(day) { return String(this.eventLabels.more).replace('{n}', this.eventsHidden(day)); }","canEdit":"function(ev) { return !!this.editable && !ev.isReadOnly; }","isAllday":"function(f) { return !f || !f.date || String(f.date).length <= 10; }","setAllday":"function(on) { var f = this.eventForm; if (!f || !f.date) return; var day = function(s) { return String(s).slice(0, 10); }; if (on) { f.date = day(f.date); if (f.end) f.end = day(f.end); } else { f.date = day(f.date) + ' 09:00'; if (f.end) f.end = day(f.end) + ' 10:00'; } }","eventRequest":"function(kind, value, apply) { if (window.Shiny && Shiny.setInputValue) { Shiny.setInputValue('scoped-slot-cal_' + kind + ':shiny.element.cal_event', window.shinyVue.plain(value), {priority: 'event'}); } else if (apply) { apply.call(this); } }","clickEvent":"function(ev, e, fromMore) { var self = this; self.eventRequest('click', ev); var anchor = fromMore ? self.eventAnchor : (e && e.currentTarget) || null; self.closePopovers(); if (self.canEdit(ev)) { self.eventForm = Object.assign({}, ev, {end: ev.end || null}); return; } if (self.useDetailPopup && anchor) { self.eventAnchor = anchor; self.eventDetail = ev; self.listenOutside(); } }","openMore":"function(day, e) { this.closePopovers(); this.eventAnchor = e.currentTarget; this.eventMore = day; this.listenOutside(); }","closePopovers":"function() { this.eventMore = null; this.eventDetail = null; }","listenOutside":"function() { var self = this; if (self._outside) return; var off = function() { document.removeEventListener('mousedown', down, true); document.removeEventListener('keydown', key, true); self._outside = null; }; var down = function(e) { var t = e.target; if (t.closest && (t.closest('.el-calendar-popover') || t === self.eventAnchor)) return; self.closePopovers(); off(); }; var key = function(e) { if (e.key === 'Escape') { self.closePopovers(); off(); } }; self._outside = off; document.addEventListener('mousedown', down, true); document.addEventListener('keydown', key, true); }","openAdd":"function(day, end) { if (!this.editable) return; this.closePopovers(); var f = {date: day, end: end && end !== day ? end : null, title: '', type: 'primary', body: ''}; if (this.calendars && this.calendars.length) f.calendarId = this.calendars[0].id; this.eventForm = f; }","cancelEvent":"function() { this.eventForm = null; }","saveEvent":"function() { var self = this, f = self.eventForm; if (!f || !f.date) return; var ev = Object.assign({}, f); if (!ev.end || ev.end <= ev.date) ev.end = null; if (ev.id === undefined) { self.eventRequest('add', ev, function() { ev.id = 'local-' + Date.now(); self.events.push(ev); }); } else { var old = self.events.filter(function(e) { return e.id === ev.id; })[0] || {}; var changes = {}; Object.keys(ev).forEach(function(k) { if (ev[k] !== old[k] && !(ev[k] === null && old[k] === undefined)) changes[k] = ev[k]; }); self.eventRequest('update', {event: old, changes: changes}, function() { var i = self.events.indexOf(old); if (i >= 0) self.events.splice(i, 1, ev); }); } self.eventForm = null; }","deleteEvent":"function() { var self = this, f = self.eventForm; if (!f) return; var old = self.events.filter(function(e) { return e.id === f.id; })[0]; if (old) self.eventRequest('delete', old, function() { self.events.splice(self.events.indexOf(old), 1); }); self.eventForm = null; }","dragStart":"function(ev, e) { if (!this.canEdit(ev)) { e.preventDefault(); return; } this.closePopovers(); this.eventDragged = ev.id; if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(ev.id)); } }","dropOn":"function(day) { var self = this, id = self.eventDragged; self.eventDragged = null; if (!self.editable || id === null) return; var old = self.events.filter(function(e) { return e.id === id; })[0]; if (!old || String(old.date).slice(0, 10) === day) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var shift = parse(day) - parse(old.date); var changes = {date: day + String(old.date).slice(10)}; if (old.end) changes.end = fmt(parse(old.end) + shift) + String(old.end).slice(10); var ev = Object.assign({}, old, changes); self.eventRequest('update', {event: old, changes: changes}, function() { self.events.splice(self.events.indexOf(old), 1, ev); }); }","selectStart":"function(day, e) { var self = this; if (!self.editable || e.button !== 0) return; self.eventSelect = {from: day, to: day}; var up = function() { document.removeEventListener('mouseup', up, true); self.selectEnd(); }; document.addEventListener('mouseup', up, true); }","selectMove":"function(day) { if (this.eventSelect) this.eventSelect.to = day; }","selectEnd":"function() { var s = this.eventSelect; this.eventSelect = null; if (!s || s.from === s.to) return; this.openAdd(s.from < s.to ? s.from : s.to, s.from < s.to ? s.to : s.from); }","inSelection":"function(day) { var s = this.eventSelect; if (!s || s.from === s.to) return false; var a = s.from < s.to ? s.from : s.to, b = s.from < s.to ? s.to : s.from; return a <= day && day <= b; }","weekStart":"function() { var dj = window.ElementPlus && ElementPlus.dayjs; var fdw = this.firstDayOfWeek; if (!dj) return fdw === null || fdw === undefined ? 0 : fdw; var loc = dj.Ls && dj.Ls[dj.locale()]; if (fdw === null || fdw === undefined || !loc) return dj.localeData ? dj.localeData().firstDayOfWeek() : 0; var had = Object.prototype.hasOwnProperty.call(loc, 'weekStart'), old = loc.weekStart; loc.weekStart = fdw; Promise.resolve().then(function() { if (had) loc.weekStart = old; else delete loc.weekStart; }); return fdw; }","calendarClass":"function() { var out = ['el-calendar--events']; if (!this.workweek) return out; var s = this.firstDayOfWeek; if (s === null || s === undefined) { var dj = window.ElementPlus && ElementPlus.dayjs; s = dj && dj.localeData ? dj.localeData().firstDayOfWeek() : 0; } [0, 6].forEach(function(w) { out.push('is-hide-col-' + (((w - s + 7) % 7) + 1)); }); return out; }","reportDates":"function() { var self = this; self.$nextTick(function() { var root = self.$el && self.$el.querySelectorAll ? self.$el : null; if (!root || !window.Shiny || !Shiny.setInputValue) return; var cells = root.querySelectorAll('.el-calendar-table td'); if (!cells.length) return; var parse = function(s) { var p = String(s).slice(0, 10).split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }; var fmt = function(t) { return new Date(t).toISOString().slice(0, 10); }; var start, end; if (self.range && self.range.length) { start = parse(self.range[0]); end = start + (cells.length - 1) * 864e5; } else { var v = String(self.value).slice(0, 10).split('-'); var first = Date.UTC(+v[0], +v[1] - 1, 1); var prev = root.querySelectorAll('.el-calendar-table td.prev').length; start = first - prev * 864e5; end = start + (cells.length - 1) * 864e5; } Shiny.setInputValue('scoped-slot-cal_dates:shiny.element.cal_event', {current: String(self.value).slice(0, 10), start: fmt(start), end: fmt(end)}); }); }","elPick":"function(d) { this.value = this.elDay(d); }","elDate":"function(s) { if (!s || typeof s !== 'string') return s; var p = s.slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }","elDay":"function(d) { if (!(d instanceof Date)) return d; var pad = function(n) { return (n < 10 ? '0' : '') + n; }; return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }"},"watch":{"value":"function(newVal, oldVal) { if (!oldVal || String(newVal).slice(0, 7) !== String(oldVal).slice(0, 7)) this.reportDates(); }","range":{"immediate":true,"handler":"function() { this.reportDates(); }"},"firstDayOfWeek":"function() { this.reportDates(); }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.eventCalendar","options.methods.eventType","options.methods.eventColor","options.methods.eventStyle","options.methods.eventLabel","options.methods.eventWhen","options.methods.eventsOn","options.methods.eventsShown","options.methods.eventsHidden","options.methods.moreLabel","options.methods.canEdit","options.methods.isAllday","options.methods.setAllday","options.methods.eventRequest","options.methods.clickEvent","options.methods.openMore","options.methods.closePopovers","options.methods.listenOutside","options.methods.openAdd","options.methods.cancelEvent","options.methods.saveEvent","options.methods.deleteEvent","options.methods.dragStart","options.methods.dropOn","options.methods.selectStart","options.methods.selectMove","options.methods.selectEnd","options.methods.inSelection","options.methods.weekStart","options.methods.calendarClass","options.methods.reportDates","options.methods.elPick","options.methods.elDate","options.methods.elDay","options.watch.value","options.watch.range.handler","options.watch.firstDayOfWeek"]}</script>
 </div>
 </div>
 <p>Filling a slot replaces what Element put there, default and all.
@@ -769,7 +814,7 @@ Vue compiles <code>&lt;el-*&gt;</code> tags only within the component it
 mounts, so a raw tag goes where a component draws its contents: a
 <code><a href="../reference/template.html">template()</a></code>, a slot, a table <code>cell</code>, a wrapper’s
 trigger.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The tooltip's instance compiles the raw button it wraps</span></span>
 <span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
 <span>  <span class="st">"hint"</span>,</span>
@@ -788,7 +833,7 @@ trigger.</p>
   <div id="raw-tags-save" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="raw-tags-save_container" style="display: contents">
   <el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text">{{label}}</el-button>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"A component","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"A component","type":"primary","size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"state":"ready","autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
 <p>Placed at the top level of a page, the same <code>el$button()</code>
@@ -819,7 +864,7 @@ Shiny needs them: <code>id</code>, where the component goes and what the
 server calls it; <code>input</code>, the field that is
 <code>input$&lt;id&gt;</code>; and <code>dependencies</code>.
 <code>use</code> is Vue’s <code>app.use()</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>    <span class="st">"counter"</span>,</span>
@@ -877,15 +922,37 @@ server calls it; <code>input</code>, the field that is
 </td>
 </tr>
 <tr class="even">
+<td>its input handler and rate</td>
+<td>
+<code>type = "shiny.date"</code>, <code>rate = "debounce"</code>, as
+Shiny’s inputs have</td>
+</tr>
+<tr class="odd">
 <td><code>this.$emit("picked", x)</code></td>
 <td>
 <code>input$&lt;id&gt;_picked</code>, for an event listed in
 <code>emits</code>
 </td>
 </tr>
+<tr class="even">
+<td>an event of the template’s root – a library’s component there</td>
+<td>
+<code>events = "row_click"</code> →
+<code>input$&lt;id&gt;_row_click</code>
+</td>
+</tr>
 <tr class="odd">
+<td>a handler of one’s own</td>
+<td><code>on = list(click = JS("function(report, e) { report('x', 1); }"))</code></td>
+</tr>
+<tr class="even">
 <td>a child component</td>
 <td><code>components = list(todo_item = vue_component(...))</code></td>
+</tr>
+<tr class="odd">
+<td>
+<code>app.config</code>, a plugin written here</td>
+<td><code>use = JS("{ install(app) { ... } }")</code></td>
 </tr>
 </tbody>
 </table>
@@ -986,6 +1053,26 @@ input field</td>
 </tr>
 </tbody>
 </table>
+<p><code><a href="../reference/update_vue.html">update_vue()</a></code> replaces a field whole. A long list, or a
+deep object, can be changed in place, sending only what changes – rows
+inserted, replaced or deleted, by position or by a key field, and values
+set by path:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/update_vue.html">update_vue</a></span><span class="op">(</span></span>
+<span>  <span class="va">session</span>,</span>
+<span>  <span class="st">"todo"</span>,</span>
+<span>  insert <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t9"</span>, text <span class="op">=</span> <span class="st">"Call Ann"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  at <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/update_vue.html">update_vue</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"todo"</span>, replace <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">changed_rows</span><span class="op">)</span>, key <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/update_vue.html">update_vue</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"todo"</span>, delete <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"t2"</span>, <span class="st">"t5"</span><span class="op">)</span><span class="op">)</span>, key <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/update_vue.html">update_vue</a></span><span class="op">(</span></span>
+<span>  <span class="va">session</span>,</span>
+<span>  <span class="st">"todo"</span>,</span>
+<span>  set <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"items[3].done"</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="st">"user.name"</span> <span class="op">=</span> <span class="st">"Ann"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>The table’s and the calendar’s <code>insert</code>,
+<code>replace</code> and <code>delete</code> are built on the same.</p>
 <p><code><a href="../reference/vue_output.html">render_vue()</a></code> differs from <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> in one
 way: a render that changes only a component’s data updates that
 component instead of replacing it, so what the user did – a sort, a
@@ -1012,7 +1099,7 @@ again when what it reads changes, waits while its component is hidden,
 waits for a promise, and while it runs
 <code>$recalculating.&lt;id&gt;</code> is <code>true</code>, for the
 template to say so.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html" class="external-link">sliderInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Draws"</span>, <span class="fl">10</span>, <span class="fl">1000</span>, <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
@@ -1041,7 +1128,7 @@ outputs, each setting its own fields:
 <p>One output can feed several components, or a <code><a href="../reference/vue_store.html">vue_store()</a></code>
 that every component reads – the shared state Vue’s guide recommends,
 with the server as its source:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"sales"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>revenue <span class="op">=</span> <span class="fl">0</span>, growth <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, outputs <span class="op">=</span> <span class="st">"totals"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"kpi"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"{{ $store.sales.revenue }}"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -1071,7 +1158,7 @@ shared <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="extern
 template as <code>$store.&lt;id&gt;.&lt;field&gt;</code> – at once, in
 the browser. Give it <code>input</code> and the server sees it too, and
 <code><a href="../reference/update_vue.html">update_vue()</a></code> sets it:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"cart"</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, input <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>`@click` <span class="op">=</span> <span class="st">"$store.cart.count++"</span>, <span class="st">"Add to cart"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -1088,13 +1175,111 @@ the browser. Give it <code>input</code> and the server sees it too, and
 through the server waits for the round trip.</p>
 </div>
 <div class="section level3">
+<h3 id="what-a-template-can-read-of-shiny">What a template can read of Shiny<a class="anchor" aria-label="anchor" href="#what-a-template-can-read-of-shiny"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>In a template</th>
+<th>Is</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>$inputs.&lt;id&gt;</code></td>
+<td>another input’s value, as the server has it (read-only)</td>
+</tr>
+<tr class="even">
+<td><code>$recalculating.&lt;id&gt;</code></td>
+<td>
+<code>true</code> while a <code><a href="../reference/render_vue_data.html">render_vue_data()</a></code> output
+recalculates</td>
+</tr>
+<tr class="odd">
+<td><code>$errors.&lt;id&gt;</code></td>
+<td>its error, <code>{message, type}</code>, until it renders again</td>
+</tr>
+<tr class="even">
+<td><code>$busy</code></td>
+<td>
+<code>true</code> while the server works</td>
+</tr>
+<tr class="odd">
+<td><code>$setInput(name, value)</code></td>
+<td>sets <code>input$&lt;name&gt;</code>, as
+<code>Shiny.setInputValue()</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>A component written with the Composition API reads the same through
+composables, as shinyreact’s hooks:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>  <span class="st">"summary"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>    <span class="st">"{{ n }} rows, {{ stats.value &amp;&amp; stats.value.mean }}"</span>,</span>
+<span>    <span class="st">"{{ busy ? '...' : '' }}"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  setup <span class="op">=</span> <span class="fu"><a href="../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function() {</span></span>
+<span><span class="st">    return {</span></span>
+<span><span class="st">      pick: shinyVue.useInput('pick', 'a'),    // a ref, sent as input$pick</span></span>
+<span><span class="st">      n: shinyVue.useInputValue('rows'),       // another input's value</span></span>
+<span><span class="st">      stats: shinyVue.useOutput('stats'),      // {value, recalculating, error}</span></span>
+<span><span class="st">      busy: shinyVue.useBusy()</span></span>
+<span><span class="st">    };</span></span>
+<span><span class="st">  }"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="shiny-ui-inside-a-template">Shiny UI inside a template<a class="anchor" aria-label="anchor" href="#shiny-ui-inside-a-template"></a>
+</h3>
+<p>A template can hold Shiny’s own UI – an input, a plot, a DT table, an
+htmlwidget, another component, a <code><a href="https://rdrr.io/pkg/shiny/man/conditionalPanel.html" class="external-link">conditionalPanel()</a></code> – even
+where Vue shows and hides it with <code>v-if</code>. It is taken out of
+the template and rendered beside it, as Shiny renders it; Vue moves it
+in where it stands and back out when it hides it, so its binding and the
+user’s input stay, and an output hidden this way waits, as one in a
+hidden tab does:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>    <span class="st">"panel"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">label</span><span class="op">(</span></span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">input</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"checkbox"</span>, `v-model` <span class="op">=</span> <span class="st">"open"</span><span class="op">)</span>,</span>
+<span>        <span class="st">" Show the plot"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        `v-if` <span class="op">=</span> <span class="st">"open"</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">selectInput</a></span><span class="op">(</span><span class="st">"var"</span>, <span class="st">"Variable"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html" class="external-link">plotOutput</a></span><span class="op">(</span><span class="st">"hist"</span>, height <span class="op">=</span> <span class="st">"250px"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">hist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html" class="external-link">renderPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[[</span><span class="va">input</span><span class="op">$</span><span class="va">var</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">var</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../shots/shiny-vue-islands.png" alt="The vue-islands example, running" style="max-width: 100%"><p>A piece of UI takes one place: inside a <code>v-for</code> it would
+be wanted in several, and only the first gets it.</p>
+</div>
+<div class="section level3">
 <h3 id="an-element-component-of-your-own">An Element component of your own<a class="anchor" aria-label="anchor" href="#an-element-component-of-your-own"></a>
 </h3>
 <p><code><a href="../reference/el_widget.html">el_widget()</a></code> is <code><a href="../reference/vue_app.html">vue_app()</a></code> with Element Plus
 installed and a label in Element’s form-item style – what every
 component in this package is made of. A price range made of two number
 inputs, reported as one value:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>

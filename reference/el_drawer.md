@@ -228,7 +228,7 @@ invisibly.
 
 ``` r
 el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
-#> <div id="w1" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+#> <div id="w1" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
 #>   <div aria-modal="true" aria-labelledby="w1-title" aria-label="Settings" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
 #>     <header class="el-drawer__header">
 #>       <span id="w1-title" role="heading" aria-level="2" class="el-drawer__title">Settings</span>
@@ -250,7 +250,7 @@ el_drawer(
   size = "40%",
   content = shiny::tagList(el_input("q"), el_switch("live"))
 )
-#> <div id="w2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+#> <div id="w2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
 #>   <div aria-modal="true" aria-labelledby="w2-title" aria-label="Filters" role="dialog" tabindex="-1" class="el-drawer btt" style="height: 40%;">
 #>     <header class="el-drawer__header">
 #>       <span id="w2-title" role="heading" aria-level="2" class="el-drawer__title">Filters</span>
