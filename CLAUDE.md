@@ -304,6 +304,18 @@ Every round of changes ends the same way, without being asked:
    `R CMD check` install into temporary libraries, so without this the
    user's own `library(shiny.element)` stays on an old build.
 
+### Versions
+
+NEWS.md gets one section per version, newest first; a version is never
+reopened. While a round of changes is in progress its entries go under
+`# shiny.element (development version)` and DESCRIPTION reads
+`X.Y.Z.9000`. A round that changes what users see closes with a version:
+the minor one (`0.3.0`) for breaking changes or new features, the patch
+one (`0.2.1`) for fixes and documentation only -- DESCRIPTION, the NEWS
+heading, and a tag `vX.Y.Z` pushed with the branch. Entries are grouped
+under "Breaking changes", "New features", "Bug fixes" and "Documentation".
+CRAN gets whichever version is current when the user decides to submit.
+
 ## Lessons and gotchas
 
 `.claude/docs/lessons.md` records what was learned the hard way: architectural

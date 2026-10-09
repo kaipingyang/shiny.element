@@ -1,6 +1,6 @@
 Package: shiny.element
 Title: 'Element Plus' Components for 'Shiny'
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("Kaiping Yang", role = c("aut", "cre"), email = "1260146556@qq.com"),
     person("Element Plus team", role = c("ctb", "cph"),
