@@ -433,8 +433,9 @@ running](../../shots/dialog-custom-animation.png)
 
 Open developer console (ctrl + shift + J), to see order of events.
 
-Every event is an input: `input$<id>_open`, `_opened`, `_close`,
-`_closed`, `_open_auto_focus` and `_close_auto_focus`.
+`input$<id>_closed` is reported unasked; `_open`, `_opened`, `_close`,
+`_open_auto_focus` and `_close_auto_focus` when asked for, with
+`events`.
 
 ``` r
 
@@ -444,6 +445,7 @@ ui <- el_page(
     "ev",
     title = "Events",
     width = "500px",
+    events = c("open", "opened", "close"),
     content = verbatimTextOutput("log")
   )
 )
@@ -515,12 +517,12 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `open` | `input$<id>_open` | triggers when the Dialog opens |
-| `opened` | `input$<id>_opened` | triggers when the Dialog opening animation ends |
-| `close` | `input$<id>_close` | triggers when the Dialog closes |
+| `open` | `input$<id>_open`, with `events = "open"` | triggers when the Dialog opens |
+| `opened` | `input$<id>_opened`, with `events = "opened"` | triggers when the Dialog opening animation ends |
+| `close` | `input$<id>_close`, with `events = "close"` | triggers when the Dialog closes |
 | `closed` | `input$<id>_closed` | triggers when the Dialog closing animation ends |
-| `open-auto-focus` | `input$<id>_open_auto_focus` | triggers after Dialog opens and content focused |
-| `close-auto-focus` | `input$<id>_close_auto_focus` | triggers after Dialog closed and content focused |
+| `open-auto-focus` | `input$<id>_open_auto_focus`, with `events = "open_auto_focus"` | triggers after Dialog opens and content focused |
+| `close-auto-focus` | `input$<id>_close_auto_focus`, with `events = "close_auto_focus"` | triggers after Dialog closed and content focused |
 
 ### Exposes
 

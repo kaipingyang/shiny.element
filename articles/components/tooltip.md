@@ -342,10 +342,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `before-show` | `input$<id>_before_show` | Triggers before tooltip is shown. Passes trigger reason as argument. |
-| `show` | `input$<id>_show` | Triggers when tooltip is shown. Passes trigger reason as argument. |
-| `before-hide` | `input$<id>_before_hide` | Triggers before tooltip is hidden. Passes trigger reason as argument. |
-| `hide` | `input$<id>_hide` | Triggers when tooltip is hidden. Passes trigger reason as argument. |
+| `before-show` | `input$<id>_before_show`, with `events = "before_show"` | Triggers before tooltip is shown. Passes trigger reason as argument. |
+| `show` | `input$<id>_show`, with `events = "show"` | Triggers when tooltip is shown. Passes trigger reason as argument. |
+| `before-hide` | `input$<id>_before_hide`, with `events = "before_hide"` | Triggers before tooltip is hidden. Passes trigger reason as argument. |
+| `hide` | `input$<id>_hide`, with `events = "hide"` | Triggers when tooltip is hidden. Passes trigger reason as argument. |
 
 ### Slots
 

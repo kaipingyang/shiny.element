@@ -23,6 +23,7 @@ el_carousel(
   pause_on_hover = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -127,6 +128,16 @@ update_el_carousel(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_carousel()`, deprecated: inside a module, wrap `id` in `ns()`,
@@ -145,9 +156,14 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-`input$<id>` holds the index of the slide currently showing, 0-based,
-and `input$<id>_name` its `name` if one was given. Both are reported on
-load and whenever the slide changes.
+|                   |          |                                        |
+|-------------------|----------|----------------------------------------|
+| Input             | Reported | Value                                  |
+| `input$<id>`      | unasked  | the index of the slide showing, from 0 |
+| `input$<id>_name` | unasked  | its `name`, if it has one              |
+
+The same list as `el_events("el_carousel")`, which says how an event's
+arguments travel.
 
 ## Element methods
 

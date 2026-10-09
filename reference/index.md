@@ -480,8 +480,8 @@ reports, and the data a component asks the server for.
 
 - [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
   : Call a method of an Element component
-- [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md)
-  : Report a component's event to the server
+- [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
+  : The Shiny inputs a component reports
 - [`el_table_row()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   [`el_upload_file()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
   [`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)

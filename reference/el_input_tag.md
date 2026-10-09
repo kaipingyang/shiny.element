@@ -42,7 +42,9 @@ el_input_tag(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_input_tag(
@@ -254,6 +256,24 @@ update_el_input_tag(
   scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -265,23 +285,20 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the value, on load and on every change.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the tags |
+| `input$<id>_input` | `events = "input"` | triggers when the input value change |
+| `input$<id>_add_tag` | `events = "add_tag"` | triggers when a tag is added |
+| `input$<id>_remove_tag` | `events = "remove_tag"` | triggers when a tag is removed |
+| `input$<id>_drag_tag` | `events = "drag_tag"` | triggers when a tag is dragged |
+| `input$<id>_focus` | `events = "focus"` | triggers when InputTag focuses |
+| `input$<id>_blur` | `events = "blur"` | triggers when InputTag blurs |
+| `input$<id>_clear` | `events = "clear"` | triggers when the clear icon is clicked |
 
-- `input$<id>_change` – Element Plus's `change` event.
-
-- `input$<id>_input` – Element Plus's `input` event.
-
-- `input$<id>_add_tag` – Element Plus's `add-tag` event.
-
-- `input$<id>_remove_tag` – Element Plus's `remove-tag` event.
-
-- `input$<id>_drag_tag` – Element Plus's `drag-tag` event.
-
-- `input$<id>_focus` – Element Plus's `focus` event.
-
-- `input$<id>_blur` – Element Plus's `blur` event.
-
-- `input$<id>_clear` – Element Plus's `clear` event.
+The same list as `el_events("el_input_tag")`, which says how an event's
+arguments travel.
 
 ## Element methods
 
@@ -310,9 +327,9 @@ el_input_tag(
 )
 #> <div id="keywords" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="keywords_container" style="display: contents">
-#>   <el-input-tag v-model="value" @change="handleChange" @input="elEmitInput" @add-tag="elEmitAddTag" @remove-tag="elEmitRemoveTag" @drag-tag="elEmitDragTag" @focus="elEmitFocus" @blur="elEmitBlur" @clear="elEmitClear" :max="max === null ? undefined : max" :tag-type="tagType === null ? undefined : tagType" :tag-effect="tagEffect === null ? undefined : tagEffect" :effect="effect === null ? undefined : effect" :trigger="trigger === null ? undefined : trigger" :draggable="draggable === null ? undefined : draggable" :delimiter="delimiter === null ? undefined : delimiter" :size="size === null ? undefined : size" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :save-on-blur="saveOnBlur === null ? undefined : saveOnBlur" :clearable="clearable === null ? undefined : clearable" :clear-icon="clearIcon === null ? undefined : clearIcon" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :autofocus="autofocus === null ? undefined : autofocus" :tabindex="tabindex === null ? undefined : tabindex" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :maxlength="maxlength === null ? undefined : maxlength" :minlength="minlength === null ? undefined : minlength" :placeholder="placeholder === null ? undefined : placeholder" :autocomplete="autocomplete === null ? undefined : autocomplete" :aria-label="ariaLabel === null ? undefined : ariaLabel"></el-input-tag>
+#>   <el-input-tag v-model="value" @change="handleChange" :max="max === null ? undefined : max" :tag-type="tagType === null ? undefined : tagType" :tag-effect="tagEffect === null ? undefined : tagEffect" :effect="effect === null ? undefined : effect" :trigger="trigger === null ? undefined : trigger" :draggable="draggable === null ? undefined : draggable" :delimiter="delimiter === null ? undefined : delimiter" :size="size === null ? undefined : size" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :save-on-blur="saveOnBlur === null ? undefined : saveOnBlur" :clearable="clearable === null ? undefined : clearable" :clear-icon="clearIcon === null ? undefined : clearIcon" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :autofocus="autofocus === null ? undefined : autofocus" :tabindex="tabindex === null ? undefined : tabindex" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :maxlength="maxlength === null ? undefined : maxlength" :minlength="minlength === null ? undefined : minlength" :placeholder="placeholder === null ? undefined : placeholder" :autocomplete="autocomplete === null ? undefined : autocomplete" :aria-label="ariaLabel === null ? undefined : ariaLabel"></el-input-tag>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["shiny","element"],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Add a keyword","autocomplete":null,"ariaLabel":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('keywords', 'input', arguments); }","elEmitAddTag":"function() { window.shinyVue.emit('keywords', 'add_tag', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('keywords', 'remove_tag', arguments); }","elEmitDragTag":"function() { window.shinyVue.emit('keywords', 'drag_tag', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('keywords', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('keywords', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('keywords', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitInput","options.methods.elEmitAddTag","options.methods.elEmitRemoveTag","options.methods.elEmitDragTag","options.methods.elEmitFocus","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["shiny","element"],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Add a keyword","autocomplete":null,"ariaLabel":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

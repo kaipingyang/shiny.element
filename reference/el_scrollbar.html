@@ -180,7 +180,9 @@
 <span>  tabindex <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  distance <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_scrollbar</span><span class="op">(</span></span>
@@ -302,6 +304,20 @@ Element Plus's <code>noresize</code> (boolean).</p></dd>
 with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session; the current one by default, as for
 <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
@@ -314,10 +330,8 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;_scroll</code> – Element Plus's <code>scroll</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_end_reached</code> – Element Plus's <code>end-reached</code> event.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;_scroll</code></td><td><code>events = "scroll"</code></td><td><code>list(scrollLeft, scrollTop)</code>, at most every 200 ms</td></tr><tr><td><code>input$&lt;id&gt;_end_reached</code></td><td>unasked</td><td>triggers when the end of a scroll is triggered</td></tr></table><p>The same list as <code>el_events("el_scrollbar")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 
@@ -337,9 +351,9 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_scrollbar</span><span class="op">(</span>height <span class="op">=</span> <span class="st">"200px"</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">shiny</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_scrollbar_5c7f36bf-f0b4-4711-a04c-f3ee1a83e96b" data-shiny-vue style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_scrollbar_5c7f36bf-f0b4-4711-a04c-f3ee1a83e96b_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @scroll="elEmitScroll" @end-reached="elEmitEndReached"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_scrollbar_c0b1accf-53c0-4261-940c-eb39431febe3" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_scrollbar_c0b1accf-53c0-4261-940c-eb39431febe3_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-scrollbar :height="height === null ? undefined : height" :max-height="maxHeight === null ? undefined : maxHeight" :native="native === null ? undefined : native" :wrap-style="wrapStyle === null ? undefined : wrapStyle" :wrap-class="wrapClass === null ? undefined : wrapClass" :view-style="viewStyle === null ? undefined : viewStyle" :view-class="viewClass === null ? undefined : viewClass" :noresize="noresize === null ? undefined : noresize" :tag="tag === null ? undefined : tag" :always="always === null ? undefined : always" :min-size="minSize === null ? undefined : minSize" :role="role === null ? undefined : role" :aria-label="ariaLabel === null ? undefined : ariaLabel" :aria-orientation="ariaOrientation === null ? undefined : ariaOrientation" :tabindex="tabindex === null ? undefined : tabindex" :distance="distance === null ? undefined : distance" @end-reached="elEmitEndReached"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;1&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;2&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;3&lt;/p&gt;</span>
@@ -362,7 +376,7 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;p&gt;20&lt;/p&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-scrollbar&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitScroll":"function() { window.shinyVue.emit('el_scrollbar_5c7f36bf-f0b4-4711-a04c-f3ee1a83e96b', 'scroll', arguments, 200); }","elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_5c7f36bf-f0b4-4711-a04c-f3ee1a83e96b', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitScroll","options.methods.elEmitEndReached"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"height":"200px","maxHeight":null,"native":null,"wrapStyle":null,"wrapClass":null,"viewStyle":null,"viewClass":null,"noresize":null,"tag":null,"always":null,"minSize":null,"role":null,"ariaLabel":null,"ariaOrientation":null,"tabindex":null,"distance":null},"methods":{"elEmitEndReached":"function() { window.shinyVue.emit('el_scrollbar_c0b1accf-53c0-4261-940c-eb39431febe3', 'end_reached', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":["options.methods.elEmitEndReached"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>

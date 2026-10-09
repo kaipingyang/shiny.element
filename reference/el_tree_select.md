@@ -41,7 +41,9 @@ el_tree_select(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_tree_select(
@@ -216,6 +218,24 @@ update_el_tree_select(
 
   Named list of Element slot contents.
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -227,16 +247,19 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the selected value, or several, on load and on change.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the value, several with `multiple` |
+| `input$<id>_load` | unasked | with `lazy = TRUE`, a node asking for its children; answer with [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md) |
+| `input$<id>_visible_change` | `events = "visible_change"` | triggers when the dropdown appears/disappears |
+| `input$<id>_clear` | `events = "clear"` | triggers when the clear icon is clicked in a clearable Select |
+| `input$<id>_remove_tag` | `events = "remove_tag"` | triggers when a tag is removed in multiple mode |
+| `input$<id>_node_click` | `events = "node_click"` | triggers when a node is clicked |
+| `input$<id>_check` | `events = "check"` | triggers after clicking the checkbox of a node |
 
-- `input$<id>_load` – with `lazy = TRUE`, a node asking for its
-  children: `level`, `key` (its `node_key` field) and `data`. Answer
-  with
-  [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md).
-
-- `input$<id>_visible_change`, `input$<id>_clear`,
-  `input$<id>_remove_tag`, `input$<id>_node_click`, `input$<id>_check` –
-  Element Plus's events.
+The same list as `el_events("el_tree_select")`, which says how an
+event's arguments travel.
 
 ## Element methods
 
@@ -275,9 +298,9 @@ el_tree_select(
 )
 #> <div id="dept" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="dept_container" style="display: contents">
-#>   <el-tree-select v-model="value" :data="data" @change="handleChange" :load="load === null ? elLoad : load" @visible-change="elEmitVisibleChange" @clear="elEmitClear" @remove-tag="elEmitRemoveTag" @node-click="elEmitNodeClick" @check="elEmitCheck" :multiple="multiple === null ? undefined : multiple" :show-checkbox="showCheckbox === null ? undefined : showCheckbox" :check-strictly="checkStrictly === null ? undefined : checkStrictly" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :filterable="filterable === null ? undefined : filterable" :clearable="clearable === null ? undefined : clearable" :placeholder="placeholder === null ? undefined : placeholder" :node-key="nodeKey === null ? undefined : nodeKey" :props="props === null ? undefined : props" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :cache-data="cacheData === null ? undefined : cacheData" :lazy="lazy === null ? undefined : lazy"></el-tree-select>
+#>   <el-tree-select v-model="value" :data="data" @change="handleChange" :load="load === null ? elLoad : load" :multiple="multiple === null ? undefined : multiple" :show-checkbox="showCheckbox === null ? undefined : showCheckbox" :check-strictly="checkStrictly === null ? undefined : checkStrictly" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :filterable="filterable === null ? undefined : filterable" :clearable="clearable === null ? undefined : clearable" :placeholder="placeholder === null ? undefined : placeholder" :node-key="nodeKey === null ? undefined : nodeKey" :props="props === null ? undefined : props" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :cache-data="cacheData === null ? undefined : cacheData" :lazy="lazy === null ? undefined : lazy"></el-tree-select>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"data":[{"value":"eng","label":"Engineering","children":[{"value":"web","label":"Web"},{"value":"data","label":"Data"}]},{"value":"ops","label":"Operations"}],"load":null,"multiple":null,"showCheckbox":null,"checkStrictly":null,"checkOnClickNode":null,"filterable":null,"clearable":null,"placeholder":"Department","nodeKey":null,"props":null,"defaultExpandAll":null,"renderAfterExpand":null,"collapseTags":null,"collapseTagsTooltip":null,"size":null,"disabled":null,"cacheData":null,"lazy":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('dept', 'visible_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('dept', 'clear', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('dept', 'remove_tag', arguments); }","elEmitNodeClick":"function() { window.shinyVue.emit('dept', 'node_click', arguments); }","elEmitCheck":"function() { window.shinyVue.emit('dept', 'check', arguments); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('dept_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitClear","options.methods.elEmitRemoveTag","options.methods.elEmitNodeClick","options.methods.elEmitCheck","options.methods.elLoad","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"data":[{"value":"eng","label":"Engineering","children":[{"value":"web","label":"Web"},{"value":"data","label":"Data"}]},{"value":"ops","label":"Operations"}],"load":null,"multiple":null,"showCheckbox":null,"checkStrictly":null,"checkOnClickNode":null,"filterable":null,"clearable":null,"placeholder":"Department","nodeKey":null,"props":null,"defaultExpandAll":null,"renderAfterExpand":null,"collapseTags":null,"collapseTagsTooltip":null,"size":null,"disabled":null,"cacheData":null,"lazy":null},"methods":{"elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('dept_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elLoad","options.methods.handleChange"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

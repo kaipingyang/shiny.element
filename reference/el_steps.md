@@ -17,6 +17,8 @@ el_steps(
   simple = FALSE,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -89,6 +91,24 @@ update_el_steps(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_steps()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -100,6 +120,16 @@ update_el_steps(
 ## Value
 
 A Shiny UI element.
+
+## Shiny inputs
+
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>_change` | `events = "change"` | triggers when the active step changes |
+
+The same list as `el_events("el_steps")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 
@@ -126,13 +156,13 @@ el_steps(
 )
 #> <div id="my_steps" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="my_steps_container" style="display: contents">
-#>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
+#>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
 #>     <el-step title="Step 1"></el-step>
 #>     <el-step title="Step 2"></el-step>
 #>     <el-step title="Step 3"></el-step>
 #>   </el-steps>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('my_steps', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
 #> </div>
 
 # With descriptions and icons
@@ -156,13 +186,13 @@ el_steps(
 )
 #> <div id="my_steps" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="my_steps_container" style="display: contents">
-#>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space" @change="elEmitChange">
+#>   <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
 #>     <el-step title="Step 1" description="Complete registration" icon="el-icon-edit"></el-step>
 #>     <el-step title="Step 2" description="Upload documents" icon="el-icon-upload"></el-step>
 #>     <el-step title="Step 3" description="Finish" icon="el-icon-picture"></el-step>
 #>   </el-steps>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('my_steps', 'change', arguments); }"},"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.watch.active"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

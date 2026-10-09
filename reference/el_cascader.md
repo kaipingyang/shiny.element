@@ -54,6 +54,8 @@ el_cascader(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -340,6 +342,24 @@ update_el_cascader(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_cascader()`, deprecated: inside a module, wrap `id` in `ns()`,
@@ -354,17 +374,26 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the selected path, on load and on change.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the selected path |
+| `input$<id>_lazy_load` | unasked | with `props = list(lazy = TRUE)`, a column to load; answer with [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md) |
+| `input$<id>_expand_change` | `events = "expand_change"` | triggers when expand option changes |
+| `input$<id>_blur` | `events = "blur"` | triggers when Cascader blurs |
+| `input$<id>_focus` | `events = "focus"` | triggers when Cascader focuses |
+| `input$<id>_visible_change` | `events = "visible_change"` | triggers when the dropdown appears/disappears |
+| `input$<id>_remove_tag` | `events = "remove_tag"` | triggers when remove tag in multiple selection mode |
+| `input$<id>_clear` | `events = "clear"` | triggers when the clear icon is clicked in a clearable Select |
 
-- `input$<id>_lazy_load` – with `props = list(lazy = TRUE)`, a column to
-  load: `level` (0 for the first), `value` and `path` of the option
-  opened, and `request`. Answer with
-  [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md),
-  passing the input back; each child is
-  `list(value =, label =, leaf = TRUE)` for one with nothing below.
+The same list as `el_events("el_cascader")`, which says how an event's
+arguments travel.
 
-- `input$<id>_expand_change`, `_blur`, `_focus`, `_visible_change`,
-  `_remove_tag` – Element's events.
+`input$<id>_lazy_load` carries `level` (0 for the first column), `value`
+and `path` of the option opened, and `request`. Answer with
+[`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md),
+passing the input back; each child is
+`list(value =, label =, leaf = TRUE)` for one with nothing below.
 
 ## Element methods
 

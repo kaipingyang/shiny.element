@@ -39,6 +39,7 @@ el_dialog(
   z_index = NULL,
   header_aria_level = "2",
   transition = NULL,
+  events = NULL,
   session = NULL
 )
 
@@ -193,6 +194,14 @@ update_el_dialog(
   The name of the transition it plays, instead of Element's
   `"dialog-fade"`.
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
 - session:
 
   In `el_dialog()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -213,20 +222,25 @@ other components from this package.
 
 ## Shiny inputs
 
-- `input$<id>` – `TRUE` while the dialog is open, reported whenever it
-  opens or closes, however that happens. Shiny routes an input binding's
-  messages by element id, so the name matches the id, as it does for
-  [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
-  and
-  [`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md).
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | `TRUE` while it is open |
+| `input$<id>_open` | `events = "open"` | triggers when the Dialog opens |
+| `input$<id>_opened` | `events = "opened"` | triggers when the Dialog opening animation ends |
+| `input$<id>_close` | `events = "close"` | triggers when the Dialog closes |
+| `input$<id>_closed` | unasked | triggers when the Dialog closing animation ends |
+| `input$<id>_open_auto_focus` | `events = "open_auto_focus"` | triggers after Dialog opens and content focused |
+| `input$<id>_close_auto_focus` | `events = "close_auto_focus"` | triggers after Dialog closed and content focused |
 
-- `input$<id>_open`, `input$<id>_opened` – fire as it opens, and once it
-  has.
+The same list as `el_events("el_dialog")`, which says how an event's
+arguments travel.
 
-- `input$<id>_close`, `input$<id>_closed` – likewise as it closes.
-
-- `input$<id>_open_auto_focus`, `input$<id>_close_auto_focus` – as focus
-  moves into it on opening, and back on closing.
+Shiny routes an input binding's messages by element id, so the value is
+`input$<id>` itself, as for
+[`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+and
+[`el_collapse()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse.md).
 
 ## Element methods
 
@@ -254,7 +268,7 @@ el_dialog(
   content = shiny::tags$p("Are you sure?"),
   footer = el_button("ok", "OK", type = "primary")
 )
-#> <div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+#> <div id="d1" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
 #>   <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Confirm">
 #>     <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;">
 #>       <header class="el-dialog__header show-close">
@@ -285,7 +299,7 @@ el_dialog(
   draggable = TRUE,
   content = shiny::tagList(el_input("q"), el_switch("live"))
 )
-#> <div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false">
+#> <div id="d2" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false">
 #>   <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Filters">
 #>     <div class="el-dialog is-draggable" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;">
 #>       <header class="el-dialog__header show-close">
@@ -297,9 +311,9 @@ el_dialog(
 #>       <div class="el-dialog__body">
 #>         <div id="q" data-shiny-vue style="display: contents">
 #>           <script type="text/x-template" data-shiny-vue-template><div id="q_container" style="display: contents">
-#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" @compositionend="elEmitCompositionend" @compositionstart="elEmitCompositionstart" @compositionupdate="elEmitCompositionupdate" @keydown="elEmitKeydown" @mouseenter="elEmitMouseenter" @mouseleave="elEmitMouseleave" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :count-graphemes="countGraphemes === null ? undefined : countGraphemes" :formatter="formatter === null ? undefined : formatter" :input-style="inputStyle === null ? undefined : inputStyle" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :word-limit-position="wordLimitPosition === null ? undefined : wordLimitPosition"></el-input>
+#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :count-graphemes="countGraphemes === null ? undefined : countGraphemes" :formatter="formatter === null ? undefined : formatter" :input-style="inputStyle === null ? undefined : inputStyle" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :word-limit-position="wordLimitPosition === null ? undefined : wordLimitPosition"></el-input>
 #> </div></script>
-#>           <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('q', 'input', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('q', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('q', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('q', 'clear', arguments); }","elEmitCompositionend":"function() { window.shinyVue.emit('q', 'compositionend', arguments); }","elEmitCompositionstart":"function() { window.shinyVue.emit('q', 'compositionstart', arguments); }","elEmitCompositionupdate":"function() { window.shinyVue.emit('q', 'compositionupdate', arguments); }","elEmitKeydown":"function() { window.shinyVue.emit('q', 'keydown', arguments); }","elEmitMouseenter":"function() { window.shinyVue.emit('q', 'mouseenter', arguments); }","elEmitMouseleave":"function() { window.shinyVue.emit('q', 'mouseleave', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.elEmitCompositionend","options.methods.elEmitCompositionstart","options.methods.elEmitCompositionupdate","options.methods.elEmitKeydown","options.methods.elEmitMouseenter","options.methods.elEmitMouseleave","options.methods.handleChange"]}</script>
+#>           <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #>         </div>
 #>         <div id="live" data-shiny-vue style="display: contents">
 #>           <script type="text/x-template" data-shiny-vue-template><div id="live_container" style="display: contents">

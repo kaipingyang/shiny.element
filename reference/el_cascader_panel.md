@@ -26,6 +26,8 @@ el_cascader_panel(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -135,6 +137,24 @@ update_el_cascader_panel(
   `{node, data}`, renders one option; write it with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_cascader_panel()`, deprecated: inside a module, wrap `id` in
@@ -149,15 +169,16 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the selected path, on load and on change.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the selected path |
+| `input$<id>_lazy_load` | unasked | with `props = list(lazy = TRUE)`, a column to load; answer with [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md) |
+| `input$<id>_expand_change` | `events = "expand_change"` | triggers when expand option changes |
+| `input$<id>_close` | `events = "close"` | close panel event, provided to Cascader to put away the panel judgment. |
 
-- `input$<id>_expand_change` – the path of the column just opened.
-
-- `input$<id>_lazy_load` – with `props = list(lazy = TRUE)`, a column to
-  load; answer with
-  [`el_load_children()`](https://kaipingyang.github.io/shiny.element/reference/el_load_children.md).
-  See
-  [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md).
+The same list as `el_events("el_cascader_panel")`, which says how an
+event's arguments travel.
 
 ## Element methods
 
@@ -202,18 +223,18 @@ regions <- list(
 el_cascader_panel("where", options = regions, value = c("asia", "jp"))
 #> <div id="where" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
-#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange" @close="elEmitClose" :height="height === null ? undefined : height" :item-size="itemSize === null ? undefined : itemSize" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll"></el-cascader-panel>
+#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" :height="height === null ? undefined : height" :item-size="itemSize === null ? undefined : itemSize" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null,"height":null,"itemSize":null,"virtualScroll":null},"methods":{"elEmitExpandChange":"function() { window.shinyVue.emit('where', 'expand_change', arguments); }","elEmitClose":"function() { window.shinyVue.emit('where', 'close', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); },\n            function() { resolve([]); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitExpandChange","options.methods.elEmitClose","options.methods.handleChange","options.computed.elProps"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["asia","jp"],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":null,"height":null,"itemSize":null,"virtualScroll":null},"methods":{"handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); },\n            function() { resolve([]); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange","options.computed.elProps"]}</script>
 #> </div>
 
 # Several at once
 el_cascader_panel("where", options = regions, props = list(multiple = TRUE))
 #> <div id="where" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="where_container" style="display: contents">
-#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" @expand-change="elEmitExpandChange" @close="elEmitClose" :height="height === null ? undefined : height" :item-size="itemSize === null ? undefined : itemSize" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll"></el-cascader-panel>
+#>   <el-cascader-panel v-model="value" :options="options" :props="elProps" @change="handleChange" :height="height === null ? undefined : height" :item-size="itemSize === null ? undefined : itemSize" :virtual-scroll="virtualScroll === null ? undefined : virtualScroll"></el-cascader-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true},"height":null,"itemSize":null,"virtualScroll":null},"methods":{"elEmitExpandChange":"function() { window.shinyVue.emit('where', 'expand_change', arguments); }","elEmitClose":"function() { window.shinyVue.emit('where', 'close', arguments); }","handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); },\n            function() { resolve([]); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitExpandChange","options.methods.elEmitClose","options.methods.handleChange","options.computed.elProps"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"options":[{"value":"asia","label":"Asia","children":[{"value":"cn","label":"China"},{"value":"jp","label":"Japan"}]},{"value":"europe","label":"Europe","children":[{"value":"fr","label":"France"}]}],"props":{"multiple":true},"height":null,"itemSize":null,"virtualScroll":null},"methods":{"handleChange":"function(v) { }"},"computed":{"elProps":"function() {\n  var p = this.props;\n  if (p === null) return undefined;\n  if (!p.lazy || p.lazyLoad) return p;\n  var vm = this;\n  return Object.assign({}, p, {lazyLoad: function(node, resolve) {\n    window.shinyVue.ask('where_lazy_load', {level: node.level,\n      value: node.level ? node.value : null, path: node.level ? node.pathValues : []}, vm)\n      .then(function(children) { resolve(children || []); },\n            function() { resolve([]); });\n  }});\n}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange","options.computed.elProps"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

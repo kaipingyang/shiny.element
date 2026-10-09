@@ -120,10 +120,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | triggers when user confirms the value |
-| `blur` | `input$<id>_blur` | triggers when Input blurs |
-| `focus` | `input$<id>_focus` | triggers when Input focuses |
-| `clear` | `input$<id>_clear` | triggers when the clear icon is clicked in a clearable TimePicker |
-| `visible-change` | `input$<id>_visible_change` | triggers when the TimePicker’s dropdown appears/disappears |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when Input blurs |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when Input focuses |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when the clear icon is clicked in a clearable TimePicker |
+| `visible-change` | `input$<id>_visible_change`, with `events = "visible_change"` | triggers when the TimePicker’s dropdown appears/disappears |
 
 ### Exposes
 

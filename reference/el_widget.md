@@ -19,6 +19,7 @@ el_widget(
   mounted = NULL,
   computed = NULL,
   emits = NULL,
+  on = NULL,
   dependency = NULL,
   head = NULL,
   width = NULL,
@@ -65,6 +66,20 @@ el_widget(
   Events the component sends with `$emit()`: each arrives as
   `input$<id>_<event>`, as for
   [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md).
+
+- on:
+
+  Handlers of your own, for events the component does not report or to
+  send something else than they carry: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, by its name, or a DOM event of
+  the element it draws, with Vue's modifiers (`"keyup.enter"`). Each is
+  called with `report` first, then the event's arguments, `this` being
+  the component's Vue instance; `report(name, value)` sets
+  `input$<id>_<name>`, namespaced as the id is:
+  `on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))`
+  reports `input$<id>_enter`. An event the component reports too runs
+  both.
 
 - dependency:
 

@@ -18,7 +18,8 @@ el_badge(
   color = NULL,
   offset = NULL,
   badge_style = NULL,
-  badge_class = NULL
+  badge_class = NULL,
+  on = NULL
 )
 
 update_el_badge(
@@ -85,6 +86,16 @@ update_el_badge(
 - badge_style, badge_class:
 
   Extra CSS – a string or a named list – and class names for the badge.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
 
 - session:
 

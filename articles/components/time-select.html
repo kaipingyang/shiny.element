@@ -209,8 +209,8 @@ time and time step with <code>start</code>, <code>end</code> and
 <div class="el-demo">
   <div id="basic-slot" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-slot_container" style="display: contents">
-  <el-time-select v-model="value" @change="handleChange" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" :start="start === null ? undefined : start" :end="end === null ? undefined : end" :step="step === null ? undefined : step" :min-time="minTime === null ? undefined : minTime" :max-time="maxTime === null ? undefined : maxTime" :include-end-time="includeEndTime === null ? undefined : includeEndTime" :format="format === null ? undefined : format" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :size="size === null ? undefined : size" :effect="effect === null ? undefined : effect" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :empty-values="emptyValues === null ? undefined : emptyValues" :value-on-clear="valueOnClear === null ? undefined : valueOnClear" style="width: 240px"></el-time-select>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","start":"08:30","end":"18:30","step":"00:15","minTime":null,"maxTime":null,"includeEndTime":null,"format":null,"placeholder":"Select time","clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('basic-slot', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('basic-slot', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('basic-slot', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+  <el-time-select v-model="value" @change="handleChange" :start="start === null ? undefined : start" :end="end === null ? undefined : end" :step="step === null ? undefined : step" :min-time="minTime === null ? undefined : minTime" :max-time="maxTime === null ? undefined : maxTime" :include-end-time="includeEndTime === null ? undefined : includeEndTime" :format="format === null ? undefined : format" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :size="size === null ? undefined : size" :effect="effect === null ? undefined : effect" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :empty-values="emptyValues === null ? undefined : emptyValues" :value-on-clear="valueOnClear === null ? undefined : valueOnClear" style="width: 240px"></el-time-select>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","start":"08:30","end":"18:30","step":"00:15","minTime":null,"maxTime":null,"includeEndTime":null,"format":null,"placeholder":"Select time","clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -238,8 +238,8 @@ of all available formats of Day.js.</p>
 <div class="el-demo">
   <div id="time-formats-fmt" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="time-formats-fmt_container" style="display: contents">
-  <el-time-select v-model="value" @change="handleChange" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" :start="start === null ? undefined : start" :end="end === null ? undefined : end" :step="step === null ? undefined : step" :min-time="minTime === null ? undefined : minTime" :max-time="maxTime === null ? undefined : maxTime" :include-end-time="includeEndTime === null ? undefined : includeEndTime" :format="format === null ? undefined : format" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :size="size === null ? undefined : size" :effect="effect === null ? undefined : effect" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :empty-values="emptyValues === null ? undefined : emptyValues" :value-on-clear="valueOnClear === null ? undefined : valueOnClear" style="width: 240px"></el-time-select>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","start":"00:00","end":"23:59","step":"00:30","minTime":null,"maxTime":null,"includeEndTime":null,"format":"hh:mm A","placeholder":"Select time","clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"elEmitBlur":"function() { window.shinyVue.emit('time-formats-fmt', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('time-formats-fmt', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('time-formats-fmt', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.handleChange"]}</script>
+  <el-time-select v-model="value" @change="handleChange" :start="start === null ? undefined : start" :end="end === null ? undefined : end" :step="step === null ? undefined : step" :min-time="minTime === null ? undefined : minTime" :max-time="maxTime === null ? undefined : maxTime" :include-end-time="includeEndTime === null ? undefined : includeEndTime" :format="format === null ? undefined : format" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :editable="editable === null ? undefined : editable" :size="size === null ? undefined : size" :effect="effect === null ? undefined : effect" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :clear-icon="clearIcon === null ? undefined : clearIcon" :empty-values="emptyValues === null ? undefined : emptyValues" :value-on-clear="valueOnClear === null ? undefined : valueOnClear" style="width: 240px"></el-time-select>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","start":"00:00","end":"23:59","step":"00:30","minTime":null,"maxTime":null,"includeEndTime":null,"format":"hh:mm A","placeholder":"Select time","clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -518,17 +518,26 @@ config-provider</a>
 </tr>
 <tr class="even">
 <td><code>blur</code></td>
-<td><code>input$&lt;id&gt;_blur</code></td>
+<td>
+<code>input$&lt;id&gt;_blur</code>, with
+<code>events = "blur"</code>
+</td>
 <td>triggers when Input blurs</td>
 </tr>
 <tr class="odd">
 <td><code>focus</code></td>
-<td><code>input$&lt;id&gt;_focus</code></td>
+<td>
+<code>input$&lt;id&gt;_focus</code>, with
+<code>events = "focus"</code>
+</td>
 <td>triggers when Input focuses</td>
 </tr>
 <tr class="even">
 <td><code>clear</code></td>
-<td><code>input$&lt;id&gt;_clear</code></td>
+<td>
+<code>input$&lt;id&gt;_clear</code>, with
+<code>events = "clear"</code>
+</td>
 <td>triggers when the clear icon is clicked in a clearable
 TimeSelect</td>
 </tr>

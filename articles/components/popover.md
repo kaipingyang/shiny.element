@@ -293,12 +293,12 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `show` | `input$<id>_show` | triggers when popover shows |
-| `before-enter` | `input$<id>_before_enter` | triggers when the entering transition before |
-| `after-enter` | `input$<id>_after_enter` | triggers when the entering transition ends |
-| `hide` | `input$<id>_hide` | triggers when popover hides |
-| `before-leave` | `input$<id>_before_leave` | triggers when the leaving transition before |
-| `after-leave` | `input$<id>_after_leave` | triggers when the leaving transition ends |
+| `show` | `input$<id>_show`, with `events = "show"` | triggers when popover shows |
+| `before-enter` | `input$<id>_before_enter`, with `events = "before_enter"` | triggers when the entering transition before |
+| `after-enter` | `input$<id>_after_enter`, with `events = "after_enter"` | triggers when the entering transition ends |
+| `hide` | `input$<id>_hide`, with `events = "hide"` | triggers when popover hides |
+| `before-leave` | `input$<id>_before_leave`, with `events = "before_leave"` | triggers when the leaving transition before |
+| `after-leave` | `input$<id>_after_leave`, with `events = "after_leave"` | triggers when the leaving transition ends |
 
 ### Exposes
 

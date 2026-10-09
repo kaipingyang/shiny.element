@@ -13,7 +13,9 @@ el_splitter(
   layout = NULL,
   lazy = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_splitter(
@@ -55,6 +57,24 @@ update_el_splitter(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -66,13 +86,16 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>_resize_start` – Element Plus's `resize-start` event.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>_resize_start` | `events = "resize_start"` | Triggered when starting to resize a panel, index is the drag bar index |
+| `input$<id>_resize` | `events = "resize"` | the sizes, at most every 200 ms |
+| `input$<id>_resize_end` | unasked | Triggered when panel resizing ends, index is the drag bar index |
+| `input$<id>_collapse` | unasked | Triggered when a panel is collapsed, index is the drag bar index |
 
-- `input$<id>_resize` – Element Plus's `resize` event.
-
-- `input$<id>_resize_end` – Element Plus's `resize-end` event.
-
-- `input$<id>_collapse` – Element Plus's `collapse` event.
+The same list as `el_events("el_splitter")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 
@@ -88,13 +111,13 @@ invisibly.
 
 ``` r
 el_splitter(el_splitter_panel("Left", size = "30%"), el_splitter_panel("Right"))
-#> <div id="el_splitter_3c06abe3-dd72-4f4f-9e61-fa401d026795" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_splitter_3c06abe3-dd72-4f4f-9e61-fa401d026795_container" style="display: contents">
-#>   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-start="elEmitResizeStart" @resize="elEmitResize" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
-#>     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible" ref="sv_el_splitter_panel_69ee45e4_d116_40a7_ba50_52d3e6a86cab" id="el_splitter_panel_69ee45e4-d116-40a7-ba50-52d3e6a86cab">Left</el-splitter-panel>
-#>     <el-splitter-panel :size="el3_size === null ? undefined : el3_size" :min="el3_min === null ? undefined : el3_min" :max="el3_max === null ? undefined : el3_max" :resizable="el3_resizable === null ? undefined : el3_resizable" :collapsible="el3_collapsible === null ? undefined : el3_collapsible" ref="sv_el_splitter_panel_86129e5f_b574_481d_b5e5_d1c452f45a75" id="el_splitter_panel_86129e5f-b574-481d-b5e5-d1c452f45a75">Right</el-splitter-panel>
+#> <div id="el_splitter_61312757-a34b-41b1-9f07-178e0ef25c76" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_splitter_61312757-a34b-41b1-9f07-178e0ef25c76_container" style="display: contents">
+#>   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-end="elEmitResizeEnd" @collapse="elEmitCollapse">
+#>     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible" ref="sv_el_splitter_panel_1973320f_ca4b_4a8d_ac2d_582413f49d1e" id="el_splitter_panel_1973320f-ca4b-4a8d-ac2d-582413f49d1e">Left</el-splitter-panel>
+#>     <el-splitter-panel :size="el3_size === null ? undefined : el3_size" :min="el3_min === null ? undefined : el3_min" :max="el3_max === null ? undefined : el3_max" :resizable="el3_resizable === null ? undefined : el3_resizable" :collapsible="el3_collapsible === null ? undefined : el3_collapsible" ref="sv_el_splitter_panel_cc2e1faf_dca8_4aeb_87f4_565597a8fc61" id="el_splitter_panel_cc2e1faf-dca8-4aeb-87f4-565597a8fc61">Right</el-splitter-panel>
 #>   </el-splitter>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeStart":"function() { window.shinyVue.emit('el_splitter_3c06abe3-dd72-4f4f-9e61-fa401d026795', 'resize_start', arguments); }","elEmitResize":"function() { window.shinyVue.emit('el_splitter_3c06abe3-dd72-4f4f-9e61-fa401d026795', 'resize', arguments, 200); }","elEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_3c06abe3-dd72-4f4f-9e61-fa401d026795', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('el_splitter_3c06abe3-dd72-4f4f-9e61-fa401d026795', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"el_splitter_panel_69ee45e4-d116-40a7-ba50-52d3e6a86cab":{"fields":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"ref":"sv_el_splitter_panel_69ee45e4_d116_40a7_ba50_52d3e6a86cab"},"el_splitter_panel_86129e5f-b574-481d-b5e5-d1c452f45a75":{"fields":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"},"ref":"sv_el_splitter_panel_86129e5f_b574_481d_b5e5_d1c452f45a75"}},"generated":true,"evals":["options.methods.elEmitResizeStart","options.methods.elEmitResize","options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"elEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_61312757-a34b-41b1-9f07-178e0ef25c76', 'resize_end', arguments); }","elEmitCollapse":"function() { window.shinyVue.emit('el_splitter_61312757-a34b-41b1-9f07-178e0ef25c76', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"el_splitter_panel_1973320f-ca4b-4a8d-ac2d-582413f49d1e":{"fields":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"ref":"sv_el_splitter_panel_1973320f_ca4b_4a8d_ac2d_582413f49d1e"},"el_splitter_panel_cc2e1faf-dca8-4aeb-87f4-565597a8fc61":{"fields":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"},"ref":"sv_el_splitter_panel_cc2e1faf_dca8_4aeb_87f4_565597a8fc61"}},"generated":true,"evals":["options.methods.elEmitResizeEnd","options.methods.elEmitCollapse"]}</script>
 #> </div>
 ```

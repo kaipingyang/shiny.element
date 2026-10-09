@@ -17,6 +17,7 @@ el_infinite_scroll(
   immediate = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -77,6 +78,16 @@ update_el_infinite_scroll(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_infinite_scroll()`, deprecated: inside a module, wrap `id` in
@@ -91,10 +102,17 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>_load` – rises by one each time more content is wanted.
-  Observe it, fetch the next page, and render it into a
-  [`shiny::uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html)
-  inside the area.
+|                   |          |                                               |
+|-------------------|----------|-----------------------------------------------|
+| Input             | Reported | Value                                         |
+| `input$<id>_load` | unasked  | rises by one each time more content is wanted |
+
+The same list as `el_events("el_infinite_scroll")`, which says how an
+event's arguments travel.
+
+Observe `input$<id>_load`, fetch the next page, and render it into a
+[`shiny::uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html)
+inside the area.
 
 ## Updating from the server
 

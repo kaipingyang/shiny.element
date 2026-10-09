@@ -175,7 +175,7 @@
 <span>  tip <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  action <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  headers <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  extra_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  file_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  with_credentials <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  before_upload <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -197,6 +197,7 @@
 <span>  directory <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -215,7 +216,7 @@
 <span>  list_type <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  auto_upload <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  headers <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  extra_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  file_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  with_credentials <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  before_upload <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -298,8 +299,11 @@ Shiny's channel. See details.</p></dd>
 <dd><p>Request headers, as a named list.</p></dd>
 
 
-<dt id="arg-extra-data">extra_data<a class="anchor" aria-label="anchor" href="#arg-extra-data"></a></dt>
-<dd><p>Extra fields sent alongside the file, as a named list.</p></dd>
+<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
+<dd><p>Extra fields sent alongside each file, as a named list:
+Element Plus's <code>data</code>. Element's own request sends them, so they apply
+only with <code>action</code>; Shiny's upload, the default, does not send them –
+give the server what it needs through another input.</p></dd>
 
 
 <dt id="arg-file-list">file_list<a class="anchor" aria-label="anchor" href="#arg-file-list"></a></dt>
@@ -405,6 +409,13 @@ absorbed rather than nested. For a scoped slot, write the template with
 <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>In <code>el_upload()</code>, deprecated: inside a module, wrap <code>id</code> in
 <code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
@@ -429,7 +440,7 @@ existing file service, but the server sees no <code>datapath</code>.</p>
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the files, as <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">fileInput()</a></code> reports them (without <code>action</code>)</td></tr><tr><td><code>input$&lt;id&gt;_success</code></td><td>unasked</td><td>with <code>action</code>, the names of the files uploaded</td></tr><tr><td><code>input$&lt;id&gt;_error</code></td><td>unasked</td><td>the name of a file that failed</td></tr></table><p>The same list as <code>el_events("el_upload")</code>, which says how an event's arguments travel.</p>
 <p>Without <code>action</code>, <code>input$&lt;id&gt;</code> is a data frame of <code>name</code>, <code>size</code>, <code>type</code>
 and <code>datapath</code>, one row per file in the last batch, exactly as
 <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html" class="external-link">shiny::fileInput()</a></code> reports it. Uploads inherit Shiny's

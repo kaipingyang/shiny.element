@@ -475,17 +475,17 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `blur` | `input$<id>_blur` | triggers when Input blurs |
-| `focus` | `input$<id>_focus` | triggers when Input focuses |
-| `change` | `input$<id>_change` | triggers when the input box loses focus or the user presses Enter, only if the modelValue has changed |
-| `input` | `input$<id>_input` | triggers when the Input value change |
-| `clear` | `input$<id>_clear` | triggers when the Input is cleared by clicking the clear button |
-| `keydown` | `input$<id>_keydown` | triggers when a key is pressed down |
-| `mouseleave` | `input$<id>_mouseleave` | triggers when the mouse leaves the Input element |
-| `mouseenter` | `input$<id>_mouseenter` | triggers when the mouse enters the Input element |
-| `compositionstart` | `input$<id>_compositionstart` | triggers when the composition starts |
-| `compositionupdate` | `input$<id>_compositionupdate` | triggers when the composition is updated |
-| `compositionend` | `input$<id>_compositionend` | triggers when the composition ends |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when Input blurs |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when Input focuses |
+| `change` | `input$<id>_change`, with `events = "change"` | triggers when the input box loses focus or the user presses Enter, only if the modelValue has changed |
+| `input` | `input$<id>_input`, with `events = "input"` | triggers when the Input value change |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when the Input is cleared by clicking the clear button |
+| `keydown` | `input$<id>_keydown`, with `events = "keydown"` | triggers when a key is pressed down |
+| `mouseleave` | `input$<id>_mouseleave`, with `events = "mouseleave"` | triggers when the mouse leaves the Input element |
+| `mouseenter` | `input$<id>_mouseenter`, with `events = "mouseenter"` | triggers when the mouse enters the Input element |
+| `compositionstart` | `input$<id>_compositionstart`, with `events = "compositionstart"` | triggers when the composition starts |
+| `compositionupdate` | `input$<id>_compositionupdate`, with `events = "compositionupdate"` | triggers when the composition is updated |
+| `compositionend` | `input$<id>_compositionend`, with `events = "compositionend"` | triggers when the composition ends |
 
 ### Slots
 

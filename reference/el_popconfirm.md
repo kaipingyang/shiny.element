@@ -25,6 +25,7 @@ el_popconfirm(
   ...,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL,
   placement = NULL
 )
@@ -121,6 +122,16 @@ update_el_popconfirm(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_popconfirm()`, deprecated: inside a module, wrap `id` in
@@ -141,12 +152,14 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>_confirm` – fires when the user confirms.
+|                      |          |                               |
+|----------------------|----------|-------------------------------|
+| Input                | Reported | Value                         |
+| `input$<id>_confirm` | unasked  | fires when the user confirms  |
+| `input$<id>_cancel`  | unasked  | fires when the user backs out |
 
-- `input$<id>_cancel` – fires when the user backs out.
-
-Both are event inputs, so read them with
-[`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html).
+The same list as `el_events("el_popconfirm")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 

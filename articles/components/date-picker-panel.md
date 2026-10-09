@@ -168,9 +168,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `calendar-change` | `input$<id>_calendar_change` | triggers when the calendar selected date is changed. Only for `range` |
-| `panel-change` | `input$<id>_panel_change` | triggers when the navigation button click. |
-| `clear` | `input$<id>_clear` | triggers when a clear button is clicked |
+| `calendar-change` | `input$<id>_calendar_change`, with `events = "calendar_change"` | triggers when the calendar selected date is changed. Only for `range` |
+| `panel-change` | `input$<id>_panel_change`, with `events = "panel_change"` | triggers when the navigation button click. |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when a clear button is clicked |
 
 ### Slots
 

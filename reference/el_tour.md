@@ -9,7 +9,7 @@ with the rest of the page dimmed.
 el_tour(
   id = NULL,
   steps = list(),
-  open = FALSE,
+  visible = FALSE,
   current = NULL,
   show_arrow = NULL,
   placement = NULL,
@@ -25,13 +25,15 @@ el_tour(
   target_area_clickable = NULL,
   append_to = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_tour(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  open = NULL,
+  visible = NULL,
   current = NULL,
   show_arrow = NULL,
   placement = NULL,
@@ -65,10 +67,10 @@ update_el_tour(
   `scroll_into_view_options`, and `header`, markup in place of the
   title. A step without a `target` shows in the middle of the screen.
 
-- open:
+- visible:
 
-  Whether it starts open: Element Plus's `model-value`. Open it later
-  with `update_el_tour()`.
+  Whether it starts open: Element Plus's `model-value`, named `visible`
+  as on the other overlays. Open it later with `update_el_tour()`.
 
 - current:
 
@@ -88,6 +90,24 @@ update_el_tour(
 
   Named list of Element slot contents: `indicators`.
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -99,13 +119,16 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – whether it is open.
+|                     |          |                               |
+|---------------------|----------|-------------------------------|
+| Input               | Reported | Value                         |
+| `input$<id>`        | unasked  | `TRUE` while it is open       |
+| `input$<id>_close`  | unasked  | the step it was closed on     |
+| `input$<id>_change` | unasked  | the step, from 0              |
+| `input$<id>_finish` | unasked  | callback function on finished |
 
-- `input$<id>_change` – the step, from 0, as it changes.
-
-- `input$<id>_close` – the step it was closed on.
-
-- `input$<id>_finish` – fires when the last step is done.
+The same list as `el_events("el_tour")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 
@@ -123,7 +146,7 @@ invisibly.
 ``` r
 el_tour(
   "intro",
-  open = TRUE,
+  visible = TRUE,
   steps = list(
     list(
       target = "#upload",
@@ -146,7 +169,7 @@ if (interactive()) {
   # inside a server function
   observeEvent(
     input$help,
-    update_el_tour(session, "intro", open = TRUE, current = 0)
+    update_el_tour(session, "intro", visible = TRUE, current = 0)
   )
 }
 ```

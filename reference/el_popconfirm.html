@@ -182,6 +182,7 @@ for actions that warrant a check but not a dialog.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  placement <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
@@ -277,6 +278,13 @@ given here is absorbed rather than nested. For a scoped slot, write
 the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>In <code>el_popconfirm()</code>, deprecated: inside a module, wrap <code>id</code> in
 <code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
@@ -297,10 +305,7 @@ upstream passes it. Default <code>"bottom"</code>.</p></dd>
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;_confirm</code> – fires when the user confirms.</p></li>
-<li><p><code>input$&lt;id&gt;_cancel</code> – fires when the user backs out.</p></li>
-</ul><p>Both are event inputs, so read them with <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent()</a></code>.</p>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;_confirm</code></td><td>unasked</td><td>fires when the user confirms</td></tr><tr><td><code>input$&lt;id&gt;_cancel</code></td><td>unasked</td><td>fires when the user backs out</td></tr></table><p>The same list as <code>el_events("el_popconfirm")</code>, which says how an event's arguments travel.</p>
     </div>
     <div class="section level2">
     <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>

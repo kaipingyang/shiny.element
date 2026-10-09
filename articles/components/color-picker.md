@@ -104,10 +104,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | triggers when input value changes |
-| `active-change` | `input$<id>_active_change` | triggers when the current active color changes |
-| `focus` | `input$<id>_focus` | triggers when Component focuses |
-| `blur` | `input$<id>_blur` | triggers when Component blurs |
-| `clear` | `input$<id>_clear` | triggers when the clear button is clicked |
+| `active-change` | `input$<id>_active_change`, with `events = "active_change"` | triggers when the current active color changes |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when Component focuses |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when Component blurs |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when the clear button is clicked |
 
 ### Exposes
 

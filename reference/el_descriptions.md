@@ -17,6 +17,7 @@ el_descriptions(
   label_width = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -91,6 +92,16 @@ update_el_descriptions(
 
   Named list of Element slot contents: `title`, `extra`.
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_descriptions()`, deprecated: inside a module, wrap `id` in
@@ -135,7 +146,7 @@ el_descriptions(
 #>     <el-descriptions-item label="Address" :span="2">12 St James's Square, London</el-descriptions-item>
 #>   </el-descriptions>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"plan:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"plan":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_plan"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan_close', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"plan:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"plan":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_plan"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
 #> </div>
 
 # The quick form: names are labels

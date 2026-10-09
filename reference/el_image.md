@@ -32,6 +32,8 @@ el_image(
   class = NULL,
   style = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -181,6 +183,24 @@ update_el_image(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_image()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -195,9 +215,17 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>_load` – fires when the image has loaded.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>_load` | `events = "load"` | same as native load. |
+| `input$<id>_error` | unasked | same as native error. |
+| `input$<id>_close` | `events = "close"` | trigger when clicking on close button or when hide-on-click-modal enabled clicking on backdrop. |
+| `input$<id>_show` | `events = "show"` | trigger when the viewer displays |
+| `input$<id>_switch` | `events = "switch"` | trigger when switching images. |
 
-- `input$<id>_error` – fires when it fails to.
+The same list as `el_events("el_image")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 
@@ -216,16 +244,16 @@ invisibly.
 el_image("photo", src = "https://example.org/a.png", width = 200)
 #> <div id="photo" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="photo_container" style="display: contents">
-#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 200px"></el-image>
+#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @error="elEmitError" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate" style="width: 200px"></el-image>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://example.org/a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('photo', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('photo', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('photo', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"https://example.org/a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitError"]}</script>
 #> </div>
 el_image("photo", src = "a.png", fit = "cover", lazy = TRUE)
 #> <div id="photo" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="photo_container" style="display: contents">
-#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @error="elEmitError" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"a.png","fit":"cover","alt":null,"lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('photo', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('photo', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('photo', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"a.png","fit":"cover","alt":null,"lazy":true,"scrollContainer":null,"previewSrcList":null,"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitError"]}</script>
 #> </div>
 
 # Click to open a gallery
@@ -236,9 +264,9 @@ el_image(
 )
 #> <div id="photo" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="photo_container" style="display: contents">
-#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @load="elEmitLoad" @error="elEmitError" @close="elEmitClose" @show="elEmitShow" @switch="elEmitSwitch" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
+#>   <el-image :src="src === null ? undefined : src" :fit="fit === null ? undefined : fit" :alt="alt === null ? undefined : alt" :lazy="lazy === null ? undefined : lazy" :scroll-container="scrollContainer === null ? undefined : scrollContainer" :preview-src-list="previewSrcList === null ? undefined : previewSrcList" :z-index="zIndex === null ? undefined : zIndex" :initial-index="initialIndex === null ? undefined : initialIndex" @error="elEmitError" :close-on-press-escape="closeOnPressEscape === null ? undefined : closeOnPressEscape" :crossorigin="crossorigin === null ? undefined : crossorigin" :hide-on-click-modal="hideOnClickModal === null ? undefined : hideOnClickModal" :infinite="infinite === null ? undefined : infinite" :loading="loading === null ? undefined : loading" :max-scale="maxScale === null ? undefined : maxScale" :min-scale="minScale === null ? undefined : minScale" :preview-teleported="previewTeleported === null ? undefined : previewTeleported" :referrerpolicy="referrerpolicy === null ? undefined : referrerpolicy" :scale="scale === null ? undefined : scale" :show-progress="showProgress === null ? undefined : showProgress" :zoom-rate="zoomRate === null ? undefined : zoomRate"></el-image>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":["a.png","b.png","c.png"],"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitLoad":"function() { window.shinyVue.emit('photo', 'load', arguments); }","elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }","elEmitClose":"function() { window.shinyVue.emit('photo', 'close', arguments); }","elEmitShow":"function() { window.shinyVue.emit('photo', 'show', arguments); }","elEmitSwitch":"function() { window.shinyVue.emit('photo', 'switch', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitLoad","options.methods.elEmitError","options.methods.elEmitClose","options.methods.elEmitShow","options.methods.elEmitSwitch"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"src":"a.png","fit":null,"alt":null,"lazy":null,"scrollContainer":null,"previewSrcList":["a.png","b.png","c.png"],"zIndex":null,"initialIndex":null,"closeOnPressEscape":null,"crossorigin":null,"hideOnClickModal":null,"infinite":null,"loading":null,"maxScale":null,"minScale":null,"previewTeleported":null,"referrerpolicy":null,"scale":null,"showProgress":null,"zoomRate":null},"methods":{"elEmitError":"function() { window.shinyVue.emit('photo', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitError"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

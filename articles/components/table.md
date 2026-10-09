@@ -1447,11 +1447,10 @@ selected row numbers, integers; `NULL` with none \| \|
 holds them \| \| `input$cars_current_change`, `_sort_change`,
 `_filter_change`, `_expand_change` \| reported by every table \| \|
 `input$cars_<event>` \| any other of Element’s events, asked for with
-[`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md)
-or `el_table(events =)` \| Rendering again with the same rows keeps the
-user’s ticks, sort and open rows; other rows clear the selection, as
-Element does, unless the rows carry a `row_key` and the selection column
-`reserve_selection = TRUE`.
+`el_table(events =)`: see `el_events("el_table")` \| Rendering again
+with the same rows keeps the user’s ticks, sort and open rows; other
+rows clear the selection, as Element does, unless the rows carry a
+`row_key` and the selection column `reserve_selection = TRUE`.
 [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 and
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
@@ -1476,8 +1475,11 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   output$cars <- render_el_table(
-    el_table(data = head(cars, input$n), selection = TRUE) |>
-      el_on("row-dblclick")
+    el_table(
+      data = head(cars, input$n),
+      selection = TRUE,
+      events = "row_dblclick"
+    )
   )
   # the ticked rows, as R subsets them: Dates stay Dates
   output$picked <- renderPrint(input$cars_selection_change)
@@ -1659,25 +1661,25 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `select` | `input$<id>_select`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user clicks the checkbox in a row |
-| `select-all` | `input$<id>_select_all`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user clicks the checkbox in table header |
+| `select` | `input$<id>_select`, with `events = "select"` | triggers when user clicks the checkbox in a row |
+| `select-all` | `input$<id>_select_all`, with `events = "select_all"` | triggers when user clicks the checkbox in table header |
 | `selection-change` | `input$<id>_selection_change`, the rows; `input$<id>_selection_rows`, their numbers | triggers when selection changes |
-| `cell-mouse-enter` | `input$<id>_cell_mouse_enter`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when hovering into a cell |
-| `cell-mouse-leave` | `input$<id>_cell_mouse_leave`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when hovering out of a cell |
-| `cell-click` | `input$<id>_cell_click`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when clicking a cell |
-| `cell-dblclick` | `input$<id>_cell_dblclick`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when double clicking a cell |
-| `cell-contextmenu` | `input$<id>_cell_contextmenu`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user right clicks on a cell |
-| `row-click` | `input$<id>_row_click`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when clicking a row |
-| `row-contextmenu` | `input$<id>_row_contextmenu`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user right clicks on a row |
-| `row-dblclick` | `input$<id>_row_dblclick`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when double clicking a row |
-| `header-click` | `input$<id>_header_click`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when clicking a column header |
-| `header-contextmenu` | `input$<id>_header_contextmenu`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers when user right clicks on a column header |
+| `cell-mouse-enter` | `input$<id>_cell_mouse_enter`, with `events = "cell_mouse_enter"` | triggers when hovering into a cell |
+| `cell-mouse-leave` | `input$<id>_cell_mouse_leave`, with `events = "cell_mouse_leave"` | triggers when hovering out of a cell |
+| `cell-click` | `input$<id>_cell_click`, with `events = "cell_click"` | triggers when clicking a cell |
+| `cell-dblclick` | `input$<id>_cell_dblclick`, with `events = "cell_dblclick"` | triggers when double clicking a cell |
+| `cell-contextmenu` | `input$<id>_cell_contextmenu`, with `events = "cell_contextmenu"` | triggers when user right clicks on a cell |
+| `row-click` | `input$<id>_row_click`, with `events = "row_click"` | triggers when clicking a row |
+| `row-contextmenu` | `input$<id>_row_contextmenu`, with `events = "row_contextmenu"` | triggers when user right clicks on a row |
+| `row-dblclick` | `input$<id>_row_dblclick`, with `events = "row_dblclick"` | triggers when double clicking a row |
+| `header-click` | `input$<id>_header_click`, with `events = "header_click"` | triggers when clicking a column header |
+| `header-contextmenu` | `input$<id>_header_contextmenu`, with `events = "header_contextmenu"` | triggers when user right clicks on a column header |
 | `sort-change` | `input$<id>_sort_change` | triggers when Table’s sorting changes |
 | `filter-change` | `input$<id>_filter_change` | triggers when the table’s filter changes |
 | `current-change` | `input$<id>_current_change` | triggers when current row changes |
-| `header-dragend` | `input$<id>_header_dragend`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | triggers after changing a column’s width by dragging the column header’s border |
+| `header-dragend` | `input$<id>_header_dragend`, with `events = "header_dragend"` | triggers after changing a column’s width by dragging the column header’s border |
 | `expand-change` | `input$<id>_expand_change` | triggers when user expands or collapses a row (for expandable table, second param is expandedRows; for tree Table, second param is expanded) |
-| `scroll` | `input$<id>_scroll`, with [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md) | Invoked after scrolled |
+| `scroll` | `input$<id>_scroll`, with `events = "scroll"` | Invoked after scrolled |
 
 ### Table Slots
 

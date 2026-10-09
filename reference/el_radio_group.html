@@ -191,6 +191,7 @@ Supports both standard radio buttons (<code>&lt;el-radio&gt;</code>) and button-
 <span>  props <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  validate_event <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -332,6 +333,13 @@ Plus's <code>type</code> ('radio' | 'button').</p></dd>
 <code>validate-event</code> (boolean).</p></dd>
 
 
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>In <code>el_radio_group()</code>, deprecated: inside a module, wrap <code>id</code> in
 <code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
@@ -346,9 +354,7 @@ current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/upda
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<p><code>input$&lt;id&gt;</code> – string or number reflecting the currently selected value,
-updated on each change.</p>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the value picked</td></tr></table><p>The same list as <code>el_events("el_radio_group")</code>, which says how an event's arguments travel.</p>
     </div>
     <div class="section level2">
     <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>

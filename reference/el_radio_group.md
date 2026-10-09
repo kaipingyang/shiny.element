@@ -32,6 +32,7 @@ el_radio_group(
   props = NULL,
   type = NULL,
   validate_event = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -173,6 +174,16 @@ update_el_radio_group(
   Whether to trigger form validation. Element Plus's `validate-event`
   (boolean).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_radio_group()`, deprecated: inside a module, wrap `id` in
@@ -187,8 +198,13 @@ An `htmltools` tagList containing the Vue-managed radio group.
 
 ## Shiny inputs
 
-`input$<id>` – string or number reflecting the currently selected value,
-updated on each change.
+|              |          |                  |
+|--------------|----------|------------------|
+| Input        | Reported | Value            |
+| `input$<id>` | unasked  | the value picked |
+
+The same list as `el_events("el_radio_group")`, which says how an
+event's arguments travel.
 
 ## Updating from the server
 

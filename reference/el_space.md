@@ -16,7 +16,8 @@ el_space(
   fill = NULL,
   fill_ratio = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  on = NULL
 )
 
 update_el_space(
@@ -85,6 +86,16 @@ update_el_space(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -117,8 +128,8 @@ el_space(
   el_button("c", "Three"),
   size = 20
 )
-#> <div id="el_space_7c1e203b-a4f6-4e59-9a9e-6230cc9badf5" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_space_7c1e203b-a4f6-4e59-9a9e-6230cc9badf5_container" style="display: contents">
+#> <div id="el_space_9787f14a-aa4b-43b1-8a27-6a91998733e3" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_space_9787f14a-aa4b-43b1-8a27-6a91998733e3_container" style="display: contents">
 #>   <el-space :alignment="alignment === null ? undefined : alignment" :direction="direction === null ? undefined : direction" :spacer="spacer === null ? undefined : spacer" :size="size === null ? undefined : size" :wrap="wrap === null ? undefined : wrap" :fill="fill === null ? undefined : fill" :fill-ratio="fillRatio === null ? undefined : fillRatio">
 #>     <el-button :type="el2_type === null ? undefined : el2_type" :plain="el2_plain === null ? undefined : el2_plain" :round="el2_round === null ? undefined : el2_round" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" :size="el2_size === null ? undefined : el2_size" :icon="el2_icon === null ? undefined : el2_icon" :autofocus="el2_autofocus === null ? undefined : el2_autofocus" :auto-insert-space="el2_autoInsertSpace === null ? undefined : el2_autoInsertSpace" :bg="el2_bg === null ? undefined : el2_bg" :color="el2_color === null ? undefined : el2_color" :dark="el2_dark === null ? undefined : el2_dark" :dashed="el2_dashed === null ? undefined : el2_dashed" :link="el2_link === null ? undefined : el2_link" :loading-icon="el2_loadingIcon === null ? undefined : el2_loadingIcon" :tag="el2_tag === null ? undefined : el2_tag" :text="el2_text === null ? undefined : el2_text" ref="sv_a" id="a">{{el2_label}}</el-button>
 #>     <el-button :type="el3_type === null ? undefined : el3_type" :plain="el3_plain === null ? undefined : el3_plain" :round="el3_round === null ? undefined : el3_round" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" :size="el3_size === null ? undefined : el3_size" :icon="el3_icon === null ? undefined : el3_icon" :autofocus="el3_autofocus === null ? undefined : el3_autofocus" :auto-insert-space="el3_autoInsertSpace === null ? undefined : el3_autoInsertSpace" :bg="el3_bg === null ? undefined : el3_bg" :color="el3_color === null ? undefined : el3_color" :dark="el3_dark === null ? undefined : el3_dark" :dashed="el3_dashed === null ? undefined : el3_dashed" :link="el3_link === null ? undefined : el3_link" :loading-icon="el3_loadingIcon === null ? undefined : el3_loadingIcon" :tag="el3_tag === null ? undefined : el3_tag" :text="el3_text === null ? undefined : el3_text" ref="sv_b" id="b">{{el3_label}}</el-button>

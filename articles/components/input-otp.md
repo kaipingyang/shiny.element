@@ -118,10 +118,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `change` | `input$<id>_change` | Triggers when the value changes after input blur |
+| `change` | `input$<id>_change`, with `events = "change"` | Triggers when the value changes after input blur |
 | `finish` | `input$<id>_finish` | Fires when all fields have been filled |
-| `focus` | `input$<id>_focus` | Triggers when input is focused |
-| `blur` | `input$<id>_blur` | Triggers when input is blurred |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | Triggers when input is focused |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | Triggers when input is blurred |
 
 ### Slots
 

@@ -12,6 +12,7 @@ el_breadcrumb(
   separator_icon = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -58,6 +59,16 @@ update_el_breadcrumb(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_breadcrumb()`, deprecated: inside a module, wrap `id` in
@@ -72,9 +83,16 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the `label` of the step last clicked. Steps without a
-  `to` are still reported, so a breadcrumb can drive navigation inside a
-  Shiny app without any routing.
+|              |          |                                      |
+|--------------|----------|--------------------------------------|
+| Input        | Reported | Value                                |
+| `input$<id>` | unasked  | the `label` of the step last clicked |
+
+The same list as `el_events("el_breadcrumb")`, which says how an event's
+arguments travel.
+
+Steps without a `to` are reported too, so a breadcrumb can drive
+navigation inside a Shiny app without any routing.
 
 ## Updating from the server
 

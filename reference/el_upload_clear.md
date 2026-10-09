@@ -18,8 +18,7 @@ el_upload_clear(session = shiny::getDefaultReactiveDomain(), id)
 
 - id:
 
-  Upload ID (un-namespaced). This is Element's `data` prop, renamed to
-  keep it distinct from the uploaded file itself.
+  Upload ID (un-namespaced).
 
 ## Value
 

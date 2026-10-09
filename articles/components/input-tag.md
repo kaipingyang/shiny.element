@@ -302,13 +302,13 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | triggers when the modelValue change |
-| `input` | `input$<id>_input` | triggers when the input value change |
-| `add-tag` | `input$<id>_add_tag` | triggers when a tag is added |
-| `remove-tag` | `input$<id>_remove_tag` | triggers when a tag is removed |
-| `drag-tag` | `input$<id>_drag_tag` | triggers when a tag is dragged |
-| `focus` | `input$<id>_focus` | triggers when InputTag focuses |
-| `blur` | `input$<id>_blur` | triggers when InputTag blurs |
-| `clear` | `input$<id>_clear` | triggers when the clear icon is clicked |
+| `input` | `input$<id>_input`, with `events = "input"` | triggers when the input value change |
+| `add-tag` | `input$<id>_add_tag`, with `events = "add_tag"` | triggers when a tag is added |
+| `remove-tag` | `input$<id>_remove_tag`, with `events = "remove_tag"` | triggers when a tag is removed |
+| `drag-tag` | `input$<id>_drag_tag`, with `events = "drag_tag"` | triggers when a tag is dragged |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when InputTag focuses |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when InputTag blurs |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when the clear icon is clicked |
 
 ### Slots
 

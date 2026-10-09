@@ -215,7 +215,7 @@ tour with <code><a href="../../reference/el_tour.html">update_el_tour()</a></cod
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -254,7 +254,7 @@ emphasize the guide itself.</p>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -291,7 +291,7 @@ will show in the center.</p>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -336,7 +336,7 @@ and <code>color</code>.</p>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -376,7 +376,7 @@ and <code>color</code>.</p>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -416,7 +416,7 @@ shown.</p>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
 <span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, open <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -519,7 +519,7 @@ custom props</td>
 <tr class="even">
 <td><code>model-value</code></td>
 <td>
-<code>open</code>; <code>input$&lt;id&gt;</code>
+<code>visible</code>; <code>input$&lt;id&gt;</code>
 </td>
 <td>open tour</td>
 <td><code>boolean</code></td>

@@ -168,6 +168,7 @@
 <span>  mode <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -225,6 +226,13 @@ like the <code>width</code> argument of a Shiny input.</p></dd>
 <code>list(title = shiny::tags$b("Bold"))</code>. A shiny.element component
 given here is absorbed rather than nested. For a scoped slot, write
 the template with <code><a href="template.html">template()</a></code>.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
 
 
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>

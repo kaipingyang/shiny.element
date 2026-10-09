@@ -673,10 +673,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `check-on-click-node` | `check_on_click_node` | whether to check or uncheck node when clicking on the node, if false, the node can only be checked or unchecked by clicking on the checkbox. | [^11] |  | false |
 | `check-on-click-leaf` | `check_on_click_leaf` | whether to check or uncheck node when clicking on leaf node (last children). | [^12] |  | true |
 | `auto-expand-parent` | `auto_expand_parent` | whether to expand father node when a child node is expanded | [^13] |  | true |
-| `default-expanded-keys` | `expanded` | array of keys of initially expanded nodes | [^14]`Array<string \\| number>` |  | — |
+| `default-expanded-keys` | `default_expanded_keys` | array of keys of initially expanded nodes | [^14]`Array<string \\| number>` |  | — |
 | `show-checkbox` | `show_checkbox` | whether node is selectable | [^15] |  | false |
 | `check-strictly` | `check_strictly` | whether checked state of a node not affects its father and child nodes when `show-checkbox` is `true` | [^16] |  | false |
-| `default-checked-keys` | `checked` | array of keys of initially checked nodes | [^17]`Array<string \\| number>` |  | — |
+| `default-checked-keys` | `default_checked_keys` | array of keys of initially checked nodes | [^17]`Array<string \\| number>` |  | — |
 | `current-node-key` | `current_node_key` | key of initially selected node | [^18] / [^19] |  | — |
 | `filter-node-method` | `filter_node_method` | this function will be executed on each node when use filter method. if return `false`, tree node will be hidden. | [^20]`(value, data, node) => boolean` |  | — |
 | `accordion` | `accordion` | whether only one node among the same level can be expanded at one time | [^21] |  | false |
@@ -715,18 +715,18 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `node-click` | one of the component’s inputs – see its reference page | triggers when a node is clicked |
-| `node-contextmenu` | `input$<id>_node_contextmenu` | triggers when a node is clicked by right button |
-| `check-change` | `input$<id>_check_change` | triggers when the selected state of the node changes |
+| `node-contextmenu` | `input$<id>_node_contextmenu`, with `events = "node_contextmenu"` | triggers when a node is clicked by right button |
+| `check-change` | `input$<id>_check_change`, with `events = "check_change"` | triggers when the selected state of the node changes |
 | `check` | one of the component’s inputs – see its reference page | triggers after clicking the checkbox of a node |
-| `current-change` | `input$<id>_current_change` | triggers when current node changes |
-| `node-expand` | `input$<id>_node_expand` | triggers when current node open |
-| `node-collapse` | `input$<id>_node_collapse` | triggers when current node close |
-| `node-drag-start` | `input$<id>_node_drag_start` | triggers when dragging starts |
-| `node-drag-enter` | `input$<id>_node_drag_enter` | triggers when the dragging node enters another node |
-| `node-drag-leave` | `input$<id>_node_drag_leave` | triggers when the dragging node leaves a node |
-| `node-drag-over` | `input$<id>_node_drag_over` | triggers when dragging over a node (like mouseover event) |
-| `node-drag-end` | `input$<id>_node_drag_end` | triggers when dragging ends |
-| `node-drop` | `input$<id>_node_drop` | triggers after the dragging node is dropped |
+| `current-change` | `input$<id>_current_change`, with `events = "current_change"` | triggers when current node changes |
+| `node-expand` | `input$<id>_node_expand`, with `events = "node_expand"` | triggers when current node open |
+| `node-collapse` | `input$<id>_node_collapse`, with `events = "node_collapse"` | triggers when current node close |
+| `node-drag-start` | `input$<id>_node_drag_start`, with `events = "node_drag_start"` | triggers when dragging starts |
+| `node-drag-enter` | `input$<id>_node_drag_enter`, with `events = "node_drag_enter"` | triggers when the dragging node enters another node |
+| `node-drag-leave` | `input$<id>_node_drag_leave`, with `events = "node_drag_leave"` | triggers when the dragging node leaves a node |
+| `node-drag-over` | `input$<id>_node_drag_over`, with `events = "node_drag_over"` | triggers when dragging over a node (like mouseover event) |
+| `node-drag-end` | `input$<id>_node_drag_end`, with `events = "node_drag_end"` | triggers when dragging ends |
+| `node-drop` | `input$<id>_node_drop`, with `events = "node_drop"` | triggers after the dragging node is dropped |
 
 ### Slots
 

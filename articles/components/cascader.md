@@ -787,12 +787,12 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | triggers when the binding value changes |
-| `expand-change` | `input$<id>_expand_change` | triggers when expand option changes |
-| `blur` | `input$<id>_blur` | triggers when Cascader blurs |
-| `focus` | `input$<id>_focus` | triggers when Cascader focuses |
-| `clear` | `input$<id>_clear` | triggers when the clear icon is clicked in a clearable Select |
-| `visible-change` | `input$<id>_visible_change` | triggers when the dropdown appears/disappears |
-| `remove-tag` | `input$<id>_remove_tag` | triggers when remove tag in multiple selection mode |
+| `expand-change` | `input$<id>_expand_change`, with `events = "expand_change"` | triggers when expand option changes |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when Cascader blurs |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when Cascader focuses |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when the clear icon is clicked in a clearable Select |
+| `visible-change` | `input$<id>_visible_change`, with `events = "visible_change"` | triggers when the dropdown appears/disappears |
+| `remove-tag` | `input$<id>_remove_tag`, with `events = "remove_tag"` | triggers when remove tag in multiple selection mode |
 
 ### Cascader Slots
 
@@ -831,8 +831,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | triggers when the binding value changes |
-| `expand-change` | `input$<id>_expand_change` | triggers when expand option changes |
-| `close` | `input$<id>_close` | close panel event, provided to Cascader to put away the panel judgment. |
+| `expand-change` | `input$<id>_expand_change`, with `events = "expand_change"` | triggers when expand option changes |
+| `close` | `input$<id>_close`, with `events = "close"` | close panel event, provided to Cascader to put away the panel judgment. |
 
 ### CascaderPanel Slots
 

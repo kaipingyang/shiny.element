@@ -14,7 +14,8 @@ el_link(
   icon = NULL,
   id = NULL,
   ...,
-  target = "_self"
+  target = "_self",
+  on = NULL
 )
 
 update_el_link(
@@ -77,6 +78,16 @@ update_el_link(
 
   Where the link opens, as an `<a>`'s `target`. Default `"_self"`.
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -88,9 +99,13 @@ An `htmltools` `<a>` tag, or with an `id` a Shiny UI element.
 
 ## Shiny inputs
 
-With an `id`, `input$<id>` – the number of clicks, as
-[`shiny::actionLink()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
-reports it.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | with an `id`, the number of clicks, as [`actionLink()`](https://rdrr.io/pkg/shiny/man/actionButton.html) reports it |
+
+The same list as `el_events("el_link")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 

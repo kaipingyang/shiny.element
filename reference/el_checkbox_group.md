@@ -34,6 +34,7 @@ el_checkbox_group(
   tag = NULL,
   type = NULL,
   validate_event = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -187,6 +188,16 @@ update_el_checkbox_group(
   Whether to trigger form validation. Element Plus's `validate-event`
   (boolean).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_checkbox_group()`, deprecated: inside a module, wrap `id` in
@@ -201,7 +212,13 @@ An `htmltools` tagList with a Vue-managed checkbox group component.
 
 ## Shiny inputs
 
-`input$<id>` – character vector of currently selected values.
+|              |          |                    |
+|--------------|----------|--------------------|
+| Input        | Reported | Value              |
+| `input$<id>` | unasked  | the values checked |
+
+The same list as `el_events("el_checkbox_group")`, which says how an
+event's arguments travel.
 
 ## Updating from the server
 

@@ -28,7 +28,9 @@ el_input_otp(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_input_otp(
@@ -168,6 +170,24 @@ update_el_input_otp(
   written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -179,15 +199,17 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the value, on load and on every change.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the value |
+| `input$<id>_change` | `events = "change"` | Triggers when the value changes after input blur |
+| `input$<id>_finish` | unasked | Fires when all fields have been filled |
+| `input$<id>_focus` | `events = "focus"` | Triggers when input is focused |
+| `input$<id>_blur` | `events = "blur"` | Triggers when input is blurred |
 
-- `input$<id>_change` – Element Plus's `change` event.
-
-- `input$<id>_finish` – Element Plus's `finish` event.
-
-- `input$<id>_focus` – Element Plus's `focus` event.
-
-- `input$<id>_blur` – Element Plus's `blur` event.
+The same list as `el_events("el_input_otp")`, which says how an event's
+arguments travel.
 
 ## Element methods
 
@@ -212,16 +234,16 @@ invisibly.
 el_input_otp("code", length = 6)
 #> <div id="code" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="code_container" style="display: contents">
-#>   <el-input-otp v-model="value" @change="elEmitChange" @finish="elEmitFinish" @focus="elEmitFocus" @blur="elEmitBlur" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"></el-input-otp>
+#>   <el-input-otp v-model="value" @finish="elEmitFinish" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"></el-input-otp>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"length":6,"validator":null,"inputmode":null,"type":null,"size":null,"mask":null,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('code', 'change', arguments); }","elEmitFinish":"function() { window.shinyVue.emit('code', 'finish', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('code', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('code', 'blur', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitFinish","options.methods.elEmitFocus","options.methods.elEmitBlur","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"length":6,"validator":null,"inputmode":null,"type":null,"size":null,"mask":null,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitFinish":"function() { window.shinyVue.emit('code', 'finish', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.watch.value"]}</script>
 #> </div>
 el_input_otp("pin", length = 4, mask = TRUE, type = "underlined")
 #> <div id="pin" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="pin_container" style="display: contents">
-#>   <el-input-otp v-model="value" @change="elEmitChange" @finish="elEmitFinish" @focus="elEmitFocus" @blur="elEmitBlur" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"></el-input-otp>
+#>   <el-input-otp v-model="value" @finish="elEmitFinish" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"></el-input-otp>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"length":4,"validator":null,"inputmode":null,"type":"underlined","size":null,"mask":true,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('pin', 'change', arguments); }","elEmitFinish":"function() { window.shinyVue.emit('pin', 'finish', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('pin', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('pin', 'blur', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitFinish","options.methods.elEmitFocus","options.methods.elEmitBlur","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"length":4,"validator":null,"inputmode":null,"type":"underlined","size":null,"mask":true,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitFinish":"function() { window.shinyVue.emit('pin', 'finish', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.watch.value"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

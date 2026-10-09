@@ -183,7 +183,9 @@
 <span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_input_otp</span><span class="op">(</span></span>
@@ -324,6 +326,20 @@ whether beside the component rather than under it. Element's
 slot is written with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session; the current one by default, as for
 <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
@@ -336,13 +352,8 @@ slot is written with <code><a href="template.html">template()</a></code>.</p></d
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;</code> – the value, on load and on every change.</p></li>
-<li><p><code>input$&lt;id&gt;_change</code> – Element Plus's <code>change</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_finish</code> – Element Plus's <code>finish</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_focus</code> – Element Plus's <code>focus</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_blur</code> – Element Plus's <code>blur</code> event.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the value</td></tr><tr><td><code>input$&lt;id&gt;_change</code></td><td><code>events = "change"</code></td><td>Triggers when the value changes after input blur</td></tr><tr><td><code>input$&lt;id&gt;_finish</code></td><td>unasked</td><td>Fires when all fields have been filled</td></tr><tr><td><code>input$&lt;id&gt;_focus</code></td><td><code>events = "focus"</code></td><td>Triggers when input is focused</td></tr><tr><td><code>input$&lt;id&gt;_blur</code></td><td><code>events = "blur"</code></td><td>Triggers when input is blurred</td></tr></table><p>The same list as <code>el_events("el_input_otp")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 
@@ -365,16 +376,16 @@ stays as it is; <code>NA</code> returns it to Element's default.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_input_otp</span><span class="op">(</span><span class="st">"code"</span>, length <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="code" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="code_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input-otp v-model="value" @change="elEmitChange" @finish="elEmitFinish" @focus="elEmitFocus" @blur="elEmitBlur" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"&gt;&lt;/el-input-otp&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input-otp v-model="value" @finish="elEmitFinish" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"&gt;&lt;/el-input-otp&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"length":6,"validator":null,"inputmode":null,"type":null,"size":null,"mask":null,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('code', 'change', arguments); }","elEmitFinish":"function() { window.shinyVue.emit('code', 'finish', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('code', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('code', 'blur', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitFinish","options.methods.elEmitFocus","options.methods.elEmitBlur","options.watch.value"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"length":6,"validator":null,"inputmode":null,"type":null,"size":null,"mask":null,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitFinish":"function() { window.shinyVue.emit('code', 'finish', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.watch.value"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu">el_input_otp</span><span class="op">(</span><span class="st">"pin"</span>, length <span class="op">=</span> <span class="fl">4</span>, mask <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"underlined"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="pin" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="pin_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input-otp v-model="value" @change="elEmitChange" @finish="elEmitFinish" @focus="elEmitFocus" @blur="elEmitBlur" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"&gt;&lt;/el-input-otp&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input-otp v-model="value" @finish="elEmitFinish" :length="length === null ? undefined : length" :validator="validator === null ? undefined : validator" :inputmode="inputmode === null ? undefined : inputmode" :type="type === null ? undefined : type" :size="size === null ? undefined : size" :mask="mask === null ? undefined : mask" :disabled="disabled === null ? undefined : disabled" :separator="separator === null ? undefined : separator" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :aria-label="ariaLabel === null ? undefined : ariaLabel"&gt;&lt;/el-input-otp&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"length":4,"validator":null,"inputmode":null,"type":"underlined","size":null,"mask":true,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('pin', 'change', arguments); }","elEmitFinish":"function() { window.shinyVue.emit('pin', 'finish', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('pin', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('pin', 'blur', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitChange","options.methods.elEmitFinish","options.methods.elEmitFocus","options.methods.elEmitBlur","options.watch.value"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"length":4,"validator":null,"inputmode":null,"type":"underlined","size":null,"mask":true,"disabled":null,"separator":null,"validateEvent":null,"readonly":null,"ariaLabel":null},"methods":{"elEmitFinish":"function() { window.shinyVue.emit('pin', 'finish', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.watch.value"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>

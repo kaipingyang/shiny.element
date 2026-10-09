@@ -20,6 +20,7 @@ el_skeleton(
   class = NULL,
   style = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -80,6 +81,16 @@ update_el_skeleton(
   Named list of Element slot contents. `template` replaces the
   placeholder's shape; build it from
   [`el_skeleton_item()`](https://kaipingyang.github.io/shiny.element/reference/el_skeleton_item.md).
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
 
 - session:
 

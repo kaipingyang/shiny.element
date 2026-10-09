@@ -160,7 +160,18 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_time_widget</span><span class="op">(</span><span class="va">tag</span>, <span class="va">ns_id</span>, <span class="va">init</span>, <span class="va">fields</span>, <span class="va">events</span>, <span class="va">width</span>, <span class="va">slots</span>, <span class="va">form_item</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_time_widget</span><span class="op">(</span></span>
+<span>  <span class="va">tag</span>,</span>
+<span>  <span class="va">ns_id</span>,</span>
+<span>  <span class="va">init</span>,</span>
+<span>  <span class="va">fields</span>,</span>
+<span>  <span class="va">fn</span>,</span>
+<span>  <span class="va">events</span>,</span>
+<span>  <span class="va">on</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  <span class="va">slots</span>,</span>
+<span>  <span class="va">form_item</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -183,8 +194,12 @@
 <dd><p>The props, by their R names, for <code><a href="dot-el_props.html">.el_props()</a></code>.</p></dd>
 
 
-<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
-<dd><p>Events forwarded as <code>input$&lt;id&gt;_&lt;event&gt;</code>.</p></dd>
+<dt id="arg-fn">fn<a class="anchor" aria-label="anchor" href="#arg-fn"></a></dt>
+<dd><p>The component's function, its entry in <code><a href="el_events.html">el_events()</a></code>.</p></dd>
+
+
+<dt id="arg-events-on">events, on<a class="anchor" aria-label="anchor" href="#arg-events-on"></a></dt>
+<dd><p>The user's <code>events</code> and <code>on</code>.</p></dd>
 
 
 <dt id="arg-width-slots">width, slots<a class="anchor" aria-label="anchor" href="#arg-width-slots"></a></dt>

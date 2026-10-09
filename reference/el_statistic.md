@@ -32,6 +32,8 @@ el_countdown(
   value_style = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -123,19 +125,40 @@ update_el_countdown(
   How a countdown is shown, in day.js's tokens, such as `"HH:mm:ss"`
   (the default) or `"DD [days] HH:mm:ss"`.
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 ## Value
 
 A Shiny UI element.
 
 ## Shiny inputs
 
-For `el_countdown()`:
+`el_statistic()` reports nothing. `el_countdown()`:
 
-- `input$<id>_finish` – fires when the countdown reaches zero.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>_finish` | unasked | countdown end event |
+| `input$<id>_change` | `events = "change"` | the milliseconds left, at most once a second |
 
-- `input$<id>_change` – the milliseconds left. Element raises this on
-  every frame; it is sent at most once a second, which is as often as a
-  server can usefully hear it.
+The same list as `el_events("el_countdown")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 
@@ -191,9 +214,9 @@ el_countdown(
 )
 #> <div id="sale" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sale_container" style="display: contents">
-#>   <el-countdown :value="value" @finish="elEmitFinish" @change="elEmitChange" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
+#>   <el-countdown :value="value" @finish="elEmitFinish" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791483844916.61,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }","elEmitChange":"function() { var shape = function(ms) { var now = Date.now(); if (this._elLastChange && now - this._elLastChange < 1000) return undefined; this._elLastChange = now; return ms; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'change', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish","options.methods.elEmitChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1791530446856.65,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"elEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitFinish"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

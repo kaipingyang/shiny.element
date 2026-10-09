@@ -18,7 +18,9 @@ el_anchor(
   direction = NULL,
   select_scroll_top = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_anchor(
@@ -90,6 +92,24 @@ update_el_anchor(
 
   Named list of Element slot contents.
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -101,9 +121,14 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the `href` of the current link, as the page scrolls.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the `href` of the current link, as the page scrolls |
+| `input$<id>_click` | `events = "click"` | the `href` of the link clicked |
 
-- `input$<id>_click` – the `href` of a link the user clicked.
+The same list as `el_events("el_anchor")`, which says how an event's
+arguments travel.
 
 ## Element methods
 
@@ -139,7 +164,7 @@ el_anchor(
 )
 #> <div id="toc" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="toc_container" style="display: contents">
-#>   <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
+#>   <el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
 #>     <el-anchor-link title="Basic usage" href="#basic"></el-anchor-link>
 #>     <el-anchor-link title="API" href="#api">
 #>       <template v-slot:sub-link>
@@ -148,6 +173,6 @@ el_anchor(
 #>     </el-anchor-link>
 #>   </el-anchor>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('toc', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('toc', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('toc', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
 ```

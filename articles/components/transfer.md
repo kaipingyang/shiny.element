@@ -262,9 +262,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `change` | `input$<id>_change` | triggers when data items change in the right list |
-| `left-check-change` | `input$<id>_left_check_change` | triggers when end user changes the checked state of any data item in the left list |
-| `right-check-change` | `input$<id>_right_check_change` | triggers when end user changes the checked state of any data item in the right list |
+| `change` | `input$<id>_change`, with `events = "change"` | triggers when data items change in the right list |
+| `left-check-change` | `input$<id>_left_check_change`, with `events = "left_check_change"` | triggers when end user changes the checked state of any data item in the left list |
+| `right-check-change` | `input$<id>_right_check_change`, with `events = "right_check_change"` | triggers when end user changes the checked state of any data item in the right list |
 
 ### Transfer Slots
 

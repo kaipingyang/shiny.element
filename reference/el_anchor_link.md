@@ -61,7 +61,7 @@ el_anchor(
 )
 #> <div id="an" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="an_container" style="display: contents">
-#>   <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
+#>   <el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
 #>     <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
 #>     <el-anchor-link title="API" href="#api">
 #>       <template v-slot:sub-link>
@@ -71,6 +71,6 @@ el_anchor(
 #>     </el-anchor-link>
 #>   </el-anchor>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('an', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('an', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('an', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #> </div>
 ```

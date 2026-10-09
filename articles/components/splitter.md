@@ -227,8 +227,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `resize-start` | `input$<id>_resize_start` | Triggered when starting to resize a panel, `index` is the drag bar index |
-| `resize` | `input$<id>_resize` | Triggered while resizing a panel, `index` is the drag bar index |
+| `resize-start` | `input$<id>_resize_start`, with `events = "resize_start"` | Triggered when starting to resize a panel, `index` is the drag bar index |
+| `resize` | `input$<id>_resize`, with `events = "resize"` | Triggered while resizing a panel, `index` is the drag bar index |
 | `resize-end` | `input$<id>_resize_end` | Triggered when panel resizing ends, `index` is the drag bar index |
 | `collapse` | `input$<id>_collapse` | Triggered when a panel is collapsed, `index` is the drag bar index |
 

@@ -20,7 +20,8 @@ taken first, so a child's field of the same name is the one renamed.
   width = NULL,
   slots = NULL,
   data = list(),
-  wrap = NULL
+  wrap = NULL,
+  on = NULL
 )
 ```
 
@@ -69,6 +70,12 @@ taken first, so a child's field of the same name is the one renamed.
   the container instead: markup of the container's own around them,
   whose bindings name the container's fields. Left out of the children,
   it is not renamed with them.
+
+- on:
+
+  The user's own handlers, for a container that forwards no event of
+  Element's: see
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
 
 ## Value
 

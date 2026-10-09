@@ -44,6 +44,8 @@ el_autocomplete(
   teleported = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -253,6 +255,24 @@ update_el_autocomplete(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_autocomplete()`, deprecated: inside a module, wrap `id` in
@@ -267,13 +287,20 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the current text.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the current text |
+| `input$<id>_query` | unasked | with `remote = TRUE`, the text to suggest for; answer with `update_el_autocomplete()` |
+| `input$<id>_select` | unasked | triggers when a suggestion is clicked |
+| `input$<id>_change` | `events = "change"` | triggers when the icon inside Input value change |
+| `input$<id>_blur` | `events = "blur"` | triggers when Input blurs |
+| `input$<id>_clear` | `events = "clear"` | triggers when the Input is cleared by clicking the clear button |
+| `input$<id>_focus` | `events = "focus"` | triggers when Input focuses |
+| `input$<id>_input` | `events = "input"` | triggers when the Input value change |
 
-- `input$<id>_select` – the suggestion just picked.
-
-- `input$<id>_change` – fires when the text changes.
-
-- `input$<id>_query` – with `remote = TRUE`, the text to suggest for.
+The same list as `el_events("el_autocomplete")`, which says how an
+event's arguments travel.
 
 ## Element methods
 
@@ -299,9 +326,9 @@ stays as it is; `NA` returns it to Element's default.
 el_autocomplete("city", suggestions = c("Beijing", "Shanghai", "Shenzhen"))
 #> <div id="city" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="city_container" style="display: contents">
-#>   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" @select="elEmitSelect" @change="elEmitChange" @blur="elEmitBlur" @clear="elEmitClear" @focus="elEmitFocus" @input="elEmitInput" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :loop-navigation="loopNavigation === null ? undefined : loopNavigation" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported"></el-autocomplete>
+#>   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" @select="elEmitSelect" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :loop-navigation="loopNavigation === null ? undefined : loopNavigation" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported"></el-autocomplete>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"}],"placeholder":null,"clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"fitInputWidth":null,"loopNavigation":null,"popperOptions":null,"popperStyle":null,"showArrow":null,"teleported":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('city', 'change', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elEmitInput":"function() { window.shinyVue.emit('city', 'input', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (!cb) return; clearTimeout(this._elQueryTimer); this._elAnswered = (this._elAnswered || 0) + 1; if (this._elAnswered >= this._elAsked) this._elPending = null; cb(v); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.elEmitFocus","options.methods.elEmitInput","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"},{"value":"Shenzhen"}],"placeholder":null,"clearable":null,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"fitInputWidth":null,"loopNavigation":null,"popperOptions":null,"popperStyle":null,"showArrow":null,"teleported":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('city', 'select', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (!cb) return; clearTimeout(this._elQueryTimer); this._elAnswered = (this._elAnswered || 0) + 1; if (this._elAnswered >= this._elAsked) this._elPending = null; cb(v); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSelect","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}</script>
 #> </div>
 
 el_autocomplete(
@@ -313,9 +340,9 @@ el_autocomplete(
 )
 #> <div id="city" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="city_container" style="display: contents">
-#>   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" @select="elEmitSelect" @change="elEmitChange" @blur="elEmitBlur" @clear="elEmitClear" @focus="elEmitFocus" @input="elEmitInput" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :loop-navigation="loopNavigation === null ? undefined : loopNavigation" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" style="width: 260px"></el-autocomplete>
+#>   <el-autocomplete v-model="value" :fetch-suggestions="fetchSuggestions" :placeholder="placeholder === null ? undefined : placeholder" :clearable="clearable === null ? undefined : clearable" :disabled="disabled === null ? undefined : disabled" :value-key="valueKey === null ? undefined : valueKey" :debounce="debounce === null ? undefined : debounce" :placement="placement === null ? undefined : placement" :trigger-on-focus="triggerOnFocus === null ? undefined : triggerOnFocus" :select-when-unmatched="selectWhenUnmatched === null ? undefined : selectWhenUnmatched" :highlight-first-item="highlightFirstItem === null ? undefined : highlightFirstItem" :hide-loading="hideLoading === null ? undefined : hideLoading" :icon="icon === null ? undefined : icon" :prefix-icon="prefixIcon === null ? undefined : prefixIcon" :suffix-icon="suffixIcon === null ? undefined : suffixIcon" :label="label === null ? undefined : label" :name="name === null ? undefined : name" :popper-class="popperClass === null ? undefined : popperClass" @select="elEmitSelect" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :fit-input-width="fitInputWidth === null ? undefined : fitInputWidth" :loop-navigation="loopNavigation === null ? undefined : loopNavigation" :popper-options="popperOptions === null ? undefined : popperOptions" :popper-style="popperStyle === null ? undefined : popperStyle" :show-arrow="showArrow === null ? undefined : showArrow" :teleported="teleported === null ? undefined : teleported" style="width: 260px"></el-autocomplete>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"}],"placeholder":"Where to?","clearable":true,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"fitInputWidth":null,"loopNavigation":null,"popperOptions":null,"popperStyle":null,"showArrow":null,"teleported":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('city', 'select', arguments); }","elEmitChange":"function() { window.shinyVue.emit('city', 'change', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('city', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('city', 'clear', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('city', 'focus', arguments); }","elEmitInput":"function() { window.shinyVue.emit('city', 'input', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (!cb) return; clearTimeout(this._elQueryTimer); this._elAnswered = (this._elAnswered || 0) + 1; if (this._elAnswered >= this._elAsked) this._elPending = null; cb(v); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSelect","options.methods.elEmitChange","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.elEmitFocus","options.methods.elEmitInput","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","suggestions":[{"value":"Beijing"},{"value":"Shanghai"}],"placeholder":"Where to?","clearable":true,"disabled":null,"valueKey":null,"debounce":null,"placement":null,"triggerOnFocus":null,"selectWhenUnmatched":null,"highlightFirstItem":null,"hideLoading":null,"icon":null,"prefixIcon":null,"suffixIcon":null,"label":null,"name":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"fitInputWidth":null,"loopNavigation":null,"popperOptions":null,"popperStyle":null,"showArrow":null,"teleported":null},"methods":{"elEmitSelect":"function() { window.shinyVue.emit('city', 'select', arguments); }","fetchSuggestions":"function(queryString, callback) {\n  var all = this.suggestions || [];\n  var q = (queryString || '').toLowerCase();\n  callback(q ? all.filter(function(s) {\n    return String(s.value).toLowerCase().indexOf(q) === 0;\n  }) : all);\n}"},"watch":{"value":"function(newVal) { }","suggestions":"function(v) { var cb = this._elPending; if (!cb) return; clearTimeout(this._elQueryTimer); this._elAnswered = (this._elAnswered || 0) + 1; if (this._elAnswered >= this._elAsked) this._elPending = null; cb(v); }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSelect","options.methods.fetchSuggestions","options.watch.value","options.watch.suggestions"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

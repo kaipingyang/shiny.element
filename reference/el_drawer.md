@@ -34,6 +34,7 @@ el_drawer(
   close_delay = NULL,
   z_index = NULL,
   header_aria_level = "2",
+  events = NULL,
   session = NULL
 )
 
@@ -160,6 +161,14 @@ update_el_drawer(
 
   The title's `aria-level`. Default `"2"`.
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
 - session:
 
   In `el_drawer()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -180,21 +189,22 @@ other components from this package.
 
 ## Shiny inputs
 
-- `input$<id>` – `TRUE` while the drawer is open, reported whenever it
-  opens or closes, however that happens; see
-  [`el_dialog()`](https://kaipingyang.github.io/shiny.element/reference/el_dialog.md).
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | `TRUE` while it is open |
+| `input$<id>_open` | `events = "open"` | Triggered before Drawer opening animation begins |
+| `input$<id>_opened` | `events = "opened"` | Triggered after Drawer opening animation ended |
+| `input$<id>_close` | `events = "close"` | Triggered before Drawer closing animation begins |
+| `input$<id>_closed` | unasked | Triggered after Drawer closing animation ended |
+| `input$<id>_open_auto_focus` | `events = "open_auto_focus"` | triggers after Drawer opens and content focused |
+| `input$<id>_close_auto_focus` | `events = "close_auto_focus"` | triggers after Drawer closed and content focused |
+| `input$<id>_resize_start` | `events = "resize_start"` | the size, in pixels |
+| `input$<id>_resize` | `events = "resize"` | the size, in pixels |
+| `input$<id>_resize_end` | `events = "resize_end"` | the size, in pixels |
 
-- `input$<id>_open`, `input$<id>_opened` – fire as it opens, and once it
-  has.
-
-- `input$<id>_close`, `input$<id>_closed` – likewise as it closes.
-
-- `input$<id>_open_auto_focus`, `input$<id>_close_auto_focus` – as focus
-  moves into it on opening, and back on closing.
-
-- `input$<id>_resize_start`, `input$<id>_resize`,
-  `input$<id>_resize_end` – with `resizable`, the size in pixels as it
-  is dragged.
+The same list as `el_events("el_drawer")`, which says how an event's
+arguments travel.
 
 ## Element methods
 
@@ -218,7 +228,7 @@ invisibly.
 
 ``` r
 el_drawer("w1", title = "Settings", content = shiny::tags$p("Body"))
-#> <div id="w1" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+#> <div id="w1" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
 #>   <div aria-modal="true" aria-labelledby="w1-title" aria-label="Settings" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
 #>     <header class="el-drawer__header">
 #>       <span id="w1-title" role="heading" aria-level="2" class="el-drawer__title">Settings</span>
@@ -240,7 +250,7 @@ el_drawer(
   size = "40%",
   content = shiny::tagList(el_input("q"), el_switch("live"))
 )
-#> <div id="w2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+#> <div id="w2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-el-events="closed" data-visible="false" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
 #>   <div aria-modal="true" aria-labelledby="w2-title" aria-label="Filters" role="dialog" tabindex="-1" class="el-drawer btt" style="height: 40%;">
 #>     <header class="el-drawer__header">
 #>       <span id="w2-title" role="heading" aria-level="2" class="el-drawer__title">Filters</span>
@@ -251,9 +261,9 @@ el_drawer(
 #>     <div class="el-drawer__body">
 #>       <div id="q" data-shiny-vue style="display: contents">
 #>         <script type="text/x-template" data-shiny-vue-template><div id="q_container" style="display: contents">
-#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" @input="elEmitInput" @blur="elEmitBlur" @focus="elEmitFocus" @clear="elEmitClear" @compositionend="elEmitCompositionend" @compositionstart="elEmitCompositionstart" @compositionupdate="elEmitCompositionupdate" @keydown="elEmitKeydown" @mouseenter="elEmitMouseenter" @mouseleave="elEmitMouseleave" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :count-graphemes="countGraphemes === null ? undefined : countGraphemes" :formatter="formatter === null ? undefined : formatter" :input-style="inputStyle === null ? undefined : inputStyle" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :word-limit-position="wordLimitPosition === null ? undefined : wordLimitPosition"></el-input>
+#>   <el-input v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" :size="size === null ? undefined : size" :maxlength="maxlength === null ? undefined : maxlength" :rows="rows === null ? undefined : rows" :placeholder="placeholder === null ? undefined : placeholder" :label="label === null ? undefined : label" :autocomplete="autocomplete === null ? undefined : autocomplete" :autofocus="autofocus === null ? undefined : autofocus" :name="name === null ? undefined : name" :form="form === null ? undefined : form" :minlength="minlength === null ? undefined : minlength" :max="max === null ? undefined : max" :min="min === null ? undefined : min" :step="step === null ? undefined : step" :resize="resize === null ? undefined : resize" :tabindex="tabindex === null ? undefined : tabindex" :validate-event="validateEvent === null ? undefined : validateEvent" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clear-icon="clearIcon === null ? undefined : clearIcon" :count-graphemes="countGraphemes === null ? undefined : countGraphemes" :formatter="formatter === null ? undefined : formatter" :input-style="inputStyle === null ? undefined : inputStyle" :inputmode="inputmode === null ? undefined : inputmode" :parser="parser === null ? undefined : parser" :word-limit-position="wordLimitPosition === null ? undefined : wordLimitPosition"></el-input>
 #> </div></script>
-#>         <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('q', 'input', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('q', 'blur', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('q', 'focus', arguments); }","elEmitClear":"function() { window.shinyVue.emit('q', 'clear', arguments); }","elEmitCompositionend":"function() { window.shinyVue.emit('q', 'compositionend', arguments); }","elEmitCompositionstart":"function() { window.shinyVue.emit('q', 'compositionstart', arguments); }","elEmitCompositionupdate":"function() { window.shinyVue.emit('q', 'compositionupdate', arguments); }","elEmitKeydown":"function() { window.shinyVue.emit('q', 'keydown', arguments); }","elEmitMouseenter":"function() { window.shinyVue.emit('q', 'mouseenter', arguments); }","elEmitMouseleave":"function() { window.shinyVue.emit('q', 'mouseleave', arguments); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitInput","options.methods.elEmitBlur","options.methods.elEmitFocus","options.methods.elEmitClear","options.methods.elEmitCompositionend","options.methods.elEmitCompositionstart","options.methods.elEmitCompositionupdate","options.methods.elEmitKeydown","options.methods.elEmitMouseenter","options.methods.elEmitMouseleave","options.methods.handleChange"]}</script>
+#>         <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"maxlength":null,"rows":null,"placeholder":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 #>       </div>
 #>       <div id="live" data-shiny-vue style="display: contents">
 #>         <script type="text/x-template" data-shiny-vue-template><div id="live_container" style="display: contents">

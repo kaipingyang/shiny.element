@@ -178,6 +178,7 @@
 <span>  pause_on_hover <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -284,6 +285,13 @@ given here is absorbed rather than nested. For a scoped slot, write
 the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>In <code>el_carousel()</code>, deprecated: inside a module, wrap <code>id</code> in
 <code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
@@ -302,10 +310,7 @@ current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/upda
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<p><code>input$&lt;id&gt;</code> holds the index of the slide currently showing, 0-based, and
-<code>input$&lt;id&gt;_name</code> its <code>name</code> if one was given. Both are reported on load and
-whenever the slide changes.</p>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the index of the slide showing, from 0</td></tr><tr><td><code>input$&lt;id&gt;_name</code></td><td>unasked</td><td>its <code>name</code>, if it has one</td></tr></table><p>The same list as <code>el_events("el_carousel")</code>, which says how an event's arguments travel.</p>
     </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>

@@ -175,7 +175,9 @@ scrolls.</p>
 <span>  direction <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  select_scroll_top <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_anchor</span><span class="op">(</span></span>
@@ -249,6 +251,20 @@ section is scrolled to the top.</p></dd>
 <dd><p>Named list of Element slot contents.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session; the current one by default, as for
 <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
@@ -261,10 +277,8 @@ section is scrolled to the top.</p></dd>
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;</code> – the <code>href</code> of the current link, as the page scrolls.</p></li>
-<li><p><code>input$&lt;id&gt;_click</code> – the <code>href</code> of a link the user clicked.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the <code>href</code> of the current link, as the page scrolls</td></tr><tr><td><code>input$&lt;id&gt;_click</code></td><td><code>events = "click"</code></td><td>the <code>href</code> of the link clicked</td></tr></table><p>The same list as <code>el_events("el_anchor")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 
@@ -298,7 +312,7 @@ section is scrolled to the top.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="toc" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="toc_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-anchor-link title="Basic usage" href="#basic"&gt;&lt;/el-anchor-link&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-anchor-link title="API" href="#api"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;template v-slot:sub-link&gt;</span>
@@ -307,7 +321,7 @@ section is scrolled to the top.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/el-anchor-link&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-anchor&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('toc', 'click', [v]); }","handleChange":"function(href) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('toc', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"container":null,"offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('toc', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>

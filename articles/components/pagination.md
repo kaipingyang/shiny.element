@@ -258,9 +258,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 |----|----|----|
 | `size-change` | one of the component’s inputs – see its reference page | triggers when `page-size` changes |
 | `current-change` | one of the component’s inputs – see its reference page | triggers when `current-page` changes |
-| `change` | `input$<id>_change` | triggers when `current-page` or `page-size` changes |
-| `prev-click` | `input$<id>_prev_click` | triggers when the prev button is clicked and current page changes |
-| `next-click` | `input$<id>_next_click` | triggers when the next button is clicked and current page changes |
+| `change` | `input$<id>_change`, with `events = "change"` | triggers when `current-page` or `page-size` changes |
+| `prev-click` | `input$<id>_prev_click`, with `events = "prev_click"` | triggers when the prev button is clicked and current page changes |
+| `next-click` | `input$<id>_next_click`, with `events = "next_click"` | triggers when the next button is clicked and current page changes |
 
 ### Slots
 

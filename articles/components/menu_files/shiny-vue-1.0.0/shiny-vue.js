@@ -76,9 +76,16 @@
   // drag: it goes at once, then at most once per `wait`, and the last one
   // always goes, so the server hears where the scroll or the drag ended.
   var throttled = {};
+  // A key pressed is worth sending: which one, and the modifiers held. Other
+  // DOM events carry nothing a server can use, and are dropped.
+  function keyOf(x) {
+    if (typeof KeyboardEvent === 'undefined' || !(x instanceof KeyboardEvent)) return x;
+    return { key: x.key, code: x.code, ctrl: x.ctrlKey, shift: x.shiftKey, alt: x.altKey, meta: x.metaKey };
+  }
+
   sv.emit = function(id, event, args, wait) {
     if (typeof Shiny === 'undefined' || !Shiny.setInputValue) return;
-    var usable = Array.prototype.slice.call(args || []).filter(serialisable)
+    var usable = Array.prototype.slice.call(args || []).map(keyOf).filter(serialisable)
       .map(function(a) { return a === null ? null : plain(a); })
       .filter(function(a) { return a !== undefined; });
     while (usable.length > 1 && usable[usable.length - 1] === null) usable.pop();

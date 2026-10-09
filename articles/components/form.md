@@ -637,9 +637,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 ### Form Events
 
-| Element    | In R                  | Description                             |
-|------------|-----------------------|-----------------------------------------|
-| `validate` | `input$<id>_validate` | triggers after a form item is validated |
+| Element | In R | Description |
+|----|----|----|
+| `validate` | `input$<id>_validate`, with `events = "validate"` | triggers after a form item is validated |
 
 ### Form Slots
 

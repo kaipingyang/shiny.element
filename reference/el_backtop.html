@@ -172,6 +172,8 @@ to the top when clicked.</p>
 <span>  bottom <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -225,6 +227,20 @@ given here is absorbed rather than nested. For a scoped slot, write
 the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>In <code>el_backtop()</code>, deprecated: inside a module, wrap <code>id</code> in
 <code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
@@ -239,9 +255,8 @@ current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/upda
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;_click</code> – fires each time the button is clicked.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;_click</code></td><td>unasked</td><td>triggers when click.</td></tr></table><p>The same list as <code>el_events("el_backtop")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
 

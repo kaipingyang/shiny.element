@@ -38,6 +38,7 @@ el_switch(
   size = NULL,
   tabindex = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -234,6 +235,16 @@ update_el_switch(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_switch()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -255,8 +266,13 @@ Callable with
 
 ## Shiny inputs
 
-`input$<id>` – the value of `active_value` (when on) or `inactive_value`
-(when off), matching the types of those arguments.
+|              |          |                                                   |
+|--------------|----------|---------------------------------------------------|
+| Input        | Reported | Value                                             |
+| `input$<id>` | unasked  | `active_value` when on, `inactive_value` when off |
+
+The same list as `el_events("el_switch")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 

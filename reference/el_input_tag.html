@@ -199,7 +199,9 @@ labels.</p>
 <span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_input_tag</span><span class="op">(</span></span>
@@ -419,6 +421,20 @@ whether beside the component rather than under it. Element's
 <code>suffix</code>. A scoped slot is written with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session; the current one by default, as for
 <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
@@ -431,17 +447,8 @@ whether beside the component rather than under it. Element's
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;</code> – the value, on load and on every change.</p></li>
-<li><p><code>input$&lt;id&gt;_change</code> – Element Plus's <code>change</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_input</code> – Element Plus's <code>input</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_add_tag</code> – Element Plus's <code>add-tag</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_remove_tag</code> – Element Plus's <code>remove-tag</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_drag_tag</code> – Element Plus's <code>drag-tag</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_focus</code> – Element Plus's <code>focus</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_blur</code> – Element Plus's <code>blur</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_clear</code> – Element Plus's <code>clear</code> event.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the tags</td></tr><tr><td><code>input$&lt;id&gt;_input</code></td><td><code>events = "input"</code></td><td>triggers when the input value change</td></tr><tr><td><code>input$&lt;id&gt;_add_tag</code></td><td><code>events = "add_tag"</code></td><td>triggers when a tag is added</td></tr><tr><td><code>input$&lt;id&gt;_remove_tag</code></td><td><code>events = "remove_tag"</code></td><td>triggers when a tag is removed</td></tr><tr><td><code>input$&lt;id&gt;_drag_tag</code></td><td><code>events = "drag_tag"</code></td><td>triggers when a tag is dragged</td></tr><tr><td><code>input$&lt;id&gt;_focus</code></td><td><code>events = "focus"</code></td><td>triggers when InputTag focuses</td></tr><tr><td><code>input$&lt;id&gt;_blur</code></td><td><code>events = "blur"</code></td><td>triggers when InputTag blurs</td></tr><tr><td><code>input$&lt;id&gt;_clear</code></td><td><code>events = "clear"</code></td><td>triggers when the clear icon is clicked</td></tr></table><p>The same list as <code>el_events("el_input_tag")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 
@@ -468,9 +475,9 @@ stays as it is; <code>NA</code> returns it to Element's default.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="keywords" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="keywords_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input-tag v-model="value" @change="handleChange" @input="elEmitInput" @add-tag="elEmitAddTag" @remove-tag="elEmitRemoveTag" @drag-tag="elEmitDragTag" @focus="elEmitFocus" @blur="elEmitBlur" @clear="elEmitClear" :max="max === null ? undefined : max" :tag-type="tagType === null ? undefined : tagType" :tag-effect="tagEffect === null ? undefined : tagEffect" :effect="effect === null ? undefined : effect" :trigger="trigger === null ? undefined : trigger" :draggable="draggable === null ? undefined : draggable" :delimiter="delimiter === null ? undefined : delimiter" :size="size === null ? undefined : size" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :save-on-blur="saveOnBlur === null ? undefined : saveOnBlur" :clearable="clearable === null ? undefined : clearable" :clear-icon="clearIcon === null ? undefined : clearIcon" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :autofocus="autofocus === null ? undefined : autofocus" :tabindex="tabindex === null ? undefined : tabindex" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :maxlength="maxlength === null ? undefined : maxlength" :minlength="minlength === null ? undefined : minlength" :placeholder="placeholder === null ? undefined : placeholder" :autocomplete="autocomplete === null ? undefined : autocomplete" :aria-label="ariaLabel === null ? undefined : ariaLabel"&gt;&lt;/el-input-tag&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-input-tag v-model="value" @change="handleChange" :max="max === null ? undefined : max" :tag-type="tagType === null ? undefined : tagType" :tag-effect="tagEffect === null ? undefined : tagEffect" :effect="effect === null ? undefined : effect" :trigger="trigger === null ? undefined : trigger" :draggable="draggable === null ? undefined : draggable" :delimiter="delimiter === null ? undefined : delimiter" :size="size === null ? undefined : size" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :save-on-blur="saveOnBlur === null ? undefined : saveOnBlur" :clearable="clearable === null ? undefined : clearable" :clear-icon="clearIcon === null ? undefined : clearIcon" :disabled="disabled === null ? undefined : disabled" :validate-event="validateEvent === null ? undefined : validateEvent" :readonly="readonly === null ? undefined : readonly" :autofocus="autofocus === null ? undefined : autofocus" :tabindex="tabindex === null ? undefined : tabindex" :max-collapse-tags="maxCollapseTags === null ? undefined : maxCollapseTags" :maxlength="maxlength === null ? undefined : maxlength" :minlength="minlength === null ? undefined : minlength" :placeholder="placeholder === null ? undefined : placeholder" :autocomplete="autocomplete === null ? undefined : autocomplete" :aria-label="ariaLabel === null ? undefined : ariaLabel"&gt;&lt;/el-input-tag&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":["shiny","element"],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Add a keyword","autocomplete":null,"ariaLabel":null},"methods":{"elEmitInput":"function() { window.shinyVue.emit('keywords', 'input', arguments); }","elEmitAddTag":"function() { window.shinyVue.emit('keywords', 'add_tag', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('keywords', 'remove_tag', arguments); }","elEmitDragTag":"function() { window.shinyVue.emit('keywords', 'drag_tag', arguments); }","elEmitFocus":"function() { window.shinyVue.emit('keywords', 'focus', arguments); }","elEmitBlur":"function() { window.shinyVue.emit('keywords', 'blur', arguments); }","elEmitClear":"function() { window.shinyVue.emit('keywords', 'clear', arguments); }","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitInput","options.methods.elEmitAddTag","options.methods.elEmitRemoveTag","options.methods.elEmitDragTag","options.methods.elEmitFocus","options.methods.elEmitBlur","options.methods.elEmitClear","options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":["shiny","element"],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Add a keyword","autocomplete":null,"ariaLabel":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>

@@ -571,9 +571,10 @@ for details.</p>
 </h2>
 <p>Open developer console (ctrl + shift + J), to see order of
 events.</p>
-<p>Every event is an input: <code>input$&lt;id&gt;_open</code>,
-<code>_opened</code>, <code>_close</code>, <code>_closed</code>,
-<code>_open_auto_focus</code> and <code>_close_auto_focus</code>.</p>
+<p><code>input$&lt;id&gt;_closed</code> is reported unasked;
+<code>_open</code>, <code>_opened</code>, <code>_close</code>,
+<code>_open_auto_focus</code> and <code>_close_auto_focus</code> when
+asked for, with <code>events</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -581,6 +582,7 @@ events.</p>
 <span>    <span class="st">"ev"</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"Events"</span>,</span>
 <span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    events <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"opened"</span>, <span class="st">"close"</span><span class="op">)</span>,</span>
 <span>    content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"log"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -947,17 +949,26 @@ does not remove the close button.</td>
 <tbody>
 <tr class="odd">
 <td><code>open</code></td>
-<td><code>input$&lt;id&gt;_open</code></td>
+<td>
+<code>input$&lt;id&gt;_open</code>, with
+<code>events = "open"</code>
+</td>
 <td>triggers when the Dialog opens</td>
 </tr>
 <tr class="even">
 <td><code>opened</code></td>
-<td><code>input$&lt;id&gt;_opened</code></td>
+<td>
+<code>input$&lt;id&gt;_opened</code>, with
+<code>events = "opened"</code>
+</td>
 <td>triggers when the Dialog opening animation ends</td>
 </tr>
 <tr class="odd">
 <td><code>close</code></td>
-<td><code>input$&lt;id&gt;_close</code></td>
+<td>
+<code>input$&lt;id&gt;_close</code>, with
+<code>events = "close"</code>
+</td>
 <td>triggers when the Dialog closes</td>
 </tr>
 <tr class="even">
@@ -967,12 +978,18 @@ does not remove the close button.</td>
 </tr>
 <tr class="odd">
 <td><code>open-auto-focus</code></td>
-<td><code>input$&lt;id&gt;_open_auto_focus</code></td>
+<td>
+<code>input$&lt;id&gt;_open_auto_focus</code>, with
+<code>events = "open_auto_focus"</code>
+</td>
 <td>triggers after Dialog opens and content focused</td>
 </tr>
 <tr class="even">
 <td><code>close-auto-focus</code></td>
-<td><code>input$&lt;id&gt;_close_auto_focus</code></td>
+<td>
+<code>input$&lt;id&gt;_close_auto_focus</code>, with
+<code>events = "close_auto_focus"</code>
+</td>
 <td>triggers after Dialog closed and content focused</td>
 </tr>
 </tbody>

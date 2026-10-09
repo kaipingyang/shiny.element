@@ -329,8 +329,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description | Type | Accepted | Default |
 |----|----|----|----|----|----|
-| `model-value` | `selected`; `input$<id>` | binding value, name of the selected tab, the default value is the name of first tab | [^1] / [^2] |  | — |
-| `default-value` | `selected` | The value of the tab that should be active when initially rendered. (avoid initial transition) | [^3] / [^4] |  | — |
+| `model-value` | `selected` or `value`; `input$<id>` | binding value, name of the selected tab, the default value is the name of first tab | [^1] / [^2] |  | — |
+| `default-value` | `selected (or value)` | The value of the tab that should be active when initially rendered. (avoid initial transition) | [^3] / [^4] |  | — |
 | `type` | `type` | type of Tab | [^5]`'' \\| 'card' \\| 'border-card'` |  | ’’ |
 | `closable` | `closable` | whether Tab is closable | [^6] |  | false |
 | `addable` | `addable` | whether Tab is addable | [^7] |  | false |
@@ -344,11 +344,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `tab-click` | `input$<id>_tab_click` | triggers when a tab is clicked |
-| `tab-change` | `input$<id>_tab_change` | triggers when `activeName` is changed |
+| `tab-click` | `input$<id>_tab_click`, with `events = "tab_click"` | triggers when a tab is clicked |
+| `tab-change` | `input$<id>_tab_change`, with `events = "tab_change"` | triggers when `activeName` is changed |
 | `tab-remove` | `input$<id>_tab_remove` | triggers when tab-remove button is clicked |
 | `tab-add` | `input$<id>_tab_add` | triggers when tab-add button is clicked |
-| `edit` | `input$<id>_edit` | triggers when tab-add button or tab-remove is clicked |
+| `edit` | `input$<id>_edit`, with `events = "edit"` | triggers when tab-add button or tab-remove is clicked |
 
 ### Tabs Slots
 

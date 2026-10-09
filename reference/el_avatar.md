@@ -19,6 +19,8 @@ el_avatar(
   class = NULL,
   style = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -93,6 +95,24 @@ update_el_avatar(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_avatar()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -107,7 +127,13 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>_error` – fires when the image fails to load.
+|                    |          |                                |
+|--------------------|----------|--------------------------------|
+| Input              | Reported | Value                          |
+| `input$<id>_error` | unasked  | trigger when image load error. |
+
+The same list as `el_events("el_avatar")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 

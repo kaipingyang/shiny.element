@@ -19,6 +19,7 @@ el_tag(
   round = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -55,7 +56,7 @@ update_el_tag(
 - closable:
 
   Whether to show a close button. Default `FALSE`. When `TRUE`,
-  `input$<id>_closed` fires once when the user closes the tag.
+  `input$<id>_close` fires once when the user closes the tag.
 
 - size:
 
@@ -96,6 +97,16 @@ update_el_tag(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_tag()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -110,15 +121,18 @@ An `htmltools` tagList with a Vue-managed tag component.
 
 ## Shiny inputs
 
-- `input$<id>` – the number of clicks on the tag's body, as
-  [`shiny::actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
-  reports it: 0 on load, treated by
-  [`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
-  and [`req()`](https://rdrr.io/pkg/shiny/man/req.html) as not yet
-  clicked.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the number of clicks on the tag, as [`actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html) reports it |
+| `input$<id>_close` | unasked | fires when the user closes it (`closable = TRUE`) |
 
-- `input$<id>_closed` – set to `1` when the user clicks the close button
-  (only meaningful when `closable = TRUE`).
+The same list as `el_events("el_tag")`, which says how an event's
+arguments travel.
+
+The clicks are counted as
+[`shiny::actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
+counts them, 0 on load.
 
 ## Updating from the server
 
@@ -139,14 +153,14 @@ el_tag("tag1", "Success", type = "success")
 #>   <script type="text/x-template" data-shiny-vue-template><div id="tag1_container" style="display: contents">
 #>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round">{{label}}</el-tag>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Success","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag1_closed', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Success","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag1_close', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
 el_tag("tag2", "Closable", closable = TRUE)
 #> <div id="tag2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="tag2_container" style="display: contents">
 #>   <el-tag :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" :round="round === null ? undefined : round">{{label}}</el-tag>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag2_closed', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag2_close', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

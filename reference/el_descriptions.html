@@ -172,6 +172,7 @@
 <span>  label_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -246,6 +247,13 @@ use <code>slots = list(extra = ...)</code>.</p></dd>
 <dd><p>Named list of Element slot contents: <code>title</code>, <code>extra</code>.</p></dd>
 
 
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>In <code>el_descriptions()</code>, deprecated: inside a module, wrap <code>id</code> in
 <code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
@@ -289,7 +297,7 @@ them.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-descriptions-item label="Address" :span="2"&gt;12 St James's Square, London&lt;/el-descriptions-item&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-descriptions&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('plan:shiny.action', this.count); }","handleClose":"function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('plan_closed', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"plan:shiny.action\", self.count); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"plan":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_plan"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('plan:shiny.action', this.count); }","handleClose":"function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('plan_close', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"plan:shiny.action\", self.count); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"plan":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_plan"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The quick form: names are labels</span></span></span>

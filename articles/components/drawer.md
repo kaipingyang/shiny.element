@@ -345,15 +345,15 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `open` | `input$<id>_open` | Triggered before Drawer opening animation begins |
-| `opened` | `input$<id>_opened` | Triggered after Drawer opening animation ended |
-| `close` | `input$<id>_close` | Triggered before Drawer closing animation begins |
+| `open` | `input$<id>_open`, with `events = "open"` | Triggered before Drawer opening animation begins |
+| `opened` | `input$<id>_opened`, with `events = "opened"` | Triggered after Drawer opening animation ended |
+| `close` | `input$<id>_close`, with `events = "close"` | Triggered before Drawer closing animation begins |
 | `closed` | `input$<id>_closed` | Triggered after Drawer closing animation ended |
-| `open-auto-focus` | `input$<id>_open_auto_focus` | triggers after Drawer opens and content focused |
-| `close-auto-focus` | `input$<id>_close_auto_focus` | triggers after Drawer closed and content focused |
-| `resize-start` | `input$<id>_resize_start` | Triggered when resizing starts (when `resizable` is enabled) |
-| `resize` | `input$<id>_resize` | Triggered while resizing (when `resizable` is enabled) |
-| `resize-end` | `input$<id>_resize_end` | Triggered when resizing ends (when `resizable` is enabled) |
+| `open-auto-focus` | `input$<id>_open_auto_focus`, with `events = "open_auto_focus"` | triggers after Drawer opens and content focused |
+| `close-auto-focus` | `input$<id>_close_auto_focus`, with `events = "close_auto_focus"` | triggers after Drawer closed and content focused |
+| `resize-start` | `input$<id>_resize_start`, with `events = "resize_start"` | Triggered when resizing starts (when `resizable` is enabled) |
+| `resize` | `input$<id>_resize`, with `events = "resize"` | Triggered while resizing (when `resizable` is enabled) |
+| `resize-end` | `input$<id>_resize_end`, with `events = "resize_end"` | Triggered when resizing ends (when `resizable` is enabled) |
 
 ### Slots
 

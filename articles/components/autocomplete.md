@@ -169,12 +169,12 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `blur` | `input$<id>_blur` | triggers when Input blurs |
-| `focus` | `input$<id>_focus` | triggers when Input focuses |
-| `input` | `input$<id>_input` | triggers when the Input value change |
-| `clear` | `input$<id>_clear` | triggers when the Input is cleared by clicking the clear button |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when Input blurs |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when Input focuses |
+| `input` | `input$<id>_input`, with `events = "input"` | triggers when the Input value change |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when the Input is cleared by clicking the clear button |
 | `select` | `input$<id>_select` | triggers when a suggestion is clicked |
-| `change` | `input$<id>_change` | triggers when the icon inside Input value change |
+| `change` | `input$<id>_change`, with `events = "change"` | triggers when the icon inside Input value change |
 
 ### Slots
 

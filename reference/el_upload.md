@@ -20,7 +20,7 @@ el_upload(
   tip = NULL,
   action = NULL,
   headers = NULL,
-  extra_data = NULL,
+  data = NULL,
   file_list = NULL,
   with_credentials = NULL,
   before_upload = NULL,
@@ -42,6 +42,7 @@ el_upload(
   directory = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -60,7 +61,7 @@ update_el_upload(
   list_type = NULL,
   auto_upload = NULL,
   headers = NULL,
-  extra_data = NULL,
+  data = NULL,
   file_list = NULL,
   with_credentials = NULL,
   before_upload = NULL,
@@ -142,9 +143,12 @@ update_el_upload(
 
   Request headers, as a named list.
 
-- extra_data:
+- data:
 
-  Extra fields sent alongside the file, as a named list.
+  Extra fields sent alongside each file, as a named list: Element Plus's
+  `data`. Element's own request sends them, so they apply only with
+  `action`; Shiny's upload, the default, does not send them – give the
+  server what it needs through another input.
 
 - file_list:
 
@@ -257,6 +261,16 @@ update_el_upload(
   rather than nested. For a scoped slot, write the template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_upload()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -283,6 +297,16 @@ that URL. Shiny then plays no part – useful for a pre-signed S3 URL or
 an existing file service, but the server sees no `datapath`.
 
 ## Shiny inputs
+
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the files, as [`fileInput()`](https://rdrr.io/pkg/shiny/man/fileInput.html) reports them (without `action`) |
+| `input$<id>_success` | unasked | with `action`, the names of the files uploaded |
+| `input$<id>_error` | unasked | the name of a file that failed |
+
+The same list as `el_events("el_upload")`, which says how an event's
+arguments travel.
 
 Without `action`, `input$<id>` is a data frame of `name`, `size`, `type`
 and `datapath`, one row per file in the last batch, exactly as

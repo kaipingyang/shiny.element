@@ -283,6 +283,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_dropdown_item.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_element_theme.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_empty.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_events.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_feedback_close.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_feedback_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_footer.html</loc></url>
@@ -315,7 +316,6 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_message.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_message_box.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_notification.html</loc></url>
-<url><loc>https://kaipingyang.github.io/shiny.element/reference/el_on.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_option.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_overlay_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/reference/el_page.html</loc></url>

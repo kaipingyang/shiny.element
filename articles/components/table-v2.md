@@ -463,6 +463,7 @@ ui <- el_page(
   ),
   el_table_v2(
     "tv_sticky",
+    events = "scroll",
     columns = columns,
     data = data[-1, ],
     fixed_data = data[1, ],
@@ -1220,6 +1221,7 @@ rows[[3]]$children <- lapply(0:49, function(i) {
 
 el_table_v2(
   "tv_tree",
+  events = c("row_expand", "expanded_rows_change"),
   columns = columns,
   data = rows,
   expand_column_key = expand_column_key,
@@ -1662,11 +1664,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `column-sort` | `input$<id>_column_sort` | Invoked when column sorted |
-| `expanded-rows-change` | `input$<id>_expanded_rows_change` | Invoked when expanded rows changed |
+| `expanded-rows-change` | `input$<id>_expanded_rows_change`, with `events = "expanded_rows_change"` | Invoked when expanded rows changed |
 | `end-reached` | `input$<id>_end_reached` | Invoked when the end of the table is reached. The callback contain the remain distance, it is the usually the scrollbar height. |
-| `scroll` | `input$<id>_scroll` | Invoked after scrolling |
-| `rows-rendered` | `input$<id>_rows_rendered` | Invoked when rows are rendered |
-| `row-expand` | `input$<id>_row_expand` | Invoked when expand/collapse the tree node by clicking the arrow icon |
+| `scroll` | `input$<id>_scroll`, with `events = "scroll"` | Invoked after scrolling |
+| `rows-rendered` | `input$<id>_rows_rendered`, with `events = "rows_rendered"` | Invoked when rows are rendered |
+| `row-expand` | `input$<id>_row_expand`, with `events = "row_expand"` | Invoked when expand/collapse the tree node by clicking the arrow icon |
 
 ### TableV2 Exposes
 

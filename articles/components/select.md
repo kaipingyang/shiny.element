@@ -549,12 +549,12 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | triggers when the selected value changes |
-| `visible-change` | `input$<id>_visible_change` | triggers when the dropdown appears/disappears |
-| `remove-tag` | `input$<id>_remove_tag` | triggers when a tag is removed in multiple mode |
-| `clear` | `input$<id>_clear` | triggers when the clear icon is clicked in a clearable Select |
-| `blur` | `input$<id>_blur` | triggers when Input blurs |
-| `focus` | `input$<id>_focus` | triggers when Input focuses |
-| `popup-scroll` | `input$<id>_popup_scroll` | triggers when dropdown scrolls |
+| `visible-change` | `input$<id>_visible_change`, with `events = "visible_change"` | triggers when the dropdown appears/disappears |
+| `remove-tag` | `input$<id>_remove_tag`, with `events = "remove_tag"` | triggers when a tag is removed in multiple mode |
+| `clear` | `input$<id>_clear`, with `events = "clear"` | triggers when the clear icon is clicked in a clearable Select |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when Input blurs |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when Input focuses |
+| `popup-scroll` | `input$<id>_popup_scroll`, with `events = "popup_scroll"` | triggers when dropdown scrolls |
 | `end-reached` | `input$<id>_end_reached` | triggers when dropdown scroll reaches an end |
 
 ### Select Slots

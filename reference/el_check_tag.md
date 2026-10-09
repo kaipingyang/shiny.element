@@ -11,7 +11,8 @@ el_check_tag(
   value = FALSE,
   disabled = NULL,
   type = NULL,
-  width = NULL
+  width = NULL,
+  on = NULL
 )
 
 update_el_check_tag(
@@ -51,6 +52,16 @@ update_el_check_tag(
 
   Component width, as a CSS unit.
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -62,7 +73,13 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – `TRUE` or `FALSE`, on load and on every change.
+|              |          |                      |
+|--------------|----------|----------------------|
+| Input        | Reported | Value                |
+| `input$<id>` | unasked  | `TRUE` while checked |
+
+The same list as `el_events("el_check_tag")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 

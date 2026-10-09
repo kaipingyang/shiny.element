@@ -174,10 +174,12 @@ travel and sets <code>input$&lt;id&gt;_&lt;event&gt;</code>.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_event_bindings</span><span class="op">(</span></span>
 <span>  <span class="va">ns_id</span>,</span>
-<span>  <span class="va">events</span>,</span>
+<span>  <span class="va">fn</span>,</span>
+<span>  asked <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  shapes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  throttle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  inputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  bound <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -189,8 +191,16 @@ travel and sets <code>input$&lt;id&gt;_&lt;event&gt;</code>.</p>
 <dd><p>The namespaced element id.</p></dd>
 
 
-<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
-<dd><p>Character vector of Element event names, in kebab-case.</p></dd>
+<dt id="arg-fn">fn<a class="anchor" aria-label="anchor" href="#arg-fn"></a></dt>
+<dd><p>The component's function name, its entry in the registry.</p></dd>
+
+
+<dt id="arg-asked">asked<a class="anchor" aria-label="anchor" href="#arg-asked"></a></dt>
+<dd><p>The user's <code>events</code>.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>The user's <code>on</code>: see <code>.el_on_bindings()</code>.</p></dd>
 
 
 <dt id="arg-shapes">shapes<a class="anchor" aria-label="anchor" href="#arg-shapes"></a></dt>
@@ -207,15 +217,22 @@ sent at most every 200 ms, the last one always: the server hears where
 the scroll or the drag ended.</p></dd>
 
 
-<dt id="arg-inputs">inputs<a class="anchor" aria-label="anchor" href="#arg-inputs"></a></dt>
-<dd><p><code>c(&lt;event&gt; = "&lt;input id&gt;")</code>: events reported under an input
-of the user's naming rather than <code>&lt;ns_id&gt;_&lt;event&gt;</code>.</p></dd>
+<dt id="arg-bound">bound<a class="anchor" aria-label="anchor" href="#arg-bound"></a></dt>
+<dd><p>Events the component listens to whether or not they are
+reported, through the method of the same name, which it wraps: a tree's
+<code>check-change</code> keeps <code>input$&lt;id&gt;_checked</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list with <code>attrs</code> (to merge into the tag) and <code>methods</code> (to merge
 into the Vue options).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Which events: the component's entry in <code><a href="el_events.html">el_events()</a></code> – those on by
+default, and those the user asked for with <code>events</code> – and the user's own
+handlers, <code>on</code>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

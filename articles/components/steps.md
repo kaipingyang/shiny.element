@@ -196,9 +196,9 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 ### Steps Events
 
-| Element  | In R                | Description                           |
-|----------|---------------------|---------------------------------------|
-| `change` | `input$<id>_change` | triggers when the active step changes |
+| Element | In R | Description |
+|----|----|----|
+| `change` | `input$<id>_change`, with `events = "change"` | triggers when the active step changes |
 
 ### Steps Slots
 

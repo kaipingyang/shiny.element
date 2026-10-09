@@ -35,7 +35,9 @@ el_date_picker_panel(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_date_picker_panel(
@@ -217,6 +219,24 @@ update_el_date_picker_panel(
   `prev-year`, `next-year`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -228,13 +248,16 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the value, on load and on every change.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the date, two for a range |
+| `input$<id>_calendar_change` | `events = "calendar_change"` | triggers when the calendar selected date is changed. Only for range |
+| `input$<id>_panel_change` | `events = "panel_change"` | triggers when the navigation button click. |
+| `input$<id>_clear` | `events = "clear"` | triggers when a clear button is clicked |
 
-- `input$<id>_calendar_change` – Element Plus's `calendar-change` event.
-
-- `input$<id>_panel_change` – Element Plus's `panel-change` event.
-
-- `input$<id>_clear` – Element Plus's `clear` event.
+The same list as `el_events("el_date_picker_panel")`, which says how an
+event's arguments travel.
 
 ## Updating from the server
 
@@ -253,9 +276,9 @@ returns `NULL` invisibly.
 el_date_picker_panel("day", value = Sys.Date(), value_format = "YYYY-MM-DD")
 #> <div id="day" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="day_container" style="display: contents">
-#>   <el-date-picker-panel v-model="value" @calendar-change="elEmitCalendarChange" @panel-change="elEmitPanelChange" @clear="elEmitClear" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
+#>   <el-date-picker-panel v-model="value" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :clearable="clearable === null ? undefined : clearable" :editable="editable === null ? undefined : editable" :type="type === null ? undefined : type" :default-value="$elDate(defaultValue)" :default-time="$elDate(defaultTime)" :value-format="valueFormat === null ? undefined : valueFormat" :date-format="dateFormat === null ? undefined : dateFormat" :time-format="timeFormat === null ? undefined : timeFormat" :unlink-panels="unlinkPanels === null ? undefined : unlinkPanels" :single-panel="singlePanel === null ? undefined : singlePanel" :disabled-date="disabledDate === null ? undefined : disabledDate" :shortcuts="shortcuts === null ? undefined : shortcuts" :cell-class-name="cellClassName === null ? undefined : cellClassName" :show-footer="showFooter === null ? undefined : showFooter" :show-confirm="showConfirm === null ? undefined : showConfirm" :show-week-number="showWeekNumber === null ? undefined : showWeekNumber"></el-date-picker-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-08","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":"YYYY-MM-DD","dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":{"elEmitCalendarChange":"function() { window.shinyVue.emit('day', 'calendar_change', arguments); }","elEmitPanelChange":"function() { window.shinyVue.emit('day', 'panel_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('day', 'clear', arguments); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitCalendarChange","options.methods.elEmitPanelChange","options.methods.elEmitClear","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-09","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":"YYYY-MM-DD","dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.value"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

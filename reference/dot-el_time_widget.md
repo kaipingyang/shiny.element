@@ -5,7 +5,18 @@ Build either time picker
 ## Usage
 
 ``` r
-.el_time_widget(tag, ns_id, init, fields, events, width, slots, form_item)
+.el_time_widget(
+  tag,
+  ns_id,
+  init,
+  fields,
+  fn,
+  events,
+  on,
+  width,
+  slots,
+  form_item
+)
 ```
 
 ## Arguments
@@ -27,9 +38,14 @@ Build either time picker
   The props, by their R names, for
   [`.el_props()`](https://kaipingyang.github.io/shiny.element/reference/dot-el_props.md).
 
-- events:
+- fn:
 
-  Events forwarded as `input$<id>_<event>`.
+  The component's function, its entry in
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md).
+
+- events, on:
+
+  The user's `events` and `on`.
 
 - width, slots:
 

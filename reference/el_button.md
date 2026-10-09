@@ -33,6 +33,7 @@ el_button(
   style = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -189,6 +190,16 @@ update_el_button(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_button()`, deprecated: inside a module, wrap `id` in `ns()`, as
@@ -203,10 +214,18 @@ An `htmltools` tagList with a Vue-managed button component.
 
 ## Shiny inputs
 
-`input$<id>` – the number of clicks, as
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the number of clicks, as [`actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html) reports it |
+
+The same list as `el_events("el_button")`, which says how an event's
+arguments travel.
+
+Counted as
 [`shiny::actionButton()`](https://rdrr.io/pkg/shiny/man/actionButton.html)
-reports it: 0 on load, and counted only while neither `disabled` nor
-`loading` is `TRUE`. It carries the same class, so
+counts: 0 on load, and only while neither `disabled` nor `loading` is
+`TRUE`. It carries the same class, so
 [`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html) and
 [`req()`](https://rdrr.io/pkg/shiny/man/req.html) treat 0 as not yet
 clicked.

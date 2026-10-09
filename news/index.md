@@ -169,6 +169,47 @@ as a Shiny input.
   where they were `expanded` and `checked` – in
   [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
   too, which can now change `props`. `input$<id>_checked` is unchanged.
+- Components report their value, the user’s deliberate actions and the
+  server’s requests; Element’s other events only when asked for. A typed
+  character, a hover, a focus or a dropdown opening each sent a message
+  to the server, and most apps never read them: an input, a select, a
+  slider, a date picker and a tooltip sent 66 messages for one ordinary
+  use, 3 of them read. Ask for an event with the component’s `events`,
+  by Element’s name in snake_case – `el_tree(events = "node_drop")`
+  reports `input$<id>_node_drop`.
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
+  lists what each component reports and which unasked, as its help
+  page’s “Shiny inputs” table does; a name it does not have is an error
+  listing them. A keyboard event now sends the key,
+  `list(key, code, ctrl, shift, alt, meta)`, rather than `TRUE`.
+- `el_on()` is gone: `el_table(events =)` does what it did, the input
+  always `input$<id>_<event>` – a name of one’s own was reported outside
+  a module’s namespace. For an input of your own, `on`, which every
+  component built on
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
+  takes: a handler of any event,
+  `on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))`
+  reporting `input$<id>_enter`, as DT’s `callback` and reactable’s
+  `onClick` let one.
+- Element Plus’s names where they differed for no reason:
+  `el_menu(default_active =)`, as Element’s `default-active`, was
+  `active`; `el_upload(data =)`, Element’s `data`, was `extra_data` –
+  the fields Element’s own request sends with `action`, which Shiny’s
+  upload does not send; `input$<id>_close` of
+  [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
+  and
+  [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md),
+  Element’s `close` event, was `_closed` (a dialog’s `_closed` is
+  Element’s `closed`, after the animation); `input$<id>_page_size` of
+  [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md),
+  as its `page_size`, was `_size`; and
+  [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)’s
+  open state is `visible`, as the dialog’s, drawer’s, tooltip’s and
+  popover’s, where it was `open`. The `update_el_*()` functions follow.
+  [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+  takes `value` as well as `selected`, as
+  [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
+  does.
 
 Before this first release the API is still allowed to move; from the
 first CRAN release on, a change like these goes through a deprecation
@@ -199,8 +240,7 @@ first.
   and `input$<id>_selected_rows` are gone. A table reports five of
   Element’s events unasked – `selection-change`, `current-change`,
   `sort-change`, `filter-change`, `expand-change` – and the others when
-  asked, with `el_table(events =)` or
-  [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md).
+  asked, with `el_table(events =)`.
 
 ### Items as functions
 
@@ -545,10 +585,8 @@ ticks, sort and open rows. Its inputs are named after the output:
   input handler subsetting the data the server keeps.
 - `input$tbl_current_change`, `_sort_change`, `_filter_change` and
   `_expand_change`, always; Element’s other events – `row-dblclick`,
-  `cell-click` and the rest – when asked, with `el_table(events =)` or
-  piped, `el_table(...) |> el_on("row-dblclick")`, under Element’s name
-  in snake_case or an input of one’s own
-  (`el_on("cell-click", input = "picked")`).
+  `cell-click` and the rest – when asked, with
+  `el_table(events = "row_dblclick")`, as `input$tbl_row_dblclick`.
 
 `el_table_column(editable =)` edits a column’s cells in place, in
 Element’s input, input-number, select or date picker: a double click

@@ -24,12 +24,10 @@ few exceptions. Each is deliberate; the rest translate mechanically
 
 | Element | Here | Why |
 |----|----|----|
-| `default-active` | `active` | It is the current item, and [`update_el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md) changes it – “default” would suggest it is only read once |
-| `data` (upload) | `extra_data` | [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s `data` would read as the file, not the fields sent beside it |
 | `width` (popover, popconfirm) | `popover_width`, `popconfirm_width` | Every component takes `width` for its own size; this one sizes the card |
 | `#reference` slot (tooltip) | `reference` | The element the tooltip describes, as for [`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md); `trigger` is Element’s own, how it opens |
 | `virtual-ref` | `virtual_ref`, a CSS selector | Element takes the element itself, which R cannot send; the selector is looked up in the browser |
-| `model-value` | `value`, or `visible` (dialog, drawer), `selected` (tabs), `open` (tour) | `v-model`’s prop is the component’s value, read back as `input$<id>` |
+| `model-value` | `value`, or `visible` (dialog, drawer, tour) | `v-model`’s prop is the component’s value, read back as `input$<id>`; whether an overlay is open is `visible`, as Element names it on the tooltip and popover |
 | `width` (watermark, table-v2) | `watermark_width`, `table_v2_width` | As for the popover |
 | a prop named like a child’s field | prefixed: `tip_`, `pop_`, `pc_` | A component that absorbs its children keeps their data apart from its own |
 
@@ -73,19 +71,21 @@ el_table(
 ### Two names for the choice components
 
 [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md),
-[`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md)
-and
+[`el_radio_group()`](https://kaipingyang.github.io/shiny.element/reference/el_radio_group.md),
 [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/reference/el_checkbox_group.md)
+and
+[`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
 sit beside
 [`selectInput()`](https://rdrr.io/pkg/shiny/man/selectInput.html),
-[`radioButtons()`](https://rdrr.io/pkg/shiny/man/radioButtons.html) and
-[`checkboxGroupInput()`](https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html),
+[`radioButtons()`](https://rdrr.io/pkg/shiny/man/radioButtons.html),
+[`checkboxGroupInput()`](https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html)
+and [`tabsetPanel()`](https://rdrr.io/pkg/shiny/man/tabsetPanel.html),
 so they take Shiny’s names – and Element’s as well:
 
-| Shiny’s name | Element’s name | Meaning            |
-|--------------|----------------|--------------------|
-| `choices`    | `options`      | what can be picked |
-| `selected`   | `value`        | what is picked     |
+| Shiny’s name | Element’s name | Meaning                                     |
+|--------------|----------------|---------------------------------------------|
+| `choices`    | `options`      | what can be picked (not tabs: their `tabs`) |
+| `selected`   | `value`        | what is picked                              |
 
 Either works, in the components and in their `update_el_*()`, so code
 reads naturally to someone coming from either side:
@@ -113,12 +113,10 @@ are an error rather than one quietly winning. The help pages document
 each pair as one argument (`selected, value`). No other component has a
 second name: everywhere else Shiny and Element already agree on `value`.
 
-A component’s `value` prop is its `v-model`, so it is the `value`
-argument where the component has one and the binding elsewhere –
-[`el_tooltip()`](https://kaipingyang.github.io/shiny.element/reference/el_tooltip.md)
-and
-[`el_popover()`](https://kaipingyang.github.io/shiny.element/reference/el_popover.md)
-use `value` for whether they are open, which `update_el_*(value =)`
+A component’s `v-model` is its `value` argument, the value it reports as
+`input$<id>`. The overlays are the exception: whether a dialog, drawer,
+tooltip, popover or tour is open is `visible` in each, Element’s own
+name for it on the tooltip and popover, which `update_el_*(visible =)`
 sets.
 
 [`el_upload()`](https://kaipingyang.github.io/shiny.element/reference/el_upload.md)’s

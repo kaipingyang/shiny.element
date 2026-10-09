@@ -193,7 +193,9 @@ do.</p>
 <span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_mention</span><span class="op">(</span></span>
@@ -364,6 +366,20 @@ whether beside the component rather than under it. Element's
 <code>header</code>, <code>footer</code>. A scoped slot is written with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session; the current one by default, as for
 <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
@@ -376,15 +392,8 @@ whether beside the component rather than under it. Element's
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;</code> – the value, on load and on every change.</p></li>
-<li><p><code>input$&lt;id&gt;_search</code> – Element Plus's <code>search</code> event, as it is typed
-after a prefix: <code>list(pattern, prefix)</code>, the text and the prefix.
-Answer it with <code>update_el_mention()</code>'s <code>options</code> (and <code>loading</code>).</p></li>
-<li><p><code>input$&lt;id&gt;_select</code> – Element Plus's <code>select</code> event: <code>list(option, prefix)</code>.</p></li>
-<li><p><code>input$&lt;id&gt;_whole_remove</code> – Element Plus's <code>whole-remove</code> event:
-<code>list(pattern, prefix)</code>.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the text</td></tr><tr><td><code>input$&lt;id&gt;_search</code></td><td>unasked</td><td><code>list(pattern, prefix)</code>; answer with <code>update_el_mention(options =)</code></td></tr><tr><td><code>input$&lt;id&gt;_select</code></td><td>unasked</td><td><code>list(option, prefix)</code></td></tr><tr><td><code>input$&lt;id&gt;_whole_remove</code></td><td><code>events = "whole_remove"</code></td><td><code>list(pattern, prefix)</code></td></tr></table><p>The same list as <code>el_events("el_mention")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="updating-from-the-server">Updating from the server<a class="anchor" aria-label="anchor" href="#updating-from-the-server"></a></h2>
 
@@ -401,9 +410,9 @@ stays as it is; <code>NA</code> returns it to Element's default.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_mention</span><span class="op">(</span><span class="st">"msg"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ada"</span>, <span class="st">"Grace"</span>, <span class="st">"Linus"</span><span class="op">)</span>, placeholder <span class="op">=</span> <span class="st">"Type @"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="msg" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="msg_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-mention v-model="value" @search="elEmitSearch" @select="elEmitSelect" @whole-remove="elEmitWholeRemove" :options="options === null ? undefined : options" :props="props === null ? undefined : props" :prefix="prefix === null ? undefined : prefix" :split="split === null ? undefined : split" :filter-option="filterOption === null ? undefined : filterOption" :placement="placement === null ? undefined : placement" :show-arrow="showArrow === null ? undefined : showArrow" :offset="offset === null ? undefined : offset" :whole="whole === null ? undefined : whole" :check-is-whole="checkIsWhole === null ? undefined : checkIsWhole" :loading="loading === null ? undefined : loading" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :popper-options="popperOptions === null ? undefined : popperOptions" :placeholder="placeholder === null ? undefined : placeholder" :disabled="disabled === null ? undefined : disabled" :type="type === null ? undefined : type" :rows="rows === null ? undefined : rows"&gt;&lt;/el-mention&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-mention v-model="value" @search="elEmitSearch" @select="elEmitSelect" :options="options === null ? undefined : options" :props="props === null ? undefined : props" :prefix="prefix === null ? undefined : prefix" :split="split === null ? undefined : split" :filter-option="filterOption === null ? undefined : filterOption" :placement="placement === null ? undefined : placement" :show-arrow="showArrow === null ? undefined : showArrow" :offset="offset === null ? undefined : offset" :whole="whole === null ? undefined : whole" :check-is-whole="checkIsWhole === null ? undefined : checkIsWhole" :loading="loading === null ? undefined : loading" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :popper-options="popperOptions === null ? undefined : popperOptions" :placeholder="placeholder === null ? undefined : placeholder" :disabled="disabled === null ? undefined : disabled" :type="type === null ? undefined : type" :rows="rows === null ? undefined : rows"&gt;&lt;/el-mention&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"options":[{"value":"Ada","label":"Ada"},{"value":"Grace","label":"Grace"},{"value":"Linus","label":"Linus"}],"props":null,"prefix":null,"split":null,"filterOption":null,"placement":null,"showArrow":null,"offset":null,"whole":null,"checkIsWhole":null,"loading":null,"popperClass":null,"popperStyle":null,"popperOptions":null,"placeholder":"Type @","disabled":null,"type":null,"rows":null},"methods":{"elEmitSearch":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'search', [v]); }","elEmitSelect":"function() { var shape = function(option, prefix) { return {option: option, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'select', [v]); }","elEmitWholeRemove":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'whole_remove', [v]); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSearch","options.methods.elEmitSelect","options.methods.elEmitWholeRemove","options.watch.value"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"options":[{"value":"Ada","label":"Ada"},{"value":"Grace","label":"Grace"},{"value":"Linus","label":"Linus"}],"props":null,"prefix":null,"split":null,"filterOption":null,"placement":null,"showArrow":null,"offset":null,"whole":null,"checkIsWhole":null,"loading":null,"popperClass":null,"popperStyle":null,"popperOptions":null,"placeholder":"Type @","disabled":null,"type":null,"rows":null},"methods":{"elEmitSearch":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'search', [v]); }","elEmitSelect":"function() { var shape = function(option, prefix) { return {option: option, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'select', [v]); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSearch","options.methods.elEmitSelect","options.watch.value"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>

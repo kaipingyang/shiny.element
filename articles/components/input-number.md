@@ -231,11 +231,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 ### Events
 
-| Element  | In R                    | Description                     |
-|----------|-------------------------|---------------------------------|
+| Element | In R | Description |
+|----|----|----|
 | `change` | `input$<id>`, the value | triggers when the value changes |
-| `blur`   | `input$<id>_blur`       | triggers when Input blurs       |
-| `focus`  | `input$<id>_focus`      | triggers when Input focuses     |
+| `blur` | `input$<id>_blur`, with `events = "blur"` | triggers when Input blurs |
+| `focus` | `input$<id>_focus`, with `events = "focus"` | triggers when Input focuses |
 
 ### Exposes
 

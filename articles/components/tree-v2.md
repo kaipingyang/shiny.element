@@ -365,13 +365,13 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `node-click` | `input$<id>_node_click` | triggers when a node is clicked |
-| `node-drop` | `input$<id>_node_drop` | triggers when drag something and drop on a node |
-| `node-contextmenu` | `input$<id>_node_contextmenu` | triggers when a node is clicked by right button |
-| `check-change` | `input$<id>_check_change` | triggers when the selected state of the node changes |
+| `node-drop` | `input$<id>_node_drop`, with `events = "node_drop"` | triggers when drag something and drop on a node |
+| `node-contextmenu` | `input$<id>_node_contextmenu`, with `events = "node_contextmenu"` | triggers when a node is clicked by right button |
+| `check-change` | `input$<id>_check_change`, with `events = "check_change"` | triggers when the selected state of the node changes |
 | `check` | `input$<id>_check` | triggers after clicking the checkbox of a node |
-| `current-change` | `input$<id>_current_change` | triggers when current node changes |
-| `node-expand` | `input$<id>_node_expand` | triggers when current node open |
-| `node-collapse` | `input$<id>_node_collapse` | triggers when current node close |
+| `current-change` | `input$<id>_current_change`, with `events = "current_change"` | triggers when current node changes |
+| `node-expand` | `input$<id>_node_expand`, with `events = "node_expand"` | triggers when current node open |
+| `node-collapse` | `input$<id>_node_collapse`, with `events = "node_collapse"` | triggers when current node close |
 
 ### TreeV2 Slots
 

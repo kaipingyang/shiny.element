@@ -211,6 +211,8 @@ city – from a dropdown of side-by-side columns.</p>
 <span>  virtual_scroll <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -498,6 +500,20 @@ given here is absorbed rather than nested. For a scoped slot, write
 the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>In <code>el_cascader()</code>, deprecated: inside a module, wrap <code>id</code> in
 <code>ns()</code>, as for any Shiny input; a session given here namespaces <code>id</code>
@@ -512,16 +528,11 @@ current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/upda
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;</code> – the selected path, on load and on change.</p></li>
-<li><p><code>input$&lt;id&gt;_lazy_load</code> – with <code>props = list(lazy = TRUE)</code>, a column to
-load: <code>level</code> (0 for the first), <code>value</code> and <code>path</code> of the option
-opened, and <code>request</code>. Answer with <code><a href="el_load_children.html">el_load_children()</a></code>, passing the
-input back; each child is <code>list(value =, label =, leaf = TRUE)</code> for one
-with nothing below.</p></li>
-<li><p><code>input$&lt;id&gt;_expand_change</code>, <code>_blur</code>, <code>_focus</code>, <code>_visible_change</code>,
-<code>_remove_tag</code> – Element's events.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the selected path</td></tr><tr><td><code>input$&lt;id&gt;_lazy_load</code></td><td>unasked</td><td>with <code>props = list(lazy = TRUE)</code>, a column to load; answer with <code><a href="el_load_children.html">el_load_children()</a></code></td></tr><tr><td><code>input$&lt;id&gt;_expand_change</code></td><td><code>events = "expand_change"</code></td><td>triggers when expand option changes</td></tr><tr><td><code>input$&lt;id&gt;_blur</code></td><td><code>events = "blur"</code></td><td>triggers when Cascader blurs</td></tr><tr><td><code>input$&lt;id&gt;_focus</code></td><td><code>events = "focus"</code></td><td>triggers when Cascader focuses</td></tr><tr><td><code>input$&lt;id&gt;_visible_change</code></td><td><code>events = "visible_change"</code></td><td>triggers when the dropdown appears/disappears</td></tr><tr><td><code>input$&lt;id&gt;_remove_tag</code></td><td><code>events = "remove_tag"</code></td><td>triggers when remove tag in multiple selection mode</td></tr><tr><td><code>input$&lt;id&gt;_clear</code></td><td><code>events = "clear"</code></td><td>triggers when the clear icon is clicked in a clearable Select</td></tr></table><p>The same list as <code>el_events("el_cascader")</code>, which says how an event's arguments travel.</p>
+<p><code>input$&lt;id&gt;_lazy_load</code> carries <code>level</code> (0 for the first column), <code>value</code>
+and <code>path</code> of the option opened, and <code>request</code>. Answer with
+<code><a href="el_load_children.html">el_load_children()</a></code>, passing the input back; each child is <code>list(value =, label =, leaf = TRUE)</code> for one with nothing below.</p>
+    </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 

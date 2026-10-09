@@ -61,8 +61,8 @@ The output id names the table's inputs:
 
 - `input$<id>_current_change`, `_sort_change`, `_filter_change`,
   `_expand_change` – reported by every table; any other of Element's
-  events with `el_table(events =)` or
-  [`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md).
+  events with `el_table(events =)`: see
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md).
 
 [`update_el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md)
 and
@@ -81,7 +81,7 @@ session's page still gets only what changed for it.
 ## See also
 
 [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md),
-[`el_on()`](https://kaipingyang.github.io/shiny.element/reference/el_on.md).
+[`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md).
 
 ## Examples
 

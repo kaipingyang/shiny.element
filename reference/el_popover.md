@@ -36,6 +36,8 @@ el_popover(
   ...,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -199,6 +201,24 @@ update_el_popover(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_popover()`, deprecated: inside a module, wrap `id` in `ns()`,
@@ -213,11 +233,18 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>_show`, `input$<id>_hide` – fire as the card opens and
-  closes.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>_show` | `events = "show"` | triggers when popover shows |
+| `input$<id>_hide` | `events = "hide"` | triggers when popover hides |
+| `input$<id>_after_enter` | `events = "after_enter"` | triggers when the entering transition ends |
+| `input$<id>_after_leave` | `events = "after_leave"` | triggers when the leaving transition ends |
+| `input$<id>_before_enter` | `events = "before_enter"` | triggers when the entering transition before |
+| `input$<id>_before_leave` | `events = "before_leave"` | triggers when the leaving transition before |
 
-- `input$<id>_after_enter`, `input$<id>_after_leave` – fire once the
-  animation has finished.
+The same list as `el_events("el_popover")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 
@@ -239,7 +266,7 @@ el_popover(
 )
 #> <div id="info" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="info_container" style="display: contents">
-#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave" @before-enter="elEmitBeforeEnter" @before-leave="elEmitBeforeLeave" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="$elRef(popVirtualRef)" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
+#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="$elRef(popVirtualRef)" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
 #>     <template v-slot:reference>
 #>       <span>
 #>         <el-button>Details</el-button>
@@ -247,7 +274,7 @@ el_popover(
 #>     </template>
 #>   </el-popover>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"popTitle":"March","popContent":"Revenue up 4% on February.","popTrigger":null,"popPlacement":null,"popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null,"popAppendTo":null,"popAutoClose":null,"popEffect":null,"popHideAfter":null,"popPersistent":null,"popPopperStyle":null,"popShowAfter":null,"popShowArrow":null,"popTeleported":null,"popTriggerKeys":null,"popVirtualRef":null,"popVirtualTriggering":null,"popVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyVue.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyVue.emit('info', 'after_leave', arguments); }","elEmitBeforeEnter":"function() { window.shinyVue.emit('info', 'before_enter', arguments); }","elEmitBeforeLeave":"function() { window.shinyVue.emit('info', 'before_leave', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitAfterEnter","options.methods.elEmitAfterLeave","options.methods.elEmitBeforeEnter","options.methods.elEmitBeforeLeave"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"popTitle":"March","popContent":"Revenue up 4% on February.","popTrigger":null,"popPlacement":null,"popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null,"popAppendTo":null,"popAutoClose":null,"popEffect":null,"popHideAfter":null,"popPersistent":null,"popPopperStyle":null,"popShowAfter":null,"popShowArrow":null,"popTeleported":null,"popTriggerKeys":null,"popVirtualRef":null,"popVirtualTriggering":null,"popVisible":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
 
 # Hover, with markup in the body
@@ -260,7 +287,7 @@ el_popover(
 )
 #> <div id="info" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="info_container" style="display: contents">
-#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" @show="elEmitShow" @hide="elEmitHide" @after-enter="elEmitAfterEnter" @after-leave="elEmitAfterLeave" @before-enter="elEmitBeforeEnter" @before-leave="elEmitBeforeLeave" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="$elRef(popVirtualRef)" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
+#>   <el-popover :title="popTitle === null ? undefined : popTitle" :content="popContent === null ? undefined : popContent" :trigger="popTrigger === null ? undefined : popTrigger" :placement="popPlacement === null ? undefined : popPlacement" :width="popPopoverWidth === null ? undefined : popPopoverWidth" :disabled="popDisabled === null ? undefined : popDisabled" :offset="popOffset === null ? undefined : popOffset" :transition="popTransition === null ? undefined : popTransition" :popper-class="popPopperClass === null ? undefined : popPopperClass" :popper-options="popPopperOptions === null ? undefined : popPopperOptions" :tabindex="popTabindex === null ? undefined : popTabindex" :append-to="popAppendTo === null ? undefined : popAppendTo" :auto-close="popAutoClose === null ? undefined : popAutoClose" :effect="popEffect === null ? undefined : popEffect" :hide-after="popHideAfter === null ? undefined : popHideAfter" :persistent="popPersistent === null ? undefined : popPersistent" :popper-style="popPopperStyle === null ? undefined : popPopperStyle" :show-after="popShowAfter === null ? undefined : popShowAfter" :show-arrow="popShowArrow === null ? undefined : popShowArrow" :teleported="popTeleported === null ? undefined : popTeleported" :trigger-keys="popTriggerKeys === null ? undefined : popTriggerKeys" :virtual-ref="$elRef(popVirtualRef)" :virtual-triggering="popVirtualTriggering === null ? undefined : popVirtualTriggering" :visible="popVisible === null ? undefined : popVisible">
 #>     <ul>
 #>       <li>One</li>
 #>       <li>Two</li>
@@ -272,7 +299,7 @@ el_popover(
 #>     </template>
 #>   </el-popover>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"popTitle":null,"popContent":null,"popTrigger":"hover","popPlacement":"right","popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null,"popAppendTo":null,"popAutoClose":null,"popEffect":null,"popHideAfter":null,"popPersistent":null,"popPopperStyle":null,"popShowAfter":null,"popShowArrow":null,"popTeleported":null,"popTriggerKeys":null,"popVirtualRef":null,"popVirtualTriggering":null,"popVisible":null},"methods":{"elEmitShow":"function() { window.shinyVue.emit('info', 'show', arguments); }","elEmitHide":"function() { window.shinyVue.emit('info', 'hide', arguments); }","elEmitAfterEnter":"function() { window.shinyVue.emit('info', 'after_enter', arguments); }","elEmitAfterLeave":"function() { window.shinyVue.emit('info', 'after_leave', arguments); }","elEmitBeforeEnter":"function() { window.shinyVue.emit('info', 'before_enter', arguments); }","elEmitBeforeLeave":"function() { window.shinyVue.emit('info', 'before_leave', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitShow","options.methods.elEmitHide","options.methods.elEmitAfterEnter","options.methods.elEmitAfterLeave","options.methods.elEmitBeforeEnter","options.methods.elEmitBeforeLeave"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"popTitle":null,"popContent":null,"popTrigger":"hover","popPlacement":"right","popPopoverWidth":null,"popDisabled":null,"popOffset":null,"popTransition":null,"popPopperClass":null,"popPopperOptions":null,"popTabindex":null,"popAppendTo":null,"popAutoClose":null,"popEffect":null,"popHideAfter":null,"popPersistent":null,"popPopperStyle":null,"popShowAfter":null,"popShowArrow":null,"popTeleported":null,"popTriggerKeys":null,"popVirtualRef":null,"popVirtualTriggering":null,"popVisible":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

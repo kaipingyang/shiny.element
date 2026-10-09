@@ -21,7 +21,9 @@ el_image_viewer(
   close_on_press_escape = NULL,
   show_progress = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_image_viewer(
@@ -121,6 +123,24 @@ update_el_image_viewer(
   `viewer-error`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -132,13 +152,16 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>_close` – as it closes.
+|                     |                     |                                |
+|---------------------|---------------------|--------------------------------|
+| Input               | Reported            | Value                          |
+| `input$<id>_close`  | unasked             | fires as it closes             |
+| `input$<id>_error`  | unasked             | same as native error.          |
+| `input$<id>_switch` | `events = "switch"` | trigger when switching images. |
+| `input$<id>_rotate` | `events = "rotate"` | trigger when rotating images.  |
 
-- `input$<id>_error` – Element Plus's `error` event.
-
-- `input$<id>_switch` – Element Plus's `switch` event.
-
-- `input$<id>_rotate` – Element Plus's `rotate` event.
+The same list as `el_events("el_image_viewer")`, which says how an
+event's arguments travel.
 
 ## Element methods
 

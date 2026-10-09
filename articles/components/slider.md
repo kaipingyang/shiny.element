@@ -198,7 +198,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | triggers when the value changes (if the mouse is being dragged, this event only fires when the mouse is released) |
-| `input` | `input$<id>_input` | triggers when the data changes (It’ll be emitted in real time during sliding) |
+| `input` | `input$<id>_input`, with `events = "input"` | triggers when the data changes (It’ll be emitted in real time during sliding) |
 
 [^1]: number
 

@@ -47,7 +47,10 @@
     return active ? active.getAttribute('data-el-name') : null;
   }
 
+  // Only the events the tabs report -- their defaults and those asked for
+  // with `events =` -- are sent: data-el-events lists them
   function report(el, what, value) {
+    if ((' ' + (el.getAttribute('data-el-events') || '') + ' ').indexOf(' ' + what.slice(1) + ' ') < 0) return;
     hasShiny && Shiny.setInputValue && Shiny.setInputValue(el.id + what, value, { priority: 'event' });
   }
 

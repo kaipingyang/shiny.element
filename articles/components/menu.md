@@ -42,7 +42,7 @@ items <- list(
 tagList(
   el_menu(
     "top_menu",
-    active = "1",
+    default_active = "1",
     class = "el-menu-demo",
     mode = "horizontal",
     items = items
@@ -50,7 +50,7 @@ tagList(
   tags$div(style = "height: 24px"),
   el_menu(
     "top_menu_dark",
-    active = "1",
+    default_active = "1",
     class = "el-menu-demo",
     mode = "horizontal",
     background_color = "#545c64",
@@ -75,7 +75,7 @@ tagList(
   ),
   el_menu(
     "lr_menu",
-    active = "1",
+    default_active = "1",
     class = "el-menu-demo",
     mode = "horizontal",
     ellipsis = FALSE,
@@ -141,7 +141,7 @@ el_row(
     tags$h5(style = "margin-bottom: 8px", "Default colors"),
     el_menu(
       "v_menu",
-      active = "2",
+      default_active = "2",
       class = "el-menu-vertical-demo",
       items = items
     )
@@ -151,7 +151,7 @@ el_row(
     tags$h5(style = "margin-bottom: 8px", "Custom colors"),
     el_menu(
       "v_menu_dark",
-      active = "2",
+      default_active = "2",
       class = "el-menu-vertical-demo",
       items = items,
       background_color = "#545c64",
@@ -190,7 +190,7 @@ ui <- el_page(
   ),
   el_menu(
     "col_menu",
-    active = "2",
+    default_active = "2",
     class = "el-menu-vertical-demo",
     collapse = TRUE,
     items = list(
@@ -290,7 +290,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `ellipsis` | `ellipsis` | whether the menu is ellipsis (available only in horizontal mode) | [^3] |  | true |
 | `ellipsis-icon` | `ellipsis_icon` | custom ellipsis icon (available only in horizontal mode and ellipsis is true) | [^4] / [^5] |  | — |
 | `popper-offset` | `popper_offset` | offset of the popper (effective for all submenus) | [^6] |  | 6 |
-| `default-active` | `active` | index of active menu on page load | [^7] |  | ’’ |
+| `default-active` | `default_active` | index of active menu on page load | [^7] |  | ’’ |
 | `default-openeds` | `default_openeds` | array that contains indexes of currently active sub-menus | [^8]`string[]` |  | \[\] |
 | `unique-opened` | `unique_opened` | whether only one sub-menu can be active | [^9] |  | false |
 | `menu-trigger` | `menu_trigger` | how sub-menus are triggered, only works when `mode` is ‘horizontal’ | [^10]`'hover' \\| 'click'` |  | hover |
@@ -312,8 +312,8 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `select` | one of the component’s inputs – see its reference page | callback function when menu is activated |
-| `open` | `input$<id>_open` | callback function when sub-menu expands |
-| `close` | `input$<id>_close` | callback function when sub-menu collapses |
+| `open` | `input$<id>_open`, with `events = "open"` | callback function when sub-menu expands |
+| `close` | `input$<id>_close`, with `events = "close"` | callback function when sub-menu collapses |
 
 ### Menu Slots
 

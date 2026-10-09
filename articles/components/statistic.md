@@ -199,10 +199,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 ### Countdown Events
 
-| Element  | In R                | Description                  |
-|----------|---------------------|------------------------------|
-| `change` | `input$<id>_change` | Time difference change event |
-| `finish` | `input$<id>_finish` | countdown end event          |
+| Element | In R | Description |
+|----|----|----|
+| `change` | `input$<id>_change`, with `events = "change"` | Time difference change event |
+| `finish` | `input$<id>_finish` | countdown end event |
 
 ### Countdown Slots
 

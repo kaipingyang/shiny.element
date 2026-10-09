@@ -195,7 +195,9 @@ takes the props of both <code><a href="el_select.html">el_select()</a></code> an
 <span>  show_message <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  inline_message <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_tree_select</span><span class="op">(</span></span>
@@ -369,6 +371,20 @@ whether beside the component rather than under it. Element's
 <dd><p>Named list of Element slot contents.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session; the current one by default, as for
 <code><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html" class="external-link">shiny::updateSelectInput()</a></code>.</p></dd>
@@ -381,14 +397,8 @@ whether beside the component rather than under it. Element's
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;</code> – the selected value, or several, on load and on change.</p></li>
-<li><p><code>input$&lt;id&gt;_load</code> – with <code>lazy = TRUE</code>, a node asking for its
-children: <code>level</code>, <code>key</code> (its <code>node_key</code> field) and <code>data</code>. Answer with
-<code><a href="el_load_children.html">el_load_children()</a></code>.</p></li>
-<li><p><code>input$&lt;id&gt;_visible_change</code>, <code>input$&lt;id&gt;_clear</code>, <code>input$&lt;id&gt;_remove_tag</code>,
-<code>input$&lt;id&gt;_node_click</code>, <code>input$&lt;id&gt;_check</code> – Element Plus's events.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the value, several with <code>multiple</code></td></tr><tr><td><code>input$&lt;id&gt;_load</code></td><td>unasked</td><td>with <code>lazy = TRUE</code>, a node asking for its children; answer with <code><a href="el_load_children.html">el_load_children()</a></code></td></tr><tr><td><code>input$&lt;id&gt;_visible_change</code></td><td><code>events = "visible_change"</code></td><td>triggers when the dropdown appears/disappears</td></tr><tr><td><code>input$&lt;id&gt;_clear</code></td><td><code>events = "clear"</code></td><td>triggers when the clear icon is clicked in a clearable Select</td></tr><tr><td><code>input$&lt;id&gt;_remove_tag</code></td><td><code>events = "remove_tag"</code></td><td>triggers when a tag is removed in multiple mode</td></tr><tr><td><code>input$&lt;id&gt;_node_click</code></td><td><code>events = "node_click"</code></td><td>triggers when a node is clicked</td></tr><tr><td><code>input$&lt;id&gt;_check</code></td><td><code>events = "check"</code></td><td>triggers after clicking the checkbox of a node</td></tr></table><p>The same list as <code>el_events("el_tree_select")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 
@@ -425,9 +435,9 @@ stays as it is; <code>NA</code> returns it to Element's default.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="dept" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="dept_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tree-select v-model="value" :data="data" @change="handleChange" :load="load === null ? elLoad : load" @visible-change="elEmitVisibleChange" @clear="elEmitClear" @remove-tag="elEmitRemoveTag" @node-click="elEmitNodeClick" @check="elEmitCheck" :multiple="multiple === null ? undefined : multiple" :show-checkbox="showCheckbox === null ? undefined : showCheckbox" :check-strictly="checkStrictly === null ? undefined : checkStrictly" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :filterable="filterable === null ? undefined : filterable" :clearable="clearable === null ? undefined : clearable" :placeholder="placeholder === null ? undefined : placeholder" :node-key="nodeKey === null ? undefined : nodeKey" :props="props === null ? undefined : props" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :cache-data="cacheData === null ? undefined : cacheData" :lazy="lazy === null ? undefined : lazy"&gt;&lt;/el-tree-select&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-tree-select v-model="value" :data="data" @change="handleChange" :load="load === null ? elLoad : load" :multiple="multiple === null ? undefined : multiple" :show-checkbox="showCheckbox === null ? undefined : showCheckbox" :check-strictly="checkStrictly === null ? undefined : checkStrictly" :check-on-click-node="checkOnClickNode === null ? undefined : checkOnClickNode" :filterable="filterable === null ? undefined : filterable" :clearable="clearable === null ? undefined : clearable" :placeholder="placeholder === null ? undefined : placeholder" :node-key="nodeKey === null ? undefined : nodeKey" :props="props === null ? undefined : props" :default-expand-all="defaultExpandAll === null ? undefined : defaultExpandAll" :render-after-expand="renderAfterExpand === null ? undefined : renderAfterExpand" :collapse-tags="collapseTags === null ? undefined : collapseTags" :collapse-tags-tooltip="collapseTagsTooltip === null ? undefined : collapseTagsTooltip" :size="size === null ? undefined : size" :disabled="disabled === null ? undefined : disabled" :cache-data="cacheData === null ? undefined : cacheData" :lazy="lazy === null ? undefined : lazy"&gt;&lt;/el-tree-select&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"data":[{"value":"eng","label":"Engineering","children":[{"value":"web","label":"Web"},{"value":"data","label":"Data"}]},{"value":"ops","label":"Operations"}],"load":null,"multiple":null,"showCheckbox":null,"checkStrictly":null,"checkOnClickNode":null,"filterable":null,"clearable":null,"placeholder":"Department","nodeKey":null,"props":null,"defaultExpandAll":null,"renderAfterExpand":null,"collapseTags":null,"collapseTagsTooltip":null,"size":null,"disabled":null,"cacheData":null,"lazy":null},"methods":{"elEmitVisibleChange":"function() { window.shinyVue.emit('dept', 'visible_change', arguments); }","elEmitClear":"function() { window.shinyVue.emit('dept', 'clear', arguments); }","elEmitRemoveTag":"function() { window.shinyVue.emit('dept', 'remove_tag', arguments); }","elEmitNodeClick":"function() { window.shinyVue.emit('dept', 'node_click', arguments); }","elEmitCheck":"function() { window.shinyVue.emit('dept', 'check', arguments); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level &amp;&amp; this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('dept_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitVisibleChange","options.methods.elEmitClear","options.methods.elEmitRemoveTag","options.methods.elEmitNodeClick","options.methods.elEmitCheck","options.methods.elLoad","options.methods.handleChange"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":null,"data":[{"value":"eng","label":"Engineering","children":[{"value":"web","label":"Web"},{"value":"data","label":"Data"}]},{"value":"ops","label":"Operations"}],"load":null,"multiple":null,"showCheckbox":null,"checkStrictly":null,"checkOnClickNode":null,"filterable":null,"clearable":null,"placeholder":"Department","nodeKey":null,"props":null,"defaultExpandAll":null,"renderAfterExpand":null,"collapseTags":null,"collapseTagsTooltip":null,"size":null,"disabled":null,"cacheData":null,"lazy":null},"methods":{"elLoad":"function(node, resolve, reject) {\n  var key = node.level &amp;&amp; this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('dept_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elLoad","options.methods.handleChange"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>

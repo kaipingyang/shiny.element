@@ -92,6 +92,73 @@ draw – is dropped, with a `[shiny-vue]` warning in the browser’s
 console. Send it from an observer that runs once the component is there,
 as for any Shiny input.
 
+## Which events reach the server
+
+A component reports its value, the actions a user takes on purpose –
+confirming, closing, submitting, going back – and the requests the
+server answers, such as a remote search’s text or a lazy node asking for
+its children. Element’s other events – focus and blur, hovering, a
+dropdown opening, a drag in progress – stay in the browser until asked
+for: each would be a message to the server, and most apps never read
+them.
+
+Ask for one with `events`, by Element’s name in snake_case; it arrives
+as `input$<id>_<event>`.
+[`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
+lists what a component reports, and which it reports unasked; its help
+page lists the same under “Shiny inputs”, and a name it does not have is
+an error that lists them:
+
+``` r
+
+el_events("el_tree")
+#> el_tree() reports, as input$<id>...:
+#>
+#> Unasked
+#>   input$<id>          the key of the node last clicked
+#>   input$<id>_checked  the keys of the checked nodes
+#>   input$<id>_load     with `lazy = TRUE`, a node asking for its children; ...
+#>
+#> When asked for, with `events =`
+#>   input$<id>_check_change     `list(data, checked, indeterminate)`
+#>   input$<id>_node_drop        `list(dragging, drop, type)`: ...
+#>   ...
+
+el_tree("tree", data = tree_data, draggable = TRUE, events = "node_drop")
+# -> input$tree_node_drop
+```
+
+For an event Element does not list – a key with a modifier, a DOM event
+on the element it draws – or to send something else than an event
+carries, give the component a handler of your own with `on`: a
+[`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+function called with `report` and the event’s arguments.
+`report(name, value)` sets `input$<id>_<name>`, namespaced in a module
+as the id is, the same rule as every other input:
+
+``` r
+
+ui <- el_page(
+  el_input(
+    "q",
+    placeholder = "Type, then Enter",
+    on = list(
+      "keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }")
+    )
+  ),
+  verbatimTextOutput("searched")
+)
+
+server <- function(input, output, session) {
+  # input$q follows each keystroke; input$q_enter, only Enter
+  output$searched <- renderText(paste("searched for:", input$q_enter))
+}
+
+shinyApp(ui, server)
+```
+
+![The on-handler example, running](../shots/shiny-on-handler.png)
+
 ## Events are event inputs
 
 Every forwarded Element event sets its input with event priority. The
@@ -115,7 +182,7 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   output$tbl <- render_el_table(
-    el_table(data = head(iris[, c(1, 5)], 3)) |> el_on("row-click")
+    el_table(data = head(iris[, c(1, 5)], 3), events = "row_click")
   )
 
   # Reading the value: the last row clicked, but not how many times
@@ -147,7 +214,7 @@ server, `input$<id>` and every `update_el_*()` take the bare id,
 namespaced by the module’s session. That holds for UI built by
 [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) inside the
 module too, and for the inputs a component adds to its id –
-`input$rows_go` from a row action, `input$tabs_edit`,
+`input$rows_go` from a row action, `input$tabs_tab_remove`,
 `input$rows_selection_change`. An output is the same:
 `el_table_output(ns("rows"))` in the UI, `output$rows` in the server.
 

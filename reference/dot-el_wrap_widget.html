@@ -182,7 +182,8 @@ taken first, so a child's field of the same name is the one renamed.</p>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  wrap <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  wrap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -227,6 +228,11 @@ taken first, so a child's field of the same name is the one renamed.</p>
 placed in the container instead: markup of the container's own around
 them, whose bindings name the container's fields. Left out of the
 children, it is not renamed with them.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>The user's own handlers, for a container that forwards no
+event of Element's: see <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

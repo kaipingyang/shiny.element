@@ -357,7 +357,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `action` | `action` | request URL. | [^1] |  | \# |
 | `headers` | `headers` | request headers. | [^2]`Headers \\| Record<string, any>` |  | — |
 | `multiple` | `multiple` | whether uploading multiple files is permitted. | [^3] |  | false |
-| `data` | `extra_data` | additions options of request. support `Awaitable` data and `Function` since v2.3.13. | [^4]`Record<string, any> \\| Awaitable<Record<string, any>>` / [^5]`(rawFile: UploadRawFile) => Awaitable<Record<string, any>>` |  | {} |
+| `data` | `data` | additions options of request. support `Awaitable` data and `Function` since v2.3.13. | [^4]`Record<string, any> \\| Awaitable<Record<string, any>>` / [^5]`(rawFile: UploadRawFile) => Awaitable<Record<string, any>>` |  | {} |
 | `with-credentials` | `with_credentials` | whether cookies are sent. | [^6] |  | false |
 | `show-file-list` | `show_file_list` | whether to show the uploaded file list. | [^7] |  | true |
 | `drag` | `drag` | whether to activate drag and drop mode. | [^8] |  | false |

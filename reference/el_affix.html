@@ -173,7 +173,9 @@ to it.</p>
 <span>  teleported <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  append_to <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  slots <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">update_el_affix</span><span class="op">(</span></span>
@@ -239,6 +241,20 @@ teleported to where <code>append-to</code> sets. Element Plus's <code>teleported
 with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
+<dd><p>Element's events to report besides those reported unasked,
+by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
+component's are listed under "Shiny inputs", and by <code><a href="el_events.html">el_events()</a></code>; a
+name it does not have is an error.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for an event not reported or to send
+something else: a named list of <code><a href="JS.html">JS()</a></code> functions, one per event –
+Element's, or a DOM event with Vue's modifiers (<code>"keyup.enter"</code>). Each
+is called with <code>report</code> and the event's arguments; <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code>. See <code><a href="el_widget.html">el_widget()</a></code>.</p></dd>
+
+
 <dt id="arg-session">session<a class="anchor" aria-label="anchor" href="#arg-session"></a></dt>
 <dd><p>Shiny session; the current one by default, as for
 <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html" class="external-link">shiny::updateTextInput()</a></code>.</p></dd>
@@ -251,10 +267,8 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
     <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
-
-<ul><li><p><code>input$&lt;id&gt;_change</code> – Element Plus's <code>change</code> event.</p></li>
-<li><p><code>input$&lt;id&gt;_scroll</code> – Element Plus's <code>scroll</code> event.</p></li>
-</ul></div>
+<table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;_change</code></td><td>unasked</td><td>triggers when fixed state changed</td></tr><tr><td><code>input$&lt;id&gt;_scroll</code></td><td><code>events = "scroll"</code></td><td><code>list(scrollTop, fixed)</code>, at most every 200 ms</td></tr></table><p>The same list as <code>el_events("el_affix")</code>, which says how an event's arguments travel.</p>
+    </div>
     <div class="section level2">
     <h2 id="element-methods">Element methods<a class="anchor" aria-label="anchor" href="#element-methods"></a></h2>
 
@@ -274,13 +288,13 @@ with <code><a href="template.html">template()</a></code>.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_affix</span><span class="op">(</span><span class="fu"><a href="el_button.html">el_button</a></span><span class="op">(</span><span class="st">"top"</span>, <span class="st">"Stays on top"</span><span class="op">)</span>, offset <span class="op">=</span> <span class="fl">120</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_affix_e10c8cad-0d17-4a3a-960e-88c1e47a681f" data-shiny-vue style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_affix_e10c8cad-0d17-4a3a-960e-88c1e47a681f_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-affix :offset="offset === null ? undefined : offset" :position="position === null ? undefined : position" :target="target === null ? undefined : target" :z-index="zIndex === null ? undefined : zIndex" :teleported="teleported === null ? undefined : teleported" :append-to="appendTo === null ? undefined : appendTo" @change="elEmitChange" @scroll="elEmitScroll"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_affix_87911719-5eec-49d7-a30f-eb81d510c89f" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_affix_87911719-5eec-49d7-a30f-eb81d510c89f_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-affix :offset="offset === null ? undefined : offset" :position="position === null ? undefined : position" :target="target === null ? undefined : target" :z-index="zIndex === null ? undefined : zIndex" :teleported="teleported === null ? undefined : teleported" :append-to="appendTo === null ? undefined : appendTo" @change="elEmitChange"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;el-button :type="type === null ? undefined : type" :plain="plain === null ? undefined : plain" :round="round === null ? undefined : round" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="handleClick" :size="size === null ? undefined : size" :icon="icon === null ? undefined : icon" :autofocus="autofocus === null ? undefined : autofocus" :auto-insert-space="autoInsertSpace === null ? undefined : autoInsertSpace" :bg="bg === null ? undefined : bg" :color="color === null ? undefined : color" :dark="dark === null ? undefined : dark" :dashed="dashed === null ? undefined : dashed" :link="link === null ? undefined : link" :loading-icon="loadingIcon === null ? undefined : loadingIcon" :tag="tag === null ? undefined : tag" :text="text === null ? undefined : text" ref="sv_top" id="top"&gt;{{label}}&lt;/el-button&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-affix&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"offset":120,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"label":"Stays on top","type":null,"size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('el_affix_e10c8cad-0d17-4a3a-960e-88c1e47a681f', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('el_affix_e10c8cad-0d17-4a3a-960e-88c1e47a681f', 'scroll', arguments, 200); }","handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('top:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"top:shiny.action\", self.count); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"top":{"fields":{"label":"label","type":"type","size":"size","plain":"plain","round":"round","circle":"circle","loading":"loading","disabled":"disabled","native_type":"native_type","icon":"icon","count":"count","autofocus":"autofocus","autoInsertSpace":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loadingIcon":"loadingIcon","tag":"tag","text":"text","handleClick":"handleClick"},"ref":"sv_top"}},"generated":true,"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.handleClick","options.mounted"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"offset":120,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"label":"Stays on top","type":null,"size":null,"plain":null,"round":null,"circle":false,"loading":false,"disabled":false,"native_type":"button","icon":null,"count":0,"autofocus":false,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('el_affix_87911719-5eec-49d7-a30f-eb81d510c89f', 'change', arguments); }","handleClick":"function() { if (this.disabled || this.loading) return; this.count++; window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue('top:shiny.action', this.count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny &amp;&amp; Shiny.setInputValue &amp;&amp; Shiny.setInputValue(\"top:shiny.action\", self.count); }; if (window.Shiny &amp;&amp; Shiny.shinyapp &amp;&amp; typeof Shiny.shinyapp.isConnected === 'function' &amp;&amp; Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"top":{"fields":{"label":"label","type":"type","size":"size","plain":"plain","round":"round","circle":"circle","loading":"loading","disabled":"disabled","native_type":"native_type","icon":"icon","count":"count","autofocus":"autofocus","autoInsertSpace":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loadingIcon":"loadingIcon","tag":"tag","text":"text","handleClick":"handleClick"},"ref":"sv_top"}},"generated":true,"evals":["options.methods.elEmitChange","options.methods.handleClick","options.mounted"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>

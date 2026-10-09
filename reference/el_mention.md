@@ -36,7 +36,9 @@ el_mention(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_mention(
@@ -204,6 +206,24 @@ update_el_mention(
   `footer`. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -215,17 +235,16 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – the value, on load and on every change.
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>` | unasked | the text |
+| `input$<id>_search` | unasked | `list(pattern, prefix)`; answer with `update_el_mention(options =)` |
+| `input$<id>_select` | unasked | `list(option, prefix)` |
+| `input$<id>_whole_remove` | `events = "whole_remove"` | `list(pattern, prefix)` |
 
-- `input$<id>_search` – Element Plus's `search` event, as it is typed
-  after a prefix: `list(pattern, prefix)`, the text and the prefix.
-  Answer it with `update_el_mention()`'s `options` (and `loading`).
-
-- `input$<id>_select` – Element Plus's `select` event:
-  `list(option, prefix)`.
-
-- `input$<id>_whole_remove` – Element Plus's `whole-remove` event:
-  `list(pattern, prefix)`.
+The same list as `el_events("el_mention")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 
@@ -244,9 +263,9 @@ invisibly.
 el_mention("msg", options = c("Ada", "Grace", "Linus"), placeholder = "Type @")
 #> <div id="msg" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="msg_container" style="display: contents">
-#>   <el-mention v-model="value" @search="elEmitSearch" @select="elEmitSelect" @whole-remove="elEmitWholeRemove" :options="options === null ? undefined : options" :props="props === null ? undefined : props" :prefix="prefix === null ? undefined : prefix" :split="split === null ? undefined : split" :filter-option="filterOption === null ? undefined : filterOption" :placement="placement === null ? undefined : placement" :show-arrow="showArrow === null ? undefined : showArrow" :offset="offset === null ? undefined : offset" :whole="whole === null ? undefined : whole" :check-is-whole="checkIsWhole === null ? undefined : checkIsWhole" :loading="loading === null ? undefined : loading" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :popper-options="popperOptions === null ? undefined : popperOptions" :placeholder="placeholder === null ? undefined : placeholder" :disabled="disabled === null ? undefined : disabled" :type="type === null ? undefined : type" :rows="rows === null ? undefined : rows"></el-mention>
+#>   <el-mention v-model="value" @search="elEmitSearch" @select="elEmitSelect" :options="options === null ? undefined : options" :props="props === null ? undefined : props" :prefix="prefix === null ? undefined : prefix" :split="split === null ? undefined : split" :filter-option="filterOption === null ? undefined : filterOption" :placement="placement === null ? undefined : placement" :show-arrow="showArrow === null ? undefined : showArrow" :offset="offset === null ? undefined : offset" :whole="whole === null ? undefined : whole" :check-is-whole="checkIsWhole === null ? undefined : checkIsWhole" :loading="loading === null ? undefined : loading" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :popper-options="popperOptions === null ? undefined : popperOptions" :placeholder="placeholder === null ? undefined : placeholder" :disabled="disabled === null ? undefined : disabled" :type="type === null ? undefined : type" :rows="rows === null ? undefined : rows"></el-mention>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"options":[{"value":"Ada","label":"Ada"},{"value":"Grace","label":"Grace"},{"value":"Linus","label":"Linus"}],"props":null,"prefix":null,"split":null,"filterOption":null,"placement":null,"showArrow":null,"offset":null,"whole":null,"checkIsWhole":null,"loading":null,"popperClass":null,"popperStyle":null,"popperOptions":null,"placeholder":"Type @","disabled":null,"type":null,"rows":null},"methods":{"elEmitSearch":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'search', [v]); }","elEmitSelect":"function() { var shape = function(option, prefix) { return {option: option, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'select', [v]); }","elEmitWholeRemove":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'whole_remove', [v]); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSearch","options.methods.elEmitSelect","options.methods.elEmitWholeRemove","options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"options":[{"value":"Ada","label":"Ada"},{"value":"Grace","label":"Grace"},{"value":"Linus","label":"Linus"}],"props":null,"prefix":null,"split":null,"filterOption":null,"placement":null,"showArrow":null,"offset":null,"whole":null,"checkIsWhole":null,"loading":null,"popperClass":null,"popperStyle":null,"popperOptions":null,"placeholder":"Type @","disabled":null,"type":null,"rows":null},"methods":{"elEmitSearch":"function() { var shape = function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'search', [v]); }","elEmitSelect":"function() { var shape = function(option, prefix) { return {option: option, prefix: prefix}; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('msg', 'select', [v]); }"},"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitSearch","options.methods.elEmitSelect","options.watch.value"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

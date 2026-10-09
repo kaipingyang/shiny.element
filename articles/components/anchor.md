@@ -177,7 +177,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | Element | In R | Description |
 |----|----|----|
 | `change` | `input$<id>`, the value | Callback when the step changes |
-| `click` | `input$<id>_click` | Triggered when the user clicks on the link |
+| `click` | `input$<id>_click`, with `events = "click"` | Triggered when the user clicks on the link |
 
 ### Anchor Exposes
 

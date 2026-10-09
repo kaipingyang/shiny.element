@@ -742,17 +742,26 @@ when withHeader set to false, both <code>title attribute</code> and
 <tbody>
 <tr class="odd">
 <td><code>open</code></td>
-<td><code>input$&lt;id&gt;_open</code></td>
+<td>
+<code>input$&lt;id&gt;_open</code>, with
+<code>events = "open"</code>
+</td>
 <td>Triggered before Drawer opening animation begins</td>
 </tr>
 <tr class="even">
 <td><code>opened</code></td>
-<td><code>input$&lt;id&gt;_opened</code></td>
+<td>
+<code>input$&lt;id&gt;_opened</code>, with
+<code>events = "opened"</code>
+</td>
 <td>Triggered after Drawer opening animation ended</td>
 </tr>
 <tr class="odd">
 <td><code>close</code></td>
-<td><code>input$&lt;id&gt;_close</code></td>
+<td>
+<code>input$&lt;id&gt;_close</code>, with
+<code>events = "close"</code>
+</td>
 <td>Triggered before Drawer closing animation begins</td>
 </tr>
 <tr class="even">
@@ -762,29 +771,44 @@ when withHeader set to false, both <code>title attribute</code> and
 </tr>
 <tr class="odd">
 <td><code>open-auto-focus</code></td>
-<td><code>input$&lt;id&gt;_open_auto_focus</code></td>
+<td>
+<code>input$&lt;id&gt;_open_auto_focus</code>, with
+<code>events = "open_auto_focus"</code>
+</td>
 <td>triggers after Drawer opens and content focused</td>
 </tr>
 <tr class="even">
 <td><code>close-auto-focus</code></td>
-<td><code>input$&lt;id&gt;_close_auto_focus</code></td>
+<td>
+<code>input$&lt;id&gt;_close_auto_focus</code>, with
+<code>events = "close_auto_focus"</code>
+</td>
 <td>triggers after Drawer closed and content focused</td>
 </tr>
 <tr class="odd">
 <td><code>resize-start</code></td>
-<td><code>input$&lt;id&gt;_resize_start</code></td>
+<td>
+<code>input$&lt;id&gt;_resize_start</code>, with
+<code>events = "resize_start"</code>
+</td>
 <td>Triggered when resizing starts (when <code>resizable</code> is
 enabled)</td>
 </tr>
 <tr class="even">
 <td><code>resize</code></td>
-<td><code>input$&lt;id&gt;_resize</code></td>
+<td>
+<code>input$&lt;id&gt;_resize</code>, with
+<code>events = "resize"</code>
+</td>
 <td>Triggered while resizing (when <code>resizable</code> is
 enabled)</td>
 </tr>
 <tr class="odd">
 <td><code>resize-end</code></td>
-<td><code>input$&lt;id&gt;_resize_end</code></td>
+<td>
+<code>input$&lt;id&gt;_resize_end</code>, with
+<code>events = "resize_end"</code>
+</td>
 <td>Triggered when resizing ends (when <code>resizable</code> is
 enabled)</td>
 </tr>

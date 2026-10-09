@@ -70,10 +70,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 ### Events
 
-| Element  | In R                | Description                       |
-|----------|---------------------|-----------------------------------|
+| Element | In R | Description |
+|----|----|----|
 | `change` | `input$<id>_change` | triggers when fixed state changed |
-| `scroll` | `input$<id>_scroll` | triggers when scrolling           |
+| `scroll` | `input$<id>_scroll`, with `events = "scroll"` | triggers when scrolling |
 
 ### Slots
 

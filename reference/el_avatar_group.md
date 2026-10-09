@@ -20,7 +20,8 @@ el_avatar_group(
   collapse_class = NULL,
   collapse_style = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  on = NULL
 )
 
 update_el_avatar_group(
@@ -116,6 +117,16 @@ update_el_avatar_group(
   Named list of Element slot contents. A scoped slot is written with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   Shiny session; the current one by default, as for
@@ -147,13 +158,13 @@ el_avatar_group(
   el_avatar("B"),
   collapse_avatars = TRUE
 )
-#> <div id="el_avatar_group_cf4b1560-715b-48e4-a821-09036119ea90" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_avatar_group_cf4b1560-715b-48e4-a821-09036119ea90_container" style="display: contents">
+#> <div id="el_avatar_group_edea6586-27f1-4d13-9273-f8e1179a5cd1" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_avatar_group_edea6586-27f1-4d13-9273-f8e1179a5cd1_container" style="display: contents">
 #>   <el-avatar-group :size="size === null ? undefined : size" :shape="shape === null ? undefined : shape" :collapse-avatars="collapseAvatars === null ? undefined : collapseAvatars" :collapse-avatars-tooltip="collapseAvatarsTooltip === null ? undefined : collapseAvatarsTooltip" :max-collapse-avatars="maxCollapseAvatars === null ? undefined : maxCollapseAvatars" :effect="effect === null ? undefined : effect" :placement="placement === null ? undefined : placement" :popper-class="popperClass === null ? undefined : popperClass" :popper-style="popperStyle === null ? undefined : popperStyle" :collapse-class="collapseClass === null ? undefined : collapseClass" :collapse-style="collapseStyle === null ? undefined : collapseStyle">
-#>     <el-avatar :src="el2_src === null ? undefined : el2_src" :icon="el2_icon === null ? undefined : el2_icon" :size="el2_size === null ? undefined : el2_size" :shape="el2_shape === null ? undefined : el2_shape" :fit="el2_fit === null ? undefined : el2_fit" :src-set="el2_srcSet === null ? undefined : el2_srcSet" :alt="el2_alt === null ? undefined : el2_alt" @error="el2_elEmitError" ref="sv_el_avatar_8b6af74d_6592_4278_b0a3_ab6e9fbc10dc" id="el_avatar_8b6af74d-6592-4278-b0a3-ab6e9fbc10dc">{{el2_content}}</el-avatar>
+#>     <el-avatar :src="el2_src === null ? undefined : el2_src" :icon="el2_icon === null ? undefined : el2_icon" :size="el2_size === null ? undefined : el2_size" :shape="el2_shape === null ? undefined : el2_shape" :fit="el2_fit === null ? undefined : el2_fit" :src-set="el2_srcSet === null ? undefined : el2_srcSet" :alt="el2_alt === null ? undefined : el2_alt" @error="el2_elEmitError" ref="sv_el_avatar_82713dc0_35b1_425d_a02d_2dcb1031a875" id="el_avatar_82713dc0-35b1-425d-a02d-2dcb1031a875">{{el2_content}}</el-avatar>
 #>     <el-avatar :src="el3_src === null ? undefined : el3_src" :icon="el3_icon === null ? undefined : el3_icon" :size="el3_size === null ? undefined : el3_size" :shape="el3_shape === null ? undefined : el3_shape" :fit="el3_fit === null ? undefined : el3_fit" :src-set="el3_srcSet === null ? undefined : el3_srcSet" :alt="el3_alt === null ? undefined : el3_alt" @error="el3_elEmitError" ref="sv_B" id="B">{{el3_content}}</el-avatar>
 #>   </el-avatar-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"size":null,"shape":null,"collapseAvatars":true,"collapseAvatarsTooltip":null,"maxCollapseAvatars":null,"effect":null,"placement":null,"popperClass":null,"popperStyle":null,"collapseClass":null,"collapseStyle":null,"el2_content":null,"el2_src":"https://example.com/a.png","el2_icon":null,"el2_size":null,"el2_shape":null,"el2_fit":null,"el2_srcSet":null,"el2_alt":null,"el3_content":null,"el3_src":null,"el3_icon":null,"el3_size":null,"el3_shape":null,"el3_fit":null,"el3_srcSet":null,"el3_alt":null},"methods":{"el2_elEmitError":"function() { window.shinyVue.emit('el_avatar_8b6af74d-6592-4278-b0a3-ab6e9fbc10dc', 'error', arguments); }","el3_elEmitError":"function() { window.shinyVue.emit('B', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"el_avatar_8b6af74d-6592-4278-b0a3-ab6e9fbc10dc":{"fields":{"content":"el2_content","src":"el2_src","icon":"el2_icon","size":"el2_size","shape":"el2_shape","fit":"el2_fit","srcSet":"el2_srcSet","alt":"el2_alt","elEmitError":"el2_elEmitError"},"ref":"sv_el_avatar_8b6af74d_6592_4278_b0a3_ab6e9fbc10dc"},"B":{"fields":{"content":"el3_content","src":"el3_src","icon":"el3_icon","size":"el3_size","shape":"el3_shape","fit":"el3_fit","srcSet":"el3_srcSet","alt":"el3_alt","elEmitError":"el3_elEmitError"},"ref":"sv_B"}},"generated":true,"evals":["options.methods.el2_elEmitError","options.methods.el3_elEmitError"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"size":null,"shape":null,"collapseAvatars":true,"collapseAvatarsTooltip":null,"maxCollapseAvatars":null,"effect":null,"placement":null,"popperClass":null,"popperStyle":null,"collapseClass":null,"collapseStyle":null,"el2_content":null,"el2_src":"https://example.com/a.png","el2_icon":null,"el2_size":null,"el2_shape":null,"el2_fit":null,"el2_srcSet":null,"el2_alt":null,"el3_content":null,"el3_src":null,"el3_icon":null,"el3_size":null,"el3_shape":null,"el3_fit":null,"el3_srcSet":null,"el3_alt":null},"methods":{"el2_elEmitError":"function() { window.shinyVue.emit('el_avatar_82713dc0-35b1-425d-a02d-2dcb1031a875', 'error', arguments); }","el3_elEmitError":"function() { window.shinyVue.emit('B', 'error', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"el_avatar_82713dc0-35b1-425d-a02d-2dcb1031a875":{"fields":{"content":"el2_content","src":"el2_src","icon":"el2_icon","size":"el2_size","shape":"el2_shape","fit":"el2_fit","srcSet":"el2_srcSet","alt":"el2_alt","elEmitError":"el2_elEmitError"},"ref":"sv_el_avatar_82713dc0_35b1_425d_a02d_2dcb1031a875"},"B":{"fields":{"content":"el3_content","src":"el3_src","icon":"el3_icon","size":"el3_size","shape":"el3_shape","fit":"el3_fit","srcSet":"el3_srcSet","alt":"el3_alt","elEmitError":"el3_elEmitError"},"ref":"sv_B"}},"generated":true,"evals":["options.methods.el2_elEmitError","options.methods.el3_elEmitError"]}</script>
 #> </div>
 ```

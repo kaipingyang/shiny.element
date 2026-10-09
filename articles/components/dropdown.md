@@ -228,6 +228,7 @@ ui <- el_page(
     ),
     el_dropdown(
       "dd_list2",
+      events = "visible_change",
       trigger = "contextmenu",
       trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List2"),
       items = items
@@ -367,7 +368,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 |----|----|----|
 | `click` | `input$<id>_click` | if `split-button` is `true`, triggers when left button is clicked |
 | `command` | one of the component’s inputs – see its reference page | triggers when a dropdown item is clicked, the parameters is the command dispatched from the dropdown item |
-| `visible-change` | `input$<id>_visible_change` | triggers when the dropdown appears/disappears, the param is true when it appears, and false otherwise |
+| `visible-change` | `input$<id>_visible_change`, with `events = "visible_change"` | triggers when the dropdown appears/disappears, the param is true when it appears, and false otherwise |
 
 ### Dropdown Exposes
 

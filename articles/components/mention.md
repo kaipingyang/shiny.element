@@ -277,7 +277,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 |----|----|----|
 | `search` | `input$<id>_search` | trigger when prefix hit |
 | `select` | `input$<id>_select` | trigger when user select the option |
-| `whole-remove` | `input$<id>_whole_remove` | trigger when a whole mention is removed and `whole` is `true` or `check-is-whole` is `true` |
+| `whole-remove` | `input$<id>_whole_remove`, with `events = "whole_remove"` | trigger when a whole mention is removed and `whole` is `true` or `check-is-whole` is `true` |
 
 ### Slots
 

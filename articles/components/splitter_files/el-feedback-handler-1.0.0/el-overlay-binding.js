@@ -32,7 +32,14 @@
     });
   }
 
+  // Only the events the container reports -- its defaults and those asked
+  // for with `events =` -- are sent: data-el-events lists them
+  function asked(el, what) {
+    return (' ' + (el.getAttribute('data-el-events') || '') + ' ').indexOf(' ' + what.slice(1) + ' ') >= 0;
+  }
+
   function report(wrapper, what) {
+    if (!asked(wrapper, what)) return;
     hasShiny && Shiny.setInputValue && Shiny.setInputValue(wrapper.id + what, true, { priority: 'event' });
   }
 
@@ -480,6 +487,7 @@
     var dir, vertical;
     function sizeNow() { var r = panel.getBoundingClientRect(); return vertical ? r.height : r.width; }
     function send(what, v) {
+      if (!asked(wrapper, what)) return;
       hasShiny && Shiny.setInputValue && Shiny.setInputValue(wrapper.id + what, v, { priority: 'event' });
     }
     dragger.addEventListener('mousedown', function(e) {

@@ -29,6 +29,7 @@ el_checkbox(
   validate_event = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -144,6 +145,16 @@ update_el_checkbox(
   Named list of Element slot contents; the default slot replaces
   `label`.
 
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md).
+
 - session:
 
   In `el_checkbox()`, deprecated: inside a module, wrap `id` in `ns()`,
@@ -158,8 +169,13 @@ A Shiny UI element.
 
 ## Shiny inputs
 
-- `input$<id>` – `TRUE` or `FALSE` (or `true_label` and `false_label`),
-  on load and on change.
+|              |          |                                                      |
+|--------------|----------|------------------------------------------------------|
+| Input        | Reported | Value                                                |
+| `input$<id>` | unasked  | `TRUE` or `FALSE`, or `true_value` and `false_value` |
+
+The same list as `el_events("el_checkbox")`, which says how an event's
+arguments travel.
 
 ## Updating from the server
 

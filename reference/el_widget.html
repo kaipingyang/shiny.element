@@ -184,6 +184,7 @@ destroys its Vue instance, and its value is <code>input$&lt;id&gt;</code>.</p>
 <span>  mounted <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  computed <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  emits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dependency <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  head <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -229,6 +230,18 @@ set has to be declared here – Vue does not track one that is not.</p></dd>
 <dt id="arg-emits">emits<a class="anchor" aria-label="anchor" href="#arg-emits"></a></dt>
 <dd><p>Events the component sends with <code>$emit()</code>: each arrives as
 <code>input$&lt;id&gt;_&lt;event&gt;</code>, as for <code><a href="vue_app.html">vue_app()</a></code>.</p></dd>
+
+
+<dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
+<dd><p>Handlers of your own, for events the component does not report
+or to send something else than they carry: a named list of <code><a href="JS.html">JS()</a></code>
+functions, one per event – Element's, by its name, or a DOM event of
+the element it draws, with Vue's modifiers (<code>"keyup.enter"</code>). Each is
+called with <code>report</code> first, then the event's arguments, <code>this</code> being
+the component's Vue instance; <code>report(name, value)</code> sets
+<code>input$&lt;id&gt;_&lt;name&gt;</code>, namespaced as the id is:
+<code>on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))</code> reports <code>input$&lt;id&gt;_enter</code>. An
+event the component reports too runs both.</p></dd>
 
 
 <dt id="arg-dependency">dependency<a class="anchor" aria-label="anchor" href="#arg-dependency"></a></dt>

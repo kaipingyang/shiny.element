@@ -77,7 +77,7 @@ el_tabs(
     el_tab_pane("Config", el_switch("dark"), lazy = TRUE)
   )
 )
-#> <div id="t" class="el-tabs el-tabs--top" data-el-tabs="true" data-position="top" data-carded="false" data-closable="false">
+#> <div id="t" class="el-tabs el-tabs--top" data-el-tabs="true" data-el-events="tab_remove tab_add" data-position="top" data-carded="false" data-closable="false">
 #>   <div class="el-tabs__header is-top">
 #>     <div class="el-tabs__nav-wrap is-top">
 #>       <div class="el-tabs__nav-scroll">

@@ -33,7 +33,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -75,7 +75,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -115,7 +115,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -163,7 +163,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -207,7 +207,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -251,7 +251,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -275,7 +275,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 | `mask` | `mask` | whether to enable masking, change mask style and fill color by pass custom props | `boolean` \\ | [^4]`{ style?: CSSProperties; color?: string; }` |  |
 | `gap` | `gap` | transparent gap between mask and target | `TourGap` |  | [^5]`{ offset: 6, radius: 2}` |
 | `type` | `type` | type, affects the background color and text color | `default` \\ | `primary` |  |
-| `model-value` | `open`; `input$<id>` | open tour | `boolean` |  | `false` |
+| `model-value` | `visible`; `input$<id>` | open tour | `boolean` |  | `false` |
 | `current` | `current` | what is the current step | `number` |  | `0` |
 | `scroll-into-view-options` | `scroll_into_view_options` | support pass custom scrollIntoView options | `boolean` \\ | `ScrollIntoViewOptions` |  |
 | `z-index` | `z_index` | Tour’s zIndex | `number` |  | `2001` |

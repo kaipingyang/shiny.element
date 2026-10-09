@@ -11,10 +11,12 @@ what cannot travel and sets `input$<id>_<event>`.
 ``` r
 .el_event_bindings(
   ns_id,
-  events,
+  fn,
+  asked = NULL,
+  on = NULL,
   shapes = list(),
   throttle = character(),
-  inputs = character()
+  bound = character()
 )
 ```
 
@@ -24,9 +26,17 @@ what cannot travel and sets `input$<id>_<event>`.
 
   The namespaced element id.
 
-- events:
+- fn:
 
-  Character vector of Element event names, in kebab-case.
+  The component's function name, its entry in the registry.
+
+- asked:
+
+  The user's `events`.
+
+- on:
+
+  The user's `on`: see `.el_on_bindings()`.
 
 - shapes:
 
@@ -41,12 +51,20 @@ what cannot travel and sets `input$<id>_<event>`.
   every 200 ms, the last one always: the server hears where the scroll
   or the drag ended.
 
-- inputs:
+- bound:
 
-  `c(<event> = "<input id>")`: events reported under an input of the
-  user's naming rather than `<ns_id>_<event>`.
+  Events the component listens to whether or not they are reported,
+  through the method of the same name, which it wraps: a tree's
+  `check-change` keeps `input$<id>_checked`.
 
 ## Value
 
 A list with `attrs` (to merge into the tag) and `methods` (to merge into
 the Vue options).
+
+## Details
+
+Which events: the component's entry in
+[`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
+– those on by default, and those the user asked for with `events` – and
+the user's own handlers, `on`.

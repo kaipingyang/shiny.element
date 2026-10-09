@@ -214,7 +214,7 @@ information content on the current page.</p>
 <div class="el-demo">
   <div id="basic-toc" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-toc_container" style="display: contents">
-  <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
+  <el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
     <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
     <el-anchor-link title="Horizontal Mode" href="#horizontal-mode"></el-anchor-link>
     <el-anchor-link title="Scroll Container" href="#scroll-container"></el-anchor-link>
@@ -225,7 +225,7 @@ information content on the current page.</p>
       </template>
     </el-anchor-link>
   </el-anchor>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('basic-toc', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-toc', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-toc', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -251,12 +251,12 @@ information content on the current page.</p>
 <div class="el-demo">
   <div id="horizontal-toc_h" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="horizontal-toc_h_container" style="display: contents">
-  <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
+  <el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
     <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
     <el-anchor-link title="Horizontal Mode" href="#horizontal-mode"></el-anchor-link>
     <el-anchor-link title="Scroll Container" href="#scroll-container"></el-anchor-link>
   </el-anchor>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":null,"direction":"horizontal","selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('horizontal-toc_h', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('horizontal-toc_h', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":null,"direction":"horizontal","selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('horizontal-toc_h', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -310,12 +310,12 @@ browser default behavior then it will not change history.</p>
     <div class="el-col el-col-6">
       <div id="scroll-toc_s" data-shiny-vue style="display: contents">
         <script type="text/x-template" data-shiny-vue-template><div id="scroll-toc_s_container" style="display: contents">
-  <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
+  <el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
     <el-anchor-link title="part1" href="#part1"></el-anchor-link>
     <el-anchor-link title="part2" href="#part2"></el-anchor-link>
     <el-anchor-link title="part3" href="#part3"></el-anchor-link>
   </el-anchor>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":"#anchor-scroller","offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('scroll-toc_s', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('scroll-toc_s', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":"#anchor-scroller","offset":null,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('scroll-toc_s', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 </div>
     </div>
   </div>
@@ -340,12 +340,12 @@ scrolls.</p>
 <div class="el-demo">
   <div id="change-toc_change" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="change-toc_change_container" style="display: contents">
-  <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
+  <el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
     <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
     <el-anchor-link title="Horizontal Mode" href="#horizontal-mode"></el-anchor-link>
     <el-anchor-link title="Scroll Container" href="#scroll-container"></el-anchor-link>
   </el-anchor>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('change-toc_change', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('change-toc_change', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":null,"direction":null,"selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('change-toc_change', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -367,12 +367,12 @@ scrolls.</p>
 <div class="el-demo">
   <div id="underline-toc_u" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="underline-toc_u_container" style="display: contents">
-  <el-anchor @change="handleChange" @click="elEmitClick" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
+  <el-anchor @change="handleChange" :container="container === null ? undefined : container" :offset="offset === null ? undefined : offset" :bound="bound === null ? undefined : bound" :duration="duration === null ? undefined : duration" :marker="marker === null ? undefined : marker" :type="type === null ? undefined : type" :direction="direction === null ? undefined : direction" :select-scroll-top="selectScrollTop === null ? undefined : selectScrollTop">
     <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
     <el-anchor-link title="Horizontal Mode" href="#horizontal-mode"></el-anchor-link>
     <el-anchor-link title="Scroll Container" href="#scroll-container"></el-anchor-link>
   </el-anchor>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":"underline","direction":null,"selectScrollTop":null},"methods":{"elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('underline-toc_u', 'click', [v]); }","handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('underline-toc_u', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.elEmitClick","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"container":null,"offset":70,"bound":null,"duration":null,"marker":null,"type":"underline","direction":null,"selectScrollTop":null},"methods":{"handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('underline-toc_u', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -395,16 +395,16 @@ scrolls.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="affix-el_affix_b61c61b1-f567-4cf1-8078-f4f7df0c8512" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="affix-el_affix_b61c61b1-f567-4cf1-8078-f4f7df0c8512_container" style="display: contents">
-  <el-affix :offset="offset === null ? undefined : offset" :position="position === null ? undefined : position" :target="target === null ? undefined : target" :z-index="zIndex === null ? undefined : zIndex" :teleported="teleported === null ? undefined : teleported" :append-to="appendTo === null ? undefined : appendTo" @change="elEmitChange" @scroll="elEmitScroll">
-    <el-anchor @change="el2_handleChange" @click="el2_elEmitClick" :container="el2_container === null ? undefined : el2_container" :offset="el2_offset === null ? undefined : el2_offset" :bound="el2_bound === null ? undefined : el2_bound" :duration="el2_duration === null ? undefined : el2_duration" :marker="el2_marker === null ? undefined : el2_marker" :type="el2_type === null ? undefined : el2_type" :direction="el2_direction === null ? undefined : el2_direction" :select-scroll-top="el2_selectScrollTop === null ? undefined : el2_selectScrollTop" style="width: 300px" ref="sv_affix_toc_a" id="affix-toc_a">
+  <div id="affix-el_affix_525ddeff-91fc-41ff-9143-9bea3598ad59" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="affix-el_affix_525ddeff-91fc-41ff-9143-9bea3598ad59_container" style="display: contents">
+  <el-affix :offset="offset === null ? undefined : offset" :position="position === null ? undefined : position" :target="target === null ? undefined : target" :z-index="zIndex === null ? undefined : zIndex" :teleported="teleported === null ? undefined : teleported" :append-to="appendTo === null ? undefined : appendTo" @change="elEmitChange">
+    <el-anchor @change="el2_handleChange" :container="el2_container === null ? undefined : el2_container" :offset="el2_offset === null ? undefined : el2_offset" :bound="el2_bound === null ? undefined : el2_bound" :duration="el2_duration === null ? undefined : el2_duration" :marker="el2_marker === null ? undefined : el2_marker" :type="el2_type === null ? undefined : el2_type" :direction="el2_direction === null ? undefined : el2_direction" :select-scroll-top="el2_selectScrollTop === null ? undefined : el2_selectScrollTop" style="width: 300px" ref="sv_affix_toc_a" id="affix-toc_a">
       <el-anchor-link title="Basic Usage" href="#basic-usage"></el-anchor-link>
       <el-anchor-link title="Horizontal Mode" href="#horizontal-mode"></el-anchor-link>
       <el-anchor-link title="Scroll Container" href="#scroll-container"></el-anchor-link>
     </el-anchor>
   </el-affix>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":60,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"el2_container":null,"el2_offset":70,"el2_bound":null,"el2_duration":null,"el2_marker":null,"el2_type":null,"el2_direction":null,"el2_selectScrollTop":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('affix-el_affix_b61c61b1-f567-4cf1-8078-f4f7df0c8512', 'change', arguments); }","elEmitScroll":"function() { window.shinyVue.emit('affix-el_affix_b61c61b1-f567-4cf1-8078-f4f7df0c8512', 'scroll', arguments, 200); }","el2_elEmitClick":"function() { var shape = function(e, href) { return href; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('affix-toc_a', 'click', [v]); }","el2_handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('affix-toc_a', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"affix-toc_a":{"fields":{"container":"el2_container","offset":"el2_offset","bound":"el2_bound","duration":"el2_duration","marker":"el2_marker","type":"el2_type","direction":"el2_direction","selectScrollTop":"el2_selectScrollTop","elEmitClick":"el2_elEmitClick","handleChange":"el2_handleChange"},"ref":"sv_affix_toc_a"}},"generated":true,"evals":["options.methods.elEmitChange","options.methods.elEmitScroll","options.methods.el2_elEmitClick","options.methods.el2_handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"offset":60,"position":null,"target":null,"zIndex":null,"teleported":null,"appendTo":null,"el2_container":null,"el2_offset":70,"el2_bound":null,"el2_duration":null,"el2_marker":null,"el2_type":null,"el2_direction":null,"el2_selectScrollTop":null},"methods":{"elEmitChange":"function() { window.shinyVue.emit('affix-el_affix_525ddeff-91fc-41ff-9143-9bea3598ad59', 'change', arguments); }","el2_handleChange":"function(href) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('affix-toc_a', href); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"affix-toc_a":{"fields":{"container":"el2_container","offset":"el2_offset","bound":"el2_bound","duration":"el2_duration","marker":"el2_marker","type":"el2_type","direction":"el2_direction","selectScrollTop":"el2_selectScrollTop","handleChange":"el2_handleChange"},"ref":"sv_affix_toc_a"}},"generated":true,"evals":["options.methods.elEmitChange","options.methods.el2_handleChange"]}</script>
 </div>
 </div>
 </div>
@@ -529,7 +529,10 @@ scrolls.</p>
 </tr>
 <tr class="even">
 <td><code>click</code></td>
-<td><code>input$&lt;id&gt;_click</code></td>
+<td>
+<code>input$&lt;id&gt;_click</code>, with
+<code>events = "click"</code>
+</td>
 <td>Triggered when the user clicks on the link</td>
 </tr>
 </tbody>

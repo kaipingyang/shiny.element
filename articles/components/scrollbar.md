@@ -102,6 +102,7 @@ ui <- el_page(
   el_scrollbar(
     id = "sb",
     height = "400px",
+    events = "scroll",
     always = TRUE,
     tags$div(lapply(1:20, function(i) tags$p(class = "scrollbar-demo-item", i)))
   ),
@@ -181,7 +182,7 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `scroll` | `input$<id>_scroll` | triggers when scrolling, return distance of scrolling |
+| `scroll` | `input$<id>_scroll`, with `events = "scroll"` | triggers when scrolling, return distance of scrolling |
 | `end-reached` | `input$<id>_end_reached` | triggers when the end of a scroll is triggered |
 
 ### Slots

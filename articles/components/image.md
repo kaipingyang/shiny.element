@@ -442,11 +442,11 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `load` | `input$<id>_load` | same as native load. |
+| `load` | `input$<id>_load`, with `events = "load"` | same as native load. |
 | `error` | `input$<id>_error` | same as native error. |
-| `switch` | `input$<id>_switch` | trigger when switching images. |
-| `close` | `input$<id>_close` | trigger when clicking on close button or when `hide-on-click-modal` enabled clicking on backdrop. |
-| `show` | `input$<id>_show` | trigger when the viewer displays |
+| `switch` | `input$<id>_switch`, with `events = "switch"` | trigger when switching images. |
+| `close` | `input$<id>_close`, with `events = "close"` | trigger when clicking on close button or when `hide-on-click-modal` enabled clicking on backdrop. |
+| `show` | `input$<id>_show`, with `events = "show"` | trigger when the viewer displays |
 
 ### Image Slots
 
@@ -483,10 +483,10 @@ Element Plus’s tables, and beside each entry where it is in R.
 
 | Element | In R | Description |
 |----|----|----|
-| `close` | `input$<id>_close` | trigger when clicking on close button or when `hide-on-click-modal` enabled clicking on backdrop. |
+| `close` | `input$<id>_close`, with `events = "close"` | trigger when clicking on close button or when `hide-on-click-modal` enabled clicking on backdrop. |
 | `error` | `input$<id>_error` | same as native error. |
-| `switch` | `input$<id>_switch` | trigger when switching images. |
-| `rotate` | `input$<id>_rotate` | trigger when rotating images. |
+| `switch` | `input$<id>_switch`, with `events = "switch"` | trigger when switching images. |
+| `rotate` | `input$<id>_rotate`, with `events = "rotate"` | trigger when rotating images. |
 
 ### Image Viewer Slots
 
