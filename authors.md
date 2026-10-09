@@ -16,13 +16,13 @@ Source:
 [`DESCRIPTION`](https://github.com/kaipingyang/shiny.element/blob/main/DESCRIPTION)
 
 Kaiping Yang (2026). *shiny.element: 'Element Plus' Components for
-'Shiny'*. R package version 0.1.0,
+'Shiny'*. R package version 0.2.0,
 <https://kaipingyang.github.io/shiny.element/>.
 
     @Manual{,
       title = {shiny.element: 'Element Plus' Components for 'Shiny'},
       author = {{Kaiping Yang}},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.2.0},
       url = {https://kaipingyang.github.io/shiny.element/},
     }

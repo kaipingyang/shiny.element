@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -305,7 +305,11 @@
 <ol style="list-style-type: decimal"><li>verify (tests for what changed, <code>air format --check .</code>, and for a release-level change the full suites, <code>R CMD check</code> and the article shots);</li>
 <li>commit on the working branch (<code>element-plus</code> now) and push it; <code>main</code> follows by fast-forward (<code>git push origin element-plus:main</code>), and the pkgdown deploy that push starts is checked until it succeeds;</li>
 <li>install into the user’s home library, <code>R CMD INSTALL --no-multiarch .</code>, and check its <code>Built:</code> date – tests use <code>load_all()</code> and pkgdown and <code>R CMD check</code> install into temporary libraries, so without this the user’s own <code><a href="https://kaipingyang.github.io/shiny.element/">library(shiny.element)</a></code> stays on an old build.</li>
-</ol></div>
+</ol><div class="section level3">
+<h3 id="versions">Versions<a class="anchor" aria-label="anchor" href="#versions"></a></h3>
+<p>NEWS.md gets one section per version, newest first; a version is never reopened. While a round of changes is in progress its entries go under <code># shiny.element (development version)</code> and DESCRIPTION reads <code>X.Y.Z.9000</code>. A round that changes what users see closes with a version: the minor one (<code>0.3.0</code>) for breaking changes or new features, the patch one (<code>0.2.1</code>) for fixes and documentation only – DESCRIPTION, the NEWS heading, and a tag <code>vX.Y.Z</code> pushed with the branch. Entries are grouped under “Breaking changes”, “New features”, “Bug fixes” and “Documentation”. CRAN gets whichever version is current when the user decides to submit.</p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="lessons-and-gotchas">Lessons and gotchas<a class="anchor" aria-label="anchor" href="#lessons-and-gotchas"></a></h2>
 <p><code>.claude/docs/lessons.md</code> records what was learned the hard way: architectural constraints that cannot be worked around, Element and Shiny behaviours that fail silently, and the verification habits that caught them. Read it before changing how components are built or rendered.</p>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -154,6 +154,42 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="shinyelement-020">shiny.element 0.2.0<a class="anchor" aria-label="anchor" href="#shinyelement-020"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-2-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-2-0"></a></h3>
+<p>Not yet on CRAN, so the API may still move without a deprecation; from the first CRAN release on, a change like these goes through one first.</p>
+<ul><li>Components report their value, the user’s deliberate actions and the server’s requests; Element’s other events only when asked for. A typed character, a hover, a focus or a dropdown opening each sent a message to the server, and most apps never read them: an input, a select, a slider, a date picker and a tooltip sent 66 messages for one ordinary use, 3 of them read; they now send 3. Ask for an event with the component’s <code>events</code>, by Element’s name in snake_case – <code>el_tree(events = "node_drop")</code> reports <code>input$&lt;id&gt;_node_drop</code>. Code reading an event input that is no longer reported unasked – <code>input$x_focus</code>, <code>input$x_visible_change</code>, a dialog’s <code>input$x_open</code> – needs it asked for.</li>
+<li>
+<code>el_on()</code> is gone: <code>el_table(events =)</code> does what it did, the input always <code>input$&lt;id&gt;_&lt;event&gt;</code> – a name of one’s own was reported outside a module’s namespace.</li>
+<li>
+<code><a href="../reference/el_tree.html">el_tree()</a></code> takes Element Plus’s names: its field map is <code>props = list(label =, children =, disabled =, isLeaf =, class =)</code>, as <code><a href="../reference/el_tree_select.html">el_tree_select()</a></code> and <code><a href="../reference/el_tree_v2.html">el_tree_v2()</a></code> take it, where it was <code>label_field</code>, <code>children_field</code>, <code>disabled_field</code>, <code>is_leaf_field</code> and <code>class_field</code>; its keys are <code>default_expanded_keys</code> and <code>default_checked_keys</code>, as <code><a href="../reference/el_tree_v2.html">el_tree_v2()</a></code>’s, where they were <code>expanded</code> and <code>checked</code> – in <code><a href="../reference/el_tree.html">update_el_tree()</a></code> too, which can now change <code>props</code>. <code>input$&lt;id&gt;_checked</code> is unchanged.</li>
+<li>Element Plus’s names where they differed for no reason: <code>el_menu(default_active =)</code>, as Element’s <code>default-active</code>, was <code>active</code>; <code>el_upload(data =)</code>, Element’s <code>data</code>, was <code>extra_data</code> – the fields Element’s own request sends with <code>action</code>, which Shiny’s upload does not send; <code>input$&lt;id&gt;_close</code> of <code><a href="../reference/el_tag.html">el_tag()</a></code> and <code><a href="../reference/el_alert.html">el_alert()</a></code>, Element’s <code>close</code> event, was <code>_closed</code> (a dialog’s <code>_closed</code> is Element’s <code>closed</code>, after the animation); <code>input$&lt;id&gt;_page_size</code> of <code><a href="../reference/el_pagination.html">el_pagination()</a></code>, as its <code>page_size</code>, was <code>_size</code>; and <code><a href="../reference/el_tour.html">el_tour()</a></code>’s open state is <code>visible</code>, as the dialog’s, drawer’s, tooltip’s and popover’s, where it was <code>open</code>. The <code>update_el_*()</code> functions follow.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/el_events.html">el_events()</a></code> lists every input a component reports – its value, its requests, the events it reports unasked and those it can be asked for – from one registry, which also checks each component’s <code>events</code> (a name it does not have is an error listing them) and writes each help page’s “Shiny inputs” table.</li>
+<li>
+<code>on</code>, on every component: a handler of your own for any event – Element’s, or a DOM event with Vue’s modifiers – as DT’s <code>callback</code> and reactable’s <code>onClick</code> let one. <code>on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))</code> reports <code>input$&lt;id&gt;_enter</code>, namespaced in a module as the id is. An event the component reports too runs both.</li>
+<li>A keyboard event sends its key, <code>list(key, code, ctrl, shift, alt, meta)</code>, rather than <code>TRUE</code>.</li>
+<li>
+<code><a href="../reference/el_tabs.html">el_tabs()</a></code> and <code><a href="../reference/el_tabs.html">update_el_tabs()</a></code> take <code>value</code> as well as <code>selected</code>, as <code><a href="../reference/el_select.html">el_select()</a></code> does.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h3>
+<ul><li>A config provider inside another takes what it leaves unset from the outer one – a card’s shadow, the size of a component drawn later.</li>
+<li>
+<code><a href="../reference/insert_el_tab.html">insert_el_tab()</a></code> inserts the pane into tabs whose id has a dot or a colon, as Shiny’s ids may: the selector was not escaped.</li>
+<li>A component folded into another keeps its id where Element puts it – a button’s <code>&lt;button&gt;</code>, a select’s or an input’s <code>&lt;input&gt;</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-2-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-2-0"></a></h3>
+<ul><li>Two more apps in <code>inst/examples/combinations/</code> and the “Putting Components Together” article: awkward ids and values (dots and hyphens, markup and non-ASCII labels, numeric and empty values, 3000 options) and a long-running app (180 components, <code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">insertUI()</a></code>/<code><a href="https://rdrr.io/pkg/shiny/man/insertUI.html" class="external-link">removeUI()</a></code> and redraws leaving no dropdown behind, a dropped connection). A select in a space needs a width, as in Element.</li>
+<li>The “Shiny integration” article explains which events reach the server, <code>events</code>, <code><a href="../reference/el_events.html">el_events()</a></code> and <code>on</code>; updates to an output not yet drawn are dropped, as Shiny’s are.</li>
+<li>Tests: every <code>update_*()</code> reaches the namespaced id in a module; a bookmark restores components folded into others and in modules.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="shinyelement-010">shiny.element 0.1.0<a class="anchor" aria-label="anchor" href="#shinyelement-010"></a></h2>
 <p>First release.</p>
 <div class="section level3">
@@ -180,7 +216,7 @@
 <li>
 <code><a href="../reference/el_tooltip.html">el_tooltip()</a></code>’s <code>trigger</code> is Element Plus’s own – how it opens – and the element it describes is <code>reference</code>, as for <code><a href="../reference/el_popover.html">el_popover()</a></code>. <code>el_popconfirm(popconfirm_width =)</code> sizes the prompt. Popover and popconfirm take the tooltip’s other attributes through <code>...</code>.</li>
 <li>
-<code>el_load_children(reject = TRUE)</code> fails a lazy load, so the node can be loaded again; <code><a href="../reference/el_tree_select.html">el_tree_select()</a></code> loads lazily from the server as <code><a href="../reference/el_tree.html">el_tree()</a></code> does. <code>el_tree(props = list(class =))</code>, <code>el_tree_v2(props =)</code>, <code>el_select(props =)</code>, <code>el_select_v2(props =)</code>, <code>el_segmented(props =)</code> and <code>tag_tooltip</code> are new. <code><a href="../reference/el_table_row.html">el_tree_node()</a></code> names a tree’s node for <code><a href="../reference/call_el.html">call_el()</a></code>.</li>
+<code>el_load_children(reject = TRUE)</code> fails a lazy load, so the node can be loaded again; <code><a href="../reference/el_tree_select.html">el_tree_select()</a></code> loads lazily from the server as <code><a href="../reference/el_tree.html">el_tree()</a></code> does. <code>el_tree(class_field =)</code>, <code>el_tree_v2(props =)</code>, <code>el_select(props =)</code>, <code>el_select_v2(props =)</code>, <code>el_segmented(props =)</code> and <code>tag_tooltip</code> are new. <code><a href="../reference/el_table_row.html">el_tree_node()</a></code> names a tree’s node for <code><a href="../reference/call_el.html">call_el()</a></code>.</li>
 <li>
 <code>el_page(dev = TRUE)</code> loads Vue’s development build, which is bundled: until now it loaded the production build either way, so Vue’s warnings never reached the console the tests read.</li>
 </ul></div>
@@ -203,13 +239,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-1-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-0"></a></h3>
-<ul><li>
-<code><a href="../reference/el_tree.html">el_tree()</a></code> takes Element Plus’s names: its field map is <code>props = list(label =, children =, disabled =, isLeaf =, class =)</code>, as <code><a href="../reference/el_tree_select.html">el_tree_select()</a></code> and <code><a href="../reference/el_tree_v2.html">el_tree_v2()</a></code> take it, where it was <code>label_field</code>, <code>children_field</code>, <code>disabled_field</code>, <code>is_leaf_field</code> and <code>class_field</code>; its keys are <code>default_expanded_keys</code> and <code>default_checked_keys</code>, as <code><a href="../reference/el_tree_v2.html">el_tree_v2()</a></code>’s, where they were <code>expanded</code> and <code>checked</code> – in <code><a href="../reference/el_tree.html">update_el_tree()</a></code> too, which can now change <code>props</code>. <code>input$&lt;id&gt;_checked</code> is unchanged.</li>
-<li>Components report their value, the user’s deliberate actions and the server’s requests; Element’s other events only when asked for. A typed character, a hover, a focus or a dropdown opening each sent a message to the server, and most apps never read them: an input, a select, a slider, a date picker and a tooltip sent 66 messages for one ordinary use, 3 of them read. Ask for an event with the component’s <code>events</code>, by Element’s name in snake_case – <code>el_tree(events = "node_drop")</code> reports <code>input$&lt;id&gt;_node_drop</code>. <code><a href="../reference/el_events.html">el_events()</a></code> lists what each component reports and which unasked, as its help page’s “Shiny inputs” table does; a name it does not have is an error listing them. A keyboard event now sends the key, <code>list(key, code, ctrl, shift, alt, meta)</code>, rather than <code>TRUE</code>.</li>
-<li>
-<code>el_on()</code> is gone: <code>el_table(events =)</code> does what it did, the input always <code>input$&lt;id&gt;_&lt;event&gt;</code> – a name of one’s own was reported outside a module’s namespace. For an input of your own, <code>on</code>, which every component built on <code><a href="../reference/el_widget.html">el_widget()</a></code> takes: a handler of any event, <code>on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))</code> reporting <code>input$&lt;id&gt;_enter</code>, as DT’s <code>callback</code> and reactable’s <code>onClick</code> let one.</li>
-<li>Element Plus’s names where they differed for no reason: <code>el_menu(default_active =)</code>, as Element’s <code>default-active</code>, was <code>active</code>; <code>el_upload(data =)</code>, Element’s <code>data</code>, was <code>extra_data</code> – the fields Element’s own request sends with <code>action</code>, which Shiny’s upload does not send; <code>input$&lt;id&gt;_close</code> of <code><a href="../reference/el_tag.html">el_tag()</a></code> and <code><a href="../reference/el_alert.html">el_alert()</a></code>, Element’s <code>close</code> event, was <code>_closed</code> (a dialog’s <code>_closed</code> is Element’s <code>closed</code>, after the animation); <code>input$&lt;id&gt;_page_size</code> of <code><a href="../reference/el_pagination.html">el_pagination()</a></code>, as its <code>page_size</code>, was <code>_size</code>; and <code><a href="../reference/el_tour.html">el_tour()</a></code>’s open state is <code>visible</code>, as the dialog’s, drawer’s, tooltip’s and popover’s, where it was <code>open</code>. The <code>update_el_*()</code> functions follow. <code><a href="../reference/el_tabs.html">el_tabs()</a></code> takes <code>value</code> as well as <code>selected</code>, as <code><a href="../reference/el_select.html">el_select()</a></code> does.</li>
-</ul><p>Before this first release the API is still allowed to move; from the first CRAN release on, a change like these goes through a deprecation first.</p>
+<p>Before this first release the API is still allowed to move; from the first CRAN release on, a change like these goes through a deprecation first.</p>
 <ul><li>
 <code>el_call()</code> is <code><a href="../reference/call_el.html">call_el()</a></code>, <code>update_vue_data()</code> is <code><a href="../reference/update_vue.html">update_vue()</a></code>, and <code>el_widget(report =)</code> is <code>input =</code>.</li>
 <li>
@@ -217,7 +247,7 @@
 <li>
 <code>el_table_config()</code> is gone: <code><a href="../reference/el_table.html">el_table()</a></code> takes a data.frame as it is, and <code><a href="../reference/el_table_column.html">el_table_column()</a></code> writes the columns.</li>
 <li>Update functions take <code>NULL</code> as “leave it”, as Shiny’s do; <code>NA</code> returns a prop to Element’s default.</li>
-<li>A table in an app is an output: <code><a href="../reference/el_table_output.html">el_table_output()</a></code> and <code><a href="../reference/el_table_output.html">render_el_table()</a></code>. <code>input$&lt;id&gt;_selection_rows</code> is the selected row numbers, and <code>input$&lt;id&gt;_selection_change</code> the selected rows, <code>data[rows, , drop = FALSE]</code> of the data shown; <code>input$&lt;id&gt;_selected</code> and <code>input$&lt;id&gt;_selected_rows</code> are gone. A table reports five of Element’s events unasked – <code>selection-change</code>, <code>current-change</code>, <code>sort-change</code>, <code>filter-change</code>, <code>expand-change</code> – and the others when asked, with <code>el_table(events =)</code>.</li>
+<li>A table in an app is an output: <code><a href="../reference/el_table_output.html">el_table_output()</a></code> and <code><a href="../reference/el_table_output.html">render_el_table()</a></code>. <code>input$&lt;id&gt;_selection_rows</code> is the selected row numbers, and <code>input$&lt;id&gt;_selection_change</code> the selected rows, <code>data[rows, , drop = FALSE]</code> of the data shown; <code>input$&lt;id&gt;_selected</code> and <code>input$&lt;id&gt;_selected_rows</code> are gone. A table reports five of Element’s events unasked – <code>selection-change</code>, <code>current-change</code>, <code>sort-change</code>, <code>filter-change</code>, <code>expand-change</code> – and the others when asked, with <code>el_table(events =)</code> or <code>el_on()</code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="items-as-functions-0-1-0">Items as functions<a class="anchor" aria-label="anchor" href="#items-as-functions-0-1-0"></a></h3>
@@ -263,16 +293,13 @@
 <code>el_link(type =, underline =)</code> left <code>NULL</code> follow a config provider.</li>
 <li>Components put together, as an app does, work as they do alone:
 <ul><li>folded in at different depths – a tooltip’s button beside a select in a space – they no longer fail to build with “Two components inside the same wrapper both declare …”;</li>
-<li>folded in, a component keeps its id in the page, where Element puts it – a button’s <code>&lt;button&gt;</code>, a select’s or an input’s <code>&lt;input&gt;</code> – for CSS and <code>shinyjs</code>;</li>
+<li>folded in, a component keeps its id in the page, on the component itself, for CSS and <code>shinyjs</code>;</li>
 <li>a component drawn later inside a config provider – by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> – takes its settings and follows their updates; the provider’s own settings no longer read a child’s fields of the same name;</li>
 <li>a component in a slot of a folded component – a select in an input’s prefix, inside a provider – keeps its methods and reports on load;</li>
 <li>two trees, forms, uploads, carousels or calendars in one wrapper each keep their own methods: <code><a href="../reference/call_el.html">call_el()</a></code> on one reached the other;</li>
 <li>tabs drawn hidden – in a closed dialog, drawer or panel – measure their active bar once shown;</li>
-<li>a tree’s checked keys are reported after <code>call_el(..., "setChecked")</code> as after a click;</li>
-<li>a config provider inside another takes what it leaves unset from the outer one – a card’s shadow, the size of a component drawn later;</li>
-<li>
-<code><a href="../reference/insert_el_tab.html">insert_el_tab()</a></code> inserts the pane into tabs whose id has a dot or a colon, as Shiny’s ids may.</li>
-</ul><code>inst/examples/combinations/</code> holds the apps that found these, and the “Putting Components Together” article shows them: wrapped and nested, drawn later, overlays and table cells, modules and forms, components asking the server, awkward ids and values, and a long-running app – 180 components, insertUI()/removeUI() and redraws leaving no dropdown behind, a dropped connection.</li>
+<li>a tree’s checked keys are reported after <code>call_el(..., "setChecked")</code> as after a click.</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-after-elements-own-0-1-0">Documentation, after Element’s own<a class="anchor" aria-label="anchor" href="#documentation-after-elements-own-0-1-0"></a></h3>
@@ -307,7 +334,7 @@
 <li>
 <code>input$tbl_selection_change</code>, the selected rows as R subsets them, <code>data[rows, , drop = FALSE]</code>: factors, Dates and row names kept, the input handler subsetting the data the server keeps.</li>
 <li>
-<code>input$tbl_current_change</code>, <code>_sort_change</code>, <code>_filter_change</code> and <code>_expand_change</code>, always; Element’s other events – <code>row-dblclick</code>, <code>cell-click</code> and the rest – when asked, with <code>el_table(events = "row_dblclick")</code>, as <code>input$tbl_row_dblclick</code>.</li>
+<code>input$tbl_current_change</code>, <code>_sort_change</code>, <code>_filter_change</code> and <code>_expand_change</code>, always; Element’s other events – <code>row-dblclick</code>, <code>cell-click</code> and the rest – when asked, with <code>el_table(events =)</code> or piped, <code>el_table(...) |&gt; el_on("row-dblclick")</code>, under Element’s name in snake_case or an input of one’s own (<code>el_on("cell-click", input = "picked")</code>).</li>
 </ul><p><code>el_table_column(editable =)</code> edits a column’s cells in place, in Element’s input, input-number, select or date picker: a double click opens the editor, Enter or leaving it commits, Escape abandons, Tab moves to the next editable cell. The edit is shown at once, applied to the server’s copy of the data, and reported as <code>input$&lt;id&gt;_cell_edit</code>, <code>list(row, column, value, old)</code> with the column’s type. Nothing Excel does beyond that – ranges, copy and paste, fill, undo – is attempted.</p>
 <p>A table output sends its markup once: rendered again with the same columns and options, it sends only the data that changed, as JSON. While Shiny recalculates it, Element’s loading mask covers it in place of Shiny’s fading (<code>el_table_output(loading = FALSE)</code> for the fading).</p>
 <p><code>update_el_table(insert =, replace =, delete =)</code> changes a few rows and sends only those; the server’s copy of the data changes as R would change it, and <code><a href="../reference/el_table_data.html">el_table_data()</a></code> reads it, reactively. Rows not touched keep their ticks and open state.</p>

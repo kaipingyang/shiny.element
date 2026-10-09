@@ -1,5 +1,105 @@
 # Changelog
 
+## shiny.element 0.2.0
+
+### Breaking changes
+
+Not yet on CRAN, so the API may still move without a deprecation; from
+the first CRAN release on, a change like these goes through one first.
+
+- Components report their value, the user’s deliberate actions and the
+  server’s requests; Element’s other events only when asked for. A typed
+  character, a hover, a focus or a dropdown opening each sent a message
+  to the server, and most apps never read them: an input, a select, a
+  slider, a date picker and a tooltip sent 66 messages for one ordinary
+  use, 3 of them read; they now send 3. Ask for an event with the
+  component’s `events`, by Element’s name in snake_case –
+  `el_tree(events = "node_drop")` reports `input$<id>_node_drop`. Code
+  reading an event input that is no longer reported unasked –
+  `input$x_focus`, `input$x_visible_change`, a dialog’s `input$x_open` –
+  needs it asked for.
+- `el_on()` is gone: `el_table(events =)` does what it did, the input
+  always `input$<id>_<event>` – a name of one’s own was reported outside
+  a module’s namespace.
+- [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+  takes Element Plus’s names: its field map is
+  `props = list(label =, children =, disabled =, isLeaf =, class =)`, as
+  [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md)
+  and
+  [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)
+  take it, where it was `label_field`, `children_field`,
+  `disabled_field`, `is_leaf_field` and `class_field`; its keys are
+  `default_expanded_keys` and `default_checked_keys`, as
+  [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)’s,
+  where they were `expanded` and `checked` – in
+  [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
+  too, which can now change `props`. `input$<id>_checked` is unchanged.
+- Element Plus’s names where they differed for no reason:
+  `el_menu(default_active =)`, as Element’s `default-active`, was
+  `active`; `el_upload(data =)`, Element’s `data`, was `extra_data` –
+  the fields Element’s own request sends with `action`, which Shiny’s
+  upload does not send; `input$<id>_close` of
+  [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
+  and
+  [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md),
+  Element’s `close` event, was `_closed` (a dialog’s `_closed` is
+  Element’s `closed`, after the animation); `input$<id>_page_size` of
+  [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md),
+  as its `page_size`, was `_size`; and
+  [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)’s
+  open state is `visible`, as the dialog’s, drawer’s, tooltip’s and
+  popover’s, where it was `open`. The `update_el_*()` functions follow.
+
+### New features
+
+- [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
+  lists every input a component reports – its value, its requests, the
+  events it reports unasked and those it can be asked for – from one
+  registry, which also checks each component’s `events` (a name it does
+  not have is an error listing them) and writes each help page’s “Shiny
+  inputs” table.
+- `on`, on every component: a handler of your own for any event –
+  Element’s, or a DOM event with Vue’s modifiers – as DT’s `callback`
+  and reactable’s `onClick` let one.
+  `on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))`
+  reports `input$<id>_enter`, namespaced in a module as the id is. An
+  event the component reports too runs both.
+- A keyboard event sends its key,
+  `list(key, code, ctrl, shift, alt, meta)`, rather than `TRUE`.
+- [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+  and
+  [`update_el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
+  take `value` as well as `selected`, as
+  [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
+  does.
+
+### Bug fixes
+
+- A config provider inside another takes what it leaves unset from the
+  outer one – a card’s shadow, the size of a component drawn later.
+- [`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
+  inserts the pane into tabs whose id has a dot or a colon, as Shiny’s
+  ids may: the selector was not escaped.
+- A component folded into another keeps its id where Element puts it – a
+  button’s `<button>`, a select’s or an input’s `<input>`.
+
+### Documentation
+
+- Two more apps in `inst/examples/combinations/` and the “Putting
+  Components Together” article: awkward ids and values (dots and
+  hyphens, markup and non-ASCII labels, numeric and empty values, 3000
+  options) and a long-running app (180 components,
+  [`insertUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html)/[`removeUI()`](https://rdrr.io/pkg/shiny/man/insertUI.html)
+  and redraws leaving no dropdown behind, a dropped connection). A
+  select in a space needs a width, as in Element.
+- The “Shiny integration” article explains which events reach the
+  server, `events`,
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
+  and `on`; updates to an output not yet drawn are dropped, as Shiny’s
+  are.
+- Tests: every `update_*()` reaches the namespaced id in a module; a
+  bookmark restores components folded into others and in modules.
+
 ## shiny.element 0.1.0
 
 First release.
@@ -80,7 +180,7 @@ changed for code written for them. In short:
   [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md)
   loads lazily from the server as
   [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
-  does. `el_tree(props = list(class =))`, `el_tree_v2(props =)`,
+  does. `el_tree(class_field =)`, `el_tree_v2(props =)`,
   `el_select(props =)`, `el_select_v2(props =)`, `el_segmented(props =)`
   and `tag_tooltip` are new.
   [`el_tree_node()`](https://kaipingyang.github.io/shiny.element/reference/el_table_row.md)
@@ -156,61 +256,6 @@ as a Shiny input.
 
 ### Breaking changes
 
-- [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
-  takes Element Plus’s names: its field map is
-  `props = list(label =, children =, disabled =, isLeaf =, class =)`, as
-  [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_select.md)
-  and
-  [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)
-  take it, where it was `label_field`, `children_field`,
-  `disabled_field`, `is_leaf_field` and `class_field`; its keys are
-  `default_expanded_keys` and `default_checked_keys`, as
-  [`el_tree_v2()`](https://kaipingyang.github.io/shiny.element/reference/el_tree_v2.md)’s,
-  where they were `expanded` and `checked` – in
-  [`update_el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md)
-  too, which can now change `props`. `input$<id>_checked` is unchanged.
-- Components report their value, the user’s deliberate actions and the
-  server’s requests; Element’s other events only when asked for. A typed
-  character, a hover, a focus or a dropdown opening each sent a message
-  to the server, and most apps never read them: an input, a select, a
-  slider, a date picker and a tooltip sent 66 messages for one ordinary
-  use, 3 of them read. Ask for an event with the component’s `events`,
-  by Element’s name in snake_case – `el_tree(events = "node_drop")`
-  reports `input$<id>_node_drop`.
-  [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
-  lists what each component reports and which unasked, as its help
-  page’s “Shiny inputs” table does; a name it does not have is an error
-  listing them. A keyboard event now sends the key,
-  `list(key, code, ctrl, shift, alt, meta)`, rather than `TRUE`.
-- `el_on()` is gone: `el_table(events =)` does what it did, the input
-  always `input$<id>_<event>` – a name of one’s own was reported outside
-  a module’s namespace. For an input of your own, `on`, which every
-  component built on
-  [`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md)
-  takes: a handler of any event,
-  `on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))`
-  reporting `input$<id>_enter`, as DT’s `callback` and reactable’s
-  `onClick` let one.
-- Element Plus’s names where they differed for no reason:
-  `el_menu(default_active =)`, as Element’s `default-active`, was
-  `active`; `el_upload(data =)`, Element’s `data`, was `extra_data` –
-  the fields Element’s own request sends with `action`, which Shiny’s
-  upload does not send; `input$<id>_close` of
-  [`el_tag()`](https://kaipingyang.github.io/shiny.element/reference/el_tag.md)
-  and
-  [`el_alert()`](https://kaipingyang.github.io/shiny.element/reference/el_alert.md),
-  Element’s `close` event, was `_closed` (a dialog’s `_closed` is
-  Element’s `closed`, after the animation); `input$<id>_page_size` of
-  [`el_pagination()`](https://kaipingyang.github.io/shiny.element/reference/el_pagination.md),
-  as its `page_size`, was `_size`; and
-  [`el_tour()`](https://kaipingyang.github.io/shiny.element/reference/el_tour.md)’s
-  open state is `visible`, as the dialog’s, drawer’s, tooltip’s and
-  popover’s, where it was `open`. The `update_el_*()` functions follow.
-  [`el_tabs()`](https://kaipingyang.github.io/shiny.element/reference/el_tabs.md)
-  takes `value` as well as `selected`, as
-  [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md)
-  does.
-
 Before this first release the API is still allowed to move; from the
 first CRAN release on, a change like these goes through a deprecation
 first.
@@ -240,7 +285,7 @@ first.
   and `input$<id>_selected_rows` are gone. A table reports five of
   Element’s events unasked – `selection-change`, `current-change`,
   `sort-change`, `filter-change`, `expand-change` – and the others when
-  asked, with `el_table(events =)`.
+  asked, with `el_table(events =)` or `el_on()`.
 
 ### Items as functions
 
@@ -406,9 +451,8 @@ its `name` argument is now `tab`.
   - folded in at different depths – a tooltip’s button beside a select
     in a space – they no longer fail to build with “Two components
     inside the same wrapper both declare …”;
-  - folded in, a component keeps its id in the page, where Element puts
-    it – a button’s `<button>`, a select’s or an input’s `<input>` – for
-    CSS and `shinyjs`;
+  - folded in, a component keeps its id in the page, on the component
+    itself, for CSS and `shinyjs`;
   - a component drawn later inside a config provider – by
     [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) – takes
     its settings and follows their updates; the provider’s own settings
@@ -422,19 +466,7 @@ its `name` argument is now `tab`.
   - tabs drawn hidden – in a closed dialog, drawer or panel – measure
     their active bar once shown;
   - a tree’s checked keys are reported after
-    `call_el(..., "setChecked")` as after a click;
-  - a config provider inside another takes what it leaves unset from the
-    outer one – a card’s shadow, the size of a component drawn later;
-  - [`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
-    inserts the pane into tabs whose id has a dot or a colon, as Shiny’s
-    ids may.
-
-  `inst/examples/combinations/` holds the apps that found these, and the
-  “Putting Components Together” article shows them: wrapped and nested,
-  drawn later, overlays and table cells, modules and forms, components
-  asking the server, awkward ids and values, and a long-running app –
-  180 components, insertUI()/removeUI() and redraws leaving no dropdown
-  behind, a dropped connection.
+    `call_el(..., "setChecked")` as after a click.
 
 ### Documentation, after Element’s own
 
@@ -585,8 +617,10 @@ ticks, sort and open rows. Its inputs are named after the output:
   input handler subsetting the data the server keeps.
 - `input$tbl_current_change`, `_sort_change`, `_filter_change` and
   `_expand_change`, always; Element’s other events – `row-dblclick`,
-  `cell-click` and the rest – when asked, with
-  `el_table(events = "row_dblclick")`, as `input$tbl_row_dblclick`.
+  `cell-click` and the rest – when asked, with `el_table(events =)` or
+  piped, `el_table(...) |> el_on("row-dblclick")`, under Element’s name
+  in snake_case or an input of one’s own
+  (`el_on("cell-click", input = "picked")`).
 
 `el_table_column(editable =)` edits a column’s cells in place, in
 Element’s input, input-number, select or date picker: a double click
