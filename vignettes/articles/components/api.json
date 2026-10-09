@@ -18284,7 +18284,7 @@
 "type": "^[array]`Array<string \\| number>`",
 "accepted": "",
 "default": "—",
-"r": "`expanded`"
+"r": "`default_expanded_keys`"
 },
 {
 "name": "show-checkbox",
@@ -18308,7 +18308,7 @@
 "type": "^[array]`Array<string \\| number>`",
 "accepted": "",
 "default": "—",
-"r": "`checked`"
+"r": "`default_checked_keys`"
 },
 {
 "name": "current-node-key",

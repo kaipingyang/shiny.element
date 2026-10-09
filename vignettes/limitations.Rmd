@@ -107,10 +107,10 @@ an error rather than one quietly winning. The help pages document each pair
 as one argument (`selected, value`). No other component has a second name:
 everywhere else Shiny and Element already agree on `value`.
 
-A component's `value` prop is its `v-model`, so it is the `value` argument
-where the component has one and the binding elsewhere -- `el_tooltip()` and
-`el_popover()` use `value` for whether they are open, which
-`update_el_*(value =)` sets.
+A component's `v-model` is its `value` argument, the value it reports as
+`input$<id>`. The overlays are the exception: whether a dialog, drawer,
+tooltip or popover is open is `visible` in each, Element's own name
+for it on the tooltip and popover, which `update_el_*(visible =)` sets.
 
 `el_upload()`'s `on-success`, `on-error` and `http-request` are taken: they
 are how files reach Shiny. The other hooks (`on-change`, `on-progress`,

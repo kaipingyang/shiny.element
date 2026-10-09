@@ -607,8 +607,7 @@ PAGE_FNS["image"] = ["el_image", "el_image_viewer"]
 PAGE_FNS["statistic"] = ["el_statistic", "el_countdown"]
 PAGE_FNS["time-picker"] = ["el_time_picker"]
 PAGE_FNS["radio"] = ["el_radio_group"]
-NAMED = {("el-menu", "default-active"): "active", ("el-tree", "default-expanded-keys"): "expanded",
-         ("el-tree", "default-checked-keys"): "checked", ("el-upload", "data"): "extra_data",
+NAMED = {("el-menu", "default-active"): "active", ("el-upload", "data"): "extra_data",
          ("el-popover", "width"): "popover_width", ("el-tabs", "value"): "selected",
          ("el-select", "value"): "selected (or value)", ("el-radio-group", "value"): "selected (or value)",
          ("el-checkbox-group", "value"): "selected (or value)", ("el-upload", "http-request"): "(the Shiny upload)",
@@ -628,9 +627,7 @@ CONTAINER = {"el-column": "columns", "el-anchor-link": "links", "el-tour-step": 
              "el-tab-pane": "tabs", "el-collapse-item": "items", "el-carousel-item": "items",
              "el-dropdown-item": "items", "el-skeleton-item": "template()",
              "el-form-item": "el_form_field()"}
-NAMED.update({("el-tooltip", "value"): "update_el_tooltip(value =)",
-              ("el-popover", "value"): "update_el_popover(value =)",
-              ("el-form", "model"): "each field's `value`; update_el_form(model =)",
+NAMED.update({("el-form", "model"): "each field's `value`; update_el_form(model =)",
               ("el-tree", "props"): "props",
               ("el-input", "auto-complete"): "(deprecated upstream; `autocomplete`)",
               ("el-select", "auto-complete"): "(deprecated upstream; `autocomplete`)",
