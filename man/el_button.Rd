@@ -14,6 +14,7 @@ el_button(
   round = NULL,
   circle = FALSE,
   loading = FALSE,
+  task = FALSE,
   disabled = FALSE,
   icon = NULL,
   native_type = "button",
@@ -79,7 +80,13 @@ update_el_button(
 \item{circle}{Whether to render as a circle button (icon only, no label).
 Default \code{FALSE}.}
 
-\item{loading}{Whether to show loading spinner. Disables click while active.
+\item{loading}{Whether to show loading spinner. Disables click while active.}
+
+\item{task}{A task button, as \code{\link[bslib:input_task_button]{bslib::input_task_button()}}: clicked, it
+shows Element's loading state at once, in the browser, until the
+server has handled the click -- the observers it runs are done -- or,
+bound to an \link[shiny:ExtendedTask]{shiny::ExtendedTask} with \code{\link[bslib:bind_task_button]{bslib::bind_task_button()}},
+until the task is. \verb{input$<id>} counts the clicks, as for any button.
 Default \code{FALSE}.}
 
 \item{disabled}{Whether the button is disabled. Default \code{FALSE}.}

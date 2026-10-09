@@ -4,7 +4,7 @@
 \alias{.el_send_update}
 \title{Send an update to a component}
 \usage{
-.el_send_update(session, msg)
+.el_send_update(session, msg, immediate = FALSE)
 }
 \arguments{
 \item{session}{A Shiny session.}

@@ -96,8 +96,8 @@ test_that("el_countdown counts down to a date-time, in milliseconds", {
 
 test_that("el_countdown forwards finish, and change, asked for, once a second", {
   p <- vue_payload_of(el_countdown("left", value = 1))
-  expect_true("elEmitFinish" %in% names(p$methods))
-  expect_false("elEmitChange" %in% names(p$methods))
+  expect_true("svEmitFinish" %in% names(p$methods))
+  expect_false("svEmitChange" %in% names(p$methods))
   p <- vue_payload_of(el_countdown("left", value = 1, events = "change"))
-  expect_match(p$methods$elEmitChange, "_elLastChange", fixed = TRUE)
+  expect_match(p$methods$svEmitChange, "_elLastChange", fixed = TRUE)
 })

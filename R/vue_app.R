@@ -85,14 +85,153 @@
   if (!length(use)) {
     return(NULL)
   }
+  if (inherits(use, "JS_EVAL")) {
+    use <- list(use)
+  }
   nms <- names(use) %||% rep("", length(use))
   I(unname(Map(
     function(p, nm) {
-      if (nzchar(nm)) list(name = nm, options = p) else as.character(p)
+      if (nzchar(nm)) {
+        list(name = nm, options = p)
+      } else if (inherits(p, "JS_EVAL")) {
+        # a plugin written here, revived in the browser: list(plugin = ...)
+        list(plugin = p)
+      } else {
+        as.character(p)
+      }
     },
     as.list(use),
     nms
   )))
+}
+
+#' A rate policy, as Shiny's InputBinding gives one
+#'
+#' @param rate `NULL`, `"debounce"` or `"throttle"` (250 ms), or
+#'   `list(policy =, delay =)`.
+#' @return `NULL` or `list(policy, delay)`.
+#' @noRd
+.vue_rate <- function(rate) {
+  if (is.null(rate)) {
+    return(NULL)
+  }
+  if (is.character(rate) && length(rate) == 1L) {
+    rate <- list(policy = rate, delay = 250)
+  }
+  if (
+    !is.list(rate) ||
+      !isTRUE(rate$policy %in% c("debounce", "throttle")) ||
+      !(is.null(rate$delay) || (is.numeric(rate$delay) && rate$delay >= 0))
+  ) {
+    stop(
+      "`rate` must be \"debounce\" or \"throttle\", or ",
+      "`list(policy = \"debounce\", delay = 250)`.",
+      call. = FALSE
+    )
+  }
+  list(policy = rate$policy, delay = rate$delay %||% 250)
+}
+
+#' Shiny UI in a template, taken out of it: islands
+#'
+#' Vue compiles a template and owns the elements it draws: it drops
+#' `<script>`s, and re-creates what `v-if` and `v-for` show, so a Shiny input
+#' in a template loses its binding when Vue draws it again, an htmlwidget
+#' its data, a component of its own (a host) its template. Such UI is taken
+#' out: rendered beside the template, as Shiny renders it, in a hidden
+#' holder, and the template gets `<shiny-island name="k">` in its place,
+#' which moves the UI in while Vue shows it and back out -- suspended, its
+#' state kept -- when Vue removes it. Scripts and styles found loose in the
+#' template go to the holder too.
+#'
+#' An island is a tag with a Shiny input's, output's or htmlwidget's class,
+#' a component of its own (`data-shiny-vue`), a `conditionalPanel()`
+#' (`data-display-if`), or a tag marked `data-shiny-island`.
+#'
+#' @param template A tag, or a list of them.
+#' @param components Whether components of their own (hosts) and tags marked
+#'   `data-shiny-island` are islands too. A component library that folds
+#'   its components into one another, and places its containers itself,
+#'   leaves them in the template: `FALSE`.
+#' @return A list: `template`, with placeholders; `holder`, a tag or `NULL`.
+#' @keywords internal
+.vue_islands <- function(template, components = TRUE) {
+  islands <- list()
+  loose <- list()
+  island_class <- paste0(
+    "(^|\\s)(shiny-input-container|action-button|action-link|",
+    "shiny-[a-z-]*-output|shiny-tab-input|html-widget|html-widget-output|",
+    "bslib-task-button)(\\s|$)"
+  )
+  is_island <- function(x) {
+    a <- x$attribs
+    cls <- paste(unlist(a[names(a) == "class"]), collapse = " ")
+    marks <- c(
+      "data-display-if",
+      if (components) c("data-shiny-vue", "data-shiny-island")
+    )
+    any(marks %in% names(a)) || grepl(island_class, cls)
+  }
+  island <- function(node) {
+    k <- as.character(length(islands) + 1L)
+    islands[[k]] <<- htmltools::tags$div(
+      `data-shiny-island-of` = k,
+      style = "display: contents",
+      node
+    )
+    htmltools::tag("shiny-island", list(name = k))
+  }
+  walk <- function(node) {
+    # an htmlwidget as it stands: its data travels in a script
+    if (inherits(node, "htmlwidget")) {
+      return(island(node))
+    }
+    # any other object drawn by as.tags() -- a component's specification
+    if (
+      components &&
+        is.object(node) &&
+        !inherits(
+          node,
+          c("shiny.tag", "shiny.tag.list", "html", "html_dependency")
+        ) &&
+        !is.null(utils::getS3method(
+          "as.tags",
+          class(node)[1],
+          optional = TRUE,
+          envir = asNamespace("htmltools")
+        ))
+    ) {
+      node <- htmltools::as.tags(node)
+    }
+    if (inherits(node, "shiny.tag")) {
+      if (is_island(node)) {
+        return(island(node))
+      }
+      if (tolower(node$name) %in% c("script", "style", "link")) {
+        loose[[length(loose) + 1L]] <<- node
+        return(NULL)
+      }
+      node$children <- lapply(node$children, walk)
+      return(node)
+    }
+    if (is.list(node) && !inherits(node, "html_dependency")) {
+      kept <- attributes(node)
+      node <- lapply(node, walk)
+      attributes(node) <- kept
+      return(node)
+    }
+    node
+  }
+  template <- walk(template)
+  holder <- if (length(islands) || length(loose)) {
+    htmltools::tags$div(
+      `data-shiny-vue-islands` = NA,
+      style = "display: none",
+      unname(islands),
+      loose
+    )
+  }
+  list(template = template, holder = holder)
 }
 
 #' A host: the element a component mounts on, carrying its template and spec
@@ -103,7 +242,13 @@
 #' @param dependencies htmlDependencies to attach beside the Vue layer's.
 #' @return A tag with its dependencies.
 #' @keywords internal
-.vue_host <- function(id, template, spec, dependencies = list()) {
+.vue_host <- function(
+  id,
+  template,
+  spec,
+  dependencies = list(),
+  islands = NULL
+) {
   # The template travels as a script, which the browser does not parse: no
   # flash of raw tags before Vue runs, and camelCase attribute names survive
   template <- gsub("</script", "<\\/script", template, ignore.case = TRUE)
@@ -120,15 +265,23 @@
       type = "application/json",
       `data-shiny-vue-options` = NA,
       htmltools::HTML(.vue_json(spec))
-    )
+    ),
+    # Shiny UI taken out of the template (.vue_islands())
+    islands
   )
   host <- htmltools::attachDependencies(
     host,
     c(.vue_dependencies(), dependencies)
   )
   # what an output compares from render to render, to send only the data
-  # that changed (.vue_output_patch())
-  attr(host, "vue_host") <- list(template = template, spec = spec)
+  # that changed (.vue_output_patch()): the islands are part of the template
+  attr(host, "vue_host") <- list(
+    template = paste0(
+      template,
+      if (!is.null(islands)) as.character(htmltools::renderTags(islands)$html)
+    ),
+    spec = spec
+  )
   host
 }
 
@@ -245,10 +398,28 @@
 #'   must be in `data` (or `setup()`'s state). Inside a module,
 #'   `ns("stats")`. While Shiny recalculates one, `$recalculating.<id>` is
 #'   `true` in templates.
-#' @param use Vue plugins to install, by the global name each is loaded
-#'   under: `"MyPlugin"`, or with options, `list(MyPlugin = list(...))`.
+#' @param type An input handler for the value, as Shiny's inputs have:
+#'   the name given to [shiny::registerInputHandler()], which converts the
+#'   value on its way into R -- `"shiny.date"` makes a `"2026-01-31"` a
+#'   `Date`.
+#' @param rate How often the value is sent while it changes: `"debounce"`
+#'   or `"throttle"` (250 ms), or `list(policy = "debounce", delay = 500)`,
+#'   as Shiny's `textInput()` debounces. `NULL` sends every change.
+#' @param use Vue plugins to install: by the global name each is loaded
+#'   under, `"MyPlugin"`, or with options, `list(MyPlugin = list(...))`; or
+#'   written here, `JS("{ install(app) { app.config.errorHandler = ... } }")`
+#'   -- the way to reach the app's own configuration.
 #' @param dependencies [htmltools::htmlDependency()]s the component needs:
 #'   the plugins' scripts and stylesheets.
+#' @param events Events of the template's root -- a library's component
+#'   there, or a DOM event -- each reported as `input$<id>_<event>`, by its
+#'   name in snake_case or Vue's: `events = "row_click"`. Arguments travel
+#'   as `emits`' do -- one as itself, several as `list(arg1, arg2, ...)`, a
+#'   key pressed as `list(key, code, ctrl, shift, alt, meta)`, DOM objects
+#'   dropped. The template must then be one tag.
+#' @param on Handlers of your own for events of the template's root: a
+#'   named list of [JS()] functions, each called with `report` and the
+#'   event's arguments; `report(name, value)` sets `input$<id>_<name>`.
 #' @return A tag, with its dependencies.
 #' @seealso [vue_component()], [vue_store()], [update_vue()], [call_vue()],
 #'   [render_vue()].
@@ -279,11 +450,36 @@ vue_app <- function(
   components = NULL,
   ...,
   input = NULL,
+  type = NULL,
+  rate = NULL,
   outputs = NULL,
   use = NULL,
-  dependencies = NULL
+  dependencies = NULL,
+  events = NULL,
+  on = NULL
 ) {
   child_deps <- .vue_components(components)
+  # events and handlers on the template's root: a library's component
+  # there forwards its events, as the package's own components do
+  if (length(events) || length(on)) {
+    if (!inherits(template, "shiny.tag")) {
+      stop(
+        "`events` and `on` go on the template's root tag: give the ",
+        "template as one tag, `tags$div(...)` or a library's.",
+        call. = FALSE
+      )
+    }
+    if (length(events)) {
+      .vue_events_check(events, known = gsub("_", "-", events), what = id)
+    }
+    bound <- .vue_event_bindings(
+      id,
+      unique(gsub("_", "-", as.character(events))),
+      on = on
+    )
+    template <- .vue_on_attach(template, list(attrs = bound$attrs))
+    methods <- c(methods, bound$methods)
+  }
   .vue_app_spec(
     id = id,
     template = template,
@@ -303,6 +499,8 @@ vue_app <- function(
       list(...)
     ),
     input = input,
+    type = type,
+    rate = rate,
     outputs = outputs,
     use = use,
     dependencies = c(.vue_dependency_list(dependencies), child_deps)
@@ -330,10 +528,21 @@ vue_app <- function(
   use,
   dependencies,
   store = FALSE,
-  outputs = NULL
+  outputs = NULL,
+  type = NULL,
+  rate = NULL
 ) {
   if (!is.character(id) || length(id) != 1L || !nzchar(id)) {
     stop("`id` must be a single string.", call. = FALSE)
+  }
+  islands <- NULL
+  if (
+    inherits(template, c("shiny.tag", "shiny.tag.list")) ||
+      (is.list(template) && !inherits(template, "html"))
+  ) {
+    taken <- .vue_islands(template)
+    template <- taken$template
+    islands <- taken$holder
   }
   tpl <- .vue_template(template)
   data <- lapply(data, .vue_rows)
@@ -371,6 +580,16 @@ vue_app <- function(
       )
     }
   }
+  if (!is.null(type) || !is.null(rate)) {
+    if (!length(input)) {
+      stop("`type` and `rate` apply to the value: give `input`.", call. = FALSE)
+    }
+    if (!is.null(type) && (!is.character(type) || length(type) != 1L)) {
+      stop("`type` must name an input handler, one string.", call. = FALSE)
+    }
+    spec$type <- type
+    spec$rate <- .vue_rate(rate)
+  }
   spec$use <- .vue_use(use)
   if (length(outputs)) {
     spec$outputs <- I(outputs)
@@ -379,7 +598,13 @@ vue_app <- function(
     spec$store <- TRUE
   }
   dependencies <- .vue_dependency_list(dependencies)
-  .vue_host(id, tpl$html, spec, c(dependencies, tpl$dependencies))
+  .vue_host(
+    id,
+    tpl$html,
+    spec,
+    c(dependencies, tpl$dependencies),
+    islands = islands
+  )
 }
 
 #' A Vue child component, for a template to use

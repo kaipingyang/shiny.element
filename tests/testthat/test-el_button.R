@@ -213,3 +213,19 @@ test_that("update_el_button: all fields included when provided", {
   expect_false(captured$loading)
   expect_true(captured$disabled)
 })
+
+test_that("a task button speaks bslib's protocol", {
+  spec <- vue_spec_of(el_button("go", "Go", task = TRUE))
+  expect_equal(spec$type, "bslib.taskbutton")
+  expect_equal(spec$input, "taskValue")
+  p <- vue_payload_of(el_button("go", "Go", task = TRUE))
+  expect_match(p$methods$handleClick, "this.state = 'busy'", fixed = TRUE)
+  html <- paste(as.character(el_button("go", "Go", task = TRUE)), collapse = "")
+  expect_match(
+    html,
+    ":loading=\"loading || state === &#39;busy&#39;\"",
+    fixed = TRUE
+  )
+  # a plain button is an action button, as before
+  expect_equal(vue_spec_of(el_button("go", "Go"))$type, "shiny.action")
+})

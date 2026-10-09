@@ -190,50 +190,13 @@ print.el_events <- function(x, ...) {
   entry <- .el_event_registry[[fn]]
   known <- vapply(entry$events, `[[`, "", "event")
   default <- known[vapply(entry$events, `[[`, TRUE, "default")]
-  if (is.null(asked)) {
-    return(default)
-  }
-  if (!is.character(asked) || anyNA(asked)) {
-    stop(
-      "`events` must name events, as `events = \"",
-      gsub("-", "_", known[1]),
-      "\"`.",
-      call. = FALSE
-    )
-  }
-  if (!is.null(names(asked)) && any(nzchar(names(asked)))) {
-    stop(
-      "`events` takes no names: each event is reported as ",
-      "input$<id>_<event>. For an input of your own, give a handler with ",
-      "`on`.",
-      call. = FALSE
-    )
-  }
-  kebab <- gsub("_", "-", asked, fixed = TRUE)
-  unknown <- asked[!kebab %in% known]
-  if (length(unknown)) {
-    snake <- gsub("-", "_", known, fixed = TRUE)
-    stop(
-      paste(sQuote(unknown, FALSE), collapse = ", "),
-      if (length(unknown) == 1L) {
-        " is not an event of "
-      } else {
-        " are not events of "
-      },
-      fn,
-      "(). ",
-      if (length(snake)) {
-        paste0("Its events: ", toString(snake), ". ")
-      } else {
-        "It forwards none; give a handler of your own with `on`. "
-      },
-      "See el_events(\"",
-      fn,
-      "\").",
-      call. = FALSE
-    )
-  }
-  union(default, kebab)
+  .vue_events_check(
+    asked,
+    known = known,
+    default = default,
+    what = paste0(fn, "()"),
+    see = sprintf("See el_events(\"%s\").", fn)
+  )
 }
 
 #' The "Shiny inputs" table of a component's help page
@@ -279,99 +242,6 @@ print.el_events <- function(x, ...) {
     ),
     "\n"
   )
-}
-
-#' Handlers of the user's own, as `on`
-#'
-#' Each becomes a method the component's tag listens with: `@<event>`.
-#' The handler is called with `report` first -- `report(name, value)` sets
-#' `input$<id>_<name>` -- then the event's own arguments, and `this` the
-#' Vue instance.
-#'
-#' @param ns_id The namespaced id.
-#' @param on A named list of [JS()] functions.
-#' @return A list with `attrs` and `methods`.
-#' @noRd
-.el_on_bindings <- function(ns_id, on) {
-  if (is.null(on) || !length(on)) {
-    return(list(attrs = list(), methods = list()))
-  }
-  if (
-    !is.list(on) ||
-      is.null(names(on)) ||
-      any(!nzchar(names(on))) ||
-      anyDuplicated(names(on))
-  ) {
-    stop(
-      "`on` must be a named list of JS() functions, one per event: ",
-      "`on = list(\"keyup.enter\" = JS(\"function(report, e) { ... }\"))`.",
-      call. = FALSE
-    )
-  }
-  plain <- !vapply(on, inherits, TRUE, "JS_EVAL")
-  if (any(plain)) {
-    stop(
-      "`on` takes JS() functions; ",
-      paste(sQuote(names(on)[plain], FALSE), collapse = ", "),
-      if (sum(plain) == 1L) " is" else " are",
-      " not.",
-      call. = FALSE
-    )
-  }
-  events <- gsub("_", "-", names(on), fixed = TRUE)
-  names(on) <- events
-  method <- sprintf("elOn%d", seq_along(on))
-  methods <- stats::setNames(
-    lapply(on, function(f) {
-      JS(sprintf(
-        paste0(
-          "function() { var report = function(name, value) { ",
-          "window.shinyVue.emit('%s', String(name), [value === undefined ? true : value]); }; ",
-          "return (%s).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"
-        ),
-        ns_id,
-        f
-      ))
-    }),
-    method
-  )
-  list(
-    attrs = stats::setNames(as.list(method), paste0("@", events)),
-    methods = methods
-  )
-}
-
-#' Add `on` handlers to a tag, beside any it already listens with
-#'
-#' A tag carries one `@<event>`: where the component already listens to
-#' that event -- one of Element's it forwards -- both run, its own first.
-#'
-#' @param tag The component's tag.
-#' @param on Output of `.el_on_bindings()`.
-#' @return The tag.
-#' @noRd
-.el_on_attach <- function(tag, on) {
-  for (key in names(on$attrs)) {
-    given <- tag$attribs[[key]]
-    if (is.null(given)) {
-      tag$attribs[[key]] <- on$attrs[[key]]
-      next
-    }
-    if (!grepl("^[A-Za-z_$][A-Za-z0-9_$]*$", given)) {
-      stop(
-        "`on` cannot handle ",
-        sQuote(sub("^@", "", key), FALSE),
-        ": the component handles it itself.",
-        call. = FALSE
-      )
-    }
-    tag$attribs[[key]] <- sprintf(
-      "(...a) => { %s(...a); %s(...a); }",
-      given,
-      on$attrs[[key]]
-    )
-  }
-  tag
 }
 
 #' The events a container reports, for its binding

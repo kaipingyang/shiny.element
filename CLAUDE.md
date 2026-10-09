@@ -107,8 +107,16 @@ value to the column's type.
 
 ### Server to browser
 
+- Updates and method calls are queued per session and sent with the flush,
+  in `session$onFlushed()` -- as Shiny's `sendInputMessage()` and DT's and
+  leaflet's proxies (`.vue_send()`, `R/vue_utils.R`); `flush_vue()` sends
+  them at once, `update_el_progress()` is sent at once. A session that
+  cannot be asked for a flush (mocks, `testServer()`) is sent to at once.
 - `update_el_*()` and `update_vue()` send one custom message,
   `shinyVueUpdate`, a flat `{id, fields..., .action}` (`.el_send_update()`).
+  `.edit` (rows inserted, replaced, deleted by position or key) and `.set`
+  (values by path) change a field in place (`update_vue(insert =, ...)`);
+  the table and calendar use them.
   The bridge finds the host by id, bound or not -- Shiny's input messages
   reach only bound inputs -- runs `sv.hooks` for dot-keys (`.label`,
   `.error`, `.resolve`), then the component's `shinyVueReceive(data)` if it
@@ -166,6 +174,16 @@ value to the column's type.
   that loads Element from the CDN keeps it. The theme, locale, global config
   and feedback handlers belong to the page: `el_page()` or `use_element()`.
 
+### Shiny UI inside a template: islands
+
+`.vue_islands()` (`R/vue_app.R`), run by `vue_app()` and `el_widget()`,
+takes Shiny UI out of a template -- a tag with a Shiny input's, output's or
+htmlwidget's class, a host (`data-shiny-vue`), `data-display-if`, or
+`data-shiny-island` (the Element containers carry it) -- into a hidden
+holder in the host, and leaves `<shiny-island name="k">`, which the bridge
+registers in every app: it moves the UI in when Vue shows it and back out
+when Vue removes it. Loose `<script>`/`<style>` go to the holder too.
+
 ### Pure tag API
 
 `el` (`R/el_tags.R`) holds a tag generator for every component Element
@@ -211,7 +229,11 @@ of every component is in one registry, `R/el_events_registry.R`, written by
 descriptions from Element's docs): `el_events()` prints it, every
 component's `events` is checked against it, and each help page's "Shiny
 inputs" table is generated from it (`` `r .el_events_md("el_x")` ``).
-Containers read their reported events from `data-el-events`. Design
+Containers read their reported events from `data-el-events`. The
+forwarding itself, its check and `on` are the Vue layer's
+(`R/vue_events.R`: `.vue_event_bindings()`, `.vue_events_check()`,
+`.vue_on_bindings()`), also behind `vue_app(events =, on =)`. Task buttons
+(`el_button(task = TRUE)`) speak bslib's `bslib.taskbutton` protocol. Design
 records: `.claude/plans/shiny-style-components-2026-10-06.md`,
 `.claude/plans/names-and-events-2026-10-09.md`.
 

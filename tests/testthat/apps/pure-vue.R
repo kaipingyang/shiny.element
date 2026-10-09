@@ -136,6 +136,78 @@ ui <- fluidPage(
       )
     )
   ),
+  # events of the template's root forwarded, and a handler of one's own
+  vue_app(
+    "evt",
+    tags$button(class = "evtb", "go"),
+    events = "dblclick",
+    on = list(click = JS("function(report) { report('clicked', 1); }"))
+  ),
+  # setup()'s composables: an input of its own, another input, a data
+  # output, the server's busy state
+  vue_app(
+    "comp",
+    tags$i(
+      class = "comp",
+      "{{ pick }}|{{ n }}|{{ stats.value ? stats.value.twice : '' }}|{{ busy }}"
+    ),
+    setup = JS(
+      "function() {
+         return {
+           pick: shinyVue.useInput('comp_pick', 'a'),
+           n: shinyVue.useInputValue('counter'),
+           stats: shinyVue.useOutput('cstats'),
+           busy: shinyVue.useBusy()
+         };
+       }"
+    )
+  ),
+  # a list changed in place from the server
+  vue_app(
+    "items",
+    tags$ol(tags$li(
+      `v-for` = "it in items",
+      `:key` = "it.id",
+      "{{ it.text }}{{ it.done ? '+' : '' }}"
+    )),
+    data = list(
+      items = data.frame(
+        id = c("a", "b", "c"),
+        text = c("A", "B", "C"),
+        done = FALSE
+      ),
+      user = list(name = "x")
+    )
+  ),
+  # what a template can read of Shiny: other inputs, the server's busy
+  # state, a data output's error
+  vue_app(
+    "glob",
+    tags$i(
+      class = "glob",
+      paste0(
+        "{{ $inputs.counter }}|{{ $busy ? 'busy' : 'idle' }}|",
+        "{{ $errors.derr ? $errors.derr.message : 'ok' }}"
+      )
+    ),
+    outputs = "derr"
+  ),
+  # a value typed by an input handler, debounced; a plugin written inline
+  vue_app(
+    "typed",
+    tags$input(class = "typed", `v-model` = "day"),
+    data = list(day = "2026-01-31"),
+    input = "day",
+    type = "shiny.date",
+    rate = list(policy = "debounce", delay = 600)
+  ),
+  vue_app(
+    "inline",
+    tags$i(class = "inline", "{{ $hi }}"),
+    use = JS(
+      "{ install: function(app) { app.config.globalProperties.$hi = 'inline'; } }"
+    )
+  ),
   verbatimTextOutput("vals")
 )
 
@@ -150,6 +222,29 @@ server <- function(input, output, session) {
     rows = head(mtcars, input$counter %||% 1),
     fmt = JS("function(x) { return 'f' + x; }")
   ))
+  output$derr <- render_vue_data({
+    if (isTRUE(input$dfail)) {
+      stop("it broke")
+    }
+    list()
+  })
+  observeEvent(input$items_ops, {
+    update_vue(
+      session,
+      "items",
+      insert = list(items = list(id = "z", text = "Z", done = FALSE)),
+      at = 1
+    )
+    update_vue(session, "items", set = list("items[2].done" = TRUE))
+    update_vue(session, "items", delete = list(items = "c"), key = "id")
+    update_vue(
+      session,
+      "items",
+      replace = list(items = list(id = "b", text = "B2", done = FALSE)),
+      key = "id"
+    )
+  })
+  output$cstats <- render_vue_data(list(twice = (input$counter %||% 0) * 2))
   runs <- 0
   output$druns <- render_vue_data({
     runs <<- runs + 1
@@ -168,7 +263,13 @@ server <- function(input, output, session) {
       update_vue(session, "cart", note = "from R")
     }
   })
-  output$vals <- renderText(paste("counter =", input$counter))
+  output$vals <- renderText(paste(
+    "counter =",
+    input$counter,
+    "| typed =",
+    class(input$typed)[1],
+    format(input$typed)
+  ))
 }
 
 shinyApp(ui, server)

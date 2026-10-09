@@ -458,6 +458,7 @@ reference:
       - render_vue_data
       - update_vue
       - call_vue
+      - flush_vue
       - vue_answer
 
   - title: Escape hatches

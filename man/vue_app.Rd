@@ -16,9 +16,13 @@ vue_app(
   components = NULL,
   ...,
   input = NULL,
+  type = NULL,
+  rate = NULL,
   outputs = NULL,
   use = NULL,
-  dependencies = NULL
+  dependencies = NULL,
+  events = NULL,
+  on = NULL
 )
 }
 \arguments{
@@ -46,17 +50,39 @@ keep it an array: \code{tags = I("red")}.}
 \item{input}{The field whose value is \verb{input$<id>}, or several, for one
 value made of them. \code{NULL}: the component reports no value.}
 
+\item{type}{An input handler for the value, as Shiny's inputs have:
+the name given to \code{\link[shiny:registerInputHandler]{shiny::registerInputHandler()}}, which converts the
+value on its way into R -- \code{"shiny.date"} makes a \code{"2026-01-31"} a
+\code{Date}.}
+
+\item{rate}{How often the value is sent while it changes: \code{"debounce"}
+or \code{"throttle"} (250 ms), or \code{list(policy = "debounce", delay = 500)},
+as Shiny's \code{textInput()} debounces. \code{NULL} sends every change.}
+
 \item{outputs}{Ids of outputs the component's \code{data} follows, rendered
 with \code{\link[=render_vue_data]{render_vue_data()}}: each render sets the fields it names, which
 must be in \code{data} (or \code{setup()}'s state). Inside a module,
 \code{ns("stats")}. While Shiny recalculates one, \verb{$recalculating.<id>} is
 \code{true} in templates.}
 
-\item{use}{Vue plugins to install, by the global name each is loaded
-under: \code{"MyPlugin"}, or with options, \code{list(MyPlugin = list(...))}.}
+\item{use}{Vue plugins to install: by the global name each is loaded
+under, \code{"MyPlugin"}, or with options, \code{list(MyPlugin = list(...))}; or
+written here, \code{JS("{ install(app) { app.config.errorHandler = ... } }")}
+-- the way to reach the app's own configuration.}
 
 \item{dependencies}{\code{\link[htmltools:htmlDependency]{htmltools::htmlDependency()}}s the component needs:
 the plugins' scripts and stylesheets.}
+
+\item{events}{Events of the template's root -- a library's component
+there, or a DOM event -- each reported as \verb{input$<id>_<event>}, by its
+name in snake_case or Vue's: \code{events = "row_click"}. Arguments travel
+as \code{emits}' do -- one as itself, several as \code{list(arg1, arg2, ...)}, a
+key pressed as \code{list(key, code, ctrl, shift, alt, meta)}, DOM objects
+dropped. The template must then be one tag.}
+
+\item{on}{Handlers of your own for events of the template's root: a
+named list of \code{\link[=JS]{JS()}} functions, each called with \code{report} and the
+event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}.}
 }
 \value{
 A tag, with its dependencies.

@@ -110,9 +110,9 @@ test_that("on binds a handler of the user's own, reporting under the id", {
     on = list("keyup.enter" = JS("function(report, e) { report('enter', 1); }"))
   )
   html <- render_html(ui)
-  expect_match(html, '@keyup.enter="elOn1"', fixed = TRUE)
+  expect_match(html, '@keyup.enter="svOn1"', fixed = TRUE)
   p <- vue_payload_of(ui)
-  expect_match(p$methods$elOn1, "shinyVue.emit('q', String(name)", fixed = TRUE)
+  expect_match(p$methods$svOn1, "shinyVue.emit('q', String(name)", fixed = TRUE)
 
   # in a module, the id it reports under is the namespaced one
   html <- render_html(el_button(
@@ -129,7 +129,7 @@ test_that("on binds a handler of the user's own, reporting under the id", {
   ))
   expect_match(
     html,
-    "@select=\"(...a) =&gt; { elEmitSelect(...a); elOn1(...a); }\"",
+    "@select=\"(...a) =&gt; { svEmitSelect(...a); svOn1(...a); }\"",
     fixed = TRUE
   )
 

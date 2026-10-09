@@ -47,7 +47,8 @@ test_that("no UI function reads the default reactive domain", {
     }
     fm <- formals(g)
     # Server functions take the session first, and default to the current one
-    if (identical(names(fm)[1], "session")) {
+    # -- flush_vue() after the code it wraps, so `flush_vue({ ... })` reads
+    if (identical(names(fm)[1], "session") || f == "flush_vue") {
       next
     }
     expect_null(fm$session, info = f)

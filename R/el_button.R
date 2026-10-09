@@ -18,6 +18,11 @@
 #' @param circle Whether to render as a circle button (icon only, no label).
 #'   Default `FALSE`.
 #' @param loading Whether to show loading spinner. Disables click while active.
+#' @param task A task button, as [bslib::input_task_button()]: clicked, it
+#'   shows Element's loading state at once, in the browser, until the
+#'   server has handled the click -- the observers it runs are done -- or,
+#'   bound to an [shiny::ExtendedTask] with [bslib::bind_task_button()],
+#'   until the task is. `input$<id>` counts the clicks, as for any button.
 #'   Default `FALSE`.
 #' @param disabled Whether the button is disabled. Default `FALSE`.
 #' @param icon Either an Element icon class name such as `"el-icon-search"`,
@@ -98,6 +103,7 @@ el_button <- function(
   round = NULL,
   circle = FALSE,
   loading = FALSE,
+  task = FALSE,
   disabled = FALSE,
   icon = NULL,
   native_type = "button",
@@ -138,7 +144,8 @@ el_button <- function(
     ":plain" = .el_optional_bind("plain"),
     ":round" = .el_optional_bind("round"),
     ":circle" = "circle",
-    ":loading" = "loading",
+    # a task button is loading from the click until the server is done
+    ":loading" = if (isTRUE(task)) "loading || state === 'busy'" else "loading",
     ":disabled" = "disabled",
     ":native-type" = "native_type",
     "@click" = "handleClick",
@@ -188,6 +195,9 @@ el_button <- function(
       native_type = native_type,
       icon = if (is.character(icon)) icon else NA,
       count = 0L,
+      # a task button's: "busy" from the click until the server says
+      # "ready", as bslib's input_task_button() says it
+      state = "ready",
       autofocus = .el_or_na(autofocus)
     ),
     methods = list(
@@ -195,16 +205,32 @@ el_button <- function(
       # absorbed into a wrapper and has no binding of its own
       handleClick = JS(sprintf(
         paste0(
-          "function() { if (this.disabled || this.loading) return; this.count++; ",
-          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:shiny.action', this.count); }"
+          "function() { if (this.disabled || this.loading || this.state === 'busy') return; ",
+          "this.count++; ",
+          if (isTRUE(task)) "this.state = 'busy'; " else "",
+          "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s:%s', %s); }"
         ),
-        ns_id
+        ns_id,
+        if (isTRUE(task)) "bslib.taskbutton" else "shiny.action",
+        if (isTRUE(task)) "this.taskValue" else "this.count"
       ))
     ),
+    # A task button's value is bslib's, so its input handler resets it once
+    # the click is handled, and bind_task_button() keeps it busy
+    computed = if (isTRUE(task)) {
+      list(
+        taskValue = JS(
+          "function() { return { value: this.count, autoReset: true }; }"
+        )
+      )
+    },
     # An action button, as actionButton() is: 0 on load, classed so that
     # observeEvent() and req() treat 0 as not yet clicked
-    mounted = .el_mounted_init(stats::setNames("count", ns_id)),
-    type = "shiny.action",
+    mounted = .el_mounted_init(stats::setNames(
+      if (isTRUE(task)) "taskValue" else "count",
+      ns_id
+    )),
+    type = if (isTRUE(task)) "bslib.taskbutton" else "shiny.action",
     width = width,
     slots = slots,
     on = on

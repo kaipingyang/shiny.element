@@ -619,8 +619,8 @@ test_that("update_el_table() sends only the rows edited, as the server holds the
   update_el_table(m$session, "tbl", insert = mtcars[10, 1:2], at = 1)
   msg <- m$sent()[[1]]
   expect_null(msg$tableData)
-  expect_equal(msg$tableEdit$op, "insert")
-  json <- as.character(msg$tableEdit$rows)
+  expect_equal(msg$.edit$op, "insert")
+  json <- as.character(msg$.edit$rows)
   # the row name, as the table draws it
   expect_match(json, rownames(mtcars)[10], fixed = TRUE)
   expect_equal(nrow(.el_table_data(m$session, "tbl")), 5)
@@ -637,7 +637,7 @@ test_that("update_el_table() sends only the rows edited, as the server holds the
     at = 2
   )
   expect_equal(.el_table_data(m$session, "tbl")$mpg[2], 1)
-  expect_equal(unclass(m$sent()[[3]]$tableEdit$at), 2L)
+  expect_equal(unclass(m$sent()[[3]]$.edit$at), 2L)
 
   expect_error(update_el_table(m$session, "tbl", delete = 9), "has 3 rows")
   expect_error(

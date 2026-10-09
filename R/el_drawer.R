@@ -144,6 +144,8 @@ el_drawer <- function(
         if (!is.null(z_index)) sprintf("z-index:%s;", z_index)
       ),
       `data-el-overlay` = "drawer",
+      # in a component's template, kept out of Vue's compiling (.vue_islands())
+      `data-shiny-island` = NA,
       # the events it reports: its defaults and those asked for
       `data-el-events` = .el_events_attr("el_drawer", events),
       `data-visible` = tolower(as.character(visible)),

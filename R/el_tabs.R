@@ -186,6 +186,8 @@ el_tabs <- function(
       id = ns_id,
       class = root_class,
       `data-el-tabs` = "true",
+      # in a component's template, kept out of Vue's compiling (.vue_islands())
+      `data-shiny-island` = NA,
       # the events it reports: its defaults and those asked for
       `data-el-events` = .el_events_attr("el_tabs", events),
       `data-position` = tab_position,

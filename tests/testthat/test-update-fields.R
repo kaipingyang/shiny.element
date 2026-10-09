@@ -20,7 +20,7 @@ vue_data_keys <- function(tag) {
   }
   json <- sub("</script>$", "", sub('^application/json"[^>]*>', "", m))
   options <- jsonlite::fromJSON(json, simplifyVector = FALSE)$options
-  # and the fields its shinyVueReceive takes ('tableEdit' in d)
+  # and the fields its shinyVueReceive takes ('x' in d)
   receive <- paste(unlist(options$methods$shinyVueReceive), collapse = "")
   taken <- regmatches(receive, gregexpr("'([A-Za-z]+)' in d", receive))[[1]]
   c(names(options$data), sub("'([A-Za-z]+)' in d", "\\1", taken))

@@ -114,6 +114,10 @@ Every other argument of \code{\link[=el_progress]{el_progress()}} that can chang
 drawn is an argument here too, under the same name. One left \code{NULL}
 stays as it is; \code{NA} returns it to Element's default.
 
+Unlike the other updates, which go with the flush (\code{\link[=flush_vue]{flush_vue()}}), it is
+sent at once, as \code{\link[shiny:withProgress]{shiny::withProgress()}} reports: a loop updating it
+shows every step.
+
 \code{update_el_progress()} is called for its side effect and returns \code{NULL} invisibly.
 }
 

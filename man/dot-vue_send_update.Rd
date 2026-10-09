@@ -4,12 +4,14 @@
 \alias{.vue_send_update}
 \title{Send fields to a component: the shinyVueUpdate message}
 \usage{
-.vue_send_update(session, msg)
+.vue_send_update(session, msg, immediate = FALSE)
 }
 \arguments{
 \item{session}{A Shiny session.}
 
 \item{msg}{\verb{list(id =, <field> = <value>, ...)}; dot-keys are the bridge's.}
+
+\item{immediate}{Send now rather than with the flush: see \code{\link[=.vue_send]{.vue_send()}}.}
 }
 \value{
 \code{NULL}, invisibly.

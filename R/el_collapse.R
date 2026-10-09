@@ -152,6 +152,8 @@ el_collapse <- function(
         expand_icon_position
       ),
       `data-el-collapse` = "true",
+      # in a component's template, kept out of Vue's compiling (.vue_islands())
+      `data-shiny-island` = NA,
       `data-accordion` = tolower(as.character(accordion)),
       `data-before-collapse` = if (!is.null(before_collapse)) {
         as.character(before_collapse)

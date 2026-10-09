@@ -257,7 +257,7 @@ el_tree <- function(
   # Element emits check-change for every node whose state changes, a click's
   # or a method's -- setChecked() from call_el(), which the check event does
   # not see: `checked` follows, and is reported, once they have all come
-  events$methods$elEmitCheckChange <- JS(sprintf(
+  events$methods$svEmitCheckChange <- JS(sprintf(
     paste0(
       "function() { var self = this; (%s).apply(this, arguments); ",
       "Promise.resolve().then(function() { if (!self.$refs.tree) return; ",
@@ -265,7 +265,7 @@ el_tree <- function(
       "window.Shiny && Shiny.setInputValue && ",
       "Shiny.setInputValue('%s_checked', self.checked); }); }"
     ),
-    events$methods$elEmitCheckChange,
+    events$methods$svEmitCheckChange,
     ns_id
   ))
 

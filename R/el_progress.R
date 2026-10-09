@@ -146,6 +146,10 @@ el_progress <- function(
 #' drawn is an argument here too, under the same name. One left `NULL`
 #' stays as it is; `NA` returns it to Element's default.
 #'
+#' Unlike the other updates, which go with the flush ([flush_vue()]), it is
+#' sent at once, as [shiny::withProgress()] reports: a loop updating it
+#' shows every step.
+#'
 #' `update_el_progress()` is called for its side effect and returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {
@@ -213,6 +217,8 @@ update_el_progress <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  # at once, as withProgress() and shinyWidgets' updateProgressBar() send
+  # theirs: a progress reported from a long loop shows each step
+  .el_send_update(session, msg, immediate = TRUE)
   invisible(NULL)
 }

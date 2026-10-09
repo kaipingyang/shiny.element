@@ -4,7 +4,18 @@
 \alias{update_vue}
 \title{Set fields of a Vue component from the server}
 \usage{
-update_vue(session = shiny::getDefaultReactiveDomain(), id, ..., value = NULL)
+update_vue(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  ...,
+  value = NULL,
+  insert = NULL,
+  replace = NULL,
+  delete = NULL,
+  at = NULL,
+  key = NULL,
+  set = NULL
+)
 }
 \arguments{
 \item{session}{Shiny session; the current one by default, as for
@@ -16,6 +27,17 @@ update_vue(session = shiny::getDefaultReactiveDomain(), id, ..., value = NULL)
 
 \item{value}{The component's value: sets whichever field its \code{input}
 names.}
+
+\item{insert, replace, delete}{Rows to insert, rows to put in place of
+others, or the rows to delete -- each \verb{list(<field> = ...)}, one of
+them per call.}
+
+\item{at}{Positions, counting from 1: where \code{insert} goes, which rows
+\code{replace} and \code{delete} change.}
+
+\item{key}{A field the rows are found by, instead of positions.}
+
+\item{set}{Values at paths, \code{list("<path>" = value)}.}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.
@@ -25,15 +47,35 @@ The Vue layer's \code{update*Input()}: assigns fields of a component's state
 -- its \code{data}, or what its \code{setup()} returned, or a \code{\link[=vue_store]{vue_store()}}'s --
 and the component, and every template showing them, follow. As with
 Shiny's updaters, the component's value is reported back to
-\verb{input$<id>} afterwards.
+\verb{input$<id>} afterwards, and the update is sent with the flush, after
+the outputs (\code{\link[=flush_vue]{flush_vue()}}).
+}
+\details{
+A field given in \code{...} is replaced whole. A long list, or a deep object,
+can be changed in place instead, sending only what changes:
+\itemize{
+\item \code{insert}, \code{replace}, \code{delete}: rows of a list field -- one field per
+call, \code{list(items = rows)}. Rows are a data.frame or a list of rows.
+\code{at} says where, counting from 1: the position \code{insert} goes before
+(the end when \code{NULL}), the positions \code{replace} and \code{delete} change. With
+\code{key}, rows are found by that field's value instead: \code{replace} puts
+each row in place of the one with its key (or at the end), and
+\code{delete = list(items = c("a", "c"))} takes away the rows with those
+keys.
+\item \code{set}: values at paths, \code{list("items[3].done" = TRUE, "user.name" = "Ann")} -- fields, then list positions counting from 1 and names.
+}
 }
 \examples{
 if (interactive()) {
   # inside a server function
   update_vue(id = "counter", value = 0)
   update_vue(id = "cart", note = "Free delivery today")
+  # a list changed in place: one row added, one ticked
+  update_vue(id = "todo", insert = list(items = list(text = "Call Ann")))
+  update_vue(id = "todo", set = list("items[2].done" = TRUE))
+  update_vue(id = "todo", delete = list(items = "t3"), key = "id")
 }
 }
 \seealso{
-\code{\link[=vue_app]{vue_app()}}, \code{\link[=call_vue]{call_vue()}}.
+\code{\link[=vue_app]{vue_app()}}, \code{\link[=call_vue]{call_vue()}}, \code{\link[=flush_vue]{flush_vue()}}.
 }

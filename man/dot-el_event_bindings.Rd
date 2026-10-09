@@ -21,36 +21,15 @@
 
 \item{asked}{The user's \code{events}.}
 
-\item{on}{The user's \code{on}: see \code{.el_on_bindings()}.}
-
-\item{shapes}{Named list of JavaScript functions, one per event that
-carries more than one argument, turning the arguments into a single
-object. \code{this} is the Vue instance. Returning \code{undefined} skips that
-emission. Without a shape, several arguments are sent as \code{arg1}, \code{arg2},
-...}
-
-\item{throttle}{Events that fire on every frame -- a scroll, a drag --
-sent at most every 200 ms, the last one always: the server hears where
-the scroll or the drag ended.}
-
-\item{bound}{Events the component listens to whether or not they are
-reported, through the method of the same name, which it wraps: a tree's
-\code{check-change} keeps \verb{input$<id>_checked}.}
+\item{on, shapes, throttle, bound}{As for \code{\link[=.vue_event_bindings]{.vue_event_bindings()}}.}
 }
 \value{
 A list with \code{attrs} (to merge into the tag) and \code{methods} (to merge
 into the Vue options).
 }
 \description{
-Element's events carry different arguments each, some of them DOM nodes or
-native events that cannot be serialised. Rather than write a handler per
-event, each one is bound to a generated method that hands its arguments to
-\code{shinyVue.emit()} (see \code{inst/js/shiny-vue.js}), which drops what cannot
-travel and sets \verb{input$<id>_<event>}.
-}
-\details{
-Which events: the component's entry in \code{\link[=el_events]{el_events()}} -- those on by
-default, and those the user asked for with \code{events} -- and the user's own
-handlers, \code{on}.
+The component's entry in \code{\link[=el_events]{el_events()}} -- the events on by default, and
+those the user asked for with \code{events} -- forwarded by the Vue layer
+(\code{\link[=.vue_event_bindings]{.vue_event_bindings()}}), with the user's own handlers, \code{on}.
 }
 \keyword{internal}

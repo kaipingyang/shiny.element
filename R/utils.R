@@ -13,31 +13,14 @@
 
 #' Forward Element Plus events to Shiny inputs
 #'
-#' Element's events carry different arguments each, some of them DOM nodes or
-#' native events that cannot be serialised. Rather than write a handler per
-#' event, each one is bound to a generated method that hands its arguments to
-#' `shinyVue.emit()` (see `inst/js/shiny-vue.js`), which drops what cannot
-#' travel and sets `input$<id>_<event>`.
-#'
-#' Which events: the component's entry in [el_events()] -- those on by
-#' default, and those the user asked for with `events` -- and the user's own
-#' handlers, `on`.
+#' The component's entry in [el_events()] -- the events on by default, and
+#' those the user asked for with `events` -- forwarded by the Vue layer
+#' ([.vue_event_bindings()]), with the user's own handlers, `on`.
 #'
 #' @param ns_id The namespaced element id.
 #' @param fn The component's function name, its entry in the registry.
 #' @param asked The user's `events`.
-#' @param on The user's `on`: see `.el_on_bindings()`.
-#' @param shapes Named list of JavaScript functions, one per event that
-#'   carries more than one argument, turning the arguments into a single
-#'   object. `this` is the Vue instance. Returning `undefined` skips that
-#'   emission. Without a shape, several arguments are sent as `arg1`, `arg2`,
-#'   ...
-#' @param throttle Events that fire on every frame -- a scroll, a drag --
-#'   sent at most every 200 ms, the last one always: the server hears where
-#'   the scroll or the drag ended.
-#' @param bound Events the component listens to whether or not they are
-#'   reported, through the method of the same name, which it wraps: a tree's
-#'   `check-change` keeps `input$<id>_checked`.
+#' @param on,shapes,throttle,bound As for [.vue_event_bindings()].
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
 #' @keywords internal
@@ -50,64 +33,14 @@
   throttle = character(),
   bound = character()
 ) {
-  events <- .el_events_forwarded(fn, asked)
-  silent <- setdiff(bound, events)
-  own <- .el_on_bindings(ns_id, on)
-  every <- c(events, silent)
-  if (!length(every)) {
-    return(own)
-  }
-  method_name <- function(event) {
-    parts <- strsplit(event, "-", fixed = TRUE)[[1]]
-    paste0(
-      "elEmit",
-      paste0(
-        toupper(substring(parts, 1, 1)),
-        substring(parts, 2),
-        collapse = ""
-      )
-    )
-  }
-  attrs <- stats::setNames(
-    lapply(every, method_name),
-    paste0("@", every)
+  .vue_event_bindings(
+    ns_id,
+    .el_events_forwarded(fn, asked),
+    on = on,
+    shapes = shapes,
+    throttle = throttle,
+    bound = bound
   )
-  methods <- stats::setNames(
-    lapply(every, function(event) {
-      if (event %in% silent) {
-        return(JS("function() {}"))
-      }
-      shape <- shapes[[event]]
-      wait <- if (event %in% throttle) ", 200" else ""
-      to <- gsub("-", "_", event, fixed = TRUE)
-      if (is.null(shape)) {
-        return(JS(sprintf(
-          "function() { window.shinyVue.emit('%s', '%s', arguments%s); }",
-          ns_id,
-          to,
-          wait
-        )))
-      }
-      # The shape runs with `this` as the Vue instance, so it can look a row
-      # up in the instance's own data. A shape that returns undefined skips
-      # that emission.
-      JS(sprintf(
-        paste0(
-          "function() { var shape = %s; ",
-          "var v = shape.apply(this, arguments); if (v === undefined) return; ",
-          "window.shinyVue.emit('%s', '%s', [v]%s); }"
-        ),
-        shape,
-        ns_id,
-        to,
-        wait
-      ))
-    }),
-    vapply(every, method_name, character(1))
-  )
-  # the user's handler of an event forwarded too: both run
-  tag <- .el_on_attach(list(attribs = attrs), own)
-  list(attrs = tag$attribs, methods = c(methods, own$methods))
 }
 
 #' Placeholder for an unset optional prop
@@ -419,7 +352,9 @@
 #' @param msg The message: `id`, namespaced, and the fields to set.
 #' @return `NULL`, invisibly.
 #' @keywords internal
-.el_send_update <- function(session, msg) .vue_send_update(session, msg)
+.el_send_update <- function(session, msg, immediate = FALSE) {
+  .vue_send_update(session, msg, immediate = immediate)
+}
 
 
 #' Add a label or error to an update

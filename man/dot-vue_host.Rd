@@ -4,7 +4,7 @@
 \alias{.vue_host}
 \title{A host: the element a component mounts on, carrying its template and spec}
 \usage{
-.vue_host(id, template, spec, dependencies = list())
+.vue_host(id, template, spec, dependencies = list(), islands = NULL)
 }
 \arguments{
 \item{id}{The host's id.}

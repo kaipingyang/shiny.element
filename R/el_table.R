@@ -756,7 +756,7 @@ el_table <- function(
   rm(args)
   .el_table_sanitize_columns(columns)
   .el_events_forwarded("el_table", events)
-  .el_on_bindings("x", on)
+  .vue_on_bindings("x", on)
   .el_loading_attrs(loading_options)
   .el_component(".el_table_tags", as.list(environment()), "el_table")
 }
@@ -1283,23 +1283,12 @@ el_table <- function(
           ns_id
         )),
         # update_el_table(insert =, replace =, delete =): the rows spliced
-        # into the same array, which Element watches deeply -- the rows not
-        # touched keep their ticks and open state
-        shinyVueReceive = JS(paste0(
-          "function(d) { if (!('tableEdit' in d)) return d; ",
-          "var e = d.tableEdit, data = this.tableData, rows = e.rows || [], ",
-          "at = e.at === null || e.at === undefined ? [] : [].concat(e.at); ",
-          "delete d.tableEdit; ",
-          "if (e.op === 'insert') { ",
-          "var i = at.length ? at[0] - 1 : data.length; ",
-          "data.splice.apply(data, [i, 0].concat(rows)); } ",
-          "else if (e.op === 'replace') { ",
-          "at.forEach(function(i, k) { data.splice(i - 1, 1, rows[k]); }); } ",
-          "else if (e.op === 'delete') { ",
-          "at.slice().sort(function(a, b) { return b - a; })",
-          ".forEach(function(i) { data.splice(i - 1, 1); }); } ",
-          "var self = this; this.$nextTick(function() { self.reportSelection(); }); ",
-          "return d; }"
+        # into the same array by the Vue layer (update_vue()'s .edit), which
+        # Element watches deeply -- the rows not touched keep their ticks and
+        # open state; the selection's row numbers are reported again
+        shinyVueEdited = JS(paste0(
+          "function() { var self = this; ",
+          "this.$nextTick(function() { self.reportSelection(); }); }"
         ))
       )
     ),
@@ -1488,7 +1477,10 @@ update_el_table <- function(
 
   edit <- .el_table_edit_args(data, insert, replace, delete, at)
   if (!is.null(edit)) {
-    msg$tableEdit <- .el_table_edit(session, ns_id, edit)
+    msg$.edit <- c(
+      list(field = "tableData"),
+      .el_table_edit(session, ns_id, edit)
+    )
   }
   if (!is.null(data) || !is.null(columns)) {
     if (!is.null(data)) {

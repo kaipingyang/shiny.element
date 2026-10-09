@@ -159,8 +159,16 @@ test_that("vue_app() works without Element Plus", {
     js("document.querySelector('#dout .dout').textContent.trim()"),
     "8 4 f1"
   )
+  glob <- function() js("document.querySelector('#glob .glob').textContent")
+  # $inputs follows another component's input
+  expect_match(
+    glob(),
+    paste0("^", js("Shiny.shinyapp.$inputValues.counter"), "\\|idle\\|ok$")
+  )
   js("Shiny.setInputValue('dslow', true)")
   Sys.sleep(0.8)
+  # $busy while the server works
+  expect_match(glob(), "|busy|", fixed = TRUE)
   expect_equal(
     js("document.querySelector('#dout .dout').getAttribute('data-busy')"),
     "yes"
@@ -170,6 +178,15 @@ test_that("vue_app() works without Element Plus", {
     js("document.querySelector('#dout .dout').getAttribute('data-busy')"),
     "no"
   )
+  expect_match(glob(), "|idle|", fixed = TRUE)
+  # $errors: a data output's error, then gone once it renders
+  js("Shiny.setInputValue('dfail', true)")
+  Sys.sleep(1.5)
+  expect_match(glob(), "|it broke$")
+  js("Shiny.setInputValue('dfail', false)")
+  Sys.sleep(1.5)
+  expect_match(glob(), "|ok$")
+
   # held back while hidden: rendered once shown
   expect_equal(js("document.querySelector('#dhid .dhid').textContent"), "")
   js("document.querySelectorAll('.nav-tabs a')[1].click()")
@@ -200,6 +217,58 @@ test_that("vue_app() works without Element Plus", {
   expect_equal(sent[1], 1)
   expect_equal(sent[length(sent)], 30)
   expect_lte(length(sent), 6)
+
+  # type: the value arrives as a Date, through Shiny's own handler
+  expect_match(
+    js("document.getElementById('vals').textContent"),
+    "typed = Date 2026-01-31",
+    fixed = TRUE
+  )
+  # rate: typed into, it waits for the user to stop
+  js(
+    "var i = document.querySelector('#typed .typed');
+     i.value = '2026-02-01'; i.dispatchEvent(new Event('input'));"
+  )
+  Sys.sleep(0.3)
+  expect_match(
+    js("document.getElementById('vals').textContent"),
+    "2026-01-31",
+    fixed = TRUE
+  )
+  Sys.sleep(1.5)
+  expect_match(
+    js("document.getElementById('vals').textContent"),
+    "typed = Date 2026-02-01",
+    fixed = TRUE
+  )
+  # a list changed in place: inserted, set by path, deleted and replaced
+  # by key -- in order
+  js("Shiny.setInputValue('items_ops', 1)")
+  Sys.sleep(1.5)
+  expect_equal(
+    js(
+      "Array.from(document.querySelectorAll('#items li')).map(function(l) { return l.textContent; }).join(',')"
+    ),
+    "Z,A+,B2"
+  )
+  # setup()'s composables
+  comp <- js("document.querySelector('#comp .comp').textContent")
+  n <- js("Shiny.shinyapp.$inputValues.counter")
+  expect_equal(comp, sprintf("a|%s|%s|false", n, n * 2))
+  expect_equal(js("Shiny.shinyapp.$inputValues.comp_pick"), "a")
+
+  # vue_app(events =, on =) on the template's root
+  js(
+    "var b = document.querySelector('#evt .evtb'); b.click(); b.dispatchEvent(new MouseEvent('dblclick', {bubbles: true}));"
+  )
+  Sys.sleep(1)
+  expect_equal(js("Shiny.shinyapp.$inputValues.evt_clicked"), 1)
+  expect_true(js("Shiny.shinyapp.$inputValues.evt_dblclick"))
+  # a plugin written in R
+  expect_equal(
+    js("document.querySelector('#inline .inline').textContent"),
+    "inline"
+  )
 
   expect_equal(
     js(

@@ -91,6 +91,51 @@ draw -- is dropped, with a `[shiny-vue]` warning in the browser's console.
 Send it from an observer that runs once the component is there, as for
 any Shiny input.
 
+### When an update arrives
+
+Shiny's own `update*Input()` do not send at once: the message waits for the
+flush, and goes with the outputs that the same observers recalculated. The
+updates and method calls here do the same -- every `update_el_*()`,
+`call_el()`, `update_vue()`, `call_vue()` -- so a component an observer
+re-renders and updates is updated once drawn again. A progress bar is the
+exception, as `withProgress()` is: `update_el_progress()` is sent at once.
+
+An update made before a long computation in the same observer therefore
+shows after it. `flush_vue()` sends what is queued at once:
+
+```{r flush-vue, eval = FALSE}
+observeEvent(input$run, {
+  flush_vue({
+    update_el_table(session, "tbl", loading = TRUE)
+  })
+  result <- slow_query() # the table shows its mask meanwhile
+  update_el_table(session, "tbl", data = result, loading = FALSE)
+})
+```
+
+Often there is a better way. A computation in an `ExtendedTask` leaves the
+observer at once, and its updates go with that flush. A button that shows
+it is working needs no server at all: `el_button(task = TRUE)` turns to
+Element's loading state in the browser when clicked, and back once the
+server has handled the click -- or, bound with `bslib::bind_task_button()`,
+once the task is done -- as bslib's `input_task_button()`:
+
+```{r task-button, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#save .el-button').click()", shot_wait = 0.5}
+ui <- el_page(el_button("save", "Save", type = "primary", task = TRUE))
+
+server <- function(input, output, session) {
+  save <- ExtendedTask$new(function() {
+    promises::promise(function(resolve, reject) {
+      later::later(function() resolve(TRUE), 3)
+    })
+  })
+  bslib::bind_task_button(save, "save")
+  observeEvent(input$save, save$invoke())
+}
+
+shinyApp(ui, server)
+```
+
 ## Which events reach the server
 
 A component reports its value, the actions a user takes on purpose --
@@ -513,8 +558,12 @@ shinyApp(ui, server)
 | `setup()` (the Composition API) | `setup = JS("function() { ... }")` |
 | `app.use(Plugin, options)` | `use = list(Plugin = options)` |
 | the component's value | `input = "<field>"`, reported as `input$<id>` |
+| its input handler and rate | `type = "shiny.date"`, `rate = "debounce"`, as Shiny's inputs have |
 | `this.$emit("picked", x)` | `input$<id>_picked`, for an event listed in `emits` |
+| an event of the template's root -- a library's component there | `events = "row_click"` → `input$<id>_row_click` |
+| a handler of one's own | `on = list(click = JS("function(report, e) { report('x', 1); }"))` |
 | a child component | `components = list(todo_item = vue_component(...))` |
+| `app.config`, a plugin written here | `use = JS("{ install(app) { ... } }")` |
 
 A component's value is one field, or several (`input = c("from", "to")`)
 for one value that is a named list -- `input$<id>$from`, `input$<id>$to`,
@@ -556,6 +605,29 @@ The template takes htmltools tags or a string, and Vue reads both the same:
 | `vue_answer(session, id, request, value)` | answers a component that asked the server (`shinyVue.ask()`) | -- |
 | `vue_output(id)` / `render_vue(expr)` | draws components from the server, keeping the user's state | `uiOutput()` / `renderUI()` |
 | `vue_app(outputs =)` / `render_vue_data(expr)` | sets data fields by name from an output: values, not markup | shinyreact's `reactive_output()` |
+
+`update_vue()` replaces a field whole. A long list, or a deep object, can be
+changed in place, sending only what changes -- rows inserted, replaced or
+deleted, by position or by a key field, and values set by path:
+
+```{r vue-edits, eval = FALSE}
+update_vue(
+  session,
+  "todo",
+  insert = list(items = list(id = "t9", text = "Call Ann")),
+  at = 1
+)
+update_vue(session, "todo", replace = list(items = changed_rows), key = "id")
+update_vue(session, "todo", delete = list(items = c("t2", "t5")), key = "id")
+update_vue(
+  session,
+  "todo",
+  set = list("items[3].done" = TRUE, "user.name" = "Ann")
+)
+```
+
+The table's and the calendar's `insert`, `replace` and `delete` are built on
+the same.
 
 `render_vue()` differs from `renderUI()` in one way: a render that changes
 only a component's data updates that component instead of replacing it,
@@ -657,6 +729,77 @@ shinyApp(ui, server)
 
 A change in the browser shows everywhere at once; one that goes through
 the server waits for the round trip.
+
+### What a template can read of Shiny
+
+| In a template | Is |
+|---|---|
+| `$inputs.<id>` | another input's value, as the server has it (read-only) |
+| `$recalculating.<id>` | `true` while a `render_vue_data()` output recalculates |
+| `$errors.<id>` | its error, `{message, type}`, until it renders again |
+| `$busy` | `true` while the server works |
+| `$setInput(name, value)` | sets `input$<name>`, as `Shiny.setInputValue()` |
+
+A component written with the Composition API reads the same through
+composables, as shinyreact's hooks:
+
+```{r vue-composables, eval = FALSE}
+vue_app(
+  "summary",
+  tags$p(
+    "{{ n }} rows, {{ stats.value && stats.value.mean }}",
+    "{{ busy ? '...' : '' }}"
+  ),
+  setup = JS(
+    "function() {
+    return {
+      pick: shinyVue.useInput('pick', 'a'),    // a ref, sent as input$pick
+      n: shinyVue.useInputValue('rows'),       // another input's value
+      stats: shinyVue.useOutput('stats'),      // {value, recalculating, error}
+      busy: shinyVue.useBusy()
+    };
+  }"
+  )
+)
+```
+
+### Shiny UI inside a template
+
+A template can hold Shiny's own UI -- an input, a plot, a DT table, an
+htmlwidget, another component, a `conditionalPanel()` -- even where Vue
+shows and hides it with `v-if`. It is taken out of the template and
+rendered beside it, as Shiny renders it; Vue moves it in where it stands
+and back out when it hides it, so its binding and the user's input stay,
+and an output hidden this way waits, as one in a hidden tab does:
+
+```{r vue-islands, eval = FALSE, shot = TRUE, shot_wait = 2}
+ui <- fluidPage(
+  vue_app(
+    "panel",
+    tags$div(
+      tags$label(
+        tags$input(type = "checkbox", `v-model` = "open"),
+        " Show the plot"
+      ),
+      tags$div(
+        `v-if` = "open",
+        selectInput("var", "Variable", names(mtcars)),
+        plotOutput("hist", height = "250px")
+      )
+    ),
+    data = list(open = TRUE)
+  )
+)
+
+server <- function(input, output, session) {
+  output$hist <- renderPlot(hist(mtcars[[input$var]], main = input$var))
+}
+
+shinyApp(ui, server)
+```
+
+A piece of UI takes one place: inside a `v-for` it would be wanted in
+several, and only the first gets it.
 
 ### An Element component of your own
 

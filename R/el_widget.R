@@ -130,8 +130,8 @@ el_widget <- function(
   container_id <- paste0(id, "_container")
   # the user's own handlers, on the component's own tag
   if (length(on)) {
-    own <- .el_on_bindings(id, on)
-    markup <- .el_on_attach(markup, own)
+    own <- .vue_on_bindings(id, on)
+    markup <- .vue_on_attach(markup, own)
     methods <- c(methods, own$methods)
   }
   # Optional props from .el_props(): bound on the component's own tag, the
@@ -305,8 +305,17 @@ el_widget <- function(
       size_field = "size" %in% names(data)
     )
   }
-  rendered <- htmltools::renderTags(root)
-  host <- .vue_host(id, as.character(rendered$html), spec)
+  # Shiny's own UI in the markup -- an input, an output, an htmlwidget -- is
+  # kept out of Vue's compiling (.vue_islands()); this package's components
+  # are folded in (.el_absorb()) and its containers placed as they are
+  taken <- .vue_islands(root, components = FALSE)
+  rendered <- htmltools::renderTags(taken$template)
+  host <- .vue_host(
+    id,
+    as.character(rendered$html),
+    spec,
+    islands = taken$holder
+  )
   # What .el_absorb() needs to fold this component into another: its options
   # as written, with the hook that reports every one of its fields.
   # Absorbed, it has no binding: its change handlers report it again, and a

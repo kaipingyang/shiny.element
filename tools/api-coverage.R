@@ -316,9 +316,9 @@ for (f in sort(ui_fns)) {
       '^@',
       '',
       sub(
-        '="elEmit$',
+        '="svEmit$',
         '',
-        regmatches(html, gregexpr('@[a-z-]+="elEmit', html))[[1]]
+        regmatches(html, gregexpr('@[a-z-]+="svEmit', html))[[1]]
       )
     ))
   }
@@ -405,7 +405,7 @@ for (f in sort(ui_fns)) {
     regmatches(src, gregexpr("\\b(t|item|it|tab|x|p)\\$[A-Za-z_]+", src))[[1]]
   ))
 
-  # Events forwarded as input$<id>_<event>: bound to a generated elEmit* method
+  # Events forwarded as input$<id>_<event>: bound to a generated svEmit* method
   forwarded <- emitted(html)
   out[[f]] <- list(
     ok = TRUE,

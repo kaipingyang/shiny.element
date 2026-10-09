@@ -489,14 +489,23 @@ update_el_calendar <- function(
   if (edits[["insert"]] || edits[["replace"]]) {
     op <- if (edits[["insert"]]) "insert" else "replace"
     rows <- if (op == "insert") insert else replace
-    message$calendarEdit <- list(
+    # changed in place by the Vue layer (update_vue()'s .edit), by id: a
+    # replaced event not on the calendar is added
+    message$.edit <- list(
       op = op,
-      rows = .el_calendar_events(rows, op)
+      field = "events",
+      rows = I(unname(.el_calendar_events(rows, op))),
+      key = "id"
     )
     .el_calendar_edit_copy(session, ns_id, op, rows)
   }
   if (edits[["delete"]]) {
-    message$calendarEdit <- list(op = "delete", ids = I(delete))
+    message$.edit <- list(
+      op = "delete",
+      field = "events",
+      at = I(delete),
+      key = "id"
+    )
     .el_calendar_edit_copy(session, ns_id, "delete", delete)
   }
 
@@ -696,8 +705,7 @@ update_el_calendar <- function(
   "weekStart",
   "calendarClass",
   "reportDates",
-  "eventRequest",
-  "shinyVueReceive"
+  "eventRequest"
 )
 
 # our slots, and what their scope offers: an object the slot's scope
@@ -1271,20 +1279,6 @@ update_el_calendar <- function(
         "{current: String(self.value).slice(0, 10), start: fmt(start), end: fmt(end)}); }); }"
       ),
       ns_id
-    )),
-    # update_el_calendar(insert =, replace =, delete =): only those events
-    shinyVueReceive = JS(paste0(
-      "function(d) { if (!('calendarEdit' in d)) return d; ",
-      "var e = d.calendarEdit, events = this.events, rows = e.rows || []; ",
-      "delete d.calendarEdit; ",
-      "var at = function(id) { for (var i = 0; i < events.length; i++) ",
-      "if (String(events[i].id) === String(id)) return i; return -1; }; ",
-      "if (e.op === 'insert') rows.forEach(function(r) { events.push(r); }); ",
-      "else if (e.op === 'replace') rows.forEach(function(r) { var i = at(r.id); ",
-      "if (i >= 0) events.splice(i, 1, r); else events.push(r); }); ",
-      "else if (e.op === 'delete') [].concat(e.ids || []).forEach(function(id) { ",
-      "var i = at(id); if (i >= 0) events.splice(i, 1); }); ",
-      "return d; }"
     ))
   )
 }
