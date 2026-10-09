@@ -12,6 +12,7 @@ el_breadcrumb(
   separator_icon = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -43,6 +44,11 @@ optional and makes that step a link; the last step is usually plain text.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_breadcrumb()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_breadcrumb()}, the Shiny session, the
@@ -55,12 +61,16 @@ A Shiny UI element.
 A trail of links showing where a page sits.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the \code{label} of the step last clicked. Steps without a
-\code{to} are still reported, so a breadcrumb can drive navigation inside a
-Shiny app without any routing.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the \code{label} of the step last clicked \cr
 }
+
+
+The same list as \code{el_events("el_breadcrumb")}, which says how an event's arguments travel.
+
+Steps without a \code{to} are reported too, so a breadcrumb can drive
+navigation inside a Shiny app without any routing.
 }
 
 \section{Updating from the server}{

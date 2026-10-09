@@ -146,28 +146,21 @@ test_that("el_table: the default events are reported, others when asked", {
   asked <- render_html(el_table(
     id = "t1",
     data = head(iris, 2),
-    events = c("row-dblclick", picked = "cell-click")
+    events = c("row_dblclick", "cell-click")
   ))
+  # snake_case or Element's kebab-case, each as input$<id>_<event>
   expect_match(asked, "'t1', 'row_dblclick'", fixed = TRUE)
-  # a named event reports under that input, whole
-  expect_match(asked, "emit('picked', ''", fixed = TRUE)
-  expect_false(grepl("cell_click", asked, fixed = TRUE))
-})
+  expect_match(asked, "'t1', 'cell_click'", fixed = TRUE)
 
-test_that("el_on() adds events to a table's specification", {
-  tb <- el_table(data = head(iris, 2)) |>
-    el_on("row-dblclick") |>
-    el_on("cell-click", input = "picked")
-  expect_identical(tb$args$events, c("row-dblclick", picked = "cell-click"))
-  piped <- render_html(
-    el_table(id = "t1", data = head(iris, 2)) |> el_on("row-dblclick")
+  expect_error(
+    el_table(data = head(iris, 2), events = "row-tap"),
+    "'row-tap' is not an event of el_table()",
+    fixed = TRUE
   )
-  expect_match(piped, "'t1', 'row_dblclick'", fixed = TRUE)
-
-  expect_error(el_on(htmltools::div(), "row-click"), "must be a component")
-  expect_error(el_on(tb, c("a", "b"), input = "x"), "one event")
-  expect_error(el_table(events = "row-tap"), "Not an event of el-table")
-  expect_error(el_on(tb, "row-tap"), "Not an event of el-table")
+  expect_error(
+    el_table(data = head(iris, 2), events = c(picked = "cell_click")),
+    "takes no names"
+  )
 })
 
 test_that("a table's selection arrives as R subsets its data", {

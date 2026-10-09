@@ -58,7 +58,7 @@ server <- function(input, output, session) {
     id <- paste0("tag", counter)
     tags_now(c(isolate(tags_now()), stats::setNames(label, id)))
     observeEvent(
-      input[[paste0(id, "_closed")]],
+      input[[paste0(id, "_close")]],
       once = TRUE,
       tags_now(tags_now()[names(tags_now()) != id])
     )

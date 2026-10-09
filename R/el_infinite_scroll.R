@@ -28,10 +28,12 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_load` -- rises by one each time more content is wanted.
-#'   Observe it, fetch the next page, and render it into a [shiny::uiOutput()]
-#'   inside the area.
+#' `r .el_events_md("el_infinite_scroll")`
+#'
+#' Observe `input$<id>_load`, fetch the next page, and render it into a
+#' [shiny::uiOutput()] inside the area.
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -65,6 +67,7 @@ el_infinite_scroll <- function(
   immediate = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   # Each piece of content is absorbed on its own, so several components
@@ -118,7 +121,8 @@ el_infinite_scroll <- function(
     mounted = merged$mounted,
     width = width,
     slots = slots,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

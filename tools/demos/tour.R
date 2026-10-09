@@ -23,7 +23,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -55,7 +55,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -86,7 +86,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -126,7 +126,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -162,7 +162,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 
@@ -196,7 +196,7 @@ ui <- el_page(
 server <- function(input, output, session) {
   observeEvent(
     input$begin,
-    update_el_tour(id = "tour", open = TRUE, current = 0)
+    update_el_tour(id = "tour", visible = TRUE, current = 0)
   )
 }
 

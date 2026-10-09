@@ -38,9 +38,9 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_checkbox()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- `TRUE` or `FALSE` (or `true_label` and `false_label`),
-#'   on load and on change.
+#' `r .el_events_md("el_checkbox")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -72,6 +72,7 @@ el_checkbox <- function(
   validate_event = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_checkbox", environment())
@@ -125,7 +126,8 @@ el_checkbox <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

@@ -26,7 +26,9 @@ el_tree_v2(
   props = NULL,
   height = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_tree_v2(
@@ -117,6 +119,16 @@ a \code{\link[=JS]{JS()}} function of the node's data returning its class.}
 \item{slots}{Named list of Element slot contents: \code{empty}. A scoped slot is
 written with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -127,17 +139,20 @@ A Shiny UI element.
 A tree drawing only the nodes in view, for tens of thousands of nodes.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>_node_click} -- Element Plus's \code{node-click} event.
-\item \verb{input$<id>_node_drop} -- Element Plus's \code{node-drop} event.
-\item \verb{input$<id>_node_contextmenu} -- Element Plus's \code{node-contextmenu} event.
-\item \verb{input$<id>_check_change} -- Element Plus's \code{check-change} event.
-\item \verb{input$<id>_check} -- Element Plus's \code{check} event.
-\item \verb{input$<id>_current_change} -- Element Plus's \code{current-change} event.
-\item \verb{input$<id>_node_expand} -- Element Plus's \code{node-expand} event.
-\item \verb{input$<id>_node_collapse} -- Element Plus's \code{node-collapse} event.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_node_click} \tab unasked \tab triggers when a node is clicked \cr
+   \verb{input$<id>_node_drop} \tab \code{events = "node_drop"} \tab triggers when drag something and drop on a node \cr
+   \verb{input$<id>_node_contextmenu} \tab \code{events = "node_contextmenu"} \tab triggers when a node is clicked by right button \cr
+   \verb{input$<id>_check_change} \tab \code{events = "check_change"} \tab triggers when the selected state of the node changes \cr
+   \verb{input$<id>_check} \tab unasked \tab triggers after clicking the checkbox of a node \cr
+   \verb{input$<id>_current_change} \tab \code{events = "current_change"} \tab triggers when current node changes \cr
+   \verb{input$<id>_node_expand} \tab \code{events = "node_expand"} \tab triggers when current node open \cr
+   \verb{input$<id>_node_collapse} \tab \code{events = "node_collapse"} \tab triggers when current node close \cr
 }
+
+
+The same list as \code{el_events("el_tree_v2")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

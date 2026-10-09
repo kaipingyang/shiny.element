@@ -10,9 +10,7 @@ el_upload_clear(session = shiny::getDefaultReactiveDomain(), id)
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
-\item{id}{Upload ID (un-namespaced).
-This is Element's \code{data} prop, renamed to keep it distinct from the
-uploaded file itself.}
+\item{id}{Upload ID (un-namespaced).}
 }
 \value{
 Called for its side effect; returns \code{NULL} invisibly.

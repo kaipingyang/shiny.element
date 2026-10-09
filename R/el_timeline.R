@@ -34,6 +34,7 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return A Shiny UI element.
 #' @export
 #' @examples
@@ -69,6 +70,7 @@ el_timeline <- function(
   mode = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_timeline", environment())
@@ -123,7 +125,8 @@ el_timeline <- function(
     ),
     data = vue_data,
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

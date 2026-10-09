@@ -40,7 +40,7 @@ The output id names the table's inputs:
 \item \verb{input$<id>_selection_change} -- the selected rows, \code{data[rows, , drop = FALSE]} of the data shown: its columns, types and row names.
 \item \verb{input$<id>_current_change}, \verb{_sort_change}, \verb{_filter_change},
 \verb{_expand_change} -- reported by every table; any other of Element's
-events with \code{el_table(events =)} or \code{\link[=el_on]{el_on()}}.
+events with \code{el_table(events =)}: see \code{\link[=el_events]{el_events()}}.
 }
 
 \code{\link[=update_el_table]{update_el_table()}} and \code{\link[=call_el]{call_el()}} reach the table by the output id;
@@ -66,5 +66,5 @@ if (interactive()) {
 }
 }
 \seealso{
-\code{\link[=el_table]{el_table()}}, \code{\link[=el_on]{el_on()}}.
+\code{\link[=el_table]{el_table()}}, \code{\link[=el_events]{el_events()}}.
 }

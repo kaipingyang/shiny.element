@@ -17,6 +17,7 @@ el_skeleton(
   class = NULL,
   style = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -54,6 +55,11 @@ lays several copies of the placeholder side by side.}
 
 \item{slots}{Named list of Element slot contents. \code{template} replaces the
 placeholder's shape; build it from \code{\link[=el_skeleton_item]{el_skeleton_item()}}.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
 
 \item{session}{In \code{el_skeleton()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}

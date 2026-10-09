@@ -39,10 +39,9 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
-#' `input$<id>` holds the index of the slide currently showing, 0-based, and
-#' `input$<id>_name` its `name` if one was given. Both are reported on load and
-#' whenever the slide changes.
+#' `r .el_events_md("el_carousel")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -90,6 +89,7 @@ el_carousel <- function(
   pause_on_hover = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_items(items, "items", c("content", "name"))
@@ -229,7 +229,8 @@ el_carousel <- function(
     mounted = merged$mounted,
     width = width,
     slots = slots,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

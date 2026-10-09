@@ -33,6 +33,8 @@ el_countdown(
   value_style = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -95,6 +97,16 @@ current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateT
 
 \item{format}{How a countdown is shown, in day.js's tokens, such as
 \code{"HH:mm:ss"} (the default) or \code{"DD [days] HH:mm:ss"}.}
+
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
 }
 \value{
 A Shiny UI element.
@@ -105,13 +117,14 @@ A headline number with a title, and an optional prefix and suffix.
 }
 \section{Shiny inputs}{
 
-For \code{el_countdown()}:
-\itemize{
-\item \verb{input$<id>_finish} -- fires when the countdown reaches zero.
-\item \verb{input$<id>_change} -- the milliseconds left. Element raises this on every
-frame; it is sent at most once a second, which is as often as a server
-can usefully hear it.
+\code{el_statistic()} reports nothing. \code{el_countdown()}:\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_finish} \tab unasked \tab countdown end event \cr
+   \verb{input$<id>_change} \tab \code{events = "change"} \tab the milliseconds left, at most once a second \cr
 }
+
+
+The same list as \code{el_events("el_countdown")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

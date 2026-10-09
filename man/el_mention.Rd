@@ -35,7 +35,9 @@ el_mention(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_mention(
@@ -152,6 +154,16 @@ whether beside the component rather than under it. Element's
 \item{slots}{Named list of Element slot contents: \code{label}, \code{loading},
 \code{header}, \code{footer}. A scoped slot is written with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -163,16 +175,16 @@ A text input that offers options after a trigger character, as @mentions
 do.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the value, on load and on every change.
-\item \verb{input$<id>_search} -- Element Plus's \code{search} event, as it is typed
-after a prefix: \code{list(pattern, prefix)}, the text and the prefix.
-Answer it with \code{\link[=update_el_mention]{update_el_mention()}}'s \code{options} (and \code{loading}).
-\item \verb{input$<id>_select} -- Element Plus's \code{select} event: \code{list(option, prefix)}.
-\item \verb{input$<id>_whole_remove} -- Element Plus's \code{whole-remove} event:
-\code{list(pattern, prefix)}.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the text \cr
+   \verb{input$<id>_search} \tab unasked \tab \code{list(pattern, prefix)}; answer with \code{update_el_mention(options =)} \cr
+   \verb{input$<id>_select} \tab unasked \tab \code{list(option, prefix)} \cr
+   \verb{input$<id>_whole_remove} \tab \code{events = "whole_remove"} \tab \code{list(pattern, prefix)} \cr
 }
+
+
+The same list as \code{el_events("el_mention")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

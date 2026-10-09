@@ -30,10 +30,10 @@ test_that("el_tag: click handler fires Shiny.setInputValue", {
   expect_match(html, "handleClick")
 })
 
-test_that("el_tag: close handler fires _closed input", {
+test_that("el_tag: close handler fires _close input", {
   tag <- el_tag("t1", "Tag", closable = TRUE)
   html <- render_html(tag)
-  expect_match(html, "t1_closed")
+  expect_match(html, "t1_close")
 })
 
 test_that("el_tag: size is bound whether or not it is supplied", {
@@ -106,10 +106,10 @@ test_that("el_alert: description is bound and null when not supplied", {
   expect_match(html, '"description":null', fixed = TRUE)
 })
 
-test_that("el_alert: close handler fires _closed input", {
+test_that("el_alert: close handler fires _close input", {
   tag <- el_alert("a1")
   html <- render_html(tag)
-  expect_match(html, "a1_closed")
+  expect_match(html, "a1_close")
   expect_match(html, "handleClose")
 })
 

@@ -37,7 +37,9 @@ el_tree_select(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_tree_select(
@@ -147,6 +149,16 @@ whether beside the component rather than under it. Element's
 
 \item{slots}{Named list of Element slot contents.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateSelectInput]{shiny::updateSelectInput()}}.}
 }
@@ -158,15 +170,19 @@ A select whose options are a tree: Element Plus's \code{el-tree-select}, which
 takes the props of both \code{\link[=el_select]{el_select()}} and \code{\link[=el_tree]{el_tree()}}.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the selected value, or several, on load and on change.
-\item \verb{input$<id>_load} -- with \code{lazy = TRUE}, a node asking for its
-children: \code{level}, \code{key} (its \code{node_key} field) and \code{data}. Answer with
-\code{\link[=el_load_children]{el_load_children()}}.
-\item \verb{input$<id>_visible_change}, \verb{input$<id>_clear}, \verb{input$<id>_remove_tag},
-\verb{input$<id>_node_click}, \verb{input$<id>_check} -- Element Plus's events.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the value, several with \code{multiple} \cr
+   \verb{input$<id>_load} \tab unasked \tab with \code{lazy = TRUE}, a node asking for its children; answer with \code{el_load_children()} \cr
+   \verb{input$<id>_visible_change} \tab \code{events = "visible_change"} \tab triggers when the dropdown appears/disappears \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the clear icon is clicked in a clearable Select \cr
+   \verb{input$<id>_remove_tag} \tab \code{events = "remove_tag"} \tab triggers when a tag is removed in multiple mode \cr
+   \verb{input$<id>_node_click} \tab \code{events = "node_click"} \tab triggers when a node is clicked \cr
+   \verb{input$<id>_check} \tab \code{events = "check"} \tab triggers after clicking the checkbox of a node \cr
 }
+
+
+The same list as \code{el_events("el_tree_select")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

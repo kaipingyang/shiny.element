@@ -28,7 +28,7 @@ test_that("every stateful component reports its value on load", {
     cp = "#409EFF",
     tabs = "t2",
     pg = "3",
-    pg_size = "20",
+    pg_page_size = "20",
     col = "i2",
     rg_num = "1",
     stp = "0",

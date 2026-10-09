@@ -22,6 +22,16 @@
 #' @param methods,watch,mounted,computed Vue options, included when not `NULL`.
 #' @param emits Events the component sends with `$emit()`: each arrives as
 #'   `input$<id>_<event>`, as for [vue_app()].
+#' @param on Handlers of your own, for events the component does not report
+#'   or to send something else than they carry: a named list of [JS()]
+#'   functions, one per event -- Element's, by its name, or a DOM event of
+#'   the element it draws, with Vue's modifiers (`"keyup.enter"`). Each is
+#'   called with `report` first, then the event's arguments, `this` being
+#'   the component's Vue instance; `report(name, value)` sets
+#'   `input$<id>_<name>`, namespaced as the id is:
+#'   `on = list("keyup.enter" = JS("function(report, e) {
+#'   report('enter', e.target.value); }"))` reports `input$<id>_enter`. An
+#'   event the component reports too runs both.
 #' @param dependency htmlDependency objects to attach, beside Vue, Element
 #'   Plus and the bridge, which every component carries.
 #' @param head Tags to place before the host, such as a `<style>` block.
@@ -98,6 +108,7 @@ el_widget <- function(
   mounted = NULL,
   computed = NULL,
   emits = NULL,
+  on = NULL,
   dependency = NULL,
   head = NULL,
   width = NULL,
@@ -117,6 +128,12 @@ el_widget <- function(
   absorbed = NULL
 ) {
   container_id <- paste0(id, "_container")
+  # the user's own handlers, on the component's own tag
+  if (length(on)) {
+    own <- .el_on_bindings(id, on)
+    markup <- .el_on_attach(markup, own)
+    methods <- c(methods, own$methods)
+  }
   # Optional props from .el_props(): bound on the component's own tag, the
   # root of `markup`, with their fields in the data
   if (length(props$attrs)) {

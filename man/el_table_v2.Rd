@@ -40,7 +40,9 @@ el_table_v2(
   width = NULL,
   slots = NULL,
   methods = NULL,
-  auto_resize = FALSE
+  auto_resize = FALSE,
+  events = NULL,
+  on = NULL
 )
 
 update_el_table_v2(
@@ -191,6 +193,16 @@ is drawn with \verb{<component :is="cell" />}.}
 Plus's \code{el-auto-resizer} does: \code{table_v2_width} and \code{height} are then
 ignored, and the container needs a height of its own.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -201,15 +213,18 @@ A Shiny UI element.
 A table drawing only the rows and columns in view, for very large data.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>_column_sort} -- Element Plus's \code{column-sort} event.
-\item \verb{input$<id>_expanded_rows_change} -- Element Plus's \code{expanded-rows-change} event.
-\item \verb{input$<id>_end_reached} -- Element Plus's \code{end-reached} event.
-\item \verb{input$<id>_scroll} -- Element Plus's \code{scroll} event.
-\item \verb{input$<id>_rows_rendered} -- Element Plus's \code{rows-rendered} event.
-\item \verb{input$<id>_row_expand} -- Element Plus's \code{row-expand} event.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_column_sort} \tab unasked \tab Invoked when column sorted \cr
+   \verb{input$<id>_expanded_rows_change} \tab \code{events = "expanded_rows_change"} \tab Invoked when expanded rows changed \cr
+   \verb{input$<id>_end_reached} \tab unasked \tab Invoked when the end of the table is reached. The callback contain the remain distance, it is the usually the scrollbar height. \cr
+   \verb{input$<id>_scroll} \tab \code{events = "scroll"} \tab at most every 200 ms \cr
+   \verb{input$<id>_rows_rendered} \tab \code{events = "rows_rendered"} \tab at most every 200 ms \cr
+   \verb{input$<id>_row_expand} \tab \code{events = "row_expand"} \tab Invoked when expand/collapse the tree node by clicking the arrow icon \cr
 }
+
+
+The same list as \code{el_events("el_table_v2")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

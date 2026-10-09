@@ -161,6 +161,7 @@
 #'   shinyApp(ui, server)
 #' }
 
+#' @template events
 el_calendar <- function(
   id = NULL,
   value = NULL,

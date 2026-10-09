@@ -133,15 +133,10 @@
 #'   `empty`, `prefix`, `tag`, `loading`, `label`. A scoped slot is written
 #'   with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the value, on load and on every change.
-#' - `input$<id>_change` -- Element Plus's `change` event.
-#' - `input$<id>_visible_change` -- Element Plus's `visible-change` event.
-#' - `input$<id>_remove_tag` -- Element Plus's `remove-tag` event.
-#' - `input$<id>_clear` -- Element Plus's `clear` event.
-#' - `input$<id>_blur` -- Element Plus's `blur` event.
-#' - `input$<id>_focus` -- Element Plus's `focus` event.
-#' - `input$<id>_end_reached` -- Element Plus's `end-reached` event.
+#' `r .el_events_md("el_select_v2")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `focus()`, `blur()`.
@@ -216,7 +211,9 @@ el_select_v2 <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_select_v2", environment())
   # A named vector c(Label = value), as the choice components take, or
@@ -233,7 +230,9 @@ el_select_v2 <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("visible-change", "remove-tag", "clear", "blur", "focus", "end-reached")
+    "el_select_v2",
+    events,
+    on = on
   )
   attrs <- c(
     list("v-model" = "value", "@change" = "handleChange"),

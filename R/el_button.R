@@ -61,13 +61,15 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed button component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- the number of clicks, as [shiny::actionButton()] reports
-#' it: 0 on load, and counted only while neither `disabled` nor `loading` is
-#' `TRUE`. It carries the same class, so `observeEvent()` and `req()` treat 0
-#' as not yet clicked.
+#' `r .el_events_md("el_button")`
+#'
+#' Counted as [shiny::actionButton()] counts: 0 on load, and only while
+#' neither `disabled` nor `loading` is `TRUE`. It carries the same class, so
+#' `observeEvent()` and `req()` treat 0 as not yet clicked.
 #'
 #' @examples
 #' # Basic usage
@@ -113,6 +115,7 @@ el_button <- function(
   style = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_button", environment())
@@ -203,7 +206,8 @@ el_button <- function(
     mounted = .el_mounted_init(stats::setNames("count", ns_id)),
     type = "shiny.action",
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

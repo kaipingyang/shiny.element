@@ -355,8 +355,9 @@ shinyApp(ui, server)
 
 Open developer console (ctrl + shift + J), to see order of events.
 
-Every event is an input: `input$<id>_open`, `_opened`, `_close`,
-`_closed`, `_open_auto_focus` and `_close_auto_focus`.
+`input$<id>_closed` is reported unasked; `_open`, `_opened`, `_close`,
+`_open_auto_focus` and `_close_auto_focus` when asked for, with
+`events`.
 
 ```{r events, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-dialog", shot_wait = 1.5}
 ui <- el_page(
@@ -365,6 +366,7 @@ ui <- el_page(
     "ev",
     title = "Events",
     width = "500px",
+    events = c("open", "opened", "close"),
     content = verbatimTextOutput("log")
   )
 )

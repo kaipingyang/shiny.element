@@ -14,7 +14,8 @@ el_link(
   icon = NULL,
   id = NULL,
   ...,
-  target = "_self"
+  target = "_self",
+  on = NULL
 )
 
 update_el_link(
@@ -57,6 +58,11 @@ link only).}
 \item{target}{Where the link opens, as an \verb{<a>}'s \code{target}. Default
 \code{"_self"}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateActionLink]{shiny::updateActionLink()}}.}
 }
@@ -67,9 +73,13 @@ An \code{htmltools} \verb{<a>} tag, or with an \code{id} a Shiny UI element.
 A styled hyperlink that follows Element Plus's design language.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab with an \code{id}, the number of clicks, as \code{actionLink()} reports it \cr
+}
 
-With an \code{id}, \verb{input$<id>} -- the number of clicks, as
-\code{\link[shiny:actionLink]{shiny::actionLink()}} reports it.
+
+The same list as \code{el_events("el_link")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

@@ -120,6 +120,8 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Element methods:
 #' Callable with [call_el()]:
 #'
@@ -129,8 +131,7 @@
 #' @return An `htmltools` tagList containing the Vue-managed select component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- string (single) or character vector (multiple), updated on
-#' each change.
+#' `r .el_events_md("el_select")`
 #'
 #' With `remote = TRUE`, `filterable = TRUE` and no `remote_method` of your
 #' own, the server does the search, as `selectizeInput()`'s server mode
@@ -248,6 +249,8 @@ el_select <- function(
   value_on_clear = NULL,
   props = NULL,
   tag_tooltip = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_select", environment())
@@ -337,15 +340,9 @@ el_select <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "visible-change",
-      "remove-tag",
-      "clear",
-      "blur",
-      "focus",
-      "end-reached",
-      "popup-scroll"
-    ),
+    "el_select",
+    events,
+    on = on,
     shapes = list(
       "popup-scroll" = paste0(
         "function(e) { ",

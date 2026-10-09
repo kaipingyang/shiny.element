@@ -22,7 +22,9 @@
 #'     \item{lazy}{Render the content only when the tab is first selected.
 #'       Its components do not exist, and report nothing, until then.}
 #'   }
-#' @param selected Name of the initially selected tab. Defaults to the first.
+#' @param selected,value Name of the initially selected tab; the first by
+#'   default. `selected` is Shiny's name, as in [shiny::tabsetPanel()],
+#'   `value` Element's (its `v-model`); give either.
 #' @param type `NULL` for plain tabs, `"card"` or `"border-card"`.
 #' @param tab_position `"top"` (default), `"right"`, `"bottom"` or `"left"`.
 #' @param closable Show a close button on each tab. Closing removes the tab
@@ -39,17 +41,11 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_tabs()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template events
 #' @return An `htmltools` tag.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` -- name of the selected tab, on load and on every change.
-#' - `input$<id>_tab_click` -- name of the tab clicked, even if it was already
-#'   selected.
-#' - `input$<id>_tab_remove` -- name of a tab just closed.
-#' - `input$<id>_tab_add` -- fires when the "+" button is clicked.
-#' - `input$<id>_edit` -- either of the last two, as Element's `edit` event:
-#'   a list of `target` (the tab name, or `NULL` for an add) and `action`
-#'   (`"remove"` or `"add"`).
+#' `r .el_events_md("el_tabs")`
 #'
 #' @examples
 #' el_tabs(
@@ -86,6 +82,8 @@ el_tabs <- function(
   stretch = FALSE,
   before_leave = NULL,
   add_icon = NULL,
+  value = NULL,
+  events = NULL,
   session = NULL
 ) {
   .el_check_items(tabs, "tabs", c("name", "label"))
@@ -94,6 +92,7 @@ el_tabs <- function(
     id <- .el_auto_id("el_tabs")
   }
   ns_id <- .el_ui_id(id, session)
+  selected <- .el_alias(selected, value, "selected", "value")
   selected <- shiny::restoreInput(ns_id, selected)
 
   # Element's editable is closable and addable together
@@ -187,6 +186,8 @@ el_tabs <- function(
       id = ns_id,
       class = root_class,
       `data-el-tabs` = "true",
+      # the events it reports: its defaults and those asked for
+      `data-el-events` = .el_events_attr("el_tabs", events),
       `data-position` = tab_position,
       `data-carded` = tolower(as.character(!is.null(type))),
       `data-closable` = tolower(as.character(isTRUE(closable))),
@@ -297,9 +298,11 @@ update_el_tabs <- function(
   closable = NULL,
   addable = NULL,
   editable = NULL,
-  stretch = NULL
+  stretch = NULL,
+  value = NULL
 ) {
   .el_check_session(session)
+  selected <- .el_alias(selected, value, "selected", "value")
   .el_check_choices(
     "el_tabs",
     list2env(Filter(

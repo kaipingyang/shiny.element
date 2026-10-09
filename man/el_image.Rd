@@ -31,6 +31,8 @@ el_image(
   class = NULL,
   style = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -130,6 +132,16 @@ gives \code{fit} a box to fit the picture to.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_image()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_image()}, the Shiny session, the
@@ -143,11 +155,17 @@ An image with a fit mode, optional lazy loading, and an optional
 full-screen preview.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>_load} -- fires when the image has loaded.
-\item \verb{input$<id>_error} -- fires when it fails to.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_load} \tab \code{events = "load"} \tab same as native load. \cr
+   \verb{input$<id>_error} \tab unasked \tab same as native error. \cr
+   \verb{input$<id>_close} \tab \code{events = "close"} \tab trigger when clicking on close button or when hide-on-click-modal enabled clicking on backdrop. \cr
+   \verb{input$<id>_show} \tab \code{events = "show"} \tab trigger when the viewer displays \cr
+   \verb{input$<id>_switch} \tab \code{events = "switch"} \tab trigger when switching images. \cr
 }
+
+
+The same list as \code{el_events("el_image")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

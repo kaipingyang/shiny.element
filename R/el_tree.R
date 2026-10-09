@@ -67,16 +67,19 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' `input$<id>` holds the key of the most recently clicked node, and
-#' `input$<id>_checked` the keys of all checked nodes, as a character vector.
-#' Both are reported on load, where they start empty and therefore arrive as
-#' `NULL`, as Shiny reports any empty selection.
+#' `r .el_events_md("el_tree")`
 #'
-#' With `lazy = TRUE` and no `load` of your own, the server loads each node's
-#' children: `input$<id>_load` asks, with `level` (0 for the top), `key` (the
-#' node's `node_key` field), `data` (the node) and `request`; answer with
-#' [el_load_children()].
+#' `input$<id>` and `input$<id>_checked` are reported on load, where they
+#' start empty and therefore arrive as `NULL`, as Shiny reports any empty
+#' selection.
+#'
+#' With `lazy = TRUE` and no `load` of your own, the server loads each
+#' node's children: `input$<id>_load` asks, with `level` (0 for the top),
+#' `key` (the node's `node_key` field), `data` (the node) and `request`;
+#' answer with [el_load_children()].
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -179,6 +182,8 @@ el_tree <- function(
   icon = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -238,32 +243,14 @@ el_tree <- function(
 
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "check-change",
-
-      "current-change",
-
-      "node-expand",
-
-      "node-collapse",
-
-      "node-contextmenu",
-
-      "node-drag-start",
-
-      "node-drag-enter",
-
-      "node-drag-leave",
-
-      "node-drag-over",
-
-      "node-drag-end",
-
-      "node-drop"
-    ),
+    "el_tree",
+    events,
+    on = on,
     shapes = .el_tree_event_shapes(),
     # fires on every move of a drag
-    throttle = "node-drag-over"
+    throttle = "node-drag-over",
+    # keeps input$<id>_checked, reported or not
+    bound = "check-change"
   )
 
   tree_attrs <- c(tree_attrs, events$attrs)

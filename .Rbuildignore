@@ -17,3 +17,4 @@
 ^air\.toml$
 ^jsconfig\.json$
 ^\.lintr$
+^man-roxygen$

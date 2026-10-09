@@ -15,7 +15,9 @@ el_affix(
   teleported = NULL,
   append_to = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_affix(
@@ -57,6 +59,16 @@ teleported to where \code{append-to} sets. Element Plus's \code{teleported}
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -68,11 +80,14 @@ Content that stays fixed to the top or bottom of the viewport once scrolled
 to it.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>_change} -- Element Plus's \code{change} event.
-\item \verb{input$<id>_scroll} -- Element Plus's \code{scroll} event.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_change} \tab unasked \tab triggers when fixed state changed \cr
+   \verb{input$<id>_scroll} \tab \code{events = "scroll"} \tab \code{list(scrollTop, fixed)}, at most every 200 ms \cr
 }
+
+
+The same list as \code{el_events("el_affix")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

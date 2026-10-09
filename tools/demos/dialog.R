@@ -253,8 +253,9 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ## events
-#' Every event is an input: `input$<id>_open`, `_opened`, `_close`,
-#' `_closed`, `_open_auto_focus` and `_close_auto_focus`.
+#' `input$<id>_closed` is reported unasked; `_open`, `_opened`, `_close`,
+#' `_open_auto_focus` and `_close_auto_focus` when asked for, with
+#' `events`.
 #| shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-dialog", shot_wait = 1.5
 ui <- el_page(
   el_button("open", "Open the Dialog", plain = TRUE),
@@ -262,6 +263,7 @@ ui <- el_page(
     "ev",
     title = "Events",
     width = "500px",
+    events = c("open", "opened", "close"),
     content = verbatimTextOutput("log")
   )
 )

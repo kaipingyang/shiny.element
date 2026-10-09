@@ -21,6 +21,7 @@
 #'   the badge's Vue instance, as for [el_tooltip()]: it keeps reporting, but
 #'   is reached through [update_vue()] on the badge's id.
 #'
+#' @template on
 #' @return An `htmltools` tag, or with an `id` a Shiny UI element.
 #'
 #' @examples
@@ -43,7 +44,8 @@ el_badge <- function(
   color = NULL,
   offset = NULL,
   badge_style = NULL,
-  badge_class = NULL
+  badge_class = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_badge", environment())
   if (!is.null(id)) {
@@ -98,7 +100,8 @@ el_badge <- function(
       watch = merged$watch,
       computed = merged$computed,
       mounted = merged$mounted,
-      dependency = merged$dependencies
+      dependency = merged$dependencies,
+      on = on
     ))
   }
   # Compute display content in R (mirrors ElementUI's computed `content`)

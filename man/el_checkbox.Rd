@@ -26,6 +26,7 @@ el_checkbox(
   validate_event = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -102,6 +103,11 @@ number).}
 \item{slots}{Named list of Element slot contents; the default slot
 replaces \code{label}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_checkbox()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_checkbox()}, the Shiny session, the
@@ -115,11 +121,13 @@ One box, ticked or not -- Shiny's \code{\link[shiny:checkboxInput]{shiny::checkb
 Element. For several choices, \code{\link[=el_checkbox_group]{el_checkbox_group()}}.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- \code{TRUE} or \code{FALSE} (or \code{true_label} and \code{false_label}),
-on load and on change.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab \code{TRUE} or \code{FALSE}, or \code{true_value} and \code{false_value} \cr
 }
+
+
+The same list as \code{el_events("el_checkbox")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

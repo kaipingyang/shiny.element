@@ -30,6 +30,7 @@ el_radio_group(
   props = NULL,
   type = NULL,
   validate_event = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -125,6 +126,11 @@ Plus's \code{type} ('radio' | 'button').}
 \item{validate_event}{Whether to trigger form validation. Element Plus's
 \code{validate-event} (boolean).}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_radio_group()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_radio_group()}, the Shiny session, the
@@ -139,9 +145,13 @@ Supports both standard radio buttons (\verb{<el-radio>}) and button-style radios
 (\verb{<el-radio-button>}).
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the value picked \cr
+}
 
-\verb{input$<id>} -- string or number reflecting the currently selected value,
-updated on each change.
+
+The same list as \code{el_events("el_radio_group")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

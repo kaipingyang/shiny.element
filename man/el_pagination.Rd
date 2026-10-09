@@ -31,6 +31,8 @@ el_pagination(
   teleported = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -127,6 +129,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_pagination()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_pagination()}, the Shiny session, the
@@ -140,11 +152,17 @@ Creates an Element Plus pagination bar with page navigation, size selector,
 jump-to-page input, and total count display.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the current page, 1-based, on load and on change.
-\item \verb{input$<id>_size} -- the page size, on load and on change.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the current page, from 1 \cr
+   \verb{input$<id>_page_size} \tab unasked \tab the page size \cr
+   \verb{input$<id>_prev_click} \tab \code{events = "prev_click"} \tab triggers when the prev button is clicked and current page changes \cr
+   \verb{input$<id>_next_click} \tab \code{events = "next_click"} \tab triggers when the next button is clicked and current page changes \cr
+   \verb{input$<id>_change} \tab \code{events = "change"} \tab triggers when current-page or page-size changes \cr
 }
+
+
+The same list as \code{el_events("el_pagination")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{
@@ -181,7 +199,7 @@ if (interactive()) {
   )
   server <- function(input, output, session) {
     output$page_info <- renderPrint({
-      list(page = input$pg1, size = input$pg1_size)
+      list(page = input$pg1, size = input$pg1_page_size)
     })
   }
   shinyApp(ui, server)

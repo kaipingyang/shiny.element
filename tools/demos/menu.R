@@ -25,7 +25,7 @@ items <- list(
 tagList(
   el_menu(
     "top_menu",
-    active = "1",
+    default_active = "1",
     class = "el-menu-demo",
     mode = "horizontal",
     items = items
@@ -33,7 +33,7 @@ tagList(
   tags$div(style = "height: 24px"),
   el_menu(
     "top_menu_dark",
-    active = "1",
+    default_active = "1",
     class = "el-menu-demo",
     mode = "horizontal",
     background_color = "#545c64",
@@ -51,7 +51,7 @@ tagList(
   ),
   el_menu(
     "lr_menu",
-    active = "1",
+    default_active = "1",
     class = "el-menu-demo",
     mode = "horizontal",
     ellipsis = FALSE,
@@ -110,7 +110,7 @@ el_row(
     tags$h5(style = "margin-bottom: 8px", "Default colors"),
     el_menu(
       "v_menu",
-      active = "2",
+      default_active = "2",
       class = "el-menu-vertical-demo",
       items = items
     )
@@ -120,7 +120,7 @@ el_row(
     tags$h5(style = "margin-bottom: 8px", "Custom colors"),
     el_menu(
       "v_menu_dark",
-      active = "2",
+      default_active = "2",
       class = "el-menu-vertical-demo",
       items = items,
       background_color = "#545c64",
@@ -151,7 +151,7 @@ ui <- el_page(
   ),
   el_menu(
     "col_menu",
-    active = "2",
+    default_active = "2",
     class = "el-menu-vertical-demo",
     collapse = TRUE,
     items = list(

@@ -8,7 +8,7 @@
 el_menu(
   id = NULL,
   items = list(),
-  active = NULL,
+  default_active = NULL,
   mode = "vertical",
   collapse = FALSE,
   unique_opened = FALSE,
@@ -33,13 +33,15 @@ el_menu(
   style = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
 update_el_menu(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  active = NULL,
+  default_active = NULL,
   collapse = NULL,
   mode = NULL,
   unique_opened = NULL,
@@ -79,7 +81,8 @@ group of its \code{children} rather than a submenu.
 Clicking an item reports \verb{input$<id>} (the index selected) and
 \verb{input$<id>_item_click} (the index clicked).}
 
-\item{active}{Index of the initially selected item.}
+\item{default_active}{Index of the initially selected item: Element Plus's
+\code{default-active}. In \code{update_el_menu()}, the item to select.}
 
 \item{mode}{\code{"vertical"} (default) or \code{"horizontal"}.}
 
@@ -142,6 +145,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_menu()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_menu()}, the Shiny session, the
@@ -155,12 +168,16 @@ A navigation menu, vertical or horizontal, with submenus nested to any
 depth.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the \code{index} of the selected item \cr
+   \verb{input$<id>_path} \tab unasked \tab the indexes down to it \cr
+   \verb{input$<id>_open} \tab \code{events = "open"} \tab \code{list(index, path)} of the submenu \cr
+   \verb{input$<id>_close} \tab \code{events = "close"} \tab \code{list(index, path)} of the submenu \cr
+}
 
-\verb{input$<id>} holds the selected item's \code{index}, reported on load and on
-every selection -- \code{NULL} while no item is active. \verb{input$<id>_path} holds
-the full path of indexes down to
-it, so a nested item can be told apart from a top-level one with the same
-index.
+
+The same list as \code{el_events("el_menu")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{
@@ -186,7 +203,7 @@ stays as it is; \code{NA} returns it to Element's default.
 \examples{
 el_menu(
   id = "nav",
-  active = "home",
+  default_active = "home",
   items = list(
     list(index = "home", label = "Home", icon = "House"),
     list(
@@ -206,7 +223,7 @@ el_menu(
 el_menu(
   id = "topnav",
   mode = "horizontal",
-  active = "a",
+  default_active = "a",
   items = list(
     list(index = "a", label = "One"),
     list(index = "b", label = "Two")
@@ -215,7 +232,7 @@ el_menu(
 if (interactive()) {
   # inside a server function
   observeEvent(input$go, {
-    update_el_menu(session, "nav", active = "data")
+    update_el_menu(session, "nav", default_active = "data")
   })
 }
 }

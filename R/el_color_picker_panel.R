@@ -26,8 +26,9 @@
 #' @param slots Named list of Element slot contents: `footer`. A scoped slot
 #'   is written with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the value, on load and on every change.
+#' `r .el_events_md("el_color_picker_panel")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `update()`.
@@ -56,14 +57,19 @@ el_color_picker_panel <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_color_picker_panel", environment())
   if (is.null(id)) {
     id <- .el_auto_id("el_color_picker_panel")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, character())
+  events <- .el_event_bindings(
+    ns_id,
+    "el_color_picker_panel",
+    on = on
+  )
   attrs <- c(list("v-model" = "value"), events$attrs)
   el_widget(
     label = label,

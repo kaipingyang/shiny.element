@@ -81,13 +81,10 @@
 #'   same and return the cells to draw (`Vue.h()`, `Vue.cloneVNode()`). Each
 #'   is drawn with `<component :is="cell" />`.
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_column_sort` -- Element Plus's `column-sort` event.
-#' - `input$<id>_expanded_rows_change` -- Element Plus's `expanded-rows-change` event.
-#' - `input$<id>_end_reached` -- Element Plus's `end-reached` event.
-#' - `input$<id>_scroll` -- Element Plus's `scroll` event.
-#' - `input$<id>_rows_rendered` -- Element Plus's `rows-rendered` event.
-#' - `input$<id>_row_expand` -- Element Plus's `row-expand` event.
+#' `r .el_events_md("el_table_v2")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `scrollTo()`, `scrollToLeft()`, `scrollToTop()`, `scrollToRow()`.
@@ -136,7 +133,9 @@ el_table_v2 <- function(
   width = NULL,
   slots = NULL,
   methods = NULL,
-  auto_resize = FALSE
+  auto_resize = FALSE,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_table_v2", environment())
   if (
@@ -173,14 +172,9 @@ el_table_v2 <- function(
   }
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "column-sort",
-      "expanded-rows-change",
-      "end-reached",
-      "scroll",
-      "rows-rendered",
-      "row-expand"
-    ),
+    "el_table_v2",
+    events,
+    on = on,
     # both fire on every frame of a scroll
     throttle = c("scroll", "rows-rendered")
   )

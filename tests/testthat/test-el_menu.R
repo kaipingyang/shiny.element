@@ -137,11 +137,11 @@ test_that("el_menu: attaches the shared bridge", {
   expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
 
-test_that("el_menu: active and layout options reach the Vue data", {
+test_that("el_menu: default_active and layout options reach the Vue data", {
   html <- render_html(el_menu(
     id = "nav",
     items = demo_items,
-    active = "home",
+    default_active = "home",
     mode = "horizontal",
     collapse = TRUE,
     unique_opened = TRUE
@@ -185,7 +185,9 @@ test_that("el_menu: an empty menu still renders", {
 # ── update_el_menu ────────────────────────────────────────────────────────────
 
 test_that("update_el_menu: sends under the right message type", {
-  out <- sent_message(function(s) update_el_menu(s, "nav", active = "home"))
+  out <- sent_message(function(s) {
+    update_el_menu(s, "nav", default_active = "home")
+  })
   expect_equal(out$type, "shinyVueUpdate")
   expect_equal(out$msg$id, "nav")
   expect_equal(out$msg$active, "home")
@@ -197,7 +199,9 @@ test_that("update_el_menu: collapse passes through", {
 })
 
 test_that("update_el_menu: NULL fields are excluded", {
-  out <- sent_message(function(s) update_el_menu(s, "nav", active = "a"))
+  out <- sent_message(function(s) {
+    update_el_menu(s, "nav", default_active = "a")
+  })
   expect_null(out$msg$collapse)
 })
 

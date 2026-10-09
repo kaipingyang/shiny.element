@@ -11,25 +11,25 @@
 #'   `content_style`, `scroll_into_view_options`, and `header`, markup in
 #'   place of the title. A step without a `target` shows in the middle of the
 #'   screen.
-#' @param open Whether it starts open: Element Plus's `model-value`. Open it
-#'   later with [update_el_tour()].
+#' @param visible Whether it starts open: Element Plus's `model-value`, named
+#'   `visible` as on the other overlays. Open it later with
+#'   [update_el_tour()].
 #' @param current The step it starts on, from 0.
 #' @param show_arrow,placement,content_style,mask,gap,type,scroll_into_view_options,z_index,show_close,close_icon,close_on_press_escape,target_area_clickable,append_to
 #'   Element Plus's tour props of those names: the defaults for every step.
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents: `indicators`.
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- whether it is open.
-#' - `input$<id>_change` -- the step, from 0, as it changes.
-#' - `input$<id>_close` -- the step it was closed on.
-#' - `input$<id>_finish` -- fires when the last step is done.
+#' `r .el_events_md("el_tour")`
 #'
 #' @return A Shiny UI element.
 #' @examples
 #' el_tour(
 #'   "intro",
-#'   open = TRUE,
+#'   visible = TRUE,
 #'   steps = list(
 #'     list(
 #'       target = "#upload",
@@ -43,7 +43,7 @@
 el_tour <- function(
   id = NULL,
   steps = list(),
-  open = FALSE,
+  visible = FALSE,
   current = NULL,
   show_arrow = NULL,
   placement = NULL,
@@ -59,7 +59,9 @@ el_tour <- function(
   target_area_clickable = NULL,
   append_to = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_tour", environment())
   .el_check_items(steps, "steps", c("target", "title"))
@@ -87,7 +89,12 @@ el_tour <- function(
       c(attrs, if (!is.null(header)) list(.el_slot("header", header)))
     )
   })
-  events <- .el_event_bindings(ns_id, c("change", "finish"))
+  events <- .el_event_bindings(
+    ns_id,
+    "el_tour",
+    events,
+    on = on
+  )
   el_widget(
     id = ns_id,
     markup = htmltools::tag(
@@ -118,7 +125,7 @@ el_tour <- function(
       append_to = append_to
     )),
     data = list(
-      open = isTRUE(.el_restore(ns_id, open)),
+      open = isTRUE(.el_restore(ns_id, visible)),
       current = if (is.null(current)) 0L else current
     ),
     methods = c(
@@ -162,14 +169,14 @@ el_tour <- function(
 #'   # inside a server function
 #'   observeEvent(
 #'     input$help,
-#'     update_el_tour(session, "intro", open = TRUE, current = 0)
+#'     update_el_tour(session, "intro", visible = TRUE, current = 0)
 #'   )
 #' }
 #' @export
 update_el_tour <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  open = NULL,
+  visible = NULL,
   current = NULL,
   show_arrow = NULL,
   placement = NULL,
@@ -187,8 +194,8 @@ update_el_tour <- function(
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(open)) {
-    msg$open <- open
+  if (!is.null(visible)) {
+    msg$open <- visible
   }
   if (!is.null(current)) {
     msg$current <- current

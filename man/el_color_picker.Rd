@@ -34,6 +34,8 @@ el_color_picker(
   value_on_clear = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -148,6 +150,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_color_picker()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_color_picker()}, the Shiny session, the
@@ -160,9 +172,17 @@ An \code{htmltools} tagList with a Vue-managed color-picker component.
 A colour picker input that returns a CSS colour string.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the colour \cr
+   \verb{input$<id>_active_change} \tab \code{events = "active_change"} \tab the colour being picked, at most every 200 ms \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Component blurs \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the clear button is clicked \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Component focuses \cr
+}
 
-\verb{input$<id>} -- colour string (e.g. \code{"#409EFF"} or \code{"rgba(64,158,255,0.5)"}).
-\code{NULL} / \code{NA} when the user clears the picker.
+
+The same list as \code{el_events("el_color_picker")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

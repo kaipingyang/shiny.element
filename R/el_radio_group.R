@@ -45,11 +45,11 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return An `htmltools` tagList containing the Vue-managed radio group.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- string or number reflecting the currently selected value,
-#' updated on each change.
+#' `r .el_events_md("el_radio_group")`
 #'
 #' @examples
 #' # Standard radio buttons from a named vector
@@ -110,6 +110,7 @@ el_radio_group <- function(
   props = NULL,
   type = NULL,
   validate_event = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_radio_group", environment())
@@ -194,7 +195,8 @@ el_radio_group <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

@@ -72,6 +72,8 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Element methods:
 #' Callable with [call_el()]:
 #'
@@ -82,9 +84,10 @@
 #' @return An `htmltools` tagList with a Vue-managed input component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- the text, reported as it is typed, debounced by 250 ms
-#' as [shiny::textInput()] does, and after an [update_el_input()].
-#' (triggered on blur or Enter key press).
+#' `r .el_events_md("el_input")`
+#'
+#' The text is debounced by 250 ms, as [shiny::textInput()]'s is, and
+#' reported after an [update_el_input()] too.
 #'
 #' @examples
 #' # Basic text input
@@ -157,6 +160,8 @@ el_input <- function(
   word_limit_position = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_input", environment())
@@ -201,18 +206,9 @@ el_input <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "input",
-      "blur",
-      "focus",
-      "clear",
-      "compositionend",
-      "compositionstart",
-      "compositionupdate",
-      "keydown",
-      "mouseenter",
-      "mouseleave"
-    )
+    "el_input",
+    events,
+    on = on
   )
   input_attrs <- c(input_attrs, events$attrs)
   # Always-present Vue data fields

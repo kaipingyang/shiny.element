@@ -39,6 +39,8 @@ el_input_number(
   value_on_clear = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -167,6 +169,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_input_number()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_input_number()}, the Shiny session, the
@@ -188,8 +200,15 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the number \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Input blurs \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Input focuses \cr
+}
 
-\verb{input$<id>} -- numeric value, updated on each valid change.
+
+The same list as \code{el_events("el_input_number")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

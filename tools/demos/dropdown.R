@@ -167,6 +167,7 @@ ui <- el_page(
     ),
     el_dropdown(
       "dd_list2",
+      events = "visible_change",
       trigger = "contextmenu",
       trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List2"),
       items = items

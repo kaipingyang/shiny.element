@@ -20,10 +20,12 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the `label` of the step last clicked. Steps without a
-#'   `to` are still reported, so a breadcrumb can drive navigation inside a
-#'   Shiny app without any routing.
+#' `r .el_events_md("el_breadcrumb")`
+#'
+#' Steps without a `to` are reported too, so a breadcrumb can drive
+#' navigation inside a Shiny app without any routing.
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -50,6 +52,7 @@ el_breadcrumb <- function(
   separator_icon = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -90,7 +93,8 @@ el_breadcrumb <- function(
       ))
     ),
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

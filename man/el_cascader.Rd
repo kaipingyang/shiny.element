@@ -53,6 +53,8 @@ el_cascader(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -244,6 +246,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_cascader()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_cascader()}, the Shiny session, the
@@ -257,17 +269,24 @@ Pick a path through nested options -- a region, then a country, then a
 city -- from a dropdown of side-by-side columns.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the selected path, on load and on change.
-\item \verb{input$<id>_lazy_load} -- with \code{props = list(lazy = TRUE)}, a column to
-load: \code{level} (0 for the first), \code{value} and \code{path} of the option
-opened, and \code{request}. Answer with \code{\link[=el_load_children]{el_load_children()}}, passing the
-input back; each child is \code{list(value =, label =, leaf = TRUE)} for one
-with nothing below.
-\item \verb{input$<id>_expand_change}, \verb{_blur}, \verb{_focus}, \verb{_visible_change},
-\verb{_remove_tag} -- Element's events.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the selected path \cr
+   \verb{input$<id>_lazy_load} \tab unasked \tab with \code{props = list(lazy = TRUE)}, a column to load; answer with \code{el_load_children()} \cr
+   \verb{input$<id>_expand_change} \tab \code{events = "expand_change"} \tab triggers when expand option changes \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Cascader blurs \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Cascader focuses \cr
+   \verb{input$<id>_visible_change} \tab \code{events = "visible_change"} \tab triggers when the dropdown appears/disappears \cr
+   \verb{input$<id>_remove_tag} \tab \code{events = "remove_tag"} \tab triggers when remove tag in multiple selection mode \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the clear icon is clicked in a clearable Select \cr
 }
+
+
+The same list as \code{el_events("el_cascader")}, which says how an event's arguments travel.
+
+\verb{input$<id>_lazy_load} carries \code{level} (0 for the first column), \code{value}
+and \code{path} of the option opened, and \code{request}. Answer with
+\code{\link[=el_load_children]{el_load_children()}}, passing the input back; each child is \code{list(value =, label =, leaf = TRUE)} for one with nothing below.
 }
 
 \section{Element methods}{

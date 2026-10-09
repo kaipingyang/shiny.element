@@ -41,11 +41,9 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_confirm` -- fires when the user confirms.
-#' - `input$<id>_cancel` -- fires when the user backs out.
-#'
-#' Both are event inputs, so read them with `observeEvent()`.
+#' `r .el_events_md("el_popconfirm")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -91,6 +89,7 @@ el_popconfirm <- function(
   ...,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL,
   placement = NULL
 ) {
@@ -179,7 +178,8 @@ el_popconfirm <- function(
     mounted = merged$mounted,
     width = width,
     slots = slots,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

@@ -43,11 +43,14 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_time_picker()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the time, or two for a range, on load and on change.
-#' - `input$<id>_blur`, `input$<id>_focus`, `input$<id>_clear` -- as the field
-#'   loses and gains focus, and is cleared; `input$<id>_visible_change` as
-#'   the panel opens and closes (`el_time_picker()`).
+#' `r .el_events_md("el_time_picker")`
+#'
+#' `el_time_select()`:
+#'
+#' `r .el_events_md("el_time_select")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `focus()`, `blur()`; and for `el_time_picker()`,
@@ -118,6 +121,8 @@ el_time_picker <- function(
   save_on_blur = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_time_picker", environment())
@@ -168,7 +173,9 @@ el_time_picker <- function(
       value_on_clear = value_on_clear,
       save_on_blur = save_on_blur
     ),
-    c("blur", "focus", "clear", "visible-change"),
+    "el_time_picker",
+    events,
+    on,
     width,
     slots,
     list(
@@ -219,6 +226,8 @@ el_time_select <- function(
   value_on_clear = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_time_select", environment())
@@ -251,7 +260,9 @@ el_time_select <- function(
       empty_values = empty_values,
       value_on_clear = value_on_clear
     ),
-    c("blur", "focus", "clear"),
+    "el_time_select",
+    events,
+    on,
     width,
     slots,
     list(
@@ -274,7 +285,8 @@ el_time_select <- function(
 #' @param ns_id The namespaced id.
 #' @param init The initial value.
 #' @param fields The props, by their R names, for `.el_props()`.
-#' @param events Events forwarded as `input$<id>_<event>`.
+#' @param fn The component's function, its entry in [el_events()].
+#' @param events,on The user's `events` and `on`.
 #' @param width,slots As for [el_widget()].
 #' @param form_item The label and message arguments, for [el_widget()].
 #' @return A Shiny UI element.
@@ -284,12 +296,14 @@ el_time_select <- function(
   ns_id,
   init,
   fields,
+  fn,
   events,
+  on,
   width,
   slots,
   form_item
 ) {
-  forwarded <- .el_event_bindings(ns_id, events)
+  forwarded <- .el_event_bindings(ns_id, fn, events, on = on)
   attrs <- c(
     list("v-model" = "value", "@change" = "handleChange"),
     forwarded$attrs

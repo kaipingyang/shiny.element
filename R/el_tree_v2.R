@@ -49,15 +49,10 @@
 #' @param slots Named list of Element slot contents: `empty`. A scoped slot is
 #'   written with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_node_click` -- Element Plus's `node-click` event.
-#' - `input$<id>_node_drop` -- Element Plus's `node-drop` event.
-#' - `input$<id>_node_contextmenu` -- Element Plus's `node-contextmenu` event.
-#' - `input$<id>_check_change` -- Element Plus's `check-change` event.
-#' - `input$<id>_check` -- Element Plus's `check` event.
-#' - `input$<id>_current_change` -- Element Plus's `current-change` event.
-#' - `input$<id>_node_expand` -- Element Plus's `node-expand` event.
-#' - `input$<id>_node_collapse` -- Element Plus's `node-collapse` event.
+#' `r .el_events_md("el_tree_v2")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -88,7 +83,9 @@ el_tree_v2 <- function(
   props = NULL,
   height = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_tree_v2", environment())
   if (is.null(id)) {
@@ -97,16 +94,9 @@ el_tree_v2 <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "node-click",
-      "node-drop",
-      "node-contextmenu",
-      "check-change",
-      "check",
-      "current-change",
-      "node-expand",
-      "node-collapse"
-    )
+    "el_tree_v2",
+    events,
+    on = on
   )
   attrs <- c(list(), events$attrs)
   el_widget(

@@ -345,6 +345,7 @@ MARKUP = {
 # An upstream name that is deliberately different here: (tag, prop) -> arg
 RENAMED = {
     ("el-dialog", "model-value"): "visible", ("el-drawer", "model-value"): "visible",
+    ("el-tour", "model-value"): "visible",
     ("el-collapse", "model-value"): "value", ("el-tabs", "model-value"): "selected",
     ("el-tabs", "default-value"): "selected",
     ("el-tabs", "value"): "selected", ("el-collapse", "value"): "value",
@@ -607,8 +608,7 @@ PAGE_FNS["image"] = ["el_image", "el_image_viewer"]
 PAGE_FNS["statistic"] = ["el_statistic", "el_countdown"]
 PAGE_FNS["time-picker"] = ["el_time_picker"]
 PAGE_FNS["radio"] = ["el_radio_group"]
-NAMED = {("el-menu", "default-active"): "active", ("el-upload", "data"): "extra_data",
-         ("el-popover", "width"): "popover_width", ("el-tabs", "value"): "selected",
+NAMED = {("el-popover", "width"): "popover_width", ("el-tabs", "value"): "selected (or value)",
          ("el-select", "value"): "selected (or value)", ("el-radio-group", "value"): "selected (or value)",
          ("el-checkbox-group", "value"): "selected (or value)", ("el-upload", "http-request"): "(the Shiny upload)",
          ("el-upload", "on-success"): "input$<id>", ("el-upload", "on-error"): "input$<id>_error"}
@@ -635,7 +635,7 @@ NAMED.update({("el-form", "model"): "each field's `value`; update_el_form(model 
               ("el-infinite-scroll", "infinite-scroll-delay"): "delay",
               ("el-infinite-scroll", "infinite-scroll-distance"): "distance",
               ("el-infinite-scroll", "infinite-scroll-immediate"): "immediate"})
-NAMED.update({("el-tabs", "default-value"): "selected",
+NAMED.update({("el-tabs", "default-value"): "selected (or value)",
               ("el-config-provider", "locale"): "el_page(locale =)",
               ("el-config-provider", "zIndex"): "el_page(z_index =)",
               ("el-config-provider", "namespace"): "(fixed: `el`)",
@@ -669,6 +669,17 @@ try:
 except FileNotFoundError:
     FORMALS = {}
 
+def _registry():
+    out, fn = {}, None
+    for line in open("R/el_events_registry.R"):
+        m = re.match(r"^  (el_\w+) = list\(", line)
+        if m: fn = m.group(1)
+        m = re.search(r'list\(event = "([^"]+)", default = (TRUE|FALSE)', line)
+        if m and fn: out.setdefault(fn, {})[m.group(1)] = m.group(2) == "TRUE"
+    return out
+REGISTRY = _registry()
+
+
 def r_name(slug, tag, kind, name):
     fns = PAGE_FNS.get(slug, [])
     snake = _snake(camel(name)) if kind == "Attributes" else _snake(name.replace("-", "_"))
@@ -679,8 +690,8 @@ def r_name(slug, tag, kind, name):
             return f"`{item_fn}({snake} =)`"
         # v-model's prop: the R argument that starts it, the input that reports it
         if name in ("model-value", "checked"):
-            arg = {"el-dialog": "visible", "el-drawer": "visible", "el-tabs": "selected",
-                   "el-tour": "open"}.get(tag, "value")
+            arg = {"el-dialog": "visible", "el-drawer": "visible", "el-tabs": "selected` or `value",
+                   "el-tour": "visible"}.get(tag, "value")
             return f"`{arg}`; `input$<id>`"
         if name == "id": return "`id`, the Shiny input's"
         if name in ("class", "style"): return "an HTML attribute of the tag; `tagAppendAttributes()`"
@@ -702,7 +713,12 @@ def r_name(slug, tag, kind, name):
         for fn in fns:
             x = (ours.get(fn) or {}).get("on_request") or []
             asked |= set([x] if isinstance(x, str) else x)
-        if name in asked: return f"`input$<id>_{snake}`, with `el_on()`"
+        # the registry of R/el_events_registry.R: reported unasked, or asked for
+        for fn in fns:
+            d = REGISTRY.get(fn, {})
+            if name in d:
+                return f"`input$<id>_{snake}`" if d[name] else f"`input$<id>_{snake}`, with `events = \"{snake}\"`"
+        if name in asked: return f"`input$<id>_{snake}`, with `events = \"{snake}\"`"
         if name in fw: return f"`input$<id>_{snake}`"
         # A container's binding reports its events itself
         tags_js = {"el-tabs": "el-tabs-binding.js", "el-collapse": "el-collapse-binding.js",

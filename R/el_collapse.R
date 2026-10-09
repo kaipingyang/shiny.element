@@ -34,8 +34,7 @@
 #' @return An `htmltools` tag.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- character vector of open panel names, reported on load and on
-#' every change. Empty when all are closed, which Shiny reports as `NULL`.
+#' `r .el_events_md("el_collapse")`
 #'
 #' @examples
 #' el_collapse(

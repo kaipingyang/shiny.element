@@ -71,7 +71,10 @@ el_config_provider <- function(
     id <- .el_auto_id("el_config_provider")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, character())
+  events <- .el_event_bindings(
+    ns_id,
+    "el_config_provider"
+  )
   # The provider's own scope: el_card() and el_dialog() are markup, which
   # Element's ConfigProvider does not reach, and take its card and dialog
   # settings from these attributes (el-events.js)

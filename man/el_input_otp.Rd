@@ -28,7 +28,9 @@ el_input_otp(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_input_otp(
@@ -121,6 +123,16 @@ whether beside the component rather than under it. Element's
 \item{slots}{Named list of Element slot contents: \code{separator}. A scoped
 slot is written with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -131,14 +143,17 @@ A Shiny UI element.
 A one-time password or verification code, typed one character per field.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the value, on load and on every change.
-\item \verb{input$<id>_change} -- Element Plus's \code{change} event.
-\item \verb{input$<id>_finish} -- Element Plus's \code{finish} event.
-\item \verb{input$<id>_focus} -- Element Plus's \code{focus} event.
-\item \verb{input$<id>_blur} -- Element Plus's \code{blur} event.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the value \cr
+   \verb{input$<id>_change} \tab \code{events = "change"} \tab Triggers when the value changes after input blur \cr
+   \verb{input$<id>_finish} \tab unasked \tab Fires when all fields have been filled \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab Triggers when input is focused \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab Triggers when input is blurred \cr
 }
+
+
+The same list as \code{el_events("el_input_otp")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

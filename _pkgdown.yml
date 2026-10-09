@@ -441,7 +441,7 @@ reference:
       Element Plus's methods, the objects they need, the events a component reports, and the data a component asks the server for.
     contents:
       - call_el
-      - el_on
+      - el_events
       - el_table_row
       - el_load_children
 

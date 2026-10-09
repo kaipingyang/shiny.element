@@ -41,7 +41,9 @@ el_input_tag(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_input_tag(
@@ -187,6 +189,16 @@ whether beside the component rather than under it. Element's
 \item{slots}{Named list of Element slot contents: \code{tag}, \code{prefix},
 \code{suffix}. A scoped slot is written with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -198,18 +210,20 @@ A text input that turns each entry into a tag: keywords, e-mail addresses,
 labels.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the value, on load and on every change.
-\item \verb{input$<id>_change} -- Element Plus's \code{change} event.
-\item \verb{input$<id>_input} -- Element Plus's \code{input} event.
-\item \verb{input$<id>_add_tag} -- Element Plus's \code{add-tag} event.
-\item \verb{input$<id>_remove_tag} -- Element Plus's \code{remove-tag} event.
-\item \verb{input$<id>_drag_tag} -- Element Plus's \code{drag-tag} event.
-\item \verb{input$<id>_focus} -- Element Plus's \code{focus} event.
-\item \verb{input$<id>_blur} -- Element Plus's \code{blur} event.
-\item \verb{input$<id>_clear} -- Element Plus's \code{clear} event.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the tags \cr
+   \verb{input$<id>_input} \tab \code{events = "input"} \tab triggers when the input value change \cr
+   \verb{input$<id>_add_tag} \tab \code{events = "add_tag"} \tab triggers when a tag is added \cr
+   \verb{input$<id>_remove_tag} \tab \code{events = "remove_tag"} \tab triggers when a tag is removed \cr
+   \verb{input$<id>_drag_tag} \tab \code{events = "drag_tag"} \tab triggers when a tag is dragged \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when InputTag focuses \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when InputTag blurs \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the clear icon is clicked \cr
 }
+
+
+The same list as \code{el_events("el_input_tag")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

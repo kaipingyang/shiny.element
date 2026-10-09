@@ -27,6 +27,7 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_descriptions()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template on
 #' @return A Shiny UI element.
 #' @examples
 #' el_descriptions(
@@ -55,6 +56,7 @@ el_descriptions <- function(
   label_width = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_descriptions", environment())
@@ -143,7 +145,8 @@ el_descriptions <- function(
     mounted = merged$mounted,
     width = width,
     slots = slots,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

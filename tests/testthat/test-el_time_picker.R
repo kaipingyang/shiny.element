@@ -41,8 +41,11 @@ test_that("both report on load and on change, and forward focus and blur", {
       p$methods$handleChange,
       fixed = TRUE
     ))
-    expect_true(all(c("elEmitBlur", "elEmitFocus") %in% names(p$methods)))
+    # focus and blur only when asked for
+    expect_false(any(c("elEmitBlur", "elEmitFocus") %in% names(p$methods)))
   }
+  p <- vue_payload_of(el_time_picker("t", events = c("blur", "focus")))
+  expect_true(all(c("elEmitBlur", "elEmitFocus") %in% names(p$methods)))
 })
 
 test_that("update_el_time_picker sends only what was given", {

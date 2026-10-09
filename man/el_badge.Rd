@@ -17,7 +17,8 @@ el_badge(
   color = NULL,
   offset = NULL,
   badge_style = NULL,
-  badge_class = NULL
+  badge_class = NULL,
+  on = NULL
 )
 
 update_el_badge(
@@ -58,6 +59,11 @@ is reached through \code{\link[=update_vue]{update_vue()}} on the badge's id.}
 
 \item{badge_style, badge_class}{Extra CSS -- a string or a named list -- and
 class names for the badge.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
 
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}

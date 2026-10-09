@@ -4,7 +4,18 @@
 \alias{.el_time_widget}
 \title{Build either time picker}
 \usage{
-.el_time_widget(tag, ns_id, init, fields, events, width, slots, form_item)
+.el_time_widget(
+  tag,
+  ns_id,
+  init,
+  fields,
+  fn,
+  events,
+  on,
+  width,
+  slots,
+  form_item
+)
 }
 \arguments{
 \item{tag}{\code{"el-time-picker"} or \code{"el-time-select"}.}
@@ -15,7 +26,9 @@
 
 \item{fields}{The props, by their R names, for \code{.el_props()}.}
 
-\item{events}{Events forwarded as \verb{input$<id>_<event>}.}
+\item{fn}{The component's function, its entry in \code{\link[=el_events]{el_events()}}.}
+
+\item{events, on}{The user's \code{events} and \code{on}.}
 
 \item{width, slots}{As for \code{\link[=el_widget]{el_widget()}}.}
 

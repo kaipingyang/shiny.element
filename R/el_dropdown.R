@@ -74,12 +74,12 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed dropdown component.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` -- the `command` of the item clicked. It is an event, so
-#'   choosing the same item twice runs an `observeEvent()` twice.
-#' - `input$<id>_count` -- the number of items clicked.
+#' `r .el_events_md("el_dropdown")`
 #'
 #' @examples
 #' el_dropdown(
@@ -127,6 +127,8 @@ el_dropdown <- function(
   virtual_triggering = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_items(items, "items", c("command", "label"))
@@ -188,10 +190,9 @@ el_dropdown <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "click",
-      "visible-change"
-    )
+    "el_dropdown",
+    events,
+    on = on
   )
   dd_attrs <- c(dd_attrs, events$attrs)
   vue_data <- list(

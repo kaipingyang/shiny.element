@@ -13,6 +13,7 @@ el_widget(
   mounted = NULL,
   computed = NULL,
   emits = NULL,
+  on = NULL,
   dependency = NULL,
   head = NULL,
   width = NULL,
@@ -45,6 +46,16 @@ set has to be declared here -- Vue does not track one that is not.}
 
 \item{emits}{Events the component sends with \verb{$emit()}: each arrives as
 \verb{input$<id>_<event>}, as for \code{\link[=vue_app]{vue_app()}}.}
+
+\item{on}{Handlers of your own, for events the component does not report
+or to send something else than they carry: a named list of \code{\link[=JS]{JS()}}
+functions, one per event -- Element's, by its name, or a DOM event of
+the element it draws, with Vue's modifiers (\code{"keyup.enter"}). Each is
+called with \code{report} first, then the event's arguments, \code{this} being
+the component's Vue instance; \code{report(name, value)} sets
+\verb{input$<id>_<name>}, namespaced as the id is:
+\code{on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))} reports \verb{input$<id>_enter}. An
+event the component reports too runs both.}
 
 \item{dependency}{htmlDependency objects to attach, beside Vue, Element
 Plus and the bridge, which every component carries.}

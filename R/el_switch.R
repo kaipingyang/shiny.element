@@ -57,6 +57,7 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @section Element methods:
 #' Callable with [call_el()]:
 #'
@@ -65,8 +66,7 @@
 #' @return An `htmltools` tagList with a Vue-managed switch component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- the value of `active_value` (when on) or `inactive_value`
-#' (when off), matching the types of those arguments.
+#' `r .el_events_md("el_switch")`
 #'
 #' @examples
 #' el_switch("sw1", value = TRUE)
@@ -117,6 +117,7 @@ el_switch <- function(
   size = NULL,
   tabindex = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_switch", environment())
@@ -190,7 +191,8 @@ el_switch <- function(
       ))
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

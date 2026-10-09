@@ -10,8 +10,9 @@
 #'   or `"danger"`.
 #' @param width Component width, as a CSS unit.
 #'
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- `TRUE` or `FALSE`, on load and on every change.
+#' `r .el_events_md("el_check_tag")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -24,7 +25,8 @@ el_check_tag <- function(
   value = FALSE,
   disabled = NULL,
   type = NULL,
-  width = NULL
+  width = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_check_tag", environment())
   ns_id <- .el_ui_id(id, NULL)
@@ -50,7 +52,8 @@ el_check_tag <- function(
       ))
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
-    width = width
+    width = width,
+    on = on
   )
 }
 

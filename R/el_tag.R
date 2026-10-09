@@ -8,7 +8,7 @@
 #' @param type Tag colour: `NULL` (default blue), `"success"`, `"info"`,
 #'   `"warning"`, `"danger"`.
 #' @param closable Whether to show a close button. Default `FALSE`. When
-#'   `TRUE`, `input$<id>_closed` fires once when the user closes the tag.
+#'   `TRUE`, `input$<id>_close` fires once when the user closes the tag.
 #' @param size Size: `"large"`, `"default"` or `"small"`; `NULL` follows the form or the page.
 #' @param effect Visual effect: `"light"` (default), `"dark"`, `"plain"`.
 #' @param color Custom background colour (CSS string). `NULL` for themed colour.
@@ -27,14 +27,13 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed tag component.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` -- the number of clicks on the tag's body, as
-#'   [shiny::actionButton()] reports it: 0 on load, treated by
-#'   `observeEvent()` and `req()` as not yet clicked.
-#' - `input$<id>_closed` -- set to `1` when the user clicks the close button
-#'   (only meaningful when `closable = TRUE`).
+#' `r .el_events_md("el_tag")`
+#'
+#' The clicks are counted as [shiny::actionButton()] counts them, 0 on load.
 #'
 #' @examples
 #' el_tag("tag1", "Success", type = "success")
@@ -53,6 +52,7 @@ el_tag <- function(
   round = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_tag", environment())
@@ -98,7 +98,7 @@ el_tag <- function(
         ns_id
       )),
       handleClose = JS(sprintf(
-        "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
+        "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_close', 1, {priority: 'event'}); }",
         ns_id
       ))
     ),
@@ -106,7 +106,8 @@ el_tag <- function(
     mounted = .el_mounted_init(stats::setNames("count", ns_id)),
     type = "shiny.action",
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

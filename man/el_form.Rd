@@ -26,6 +26,8 @@ el_form(
   scroll_to_error = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -103,6 +105,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_form()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_form()}, the Shiny session, the
@@ -139,12 +151,20 @@ instance, which puts them outside the form-item's component tree, where
 Element's event chain and shared model cannot reach them.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the whole model, on load and on every submit \cr
+   \verb{input$<id>_valid} \tab unasked \tab \code{TRUE} when the last submit passed validation \cr
+   \verb{input$<id>_submit} \tab unasked \tab a submit counter \cr
+   \verb{input$<id>_validate} \tab \code{events = "validate"} \tab triggers after a form item is validated \cr
+}
 
-\verb{input$<id>} holds the whole model as a list, reported once on load and
-again on every submit. \verb{input$<id>_valid} is \code{TRUE} when the last submit
-passed validation, and \verb{input$<id>_submit} is a submit counter to trigger on.
-The model is deliberately \emph{not} sent on every keystroke: that is the point of
-the form owning its state rather than each field reporting separately.
+
+The same list as \code{el_events("el_form")}, which says how an event's arguments travel.
+
+The model is deliberately \emph{not} sent on every keystroke: that is the
+point of the form owning its state rather than each field reporting
+separately.
 }
 
 \section{Element methods}{

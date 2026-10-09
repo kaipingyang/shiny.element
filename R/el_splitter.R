@@ -13,11 +13,10 @@
 #' @param slots Named list of Element slot contents. A scoped slot is written
 #'   with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_resize_start` -- Element Plus's `resize-start` event.
-#' - `input$<id>_resize` -- Element Plus's `resize` event.
-#' - `input$<id>_resize_end` -- Element Plus's `resize-end` event.
-#' - `input$<id>_collapse` -- Element Plus's `collapse` event.
+#' `r .el_events_md("el_splitter")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -29,7 +28,9 @@ el_splitter <- function(
   layout = NULL,
   lazy = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_splitter", environment())
   if (is.null(id)) {
@@ -38,7 +39,9 @@ el_splitter <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("resize-start", "resize", "resize-end", "collapse"),
+    "el_splitter",
+    events,
+    on = on,
     # fires on every step of a drag
     throttle = "resize"
   )

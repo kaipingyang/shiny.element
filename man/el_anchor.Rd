@@ -17,7 +17,9 @@ el_anchor(
   direction = NULL,
   select_scroll_top = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_anchor(
@@ -63,6 +65,16 @@ section is scrolled to the top.}
 
 \item{slots}{Named list of Element slot contents.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -74,11 +86,14 @@ Links to sections of the page, the one in view marked as the page
 scrolls.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the \code{href} of the current link, as the page scrolls.
-\item \verb{input$<id>_click} -- the \code{href} of a link the user clicked.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the \code{href} of the current link, as the page scrolls \cr
+   \verb{input$<id>_click} \tab \code{events = "click"} \tab the \code{href} of the link clicked \cr
 }
+
+
+The same list as \code{el_events("el_anchor")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

@@ -60,16 +60,10 @@
 #' @param slots Named list of Element slot contents: `tag`, `prefix`,
 #'   `suffix`. A scoped slot is written with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the value, on load and on every change.
-#' - `input$<id>_change` -- Element Plus's `change` event.
-#' - `input$<id>_input` -- Element Plus's `input` event.
-#' - `input$<id>_add_tag` -- Element Plus's `add-tag` event.
-#' - `input$<id>_remove_tag` -- Element Plus's `remove-tag` event.
-#' - `input$<id>_drag_tag` -- Element Plus's `drag-tag` event.
-#' - `input$<id>_focus` -- Element Plus's `focus` event.
-#' - `input$<id>_blur` -- Element Plus's `blur` event.
-#' - `input$<id>_clear` -- Element Plus's `clear` event.
+#' `r .el_events_md("el_input_tag")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `focus()`, `blur()`.
@@ -118,7 +112,9 @@ el_input_tag <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_input_tag", environment())
   if (is.null(id)) {
@@ -127,7 +123,9 @@ el_input_tag <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("input", "add-tag", "remove-tag", "drag-tag", "focus", "blur", "clear")
+    "el_input_tag",
+    events,
+    on = on
   )
   attrs <- c(
     list("v-model" = "value", "@change" = "handleChange"),

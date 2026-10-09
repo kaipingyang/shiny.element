@@ -23,6 +23,8 @@ el_cascader_panel(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -96,6 +98,16 @@ Element Plus's \code{virtual-scroll} (boolean).}
 \item{slots}{Named list of Element slot contents. The default slot, scoped
 with \verb{\{node, data\}}, renders one option; write it with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_cascader_panel()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_cascader_panel()}, the Shiny session, the
@@ -110,13 +122,16 @@ side-by-side columns, for when there is room to show them rather than tuck
 them into a dropdown.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the selected path, on load and on change.
-\item \verb{input$<id>_expand_change} -- the path of the column just opened.
-\item \verb{input$<id>_lazy_load} -- with \code{props = list(lazy = TRUE)}, a column to
-load; answer with \code{\link[=el_load_children]{el_load_children()}}. See \code{\link[=el_cascader]{el_cascader()}}.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the selected path \cr
+   \verb{input$<id>_lazy_load} \tab unasked \tab with \code{props = list(lazy = TRUE)}, a column to load; answer with \code{el_load_children()} \cr
+   \verb{input$<id>_expand_change} \tab \code{events = "expand_change"} \tab triggers when expand option changes \cr
+   \verb{input$<id>_close} \tab \code{events = "close"} \tab close panel event, provided to Cascader to put away the panel judgment. \cr
 }
+
+
+The same list as \code{el_events("el_cascader_panel")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

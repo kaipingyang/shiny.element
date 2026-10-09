@@ -60,6 +60,8 @@ el_date_picker(
   teleported = NULL,
   time_format = NULL,
   value_on_clear = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -275,6 +277,16 @@ panel. Element Plus's \code{time-format} (string).}
 Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
 as \code{\link[=JS]{JS()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_date_picker()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_date_picker()}, the Shiny session, the
@@ -296,12 +308,25 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the date, two for a range \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Input blurs \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Input focuses \cr
+   \verb{input$<id>_calendar_change} \tab \code{events = "calendar_change"} \tab triggers when the calendar selected date is changed. Only for range \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when a clear button is clicked \cr
+   \verb{input$<id>_panel_change} \tab \code{events = "panel_change"} \tab triggers when the navigation button click. \cr
+   \verb{input$<id>_visible_change} \tab \code{events = "visible_change"} \tab triggers when the DatePicker's dropdown appears/disappears \cr
+}
 
-\verb{input$<id>} -- for \code{type} \code{"date"}, \code{"dates"} and \code{"daterange"} with the
-default \code{value_format}, a \code{Date} (two for a range, several for \code{"dates"}),
-as \code{\link[shiny:dateInput]{shiny::dateInput()}} gives one; \code{NULL} while empty. Any other type or
-\code{value_format} reports the text the picker produces, in that format -- you
-asked for that format, so it is not converted.
+
+The same list as \code{el_events("el_date_picker")}, which says how an event's arguments travel.
+
+For \code{type} \code{"date"}, \code{"dates"} and \code{"daterange"} with the default
+\code{value_format}, \verb{input$<id>} is a \code{Date} (two for a range, several for
+\code{"dates"}), as \code{\link[shiny:dateInput]{shiny::dateInput()}} gives one; \code{NULL} while empty. Any
+other type or \code{value_format} reports the text the picker produces, in
+that format -- you asked for that format, so it is not converted.
 }
 
 \section{Updating from the server}{

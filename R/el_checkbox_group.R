@@ -41,10 +41,11 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed checkbox group component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- character vector of currently selected values.
+#' `r .el_events_md("el_checkbox_group")`
 #'
 #' @examples
 #' el_checkbox_group(
@@ -97,6 +98,7 @@ el_checkbox_group <- function(
   tag = NULL,
   type = NULL,
   validate_event = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_checkbox_group", environment())
@@ -193,7 +195,8 @@ el_checkbox_group <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

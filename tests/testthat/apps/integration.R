@@ -101,7 +101,7 @@ ui <- el_page(
 
   # Initial values: every one of these reported NULL until mount-time reporting
   # was added.
-  el_input("inp", value = "hello"),
+  el_input("inp", value = "hello", events = "focus"),
   # Folded into the space's instance: updated and called by their own ids
   el_space(
     id = "abs_space",
@@ -362,7 +362,7 @@ ui <- el_page(
     style = "width:220px",
     el_menu(
       "nav",
-      active = "m-home",
+      default_active = "m-home",
       items = list(
         list(index = "m-home", label = "Home", icon = "el-icon-house"),
         list(
@@ -392,6 +392,7 @@ ui <- el_page(
     style = "width:240px",
     el_tree(
       "tree",
+      events = "node_expand",
       show_checkbox = TRUE,
       default_expanded_keys = "t-fruit",
       default_checked_keys = "t-apple",
@@ -776,7 +777,7 @@ server <- function(input, output, session) {
       "cp",
       "tabs",
       "pg",
-      "pg_size",
+      "pg_page_size",
       "col",
       "rg_num",
       "stp",
@@ -1104,7 +1105,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$nav_pick, {
-    update_el_menu(session, "nav", active = "m-all")
+    update_el_menu(session, "nav", default_active = "m-all")
   })
 
   observeEvent(input$form_prefill, {

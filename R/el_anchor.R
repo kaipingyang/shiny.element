@@ -21,9 +21,10 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents.
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the `href` of the current link, as the page scrolls.
-#' - `input$<id>_click` -- the `href` of a link the user clicked.
+#' `r .el_events_md("el_anchor")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `scrollTo(href)`.
@@ -56,7 +57,9 @@ el_anchor <- function(
   direction = NULL,
   select_scroll_top = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_anchor", environment())
   .el_check_items(links, "links", c("title", "href"))
@@ -79,7 +82,9 @@ el_anchor <- function(
   }
   events <- .el_event_bindings(
     ns_id,
-    "click",
+    "el_anchor",
+    events,
+    on = on,
     shapes = list(
       click = "function(e, href) { return href; }"
     )

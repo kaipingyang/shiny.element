@@ -120,7 +120,8 @@
 #'
 #'   Clicking an item reports `input$<id>` (the index selected) and
 #'   `input$<id>_item_click` (the index clicked).
-#' @param active Index of the initially selected item.
+#' @param default_active Index of the initially selected item: Element Plus's
+#'   `default-active`. In `update_el_menu()`, the item to select.
 #' @param mode `"vertical"` (default) or `"horizontal"`.
 #' @param collapse Collapse to icons only. Vertical menus only.
 #' @param unique_opened Keep only one submenu open at a time.
@@ -166,12 +167,10 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' `input$<id>` holds the selected item's `index`, reported on load and on
-#' every selection -- `NULL` while no item is active. `input$<id>_path` holds
-#' the full path of indexes down to
-#' it, so a nested item can be told apart from a top-level one with the same
-#' index.
+#' `r .el_events_md("el_menu")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -184,7 +183,7 @@
 #' @examples
 #' el_menu(
 #'   id = "nav",
-#'   active = "home",
+#'   default_active = "home",
 #'   items = list(
 #'     list(index = "home", label = "Home", icon = "House"),
 #'     list(
@@ -204,7 +203,7 @@
 #' el_menu(
 #'   id = "topnav",
 #'   mode = "horizontal",
-#'   active = "a",
+#'   default_active = "a",
 #'   items = list(
 #'     list(index = "a", label = "One"),
 #'     list(index = "b", label = "Two")
@@ -213,7 +212,7 @@
 el_menu <- function(
   id = NULL,
   items = list(),
-  active = NULL,
+  default_active = NULL,
   mode = "vertical",
   collapse = FALSE,
   unique_opened = FALSE,
@@ -238,6 +237,8 @@ el_menu <- function(
   style = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_items(items, "items", c("index", "label"))
@@ -246,7 +247,7 @@ el_menu <- function(
     id <- .el_auto_id("el_menu")
   }
   ns_id <- .el_ui_id(id, session)
-  active <- shiny::restoreInput(ns_id, active)
+  default_active <- shiny::restoreInput(ns_id, default_active)
 
   menu_attrs <- list(
     ":default-active" = "active",
@@ -273,11 +274,9 @@ el_menu <- function(
 
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "open",
-
-      "close"
-    ),
+    "el_menu",
+    events,
+    on = on,
     shapes = list(
       "open" = "function(index, path) { return {index: index, path: path}; }",
       "close" = "function(index, path) { return {index: index, path: path}; }"
@@ -287,7 +286,7 @@ el_menu <- function(
   menu_attrs <- c(menu_attrs, events$attrs)
 
   vue_data <- list(
-    active = if (is.null(active)) "" else active,
+    active = if (is.null(default_active)) "" else default_active,
     mode = mode,
     collapse = collapse,
     uniqueOpened = unique_opened,
@@ -369,14 +368,14 @@ el_menu <- function(
 #' if (interactive()) {
 #'   # inside a server function
 #'   observeEvent(input$go, {
-#'     update_el_menu(session, "nav", active = "data")
+#'     update_el_menu(session, "nav", default_active = "data")
 #'   })
 #' }
 #' @export
 update_el_menu <- function(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  active = NULL,
+  default_active = NULL,
   collapse = NULL,
   mode = NULL,
   unique_opened = NULL,
@@ -399,8 +398,8 @@ update_el_menu <- function(
 ) {
   .el_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(active)) {
-    msg$active <- active
+  if (!is.null(default_active)) {
+    msg$active <- default_active
   }
   if (!is.null(collapse)) {
     msg$collapse <- collapse

@@ -25,7 +25,8 @@ el_color_picker_panel(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  on = NULL
 )
 
 update_el_color_picker_panel(
@@ -106,6 +107,11 @@ whether beside the component rather than under it. Element's
 \item{slots}{Named list of Element slot contents: \code{footer}. A scoped slot
 is written with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -116,10 +122,13 @@ A Shiny UI element.
 The colour picker's panel, always open, without the trigger.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the value, on load and on every change.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the colour \cr
 }
+
+
+The same list as \code{el_events("el_color_picker_panel")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

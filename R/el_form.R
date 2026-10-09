@@ -514,12 +514,14 @@ el_form_item <- function(
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' `input$<id>` holds the whole model as a list, reported once on load and
-#' again on every submit. `input$<id>_valid` is `TRUE` when the last submit
-#' passed validation, and `input$<id>_submit` is a submit counter to trigger on.
-#' The model is deliberately *not* sent on every keystroke: that is the point of
-#' the form owning its state rather than each field reporting separately.
+#' `r .el_events_md("el_form")`
+#'
+#' The model is deliberately *not* sent on every keystroke: that is the
+#' point of the form owning its state rather than each field reporting
+#' separately.
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -619,6 +621,8 @@ el_form <- function(
   scroll_to_error = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_form", environment())
@@ -680,7 +684,12 @@ el_form <- function(
   )
 
   # Forwarded to input$<id>_validate as list(prop, valid, message).
-  events <- .el_event_bindings(ns_id, "validate")
+  events <- .el_event_bindings(
+    ns_id,
+    "el_form",
+    events,
+    on = on
+  )
   form_attrs <- c(form_attrs, events$attrs)
   # One template for every control type. `component :is` dispatches on the tag
   # name, so adding a type means adding a row to .el_form_tags, not a branch.

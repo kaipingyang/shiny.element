@@ -23,6 +23,7 @@ el_carousel(
   pause_on_hover = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -91,6 +92,11 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_carousel()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_carousel()}, the Shiny session, the
@@ -105,10 +111,14 @@ A Shiny UI element.
 A slideshow of items, horizontal or vertical.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the index of the slide showing, from 0 \cr
+   \verb{input$<id>_name} \tab unasked \tab its \code{name}, if it has one \cr
+}
 
-\verb{input$<id>} holds the index of the slide currently showing, 0-based, and
-\verb{input$<id>_name} its \code{name} if one was given. Both are reported on load and
-whenever the slide changes.
+
+The same list as \code{el_events("el_carousel")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

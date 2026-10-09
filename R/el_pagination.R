@@ -50,11 +50,12 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed pagination component.
 #'
 #' @section Shiny inputs:
-#' - `input$<id>` -- the current page, 1-based, on load and on change.
-#' - `input$<id>_size` -- the page size, on load and on change.
+#' `r .el_events_md("el_pagination")`
 #'
 #' @examples
 #' # Basic usage
@@ -79,7 +80,7 @@
 #'   )
 #'   server <- function(input, output, session) {
 #'     output$page_info <- renderPrint({
-#'       list(page = input$pg1, size = input$pg1_size)
+#'       list(page = input$pg1, size = input$pg1_page_size)
 #'     })
 #'   }
 #'   shinyApp(ui, server)
@@ -111,6 +112,8 @@ el_pagination <- function(
   teleported = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_pagination", environment())
@@ -119,7 +122,7 @@ el_pagination <- function(
   }
   ns_id <- .el_ui_id(id, session)
   # The page is the value, restored by el_widget(); the size beside it
-  page_size <- shiny::restoreInput(paste0(ns_id, "_size"), page_size)
+  page_size <- shiny::restoreInput(paste0(ns_id, "_page_size"), page_size)
 
   pagination_attrs <- list(
     ":total" = "total",
@@ -151,12 +154,9 @@ el_pagination <- function(
 
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "prev-click",
-
-      "next-click",
-      "change"
-    )
+    "el_pagination",
+    events,
+    on = on
   )
 
   pagination_attrs <- c(pagination_attrs, events$attrs)
@@ -205,14 +205,14 @@ el_pagination <- function(
           ns_id
         )),
         handleSizeChange = JS(sprintf(
-          "function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_size', size); }",
+          "function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_page_size', size); }",
           ns_id
         ))
       )
     ),
     mounted = .el_mounted_init(stats::setNames(
       c("currentPage", "pageSize"),
-      paste0(ns_id, c("", "_size"))
+      paste0(ns_id, c("", "_page_size"))
     )),
     width = width,
     slots = slots

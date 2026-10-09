@@ -21,9 +21,10 @@
 #' @param slots Named list of Element slot contents. A scoped slot is written
 #'   with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_change` -- Element Plus's `change` event.
-#' - `input$<id>_scroll` -- Element Plus's `scroll` event.
+#' `r .el_events_md("el_affix")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `update()`, `updateRoot()`.
@@ -42,7 +43,9 @@ el_affix <- function(
   teleported = NULL,
   append_to = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_affix", environment())
   if (is.null(id)) {
@@ -51,7 +54,9 @@ el_affix <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("change", "scroll"),
+    "el_affix",
+    events,
+    on = on,
     # fires on every frame of a scroll
     throttle = "scroll"
   )

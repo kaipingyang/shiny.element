@@ -26,9 +26,9 @@
 #' @param slots Named list of Element slot contents. A scoped slot is written
 #'   with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the value, on load and on every change.
-#' - `input$<id>_change` -- Element Plus's `change` event.
+#' `r .el_events_md("el_segmented")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -58,7 +58,8 @@ el_segmented <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_segmented", environment())
   # A named vector c(Label = value), as the choice components take, or
@@ -70,7 +71,11 @@ el_segmented <- function(
     id <- .el_auto_id("el_segmented")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, character())
+  events <- .el_event_bindings(
+    ns_id,
+    "el_segmented",
+    on = on
+  )
   attrs <- c(
     list("v-model" = "value", "@change" = "handleChange"),
     events$attrs

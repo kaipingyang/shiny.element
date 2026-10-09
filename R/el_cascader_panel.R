@@ -29,11 +29,10 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_cascader_panel()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the selected path, on load and on change.
-#' - `input$<id>_expand_change` -- the path of the column just opened.
-#' - `input$<id>_lazy_load` -- with `props = list(lazy = TRUE)`, a column to
-#'   load; answer with [el_load_children()]. See [el_cascader()].
+#' `r .el_events_md("el_cascader_panel")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -83,6 +82,8 @@ el_cascader_panel <- function(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -96,7 +97,12 @@ el_cascader_panel <- function(
     ":props" = "elProps",
     "@change" = "handleChange"
   )
-  events <- .el_event_bindings(ns_id, c("expand-change", "close"))
+  events <- .el_event_bindings(
+    ns_id,
+    "el_cascader_panel",
+    events,
+    on = on
+  )
   attrs <- c(attrs, events$attrs)
 
   el_widget(

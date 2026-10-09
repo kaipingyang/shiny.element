@@ -234,7 +234,10 @@
 #'   once more, with a warning. In `update_el_upload()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
 #' @param headers Request headers, as a named list.
-#' @param extra_data Extra fields sent alongside the file, as a named list.
+#' @param data Extra fields sent alongside each file, as a named list:
+#'   Element Plus's `data`. Element's own request sends them, so they apply
+#'   only with `action`; Shiny's upload, the default, does not send them --
+#'   give the server what it needs through another input.
 #' @param file_list Files shown initially, each `list(name=, url=)`.
 #' @param with_credentials Whether to send cookies with the request.
 #' @param before_upload `JS()` function called before a file is sent; returning `false` cancels it.
@@ -254,7 +257,10 @@
 #'   absorbed rather than nested. For a scoped slot, write the template with
 #'   [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
+#' `r .el_events_md("el_upload")`
+#'
 #' Without `action`, `input$<id>` is a data frame of `name`, `size`, `type`
 #' and `datapath`, one row per file in the last batch, exactly as
 #' [shiny::fileInput()] reports it. Uploads inherit Shiny's
@@ -327,7 +333,7 @@ el_upload <- function(
   tip = NULL,
   action = NULL,
   headers = NULL,
-  extra_data = NULL,
+  data = NULL,
   file_list = NULL,
   with_credentials = NULL,
   before_upload = NULL,
@@ -349,6 +355,7 @@ el_upload <- function(
   directory = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_upload", environment())
@@ -469,7 +476,7 @@ el_upload <- function(
   )
 
   vue_data$headers <- .el_or_na(headers)
-  vue_data$extraData <- .el_or_na(extra_data)
+  vue_data$extraData <- .el_or_na(data)
 
   vue_data$fileList <- if (is.null(file_list)) list() else file_list
 
@@ -536,7 +543,8 @@ el_upload <- function(
     data = vue_data,
     methods = methods,
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 
@@ -572,7 +580,7 @@ update_el_upload <- function(
   list_type = NULL,
   auto_upload = NULL,
   headers = NULL,
-  extra_data = NULL,
+  data = NULL,
   file_list = NULL,
   with_credentials = NULL,
   before_upload = NULL,
@@ -609,7 +617,7 @@ update_el_upload <- function(
           list_type = list_type,
           auto_upload = auto_upload,
           headers = headers,
-          extra_data = extra_data,
+          data = data,
           file_list = file_list,
           with_credentials = with_credentials,
           before_upload = before_upload,
@@ -622,7 +630,9 @@ update_el_upload <- function(
           crossorigin = crossorigin,
           directory = directory
         )
-      )
+      ),
+      # a Vue field named `data` would read as the component's own
+      rename = c(data = "extraData")
     )
   )
   .el_send_update(session, msg)
@@ -637,8 +647,6 @@ update_el_upload <- function(
 #' @param session Shiny session; the current one by default, as for
 #'   [shiny::updateTextInput()].
 #' @param id Upload ID (un-namespaced).
-#'   This is Element's `data` prop, renamed to keep it distinct from the
-#'   uploaded file itself.
 #' @return Called for its side effect; returns `NULL` invisibly.
 #' @examples
 #' if (interactive()) {

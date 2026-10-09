@@ -1141,7 +1141,7 @@ tagList(
 #' | `input$cars_selection_rows` | the selected row numbers, integers; `NULL` with none |
 #' | `input$cars_selection_change` | the selected rows, `data[rows, , drop = FALSE]`: the columns, types and row names as R holds them |
 #' | `input$cars_current_change`, `_sort_change`, `_filter_change`, `_expand_change` | reported by every table |
-#' | `input$cars_<event>` | any other of Element's events, asked for with `el_on()` or `el_table(events =)` |
+#' | `input$cars_<event>` | any other of Element's events, asked for with `el_table(events =)`: see `el_events("el_table")` |
 #'
 #' Rendering again with the same rows keeps the user's ticks, sort and open
 #' rows; other rows clear the selection, as Element does, unless the rows
@@ -1160,8 +1160,11 @@ ui <- el_page(
 
 server <- function(input, output, session) {
   output$cars <- render_el_table(
-    el_table(data = head(cars, input$n), selection = TRUE) |>
-      el_on("row-dblclick")
+    el_table(
+      data = head(cars, input$n),
+      selection = TRUE,
+      events = "row_dblclick"
+    )
   )
   # the ticked rows, as R subsets them: Dates stay Dates
   output$picked <- renderPrint(input$cars_selection_change)

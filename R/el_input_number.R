@@ -51,6 +51,8 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Element methods:
 #' Callable with [call_el()]:
 #'
@@ -60,7 +62,7 @@
 #' @return An `htmltools` tagList with a Vue-managed input-number component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- numeric value, updated on each valid change.
+#' `r .el_events_md("el_input_number")`
 #'
 #' @examples
 #' el_input_number("n1", value = 5, min = 0, max = 100)
@@ -100,6 +102,8 @@ el_input_number <- function(
   value_on_clear = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_input_number", environment())
@@ -132,10 +136,9 @@ el_input_number <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "blur",
-      "focus"
-    )
+    "el_input_number",
+    events,
+    on = on
   )
   num_attrs <- c(num_attrs, events$attrs)
   vue_data <- list(

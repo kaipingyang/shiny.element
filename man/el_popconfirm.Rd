@@ -24,6 +24,7 @@ el_popconfirm(
   ...,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL,
   placement = NULL
 )
@@ -83,6 +84,11 @@ inherits, in snake_case: \code{enterable = FALSE}, \code{offset = 20}.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_popconfirm()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_popconfirm()}, the Shiny session, the
@@ -100,13 +106,14 @@ A small confirmation prompt anchored to the element that triggers it,
 for actions that warrant a check but not a dialog.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>_confirm} -- fires when the user confirms.
-\item \verb{input$<id>_cancel} -- fires when the user backs out.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_confirm} \tab unasked \tab fires when the user confirms \cr
+   \verb{input$<id>_cancel} \tab unasked \tab fires when the user backs out \cr
 }
 
-Both are event inputs, so read them with \code{observeEvent()}.
+
+The same list as \code{el_events("el_popconfirm")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

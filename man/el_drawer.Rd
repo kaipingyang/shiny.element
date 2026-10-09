@@ -34,6 +34,7 @@ el_drawer(
   close_delay = NULL,
   z_index = NULL,
   header_aria_level = "2",
+  events = NULL,
   session = NULL
 )
 
@@ -113,6 +114,11 @@ hands out.}
 
 \item{header_aria_level}{The title's \code{aria-level}. Default \code{"2"}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
 \item{session}{In \code{el_drawer()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_drawer()}, the Shiny session, the
@@ -130,18 +136,22 @@ Shiny input binding rather than a Vue instance, so the body can hold other
 components from this package.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- \code{TRUE} while the drawer is open, reported whenever it
-opens or closes, however that happens; see \code{\link[=el_dialog]{el_dialog()}}.
-\item \verb{input$<id>_open}, \verb{input$<id>_opened} -- fire as it opens, and once
-it has.
-\item \verb{input$<id>_close}, \verb{input$<id>_closed} -- likewise as it closes.
-\item \verb{input$<id>_open_auto_focus}, \verb{input$<id>_close_auto_focus} -- as focus
-moves into it on opening, and back on closing.
-\item \verb{input$<id>_resize_start}, \verb{input$<id>_resize}, \verb{input$<id>_resize_end}
--- with \code{resizable}, the size in pixels as it is dragged.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab \code{TRUE} while it is open \cr
+   \verb{input$<id>_open} \tab \code{events = "open"} \tab Triggered before Drawer opening animation begins \cr
+   \verb{input$<id>_opened} \tab \code{events = "opened"} \tab Triggered after Drawer opening animation ended \cr
+   \verb{input$<id>_close} \tab \code{events = "close"} \tab Triggered before Drawer closing animation begins \cr
+   \verb{input$<id>_closed} \tab unasked \tab Triggered after Drawer closing animation ended \cr
+   \verb{input$<id>_open_auto_focus} \tab \code{events = "open_auto_focus"} \tab triggers after Drawer opens and content focused \cr
+   \verb{input$<id>_close_auto_focus} \tab \code{events = "close_auto_focus"} \tab triggers after Drawer closed and content focused \cr
+   \verb{input$<id>_resize_start} \tab \code{events = "resize_start"} \tab the size, in pixels \cr
+   \verb{input$<id>_resize} \tab \code{events = "resize"} \tab the size, in pixels \cr
+   \verb{input$<id>_resize_end} \tab \code{events = "resize_end"} \tab the size, in pixels \cr
 }
+
+
+The same list as \code{el_events("el_drawer")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

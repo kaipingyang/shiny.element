@@ -25,11 +25,9 @@
 #'   once more, with a warning. In `update_el_statistic()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
 #' @section Shiny inputs:
-#' For `el_countdown()`:
-#' - `input$<id>_finish` -- fires when the countdown reaches zero.
-#' - `input$<id>_change` -- the milliseconds left. Element raises this on every
-#'   frame; it is sent at most once a second, which is as often as a server
-#'   can usefully hear it.
+#' `el_statistic()` reports nothing. `el_countdown()`:
+#'
+#' `r .el_events_md("el_countdown")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -90,6 +88,8 @@ el_statistic <- function(
 
 
 #' @rdname el_statistic
+#' @template events
+#' @template on
 #' @export
 el_countdown <- function(
   id = NULL,
@@ -101,6 +101,8 @@ el_countdown <- function(
   value_style = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -109,7 +111,9 @@ el_countdown <- function(
   ns_id <- .el_ui_id(id, session)
   events <- .el_event_bindings(
     ns_id,
-    c("finish", "change"),
+    "el_countdown",
+    events,
+    on = on,
     shapes = list(
       finish = "function() { return true; }",
       change = paste0(

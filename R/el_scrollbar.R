@@ -37,9 +37,10 @@
 #' @param slots Named list of Element slot contents. A scoped slot is written
 #'   with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_scroll` -- Element Plus's `scroll` event.
-#' - `input$<id>_end_reached` -- Element Plus's `end-reached` event.
+#' `r .el_events_md("el_scrollbar")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `handleScroll()`, `scrollTo()`, `setScrollTop()`, `setScrollLeft()`, `update()`.
@@ -68,7 +69,9 @@ el_scrollbar <- function(
   tabindex = NULL,
   distance = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_scrollbar", environment())
   if (is.null(id)) {
@@ -77,7 +80,9 @@ el_scrollbar <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("scroll", "end-reached"),
+    "el_scrollbar",
+    events,
+    on = on,
     # fires on every frame of a scroll
     throttle = "scroll"
   )

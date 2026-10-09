@@ -60,7 +60,8 @@ el_table(
   tooltip_formatter = NULL,
   tooltip_options = NULL,
   session = NULL,
-  events = NULL
+  events = NULL,
+  on = NULL
 )
 
 update_el_table(
@@ -293,10 +294,15 @@ following tooltip component. Element Plus's \code{tooltip-options} (object).}
 once more, with a warning. In \code{update_el_table()}, the Shiny session, the
 current one by default, as for \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 
-\item{events}{Element's table events to report besides the default ones,
-by Element's name: \code{c("row-dblclick", "cell-click")}. A named entry
-reports under that input instead: \code{c(picked = "cell-click")}. The same
-as piping to \code{\link[=el_on]{el_on()}}.}
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
 
 \item{insert}{Rows to insert -- a data.frame, or a list of rows -- before
 row \code{at}, or at the end.}
@@ -324,38 +330,46 @@ Without Shiny -- R Markdown, Quarto, a pkgdown page -- \code{el_table()} is
 placed as it is, with no id.
 
 \code{el_table()} returns the table's specification, drawn when it is placed
-(as an htmlwidget is), so it can be piped to \code{\link[=el_on]{el_on()}} first.
+(as an htmlwidget is).
 }
 \section{Shiny inputs}{
-
-Rendered into \code{el_table_output("tbl")}, the table reports:\tabular{lll}{
-   Input \tab When \tab Value \cr
-   \code{input$tbl_selection_rows} \tab on load, when the selection changes and when an edit renumbers it \tab the selected row numbers, integers, 1-based in the data; \code{NULL} with none \cr
-   \code{input$tbl_selection_change} \tab rows ticked or unticked \tab the selected rows, \code{data[rows, , drop = FALSE]}: columns, types and row names as R holds them; \code{NULL} with none \cr
-   \code{input$tbl_current_change} \tab the highlighted row changes (\code{highlight_current_row = TRUE}) \tab \code{list(row_index, row, previous_index)} \cr
-   \code{input$tbl_sort_change} \tab a column is sorted \tab \code{list(column, order)}, \code{order} \code{"ascending"}, \code{"descending"} or \code{NULL} \cr
-   \code{input$tbl_filter_change} \tab a column filter changes \tab the filters, \verb{list(<column key> = values)} \cr
-   \code{input$tbl_expand_change} \tab a row opens or closes \tab \code{list(row_index, expanded)}, \code{expanded} the open rows' numbers (or \code{TRUE}/\code{FALSE} for tree rows) \cr
-   \code{input$tbl_cell_edit} \tab a cell of an editable column is changed (\code{el_table_column(editable =)}) \tab \code{list(row, column, value, old)}: the row number, the column's name in the data, the new value and the one it replaced, both of the column's type \cr
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_selection_rows} \tab unasked \tab the selected row numbers \cr
+   \verb{input$<id>_selection_change} \tab unasked \tab the selected rows, \code{data[rows, , drop = FALSE]} \cr
+   \verb{input$<id>_cell_edit} \tab unasked \tab an edited cell: \code{list(row, column, value, old)} \cr
+   \verb{input$<id>_load} \tab unasked \tab with \code{lazy = TRUE}, a row asking for its children; answer with \code{el_load_children()} \cr
+   \verb{input$<id>_select} \tab \code{events = "select"} \tab \code{list(rows, row_index)}: the selected row numbers, and the row ticked or unticked \cr
+   \verb{input$<id>_select_all} \tab \code{events = "select_all"} \tab \code{list(rows)}, the selected row numbers \cr
+   \verb{input$<id>_cell_mouse_enter} \tab \code{events = "cell_mouse_enter"} \tab \code{list(row_index, row, column, value)} \cr
+   \verb{input$<id>_cell_mouse_leave} \tab \code{events = "cell_mouse_leave"} \tab \code{list(row_index, row, column, value)} \cr
+   \verb{input$<id>_cell_click} \tab \code{events = "cell_click"} \tab \code{list(row_index, row, column, value)} \cr
+   \verb{input$<id>_cell_dblclick} \tab \code{events = "cell_dblclick"} \tab \code{list(row_index, row, column, value)} \cr
+   \verb{input$<id>_cell_contextmenu} \tab \code{events = "cell_contextmenu"} \tab \code{list(row_index, row, column, value)} \cr
+   \verb{input$<id>_row_click} \tab \code{events = "row_click"} \tab \code{list(row_index, row, column)} \cr
+   \verb{input$<id>_row_contextmenu} \tab \code{events = "row_contextmenu"} \tab \code{list(row_index, row, column)} \cr
+   \verb{input$<id>_row_dblclick} \tab \code{events = "row_dblclick"} \tab \code{list(row_index, row, column)} \cr
+   \verb{input$<id>_header_click} \tab \code{events = "header_click"} \tab \code{list(column, label)} \cr
+   \verb{input$<id>_header_contextmenu} \tab \code{events = "header_contextmenu"} \tab \code{list(column, label)} \cr
+   \verb{input$<id>_sort_change} \tab unasked \tab \code{list(column, order)} \cr
+   \verb{input$<id>_filter_change} \tab unasked \tab the filters, \verb{list(<column key> = values)} \cr
+   \verb{input$<id>_current_change} \tab unasked \tab \code{list(row_index, row, previous_index)} \cr
+   \verb{input$<id>_header_dragend} \tab \code{events = "header_dragend"} \tab \code{list(column, width, previous_width)} \cr
+   \verb{input$<id>_expand_change} \tab unasked \tab \code{list(row_index, expanded)} \cr
+   \verb{input$<id>_scroll} \tab \code{events = "scroll"} \tab \code{list(scroll_left, scroll_top)}, at most every 200 ms \cr
 }
 
 
-Any other of Element's events -- \code{select}, \code{select-all}, \code{row-click},
-\code{row-dblclick}, \code{row-contextmenu}, \code{cell-click}, \code{cell-dblclick},
-\code{cell-contextmenu}, \code{cell-mouse-enter}, \code{cell-mouse-leave},
-\code{header-click}, \code{header-contextmenu}, \code{header-dragend}, \code{scroll} -- is
-reported when asked for, with \code{events} or \code{\link[=el_on]{el_on()}}, as
-\verb{input$tbl_<event>} in snake_case: a row event as \code{list(row_index, row, column)}, a cell event with its \code{value} too, a header event as
-\code{list(column, label)}, \code{scroll} as \code{list(scroll_left, scroll_top)} (at
-most every 200 ms).
+The same list as \code{el_events("el_table")}, which says how an event's arguments travel.
+
+Rendered into \code{el_table_output("tbl")}, the inputs are \code{input$tbl_...}.
+\code{input$tbl} itself is not used: Element's table has no value of its own
+(no \code{v-model}), and the name stays free.
 
 An edit is shown at once and applied to the server's copy of the data,
 so \code{\link[=el_table_data]{el_table_data()}} and \code{input$tbl_selection_change} see it; an
 observer of \code{input$tbl_cell_edit} saves it, or refuses it by putting the
 old value back: \code{update_el_table(session, "tbl", replace = row, at = input$tbl_cell_edit$row)}.
-
-\code{input$tbl} itself is not used: Element's table has no value of its own
-(no \code{v-model}), and the name stays free.
 
 Row numbers count rows of the data the table shows, whatever the user's
 sort -- the data \code{\link[=el_table_data]{el_table_data()}} returns. Rendering the same data again
@@ -458,8 +472,11 @@ if (interactive()) {
   )
   server <- function(input, output, session) {
     output$flowers <- render_el_table(
-      el_table(data = head(iris, input$n), selection = TRUE) |>
-        el_on("row-dblclick")
+      el_table(
+        data = head(iris, input$n),
+        selection = TRUE,
+        events = "row_dblclick"
+      )
     )
     # the ticked rows, as R subsets them
     output$picked <- renderPrint(input$flowers_selection_change)

@@ -11,7 +11,9 @@ el_splitter(
   layout = NULL,
   lazy = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_splitter(
@@ -37,6 +39,16 @@ into this one's Vue instance, as \code{\link[=el_button_group]{el_button_group()
 \item{slots}{Named list of Element slot contents. A scoped slot is written
 with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
 }
@@ -48,13 +60,16 @@ Panels side by side, or one above the other, resized by dragging the bars
 between them. Give it \code{\link[=el_splitter_panel]{el_splitter_panel()}}s.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>_resize_start} -- Element Plus's \code{resize-start} event.
-\item \verb{input$<id>_resize} -- Element Plus's \code{resize} event.
-\item \verb{input$<id>_resize_end} -- Element Plus's \code{resize-end} event.
-\item \verb{input$<id>_collapse} -- Element Plus's \code{collapse} event.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_resize_start} \tab \code{events = "resize_start"} \tab Triggered when starting to resize a panel, index is the drag bar index \cr
+   \verb{input$<id>_resize} \tab \code{events = "resize"} \tab the sizes, at most every 200 ms \cr
+   \verb{input$<id>_resize_end} \tab unasked \tab Triggered when panel resizing ends, index is the drag bar index \cr
+   \verb{input$<id>_collapse} \tab unasked \tab Triggered when a panel is collapsed, index is the drag bar index \cr
 }
+
+
+The same list as \code{el_events("el_splitter")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

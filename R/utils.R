@@ -19,8 +19,14 @@
 #' `shinyVue.emit()` (see `inst/js/shiny-vue.js`), which drops what cannot
 #' travel and sets `input$<id>_<event>`.
 #'
+#' Which events: the component's entry in [el_events()] -- those on by
+#' default, and those the user asked for with `events` -- and the user's own
+#' handlers, `on`.
+#'
 #' @param ns_id The namespaced element id.
-#' @param events Character vector of Element event names, in kebab-case.
+#' @param fn The component's function name, its entry in the registry.
+#' @param asked The user's `events`.
+#' @param on The user's `on`: see `.el_on_bindings()`.
 #' @param shapes Named list of JavaScript functions, one per event that
 #'   carries more than one argument, turning the arguments into a single
 #'   object. `this` is the Vue instance. Returning `undefined` skips that
@@ -29,20 +35,27 @@
 #' @param throttle Events that fire on every frame -- a scroll, a drag --
 #'   sent at most every 200 ms, the last one always: the server hears where
 #'   the scroll or the drag ended.
-#' @param inputs `c(<event> = "<input id>")`: events reported under an input
-#'   of the user's naming rather than `<ns_id>_<event>`.
+#' @param bound Events the component listens to whether or not they are
+#'   reported, through the method of the same name, which it wraps: a tree's
+#'   `check-change` keeps `input$<id>_checked`.
 #' @return A list with `attrs` (to merge into the tag) and `methods` (to merge
 #'   into the Vue options).
 #' @keywords internal
 .el_event_bindings <- function(
   ns_id,
-  events,
+  fn,
+  asked = NULL,
+  on = NULL,
   shapes = list(),
   throttle = character(),
-  inputs = character()
+  bound = character()
 ) {
-  if (!length(events)) {
-    return(list(attrs = list(), methods = list()))
+  events <- .el_events_forwarded(fn, asked)
+  silent <- setdiff(bound, events)
+  own <- .el_on_bindings(ns_id, on)
+  every <- c(events, silent)
+  if (!length(every)) {
+    return(own)
   }
   method_name <- function(event) {
     parts <- strsplit(event, "-", fixed = TRUE)[[1]]
@@ -55,32 +68,23 @@
       )
     )
   }
-  # emit() names the input <id>_<event>, or <id> alone given no event
-  target <- function(event) {
-    if (event %in% names(inputs)) {
-      return(c(inputs[[event]], ""))
-    }
-    c(ns_id, gsub("-", "_", event, fixed = TRUE))
-  }
-
   attrs <- stats::setNames(
-    lapply(events, method_name),
-    paste0("@", events)
+    lapply(every, method_name),
+    paste0("@", every)
   )
-  unknown <- setdiff(throttle, events)
-  if (length(unknown)) {
-    stop("`throttle` names events not forwarded: ", toString(unknown))
-  }
   methods <- stats::setNames(
-    lapply(events, function(event) {
+    lapply(every, function(event) {
+      if (event %in% silent) {
+        return(JS("function() {}"))
+      }
       shape <- shapes[[event]]
       wait <- if (event %in% throttle) ", 200" else ""
-      to <- target(event)
+      to <- gsub("-", "_", event, fixed = TRUE)
       if (is.null(shape)) {
         return(JS(sprintf(
           "function() { window.shinyVue.emit('%s', '%s', arguments%s); }",
-          to[1],
-          to[2],
+          ns_id,
+          to,
           wait
         )))
       }
@@ -94,14 +98,16 @@
           "window.shinyVue.emit('%s', '%s', [v]%s); }"
         ),
         shape,
-        to[1],
-        to[2],
+        ns_id,
+        to,
         wait
       ))
     }),
-    vapply(events, method_name, character(1))
+    vapply(every, method_name, character(1))
   )
-  list(attrs = attrs, methods = methods)
+  # the user's handler of an event forwarded too: both run
+  tag <- .el_on_attach(list(attribs = attrs), own)
+  list(attrs = tag$attribs, methods = c(methods, own$methods))
 }
 
 #' Placeholder for an unset optional prop

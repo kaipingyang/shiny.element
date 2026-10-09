@@ -324,6 +324,24 @@ for (f in sort(ui_fns)) {
   }
   # Events reported unasked; the rest, with an `events` argument, on request
   reported <- emitted(html)
+  every <- vapply(
+    .el_event_registry[[f]]$events,
+    `[[`,
+    "",
+    "event"
+  )
+  if (length(every) && "events" %in% names(formals(f))) {
+    asked <- tryCatch(
+      do.call(f, c(args, list(events = every))),
+      error = function(e) NULL
+    )
+    if (!is.null(asked)) {
+      html <- paste(
+        html,
+        paste(as.character(htmltools::renderTags(asked)$html), collapse = "")
+      )
+    }
+  }
 
   for (v in variants[[f]]) {
     extra <- tryCatch(do.call(f, v), error = function(e) NULL)

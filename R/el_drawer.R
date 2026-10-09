@@ -46,16 +46,9 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_drawer()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template events
 #' @section Shiny inputs:
-#' - `input$<id>` -- `TRUE` while the drawer is open, reported whenever it
-#'   opens or closes, however that happens; see [el_dialog()].
-#' - `input$<id>_open`, `input$<id>_opened` -- fire as it opens, and once
-#'   it has.
-#' - `input$<id>_close`, `input$<id>_closed` -- likewise as it closes.
-#' - `input$<id>_open_auto_focus`, `input$<id>_close_auto_focus` -- as focus
-#'   moves into it on opening, and back on closing.
-#' - `input$<id>_resize_start`, `input$<id>_resize`, `input$<id>_resize_end`
-#'   -- with `resizable`, the size in pixels as it is dragged.
+#' `r .el_events_md("el_drawer")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `handleClose()` closes it the way the user
@@ -104,6 +97,7 @@ el_drawer <- function(
   close_delay = NULL,
   z_index = NULL,
   header_aria_level = "2",
+  events = NULL,
   session = NULL
 ) {
   .el_check_choices("el_drawer", environment())
@@ -150,6 +144,8 @@ el_drawer <- function(
         if (!is.null(z_index)) sprintf("z-index:%s;", z_index)
       ),
       `data-el-overlay` = "drawer",
+      # the events it reports: its defaults and those asked for
+      `data-el-events` = .el_events_attr("el_drawer", events),
       `data-visible` = tolower(as.character(visible)),
       `data-modal` = tolower(as.character(modal)),
       `data-mask-close` = tolower(as.character(modal && close_on_click_modal)),

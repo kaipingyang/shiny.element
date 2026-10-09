@@ -13,7 +13,7 @@ act(
   "document.querySelector('[id=\"o-in-tag\"] .el-tag__close, #o-in-tag .el-tag__close, .el-tag .el-tag__close').click()",
   1.5
 )
-check("inner tag closed reports", paste0(iv("o-in-tag_closed"), " === 1"))
+check("inner tag closed reports", paste0(iv("o-in-tag_close"), " === 1"))
 
 cat("== a form in a closed collapse, inside a watermark\n")
 check(

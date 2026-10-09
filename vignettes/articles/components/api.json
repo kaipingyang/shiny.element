@@ -72,7 +72,7 @@
 "type": "^[Function]`(value: { scrollTop: number, fixed: boolean }) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_scroll`"
+"r": "`input$<id>_scroll`, with `events = \"scroll\"`"
 }
 ]
 },
@@ -318,7 +318,7 @@
 "type": "^[Function]`(e: MouseEvent, href?: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_click`"
+"r": "`input$<id>_click`, with `events = \"click\"`"
 }
 ]
 },
@@ -588,7 +588,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -596,7 +596,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "input",
@@ -604,7 +604,7 @@
 "type": "^[Function]`(value: string \\| number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_input`"
+"r": "`input$<id>_input`, with `events = \"input\"`"
 },
 {
 "name": "clear",
@@ -612,7 +612,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "select",
@@ -628,7 +628,7 @@
 "type": "^[Function]`(value: string \\| number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_change`"
+"r": "`input$<id>_change`, with `events = \"change\"`"
 }
 ]
 },
@@ -2134,7 +2134,7 @@
 "type": "^[Function]`(value: CascaderValue) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_expand_change`"
+"r": "`input$<id>_expand_change`, with `events = \"expand_change\"`"
 },
 {
 "name": "blur",
@@ -2142,7 +2142,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -2150,7 +2150,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "clear",
@@ -2158,7 +2158,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "visible-change",
@@ -2166,7 +2166,7 @@
 "type": "^[Function]`(value: boolean) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_visible_change`"
+"r": "`input$<id>_visible_change`, with `events = \"visible_change\"`"
 },
 {
 "name": "remove-tag",
@@ -2174,7 +2174,7 @@
 "type": "^[Function]`(value: CascaderNode['valueByOption']) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_remove_tag`"
+"r": "`input$<id>_remove_tag`, with `events = \"remove_tag\"`"
 }
 ]
 },
@@ -2350,7 +2350,7 @@
 "type": "^[Function]`(value: CascaderNodePathValue) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_expand_change`"
+"r": "`input$<id>_expand_change`, with `events = \"expand_change\"`"
 },
 {
 "name": "close",
@@ -2358,7 +2358,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close`"
+"r": "`input$<id>_close`, with `events = \"close\"`"
 }
 ]
 },
@@ -3244,7 +3244,7 @@
 "type": "^[Function]`(value: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_active_change`"
+"r": "`input$<id>_active_change`, with `events = \"active_change\"`"
 },
 {
 "name": "focus",
@@ -3252,7 +3252,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "blur",
@@ -3260,7 +3260,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "clear",
@@ -3268,7 +3268,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 }
 ]
 },
@@ -3726,7 +3726,7 @@
 "type": "^[Function]`(val: [Date, null \\| Date]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_calendar_change`"
+"r": "`input$<id>_calendar_change`, with `events = \"calendar_change\"`"
 },
 {
 "name": "panel-change",
@@ -3734,7 +3734,7 @@
 "type": "^[Function]`(date: Date \\| [Date, Date], mode: 'month' \\| 'year', view?: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_panel_change`"
+"r": "`input$<id>_panel_change`, with `events = \"panel_change\"`"
 },
 {
 "name": "clear",
@@ -3742,7 +3742,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 }
 ]
 },
@@ -4106,7 +4106,7 @@
 "type": "^[Function]`(e: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -4114,7 +4114,7 @@
 "type": "^[Function]`(e: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "clear",
@@ -4122,7 +4122,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "calendar-change",
@@ -4130,7 +4130,7 @@
 "type": "^[Function]`(val: [Date, null \\| Date]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_calendar_change`"
+"r": "`input$<id>_calendar_change`, with `events = \"calendar_change\"`"
 },
 {
 "name": "panel-change",
@@ -4138,7 +4138,7 @@
 "type": "^[Function]`(date: Date \\| [Date, Date], mode: 'month' \\| 'year', view?: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_panel_change`"
+"r": "`input$<id>_panel_change`, with `events = \"panel_change\"`"
 },
 {
 "name": "visible-change",
@@ -4146,7 +4146,7 @@
 "type": "^[Function]`(visibility: boolean) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_visible_change`"
+"r": "`input$<id>_visible_change`, with `events = \"visible_change\"`"
 }
 ]
 },
@@ -4596,7 +4596,7 @@
 "type": "^[Function]`(e: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -4604,7 +4604,7 @@
 "type": "^[Function]`(e: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "clear",
@@ -4612,7 +4612,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "calendar-change",
@@ -4620,7 +4620,7 @@
 "type": "^[Function]`(val: [Date, null \\| Date]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_calendar_change`"
+"r": "`input$<id>_calendar_change`, with `events = \"calendar_change\"`"
 },
 {
 "name": "panel-change",
@@ -4628,7 +4628,7 @@
 "type": "^[Function]`(date: Date \\| [Date, Date], mode: 'month' \\| 'year', view?: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_panel_change`"
+"r": "`input$<id>_panel_change`, with `events = \"panel_change\"`"
 },
 {
 "name": "visible-change",
@@ -4636,7 +4636,7 @@
 "type": "^[Function]`(visibility: boolean) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_visible_change`"
+"r": "`input$<id>_visible_change`, with `events = \"visible_change\"`"
 }
 ]
 },
@@ -5214,7 +5214,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_open`"
+"r": "`input$<id>_open`, with `events = \"open\"`"
 },
 {
 "name": "opened",
@@ -5222,7 +5222,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_opened`"
+"r": "`input$<id>_opened`, with `events = \"opened\"`"
 },
 {
 "name": "close",
@@ -5230,7 +5230,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close`"
+"r": "`input$<id>_close`, with `events = \"close\"`"
 },
 {
 "name": "closed",
@@ -5246,7 +5246,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_open_auto_focus`"
+"r": "`input$<id>_open_auto_focus`, with `events = \"open_auto_focus\"`"
 },
 {
 "name": "close-auto-focus",
@@ -5254,7 +5254,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close_auto_focus`"
+"r": "`input$<id>_close_auto_focus`, with `events = \"close_auto_focus\"`"
 }
 ]
 },
@@ -5544,7 +5544,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_open`"
+"r": "`input$<id>_open`, with `events = \"open\"`"
 },
 {
 "name": "opened",
@@ -5552,7 +5552,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_opened`"
+"r": "`input$<id>_opened`, with `events = \"opened\"`"
 },
 {
 "name": "close",
@@ -5560,7 +5560,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close`"
+"r": "`input$<id>_close`, with `events = \"close\"`"
 },
 {
 "name": "closed",
@@ -5576,7 +5576,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_open_auto_focus`"
+"r": "`input$<id>_open_auto_focus`, with `events = \"open_auto_focus\"`"
 },
 {
 "name": "close-auto-focus",
@@ -5584,7 +5584,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close_auto_focus`"
+"r": "`input$<id>_close_auto_focus`, with `events = \"close_auto_focus\"`"
 },
 {
 "name": "resize-start",
@@ -5592,7 +5592,7 @@
 "type": "^[Function]`(evt: MouseEvent, size: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_resize_start`"
+"r": "`input$<id>_resize_start`, with `events = \"resize_start\"`"
 },
 {
 "name": "resize",
@@ -5600,7 +5600,7 @@
 "type": "^[Function]`(evt: MouseEvent, size: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_resize`"
+"r": "`input$<id>_resize`, with `events = \"resize\"`"
 },
 {
 "name": "resize-end",
@@ -5608,7 +5608,7 @@
 "type": "^[Function]`(evt: MouseEvent, size: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_resize_end`"
+"r": "`input$<id>_resize_end`, with `events = \"resize_end\"`"
 }
 ]
 },
@@ -5898,7 +5898,7 @@
 "type": "^[Function]`(val: boolean) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_visible_change`"
+"r": "`input$<id>_visible_change`, with `events = \"visible_change\"`"
 }
 ]
 },
@@ -6206,7 +6206,7 @@
 "type": "^[Function]`(prop: FormItemProp, isValid: boolean, message: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_validate`"
+"r": "`input$<id>_validate`, with `events = \"validate\"`"
 }
 ]
 },
@@ -6672,7 +6672,7 @@
 "type": "^[Function]`(e: Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_load`"
+"r": "`input$<id>_load`, with `events = \"load\"`"
 },
 {
 "name": "error",
@@ -6688,7 +6688,7 @@
 "type": "^[Function]`(index: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_switch`"
+"r": "`input$<id>_switch`, with `events = \"switch\"`"
 },
 {
 "name": "close",
@@ -6696,7 +6696,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close`"
+"r": "`input$<id>_close`, with `events = \"close\"`"
 },
 {
 "name": "show",
@@ -6704,7 +6704,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_show`"
+"r": "`input$<id>_show`, with `events = \"show\"`"
 }
 ]
 },
@@ -6864,7 +6864,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close`"
+"r": "`input$<id>_close`, with `events = \"close\"`"
 },
 {
 "name": "error",
@@ -6880,7 +6880,7 @@
 "type": "^[Function]`(index: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_switch`"
+"r": "`input$<id>_switch`, with `events = \"switch\"`"
 },
 {
 "name": "rotate",
@@ -6888,7 +6888,7 @@
 "type": "^[Function]`(deg: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_rotate`"
+"r": "`input$<id>_rotate`, with `events = \"rotate\"`"
 }
 ]
 },
@@ -7192,7 +7192,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -7200,7 +7200,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 }
 ]
 },
@@ -7348,7 +7348,7 @@
 "type": "^[Function]`(value: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_change`"
+"r": "`input$<id>_change`, with `events = \"change\"`"
 },
 {
 "name": "finish",
@@ -7364,7 +7364,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "blur",
@@ -7372,7 +7372,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 }
 ]
 },
@@ -7646,7 +7646,7 @@
 "type": "^[Function]`(value: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_input`"
+"r": "`input$<id>_input`, with `events = \"input\"`"
 },
 {
 "name": "add-tag",
@@ -7654,7 +7654,7 @@
 "type": "^[Function]`(value: string \\| string []) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_add_tag`"
+"r": "`input$<id>_add_tag`, with `events = \"add_tag\"`"
 },
 {
 "name": "remove-tag",
@@ -7662,7 +7662,7 @@
 "type": "^[Function]`(value: string, index: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_remove_tag`"
+"r": "`input$<id>_remove_tag`, with `events = \"remove_tag\"`"
 },
 {
 "name": "drag-tag",
@@ -7670,7 +7670,7 @@
 "type": "^[Function]`(oldIndex: number, newIndex: number, value: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_drag_tag`"
+"r": "`input$<id>_drag_tag`, with `events = \"drag_tag\"`"
 },
 {
 "name": "focus",
@@ -7678,7 +7678,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "blur",
@@ -7686,7 +7686,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "clear",
@@ -7694,7 +7694,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 }
 ]
 },
@@ -8040,7 +8040,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -8048,7 +8048,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "change",
@@ -8056,7 +8056,7 @@
 "type": "^[Function]`(value: string \\| number, evt?: Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_change`"
+"r": "`input$<id>_change`, with `events = \"change\"`"
 },
 {
 "name": "input",
@@ -8064,7 +8064,7 @@
 "type": "^[Function]`(value: string \\| number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_input`"
+"r": "`input$<id>_input`, with `events = \"input\"`"
 },
 {
 "name": "clear",
@@ -8072,7 +8072,7 @@
 "type": "^[Function]`(evt?: MouseEvent) => void (After version 2.13.4, the evt parameter can be received)`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "keydown",
@@ -8080,7 +8080,7 @@
 "type": "^[Function]`(event: KeyboardEvent \\| Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_keydown`"
+"r": "`input$<id>_keydown`, with `events = \"keydown\"`"
 },
 {
 "name": "mouseleave",
@@ -8088,7 +8088,7 @@
 "type": "^[Function]`(event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_mouseleave`"
+"r": "`input$<id>_mouseleave`, with `events = \"mouseleave\"`"
 },
 {
 "name": "mouseenter",
@@ -8096,7 +8096,7 @@
 "type": "^[Function]`(event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_mouseenter`"
+"r": "`input$<id>_mouseenter`, with `events = \"mouseenter\"`"
 },
 {
 "name": "compositionstart",
@@ -8104,7 +8104,7 @@
 "type": "^[Function]`(event: CompositionEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_compositionstart`"
+"r": "`input$<id>_compositionstart`, with `events = \"compositionstart\"`"
 },
 {
 "name": "compositionupdate",
@@ -8112,7 +8112,7 @@
 "type": "^[Function]`(event: CompositionEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_compositionupdate`"
+"r": "`input$<id>_compositionupdate`, with `events = \"compositionupdate\"`"
 },
 {
 "name": "compositionend",
@@ -8120,7 +8120,7 @@
 "type": "^[Function]`(event: CompositionEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_compositionend`"
+"r": "`input$<id>_compositionend`, with `events = \"compositionend\"`"
 }
 ]
 },
@@ -8706,7 +8706,7 @@
 "type": "^[Function]`(pattern: string, prefix: string) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_whole_remove`"
+"r": "`input$<id>_whole_remove`, with `events = \"whole_remove\"`"
 }
 ]
 },
@@ -8800,7 +8800,7 @@
 "type": "^[string]",
 "accepted": "",
 "default": "''",
-"r": "`active`"
+"r": "`default_active`"
 },
 {
 "name": "default-openeds",
@@ -8942,7 +8942,7 @@
 "type": "^[Function]`MenuOpenEvent`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_open`"
+"r": "`input$<id>_open`, with `events = \"open\"`"
 },
 {
 "name": "close",
@@ -8950,7 +8950,7 @@
 "type": "^[Function]`MenuCloseEvent`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_close`"
+"r": "`input$<id>_close`, with `events = \"close\"`"
 }
 ]
 },
@@ -10150,7 +10150,7 @@
 "type": "^[Function]`(currentPage: number, pageSize: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_change`"
+"r": "`input$<id>_change`, with `events = \"change\"`"
 },
 {
 "name": "prev-click",
@@ -10158,7 +10158,7 @@
 "type": "^[Function]`(value: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_prev_click`"
+"r": "`input$<id>_prev_click`, with `events = \"prev_click\"`"
 },
 {
 "name": "next-click",
@@ -10166,7 +10166,7 @@
 "type": "^[Function]`(value: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_next_click`"
+"r": "`input$<id>_next_click`, with `events = \"next_click\"`"
 }
 ]
 },
@@ -10602,7 +10602,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_show`"
+"r": "`input$<id>_show`, with `events = \"show\"`"
 },
 {
 "name": "before-enter",
@@ -10610,7 +10610,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_before_enter`"
+"r": "`input$<id>_before_enter`, with `events = \"before_enter\"`"
 },
 {
 "name": "after-enter",
@@ -10618,7 +10618,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_after_enter`"
+"r": "`input$<id>_after_enter`, with `events = \"after_enter\"`"
 },
 {
 "name": "hide",
@@ -10626,7 +10626,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_hide`"
+"r": "`input$<id>_hide`, with `events = \"hide\"`"
 },
 {
 "name": "before-leave",
@@ -10634,7 +10634,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_before_leave`"
+"r": "`input$<id>_before_leave`, with `events = \"before_leave\"`"
 },
 {
 "name": "after-leave",
@@ -10642,7 +10642,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_after_leave`"
+"r": "`input$<id>_after_leave`, with `events = \"after_leave\"`"
 }
 ]
 },
@@ -11496,7 +11496,7 @@
 "type": "^[Function]`({ scrollLeft: number, scrollTop: number }) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_scroll`"
+"r": "`input$<id>_scroll`, with `events = \"scroll\"`"
 },
 {
 "name": "end-reached",
@@ -12158,7 +12158,7 @@
 "type": "^[Function]`(visible: boolean) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_visible_change`"
+"r": "`input$<id>_visible_change`, with `events = \"visible_change\"`"
 },
 {
 "name": "remove-tag",
@@ -12166,7 +12166,7 @@
 "type": "^[Function]`(tagValue: any) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_remove_tag`"
+"r": "`input$<id>_remove_tag`, with `events = \"remove_tag\"`"
 },
 {
 "name": "clear",
@@ -12174,7 +12174,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "blur",
@@ -12182,7 +12182,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -12190,7 +12190,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "end-reached",
@@ -12736,7 +12736,7 @@
 "type": "^[Function]`(visible: boolean) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_visible_change`"
+"r": "`input$<id>_visible_change`, with `events = \"visible_change\"`"
 },
 {
 "name": "remove-tag",
@@ -12744,7 +12744,7 @@
 "type": "^[Function]`(tagValue: any) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_remove_tag`"
+"r": "`input$<id>_remove_tag`, with `events = \"remove_tag\"`"
 },
 {
 "name": "clear",
@@ -12752,7 +12752,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "blur",
@@ -12760,7 +12760,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -12768,7 +12768,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "popup-scroll",
@@ -12776,7 +12776,7 @@
 "type": "^[Function]`(data:{scrollTop: number, scrollLeft: number}) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_popup_scroll`"
+"r": "`input$<id>_popup_scroll`, with `events = \"popup_scroll\"`"
 },
 {
 "name": "end-reached",
@@ -13270,7 +13270,7 @@
 "type": "^[Function]`(value: Arrayable<number>) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_input`"
+"r": "`input$<id>_input`, with `events = \"input\"`"
 }
 ]
 }
@@ -13410,7 +13410,7 @@
 "type": "^[Function]`(index: number, sizes: number[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_resize_start`"
+"r": "`input$<id>_resize_start`, with `events = \"resize_start\"`"
 },
 {
 "name": "resize",
@@ -13418,7 +13418,7 @@
 "type": "^[Function]`(index: number, sizes: number[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_resize`"
+"r": "`input$<id>_resize`, with `events = \"resize\"`"
 },
 {
 "name": "resize-end",
@@ -13688,7 +13688,7 @@
 "type": "^[Function]`(value: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_change`"
+"r": "`input$<id>_change`, with `events = \"change\"`"
 },
 {
 "name": "finish",
@@ -13804,7 +13804,7 @@
 "type": "^[Function]`(newVal: number, oldVal: number) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_change`"
+"r": "`input$<id>_change`, with `events = \"change\"`"
 }
 ]
 },
@@ -14484,7 +14484,7 @@
 "type": "[KeyType[]](#typings)",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_expanded_rows_change`"
+"r": "`input$<id>_expanded_rows_change`, with `events = \"expanded_rows_change\"`"
 },
 {
 "name": "end-reached",
@@ -14500,7 +14500,7 @@
 "type": "`object`\\<[ScrollParams](#typings)\\>",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_scroll`"
+"r": "`input$<id>_scroll`, with `events = \"scroll\"`"
 },
 {
 "name": "rows-rendered",
@@ -14508,7 +14508,7 @@
 "type": "`object`\\<[RowsRenderedParams](#typings)\\>",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_rows_rendered`"
+"r": "`input$<id>_rows_rendered`, with `events = \"rows_rendered\"`"
 },
 {
 "name": "row-expand",
@@ -14516,7 +14516,7 @@
 "type": "`object`\\<[RowExpandParams](#typings)\\>",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_row_expand`"
+"r": "`input$<id>_row_expand`, with `events = \"row_expand\"`"
 }
 ]
 },
@@ -15078,7 +15078,7 @@
 "type": "^[Function]`<T = DefaultRow>(selection: T[], row: T) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_select`, with `el_on()`"
+"r": "`input$<id>_select`, with `events = \"select\"`"
 },
 {
 "name": "select-all",
@@ -15086,7 +15086,7 @@
 "type": "^[Function]`<T = DefaultRow>(selection: T[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_select_all`, with `el_on()`"
+"r": "`input$<id>_select_all`, with `events = \"select_all\"`"
 },
 {
 "name": "selection-change",
@@ -15102,7 +15102,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_mouse_enter`, with `el_on()`"
+"r": "`input$<id>_cell_mouse_enter`, with `events = \"cell_mouse_enter\"`"
 },
 {
 "name": "cell-mouse-leave",
@@ -15110,7 +15110,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_mouse_leave`, with `el_on()`"
+"r": "`input$<id>_cell_mouse_leave`, with `events = \"cell_mouse_leave\"`"
 },
 {
 "name": "cell-click",
@@ -15118,7 +15118,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_click`, with `el_on()`"
+"r": "`input$<id>_cell_click`, with `events = \"cell_click\"`"
 },
 {
 "name": "cell-dblclick",
@@ -15126,7 +15126,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_dblclick`, with `el_on()`"
+"r": "`input$<id>_cell_dblclick`, with `events = \"cell_dblclick\"`"
 },
 {
 "name": "cell-contextmenu",
@@ -15134,7 +15134,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T>, cell: HTMLTableCellElement, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_cell_contextmenu`, with `el_on()`"
+"r": "`input$<id>_cell_contextmenu`, with `events = \"cell_contextmenu\"`"
 },
 {
 "name": "row-click",
@@ -15142,7 +15142,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T> \\| null, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_row_click`, with `el_on()`"
+"r": "`input$<id>_row_click`, with `events = \"row_click\"`"
 },
 {
 "name": "row-contextmenu",
@@ -15150,7 +15150,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T> \\| null, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_row_contextmenu`, with `el_on()`"
+"r": "`input$<id>_row_contextmenu`, with `events = \"row_contextmenu\"`"
 },
 {
 "name": "row-dblclick",
@@ -15158,7 +15158,7 @@
 "type": "^[Function]`<T = DefaultRow>(row: T, column: TableColumnCtx<T> \\| null, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_row_dblclick`, with `el_on()`"
+"r": "`input$<id>_row_dblclick`, with `events = \"row_dblclick\"`"
 },
 {
 "name": "header-click",
@@ -15166,7 +15166,7 @@
 "type": "^[Function]`<T = DefaultRow>(column: TableColumnCtx<T>, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_header_click`, with `el_on()`"
+"r": "`input$<id>_header_click`, with `events = \"header_click\"`"
 },
 {
 "name": "header-contextmenu",
@@ -15174,7 +15174,7 @@
 "type": "^[Function]`<T = DefaultRow>(column: TableColumnCtx<T>, event: PointerEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_header_contextmenu`, with `el_on()`"
+"r": "`input$<id>_header_contextmenu`, with `events = \"header_contextmenu\"`"
 },
 {
 "name": "sort-change",
@@ -15206,7 +15206,7 @@
 "type": "^[Function]`<T = DefaultRow>(newWidth: number, oldWidth: number, column: TableColumnCtx<T>, event: MouseEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_header_dragend`, with `el_on()`"
+"r": "`input$<id>_header_dragend`, with `events = \"header_dragend\"`"
 },
 {
 "name": "expand-change",
@@ -15222,7 +15222,7 @@
 "type": "^[Function]`({ scrollLeft: number, scrollTop: number }) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_scroll`, with `el_on()`"
+"r": "`input$<id>_scroll`, with `events = \"scroll\"`"
 }
 ]
 },
@@ -15670,7 +15670,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "—",
-"r": "`selected`; `input$<id>`"
+"r": "`selected` or `value`; `input$<id>`"
 },
 {
 "name": "default-value",
@@ -15678,7 +15678,7 @@
 "type": "^[string] / ^[number]",
 "accepted": "",
 "default": "—",
-"r": "`selected`"
+"r": "`selected (or value)`"
 },
 {
 "name": "type",
@@ -15756,7 +15756,7 @@
 "type": "^[Function]`(pane: TabsPaneContext, ev: Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_tab_click`"
+"r": "`input$<id>_tab_click`, with `events = \"tab_click\"`"
 },
 {
 "name": "tab-change",
@@ -15764,7 +15764,7 @@
 "type": "^[Function]`(name: TabPaneName) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_tab_change`"
+"r": "`input$<id>_tab_change`, with `events = \"tab_change\"`"
 },
 {
 "name": "tab-remove",
@@ -15788,7 +15788,7 @@
 "type": "^[Function]`(paneName: TabPaneName \\| undefined, action: 'remove' \\| 'add') => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_edit`"
+"r": "`input$<id>_edit`, with `events = \"edit\"`"
 }
 ]
 },
@@ -16400,7 +16400,7 @@
 "type": "^[Function]`(e: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -16408,7 +16408,7 @@
 "type": "^[Function]`(e: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "clear",
@@ -16416,7 +16416,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 },
 {
 "name": "visible-change",
@@ -16424,7 +16424,7 @@
 "type": "^[Function]`(visibility: boolean) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_visible_change`"
+"r": "`input$<id>_visible_change`, with `events = \"visible_change\"`"
 }
 ]
 },
@@ -16652,7 +16652,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_blur`"
+"r": "`input$<id>_blur`, with `events = \"blur\"`"
 },
 {
 "name": "focus",
@@ -16660,7 +16660,7 @@
 "type": "^[Function]`(event: FocusEvent) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_focus`"
+"r": "`input$<id>_focus`, with `events = \"focus\"`"
 },
 {
 "name": "clear",
@@ -16668,7 +16668,7 @@
 "type": "^[Function]`() => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_clear`"
+"r": "`input$<id>_clear`, with `events = \"clear\"`"
 }
 ]
 },
@@ -17066,7 +17066,7 @@
 "type": "^[Function]`(event?: Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_before_show`"
+"r": "`input$<id>_before_show`, with `events = \"before_show\"`"
 },
 {
 "name": "show",
@@ -17074,7 +17074,7 @@
 "type": "^[Function]`(event?: Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_show`"
+"r": "`input$<id>_show`, with `events = \"show\"`"
 },
 {
 "name": "before-hide",
@@ -17082,7 +17082,7 @@
 "type": "^[Function]`(event?: Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_before_hide`"
+"r": "`input$<id>_before_hide`, with `events = \"before_hide\"`"
 },
 {
 "name": "hide",
@@ -17090,7 +17090,7 @@
 "type": "^[Function]`(event?: Event) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_hide`"
+"r": "`input$<id>_hide`, with `events = \"hide\"`"
 }
 ]
 },
@@ -17230,7 +17230,7 @@
 "type": "`boolean`",
 "accepted": "",
 "default": "`false`",
-"r": "`open`; `input$<id>`"
+"r": "`visible`; `input$<id>`"
 },
 {
 "name": "current",
@@ -17634,7 +17634,7 @@
 "type": "^[Function]`(value: TransferKey[], direction: TransferDirection, movedKeys: TransferKey[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_change`"
+"r": "`input$<id>_change`, with `events = \"change\"`"
 },
 {
 "name": "left-check-change",
@@ -17642,7 +17642,7 @@
 "type": "^[Function]`(value: TransferKey[], movedKeys?: TransferKey[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_left_check_change`"
+"r": "`input$<id>_left_check_change`, with `events = \"left_check_change\"`"
 },
 {
 "name": "right-check-change",
@@ -17650,7 +17650,7 @@
 "type": "^[Function]`(value: TransferKey[], movedKeys?: TransferKey[]) => void`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_right_check_change`"
+"r": "`input$<id>_right_check_change`, with `events = \"right_check_change\"`"
 }
 ]
 },
@@ -18094,7 +18094,7 @@
 "type": "`(data: TreeNodeData, node: TreeNode, e: DragEvent)`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_drop`"
+"r": "`input$<id>_node_drop`, with `events = \"node_drop\"`"
 },
 {
 "name": "node-contextmenu",
@@ -18102,7 +18102,7 @@
 "type": "`(e: Event, data: TreeNodeData, node: TreeNode)`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_contextmenu`"
+"r": "`input$<id>_node_contextmenu`, with `events = \"node_contextmenu\"`"
 },
 {
 "name": "check-change",
@@ -18110,7 +18110,7 @@
 "type": "`(data: TreeNodeData, checked: boolean)`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_check_change`"
+"r": "`input$<id>_check_change`, with `events = \"check_change\"`"
 },
 {
 "name": "check",
@@ -18126,7 +18126,7 @@
 "type": "`(data: TreeNodeData, node: TreeNode)`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_current_change`"
+"r": "`input$<id>_current_change`, with `events = \"current_change\"`"
 },
 {
 "name": "node-expand",
@@ -18134,7 +18134,7 @@
 "type": "`(data: TreeNodeData, node: TreeNode)`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_expand`"
+"r": "`input$<id>_node_expand`, with `events = \"node_expand\"`"
 },
 {
 "name": "node-collapse",
@@ -18142,7 +18142,7 @@
 "type": "`(data: TreeNodeData, node: TreeNode)`",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_collapse`"
+"r": "`input$<id>_node_collapse`, with `events = \"node_collapse\"`"
 }
 ]
 },
@@ -18552,7 +18552,7 @@
 "type": "four parameters: event, node object corresponding to the node clicked, `node` property of TreeNode, TreeNode itself",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_contextmenu`"
+"r": "`input$<id>_node_contextmenu`, with `events = \"node_contextmenu\"`"
 },
 {
 "name": "check-change",
@@ -18560,7 +18560,7 @@
 "type": "three parameters: node object corresponding to the node whose selected state is changed, whether the node is selected, whether node's subtree has selected nodes",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_check_change`"
+"r": "`input$<id>_check_change`, with `events = \"check_change\"`"
 },
 {
 "name": "check",
@@ -18576,7 +18576,7 @@
 "type": "two parameters: node object corresponding to the current node, `node` property of TreeNode",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_current_change`"
+"r": "`input$<id>_current_change`, with `events = \"current_change\"`"
 },
 {
 "name": "node-expand",
@@ -18584,7 +18584,7 @@
 "type": "three parameters: node object corresponding to the node opened, `node` property of TreeNode, TreeNode itself",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_expand`"
+"r": "`input$<id>_node_expand`, with `events = \"node_expand\"`"
 },
 {
 "name": "node-collapse",
@@ -18592,7 +18592,7 @@
 "type": "three parameters: node object corresponding to the node closed, `node` property of TreeNode, TreeNode itself",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_collapse`"
+"r": "`input$<id>_node_collapse`, with `events = \"node_collapse\"`"
 },
 {
 "name": "node-drag-start",
@@ -18600,7 +18600,7 @@
 "type": "two parameters: node object corresponding to the dragging node, event.",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_drag_start`"
+"r": "`input$<id>_node_drag_start`, with `events = \"node_drag_start\"`"
 },
 {
 "name": "node-drag-enter",
@@ -18608,7 +18608,7 @@
 "type": "three parameters: node object corresponding to the dragging node, node object corresponding to the entering node, event.",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_drag_enter`"
+"r": "`input$<id>_node_drag_enter`, with `events = \"node_drag_enter\"`"
 },
 {
 "name": "node-drag-leave",
@@ -18616,7 +18616,7 @@
 "type": "three parameters: node object corresponding to the dragging node, node object corresponding to the leaving node, event.",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_drag_leave`"
+"r": "`input$<id>_node_drag_leave`, with `events = \"node_drag_leave\"`"
 },
 {
 "name": "node-drag-over",
@@ -18624,7 +18624,7 @@
 "type": "three parameters: node object corresponding to the dragging node, node object corresponding to the dragging over node, event.",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_drag_over`"
+"r": "`input$<id>_node_drag_over`, with `events = \"node_drag_over\"`"
 },
 {
 "name": "node-drag-end",
@@ -18632,7 +18632,7 @@
 "type": "four parameters: node object corresponding to the dragging node, node object corresponding to the dragging end node (may be `undefined`), node drop type (before / after / inner), event.",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_drag_end`"
+"r": "`input$<id>_node_drag_end`, with `events = \"node_drag_end\"`"
 },
 {
 "name": "node-drop",
@@ -18640,7 +18640,7 @@
 "type": "four parameters: node object corresponding to the dragging node, node object corresponding to the dropped node, node drop type (before / after / inner), event.",
 "accepted": "",
 "default": "",
-"r": "`input$<id>_node_drop`"
+"r": "`input$<id>_node_drop`, with `events = \"node_drop\"`"
 }
 ]
 },
@@ -18702,7 +18702,7 @@
 "type": "^[object]`Record<string, any> \\| Awaitable<Record<string, any>>` / ^[Function]`(rawFile: UploadRawFile) => Awaitable<Record<string, any>>`",
 "accepted": "",
 "default": "{}",
-"r": "`extra_data`"
+"r": "`data`"
 },
 {
 "name": "with-credentials",

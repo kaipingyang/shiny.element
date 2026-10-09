@@ -50,6 +50,8 @@ el_input(
   word_limit_position = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -218,6 +220,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_input()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_input()}, the Shiny session, the
@@ -242,10 +254,26 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the text, as it is typed (debounced by 250 ms) \cr
+   \verb{input$<id>_input} \tab \code{events = "input"} \tab triggers when the Input value change \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Input blurs \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Input focuses \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the Input is cleared by clicking the clear button \cr
+   \verb{input$<id>_compositionend} \tab \code{events = "compositionend"} \tab triggers when the composition ends \cr
+   \verb{input$<id>_compositionstart} \tab \code{events = "compositionstart"} \tab triggers when the composition starts \cr
+   \verb{input$<id>_compositionupdate} \tab \code{events = "compositionupdate"} \tab triggers when the composition is updated \cr
+   \verb{input$<id>_keydown} \tab \code{events = "keydown"} \tab the key: \code{list(key, code, ctrl, shift, alt, meta)} \cr
+   \verb{input$<id>_mouseenter} \tab \code{events = "mouseenter"} \tab triggers when the mouse enters the Input element \cr
+   \verb{input$<id>_mouseleave} \tab \code{events = "mouseleave"} \tab triggers when the mouse leaves the Input element \cr
+}
 
-\verb{input$<id>} -- the text, reported as it is typed, debounced by 250 ms
-as \code{\link[shiny:textInput]{shiny::textInput()}} does, and after an \code{\link[=update_el_input]{update_el_input()}}.
-(triggered on blur or Enter key press).
+
+The same list as \code{el_events("el_input")}, which says how an event's arguments travel.
+
+The text is debounced by 250 ms, as \code{\link[shiny:textInput]{shiny::textInput()}}'s is, and
+reported after an \code{\link[=update_el_input]{update_el_input()}} too.
 }
 
 \section{Updating from the server}{

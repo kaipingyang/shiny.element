@@ -72,6 +72,7 @@ ui <- el_page(
   el_scrollbar(
     id = "sb",
     height = "400px",
+    events = "scroll",
     always = TRUE,
     tags$div(lapply(1:20, function(i) tags$p(class = "scrollbar-demo-item", i)))
   ),

@@ -18,6 +18,7 @@
 #' @param slots Named list of Element slot contents. A scoped slot is written
 #'   with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
 #' None: it reports nothing.
 #'
@@ -35,14 +36,19 @@ el_text <- function(
   line_clamp = NULL,
   tag = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_text", environment())
   if (is.null(id)) {
     id <- .el_auto_id("el_text")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, character())
+  events <- .el_event_bindings(
+    ns_id,
+    "el_text",
+    on = on
+  )
   .el_wrap_widget(
     "el-text",
     ns_id,

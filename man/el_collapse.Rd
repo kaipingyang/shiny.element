@@ -69,9 +69,13 @@ rebuild the DOM underneath them, detaching them from the server. See
 \code{.claude/docs/lessons.md}.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the names of the open panels \cr
+}
 
-\verb{input$<id>} -- character vector of open panel names, reported on load and on
-every change. Empty when all are closed, which Shiny reports as \code{NULL}.
+
+The same list as \code{el_events("el_collapse")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

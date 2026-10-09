@@ -36,7 +36,13 @@ test_that("el_cascader_panel reports its path and forwards expand-change", {
     vue_spec_of(el_cascader_panel("where", options = regions))$input,
     "value"
   )
-  expect_true("elEmitExpandChange" %in% names(p$methods))
+  expect_false("elEmitExpandChange" %in% names(p$methods))
+  asked <- vue_payload_of(el_cascader_panel(
+    "where",
+    options = regions,
+    events = "expand_change"
+  ))
+  expect_true("elEmitExpandChange" %in% names(asked$methods))
 })
 
 test_that("update_el_cascader_panel sends the new value and options", {

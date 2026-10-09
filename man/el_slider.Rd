@@ -41,6 +41,8 @@ el_slider(
   validate_event = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -175,6 +177,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_slider()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_slider()}, the Shiny session, the
@@ -188,9 +200,14 @@ Creates an Element Plus slider with Vue instance, supporting single value and
 range modes, marks, vertical orientation, and optional numeric input box.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the value, two for a range, once the drag ends \cr
+   \verb{input$<id>_input} \tab \code{events = "input"} \tab the value while it is dragged, at most every 200 ms \cr
+}
 
-\verb{input$<id>} -- Number (\code{range = FALSE}) or two-element array
-(\code{range = TRUE}), updated when the user finishes dragging.
+
+The same list as \code{el_events("el_slider")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

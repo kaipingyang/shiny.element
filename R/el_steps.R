@@ -23,7 +23,12 @@
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
+#' @template events
+#' @template on
 #' @return A Shiny UI element.
+#' @section Shiny inputs:
+#' `r .el_events_md("el_steps")`
+#'
 #' @export
 #' @examples
 #' # Basic usage
@@ -67,6 +72,8 @@ el_steps <- function(
   simple = FALSE,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_items(steps, "steps", c("title", "description"))
@@ -121,7 +128,12 @@ el_steps <- function(
   vue_data$space <- .el_or_na(space)
   # Create component UI
   # Element Plus's change, as the active step moves
-  events <- .el_event_bindings(ns_id, "change")
+  events <- .el_event_bindings(
+    ns_id,
+    "el_steps",
+    events,
+    on = on
+  )
   steps_attrs <- c(steps_attrs, events$attrs)
   el_widget(
     id = ns_id,

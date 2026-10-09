@@ -32,6 +32,7 @@
 #' @param slots Named list of Element slot contents. A scoped slot is written
 #'   with [template()].
 #'
+#' @template on
 #' @section Shiny inputs:
 #' None: it reports nothing.
 #'
@@ -58,14 +59,19 @@ el_avatar_group <- function(
   collapse_class = NULL,
   collapse_style = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_avatar_group", environment())
   if (is.null(id)) {
     id <- .el_auto_id("el_avatar_group")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, character())
+  events <- .el_event_bindings(
+    ns_id,
+    "el_avatar_group",
+    on = on
+  )
   .el_wrap_widget(
     "el-avatar-group",
     ns_id,

@@ -15,6 +15,7 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_empty()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template on
 #' @return A Shiny UI element.
 #' @examples
 #' el_empty("none", description = "No reports yet")
@@ -33,6 +34,7 @@ el_empty <- function(
   image_size = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -73,7 +75,8 @@ el_empty <- function(
     mounted = merged$mounted,
     width = width,
     slots = slots,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

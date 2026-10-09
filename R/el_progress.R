@@ -36,6 +36,7 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed progress component.
 #'
 #' @examples
@@ -85,6 +86,7 @@ el_progress <- function(
   indeterminate = NULL,
   striped = NULL,
   striped_flow = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_progress", environment())
@@ -130,7 +132,8 @@ el_progress <- function(
     id = ns_id,
     markup = htmltools::tag("el-progress", progress_attrs),
     data = vue_data,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

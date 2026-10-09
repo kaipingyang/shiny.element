@@ -2,8 +2,8 @@
 #
 # The way htmlwidgets work -- datatable(df) is the table's specification,
 # rendered by htmltools::as.tags() when it lands in a UI, a tagList or a
-# document -- so it can be changed on the way, piped to el_on() before it
-# is drawn.
+# document -- so it can be placed in a UI, a tagList or an R Markdown
+# chunk as it is, and drawn where it lands.
 
 #' A component's specification
 #'
@@ -63,64 +63,6 @@ knit_print.el_component <- function(x, ...) {
     x[] <- lapply(x, .el_resolve)
   }
   x
-}
-
-#' Report a component's event to the server
-#'
-#' Each component reports a few events by default -- a table its
-#' `selection-change`, `current-change`, `sort-change`, `filter-change` and
-#' `expand-change` -- and any other of Element Plus's events when asked:
-#' here, piped, or with the component's `events` argument. The event arrives
-#' as `input$<id>_<event>`, Element's name in snake_case
-#' (`row-dblclick` -> `input$tbl_row_dblclick`), or under `input` if given.
-#'
-#' @param x A component: `el_table(...)`.
-#' @param event Element Plus's name for the event, `"row-dblclick"`; several
-#'   at once are fine.
-#' @param input The input it reports as, instead of `<id>_<event>`; inside
-#'   a module, namespaced as the component's own id is. One event only.
-#' @return `x`, reporting the event too.
-#' @seealso [el_table()].
-#' @examples
-#' el_table(data = head(mtcars)) |>
-#'   el_on("row-dblclick") |>
-#'   el_on("cell-click", input = "picked")
-#' @export
-el_on <- function(x, event, input = NULL) {
-  if (!inherits(x, "el_component")) {
-    stop("`x` must be a component, such as `el_table(...)`.", call. = FALSE)
-  }
-  if (!is.character(event) || !length(event)) {
-    stop("`event` must name Element Plus events.", call. = FALSE)
-  }
-  if (!is.null(input) && length(event) != 1L) {
-    stop("`input` names the input of one event.", call. = FALSE)
-  }
-  if (inherits(x, "el_table")) {
-    .el_check_events(event, "el-table", .el_table_events)
-  }
-  given <- if (is.null(input)) event else stats::setNames(event, input)
-  x$args$events <- c(x$args$events, given)
-  x
-}
-
-#' Events a component can report: an error naming the others
-#' @noRd
-.el_check_events <- function(events, tag, known) {
-  unknown <- setdiff(unname(events), known)
-  if (length(unknown)) {
-    stop(
-      "Not an event of ",
-      tag,
-      ": ",
-      paste(sQuote(unknown), collapse = ", "),
-      ". Its events: ",
-      toString(known),
-      ".",
-      call. = FALSE
-    )
-  }
-  invisible(events)
 }
 
 #' The data tables show, kept on the server
@@ -322,7 +264,7 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #'   FALSE]` of the data shown: its columns, types and row names.
 #' - `input$<id>_current_change`, `_sort_change`, `_filter_change`,
 #'   `_expand_change` -- reported by every table; any other of Element's
-#'   events with `el_table(events =)` or [el_on()].
+#'   events with `el_table(events =)`: see [el_events()].
 #'
 #' [update_el_table()] and [call_el()] reach the table by the output id;
 #' [el_table_data()] reads the data it shows.
@@ -342,7 +284,7 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' @param env,quoted As for [shiny::renderUI()].
 #' @return `el_table_output()`, a tag; `render_el_table()`, a render
 #'   function.
-#' @seealso [el_table()], [el_on()].
+#' @seealso [el_table()], [el_events()].
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)

@@ -364,9 +364,10 @@ test_that("every updater of a Vue component sends only declared fields", {
 # An update takes, under the same names, every argument of the UI function
 # that can change once the component is drawn -- not only a chosen few.
 test_that("an update takes every argument of its UI function that can change", {
-  fixed <- c("id", "session", "slots", "width")
+  # events and handlers are bound as the component is drawn
+  fixed <- c("id", "session", "slots", "width", "events", "on")
   cases <- list(
-    list("update_el_table", "el_table", c("rownames", "events")),
+    list("update_el_table", "el_table", "rownames"),
     list("update_el_table_v2", "el_table_v2", c("methods", "auto_resize")),
     list(
       "update_el_calendar",

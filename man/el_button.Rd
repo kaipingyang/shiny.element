@@ -31,6 +31,7 @@ el_button(
   style = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -134,6 +135,11 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_button()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_button()}, the Shiny session, the
@@ -147,11 +153,17 @@ Creates an Element Plus button with Vue instance, supporting all Element Plus
 button variants including \code{plain}, \code{round}, \code{circle}, and \code{loading} states.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the number of clicks, as \code{actionButton()} reports it \cr
+}
 
-\verb{input$<id>} -- the number of clicks, as \code{\link[shiny:actionButton]{shiny::actionButton()}} reports
-it: 0 on load, and counted only while neither \code{disabled} nor \code{loading} is
-\code{TRUE}. It carries the same class, so \code{observeEvent()} and \code{req()} treat 0
-as not yet clicked.
+
+The same list as \code{el_events("el_button")}, which says how an event's arguments travel.
+
+Counted as \code{\link[shiny:actionButton]{shiny::actionButton()}} counts: 0 on load, and only while
+neither \code{disabled} nor \code{loading} is \code{TRUE}. It carries the same class, so
+\code{observeEvent()} and \code{req()} treat 0 as not yet clicked.
 }
 
 \section{Updating from the server}{

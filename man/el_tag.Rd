@@ -18,6 +18,7 @@ el_tag(
   round = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -44,7 +45,7 @@ update_el_tag(
 \code{"warning"}, \code{"danger"}.}
 
 \item{closable}{Whether to show a close button. Default \code{FALSE}. When
-\code{TRUE}, \verb{input$<id>_closed} fires once when the user closes the tag.}
+\code{TRUE}, \verb{input$<id>_close} fires once when the user closes the tag.}
 
 \item{size}{Size: \code{"large"}, \code{"default"} or \code{"small"}; \code{NULL} follows the form or the page.}
 
@@ -67,6 +68,11 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_tag()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_tag()}, the Shiny session, the
@@ -80,14 +86,16 @@ Creates a styled tag/chip component. Tracks click and close events as
 Shiny inputs.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the number of clicks on the tag's body, as
-\code{\link[shiny:actionButton]{shiny::actionButton()}} reports it: 0 on load, treated by
-\code{observeEvent()} and \code{req()} as not yet clicked.
-\item \verb{input$<id>_closed} -- set to \code{1} when the user clicks the close button
-(only meaningful when \code{closable = TRUE}).
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the number of clicks on the tag, as \code{actionButton()} reports it \cr
+   \verb{input$<id>_close} \tab unasked \tab fires when the user closes it (\code{closable = TRUE}) \cr
 }
+
+
+The same list as \code{el_events("el_tag")}, which says how an event's arguments travel.
+
+The clicks are counted as \code{\link[shiny:actionButton]{shiny::actionButton()}} counts them, 0 on load.
 }
 
 \section{Updating from the server}{

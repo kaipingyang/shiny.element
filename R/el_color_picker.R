@@ -47,11 +47,12 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed color-picker component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- colour string (e.g. `"#409EFF"` or `"rgba(64,158,255,0.5)"`).
-#' `NULL` / `NA` when the user clears the picker.
+#' `r .el_events_md("el_color_picker")`
 #'
 #' @examples
 #' el_color_picker("cp1", value = "#409EFF")
@@ -86,6 +87,8 @@ el_color_picker <- function(
   value_on_clear = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_color_picker", environment())
@@ -108,12 +111,9 @@ el_color_picker <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "active-change",
-      "blur",
-      "clear",
-      "focus"
-    ),
+    "el_color_picker",
+    events,
+    on = on,
     # fires on every move of a drag in the panel
     throttle = "active-change"
   )

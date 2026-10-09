@@ -51,11 +51,11 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed rate component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- numeric rating value (0 to `max`, increments of 0.5 when
-#' `allow_half = TRUE`).
+#' `r .el_events_md("el_rate")`
 #'
 #' @examples
 #' el_rate("rate1", value = 3)
@@ -93,6 +93,7 @@ el_rate <- function(
   void_icon = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_rate", environment())
@@ -173,7 +174,8 @@ el_rate <- function(
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

@@ -79,6 +79,11 @@
 #'   the template with [template()].
 #'
 #' @return A Shiny UI element.
+#' @template events
+#' @template on
+#' @section Shiny inputs:
+#' `r .el_events_md("el_tooltip")`
+#'
 #' @examples
 #' # A plain tag as the reference
 #' el_tooltip(
@@ -130,6 +135,8 @@ el_tooltip <- function(
   visible = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_tooltip", environment())
@@ -164,7 +171,9 @@ el_tooltip <- function(
 
   events <- .el_event_bindings(
     ns_id,
-    c("show", "hide", "before-show", "before-hide")
+    "el_tooltip",
+    events,
+    on = on
   )
   attrs <- c(attrs, events$attrs)
 

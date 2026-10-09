@@ -201,9 +201,19 @@ fires for its own; event priority works); `input$<id>$<field>` only when
 one value has parts (el_form's model, `vue_app(input = c("a", "b"))`).
 Event inputs are named after Element's event in snake_case
 (`selection-change` -> `_selection_change`); where upstream has no name,
-toastui's. A component reports a few events by default and the rest when
-asked (`events =`, `el_on()`). Design record:
-`.claude/plans/shiny-style-components-2026-10-06.md`.
+toastui's. A component reports its value, the user's deliberate actions and
+the server's requests unasked; Element's other events only when asked for
+with `events =` (snake_case, always `input$<id>_<event>`, no renaming).
+`on = list(<vue event> = JS("function(report, ...)"))` binds a handler of
+the user's own; `report(name, value)` sets `input$<id>_<name>`. Every input
+of every component is in one registry, `R/el_events_registry.R`, written by
+`python tools/events-registry.py` (defaults and value notes there,
+descriptions from Element's docs): `el_events()` prints it, every
+component's `events` is checked against it, and each help page's "Shiny
+inputs" table is generated from it (`` `r .el_events_md("el_x")` ``).
+Containers read their reported events from `data-el-events`. Design
+records: `.claude/plans/shiny-style-components-2026-10-06.md`,
+`.claude/plans/names-and-events-2026-10-09.md`.
 
 ### Adding a new component
 

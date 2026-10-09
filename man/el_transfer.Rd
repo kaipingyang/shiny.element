@@ -33,6 +33,8 @@ el_transfer(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -138,6 +140,16 @@ whether beside the component rather than under it. Element's
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_transfer()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_transfer()}, the Shiny session, the
@@ -150,13 +162,16 @@ A Shiny UI element.
 Two lists side by side, for moving items from one to the other.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- keys currently on the right.
-\item \verb{input$<id>_change} -- fires on each move.
-\item \verb{input$<id>_left_check_change}, \verb{input$<id>_right_check_change} -- fire
-as items are ticked.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the keys on the right \cr
+   \verb{input$<id>_change} \tab \code{events = "change"} \tab \code{list(value, direction, moved)} \cr
+   \verb{input$<id>_left_check_change} \tab \code{events = "left_check_change"} \tab \code{list(checked, changed)} \cr
+   \verb{input$<id>_right_check_change} \tab \code{events = "right_check_change"} \tab \code{list(checked, changed)} \cr
 }
+
+
+The same list as \code{el_events("el_transfer")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

@@ -26,11 +26,11 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed alert component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>_closed` -- set to `1` (with `priority = "event"`) when the
-#' user closes the alert.
+#' `r .el_events_md("el_alert")`
 #'
 #' @examples
 #' el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
@@ -48,6 +48,7 @@ el_alert <- function(
   effect = "light",
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_alert", environment())
@@ -83,12 +84,13 @@ el_alert <- function(
     data = vue_data,
     methods = list(
       handleClose = JS(sprintf(
-        "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_closed', 1, {priority: 'event'}); }",
+        "function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_close', 1, {priority: 'event'}); }",
         ns_id
       ))
     ),
     width = width,
-    slots = slots
+    slots = slots,
+    on = on
   )
 }
 

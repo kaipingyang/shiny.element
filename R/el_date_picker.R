@@ -99,6 +99,8 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Element methods:
 #' Callable with [call_el()]:
 #'
@@ -107,11 +109,13 @@
 #' @return An `htmltools` tagList with a Vue-managed date picker component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- for `type` `"date"`, `"dates"` and `"daterange"` with the
-#' default `value_format`, a `Date` (two for a range, several for `"dates"`),
-#' as [shiny::dateInput()] gives one; `NULL` while empty. Any other type or
-#' `value_format` reports the text the picker produces, in that format -- you
-#' asked for that format, so it is not converted.
+#' `r .el_events_md("el_date_picker")`
+#'
+#' For `type` `"date"`, `"dates"` and `"daterange"` with the default
+#' `value_format`, `input$<id>` is a `Date` (two for a range, several for
+#' `"dates"`), as [shiny::dateInput()] gives one; `NULL` while empty. Any
+#' other type or `value_format` reports the text the picker produces, in
+#' that format -- you asked for that format, so it is not converted.
 #'
 #' @examples
 #' # Basic date picker
@@ -197,6 +201,8 @@ el_date_picker <- function(
   teleported = NULL,
   time_format = NULL,
   value_on_clear = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_date_picker", environment())
@@ -255,14 +261,9 @@ el_date_picker <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "blur",
-      "focus",
-      "calendar-change",
-      "clear",
-      "panel-change",
-      "visible-change"
-    )
+    "el_date_picker",
+    events,
+    on = on
   )
   picker_attrs <- c(picker_attrs, events$attrs)
   # Vue data

@@ -19,6 +19,7 @@ ui <- el_page(
   el_dialog(
     "outer",
     title = "Outer",
+    events = c("opened", "closed"),
     content = tagList(
       el_select("pick", choices = c("alpha", "beta")),
       tags$button(id = "outer_btn", "in outer"),
@@ -41,7 +42,12 @@ ui <- el_page(
       tags$button(id = "trap_b", "b")
     )
   ),
-  el_dialog("race", title = "Race", content = "race"),
+  el_dialog(
+    "race",
+    title = "Race",
+    content = "race",
+    events = c("open", "opened", "close", "closed")
+  ),
   el_tabs(
     "tabs2",
     addable = TRUE,

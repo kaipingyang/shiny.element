@@ -114,22 +114,10 @@ scope of your own with \code{template(scope = "{ event }")}.}
 any Shiny input; a session given here namespaces \code{id} once more, with
 a warning.}
 
-\item{events}{The events to show: a data.frame, or a list of rows, with
-\code{date}, the day -- a Date or \code{"YYYY-MM-DD"} -- or the time it starts
--- a date-time or \code{"YYYY-MM-DD HH:MM"} --, named as Element names the
-day of a cell. Optionally, from toastui where Element has no name:
-\code{end}, the day or time it ends; \code{title}; \code{body}, shown on hover and
-in the popover; \code{id} (the row's number when absent); \code{calendarId},
-its group in \code{calendars}; \code{isReadOnly}, an event the user cannot
-change; \code{isVisible = FALSE}, one not shown; \code{category = "allday"},
-times not shown. From Element's tag: \code{type} (\code{"primary"},
-\code{"success"}, \code{"info"}, \code{"warning"}, \code{"danger"}) or \code{color}, a
-background colour of your own. toastui's camelCase names can be
-written in snake_case (\code{calendar_id}). Any other column travels with
-the event and comes back in the inputs. A day shows its all-day events
-first, then the others by time, the time before the title. In a Shiny
-app whose events come from the server, render the calendar as an
-output: \code{\link[=el_calendar_output]{el_calendar_output()}}.}
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
 
 \item{editable}{Whether the user can change the events: double-click a
 day, or drag across several, to add one; click an event to edit or

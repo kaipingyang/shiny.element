@@ -43,6 +43,8 @@ el_tree(
   icon = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -189,6 +191,16 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_tree()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_tree()}, the Shiny session, the
@@ -205,16 +217,35 @@ Unlike the menu, a tree takes its whole structure through a \code{data} prop
 rather than nested tags, so the nesting is plain R data all the way down.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the key of the node last clicked \cr
+   \verb{input$<id>_checked} \tab unasked \tab the keys of the checked nodes \cr
+   \verb{input$<id>_load} \tab unasked \tab with \code{lazy = TRUE}, a node asking for its children; answer with \code{el_load_children()} \cr
+   \verb{input$<id>_check_change} \tab \code{events = "check_change"} \tab \code{list(data, checked, indeterminate)} \cr
+   \verb{input$<id>_current_change} \tab \code{events = "current_change"} \tab \code{list(data, key, level)} of the current node \cr
+   \verb{input$<id>_node_expand} \tab \code{events = "node_expand"} \tab \code{list(data, key, level)} \cr
+   \verb{input$<id>_node_collapse} \tab \code{events = "node_collapse"} \tab \code{list(data, key, level)} \cr
+   \verb{input$<id>_node_contextmenu} \tab \code{events = "node_contextmenu"} \tab \code{list(data, key, level)} \cr
+   \verb{input$<id>_node_drag_start} \tab \code{events = "node_drag_start"} \tab \code{list(data)} of the dragged node \cr
+   \verb{input$<id>_node_drag_enter} \tab \code{events = "node_drag_enter"} \tab \code{list(dragging, drop)}, the nodes' data \cr
+   \verb{input$<id>_node_drag_leave} \tab \code{events = "node_drag_leave"} \tab \code{list(dragging, drop)}, the nodes' data \cr
+   \verb{input$<id>_node_drag_over} \tab \code{events = "node_drag_over"} \tab \code{list(dragging, drop)}, the nodes' data, at most every 200 ms \cr
+   \verb{input$<id>_node_drag_end} \tab \code{events = "node_drag_end"} \tab \code{list(dragging, drop, type)} \cr
+   \verb{input$<id>_node_drop} \tab \code{events = "node_drop"} \tab \code{list(dragging, drop, type)}: \code{type} \code{"before"}, \code{"after"} or \code{"inner"} \cr
+}
 
-\verb{input$<id>} holds the key of the most recently clicked node, and
-\verb{input$<id>_checked} the keys of all checked nodes, as a character vector.
-Both are reported on load, where they start empty and therefore arrive as
-\code{NULL}, as Shiny reports any empty selection.
 
-With \code{lazy = TRUE} and no \code{load} of your own, the server loads each node's
-children: \verb{input$<id>_load} asks, with \code{level} (0 for the top), \code{key} (the
-node's \code{node_key} field), \code{data} (the node) and \code{request}; answer with
-\code{\link[=el_load_children]{el_load_children()}}.
+The same list as \code{el_events("el_tree")}, which says how an event's arguments travel.
+
+\verb{input$<id>} and \verb{input$<id>_checked} are reported on load, where they
+start empty and therefore arrive as \code{NULL}, as Shiny reports any empty
+selection.
+
+With \code{lazy = TRUE} and no \code{load} of your own, the server loads each
+node's children: \verb{input$<id>_load} asks, with \code{level} (0 for the top),
+\code{key} (the node's \code{node_key} field), \code{data} (the node) and \code{request};
+answer with \code{\link[=el_load_children]{el_load_children()}}.
 }
 
 \section{Element methods}{

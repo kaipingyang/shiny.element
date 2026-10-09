@@ -55,11 +55,12 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @return An `htmltools` tagList with a Vue-managed slider component.
 #'
 #' @section Shiny inputs:
-#' `input$<id>` -- Number (`range = FALSE`) or two-element array
-#' (`range = TRUE`), updated when the user finishes dragging.
+#' `r .el_events_md("el_slider")`
 #'
 #' @examples
 #' # Basic usage
@@ -127,6 +128,8 @@ el_slider <- function(
   validate_event = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_slider", environment())
@@ -169,7 +172,9 @@ el_slider <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    "input",
+    "el_slider",
+    events,
+    on = on,
     # fires on every step of a drag
     throttle = "input"
   )

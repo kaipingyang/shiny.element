@@ -39,6 +39,7 @@ el_dialog(
   z_index = NULL,
   header_aria_level = "2",
   transition = NULL,
+  events = NULL,
   session = NULL
 )
 
@@ -134,6 +135,11 @@ hands out.}
 \item{transition}{The name of the transition it plays, instead of
 Element's \code{"dialog-fade"}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
 \item{session}{In \code{el_dialog()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_dialog()}, the Shiny session, the
@@ -151,18 +157,22 @@ Shiny input binding rather than a Vue instance, so the body can hold other
 components from this package.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- \code{TRUE} while the dialog is open, reported whenever it
-opens or closes, however that happens. Shiny routes an input binding's
-messages by element id, so the name matches the id, as it does for
-\code{\link[=el_tabs]{el_tabs()}} and \code{\link[=el_collapse]{el_collapse()}}.
-\item \verb{input$<id>_open}, \verb{input$<id>_opened} -- fire as it opens, and once
-it has.
-\item \verb{input$<id>_close}, \verb{input$<id>_closed} -- likewise as it closes.
-\item \verb{input$<id>_open_auto_focus}, \verb{input$<id>_close_auto_focus} -- as focus
-moves into it on opening, and back on closing.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab \code{TRUE} while it is open \cr
+   \verb{input$<id>_open} \tab \code{events = "open"} \tab triggers when the Dialog opens \cr
+   \verb{input$<id>_opened} \tab \code{events = "opened"} \tab triggers when the Dialog opening animation ends \cr
+   \verb{input$<id>_close} \tab \code{events = "close"} \tab triggers when the Dialog closes \cr
+   \verb{input$<id>_closed} \tab unasked \tab triggers when the Dialog closing animation ends \cr
+   \verb{input$<id>_open_auto_focus} \tab \code{events = "open_auto_focus"} \tab triggers after Dialog opens and content focused \cr
+   \verb{input$<id>_close_auto_focus} \tab \code{events = "close_auto_focus"} \tab triggers after Dialog closed and content focused \cr
 }
+
+
+The same list as \code{el_events("el_dialog")}, which says how an event's arguments travel.
+
+Shiny routes an input binding's messages by element id, so the value is
+\verb{input$<id>} itself, as for \code{\link[=el_tabs]{el_tabs()}} and \code{\link[=el_collapse]{el_collapse()}}.
 }
 
 \section{Element methods}{

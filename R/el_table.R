@@ -474,7 +474,7 @@
 #' placed as it is, with no id.
 #'
 #' `el_table()` returns the table's specification, drawn when it is placed
-#' (as an htmlwidget is), so it can be piped to [el_on()] first.
+#' (as an htmlwidget is).
 #'
 #' @param id The table's id. Leave it out: in an app the output's id is the
 #'   table's. A table given an id in the UI still reports its inputs, but
@@ -594,42 +594,20 @@
 #'   the template with [template()].
 #' @param width Component width, as a CSS unit. Replaces the table's default
 #'   `width: 100%`. For a fixed header use `height` instead.
-#' @param events Element's table events to report besides the default ones,
-#'   by Element's name: `c("row-dblclick", "cell-click")`. A named entry
-#'   reports under that input instead: `c(picked = "cell-click")`. The same
-#'   as piping to [el_on()].
-#'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' Rendered into `el_table_output("tbl")`, the table reports:
+#' `r .el_events_md("el_table")`
 #'
-#' | Input | When | Value |
-#' |---|---|---|
-#' | `input$tbl_selection_rows` | on load, when the selection changes and when an edit renumbers it | the selected row numbers, integers, 1-based in the data; `NULL` with none |
-#' | `input$tbl_selection_change` | rows ticked or unticked | the selected rows, `data[rows, , drop = FALSE]`: columns, types and row names as R holds them; `NULL` with none |
-#' | `input$tbl_current_change` | the highlighted row changes (`highlight_current_row = TRUE`) | `list(row_index, row, previous_index)` |
-#' | `input$tbl_sort_change` | a column is sorted | `list(column, order)`, `order` `"ascending"`, `"descending"` or `NULL` |
-#' | `input$tbl_filter_change` | a column filter changes | the filters, `list(<column key> = values)` |
-#' | `input$tbl_expand_change` | a row opens or closes | `list(row_index, expanded)`, `expanded` the open rows' numbers (or `TRUE`/`FALSE` for tree rows) |
-#' | `input$tbl_cell_edit` | a cell of an editable column is changed (`el_table_column(editable =)`) | `list(row, column, value, old)`: the row number, the column's name in the data, the new value and the one it replaced, both of the column's type |
-#'
-#' Any other of Element's events -- `select`, `select-all`, `row-click`,
-#' `row-dblclick`, `row-contextmenu`, `cell-click`, `cell-dblclick`,
-#' `cell-contextmenu`, `cell-mouse-enter`, `cell-mouse-leave`,
-#' `header-click`, `header-contextmenu`, `header-dragend`, `scroll` -- is
-#' reported when asked for, with `events` or [el_on()], as
-#' `input$tbl_<event>` in snake_case: a row event as `list(row_index, row,
-#' column)`, a cell event with its `value` too, a header event as
-#' `list(column, label)`, `scroll` as `list(scroll_left, scroll_top)` (at
-#' most every 200 ms).
+#' Rendered into `el_table_output("tbl")`, the inputs are `input$tbl_...`.
+#' `input$tbl` itself is not used: Element's table has no value of its own
+#' (no `v-model`), and the name stays free.
 #'
 #' An edit is shown at once and applied to the server's copy of the data,
 #' so [el_table_data()] and `input$tbl_selection_change` see it; an
 #' observer of `input$tbl_cell_edit` saves it, or refuses it by putting the
 #' old value back: `update_el_table(session, "tbl", replace = row, at =
 #' input$tbl_cell_edit$row)`.
-#'
-#' `input$tbl` itself is not used: Element's table has no value of its own
-#' (no `v-model`), and the name stays free.
 #'
 #' Row numbers count rows of the data the table shows, whatever the user's
 #' sort -- the data [el_table_data()] returns. Rendering the same data again
@@ -696,8 +674,11 @@
 #'   )
 #'   server <- function(input, output, session) {
 #'     output$flowers <- render_el_table(
-#'       el_table(data = head(iris, input$n), selection = TRUE) |>
-#'         el_on("row-dblclick")
+#'       el_table(
+#'         data = head(iris, input$n),
+#'         selection = TRUE,
+#'         events = "row_dblclick"
+#'       )
 #'     )
 #'     # the ticked rows, as R subsets them
 #'     output$picked <- renderPrint(input$flowers_selection_change)
@@ -762,7 +743,8 @@ el_table <- function(
   tooltip_formatter = NULL,
   tooltip_options = NULL,
   session = NULL,
-  events = NULL
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_table", environment())
   # Mistakes are reported here, where the table is written, not where it
@@ -773,7 +755,8 @@ el_table <- function(
   columns <- args$columns
   rm(args)
   .el_table_sanitize_columns(columns)
-  .el_check_events(events, "el-table", .el_table_events)
+  .el_events_forwarded("el_table", events)
+  .el_on_bindings("x", on)
   .el_loading_attrs(loading_options)
   .el_component(".el_table_tags", as.list(environment()), "el_table")
 }
@@ -835,7 +818,8 @@ el_table <- function(
   tooltip_formatter = NULL,
   tooltip_options = NULL,
   session = NULL,
-  events = NULL
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_table", environment())
   args <- .el_table_args(id, data, columns)
@@ -850,16 +834,7 @@ el_table <- function(
 
   data <- .el_table_rownames(data, rownames)
   prep <- .el_table_prep(data, columns)
-  named_selection <- if (is.null(events) || is.null(names(events))) {
-    character()
-  } else {
-    names(events)[events == "selection-change" & nzchar(names(events))]
-  }
-  selection_input <- if (length(named_selection)) {
-    named_selection[[1]]
-  } else {
-    paste0(ns_id, "_selection_change")
-  }
+  selection_input <- paste0(ns_id, "_selection_change")
 
   # Columns are rendered with v-for rather than baked into the markup, so
   # update_el_table() can change them -- Vue only tracks fields declared in
@@ -1077,29 +1052,15 @@ el_table <- function(
   table_attrs[["v-bind"]] <- "loadingAttrs"
 
   # Element's events: the state changes every table reports, and any other
-  # asked for with `events` or el_on() -- unnamed as <id>_<event>, named as
-  # the input given
-  asked <- if (is.null(events)) character() else events
-  .el_check_events(asked, "el-table", .el_table_events)
-  named <- if (is.null(names(asked))) {
-    rep(FALSE, length(asked))
-  } else {
-    nzchar(names(asked))
-  }
-  inputs <- if (any(named)) {
-    stats::setNames(names(asked)[named], unname(asked)[named])
-  } else {
-    character()
-  }
-  forwarded <- union(.el_table_default_events, unname(asked))
-  forwarded <- setdiff(forwarded, "selection-change")
+  # asked for with `events`, as input$<id>_<event>; the user's own, `on`
   events <- .el_event_bindings(
     ns_id,
-    forwarded,
+    "el_table",
+    events,
+    on = on,
     shapes = .el_table_event_shapes(),
     # fires on every frame of a scroll
-    throttle = intersect("scroll", forwarded),
-    inputs = inputs
+    throttle = "scroll"
   )
   table_attrs <- c(table_attrs, events$attrs)
 
@@ -1724,36 +1685,6 @@ update_el_table <- function(
     delete = data[-at, , drop = FALSE]
   )
 }
-
-# Every event el-table emits, and the few a table reports unasked
-.el_table_events <- c(
-  "select",
-  "select-all",
-  "selection-change",
-  "cell-mouse-enter",
-  "cell-mouse-leave",
-  "cell-click",
-  "cell-dblclick",
-  "cell-contextmenu",
-  "row-click",
-  "row-contextmenu",
-  "row-dblclick",
-  "header-click",
-  "header-contextmenu",
-  "sort-change",
-  "filter-change",
-  "current-change",
-  "header-dragend",
-  "expand-change",
-  "scroll"
-)
-.el_table_default_events <- c(
-  "selection-change",
-  "current-change",
-  "sort-change",
-  "filter-change",
-  "expand-change"
-)
 
 
 #' Element's element-loading-* attributes

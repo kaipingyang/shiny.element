@@ -17,6 +17,8 @@ el_tabs(
   stretch = FALSE,
   before_leave = NULL,
   add_icon = NULL,
+  value = NULL,
+  events = NULL,
   session = NULL
 )
 
@@ -29,7 +31,8 @@ update_el_tabs(
   closable = NULL,
   addable = NULL,
   editable = NULL,
-  stretch = NULL
+  stretch = NULL,
+  value = NULL
 )
 }
 \arguments{
@@ -49,7 +52,9 @@ is off for the rest.}
 Its components do not exist, and report nothing, until then.}
 }}
 
-\item{selected}{Name of the initially selected tab. Defaults to the first.}
+\item{selected, value}{Name of the initially selected tab; the first by
+default. \code{selected} is Shiny's name, as in \code{\link[shiny:tabsetPanel]{shiny::tabsetPanel()}},
+\code{value} Element's (its \code{v-model}); give either.}
 
 \item{type}{\code{NULL} for plain tabs, \code{"card"} or \code{"border-card"}.}
 
@@ -71,6 +76,11 @@ from the page; the server is told through \verb{input$<id>_tab_remove}.}
 
 \item{add_icon}{The add button's icon, by name. Default \code{"Plus"}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
 \item{session}{In \code{el_tabs()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_tabs()}, the Shiny session, the
@@ -89,17 +99,18 @@ components from this package: a Vue instance mounted here would rebuild the
 DOM underneath them, leaving them rendered but disconnected from the server.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- name of the selected tab, on load and on every change.
-\item \verb{input$<id>_tab_click} -- name of the tab clicked, even if it was already
-selected.
-\item \verb{input$<id>_tab_remove} -- name of a tab just closed.
-\item \verb{input$<id>_tab_add} -- fires when the "+" button is clicked.
-\item \verb{input$<id>_edit} -- either of the last two, as Element's \code{edit} event:
-a list of \code{target} (the tab name, or \code{NULL} for an add) and \code{action}
-(\code{"remove"} or \code{"add"}).
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the name of the selected tab \cr
+   \verb{input$<id>_tab_click} \tab \code{events = "tab_click"} \tab the name of the tab clicked \cr
+   \verb{input$<id>_tab_change} \tab \code{events = "tab_change"} \tab the name of the tab selected \cr
+   \verb{input$<id>_tab_remove} \tab unasked \tab the name of the tab closed \cr
+   \verb{input$<id>_tab_add} \tab unasked \tab triggers when tab-add button is clicked \cr
+   \verb{input$<id>_edit} \tab \code{events = "edit"} \tab \code{list(target, action)}: the tab's name (\code{NULL} for an add) and \code{"add"} or \code{"remove"} \cr
 }
+
+
+The same list as \code{el_events("el_tabs")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

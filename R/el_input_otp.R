@@ -32,12 +32,10 @@
 #' @param slots Named list of Element slot contents: `separator`. A scoped
 #'   slot is written with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the value, on load and on every change.
-#' - `input$<id>_change` -- Element Plus's `change` event.
-#' - `input$<id>_finish` -- Element Plus's `finish` event.
-#' - `input$<id>_focus` -- Element Plus's `focus` event.
-#' - `input$<id>_blur` -- Element Plus's `blur` event.
+#' `r .el_events_md("el_input_otp")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `focus()`, `blur()`.
@@ -70,14 +68,21 @@ el_input_otp <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_input_otp", environment())
   if (is.null(id)) {
     id <- .el_auto_id("el_input_otp")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("change", "finish", "focus", "blur"))
+  events <- .el_event_bindings(
+    ns_id,
+    "el_input_otp",
+    events,
+    on = on
+  )
   attrs <- c(list("v-model" = "value"), events$attrs)
   el_widget(
     label = label,

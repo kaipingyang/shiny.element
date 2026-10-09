@@ -44,6 +44,8 @@ el_autocomplete(
   teleported = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -184,6 +186,16 @@ Element Plus's \code{teleported} (boolean).}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_autocomplete()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_autocomplete()}, the Shiny session, the
@@ -196,13 +208,20 @@ A Shiny UI element.
 A text input that suggests as you type.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the current text.
-\item \verb{input$<id>_select} -- the suggestion just picked.
-\item \verb{input$<id>_change} -- fires when the text changes.
-\item \verb{input$<id>_query} -- with \code{remote = TRUE}, the text to suggest for.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the current text \cr
+   \verb{input$<id>_query} \tab unasked \tab with \code{remote = TRUE}, the text to suggest for; answer with \code{update_el_autocomplete()} \cr
+   \verb{input$<id>_select} \tab unasked \tab triggers when a suggestion is clicked \cr
+   \verb{input$<id>_change} \tab \code{events = "change"} \tab triggers when the icon inside Input value change \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Input blurs \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the Input is cleared by clicking the clear button \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Input focuses \cr
+   \verb{input$<id>_input} \tab \code{events = "input"} \tab triggers when the Input value change \cr
 }
+
+
+The same list as \code{el_events("el_autocomplete")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

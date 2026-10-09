@@ -44,15 +44,10 @@
 #' @param slots Named list of Element slot contents: `label`, `loading`,
 #'   `header`, `footer`. A scoped slot is written with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the value, on load and on every change.
-#' - `input$<id>_search` -- Element Plus's `search` event, as it is typed
-#'   after a prefix: `list(pattern, prefix)`, the text and the prefix.
-#'   Answer it with [update_el_mention()]'s `options` (and `loading`).
-#' - `input$<id>_select` -- Element Plus's `select` event: `list(option,
-#'   prefix)`.
-#' - `input$<id>_whole_remove` -- Element Plus's `whole-remove` event:
-#'   `list(pattern, prefix)`.
+#' `r .el_events_md("el_mention")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -88,7 +83,9 @@ el_mention <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_mention", environment())
   # A named vector c(Label = value), as the choice components take, or
@@ -102,7 +99,9 @@ el_mention <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("search", "select", "whole-remove"),
+    "el_mention",
+    events,
+    on = on,
     shapes = list(
       search = "function(pattern, prefix) { return {pattern: pattern, prefix: prefix}; }",
       select = "function(option, prefix) { return {option: option, prefix: prefix}; }",

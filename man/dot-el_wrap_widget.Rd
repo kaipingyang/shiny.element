@@ -14,7 +14,8 @@
   width = NULL,
   slots = NULL,
   data = list(),
-  wrap = NULL
+  wrap = NULL,
+  on = NULL
 )
 }
 \arguments{
@@ -38,6 +39,9 @@
 placed in the container instead: markup of the container's own around
 them, whose bindings name the container's fields. Left out of the
 children, it is not renamed with them.}
+
+\item{on}{The user's own handlers, for a container that forwards no
+event of Element's: see \code{\link[=el_widget]{el_widget()}}.}
 }
 \value{
 A Shiny UI element.

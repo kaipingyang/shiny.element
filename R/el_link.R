@@ -22,9 +22,9 @@
 #' @param ... Additional HTML attributes passed to the `<a>` tag (a plain
 #'   link only).
 #'
+#' @template on
 #' @section Shiny inputs:
-#' With an `id`, `input$<id>` -- the number of clicks, as
-#' [shiny::actionLink()] reports it.
+#' `r .el_events_md("el_link")`
 #'
 #' @return An `htmltools` `<a>` tag, or with an `id` a Shiny UI element.
 #'
@@ -45,7 +45,8 @@ el_link <- function(
   icon = NULL,
   id = NULL,
   ...,
-  target = "_self"
+  target = "_self",
+  on = NULL
 ) {
   .el_check_choices("el_link", environment())
   # Element Plus's boolean form: TRUE is "hover", FALSE "never"
@@ -97,7 +98,8 @@ el_link <- function(
       ),
       # An action link, as actionLink() is
       mounted = .el_mounted_init(stats::setNames("count", ns_id)),
-      type = "shiny.action"
+      type = "shiny.action",
+      on = on
     ))
   }
   type <- type %||% "default"

@@ -41,11 +41,10 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- keys currently on the right.
-#' - `input$<id>_change` -- fires on each move.
-#' - `input$<id>_left_check_change`, `input$<id>_right_check_change` -- fire
-#'   as items are ticked.
+#' `r .el_events_md("el_transfer")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -97,6 +96,8 @@ el_transfer <- function(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_transfer", environment())
@@ -122,7 +123,9 @@ el_transfer <- function(
   )
   events <- .el_event_bindings(
     ns_id,
-    c("change", "left-check-change", "right-check-change"),
+    "el_transfer",
+    events,
+    on = on,
     shapes = list(
       "change" = "function(value, direction, moved) { return {value: value, direction: direction, moved: moved}; }",
       "left-check-change" = "function(checked, changed) { return {checked: checked, changed: changed}; }",

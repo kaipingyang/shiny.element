@@ -37,6 +37,7 @@ el_rate(
   void_icon = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -159,6 +160,11 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_rate()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_rate()}, the Shiny session, the
@@ -171,9 +177,13 @@ An \code{htmltools} tagList with a Vue-managed rate component.
 A star-rating input. Supports half-stars, custom icons, and read-only display.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the rating \cr
+}
 
-\verb{input$<id>} -- numeric rating value (0 to \code{max}, increments of 0.5 when
-\code{allow_half = TRUE}).
+
+The same list as \code{el_events("el_rate")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

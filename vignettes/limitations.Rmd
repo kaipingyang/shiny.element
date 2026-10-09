@@ -35,12 +35,10 @@ exceptions. Each is deliberate; the rest translate mechanically
 
 | Element | Here | Why |
 |---|---|---|
-| `default-active` | `active` | It is the current item, and `update_el_menu()` changes it -- "default" would suggest it is only read once |
-| `data` (upload) | `extra_data` | `el_upload()`'s `data` would read as the file, not the fields sent beside it |
 | `width` (popover, popconfirm) | `popover_width`, `popconfirm_width` | Every component takes `width` for its own size; this one sizes the card |
 | `#reference` slot (tooltip) | `reference` | The element the tooltip describes, as for `el_popover()`; `trigger` is Element's own, how it opens |
 | `virtual-ref` | `virtual_ref`, a CSS selector | Element takes the element itself, which R cannot send; the selector is looked up in the browser |
-| `model-value` | `value`, or `visible` (dialog, drawer), `selected` (tabs), `open` (tour) | `v-model`'s prop is the component's value, read back as `input$<id>` |
+| `model-value` | `value`, or `visible` (dialog, drawer, tour) | `v-model`'s prop is the component's value, read back as `input$<id>`; whether an overlay is open is `visible`, as Element names it on the tooltip and popover |
 | `width` (watermark, table-v2) | `watermark_width`, `table_v2_width` | As for the popover |
 | a prop named like a child's field | prefixed: `tip_`, `pop_`, `pc_` | A component that absorbs its children keeps their data apart from its own |
 
@@ -74,13 +72,13 @@ el_table(
 
 ### Two names for the choice components
 
-`el_select()`, `el_radio_group()` and `el_checkbox_group()` sit beside
-`selectInput()`, `radioButtons()` and `checkboxGroupInput()`, so they take
-Shiny's names -- and Element's as well:
+`el_select()`, `el_radio_group()`, `el_checkbox_group()` and `el_tabs()` sit
+beside `selectInput()`, `radioButtons()`, `checkboxGroupInput()` and
+`tabsetPanel()`, so they take Shiny's names -- and Element's as well:
 
 | Shiny's name | Element's name | Meaning |
 |---|---|---|
-| `choices` | `options` | what can be picked |
+| `choices` | `options` | what can be picked (not tabs: their `tabs`) |
 | `selected` | `value` | what is picked |
 
 Either works, in the components and in their `update_el_*()`, so code reads
@@ -109,7 +107,7 @@ everywhere else Shiny and Element already agree on `value`.
 
 A component's `v-model` is its `value` argument, the value it reports as
 `input$<id>`. The overlays are the exception: whether a dialog, drawer,
-tooltip or popover is open is `visible` in each, Element's own name
+tooltip, popover or tour is open is `visible` in each, Element's own name
 for it on the tooltip and popover, which `update_el_*(visible =)` sets.
 
 `el_upload()`'s `on-success`, `on-error` and `http-request` are taken: they

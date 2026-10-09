@@ -19,6 +19,7 @@
 #' @param direction `"horizontal"` (default) or `"vertical"`.
 #' @param width Component width, as a CSS unit.
 #'
+#' @template on
 #' @return A Shiny UI element.
 #' @examples
 #' el_button_group(
@@ -32,7 +33,8 @@ el_button_group <- function(
   size = NULL,
   type = NULL,
   direction = NULL,
-  width = NULL
+  width = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_button_group", environment())
   if (is.null(id)) {
@@ -65,7 +67,8 @@ el_button_group <- function(
     computed = merged$computed,
     mounted = merged$mounted,
     width = width,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

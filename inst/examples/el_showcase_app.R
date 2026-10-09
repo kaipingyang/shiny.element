@@ -64,7 +64,7 @@ ui <- el_page(
     el_container(
       el_aside(
         width = "220px",
-        el_menu("nav", items = demo_nav, active = "home")
+        el_menu("nav", items = demo_nav, default_active = "home")
       ),
 
       el_main(

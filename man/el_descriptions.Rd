@@ -17,6 +17,7 @@ el_descriptions(
   label_width = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -64,6 +65,11 @@ use \code{slots = list(extra = ...)}.}
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents: \code{title}, \code{extra}.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
 
 \item{session}{In \code{el_descriptions()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}

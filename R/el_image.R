@@ -54,9 +54,10 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_load` -- fires when the image has loaded.
-#' - `input$<id>_error` -- fires when it fails to.
+#' `r .el_events_md("el_image")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -96,6 +97,8 @@ el_image <- function(
   class = NULL,
   style = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_image", environment())
@@ -118,7 +121,9 @@ el_image <- function(
   )
   events <- .el_event_bindings(
     ns_id,
-    c("load", "error", "close", "show", "switch")
+    "el_image",
+    events,
+    on = on
   )
   attrs <- c(attrs, events$attrs)
 

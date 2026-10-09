@@ -53,16 +53,12 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_dialog()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template events
 #' @section Shiny inputs:
-#' - `input$<id>` -- `TRUE` while the dialog is open, reported whenever it
-#'   opens or closes, however that happens. Shiny routes an input binding's
-#'   messages by element id, so the name matches the id, as it does for
-#'   [el_tabs()] and [el_collapse()].
-#' - `input$<id>_open`, `input$<id>_opened` -- fire as it opens, and once
-#'   it has.
-#' - `input$<id>_close`, `input$<id>_closed` -- likewise as it closes.
-#' - `input$<id>_open_auto_focus`, `input$<id>_close_auto_focus` -- as focus
-#'   moves into it on opening, and back on closing.
+#' `r .el_events_md("el_dialog")`
+#'
+#' Shiny routes an input binding's messages by element id, so the value is
+#' `input$<id>` itself, as for [el_tabs()] and [el_collapse()].
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `resetPosition()` puts a dragged dialog back.
@@ -119,6 +115,7 @@ el_dialog <- function(
   z_index = NULL,
   header_aria_level = "2",
   transition = NULL,
+  events = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -169,6 +166,8 @@ el_dialog <- function(
         if (!is.null(z_index)) sprintf("z-index:%s;", z_index)
       ),
       `data-el-overlay` = "dialog",
+      # the events it reports: its defaults and those asked for
+      `data-el-events` = .el_events_attr("el_dialog", events),
       `data-visible` = tolower(as.character(visible)),
       `data-modal` = tolower(as.character(modal)),
       `data-mask-close` = tolower(as.character(modal && close_on_click_modal)),

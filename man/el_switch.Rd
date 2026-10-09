@@ -38,6 +38,7 @@ el_switch(
   size = NULL,
   tabindex = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -170,6 +171,11 @@ number).}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_switch()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_switch()}, the Shiny session, the
@@ -190,9 +196,13 @@ Callable with \code{\link[=call_el]{call_el()}}:
 }
 
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab \code{active_value} when on, \code{inactive_value} when off \cr
+}
 
-\verb{input$<id>} -- the value of \code{active_value} (when on) or \code{inactive_value}
-(when off), matching the types of those arguments.
+
+The same list as \code{el_events("el_switch")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{

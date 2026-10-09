@@ -20,7 +20,7 @@ el_upload(
   tip = NULL,
   action = NULL,
   headers = NULL,
-  extra_data = NULL,
+  data = NULL,
   file_list = NULL,
   with_credentials = NULL,
   before_upload = NULL,
@@ -42,6 +42,7 @@ el_upload(
   directory = NULL,
   width = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -60,7 +61,7 @@ update_el_upload(
   list_type = NULL,
   auto_upload = NULL,
   headers = NULL,
-  extra_data = NULL,
+  data = NULL,
   file_list = NULL,
   with_credentials = NULL,
   before_upload = NULL,
@@ -111,7 +112,10 @@ Shiny's channel. See details.}
 
 \item{headers}{Request headers, as a named list.}
 
-\item{extra_data}{Extra fields sent alongside the file, as a named list.}
+\item{data}{Extra fields sent alongside each file, as a named list:
+Element Plus's \code{data}. Element's own request sends them, so they apply
+only with \code{action}; Shiny's upload, the default, does not send them --
+give the server what it needs through another input.}
 
 \item{file_list}{Files shown initially, each \code{list(name=, url=)}.}
 
@@ -176,6 +180,11 @@ scoped with \code{file}), \code{trigger}. A shiny.element component given here i
 absorbed rather than nested. For a scoped slot, write the template with
 \code{\link[=template]{template()}}.}
 
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_upload()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_upload()}, the Shiny session, the
@@ -198,6 +207,15 @@ URL. Shiny then plays no part -- useful for a pre-signed S3 URL or an
 existing file service, but the server sees no \code{datapath}.
 }
 \section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the files, as \code{fileInput()} reports them (without \code{action}) \cr
+   \verb{input$<id>_success} \tab unasked \tab with \code{action}, the names of the files uploaded \cr
+   \verb{input$<id>_error} \tab unasked \tab the name of a file that failed \cr
+}
+
+
+The same list as \code{el_events("el_upload")}, which says how an event's arguments travel.
 
 Without \code{action}, \verb{input$<id>} is a data frame of \code{name}, \code{size}, \code{type}
 and \code{datapath}, one row per file in the last batch, exactly as

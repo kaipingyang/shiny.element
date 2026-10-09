@@ -37,6 +37,8 @@ el_tooltip(
   visible = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -145,6 +147,16 @@ given.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_tooltip()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_tooltip()}, the Shiny session, the
@@ -163,6 +175,19 @@ into the tooltip's markup. It reports its inputs as usual, but it no longer
 has a host of its own, so its \verb{update_el_*()} cannot find it -- drive it
 through \code{\link[=update_vue]{update_vue()}} on the tooltip's id instead.
 }
+\section{Shiny inputs}{
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>_show} \tab \code{events = "show"} \tab Triggers when tooltip is shown. Passes trigger reason as argument. \cr
+   \verb{input$<id>_hide} \tab \code{events = "hide"} \tab Triggers when tooltip is hidden. Passes trigger reason as argument. \cr
+   \verb{input$<id>_before_show} \tab \code{events = "before_show"} \tab Triggers before tooltip is shown. Passes trigger reason as argument. \cr
+   \verb{input$<id>_before_hide} \tab \code{events = "before_hide"} \tab Triggers before tooltip is hidden. Passes trigger reason as argument. \cr
+}
+
+
+The same list as \code{el_events("el_tooltip")}, which says how an event's arguments travel.
+}
+
 \section{Updating from the server}{
 
 Server-side update for \code{\link[=el_tooltip]{el_tooltip()}}. Setting \code{visible} shows or hides

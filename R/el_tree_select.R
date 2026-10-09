@@ -37,13 +37,10 @@
 #' @param width Component width, as a CSS unit.
 #' @param slots Named list of Element slot contents.
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the selected value, or several, on load and on change.
-#' - `input$<id>_load` -- with `lazy = TRUE`, a node asking for its
-#'   children: `level`, `key` (its `node_key` field) and `data`. Answer with
-#'   [el_load_children()].
-#' - `input$<id>_visible_change`, `input$<id>_clear`, `input$<id>_remove_tag`,
-#'   `input$<id>_node_click`, `input$<id>_check` -- Element Plus's events.
+#' `r .el_events_md("el_tree_select")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `focus()`, `blur()`.
@@ -98,13 +95,17 @@ el_tree_select <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_tree_select", environment())
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("visible-change", "clear", "remove-tag", "node-click", "check")
+    "el_tree_select",
+    events,
+    on = on
   )
   value <- .el_restore(
     ns_id,

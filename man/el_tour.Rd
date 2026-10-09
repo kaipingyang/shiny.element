@@ -8,7 +8,7 @@
 el_tour(
   id = NULL,
   steps = list(),
-  open = FALSE,
+  visible = FALSE,
   current = NULL,
   show_arrow = NULL,
   placement = NULL,
@@ -24,13 +24,15 @@ el_tour(
   target_area_clickable = NULL,
   append_to = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 )
 
 update_el_tour(
   session = shiny::getDefaultReactiveDomain(),
   id,
-  open = NULL,
+  visible = NULL,
   current = NULL,
   show_arrow = NULL,
   placement = NULL,
@@ -57,8 +59,9 @@ update_el_tour(
 place of the title. A step without a \code{target} shows in the middle of the
 screen.}
 
-\item{open}{Whether it starts open: Element Plus's \code{model-value}. Open it
-later with \code{\link[=update_el_tour]{update_el_tour()}}.}
+\item{visible}{Whether it starts open: Element Plus's \code{model-value}, named
+\code{visible} as on the other overlays. Open it later with
+\code{\link[=update_el_tour]{update_el_tour()}}.}
 
 \item{current}{The step it starts on, from 0.}
 
@@ -67,6 +70,16 @@ later with \code{\link[=update_el_tour]{update_el_tour()}}.}
 \item{width}{Component width, as a CSS unit.}
 
 \item{slots}{Named list of Element slot contents: \code{indicators}.}
+
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
 
 \item{session}{Shiny session; the current one by default, as for
 \code{\link[shiny:updateTextInput]{shiny::updateTextInput()}}.}
@@ -79,13 +92,16 @@ A guided tour: a card pointing at one element of the page after another,
 with the rest of the page dimmed.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- whether it is open.
-\item \verb{input$<id>_change} -- the step, from 0, as it changes.
-\item \verb{input$<id>_close} -- the step it was closed on.
-\item \verb{input$<id>_finish} -- fires when the last step is done.
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab \code{TRUE} while it is open \cr
+   \verb{input$<id>_close} \tab unasked \tab the step it was closed on \cr
+   \verb{input$<id>_change} \tab unasked \tab the step, from 0 \cr
+   \verb{input$<id>_finish} \tab unasked \tab callback function on finished \cr
 }
+
+
+The same list as \code{el_events("el_tour")}, which says how an event's arguments travel.
 }
 
 \section{Updating from the server}{
@@ -102,7 +118,7 @@ stays as it is; \code{NA} returns it to Element's default.
 \examples{
 el_tour(
   "intro",
-  open = TRUE,
+  visible = TRUE,
   steps = list(
     list(
       target = "#upload",
@@ -116,7 +132,7 @@ if (interactive()) {
   # inside a server function
   observeEvent(
     input$help,
-    update_el_tour(session, "intro", open = TRUE, current = 0)
+    update_el_tour(session, "intro", visible = TRUE, current = 0)
   )
 }
 }

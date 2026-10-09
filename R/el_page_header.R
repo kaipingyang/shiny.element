@@ -17,10 +17,10 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_back` -- fires when the back link is clicked. Observe it to
-#'   decide what going back means in your app; the component navigates nowhere
-#'   on its own.
+#' `r .el_events_md("el_page_header")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -46,6 +46,8 @@ el_page_header <- function(
   icon = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -57,7 +59,12 @@ el_page_header <- function(
     ":title" = .el_optional_bind("title"),
     ":content" = .el_optional_bind("content")
   )
-  events <- .el_event_bindings(ns_id, "back")
+  events <- .el_event_bindings(
+    ns_id,
+    "el_page_header",
+    events,
+    on = on
+  )
   attrs <- c(attrs, events$attrs)
 
   el_widget(

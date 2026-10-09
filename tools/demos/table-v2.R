@@ -371,6 +371,7 @@ ui <- el_page(
   ),
   el_table_v2(
     "tv_sticky",
+    events = "scroll",
     columns = columns,
     data = data[-1, ],
     fixed_data = data[1, ],
@@ -1019,6 +1020,7 @@ rows[[3]]$children <- lapply(0:49, function(i) {
 
 el_table_v2(
   "tv_tree",
+  events = c("row_expand", "expanded_rows_change"),
   columns = columns,
   data = rows,
   expand_column_key = expand_column_key,

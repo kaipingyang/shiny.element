@@ -50,6 +50,8 @@ el_time_picker(
   save_on_blur = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -85,6 +87,8 @@ el_time_select(
   value_on_clear = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 )
 
@@ -231,6 +235,16 @@ focus.}
 
 \item{slots}{Named list of Element slot contents.}
 
+\item{events}{Element's events to report besides those reported unasked,
+by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
+component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
+name it does not have is an error.}
+
+\item{on}{Handlers of your own, for an event not reported or to send
+something else: a named list of \code{\link[=JS]{JS()}} functions, one per event --
+Element's, or a DOM event with Vue's modifiers (\code{"keyup.enter"}). Each
+is called with \code{report} and the event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}. See \code{\link[=el_widget]{el_widget()}}.}
+
 \item{session}{In \code{el_time_picker()}, deprecated: inside a module, wrap \code{id} in
 \code{ns()}, as for any Shiny input; a session given here namespaces \code{id}
 once more, with a warning. In \code{update_el_time_picker()}, the Shiny session, the
@@ -251,13 +265,28 @@ with \code{is_range = TRUE}; \code{el_time_select()} offers fixed times at a set
 interval, such as every half hour between nine and six.
 }
 \section{Shiny inputs}{
-
-\itemize{
-\item \verb{input$<id>} -- the time, or two for a range, on load and on change.
-\item \verb{input$<id>_blur}, \verb{input$<id>_focus}, \verb{input$<id>_clear} -- as the field
-loses and gains focus, and is cleared; \verb{input$<id>_visible_change} as
-the panel opens and closes (\code{el_time_picker()}).
+\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the time, two for a range \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Input blurs \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Input focuses \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the clear icon is clicked in a clearable TimePicker \cr
+   \verb{input$<id>_visible_change} \tab \code{events = "visible_change"} \tab triggers when the TimePicker's dropdown appears/disappears \cr
 }
+
+
+The same list as \code{el_events("el_time_picker")}, which says how an event's arguments travel.
+
+\code{el_time_select()}:\tabular{lll}{
+   Input \tab Reported \tab Value \cr
+   \verb{input$<id>} \tab unasked \tab the time \cr
+   \verb{input$<id>_blur} \tab \code{events = "blur"} \tab triggers when Input blurs \cr
+   \verb{input$<id>_focus} \tab \code{events = "focus"} \tab triggers when Input focuses \cr
+   \verb{input$<id>_clear} \tab \code{events = "clear"} \tab triggers when the clear icon is clicked in a clearable TimeSelect \cr
+}
+
+
+The same list as \code{el_events("el_time_select")}, which says how an event's arguments travel.
 }
 
 \section{Element methods}{

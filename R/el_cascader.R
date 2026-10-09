@@ -86,15 +86,15 @@
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the selected path, on load and on change.
-#' - `input$<id>_lazy_load` -- with `props = list(lazy = TRUE)`, a column to
-#'   load: `level` (0 for the first), `value` and `path` of the option
-#'   opened, and `request`. Answer with [el_load_children()], passing the
-#'   input back; each child is `list(value =, label =, leaf = TRUE)` for one
-#'   with nothing below.
-#' - `input$<id>_expand_change`, `_blur`, `_focus`, `_visible_change`,
-#'   `_remove_tag` -- Element's events.
+#' `r .el_events_md("el_cascader")`
+#'
+#' `input$<id>_lazy_load` carries `level` (0 for the first column), `value`
+#' and `path` of the option opened, and `request`. Answer with
+#' [el_load_children()], passing the input back; each child is `list(value
+#' =, label =, leaf = TRUE)` for one with nothing below.
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -204,6 +204,8 @@ el_cascader <- function(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_cascader", environment())
@@ -235,14 +237,9 @@ el_cascader <- function(
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "expand-change",
-      "blur",
-      "focus",
-      "visible-change",
-      "remove-tag",
-      "clear"
-    )
+    "el_cascader",
+    events,
+    on = on
   )
   cascader_attrs <- c(cascader_attrs, events$attrs)
 

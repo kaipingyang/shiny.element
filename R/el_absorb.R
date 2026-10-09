@@ -541,6 +541,8 @@
 #' @param children A list of UI.
 #' @param props Output of [.el_props()], or `NULL`.
 #' @param events Output of [.el_event_bindings()], or `NULL`.
+#' @param on The user's own handlers, for a container that forwards no
+#'   event of Element's: see [el_widget()].
 #' @param attrs Further attributes of the tag.
 #' @param width,slots As for [el_widget()].
 #' @param data Further fields of the container's own.
@@ -560,7 +562,8 @@
   width = NULL,
   slots = NULL,
   data = list(),
-  wrap = NULL
+  wrap = NULL,
+  on = NULL
 ) {
   own <- list(
     markup = NULL,
@@ -588,7 +591,8 @@
     mounted = merged$mounted,
     width = width,
     slots = slots,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

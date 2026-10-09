@@ -32,11 +32,10 @@
 #' @param slots Named list of Element slot contents: `progress`, `toolbar`,
 #'   `viewer-error`. A scoped slot is written with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_close` -- as it closes.
-#' - `input$<id>_error` -- Element Plus's `error` event.
-#' - `input$<id>_switch` -- Element Plus's `switch` event.
-#' - `input$<id>_rotate` -- Element Plus's `rotate` event.
+#' `r .el_events_md("el_image_viewer")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]: `setActiveItem()`.
@@ -59,14 +58,21 @@ el_image_viewer <- function(
   close_on_press_escape = NULL,
   show_progress = NULL,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_image_viewer", environment())
   if (is.null(id)) {
     id <- .el_auto_id("el_image_viewer")
   }
   ns_id <- .el_ui_id(id, NULL)
-  events <- .el_event_bindings(ns_id, c("error", "switch", "rotate"))
+  events <- .el_event_bindings(
+    ns_id,
+    "el_image_viewer",
+    events,
+    on = on
+  )
   # Element Plus's viewer is open while it is mounted: v-if stands for its
   # visibility, and closing it unmounts it and reports
   attrs <- c(list("v-if" = "visible", "@close" = "handleClose"), events$attrs)

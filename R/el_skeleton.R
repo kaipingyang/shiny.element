@@ -23,6 +23,7 @@
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_skeleton()`, the Shiny session, the
 #'   current one by default, as for [shiny::updateTextInput()].
+#' @template on
 #' @return A Shiny UI element.
 #' @examples
 #' el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
@@ -52,6 +53,7 @@ el_skeleton <- function(
   class = NULL,
   style = NULL,
   slots = NULL,
+  on = NULL,
   session = NULL
 ) {
   if (is.null(id)) {
@@ -104,7 +106,8 @@ el_skeleton <- function(
     mounted = merged$mounted,
     width = width,
     slots = slots,
-    dependency = merged$dependencies
+    dependency = merged$dependencies,
+    on = on
   )
 }
 

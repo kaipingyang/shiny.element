@@ -67,10 +67,10 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>_show`, `input$<id>_hide` -- fire as the card opens and closes.
-#' - `input$<id>_after_enter`, `input$<id>_after_leave` -- fire once the
-#'   animation has finished.
+#' `r .el_events_md("el_popover")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -121,6 +121,8 @@ el_popover <- function(
   ...,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_popover", environment())
@@ -146,14 +148,9 @@ el_popover <- function(
   )
   events <- .el_event_bindings(
     ns_id,
-    c(
-      "show",
-      "hide",
-      "after-enter",
-      "after-leave",
-      "before-enter",
-      "before-leave"
-    )
+    "el_popover",
+    events,
+    on = on
   )
   attrs <- c(attrs, events$attrs)
 

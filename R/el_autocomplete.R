@@ -57,11 +57,10 @@
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the current text.
-#' - `input$<id>_select` -- the suggestion just picked.
-#' - `input$<id>_change` -- fires when the text changes.
-#' - `input$<id>_query` -- with `remote = TRUE`, the text to suggest for.
+#' `r .el_events_md("el_autocomplete")`
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -119,6 +118,8 @@ el_autocomplete <- function(
   teleported = NULL,
   width = NULL,
   slots = NULL,
+  events = NULL,
+  on = NULL,
   session = NULL
 ) {
   .el_check_choices("el_autocomplete", environment())
@@ -191,7 +192,9 @@ el_autocomplete <- function(
   )
   events <- .el_event_bindings(
     ns_id,
-    c("select", "change", "blur", "clear", "focus", "input")
+    "el_autocomplete",
+    events,
+    on = on
   )
   attrs <- c(attrs, events$attrs)
 

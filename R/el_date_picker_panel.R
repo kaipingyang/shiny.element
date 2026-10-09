@@ -52,11 +52,10 @@
 #'   `next-month`, `prev-year`, `next-year`. A scoped slot is written with
 #'   [template()].
 #'
+#' @template events
+#' @template on
 #' @section Shiny inputs:
-#' - `input$<id>` -- the value, on load and on every change.
-#' - `input$<id>_calendar_change` -- Element Plus's `calendar-change` event.
-#' - `input$<id>_panel_change` -- Element Plus's `panel-change` event.
-#' - `input$<id>_clear` -- Element Plus's `clear` event.
+#' `r .el_events_md("el_date_picker_panel")`
 #'
 #' @return A Shiny UI element.
 #' @examples
@@ -92,7 +91,9 @@ el_date_picker_panel <- function(
   show_message = TRUE,
   inline_message = FALSE,
   width = NULL,
-  slots = NULL
+  slots = NULL,
+  events = NULL,
+  on = NULL
 ) {
   .el_check_choices("el_date_picker_panel", environment())
   if (inherits(value, "Date")) {
@@ -110,7 +111,9 @@ el_date_picker_panel <- function(
   ns_id <- .el_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
-    c("calendar-change", "panel-change", "clear")
+    "el_date_picker_panel",
+    events,
+    on = on
   )
   attrs <- c(list("v-model" = "value"), events$attrs)
   el_widget(
