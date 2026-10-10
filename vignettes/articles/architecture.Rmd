@@ -1,0 +1,328 @@
+---
+title: "Architecture"
+---
+
+How the package is built: a Vue layer that knows no component library, and
+the Element layer on top of it. Each diagram follows a component from the R
+function that writes it to the browser and back to the server.
+
+```{=html}
+<style>
+.arch { margin: 1.5rem 0 2.5rem; font-size: 0.8125rem; line-height: 1.45; color: #303133; }
+.arch * { box-sizing: border-box; }
+.arch-stack { display: grid; gap: 6px; margin-bottom: 1.25rem; }
+.arch-layer { border-radius: 6px; padding: 10px 14px; border: 1px solid; }
+.arch-layer b { display: block; font-size: 0.875rem; margin-bottom: 2px; }
+.arch-layer.l-el { background: #ecf5ff; border-color: #a0cfff; }
+.arch-layer.l-vue { background: #f0f9eb; border-color: #b3e19d; }
+.arch-layer.l-base { background: #f4f4f5; border-color: #d3d4d6; }
+.arch-layer .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.arch-chip { display: inline-block; padding: 1px 7px; border-radius: 10px; background: #fff; border: 1px solid #dcdfe6; font-family: Menlo, Monaco, Consolas, monospace; font-size: 0.75rem; white-space: nowrap; }
+.arch-flows { display: grid; grid-template-columns: minmax(0, 1fr) 150px minmax(0, 1fr); gap: 8px 0; align-items: stretch; }
+.arch-head { font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: .04em; color: #909399; padding: 0 0 2px; }
+.arch-head.mid { text-align: center; }
+.arch-box { border: 1px solid #dcdfe6; border-radius: 6px; background: #fff; padding: 8px 10px; }
+.arch-box h5 { margin: 0 0 4px; font-size: 0.8125rem; font-weight: 600; color: #303133; }
+.arch-box code, .arch-layer code { font-size: 0.75rem; background: none; padding: 0; color: #409EFF; }
+.arch-box ul { margin: 0; padding-left: 1.1em; }
+.arch-box li { margin: 0; }
+.arch-box.r { border-left: 3px solid #409EFF; }
+.arch-box.js { border-left: 3px solid #67C23A; }
+.arch-box.shiny { border-left: 3px solid #E6A23C; }
+.arch-wire { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 6px; color: #606266; font-size: 0.75rem; }
+.arch-wire .line { width: 100%; position: relative; height: 2px; background: #c0c4cc; margin: 4px 0; }
+.arch-wire .line.right::after, .arch-wire .line.left::before { content: ""; position: absolute; top: -4px; border: 5px solid transparent; }
+.arch-wire .line.right::after { right: -2px; border-left-color: #c0c4cc; border-right: 0; }
+.arch-wire .line.left::before { left: -2px; border-right-color: #c0c4cc; border-left: 0; }
+.arch-wire code { font-size: 0.7rem; color: #E6A23C; background: none; padding: 0; }
+.arch-row-label { grid-column: 1 / -1; font-weight: 600; font-size: 0.8125rem; color: #303133; margin-top: 10px; padding-bottom: 2px; border-bottom: 1px dashed #e4e7ed; }
+.arch-legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.75rem; color: #606266; margin: 0.5rem 0 1rem; }
+.arch-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.arch-legend .k-r::before { background: #409EFF; }
+.arch-legend .k-js::before { background: #67C23A; }
+.arch-legend .k-shiny::before { background: #E6A23C; }
+.arch-kinds { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; }
+@media (max-width: 720px) {
+  .arch-flows { grid-template-columns: minmax(0, 1fr); }
+  .arch-wire { flex-direction: row; gap: 6px; padding: 2px 0; }
+  .arch-wire .line { width: 2px; height: 18px; margin: 0; }
+  .arch-wire .line.right::after, .arch-wire .line.left::before { display: none; }
+  .arch-head.mid { display: none; }
+}
+</style>
+```
+
+## The layers
+
+```{=html}
+<div class="arch">
+  <div class="arch-stack">
+    <div class="arch-layer l-el">
+      <b>Element layer &mdash; <code>R/el_*.R</code>, <code>inst/js/el-*.js</code></b>
+      Element Plus's components as Shiny inputs and outputs: what each one reports, its
+      updates and methods, Element's containers, theme, locale and feedback services.
+      <div class="chips">
+        <span class="arch-chip">el_widget()</span><span class="arch-chip">el_input() ... el_tree()</span>
+        <span class="arch-chip">el_tabs() el_dialog()</span><span class="arch-chip">el_table() render_el_table()</span>
+        <span class="arch-chip">update_el_*()</span><span class="arch-chip">call_el()</span>
+        <span class="arch-chip">el_events()</span><span class="arch-chip">el_page() use_element()</span>
+      </div>
+    </div>
+    <div class="arch-layer l-vue">
+      <b>Vue layer &mdash; <code>R/vue_*.R</code>, <code>inst/js/shiny-vue.js</code></b>
+      Any Vue 3 component as a Shiny input, output or both, knowing no component library
+      &mdash; to become the shiny.vue package.
+      <div class="chips">
+        <span class="arch-chip">vue_app()</span><span class="arch-chip">vue_component()</span>
+        <span class="arch-chip">vue_store()</span><span class="arch-chip">render_vue()</span>
+        <span class="arch-chip">render_vue_data()</span><span class="arch-chip">update_vue()</span>
+        <span class="arch-chip">call_vue()</span><span class="arch-chip">flush_vue()</span>
+        <span class="arch-chip">vue_answer()</span>
+      </div>
+    </div>
+    <div class="arch-layer l-base">
+      <b>Underneath</b>
+      Shiny's inputs, outputs, messages and bookmarks; htmltools' tags and dependencies;
+      Vue 3.5 and Element Plus 2.14, bundled in <code>inst/vue3</code> and
+      <code>inst/element-plus</code>.
+    </div>
+  </div>
+</div>
+```
+
+## The Vue layer
+
+```{=html}
+<div class="arch">
+  <div class="arch-legend">
+    <span class="k-r">R, in the app's UI and server</span>
+    <span class="k-shiny">Shiny's channel</span>
+    <span class="k-js">The browser: <code>shiny-vue.js</code></span>
+  </div>
+  <div class="arch-flows">
+    <div class="arch-head">R</div><div class="arch-head mid">Shiny</div><div class="arch-head">Browser</div>
+
+    <div class="arch-row-label">A component is written</div>
+    <div class="arch-box r">
+      <h5><code>vue_app(id, template, data, ...)</code></h5>
+      <ul>
+        <li>Vue's options under Vue's names: <code>methods</code>, <code>computed</code>,
+          <code>watch</code>, <code>setup</code>, hooks; functions as <code>JS()</code></li>
+        <li><code>components = vue_component()</code>, <code>use</code> plugins</li>
+        <li>Shiny UI in the template taken out to <b>islands</b></li>
+      </ul>
+    </div>
+    <div class="arch-wire"><span>the host's HTML</span><div class="line right"></div><code>page / renderUI()</code></div>
+    <div class="arch-box js">
+      <h5>The host, mounted</h5>
+      <ul>
+        <li><code>&lt;script type="text/x-template"&gt;</code>, options JSON, the islands' holder</li>
+        <li><code>Vue.createApp()</code> on its own box; <code>app.use()</code> each plugin</li>
+        <li>globals: <code>$setInput</code> <code>$store</code> <code>$inputs</code>
+          <code>$errors</code> <code>$busy</code> <code>$recalculating</code>;
+          <code>&lt;shiny-island&gt;</code> moves Shiny UI in and out</li>
+      </ul>
+    </div>
+
+    <div class="arch-row-label">It reports</div>
+    <div class="arch-box shiny">
+      <h5><code>input$&lt;id&gt;</code>, <code>input$&lt;id&gt;_&lt;event&gt;</code></h5>
+      <ul>
+        <li>the value: <code>input =</code>, typed by <code>type =</code>, paced by <code>rate =</code></li>
+        <li>events: <code>emits</code>, <code>events =</code>, <code>on =</code> handlers'
+          <code>report()</code>, with event priority</li>
+        <li>bookmarks restore the value (<code>restoreInput()</code>)</li>
+      </ul>
+    </div>
+    <div class="arch-wire"><code>setInputValue</code><div class="line left"></div><span>one binding: <code>shiny.vue</code></span></div>
+    <div class="arch-box js">
+      <h5>InputBinding <code>shiny.vue</code></h5>
+      <ul>
+        <li><code>find()</code> mounts every host it finds &mdash; start-up, <code>renderUI()</code>,
+          <code>insertUI()</code></li>
+        <li><code>getValue()</code> reads the input field; <code>sv.emit()</code> sends events,
+          a key pressed as its key</li>
+      </ul>
+    </div>
+
+    <div class="arch-row-label">The server changes it</div>
+    <div class="arch-box r">
+      <h5><code>update_vue()</code>, <code>call_vue()</code>, <code>vue_answer()</code></h5>
+      <ul>
+        <li>fields whole, or in place: <code>insert</code> <code>replace</code> <code>delete</code>
+          by position or <code>key</code>, <code>set</code> by path</li>
+        <li>queued per session (<code>.vue_send()</code>), sent in <code>onFlushed()</code>
+          as <code>update*Input()</code> are; <code>flush_vue()</code> sends now</li>
+      </ul>
+    </div>
+    <div class="arch-wire"><span>after the outputs</span><div class="line right"></div><code>shinyVueUpdate</code><code>shinyVueCall</code></div>
+    <div class="arch-box js">
+      <h5><code>sv.update()</code>, <code>sv.call()</code></h5>
+      <ul>
+        <li>host by id, bound or not; a component folded into another through its wrapper</li>
+        <li><code>.edit</code> / <code>.set</code>, hooks, <code>shinyVueReceive()</code>,
+          then declared fields; a method's result as <code>input$&lt;id&gt;_&lt;method&gt;</code></li>
+      </ul>
+    </div>
+
+    <div class="arch-row-label">Outputs</div>
+    <div class="arch-box r">
+      <h5><code>render_vue()</code> &middot; <code>render_vue_data()</code></h5>
+      <ul>
+        <li><code>render_vue()</code>: components the server writes, in <code>vue_output()</code></li>
+        <li><code>render_vue_data()</code>: values for fields of the components following it
+          (<code>outputs =</code>, <code>shinyVue.useOutput()</code>)</li>
+        <li>wait for promises; <code>bindCache()</code></li>
+      </ul>
+    </div>
+    <div class="arch-wire"><span>markup, then patches</span><div class="line right"></div><code>output values</code></div>
+    <div class="arch-box js">
+      <h5>Output bindings</h5>
+      <ul>
+        <li>three-way patch: what the server changed is applied, what the user did kept</li>
+        <li>data outputs set fields; <code>$recalculating</code>, <code>$errors</code></li>
+      </ul>
+    </div>
+
+    <div class="arch-row-label">Shared state</div>
+    <div class="arch-box r">
+      <h5><code>vue_store(id, data, input)</code></h5>
+      <ul><li>one <code>reactive()</code> for every component; reported and updated like a component</li></ul>
+    </div>
+    <div class="arch-wire"><span>a host too</span><div class="line right"></div></div>
+    <div class="arch-box js">
+      <h5><code>$store.&lt;id&gt;</code></h5>
+      <ul><li>read and written by every template, at once, in the browser</li></ul>
+    </div>
+  </div>
+</div>
+```
+
+## The Element layer
+
+Every Element component is built on the Vue layer. What the layer adds is
+Element's: its components and their props, the inputs each one reports, its
+containers, its theme and locale.
+
+```{=html}
+<div class="arch">
+  <div class="arch-legend">
+    <span class="k-r">R</span>
+    <span class="k-shiny">Shiny's channel</span>
+    <span class="k-js">The browser: <code>el-events.js</code>, the containers' bindings</span>
+  </div>
+
+  <div class="arch-kinds">
+    <div class="arch-box r">
+      <h5>Controls</h5>
+      <code>el_input()</code>, <code>el_select()</code>, <code>el_tree()</code>, ...
+      <ul>
+        <li><code>el_widget()</code>: the Element tag, its props (<code>.el_props()</code>,
+          <code>NA</code> for Element's default), the label, slots</li>
+        <li>built by <code>.vue_host()</code> with <code>use = "shinyElement.plugin"</code></li>
+      </ul>
+    </div>
+    <div class="arch-box r">
+      <h5>Wrappers, folding others in</h5>
+      <code>el_space()</code>, <code>el_tooltip()</code>, <code>el_card()</code>, ...
+      <ul>
+        <li><code>.el_absorb()</code>: the components inside join the wrapper's Vue instance,
+          their fields renamed, their ids kept in a registry</li>
+      </ul>
+    </div>
+    <div class="arch-box r">
+      <h5>Containers</h5>
+      <code>el_tabs()</code>, <code>el_collapse()</code>, <code>el_dialog()</code>, <code>el_drawer()</code>
+      <ul>
+        <li>Element's markup and classes, a Shiny binding of their own, no Vue instance
+          &mdash; the components inside stay theirs</li>
+      </ul>
+    </div>
+    <div class="arch-box r">
+      <h5>Data components</h5>
+      <code>el_table()</code>, <code>el_calendar()</code>
+      <ul>
+        <li>a specification, drawn by <code>render_el_table()</code> /
+          <code>render_el_calendar()</code> through <code>render_vue()</code>; the data
+          kept per session</li>
+      </ul>
+    </div>
+    <div class="arch-box r">
+      <h5>Feedback services</h5>
+      <code>el_message()</code>, <code>el_notification()</code>, <code>el_message_box()</code>, <code>el_loading()</code>
+      <ul><li>called from the server, sent at once</li></ul>
+    </div>
+    <div class="arch-box r">
+      <h5>The page</h5>
+      <code>el_page()</code>, <code>use_element()</code>
+      <ul><li>the theme (bslib, Element's CSS variables), the locale, size and z-index</li></ul>
+    </div>
+  </div>
+
+  <div class="arch-flows" style="margin-top: 14px">
+    <div class="arch-head">R</div><div class="arch-head mid">Shiny</div><div class="arch-head">Browser</div>
+
+    <div class="arch-row-label">What a component reports</div>
+    <div class="arch-box r">
+      <h5>One registry: <code>R/el_events_registry.R</code></h5>
+      <ul>
+        <li>each component's inputs, and Element's events: unasked or on request</li>
+        <li><code>el_events()</code> prints it; <code>events =</code> is checked against it;
+          each help page's "Shiny inputs" table comes from it</li>
+        <li>forwarded by the Vue layer (<code>.vue_event_bindings()</code>), with
+          <code>on =</code> handlers</li>
+      </ul>
+    </div>
+    <div class="arch-wire"><code>input$&lt;id&gt;_&lt;event&gt;</code><div class="line left"></div><span>Element's events</span></div>
+    <div class="arch-box js">
+      <h5>The component's Vue instance</h5>
+      <ul>
+        <li><code>@&lt;event&gt;="svEmit..."</code> on Element's tag</li>
+        <li>containers report what <code>data-el-events</code> lists</li>
+        <li>task buttons speak bslib's <code>bslib.taskbutton</code></li>
+      </ul>
+    </div>
+
+    <div class="arch-row-label">The server changes it</div>
+    <div class="arch-box r">
+      <h5><code>update_el_*()</code>, <code>call_el()</code>, <code>el_load_children()</code></h5>
+      <ul>
+        <li>every argument that can change, under its name</li>
+        <li><code>call_el()</code>: Element's 151 methods, with rows, files and nodes named
+          (<code>el_table_row()</code>, <code>el_tree_node()</code>)</li>
+        <li>sent through the Vue layer, with the flush</li>
+      </ul>
+    </div>
+    <div class="arch-wire"><span>the Vue layer's</span><div class="line right"></div><code>shinyVueUpdate</code></div>
+    <div class="arch-box js">
+      <h5><code>shinyElement.plugin</code> (<code>el-events.js</code>)</h5>
+      <ul>
+        <li>installs Element Plus and its icons on each app; <code>$elRef</code>, <code>$elDate</code></li>
+        <li>labels and errors (<code>.label</code>, <code>.error</code>, shinyvalidate)</li>
+        <li>config providers, nested, for components drawn later too</li>
+      </ul>
+    </div>
+
+    <div class="arch-row-label">Containers</div>
+    <div class="arch-box r">
+      <h5><code>el_tabs()</code> &middot; <code>insert_el_tab()</code> &middot; <code>update_el_dialog()</code></h5>
+      <ul><li>markup with <code>data-el-*</code>; Shiny's input messages</li></ul>
+    </div>
+    <div class="arch-wire"><code>sendInputMessage</code><div class="line right"></div></div>
+    <div class="arch-box js">
+      <h5><code>el-tabs-binding.js</code>, <code>el-collapse-binding.js</code>, <code>el-overlay-binding.js</code></h5>
+      <ul><li>Element's behaviour in plain markup: the active bar, focus trap, Escape,
+        Element's z-index counter</li></ul>
+    </div>
+  </div>
+</div>
+```
+
+## Where to read more
+
+- The Vue layer as a user sees it: the "Building your own" part of
+  [Shiny Integration](shiny.html).
+- What each component reports: `el_events()`, and each help page's "Shiny
+  inputs".
+- Which Element features have no R equivalent, and why:
+  [What Works, and What Does Not](limitations.html).
