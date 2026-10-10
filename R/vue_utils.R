@@ -455,16 +455,34 @@ flush_vue <- function(
 #' build strips. It is versioned one step above the production build, so on a
 #' page holding both, htmltools keeps the development one.
 #'
+#' The development build is in the package's sources but not in what is
+#' built from them for CRAN, to keep the package small: installed from
+#' CRAN, it is loaded from the unpkg CDN, the same build unminified.
+#'
 #' @param dev Load `vue.global.js` rather than `vue.global.prod.js`.
 #' @return An htmlDependency object.
 #' @keywords internal
 .vue_vue_dependency <- function(dev = .vue_dev()) {
+  if (!isTRUE(dev)) {
+    return(htmltools::htmlDependency(
+      name = "vue",
+      version = "3.5.43",
+      src = "vue3",
+      package = "shiny.element",
+      script = "vue.global.prod.js",
+      all_files = FALSE
+    ))
+  }
+  local <- system.file("vue3", "vue.global.js", package = "shiny.element")
   htmltools::htmlDependency(
     name = "vue",
-    version = if (isTRUE(dev)) "3.5.43.1" else "3.5.43",
-    src = "vue3",
-    package = "shiny.element",
-    script = if (isTRUE(dev)) "vue.global.js" else "vue.global.prod.js",
+    version = "3.5.43.1",
+    src = if (nzchar(local)) {
+      c(file = dirname(local))
+    } else {
+      c(href = "https://unpkg.com/vue@3.5.43/dist/")
+    },
+    script = "vue.global.js",
     all_files = FALSE
   )
 }

@@ -1,14 +1,9 @@
 ---
 title: "Dashboards"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Dashboards}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
-source("shots.R")
+source(file.path("..", "shots.R"))
 ```
 
 Whole apps, built from the layout components and the controls together. Each
@@ -22,7 +17,7 @@ Element's documentation closes its Container page with an admin layout: a
 side menu of grouped options, a header holding a dropdown, and a table in
 the main area. Here it is in R, piece for piece:
 
-```{r admin-layout, file = "../inst/examples/dashboards/admin-layout/app.R", eval = FALSE, shot = TRUE}
+```{r admin-layout, file = "../../inst/examples/dashboards/admin-layout/app.R", eval = FALSE, shot = TRUE}
 ```
 
 ## A sales overview
@@ -32,7 +27,7 @@ Filters in the header drive everything below them: the headline numbers are
 ordinary `plotOutput()`, and the products table renders a progress bar in a
 cell with a `cell` template.
 
-```{r sales, file = "../inst/examples/dashboards/sales/app.R", eval = FALSE, shot = TRUE, shot_wait = 2}
+```{r sales, file = "../../inst/examples/dashboards/sales/app.R", eval = FALSE, shot = TRUE, shot_wait = 2}
 ```
 
 ## An orders admin page
@@ -43,10 +38,10 @@ paging done by the server, a dialog holding a form to add and edit, and a
 confirmation before anything is deleted. Each row's buttons report through
 `rowAction()` -- `input$orders_edit` and `input$orders_delete` carry the row.
 
-```{r orders, file = "../inst/examples/dashboards/orders/app.R", eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-table__body .el-checkbox')[1].click(); document.querySelectorAll('#shot .el-table__expand-icon')[0].click();", shot_wait = 2}
+```{r orders, file = "../../inst/examples/dashboards/orders/app.R", eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-table__body .el-checkbox')[1].click(); document.querySelectorAll('#shot .el-table__expand-icon')[0].click();", shot_wait = 2}
 ```
 
 Opening the editor from a row's **Edit** button fills the form from that row:
 
-```{r orders-edit, file = "../inst/examples/dashboards/orders/app.R", eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-table__body .el-button')[0].click();", shot_sel = ".el-dialog", shot_wait = 2}
+```{r orders-edit, file = "../../inst/examples/dashboards/orders/app.R", eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#shot .el-table__body .el-button')[0].click();", shot_sel = ".el-dialog", shot_wait = 2}
 ```

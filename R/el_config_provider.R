@@ -142,10 +142,8 @@ el_config_provider <- function(
 #' @return An htmlDependency.
 #' @keywords internal
 .el_locale_file <- function(code) {
-  root <- system.file("element-plus", package = "shiny.element")
-  if (
-    !file.exists(file.path(root, "dist", "locale", paste0(code, ".min.js")))
-  ) {
+  dir <- .el_locale_dir(code)
+  if (is.null(dir)) {
     stop(
       "No bundled locale '",
       code,
@@ -158,8 +156,8 @@ el_config_provider <- function(
   htmltools::htmlDependency(
     name = paste0("element-plus-locale-", code),
     version = "2.14.7",
-    src = root,
-    script = paste0("dist/locale/", code, ".min.js"),
+    src = dir,
+    script = paste0(code, ".min.js"),
     all_files = FALSE
   )
 }

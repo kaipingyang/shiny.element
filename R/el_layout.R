@@ -231,7 +231,9 @@ el_col <- function(
 #'   fails to compile renders nothing and says nothing. Defaults to
 #'   `getOption("shiny.vue.dev")` (or `shiny.element.dev`), `FALSE` unless
 #'   set, so it can be turned on for a
-#'   whole session without touching the UI code.
+#'   whole session without touching the UI code. A package installed from
+#'   CRAN does not carry the development build and loads it from the unpkg
+#'   CDN; one installed from its sources has it.
 #' @inheritParams use_element
 #'
 #' @details

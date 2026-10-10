@@ -1,14 +1,9 @@
 ---
 title: "What works, and what does not"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{What works, and what does not}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
-source("shots.R")
+source(file.path("..", "shots.R"))
 ```
 
 Every component Element Plus 2.14.7 documents is wrapped, and every

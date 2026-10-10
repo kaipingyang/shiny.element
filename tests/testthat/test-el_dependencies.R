@@ -102,18 +102,24 @@ test_that("dev = TRUE loads Vue's development build, and it wins", {
   dev <- .el_vue_dependency(dev = TRUE)
   expect_equal(prod$script, "vue.global.prod.js")
   expect_equal(dev$script, "vue.global.js")
-  for (dep in list(prod, dev)) {
-    path <- system.file(dep$src$file, dep$script, package = "shiny.element")
-    expect_true(file.exists(path), info = dep$script)
+  path <- system.file(prod$src$file, prod$script, package = "shiny.element")
+  expect_true(file.exists(path))
+  expect_match(readLines(path, n = 2)[2], "vue v3.5.43", fixed = TRUE)
+  # the development build is in the sources, not in the package built for
+  # CRAN, which loads it from the CDN
+  if (is.null(dev$src$file)) {
+    expect_equal(dev$src$href, "https://unpkg.com/vue@3.5.43/dist/")
+  } else {
+    path <- file.path(dev$src$file, dev$script)
+    expect_true(file.exists(path))
     expect_match(readLines(path, n = 2)[2], "vue v3.5.43", fixed = TRUE)
+    # the development build keeps Vue's warnings
+    expect_match(
+      paste(readLines(path, warn = FALSE), collapse = "\n"),
+      "[Vue warn]",
+      fixed = TRUE
+    )
   }
-  # the development build keeps Vue's warnings
-  path <- system.file("vue3", "vue.global.js", package = "shiny.element")
-  expect_match(
-    paste(readLines(path, warn = FALSE), collapse = "\n"),
-    "[Vue warn]",
-    fixed = TRUE
-  )
   # a page with both keeps the development one
   kept <- htmltools::resolveDependencies(list(prod, dev, prod))
   expect_length(kept, 1)
@@ -248,7 +254,8 @@ test_that("el_locale_dependency: the built-in locale needs nothing extra", {
 test_that("el_locale_dependency: a locale loads its file and hands it over", {
   deps <- el_locale_dependency("zh-CN")
   expect_length(deps, 2)
-  expect_equal(deps[[1]]$script, "dist/locale/zh-cn.min.js")
+  expect_equal(deps[[1]]$script, "zh-cn.min.js")
+  expect_true(file.exists(file.path(deps[[1]]$src$file, "zh-cn.min.js")))
   # The file defines ElementPlusLocaleZhCn; a second dependency gives it to
   # every app as it installs Element Plus
   expect_match(deps[[2]]$head, "ElementPlusLocaleZhCn", fixed = TRUE)
@@ -284,8 +291,30 @@ test_that("el_locale_dependency: an unknown locale fails naming the real ones", 
 
 test_that("every locale Element Plus ships is bundled", {
   expect_equal(length(el_locales()), 67)
-  expect_true(all(c("en", "fr", "ja", "zh-cn", "zh-tw") %in% el_locales()))
+  expect_true(all(
+    c("en", "fr", "ja", "zh-cn", "zh-tw", "af") %in% el_locales()
+  ))
   expect_type(el_locale_dependency("fr"), "list")
+})
+
+test_that("a packed locale is taken out the first time it is used", {
+  expect_true("uk.min.js" %in% .el_locales_packed())
+  out <- file.path(tempdir(), "shiny.element-locale")
+  unlink(file.path(out, "uk.min.js"))
+  deps <- el_locale_dependency("uk")
+  expect_equal(deps[[1]]$src$file, out)
+  p <- file.path(out, "uk.min.js")
+  expect_true(file.exists(p))
+  expect_match(
+    paste(readLines(p, warn = FALSE), collapse = "\n"),
+    "ElementPlusLocaleUk",
+    fixed = TRUE
+  )
+  expect_match(deps[[2]]$head, "ElementPlusLocaleUk", fixed = TRUE)
+  # a config provider's file comes from the same place
+  expect_equal(.el_locale_file("uk")$src$file, out)
+  # a locale kept as a file is not
+  expect_false(identical(el_locale_dependency("fr")[[1]]$src$file, out))
 })
 
 test_that("el_page speaks English unless told otherwise", {

@@ -42,7 +42,9 @@ production one. The production build strips every warning, which is why a templa
 fails to compile renders nothing and says nothing. Defaults to
 \code{getOption("shiny.vue.dev")} (or \code{shiny.element.dev}), \code{FALSE} unless
 set, so it can be turned on for a
-whole session without touching the UI code.}
+whole session without touching the UI code. A package installed from
+CRAN does not carry the development build and loads it from the unpkg
+CDN; one installed from its sources has it.}
 
 \item{size, z_index}{Element Plus's global config, as \code{app.use()} gives it:
 the size of every component not given one of its own

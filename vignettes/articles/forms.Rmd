@@ -1,14 +1,9 @@
 ---
 title: "Forms"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Forms}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
-source("shots.R")
+source(file.path("..", "shots.R"))
 ```
 
 Element's form components each report to `input$<id>` and are set from the

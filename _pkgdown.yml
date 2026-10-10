@@ -266,10 +266,10 @@ articles:
       - articles/custom-defaults
       - articles/transitions
       - shiny
-      - forms
-      - dashboards
-      - combinations
-      - limitations
+      - articles/forms
+      - articles/dashboards
+      - articles/combinations
+      - articles/limitations
   - title: Components
     navbar: ~
     contents:

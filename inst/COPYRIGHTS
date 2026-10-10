@@ -2,17 +2,22 @@ The R code in this package is copyright Kaiping Yang and released under the
 MIT licence, as stated in DESCRIPTION and LICENSE.
 
 inst/element-plus/ contains unmodified copies of Element Plus 2.14.7
-(dist/index.full.min.js, its 67 locales under locale/, and theme-chalk's
-index.css, display.css and dark/css-vars.css) and of @element-plus/icons-vue
-2.3.2 (dist/index.iife.min.js), bundled so the package works without
-fetching anything at runtime. Both are copyright the Element Plus team and
+(dist/index.full.min.js, its 67 locales under dist/locale/, and
+theme-chalk's index.css, display.css and dark/css-vars.css) and of
+@element-plus/icons-vue 2.3.2 (dist/index.iife.min.js), bundled so the
+package works without fetching anything at runtime. Eleven locales are
+files; the other 56 are packed, unmodified, in dist/locale/more.tar.gz.
+Sources: https://github.com/element-plus/element-plus and
+https://github.com/element-plus/element-plus-icons. Both are copyright the Element Plus team and
 released under the MIT licence; see inst/element-plus/LICENSE and
 inst/element-plus/icons-vue.LICENSE.
 
 inst/vue3/ contains Vue 3.5.43, copyright Yuxi (Evan) You and Vue
 contributors and released under the MIT licence; see inst/vue3/LICENSE.
+Source: https://github.com/vuejs/core.
 vue.global.prod.js is an unmodified copy of dist/vue.global.prod.js.
-vue.global.js is dist/vue.global.js, the development build, minified with
-terser 5 (`terser vue.global.js --compress --mangle --comments
-'/^!|@license|vue v/'`) to keep the package small; its code, warnings
-included, is otherwise unchanged.
+The development build, dist/vue.global.js, is in the package's sources
+(minified with terser 5: `terser vue.global.js --compress --mangle
+--comments '/^!|@license|vue v/'`; its code, warnings included, otherwise
+unchanged) but not in the package built for CRAN, which loads it from the
+unpkg CDN when asked for it.

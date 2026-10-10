@@ -64,8 +64,8 @@
 #'   named list of `add`, `edit` (the dialog's titles), `title`, `allday`,
 #'   `date`, `end`, `calendar`, `type`, `body` (its fields), `save`,
 #'   `delete`, `cancel` (its buttons), `more` (the link to a day's hidden
-#'   events, `{n}` their number) -- `list(add = "新建日程", save = "保存",
-#'   more = "还有 {n} 项")`.
+#'   events, `{n}` their number) -- `list(add = "Neuer Termin", save =
+#'   "Speichern", more = "{n} weitere")`.
 #' @param calendars Groups of events, toastui's: a data.frame, or a list of
 #'   rows, with `id`, which an event names as its `calendarId`; optionally
 #'   `name`, shown in the dialog and the popover; `type` or `color`, for its

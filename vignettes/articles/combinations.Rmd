@@ -1,14 +1,9 @@
 ---
 title: "Putting Components Together"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Putting Components Together}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
-source("shots.R")
+source(file.path("..", "shots.R"))
 ```
 
 Each component page shows one component at a time. An app puts them
@@ -43,7 +38,7 @@ A select inside a popover wants `teleported = FALSE`. Otherwise its options
 are drawn outside the popover, and choosing one closes the popover -- as in
 Element itself.
 
-```{r wrapped-and-nested, file = "../inst/examples/combinations/wrapped-and-nested/app.R", eval = FALSE, shot = TRUE}
+```{r wrapped-and-nested, file = "../../inst/examples/combinations/wrapped-and-nested/app.R", eval = FALSE, shot = TRUE}
 ```
 
 ## Drawn later
@@ -54,7 +49,7 @@ its settings all the same, and follow them when
 their own methods, a drawer holds tabs with a table and a calendar output
 drawn while it was closed, and steps follow a button group.
 
-```{r drawn-later, file = "../inst/examples/combinations/drawn-later/app.R", eval = FALSE, shot = TRUE}
+```{r drawn-later, file = "../../inst/examples/combinations/drawn-later/app.R", eval = FALSE, shot = TRUE}
 ```
 
 ## Overlays, and buttons in table cells
@@ -64,7 +59,7 @@ over both. Tabs drawn in a closed dialog measure themselves once shown. A
 table's cells hold a popconfirm and a button, whose `rowAction()` reports
 the row; `insertUI()` adds a component and `removeUI()` takes it away.
 
-```{r overlays-and-cells, file = "../inst/examples/combinations/overlays-and-cells/app.R", eval = FALSE, shot = TRUE}
+```{r overlays-and-cells, file = "../../inst/examples/combinations/overlays-and-cells/app.R", eval = FALSE, shot = TRUE}
 ```
 
 ## Modules and forms
@@ -76,7 +71,7 @@ inside a watermark: one of its fields reports as it changes
 An editable table in a dialog, a calendar whose events open their editor,
 and a transfer in a drawer complete it.
 
-```{r modules-and-forms, file = "../inst/examples/combinations/modules-and-forms/app.R", eval = FALSE, shot = TRUE}
+```{r modules-and-forms, file = "../../inst/examples/combinations/modules-and-forms/app.R", eval = FALSE, shot = TRUE}
 ```
 
 ## Components that ask the server
@@ -86,7 +81,7 @@ lazily -- all three folded into a space inside a config provider, the
 server's answers finding them by their ids. A form in a dialog gains fields
 from the server, which are validated with their own rules.
 
-```{r server-answers, file = "../inst/examples/combinations/server-answers/app.R", eval = FALSE, shot = TRUE}
+```{r server-answers, file = "../../inst/examples/combinations/server-answers/app.R", eval = FALSE, shot = TRUE}
 ```
 
 ## Awkward ids and values
@@ -98,7 +93,7 @@ run or evaluated. Numeric choices report numbers, an empty checkbox group
 and an empty date report nothing, and a select of 3000 options is updated
 like one of three.
 
-```{r awkward-values, file = "../inst/examples/combinations/awkward-values/app.R", eval = FALSE, shot = TRUE}
+```{r awkward-values, file = "../../inst/examples/combinations/awkward-values/app.R", eval = FALSE, shot = TRUE}
 ```
 
 ## A long-running app
@@ -111,5 +106,5 @@ connection drops and Shiny reconnects, the components report and update as
 before. (Shiny reconnects on a server configured for it;
 `session$allowReconnect("force")` lets it locally too.)
 
-```{r lifecycle, file = "../inst/examples/combinations/lifecycle/app.R", eval = FALSE, shot = TRUE}
+```{r lifecycle, file = "../../inst/examples/combinations/lifecycle/app.R", eval = FALSE, shot = TRUE}
 ```

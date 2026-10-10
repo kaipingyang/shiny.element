@@ -21,6 +21,9 @@ Loading a locale file and handing it to Element Plus, as
 }
 \details{
 All 67 of Element Plus's locales are bundled; \code{el_locales()} lists them.
+The ones used most -- English, Chinese, Japanese, Korean, French, German,
+Spanish, Portuguese (Brazil), Russian -- are files; the others are packed
+in one archive and taken out the first time one is used in a session.
 Codes are matched without regard to case, so Element UI's \code{"zh-CN"} is
 Element Plus's \code{"zh-cn"}.
 }

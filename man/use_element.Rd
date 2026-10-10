@@ -26,7 +26,8 @@ rather than the unpkg CDN. See \code{\link[=element_plus_dependency]{element_plu
 
 \item{dev}{Load Vue's development build (\code{vue.global.js}) instead of the
 production one, so Vue's warnings are not stripped. Defaults to
-\code{getOption("shiny.vue.dev")} (or \code{shiny.element.dev}), \code{FALSE} unless set.}
+\code{getOption("shiny.vue.dev")} (or \code{shiny.element.dev}), \code{FALSE} unless set.
+Installed from CRAN, the development build is loaded from the unpkg CDN.}
 
 \item{locale}{Language for Element Plus's built-in text. English by default,
 or \code{getOption("shiny.element.locale")} when set. See

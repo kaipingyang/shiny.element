@@ -21,6 +21,7 @@
 #' @param dev Load Vue's development build (`vue.global.js`) instead of the
 #'   production one, so Vue's warnings are not stripped. Defaults to
 #'   `getOption("shiny.vue.dev")` (or `shiny.element.dev`), `FALSE` unless set.
+#'   Installed from CRAN, the development build is loaded from the unpkg CDN.
 #' @param locale Language for Element Plus's built-in text. English by default,
 #'   or `getOption("shiny.element.locale")` when set. See
 #'   [el_locale_dependency()].
@@ -76,6 +77,9 @@ use_element <- function(
 #' `app.use(ElementPlus, {locale})` does, switches all of it.
 #'
 #' All 67 of Element Plus's locales are bundled; `el_locales()` lists them.
+#' The ones used most -- English, Chinese, Japanese, Korean, French, German,
+#' Spanish, Portuguese (Brazil), Russian -- are files; the others are packed
+#' in one archive and taken out the first time one is used in a session.
 #' Codes are matched without regard to case, so Element UI's `"zh-CN"` is
 #' Element Plus's `"zh-cn"`.
 #'
@@ -103,9 +107,8 @@ el_locale_dependency <- function(locale = NULL) {
     return(NULL)
   }
   root <- system.file("element-plus", package = "shiny.element")
-  if (
-    !file.exists(file.path(root, "dist", "locale", paste0(code, ".min.js")))
-  ) {
+  dir <- .el_locale_dir(code)
+  if (is.null(dir)) {
     stop(
       "No bundled locale '",
       locale,
@@ -125,8 +128,8 @@ el_locale_dependency <- function(locale = NULL) {
     htmltools::htmlDependency(
       name = paste0("element-plus-locale-", code),
       version = "2.14.7",
-      src = root,
-      script = paste0("dist/locale/", code, ".min.js"),
+      src = dir,
+      script = paste0(code, ".min.js"),
       all_files = FALSE
     ),
     # Every component is an app of its own, given the locale as it installs
@@ -265,8 +268,73 @@ el_locales <- function() {
     "locale",
     package = "shiny.element"
   )
-  sort(sub("[.]min[.]js$", "", list.files(root, pattern = "[.]min[.]js$")))
+  files <- c(list.files(root, pattern = "[.]min[.]js$"), .el_locales_packed())
+  sort(sub("[.]min[.]js$", "", files))
 }
+
+#' Where a locale's file is
+#'
+#' The locales used most are files in `dist/locale`; the rest are packed in
+#' `dist/locale/more.tar.gz`, which keeps the installed package small -- 56
+#' files of 4KB each take far more room on disk than their bytes -- and one
+#' is taken out into the session's temporary directory the first time it is
+#' asked for.
+#'
+#' @param code A locale code, lower case: `"zh-cn"`.
+#' @return The directory holding `<code>.min.js`, or `NULL` for a locale
+#'   Element Plus does not ship.
+#' @keywords internal
+.el_locale_dir <- function(code) {
+  file <- paste0(code, ".min.js")
+  root <- system.file(
+    "element-plus",
+    "dist",
+    "locale",
+    package = "shiny.element"
+  )
+  if (file.exists(file.path(root, file))) {
+    return(root)
+  }
+  if (!file %in% .el_locales_packed()) {
+    return(NULL)
+  }
+  out <- file.path(tempdir(), "shiny.element-locale")
+  if (!file.exists(file.path(out, file))) {
+    utils::untar(
+      file.path(root, "more.tar.gz"),
+      files = file,
+      exdir = out,
+      tar = "internal"
+    )
+  }
+  out
+}
+
+#' The locale files packed in `more.tar.gz`
+#'
+#' Listed once a session.
+#'
+#' @return File names, `"af.min.js"`.
+#' @keywords internal
+.el_locales_packed <- function() {
+  if (is.null(.el_locale_cache$packed)) {
+    archive <- system.file(
+      "element-plus",
+      "dist",
+      "locale",
+      "more.tar.gz",
+      package = "shiny.element"
+    )
+    .el_locale_cache$packed <- if (nzchar(archive)) {
+      utils::untar(archive, list = TRUE, tar = "internal")
+    } else {
+      character()
+    }
+  }
+  .el_locale_cache$packed
+}
+
+.el_locale_cache <- new.env(parent = emptyenv())
 
 
 #' Element's global config
