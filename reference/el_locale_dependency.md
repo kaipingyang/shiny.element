@@ -26,8 +26,11 @@ A list of htmlDependency objects, or `NULL` for the built-in locale.
 
 All 67 of Element Plus's locales are bundled;
 [`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)
-lists them. Codes are matched without regard to case, so Element UI's
-`"zh-CN"` is Element Plus's `"zh-cn"`.
+lists them. The ones used most – English, Chinese, Japanese, Korean,
+French, German, Spanish, Portuguese (Brazil), Russian – are files; the
+others are packed in one archive and taken out the first time one is
+used in a session. Codes are matched without regard to case, so Element
+UI's `"zh-CN"` is Element Plus's `"zh-cn"`.
 
 ## Examples
 

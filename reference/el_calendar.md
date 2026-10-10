@@ -174,7 +174,7 @@ update_el_calendar(
   `calendar`, `type`, `body` (its fields), `save`, `delete`, `cancel`
   (its buttons), `more` (the link to a day's hidden events, `{n}` their
   number) –
-  `list(add = "新建日程", save = "保存", more = "还有 {n} 项")`.
+  `list(add = "Neuer Termin", save = "Speichern", more = "{n} weitere")`.
 
 - calendars:
 

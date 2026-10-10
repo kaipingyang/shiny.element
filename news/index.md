@@ -2,6 +2,22 @@
 
 ## shiny.element (development version)
 
+### New features
+
+- The installed package is smaller, 4.3 MB where it was 5.4 MB, with
+  nothing given up a page uses:
+  - Element Plus’s eleven locales used most (English, Chinese, Japanese,
+    Korean, French, German, Spanish, Portuguese, Russian) stay files;
+    the other 56 are packed in one archive and taken out into the
+    session’s temporary directory the first time one is used.
+    [`el_locales()`](https://kaipingyang.github.io/shiny.element/reference/el_locales.md)
+    still lists all 67.
+  - Vue’s development build (`el_page(dev = TRUE)`) is in the package’s
+    sources but not in the package built for CRAN, which loads it from
+    the unpkg CDN.
+  - The Forms, Dashboards, Putting Components Together and “What works”
+    articles are on the website only, no longer vignettes.
+
 ### Documentation
 
 - An “Architecture” article draws the two layers: the Vue layer, from

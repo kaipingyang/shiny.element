@@ -52,7 +52,8 @@ use_element(
   Load Vue's development build (`vue.global.js`) instead of the
   production one, so Vue's warnings are not stripped. Defaults to
   `getOption("shiny.vue.dev")` (or `shiny.element.dev`), `FALSE` unless
-  set.
+  set. Installed from CRAN, the development build is loaded from the
+  unpkg CDN.
 
 - locale:
 

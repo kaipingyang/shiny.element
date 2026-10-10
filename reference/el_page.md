@@ -68,7 +68,9 @@ el_page(
   why a template that fails to compile renders nothing and says nothing.
   Defaults to `getOption("shiny.vue.dev")` (or `shiny.element.dev`),
   `FALSE` unless set, so it can be turned on for a whole session without
-  touching the UI code.
+  touching the UI code. A package installed from CRAN does not carry the
+  development build and loads it from the unpkg CDN; one installed from
+  its sources has it.
 
 - size, z_index:
 

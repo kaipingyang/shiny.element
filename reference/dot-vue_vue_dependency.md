@@ -21,3 +21,9 @@ build, so on a page holding both, htmltools keeps the development one.
 ## Value
 
 An htmlDependency object.
+
+## Details
+
+The development build is in the package's sources but not in what is
+built from them for CRAN, to keep the package small: installed from
+CRAN, it is loaded from the unpkg CDN, the same build unminified.
