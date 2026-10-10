@@ -1,7 +1,9 @@
 ## Test environments
 
 * local Linux (container), R 4.4.3: `R CMD check --as-cran`, vignettes
-  built and the PDF manual made
+  built and the PDF manual made: 0 errors, 0 warnings, notes only for the
+  new submission, the installed size counted on overlayfs (4.3 MB on
+  tmpfs, see below) and the container's clock and missing HTML tidy
 * GitHub Actions (R-CMD-check.yaml): macOS and Windows (R release), Ubuntu
   (R devel, release and oldrel-1)
 * win-builder: R-release (R 4.6.1 ucrt) and R-devel (2026-09-30 r90605 ucrt)

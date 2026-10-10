@@ -128,7 +128,7 @@ and a span's length kept). An event with \code{isReadOnly} stays as it is.}
 named list of \code{add}, \code{edit} (the dialog's titles), \code{title}, \code{allday},
 \code{date}, \code{end}, \code{calendar}, \code{type}, \code{body} (its fields), \code{save},
 \code{delete}, \code{cancel} (its buttons), \code{more} (the link to a day's hidden
-events, \code{{n}} their number) -- \code{list(add = "Neuer Termin", save = "Speichern", more = "{n} weitere")}.}
+events, \code{{n}} their number) -- in Chinese, \code{list(add = "\\u65b0\\u5efa\\u65e5\\u7a0b", save = "\\u4fdd\\u5b58", more = "\\u8fd8\\u6709 {n} \\u9879")}.}
 
 \item{calendars}{Groups of events, toastui's: a data.frame, or a list of
 rows, with \code{id}, which an event names as its \code{calendarId}; optionally
