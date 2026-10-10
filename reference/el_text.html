@@ -9,7 +9,7 @@ lines if asked."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@ lines if asked."></head><body>
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-guide"><li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
     <li><a class="dropdown-item" href="../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -267,15 +268,15 @@ is called with <code>report</code> and the event's arguments; <code>report(name,
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_text</span><span class="op">(</span><span class="st">"Primary text"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_text_e24c7245-c846-45a3-a4fa-488b2808f49e" data-shiny-vue style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_text_e24c7245-c846-45a3-a4fa-488b2808f49e_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_text_0b564baf-ef2b-40cd-9c6c-ea5d0ef1fbe1" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_text_0b564baf-ef2b-40cd-9c6c-ea5d0ef1fbe1_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-text :type="type === null ? undefined : type" :size="size === null ? undefined : size" :truncated="truncated === null ? undefined : truncated" :line-clamp="lineClamp === null ? undefined : lineClamp" :tag="tag === null ? undefined : tag"&gt;Primary text&lt;/el-text&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"type":"primary","size":null,"truncated":null,"lineClamp":null,"tag":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu">el_text</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strrep.html" class="external-link">strrep</a></span><span class="op">(</span><span class="st">"A long sentence. "</span>, <span class="fl">20</span><span class="op">)</span>, truncated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_text_c7d0f26f-5a07-45ff-8c1b-de9ac10c241b" data-shiny-vue style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_text_c7d0f26f-5a07-45ff-8c1b-de9ac10c241b_container" style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="el_text_a3d2d6cc-d106-434e-9535-fac59d6b0c7d" data-shiny-vue style="display: contents"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="el_text_a3d2d6cc-d106-434e-9535-fac59d6b0c7d_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-text :type="type === null ? undefined : type" :size="size === null ? undefined : size" :truncated="truncated === null ? undefined : truncated" :line-clamp="lineClamp === null ? undefined : lineClamp" :tag="tag === null ? undefined : tag"&gt;A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. &lt;/el-text&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"type":null,"size":null,"truncated":true,"lineClamp":null,"tag":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}&lt;/script&gt;</span>

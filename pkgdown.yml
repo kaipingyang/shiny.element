@@ -5,6 +5,7 @@ articles:
   articles/components/affix: components/affix.html
   articles/components/alert: components/alert.html
   articles/components/anchor: components/anchor.html
+  articles/architecture: architecture.html
   articles/components/autocomplete: components/autocomplete.html
   articles/components/avatar: components/avatar.html
   articles/components/backtop: components/backtop.html
@@ -98,7 +99,7 @@ articles:
   articles/components/typography: components/typography.html
   articles/components/upload: components/upload.html
   articles/components/watermark: components/watermark.html
-last_built: 2026-10-09T18:39Z
+last_built: 2026-10-10T07:44Z
 urls:
   reference: https://kaipingyang.github.io/shiny.element/reference
   article: https://kaipingyang.github.io/shiny.element/articles

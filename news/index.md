@@ -1,5 +1,14 @@
 # Changelog
 
+## shiny.element (development version)
+
+### Documentation
+
+- An “Architecture” article draws the two layers: the Vue layer, from
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
+  to the browser and back, and the Element layer on top of it – its
+  kinds of component, the events registry, updates and containers.
+
 ## shiny.element 0.3.0
 
 The Vue layer, reviewed against vueR, vuer, reactR, shiny.react and

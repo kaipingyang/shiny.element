@@ -9,7 +9,7 @@ el_countdown() counts down to a moment instead."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@ el_countdown() counts down to a moment instead."></head><body>
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-guide"><li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
     <li><a class="dropdown-item" href="../articles/design.html">Design</a></li>
+    <li><a class="dropdown-item" href="../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -362,7 +363,7 @@ One left <code>NULL</code> stays as it is; <code>NA</code> returns it to Element
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="sale_container" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-countdown :value="value" @finish="svEmitFinish" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"&gt;&lt;/el-countdown&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":1791574782760.91,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"svEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.svEmitFinish"]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"value":1791621919891.87,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"svEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.svEmitFinish"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># inside a server function</span></span></span>

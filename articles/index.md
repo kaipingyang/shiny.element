@@ -5,6 +5,7 @@
 - [Get
   started](https://kaipingyang.github.io/shiny.element/articles/shiny.element.md):
 - [Design](https://kaipingyang.github.io/shiny.element/articles/design.md):
+- [Architecture](https://kaipingyang.github.io/shiny.element/articles/architecture.md):
 - [Internationalization](https://kaipingyang.github.io/shiny.element/articles/i18n.md):
 - [Migration from Element
   UI](https://kaipingyang.github.io/shiny.element/articles/migration.md):
