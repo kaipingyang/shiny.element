@@ -173,8 +173,8 @@ update_el_calendar(
   `add`, `edit` (the dialog's titles), `title`, `allday`, `date`, `end`,
   `calendar`, `type`, `body` (its fields), `save`, `delete`, `cancel`
   (its buttons), `more` (the link to a day's hidden events, `{n}` their
-  number) –
-  `list(add = "Neuer Termin", save = "Speichern", more = "{n} weitere")`.
+  number) – in Chinese,
+  `list(add = "\u65b0\u5efa\u65e5\u7a0b", save = "\u4fdd\u5b58", more = "\u8fd8\u6709 {n} \u9879")`.
 
 - calendars:
 
