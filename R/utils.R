@@ -1,4 +1,3 @@
-# 工具函数示例
 #' Turn a snake_case name into camelCase
 #'
 #' Arguments are snake_case throughout this package, while Vue reads its props

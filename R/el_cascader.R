@@ -465,7 +465,7 @@ df_to_cascader_options <- function(df, value_cols, label_cols = NULL) {
     split_df <- split(df, df[[value_cols[level]]])
     lapply(names(split_df), function(val) {
       item <- list(value = val)
-      # 支持 label_cols 为 NULL 或部分为 NA，label 为空时 fallback 到 value
+      # label_cols may be NULL or NA at a level: the label falls back to the value
       if (!is.null(label_cols) && !is.na(label_cols[level])) {
         label_val <- split_df[[val]][[label_cols[level]]][1]
         item$label <- if (!is.na(label_val) && nzchar(label_val)) {

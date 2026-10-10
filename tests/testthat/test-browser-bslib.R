@@ -166,6 +166,43 @@ test_that("components work inside bslib and Shiny containers", {
   step("do_click")
   expect_equal(js(clicks), "1")
 
+  # shinyjs's onclick() and onevent() hear the component; addClass() and
+  # runjs() reach the page; toggleState() disables the component as Element
+  # draws it
+  sj_log <- function() js("document.getElementById('sj_log').textContent")
+  js("document.querySelector('#on_btn button').click()")
+  Sys.sleep(0.8)
+  expect_match(sj_log(), "onclick", fixed = TRUE)
+  js("document.querySelector('#on_in input').scrollIntoView({block: 'center'})")
+  Sys.sleep(0.3)
+  at <- js(
+    "(function() { var r = document.querySelector('#on_in input').getBoundingClientRect();
+       return [r.x + 5, r.y + 5].join(','); })()"
+  )
+  at <- as.numeric(strsplit(at, ",")[[1]])
+  b$Input$dispatchMouseEvent(type = "mouseMoved", x = 1, y = 1)
+  b$Input$dispatchMouseEvent(type = "mouseMoved", x = at[1], y = at[2])
+  Sys.sleep(0.8)
+  expect_match(sj_log(), "onevent", fixed = TRUE)
+  expect_true(js(
+    "document.getElementById('cls_sel').classList.contains('sj-added')"
+  ))
+  expect_true(js("window.sjRan === true"))
+  sw_disabled <- "!!document.querySelector('#ts_sw .el-switch.is-disabled')"
+  expect_false(js(sw_disabled))
+  step("do_toggle_state")
+  expect_true(js(sw_disabled))
+  step("do_toggle_state")
+  expect_false(js(sw_disabled))
+
+  # an update after freezeReactiveValue(): the observer sees the new value
+  # only, never the frozen one again
+  step("do_freeze")
+  Sys.sleep(0.5)
+  expect_equal(value("cls_sel"), '"z"')
+  expect_match(sj_log(), "sel=x|onclick|onevent|sel=z", fixed = TRUE)
+  expect_false(grepl("sel=z.*sel=x", sj_log()))
+
   # an el_page() returned by renderUI(): hidden with its uiOutput()
   expect_equal(value("pg_s_in"), '"s"')
   # not drawn while hidden: Shiny holds a hidden output back

@@ -75,7 +75,14 @@ ui <- page_sidebar(
   # a whole page returned by renderUI(), its output hidden from the start
   # or hidden later
   shinyjs::hidden(uiOutput("pg_hidden")),
-  uiOutput("pg_shown")
+  uiOutput("pg_shown"),
+  # shinyjs's events, classes and state on components; an update after
+  # freezeReactiveValue()
+  el_button("on_btn", "onclick"),
+  el_input("on_in", value = "hover"),
+  el_select("cls_sel", choices = c("x", "y", "z"), value = "x"),
+  el_switch("ts_sw", value = FALSE),
+  verbatimTextOutput("sj_log")
 )
 
 server <- function(input, output, session) {
@@ -107,6 +114,20 @@ server <- function(input, output, session) {
     updateTextInput(session, "rs_txt", value = "changed")
   })
   observeEvent(input$do_reset, shinyjs::reset("reset_area"))
+
+  sj_log <- reactiveVal(character())
+  sj_add <- function(x) sj_log(c(isolate(sj_log()), x))
+  shinyjs::onclick("on_btn", sj_add("onclick"))
+  shinyjs::onevent("mouseenter", "on_in", sj_add("onevent"))
+  shinyjs::addClass("cls_sel", "sj-added")
+  shinyjs::runjs("window.sjRan = true;")
+  observeEvent(input$do_toggle_state, shinyjs::toggleState("ts_sw"))
+  observeEvent(input$do_freeze, {
+    freezeReactiveValue(input, "cls_sel")
+    update_el_select(session, "cls_sel", value = "z")
+  })
+  observe(sj_add(paste0("sel=", input$cls_sel)))
+  output$sj_log <- renderText(paste(sj_log(), collapse = "|"))
 }
 
 shinyApp(ui, server)
