@@ -54,6 +54,7 @@ el_cascader(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  level_inputs = NULL,
   events = NULL,
   on = NULL,
   session = NULL
@@ -342,6 +343,14 @@ update_el_cascader(
   template with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- level_inputs:
+
+  Each level of the path as an input of its own, beside `input$<id>`:
+  input ids, one per level from the top, such as
+  `c("compound", "study", "analysis")` for `input$compound`,
+  `input$study` and `input$analysis`. `NULL`, the default, reports the
+  path alone. See "Shiny inputs".
+
 - events:
 
   Element's events to report besides those reported unasked, by name:
@@ -388,6 +397,19 @@ A Shiny UI element.
 
 The same list as `el_events("el_cascader")`, which says how an event's
 arguments travel.
+
+With `level_inputs`, each level of the path is an input too, named as
+given – not prefixed with the cascader's id, as the levels are the
+cascader's value in parts rather than something it does. Each holds that
+level's value, `NULL` where the path stops short (nothing selected, or
+`checkStrictly`), and follows the path wherever it changes: on load,
+when the user picks, when `update_el_cascader()` sets it. Like any
+input, it notifies its observers only when its value changes, so an
+observer of `input$compound` does not run again when only the study
+changes. The ids are the page's: in a module, give them through `ns()`,
+`level_inputs = ns(c("compound", "study"))`, as the cascader's own id.
+It needs the value to be one path, so not with
+`props = list(multiple = TRUE)` or `emitPath = FALSE`.
 
 `input$<id>_lazy_load` carries `level` (0 for the first column), `value`
 and `path` of the option opened, and `request`. Answer with

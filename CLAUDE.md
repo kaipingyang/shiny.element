@@ -302,10 +302,17 @@ user’s deliberate actions and the server’s requests unasked; Element’s
 other events only when asked for with `events =` (snake_case, always
 `input$<id>_<event>`, no renaming).
 `on = list(<vue event> = JS("function(report, ...)"))` binds a handler
-of the user’s own; `report(name, value)` sets `input$<id>_<name>`. Every
-input of every component is in one registry, `R/el_events_registry.R`,
-written by `python tools/events-registry.py` (defaults and value notes
-there, descriptions from Element’s docs):
+of the user’s own; `report(name, value)` sets `input$<id>_<name>`; on an
+event the component handles itself too,
+[`.vue_merge_handlers()`](https://kaipingyang.github.io/shiny.element/reference/dot-vue_merge_handlers.md)
+(run by
+[`el_widget()`](https://kaipingyang.github.io/shiny.element/reference/el_widget.md))
+makes the two one handler. The one input not under the id:
+`el_cascader(level_inputs =)`, each level of the path under an id the
+user gives, as the levels are the value in parts. Every input of every
+component is in one registry, `R/el_events_registry.R`, written by
+`python tools/events-registry.py` (defaults and value notes there,
+descriptions from Element’s docs):
 [`el_events()`](https://kaipingyang.github.io/shiny.element/reference/el_events.md)
 prints it, every component’s `events` is checked against it, and each
 help page’s “Shiny inputs” table is generated from it

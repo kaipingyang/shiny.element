@@ -1,7 +1,8 @@
 # Add `on` handlers to a tag, beside any it already listens with
 
 A tag carries one `@<event>`: where the component already listens to
-that event – one it forwards – both run, its own first.
+that event – one it forwards, or handles itself – both run, its own
+first.
 
 ## Usage
 

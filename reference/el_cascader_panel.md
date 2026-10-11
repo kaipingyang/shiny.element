@@ -26,6 +26,7 @@ el_cascader_panel(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  level_inputs = NULL,
   events = NULL,
   on = NULL,
   session = NULL
@@ -137,6 +138,12 @@ update_el_cascader_panel(
   `{node, data}`, renders one option; write it with
   [`template()`](https://kaipingyang.github.io/shiny.element/reference/template.md).
 
+- level_inputs:
+
+  Each level of the path as an input of its own: input ids, one per
+  level from the top. See
+  [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md).
+
 - events:
 
   Element's events to report besides those reported unasked, by name:
@@ -179,6 +186,9 @@ A Shiny UI element.
 
 The same list as `el_events("el_cascader_panel")`, which says how an
 event's arguments travel.
+
+With `level_inputs`, each level of the path is an input too, as for
+[`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md).
 
 ## Element methods
 

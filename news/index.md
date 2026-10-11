@@ -4,8 +4,19 @@
 
 ### New features
 
+- `el_cascader(level_inputs =)` and `el_cascader_panel(level_inputs =)`
+  report each level of the path as an input of its own, under the ids
+  given – `level_inputs = c("compound", "study", "analysis")` gives
+  `input$compound`, `input$study` and `input$analysis` beside the path
+  in `input$<id>`; in a module, `ns(c(...))`. They follow the path on
+  load, when the user picks and when
+  [`update_el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md)
+  sets it, and each notifies its observers only when its own level
+  changes. `NULL`, the default, reports the path alone.
+
 - The installed package is smaller, 4.3 MB where it was 5.4 MB, with
   nothing given up a page uses:
+
   - Element Plus’s eleven locales used most (English, Chinese, Japanese,
     Korean, French, German, Spanish, Portuguese, Russian) stay files;
     the other 56 are packed in one archive and taken out into the
@@ -17,6 +28,24 @@
     the unpkg CDN.
   - The Forms, Dashboards, Putting Components Together and “What works”
     articles are on the website only, no longer vignettes.
+
+### Bug fixes
+
+- `on` given an event the component handles itself – `change` on
+  [`el_cascader()`](https://kaipingyang.github.io/shiny.element/reference/el_cascader.md),
+  [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md),
+  [`el_input()`](https://kaipingyang.github.io/shiny.element/reference/el_input.md),
+  [`el_date_picker()`](https://kaipingyang.github.io/shiny.element/reference/el_date_picker.md),
+  [`el_slider()`](https://kaipingyang.github.io/shiny.element/reference/el_slider.md)
+  and the other value components, `select` on
+  [`el_menu()`](https://kaipingyang.github.io/shiny.element/reference/el_menu.md),
+  `node-click` and `check` on
+  [`el_tree()`](https://kaipingyang.github.io/shiny.element/reference/el_tree.md),
+  `selection-change` on
+  [`el_table()`](https://kaipingyang.github.io/shiny.element/reference/el_table.md),
+  24 in all – wrote both handlers into one attribute Vue could not
+  compile, and the component did not mount. Both now run, the
+  component’s own first.
 
 ### Documentation
 

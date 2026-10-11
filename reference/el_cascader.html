@@ -212,6 +212,7 @@ city – from a dropdown of side-by-side columns.</p>
 <span>  virtual_scroll <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  slots <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  level_inputs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -501,6 +502,14 @@ given here is absorbed rather than nested. For a scoped slot, write
 the template with <code><a href="template.html">template()</a></code>.</p></dd>
 
 
+<dt id="arg-level-inputs">level_inputs<a class="anchor" aria-label="anchor" href="#arg-level-inputs"></a></dt>
+<dd><p>Each level of the path as an input of its own, beside
+<code>input$&lt;id&gt;</code>: input ids, one per level from the top, such as
+<code>c("compound", "study", "analysis")</code> for <code>input$compound</code>,
+<code>input$study</code> and <code>input$analysis</code>. <code>NULL</code>, the default, reports the
+path alone. See "Shiny inputs".</p></dd>
+
+
 <dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
 <dd><p>Element's events to report besides those reported unasked,
 by name: <code>events = "node_drop"</code> reports <code>input$&lt;id&gt;_node_drop</code>. The
@@ -530,6 +539,18 @@ current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/upda
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
 <table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;</code></td><td>unasked</td><td>the selected path</td></tr><tr><td><code>input$&lt;id&gt;_lazy_load</code></td><td>unasked</td><td>with <code>props = list(lazy = TRUE)</code>, a column to load; answer with <code><a href="el_load_children.html">el_load_children()</a></code></td></tr><tr><td><code>input$&lt;id&gt;_expand_change</code></td><td><code>events = "expand_change"</code></td><td>triggers when expand option changes</td></tr><tr><td><code>input$&lt;id&gt;_blur</code></td><td><code>events = "blur"</code></td><td>triggers when Cascader blurs</td></tr><tr><td><code>input$&lt;id&gt;_focus</code></td><td><code>events = "focus"</code></td><td>triggers when Cascader focuses</td></tr><tr><td><code>input$&lt;id&gt;_visible_change</code></td><td><code>events = "visible_change"</code></td><td>triggers when the dropdown appears/disappears</td></tr><tr><td><code>input$&lt;id&gt;_remove_tag</code></td><td><code>events = "remove_tag"</code></td><td>triggers when remove tag in multiple selection mode</td></tr><tr><td><code>input$&lt;id&gt;_clear</code></td><td><code>events = "clear"</code></td><td>triggers when the clear icon is clicked in a clearable Select</td></tr></table><p>The same list as <code>el_events("el_cascader")</code>, which says how an event's arguments travel.</p>
+<p>With <code>level_inputs</code>, each level of the path is an input too, named as
+given – not prefixed with the cascader's id, as the levels are the
+cascader's value in parts rather than something it does. Each holds
+that level's value, <code>NULL</code> where the path stops short (nothing
+selected, or <code>checkStrictly</code>), and follows the path wherever it
+changes: on load, when the user picks, when <code>update_el_cascader()</code> sets
+it. Like any input, it notifies its observers only when its value
+changes, so an observer of <code>input$compound</code> does not run again when
+only the study changes. The ids are the page's: in a module, give them
+through <code>ns()</code>, <code>level_inputs = ns(c("compound", "study"))</code>, as the
+cascader's own id. It needs the value to be one path, so not with
+<code>props = list(multiple = TRUE)</code> or <code>emitPath = FALSE</code>.</p>
 <p><code>input$&lt;id&gt;_lazy_load</code> carries <code>level</code> (0 for the first column), <code>value</code>
 and <code>path</code> of the option opened, and <code>request</code>. Answer with
 <code><a href="el_load_children.html">el_load_children()</a></code>, passing the input back; each child is <code>list(value =, label =, leaf = TRUE)</code> for one with nothing below.</p>
