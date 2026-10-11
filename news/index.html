@@ -169,6 +169,10 @@
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
 <ul><li>
+<code><a href="../reference/el_form_field.html">el_form_field()</a></code> takes <code>options</code>, Element’s name for the choices, as <code><a href="../reference/el_select.html">el_select()</a></code> does. Given before, it went through <code>...</code> to the select as its own <code>options</code> prop – records with no value or label – and the dropdown opened onto blank entries; the Forms article’s examples wrote it so. <code>tools/article-shots.R</code> now opens every dropdown of every example and reports blank options.</li>
+<li>
+<code>el_cascader(value =)</code> and <code>update_el_cascader(value =)</code> given a path of one level – <code>"c1"</code>, with <code>checkStrictly</code> – sent it as a string rather than an array, which <code>level_inputs</code> read as no path.</li>
+<li>
 <code>on</code> given an event the component handles itself – <code>change</code> on <code><a href="../reference/el_cascader.html">el_cascader()</a></code>, <code><a href="../reference/el_select.html">el_select()</a></code>, <code><a href="../reference/el_input.html">el_input()</a></code>, <code><a href="../reference/el_date_picker.html">el_date_picker()</a></code>, <code><a href="../reference/el_slider.html">el_slider()</a></code> and the other value components, <code>select</code> on <code><a href="../reference/el_menu.html">el_menu()</a></code>, <code>node-click</code> and <code>check</code> on <code><a href="../reference/el_tree.html">el_tree()</a></code>, <code>selection-change</code> on <code><a href="../reference/el_table.html">el_table()</a></code>, 24 in all – wrote both handlers into one attribute Vue could not compile, and the component did not mount. Both now run, the component’s own first.</li>
 </ul></div>
 <div class="section level3">

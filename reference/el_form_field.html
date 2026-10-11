@@ -171,7 +171,8 @@
 <span>  report <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  button <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  border <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  options <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -204,11 +205,13 @@
 what <code>resetFields()</code> restores.</p></dd>
 
 
-<dt id="arg-choices">choices<a class="anchor" aria-label="anchor" href="#arg-choices"></a></dt>
+<dt id="arg-choices-options">choices, options<a class="anchor" aria-label="anchor" href="#arg-choices-options"></a></dt>
 <dd><p>Options for <code>"select"</code>, <code>"radio-group"</code> and
 <code>"checkbox-group"</code>; suggestions for <code>"autocomplete"</code>, filtered as the
 user types. A named vector <code>c(Label = value)</code> or a list of
-<code>list(value=, label=)</code>. For <code>"checkbox"</code>, the box's text is <code>label</code>.</p></dd>
+<code>list(value=, label=)</code>. For <code>"checkbox"</code>, the box's text is <code>label</code>.
+<code>choices</code> is Shiny's name, <code>options</code> Element's; give either, as to
+<code><a href="el_select.html">el_select()</a></code>.</p></dd>
 
 
 <dt id="arg-rules">rules<a class="anchor" aria-label="anchor" href="#arg-rules"></a></dt>

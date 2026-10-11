@@ -15,7 +15,8 @@ el_form_field(
   report = FALSE,
   button = FALSE,
   border = NULL,
-  ...
+  ...,
+  options = NULL
 )
 ```
 
@@ -47,12 +48,14 @@ el_form_field(
   Initial value. Defaults to the type's empty value, which is also what
   `resetFields()` restores.
 
-- choices:
+- choices, options:
 
   Options for `"select"`, `"radio-group"` and `"checkbox-group"`;
   suggestions for `"autocomplete"`, filtered as the user types. A named
   vector `c(Label = value)` or a list of `list(value=, label=)`. For
-  `"checkbox"`, the box's text is `label`.
+  `"checkbox"`, the box's text is `label`. `choices` is Shiny's name,
+  `options` Element's; give either, as to
+  [`el_select()`](https://kaipingyang.github.io/shiny.element/reference/el_select.md).
 
 - rules:
 
