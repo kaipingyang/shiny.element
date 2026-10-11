@@ -387,3 +387,19 @@ test_that("a reported field reports on load through the mounted hook", {
   expect_match(html, 'f_sz[\\\\"]*, self[.]model[.]sz')
   expect_false(grepl('"immediate"', html, fixed = TRUE))
 })
+
+test_that("el_form_field takes options, Element's name for the choices", {
+  # Given through `...`, it went to the select as its own `options` prop:
+  # records of nothing, a dropdown of blank entries
+  f <- el_form_field("city", "select", options = c("Beijing", "Shanghai"))
+  g <- el_form_field("city", "select", choices = c("Beijing", "Shanghai"))
+  expect_identical(f, g)
+  expect_equal(f$options[[1]]$label, "Beijing")
+  expect_null(f$props$options)
+  r <- el_form_field("kind", "radio-group", options = c(Red = "r"))
+  expect_equal(r$options[[1]]$text, "Red")
+  expect_error(
+    el_form_field("x", "select", choices = "a", options = "b"),
+    "the same argument"
+  )
+})

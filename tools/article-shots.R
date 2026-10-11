@@ -35,7 +35,8 @@
 #
 # Every example is also checked: code that fails to run, a page that logs
 # a [Vue warn], a [shiny-vue] error or an exception, or a menu entry, tab or tag
-# drawn with no label, is reported and the script exits non-zero.
+# drawn with no label -- a dropdown's options too, each opened after the
+# picture -- is reported and the script exits non-zero.
 
 suppressMessages({
   library(chromote)
@@ -319,7 +320,10 @@ for (s in shots) {
     sprintf("http://127.0.0.1:%d/?shot=%s", PORT, s$key),
     wait_ = FALSE
   )
-  b$wait_for(loaded)
+  # A page whose pictures come from the network fires its load event late,
+  # or not before chromote gives up: go on, the pictures are waited for
+  # again before the capture
+  tryCatch(b$wait_for(loaded, timeout_ = 60), error = function(e) NULL)
 
   err <- js("(document.getElementById('shot-error') || {}).innerText || ''")
   if (nzchar(err %||% "")) {
@@ -570,6 +574,42 @@ for (s in shots) {
       deviceScaleFactor = 1,
       mobile = FALSE
     )
+  }
+
+  # Every dropdown in the example opened, after the picture is taken: its
+  # options are drawn only then, so blank ones and the warnings they raise
+  # passed every check above. Twice a form's select opened onto blank
+  # entries -- its slot filled with an empty string, then `options =` sent
+  # to Element's own prop -- and both times no screenshot had opened it.
+  dropdowns <- tryCatch(
+    b$Runtime$evaluate(
+      "(async function(){
+    var root = document.getElementById('shot'); if (!root) return '';
+    var wait = function(ms) { return new Promise(function(r) { setTimeout(r, ms); }); };
+    var triggers = Array.from(root.querySelectorAll('.el-select__wrapper, .el-cascader')).slice(0, 30)
+      .filter(function(t) { return t.getBoundingClientRect().width &&
+        !t.closest('.is-disabled') && !t.classList.contains('is-disabled'); });
+    var blank = 0, opened = 0;
+    for (var i = 0; i < triggers.length; i++) {
+      triggers[i].click(); await wait(400); opened++;
+      document.querySelectorAll('.el-select-dropdown__item, .el-cascader-node__label').forEach(function(e) {
+        if (!e.getBoundingClientRect().width) return;
+        if (e.innerText.trim() || e.querySelector('i, img, svg, input')) return;
+        blank++;
+      });
+      document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', code: 'Escape', bubbles: true}));
+      document.body.click(); await wait(200);
+    }
+    return blank ? blank + ' blank option(s) in ' + opened + ' dropdown(s)' : '';
+  })()",
+      awaitPromise = TRUE,
+      timeout_ = 120
+    )$result$value,
+    error = function(e) paste("dropdowns not checked:", conditionMessage(e))
+  )
+  if (nzchar(dropdowns %||% "")) {
+    problems <- c(problems, sprintf("%s: %s", s$key, dropdowns))
+    message(sprintf("  x %-34s %s", s$key, dropdowns))
   }
 
   # Vue's warnings, and the package's own -- an update sent to a widget that

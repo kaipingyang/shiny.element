@@ -234,10 +234,12 @@ el_rule <- function(
 #' @param label Label text.
 #' @param value Initial value. Defaults to the type's empty value, which is also
 #'   what `resetFields()` restores.
-#' @param choices Options for `"select"`, `"radio-group"` and
+#' @param choices,options Options for `"select"`, `"radio-group"` and
 #'   `"checkbox-group"`; suggestions for `"autocomplete"`, filtered as the
 #'   user types. A named vector `c(Label = value)` or a list of
 #'   `list(value=, label=)`. For `"checkbox"`, the box's text is `label`.
+#'   `choices` is Shiny's name, `options` Element's; give either, as to
+#'   [el_select()].
 #' @param rules A single [el_rule()] or a list of them.
 #' @param report Whether the field also reports its value on load and on
 #'   every change, as `input$<form id>_<prop>`, as a standalone input would --
@@ -287,8 +289,13 @@ el_form_field <- function(
   report = FALSE,
   button = FALSE,
   border = NULL,
-  ...
+  ...,
+  options = NULL
 ) {
+  # Element's name for the choices: given through `...`, it went to the
+  # control as its own `options` prop, records of nothing, and the
+  # dropdown opened onto blank entries
+  choices <- .el_alias(choices, options, "choices", "options")
   spec <- .el_form_tags[[type]]
   if (is.null(spec)) {
     stop(

@@ -14,7 +14,8 @@ el_form_field(
   report = FALSE,
   button = FALSE,
   border = NULL,
-  ...
+  ...,
+  options = NULL
 )
 }
 \arguments{
@@ -35,10 +36,12 @@ el_form_field(
 \item{value}{Initial value. Defaults to the type's empty value, which is also
 what \code{resetFields()} restores.}
 
-\item{choices}{Options for \code{"select"}, \code{"radio-group"} and
+\item{choices, options}{Options for \code{"select"}, \code{"radio-group"} and
 \code{"checkbox-group"}; suggestions for \code{"autocomplete"}, filtered as the
 user types. A named vector \code{c(Label = value)} or a list of
-\code{list(value=, label=)}. For \code{"checkbox"}, the box's text is \code{label}.}
+\code{list(value=, label=)}. For \code{"checkbox"}, the box's text is \code{label}.
+\code{choices} is Shiny's name, \code{options} Element's; give either, as to
+\code{\link[=el_select]{el_select()}}.}
 
 \item{rules}{A single \code{\link[=el_rule]{el_rule()}} or a list of them.}
 

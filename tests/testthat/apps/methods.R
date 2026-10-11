@@ -245,6 +245,19 @@ ui <- el_page(
       "radio-group",
       label = "Pick",
       choices = c(One = "1", Two = "2")
+    ),
+    # Element's name for the choices, as the Forms article writes it
+    el_form_field(
+      "team",
+      "select",
+      label = "Team",
+      options = c("Data", "Design")
+    ),
+    el_form_field(
+      "kind",
+      "radio-group",
+      label = "Kind",
+      options = c(Red = "r", Blue = "b")
     )
   ),
   el_image(

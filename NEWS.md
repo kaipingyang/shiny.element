@@ -26,6 +26,15 @@
 
 ## Bug fixes
 
+* `el_form_field()` takes `options`, Element's name for the choices, as
+  `el_select()` does. Given before, it went through `...` to the select
+  as its own `options` prop -- records with no value or label -- and the
+  dropdown opened onto blank entries; the Forms article's examples wrote
+  it so. `tools/article-shots.R` now opens every dropdown of every example
+  and reports blank options.
+* `el_cascader(value =)` and `update_el_cascader(value =)` given a path of
+  one level -- `"c1"`, with `checkStrictly` -- sent it as a string rather
+  than an array, which `level_inputs` read as no path.
 * `on` given an event the component handles itself -- `change` on
   `el_cascader()`, `el_select()`, `el_input()`, `el_date_picker()`,
   `el_slider()` and the other value components, `select` on `el_menu()`,

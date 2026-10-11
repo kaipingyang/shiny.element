@@ -265,7 +265,9 @@ el_cascader <- function(
 
   vue_data <- list(
     options = options,
-    value = if (is.null(value)) list() else value,
+    # always an array, a path of one level too: "c1" alone would arrive as a
+    # string
+    value = if (is.null(value)) list() else as.list(value),
     placeholder = placeholder,
     clearable = clearable,
     filterable = filterable,
@@ -378,7 +380,8 @@ el_cascader <- function(
         paste0(
           "function(path) { if (!window.Shiny || !Shiny.setInputValue) return; ",
           "var names = %s; ",
-          "var send = function() { var v = Array.isArray(path) ? path : []; ",
+          "var send = function() { var v = Array.isArray(path) ? path : ",
+          "(path === null || path === undefined || path === '' ? [] : [path]); ",
           "names.forEach(function(name, i) { ",
           "Shiny.setInputValue(name, v[i] === undefined ? null : v[i]); }); }; ",
           "if (Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send(); ",
@@ -456,7 +459,7 @@ update_el_cascader <- function(
     message$options <- options
   }
   if (!is.null(value)) {
-    message$value <- value
+    message$value <- as.list(value)
   }
   if (!is.null(placeholder)) {
     message$placeholder <- placeholder

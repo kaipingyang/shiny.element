@@ -44,6 +44,21 @@ ui <- el_page(
     on = list(change = JS("function(report, v) { report('changed', v); }"))
   ),
   el_button("set_csa", "Set path"),
+  # a path of one level; fewer and more level inputs than levels
+  el_cascader(
+    "one",
+    options = paths,
+    value = "c1",
+    props = list(checkStrictly = TRUE),
+    level_inputs = c("o1", "o2", "o3")
+  ),
+  el_button("set_one", "Set one level"),
+  el_cascader(
+    "short",
+    options = paths,
+    value = c("c1", "s1"),
+    level_inputs = "sh1"
+  ),
   textOutput("compound_runs"),
   el_tag(id = "tg", label = "close me", closable = TRUE),
   el_button("open", "Open"),
@@ -63,6 +78,10 @@ server <- function(input, output, session) {
   observeEvent(
     input$set_csa,
     update_el_cascader(session, "csa", value = c("c2", "s3"))
+  )
+  observeEvent(
+    input$set_one,
+    update_el_cascader(session, "one", value = "c2")
   )
   # how often an observer of the first level runs
   runs <- reactiveVal(0)

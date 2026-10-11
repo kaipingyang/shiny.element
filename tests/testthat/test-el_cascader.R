@@ -275,3 +275,30 @@ test_that("level_inputs: each level of the path as an input of its own", {
     "one path"
   )
 })
+
+test_that("a path of one level travels as an array", {
+  # "c1" alone would arrive as a string, which is no path
+  p <- vue_payload_of(el_cascader(
+    "csa",
+    value = "c1",
+    props = list(checkStrictly = TRUE)
+  ))
+  expect_equal(p$data$value, list("c1"))
+  captured <- NULL
+  session <- list(
+    ns = function(id) id,
+    sendCustomMessage = function(type, msg) captured <<- msg
+  )
+  update_el_cascader(session, "csa", value = "c2")
+  expect_equal(
+    as.character(jsonlite::toJSON(captured$value, auto_unbox = TRUE)),
+    '["c2"]'
+  )
+  # a list of paths stays one
+  p <- vue_payload_of(el_cascader(
+    "m",
+    value = list(c("a", "b"), c("a", "c")),
+    props = list(multiple = TRUE)
+  ))
+  expect_equal(p$data$value, list(list("a", "b"), list("a", "c")))
+})

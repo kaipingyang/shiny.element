@@ -160,12 +160,18 @@ test_that("every documented method runs on a live component", {
     "(function(){ var t = Array.from(document.querySelectorAll('.el-select-dropdown__item')).map(function(e){ return e.textContent.trim(); });
       return t.indexOf('Beijing') !== -1 && t.indexOf('Shanghai') !== -1; })()"
   ))
+  # given as `options =`, Element's name, the same: it once went to the
+  # select as its own `options` prop, and every entry was blank
+  expect_true(js(
+    "(function(){ var t = Array.from(document.querySelectorAll('.el-select-dropdown__item')).map(function(e){ return e.textContent.trim(); });
+      return t.indexOf('Data') !== -1 && t.indexOf('Design') !== -1 && t.indexOf('') === -1; })()"
+  ))
   # radios take the text as their slot
   expect_equal(
     js(
       "Array.from(document.querySelectorAll('#m_form .el-radio__label')).map(function(e){ return e.textContent.trim(); }).join(',')"
     ),
-    "One,Two"
+    "One,Two,Red,Blue"
   )
 
   # a virtual_ref target drawn later by renderUI() is found when it appears,

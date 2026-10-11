@@ -122,6 +122,16 @@ test_that("only the events reported unasked or asked for reach the server", {
   expect_equal(value("compound"), '"c1"')
   expect_equal(value("study"), '"s1"')
   expect_equal(runs(), "1")
+  # a path of one level is a path too; a level the path does not reach is
+  # NULL, and fewer level inputs than levels report the first ones
+  expect_equal(value("o1"), '"c1"')
+  expect_equal(value("o2"), "null")
+  expect_equal(value("o3"), "null")
+  expect_equal(value("sh1"), '"c1"')
+  js("document.querySelector('#set_one button').click()")
+  Sys.sleep(1.5)
+  expect_equal(value("o1"), '"c2"')
+  expect_equal(value("o2"), "null")
   # in a module, under the ids given through ns()
   expect_equal(value("m-compound"), '"c2"')
   expect_equal(value("m-study"), '"s3"')
