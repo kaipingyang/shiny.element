@@ -23,6 +23,7 @@ el_cascader_panel(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  level_inputs = NULL,
   events = NULL,
   on = NULL,
   session = NULL
@@ -98,6 +99,9 @@ Element Plus's \code{virtual-scroll} (boolean).}
 \item{slots}{Named list of Element slot contents. The default slot, scoped
 with \verb{\{node, data\}}, renders one option; write it with \code{\link[=template]{template()}}.}
 
+\item{level_inputs}{Each level of the path as an input of its own:
+input ids, one per level from the top. See \code{\link[=el_cascader]{el_cascader()}}.}
+
 \item{events}{Element's events to report besides those reported unasked,
 by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
 component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
@@ -132,6 +136,9 @@ them into a dropdown.
 
 
 The same list as \code{el_events("el_cascader_panel")}, which says how an event's arguments travel.
+
+With \code{level_inputs}, each level of the path is an input too, as for
+\code{\link[=el_cascader]{el_cascader()}}.
 }
 
 \section{Element methods}{

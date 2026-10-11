@@ -128,6 +128,11 @@ el_widget <- function(
   absorbed = NULL
 ) {
   container_id <- paste0(id, "_container")
+  # an event the component handles and also forwards, or hands to `on`:
+  # its handlers as one
+  if (inherits(markup, "shiny.tag")) {
+    markup$attribs <- .vue_merge_handlers(markup$attribs)
+  }
   # the user's own handlers, on the component's own tag
   if (length(on)) {
     own <- .vue_on_bindings(id, on)

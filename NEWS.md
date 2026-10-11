@@ -2,6 +2,15 @@
 
 ## New features
 
+* `el_cascader(level_inputs =)` and `el_cascader_panel(level_inputs =)`
+  report each level of the path as an input of its own, under the ids
+  given -- `level_inputs = c("compound", "study", "analysis")` gives
+  `input$compound`, `input$study` and `input$analysis` beside the path in
+  `input$<id>`; in a module, `ns(c(...))`. They follow the path on load,
+  when the user picks and when `update_el_cascader()` sets it, and each
+  notifies its observers only when its own level changes. `NULL`, the
+  default, reports the path alone.
+
 * The installed package is smaller, 4.3 MB where it was 5.4 MB, with
   nothing given up a page uses:
   * Element Plus's eleven locales used most (English, Chinese, Japanese,
@@ -14,6 +23,16 @@
     unpkg CDN.
   * The Forms, Dashboards, Putting Components Together and "What works"
     articles are on the website only, no longer vignettes.
+
+## Bug fixes
+
+* `on` given an event the component handles itself -- `change` on
+  `el_cascader()`, `el_select()`, `el_input()`, `el_date_picker()`,
+  `el_slider()` and the other value components, `select` on `el_menu()`,
+  `node-click` and `check` on `el_tree()`, `selection-change` on
+  `el_table()`, 24 in all -- wrote both handlers into one attribute Vue
+  could not compile, and the component did not mount. Both now run, the
+  component's own first.
 
 ## Documentation
 

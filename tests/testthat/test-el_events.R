@@ -140,3 +140,92 @@ test_that("on binds a handler of the user's own, reporting under the id", {
     fixed = TRUE
   )
 })
+
+test_that("on takes an event the component handles itself: both run", {
+  # Its own handler and the user's once made "handleChange svOn1", which
+  # Vue cannot compile: the component did not mount
+  checked <- character()
+  for (fn in names(.el_event_registry)) {
+    if (!"on" %in% names(formals(get(fn)))) {
+      next
+    }
+    args <- switch(
+      fn,
+      el_table = list(data = data.frame(a = 1)),
+      el_countdown = list("x", value = 1),
+      el_tabs = list("x", tabs = list(list(name = "a", label = "A"))),
+      el_pagination = list("x", total = 10),
+      el_form = list(id = "x"),
+      el_check_tag = list("x", "X"),
+      list("x")
+    )
+    # a component needing more than an id to be drawn is left out
+    html <- tryCatch(
+      render_html(do.call(get(fn), args)),
+      error = function(e) NULL
+    )
+    if (is.null(html)) {
+      next
+    }
+    checked <- c(checked, fn)
+    own <- regmatches(
+      html,
+      gregexpr('@[a-z:.-]+="[A-Za-z_$][A-Za-z0-9_$]*"', html)
+    )[[1]]
+    for (attr in own) {
+      event <- sub('^@([a-z:.-]+)=.*', "\\1", attr)
+      handler <- sub('^@[a-z:.-]+="([^"]*)"$', "\\1", attr)
+      on <- stats::setNames(list(JS("function(report) {}")), event)
+      html_on <- render_html(do.call(get(fn), c(args, list(on = on))))
+      bound <- regmatches(
+        html_on,
+        gregexpr(
+          sprintf('@%s="[^"]*"', gsub(".", "\\.", event, fixed = TRUE)),
+          html_on
+        )
+      )[[1]]
+      info <- paste(fn, event)
+      # never two names in one attribute
+      expect_false(
+        any(grepl('="[A-Za-z_$][A-Za-z0-9_$]* [A-Za-z_$]', bound)),
+        info = info
+      )
+      expect_true(any(grepl("svOn1", bound, fixed = TRUE)), info = info)
+      # on the tag that handles it too, both run, its own first
+      both <- bound[
+        grepl("svOn1", bound, fixed = TRUE) & grepl("=> {", bound, fixed = TRUE)
+      ]
+      if (length(both) && !grepl("svEmit", handler)) {
+        expect_match(
+          both[1],
+          sprintf("{ %s(...a);", handler),
+          fixed = TRUE,
+          info = info
+        )
+      }
+    }
+  }
+  expect_true(all(c("el_cascader", "el_select", "el_tree") %in% checked))
+})
+
+test_that("handlers of one event given twice become one, in order", {
+  merged <- .vue_merge_handlers(list(
+    "v-model" = "value",
+    "@change" = "handleChange",
+    ":size" = "size",
+    "@change" = "(...a) => { svEmitChange(...a); svOn1(...a); }"
+  ))
+  expect_equal(sum(names(merged) == "@change"), 1L)
+  expect_equal(
+    merged[["@change"]],
+    paste0(
+      "(...a) => { handleChange(...a); ",
+      "((...a) => { svEmitChange(...a); svOn1(...a); })(...a); }"
+    )
+  )
+  expect_equal(names(merged), c("v-model", "@change", ":size"))
+  expect_error(
+    .vue_merge_handlers(list("@close" = "visible = false", "@close" = "svOn1")),
+    "the component handles it itself"
+  )
+})

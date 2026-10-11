@@ -218,7 +218,8 @@
 #' Add `on` handlers to a tag, beside any it already listens with
 #'
 #' A tag carries one `@<event>`: where the component already listens to
-#' that event -- one it forwards -- both run, its own first.
+#' that event -- one it forwards, or handles itself -- both run, its own
+#' first.
 #'
 #' @param tag The component's tag.
 #' @param on Output of `.vue_on_bindings()`.
@@ -227,23 +228,64 @@
 .vue_on_attach <- function(tag, on) {
   for (key in names(on$attrs)) {
     given <- tag$attribs[[key]]
-    if (is.null(given)) {
-      tag$attribs[[key]] <- on$attrs[[key]]
-      next
-    }
-    if (!grepl("^[A-Za-z_$][A-Za-z0-9_$]*$", given)) {
-      stop(
-        "`on` cannot handle ",
-        sQuote(sub("^@", "", key), FALSE),
-        ": the component handles it itself.",
-        call. = FALSE
-      )
-    }
-    tag$attribs[[key]] <- sprintf(
-      "(...a) => { %s(...a); %s(...a); }",
-      given,
+    tag$attribs[[key]] <- if (is.null(given)) {
       on$attrs[[key]]
-    )
+    } else {
+      .vue_join_handlers(key, c(given, on$attrs[[key]]))
+    }
   }
   tag
+}
+
+#' One event's handlers given more than once on a tag, as one
+#'
+#' A component's own handler of an event -- `@change="handleChange"` -- and
+#' the one forwarding it or the user's `on` can land on its tag together:
+#' htmltools would join them into one attribute, `"handleChange svOn1"`,
+#' which Vue cannot compile, and the component would not mount.
+#'
+#' @param attribs A tag's attributes.
+#' @return The attributes, each `@<event>` once.
+#' @keywords internal
+.vue_merge_handlers <- function(attribs) {
+  keys <- names(attribs)
+  if (is.null(keys)) {
+    return(attribs)
+  }
+  twice <- unique(keys[startsWith(keys, "@") & duplicated(keys)])
+  for (key in twice) {
+    at <- which(names(attribs) == key)
+    attribs[[at[1]]] <- .vue_join_handlers(
+      key,
+      unlist(attribs[at], use.names = FALSE)
+    )
+    attribs <- attribs[-at[-1]]
+  }
+  attribs
+}
+
+#' Handlers of one event, run in turn
+#'
+#' @param key The attribute, `"@change"`.
+#' @param handlers What each is given: a method's name or an arrow
+#'   function, as `.vue_on_attach()` writes.
+#' @return One arrow function calling each, in order.
+#' @keywords internal
+.vue_join_handlers <- function(key, handlers) {
+  name <- grepl("^[A-Za-z_$][A-Za-z0-9_$]*$", handlers)
+  arrow <- startsWith(handlers, "(...a) => ")
+  if (!all(name | arrow)) {
+    stop(
+      "`on` cannot handle ",
+      sQuote(sub("^@", "", key), FALSE),
+      ": the component handles it itself.",
+      call. = FALSE
+    )
+  }
+  calls <- ifelse(
+    name,
+    paste0(handlers, "(...a);"),
+    paste0("(", handlers, ")(...a);")
+  )
+  paste0("(...a) => { ", paste(calls, collapse = " "), " }")
 }

@@ -86,10 +86,28 @@
 #'   `list(title = shiny::tags$b("Bold"))`. A shiny.element component
 #'   given here is absorbed rather than nested. For a scoped slot, write
 #'   the template with [template()].
+#' @param level_inputs Each level of the path as an input of its own, beside
+#'   `input$<id>`: input ids, one per level from the top, such as
+#'   `c("compound", "study", "analysis")` for `input$compound`,
+#'   `input$study` and `input$analysis`. `NULL`, the default, reports the
+#'   path alone. See "Shiny inputs".
 #' @template events
 #' @template on
 #' @section Shiny inputs:
 #' `r .el_events_md("el_cascader")`
+#'
+#' With `level_inputs`, each level of the path is an input too, named as
+#' given -- not prefixed with the cascader's id, as the levels are the
+#' cascader's value in parts rather than something it does. Each holds
+#' that level's value, `NULL` where the path stops short (nothing
+#' selected, or `checkStrictly`), and follows the path wherever it
+#' changes: on load, when the user picks, when `update_el_cascader()` sets
+#' it. Like any input, it notifies its observers only when its value
+#' changes, so an observer of `input$compound` does not run again when
+#' only the study changes. The ids are the page's: in a module, give them
+#' through `ns()`, `level_inputs = ns(c("compound", "study"))`, as the
+#' cascader's own id. It needs the value to be one path, so not with
+#' `props = list(multiple = TRUE)` or `emitPath = FALSE`.
 #'
 #' `input$<id>_lazy_load` carries `level` (0 for the first column), `value`
 #' and `path` of the option opened, and `request`. Answer with
@@ -204,6 +222,7 @@ el_cascader <- function(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  level_inputs = NULL,
   events = NULL,
   on = NULL,
   session = NULL
@@ -242,6 +261,7 @@ el_cascader <- function(
     on = on
   )
   cascader_attrs <- c(cascader_attrs, events$attrs)
+  levels <- .el_cascader_levels(level_inputs, props)
 
   vue_data <- list(
     options = options,
@@ -305,9 +325,68 @@ el_cascader <- function(
       )
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    watch = levels,
     computed = list(elProps = .el_lazy_props(ns_id)),
     width = width,
     slots = slots
+  )
+}
+
+#' Each level of a cascader's path as an input of its own
+#'
+#' A watcher of the value, run at once: it sets each level's input on
+#' load -- once Shiny is connected -- and whenever the value changes,
+#' whoever changes it. A Vue event would miss the value given at first and
+#' the one `update_el_cascader()` sets, which Element emits nothing for.
+#'
+#' @param level_inputs Input ids, one per level, or `NULL`.
+#' @param props The cascader's `props`.
+#' @return A `watch` list for [el_widget()], or `NULL`.
+#' @keywords internal
+.el_cascader_levels <- function(level_inputs, props) {
+  if (is.null(level_inputs)) {
+    return(NULL)
+  }
+  if (
+    !is.character(level_inputs) ||
+      !length(level_inputs) ||
+      anyNA(level_inputs) ||
+      !all(nzchar(level_inputs)) ||
+      anyDuplicated(level_inputs)
+  ) {
+    stop(
+      "`level_inputs` must be input ids, one per level and each once: ",
+      "c(\"compound\", \"study\").",
+      call. = FALSE
+    )
+  }
+  one_path <- !isTRUE(props$multiple) &&
+    !identical(props$emitPath, FALSE) &&
+    !identical(props$emit_path, FALSE)
+  if (!one_path) {
+    stop(
+      "`level_inputs` needs the value to be one path: not with ",
+      "`props = list(multiple = TRUE)` or `emitPath = FALSE`.",
+      call. = FALSE
+    )
+  }
+  list(
+    value = list(
+      immediate = TRUE,
+      deep = TRUE,
+      handler = JS(sprintf(
+        paste0(
+          "function(path) { if (!window.Shiny || !Shiny.setInputValue) return; ",
+          "var names = %s; ",
+          "var send = function() { var v = Array.isArray(path) ? path : []; ",
+          "names.forEach(function(name, i) { ",
+          "Shiny.setInputValue(name, v[i] === undefined ? null : v[i]); }); }; ",
+          "if (Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send(); ",
+          "else if (window.jQuery) jQuery(document).one('shiny:connected', send); }"
+        ),
+        jsonlite::toJSON(unname(level_inputs))
+      ))
+    )
   )
 }
 

@@ -53,6 +53,7 @@ el_cascader(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  level_inputs = NULL,
   events = NULL,
   on = NULL,
   session = NULL
@@ -246,6 +247,12 @@ like the \code{width} argument of a Shiny input.}
 given here is absorbed rather than nested. For a scoped slot, write
 the template with \code{\link[=template]{template()}}.}
 
+\item{level_inputs}{Each level of the path as an input of its own, beside
+\verb{input$<id>}: input ids, one per level from the top, such as
+\code{c("compound", "study", "analysis")} for \code{input$compound},
+\code{input$study} and \code{input$analysis}. \code{NULL}, the default, reports the
+path alone. See "Shiny inputs".}
+
 \item{events}{Element's events to report besides those reported unasked,
 by name: \code{events = "node_drop"} reports \verb{input$<id>_node_drop}. The
 component's are listed under "Shiny inputs", and by \code{\link[=el_events]{el_events()}}; a
@@ -283,6 +290,19 @@ city -- from a dropdown of side-by-side columns.
 
 
 The same list as \code{el_events("el_cascader")}, which says how an event's arguments travel.
+
+With \code{level_inputs}, each level of the path is an input too, named as
+given -- not prefixed with the cascader's id, as the levels are the
+cascader's value in parts rather than something it does. Each holds
+that level's value, \code{NULL} where the path stops short (nothing
+selected, or \code{checkStrictly}), and follows the path wherever it
+changes: on load, when the user picks, when \code{update_el_cascader()} sets
+it. Like any input, it notifies its observers only when its value
+changes, so an observer of \code{input$compound} does not run again when
+only the study changes. The ids are the page's: in a module, give them
+through \code{ns()}, \code{level_inputs = ns(c("compound", "study"))}, as the
+cascader's own id. It needs the value to be one path, so not with
+\code{props = list(multiple = TRUE)} or \code{emitPath = FALSE}.
 
 \verb{input$<id>_lazy_load} carries \code{level} (0 for the first column), \code{value}
 and \code{path} of the option opened, and \code{request}. Answer with

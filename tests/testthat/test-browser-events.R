@@ -107,6 +107,54 @@ test_that("only the events reported unasked or asked for reach the server", {
   Sys.sleep(1)
   expect_equal(sent()[["m-b_twice"]], "true")
 
+  # `on` on change, which the cascader handles itself: it mounts, and both
+  # run. Each level is an input of its own, from load on.
+  value <- function(name) {
+    js(sprintf(
+      "(function() { var v = Shiny.shinyapp.$inputValues;
+         var k = Object.keys(v).filter(function(k) { return k.split(':')[0] === '%s'; })[0];
+         return k === undefined ? 'absent' : JSON.stringify(v[k]); })()",
+      name
+    ))
+  }
+  runs <- function() js("document.getElementById('compound_runs').textContent")
+  expect_equal(value("csa"), '["c1","s1"]')
+  expect_equal(value("compound"), '"c1"')
+  expect_equal(value("study"), '"s1"')
+  expect_equal(runs(), "1")
+  # in a module, under the ids given through ns()
+  expect_equal(value("m-compound"), '"c2"')
+  expect_equal(value("m-study"), '"s3"')
+  # the user picks another study of the same compound: the study follows,
+  # the compound's observer does not run again
+  js("document.querySelector('#csa .el-cascader').click()")
+  Sys.sleep(1)
+  pick <- function(text) {
+    js(sprintf(
+      "(function() { var n = Array.from(document.querySelectorAll('.el-cascader-node'))
+         .filter(function(e) { return e.offsetParent && e.textContent.trim() === '%s'; })[0];
+         if (n) n.click(); return !!n; })()",
+      text
+    ))
+  }
+  expect_true(pick("c1"))
+  Sys.sleep(0.5)
+  expect_true(pick("s2"))
+  Sys.sleep(1.5)
+  expect_equal(value("csa"), '["c1","s2"]')
+  expect_equal(value("study"), '"s2"')
+  expect_equal(value("compound"), '"c1"')
+  expect_equal(runs(), "1")
+  expect_equal(sent()[["csa_changed"]], '["c1","s2"]')
+  # the server sets the path: the levels follow, as no event of Element's
+  # would tell them
+  js("document.querySelector('#set_csa button').click()")
+  Sys.sleep(1.5)
+  expect_equal(value("csa"), '["c2","s3"]')
+  expect_equal(value("compound"), '"c2"')
+  expect_equal(value("study"), '"s3"')
+  expect_equal(runs(), "2")
+
   # the tag's close, unasked
   js("document.querySelector('#tg .el-tag__close').click()")
   Sys.sleep(1)

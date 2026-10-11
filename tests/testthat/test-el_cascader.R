@@ -223,3 +223,55 @@ test_that("df_to_cascader_options: nodes are ordered by split(), not by row orde
   )
   expect_equal(vapply(chr, function(o) o$value, character(1)), c("a", "b", "c"))
 })
+
+test_that("level_inputs: each level of the path as an input of its own", {
+  opts <- list(list(
+    value = "c1",
+    label = "c1",
+    children = list(list(value = "s1", label = "s1"))
+  ))
+  # none unless asked for
+  expect_null(vue_payload_of(el_cascader("csa", options = opts))$watch)
+
+  p <- vue_payload_of(el_cascader(
+    "csa",
+    options = opts,
+    level_inputs = c("compound", "study")
+  ))
+  w <- p$watch$value
+  expect_true(w$immediate)
+  expect_true(w$deep)
+  expect_match(w$handler, 'var names = ["compound","study"]', fixed = TRUE)
+  # set wherever the value changes, once Shiny is connected
+  expect_match(w$handler, "shiny:connected", fixed = TRUE)
+  expect_match(w$handler, "v[i] === undefined ? null : v[i]", fixed = TRUE)
+
+  # the ids are used as given: a module passes them through ns()
+  ns <- shiny::NS("m")
+  p <- vue_payload_of(el_cascader(
+    ns("csa"),
+    options = opts,
+    level_inputs = ns(c("compound", "study"))
+  ))
+  expect_match(p$watch$value$handler, '["m-compound","m-study"]', fixed = TRUE)
+
+  # the panel too
+  p <- vue_payload_of(el_cascader_panel(
+    "pnl",
+    options = opts,
+    level_inputs = c("a", "b")
+  ))
+  expect_match(p$watch$value$handler, '["a","b"]', fixed = TRUE)
+
+  expect_error(el_cascader("x", level_inputs = c("a", "a")), "each once")
+  expect_error(el_cascader("x", level_inputs = 1:2), "input ids")
+  expect_error(el_cascader("x", level_inputs = c("a", "")), "input ids")
+  expect_error(
+    el_cascader("x", props = list(multiple = TRUE), level_inputs = "a"),
+    "one path"
+  )
+  expect_error(
+    el_cascader("x", props = list(emitPath = FALSE), level_inputs = "a"),
+    "one path"
+  )
+})

@@ -23,6 +23,8 @@
 #'   `height` (number).
 #' @param item_size Node height for virtual scrolling (px). Element Plus's
 #'   `item-size` (number).
+#' @param level_inputs Each level of the path as an input of its own:
+#'   input ids, one per level from the top. See [el_cascader()].
 #' @param virtual_scroll Whether to enable virtual scrolling for large data.
 #'   Element Plus's `virtual-scroll` (boolean).
 #' @param session In `el_cascader_panel()`, deprecated: inside a module, wrap `id` in
@@ -33,6 +35,9 @@
 #' @template on
 #' @section Shiny inputs:
 #' `r .el_events_md("el_cascader_panel")`
+#'
+#' With `level_inputs`, each level of the path is an input too, as for
+#' [el_cascader()].
 #'
 #' @section Element methods:
 #' Callable with [call_el()]:
@@ -82,6 +87,7 @@ el_cascader_panel <- function(
   virtual_scroll = NULL,
   width = NULL,
   slots = NULL,
+  level_inputs = NULL,
   events = NULL,
   on = NULL,
   session = NULL
@@ -104,6 +110,7 @@ el_cascader_panel <- function(
     on = on
   )
   attrs <- c(attrs, events$attrs)
+  levels <- .el_cascader_levels(level_inputs, props)
 
   el_widget(
     props = .el_props(list(
@@ -136,6 +143,7 @@ el_cascader_panel <- function(
       )
     ),
     mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    watch = levels,
     computed = list(elProps = .el_lazy_props(ns_id)),
     width = width,
     slots = slots
