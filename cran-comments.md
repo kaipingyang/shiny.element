@@ -6,7 +6,9 @@
   tmpfs, see below) and the container's clock and missing HTML tidy
 * GitHub Actions (R-CMD-check.yaml): macOS and Windows (R release), Ubuntu
   (R devel, release and oldrel-1)
-* win-builder: R-release (R 4.6.1 ucrt) and R-devel (2026-09-30 r90605 ucrt)
+* win-builder: R-release (R 4.6.1, 2026-06-24 ucrt) and R-devel
+  (2026-10-09 r90655 ucrt): 1 note each, "New submission"; installed
+  size, the PDF manual, examples, tests and vignettes OK
 
 ## R CMD check results
 
