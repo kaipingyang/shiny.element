@@ -1,6 +1,10 @@
 # Changelog
 
-## shiny.element (development version)
+## shiny.element 0.3.1
+
+A smaller package, ready for CRAN, and the fixes and additions since
+0.3.0: each level of a cascader’s path as an input, `on` on any event,
+`el_form_field(options =)`.
 
 ### New features
 

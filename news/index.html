@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shiny.element</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,9 +155,10 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="shinyelement-development-version">shiny.element (development version)<a class="anchor" aria-label="anchor" href="#shinyelement-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.1" id="shinyelement-031">shiny.element 0.3.1<a class="anchor" aria-label="anchor" href="#shinyelement-031"></a></h2>
+<p>A smaller package, ready for CRAN, and the fixes and additions since 0.3.0: each level of a cascader’s path as an input, <code>on</code> on any event, <code>el_form_field(options =)</code>.</p>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-3-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-1"></a></h3>
 <ul><li><p><code>el_cascader(level_inputs =)</code> and <code>el_cascader_panel(level_inputs =)</code> report each level of the path as an input of its own, under the ids given – <code>level_inputs = c("compound", "study", "analysis")</code> gives <code>input$compound</code>, <code>input$study</code> and <code>input$analysis</code> beside the path in <code>input$&lt;id&gt;</code>; in a module, <code>ns(c(...))</code>. They follow the path on load, when the user picks and when <code><a href="../reference/el_cascader.html">update_el_cascader()</a></code> sets it, and each notifies its observers only when its own level changes. <code>NULL</code>, the default, reports the path alone.</p></li>
 <li>
 <p>The installed package is smaller, 4.3 MB where it was 5.4 MB, with nothing given up a page uses:</p>
@@ -167,7 +168,7 @@
 </ul></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-3-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-1"></a></h3>
 <ul><li>
 <code><a href="../reference/el_form_field.html">el_form_field()</a></code> takes <code>options</code>, Element’s name for the choices, as <code><a href="../reference/el_select.html">el_select()</a></code> does. Given before, it went through <code>...</code> to the select as its own <code>options</code> prop – records with no value or label – and the dropdown opened onto blank entries; the Forms article’s examples wrote it so. <code>tools/article-shots.R</code> now opens every dropdown of every example and reports blank options.</li>
 <li>
@@ -176,7 +177,7 @@
 <code>on</code> given an event the component handles itself – <code>change</code> on <code><a href="../reference/el_cascader.html">el_cascader()</a></code>, <code><a href="../reference/el_select.html">el_select()</a></code>, <code><a href="../reference/el_input.html">el_input()</a></code>, <code><a href="../reference/el_date_picker.html">el_date_picker()</a></code>, <code><a href="../reference/el_slider.html">el_slider()</a></code> and the other value components, <code>select</code> on <code><a href="../reference/el_menu.html">el_menu()</a></code>, <code>node-click</code> and <code>check</code> on <code><a href="../reference/el_tree.html">el_tree()</a></code>, <code>selection-change</code> on <code><a href="../reference/el_table.html">el_table()</a></code>, 24 in all – wrote both handlers into one attribute Vue could not compile, and the component did not mount. Both now run, the component’s own first.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
+<h3 id="documentation-0-3-1">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-3-1"></a></h3>
 <ul><li>An “Architecture” article draws the two layers: the Vue layer, from <code><a href="../reference/vue_app.html">vue_app()</a></code> to the browser and back, and the Element layer on top of it – its kinds of component, the events registry, updates and containers.</li>
 </ul></div>
 </div>
