@@ -65,71 +65,84 @@ knit_print.el_component <- function(x, ...) {
   x
 }
 
-#' The data tables show, kept on the server
+#' The data the data components show, kept on the server
 #'
-#' One set per session: `shown`, a `reactiveValues()` holding, under each
-#' table's id, the data the browser has; `rendered`, the data each table's
-#' last render gave; `rownames`, each render's `rownames`. The browser
-#' patches a render in -- a field changes only when the render's value of
-#' it does -- so the two sides stay alike by the same rule: a render writes
-#' `shown` only when its data differs from its last; an update always does.
+#' A table's rows and a calendar's events alike: one set per session.
+#' `shown`, a `reactiveValues()` holding, under each component's id, the
+#' data the browser has; `rendered`, the data each component's last render
+#' gave; `rownames`, a table render's `rownames`. The browser patches a
+#' render in -- a field changes only when the render's value of it does --
+#' so the two sides stay alike by the same rule: a render writes `shown`
+#' only when its data differs from its last; an update always does.
+#' [el_table_data()] and [el_calendar_events()] read it, each for its own
+#' component.
 #' @noRd
-.el_tables <- function(session, create = FALSE) {
-  tables <- session$userData$.el_tables
-  if (is.null(tables) && create) {
-    tables <- list(
+.el_shown <- function(session, create = FALSE) {
+  shown <- session$userData$.el_shown
+  if (is.null(shown) && create) {
+    shown <- list(
       shown = shiny::reactiveValues(),
       rendered = new.env(parent = emptyenv()),
       rownames = new.env(parent = emptyenv()),
       known = new.env(parent = emptyenv())
     )
-    session$userData$.el_tables <- tables
+    session$userData$.el_shown <- shown
   }
-  tables
+  shown
 }
 
-#' Whether the server holds a table's data
+#' Whether the server holds a component's data
 #' @noRd
-.el_table_known <- function(session, id) {
-  tables <- .el_tables(session)
-  !is.null(tables) && exists(id, envir = tables$known, inherits = FALSE)
+.el_shown_known <- function(session, id) {
+  shown <- .el_shown(session)
+  !is.null(shown) && exists(id, envir = shown$known, inherits = FALSE)
 }
 
-#' The data a table shows, outside a reactive read
+#' The data a component shows, outside a reactive read
 #' @noRd
-.el_table_data <- function(session, id) {
-  if (!.el_table_known(session, id)) {
+.el_shown_get <- function(session, id) {
+  if (!.el_shown_known(session, id)) {
     return(NULL)
   }
-  shiny::isolate(.el_tables(session)$shown[[id]])
+  shiny::isolate(.el_shown(session)$shown[[id]])
+}
+
+#' The data a component shows, a reactive read
+#'
+#' Created here if need be, so a read before the first render still depends
+#' on the data that render brings.
+#' @param id The component's id, namespaced.
+#' @noRd
+.el_shown_read <- function(session, id) {
+  .el_shown(session, create = TRUE)$shown[[id]]
 }
 
 #' The `rownames` a table was rendered with
 #' @noRd
 .el_table_rownames_of <- function(session, id) {
-  tables <- .el_tables(session)
-  if (is.null(tables)) NULL else tables$rownames[[id]]
+  shown <- .el_shown(session)
+  if (is.null(shown)) NULL else shown$rownames[[id]]
 }
 
-#' A table rendered: its data is what the browser shows if it changed
+#' A component rendered: its data is what the browser shows if it changed
 #' @noRd
-.el_table_rendered <- function(session, id, data, rownames = NULL) {
-  tables <- .el_tables(session, create = TRUE)
-  tables$rownames[[id]] <- rownames
-  last <- tables$rendered[[id]]
-  if (!.el_table_known(session, id) || !identical(last, data)) {
-    tables$rendered[[id]] <- data
-    .el_table_data_set(session, id, data)
+.el_shown_rendered <- function(session, id, data, rownames = NULL) {
+  shown <- .el_shown(session, create = TRUE)
+  shown$rownames[[id]] <- rownames
+  last <- shown$rendered[[id]]
+  if (!.el_shown_known(session, id) || !identical(last, data)) {
+    shown$rendered[[id]] <- data
+    .el_shown_set(session, id, data)
   }
   invisible(NULL)
 }
 
-#' A table's data replaced or edited by an update
+#' A component's data replaced or edited by an update
 #' @noRd
-.el_table_data_set <- function(session, id, data) {
-  tables <- .el_tables(session, create = TRUE)
-  assign(id, TRUE, envir = tables$known)
-  tables$shown[[id]] <- data
+.el_shown_set <- function(session, id, data) {
+  shown <- .el_shown(session, create = TRUE)
+  assign(id, TRUE, envir = shown$known)
+  shown$shown[[id]] <- data
   invisible(NULL)
 }
 
@@ -160,9 +173,7 @@ knit_print.el_component <- function(x, ...) {
 #' @export
 el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
   .el_check_session(session)
-  # created here if need be, so a read before the first render still
-  # depends on the data that render brings
-  .el_tables(session, create = TRUE)$shown[[session$ns(id)]]
+  .el_shown_read(session, session$ns(id))
 }
 
 #' A cell edit from the browser, applied to the server's data
@@ -175,7 +186,7 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' @noRd
 .el_table_cell_edit <- function(x, session) {
   row <- as.integer(x$row %||% NA)
-  data <- .el_table_data(session, x$table %||% "")
+  data <- .el_shown_get(session, x$table %||% "")
   column <- x$column
   plain <- list(row = row, column = column, value = x$value, old = x$old)
   if (is.null(data) || is.na(row)) {
@@ -187,7 +198,7 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
     }
     old <- data[[row]][[column]]
     data[[row]][[column]] <- x$value
-    .el_table_data_set(session, x$table, data)
+    .el_shown_set(session, x$table, data)
     return(list(row = row, column = column, value = x$value, old = old))
   }
   # the prop is the column's name with dots made underscores
@@ -202,7 +213,7 @@ el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
     levels(data[[name]]) <- c(levels(data[[name]]), as.character(value))
   }
   data[[name]][row] <- value
-  .el_table_data_set(session, x$table, data)
+  .el_shown_set(session, x$table, data)
   list(row = row, column = name, value = data[[name]][row], old = old)
 }
 
@@ -405,7 +416,7 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
         data = component$args[[data_arg]],
         rownames = component$args$rownames
       )
-      .el_table_rendered(shinysession, name, kept$data, kept$rownames)
+      .el_shown_rendered(shinysession, name, kept$data, kept$rownames)
       tags <- .el_output_host(component, name)
       value <- .vue_output_value(shinysession, name, tags)
       # the data, for the component's inputs, kept with the cached whole
@@ -426,7 +437,7 @@ render_el_table <- function(expr, env = parent.frame(), quoted = FALSE) {
         .vue_output_forget(session, name)
         return(NULL)
       }
-      .el_table_rendered(
+      .el_shown_rendered(
         session,
         name,
         whole$table$data,

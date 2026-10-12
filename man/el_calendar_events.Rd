@@ -22,6 +22,20 @@ event \code{\link[=update_el_calendar]{update_el_calendar()}} has since inserted
 user's requests (\verb{input$<id>_add}, ...) are not in it until the server
 answers them. A reactive read.
 }
+\examples{
+if (interactive()) {
+  library(shiny)
+  ui <- el_page(el_calendar_output("plan"), verbatimTextOutput("n"))
+  server <- function(input, output, session) {
+    output$plan <- render_el_calendar(el_calendar(
+      events = data.frame(id = 1, date = Sys.Date(), title = "Review")
+    ))
+    # the events the calendar shows, read back as R
+    output$n <- renderText(nrow(el_calendar_events(id = "plan")))
+  }
+  shinyApp(ui, server)
+}
+}
 \seealso{
 \code{\link[=render_el_calendar]{render_el_calendar()}}, \code{\link[=update_el_calendar]{update_el_calendar()}}.
 }

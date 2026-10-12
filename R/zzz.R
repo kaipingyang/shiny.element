@@ -39,7 +39,7 @@
       if (!length(rows)) {
         return(NULL)
       }
-      data <- .el_table_data(session, x$table %||% "")
+      data <- .el_shown_get(session, x$table %||% "")
       if (is.data.frame(data)) {
         return(data[rows, , drop = FALSE])
       }

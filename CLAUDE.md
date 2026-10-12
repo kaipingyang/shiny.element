@@ -102,7 +102,7 @@ the same for every session, via `cacheWriteHook`) and `cacheReadHook`
 compares it with what the session's page has (`.vue_output_send()`).
 `el_table_output(loading = TRUE)` shows Element's mask while Shiny
 recalculates. The data the table shows is kept per session
-(`.el_tables()`, a `reactiveValues()`, read by `el_table_data()`): a render writes it only when its own data
+(`.el_shown()`, a `reactiveValues()` shared by the data components, read by `el_table_data()` and `el_calendar_events()`): a render writes it only when its own data
 changed, an update always -- the rule the browser's patching follows -- so
 the `shiny.element.selection` handler returns the right `data[rows, ,
 drop = FALSE]`. Editable columns (`el_table_column(editable =)`,

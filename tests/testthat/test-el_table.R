@@ -172,7 +172,7 @@ test_that("a table's selection arrives as R subsets its data", {
   session <- list(userData = new.env())
   cars <- head(mtcars[, 1:3], 4)
   cars$made <- as.Date("2020-01-01") + 0:3
-  .el_table_data_set(session, "tbl", cars)
+  .el_shown_set(session, "tbl", cars)
   got <- selection(list(table = "tbl", rows = list(2, 4)), session, "x")
   expect_identical(got, cars[c(2, 4), , drop = FALSE])
   expect_null(selection(list(table = "tbl", rows = list()), session, "x"))
@@ -200,7 +200,7 @@ test_that("render_el_table() draws the table under the output's id", {
       expect_match(html, "tbl_selection_change", fixed = TRUE)
       expect_true(length(output$tbl$deps) > 0)
       # the data rendered is kept for input$tbl_selection_change
-      expect_identical(.el_table_data(session, "tbl"), cars)
+      expect_identical(.el_shown_get(session, "tbl"), cars)
     }
   )
   expect_error(
@@ -615,7 +615,7 @@ test_that("an edit changes the server's data as R would", {
 test_that("update_el_table() sends only the rows edited, as the server holds them", {
   m <- edit_session()
   cars <- head(mtcars[, 1:2], 4)
-  .el_table_rendered(m$session, "tbl", cars)
+  .el_shown_rendered(m$session, "tbl", cars)
   update_el_table(m$session, "tbl", insert = mtcars[10, 1:2], at = 1)
   msg <- m$sent()[[1]]
   expect_null(msg$tableData)
@@ -623,11 +623,11 @@ test_that("update_el_table() sends only the rows edited, as the server holds the
   json <- as.character(msg$.edit$rows)
   # the row name, as the table draws it
   expect_match(json, rownames(mtcars)[10], fixed = TRUE)
-  expect_equal(nrow(.el_table_data(m$session, "tbl")), 5)
+  expect_equal(nrow(.el_shown_get(m$session, "tbl")), 5)
 
   update_el_table(m$session, "tbl", delete = c(1, 5))
   expect_equal(
-    rownames(.el_table_data(m$session, "tbl")),
+    rownames(.el_shown_get(m$session, "tbl")),
     rownames(cars)[1:3]
   )
   update_el_table(
@@ -636,7 +636,7 @@ test_that("update_el_table() sends only the rows edited, as the server holds the
     replace = data.frame(mpg = 1, cyl = 2),
     at = 2
   )
-  expect_equal(.el_table_data(m$session, "tbl")$mpg[2], 1)
+  expect_equal(.el_shown_get(m$session, "tbl")$mpg[2], 1)
   expect_equal(unclass(m$sent()[[3]]$.edit$at), 2L)
 
   expect_error(update_el_table(m$session, "tbl", delete = 9), "has 3 rows")
@@ -656,22 +656,22 @@ test_that("a render after an update leaves the update's data unless its own chan
   m <- edit_session()
   a <- head(mtcars, 2)
   b <- head(mtcars, 5)
-  .el_table_rendered(m$session, "tbl", a)
+  .el_shown_rendered(m$session, "tbl", a)
   update_el_table(m$session, "tbl", data = b)
-  expect_identical(.el_table_data(m$session, "tbl"), b)
+  expect_identical(.el_shown_get(m$session, "tbl"), b)
   # rendered again for another reason, with the same data: the browser
   # keeps b, and so does the server
-  .el_table_rendered(m$session, "tbl", a)
-  expect_identical(.el_table_data(m$session, "tbl"), b)
+  .el_shown_rendered(m$session, "tbl", a)
+  expect_identical(.el_shown_get(m$session, "tbl"), b)
   # the render's own data changed: it is shown on both sides
-  .el_table_rendered(m$session, "tbl", head(mtcars, 3))
-  expect_identical(.el_table_data(m$session, "tbl"), head(mtcars, 3))
+  .el_shown_rendered(m$session, "tbl", head(mtcars, 3))
+  expect_identical(.el_shown_get(m$session, "tbl"), head(mtcars, 3))
 })
 
 test_that("el_table_data() is a reactive read of the data shown", {
   m <- edit_session()
   expect_null(shiny::isolate(el_table_data(m$session, "tbl")))
-  .el_table_rendered(m$session, "tbl", head(mtcars, 2))
+  .el_shown_rendered(m$session, "tbl", head(mtcars, 2))
   rows <- shiny::reactive(nrow(el_table_data(m$session, "tbl")))
   expect_equal(shiny::isolate(rows()), 2)
   update_el_table(m$session, "tbl", insert = mtcars[3, ])
@@ -745,7 +745,7 @@ test_that("a cell edit is applied to the server's data, with the column's type",
   cars$made <- as.Date("2020-01-01") + 0:2
   cars$kind <- factor(c("a", "b", "a"))
   cars$n_obs <- 1:3
-  .el_table_rendered(m$session, "tbl", cars)
+  .el_shown_rendered(m$session, "tbl", cars)
   edit <- function(column, value, row = 2) {
     .el_table_cell_edit(
       list(
@@ -769,18 +769,18 @@ test_that("a cell edit is applied to the server's data, with the column's type",
   # the prop n_obs is the column n_obs; integers stay integers
   got <- edit("n_obs", 7)
   expect_identical(got$value, 7L)
-  data <- .el_table_data(m$session, "tbl")
+  data <- .el_shown_get(m$session, "tbl")
   expect_equal(data$mpg[2], 33.5)
   expect_equal(levels(data$kind), c("a", "b", "c"))
   expect_identical(rownames(data), rownames(cars))
   # a dotted column, reached by its prop
-  .el_table_rendered(m$session, "ir", head(iris, 2))
+  .el_shown_rendered(m$session, "ir", head(iris, 2))
   got <- .el_table_cell_edit(
     list(table = "ir", row = 1, column = "Sepal_Length", value = 9, old = 5.1),
     m$session
   )
   expect_equal(got$column, "Sepal.Length")
-  expect_equal(.el_table_data(m$session, "ir")$Sepal.Length[1], 9)
+  expect_equal(.el_shown_get(m$session, "ir")$Sepal.Length[1], 9)
   # a table the server does not hold: reported as sent
   got <- .el_table_cell_edit(
     list(table = "nope", row = 1, column = "a", value = "x", old = "y"),
@@ -833,7 +833,7 @@ test_that("a render sends the table once, then only the data that changed", {
       expect_equal(nrow(sent$value), 3)
       expect_true(nchar(second$patch$fields$tableData) < nchar(first$html) / 3)
       # the server's copy follows
-      expect_equal(nrow(.el_table_data(session, "tbl")), 3)
+      expect_equal(nrow(.el_shown_get(session, "tbl")), 3)
 
       # rendered again, nothing changed: an empty patch
       set("bump", 1)
@@ -898,7 +898,7 @@ test_that("a cached table output still sends each page only what changed", {
       expect_named(back, "patch")
       expect_named(back$patch$fields, "tableData")
       expect_equal(runs, 2)
-      expect_equal(nrow(.el_table_data(session, "a")), 3)
+      expect_equal(nrow(.el_shown_get(session, "a")), 3)
     }
   )
   # bindEvent() works on it too
@@ -918,7 +918,7 @@ test_that("render_el_table() waits for a promise", {
     },
     {
       expect_named(output$tbl, c("html", "deps"))
-      expect_equal(nrow(.el_table_data(session, "tbl")), 2)
+      expect_equal(nrow(.el_shown_get(session, "tbl")), 2)
     }
   )
 })

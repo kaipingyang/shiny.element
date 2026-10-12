@@ -49,6 +49,10 @@ A smaller package, ready for CRAN, and the fixes and additions since
 
 ## Documentation
 
+* `use_element()`'s example runs as it stands, and `el_calendar_events()`
+  has one. Like `el_table_data()`, it reads the data the server keeps for
+  a data component; both now read it alike, rather than the calendar's
+  through the table's.
 * An "Architecture" article draws the two layers: the Vue layer, from
   `vue_app()` to the browser and back, and the Element layer on top of it --
   its kinds of component, the events registry, updates and containers.

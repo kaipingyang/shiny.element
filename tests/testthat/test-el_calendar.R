@@ -289,7 +289,7 @@ test_that("a calendar output renders the server's events and keeps a copy", {
       expect_named(first, c("html", "deps"))
       expect_match(first$html, 'id="cal-el"', fixed = TRUE)
       expect_match(first$html, 'data-shiny-vue-id="cal"', fixed = TRUE)
-      expect_equal(.el_table_data(session, "cal"), days)
+      expect_equal(.el_shown_get(session, "cal"), days)
       # other events: only they are sent
       session$userData$ev(days[1, ])
       session$flushReact()
@@ -303,7 +303,7 @@ test_that("a calendar output renders the server's events and keeps a copy", {
         "insert",
         data.frame(id = 9L, date = as.Date("2026-10-20"), title = "c")
       )
-      copy <- .el_table_data(session, "cal")
+      copy <- .el_shown_get(session, "cal")
       expect_equal(copy$id, c(1L, 9L))
       expect_true(is.na(copy$color[2]))
       .el_calendar_edit_copy(
@@ -312,9 +312,9 @@ test_that("a calendar output renders the server's events and keeps a copy", {
         "replace",
         data.frame(id = 1L, date = as.Date("2026-10-06"), title = "a2")
       )
-      expect_equal(.el_table_data(session, "cal")$title, c("c", "a2"))
+      expect_equal(.el_shown_get(session, "cal")$title, c("c", "a2"))
       .el_calendar_edit_copy(session, "cal", "delete", 9)
-      expect_equal(.el_table_data(session, "cal")$id, 1L)
+      expect_equal(.el_shown_get(session, "cal")$id, 1L)
     }
   )
   expect_error(
@@ -363,7 +363,7 @@ test_that("update_el_calendar() keeps the server's copy in step", {
     userData = new.env(),
     sendCustomMessage = function(type, msg) NULL
   )
-  .el_table_rendered(
+  .el_shown_rendered(
     session,
     "cal",
     data.frame(id = 1L, date = as.Date("2026-10-05"), title = "a")
@@ -373,15 +373,15 @@ test_that("update_el_calendar() keeps the server's copy in step", {
     "cal",
     insert = data.frame(id = 2L, date = as.Date("2026-10-06"), title = "b")
   )
-  expect_equal(.el_table_data(session, "cal")$id, 1:2)
+  expect_equal(.el_shown_get(session, "cal")$id, 1:2)
   update_el_calendar(session, "cal", delete = 1)
-  expect_equal(.el_table_data(session, "cal")$id, 2L)
+  expect_equal(.el_shown_get(session, "cal")$id, 2L)
   update_el_calendar(
     session,
     "cal",
     events = data.frame(id = 5L, date = "2026-10-09", title = "e")
   )
-  expect_equal(.el_table_data(session, "cal")$id, 5L)
+  expect_equal(.el_shown_get(session, "cal")$id, 5L)
   expect_equal(
     shiny::isolate(el_calendar_events(session, "cal"))$id,
     5L

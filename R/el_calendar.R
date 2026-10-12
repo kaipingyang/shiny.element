@@ -459,7 +459,7 @@ update_el_calendar <- function(
   if (!is.null(events)) {
     message$events <- .el_calendar_events(events)
     # the server's copy follows what the calendar shows
-    .el_table_data_set(session, ns_id, events)
+    .el_shown_set(session, ns_id, events)
   }
   if (!is.null(editable)) {
     message$editable <- isTRUE(editable)
@@ -1346,10 +1346,10 @@ update_el_calendar <- function(
 #' The server's copy of a calendar's events, edited as the browser's is
 #' @noRd
 .el_calendar_edit_copy <- function(session, id, op, rows) {
-  if (!.el_table_known(session, id)) {
+  if (!.el_shown_known(session, id)) {
     return(invisible(NULL))
   }
-  events <- .el_table_data(session, id)
+  events <- .el_shown_get(session, id)
   if (!is.data.frame(events)) {
     return(invisible(NULL))
   }
@@ -1378,7 +1378,7 @@ update_el_calendar <- function(
     events <- rbind(events, rows[names(events)])
   }
   rownames(events) <- NULL
-  .el_table_data_set(session, id, events)
+  .el_shown_set(session, id, events)
   invisible(NULL)
 }
 
@@ -1460,11 +1460,24 @@ render_el_calendar <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' @return The events, as given; `NULL` for a calendar the server has not
 #'   rendered or updated.
 #' @seealso [render_el_calendar()], [update_el_calendar()].
+#' @examples
+#' if (interactive()) {
+#'   library(shiny)
+#'   ui <- el_page(el_calendar_output("plan"), verbatimTextOutput("n"))
+#'   server <- function(input, output, session) {
+#'     output$plan <- render_el_calendar(el_calendar(
+#'       events = data.frame(id = 1, date = Sys.Date(), title = "Review")
+#'     ))
+#'     # the events the calendar shows, read back as R
+#'     output$n <- renderText(nrow(el_calendar_events(id = "plan")))
+#'   }
+#'   shinyApp(ui, server)
+#' }
 #' @export
 el_calendar_events <- function(
   session = shiny::getDefaultReactiveDomain(),
   id
 ) {
   .el_check_session(session)
-  el_table_data(session, id)
+  .el_shown_read(session, session$ns(id))
 }

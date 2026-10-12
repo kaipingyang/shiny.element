@@ -55,13 +55,10 @@ colours and sizes. Place it before the components, so its copy of
 Element is the one kept.
 }
 \examples{
-\dontrun{
-  library(bslib)
-  theme <- el_theme(primary = "#7c3aed")
-  ui <- page_sidebar(
-    theme = theme,
-    use_element(theme = theme),
-    el_button("btn1", "Click me")
-  )
-}
+theme <- el_theme(primary = "#7c3aed")
+ui <- bslib::page_sidebar(
+  theme = theme,
+  use_element(theme = theme),
+  el_button("btn1", "Click me")
+)
 }

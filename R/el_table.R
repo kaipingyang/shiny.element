@@ -1485,7 +1485,7 @@ update_el_table <- function(
   if (!is.null(data) || !is.null(columns)) {
     if (!is.null(data)) {
       # the server keeps what the browser shows, for the table's inputs
-      .el_table_data_set(session, ns_id, data)
+      .el_shown_set(session, ns_id, data)
       data <- .el_table_rownames(data, .el_table_rownames_of(session, ns_id))
     }
     prep <- .el_table_prep(
@@ -1586,7 +1586,7 @@ update_el_table <- function(
 #' browser: the rows as they now stand on the server, so both sides agree
 #' @noRd
 .el_table_edit <- function(session, id, edit) {
-  data <- .el_table_data(session, id)
+  data <- .el_shown_get(session, id)
   rows <- edit$rows
   at <- edit$at
   if (!is.null(data)) {
@@ -1605,7 +1605,7 @@ update_el_table <- function(
       )
     }
     data <- .el_table_apply_edit(data, edit)
-    .el_table_data_set(session, id, data)
+    .el_shown_set(session, id, data)
     # the rows as a render of the whole data would draw them -- with a
     # row-name column if the table has one
     drawn <- .el_table_rownames(data, .el_table_rownames_of(session, id))
