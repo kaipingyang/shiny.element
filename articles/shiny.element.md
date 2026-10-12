@@ -51,8 +51,7 @@ shinyApp(ui, server)
 
 Inside another page function –
 [`fluidPage()`](https://rdrr.io/pkg/shiny/man/fluidPage.html), bslib’s
-[`page_sidebar()`](https://rstudio.github.io/bslib/reference/page_sidebar.html)
-– call
+`page_sidebar()` – call
 [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)
 once instead, giving it the page’s theme so Element follows it:
 

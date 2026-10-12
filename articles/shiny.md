@@ -129,8 +129,7 @@ shows it is working needs no server at all: `el_button(task = TRUE)`
 turns to Element’s loading state in the browser when clicked, and back
 once the server has handled the click – or, bound with
 [`bslib::bind_task_button()`](https://rstudio.github.io/bslib/reference/bind_task_button.html),
-once the task is done – as bslib’s
-[`input_task_button()`](https://rstudio.github.io/bslib/reference/input_task_button.html):
+once the task is done – as bslib’s `input_task_button()`:
 
 ``` r
 
@@ -379,13 +378,9 @@ puts a class on the component’s host, which draws no box of its own
 instead.
 
 **bslib.** Components work in bslib’s containers – a sidebar, a card, an
-accordion, a nav panel not yet shown – and bslib’s
-[`tooltip()`](https://rstudio.github.io/bslib/reference/tooltip.html)
-and
-[`popover()`](https://rstudio.github.io/bslib/reference/popover.html)
-take one as their trigger. bslib’s
-[`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
-turns Element Plus’s dark mode with Bootstrap’s. Element’s brand colours
+accordion, a nav panel not yet shown – and bslib’s `tooltip()` and
+`popover()` take one as their trigger. bslib’s `input_dark_mode()` turns
+Element Plus’s dark mode with Bootstrap’s. Element’s brand colours
 follow Bootstrap’s CSS variables, so a theme changed while the app runs
 – `session$setCurrentTheme()`,
 [`bslib::bs_themer()`](https://rstudio.github.io/bslib/reference/run_with_themer.html)

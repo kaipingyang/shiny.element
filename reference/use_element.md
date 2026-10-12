@@ -81,13 +81,10 @@ A list of htmlDependency objects
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-  library(bslib)
-  theme <- el_theme(primary = "#7c3aed")
-  ui <- page_sidebar(
-    theme = theme,
-    use_element(theme = theme),
-    el_button("btn1", "Click me")
-  )
-} # }
+theme <- el_theme(primary = "#7c3aed")
+ui <- bslib::page_sidebar(
+  theme = theme,
+  use_element(theme = theme),
+  el_button("btn1", "Click me")
+)
 ```

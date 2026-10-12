@@ -340,7 +340,7 @@ go with that flush. A button that shows it is working needs no server at
 all: <code>el_button(task = TRUE)</code> turns to Element’s loading
 state in the browser when clicked, and back once the server has handled
 the click – or, bound with <code><a href="https://rstudio.github.io/bslib/reference/bind_task_button.html" class="external-link">bslib::bind_task_button()</a></code>, once
-the task is done – as bslib’s <code><a href="https://rstudio.github.io/bslib/reference/input_task_button.html" class="external-link">input_task_button()</a></code>:</p>
+the task is done – as bslib’s <code>input_task_button()</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span>, task <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -563,8 +563,8 @@ which draws no box of its own (<code>display: contents</code>): style
 the component with its own <code>class</code> argument instead.</p>
 <p><strong>bslib.</strong> Components work in bslib’s containers – a
 sidebar, a card, an accordion, a nav panel not yet shown – and bslib’s
-<code><a href="https://rstudio.github.io/bslib/reference/tooltip.html" class="external-link">tooltip()</a></code> and <code><a href="https://rstudio.github.io/bslib/reference/popover.html" class="external-link">popover()</a></code> take one as their
-trigger. bslib’s <code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">input_dark_mode()</a></code> turns Element Plus’s
+<code>tooltip()</code> and <code>popover()</code> take one as their
+trigger. bslib’s <code>input_dark_mode()</code> turns Element Plus’s
 dark mode with Bootstrap’s. Element’s brand colours follow Bootstrap’s
 CSS variables, so a theme changed while the app runs –
 <code>session$setCurrentTheme()</code>, <code><a href="https://rstudio.github.io/bslib/reference/run_with_themer.html" class="external-link">bslib::bs_themer()</a></code>

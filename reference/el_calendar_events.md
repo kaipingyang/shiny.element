@@ -35,3 +35,20 @@ or updated.
 
 [`render_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_output.md),
 [`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar.md).
+
+## Examples
+
+``` r
+if (interactive()) {
+  library(shiny)
+  ui <- el_page(el_calendar_output("plan"), verbatimTextOutput("n"))
+  server <- function(input, output, session) {
+    output$plan <- render_el_calendar(el_calendar(
+      events = data.frame(id = 1, date = Sys.Date(), title = "Review")
+    ))
+    # the events the calendar shows, read back as R
+    output$n <- renderText(nrow(el_calendar_events(id = "plan")))
+  }
+  shinyApp(ui, server)
+}
+```

@@ -64,6 +64,13 @@ A smaller package, ready for CRAN, and the fixes and additions since
 
 ### Documentation
 
+- [`use_element()`](https://kaipingyang.github.io/shiny.element/reference/use_element.md)’s
+  example runs as it stands, and
+  [`el_calendar_events()`](https://kaipingyang.github.io/shiny.element/reference/el_calendar_events.md)
+  has one. Like
+  [`el_table_data()`](https://kaipingyang.github.io/shiny.element/reference/el_table_data.md),
+  it reads the data the server keeps for a data component; both now read
+  it alike, rather than the calendar’s through the table’s.
 - An “Architecture” article draws the two layers: the Vue layer, from
   [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
   to the browser and back, and the Element layer on top of it – its
@@ -107,9 +114,8 @@ libraries other than Element built on it.
   [`flush_vue()`](https://kaipingyang.github.io/shiny.element/reference/flush_vue.md)
   alone sends what is queued.
 - `el_button(task = TRUE)`: a task button, as bslib’s
-  [`input_task_button()`](https://rstudio.github.io/bslib/reference/input_task_button.html)
-  – Element’s loading state from the click, set in the browser, until
-  the server has handled the click, or, bound with
+  `input_task_button()` – Element’s loading state from the click, set in
+  the browser, until the server has handled the click, or, bound with
   [`bslib::bind_task_button()`](https://rstudio.github.io/bslib/reference/bind_task_button.html),
   until an `ExtendedTask` is done. It speaks bslib’s protocol, so
   bslib’s own server code drives it; folded into a tooltip it works too.
@@ -443,10 +449,7 @@ first.
 ### Items as functions
 
 The parts Element Plus writes as child tags have constructors, as bslib
-has
-[`nav_panel()`](https://rstudio.github.io/bslib/reference/nav-items.html)
-and
-[`accordion_panel()`](https://rstudio.github.io/bslib/reference/accordion.html):
+has `nav_panel()` and `accordion_panel()`:
 [`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md),
 [`el_collapse_item()`](https://kaipingyang.github.io/shiny.element/reference/el_collapse_item.md),
 [`el_timeline_item()`](https://kaipingyang.github.io/shiny.element/reference/el_timeline_item.md),
@@ -474,11 +477,8 @@ items too. A timeline entry’s `hide_timestamp` is new.
 [`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/reference/insert_el_tab.md)
 takes an
 [`el_tab_pane()`](https://kaipingyang.github.io/shiny.element/reference/el_tab_pane.md),
-as bslib’s
-[`nav_insert()`](https://rstudio.github.io/bslib/reference/nav_select.html)
-takes a
-[`nav_panel()`](https://rstudio.github.io/bslib/reference/nav-items.html);
-its `name` argument is now `tab`.
+as bslib’s `nav_insert()` takes a `nav_panel()`; its `name` argument is
+now `tab`.
 
 ### Behaviour closer to Element Plus
 
@@ -731,13 +731,8 @@ themes the page around the components with
 a bslib theme carrying Element’s colours, font and control sizes, so
 Shiny’s own inputs and outputs match the Element ones beside them.
 `theme = NULL` leaves Shiny’s plain Bootstrap. Bootstrap’s dark mode –
-bslib’s
-[`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
-– turns Element Plus’s with it, and bslib’s
-[`tooltip()`](https://rstudio.github.io/bslib/reference/tooltip.html)
-and
-[`popover()`](https://rstudio.github.io/bslib/reference/popover.html)
-take a component as their trigger.
+bslib’s `input_dark_mode()` – turns Element Plus’s with it, and bslib’s
+`tooltip()` and `popover()` take a component as their trigger.
 
 Events that fire on every frame – a scroll, a slider or splitter drag, a
 tree node dragged over, a colour picked in the panel – reach the server
@@ -830,10 +825,7 @@ keeps every argument held in a component’s data reachable this way. The
 containers drawn as markup (tabs, collapse, dialog, drawer) and the
 wrappers (tooltip, popover) keep their own updaters. Each update
 function is documented on its component’s page, as bslib documents
-[`update_switch()`](https://rstudio.github.io/bslib/reference/input_switch.html)
-with
-[`input_switch()`](https://rstudio.github.io/bslib/reference/input_switch.html):
-one argument, one description.
+`update_switch()` with `input_switch()`: one argument, one description.
 [`call_el()`](https://kaipingyang.github.io/shiny.element/reference/call_el.md)
 reaches a table-v2 with `auto_resize = TRUE`; it used to reach the
 resizer around it.
@@ -991,9 +983,8 @@ integration article shows, needs no JavaScript.
 
 - **Themes while the app runs.** Element’s brand colours follow
   Bootstrap’s CSS variables, so `session$setCurrentTheme()` and
-  [`bs_themer()`](https://rstudio.github.io/bslib/reference/run_with_themer.html)
-  recolour Element’s components; the tints are mixed in the browser, as
-  Sass’s `mix()`.
+  `bs_themer()` recolour Element’s components; the tints are mixed in
+  the browser, as Sass’s `mix()`.
 
 - **Busy indicators.** Under
   [`useBusyIndicators()`](https://rdrr.io/pkg/shiny/man/useBusyIndicators.html)

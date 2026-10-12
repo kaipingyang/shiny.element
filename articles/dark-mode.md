@@ -69,11 +69,9 @@ gives its background and text Element Plus’s dark colours.
 ## With bslib
 
 Bootstrap has a dark mode of its own, `data-bs-theme="dark"` on
-`<html>`, and bslib’s
-[`input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
-switches it. The components follow: while the page has `data-bs-theme`,
-the class `dark` goes with it, so one switch turns Bootstrap and Element
-Plus together.
+`<html>`, and bslib’s `input_dark_mode()` switches it. The components
+follow: while the page has `data-bs-theme`, the class `dark` goes with
+it, so one switch turns Bootstrap and Element Plus together.
 
 ``` r
 
