@@ -351,6 +351,24 @@ with the branch. When it is unclear which a round is, ask. Entries are grouped
 under "Breaking changes", "New features", "Bug fixes" and "Documentation".
 CRAN gets whichever version is current when the user decides to submit.
 
+### CRAN submission
+
+0.3.1 was submitted on 2026-10-12 (`CRAN-SUBMISSION` records it; tag
+`v0.3.1`). Where a submission is in CRAN's queue:
+
+```r
+foghorn::cran_incoming("shiny.element")   # its folder and when it got there
+foghorn::cran_incoming(folders = "newbies")  # the whole queue for new packages
+```
+
+`pretest` is CRAN's automatic check; `newbies` is a first submission
+passed it and waiting for a person; `inspect`, `pending`, `waiting` are
+under review or waiting on the maintainer; `publish` is accepted. A
+package in none of them and not on CRAN is no longer submitted: a
+reviewer's request ends a submission, and the fix goes in a new one
+(`devtools::submit_cran()`, then the confirmation link in the
+maintainer's mail -- the submission counts only once that is done).
+
 ## Lessons and gotchas
 
 `.claude/docs/lessons.md` records what was learned the hard way: architectural
