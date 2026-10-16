@@ -26,7 +26,8 @@ Imports:
     bslib,
     grDevices,
     utils,
-    jquerylib
+    jquerylib,
+    sass
 Suggests:
     testthat (>= 3.0.0),
     shinyjs,

@@ -330,7 +330,7 @@ el_overlay_dependency <- function() {
     list(htmltools::htmlDependency(
       name = "el-overlay-binding",
       version = "1.0.0",
-      src = system.file("js", package = "shiny.element"),
+      src = .vue_file("js"),
       script = "el-overlay-binding.js",
       all_files = FALSE
     ))

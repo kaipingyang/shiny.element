@@ -473,7 +473,7 @@ flush_vue <- function(
       all_files = FALSE
     ))
   }
-  local <- system.file("vue3", "vue.global.js", package = "shiny.element")
+  local <- .vue_file("vue3", "vue.global.js")
   htmltools::htmlDependency(
     name = "vue",
     version = "3.5.43.1",
@@ -494,15 +494,54 @@ flush_vue <- function(
 #' @return A list of htmlDependency objects.
 #' @keywords internal
 .vue_dependencies <- function() {
-  list(
-    .vue_jquery_dependency(),
-    .vue_vue_dependency(),
-    htmltools::htmlDependency(
-      "shiny-vue",
-      "1.0.0",
-      src = system.file("js", package = "shiny.element"),
-      script = "shiny-vue.js",
-      all_files = FALSE
+  .vue_memo(paste("vue_dependencies", .vue_dev()), function() {
+    list(
+      .vue_jquery_dependency(),
+      .vue_vue_dependency(),
+      htmltools::htmlDependency(
+        "shiny-vue",
+        "1.0.0",
+        src = .vue_file("js"),
+        script = "shiny-vue.js",
+        all_files = FALSE
+      )
     )
+  })
+}
+
+#' A value made once per R session
+#'
+#' Every component carries its dependencies, and making them looks up the
+#' package's files on disk -- [system.file()], `find.package()` -- each
+#' time: some 40% of building a component. They are values that do not
+#' change while R runs, so each is made once and kept here.
+#'
+#' @param key What it is, with whatever it depends on (`dev`, `offline`).
+#' @param make A function making it.
+#' @return The value.
+#' @keywords internal
+.vue_memo <- function(key, make) {
+  value <- .vue_memo_env[[key]]
+  if (is.null(value)) {
+    value <- make()
+    assign(key, value, envir = .vue_memo_env)
+  }
+  value
+}
+
+.vue_memo_env <- new.env(parent = emptyenv())
+
+#' A path in the installed package, looked up once
+#'
+#' @param ... Path components, as for [system.file()].
+#' @return The path; `""` when there is none.
+#' @keywords internal
+.vue_file <- function(...) {
+  parts <- c(...)
+  .vue_memo(
+    paste(c("file", parts), collapse = "/"),
+    function() {
+      do.call(system.file, c(as.list(parts), package = "shiny.element"))
+    }
   )
 }

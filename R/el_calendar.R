@@ -1040,7 +1040,7 @@ update_el_calendar <- function(
   htmltools::htmlDependency(
     "el-calendar-events",
     "1.0.0",
-    src = system.file("js", package = "shiny.element"),
+    src = .vue_file("js"),
     head = paste0("<style>", css, "</style>"),
     all_files = FALSE
   )

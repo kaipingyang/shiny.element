@@ -365,3 +365,23 @@ test_that("every generated call to Shiny is guarded, so components work without 
   expect_gt(n_all, 0)
   expect_equal(n_guarded, n_all)
 })
+
+test_that("a component's dependencies are made once per R session", {
+  # Looking up the package's files for each component was some 40% of
+  # building it; the dependencies do not change while R runs
+  expect_identical(.el_vue_dependencies(), .el_vue_dependencies())
+  expect_identical(
+    .vue_file("js"),
+    system.file("js", package = "shiny.element")
+  )
+  expect_identical(
+    .vue_file("vue3", "vue.global.prod.js"),
+    system.file("vue3", "vue.global.prod.js", package = "shiny.element")
+  )
+  # kept apart by what they depend on: the development build of Vue
+  prod <- withr::with_options(list(shiny.vue.dev = FALSE), .vue_dependencies())
+  dev <- withr::with_options(list(shiny.vue.dev = TRUE), .vue_dependencies())
+  vue <- function(deps) Filter(function(d) d$name == "vue", deps)[[1]]$script
+  expect_equal(vue(prod), "vue.global.prod.js")
+  expect_equal(vue(dev), "vue.global.js")
+})

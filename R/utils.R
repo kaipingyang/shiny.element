@@ -284,18 +284,19 @@
 #' @return A list of htmlDependency objects.
 #' @keywords internal
 .el_vue_dependencies <- function() {
-  js <- system.file("js", package = "shiny.element")
-  c(
-    .vue_dependencies(),
-    element_plus_dependency(),
-    list(htmltools::htmlDependency(
-      "el-events",
-      "1.0.0",
-      src = js,
-      script = "el-events.js",
-      all_files = FALSE
-    ))
-  )
+  .vue_memo(paste("el_vue_dependencies", .vue_dev()), function() {
+    c(
+      .vue_dependencies(),
+      element_plus_dependency(),
+      list(htmltools::htmlDependency(
+        "el-events",
+        "1.0.0",
+        src = .vue_file("js"),
+        script = "el-events.js",
+        all_files = FALSE
+      ))
+    )
+  })
 }
 
 

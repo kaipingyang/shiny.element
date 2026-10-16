@@ -256,7 +256,7 @@ NULL
   htmltools::htmlDependency(
     name = "element-plus-theme",
     version = paste0("1.0.", stamp),
-    src = system.file("element-plus", package = "shiny.element"),
+    src = .vue_file("element-plus"),
     head = paste0("<style>", css, "</style>"),
     all_files = FALSE
   )

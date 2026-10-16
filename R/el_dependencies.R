@@ -103,7 +103,7 @@ el_locale_dependency <- function(locale = NULL) {
   if (identical(code, "en")) {
     return(NULL)
   }
-  root <- system.file("element-plus", package = "shiny.element")
+  root <- .vue_file("element-plus")
   dir <- .el_locale_dir(code)
   if (is.null(dir)) {
     stop(
@@ -164,7 +164,7 @@ el_locale_dependency <- function(locale = NULL) {
 #' element_plus_dependency(offline = FALSE)
 #' @export
 element_plus_dependency <- function(offline = TRUE) {
-  local <- system.file("element-plus", package = "shiny.element")
+  local <- .vue_file("element-plus")
   list(
     htmltools::htmlDependency(
       name = "element-plus",
@@ -243,7 +243,7 @@ el_feedback_dependency <- function() {
   htmltools::htmlDependency(
     name = "el-feedback-handler",
     version = "1.0.0",
-    src = system.file("js", package = "shiny.element"),
+    src = .vue_file("js"),
     script = "el-feedback-handler.js"
   )
 }
@@ -362,7 +362,7 @@ el_locales <- function() {
   list(htmltools::htmlDependency(
     name = "element-plus-config",
     version = "2.14.7",
-    src = system.file("element-plus", package = "shiny.element"),
+    src = .vue_file("element-plus"),
     head = sprintf(
       paste0(
         "<script>window.shinyElementConfig = Object.assign(",

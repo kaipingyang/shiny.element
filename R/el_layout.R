@@ -308,6 +308,8 @@ el_page <- function(
     .el_theme_tag(theme),
     ...
   )
+  # compiled once per machine, not once per R process
+  page <- .el_page_theme_cached(page, theme)
   # the theme it was given, for a page drawn inside another (the site's
   # screenshots) to take on
   attr(page, "el_page_theme") <- theme

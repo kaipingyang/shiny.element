@@ -178,7 +178,7 @@ el_collapse_dependency <- function() {
     list(htmltools::htmlDependency(
       name = "el-collapse-binding",
       version = "1.0.0",
-      src = system.file("js", package = "shiny.element"),
+      src = .vue_file("js"),
       script = "el-collapse-binding.js",
       all_files = FALSE
     ))

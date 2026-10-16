@@ -333,7 +333,7 @@ el_table_output <- function(outputId, width = "100%", loading = TRUE) {
   htmltools::htmlDependency(
     name = "shiny-element-output",
     version = as.character(utils::packageVersion("shiny.element")),
-    src = system.file("js", package = "shiny.element"),
+    src = .vue_file("js"),
     head = paste0(
       "<style>[data-shiny-busy-spinners] ",
       ".shiny-vue-output[data-shiny-vue-loading].recalculating::after ",

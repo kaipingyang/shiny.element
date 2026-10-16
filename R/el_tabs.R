@@ -466,7 +466,7 @@ el_tabs_dependency <- function() {
     list(htmltools::htmlDependency(
       name = "el-tabs-binding",
       version = "1.0.0",
-      src = system.file("js", package = "shiny.element"),
+      src = .vue_file("js"),
       script = "el-tabs-binding.js",
       all_files = FALSE
     ))
