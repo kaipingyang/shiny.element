@@ -19,5 +19,10 @@ writes the CSS and the theme's files where that output goes. sass then
 finds them there and compiles nothing. Should either package change how
 it names or checks that output, sass finds nothing there and compiles, as
 it always did.
+
+A machine that has never compiled the default \code{\link[=el_theme]{el_theme()}} -- a new
+install, a server -- has nothing in sass's cache for it: the package ships
+it compiled (\verb{inst/el-theme/}, written by \code{tools/el-theme-css.R}), used
+where the bslib and sass installed are the ones it was compiled with.
 }
 \keyword{internal}

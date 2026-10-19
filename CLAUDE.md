@@ -35,6 +35,12 @@ To stay under CRAN's 5 MB: eleven locales are files and the other 56 are in
 (`.el_locale_dir()`); Vue's development build is `.Rbuildignore`d, so a
 CRAN install loads it from unpkg (`.vue_vue_dependency()`); only the
 Getting started and Shiny guides are vignettes, the rest pkgdown articles.
+A page's theme is compiled once per machine, not per R process
+(`R/el_theme_cache.R`: sass's cache, placed where bslib's file output goes);
+the default `el_theme()` ships compiled in `inst/el-theme/` for the bslib and
+sass on CRAN (`Rscript tools/el-theme-css.R` before a release). `el_page()`
+covers the page with Element's loading mask until every host has mounted
+(`loading = TRUE`).
 The Vue 2 / Element UI version is tagged `v0.1.0-vue2`.
 
 Upstream sources for reference live in `.upstream/element-plus` (git clone of

@@ -15,6 +15,11 @@
 #' it names or checks that output, sass finds nothing there and compiles, as
 #' it always did.
 #'
+#' A machine that has never compiled the default [el_theme()] -- a new
+#' install, a server -- has nothing in sass's cache for it: the package ships
+#' it compiled (`inst/el-theme/`, written by `tools/el-theme-css.R`), used
+#' where the bslib and sass installed are the ones it was compiled with.
+#'
 #' @name el_theme_cache
 #' @keywords internal
 NULL
@@ -68,10 +73,20 @@ NULL
   if (is.null(base)) {
     return(NULL)
   }
+  # The default theme, never compiled on this machine: the CSS the package
+  # ships, if made with the bslib and sass installed. Only for the first key
+  # asked for -- the theme's: bslib compiles nothing else while the page's
+  # theme is drawn.
+  shipped <- if (.el_theme_is_default(theme)) .el_theme_shipped() else NULL
   cache <- new.env(parent = emptyenv())
   cache$exists <- function(key) {
+    css <- shipped
+    shipped <<- NULL
     if (!base$exists(key)) {
-      return(FALSE)
+      if (is.null(css)) {
+        return(FALSE)
+      }
+      base$set_content(key, css)
     }
     .el_theme_place(base, key, theme)
     TRUE
@@ -127,4 +142,56 @@ NULL
   }
   cat(key, file = file.path(dir, ".sass_cache_keys"), append = TRUE)
   invisible(dir)
+}
+
+#' Whether a theme is the default `el_theme()`
+#' @param theme A theme.
+#' @return `TRUE` or `FALSE`.
+#' @keywords internal
+.el_theme_is_default <- function(theme) {
+  identical(theme, .vue_memo("el_theme_default", el_theme))
+}
+
+#' The default theme's CSS as the package ships it
+#'
+#' Compiled by `tools/el-theme-css.R` with the bslib and sass in
+#' `inst/el-theme/versions.json`; another version of either compiles other
+#' CSS (another Bootstrap), and sass options other than bslib's default
+#' (compressed) another output.
+#'
+#' @return The CSS, one string; `NULL` where it does not apply.
+#' @keywords internal
+.el_theme_shipped <- function() {
+  if (!.el_theme_versions_match()) {
+    return(NULL)
+  }
+  if (
+    !identical(
+      sass::sass_options_get(output_style = "compressed"),
+      sass::sass_options(output_style = "compressed")
+    )
+  ) {
+    return(NULL)
+  }
+  .vue_memo("el_theme_shipped", function() {
+    path <- .vue_file("el-theme", "bootstrap.min.css.gz")
+    con <- gzfile(path, "rb")
+    on.exit(close(con), add = TRUE)
+    css <- rawToChar(readBin(con, "raw", 1e8))
+    Encoding(css) <- "UTF-8"
+    css
+  })
+}
+
+#' Whether the bslib and sass installed made the shipped CSS
+#' @return `TRUE` or `FALSE`.
+#' @keywords internal
+.el_theme_versions_match <- function() {
+  path <- .vue_file("el-theme", "versions.json")
+  if (!nzchar(path)) {
+    return(FALSE)
+  }
+  made <- jsonlite::fromJSON(path)
+  identical(made$bslib, as.character(utils::packageVersion("bslib"))) &&
+    identical(made$sass, as.character(utils::packageVersion("sass")))
 }

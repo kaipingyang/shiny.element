@@ -125,3 +125,24 @@ test_that("el_row: a nested widget keeps its html dependencies", {
   )))
   expect_true("shiny-vue" %in% vapply(deps, function(d) d$name, character(1)))
 })
+
+test_that("el_page() covers the page with Element's loading mask, unless told not to", {
+  html <- paste(as.character(el_page(el_input("x"))), collapse = "")
+  expect_match(
+    html,
+    "el-loading-mask is-fullscreen el-page-loading",
+    fixed = TRUE
+  )
+  expect_match(html, '<circle class="path"', fixed = TRUE)
+  # hidden in an output: a page drawn by renderUI()
+  expect_match(
+    html,
+    ".shiny-html-output .el-page-loading { display: none !important; }",
+    fixed = TRUE
+  )
+  plain <- paste(
+    as.character(el_page(el_input("x"), loading = FALSE)),
+    collapse = ""
+  )
+  expect_no_match(plain, "el-page-loading", fixed = TRUE)
+})

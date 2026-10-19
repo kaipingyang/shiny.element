@@ -234,6 +234,13 @@ el_col <- function(
 #'   whole session without touching the UI code. A package installed from
 #'   CRAN does not carry the development build and loads it from the unpkg
 #'   CDN; one installed from its sources has it.
+#' @param loading Cover the page with Element's loading mask until its
+#'   components are drawn and Shiny is connected. Every component is an
+#'   application of its own, compiled and mounted in the browser, so a page
+#'   of many shows nothing usable for a moment -- seconds, with a few hundred
+#'   on a slow machine; the mask says it is coming. `TRUE` by default; it
+#'   goes after 10 seconds whatever happens. See the Performance article for
+#'   what makes a page slow to start.
 #' @inheritParams use_element
 #'
 #' @details
@@ -269,7 +276,8 @@ el_page <- function(
   locale = getOption("shiny.element.locale", "en"),
   dev = .vue_dev(),
   size = NULL,
-  z_index = NULL
+  z_index = NULL,
+  loading = TRUE
 ) {
   deps <- c(
     list(.el_vue_dependency(dev = dev)),
@@ -299,6 +307,7 @@ el_page <- function(
   # work on it.
   page <- shiny::fluidPage(
     theme = theme,
+    if (isTRUE(loading)) .el_page_loading(),
     if (!is.null(title)) shiny::titlePanel(title),
     htmltools::attachDependencies(
       htmltools::tags$head(),
@@ -314,4 +323,68 @@ el_page <- function(
   # screenshots) to take on
   attr(page, "el_page_theme") <- theme
   page
+}
+
+#' The page's loading mask
+#'
+#' Element's own full-screen loading mask -- its markup, drawn by its
+#' stylesheet in the page's head, so it shows before any script runs and
+#' takes the page's theme and dark mode -- and a script removing it once
+#' every component host on the page has mounted (`[data-shiny-vue-root]`
+#' for each `[data-shiny-vue]`, as the bridge leaves them) and Shiny is
+#' connected, or after 10 seconds. A page drawn later, by
+#' [shiny::renderUI()], has its components drawn as it arrives: its mask is
+#' never shown (a rule hides it inside an output, as Shiny runs the
+#' script there with no `document.currentScript` to find it by) and is
+#' removed.
+#'
+#' @return A tag list.
+#' @keywords internal
+.el_page_loading <- function() {
+  htmltools::tagList(
+    htmltools::tags$style(htmltools::HTML(
+      ".shiny-html-output .el-page-loading { display: none !important; }"
+    )),
+    htmltools::tags$div(
+      class = "el-loading-mask is-fullscreen el-page-loading",
+      style = "z-index: 3000;",
+      `aria-busy` = "true",
+      htmltools::tags$div(
+        class = "el-loading-spinner",
+        htmltools::HTML(paste0(
+          '<svg class="circular" viewBox="0 0 50 50">',
+          '<circle class="path" cx="25" cy="25" r="20" fill="none"></circle>',
+          "</svg>"
+        ))
+      )
+    ),
+    htmltools::tags$script(htmltools::HTML(
+      "(function() {
+  var mask = document.currentScript && document.currentScript.previousElementSibling;
+  if (document.readyState !== 'loading' || !mask || !mask.classList.contains('el-page-loading')) {
+    // drawn later, by renderUI(): its components are drawn as it arrives
+    document.querySelectorAll('.shiny-html-output .el-page-loading').forEach(function(m) { m.remove(); });
+    if (mask && mask.classList.contains('el-page-loading')) mask.remove();
+    return;
+  }
+  var done = false;
+  function hide() {
+    if (done) return;
+    done = true;
+    mask.style.opacity = '0';
+    setTimeout(function() { mask.remove(); }, 300);
+  }
+  function ready() {
+    var hosts = document.querySelectorAll('[data-shiny-vue]').length;
+    var roots = document.querySelectorAll('[data-shiny-vue-root]').length;
+    var shiny = !window.Shiny ||
+      (Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected());
+    return roots >= hosts && shiny;
+  }
+  function poll() { if (done) return; if (ready()) hide(); else setTimeout(poll, 50); }
+  setTimeout(hide, 10000);
+  document.addEventListener('DOMContentLoaded', poll);
+})();"
+    ))
+  )
 }

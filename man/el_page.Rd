@@ -13,7 +13,8 @@ el_page(
   locale = getOption("shiny.element.locale", "en"),
   dev = .vue_dev(),
   size = NULL,
-  z_index = NULL
+  z_index = NULL,
+  loading = TRUE
 )
 }
 \arguments{
@@ -50,6 +51,14 @@ CDN; one installed from its sources has it.}
 the size of every component not given one of its own
 (\code{"large"}, \code{"default"} or \code{"small"}), and the z-index its popups start
 from (2000 by default). \code{NULL} leaves Element's default.}
+
+\item{loading}{Cover the page with Element's loading mask until its
+components are drawn and Shiny is connected. Every component is an
+application of its own, compiled and mounted in the browser, so a page
+of many shows nothing usable for a moment -- seconds, with a few hundred
+on a slow machine; the mask says it is coming. \code{TRUE} by default; it
+goes after 10 seconds whatever happens. See the Performance article for
+what makes a page slow to start.}
 }
 \value{
 A Shiny UI element.

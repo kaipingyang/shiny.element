@@ -53,3 +53,78 @@ test_that("with sass's caching off, the theme compiles as bslib has it", {
   withr::local_options(sass.cache = FALSE)
   expect_null(.el_theme_cache(el_theme()))
 })
+
+compiles_while <- function(code) {
+  counter <- new.env()
+  counter$n <- 0
+  trace(
+    "compile_data",
+    bquote(assign("n", get("n", .(counter)) + 1, envir = .(counter))),
+    print = FALSE,
+    where = asNamespace("sass")
+  )
+  on.exit(untrace("compile_data", where = asNamespace("sass")), add = TRUE)
+  force(code)
+  counter$n
+}
+
+theme_css <- function(deps) {
+  boot <- Filter(function(d) d$name == "bootstrap", deps)[[1]]
+  readBin(file.path(boot$src$file, "bootstrap.min.css"), "raw", 1e8)
+}
+
+test_that("the default theme ships compiled, for the bslib and sass it was made with", {
+  made <- jsonlite::fromJSON(.vue_file("el-theme", "versions.json"))
+  expect_named(made, c("bslib", "sass"))
+  expect_true(nzchar(.vue_file("el-theme", "bootstrap.min.css.gz")))
+  expect_true(.el_theme_is_default(el_theme()))
+  expect_false(.el_theme_is_default(el_theme(primary = "#000000")))
+})
+
+test_that("a machine that never compiled the default theme uses the shipped one", {
+  skip_on_cran()
+  withr::local_options(sass.cache = withr::local_tempfile())
+  local_mocked_bindings(.el_theme_versions_match = function() TRUE)
+  theme <- el_theme()
+  cache <- .el_theme_cache(theme)
+  n <- compiles_while({
+    withr::with_options(list(sass.cache = cache), {
+      deps <- bslib::bs_theme_dependencies(theme)
+    })
+  })
+  expect_equal(n, 0)
+  expect_identical(rawToChar(theme_css(deps)), .el_theme_shipped())
+})
+
+test_that("another theme, or other versions, compile as bslib has it", {
+  skip_on_cran()
+  withr::local_options(sass.cache = withr::local_tempfile())
+  local_mocked_bindings(.el_theme_versions_match = function() TRUE)
+  other <- el_theme(primary = "#123456")
+  n <- compiles_while({
+    withr::with_options(list(sass.cache = .el_theme_cache(other)), {
+      bslib::bs_theme_dependencies(other)
+    })
+  })
+  expect_equal(n, 1)
+
+  local_mocked_bindings(.el_theme_versions_match = function() FALSE)
+  withr::local_options(sass.cache = withr::local_tempfile())
+  theme <- el_theme()
+  n <- compiles_while({
+    withr::with_options(list(sass.cache = .el_theme_cache(theme)), {
+      bslib::bs_theme_dependencies(theme)
+    })
+  })
+  expect_equal(n, 1)
+})
+
+test_that("the shipped CSS is what bslib compiles, where the versions match", {
+  skip_on_cran()
+  skip_if_not(
+    .el_theme_versions_match(),
+    "bslib or sass is not the shipped CSS's"
+  )
+  compiled <- bslib::bs_theme_dependencies(el_theme(), cache = FALSE)
+  expect_identical(rawToChar(theme_css(compiled)), .el_theme_shipped())
+})
