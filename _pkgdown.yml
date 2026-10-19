@@ -40,6 +40,8 @@ navbar:
           href: articles/design.html
         - text: Architecture
           href: articles/architecture.html
+        - text: Performance
+          href: articles/performance.html
         - text: Installation & Quick Start
           href: articles/shiny.element.html
         - text: -------
@@ -259,6 +261,7 @@ articles:
       - shiny.element
       - articles/design
       - articles/architecture
+      - articles/performance
       - articles/i18n
       - articles/migration
       - articles/theming

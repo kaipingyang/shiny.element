@@ -13,6 +13,13 @@
 The JSON, as a single string, safe inside a \verb{<script>}.
 }
 \description{
-A component's spec as the JSON its host carries
+Written by yyjsonr, in C: jsonlite walks the value in R, one S4 method
+dispatch per element -- some 5 ms for a component's few dozen fields, half
+of building it. What jsonlite was asked for, yyjsonr is given: one-element
+vectors unboxed and \code{I()} ones kept as arrays, \code{NA} and \code{NULL} as \code{null},
+data frames by column, \code{JS()} code and \code{json} verbatim, full precision;
+and what yyjsonr does otherwise, done first (\code{\link[=.vue_json_prepare]{.vue_json_prepare()}}): a
+named vector is an object, a date-time ISO 8601 in UTC, a whole number
+kept as a double written \code{1}, not \code{1.0}.
 }
 \keyword{internal}

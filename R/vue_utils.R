@@ -152,27 +152,98 @@
 
 #' A component's spec as the JSON its host carries
 #'
+#' Written by yyjsonr, in C: jsonlite walks the value in R, one S4 method
+#' dispatch per element -- some 5 ms for a component's few dozen fields, half
+#' of building it. What jsonlite was asked for, yyjsonr is given: one-element
+#' vectors unboxed and `I()` ones kept as arrays, `NA` and `NULL` as `null`,
+#' data frames by column, `JS()` code and `json` verbatim, full precision;
+#' and what yyjsonr does otherwise, done first ([.vue_json_prepare()]): a
+#' named vector is an object, a date-time ISO 8601 in UTC, a whole number
+#' kept as a double written `1`, not `1.0`.
+#'
 #' @param spec `options`, and `input`, `rate`, `type`, `use`, ...
 #' @return The JSON, as a single string, safe inside a `<script>`.
 #' @keywords internal
 .vue_json <- function(spec) {
   spec <- .vue_tags_as_html(spec)
   spec$evals <- I(.vue_js_paths(spec))
-  json <- jsonlite::toJSON(
-    spec,
-    auto_unbox = TRUE,
-    null = "null",
-    na = "null",
-    digits = NA,
-    force = TRUE,
-    POSIXt = "ISO8601",
-    UTC = TRUE,
-    rownames = FALSE,
-    keep_vec_names = TRUE,
-    dataframe = "columns",
-    json_verbatim = TRUE
+  json <- yyjsonr::write_json_str(
+    .vue_json_prepare(spec),
+    opts = .vue_memo("json_opts", function() {
+      yyjsonr::opts_write_json(
+        auto_unbox = TRUE,
+        dataframe = "columns",
+        factor = "string",
+        num_specials = "null",
+        str_specials = "null",
+        json_verbatim = TRUE,
+        null = "null",
+        digits = -1
+      )
+    })
   )
-  gsub("</", "<\\/", as.character(json), fixed = TRUE)
+  gsub("</", "<\\/", json, fixed = TRUE)
+}
+
+#' A value made ready for yyjsonr, as jsonlite would have written it
+#'
+#' A named atomic vector becomes a list (an object, as jsonlite's
+#' `keep_vec_names` had it); a date-time an ISO 8601 string in UTC; a double
+#' holding whole numbers within integer range an integer, which yyjsonr
+#' writes `1` where it writes a double `1.0`. `JS()` and `json` values stay
+#' as they are; `I()` keeps its class.
+#'
+#' @param x A value.
+#' @return The value.
+#' @keywords internal
+.vue_json_prepare <- function(x) {
+  if (inherits(x, c("json", "JS_EVAL"))) {
+    return(x)
+  }
+  if (inherits(x, "POSIXt")) {
+    out <- format(x, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+    out[is.na(x)] <- NA
+    return(if (inherits(x, "AsIs")) I(out) else out)
+  }
+  if (is.list(x)) {
+    x[] <- lapply(x, .vue_json_prepare)
+    return(x)
+  }
+  if (is.double(x) && all(oldClass(x) %in% "AsIs")) {
+    x <- .vue_json_whole(x)
+  }
+  if (
+    is.atomic(x) &&
+      length(x) &&
+      !is.null(names(x)) &&
+      !inherits(x, "AsIs")
+  ) {
+    return(as.list(x))
+  }
+  x
+}
+
+#' Whole doubles as integers, so yyjsonr writes `1` rather than `1.0`
+#'
+#' @param x A double vector, plain or `I()`.
+#' @return `x`, an integer vector when every value is whole and within
+#'   integer range (`NA` allowed).
+#' @keywords internal
+.vue_json_whole <- function(x) {
+  v <- unclass(x)
+  ok <- !is.na(v)
+  if (
+    !any(ok) ||
+      any(!is.finite(v[ok])) ||
+      any(abs(v[ok]) > .Machine$integer.max) ||
+      any(v[ok] != trunc(v[ok])) ||
+      any(v[ok] == 0 & 1 / v[ok] < 0)
+  ) {
+    return(x)
+  }
+  out <- as.integer(v)
+  attributes(out) <- attributes(x)
+  out
 }
 
 #' Stop unless `session` is a Shiny session
