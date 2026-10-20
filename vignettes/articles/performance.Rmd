@@ -61,6 +61,33 @@ applications 3.4 to 3.9 s. Some components cost far more than others
   drawn and Shiny is connected, rather than a page that is not yet usable.
   `el_page(loading = FALSE)` leaves it out.
 
+## Components drawn later, by `renderUI()`
+
+The loading mask covers the page as it opens. A `uiOutput()` whose
+`renderUI()` draws many components later goes through the same two
+parts, on its own:
+
+| `renderUI()` drawing | Server done | Components drawn |
+|---|---|---|
+| 20 `el_select()`s | 1.0 s | 1.4 s |
+| 100 `el_select()`s | 2.1 s | 3.7 s |
+| 300 `el_select()`s | 4.5 s | 9.1 s |
+
+While the server computes, Shiny marks the output as recalculating (it
+fades). Shiny's busy indicators show a spinner in the output instead --
+in the output only, not over the page:
+
+```{r busy, eval = FALSE}
+el_page(
+  shiny::useBusyIndicators(),
+  uiOutput("area")
+)
+```
+
+While the browser then draws the components, it can draw nothing else: a
+spinner stops turning until the last one is drawn. Draw fewer at once --
+`persistent = FALSE` below, or a virtual list -- rather than more.
+
 ## Drawing less at first
 
 Element renders some parts of a component before they are needed, and
