@@ -333,9 +333,14 @@ Every round of changes ends the same way, without being asked:
 1. verify (tests for what changed, `air format --check .`, and for a
    release-level change the full suites, `R CMD check` and the article
    shots);
-2. commit on the working branch (`element-plus` now) and push it; `main`
-   follows by fast-forward (`git push origin element-plus:main`), and the
-   pkgdown deploy that push starts is checked until it succeeds;
+2. commit on the working branch (`element-plus`) and push it. **`main` is
+   not touched without the user's word**: it holds the version submitted to
+   CRAN (0.3.1) while CRAN reviews it, and the pkgdown site is deployed from
+   it. Fixes a reviewer asks for go on `main` when the user says so, and
+   `main` is then merged into `element-plus`; `element-plus` goes to `main`
+   only once CRAN has answered and the user asks. GitHub Actions run on
+   pushes to `main` only, so on `element-plus` the checks are the local
+   ones;
 3. install into the user's home library, `R CMD INSTALL --no-multiarch .`,
    and check its `Built:` date -- tests use `load_all()` and pkgdown and
    `R CMD check` install into temporary libraries, so without this the

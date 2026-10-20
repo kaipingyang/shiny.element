@@ -1,3 +1,28 @@
+# shiny.element (development version)
+
+## New features
+
+* `el_page(loading = TRUE)` covers the page with Element's own loading mask
+  until every component has been drawn and Shiny is connected (10 seconds
+  at most). `loading = FALSE` leaves it out; a page drawn by `renderUI()`
+  never shows one.
+* A page starts faster:
+  * its theme is compiled once per machine rather than in every new R
+    process: `el_page()` takes it from sass's cache, where bslib's own
+    drawing compiled it again each time (1.5-2 s before the first page);
+  * the default `el_theme()` ships compiled, for the bslib and sass on CRAN,
+    so a machine that never drew it does not compile it either;
+  * a component's dependencies are made once per session, and its options
+    written by yyjsonr instead of jsonlite: 100 components are built in
+    0.6 s, from 1.6 s.
+
+## Documentation
+
+* A "Performance" article: where a page's starting time goes, what the
+  package does about it, `persistent = FALSE` per component with its
+  measured gain, the lazy and virtual options, and deploying an app's own
+  theme with its `app_cache/sass`.
+
 # shiny.element 0.3.1
 
 A smaller package, ready for CRAN, and the fixes and additions since
