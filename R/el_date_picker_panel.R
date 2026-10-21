@@ -205,7 +205,7 @@ update_el_date_picker_panel <- function(
   show_confirm = NULL,
   show_week_number = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- value

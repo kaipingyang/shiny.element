@@ -208,7 +208,7 @@ update_el_popconfirm <- function(
   confirm_button_text = NULL,
   cancel_button_text = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The popconfirm's fields carry a prefix, kept apart from its reference's

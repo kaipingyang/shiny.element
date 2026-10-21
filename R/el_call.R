@@ -87,7 +87,7 @@ call_el <- function(
   result = TRUE,
   component = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   # Element's references -- el_table_row(), el_upload_file(), el_tree_node()
   # -- are lists the bridge resolves in the browser (sv.refs); the call
   # itself is the Vue layer's

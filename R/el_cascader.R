@@ -452,7 +452,7 @@ update_el_cascader <- function(
   value_on_clear = NULL,
   virtual_scroll = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   message <- list(id = ns_id)
   if (!is.null(options)) {

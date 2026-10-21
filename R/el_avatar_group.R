@@ -121,7 +121,7 @@ update_el_avatar_group <- function(
   collapse_class = NULL,
   collapse_style = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_props_update(
     session,
     id,

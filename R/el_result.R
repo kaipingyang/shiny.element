@@ -122,7 +122,7 @@ update_el_result <- function(
   title = NULL,
   sub_title = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(icon)) {
     msg$resultIcon <- icon

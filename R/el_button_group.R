@@ -90,7 +90,7 @@ update_el_button_group <- function(
   type = NULL,
   direction = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_props_update(
     session,
     id,

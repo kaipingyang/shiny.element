@@ -160,7 +160,7 @@ update_el_tree_v2 <- function(
   current_node_key = NULL,
   filter_method = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_props_update(
     session,
     id,

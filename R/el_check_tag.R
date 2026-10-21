@@ -86,7 +86,7 @@ update_el_check_tag <- function(
   disabled = NULL,
   type = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- value

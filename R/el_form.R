@@ -967,7 +967,7 @@ update_el_form <- function(
   scroll_into_view_options = NULL,
   scroll_to_error = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_check_choices("el_form", environment())
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
@@ -1036,7 +1036,7 @@ update_el_form <- function(
 #' }
 #' @export
 el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_update(session, list(id = session$ns(id), .action = "validate"))
   invisible(NULL)
 }
@@ -1061,7 +1061,7 @@ el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' }
 #' @export
 el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_update(session, list(id = session$ns(id), .action = "reset"))
   invisible(NULL)
 }
@@ -1088,7 +1088,7 @@ el_form_clear_validate <- function(
   id,
   props = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(props)) {
     msg$props <- as.list(props)

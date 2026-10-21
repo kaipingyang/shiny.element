@@ -152,7 +152,7 @@ update_el_image_viewer <- function(
   close_on_press_escape = NULL,
   show_progress = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(visible)) {
     msg$visible <- visible

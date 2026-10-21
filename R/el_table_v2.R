@@ -315,7 +315,7 @@ update_el_table_v2 <- function(
   scrollbar_always_on = NULL,
   sort_state = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   props <- mget(
     c(
       "cache",

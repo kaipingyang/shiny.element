@@ -335,7 +335,7 @@ update_el_autocomplete <- function(
   show_arrow = NULL,
   teleported = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(value)) {

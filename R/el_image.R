@@ -206,7 +206,7 @@ update_el_image <- function(
   show_progress = NULL,
   zoom_rate = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(src)) {

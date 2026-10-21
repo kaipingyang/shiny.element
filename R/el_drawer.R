@@ -226,7 +226,7 @@ update_el_drawer <- function(
   close_on_press_escape = NULL,
   lock_scroll = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- .el_overlay_flags(list(
     modal = modal,
     with_header = with_header,

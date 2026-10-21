@@ -180,7 +180,7 @@ update_el_steps <- function(
   align_center = NULL,
   simple = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   message <- list(id = ns_id)
   if (!is.null(active)) {

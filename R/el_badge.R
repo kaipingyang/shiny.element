@@ -181,7 +181,7 @@ update_el_badge <- function(
   hidden = NULL,
   type = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$badgeValue <- value

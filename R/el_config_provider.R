@@ -188,7 +188,7 @@ update_el_config_provider <- function(
   value_on_clear = NULL,
   table = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   # a locale whose file is on the page: the one el_config_provider() was
   # given, or English
   if (!is.null(locale)) {

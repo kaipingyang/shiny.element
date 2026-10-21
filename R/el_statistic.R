@@ -175,7 +175,7 @@ update_el_statistic <- function(
   value_style = NULL,
   formatter = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (inherits(value, "POSIXt")) {
     value <- as.numeric(value) * 1000
@@ -230,7 +230,7 @@ update_el_countdown <- function(
   format = NULL,
   value_style = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (inherits(value, "POSIXt")) {
     value <- as.numeric(value) * 1000

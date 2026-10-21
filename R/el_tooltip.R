@@ -260,7 +260,7 @@ update_el_tooltip <- function(
   visible = NULL,
   virtual_ref = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The tooltip's fields carry a prefix, kept apart from a trigger's own

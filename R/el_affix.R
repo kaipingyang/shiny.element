@@ -99,7 +99,7 @@ update_el_affix <- function(
   teleported = NULL,
   append_to = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_props_update(
     session,
     id,

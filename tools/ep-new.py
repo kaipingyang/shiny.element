@@ -195,7 +195,7 @@ if has_value:
 #' @export
 {upd} <- function(session = shiny::getDefaultReactiveDomain(), id, value = NULL,
 {" " * len(upd)}           disabled = NULL, label = NULL, error = NULL) {{
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value))    msg$value    <- value
   if (!is.null(disabled)) msg$disabled <- disabled

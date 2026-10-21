@@ -167,7 +167,7 @@ value to the column's type.
 - Feedback services (message, notification, message box, loading) use
   `inst/js/el-feedback-handler.js`.
 - Every server function takes `session = shiny::getDefaultReactiveDomain()`
-  first and calls `.el_check_session(session)` first.
+  first and calls `.vue_check_session(session)` first.
 
 ### Dependency loading
 

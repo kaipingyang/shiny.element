@@ -149,7 +149,7 @@ update_el_segmented <- function(
   direction = NULL,
   props = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- value

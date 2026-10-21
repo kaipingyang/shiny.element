@@ -236,7 +236,7 @@ update_el_descriptions <- function(
   size = NULL,
   label_width = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_check_choices("el_descriptions", environment())
   msg <- list(id = session$ns(id))
   if (!is.null(title)) {

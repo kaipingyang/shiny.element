@@ -418,7 +418,7 @@ update_el_tree <- function(
   check_on_click_leaf = NULL,
   icon = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   # data and expandedKeys are watched props; checkedKeys is not replaceable
   # that way and the handler calls setCheckedKeys() instead.

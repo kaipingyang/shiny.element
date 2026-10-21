@@ -390,7 +390,7 @@ update_el_time_picker <- function(
   value_on_clear = NULL,
   save_on_blur = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- if (length(value) > 1) as.list(value) else value
@@ -478,7 +478,7 @@ update_el_time_select <- function(
   empty_values = NULL,
   value_on_clear = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- c(
     list(id = session$ns(id)),
     .el_update_props(

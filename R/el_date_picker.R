@@ -414,7 +414,7 @@ update_el_date_picker <- function(
   time_format = NULL,
   value_on_clear = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(value)) {

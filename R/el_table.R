@@ -1422,7 +1422,7 @@ update_el_table <- function(
   tooltip_formatter = NULL,
   tooltip_options = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   props <- mget(
     c(

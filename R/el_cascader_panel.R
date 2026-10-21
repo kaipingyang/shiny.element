@@ -181,7 +181,7 @@ update_el_cascader_panel <- function(
   item_size = NULL,
   virtual_scroll = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- as.list(value)

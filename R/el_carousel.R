@@ -266,7 +266,7 @@ update_el_carousel <- function(
   loop = NULL,
   direction = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   # `initial-index` is read once at mount and has no watcher, so moving to a
   # slide is a method call; the handler does that part.

@@ -419,7 +419,7 @@ update_el_select_v2 <- function(
   props = NULL,
   tag_tooltip = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- value

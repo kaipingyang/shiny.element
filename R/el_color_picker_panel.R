@@ -144,7 +144,7 @@ update_el_color_picker_panel <- function(
   hue_slider_class = NULL,
   hue_slider_style = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- value

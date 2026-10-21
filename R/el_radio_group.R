@@ -237,7 +237,7 @@ update_el_radio_group <- function(
   type = NULL,
   validate_event = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
   choices <- .el_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)

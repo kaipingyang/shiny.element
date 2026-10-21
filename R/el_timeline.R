@@ -192,7 +192,7 @@ update_el_timeline <- function(
   reverse = NULL,
   mode = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(items)) {
     msg$items <- .el_timeline_items(items)

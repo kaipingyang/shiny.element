@@ -172,7 +172,7 @@ knit_print.el_component <- function(x, ...) {
 #' }
 #' @export
 el_table_data <- function(session = shiny::getDefaultReactiveDomain(), id) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_shown_read(session, session$ns(id))
 }
 

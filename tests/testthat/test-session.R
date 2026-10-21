@@ -38,11 +38,7 @@ test_that("every server function checks its session first", {
   expect_gt(length(fns), 50)
   for (f in fns) {
     first <- as.list(body(get(f, envir = ns)))[[2]]
-    # the Element layer's check, or the Vue layer's for its own functions
-    expect_true(
-      deparse(first) %in%
-        c(".el_check_session(session)", ".vue_check_session(session)"),
-      info = f
-    )
+    # one check for both layers: the Vue layer's
+    expect_identical(deparse(first), ".vue_check_session(session)", info = f)
   }
 })

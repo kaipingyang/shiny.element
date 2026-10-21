@@ -105,7 +105,7 @@ update_el_page_header <- function(
   content = NULL,
   icon = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(title)) {

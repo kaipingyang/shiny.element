@@ -313,19 +313,6 @@
 }
 
 
-#' Serialise a component's Vue options for the page
-#'
-#' JSON with `NA` and `NULL` as `null` and single values
-#' unboxed -- with the paths of every [JS()] listed in `evals`,
-#' so the bridge can turn their source back into functions. `</` is escaped,
-#' or a `header_html` holding `</b>` would end the script element early.
-#'
-#' @param spec The list to write: `options`, and `input`, `rate`, `type`.
-#' @return The JSON, as a single string.
-#' @keywords internal
-.el_vue_json <- function(spec) .vue_json(spec)
-
-
 #' A value as a bookmarked session left it
 #'
 #' [shiny::restoreInput()], keeping the shape the component expects: a field
@@ -387,61 +374,6 @@
 }
 
 
-#' Check a server function was given a session
-#'
-#' Every server function takes the session first, defaulting to the current
-#' one, as Shiny's `update*Input()` do -- so `update_el_input("name", ...)`
-#' passes the id as the session. Shiny stops that with a message naming the
-#' function; so does this, rather than failing on `$` inside.
-#'
-#' @param session What was passed as `session`.
-#' @param fn The calling function's name.
-#' @return `session`, invisibly.
-#' @keywords internal
-.el_check_session <- function(session, fn = NULL) {
-  if (is.null(fn)) {
-    fn <- tryCatch(deparse(sys.call(-1)[[1]]), error = function(e) {
-      "the function"
-    })
-  }
-  if (is.null(session)) {
-    stop(
-      sprintf(
-        "`%s()` was called outside a Shiny session: there is no server to send to.",
-        fn
-      ),
-      call. = FALSE
-    )
-  }
-  if (is.atomic(session)) {
-    # The argument the caller most likely meant to give first
-    second <- tryCatch(
-      names(formals(sys.function(-1)))[2],
-      error = function(e) NULL
-    )
-    if (is.null(second) || is.na(second)) {
-      second <- "id"
-    }
-    stop(
-      sprintf(
-        paste0(
-          "`session` must be a Shiny session, not %s. It is the first argument; ",
-          "to use the current session, name the rest: `%s(%s = ...)`."
-        ),
-        if (is.character(session)) {
-          sprintf('"%s"', session[1])
-        } else {
-          class(session)[1]
-        },
-        fn,
-        second
-      ),
-      call. = FALSE
-    )
-  }
-  invisible(session)
-}
-
 #' Element Plus's close icon, as its components draw it
 #'
 #' Icons are SVG components in Element Plus. A panel drawn as markup -- a
@@ -485,20 +417,6 @@
     )
   )
 }
-
-#' Tags in Vue data, as the HTML they stand for
-#'
-#' A field of a component's data travels as JSON, where a tag -- an item's
-#' `content = tags$b("x")`, a column's header -- would arrive as its
-#' serialised object, and show as that, or as `[object Object]`. Every tag
-#' and tag list found in the data is rendered to its HTML string instead,
-#' which is what a `v-html` field reads; a field shown as text shows the
-#' markup rather than an object.
-#'
-#' @param x A list of options or an update message.
-#' @return `x`, with tags replaced by strings.
-#' @keywords internal
-.el_tags_as_html <- function(x) .vue_tags_as_html(x)
 
 #' Markup as a string, for a `v-html` field
 #'
@@ -828,7 +746,7 @@
   prefix = NULL,
   rename = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   values <- values[!vapply(values, is.null, logical(1))]
   .el_check_choices(fn, list2env(values))
   msg <- c(list(id = session$ns(id)), .el_props(values, prefix, rename)$data)

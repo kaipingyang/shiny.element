@@ -104,7 +104,7 @@ update_el_empty <- function(
   description = NULL,
   image = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(description)) {
     msg$emptyDescription <- description

@@ -86,7 +86,7 @@ update_el_text <- function(
   line_clamp = NULL,
   tag = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_props_update(
     session,
     id,

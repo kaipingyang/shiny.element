@@ -287,7 +287,7 @@ update_el_dialog <- function(
   overflow = NULL,
   align_center = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- .el_overlay_flags(list(
     top = top,
     fullscreen = fullscreen,

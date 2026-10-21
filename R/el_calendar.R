@@ -423,7 +423,7 @@ update_el_calendar <- function(
   first_day_of_week = NULL,
   workweek = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   ns_id <- session$ns(id)
   edits <- c(
     insert = !is.null(insert),
@@ -1478,6 +1478,6 @@ el_calendar_events <- function(
   session = shiny::getDefaultReactiveDomain(),
   id
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_shown_read(session, session$ns(id))
 }

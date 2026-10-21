@@ -149,7 +149,7 @@ update_el_link <- function(
   disabled = NULL,
   icon = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(label)) {
     msg$text <- label

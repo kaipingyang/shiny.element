@@ -134,7 +134,7 @@ update_el_skeleton <- function(
   animated = NULL,
   count = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(loading)) {
     msg$skLoading <- loading

@@ -303,7 +303,7 @@ update_el_tabs <- function(
   stretch = NULL,
   value = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   selected <- .el_alias(selected, value, "selected", "value")
   .el_check_choices(
     "el_tabs",
@@ -396,7 +396,7 @@ insert_el_tab <- function(
   closable = NULL,
   select = TRUE
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   if (inherits(tab, "el_tab_pane")) {
     label <- tab$label
     content <- tab$content
@@ -446,7 +446,7 @@ remove_el_tab <- function(
   id,
   name
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   session$sendInputMessage(id, list(remove_tab = name))
   invisible(NULL)
 }

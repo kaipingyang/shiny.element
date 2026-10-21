@@ -22,12 +22,3 @@ JS <- function(...) {
   x <- paste(x, collapse = "\n")
   structure(x, class = unique(c("JS_EVAL", oldClass(x))))
 }
-
-#' Where the JavaScript is in a list
-#'
-#' The paths, dot-separated, of every [JS()] value, for the page to evaluate. A dot in a name is escaped.
-#'
-#' @param x A list.
-#' @return A character vector of paths.
-#' @keywords internal
-.el_js_paths <- function(x) .vue_js_paths(x)

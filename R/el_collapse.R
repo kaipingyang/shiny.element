@@ -208,7 +208,7 @@ update_el_collapse <- function(
   expand_icon_position = NULL,
   before_collapse = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list()
   # An input message rather than a custom message: the binding owns this
   # element, and Shiny routes the message to it by id.

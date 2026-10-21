@@ -192,7 +192,7 @@ update_el_tour <- function(
   target_area_clickable = NULL,
   append_to = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(visible)) {
     msg$open <- visible

@@ -9,8 +9,8 @@ test_that("JS() marks JavaScript as htmlwidgets does, and its paths are found", 
   expect_null(JS())
   expect_error(JS(1), "character vector")
   x <- list(a = list(b = f, c = "x"), `d.e` = f, l = list(f, 2))
-  expect_setequal(.el_js_paths(x), c("a.b", "d\\.e", "l.0"))
-  expect_equal(.el_js_paths(list(a = 1)), character(0))
+  expect_setequal(.vue_js_paths(x), c("a.b", "d\\.e", "l.0"))
+  expect_equal(.vue_js_paths(list(a = 1)), character(0))
 })
 
 test_that("an update carrying a function lists it for the page to revive", {

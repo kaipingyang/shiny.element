@@ -396,7 +396,7 @@ update_el_menu <- function(
   popper_style = NULL,
   show_timeout = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(default_active)) {
     msg$active <- default_active

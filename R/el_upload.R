@@ -593,7 +593,7 @@ update_el_upload <- function(
   crossorigin = NULL,
   directory = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(disabled)) {
     msg$disabled <- disabled
@@ -657,7 +657,7 @@ update_el_upload <- function(
 #' }
 #' @export
 el_upload_clear <- function(session = shiny::getDefaultReactiveDomain(), id) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_update(session, list(id = session$ns(id), .action = "clear"))
   invisible(NULL)
 }

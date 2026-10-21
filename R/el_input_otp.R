@@ -158,7 +158,7 @@ update_el_input_otp <- function(
   readonly = NULL,
   aria_label = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   msg <- list(id = session$ns(id))
   if (!is.null(value)) {
     msg$value <- value

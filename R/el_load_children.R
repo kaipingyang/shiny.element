@@ -57,7 +57,7 @@ el_load_children <- function(
   children = list(),
   reject = FALSE
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   number <- if (is.list(request)) request$request else request
   if (is.null(number)) {
     stop(

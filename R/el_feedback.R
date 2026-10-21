@@ -72,7 +72,7 @@ el_notification <- function(
   progress = NULL,
   pause_on_hover = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_check_choices("el_notification", environment())
   force(message)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
@@ -151,7 +151,7 @@ el_message <- function(
   grouping = NULL,
   repeat_num = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_check_choices("el_message", environment())
   force(message)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
@@ -308,7 +308,7 @@ el_message_box <- function(
   button_size = NULL,
   append_to = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_check_choices("el_message_box", environment())
   force(message)
   box_type <- match.arg(box_type)
@@ -397,7 +397,7 @@ el_loading <- function(
   svg_view_box = NULL,
   before_close = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   opts <- .el_service_options(as.list(environment()), c("session", "id"))
   session$sendCustomMessage("elLoading", c(list(id = session$ns(id)), opts))
   invisible(NULL)
@@ -426,7 +426,7 @@ el_loading_close <- function(
   session = shiny::getDefaultReactiveDomain(),
   id = "default"
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   session$sendCustomMessage(
     "elLoading",
     list(id = session$ns(id), close = TRUE)
@@ -464,7 +464,7 @@ el_message_close <- function(
   session = shiny::getDefaultReactiveDomain(),
   id = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   session$sendCustomMessage(
     "elMessageClose",
     list(id = if (!is.null(id)) session$ns(id))
@@ -478,7 +478,7 @@ el_notification_close <- function(
   session = shiny::getDefaultReactiveDomain(),
   id = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   session$sendCustomMessage(
     "elNotificationClose",
     list(id = if (!is.null(id)) session$ns(id))

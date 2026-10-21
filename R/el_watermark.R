@@ -109,7 +109,7 @@ update_el_watermark <- function(
   gap = NULL,
   offset = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_props_update(
     session,
     id,

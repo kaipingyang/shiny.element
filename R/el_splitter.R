@@ -76,7 +76,7 @@ update_el_splitter <- function(
   layout = NULL,
   lazy = NULL
 ) {
-  .el_check_session(session)
+  .vue_check_session(session)
   .el_send_props_update(
     session,
     id,
