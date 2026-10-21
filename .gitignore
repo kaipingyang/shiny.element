@@ -17,3 +17,6 @@ tfl.md
 .upstream/
 tests/testthat/_problems/
 .kiro/
+
+# CodeGraph index (local, rebuilt by `codegraph init`)
+.codegraph/
