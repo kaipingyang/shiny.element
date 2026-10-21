@@ -168,7 +168,7 @@ el_input_tag <- function(
       autocomplete = autocomplete,
       aria_label = aria_label
     )),
-    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+    data = list(value = .vue_restore(ns_id, if (is.null(value)) NA else value)),
     methods = c(
       events$methods,
       list(
@@ -178,7 +178,7 @@ el_input_tag <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     width = width,
     slots = slots
   )

@@ -470,7 +470,7 @@ test_that("every update takes each UI argument held in the component's data", {
     keys <- vue_data_keys(tag)
     args <- setdiff(names(formals(get(ui))), fixed)
     args <- args[!startsWith(args, "default_")]
-    held <- args[vapply(args, .el_camel_case, "") %in% keys]
+    held <- args[vapply(args, .vue_camel, "") %in% keys]
     held <- setdiff(
       held,
       sub("^.*:", "", transformed[startsWith(transformed, paste0(ui, ":"))])

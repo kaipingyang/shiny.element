@@ -159,7 +159,7 @@ el_carousel <- function(
     watch = list(),
     computed = list(),
     dependencies = list(),
-    mounted = .el_mounted_init(stats::setNames(
+    mounted = .vue_mounted_report(stats::setNames(
       c("active", "activeName"),
       paste0(ns_id, c("", "_name"))
     ))

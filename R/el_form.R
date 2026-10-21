@@ -867,7 +867,7 @@ el_form <- function(
     # el_form_field(report = TRUE): reported as a standalone input is, on
     # load once Shiny is connected, and on every change
     watch = .el_form_watch(flat, ns_id),
-    mounted = .el_mounted_init(c(
+    mounted = .vue_mounted_report(c(
       stats::setNames("model", ns_id),
       .el_form_reported(flat, ns_id)
     )),

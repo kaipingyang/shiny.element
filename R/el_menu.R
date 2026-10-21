@@ -85,7 +85,7 @@
 .el_menu_item_props <- function(item, fields) {
   out <- list()
   for (f in fields) {
-    v <- item[[f]] %||% item[[.el_camel_case(f)]]
+    v <- item[[f]] %||% item[[.vue_camel(f)]]
     if (is.null(v)) {
       next
     }
@@ -346,7 +346,7 @@ el_menu <- function(
     # Nothing active is reported as NULL rather than Element's "", so that an
     # observeEvent(input$<id>) does not fire on load for a menu with no
     # current item.
-    mounted = .el_mounted_init(stats::setNames(
+    mounted = .vue_mounted_report(stats::setNames(
       c("active || null", "path"),
       paste0(ns_id, c("", "_path"))
     )),

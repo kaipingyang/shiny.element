@@ -461,7 +461,7 @@ remove_el_tab <- function(
 #' @keywords internal
 el_tabs_dependency <- function() {
   c(
-    list(.el_jquery_dependency()),
+    list(.vue_jquery_dependency()),
     .el_plus_dependencies(),
     list(htmltools::htmlDependency(
       name = "el-tabs-binding",

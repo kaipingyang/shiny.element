@@ -162,7 +162,7 @@ el_table_v2 <- function(
         )
       })
     }
-    data <- .el_table_rows(data)
+    data <- .vue_rows(data)
   }
   if (is.null(table_v2_width)) {
     table_v2_width <- 700
@@ -355,7 +355,7 @@ update_el_table_v2 <- function(
     )
   )
   if (is.data.frame(data)) {
-    data <- .el_table_rows(data)
+    data <- .vue_rows(data)
   }
   if (!is.null(data)) {
     msg$data <- data

@@ -223,7 +223,7 @@ slot, a table cell, a wrapper's trigger, `el_widget(markup =)`.
   JavaScript name being the canonical one: column definitions
   (`show_overflow_tooltip` or `showOverflowTooltip`), items, plugin options,
   and the Vue layer's options (`before_unmount` or `beforeUnmount`). Convert
-  with `.el_camel_case()`; two spellings with different values are an error.
+  with `.vue_camel()`; two spellings with different values are an error.
 - **Only names the package knows are converted.** Field names in `data`,
   method names, anything a template refers to are the user's and pass
   through exactly as written -- renaming `item_count` would break
@@ -272,7 +272,7 @@ records: `.claude/plans/shiny-style-components-2026-10-06.md`,
 2. Optional props bind through `.el_optional_bind()` with an `NA` placeholder
    so they fall back to Element's defaults and stay updatable.
 3. A stateful component names its value with
-   `mounted = .el_mounted_init(c(<field> = ns_id))`; that field becomes the
+   `mounted = .vue_mounted_report(c(<field> = ns_id))`; that field becomes the
    binding's value.
 4. Enumerated arguments go in `.el_choices` (`R/el_choices.R`) with
    `.el_check_choices()` first in the function.

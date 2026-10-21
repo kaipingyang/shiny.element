@@ -146,7 +146,7 @@ el_steps <- function(
         ns_id
       ))
     ),
-    mounted = .el_mounted_init(stats::setNames("active", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("active", ns_id)),
     width = width,
     slots = slots
   )

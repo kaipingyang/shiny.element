@@ -66,7 +66,7 @@ el_load_children <- function(
     )
   }
   children <- if (is.data.frame(children)) {
-    .el_table_rows(children)
+    .vue_rows(children)
   } else {
     unname(children)
   }

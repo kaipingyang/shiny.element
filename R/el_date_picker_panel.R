@@ -147,7 +147,7 @@ el_date_picker_panel <- function(
       show_confirm = show_confirm,
       show_week_number = show_week_number
     )),
-    data = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),
+    data = list(value = .vue_restore(ns_id, if (is.null(value)) NA else value)),
     methods = events$methods,
     watch = list(
       value = JS(sprintf(
@@ -155,7 +155,7 @@ el_date_picker_panel <- function(
         ns_id
       ))
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     width = width,
     slots = slots
   )

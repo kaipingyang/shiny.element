@@ -275,7 +275,7 @@ el_input <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     width = width,
     slots = slots
   )

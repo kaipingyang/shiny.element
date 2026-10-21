@@ -153,7 +153,7 @@ body.append("    id      = ns_id,")
 body.append(f"    markup  = htmltools::tag(\"{tag}\", attrs),")
 if props: body.append(f"    props   = .el_props(list(\n      {plist})),")
 if has_value:
-    body.append("    data    = list(value = .el_restore(ns_id, if (is.null(value)) NA else value)),")
+    body.append("    data    = list(value = .vue_restore(ns_id, if (is.null(value)) NA else value)),")
     m = (f"    methods = c(events$methods, list(handleChange = JS(sprintf(\n"
          f"      \"function(v) {{ window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }}\", ns_id)))),")
     if change in events:
@@ -162,7 +162,7 @@ if has_value:
         body.append("    methods = events$methods,")
         body.append("    watch   = list(value = JS(sprintf(\n"
                     "      \"function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }\", ns_id))),")
-    body.append("    mounted = .el_mounted_init(stats::setNames(\"value\", ns_id)),")
+    body.append("    mounted = .vue_mounted_report(stats::setNames(\"value\", ns_id)),")
 else:
     body.append("    data    = list(),")
     body.append("    methods = events$methods,")

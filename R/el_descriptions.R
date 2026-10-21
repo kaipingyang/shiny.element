@@ -192,7 +192,7 @@ el_descriptions <- function(
   }
   lapply(unname(items), function(it) {
     for (key in grep("_", names(it), value = TRUE)) {
-      it[[.el_camel_case(key)]] <- it[[key]]
+      it[[.vue_camel(key)]] <- it[[key]]
       it[[key]] <- NULL
     }
     it

@@ -2,41 +2,41 @@ render_html <- function(tag) {
   paste(as.character(tag), collapse = "")
 }
 
-# ── .el_table_rows ────────────────────────────────────────────────────────────
+# ── .vue_rows, as tables take their data ────────────────────────────────────────────────────────────
 
-test_that(".el_table_rows: data.frame becomes one named list per row", {
-  rows <- rows_of(.el_table_rows(data.frame(a = 1:2, b = c("x", "y"))))
+test_that(".vue_rows: data.frame becomes one named list per row", {
+  rows <- rows_of(.vue_rows(data.frame(a = 1:2, b = c("x", "y"))))
   expect_length(rows, 2)
   expect_equal(rows[[1]], list(a = 1L, b = "x"))
   expect_equal(rows[[2]], list(a = 2L, b = "y"))
 })
 
-test_that(".el_table_rows: numeric columns keep their type", {
-  rows <- rows_of(.el_table_rows(data.frame(v = c(5.1, 4.9))))
+test_that(".vue_rows: numeric columns keep their type", {
+  rows <- rows_of(.vue_rows(data.frame(v = c(5.1, 4.9))))
   expect_type(rows[[1]]$v, "double")
   expect_equal(rows[[1]]$v, 5.1)
 })
 
-test_that(".el_table_rows: factors become character", {
-  rows <- rows_of(.el_table_rows(data.frame(f = factor(c("lo", "hi")))))
+test_that(".vue_rows: factors become character", {
+  rows <- rows_of(.vue_rows(data.frame(f = factor(c("lo", "hi")))))
   expect_type(rows[[1]]$f, "character")
   expect_equal(rows[[1]]$f, "lo")
 })
 
-test_that(".el_table_rows: dots in names become underscores", {
+test_that(".vue_rows: dots in names become underscores", {
   # el-table resolves `prop` as a dotted path, so `Sepal.Length` would be
   # looked up as row$Sepal$Length and render blank.
-  rows <- rows_of(.el_table_rows(data.frame(Sepal.Length = 5.1)))
+  rows <- rows_of(.vue_rows(data.frame(Sepal.Length = 5.1)))
   expect_named(rows[[1]], "Sepal_Length")
 })
 
-test_that(".el_table_rows: a row-shaped list passes through untouched", {
+test_that(".vue_rows: a row-shaped list passes through untouched", {
   input <- list(list(a = 1), list(a = 2))
-  expect_identical(.el_table_rows(input), input)
+  expect_identical(.vue_rows(input), input)
 })
 
-test_that(".el_table_rows: empty data.frame gives an empty list", {
-  expect_length(rows_of(.el_table_rows(data.frame(a = integer(0)))), 0)
+test_that(".vue_rows: empty data.frame gives an empty list", {
+  expect_length(rows_of(.vue_rows(data.frame(a = integer(0)))), 0)
 })
 
 # ── .el_table_infer_columns ───────────────────────────────────────────────────

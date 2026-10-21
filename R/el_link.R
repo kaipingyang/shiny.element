@@ -97,7 +97,7 @@ el_link <- function(
         ))
       ),
       # An action link, as actionLink() is
-      mounted = .el_mounted_init(stats::setNames("count", ns_id)),
+      mounted = .vue_mounted_report(stats::setNames("count", ns_id)),
       type = "shiny.action",
       on = on
     ))

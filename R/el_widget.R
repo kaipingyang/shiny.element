@@ -186,7 +186,7 @@ el_widget <- function(
 
   # The field reported under the component's own id is its value, and goes
   # through the Shiny input binding. The package's components declare their
-  # reported fields with .el_mounted_init(); a component of your own, with
+  # reported fields with .vue_mounted_report(); a component of your own, with
   # `input`.
   input <- NULL
   init <- attr(mounted, "vue_report")
@@ -194,7 +194,7 @@ el_widget <- function(
     mounted <- NULL
     input <- unname(init[names(init) == id])
     rest <- init[names(init) != id]
-    if (length(rest)) mounted <- .el_mounted_init(rest)
+    if (length(rest)) mounted <- .vue_mounted_report(rest)
   }
   if (length(input_given) == 1L) {
     input <- input_given
@@ -215,7 +215,7 @@ el_widget <- function(
   ) {
     # `[<-` with a list, because `[[<-` with NULL would delete a field whose
     # default is NULL -- and Vue would then have no such field to bind
-    data[input[[1]]] <- list(.el_restore(id, data[[input[[1]]]]))
+    data[input[[1]]] <- list(.vue_restore(id, data[[input[[1]]]]))
   }
 
   # The value goes through the binding alone. A change handler that also
@@ -335,10 +335,12 @@ el_widget <- function(
   full$mounted <- mounted_given
   if (!is.null(init) && !is.null(type) && length(input)) {
     names(init)[names(init) == id] <- paste0(id, ":", type)
-    full$mounted <- .el_mounted_init(init)
+    full$mounted <- .vue_mounted_report(init)
   }
   if (length(input_given)) {
-    every <- .el_mounted_init(stats::setNames(input, id))
+    # Element's components emit `change` only on the user's action, so the
+    # value is reported on mount as a Shiny input reports it on load
+    every <- .vue_mounted_report(stats::setNames(input, id))
     full$mounted <- if (is.null(mounted_given)) {
       every
     } else {

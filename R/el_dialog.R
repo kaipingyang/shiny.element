@@ -325,7 +325,7 @@ update_el_dialog <- function(
 #' @keywords internal
 el_overlay_dependency <- function() {
   c(
-    list(.el_jquery_dependency()),
+    list(.vue_jquery_dependency()),
     .el_plus_dependencies(),
     list(htmltools::htmlDependency(
       name = "el-overlay-binding",
@@ -371,7 +371,7 @@ el_overlay_dependency <- function() {
 .el_overlay_flags <- function(values) {
   values <- values[!vapply(values, is.null, logical(1))]
   out <- lapply(values, function(v) if (is.logical(v)) isTRUE(v) else v)
-  stats::setNames(out, vapply(names(values), .el_camel_case, ""))
+  stats::setNames(out, vapply(names(values), .vue_camel, ""))
 }
 
 

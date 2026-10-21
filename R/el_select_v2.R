@@ -309,7 +309,7 @@ el_select_v2 <- function(
     )),
     # A multiple select's value is an array, one choice or several
     data = list(
-      value = .el_restore(
+      value = .vue_restore(
         ns_id,
         if (is.null(value)) {
           if (isTRUE(multiple)) list() else NA
@@ -336,7 +336,7 @@ el_select_v2 <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     width = width,
     slots = slots
   )

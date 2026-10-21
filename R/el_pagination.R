@@ -210,7 +210,7 @@ el_pagination <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames(
+    mounted = .vue_mounted_report(stats::setNames(
       c("currentPage", "pageSize"),
       paste0(ns_id, c("", "_page_size"))
     )),

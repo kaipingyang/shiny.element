@@ -125,7 +125,7 @@ el_tour <- function(
       append_to = append_to
     )),
     data = list(
-      open = isTRUE(.el_restore(ns_id, visible)),
+      open = isTRUE(.vue_restore(ns_id, visible)),
       current = if (is.null(current)) 0L else current
     ),
     methods = c(
@@ -146,7 +146,7 @@ el_tour <- function(
         ns_id
       ))
     ),
-    mounted = .el_mounted_init(stats::setNames("open", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("open", ns_id)),
     width = width,
     slots = slots
   )

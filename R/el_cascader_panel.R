@@ -142,7 +142,7 @@ el_cascader_panel <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     watch = levels,
     computed = list(elProps = .el_lazy_props(ns_id)),
     width = width,

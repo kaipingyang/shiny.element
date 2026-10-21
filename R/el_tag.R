@@ -103,7 +103,7 @@ el_tag <- function(
       ))
     ),
     # Clicks counted as an action button's are
-    mounted = .el_mounted_init(stats::setNames("count", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("count", ns_id)),
     type = "shiny.action",
     width = width,
     slots = slots,

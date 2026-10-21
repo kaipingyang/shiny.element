@@ -372,7 +372,7 @@ el_calendar <- function(
         firstDayOfWeek = JS("function() { this.reportDates(); }")
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     width = width
   )
 }
@@ -605,7 +605,7 @@ update_el_calendar <- function(
     c("calendar_id", "is_read_only", "is_visible"),
     names(x)
   )) {
-    camel <- .el_camel_case(key)
+    camel <- .vue_camel(key)
     if (!is.null(x[[camel]]) && !identical(x[[camel]], x[[key]])) {
       stop(
         "`",

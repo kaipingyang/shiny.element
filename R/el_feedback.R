@@ -501,7 +501,7 @@ el_notification_close <- function(
 .el_service_options <- function(args, skip) {
   args <- args[setdiff(names(args), skip)]
   args <- Filter(Negate(is.null), args)
-  names(args) <- vapply(names(args), .el_camel_case, "")
+  names(args) <- vapply(names(args), .vue_camel, "")
   names(args)[
     names(args) == "dangerouslyUseHtmlString"
   ] <- "dangerouslyUseHTMLString"

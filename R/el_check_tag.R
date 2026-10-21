@@ -41,7 +41,7 @@ el_check_tag <- function(
       )
     ),
     props = .el_props(list(disabled = disabled, type = type)),
-    data = list(value = isTRUE(.el_restore(ns_id, value)), text = label),
+    data = list(value = isTRUE(.vue_restore(ns_id, value)), text = label),
     methods = list(
       handleChange = JS(sprintf(
         paste0(
@@ -51,7 +51,7 @@ el_check_tag <- function(
         ns_id
       ))
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     width = width,
     on = on
   )

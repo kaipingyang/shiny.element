@@ -1,18 +1,3 @@
-#' Coerce table data to a list of rows
-#'
-#' Element Plus's `el-table` binds `:data` to an array of row objects. An R
-#' data.frame serialised as it stands comes out column-wise, `{col: [...]}`,
-#' which the component silently renders as an empty table.
-#'
-#' Column names are sanitised because `el-table-column`'s `prop` is resolved
-#' as a dotted path (`getPropByPath`), so a column literally named
-#' `Sepal.Length` would be looked up as `row$Sepal$Length` and come back empty.
-#'
-#' @param data A data.frame or an already row-shaped list.
-#' @return A list of named lists, one per row.
-#' @keywords internal
-.el_table_rows <- function(data) .vue_rows(data)
-
 #' Derive `el-table-column` configs from data
 #'
 #' @param data A data.frame or a row-shaped list.
@@ -68,7 +53,7 @@
     # nothing. Accept both, as the rest of the package does.
     snake <- grep("_", names(col), value = TRUE)
     for (key in setdiff(snake, "header_html")) {
-      col[[.el_camel_case(key)]] <- col[[key]]
+      col[[.vue_camel(key)]] <- col[[key]]
       col[[key]] <- NULL
     }
     if (!is.null(col$headerHtml)) {
@@ -454,7 +439,11 @@
 .el_table_prep <- function(data = list(), columns = list()) {
   cells <- .el_table_cells(.el_table_sanitize_columns(columns))
   list(
-    rows = .el_table_rows(data),
+    # rows, not columns: el-table binds :data to an array of row objects and
+    # draws a column-wise data.frame as an empty table; and a dot in a name
+    # becomes an underscore, as el-table-column's `prop` is a dotted path
+    # (getPropByPath) -- `Sepal.Length` would be looked up as Sepal -> Length
+    rows = .vue_rows(data),
     columns = cells$columns,
     auto = .el_table_cells(.el_table_infer_columns(data))$columns,
     cells = cells$cells,
@@ -1164,7 +1153,7 @@ el_table <- function(
       # the cell an editable column is editing: row, prop, value, old
       editing = NULL,
       # rows ticked when the app was bookmarked, ticked again once drawn
-      restoredRows = .el_restore(paste0(ns_id, "_selection_rows"), list()),
+      restoredRows = .vue_restore(paste0(ns_id, "_selection_rows"), list()),
       loading = isTRUE(loading),
       loadingAttrs = .el_loading_attrs(loading_options),
       stripe = .el_or_na(stripe),
@@ -1304,7 +1293,7 @@ el_table <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames(
+    mounted = .vue_mounted_report(stats::setNames(
       "selectedRows",
       paste0(ns_id, "_selection_rows:shiny.element.rows")
     )),
@@ -1620,7 +1609,7 @@ update_el_table <- function(
     rows <- .el_table_rownames(rows)
   }
   if (!is.null(rows)) {
-    rows <- .el_table_rows(rows)
+    rows <- .vue_rows(rows)
   }
   list(op = edit$op, rows = rows, at = if (length(at)) I(at))
 }

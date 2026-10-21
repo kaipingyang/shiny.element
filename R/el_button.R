@@ -226,7 +226,7 @@ el_button <- function(
     },
     # An action button, as actionButton() is: 0 on load, classed so that
     # observeEvent() and req() treat 0 as not yet clicked
-    mounted = .el_mounted_init(stats::setNames(
+    mounted = .vue_mounted_report(stats::setNames(
       if (isTRUE(task)) "taskValue" else "count",
       ns_id
     )),

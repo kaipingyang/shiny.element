@@ -173,7 +173,7 @@ el_collapse <- function(
 #' @keywords internal
 el_collapse_dependency <- function() {
   c(
-    list(.el_jquery_dependency()),
+    list(.vue_jquery_dependency()),
     .el_plus_dependencies(),
     list(htmltools::htmlDependency(
       name = "el-collapse-binding",

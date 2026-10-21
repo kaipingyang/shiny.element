@@ -335,7 +335,7 @@ el_date_picker <- function(
         handleChange = JS("function() {}")
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     type = if (
       type %in%
         c("date", "dates", "daterange") &&

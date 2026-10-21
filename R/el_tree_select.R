@@ -107,7 +107,7 @@ el_tree_select <- function(
     events,
     on = on
   )
-  value <- .el_restore(
+  value <- .vue_restore(
     ns_id,
     if (is.null(value)) {
       if (isTRUE(multiple)) list() else NA
@@ -173,7 +173,7 @@ el_tree_select <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames("value", ns_id)),
+    mounted = .vue_mounted_report(stats::setNames("value", ns_id)),
     width = width,
     slots = slots
   )

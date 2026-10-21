@@ -361,7 +361,7 @@ el_tree <- function(
         ))
       )
     ),
-    mounted = .el_mounted_init(stats::setNames(
+    mounted = .vue_mounted_report(stats::setNames(
       c("current", "checked"),
       paste0(ns_id, c("", "_checked"))
     )),
@@ -564,7 +564,7 @@ df_to_tree_data <- function(df, cols, sep = "/") {
   }
   names(props) <- vapply(
     names(props),
-    .el_camel_case,
+    .vue_camel,
     character(1),
     USE.NAMES = FALSE
   )

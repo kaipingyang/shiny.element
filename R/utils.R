@@ -1,15 +1,3 @@
-#' Turn a snake_case name into camelCase
-#'
-#' Arguments are snake_case throughout this package, while Vue reads its props
-#' in camelCase. Where a user writes the name themselves -- a key in a column
-#' definition, say -- both spellings have to work, or the snake_case one sits
-#' in the object doing nothing.
-#'
-#' @param x A name.
-#' @return The same name in camelCase.
-#' @keywords internal
-.el_camel_case <- function(x) .vue_camel(x)
-
 #' Forward Element Plus events to Shiny inputs
 #'
 #' The component's entry in [el_events()] -- the events on by default, and
@@ -123,24 +111,6 @@
   session$ns(id)
 }
 
-#' Build a Vue `mounted` hook that reports initial values to Shiny
-#'
-#' Element Plus components only emit `@change` on user interaction, and Vue
-#' `watch` handlers do not fire on mount. Without this hook the corresponding
-#' `input$<id>` stays `NULL` until the user first touches the component, unlike
-#' standard Shiny inputs which report their value immediately.
-#'
-#' The send is deferred until `shiny:connected` when the socket is not up yet:
-#' a component on a static page, or one mounted before Shiny connects, would
-#' otherwise call `Shiny.setInputValue()` into nothing.
-#'
-#' @param bindings Named character vector. Names are fully namespaced Shiny
-#'   input ids, values are Vue data field names read off the instance, e.g.
-#'   `c(my_slider = "value")`.
-#' @return A [JS()] function, the Vue `mounted` option.
-#' @keywords internal
-.el_mounted_init <- function(bindings) .vue_mounted_report(bindings)
-
 #' Normalise `choices` into option configs
 #'
 #' Accepts a named vector (`c(Label = value)`), an unnamed vector, or a list
@@ -242,19 +212,6 @@
 }
 
 
-#' jQuery, for the package's scripts
-#'
-#' Every handler and binding script is written against jQuery, which a Shiny
-#' page always has. A page without Shiny -- R Markdown, Quarto, the package's
-#' own website -- may not, and the scripts stopped at their first line. The
-#' dependency is jquerylib's, under the name Shiny's own uses, so a Shiny page
-#' still loads one copy, the newer.
-#'
-#' @return An htmlDependency object.
-#' @keywords internal
-.el_jquery_dependency <- function() .vue_jquery_dependency()
-
-
 #' Vue, as bundled with the package
 #'
 #' Vue 3, the global build with the template compiler, from `inst/vue3`:
@@ -311,20 +268,6 @@
 .el_plus_dependencies <- function() {
   c(list(.el_vue_dependency()), element_plus_dependency())
 }
-
-
-#' A value as a bookmarked session left it
-#'
-#' [shiny::restoreInput()], keeping the shape the component expects: a field
-#' that is an array stays one, so a restored one-item selection is not unboxed
-#' to a string, and an empty selection comes back as an empty array rather
-#' than `NULL`.
-#'
-#' @param id The input id, namespaced as the page has it.
-#' @param default The value to use when nothing is being restored.
-#' @return The restored value, or `default`.
-#' @keywords internal
-.el_restore <- function(id, default) .vue_restore(id, default)
 
 
 #' Send an update to a component
@@ -514,7 +457,7 @@
   hit <- upstream %in% names(rename)
   upstream[hit] <- gsub("-", "_", rename[upstream[hit]])
   names(values) <- upstream
-  camel <- vapply(names(values), .el_camel_case, "")
+  camel <- vapply(names(values), .vue_camel, "")
   # A wrapper that absorbs a trigger keeps its fields apart from the
   # trigger's own: tipPlacement, not placement
   if (!is.null(prefix)) {
@@ -718,7 +661,7 @@
     )
   }
   .el_check_choices(fn, list2env(dots[!vapply(dots, is.null, TRUE)]))
-  fields <- vapply(nms, .el_camel_case, "")
+  fields <- vapply(nms, .vue_camel, "")
   hit <- nms %in% names(rename)
   fields[hit] <- rename[nms[hit]]
   stats::setNames(.el_prop_values(dots), fields)
