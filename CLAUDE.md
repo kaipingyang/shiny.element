@@ -57,8 +57,19 @@ library and is to become the shiny.vue package: `vue_app()`,
 runs it with no Element Plus on the page. The **Element layer** (`R/el_*.R`,
 `inst/js/el-*.js`) is built on it: `el_widget()` builds through `.vue_host()`
 with `use = "shinyElement.plugin"` (Element Plus, its icons, `$elRef`,
-`$elDate`), and the `.el_*` helpers delegate to the `.vue_*` ones. Design
-record: `.claude/plans/vue-layer-2026-10-04.md`.
+`$elDate`). Design record: `.claude/plans/vue-layer-2026-10-04.md`.
+
+**Calling the Vue layer.** Element code calls a `.vue_*` helper directly;
+an `.el_*` helper exists only where the Element layer adds something of
+its own (Element's names, its plugin, its defaults), never as a one-line
+forwarder or a copy -- one job, one function. A forwarder also breaks
+helpers that name their caller (`.vue_check_session()` reads
+`sys.call(-1)` for its message). When the Vue layer becomes shiny.vue,
+the helpers the Element layer uses are exported there as its API for
+library authors (as htmlwidgets exports `createWidget()`), not reached
+with `:::`. A helper moved between layers moves with every caller in the
+same commit: no name is left behind for compatibility -- internal
+helpers are not an API.
 
 ### Two kinds of component
 
