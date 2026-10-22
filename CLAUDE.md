@@ -391,6 +391,27 @@ reviewer's request ends a submission, and the fix goes in a new one
 (`devtools::submit_cran()`, then the confirmation link in the
 maintainer's mail -- the submission counts only once that is done).
 
+A version is closed once CRAN accepts it: a submission sent back by a
+reviewer is fixed and resubmitted under the same version, with a
+"Resubmission" section at the top of `cran-comments.md` answering each
+point, and its tag moved to the fixed commit.
+
+Checking locally (`R CMD check --as-cran`, `R CMD Rd2pdf`): TinyTeX here is
+read-only (`/opt/.TinyTeX`), so TeX cannot make the bitmap font the manual
+needs and the PDF fails with `Font tctt0900 at 600 not found` -- the
+machine, not the Rd. Always give it a writable font cache, recreated each
+time as `/tmp` is cleaned:
+
+```bash
+mkdir -p /tmp/eco/texmfvar
+TEXMFVAR=/tmp/eco/texmfvar R CMD check --as-cran shiny.element_X.Y.Z.tar.gz
+```
+
+The other local notes are the container's: no HTML `tidy`, the clock
+unverifiable, and an installed size counted larger on overlayfs than on
+tmpfs. Build from a clean tree: a worktree's `.git` file and a stray
+`Rplots.pdf` go into the tarball (`.Rbuildignore` has `^\.git$`).
+
 ## Lessons and gotchas
 
 `.claude/docs/lessons.md` records what was learned the hard way: architectural
