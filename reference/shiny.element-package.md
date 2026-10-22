@@ -1,8 +1,8 @@
-# shiny.element: 'Element Plus' Components for 'Shiny'
+# shiny.element: 'Element Plus' Components for 'shiny'
 
-'Element Plus' ('Vue' 3) components for 'Shiny': forms, tables, trees,
+'Element Plus' ('Vue' 3) components for 'shiny': forms, tables, trees,
 menus, dialog boxes and the rest, each reporting to the server and
-updated from it like any other 'Shiny' input. 'Element Plus' and 'Vue'
+updated from it like any other 'shiny' input. 'Element Plus' and 'Vue'
 are bundled, so applications work offline.
 
 ## See also

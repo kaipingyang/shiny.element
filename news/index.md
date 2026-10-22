@@ -75,6 +75,11 @@ A smaller package, ready for CRAN, and the fixes and additions since
   [`vue_app()`](https://kaipingyang.github.io/shiny.element/reference/vue_app.md)
   to the browser and back, and the Element layer on top of it – its
   kinds of component, the events registry, updates and containers.
+- Examples put back what they change: the sales dashboard restores
+  [`par()`](https://rdrr.io/r/graphics/par.html) after its plot, and
+  [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/reference/el_locale_dependency.md)‘s
+  example the [`options()`](https://rdrr.io/r/base/options.html) it
+  sets. The title and description write ’shiny’ as the package is named.
 
 ## shiny.element 0.3.0
 
