@@ -36,6 +36,8 @@ el_page(el_select("city", choices = c("Beijing", "Shanghai")))
 # Anything Element Plus ships
 el_page(locale = "ja", el_select("city", choices = c("Beijing", "Shanghai")))
 
-# Or set it for the whole session
-options(shiny.element.locale = "zh-cn")
+# Or set it for the whole session, here undone afterwards
+old <- options(shiny.element.locale = "zh-cn")
+el_page(el_select("city", choices = c("Beijing", "Shanghai")))
+options(old)
 }

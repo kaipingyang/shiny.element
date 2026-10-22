@@ -1,3 +1,16 @@
+## Resubmission
+
+This is a resubmission. In response to the review:
+
+* Package names in the Title and Description are in single quotes with
+  their exact case: 'shiny' (was 'Shiny').
+* inst/examples/dashboards/sales/app.R restores the user's par() after
+  its plot, with `oldpar <- par(...)` and `on.exit(par(oldpar))`. The same
+  search found the example of `el_locale_dependency()` setting `options()`
+  without resetting them; it now does `old <- options(...)` and
+  `options(old)`. No other example, vignette or demo changes `par()`,
+  `options()` or the working directory without restoring them.
+
 ## Test environments
 
 * local Linux (container), R 4.4.3: `R CMD check --as-cran`, vignettes
