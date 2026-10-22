@@ -1,5 +1,5 @@
 Package: shiny.element
-Title: 'Element Plus' Components for 'Shiny'
+Title: 'Element Plus' Components for 'shiny'
 Version: 0.3.1.9000
 Authors@R: c(
     person("Kaiping Yang", role = c("aut", "cre"), email = "1260146556@qq.com"),
@@ -8,9 +8,9 @@ Authors@R: c(
     person("Evan You", role = c("ctb", "cph"),
            comment = "Vue library bundled in inst/vue3, MIT licence")
   )
-Description: 'Element Plus' ('Vue' 3) components for 'Shiny': forms, tables,
+Description: 'Element Plus' ('Vue' 3) components for 'shiny': forms, tables,
     trees, menus, dialog boxes and the rest, each reporting to the server and
-    updated from it like any other 'Shiny' input. 'Element Plus' and 'Vue'
+    updated from it like any other 'shiny' input. 'Element Plus' and 'Vue'
     are bundled, so applications work offline.
 License: MIT + file LICENSE
 Encoding: UTF-8

@@ -180,12 +180,13 @@ server <- function(input, output, session) {
       unique(sort(d$month)),
       "%b"
     )]
-    par(
+    oldpar <- par(
       mar = c(3, 4, 1, 1),
       family = "sans",
       col.axis = "#606266",
       fg = "#dcdfe6"
     )
+    on.exit(par(oldpar), add = TRUE)
     barplot(
       by_month / 1000,
       col = "#409EFF",

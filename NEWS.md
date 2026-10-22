@@ -81,6 +81,9 @@ A smaller package, ready for CRAN, and the fixes and additions since
 * An "Architecture" article draws the two layers: the Vue layer, from
   `vue_app()` to the browser and back, and the Element layer on top of it --
   its kinds of component, the events registry, updates and containers.
+* Examples put back what they change: the sales dashboard restores `par()`
+  after its plot, and `el_locale_dependency()`'s example the `options()` it
+  sets. The title and description write 'shiny' as the package is named.
 
 # shiny.element 0.3.0
 

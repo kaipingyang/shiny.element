@@ -5,6 +5,7 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^\.git$
 ^CLAUDE\.md$
 ^\.claude$
 ^tools$
