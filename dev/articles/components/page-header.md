@@ -1,0 +1,240 @@
+# Page
+
+If path of the page is simple, it is recommended to use PageHeader
+instead of the Breadcrumb.
+
+## Complete example
+
+Back is `input$<id>_back`.
+
+``` r
+
+avatar <- "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+tags$div(
+  `aria-label` = "A complete example of page header",
+  el_page_header(
+    "ph_full",
+    slots = list(
+      breadcrumb = el_breadcrumb(
+        "ph_crumbs",
+        separator = "/",
+        items = list(
+          list(label = "homepage", to = "./page-header.html"),
+          list(label = "route 1"),
+          list(label = "route 2")
+        )
+      ),
+      content = tags$div(
+        style = "display: flex; align-items: center",
+        el_avatar(size = 32, src = avatar, style = "margin-right: 12px"),
+        tags$span(
+          style = "margin-right: 12px; font-size: 18px; font-weight: 600",
+          "Title"
+        ),
+        tags$span(
+          style = "margin-right: 8px; font-size: 14px; color: var(--el-text-color-regular)",
+          "Sub title"
+        ),
+        el_tag(label = "Default")
+      ),
+      extra = tags$div(
+        style = "display: flex; align-items: center; gap: 8px",
+        el_button(label = "Print"),
+        el_button(label = "Edit", type = "primary")
+      ),
+      default = tagList(
+        tags$div(
+          style = "margin-top: 16px",
+          el_descriptions(
+            column = 3,
+            size = "small",
+            items = list(
+              el_descriptions_item("Username", "kooriookami"),
+              el_descriptions_item("Telephone", "18100000000"),
+              el_descriptions_item("Place", "Suzhou"),
+              el_descriptions_item(
+                "Remarks",
+                el_tag(label = "School", size = "small")
+              ),
+              el_descriptions_item(
+                "Address",
+                "No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province"
+              )
+            )
+          )
+        ),
+        tags$p(
+          style = "margin-top: 16px; font-size: 14px",
+          "Element Plus team uses ",
+          tags$b("weekly"),
+          " release strategy under normal circumstance, but critical bug",
+          " fixes would require hotfix so the actual release number ",
+          tags$b("could be"),
+          " more than 1 per week."
+        )
+      )
+    )
+  )
+)
+```
+
+## Basic usage
+
+Standard page header, for simply scenarios.
+
+``` r
+
+el_page_header(
+  "ph_basic",
+  slots = list(content = tags$span(style = "font-weight: 600", "Title"))
+)
+```
+
+## Custom icon
+
+The default icon might not meet your satisfaction, you can customize the
+icon by setting `icon` attribute like the example.
+
+``` r
+
+el_page_header(
+  "ph_icon",
+  icon = "ArrowLeft",
+  slots = list(content = tags$span(style = "font-weight: 600", "Title"))
+)
+```
+
+## No icon
+
+Sometimes the page is just full of elements, and you might not want the
+icon to show up on the page, you can set the `icon` attribute to `""` to
+get rid of it.
+
+``` r
+
+el_page_header(
+  "ph_noicon",
+  icon = "",
+  slots = list(content = tags$span(style = "font-weight: 600", "Title"))
+)
+```
+
+## Breadcrumbs
+
+Page header allows you to add breadcrumbs for giving route information
+to the users by `breadcrumb` slot.
+
+``` r
+
+el_page_header(
+  "ph_bc",
+  slots = list(
+    breadcrumb = el_breadcrumb(
+      "ph_bc_crumbs",
+      items = list(
+        list(label = "homepage", to = "./page-header.html"),
+        list(label = "route 1"),
+        list(label = "route 2")
+      )
+    ),
+    content = tags$span(style = "font-weight: 600", "Title")
+  )
+)
+```
+
+## Additional operation section
+
+The header can be as complicated as needed, you may add additional
+sections to the header, to allow rich interactions.
+
+``` r
+
+el_page_header(
+  "ph_extra",
+  icon = "",
+  slots = list(
+    content = tags$div(
+      style = "display: flex; align-items: center",
+      el_avatar(
+        size = 32,
+        src = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+        style = "margin-right: 12px"
+      ),
+      tags$span(
+        style = "margin-right: 12px; font-size: 18px; font-weight: 600",
+        "Title"
+      ),
+      tags$span(
+        style = "margin-right: 8px; font-size: 14px; color: var(--el-text-color-regular)",
+        "Sub title"
+      ),
+      el_tag(label = "Default")
+    ),
+    extra = tags$div(
+      style = "display: flex; align-items: center; gap: 8px",
+      el_button(label = "Print"),
+      el_button(label = "Edit", type = "primary")
+    )
+  )
+)
+```
+
+## Main content
+
+Sometimes we want the head to show with some co-responding content, we
+can utilize the `default` slot for doing so.
+
+``` r
+
+el_page_header(
+  "ph_main",
+  slots = list(
+    content = tags$span(style = "font-weight: 600", "Title"),
+    default = tags$div(
+      style = "margin-top: 16px; font-size: 13px; font-weight: bold",
+      "Your additional content can be added with default slot, You may put as many content as you want here."
+    )
+  )
+)
+```
+
+## Anatomy
+
+The component is consisted of these parts
+
+## API
+
+Element Plus’s tables, and beside each entry where it is in R.
+
+### Attributes
+
+| Element | In R | Description | Type | Accepted | Default |
+|----|----|----|----|----|----|
+| `icon` | `icon` | icon component of page header | [^1] / [^2] |  | Back |
+| `title` | `title` | main title of page header, default is Back that built-in a11y | [^3] |  | ’’ |
+| `content` | `content` | content of page header | [^4] |  | ’’ |
+
+### Events
+
+| Element | In R              | Description                         |
+|---------|-------------------|-------------------------------------|
+| `back`  | `input$<id>_back` | triggers when right side is clicked |
+
+### Slots
+
+| Element      | In R                          | Description           |
+|--------------|-------------------------------|-----------------------|
+| `icon`       | `slots = list(icon = )`       | content as icon       |
+| `title`      | `slots = list(title = )`      | content as title      |
+| `content`    | `slots = list(content = )`    | content               |
+| `extra`      | `slots = list(extra = )`      | extra                 |
+| `breadcrumb` | `slots = list(breadcrumb = )` | content as breadcrumb |
+| `default`    | default content               | main content          |
+
+[^1]: string
+
+[^2]: Component
+
+[^3]: string
+
+[^4]: string

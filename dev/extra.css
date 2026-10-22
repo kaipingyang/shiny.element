@@ -1,0 +1,173 @@
+@import url("el-vars.css");
+
+/* element-plus.org, as far as pkgdown's layout allows: a white header with a
+ * hairline rule, Element Plus's greys for text, its blue for links, code in
+ * a pale bordered panel, and tables ruled like el-table. The colours are
+ * Element Plus's own CSS variables, from el-vars.css. */
+
+:root {
+  --el-blue: var(--el-color-primary);
+  --el-text-strong: var(--el-text-color-primary);
+  --el-text: var(--el-text-color-regular);
+  --el-text-weak: var(--el-text-color-secondary);
+  --el-border: var(--el-border-color-lighter);
+  --el-border-strong: var(--el-border-color);
+  --el-panel: var(--el-fill-color-light);
+}
+
+/* ── header ─────────────────────────────────────────────────────────────── */
+.navbar {
+  background: #fff !important;
+  border-bottom: 1px solid var(--el-border-strong);
+  box-shadow: none;
+}
+.navbar-brand { font-size: 1.35rem; color: var(--el-text-strong) !important; }
+.navbar .nav-link { font-size: 15px; position: relative; background: none !important; }
+.navbar .nav-item.active > .nav-link,
+.navbar .nav-link.active { color: var(--el-blue) !important; }
+/* Element marks the current section with a bar under it */
+.navbar .nav-item.active > .nav-link::after {
+  content: ""; position: absolute; left: 0.5rem; right: 0.5rem; bottom: -1rem;
+  height: 2px; background: var(--el-blue);
+}
+.navbar .version, .navbar .label { color: var(--el-text-weak) !important; background: none; }
+.dropdown-menu { border-color: var(--el-border); box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1); }
+.dropdown-item:hover, .dropdown-item:focus { color: var(--el-blue); background: var(--el-color-primary-light-9); }
+
+/* ── type ───────────────────────────────────────────────────────────────── */
+body { line-height: 1.7; }
+main h1 { font-size: 28px; margin: 40px 0 20px; }
+main h2 { font-size: 22px; margin: 45px 0 15px; }
+main h3 { font-size: 18px; margin: 30px 0 12px; }
+main h1, main h2, main h3, main h4 { color: var(--el-text-strong); font-weight: 600; }
+.page-header { border-bottom: none; }
+a { text-decoration: none; }
+a:hover { color: var(--el-color-primary-light-3); }
+
+/* ── code ───────────────────────────────────────────────────────────────── */
+pre, div.sourceCode pre {
+  background: var(--el-panel);
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: 4px;
+  color: var(--el-text);
+  font-size: 12px;
+  line-height: 1.8;
+  padding: 18px 24px;
+}
+code { color: var(--el-text); }
+p code, li code, td code {
+  background: var(--el-fill-color-lighter);
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 0.9em;
+}
+a code, a > code { color: var(--el-blue); }
+
+/* ── tables, as el-table rules them ─────────────────────────────────────── */
+main table:not(.sourceCode):not(.el-demo table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 14px 0 24px;
+  font-size: 14px;
+}
+main table:not(.sourceCode):not(.el-demo table) th {
+  color: var(--el-text-weak);
+  font-weight: 400;
+  text-align: left;
+  border-bottom: 1px solid var(--el-border-strong);
+  padding: 12px 10px;
+  white-space: nowrap;
+}
+main table:not(.sourceCode):not(.el-demo table) td {
+  border-bottom: 1px solid var(--el-border);
+  padding: 12px 10px;
+}
+
+/* ── the screenshots under each example: a demo block ──────────────────── */
+main p > img[src*="shots/"], main img[src*="shots/"] {
+  border: 1px solid var(--el-border);
+  border-radius: 4px;
+  padding: 0;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .04);
+}
+
+/* ── sidebar and reference index ───────────────────────────────────────── */
+#toc .nav-link, nav#toc .nav-link { color: var(--el-text); }
+#toc .nav-link.active { color: var(--el-blue); border-left-color: var(--el-blue); }
+.ref-index h2, .template-reference-index h2 { font-size: 18px; }
+footer { border-top: 1px solid var(--el-border); color: var(--el-text-weak); }
+
+/* pkgdown makes linked code inherit the text colour; Element's docs show
+ * every link blue, code included */
+code a:any-link, dt code a, a > code { color: var(--el-blue) !important; }
+nav#toc .nav-link.active, #toc .nav-link.active {
+  background: none !important; color: var(--el-blue) !important; font-weight: 400;
+}
+
+/* ── live examples, framed as Element's demo blocks are ─────────────────── */
+.el-demo {
+  border: 1px solid var(--el-border);
+  border-radius: 4px;
+  padding: 24px;
+  margin: 0 0 24px;
+  background: #fff;
+  display: flow-root;
+}
+/* The article's table rules above skip components, and pkgdown's -- every
+ * table in main a scrolling block -- is undone: a component's tables lay
+ * out as Element draws them. Resetting widths, borders and padding here
+ * instead overrode Element's own rules (el-calendar's columns sized to
+ * their content, its borders gone). */
+.el-demo table { display: revert; overflow: revert; }
+.el-demo p { margin: 0 0 8px; }
+
+/* ── the components overview, as element-plus.org's ─────────────────────── */
+.ov-search { position: sticky; top: 70px; z-index: 10; margin: 8px 0 0; }
+.ov-search input {
+  width: 100%; height: 40px; padding: 0 15px; font-size: 14px;
+  border: 1px solid var(--el-border-color); border-radius: 4px;
+  background: var(--el-bg-color, #fff); color: var(--el-text-color-regular); outline: none;
+}
+.ov-search input:focus { border-color: var(--el-color-primary); }
+.ov-group { margin-top: 32px; }
+.ov-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 20px; font-weight: 600; color: var(--el-text-color-primary);
+}
+.ov-count {
+  display: inline-block; min-width: 20px; padding: 0 7px; border-radius: 10px;
+  font-size: 12px; line-height: 20px; text-align: center; font-weight: 400;
+  color: #fff; background: var(--el-color-primary);
+}
+.ov-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.ov-card {
+  display: block; border: 1px solid var(--el-border-color-light); border-radius: 4px;
+  overflow: hidden; background: var(--el-bg-color, #fff); color: inherit;
+}
+.ov-card:hover { box-shadow: var(--el-box-shadow-light); }
+.ov-card-head {
+  padding: 8px 12px; border-bottom: 1px solid var(--el-border-color-light);
+  font-size: 14px; font-weight: 500; color: var(--el-text-color-regular); line-height: 24px;
+}
+.ov-card-body { display: flex; justify-content: center; align-items: center; aspect-ratio: 280 / 180; }
+.ov-card-body svg { width: 100%; height: 100%; }
+.ov-credit { margin-top: 32px; color: var(--el-text-color-secondary); font-size: 13px; }
+
+/* The carousel examples' slides, as upstream's demos style them. Not
+   headings: pkgdown's table of contents takes every h2-h6 on the page, and
+   a slide's "1" became an entry and a selector it could not parse. */
+.el-carousel__item .demo-slide {
+  color: #475669;
+  opacity: 0.75;
+  font-size: 18px;
+  line-height: 150px;
+  margin: 0;
+  text-align: center;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}

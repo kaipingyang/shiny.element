@@ -1,0 +1,158 @@
+# Element Plus Alert
+
+An inline alert banner with optional close button. Fires a Shiny input
+when the user closes it.
+
+## Usage
+
+``` r
+el_alert(
+  id = NULL,
+  title = "",
+  description = NULL,
+  type = "info",
+  closable = TRUE,
+  close_text = "",
+  show_icon = FALSE,
+  center = FALSE,
+  effect = "light",
+  width = NULL,
+  slots = NULL,
+  on = NULL,
+  session = NULL
+)
+
+update_el_alert(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  title = NULL,
+  type = NULL,
+  description = NULL,
+  closable = NULL,
+  close_text = NULL,
+  show_icon = NULL,
+  center = NULL,
+  effect = NULL
+)
+```
+
+## Arguments
+
+- id:
+
+  Alert ID. Auto-generated UUID if `NULL`.
+
+- title:
+
+  Main alert title text.
+
+- description:
+
+  Optional secondary description text. When supplied, the icon is
+  rendered at the larger size.
+
+- type:
+
+  Alert type: `"info"` (default), `"success"`, `"warning"`, `"error"`.
+
+- closable:
+
+  Whether to show a close button. Default `TRUE`.
+
+- close_text:
+
+  Custom text for the close button. `""` for the default cross.
+
+- show_icon:
+
+  Whether to display the type icon. Default `FALSE`.
+
+- center:
+
+  Whether to centre the content. Default `FALSE`.
+
+- effect:
+
+  Visual effect: `"light"` (default) or `"dark"`.
+
+- width:
+
+  Component width, as a CSS unit – `"200px"`, `"50%"`, or a number taken
+  as pixels. Element's own markup carries it, so it behaves like the
+  `width` argument of a Shiny input.
+
+- slots:
+
+  Named list of Element slot contents, such as
+  `list(title = shiny::tags$b("Bold"))`. A shiny.element component given
+  here is absorbed rather than nested. For a scoped slot, write the
+  template with
+  [`template()`](https://kaipingyang.github.io/shiny.element/dev/reference/template.md).
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md).
+
+- session:
+
+  In `el_alert()`, deprecated: inside a module, wrap `id` in `ns()`, as
+  for any Shiny input; a session given here namespaces `id` once more,
+  with a warning. In `update_el_alert()`, the Shiny session, the current
+  one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
+## Value
+
+An `htmltools` tagList with a Vue-managed alert component.
+
+## Shiny inputs
+
+|                    |          |                                      |
+|--------------------|----------|--------------------------------------|
+| Input              | Reported | Value                                |
+| `input$<id>_close` | unasked  | fires when the user closes the alert |
+
+The same list as `el_events("el_alert")`, which says how an event's
+arguments travel.
+
+## Updating from the server
+
+Server-side update for `el_alert()`.
+
+Every other argument of `el_alert()` that can change once it is drawn is
+an argument here too, under the same name. One left `NULL` stays as it
+is; `NA` returns it to Element's default.
+
+`update_el_alert()` is called for its side effect and returns `NULL`
+invisibly.
+
+## Examples
+
+``` r
+el_alert("al1", "Operation successful", type = "success", show_icon = TRUE)
+#> <div id="al1" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="al1_container" style="display: contents">
+#>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Operation successful","type":"success","closable":true,"closeText":"","showIcon":true,"center":false,"effect":"light","description":null},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al1_close', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClose"]}</script>
+#> </div>
+el_alert("al2", "Warning!", description = "Please review.", type = "warning")
+#> <div id="al2" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="al2_container" style="display: contents">
+#>   <el-alert :title="title" :type="type" :closable="closable" :close-text="closeText" :show-icon="showIcon" :center="center" :effect="effect" @close="handleClose" :description="description === null ? undefined : description"></el-alert>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"title":"Warning!","type":"warning","closable":true,"closeText":"","showIcon":false,"center":false,"effect":"light","description":"Please review."},"methods":{"handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('al2_close', 1, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClose"]}</script>
+#> </div>
+if (interactive()) {
+  # inside a server function
+  observeEvent(input$go, {
+    update_el_alert(session, "hint", title = "Saved", type = "success")
+  })
+}
+```

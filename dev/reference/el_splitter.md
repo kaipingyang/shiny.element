@@ -1,0 +1,123 @@
+# Element Plus Splitter
+
+Panels side by side, or one above the other, resized by dragging the
+bars between them. Give it
+[`el_splitter_panel()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_splitter_panel.md)s.
+
+## Usage
+
+``` r
+el_splitter(
+  ...,
+  id = NULL,
+  layout = NULL,
+  lazy = NULL,
+  width = NULL,
+  slots = NULL,
+  events = NULL,
+  on = NULL
+)
+
+update_el_splitter(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  layout = NULL,
+  lazy = NULL
+)
+```
+
+## Arguments
+
+- ...:
+
+  Its content: any Shiny UI. Components of this package are folded into
+  this one's Vue instance, as
+  [`el_button_group()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_button_group.md)
+  folds its buttons.
+
+- id:
+
+  Component ID. Auto-generated if `NULL`.
+
+- layout:
+
+  Layout direction of the splitter. Element Plus's `layout`
+  ('horizontal' \| 'vertical').
+
+- lazy:
+
+  Whether to enable lazy mode. Element Plus's `lazy` (boolean).
+
+- width:
+
+  Component width, as a CSS unit.
+
+- slots:
+
+  Named list of Element slot contents. A scoped slot is written with
+  [`template()`](https://kaipingyang.github.io/shiny.element/dev/reference/template.md).
+
+- events:
+
+  Element's events to report besides those reported unasked, by name:
+  `events = "node_drop"` reports `input$<id>_node_drop`. The component's
+  are listed under "Shiny inputs", and by
+  [`el_events()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_events.md);
+  a name it does not have is an error.
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md).
+
+- session:
+
+  Shiny session; the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
+## Value
+
+A Shiny UI element.
+
+## Shiny inputs
+
+|  |  |  |
+|----|----|----|
+| Input | Reported | Value |
+| `input$<id>_resize_start` | `events = "resize_start"` | Triggered when starting to resize a panel, index is the drag bar index |
+| `input$<id>_resize` | `events = "resize"` | the sizes, at most every 200 ms |
+| `input$<id>_resize_end` | unasked | Triggered when panel resizing ends, index is the drag bar index |
+| `input$<id>_collapse` | unasked | Triggered when a panel is collapsed, index is the drag bar index |
+
+The same list as `el_events("el_splitter")`, which says how an event's
+arguments travel.
+
+## Updating from the server
+
+`update_el_splitter()` changes the component from the server: every
+argument of `el_splitter()` that can change once it is drawn, under the
+same name. One left `NULL` stays as it is; `NA` returns it to Element's
+default.
+
+`update_el_splitter()` is called for its side effect and returns `NULL`
+invisibly.
+
+## Examples
+
+``` r
+el_splitter(el_splitter_panel("Left", size = "30%"), el_splitter_panel("Right"))
+#> <div id="el_splitter_151bf3ec-269b-4238-bdd2-6306bba1bf71" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_splitter_151bf3ec-269b-4238-bdd2-6306bba1bf71_container" style="display: contents">
+#>   <el-splitter :layout="layout === null ? undefined : layout" :lazy="lazy === null ? undefined : lazy" @resize-end="svEmitResizeEnd" @collapse="svEmitCollapse">
+#>     <el-splitter-panel :size="size === null ? undefined : size" :min="min === null ? undefined : min" :max="max === null ? undefined : max" :resizable="resizable === null ? undefined : resizable" :collapsible="collapsible === null ? undefined : collapsible" ref="sv_el_splitter_panel_b9cea505_db26_449e_9456_0567c3bdd34e" id="el_splitter_panel_b9cea505-db26-449e-9456-0567c3bdd34e">Left</el-splitter-panel>
+#>     <el-splitter-panel :size="el3_size === null ? undefined : el3_size" :min="el3_min === null ? undefined : el3_min" :max="el3_max === null ? undefined : el3_max" :resizable="el3_resizable === null ? undefined : el3_resizable" :collapsible="el3_collapsible === null ? undefined : el3_collapsible" ref="sv_el_splitter_panel_6537dce5_d1c4_42a8_89bc_6841d70e8871" id="el_splitter_panel_6537dce5-d1c4-42a8-89bc-6841d70e8871">Right</el-splitter-panel>
+#>   </el-splitter>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"layout":null,"lazy":null,"size":"30%","min":null,"max":null,"resizable":null,"collapsible":null,"el3_size":null,"el3_min":null,"el3_max":null,"el3_resizable":null,"el3_collapsible":null},"methods":{"svEmitResizeEnd":"function() { window.shinyVue.emit('el_splitter_151bf3ec-269b-4238-bdd2-6306bba1bf71', 'resize_end', arguments); }","svEmitCollapse":"function() { window.shinyVue.emit('el_splitter_151bf3ec-269b-4238-bdd2-6306bba1bf71', 'collapse', arguments); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"absorbed":{"el_splitter_panel_b9cea505-db26-449e-9456-0567c3bdd34e":{"fields":{"size":"size","min":"min","max":"max","resizable":"resizable","collapsible":"collapsible"},"ref":"sv_el_splitter_panel_b9cea505_db26_449e_9456_0567c3bdd34e"},"el_splitter_panel_6537dce5-d1c4-42a8-89bc-6841d70e8871":{"fields":{"size":"el3_size","min":"el3_min","max":"el3_max","resizable":"el3_resizable","collapsible":"el3_collapsible"},"ref":"sv_el_splitter_panel_6537dce5_d1c4_42a8_89bc_6841d70e8871"}},"generated":true,"evals":["options.methods.svEmitResizeEnd","options.methods.svEmitCollapse"]}</script>
+#> </div>
+```

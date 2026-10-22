@@ -1,0 +1,153 @@
+# Element Plus Skeleton
+
+Grey placeholder shapes shown while content is on its way, then the
+content itself. In Shiny the usual pattern is to start with
+`loading = TRUE` and switch it off from the server once the work is
+done.
+
+## Usage
+
+``` r
+el_skeleton(
+  id = NULL,
+  ...,
+  loading = TRUE,
+  rows = NULL,
+  animated = NULL,
+  count = NULL,
+  throttle = NULL,
+  width = NULL,
+  class = NULL,
+  style = NULL,
+  slots = NULL,
+  on = NULL,
+  session = NULL
+)
+
+update_el_skeleton(
+  session = shiny::getDefaultReactiveDomain(),
+  id,
+  loading = NULL,
+  rows = NULL,
+  animated = NULL,
+  count = NULL
+)
+```
+
+## Arguments
+
+- id:
+
+  Component ID. Auto-generated if `NULL`.
+
+- ...:
+
+  The real content, shown once `loading` is `FALSE`. A shiny.element
+  component here is absorbed, not nested.
+
+- loading:
+
+  Whether to show the placeholder. Default `TRUE`.
+
+- rows:
+
+  Number of placeholder lines. Default `3`.
+
+- animated:
+
+  Whether the placeholder shimmers.
+
+- count:
+
+  How many copies of the placeholder to show.
+
+- throttle:
+
+  Delay in milliseconds before the placeholder appears, so a fast load
+  does not flash it.
+
+- width:
+
+  Component width, as a CSS unit.
+
+- class, style:
+
+  Extra classes and inline style on the skeleton, as Element passes them
+  to its root: `style = "display: flex; gap: 8px"` lays several copies
+  of the placeholder side by side.
+
+- slots:
+
+  Named list of Element slot contents. `template` replaces the
+  placeholder's shape; build it from
+  [`el_skeleton_item()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_skeleton_item.md).
+
+- on:
+
+  Handlers of your own, for an event not reported or to send something
+  else: a named list of
+  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+  functions, one per event – Element's, or a DOM event with Vue's
+  modifiers (`"keyup.enter"`). Each is called with `report` and the
+  event's arguments; `report(name, value)` sets `input$<id>_<name>`. See
+  [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md).
+
+- session:
+
+  In `el_skeleton()`, deprecated: inside a module, wrap `id` in `ns()`,
+  as for any Shiny input; a session given here namespaces `id` once
+  more, with a warning. In `update_el_skeleton()`, the Shiny session,
+  the current one by default, as for
+  [`shiny::updateTextInput()`](https://rdrr.io/pkg/shiny/man/updateTextInput.html).
+
+## Value
+
+A Shiny UI element.
+
+## Updating from the server
+
+Server-side update for `el_skeleton()`. `loading = FALSE` swaps the
+placeholder for the real content.
+
+`update_el_skeleton()` is called for its side effect and returns `NULL`
+invisibly.
+
+## Examples
+
+``` r
+el_skeleton("report", rows = 4, animated = TRUE, shiny::tableOutput("summary"))
+#> <div id="report" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="report_container" style="display: contents">
+#>   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle">
+#>     <div>
+#>       <shiny-island name="1"></shiny-island>
+#>     </div>
+#>   </el-skeleton>
+#> </div></script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <div data-shiny-vue-islands style="display: none">
+#>     <div data-shiny-island-of="1" style="display: contents">
+#>       <div id="summary" class="shiny-html-output shiny-table-output"></div>
+#>     </div>
+#>   </div>
+#> </div>
+
+if (interactive()) {
+  library(shiny)
+  ui <- el_page(el_skeleton("report", animated = TRUE, tableOutput("summary")))
+  server <- function(input, output, session) {
+    output$summary <- renderTable({
+      Sys.sleep(2)
+      on.exit(update_el_skeleton(session, "report", loading = FALSE))
+      head(mtcars)
+    })
+  }
+  shinyApp(ui, server)
+}
+if (interactive()) {
+  # inside a server function
+  observeEvent(result(), {
+    update_el_skeleton(session, "report", loading = FALSE)
+  })
+}
+```
