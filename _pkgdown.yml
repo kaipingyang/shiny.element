@@ -1,5 +1,8 @@
 url: https://kaipingyang.github.io/shiny.element/
 
+development:
+  mode: auto
+
 repo:
   home: https://github.com/kaipingyang/shiny.element/
 
