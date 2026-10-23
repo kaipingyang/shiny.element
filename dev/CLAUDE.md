@@ -33,8 +33,8 @@ and Element Plus (with `@element-plus/icons-vue` 2.3.2 and its 67
 locales) are bundled in `inst/vue3` and `inst/element-plus`; there is no
 vueR and no htmlwidgets dependency
 ([`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
-in `R/js.R` marks JavaScript the same way). To stay under CRAN’s 5 MB:
-eleven locales are files and the other 56 are in
+in `R/vue_js.R` marks JavaScript the same way). To stay under CRAN’s 5
+MB: eleven locales are files and the other 56 are in
 `dist/locale/more.tar.gz`, taken out into
 [`tempdir()`](https://rdrr.io/r/base/tempfile.html) when first used
 ([`.el_locale_dir()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locale_dir.md));
@@ -91,6 +91,17 @@ API for library authors (as htmlwidgets exports `createWidget()`), not
 reached with `:::`. A helper moved between layers moves with every
 caller in the same commit: no name is left behind for compatibility –
 internal helpers are not an API.
+
+**Where a helper lives.** There is no `utils.R`: a file named for no job
+collects whatever fits nowhere else. A helper one component uses lives
+in that component’s file; one several use, in a file named for its topic
+– the Vue layer’s `vue_props.R` (unset props), `vue_args.R` (ids,
+aliases, choices), `vue_markup.R` (slots, `v-html` strings, the host’s
+style), `vue_js.R`
+([`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md));
+the Element layer’s `el_props.R` (props bound and updated), `el_icon.R`,
+`el_dates.R` (day.js formats), `el_dependencies.R`, `el_events.R`,
+`el_items.R`.
 
 ### Two kinds of component
 
@@ -181,7 +192,7 @@ column’s type.
   [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md)
   send one custom message, `shinyVueUpdate`, a flat
   `{id, fields..., .action}`
-  ([`.el_send_update()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_send_update.md)).
+  ([`.vue_send_update()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send_update.md)).
   `.edit` (rows inserted, replaced, deleted by position or key) and
   `.set` (values by path) change a field in place
   (`update_vue(insert =, ...)`); the table and calendar use them. The
@@ -357,9 +368,9 @@ Design records: `.claude/plans/shiny-style-components-2026-10-06.md`,
 1.  `R/el_<name>.R`: the component function built with
     [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md),
     and `update_el_<name>()` sending
-    [`.el_send_update()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_send_update.md).
+    [`.vue_send_update()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send_update.md).
 2.  Optional props bind through
-    [`.el_optional_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_optional_bind.md)
+    [`.vue_optional_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_optional_bind.md)
     with an `NA` placeholder so they fall back to Element’s defaults and
     stay updatable.
 3.  A stateful component names its value with

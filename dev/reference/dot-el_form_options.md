@@ -15,7 +15,7 @@ slot. Normalising here keeps one template able to render all three.
 - choices:
 
   Anything
-  [`.el_normalize_choices()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_normalize_choices.md)
+  [`.vue_choices()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_choices.md)
   accepts.
 
 - option_tag:

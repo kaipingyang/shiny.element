@@ -2,7 +2,7 @@
 
 Element Plus's props that keep its own default unless given: each is
 bound as `:kebab-name` to a field of the same camelCase name, through
-[`.el_optional_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_optional_bind.md),
+[`.vue_optional_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_optional_bind.md),
 and the field holds the value or `NA` (read back as `undefined`,
 Element's default).
 
