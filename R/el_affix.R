@@ -49,9 +49,9 @@ el_affix <- function(
 ) {
   .el_check_choices("el_affix", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_affix")
+    id <- .vue_auto_id("el_affix")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_affix",

@@ -103,19 +103,19 @@ el_image <- function(
 ) {
   .el_check_choices("el_image", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_image")
+    id <- .vue_auto_id("el_image")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":src" = .el_optional_bind("src"),
-    ":fit" = .el_optional_bind("fit"),
-    ":alt" = .el_optional_bind("alt"),
-    ":lazy" = .el_optional_bind("lazy"),
-    ":scroll-container" = .el_optional_bind("scrollContainer"),
-    ":preview-src-list" = .el_optional_bind("previewSrcList"),
-    ":z-index" = .el_optional_bind("zIndex"),
-    ":initial-index" = .el_optional_bind("initialIndex"),
+    ":src" = .vue_optional_bind("src"),
+    ":fit" = .vue_optional_bind("fit"),
+    ":alt" = .vue_optional_bind("alt"),
+    ":lazy" = .vue_optional_bind("lazy"),
+    ":scroll-container" = .vue_optional_bind("scrollContainer"),
+    ":preview-src-list" = .vue_optional_bind("previewSrcList"),
+    ":z-index" = .vue_optional_bind("zIndex"),
+    ":initial-index" = .vue_optional_bind("initialIndex"),
     class = class,
     style = style
   )
@@ -145,18 +145,18 @@ el_image <- function(
     id = ns_id,
     markup = htmltools::tag("el-image", attrs),
     data = list(
-      src = .el_or_na(src),
-      fit = .el_or_na(fit),
-      alt = .el_or_na(alt),
-      lazy = .el_or_na(lazy),
-      scrollContainer = .el_or_na(scroll_container),
+      src = .vue_or_na(src),
+      fit = .vue_or_na(fit),
+      alt = .vue_or_na(alt),
+      lazy = .vue_or_na(lazy),
+      scrollContainer = .vue_or_na(scroll_container),
       previewSrcList = if (is.null(preview_src_list)) {
         NA
       } else {
         as.list(preview_src_list)
       },
-      zIndex = .el_or_na(z_index),
-      initialIndex = .el_or_na(initial_index)
+      zIndex = .vue_or_na(z_index),
+      initialIndex = .vue_or_na(initial_index)
     ),
     methods = events$methods,
     width = width,
@@ -246,6 +246,6 @@ update_el_image <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

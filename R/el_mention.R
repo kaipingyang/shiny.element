@@ -91,12 +91,12 @@ el_mention <- function(
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =)
   if (!is.null(options)) {
-    options <- .el_normalize_choices(options)
+    options <- .vue_choices(options)
   }
   if (is.null(id)) {
-    id <- .el_auto_id("el_mention")
+    id <- .vue_auto_id("el_mention")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_mention",
@@ -213,7 +213,7 @@ update_el_mention <- function(
       Filter(
         Negate(is.null),
         list(
-          options = if (!is.null(options)) .el_normalize_choices(options),
+          options = if (!is.null(options)) .vue_choices(options),
           props = props,
           prefix = prefix,
           split = split,
@@ -234,6 +234,6 @@ update_el_mention <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

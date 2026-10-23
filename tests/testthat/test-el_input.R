@@ -181,12 +181,12 @@ test_that("el_input: :size and :placeholder are bound even when NULL", {
   ))
   expect_match(
     html,
-    sprintf(':size="%s"', .el_optional_bind("size")),
+    sprintf(':size="%s"', .vue_optional_bind("size")),
     fixed = TRUE
   )
   expect_match(
     html,
-    sprintf(':placeholder="%s"', .el_optional_bind("placeholder")),
+    sprintf(':placeholder="%s"', .vue_optional_bind("placeholder")),
     fixed = TRUE
   )
 })

@@ -64,9 +64,9 @@ el_anchor <- function(
   .el_check_choices("el_anchor", environment())
   .el_check_items(links, "links", c("title", "href"))
   if (is.null(id)) {
-    id <- .el_auto_id("el_anchor")
+    id <- .vue_auto_id("el_anchor")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   link_tags <- function(links) {
     lapply(links, function(l) {
       htmltools::tag(
@@ -74,7 +74,7 @@ el_anchor <- function(
         c(
           list(title = l$title, href = l$href),
           if (length(l$children)) {
-            list(.el_slot("sub-link", link_tags(l$children)))
+            list(.vue_slot("sub-link", link_tags(l$children)))
           }
         )
       )

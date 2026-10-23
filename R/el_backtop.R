@@ -47,15 +47,15 @@ el_backtop <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_backtop")
+    id <- .vue_auto_id("el_backtop")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":target" = .el_optional_bind("target"),
-    ":visibility-height" = .el_optional_bind("visibilityHeight"),
-    ":right" = .el_optional_bind("right"),
-    ":bottom" = .el_optional_bind("bottom")
+    ":target" = .vue_optional_bind("target"),
+    ":visibility-height" = .vue_optional_bind("visibilityHeight"),
+    ":right" = .vue_optional_bind("right"),
+    ":bottom" = .vue_optional_bind("bottom")
   )
   events <- .el_event_bindings(
     ns_id,
@@ -72,10 +72,10 @@ el_backtop <- function(
       c(attrs, if (!is.null(content)) list(content))
     ),
     data = list(
-      target = .el_or_na(target),
-      visibilityHeight = .el_or_na(visibility_height),
-      right = .el_or_na(right),
-      bottom = .el_or_na(bottom)
+      target = .vue_or_na(target),
+      visibilityHeight = .vue_or_na(visibility_height),
+      right = .vue_or_na(right),
+      bottom = .vue_or_na(bottom)
     ),
     methods = events$methods,
     width = width,
@@ -133,6 +133,6 @@ update_el_backtop <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

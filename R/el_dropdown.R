@@ -134,9 +134,9 @@ el_dropdown <- function(
   .el_check_items(items, "items", c("command", "label"))
   .el_check_choices("el_dropdown", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_dropdown")
+    id <- .vue_auto_id("el_dropdown")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Build el-dropdown-item tags
   item_tags <- lapply(items, function(item) {
@@ -154,13 +154,13 @@ el_dropdown <- function(
     if (is.character(item$icon)) {
       i_attrs[["icon"]] <- .el_icon_name(item$icon)
     } else if (!is.null(item$icon)) {
-      icon_slot <- .el_slot("icon", item$icon)
+      icon_slot <- .vue_slot("icon", item$icon)
     }
 
     htmltools::tag("el-dropdown-item", c(i_attrs, list(lbl, icon_slot)))
   })
 
-  menu_tag <- .el_slot(
+  menu_tag <- .vue_slot(
     "dropdown",
     htmltools::tag("el-dropdown-menu", item_tags)
   )
@@ -181,11 +181,11 @@ el_dropdown <- function(
     ":split-button" = "splitButton",
     "@command" = "handleCommand"
   )
-  dd_attrs[[":type"]] <- .el_optional_bind("type")
-  dd_attrs[[":size"]] <- .el_optional_bind("size")
-  dd_attrs[[":show-timeout"]] <- .el_optional_bind("showTimeout")
-  dd_attrs[[":hide-timeout"]] <- .el_optional_bind("hideTimeout")
-  dd_attrs[[":tabindex"]] <- .el_optional_bind("tabindex")
+  dd_attrs[[":type"]] <- .vue_optional_bind("type")
+  dd_attrs[[":size"]] <- .vue_optional_bind("size")
+  dd_attrs[[":show-timeout"]] <- .vue_optional_bind("showTimeout")
+  dd_attrs[[":hide-timeout"]] <- .vue_optional_bind("hideTimeout")
+  dd_attrs[[":tabindex"]] <- .vue_optional_bind("tabindex")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -203,11 +203,11 @@ el_dropdown <- function(
     splitButton = split_button,
     count = 0L
   )
-  vue_data$type <- .el_or_na(type)
-  vue_data$size <- .el_or_na(size)
-  vue_data$showTimeout <- .el_or_na(show_timeout)
-  vue_data$hideTimeout <- .el_or_na(hide_timeout)
-  vue_data$tabindex <- .el_or_na(tabindex)
+  vue_data$type <- .vue_or_na(type)
+  vue_data$size <- .vue_or_na(size)
+  vue_data$showTimeout <- .vue_or_na(show_timeout)
+  vue_data$hideTimeout <- .vue_or_na(hide_timeout)
+  vue_data$tabindex <- .vue_or_na(tabindex)
   own <- list(
     markup = NULL,
     data = vue_data,
@@ -377,6 +377,6 @@ update_el_dropdown <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

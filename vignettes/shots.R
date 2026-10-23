@@ -96,7 +96,7 @@ live_demo <- function(options) {
     library(shiny.element)
   })
   # Several examples on one page reuse ids; prefix each with its chunk's
-  old <- options(shiny.element.id_prefix = paste0(options$label, "-"))
+  old <- options(shiny.vue.id_prefix = paste0(options$label, "-"))
   on.exit(options(old), add = TRUE)
 
   env <- new.env(parent = globalenv())

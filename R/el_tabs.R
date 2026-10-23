@@ -89,10 +89,10 @@ el_tabs <- function(
   .el_check_items(tabs, "tabs", c("name", "label"))
   .el_check_choices("el_tabs", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_tabs")
+    id <- .vue_auto_id("el_tabs")
   }
-  ns_id <- .el_ui_id(id, session)
-  selected <- .el_alias(selected, value, "selected", "value")
+  ns_id <- .vue_ui_id(id, session)
+  selected <- .vue_alias(selected, value, "selected", "value")
   selected <- shiny::restoreInput(ns_id, selected)
 
   # Element's editable is closable and addable together
@@ -304,7 +304,7 @@ update_el_tabs <- function(
   value = NULL
 ) {
   .vue_check_session(session)
-  selected <- .el_alias(selected, value, "selected", "value")
+  selected <- .vue_alias(selected, value, "selected", "value")
   .el_check_choices(
     "el_tabs",
     list2env(Filter(

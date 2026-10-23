@@ -80,7 +80,7 @@ test_that("el_carousel: type and indicator position fall back to Element's", {
   plain <- render_html(el_carousel(id = "banner"))
   expect_match(plain, '"carouselType":null', fixed = TRUE)
   expect_match(plain, '"indicatorPosition":null', fixed = TRUE)
-  expect_match(plain, .el_optional_bind("carouselType"), fixed = TRUE)
+  expect_match(plain, .vue_optional_bind("carouselType"), fixed = TRUE)
 
   set <- render_html(el_carousel(
     id = "banner",

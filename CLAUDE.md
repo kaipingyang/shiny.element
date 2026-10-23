@@ -29,7 +29,7 @@ devtools::check()
 `shiny.element` wraps Element Plus 2.14.7 (Vue 3) for Shiny. Vue 3.5.43 and
 Element Plus (with `@element-plus/icons-vue` 2.3.2 and its 67 locales) are
 bundled in `inst/vue3` and `inst/element-plus`; there is no vueR and no
-htmlwidgets dependency (`JS()` in `R/js.R` marks JavaScript the same way).
+htmlwidgets dependency (`JS()` in `R/vue_js.R` marks JavaScript the same way).
 To stay under CRAN's 5 MB: eleven locales are files and the other 56 are in
 `dist/locale/more.tar.gz`, taken out into `tempdir()` when first used
 (`.el_locale_dir()`); Vue's development build is `.Rbuildignore`d, so a
@@ -70,6 +70,15 @@ library authors (as htmlwidgets exports `createWidget()`), not reached
 with `:::`. A helper moved between layers moves with every caller in the
 same commit: no name is left behind for compatibility -- internal
 helpers are not an API.
+
+**Where a helper lives.** There is no `utils.R`: a file named for no job
+collects whatever fits nowhere else. A helper one component uses lives in
+that component's file; one several use, in a file named for its topic --
+the Vue layer's `vue_props.R` (unset props), `vue_args.R` (ids, aliases,
+choices), `vue_markup.R` (slots, `v-html` strings, the host's style),
+`vue_js.R` (`JS()`); the Element layer's `el_props.R` (props bound and
+updated), `el_icon.R`, `el_dates.R` (day.js formats),
+`el_dependencies.R`, `el_events.R`, `el_items.R`.
 
 ### Two kinds of component
 
@@ -135,7 +144,7 @@ value to the column's type.
   them at once, `update_el_progress()` is sent at once. A session that
   cannot be asked for a flush (mocks, `testServer()`) is sent to at once.
 - `update_el_*()` and `update_vue()` send one custom message,
-  `shinyVueUpdate`, a flat `{id, fields..., .action}` (`.el_send_update()`).
+  `shinyVueUpdate`, a flat `{id, fields..., .action}` (`.vue_send_update()`).
   `.edit` (rows inserted, replaced, deleted by position or key) and `.set`
   (values by path) change a field in place (`update_vue(insert =, ...)`);
   the table and calendar use them.
@@ -268,8 +277,8 @@ records: `.claude/plans/shiny-style-components-2026-10-06.md`,
 **Read `.claude/docs/lessons.md` first.**
 
 1. `R/el_<name>.R`: the component function built with `el_widget()`, and
-   `update_el_<name>()` sending `.el_send_update()`.
-2. Optional props bind through `.el_optional_bind()` with an `NA` placeholder
+   `update_el_<name>()` sending `.vue_send_update()`.
+2. Optional props bind through `.vue_optional_bind()` with an `NA` placeholder
    so they fall back to Element's defaults and stay updatable.
 3. A stateful component names its value with
    `mounted = .vue_mounted_report(c(<field> = ns_id))`; that field becomes the

@@ -146,7 +146,7 @@ test_that("el_upload: accept and limit fall back to Element's defaults", {
   plain <- render_html(el_upload("files"))
   expect_match(plain, '"accept":null', fixed = TRUE)
   expect_match(plain, '"limit":null', fixed = TRUE)
-  expect_match(plain, .el_optional_bind("accept"), fixed = TRUE)
+  expect_match(plain, .vue_optional_bind("accept"), fixed = TRUE)
 
   set <- render_html(el_upload("files", accept = ".csv", limit = 3))
   expect_match(set, '"accept":".csv"', fixed = TRUE)

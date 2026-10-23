@@ -95,9 +95,9 @@ el_carousel <- function(
   .el_check_items(items, "items", c("content", "name"))
   .el_check_choices("el_carousel", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_carousel")
+    id <- .vue_auto_id("el_carousel")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Slides are generated in R rather than with v-for so their content can be
   # any htmltools markup rather than a string.
@@ -115,8 +115,8 @@ el_carousel <- function(
     ":arrow" = "arrow",
     ":loop" = "loop",
     ":direction" = "direction",
-    ":indicator-position" = .el_optional_bind("indicatorPosition"),
-    ":type" = .el_optional_bind("carouselType"),
+    ":indicator-position" = .vue_optional_bind("indicatorPosition"),
+    ":type" = .vue_optional_bind("carouselType"),
     "@change" = "handleChange"
   )
 
@@ -297,6 +297,6 @@ update_el_carousel <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

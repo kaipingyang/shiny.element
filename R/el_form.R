@@ -92,7 +92,7 @@
 #' `el-radio` and `el-checkbox` take the display text as their default slot.
 #' Normalising here keeps one template able to render all three.
 #'
-#' @param choices Anything [.el_normalize_choices()] accepts.
+#' @param choices Anything [.vue_choices()] accepts.
 #' @param option_tag The child tag this control uses.
 #' @return A list of `list(label=, value=, text=)` items, `label` only for
 #'   `el-option`.
@@ -102,7 +102,7 @@
     return(NULL)
   }
 
-  lapply(.el_normalize_choices(choices), function(opt) {
+  lapply(.vue_choices(choices), function(opt) {
     if (identical(option_tag, "el-option")) {
       list(label = opt$label, value = opt$value, text = "")
     } else {
@@ -295,7 +295,7 @@ el_form_field <- function(
   # Element's name for the choices: given through `...`, it went to the
   # control as its own `options` prop, records of nothing, and the
   # dropdown opened onto blank entries
-  choices <- .el_alias(choices, options, "choices", "options")
+  choices <- .vue_alias(choices, options, "choices", "options")
   spec <- .el_form_tags[[type]]
   if (is.null(spec)) {
     stop(
@@ -330,7 +330,7 @@ el_form_field <- function(
   props <- props[setdiff(names(props), item_props)]
   # v-html takes a string: a tag would arrive as its JSON and show as text
   for (key in intersect(names(item), c("labelHtml", "errorHtml"))) {
-    item[[key]] <- .el_html_string(item[[key]], .el_snake_case(key))
+    item[[key]] <- .vue_html_string(item[[key]], .el_snake_case(key))
   }
   if (!is.null(spec$props)) {
     props <- utils::modifyList(spec$props, props)
@@ -339,7 +339,7 @@ el_form_field <- function(
     # Element's autocomplete asks a function for its suggestions; this one
     # filters the choices, as el_autocomplete() does
     words <- vapply(
-      .el_normalize_choices(choices),
+      .vue_choices(choices),
       function(o) as.character(o$value),
       ""
     )
@@ -397,7 +397,7 @@ el_form_field <- function(
     field$report <- TRUE
   }
   if (isTRUE(spec$as_options) && !is.null(choices)) {
-    field$props$options <- lapply(.el_normalize_choices(choices), function(o) {
+    field$props$options <- lapply(.vue_choices(choices), function(o) {
       list(label = o$label, value = o$value)
     })
   }
@@ -634,9 +634,9 @@ el_form <- function(
 ) {
   .el_check_choices("el_form", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_form")
+    id <- .vue_auto_id("el_form")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   fields <- list(...)
   if (!length(fields)) {
@@ -677,16 +677,16 @@ el_form <- function(
     ":label-position" = "labelPosition",
     ":inline" = "inline"
   )
-  form_attrs[[":size"]] <- .el_optional_bind("size")
-  form_attrs[[":disabled"]] <- .el_optional_bind("disabled")
-  form_attrs[[":show-message"]] <- .el_optional_bind("showMessage")
-  form_attrs[[":inline-message"]] <- .el_optional_bind("inlineMessage")
-  form_attrs[[":status-icon"]] <- .el_optional_bind("statusIcon")
-  form_attrs[[":hide-required-asterisk"]] <- .el_optional_bind(
+  form_attrs[[":size"]] <- .vue_optional_bind("size")
+  form_attrs[[":disabled"]] <- .vue_optional_bind("disabled")
+  form_attrs[[":show-message"]] <- .vue_optional_bind("showMessage")
+  form_attrs[[":inline-message"]] <- .vue_optional_bind("inlineMessage")
+  form_attrs[[":status-icon"]] <- .vue_optional_bind("statusIcon")
+  form_attrs[[":hide-required-asterisk"]] <- .vue_optional_bind(
     "hideRequiredAsterisk"
   )
-  form_attrs[[":label-suffix"]] <- .el_optional_bind("labelSuffix")
-  form_attrs[[":validate-on-rule-change"]] <- .el_optional_bind(
+  form_attrs[[":label-suffix"]] <- .vue_optional_bind("labelSuffix")
+  form_attrs[[":validate-on-rule-change"]] <- .vue_optional_bind(
     "validateOnRuleChange"
   )
 
@@ -786,14 +786,14 @@ el_form <- function(
     submitCount = 0L,
     valid = FALSE
   )
-  vue_data$size <- .el_or_na(size)
-  vue_data$disabled <- .el_or_na(disabled)
-  vue_data$showMessage <- .el_or_na(show_message)
-  vue_data$inlineMessage <- .el_or_na(inline_message)
-  vue_data$statusIcon <- .el_or_na(status_icon)
-  vue_data$hideRequiredAsterisk <- .el_or_na(hide_required_asterisk)
-  vue_data$labelSuffix <- .el_or_na(label_suffix)
-  vue_data$validateOnRuleChange <- .el_or_na(validate_on_rule_change)
+  vue_data$size <- .vue_or_na(size)
+  vue_data$disabled <- .vue_or_na(disabled)
+  vue_data$showMessage <- .vue_or_na(show_message)
+  vue_data$inlineMessage <- .vue_or_na(inline_message)
+  vue_data$statusIcon <- .vue_or_na(status_icon)
+  vue_data$hideRequiredAsterisk <- .vue_or_na(hide_required_asterisk)
+  vue_data$labelSuffix <- .vue_or_na(label_suffix)
+  vue_data$validateOnRuleChange <- .vue_or_na(validate_on_rule_change)
   js_id <- as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
 
   el_widget(
@@ -1013,7 +1013,7 @@ update_el_form <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
 
@@ -1037,7 +1037,7 @@ update_el_form <- function(
 #' @export
 el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
   .vue_check_session(session)
-  .el_send_update(session, list(id = session$ns(id), .action = "validate"))
+  .vue_send_update(session, list(id = session$ns(id), .action = "validate"))
   invisible(NULL)
 }
 
@@ -1062,7 +1062,7 @@ el_form_validate <- function(session = shiny::getDefaultReactiveDomain(), id) {
 #' @export
 el_form_reset <- function(session = shiny::getDefaultReactiveDomain(), id) {
   .vue_check_session(session)
-  .el_send_update(session, list(id = session$ns(id), .action = "reset"))
+  .vue_send_update(session, list(id = session$ns(id), .action = "reset"))
   invisible(NULL)
 }
 
@@ -1094,7 +1094,7 @@ el_form_clear_validate <- function(
     msg$props <- as.list(props)
   }
   msg$.action <- "clearValidate"
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
 

@@ -100,7 +100,7 @@ el_tree_select <- function(
   on = NULL
 ) {
   .el_check_choices("el_tree_select", environment())
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_tree_select",
@@ -162,7 +162,7 @@ el_tree_select <- function(
       ),
       list(...)
     )),
-    data = list(value = value, data = data, load = .el_or_na(load)),
+    data = list(value = value, data = data, load = .vue_or_na(load)),
     methods = c(
       events$methods,
       list(
@@ -264,6 +264,6 @@ update_el_tree_select <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

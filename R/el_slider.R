@@ -134,9 +134,9 @@ el_slider <- function(
 ) {
   .el_check_choices("el_slider", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_slider")
+    id <- .vue_auto_id("el_slider")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Normalize value for range mode
   if (range && length(value) == 1) {
@@ -159,15 +159,15 @@ el_slider <- function(
   )
   # Element only reads height in vertical mode, but the field has to exist
   # either way for update_el_slider() to be able to set it.
-  slider_attrs[[":height"]] <- .el_optional_bind("height")
-  slider_attrs[[":marks"]] <- .el_optional_bind("marks")
-  slider_attrs[[":label"]] <- .el_optional_bind("label")
-  slider_attrs[[":input-size"]] <- .el_optional_bind("inputSize")
-  slider_attrs[[":show-input-controls"]] <- .el_optional_bind(
+  slider_attrs[[":height"]] <- .vue_optional_bind("height")
+  slider_attrs[[":marks"]] <- .vue_optional_bind("marks")
+  slider_attrs[[":label"]] <- .vue_optional_bind("label")
+  slider_attrs[[":input-size"]] <- .vue_optional_bind("inputSize")
+  slider_attrs[[":show-input-controls"]] <- .vue_optional_bind(
     "showInputControls"
   )
-  slider_attrs[[":tooltip-class"]] <- .el_optional_bind("tooltipClass")
-  slider_attrs[[":format-tooltip"]] <- .el_optional_bind("formatTooltip")
+  slider_attrs[[":tooltip-class"]] <- .vue_optional_bind("tooltipClass")
+  slider_attrs[[":format-tooltip"]] <- .vue_optional_bind("formatTooltip")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -200,12 +200,12 @@ el_slider <- function(
   } else {
     NA
   }
-  vue_data$marks <- .el_or_na(marks)
-  vue_data$label <- .el_or_na(label)
-  vue_data$inputSize <- .el_or_na(input_size)
-  vue_data$showInputControls <- .el_or_na(show_input_controls)
-  vue_data$tooltipClass <- .el_or_na(tooltip_class)
-  vue_data$formatTooltip <- .el_or_na(format_tooltip)
+  vue_data$marks <- .vue_or_na(marks)
+  vue_data$label <- .vue_or_na(label)
+  vue_data$inputSize <- .vue_or_na(input_size)
+  vue_data$showInputControls <- .vue_or_na(show_input_controls)
+  vue_data$tooltipClass <- .vue_or_na(tooltip_class)
+  vue_data$formatTooltip <- .vue_or_na(format_tooltip)
 
   el_widget(
     props = .el_props(list(
@@ -342,6 +342,6 @@ update_el_slider <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

@@ -78,9 +78,9 @@ el_steps <- function(
 ) {
   .el_check_items(steps, "steps", c("title", "description"))
   if (is.null(id)) {
-    id <- .el_auto_id("el_steps")
+    id <- .vue_auto_id("el_steps")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Generate el-step tags from list
   step_tags <- lapply(steps, function(step) {
@@ -96,7 +96,7 @@ el_steps <- function(
       if (is.character(value)) {
         attrs[[field]] <- value
       } else {
-        attrs <- c(attrs, list(.el_slot(field, value)))
+        attrs <- c(attrs, list(.vue_slot(field, value)))
       }
     }
     if (!is.null(step$status)) {
@@ -115,7 +115,7 @@ el_steps <- function(
     ":align-center" = "alignCenter",
     ":simple" = "simple"
   )
-  steps_attrs[[":space"]] <- .el_optional_bind("space")
+  steps_attrs[[":space"]] <- .vue_optional_bind("space")
   # Build Vue data object
   vue_data <- list(
     active = active,
@@ -125,7 +125,7 @@ el_steps <- function(
     alignCenter = align_center,
     simple = simple
   )
-  vue_data$space <- .el_or_na(space)
+  vue_data$space <- .vue_or_na(space)
   # Create component UI
   # Element Plus's change, as the active step moves
   events <- .el_event_bindings(
@@ -208,6 +208,6 @@ update_el_steps <- function(
       )
     )
   )
-  .el_send_update(session, message)
+  .vue_send_update(session, message)
   invisible(NULL)
 }

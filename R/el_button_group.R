@@ -38,7 +38,7 @@ el_button_group <- function(
 ) {
   .el_check_choices("el_button_group", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_button_group")
+    id <- .vue_auto_id("el_button_group")
   }
   own <- list(
     markup = NULL,

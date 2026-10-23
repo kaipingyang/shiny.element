@@ -83,7 +83,7 @@ test_that("use_element: passes offline through to the dependency", {
 })
 
 test_that("Vue 3 is bundled, the global build with the template compiler", {
-  dep <- .el_vue_dependency()
+  dep <- .vue_vue_dependency()
   expect_equal(dep$package, "shiny.element")
   path <- system.file(dep$src$file, dep$script, package = "shiny.element")
   expect_true(file.exists(path))
@@ -98,8 +98,8 @@ test_that("Vue 3 is bundled, the global build with the template compiler", {
 })
 
 test_that("dev = TRUE loads Vue's development build, and it wins", {
-  prod <- .el_vue_dependency(dev = FALSE)
-  dev <- .el_vue_dependency(dev = TRUE)
+  prod <- .vue_vue_dependency(dev = FALSE)
+  dev <- .vue_vue_dependency(dev = TRUE)
   expect_equal(prod$script, "vue.global.prod.js")
   expect_equal(dev$script, "vue.global.js")
   path <- system.file(prod$src$file, prod$script, package = "shiny.element")

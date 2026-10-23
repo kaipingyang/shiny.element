@@ -4,7 +4,7 @@
     python tools/ep-remove.py R/el_rate.R icon_classes void_icon_class
 
 Drops its @param entry, its line in the signature, its binding and its data
-field (both the `camel = .el_or_na(x)` and `vue_data$camel <-` spellings).
+field (both the `camel = .vue_or_na(x)` and `vue_data$camel <-` spellings).
 Lines it cannot place are reported, not guessed at.
 """
 import sys, re
@@ -24,7 +24,7 @@ for n in names:
     s = re.sub(r"\n[ \t]*\":" + re.escape(k) + r"\"\s*=[^\n]*", "", s)
     # data
     s = re.sub(r"\n[ \t]*vue_data\$" + re.escape(c) + r"\s*<-[^\n]*", "", s)
-    s = re.sub(r"\n[ \t]*" + re.escape(c) + r"\s*=\s*\.el_or_na\(" + re.escape(n) + r"\),?", "", s)
+    s = re.sub(r"\n[ \t]*" + re.escape(c) + r"\s*=\s*\.vue_or_na\(" + re.escape(n) + r"\),?", "", s)
     s = re.sub(r"\n[ \t]*" + re.escape(n) + r"\s*=\s*" + re.escape(n) + r",?", "", s)
     left = [l for l in s.split("\n") if re.search(r"\b(" + re.escape(n) + "|" + re.escape(c) + r")\b", l)]
     print(f"{n}: {'removed' if s != before else 'NOT FOUND'}" + (f"; still mentioned: {left}" if left else ""))

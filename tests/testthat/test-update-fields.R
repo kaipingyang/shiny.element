@@ -178,13 +178,13 @@ test_that("the component is its host: id, no box of its own, no placeholder", {
 
 # ── optional props fall back to Element's own defaults ────────────────────────
 
-test_that(".el_optional_bind: maps null back to undefined", {
+test_that(".vue_optional_bind: maps null back to undefined", {
   # Vue treats null as a value and only falls back to a prop's default for
   # undefined. R cannot send undefined through JSON, so the template has to
   # map it. A conditional rather than ?? because the expression is evaluated
   # at runtime, where a polyfill cannot help with syntax.
   expect_equal(
-    .el_optional_bind("placeholder"),
+    .vue_optional_bind("placeholder"),
     "placeholder === null ? undefined : placeholder"
   )
 })
@@ -203,7 +203,7 @@ test_that("optional props are bound through the fallback expression", {
     for (field in case[[2]]) {
       expect_match(
         html,
-        sprintf(':%s="%s"', field, .el_optional_bind(field)),
+        sprintf(':%s="%s"', field, .vue_optional_bind(field)),
         fixed = TRUE,
         info = field
       )

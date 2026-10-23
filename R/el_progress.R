@@ -91,9 +91,9 @@ el_progress <- function(
 ) {
   .el_check_choices("el_progress", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_progress")
+    id <- .vue_auto_id("el_progress")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   progress_attrs <- list(
     ":percentage" = "percentage",
@@ -103,10 +103,10 @@ el_progress <- function(
     ":show-text" = "showText",
     ":width" = "width"
   )
-  progress_attrs[[":status"]] <- .el_optional_bind("status")
+  progress_attrs[[":status"]] <- .vue_optional_bind("status")
   progress_attrs[[":color"]] <- "color"
-  progress_attrs[[":stroke-linecap"]] <- .el_optional_bind("strokeLinecap")
-  progress_attrs[[":format"]] <- .el_optional_bind("format")
+  progress_attrs[[":stroke-linecap"]] <- .vue_optional_bind("strokeLinecap")
+  progress_attrs[[":format"]] <- .vue_optional_bind("format")
   vue_data <- list(
     percentage = percentage,
     type = type,
@@ -120,8 +120,8 @@ el_progress <- function(
   # default of "" and calls .length on it, so JSON null throws in render.
   # The empty string is its own default and means the same thing.
   vue_data$color <- if (is.null(color)) "" else color
-  vue_data$strokeLinecap <- .el_or_na(stroke_linecap)
-  vue_data$format <- .el_or_na(format)
+  vue_data$strokeLinecap <- .vue_or_na(stroke_linecap)
+  vue_data$format <- .vue_or_na(format)
   el_widget(
     props = .el_props(list(
       duration = duration,
@@ -219,6 +219,6 @@ update_el_progress <- function(
   )
   # at once, as withProgress() and shinyWidgets' updateProgressBar() send
   # theirs: a progress reported from a long loop shows each step
-  .el_send_update(session, msg, immediate = TRUE)
+  .vue_send_update(session, msg, immediate = TRUE)
   invisible(NULL)
 }

@@ -57,9 +57,9 @@ el_tag <- function(
 ) {
   .el_check_choices("el_tag", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_tag")
+    id <- .vue_auto_id("el_tag")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   tag_attrs <- list(
     ":type" = "type",
@@ -70,8 +70,8 @@ el_tag <- function(
     "@click" = "handleClick",
     "@close" = "handleClose"
   )
-  tag_attrs[[":size"]] <- .el_optional_bind("size")
-  tag_attrs[[":color"]] <- .el_optional_bind("color")
+  tag_attrs[[":size"]] <- .vue_optional_bind("size")
+  tag_attrs[[":color"]] <- .vue_optional_bind("color")
   el_widget(
     props = .el_props(list(
       round = round
@@ -171,6 +171,6 @@ update_el_tag <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

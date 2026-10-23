@@ -222,12 +222,12 @@ el_select_v2 <- function(
   grouped <- is.list(options) &&
     any(vapply(options, function(o) is.list(o) && !is.null(o$options), TRUE))
   if (!is.null(options) && !grouped) {
-    options <- .el_normalize_choices(options)
+    options <- .vue_choices(options)
   }
   if (is.null(id)) {
-    id <- .el_auto_id("el_select_v2")
+    id <- .vue_auto_id("el_select_v2")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_select_v2",
@@ -490,6 +490,6 @@ update_el_select_v2 <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

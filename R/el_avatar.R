@@ -55,18 +55,18 @@ el_avatar <- function(
 ) {
   .el_check_choices("el_avatar", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_avatar")
+    id <- .vue_auto_id("el_avatar")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   avatar_attrs <- list(
-    ":src" = .el_optional_bind("src"),
-    ":icon" = .el_optional_bind("icon"),
-    ":size" = .el_optional_bind("size"),
-    ":shape" = .el_optional_bind("shape"),
-    ":fit" = .el_optional_bind("fit"),
-    ":src-set" = .el_optional_bind("srcSet"),
-    ":alt" = .el_optional_bind("alt"),
+    ":src" = .vue_optional_bind("src"),
+    ":icon" = .vue_optional_bind("icon"),
+    ":size" = .vue_optional_bind("size"),
+    ":shape" = .vue_optional_bind("shape"),
+    ":fit" = .vue_optional_bind("fit"),
+    ":src-set" = .vue_optional_bind("srcSet"),
+    ":alt" = .vue_optional_bind("alt"),
     class = class,
     style = style
   )
@@ -82,14 +82,14 @@ el_avatar <- function(
     id = ns_id,
     markup = htmltools::tag("el-avatar", c(avatar_attrs, list("{{content}}"))),
     data = list(
-      content = .el_or_na(content),
-      src = .el_or_na(src),
-      icon = .el_or_na(icon),
-      size = .el_or_na(size),
-      shape = .el_or_na(shape),
-      fit = .el_or_na(fit),
-      srcSet = .el_or_na(src_set),
-      alt = .el_or_na(alt)
+      content = .vue_or_na(content),
+      src = .vue_or_na(src),
+      icon = .vue_or_na(icon),
+      size = .vue_or_na(size),
+      shape = .vue_or_na(shape),
+      fit = .vue_or_na(fit),
+      srcSet = .vue_or_na(src_set),
+      alt = .vue_or_na(alt)
     ),
     methods = events$methods,
     width = width,
@@ -159,6 +159,6 @@ update_el_avatar <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

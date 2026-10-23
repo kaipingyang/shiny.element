@@ -93,9 +93,9 @@ el_cascader_panel <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_cascader_panel")
+    id <- .vue_auto_id("el_cascader_panel")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
     "v-model" = "value",
@@ -131,7 +131,7 @@ el_cascader_panel <- function(
     data = list(
       value = if (is.null(value)) list() else as.list(value),
       options = unname(options),
-      props = .el_or_na(props)
+      props = .vue_or_na(props)
     ),
     methods = c(
       events$methods,
@@ -205,6 +205,6 @@ update_el_cascader_panel <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

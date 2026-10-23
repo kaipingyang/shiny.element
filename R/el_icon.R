@@ -149,3 +149,76 @@ el_icon <- function(
     gsub("[[:space:]_]+", "-", sub("^el-icon-", "", tolower(name)))
   ))
 }
+
+#' An icon, as Element Plus names it
+#'
+#' Icons are components in Element Plus, given by name -- `"Search"`,
+#' `"ArrowRight"` -- where Element UI took a class, `"el-icon-search"`. A class
+#' in Element UI's form is turned into the name, so code written for either
+#' works; anything else is passed through.
+#'
+#' @param x An icon name, an Element UI icon class, or `NULL`.
+#' @return The Element Plus name, or `x` unchanged.
+#' @keywords internal
+.el_icon_name <- function(x) {
+  if (!is.character(x) || length(x) != 1L || !grepl("^el-icon-", x)) {
+    return(x)
+  }
+  parts <- strsplit(sub("^el-icon-", "", x), "-", fixed = TRUE)[[1]]
+  name <- paste0(
+    toupper(substring(parts, 1, 1)),
+    substring(parts, 2),
+    collapse = ""
+  )
+  # Element UI names that Element Plus spells differently
+  renamed <- c(
+    STools = "Tools",
+    UserSolid = "UserFilled",
+    StarOn = "StarFilled",
+    StarOff = "Star",
+    More = "MoreFilled",
+    Error = "CircleCloseFilled",
+    Success = "CircleCheckFilled",
+    Warning = "WarningFilled",
+    Info = "InfoFilled",
+    Question = "QuestionFilled"
+  )
+  if (name %in% names(renamed)) renamed[[name]] else name
+}
+
+#' Element Plus's close icon, as its components draw it
+#'
+#' Icons are SVG components in Element Plus. A panel drawn as markup -- a
+#' dialog, a drawer -- draws the same SVG itself.
+#'
+#' @param class The icon's own class, beside `el-icon`.
+#' @return An `<i>` tag holding the SVG.
+#' @keywords internal
+.el_close_icon <- function(class) {
+  htmltools::tags$i(
+    class = paste("el-icon", class),
+    htmltools::HTML(paste0(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">',
+      '<path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 ',
+      '31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 ',
+      '45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 ',
+      '512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg>'
+    ))
+  )
+}
+
+#' An icon inside a component's template
+#'
+#' Where Vue compiles the markup -- a menu, a dropdown, a slot -- an icon is
+#' Element Plus's own `<el-icon>` holding the icon component. A tag is passed
+#' through.
+#'
+#' @param x An icon's name (any form [el_icon()] takes), or a tag.
+#' @return Markup.
+#' @keywords internal
+.el_icon_template <- function(x) {
+  if (!is.character(x)) {
+    return(x)
+  }
+  htmltools::HTML(sprintf("<el-icon><%s /></el-icon>", .el_icon_pascal(x)))
+}

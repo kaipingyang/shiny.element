@@ -57,18 +57,18 @@ el_skeleton <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_skeleton")
+    id <- .vue_auto_id("el_skeleton")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   own <- list(
     markup = NULL,
     data = list(
       skLoading = loading,
-      skRows = .el_or_na(rows),
-      skAnimated = .el_or_na(animated),
-      skCount = .el_or_na(count),
-      skThrottle = .el_or_na(throttle)
+      skRows = .vue_or_na(rows),
+      skAnimated = .vue_or_na(animated),
+      skCount = .vue_or_na(count),
+      skThrottle = .vue_or_na(throttle)
     ),
     methods = list(),
     watch = list(),
@@ -81,10 +81,10 @@ el_skeleton <- function(
 
   attrs <- list(
     ":loading" = "skLoading",
-    ":rows" = .el_optional_bind("skRows"),
-    ":animated" = .el_optional_bind("skAnimated"),
-    ":count" = .el_optional_bind("skCount"),
-    ":throttle" = .el_optional_bind("skThrottle"),
+    ":rows" = .vue_optional_bind("skRows"),
+    ":animated" = .vue_optional_bind("skAnimated"),
+    ":count" = .vue_optional_bind("skCount"),
+    ":throttle" = .vue_optional_bind("skThrottle"),
     class = class,
     style = style
   )
@@ -148,6 +148,6 @@ update_el_skeleton <- function(
   if (!is.null(count)) {
     msg$skCount <- count
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

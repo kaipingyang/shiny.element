@@ -102,24 +102,24 @@ el_transfer <- function(
 ) {
   .el_check_choices("el_transfer", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_transfer")
+    id <- .vue_auto_id("el_transfer")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
     "v-model" = "value",
     ":data" = "data",
-    ":titles" = .el_optional_bind("titles"),
-    ":button-texts" = .el_optional_bind("buttonTexts"),
-    ":filterable" = .el_optional_bind("filterable"),
-    ":filter-placeholder" = .el_optional_bind("filterPlaceholder"),
-    ":filter-method" = .el_optional_bind("filterMethod"),
-    ":target-order" = .el_optional_bind("targetOrder"),
-    ":format" = .el_optional_bind("format"),
-    ":props" = .el_optional_bind("props"),
-    ":left-default-checked" = .el_optional_bind("leftDefaultChecked"),
-    ":right-default-checked" = .el_optional_bind("rightDefaultChecked"),
-    ":render-content" = .el_optional_bind("renderContent")
+    ":titles" = .vue_optional_bind("titles"),
+    ":button-texts" = .vue_optional_bind("buttonTexts"),
+    ":filterable" = .vue_optional_bind("filterable"),
+    ":filter-placeholder" = .vue_optional_bind("filterPlaceholder"),
+    ":filter-method" = .vue_optional_bind("filterMethod"),
+    ":target-order" = .vue_optional_bind("targetOrder"),
+    ":format" = .vue_optional_bind("format"),
+    ":props" = .vue_optional_bind("props"),
+    ":left-default-checked" = .vue_optional_bind("leftDefaultChecked"),
+    ":right-default-checked" = .vue_optional_bind("rightDefaultChecked"),
+    ":render-content" = .vue_optional_bind("renderContent")
   )
   events <- .el_event_bindings(
     ns_id,
@@ -155,12 +155,12 @@ el_transfer <- function(
       data = .el_transfer_data(data),
       titles = if (is.null(titles)) NA else as.list(titles),
       buttonTexts = if (is.null(button_texts)) NA else as.list(button_texts),
-      filterable = .el_or_na(filterable),
-      filterPlaceholder = .el_or_na(filter_placeholder),
-      filterMethod = .el_or_na(filter_method),
-      targetOrder = .el_or_na(target_order),
-      format = .el_or_na(format),
-      props = .el_or_na(props),
+      filterable = .vue_or_na(filterable),
+      filterPlaceholder = .vue_or_na(filter_placeholder),
+      filterMethod = .vue_or_na(filter_method),
+      targetOrder = .vue_or_na(target_order),
+      format = .vue_or_na(format),
+      props = .vue_or_na(props),
       leftDefaultChecked = if (is.null(left_default_checked)) {
         NA
       } else {
@@ -171,7 +171,7 @@ el_transfer <- function(
       } else {
         as.list(right_default_checked)
       },
-      renderContent = .el_or_na(render_content)
+      renderContent = .vue_or_na(render_content)
     ),
     methods = events$methods,
     watch = list(
@@ -286,6 +286,6 @@ update_el_transfer <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

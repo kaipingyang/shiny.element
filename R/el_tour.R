@@ -66,9 +66,9 @@ el_tour <- function(
   .el_check_choices("el_tour", environment())
   .el_check_items(steps, "steps", c("target", "title"))
   if (is.null(id)) {
-    id <- .el_auto_id("el_tour")
+    id <- .vue_auto_id("el_tour")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   step_tags <- lapply(steps, function(st) {
     attrs <- list()
     # A header that is markup fills the step's header slot
@@ -86,7 +86,7 @@ el_tour <- function(
     }
     htmltools::tag(
       "el-tour-step",
-      c(attrs, if (!is.null(header)) list(.el_slot("header", header)))
+      c(attrs, if (!is.null(header)) list(.vue_slot("header", header)))
     )
   })
   events <- .el_event_bindings(
@@ -224,6 +224,6 @@ update_el_tour <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

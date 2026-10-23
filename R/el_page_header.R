@@ -51,13 +51,13 @@ el_page_header <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_page_header")
+    id <- .vue_auto_id("el_page_header")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":title" = .el_optional_bind("title"),
-    ":content" = .el_optional_bind("content")
+    ":title" = .vue_optional_bind("title"),
+    ":content" = .vue_optional_bind("content")
   )
   events <- .el_event_bindings(
     ns_id,
@@ -73,7 +73,7 @@ el_page_header <- function(
     )),
     id = ns_id,
     markup = htmltools::tag("el-page-header", attrs),
-    data = list(title = .el_or_na(title), content = .el_or_na(content)),
+    data = list(title = .vue_or_na(title), content = .vue_or_na(content)),
     methods = events$methods,
     width = width,
     slots = slots
@@ -126,6 +126,6 @@ update_el_page_header <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

@@ -127,9 +127,9 @@ el_time_picker <- function(
 ) {
   .el_check_choices("el_time_picker", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_time_picker")
+    id <- .vue_auto_id("el_time_picker")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   init <- if (is.null(value)) {
     if (isTRUE(is_range)) list() else ""
   } else if (isTRUE(is_range)) {
@@ -232,9 +232,9 @@ el_time_select <- function(
 ) {
   .el_check_choices("el_time_select", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_time_select")
+    id <- .vue_auto_id("el_time_select")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   .el_time_widget(
     "el-time-select",
     ns_id,
@@ -438,7 +438,7 @@ update_el_time_picker <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
 
@@ -509,7 +509,7 @@ update_el_time_select <- function(
     )
   )
   if (length(msg) > 1L) {
-    .el_send_update(session, msg)
+    .vue_send_update(session, msg)
   }
   update_el_time_picker(
     session,

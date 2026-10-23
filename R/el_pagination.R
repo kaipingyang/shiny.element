@@ -118,9 +118,9 @@ el_pagination <- function(
 ) {
   .el_check_choices("el_pagination", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_pagination")
+    id <- .vue_auto_id("el_pagination")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   # The page is the value, restored by el_widget(); the size beside it
   page_size <- shiny::restoreInput(paste0(ns_id, "_page_size"), page_size)
 
@@ -138,17 +138,17 @@ el_pagination <- function(
     "@size-change" = "handleSizeChange"
   )
 
-  pagination_attrs[[":prev-text"]] <- .el_optional_bind("prevText")
+  pagination_attrs[[":prev-text"]] <- .vue_optional_bind("prevText")
 
-  pagination_attrs[[":next-text"]] <- .el_optional_bind("nextText")
+  pagination_attrs[[":next-text"]] <- .vue_optional_bind("nextText")
 
-  pagination_attrs[[":hide-on-single-page"]] <- .el_optional_bind(
+  pagination_attrs[[":hide-on-single-page"]] <- .vue_optional_bind(
     "hideOnSinglePage"
   )
 
-  pagination_attrs[[":page-count"]] <- .el_optional_bind("pageCount")
+  pagination_attrs[[":page-count"]] <- .vue_optional_bind("pageCount")
 
-  pagination_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
+  pagination_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
 
@@ -173,15 +173,15 @@ el_pagination <- function(
     pagerCount = pager_count
   )
 
-  vue_data$prevText <- .el_or_na(prev_text)
+  vue_data$prevText <- .vue_or_na(prev_text)
 
-  vue_data$nextText <- .el_or_na(next_text)
+  vue_data$nextText <- .vue_or_na(next_text)
 
-  vue_data$hideOnSinglePage <- .el_or_na(hide_on_single_page)
+  vue_data$hideOnSinglePage <- .vue_or_na(hide_on_single_page)
 
-  vue_data$pageCount <- .el_or_na(page_count)
+  vue_data$pageCount <- .vue_or_na(page_count)
 
-  vue_data$popperClass <- .el_or_na(popper_class)
+  vue_data$popperClass <- .vue_or_na(popper_class)
 
   el_widget(
     props = .el_props(list(
@@ -303,6 +303,6 @@ update_el_pagination <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

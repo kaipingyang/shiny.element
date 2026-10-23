@@ -56,11 +56,11 @@ el_badge <- function(
     own <- list(
       markup = NULL,
       data = list(
-        badgeValue = .el_or_na(value),
-        badgeMax = .el_or_na(max),
+        badgeValue = .vue_or_na(value),
+        badgeMax = .vue_or_na(max),
         badgeIsDot = is_dot,
         badgeHidden = hidden,
-        badgeType = .el_or_na(type)
+        badgeType = .vue_or_na(type)
       ),
       methods = list(),
       watch = list(),
@@ -70,7 +70,7 @@ el_badge <- function(
     )
     merged <- .el_absorb_merge(own, inner)
     return(el_widget(
-      id = .el_ui_id(id, NULL),
+      id = .vue_ui_id(id, NULL),
       props = .el_props(
         prefix = "badge",
         list(
@@ -85,11 +85,11 @@ el_badge <- function(
         "el-badge",
         c(
           list(
-            ":value" = .el_optional_bind("badgeValue"),
-            ":max" = .el_optional_bind("badgeMax"),
+            ":value" = .vue_optional_bind("badgeValue"),
+            ":max" = .vue_optional_bind("badgeMax"),
             ":is-dot" = "badgeIsDot",
             ":hidden" = "badgeHidden",
-            ":type" = .el_optional_bind("badgeType")
+            ":type" = .vue_optional_bind("badgeType")
           ),
           list(merged$markups[[2]])
         )
@@ -198,6 +198,6 @@ update_el_badge <- function(
   if (!is.null(type)) {
     msg$badgeType <- type
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

@@ -120,7 +120,7 @@ ind = " " * (len(rname) + len(" <- function("))
 body = []
 body.append(f"  .el_check_choices(\"{rname}\", environment())")
 body.append(f"  if (is.null(id)) id <- paste0(\"{rname}_\", uuid::UUIDgenerate())")
-body.append("  ns_id <- .el_ui_id(id, NULL)")
+body.append("  ns_id <- .vue_ui_id(id, NULL)")
 evs = [e for e in events if not (has_value and e == change)]
 body.append(f"  events <- .el_event_bindings(ns_id, c({', '.join(json.dumps(e) for e in evs)}))" if evs
             else "  events <- .el_event_bindings(ns_id, character())")
@@ -200,7 +200,7 @@ if has_value:
   if (!is.null(value))    msg$value    <- value
   if (!is.null(disabled)) msg$disabled <- disabled
   msg <- .el_form_item_update(msg, label, error)
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }}
 '''

@@ -53,9 +53,9 @@ el_watermark <- function(
 ) {
   .el_check_choices("el_watermark", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_watermark")
+    id <- .vue_auto_id("el_watermark")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_watermark",

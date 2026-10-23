@@ -68,9 +68,9 @@ el_config_provider <- function(
 ) {
   .el_check_choices("el_config_provider", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_config_provider")
+    id <- .vue_auto_id("el_config_provider")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_config_provider"
@@ -192,7 +192,7 @@ update_el_config_provider <- function(
   # a locale whose file is on the page: the one el_config_provider() was
   # given, or English
   if (!is.null(locale)) {
-    .el_send_update(
+    .vue_send_update(
       session,
       list(id = session$ns(id), locale = tolower(locale))
     )

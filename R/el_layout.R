@@ -280,7 +280,7 @@ el_page <- function(
   loading = TRUE
 ) {
   deps <- c(
-    list(.el_vue_dependency(dev = dev)),
+    list(.vue_vue_dependency(dev = dev)),
     element_plus_dependency(offline = offline),
     # the bridge and Element's side of it, which checks for raw el$ tags
     # left outside any component -- a page may hold nothing else

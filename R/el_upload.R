@@ -360,9 +360,9 @@ el_upload <- function(
 ) {
   .el_check_choices("el_upload", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_upload")
+    id <- .vue_auto_id("el_upload")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   via_shiny <- is.null(action)
 
@@ -388,27 +388,27 @@ el_upload <- function(
     ":list-type" = "listType",
     ":auto-upload" = "autoUpload",
     ":disabled" = "disabled",
-    ":accept" = .el_optional_bind("accept"),
-    ":limit" = .el_optional_bind("limit"),
+    ":accept" = .vue_optional_bind("accept"),
+    ":limit" = .vue_optional_bind("limit"),
     # on-success and on-error are props taking a function, not events, so
     # they bind with : rather than @. Written as events they simply never run.
     ":on-success" = "handleSuccess",
     ":on-error" = "handleError"
   )
   upload_attrs[[":drag"]] <- "drag"
-  upload_attrs[[":headers"]] <- .el_optional_bind("headers")
-  upload_attrs[[":data"]] <- .el_optional_bind("extraData")
+  upload_attrs[[":headers"]] <- .vue_optional_bind("headers")
+  upload_attrs[[":data"]] <- .vue_optional_bind("extraData")
   # Two-way, so the files Element Plus holds -- each with its uid, status,
   # progress -- are the component's field, for el_upload_file() to find
   upload_attrs[["v-model:file-list"]] <- "fileList"
-  upload_attrs[[":with-credentials"]] <- .el_optional_bind("withCredentials")
-  upload_attrs[[":before-upload"]] <- .el_optional_bind("beforeUpload")
-  upload_attrs[[":before-remove"]] <- .el_optional_bind("beforeRemove")
-  upload_attrs[[":on-change"]] <- .el_optional_bind("onChange")
-  upload_attrs[[":on-progress"]] <- .el_optional_bind("onProgress")
-  upload_attrs[[":on-preview"]] <- .el_optional_bind("onPreview")
-  upload_attrs[[":on-remove"]] <- .el_optional_bind("onRemove")
-  upload_attrs[[":on-exceed"]] <- .el_optional_bind("onExceed")
+  upload_attrs[[":with-credentials"]] <- .vue_optional_bind("withCredentials")
+  upload_attrs[[":before-upload"]] <- .vue_optional_bind("beforeUpload")
+  upload_attrs[[":before-remove"]] <- .vue_optional_bind("beforeRemove")
+  upload_attrs[[":on-change"]] <- .vue_optional_bind("onChange")
+  upload_attrs[[":on-progress"]] <- .vue_optional_bind("onProgress")
+  upload_attrs[[":on-preview"]] <- .vue_optional_bind("onPreview")
+  upload_attrs[[":on-remove"]] <- .vue_optional_bind("onRemove")
+  upload_attrs[[":on-exceed"]] <- .vue_optional_bind("onExceed")
   if (via_shiny) {
     upload_attrs[[":http-request"]] <- "shinyUpload"
   }
@@ -456,7 +456,7 @@ el_upload <- function(
     trigger <- c(
       trigger,
       list(
-        .el_slot("tip", htmltools::tags$div(class = "el-upload__tip", tip))
+        .vue_slot("tip", htmltools::tags$div(class = "el-upload__tip", tip))
       )
     )
   }
@@ -475,26 +475,26 @@ el_upload <- function(
     failed = ""
   )
 
-  vue_data$headers <- .el_or_na(headers)
-  vue_data$extraData <- .el_or_na(data)
+  vue_data$headers <- .vue_or_na(headers)
+  vue_data$extraData <- .vue_or_na(data)
 
   vue_data$fileList <- if (is.null(file_list)) list() else file_list
 
-  vue_data$withCredentials <- .el_or_na(with_credentials)
+  vue_data$withCredentials <- .vue_or_na(with_credentials)
 
-  vue_data$beforeUpload <- .el_or_na(before_upload)
+  vue_data$beforeUpload <- .vue_or_na(before_upload)
 
-  vue_data$beforeRemove <- .el_or_na(before_remove)
+  vue_data$beforeRemove <- .vue_or_na(before_remove)
 
-  vue_data$onChange <- .el_or_na(on_change)
+  vue_data$onChange <- .vue_or_na(on_change)
 
-  vue_data$onProgress <- .el_or_na(on_progress)
+  vue_data$onProgress <- .vue_or_na(on_progress)
 
-  vue_data$onPreview <- .el_or_na(on_preview)
+  vue_data$onPreview <- .vue_or_na(on_preview)
 
-  vue_data$onRemove <- .el_or_na(on_remove)
+  vue_data$onRemove <- .vue_or_na(on_remove)
 
-  vue_data$onExceed <- .el_or_na(on_exceed)
+  vue_data$onExceed <- .vue_or_na(on_exceed)
 
   methods <- list(
     handleSuccess = JS(sprintf(
@@ -635,7 +635,7 @@ update_el_upload <- function(
       rename = c(data = "extraData")
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
 
@@ -658,6 +658,6 @@ update_el_upload <- function(
 #' @export
 el_upload_clear <- function(session = shiny::getDefaultReactiveDomain(), id) {
   .vue_check_session(session)
-  .el_send_update(session, list(id = session$ns(id), .action = "clear"))
+  .vue_send_update(session, list(id = session$ns(id), .action = "clear"))
   invisible(NULL)
 }

@@ -7,7 +7,7 @@
 .el_form_options(choices, option_tag)
 }
 \arguments{
-\item{choices}{Anything \code{\link[=.el_normalize_choices]{.el_normalize_choices()}} accepts.}
+\item{choices}{Anything \code{\link[=.vue_choices]{.vue_choices()}} accepts.}
 
 \item{option_tag}{The child tag this control uses.}
 }

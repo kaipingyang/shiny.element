@@ -61,21 +61,21 @@ el_descriptions <- function(
 ) {
   .el_check_choices("el_descriptions", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_descriptions")
+    id <- .vue_auto_id("el_descriptions")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   items <- .el_descriptions_items(items)
 
   own <- list(
     markup = NULL,
     data = list(
-      dTitle = .el_or_na(title),
-      dExtra = .el_or_na(extra),
-      dColumn = .el_or_na(column),
-      dDirection = .el_or_na(direction),
-      dBorder = .el_or_na(border),
-      dSize = .el_or_na(size)
+      dTitle = .vue_or_na(title),
+      dExtra = .vue_or_na(extra),
+      dColumn = .vue_or_na(column),
+      dDirection = .vue_or_na(direction),
+      dBorder = .vue_or_na(border),
+      dSize = .vue_or_na(size)
     ),
     methods = list(),
     watch = list(),
@@ -95,7 +95,7 @@ el_descriptions <- function(
       label_ui <- !is.character(it$label)
       attrs <- if (label_ui) list() else list(label = it$label)
       if (label_ui) {
-        attrs <- c(attrs, list(.el_slot("label", it$label)))
+        attrs <- c(attrs, list(.vue_slot("label", it$label)))
       }
       for (key in c(
         "span",
@@ -120,12 +120,12 @@ el_descriptions <- function(
   )
 
   attrs <- list(
-    ":title" = .el_optional_bind("dTitle"),
-    ":extra" = .el_optional_bind("dExtra"),
-    ":column" = .el_optional_bind("dColumn"),
-    ":direction" = .el_optional_bind("dDirection"),
-    ":border" = .el_optional_bind("dBorder"),
-    ":size" = .el_optional_bind("dSize")
+    ":title" = .vue_optional_bind("dTitle"),
+    ":extra" = .vue_optional_bind("dExtra"),
+    ":column" = .vue_optional_bind("dColumn"),
+    ":direction" = .vue_optional_bind("dDirection"),
+    ":border" = .vue_optional_bind("dBorder"),
+    ":size" = .vue_optional_bind("dSize")
   )
 
   el_widget(
@@ -260,6 +260,6 @@ update_el_descriptions <- function(
   if (!is.null(label_width)) {
     msg$dLabelWidth <- label_width
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

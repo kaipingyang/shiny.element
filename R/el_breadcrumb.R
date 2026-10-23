@@ -56,9 +56,9 @@ el_breadcrumb <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_breadcrumb")
+    id <- .vue_auto_id("el_breadcrumb")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   item_tag <- htmltools::tag(
     "el-breadcrumb-item",
@@ -73,7 +73,7 @@ el_breadcrumb <- function(
   )
 
   attrs <- list(
-    ":separator" = .el_optional_bind("separator")
+    ":separator" = .vue_optional_bind("separator")
   )
 
   el_widget(
@@ -84,7 +84,7 @@ el_breadcrumb <- function(
     markup = htmltools::tag("el-breadcrumb", c(attrs, list(item_tag))),
     data = list(
       items = unname(items),
-      separator = .el_or_na(separator)
+      separator = .vue_or_na(separator)
     ),
     methods = list(
       handleClick = JS(sprintf(
@@ -151,6 +151,6 @@ update_el_breadcrumb <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

@@ -923,3 +923,43 @@ el_skeleton_item <- function(variant = NULL, ...) {
   .el_check_choices("el_skeleton_item", environment())
   htmltools::tag("el-skeleton-item", c(list(variant = variant), list(...)))
 }
+
+#' Check that items are a list of lists
+#'
+#' Components built from items -- tabs, panels, menu entries -- read each
+#' item's fields with `$`, which on a string or a vector fails with R's own
+#' "$ operator is invalid for atomic vectors". Saying what was expected is
+#' more use.
+#'
+#' @param x The items as given; `NULL` and an empty list pass.
+#' @param arg The argument's name, for the error.
+#' @param fields The fields an item has, for the error.
+#' @return `x`, invisibly.
+#' @keywords internal
+.el_check_items <- function(x, arg, fields) {
+  if (is.null(x) || (is.list(x) && !length(x))) {
+    return(invisible(x))
+  }
+  ok <- is.list(x) &&
+    !is.data.frame(x) &&
+    !inherits(x, c("shiny.tag", "shiny.tag.list")) &&
+    all(vapply(
+      x,
+      function(i) is.list(i) && !inherits(i, "shiny.tag"),
+      logical(1)
+    ))
+  if (!ok) {
+    stop(
+      "`",
+      arg,
+      "` must be a list of items, each a list such as ",
+      "list(",
+      paste0(fields, " = ...", collapse = ", "),
+      "), not ",
+      if (inherits(x, "shiny.tag")) "a tag" else class(x)[1],
+      ".",
+      call. = FALSE
+    )
+  }
+  invisible(x)
+}

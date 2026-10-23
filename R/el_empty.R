@@ -38,16 +38,16 @@ el_empty <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_empty")
+    id <- .vue_auto_id("el_empty")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   own <- list(
     markup = NULL,
     data = list(
-      emptyDescription = .el_or_na(description),
-      emptyImage = .el_or_na(image),
-      emptyImageSize = .el_or_na(image_size)
+      emptyDescription = .vue_or_na(description),
+      emptyImage = .vue_or_na(image),
+      emptyImageSize = .vue_or_na(image_size)
     ),
     methods = list(),
     watch = list(),
@@ -59,9 +59,9 @@ el_empty <- function(
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
   attrs <- list(
-    ":description" = .el_optional_bind("emptyDescription"),
-    ":image" = .el_optional_bind("emptyImage"),
-    ":image-size" = .el_optional_bind("emptyImageSize")
+    ":description" = .vue_optional_bind("emptyDescription"),
+    ":image" = .vue_optional_bind("emptyImage"),
+    ":image-size" = .vue_optional_bind("emptyImageSize")
   )
 
   el_widget(
@@ -112,6 +112,6 @@ update_el_empty <- function(
   if (!is.null(image)) {
     msg$emptyImage <- image
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

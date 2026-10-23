@@ -64,9 +64,9 @@ el_statistic <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_statistic")
+    id <- .vue_auto_id("el_statistic")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   el_widget(
     id = ns_id,
     markup = htmltools::tag("el-statistic", list(":value" = "value")),
@@ -106,9 +106,9 @@ el_countdown <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_countdown")
+    id <- .vue_auto_id("el_countdown")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   events <- .el_event_bindings(
     ns_id,
     "el_countdown",
@@ -208,7 +208,7 @@ update_el_statistic <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
 
@@ -254,6 +254,6 @@ update_el_countdown <- function(
       Filter(Negate(is.null), list(format = format, value_style = value_style))
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

@@ -118,9 +118,9 @@ el_input_tag <- function(
 ) {
   .el_check_choices("el_input_tag", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_input_tag")
+    id <- .vue_auto_id("el_input_tag")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_input_tag",
@@ -276,6 +276,6 @@ update_el_input_tag <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

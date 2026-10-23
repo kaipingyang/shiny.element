@@ -75,9 +75,9 @@ el_timeline <- function(
 ) {
   .el_check_choices("el_timeline", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_timeline")
+    id <- .vue_auto_id("el_timeline")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # One v-for over a data field, so update_el_timeline() can replace the lot.
   # An entry whose content is tags is markup the app built: shown as such,
@@ -212,6 +212,6 @@ update_el_timeline <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

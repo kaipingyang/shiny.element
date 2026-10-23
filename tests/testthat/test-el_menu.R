@@ -157,7 +157,7 @@ test_that("el_menu: colours fall back to Element's defaults when unset", {
   html <- render_html(el_menu(id = "nav", items = demo_items))
   for (f in c("backgroundColor", "textColor", "activeTextColor")) {
     expect_match(html, sprintf('"%s":null', f), fixed = TRUE)
-    expect_match(html, .el_optional_bind(f), fixed = TRUE)
+    expect_match(html, .vue_optional_bind(f), fixed = TRUE)
   }
 
   themed <- render_html(el_menu(

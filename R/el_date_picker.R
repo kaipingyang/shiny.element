@@ -207,9 +207,9 @@ el_date_picker <- function(
 ) {
   .el_check_choices("el_date_picker", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_date_picker")
+    id <- .vue_auto_id("el_date_picker")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Determine if this is a range-type picker
   is_range_type <- grepl("range", type)
@@ -236,7 +236,7 @@ el_date_picker <- function(
     "v-model" = "value",
     ":type" = "type",
     ":value-format" = "valueFormat",
-    ":format" = .el_optional_bind("displayFormat"),
+    ":format" = .vue_optional_bind("displayFormat"),
     ":clearable" = "clearable",
     ":disabled" = "disabled",
     ":editable" = "editable",
@@ -244,19 +244,19 @@ el_date_picker <- function(
     ":range-separator" = "rangeSeparator",
     "@change" = "handleChange"
   )
-  picker_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
-  picker_attrs[[":start-placeholder"]] <- .el_optional_bind("startPlaceholder")
-  picker_attrs[[":end-placeholder"]] <- .el_optional_bind("endPlaceholder")
-  picker_attrs[[":size"]] <- .el_optional_bind("size")
-  picker_attrs[[":name"]] <- .el_optional_bind("name")
-  picker_attrs[[":prefix-icon"]] <- .el_optional_bind("prefixIcon")
-  picker_attrs[[":clear-icon"]] <- .el_optional_bind("clearIcon")
-  picker_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
+  picker_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
+  picker_attrs[[":start-placeholder"]] <- .vue_optional_bind("startPlaceholder")
+  picker_attrs[[":end-placeholder"]] <- .vue_optional_bind("endPlaceholder")
+  picker_attrs[[":size"]] <- .vue_optional_bind("size")
+  picker_attrs[[":name"]] <- .vue_optional_bind("name")
+  picker_attrs[[":prefix-icon"]] <- .vue_optional_bind("prefixIcon")
+  picker_attrs[[":clear-icon"]] <- .vue_optional_bind("clearIcon")
+  picker_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
   # Dates in Element Plus, text from R: $elDate (el-events.js) converts
   picker_attrs[[":default-value"]] <- "$elDate(defaultValue)"
   picker_attrs[[":default-time"]] <- "$elDate(defaultTime)"
-  picker_attrs[[":unlink-panels"]] <- .el_optional_bind("unlinkPanels")
-  picker_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
+  picker_attrs[[":unlink-panels"]] <- .vue_optional_bind("unlinkPanels")
+  picker_attrs[[":validate-event"]] <- .vue_optional_bind("validateEvent")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -271,7 +271,7 @@ el_date_picker <- function(
     value = init_value,
     type = type,
     valueFormat = value_format,
-    displayFormat = .el_or_na(format),
+    displayFormat = .vue_or_na(format),
     clearable = clearable,
     disabled = disabled,
     editable = editable,
@@ -279,17 +279,17 @@ el_date_picker <- function(
     rangeSeparator = range_separator
   )
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  vue_data$startPlaceholder <- .el_or_na(start_placeholder)
-  vue_data$endPlaceholder <- .el_or_na(end_placeholder)
-  vue_data$size <- .el_or_na(size)
-  vue_data$name <- .el_or_na(name)
-  vue_data$prefixIcon <- .el_or_na(prefix_icon)
-  vue_data$clearIcon <- .el_or_na(clear_icon)
-  vue_data$popperClass <- .el_or_na(popper_class)
-  vue_data$defaultValue <- .el_or_na(default_value)
-  vue_data$defaultTime <- .el_or_na(default_time)
-  vue_data$unlinkPanels <- .el_or_na(unlink_panels)
-  vue_data$validateEvent <- .el_or_na(validate_event)
+  vue_data$startPlaceholder <- .vue_or_na(start_placeholder)
+  vue_data$endPlaceholder <- .vue_or_na(end_placeholder)
+  vue_data$size <- .vue_or_na(size)
+  vue_data$name <- .vue_or_na(name)
+  vue_data$prefixIcon <- .vue_or_na(prefix_icon)
+  vue_data$clearIcon <- .vue_or_na(clear_icon)
+  vue_data$popperClass <- .vue_or_na(popper_class)
+  vue_data$defaultValue <- .vue_or_na(default_value)
+  vue_data$defaultTime <- .vue_or_na(default_time)
+  vue_data$unlinkPanels <- .vue_or_na(unlink_panels)
+  vue_data$validateEvent <- .vue_or_na(validate_event)
   el_widget(
     props = .el_props(list(
       arrow_control = arrow_control,
@@ -484,6 +484,6 @@ update_el_date_picker <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

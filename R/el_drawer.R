@@ -102,9 +102,9 @@ el_drawer <- function(
 ) {
   .el_check_choices("el_drawer", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_drawer")
+    id <- .vue_auto_id("el_drawer")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))
   if (is.null(append_to) && isTRUE(append_to_body)) {
     append_to <- "body"

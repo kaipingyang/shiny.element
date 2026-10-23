@@ -293,7 +293,7 @@ el_widget <- function(
     )
   }
   root <- if (is.null(label) && is.null(error) && !isTRUE(required)) {
-    htmltools::tags$div(id = container_id, style = .el_host_style(), markup)
+    htmltools::tags$div(id = container_id, style = .vue_host_style(), markup)
   } else {
     .el_labelled(
       container_id,
@@ -453,7 +453,7 @@ el_widget <- function(
       }
       # Element Plus names its slots in kebab-case -- date-cell, sub-title --
       # and Vue 3 matches them as written
-      .el_slot(gsub("([a-z0-9])([A-Z])", "\\1-\\L\\2", name, perl = TRUE), ui)
+      .vue_slot(gsub("([a-z0-9])([A-Z])", "\\1-\\L\\2", name, perl = TRUE), ui)
     },
     names(slots),
     merged$markups
@@ -654,4 +654,33 @@ el_widget <- function(
     attrs[["aria-labelledby"]] <- paste0(id, "-label")
   }
   attrs
+}
+
+#' Add a label or error to an update
+#'
+#' The form item a labelled input is drawn in has no Vue field of its own:
+#' its label and message are markup around the component. They travel as the
+#' bridge's own keys, `.label` and `.error`, which el-events.js draws.
+#'
+#' @param msg The update message.
+#' @param label New label: text, tags or `HTML()`, or `NULL`.
+#' @param error New error message, `""` to clear it, or `NULL`.
+#' @return The message.
+#' @keywords internal
+.el_form_item_update <- function(msg, label = NULL, error = NULL) {
+  # Markup -- tags or HTML() -- goes as HTML, as Shiny's update*Input()
+  # takes it; anything else as text
+  if (!is.null(label)) {
+    msg[[".label"]] <- if (
+      inherits(label, c("shiny.tag", "shiny.tag.list", "html"))
+    ) {
+      list(html = as.character(htmltools::renderTags(label)$html))
+    } else {
+      as.character(label)
+    }
+  }
+  if (!is.null(error)) {
+    msg[[".error"]] <- as.character(error)
+  }
+  msg
 }

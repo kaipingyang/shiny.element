@@ -113,7 +113,7 @@ el_container <- function(
     style = .el_style(style)
   )
   if (!is.null(id)) {
-    attrs$id <- .el_ui_id(id, session)
+    attrs$id <- .vue_ui_id(id, session)
   }
 
   # Element Plus's stylesheet lays the container and its parts out

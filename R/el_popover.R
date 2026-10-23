@@ -130,21 +130,21 @@ el_popover <- function(
   inner_body <- .el_absorb(body)
 
   if (is.null(id)) {
-    id <- .el_auto_id("el_popover")
+    id <- .vue_auto_id("el_popover")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":title" = .el_optional_bind("popTitle"),
-    ":content" = .el_optional_bind("popContent"),
-    ":trigger" = .el_optional_bind("popTrigger"),
-    ":placement" = .el_optional_bind("popPlacement"),
-    ":width" = .el_optional_bind("popPopoverWidth"),
-    ":disabled" = .el_optional_bind("popDisabled"),
-    ":offset" = .el_optional_bind("popOffset"),
-    ":transition" = .el_optional_bind("popTransition"),
-    ":popper-class" = .el_optional_bind("popPopperClass"),
-    ":popper-options" = .el_optional_bind("popPopperOptions")
+    ":title" = .vue_optional_bind("popTitle"),
+    ":content" = .vue_optional_bind("popContent"),
+    ":trigger" = .vue_optional_bind("popTrigger"),
+    ":placement" = .vue_optional_bind("popPlacement"),
+    ":width" = .vue_optional_bind("popPopoverWidth"),
+    ":disabled" = .vue_optional_bind("popDisabled"),
+    ":offset" = .vue_optional_bind("popOffset"),
+    ":transition" = .vue_optional_bind("popTransition"),
+    ":popper-class" = .vue_optional_bind("popPopperClass"),
+    ":popper-options" = .vue_optional_bind("popPopperOptions")
   )
   events <- .el_event_bindings(
     ns_id,
@@ -157,16 +157,16 @@ el_popover <- function(
   own <- list(
     markup = NULL,
     data = list(
-      popTitle = .el_or_na(title),
-      popContent = .el_or_na(content),
-      popTrigger = .el_or_na(trigger),
-      popPlacement = .el_or_na(placement),
-      popPopoverWidth = .el_or_na(popover_width),
-      popDisabled = .el_or_na(disabled),
-      popOffset = .el_or_na(offset),
-      popTransition = .el_or_na(transition),
-      popPopperClass = .el_or_na(popper_class),
-      popPopperOptions = .el_or_na(popper_options)
+      popTitle = .vue_or_na(title),
+      popContent = .vue_or_na(content),
+      popTrigger = .vue_or_na(trigger),
+      popPlacement = .vue_or_na(placement),
+      popPopoverWidth = .vue_or_na(popover_width),
+      popDisabled = .vue_or_na(disabled),
+      popOffset = .vue_or_na(offset),
+      popTransition = .vue_or_na(transition),
+      popPopperClass = .vue_or_na(popper_class),
+      popPopperOptions = .vue_or_na(popper_options)
     ),
     methods = events$methods,
     watch = list(),
@@ -184,7 +184,7 @@ el_popover <- function(
     children <- c(
       children,
       list(
-        .el_slot("reference", htmltools::tags$span(ref_markup))
+        .vue_slot("reference", htmltools::tags$span(ref_markup))
       )
     )
   }
@@ -264,6 +264,6 @@ update_el_popover <- function(
   if (!is.null(visible)) {
     msg$popVisible <- visible
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

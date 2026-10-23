@@ -9,7 +9,7 @@
 #' @keywords internal
 .el_menu_nodes <- function(items) {
   lapply(items, function(item) {
-    icon <- if (!is.null(item$icon)) .el_vue_icon(item$icon)
+    icon <- if (!is.null(item$icon)) .el_icon_template(item$icon)
     # `title` is Element's own word for it -- the slot is named title -- and
     # an item given one rendered as a blank entry, with nothing logged.
     text <- if (!is.null(item$label)) item$label else item$title
@@ -35,7 +35,7 @@
       )
     } else if (length(item$children)) {
       # Element puts a submenu's own label in a named slot, not its body.
-      title <- .el_slot("title", icon, label)
+      title <- .vue_slot("title", icon, label)
       attrs <- c(
         list(index = item$index),
         .el_menu_item_props(
@@ -244,9 +244,9 @@ el_menu <- function(
   .el_check_items(items, "items", c("index", "label"))
   .el_check_choices("el_menu", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_menu")
+    id <- .vue_auto_id("el_menu")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   default_active <- shiny::restoreInput(ns_id, default_active)
 
   menu_attrs <- list(
@@ -254,21 +254,21 @@ el_menu <- function(
     ":mode" = "mode",
     ":collapse" = "collapse",
     ":unique-opened" = "uniqueOpened",
-    ":background-color" = .el_optional_bind("backgroundColor"),
-    ":text-color" = .el_optional_bind("textColor"),
-    ":active-text-color" = .el_optional_bind("activeTextColor"),
+    ":background-color" = .vue_optional_bind("backgroundColor"),
+    ":text-color" = .vue_optional_bind("textColor"),
+    ":active-text-color" = .vue_optional_bind("activeTextColor"),
     "@select" = "handleSelect"
   )
 
-  menu_attrs[[":default-openeds"]] <- .el_optional_bind("defaultOpeneds")
+  menu_attrs[[":default-openeds"]] <- .vue_optional_bind("defaultOpeneds")
 
-  menu_attrs[[":menu-trigger"]] <- .el_optional_bind("menuTrigger")
+  menu_attrs[[":menu-trigger"]] <- .vue_optional_bind("menuTrigger")
 
-  menu_attrs[[":collapse-transition"]] <- .el_optional_bind(
+  menu_attrs[[":collapse-transition"]] <- .vue_optional_bind(
     "collapseTransition"
   )
 
-  menu_attrs[[":router"]] <- .el_optional_bind("router")
+  menu_attrs[[":router"]] <- .vue_optional_bind("router")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
 
@@ -296,13 +296,13 @@ el_menu <- function(
     path = list()
   )
 
-  vue_data$defaultOpeneds <- .el_or_na(default_openeds)
+  vue_data$defaultOpeneds <- .vue_or_na(default_openeds)
 
-  vue_data$menuTrigger <- .el_or_na(menu_trigger)
+  vue_data$menuTrigger <- .vue_or_na(menu_trigger)
 
-  vue_data$collapseTransition <- .el_or_na(collapse_transition)
+  vue_data$collapseTransition <- .vue_or_na(collapse_transition)
 
-  vue_data$router <- .el_or_na(router)
+  vue_data$router <- .vue_or_na(router)
 
   el_widget(
     props = .el_props(list(
@@ -433,6 +433,6 @@ update_el_menu <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

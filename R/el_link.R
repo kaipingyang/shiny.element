@@ -61,16 +61,16 @@ el_link <- function(
   }
   icon <- .el_icon_name(icon)
   if (!is.null(id)) {
-    ns_id <- .el_ui_id(id, NULL)
+    ns_id <- .vue_ui_id(id, NULL)
     return(el_widget(
       id = ns_id,
       markup = htmltools::tag(
         "el-link",
         list(
           ":href" = "href === null ? undefined : href",
-          ":type" = .el_optional_bind("type"),
+          ":type" = .vue_optional_bind("type"),
           ":target" = "target",
-          ":underline" = .el_optional_bind("underline"),
+          ":underline" = .vue_optional_bind("underline"),
           ":disabled" = "disabled",
           ":icon" = "icon === null ? undefined : icon",
           "@click" = "handleClick",
@@ -79,12 +79,12 @@ el_link <- function(
       ),
       data = list(
         text = label,
-        href = .el_or_na(href),
-        type = .el_or_na(type),
+        href = .vue_or_na(href),
+        type = .vue_or_na(type),
         target = target,
-        underline = .el_or_na(underline),
+        underline = .vue_or_na(underline),
         disabled = disabled,
-        icon = .el_or_na(icon),
+        icon = .vue_or_na(icon),
         count = 0L
       ),
       methods = list(
@@ -169,6 +169,6 @@ update_el_link <- function(
   if (!is.null(icon)) {
     msg$icon <- icon
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

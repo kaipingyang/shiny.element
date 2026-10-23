@@ -71,9 +71,9 @@ el_collapse <- function(
   .el_check_choices("el_collapse", environment())
   expand_icon_position <- match.arg(expand_icon_position, c("right", "left"))
   if (is.null(id)) {
-    id <- .el_auto_id("el_collapse")
+    id <- .vue_auto_id("el_collapse")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   value <- shiny::restoreInput(ns_id, value)
 
   if (accordion && length(value) > 1) {

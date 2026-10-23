@@ -166,9 +166,9 @@ el_input <- function(
 ) {
   .el_check_choices("el_input", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_input")
+    id <- .vue_auto_id("el_input")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Always-present Vue binding attributes
   input_attrs <- list(
@@ -186,22 +186,22 @@ el_input <- function(
   )
 
   # Conditional attributes (only add when not NULL)
-  input_attrs[[":size"]] <- .el_optional_bind("size")
-  input_attrs[[":maxlength"]] <- .el_optional_bind("maxlength")
-  input_attrs[[":rows"]] <- .el_optional_bind("rows")
-  input_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
-  input_attrs[[":label"]] <- .el_optional_bind("label")
-  input_attrs[[":autocomplete"]] <- .el_optional_bind("autocomplete")
-  input_attrs[[":autofocus"]] <- .el_optional_bind("autofocus")
-  input_attrs[[":name"]] <- .el_optional_bind("name")
-  input_attrs[[":form"]] <- .el_optional_bind("form")
-  input_attrs[[":minlength"]] <- .el_optional_bind("minlength")
-  input_attrs[[":max"]] <- .el_optional_bind("max")
-  input_attrs[[":min"]] <- .el_optional_bind("min")
-  input_attrs[[":step"]] <- .el_optional_bind("step")
-  input_attrs[[":resize"]] <- .el_optional_bind("resize")
-  input_attrs[[":tabindex"]] <- .el_optional_bind("tabindex")
-  input_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
+  input_attrs[[":size"]] <- .vue_optional_bind("size")
+  input_attrs[[":maxlength"]] <- .vue_optional_bind("maxlength")
+  input_attrs[[":rows"]] <- .vue_optional_bind("rows")
+  input_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
+  input_attrs[[":label"]] <- .vue_optional_bind("label")
+  input_attrs[[":autocomplete"]] <- .vue_optional_bind("autocomplete")
+  input_attrs[[":autofocus"]] <- .vue_optional_bind("autofocus")
+  input_attrs[[":name"]] <- .vue_optional_bind("name")
+  input_attrs[[":form"]] <- .vue_optional_bind("form")
+  input_attrs[[":minlength"]] <- .vue_optional_bind("minlength")
+  input_attrs[[":max"]] <- .vue_optional_bind("max")
+  input_attrs[[":min"]] <- .vue_optional_bind("min")
+  input_attrs[[":step"]] <- .vue_optional_bind("step")
+  input_attrs[[":resize"]] <- .vue_optional_bind("resize")
+  input_attrs[[":tabindex"]] <- .vue_optional_bind("tabindex")
+  input_attrs[[":validate-event"]] <- .vue_optional_bind("validateEvent")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -227,21 +227,21 @@ el_input <- function(
 
   # Conditional data fields (only add when not NULL)
   vue_data$size <- if (is.null(size)) NA else size
-  vue_data$maxlength <- .el_or_na(maxlength)
-  vue_data$rows <- .el_or_na(rows)
+  vue_data$maxlength <- .vue_or_na(maxlength)
+  vue_data$rows <- .vue_or_na(rows)
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  vue_data$label <- .el_or_na(label)
-  vue_data$autocomplete <- .el_or_na(autocomplete)
-  vue_data$autofocus <- .el_or_na(autofocus)
-  vue_data$name <- .el_or_na(name)
-  vue_data$form <- .el_or_na(form)
-  vue_data$minlength <- .el_or_na(minlength)
-  vue_data$max <- .el_or_na(max)
-  vue_data$min <- .el_or_na(min)
-  vue_data$step <- .el_or_na(step)
-  vue_data$resize <- .el_or_na(resize)
-  vue_data$tabindex <- .el_or_na(tabindex)
-  vue_data$validateEvent <- .el_or_na(validate_event)
+  vue_data$label <- .vue_or_na(label)
+  vue_data$autocomplete <- .vue_or_na(autocomplete)
+  vue_data$autofocus <- .vue_or_na(autofocus)
+  vue_data$name <- .vue_or_na(name)
+  vue_data$form <- .vue_or_na(form)
+  vue_data$minlength <- .vue_or_na(minlength)
+  vue_data$max <- .vue_or_na(max)
+  vue_data$min <- .vue_or_na(min)
+  vue_data$step <- .vue_or_na(step)
+  vue_data$resize <- .vue_or_na(resize)
+  vue_data$tabindex <- .vue_or_na(tabindex)
+  vue_data$validateEvent <- .vue_or_na(validate_event)
   el_widget(
     props = .el_props(list(
       aria_label = aria_label,
@@ -403,6 +403,6 @@ update_el_input <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

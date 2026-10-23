@@ -48,7 +48,7 @@ use_element <- function(
   layout_css = el_layout_css_dependency()
 ) {
   deps <- c(
-    list(.el_vue_dependency(dev = dev)),
+    list(.vue_vue_dependency(dev = dev)),
     element_plus_dependency(offline = offline),
     # the bridge and Element's side of it, which checks for raw el$ tags
     # left outside any component -- a page may hold nothing else
@@ -374,4 +374,46 @@ el_locales <- function() {
     ),
     all_files = FALSE
   ))
+}
+
+#' The scripts every Vue component needs
+#'
+#' jQuery, Vue, the generic bridge (`shiny-vue.js`: mounting, the Shiny input
+#' binding, serialising values, forwarding events), Element Plus and Element's
+#' side of the bridge (`el-events.js`), in load order. Every component
+#' carries Element Plus, as Shiny's inputs carry selectize and htmlwidgets
+#' their libraries, so it works on any page; htmltools keeps one copy, the
+#' first, so a page that loads Element from the CDN (`use_element(offline =
+#' FALSE)` before its components) keeps that one. What belongs to the page
+#' -- its theme, locale, global config, the feedback handlers -- stays with
+#' [use_element()] and [el_page()].
+#'
+#' @return A list of htmlDependency objects.
+#' @keywords internal
+.el_vue_dependencies <- function() {
+  .vue_memo(paste("el_vue_dependencies", .vue_dev()), function() {
+    c(
+      .vue_dependencies(),
+      element_plus_dependency(),
+      list(htmltools::htmlDependency(
+        "el-events",
+        "1.0.0",
+        src = .vue_file("js"),
+        script = "el-events.js",
+        all_files = FALSE
+      ))
+    )
+  })
+}
+
+#' Element Plus, and the Vue its script needs before it
+#'
+#' For the containers -- tabs, collapse, dialog, drawer, row, container --
+#' which are Element's markup and classes, not Vue apps: they need its
+#' stylesheet, not the bridge.
+#'
+#' @return A list of htmlDependency objects.
+#' @keywords internal
+.el_plus_dependencies <- function() {
+  c(list(.vue_vue_dependency()), element_plus_dependency())
 }

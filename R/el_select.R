@@ -254,8 +254,8 @@ el_select <- function(
   session = NULL
 ) {
   .el_check_choices("el_select", environment())
-  selected <- .el_alias(selected, value, "selected", "value")
-  choices <- .el_alias(choices, options, "choices", "options")
+  selected <- .vue_alias(selected, value, "selected", "value")
+  choices <- .vue_alias(choices, options, "choices", "options")
   # Options are drawn here, not by Element Plus from an `options` prop, so
   # `props` renames their fields here
   choices <- .el_rename_option_fields(choices, props)
@@ -263,9 +263,9 @@ el_select <- function(
     choices <- list()
   }
   if (is.null(id)) {
-    id <- .el_auto_id("el_select")
+    id <- .vue_auto_id("el_select")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Options are rendered with v-for so update_el_select() can replace them.
   # Each carries its own `disabled`: the select's `disabled` argument turns off
@@ -312,26 +312,26 @@ el_select <- function(
     ":collapse-tags" = "collapseTags",
     "@change" = "handleChange"
   )
-  select_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
-  select_attrs[[":size"]] <- .el_optional_bind("size")
-  select_attrs[[":value-key"]] <- .el_optional_bind("valueKey")
-  select_attrs[[":name"]] <- .el_optional_bind("name")
-  select_attrs[[":autocomplete"]] <- .el_optional_bind("autocomplete")
-  select_attrs[[":automatic-dropdown"]] <- .el_optional_bind(
+  select_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
+  select_attrs[[":size"]] <- .vue_optional_bind("size")
+  select_attrs[[":value-key"]] <- .vue_optional_bind("valueKey")
+  select_attrs[[":name"]] <- .vue_optional_bind("name")
+  select_attrs[[":autocomplete"]] <- .vue_optional_bind("autocomplete")
+  select_attrs[[":automatic-dropdown"]] <- .vue_optional_bind(
     "automaticDropdown"
   )
-  select_attrs[[":allow-create"]] <- .el_optional_bind("allowCreate")
-  select_attrs[[":loading"]] <- .el_optional_bind("loading")
-  select_attrs[[":loading-text"]] <- .el_optional_bind("loadingText")
-  select_attrs[[":no-match-text"]] <- .el_optional_bind("noMatchText")
-  select_attrs[[":no-data-text"]] <- .el_optional_bind("noDataText")
-  select_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
-  select_attrs[[":reserve-keyword"]] <- .el_optional_bind("reserveKeyword")
-  select_attrs[[":default-first-option"]] <- .el_optional_bind(
+  select_attrs[[":allow-create"]] <- .vue_optional_bind("allowCreate")
+  select_attrs[[":loading"]] <- .vue_optional_bind("loading")
+  select_attrs[[":loading-text"]] <- .vue_optional_bind("loadingText")
+  select_attrs[[":no-match-text"]] <- .vue_optional_bind("noMatchText")
+  select_attrs[[":no-data-text"]] <- .vue_optional_bind("noDataText")
+  select_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
+  select_attrs[[":reserve-keyword"]] <- .vue_optional_bind("reserveKeyword")
+  select_attrs[[":default-first-option"]] <- .vue_optional_bind(
     "defaultFirstOption"
   )
-  select_attrs[[":remote"]] <- .el_optional_bind("remote")
-  select_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
+  select_attrs[[":remote"]] <- .vue_optional_bind("remote")
+  select_attrs[[":filter-method"]] <- .vue_optional_bind("filterMethod")
   # The server answers by default: input$<id>_query, then update_el_select()
   select_attrs[[
     ":remote-method"
@@ -373,22 +373,22 @@ el_select <- function(
     collapseTags = collapse_tags
   )
   vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  vue_data$size <- .el_or_na(size)
-  vue_data$valueKey <- .el_or_na(value_key)
-  vue_data$name <- .el_or_na(name)
-  vue_data$autocomplete <- .el_or_na(autocomplete)
-  vue_data$automaticDropdown <- .el_or_na(automatic_dropdown)
-  vue_data$allowCreate <- .el_or_na(allow_create)
-  vue_data$loading <- .el_or_na(loading)
-  vue_data$loadingText <- .el_or_na(loading_text)
-  vue_data$noMatchText <- .el_or_na(no_match_text)
-  vue_data$noDataText <- .el_or_na(no_data_text)
-  vue_data$popperClass <- .el_or_na(popper_class)
-  vue_data$reserveKeyword <- .el_or_na(reserve_keyword)
-  vue_data$defaultFirstOption <- .el_or_na(default_first_option)
-  vue_data$remote <- .el_or_na(remote)
-  vue_data$filterMethod <- .el_or_na(filter_method)
-  vue_data$remoteMethod <- .el_or_na(remote_method)
+  vue_data$size <- .vue_or_na(size)
+  vue_data$valueKey <- .vue_or_na(value_key)
+  vue_data$name <- .vue_or_na(name)
+  vue_data$autocomplete <- .vue_or_na(autocomplete)
+  vue_data$automaticDropdown <- .vue_or_na(automatic_dropdown)
+  vue_data$allowCreate <- .vue_or_na(allow_create)
+  vue_data$loading <- .vue_or_na(loading)
+  vue_data$loadingText <- .vue_or_na(loading_text)
+  vue_data$noMatchText <- .vue_or_na(no_match_text)
+  vue_data$noDataText <- .vue_or_na(no_data_text)
+  vue_data$popperClass <- .vue_or_na(popper_class)
+  vue_data$reserveKeyword <- .vue_or_na(reserve_keyword)
+  vue_data$defaultFirstOption <- .vue_or_na(default_first_option)
+  vue_data$remote <- .vue_or_na(remote)
+  vue_data$filterMethod <- .vue_or_na(filter_method)
+  vue_data$remoteMethod <- .vue_or_na(remote_method)
   el_widget(
     props = .el_props(list(
       append_to = append_to,
@@ -549,8 +549,8 @@ update_el_select <- function(
   tag_tooltip = NULL
 ) {
   .vue_check_session(session)
-  selected <- .el_alias(selected, value, "selected", "value")
-  choices <- .el_alias(choices, options, "choices", "options")
+  selected <- .vue_alias(selected, value, "selected", "value")
+  choices <- .vue_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(selected)) {
@@ -641,7 +641,7 @@ update_el_select <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
 
@@ -658,7 +658,7 @@ update_el_select <- function(
 #' @keywords internal
 .el_select_choices <- function(choices) {
   if (!is.list(choices) || !length(choices)) {
-    return(list(options = .el_normalize_choices(choices), groups = list()))
+    return(list(options = .vue_choices(choices), groups = list()))
   }
   nms <- names(choices) %||% rep("", length(choices))
   is_group <- function(x, nm) {
@@ -670,7 +670,7 @@ update_el_select <- function(
   }
   flags <- mapply(is_group, choices, nms)
   if (!any(flags)) {
-    return(list(options = .el_normalize_choices(choices), groups = list()))
+    return(list(options = .vue_choices(choices), groups = list()))
   }
 
   groups <- Map(
@@ -679,10 +679,10 @@ update_el_select <- function(
         list(
           label = x$label %||% nm,
           disabled = isTRUE(x$disabled),
-          options = .el_normalize_choices(x$options)
+          options = .vue_choices(x$options)
         )
       } else {
-        list(label = nm, disabled = FALSE, options = .el_normalize_choices(x))
+        list(label = nm, disabled = FALSE, options = .vue_choices(x))
       }
     },
     choices[flags],
@@ -691,7 +691,7 @@ update_el_select <- function(
   loose <- choices[!flags]
   list(
     options = if (length(loose)) {
-      .el_normalize_choices(unname(loose))
+      .vue_choices(unname(loose))
     } else {
       list()
     },

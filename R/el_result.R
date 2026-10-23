@@ -41,16 +41,16 @@ el_result <- function(
 ) {
   .el_check_choices("el_result", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_result")
+    id <- .vue_auto_id("el_result")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   own <- list(
     markup = NULL,
     data = list(
-      resultIcon = .el_or_na(icon),
-      resultTitle = .el_or_na(title),
-      resultSubTitle = .el_or_na(sub_title)
+      resultIcon = .vue_or_na(icon),
+      resultTitle = .vue_or_na(title),
+      resultSubTitle = .vue_or_na(sub_title)
     ),
     methods = list(),
     watch = list(),
@@ -62,13 +62,13 @@ el_result <- function(
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
   attrs <- list(
-    ":icon" = .el_optional_bind("resultIcon"),
-    ":title" = .el_optional_bind("resultTitle"),
-    ":sub-title" = .el_optional_bind("resultSubTitle")
+    ":icon" = .vue_optional_bind("resultIcon"),
+    ":title" = .vue_optional_bind("resultTitle"),
+    ":sub-title" = .vue_optional_bind("resultSubTitle")
   )
   extra <- merged$markups[-1]
   children <- if (length(extra)) {
-    list(.el_slot("extra", extra))
+    list(.vue_slot("extra", extra))
   } else {
     list()
   }
@@ -133,6 +133,6 @@ update_el_result <- function(
   if (!is.null(sub_title)) {
     msg$resultSubTitle <- sub_title
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

@@ -122,9 +122,9 @@ el_switch <- function(
 ) {
   .el_check_choices("el_switch", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_switch")
+    id <- .vue_auto_id("el_switch")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   switch_attrs <- list(
     "v-model" = "value",
@@ -141,9 +141,9 @@ el_switch <- function(
     ":inactive-value" = "inactiveValue",
     "@change" = "handleChange"
   )
-  switch_attrs[[":width"]] <- .el_optional_bind("width")
-  switch_attrs[[":name"]] <- .el_optional_bind("name")
-  switch_attrs[[":validate-event"]] <- .el_optional_bind("validateEvent")
+  switch_attrs[[":width"]] <- .vue_optional_bind("width")
+  switch_attrs[[":name"]] <- .vue_optional_bind("name")
+  switch_attrs[[":validate-event"]] <- .vue_optional_bind("validateEvent")
   switch_tag <- htmltools::tag("el-switch", switch_attrs)
 
   vue_data <- list(
@@ -156,9 +156,9 @@ el_switch <- function(
     activeValue = active_value,
     inactiveValue = inactive_value
   )
-  vue_data$width <- .el_or_na(width)
-  vue_data$name <- .el_or_na(name)
-  vue_data$validateEvent <- .el_or_na(validate_event)
+  vue_data$width <- .vue_or_na(width)
+  vue_data$name <- .vue_or_na(name)
+  vue_data$validateEvent <- .vue_or_na(validate_event)
   el_widget(
     props = .el_props(list(
       active_action_icon = .el_icon_name(active_action_icon),
@@ -290,6 +290,6 @@ update_el_switch <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

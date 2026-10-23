@@ -15,7 +15,7 @@ test_that("tags in an update travel as their HTML", {
   session <- shiny::MockShinySession$new()
   sent <- NULL
   session$sendCustomMessage <- function(type, message) sent <<- message
-  .el_send_update(
+  .vue_send_update(
     session,
     list(id = "x", items = list(list(content = tags$i("it"))))
   )

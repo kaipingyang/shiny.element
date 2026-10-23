@@ -100,7 +100,7 @@ test_that("el_alert: description is bound and null when not supplied", {
   html <- render_html(el_alert("a1", title = "Alert"))
   expect_match(
     html,
-    sprintf(':description="%s"', .el_optional_bind("description")),
+    sprintf(':description="%s"', .vue_optional_bind("description")),
     fixed = TRUE
   )
   expect_match(html, '"description":null', fixed = TRUE)

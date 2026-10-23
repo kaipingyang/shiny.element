@@ -106,9 +106,9 @@ el_date_picker_panel <- function(
   date_format <- .el_dayjs_format(date_format)
   time_format <- .el_dayjs_format(time_format)
   if (is.null(id)) {
-    id <- .el_auto_id("el_date_picker_panel")
+    id <- .vue_auto_id("el_date_picker_panel")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   events <- .el_event_bindings(
     ns_id,
     "el_date_picker_panel",
@@ -240,6 +240,6 @@ update_el_date_picker_panel <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

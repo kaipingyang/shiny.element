@@ -230,9 +230,9 @@ el_calendar <- function(
   .el_check_choices("el_calendar", environment())
 
   if (is.null(id)) {
-    id <- .el_auto_id("el_calendar")
+    id <- .vue_auto_id("el_calendar")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   events <- .el_calendar_events(events)
 
   # Element Plus's calendar takes and gives Date objects; the value stays a
@@ -511,7 +511,7 @@ update_el_calendar <- function(
   }
 
   message <- .el_form_item_update(message, label, error)
-  .el_send_update(session, message)
+  .vue_send_update(session, message)
   invisible(NULL)
 }
 

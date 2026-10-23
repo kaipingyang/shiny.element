@@ -124,9 +124,9 @@ el_autocomplete <- function(
 ) {
   .el_check_choices("el_autocomplete", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_autocomplete")
+    id <- .vue_auto_id("el_autocomplete")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Local filtering over `suggestions` unless the caller supplies their own
   fetcher <- if (!is.null(fetch_suggestions)) {
@@ -173,22 +173,22 @@ el_autocomplete <- function(
   attrs <- list(
     "v-model" = "value",
     ":fetch-suggestions" = "fetchSuggestions",
-    ":placeholder" = .el_optional_bind("placeholder"),
-    ":clearable" = .el_optional_bind("clearable"),
-    ":disabled" = .el_optional_bind("disabled"),
-    ":value-key" = .el_optional_bind("valueKey"),
-    ":debounce" = .el_optional_bind("debounce"),
-    ":placement" = .el_optional_bind("placement"),
-    ":trigger-on-focus" = .el_optional_bind("triggerOnFocus"),
-    ":select-when-unmatched" = .el_optional_bind("selectWhenUnmatched"),
-    ":highlight-first-item" = .el_optional_bind("highlightFirstItem"),
-    ":hide-loading" = .el_optional_bind("hideLoading"),
-    ":icon" = .el_optional_bind("icon"),
-    ":prefix-icon" = .el_optional_bind("prefixIcon"),
-    ":suffix-icon" = .el_optional_bind("suffixIcon"),
-    ":label" = .el_optional_bind("label"),
-    ":name" = .el_optional_bind("name"),
-    ":popper-class" = .el_optional_bind("popperClass")
+    ":placeholder" = .vue_optional_bind("placeholder"),
+    ":clearable" = .vue_optional_bind("clearable"),
+    ":disabled" = .vue_optional_bind("disabled"),
+    ":value-key" = .vue_optional_bind("valueKey"),
+    ":debounce" = .vue_optional_bind("debounce"),
+    ":placement" = .vue_optional_bind("placement"),
+    ":trigger-on-focus" = .vue_optional_bind("triggerOnFocus"),
+    ":select-when-unmatched" = .vue_optional_bind("selectWhenUnmatched"),
+    ":highlight-first-item" = .vue_optional_bind("highlightFirstItem"),
+    ":hide-loading" = .vue_optional_bind("hideLoading"),
+    ":icon" = .vue_optional_bind("icon"),
+    ":prefix-icon" = .vue_optional_bind("prefixIcon"),
+    ":suffix-icon" = .vue_optional_bind("suffixIcon"),
+    ":label" = .vue_optional_bind("label"),
+    ":name" = .vue_optional_bind("name"),
+    ":popper-class" = .vue_optional_bind("popperClass")
   )
   events <- .el_event_bindings(
     ns_id,
@@ -224,22 +224,22 @@ el_autocomplete <- function(
     data = list(
       value = value,
       suggestions = .el_autocomplete_suggestions(suggestions),
-      placeholder = .el_or_na(placeholder),
-      clearable = .el_or_na(clearable),
-      disabled = .el_or_na(disabled),
-      valueKey = .el_or_na(value_key),
-      debounce = .el_or_na(debounce),
-      placement = .el_or_na(placement),
-      triggerOnFocus = .el_or_na(trigger_on_focus),
-      selectWhenUnmatched = .el_or_na(select_when_unmatched),
-      highlightFirstItem = .el_or_na(highlight_first_item),
-      hideLoading = .el_or_na(hide_loading),
-      icon = .el_or_na(icon),
-      prefixIcon = .el_or_na(prefix_icon),
-      suffixIcon = .el_or_na(suffix_icon),
-      label = .el_or_na(label),
-      name = .el_or_na(name),
-      popperClass = .el_or_na(popper_class)
+      placeholder = .vue_or_na(placeholder),
+      clearable = .vue_or_na(clearable),
+      disabled = .vue_or_na(disabled),
+      valueKey = .vue_or_na(value_key),
+      debounce = .vue_or_na(debounce),
+      placement = .vue_or_na(placement),
+      triggerOnFocus = .vue_or_na(trigger_on_focus),
+      selectWhenUnmatched = .vue_or_na(select_when_unmatched),
+      highlightFirstItem = .vue_or_na(highlight_first_item),
+      hideLoading = .vue_or_na(hide_loading),
+      icon = .vue_or_na(icon),
+      prefixIcon = .vue_or_na(prefix_icon),
+      suffixIcon = .vue_or_na(suffix_icon),
+      label = .vue_or_na(label),
+      name = .vue_or_na(name),
+      popperClass = .vue_or_na(popper_class)
     ),
     methods = c(events$methods, list(fetchSuggestions = fetcher)),
     watch = list(
@@ -383,6 +383,6 @@ update_el_autocomplete <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

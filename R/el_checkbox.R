@@ -77,9 +77,9 @@ el_checkbox <- function(
 ) {
   .el_check_choices("el_checkbox", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_checkbox")
+    id <- .vue_auto_id("el_checkbox")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # A box outside a group shows its `label` prop as its text, as Element's
   # template does when the default slot is empty
@@ -99,7 +99,7 @@ el_checkbox <- function(
     checked = checked
   )
   for (f in names(fields)) {
-    attrs[[paste0(":", .el_kebab_case(f))]] <- .el_optional_bind(f)
+    attrs[[paste0(":", .el_kebab_case(f))]] <- .vue_optional_bind(f)
   }
 
   el_widget(
@@ -116,7 +116,7 @@ el_checkbox <- function(
     markup = htmltools::tag("el-checkbox", attrs),
     data = c(
       list(value = value, text = if (is.null(label)) "" else label),
-      lapply(fields, .el_or_na)
+      lapply(fields, .vue_or_na)
     ),
     methods = list(
       handleChange = JS(sprintf(
@@ -218,6 +218,6 @@ update_el_checkbox <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

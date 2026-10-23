@@ -147,9 +147,9 @@ el_table_v2 <- function(
     stop("`methods` must be a named list of JS() functions.", call. = FALSE)
   }
   if (is.null(id)) {
-    id <- .el_auto_id("el_table_v2")
+    id <- .vue_auto_id("el_table_v2")
   }
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   # A data.frame is rows; columns not given are one per variable
   if (is.data.frame(data)) {
     if (is.null(columns)) {
@@ -370,6 +370,6 @@ update_el_table_v2 <- function(
     # an array in Element Plus, even of one key: jsonlite would write "a"
     msg$expandedRowKeys <- as.list(expanded_row_keys)
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

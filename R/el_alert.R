@@ -53,9 +53,9 @@ el_alert <- function(
 ) {
   .el_check_choices("el_alert", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_alert")
+    id <- .vue_auto_id("el_alert")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   alert_attrs <- list(
     ":title" = "title",
@@ -67,7 +67,7 @@ el_alert <- function(
     ":effect" = "effect",
     "@close" = "handleClose"
   )
-  alert_attrs[[":description"]] <- .el_optional_bind("description")
+  alert_attrs[[":description"]] <- .vue_optional_bind("description")
   vue_data <- list(
     title = title,
     type = type,
@@ -152,6 +152,6 @@ update_el_alert <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

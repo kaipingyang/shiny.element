@@ -152,21 +152,21 @@ el_tooltip <- function(
   inner <- .el_absorb(reference)
 
   if (is.null(id)) {
-    id <- .el_auto_id("el_tooltip")
+    id <- .vue_auto_id("el_tooltip")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":content" = .el_optional_bind("tipContent"),
-    ":placement" = .el_optional_bind("tipPlacement"),
-    ":effect" = .el_optional_bind("tipEffect"),
-    ":disabled" = .el_optional_bind("tipDisabled"),
-    ":offset" = .el_optional_bind("tipOffset"),
-    ":hide-after" = .el_optional_bind("tipHideAfter"),
-    ":enterable" = .el_optional_bind("tipEnterable"),
-    ":transition" = .el_optional_bind("tipTransition"),
-    ":popper-class" = .el_optional_bind("tipPopperClass"),
-    ":popper-options" = .el_optional_bind("tipPopperOptions")
+    ":content" = .vue_optional_bind("tipContent"),
+    ":placement" = .vue_optional_bind("tipPlacement"),
+    ":effect" = .vue_optional_bind("tipEffect"),
+    ":disabled" = .vue_optional_bind("tipDisabled"),
+    ":offset" = .vue_optional_bind("tipOffset"),
+    ":hide-after" = .vue_optional_bind("tipHideAfter"),
+    ":enterable" = .vue_optional_bind("tipEnterable"),
+    ":transition" = .vue_optional_bind("tipTransition"),
+    ":popper-class" = .vue_optional_bind("tipPopperClass"),
+    ":popper-options" = .vue_optional_bind("tipPopperOptions")
   )
 
   events <- .el_event_bindings(
@@ -180,16 +180,16 @@ el_tooltip <- function(
   own <- list(
     markup = NULL,
     data = list(
-      tipContent = .el_or_na(content),
-      tipPlacement = .el_or_na(placement),
-      tipEffect = .el_or_na(effect),
-      tipDisabled = .el_or_na(disabled),
-      tipOffset = .el_or_na(offset),
-      tipHideAfter = .el_or_na(hide_after),
-      tipEnterable = .el_or_na(enterable),
-      tipTransition = .el_or_na(transition),
-      tipPopperClass = .el_or_na(popper_class),
-      tipPopperOptions = .el_or_na(popper_options)
+      tipContent = .vue_or_na(content),
+      tipPlacement = .vue_or_na(placement),
+      tipEffect = .vue_or_na(effect),
+      tipDisabled = .vue_or_na(disabled),
+      tipOffset = .vue_or_na(offset),
+      tipHideAfter = .vue_or_na(hide_after),
+      tipEnterable = .vue_or_na(enterable),
+      tipTransition = .vue_or_na(transition),
+      tipPopperClass = .vue_or_na(popper_class),
+      tipPopperOptions = .vue_or_na(popper_options)
     ),
     methods = events$methods,
     watch = list(),
@@ -276,6 +276,6 @@ update_el_tooltip <- function(
   if (!is.null(virtual_ref)) {
     msg$tipVirtualRef <- virtual_ref
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

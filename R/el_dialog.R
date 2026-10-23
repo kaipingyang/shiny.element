@@ -119,9 +119,9 @@ el_dialog <- function(
   session = NULL
 ) {
   if (is.null(id)) {
-    id <- .el_auto_id("el_dialog")
+    id <- .vue_auto_id("el_dialog")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
   visible <- isTRUE(shiny::restoreInput(ns_id, visible))
   if (is.null(append_to) && isTRUE(append_to_body)) {
     append_to <- "body"

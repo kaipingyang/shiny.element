@@ -97,19 +97,19 @@ el_popconfirm <- function(
   inner <- .el_absorb(reference)
 
   if (is.null(id)) {
-    id <- .el_auto_id("el_popconfirm")
+    id <- .vue_auto_id("el_popconfirm")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":title" = .el_optional_bind("pcTitle"),
-    ":confirm-button-text" = .el_optional_bind("pcConfirmButtonText"),
-    ":cancel-button-text" = .el_optional_bind("pcCancelButtonText"),
-    ":confirm-button-type" = .el_optional_bind("pcConfirmButtonType"),
-    ":cancel-button-type" = .el_optional_bind("pcCancelButtonType"),
-    ":icon" = .el_optional_bind("pcIcon"),
-    ":icon-color" = .el_optional_bind("pcIconColor"),
-    ":hide-icon" = .el_optional_bind("pcHideIcon"),
+    ":title" = .vue_optional_bind("pcTitle"),
+    ":confirm-button-text" = .vue_optional_bind("pcConfirmButtonText"),
+    ":cancel-button-text" = .vue_optional_bind("pcCancelButtonText"),
+    ":confirm-button-type" = .vue_optional_bind("pcConfirmButtonType"),
+    ":cancel-button-type" = .vue_optional_bind("pcCancelButtonType"),
+    ":icon" = .vue_optional_bind("pcIcon"),
+    ":icon-color" = .vue_optional_bind("pcIconColor"),
+    ":hide-icon" = .vue_optional_bind("pcHideIcon"),
     # Element 2.13 emitted these as onConfirm and onCancel; 2.15 renamed them
     # to confirm and cancel. Bound under the old names they are simply never
     # heard, so the prompt still opens and closes but reports nothing.
@@ -120,14 +120,14 @@ el_popconfirm <- function(
   own <- list(
     markup = NULL,
     data = list(
-      pcTitle = .el_or_na(title),
-      pcConfirmButtonText = .el_or_na(confirm_button_text),
-      pcCancelButtonText = .el_or_na(cancel_button_text),
-      pcConfirmButtonType = .el_or_na(confirm_button_type),
-      pcCancelButtonType = .el_or_na(cancel_button_type),
-      pcIcon = .el_or_na(.el_icon_name(icon)),
-      pcIconColor = .el_or_na(icon_color),
-      pcHideIcon = .el_or_na(hide_icon)
+      pcTitle = .vue_or_na(title),
+      pcConfirmButtonText = .vue_or_na(confirm_button_text),
+      pcCancelButtonText = .vue_or_na(cancel_button_text),
+      pcConfirmButtonType = .vue_or_na(confirm_button_type),
+      pcCancelButtonType = .vue_or_na(cancel_button_type),
+      pcIcon = .vue_or_na(.el_icon_name(icon)),
+      pcIconColor = .vue_or_na(icon_color),
+      pcHideIcon = .vue_or_na(hide_icon)
     ),
     watch = list(),
     computed = list(),
@@ -150,7 +150,7 @@ el_popconfirm <- function(
     list()
   } else {
     list(
-      .el_slot("reference", htmltools::tags$span(ref_markup))
+      .vue_slot("reference", htmltools::tags$span(ref_markup))
     )
   }
 
@@ -221,6 +221,6 @@ update_el_popconfirm <- function(
   if (!is.null(cancel_button_text)) {
     msg$pcCancelButtonText <- cancel_button_text
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

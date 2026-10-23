@@ -229,9 +229,9 @@ el_cascader <- function(
 ) {
   .el_check_choices("el_cascader", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_cascader")
+    id <- .vue_auto_id("el_cascader")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   cascader_attrs <- list(
     ":options" = "options",
@@ -248,10 +248,10 @@ el_cascader <- function(
   )
   # props carries lazyLoad; without one of the user's, the server loads
   cascader_attrs[[":props"]] <- "elProps"
-  cascader_attrs[[":size"]] <- .el_optional_bind("size")
-  cascader_attrs[[":popper-class"]] <- .el_optional_bind("popperClass")
-  cascader_attrs[[":filter-method"]] <- .el_optional_bind("filterMethod")
-  cascader_attrs[[":before-filter"]] <- .el_optional_bind("beforeFilter")
+  cascader_attrs[[":size"]] <- .vue_optional_bind("size")
+  cascader_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
+  cascader_attrs[[":filter-method"]] <- .vue_optional_bind("filterMethod")
+  cascader_attrs[[":before-filter"]] <- .vue_optional_bind("beforeFilter")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -277,11 +277,11 @@ el_cascader <- function(
     separator = separator,
     debounce = debounce
   )
-  vue_data$size <- .el_or_na(size)
-  vue_data$props <- .el_or_na(props)
-  vue_data$popperClass <- .el_or_na(popper_class)
-  vue_data$filterMethod <- .el_or_na(filter_method)
-  vue_data$beforeFilter <- .el_or_na(before_filter)
+  vue_data$size <- .vue_or_na(size)
+  vue_data$props <- .vue_or_na(props)
+  vue_data$popperClass <- .vue_or_na(popper_class)
+  vue_data$filterMethod <- .vue_or_na(filter_method)
+  vue_data$beforeFilter <- .vue_or_na(before_filter)
   el_widget(
     props = .el_props(list(
       clear_icon = .el_icon_name(clear_icon),
@@ -516,7 +516,7 @@ update_el_cascader <- function(
       )
     )
   )
-  .el_send_update(session, message)
+  .vue_send_update(session, message)
   invisible(NULL)
 }
 

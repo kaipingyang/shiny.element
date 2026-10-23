@@ -98,9 +98,9 @@ el_rate <- function(
 ) {
   .el_check_choices("el_rate", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_rate")
+    id <- .vue_auto_id("el_rate")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   rate_attrs <- list(
     "v-model" = "value",
@@ -109,21 +109,23 @@ el_rate <- function(
     ":allow-half" = "allowHalf",
     ":show-text" = "showText",
     ":show-score" = "showScore",
-    ":text-color" = .el_optional_bind("textColor"),
+    ":text-color" = .vue_optional_bind("textColor"),
     ":score-template" = "scoreTemplate",
-    ":texts" = .el_optional_bind("texts"),
+    ":texts" = .vue_optional_bind("texts"),
     "@change" = "handleChange"
   )
 
-  rate_attrs[[":colors"]] <- .el_optional_bind("colors")
+  rate_attrs[[":colors"]] <- .vue_optional_bind("colors")
 
-  rate_attrs[[":void-color"]] <- .el_optional_bind("voidColor")
+  rate_attrs[[":void-color"]] <- .vue_optional_bind("voidColor")
 
-  rate_attrs[[":disabled-void-color"]] <- .el_optional_bind("disabledVoidColor")
+  rate_attrs[[":disabled-void-color"]] <- .vue_optional_bind(
+    "disabledVoidColor"
+  )
 
-  rate_attrs[[":low-threshold"]] <- .el_optional_bind("lowThreshold")
+  rate_attrs[[":low-threshold"]] <- .vue_optional_bind("lowThreshold")
 
-  rate_attrs[[":high-threshold"]] <- .el_optional_bind("highThreshold")
+  rate_attrs[[":high-threshold"]] <- .vue_optional_bind("highThreshold")
 
   # Element's rate is 20px tall where a form item's line is 40px, so beside
   # a label the stars would sit above the label's text; padded to the line
@@ -157,14 +159,14 @@ el_rate <- function(
       allowHalf = allow_half,
       showText = show_text,
       showScore = show_score,
-      textColor = .el_or_na(text_color),
+      textColor = .vue_or_na(text_color),
       scoreTemplate = score_template,
       texts = if (is.null(texts)) NA else as.list(texts),
-      colors = .el_or_na(colors),
-      voidColor = .el_or_na(void_color),
-      disabledVoidColor = .el_or_na(disabled_void_color),
-      lowThreshold = .el_or_na(low_threshold),
-      highThreshold = .el_or_na(high_threshold)
+      colors = .vue_or_na(colors),
+      voidColor = .vue_or_na(void_color),
+      disabledVoidColor = .vue_or_na(disabled_void_color),
+      lowThreshold = .vue_or_na(low_threshold),
+      highThreshold = .vue_or_na(high_threshold)
     ),
     methods = list(
       handleChange = JS(sprintf(
@@ -260,6 +262,6 @@ update_el_rate <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

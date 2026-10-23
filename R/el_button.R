@@ -126,9 +126,9 @@ el_button <- function(
 ) {
   .el_check_choices("el_button", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_button")
+    id <- .vue_auto_id("el_button")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # circle buttons show no label
   if (circle) {
@@ -140,9 +140,9 @@ el_button <- function(
   # default: Element reads `props.plain ?? config.plain`, so a FALSE bound
   # here would hide the provider's
   btn_attrs <- list(
-    ":type" = .el_optional_bind("type"),
-    ":plain" = .el_optional_bind("plain"),
-    ":round" = .el_optional_bind("round"),
+    ":type" = .vue_optional_bind("type"),
+    ":plain" = .vue_optional_bind("plain"),
+    ":round" = .vue_optional_bind("round"),
     ":circle" = "circle",
     # a task button is loading from the click until the server is done
     ":loading" = if (isTRUE(task)) "loading || state === 'busy'" else "loading",
@@ -152,12 +152,12 @@ el_button <- function(
     class = class,
     style = style
   )
-  btn_attrs[[":size"]] <- .el_optional_bind("size")
+  btn_attrs[[":size"]] <- .vue_optional_bind("size")
   # Upstream's `icon` is an Element icon class name. A tag is accepted too, and
   # goes in as content, which is how a fontawesome icon from el_icon() lands
   # here -- but only a class name can be changed later by update_el_button().
-  btn_attrs[[":icon"]] <- .el_optional_bind("icon")
-  btn_attrs[[":autofocus"]] <- .el_optional_bind("autofocus")
+  btn_attrs[[":icon"]] <- .vue_optional_bind("icon")
+  btn_attrs[[":autofocus"]] <- .vue_optional_bind("autofocus")
   # a label of tags -- text and an icon after it, as Element's demos put
   # one -- is markup; text stays a field update_el_button() can change
   markup_label <- inherits(label, c("shiny.tag", "shiny.tag.list", "html"))
@@ -185,10 +185,10 @@ el_button <- function(
     markup = htmltools::tag("el-button", append(btn_attrs, btn_content)),
     data = list(
       label = label,
-      type = .el_or_na(type),
+      type = .vue_or_na(type),
       size = size,
-      plain = .el_or_na(plain),
-      round = .el_or_na(round),
+      plain = .vue_or_na(plain),
+      round = .vue_or_na(round),
       circle = circle,
       loading = loading,
       disabled = disabled,
@@ -198,7 +198,7 @@ el_button <- function(
       # a task button's: "busy" from the click until the server says
       # "ready", as bslib's input_task_button() says it
       state = "ready",
-      autofocus = .el_or_na(autofocus)
+      autofocus = .vue_or_na(autofocus)
     ),
     methods = list(
       # The binding reports the count; this send is for when the button is
@@ -326,6 +326,6 @@ update_el_button <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

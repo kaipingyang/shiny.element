@@ -144,7 +144,7 @@ test_that("el_date_picker: placeholder is always bound, null when not supplied",
   dp_yes <- el_date_picker("dp1", placeholder = "Pick date", session = NULL)
   expect_match(
     render_html(dp_no),
-    sprintf(':placeholder="%s"', .el_optional_bind("placeholder")),
+    sprintf(':placeholder="%s"', .vue_optional_bind("placeholder")),
     fixed = TRUE
   )
   expect_match(render_html(dp_no), '"placeholder":null', fixed = TRUE)

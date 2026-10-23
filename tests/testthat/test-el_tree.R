@@ -116,7 +116,7 @@ test_that("el_tree: empty_text falls back to Element's own", {
   )
   expect_match(
     render_html(el_tree(id = "picker")),
-    .el_optional_bind("emptyText"),
+    .vue_optional_bind("emptyText"),
     fixed = TRUE
   )
   expect_match(

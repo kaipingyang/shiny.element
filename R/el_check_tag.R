@@ -29,7 +29,7 @@ el_check_tag <- function(
   on = NULL
 ) {
   .el_check_choices("el_check_tag", environment())
-  ns_id <- .el_ui_id(id, NULL)
+  ns_id <- .vue_ui_id(id, NULL)
   el_widget(
     id = ns_id,
     markup = htmltools::tag(
@@ -109,6 +109,6 @@ update_el_check_tag <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

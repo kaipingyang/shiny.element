@@ -114,15 +114,15 @@ el_radio_group <- function(
   session = NULL
 ) {
   .el_check_choices("el_radio_group", environment())
-  selected <- .el_alias(selected, value, "selected", "value")
-  choices <- .el_alias(choices, options, "choices", "options")
+  selected <- .vue_alias(selected, value, "selected", "value")
+  choices <- .vue_alias(choices, options, "choices", "options")
   if (is.null(choices)) {
     stop("`choices` (or `options`) is required.", call. = FALSE)
   }
   if (is.null(id)) {
-    id <- .el_auto_id("el_radio_group")
+    id <- .vue_auto_id("el_radio_group")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Choose el-radio or el-radio-button based on button param
   radio_tag_name <- if (button) "el-radio-button" else "el-radio"
@@ -148,18 +148,18 @@ el_radio_group <- function(
     ":disabled" = "disabled",
     "@change" = "handleChange"
   )
-  group_attrs[[":size"]] <- .el_optional_bind("size")
-  group_attrs[[":fill"]] <- .el_optional_bind("fill")
-  group_attrs[[":text-color"]] <- .el_optional_bind("textColor")
+  group_attrs[[":size"]] <- .vue_optional_bind("size")
+  group_attrs[[":fill"]] <- .vue_optional_bind("fill")
+  group_attrs[[":text-color"]] <- .vue_optional_bind("textColor")
   # Build Vue data
   vue_data <- list(
     value = if (is.null(selected)) "" else selected,
-    options = .el_normalize_choices(choices),
+    options = .vue_choices(choices),
     disabled = disabled
   )
-  vue_data$size <- .el_or_na(size)
-  vue_data$fill <- .el_or_na(fill)
-  vue_data$textColor <- .el_or_na(text_color)
+  vue_data$size <- .vue_or_na(size)
+  vue_data$fill <- .vue_or_na(fill)
+  vue_data$textColor <- .vue_or_na(text_color)
   el_widget(
     props = .el_props(list(
       aria_label = aria_label,
@@ -238,15 +238,15 @@ update_el_radio_group <- function(
   validate_event = NULL
 ) {
   .vue_check_session(session)
-  selected <- .el_alias(selected, value, "selected", "value")
-  choices <- .el_alias(choices, options, "choices", "options")
+  selected <- .vue_alias(selected, value, "selected", "value")
+  choices <- .vue_alias(choices, options, "choices", "options")
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   if (!is.null(selected)) {
     msg$value <- selected
   }
   if (!is.null(choices)) {
-    msg$options <- .el_normalize_choices(choices)
+    msg$options <- .vue_choices(choices)
   }
   if (!is.null(disabled)) {
     msg$disabled <- disabled
@@ -270,6 +270,6 @@ update_el_radio_group <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

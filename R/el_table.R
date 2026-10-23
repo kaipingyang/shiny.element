@@ -57,10 +57,10 @@
       col[[key]] <- NULL
     }
     if (!is.null(col$headerHtml)) {
-      col$headerHtml <- .el_html_string(col$headerHtml, "headerHtml")
+      col$headerHtml <- .vue_html_string(col$headerHtml, "headerHtml")
     }
     if (!is.null(col$header_html)) {
-      col$headerHtml <- .el_html_string(col$header_html, "header_html")
+      col$headerHtml <- .vue_html_string(col$header_html, "header_html")
       col$header_html <- NULL
     }
     # An editable column: its cells are an editor's template
@@ -173,7 +173,7 @@
           el$option(
             `v-for` = sprintf(
               "o in %s",
-              lit(.el_normalize_choices(choices %||% character()))
+              lit(.vue_choices(choices %||% character()))
             ),
             `:key` = "o.value",
             `:value` = "o.value",
@@ -817,9 +817,9 @@ el_table <- function(
   columns <- args$columns
 
   if (is.null(id)) {
-    id <- .el_auto_id("el_table")
+    id <- .vue_auto_id("el_table")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   data <- .el_table_rownames(data, rownames)
   prep <- .el_table_prep(data, columns)
@@ -839,7 +839,7 @@ el_table <- function(
   # Every documented column prop is bound off the column object, so a user
   # writes list(prop = "x", sortable = TRUE, align = "center") and Element
   # sees it. An absent key reads back as undefined, which is Element's own
-  # default -- the same fallback .el_optional_bind() arranges for props.
+  # default -- the same fallback .vue_optional_bind() arranges for props.
   # Cell templates: one branch per column that has one, under a slot whose
   # name is a field of the column -- "default" where there is a template,
   # "none" where Element should render the cell itself. The slot name is a
@@ -1053,73 +1053,73 @@ el_table <- function(
   )
   table_attrs <- c(table_attrs, events$attrs)
 
-  table_attrs[[":stripe"]] <- .el_optional_bind("stripe")
+  table_attrs[[":stripe"]] <- .vue_optional_bind("stripe")
 
-  table_attrs[[":size"]] <- .el_optional_bind("size")
+  table_attrs[[":size"]] <- .vue_optional_bind("size")
 
-  table_attrs[[":height"]] <- .el_optional_bind("height")
+  table_attrs[[":height"]] <- .vue_optional_bind("height")
 
-  table_attrs[[":max-height"]] <- .el_optional_bind("maxHeight")
+  table_attrs[[":max-height"]] <- .vue_optional_bind("maxHeight")
 
-  table_attrs[[":fit"]] <- .el_optional_bind("fit")
+  table_attrs[[":fit"]] <- .vue_optional_bind("fit")
 
-  table_attrs[[":show-header"]] <- .el_optional_bind("showHeader")
+  table_attrs[[":show-header"]] <- .vue_optional_bind("showHeader")
 
-  table_attrs[[":highlight-current-row"]] <- .el_optional_bind(
+  table_attrs[[":highlight-current-row"]] <- .vue_optional_bind(
     "highlightCurrentRow"
   )
 
-  table_attrs[[":current-row-key"]] <- .el_optional_bind("currentRowKey")
+  table_attrs[[":current-row-key"]] <- .vue_optional_bind("currentRowKey")
 
-  table_attrs[[":row-key"]] <- .el_optional_bind("rowKey")
+  table_attrs[[":row-key"]] <- .vue_optional_bind("rowKey")
 
-  table_attrs[[":empty-text"]] <- .el_optional_bind("emptyText")
+  table_attrs[[":empty-text"]] <- .vue_optional_bind("emptyText")
 
-  table_attrs[[":default-expand-all"]] <- .el_optional_bind("defaultExpandAll")
+  table_attrs[[":default-expand-all"]] <- .vue_optional_bind("defaultExpandAll")
 
-  table_attrs[[":expand-row-keys"]] <- .el_optional_bind("expandRowKeys")
+  table_attrs[[":expand-row-keys"]] <- .vue_optional_bind("expandRowKeys")
 
-  table_attrs[[":default-sort"]] <- .el_optional_bind("defaultSort")
+  table_attrs[[":default-sort"]] <- .vue_optional_bind("defaultSort")
 
-  table_attrs[[":tooltip-effect"]] <- .el_optional_bind("tooltipEffect")
+  table_attrs[[":tooltip-effect"]] <- .vue_optional_bind("tooltipEffect")
 
-  table_attrs[[":show-summary"]] <- .el_optional_bind("showSummary")
+  table_attrs[[":show-summary"]] <- .vue_optional_bind("showSummary")
 
-  table_attrs[[":sum-text"]] <- .el_optional_bind("sumText")
+  table_attrs[[":sum-text"]] <- .vue_optional_bind("sumText")
 
-  table_attrs[[":select-on-indeterminate"]] <- .el_optional_bind(
+  table_attrs[[":select-on-indeterminate"]] <- .vue_optional_bind(
     "selectOnIndeterminate"
   )
 
-  table_attrs[[":indent"]] <- .el_optional_bind("indent")
+  table_attrs[[":indent"]] <- .vue_optional_bind("indent")
 
-  table_attrs[[":lazy"]] <- .el_optional_bind("lazy")
+  table_attrs[[":lazy"]] <- .vue_optional_bind("lazy")
 
-  table_attrs[[":tree-props"]] <- .el_optional_bind("treeProps")
+  table_attrs[[":tree-props"]] <- .vue_optional_bind("treeProps")
 
-  table_attrs[[":row-class-name"]] <- .el_optional_bind("rowClassName")
+  table_attrs[[":row-class-name"]] <- .vue_optional_bind("rowClassName")
 
-  table_attrs[[":row-style"]] <- .el_optional_bind("rowStyle")
+  table_attrs[[":row-style"]] <- .vue_optional_bind("rowStyle")
 
-  table_attrs[[":cell-class-name"]] <- .el_optional_bind("cellClassName")
+  table_attrs[[":cell-class-name"]] <- .vue_optional_bind("cellClassName")
 
-  table_attrs[[":cell-style"]] <- .el_optional_bind("cellStyle")
+  table_attrs[[":cell-style"]] <- .vue_optional_bind("cellStyle")
 
-  table_attrs[[":header-row-class-name"]] <- .el_optional_bind(
+  table_attrs[[":header-row-class-name"]] <- .vue_optional_bind(
     "headerRowClassName"
   )
 
-  table_attrs[[":header-row-style"]] <- .el_optional_bind("headerRowStyle")
+  table_attrs[[":header-row-style"]] <- .vue_optional_bind("headerRowStyle")
 
-  table_attrs[[":header-cell-class-name"]] <- .el_optional_bind(
+  table_attrs[[":header-cell-class-name"]] <- .vue_optional_bind(
     "headerCellClassName"
   )
 
-  table_attrs[[":header-cell-style"]] <- .el_optional_bind("headerCellStyle")
+  table_attrs[[":header-cell-style"]] <- .vue_optional_bind("headerCellStyle")
 
-  table_attrs[[":span-method"]] <- .el_optional_bind("spanMethod")
+  table_attrs[[":span-method"]] <- .vue_optional_bind("spanMethod")
 
-  table_attrs[[":summary-method"]] <- .el_optional_bind("summaryMethod")
+  table_attrs[[":summary-method"]] <- .vue_optional_bind("summaryMethod")
 
   table_attrs[[":load"]] <- "load === null ? elLoad : load" # the server, by default
 
@@ -1156,37 +1156,37 @@ el_table <- function(
       restoredRows = .vue_restore(paste0(ns_id, "_selection_rows"), list()),
       loading = isTRUE(loading),
       loadingAttrs = .el_loading_attrs(loading_options),
-      stripe = .el_or_na(stripe),
-      size = .el_or_na(size),
-      height = .el_or_na(height),
-      maxHeight = .el_or_na(max_height),
-      fit = .el_or_na(fit),
-      showHeader = .el_or_na(show_header),
-      highlightCurrentRow = .el_or_na(highlight_current_row),
-      currentRowKey = .el_or_na(current_row_key),
-      rowKey = .el_or_na(row_key),
-      emptyText = .el_or_na(empty_text),
-      defaultExpandAll = .el_or_na(default_expand_all),
-      expandRowKeys = .el_or_na(expand_row_keys),
-      defaultSort = .el_or_na(default_sort),
-      tooltipEffect = .el_or_na(tooltip_effect),
-      showSummary = .el_or_na(show_summary),
-      sumText = .el_or_na(sum_text),
-      selectOnIndeterminate = .el_or_na(select_on_indeterminate),
-      indent = .el_or_na(indent),
-      lazy = .el_or_na(lazy),
-      treeProps = .el_or_na(tree_props),
-      rowClassName = .el_or_na(row_class_name),
-      rowStyle = .el_or_na(row_style),
-      cellClassName = .el_or_na(cell_class_name),
-      cellStyle = .el_or_na(cell_style),
-      headerRowClassName = .el_or_na(header_row_class_name),
-      headerRowStyle = .el_or_na(header_row_style),
-      headerCellClassName = .el_or_na(header_cell_class_name),
-      headerCellStyle = .el_or_na(header_cell_style),
-      spanMethod = .el_or_na(span_method),
-      summaryMethod = .el_or_na(summary_method),
-      load = .el_or_na(load)
+      stripe = .vue_or_na(stripe),
+      size = .vue_or_na(size),
+      height = .vue_or_na(height),
+      maxHeight = .vue_or_na(max_height),
+      fit = .vue_or_na(fit),
+      showHeader = .vue_or_na(show_header),
+      highlightCurrentRow = .vue_or_na(highlight_current_row),
+      currentRowKey = .vue_or_na(current_row_key),
+      rowKey = .vue_or_na(row_key),
+      emptyText = .vue_or_na(empty_text),
+      defaultExpandAll = .vue_or_na(default_expand_all),
+      expandRowKeys = .vue_or_na(expand_row_keys),
+      defaultSort = .vue_or_na(default_sort),
+      tooltipEffect = .vue_or_na(tooltip_effect),
+      showSummary = .vue_or_na(show_summary),
+      sumText = .vue_or_na(sum_text),
+      selectOnIndeterminate = .vue_or_na(select_on_indeterminate),
+      indent = .vue_or_na(indent),
+      lazy = .vue_or_na(lazy),
+      treeProps = .vue_or_na(tree_props),
+      rowClassName = .vue_or_na(row_class_name),
+      rowStyle = .vue_or_na(row_style),
+      cellClassName = .vue_or_na(cell_class_name),
+      cellStyle = .vue_or_na(cell_style),
+      headerRowClassName = .vue_or_na(header_row_class_name),
+      headerRowStyle = .vue_or_na(header_row_style),
+      headerCellClassName = .vue_or_na(header_cell_class_name),
+      headerCellStyle = .vue_or_na(header_cell_style),
+      spanMethod = .vue_or_na(span_method),
+      summaryMethod = .vue_or_na(summary_method),
+      load = .vue_or_na(load)
     ),
     methods = c(
       events$methods,
@@ -1504,7 +1504,7 @@ update_el_table <- function(
     msg$loading <- loading
   }
 
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
 

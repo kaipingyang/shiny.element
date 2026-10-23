@@ -108,9 +108,9 @@ el_input_number <- function(
 ) {
   .el_check_choices("el_input_number", environment())
   if (is.null(id)) {
-    id <- .el_auto_id("el_input_number")
+    id <- .vue_auto_id("el_input_number")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   # Convert R Inf to JS-compatible large numbers
   js_min <- if (is.infinite(min) && min < 0) -1e308 else min
@@ -127,11 +127,11 @@ el_input_number <- function(
     ":controls-position" = "controlsPosition",
     "@change" = "handleChange"
   )
-  num_attrs[[":size"]] <- .el_optional_bind("size")
-  num_attrs[[":precision"]] <- .el_optional_bind("precision")
-  num_attrs[[":placeholder"]] <- .el_optional_bind("placeholder")
-  num_attrs[[":label"]] <- .el_optional_bind("label")
-  num_attrs[[":name"]] <- .el_optional_bind("name")
+  num_attrs[[":size"]] <- .vue_optional_bind("size")
+  num_attrs[[":precision"]] <- .vue_optional_bind("precision")
+  num_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
+  num_attrs[[":label"]] <- .vue_optional_bind("label")
+  num_attrs[[":name"]] <- .vue_optional_bind("name")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -151,11 +151,11 @@ el_input_number <- function(
     controls = controls,
     controlsPosition = controls_position
   )
-  vue_data$size <- .el_or_na(size)
-  vue_data$precision <- .el_or_na(precision)
-  vue_data$placeholder <- .el_or_na(placeholder)
-  vue_data$label <- .el_or_na(label)
-  vue_data$name <- .el_or_na(name)
+  vue_data$size <- .vue_or_na(size)
+  vue_data$precision <- .vue_or_na(precision)
+  vue_data$placeholder <- .vue_or_na(placeholder)
+  vue_data$label <- .vue_or_na(label)
+  vue_data$name <- .vue_or_na(name)
   el_widget(
     props = .el_props(list(
       align = align,
@@ -288,6 +288,6 @@ update_el_input_number <- function(
       )
     )
   )
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }

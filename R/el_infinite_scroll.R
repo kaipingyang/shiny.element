@@ -75,16 +75,16 @@ el_infinite_scroll <- function(
   inners <- lapply(list(...), .el_absorb)
 
   if (is.null(id)) {
-    id <- .el_auto_id("el_infinite_scroll")
+    id <- .vue_auto_id("el_infinite_scroll")
   }
-  ns_id <- .el_ui_id(id, session)
+  ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
     "v-infinite-scroll" = "handleLoad",
     ":infinite-scroll-disabled" = "scrollDisabled",
-    ":infinite-scroll-delay" = .el_optional_bind("scrollDelay"),
-    ":infinite-scroll-distance" = .el_optional_bind("scrollDistance"),
-    ":infinite-scroll-immediate" = .el_optional_bind("scrollImmediate"),
+    ":infinite-scroll-delay" = .vue_optional_bind("scrollDelay"),
+    ":infinite-scroll-distance" = .vue_optional_bind("scrollDistance"),
+    ":infinite-scroll-immediate" = .vue_optional_bind("scrollImmediate"),
     style = paste0("overflow: auto; height: ", shiny::validateCssUnit(height))
   )
 
@@ -92,9 +92,9 @@ el_infinite_scroll <- function(
     markup = NULL,
     data = list(
       scrollDisabled = if (is.null(disabled)) FALSE else disabled,
-      scrollDelay = .el_or_na(delay),
-      scrollDistance = .el_or_na(distance),
-      scrollImmediate = .el_or_na(immediate),
+      scrollDelay = .vue_or_na(delay),
+      scrollDistance = .vue_or_na(distance),
+      scrollImmediate = .vue_or_na(immediate),
       scrollCount = 0L
     ),
     methods = list(
@@ -163,6 +163,6 @@ update_el_infinite_scroll <- function(
   if (!is.null(distance)) {
     msg$scrollDistance <- distance
   }
-  .el_send_update(session, msg)
+  .vue_send_update(session, msg)
   invisible(NULL)
 }
