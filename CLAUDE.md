@@ -344,17 +344,18 @@ Every round of changes ends the same way, without being asked:
 1. verify (tests for what changed, `air format --check .`, and for a
    release-level change the full suites, `R CMD check` and the article
    shots);
-2. commit on the working branch (`element-plus`) and push it. **`main` is
-   not touched without the user's word**: it holds the version submitted to
+2. commit on the working branch, `dev`, and push it. **`main` is not
+   touched without the user's word**: it holds the version submitted to
    CRAN (0.3.1) while CRAN reviews it, and the released pkgdown site (the
    root) is built from it. Fixes a reviewer asks for go on `main` when the
-   user says so, and `main` is then merged into `element-plus`;
-   `element-plus` goes to `main` only once CRAN has answered and the user
-   asks. GitHub Actions run on pushes to `main` only, so on `element-plus`
-   the checks are the local ones -- except pkgdown, as in the tidyverse:
-   `development: mode: auto` puts a version with four components
-   (`0.3.1.9000`, `element-plus`) at `/dev/`, marked in-development and
-   not indexed, and a released one (`main`) at the root;
+   user says so, and `main` is then merged into `dev`; `dev` goes to `main`
+   only once CRAN has answered and the user asks. GitHub Actions run on
+   pushes to `main` only, so on `dev` the checks are the local ones --
+   except pkgdown, as in the tidyverse: `development: mode: auto` puts a
+   version with four components (`0.3.1.9000`, `dev`) at `/dev/`, marked
+   in-development and not indexed, and a released one (`main`) at the
+   root. (`dev` was called `element-plus` until 2026-10-23, from the move
+   off Vue 2; GitHub redirects the old name.)
 3. install into the user's home library, `R CMD INSTALL --no-multiarch .`,
    and check its `Built:` date -- tests use `load_all()` and pkgdown and
    `R CMD check` install into temporary libraries, so without this the
