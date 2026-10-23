@@ -13,7 +13,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/kaipingyang/shiny.element/blob/element-plus/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/kaipingyang/shiny.element/blob/dev/DESCRIPTION)
 
 Kaiping Yang (2026). *shiny.element: 'Element Plus' Components for
 'shiny'*. R package version 0.3.1.9000,
