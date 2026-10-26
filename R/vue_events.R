@@ -289,3 +289,48 @@
   )
   paste0("(...a) => { ", paste(calls, collapse = " "), " }")
 }
+
+#' A mounted hook reporting fields as Shiny inputs
+#'
+#' Sends each field once the socket is connected (a send before is dropped),
+#' and again after every update (`_svReport`), as Shiny's own
+#' `update*Input()` reports the new value.
+#'
+#' @param bindings `c(<inputId> = "<field or expression>")`.
+#' @return A [JS()] function, with the bindings as its `vue_report`
+#'   attribute.
+#' @keywords internal
+.vue_mounted_report <- function(bindings) {
+  js_str <- function(x) {
+    vapply(
+      x,
+      function(e) as.character(jsonlite::toJSON(e, auto_unbox = TRUE)),
+      character(1),
+      USE.NAMES = FALSE
+    )
+  }
+  sends <- paste(
+    sprintf(
+      "window.Shiny && Shiny.setInputValue && Shiny.setInputValue(%s, self.%s);",
+      js_str(names(bindings)),
+      bindings
+    ),
+    collapse = " "
+  )
+  js <- JS(paste0(
+    "function() { var self = this; ",
+    "var send = function() { ",
+    sends,
+    " }; ",
+    "if (window.Shiny && Shiny.shinyapp && ",
+    "typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) ",
+    "{ send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } ",
+    # Not a watcher, which would report every keystroke of an input
+    # documented to report on `change`. Chained, because components folded
+    # into one instance share it.
+    "var prev = self._svReport; ",
+    "self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"
+  ))
+  attr(js, "vue_report") <- bindings
+  js
+}

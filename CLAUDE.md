@@ -71,14 +71,18 @@ with `:::`. A helper moved between layers moves with every caller in the
 same commit: no name is left behind for compatibility -- internal
 helpers are not an API.
 
-**Where a helper lives.** There is no `utils.R`: a file named for no job
-collects whatever fits nowhere else. A helper one component uses lives in
-that component's file; one several use, in a file named for its topic --
-the Vue layer's `vue_props.R` (unset props), `vue_args.R` (ids, aliases,
-choices), `vue_markup.R` (slots, `v-html` strings, the mount point's style),
-`vue_js.R` (`JS()`); the Element layer's `el_props.R` (props bound and
-updated), `el_icon.R`, `el_dates.R` (day.js formats),
-`el_dependencies.R`, `el_events.R`, `el_items.R`.
+**Where a helper lives.** There is no `utils.R` (nor `vue_utils.R`): a
+file named for no job collects whatever fits nowhere else. A helper one
+component uses lives in that component's file; one several use, in a file
+named for its topic -- the Vue layer's `vue_props.R` (unset props),
+`vue_args.R` (ids, aliases, choices, camelCase, bookmarks), `vue_markup.R`
+(slots, `v-html` strings, the mount point's style), `vue_json.R` (what
+travels as JSON), `vue_send.R` (the session check and the queue the
+server's messages wait in), `vue_dependencies.R` (the scripts, the
+package's files, the per-session memo), `vue_events.R`, `vue_js.R`
+(`JS()`); the Element layer's `el_props.R` (props bound and updated),
+`el_icon.R`, `el_dates.R` (day.js formats), `el_dependencies.R`,
+`el_events.R`, `el_items.R`.
 
 ### Two kinds of component
 
@@ -140,7 +144,7 @@ value to the column's type.
 
 - Updates and method calls are queued per session and sent with the flush,
   in `session$onFlushed()` -- as Shiny's `sendInputMessage()` and DT's and
-  leaflet's proxies (`.vue_send()`, `R/vue_utils.R`); `flush_vue()` sends
+  leaflet's proxies (`.vue_send()`, `R/vue_send.R`); `flush_vue()` sends
   them at once, `update_el_progress()` is sent at once. A session that
   cannot be asked for a flush (mocks, `testServer()`) is sent to at once.
 - `update_el_*()` and `update_vue()` send one custom message,

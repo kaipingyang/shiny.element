@@ -127,3 +127,37 @@
 
   lapply(choices, function(x) list(value = x, label = as.character(x)))
 }
+
+#' snake_case to camelCase
+#'
+#' @param x One name.
+#' @return The name in camelCase.
+#' @keywords internal
+.vue_camel <- function(x) {
+  parts <- strsplit(x, "_", fixed = TRUE)[[1]]
+  paste0(
+    parts[1],
+    paste0(
+      toupper(substring(parts[-1], 1, 1)),
+      substring(parts[-1], 2),
+      collapse = ""
+    )
+  )
+}
+
+#' A value restored from a bookmark, an array kept an array
+#'
+#' @param id The input's id.
+#' @param default The value without a bookmark.
+#' @return The restored value, or `default`.
+#' @keywords internal
+.vue_restore <- function(id, default) {
+  value <- shiny::restoreInput(id = id, default = default)
+  if (identical(value, default)) {
+    return(default)
+  }
+  if (is.list(default) && is.null(names(default))) {
+    return(if (is.null(value)) list() else as.list(value))
+  }
+  value
+}
