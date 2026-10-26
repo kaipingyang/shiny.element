@@ -84,6 +84,16 @@ package's files, the per-session memo), `vue_events.R`, `vue_js.R`
 `el_icon.R`, `el_dates.R` (day.js formats), `el_dependencies.R`,
 `el_events.R`, `el_items.R`.
 
+**Splitting is for what code holds, never for its length.** A file is
+split when it holds several jobs (`utils.R` did); a function when a part
+of it has a job of its own that wants reading or testing apart (the
+table's column templates). A long function that reads top to bottom --
+arguments checked, attributes, events, data, the widget -- stays one:
+most of its length is Element's props, which no split shortens, and
+pieces with no job of their own only make the reader jump. Before
+splitting, name what the part does that the rest does not; if the answer
+is only "it is long", leave it.
+
 ### Two kinds of component
 
 **Controls** (input, select, table, form, ...) are Vue apps on a host
