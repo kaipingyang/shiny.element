@@ -92,12 +92,16 @@ reached with `:::`. A helper moved between layers moves with every
 caller in the same commit: no name is left behind for compatibility –
 internal helpers are not an API.
 
-**Where a helper lives.** There is no `utils.R`: a file named for no job
-collects whatever fits nowhere else. A helper one component uses lives
-in that component’s file; one several use, in a file named for its topic
-– the Vue layer’s `vue_props.R` (unset props), `vue_args.R` (ids,
-aliases, choices), `vue_markup.R` (slots, `v-html` strings, the mount
-point’s style), `vue_js.R`
+**Where a helper lives.** There is no `utils.R` (nor `vue_utils.R`): a
+file named for no job collects whatever fits nowhere else. A helper one
+component uses lives in that component’s file; one several use, in a
+file named for its topic – the Vue layer’s `vue_props.R` (unset props),
+`vue_args.R` (ids, aliases, choices, camelCase, bookmarks),
+`vue_markup.R` (slots, `v-html` strings, the mount point’s style),
+`vue_json.R` (what travels as JSON), `vue_send.R` (the session check and
+the queue the server’s messages wait in), `vue_dependencies.R` (the
+scripts, the package’s files, the per-session memo), `vue_events.R`,
+`vue_js.R`
 ([`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md));
 the Element layer’s `el_props.R` (props bound and updated), `el_icon.R`,
 `el_dates.R` (day.js formats), `el_dependencies.R`, `el_events.R`,
@@ -182,7 +186,7 @@ column’s type.
   flush, in `session$onFlushed()` – as Shiny’s `sendInputMessage()` and
   DT’s and leaflet’s proxies
   ([`.vue_send()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send.md),
-  `R/vue_utils.R`);
+  `R/vue_send.R`);
   [`flush_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/flush_vue.md)
   sends them at once,
   [`update_el_progress()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_progress.md)
