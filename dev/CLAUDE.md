@@ -40,7 +40,7 @@ MB: eleven locales are files and the other 56 are in
 ([`.el_locale_dir()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locale_dir.md));
 Vue’s development build is `.Rbuildignore`d, so a CRAN install loads it
 from unpkg
-([`.vue_vue_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_vue_dependency.md));
+([`.vue_core_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.md));
 only the Getting started and Shiny guides are vignettes, the rest
 pkgdown articles. A page’s theme is compiled once per machine, not per R
 process (`R/el_theme_cache.R`: sass’s cache, placed where bslib’s file
@@ -96,8 +96,8 @@ internal helpers are not an API.
 collects whatever fits nowhere else. A helper one component uses lives
 in that component’s file; one several use, in a file named for its topic
 – the Vue layer’s `vue_props.R` (unset props), `vue_args.R` (ids,
-aliases, choices), `vue_markup.R` (slots, `v-html` strings, the host’s
-style), `vue_js.R`
+aliases, choices), `vue_markup.R` (slots, `v-html` strings, the mount
+point’s style), `vue_js.R`
 ([`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md));
 the Element layer’s `el_props.R` (props bound and updated), `el_icon.R`,
 `el_dates.R` (day.js formats), `el_dependencies.R`, `el_events.R`,
@@ -261,18 +261,27 @@ column’s type.
   dependency `element-plus-theme`).
 - [`use_element()`](https://kaipingyang.github.io/shiny.element/dev/reference/use_element.md)
   – the same for other page functions.
-- Every component – controls through
-  [`.el_vue_dependencies()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_vue_dependencies.md),
-  containers through their binding’s dependency,
-  [`el_row()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_row.md)
-  and
-  [`el_container()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_container.md)
-  directly – carries Vue and Element Plus, as Shiny’s inputs carry
-  selectize and htmlwidgets their libraries, so it works on any page and
-  without Shiny (static R Markdown); `test-browser-bare-page.R` runs
-  them on a `fluidPage()` with neither. htmltools keeps the first copy,
-  so a page that loads Element from the CDN keeps it. The theme, locale,
-  global config and feedback handlers belong to the page:
+- Every component – control or markup – carries one set,
+  [`.el_dependencies()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_dependencies.md):
+  the Vue host’s
+  ([`.vue_host_dependencies()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host_dependencies.md):
+  jQuery,
+  [`.vue_core_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.md),
+  [`.vue_bridge_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bridge_dependency.md)),
+  Element Plus, and Element’s side of the bridge in one dependency,
+  `shiny-element`
+  ([`.el_bridge_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_bridge_dependency.md):
+  `el-events.js` and the collapse, tabs and overlay bindings), as
+  shinyWidgets keeps its bindings in one file and bslib’s components
+  share one set. One function per resource, one set for all: a new
+  component adds none. Made once per R session
+  ([`.vue_memo()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_memo.md)).
+  Shiny’s inputs carry selectize and htmlwidgets their libraries the
+  same way, so a component works on any page and without Shiny (static R
+  Markdown); `test-browser-bare-page.R` runs them on a `fluidPage()`
+  with neither. htmltools keeps the first copy, so a page that loads
+  Element from the CDN keeps it. The theme, locale, global config and
+  feedback handlers belong to the page:
   [`el_page()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_page.md)
   or
   [`use_element()`](https://kaipingyang.github.io/shiny.element/dev/reference/use_element.md).
