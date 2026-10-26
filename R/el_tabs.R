@@ -203,7 +203,7 @@ el_tabs <- function(
       header,
       if (!tab_position %in% c("bottom", "right")) content
     ),
-    el_tabs_dependency()
+    .el_dependencies()
   )
 }
 
@@ -449,26 +449,4 @@ remove_el_tab <- function(
   .vue_check_session(session)
   session$sendInputMessage(id, list(remove_tab = name))
   invisible(NULL)
-}
-
-
-#' Tabs Binding Dependency
-#'
-#' Tabs are markup with a Shiny input binding rather than a Vue instance, so
-#' that the components inside the panes stay mounted.
-#'
-#' @return An htmlDependency object.
-#' @keywords internal
-el_tabs_dependency <- function() {
-  c(
-    list(.vue_jquery_dependency()),
-    .el_plus_dependencies(),
-    list(htmltools::htmlDependency(
-      name = "el-tabs-binding",
-      version = "1.0.0",
-      src = .vue_file("js"),
-      script = "el-tabs-binding.js",
-      all_files = FALSE
-    ))
-  )
 }

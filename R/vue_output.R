@@ -70,7 +70,7 @@
 vue_output <- function(id) {
   htmltools::attachDependencies(
     htmltools::tags$div(id = id, class = "shiny-vue-output"),
-    .vue_dependencies()
+    .vue_host_dependencies()
   )
 }
 
@@ -335,7 +335,7 @@ render_vue_data <- function(expr, env = parent.frame(), quoted = FALSE) {
 vue_data_output <- function(outputId) {
   htmltools::attachDependencies(
     htmltools::tags$span(id = outputId, class = "shiny-vue-data-output"),
-    .vue_dependencies()
+    .vue_host_dependencies()
   )
 }
 

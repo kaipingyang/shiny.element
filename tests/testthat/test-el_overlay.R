@@ -107,8 +107,13 @@ test_that("both load the shared overlay binding", {
       function(d) d$name,
       character(1)
     )
-    expect_true("el-overlay-binding" %in% names)
+    expect_true("shiny-element" %in% names)
   }
+  bridge <- Filter(
+    function(d) d$name == "shiny-element",
+    htmltools::findDependencies(el_dialog("d1"))
+  )
+  expect_true("el-overlay-binding.js" %in% bridge[[1]]$script)
 })
 
 test_that("nested components keep their own dependencies", {
@@ -118,7 +123,7 @@ test_that("nested components keep their own dependencies", {
     character(1)
   )
   expect_true("shiny-vue" %in% names)
-  expect_true("el-overlay-binding" %in% names)
+  expect_true("shiny-element" %in% names)
 })
 
 # ── behaviour flags reach the binding ─────────────────────────────────────────

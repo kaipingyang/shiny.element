@@ -37,10 +37,13 @@ test_that("el_tabs: reproduces Element's own structure", {
 })
 
 test_that("el_tabs: loads the input binding, not a message handler", {
-  deps <- htmltools::findDependencies(el_tabs("t1", tabs = demo_tabs))
-  names <- vapply(deps, function(d) d$name, character(1))
-  expect_true("el-tabs-binding" %in% names)
-  expect_false("shiny-vue" %in% names)
+  tag <- el_tabs("t1", tabs = demo_tabs)
+  deps <- htmltools::findDependencies(tag)
+  bridge <- Filter(function(d) d$name == "shiny-element", deps)
+  expect_length(bridge, 1)
+  expect_true("el-tabs-binding.js" %in% bridge[[1]]$script)
+  # markup with a binding of its own, not a Vue app over what it holds
+  expect_false(grepl("data-shiny-vue", as.character(tag), fixed = TRUE))
 })
 
 test_that("el_tabs: the selected tab is marked and its pane shown", {
@@ -147,7 +150,7 @@ test_that("el_tabs: nested components keep their own dependencies", {
   ))
   names <- vapply(deps, function(d) d$name, character(1))
   expect_true("shiny-vue" %in% names)
-  expect_true("el-tabs-binding" %in% names)
+  expect_true("shiny-element" %in% names)
 })
 
 test_that("el_tabs: an empty tabset still renders", {

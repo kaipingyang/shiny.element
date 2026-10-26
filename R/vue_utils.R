@@ -518,9 +518,9 @@ flush_vue <- function(
   jquerylib::jquery_core(3)
 }
 
-#' Vue, as bundled with the package
+#' Vue core, as bundled with the package
 #'
-#' Vue 3, the global build with the template compiler, from `inst/vue3`:
+#' Vue 3 itself (vuejs/core), the global build with the template compiler, from `inst/vue3`:
 #' components are compiled in the browser from their x-template. The
 #' development build keeps Vue's warnings (`[Vue warn]`), which the production
 #' build strips. It is versioned one step above the production build, so on a
@@ -533,7 +533,7 @@ flush_vue <- function(
 #' @param dev Load `vue.global.js` rather than `vue.global.prod.js`.
 #' @return An htmlDependency object.
 #' @keywords internal
-.vue_vue_dependency <- function(dev = .vue_dev()) {
+.vue_core_dependency <- function(dev = .vue_dev()) {
   if (!isTRUE(dev)) {
     return(htmltools::htmlDependency(
       name = "vue",
@@ -558,24 +558,36 @@ flush_vue <- function(
   )
 }
 
-#' The scripts the Vue layer needs
+#' The bridge between Vue and Shiny
 #'
-#' jQuery, Vue and the bridge (`shiny-vue.js`).
+#' `shiny-vue.js`: it mounts each host's Vue app, registers the `shiny.vue`
+#' input binding, serialises values, forwards events and applies updates.
+#'
+#' @return An htmlDependency object.
+#' @keywords internal
+.vue_bridge_dependency <- function() {
+  htmltools::htmlDependency(
+    "shiny-vue",
+    "1.0.0",
+    src = .vue_file("js"),
+    script = "shiny-vue.js",
+    all_files = FALSE
+  )
+}
+
+#' What every Vue host needs
+#'
+#' jQuery, Vue core and the bridge, in load order: the scripts a page
+#' needs for any host on it. Made once per R session and mode.
 #'
 #' @return A list of htmlDependency objects.
 #' @keywords internal
-.vue_dependencies <- function() {
-  .vue_memo(paste("vue_dependencies", .vue_dev()), function() {
+.vue_host_dependencies <- function() {
+  .vue_memo(paste("vue_host_dependencies", .vue_dev()), function() {
     list(
       .vue_jquery_dependency(),
-      .vue_vue_dependency(),
-      htmltools::htmlDependency(
-        "shiny-vue",
-        "1.0.0",
-        src = .vue_file("js"),
-        script = "shiny-vue.js",
-        all_files = FALSE
-      )
+      .vue_core_dependency(),
+      .vue_bridge_dependency()
     )
   })
 }

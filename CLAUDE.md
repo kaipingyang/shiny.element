@@ -33,7 +33,7 @@ htmlwidgets dependency (`JS()` in `R/vue_js.R` marks JavaScript the same way).
 To stay under CRAN's 5 MB: eleven locales are files and the other 56 are in
 `dist/locale/more.tar.gz`, taken out into `tempdir()` when first used
 (`.el_locale_dir()`); Vue's development build is `.Rbuildignore`d, so a
-CRAN install loads it from unpkg (`.vue_vue_dependency()`); only the
+CRAN install loads it from unpkg (`.vue_core_dependency()`); only the
 Getting started and Shiny guides are vignettes, the rest pkgdown articles.
 A page's theme is compiled once per machine, not per R process
 (`R/el_theme_cache.R`: sass's cache, placed where bslib's file output goes);
@@ -75,7 +75,7 @@ helpers are not an API.
 collects whatever fits nowhere else. A helper one component uses lives in
 that component's file; one several use, in a file named for its topic --
 the Vue layer's `vue_props.R` (unset props), `vue_args.R` (ids, aliases,
-choices), `vue_markup.R` (slots, `v-html` strings, the host's style),
+choices), `vue_markup.R` (slots, `v-html` strings, the mount point's style),
 `vue_js.R` (`JS()`); the Element layer's `el_props.R` (props bound and
 updated), `el_icon.R`, `el_dates.R` (day.js formats),
 `el_dependencies.R`, `el_events.R`, `el_items.R`.
@@ -196,12 +196,18 @@ value to the column's type.
   and, when the theme changes Element Plus's colours, a `<style>` of its CSS
   variables (`R/el_element_theme.R`, dependency `element-plus-theme`).
 - `use_element()` -- the same for other page functions.
-- Every component -- controls through `.el_vue_dependencies()`, containers
-  through their binding's dependency, `el_row()` and `el_container()`
-  directly -- carries Vue and Element Plus, as Shiny's inputs carry
-  selectize and htmlwidgets their libraries, so it works on any page and
-  without Shiny (static R Markdown); `test-browser-bare-page.R` runs them on
-  a `fluidPage()` with neither. htmltools keeps the first copy, so a page
+- Every component -- control or markup -- carries one set,
+  `.el_dependencies()`: the Vue host's (`.vue_host_dependencies()`: jQuery,
+  `.vue_core_dependency()`, `.vue_bridge_dependency()`), Element Plus, and
+  Element's side of the bridge in one dependency, `shiny-element`
+  (`.el_bridge_dependency()`: `el-events.js` and the collapse, tabs and
+  overlay bindings), as shinyWidgets keeps its bindings in one file and
+  bslib's components share one set. One function per resource, one set
+  for all: a new component adds none. Made once per R session
+  (`.vue_memo()`). Shiny's inputs carry selectize and htmlwidgets their
+  libraries the same way, so a component works on any page and without
+  Shiny (static R Markdown); `test-browser-bare-page.R` runs them on a
+  `fluidPage()` with neither. htmltools keeps the first copy, so a page
   that loads Element from the CDN keeps it. The theme, locale, global config
   and feedback handlers belong to the page: `el_page()` or `use_element()`.
 

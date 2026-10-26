@@ -83,7 +83,7 @@ test_that("use_element: passes offline through to the dependency", {
 })
 
 test_that("Vue 3 is bundled, the global build with the template compiler", {
-  dep <- .vue_vue_dependency()
+  dep <- .vue_core_dependency()
   expect_equal(dep$package, "shiny.element")
   path <- system.file(dep$src$file, dep$script, package = "shiny.element")
   expect_true(file.exists(path))
@@ -98,8 +98,8 @@ test_that("Vue 3 is bundled, the global build with the template compiler", {
 })
 
 test_that("dev = TRUE loads Vue's development build, and it wins", {
-  prod <- .vue_vue_dependency(dev = FALSE)
-  dev <- .vue_vue_dependency(dev = TRUE)
+  prod <- .vue_core_dependency(dev = FALSE)
+  dev <- .vue_core_dependency(dev = TRUE)
   expect_equal(prod$script, "vue.global.prod.js")
   expect_equal(dev$script, "vue.global.js")
   path <- system.file(prod$src$file, prod$script, package = "shiny.element")
@@ -134,13 +134,15 @@ test_that("dev = TRUE loads Vue's development build, and it wins", {
 })
 
 test_that("every script a component brings resolves to a file", {
-  for (dep in .el_vue_dependencies()) {
+  for (dep in .el_dependencies()) {
     # jQuery comes from jquerylib, its src relative to that package
     dir <- unname(dep$src[["file"]])
     if (!is.null(dep$package)) {
       dir <- system.file(dir, package = dep$package)
     }
-    expect_true(file.exists(file.path(dir, dep$script)), info = dep$script)
+    for (script in dep$script) {
+      expect_true(file.exists(file.path(dir, script)), info = script)
+    }
   }
 })
 
@@ -154,7 +156,7 @@ test_that("every component brings the bridge, after jQuery and Vue", {
   expect_equal(names[1:3], c("jquery", "vue", "shiny-vue"))
   # Element's side of the bridge comes after it: its plugin is looked up
   # when a component mounts, once every script has loaded
-  expect_gt(match("el-events", names), 3)
+  expect_gt(match("shiny-element", names), 3)
 })
 
 test_that("the bridge checks each updated key against the component's data", {
@@ -369,7 +371,7 @@ test_that("every generated call to Shiny is guarded, so components work without 
 test_that("a component's dependencies are made once per R session", {
   # Looking up the package's files for each component was some 40% of
   # building it; the dependencies do not change while R runs
-  expect_identical(.el_vue_dependencies(), .el_vue_dependencies())
+  expect_identical(.el_dependencies(), .el_dependencies())
   expect_identical(
     .vue_file("js"),
     system.file("js", package = "shiny.element")
@@ -379,8 +381,14 @@ test_that("a component's dependencies are made once per R session", {
     system.file("vue3", "vue.global.prod.js", package = "shiny.element")
   )
   # kept apart by what they depend on: the development build of Vue
-  prod <- withr::with_options(list(shiny.vue.dev = FALSE), .vue_dependencies())
-  dev <- withr::with_options(list(shiny.vue.dev = TRUE), .vue_dependencies())
+  prod <- withr::with_options(
+    list(shiny.vue.dev = FALSE),
+    .vue_host_dependencies()
+  )
+  dev <- withr::with_options(
+    list(shiny.vue.dev = TRUE),
+    .vue_host_dependencies()
+  )
   vue <- function(deps) Filter(function(d) d$name == "vue", deps)[[1]]$script
   expect_equal(vue(prod), "vue.global.prod.js")
   expect_equal(vue(dev), "vue.global.js")

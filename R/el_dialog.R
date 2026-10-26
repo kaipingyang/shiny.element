@@ -247,7 +247,7 @@ el_dialog <- function(
         )
       )
     ),
-    el_overlay_dependency()
+    .el_dependencies()
   )
 }
 
@@ -313,30 +313,6 @@ update_el_dialog <- function(
   session$sendInputMessage(id, msg)
   invisible(NULL)
 }
-
-
-#' Overlay Binding Dependency
-#'
-#' Shared by [el_dialog()] and [el_drawer()]: both are markup with a Shiny
-#' input binding rather than Vue instances, and both need the same backdrop, scroll lock and
-#' z-index stacking.
-#'
-#' @return An htmlDependency object.
-#' @keywords internal
-el_overlay_dependency <- function() {
-  c(
-    list(.vue_jquery_dependency()),
-    .el_plus_dependencies(),
-    list(htmltools::htmlDependency(
-      name = "el-overlay-binding",
-      version = "1.0.0",
-      src = .vue_file("js"),
-      script = "el-overlay-binding.js",
-      all_files = FALSE
-    ))
-  )
-}
-
 
 #' An overlay's content, kept for re-creation when it is destroyed on close
 #'

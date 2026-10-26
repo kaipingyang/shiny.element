@@ -160,31 +160,9 @@ el_collapse <- function(
       },
       panels
     ),
-    el_collapse_dependency()
+    .el_dependencies()
   )
 }
-
-#' Collapse Binding Dependency
-#'
-#' The collapse is markup with a Shiny input binding rather than a Vue
-#' instance, so that the components inside it stay mounted.
-#'
-#' @return An htmlDependency object.
-#' @keywords internal
-el_collapse_dependency <- function() {
-  c(
-    list(.vue_jquery_dependency()),
-    .el_plus_dependencies(),
-    list(htmltools::htmlDependency(
-      name = "el-collapse-binding",
-      version = "1.0.0",
-      src = .vue_file("js"),
-      script = "el-collapse-binding.js",
-      all_files = FALSE
-    ))
-  )
-}
-
 
 #' @rdname el_collapse
 #' @section Updating from the server:

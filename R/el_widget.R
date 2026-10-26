@@ -293,7 +293,7 @@ el_widget <- function(
     )
   }
   root <- if (is.null(label) && is.null(error) && !isTRUE(required)) {
-    htmltools::tags$div(id = container_id, style = .vue_host_style(), markup)
+    htmltools::tags$div(id = container_id, style = .vue_mount_style(), markup)
   } else {
     .el_labelled(
       container_id,
@@ -364,7 +364,7 @@ el_widget <- function(
     # refuse anything but tags
     do.call(htmltools::tagList, Filter(Negate(is.null), list(head, host))),
     c(
-      .el_vue_dependencies(),
+      .el_dependencies(),
       if (inherits(dependency, "html_dependency")) {
         list(dependency)
       } else {

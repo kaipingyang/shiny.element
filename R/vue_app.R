@@ -271,7 +271,7 @@
   )
   host <- htmltools::attachDependencies(
     host,
-    c(.vue_dependencies(), dependencies)
+    c(.vue_host_dependencies(), dependencies)
   )
   # what an output compares from render to render, to send only the data
   # that changed (.vue_output_patch()): the islands are part of the template
@@ -503,13 +503,13 @@ vue_app <- function(
     rate = rate,
     outputs = outputs,
     use = use,
-    dependencies = c(.vue_dependency_list(dependencies), child_deps)
+    dependencies = c(.vue_as_dependency_list(dependencies), child_deps)
   )
 }
 
 #' One dependency or a list of them, as a list
 #' @noRd
-.vue_dependency_list <- function(dependencies) {
+.vue_as_dependency_list <- function(dependencies) {
   if (inherits(dependencies, "html_dependency")) {
     list(dependencies)
   } else {
@@ -597,7 +597,7 @@ vue_app <- function(
   if (isTRUE(store)) {
     spec$store <- TRUE
   }
-  dependencies <- .vue_dependency_list(dependencies)
+  dependencies <- .vue_as_dependency_list(dependencies)
   .vue_host(
     id,
     tpl$html,
@@ -681,7 +681,7 @@ vue_component <- function(
     opts,
     class = c("vue_component", "list"),
     dependencies = c(
-      .vue_dependency_list(dependencies),
+      .vue_as_dependency_list(dependencies),
       tpl$dependencies,
       .vue_components(opts$components)
     )

@@ -322,7 +322,7 @@ el_table_output <- function(outputId, width = "100%", loading = TRUE) {
       style = if (length(style)) paste(style, collapse = "; "),
       `data-shiny-vue-loading` = if (isTRUE(loading)) NA
     ),
-    c(.el_vue_dependencies(), list(.el_output_css()))
+    c(.el_dependencies(), list(.el_output_css()))
   )
 }
 

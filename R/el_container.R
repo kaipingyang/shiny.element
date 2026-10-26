@@ -119,7 +119,7 @@ el_container <- function(
   # Element Plus's stylesheet lays the container and its parts out
   htmltools::attachDependencies(
     htmltools::tag("section", c(attrs, children)),
-    .el_plus_dependencies()
+    .el_dependencies()
   )
 }
 

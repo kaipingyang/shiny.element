@@ -36,7 +36,10 @@ test_that("Element's own theme sets nothing, unless it is the page's", {
   # as the page's theme, every brand colour is linked to Bootstrap's -- the
   # same colours, as el_theme() gives Bootstrap Element's, until the theme
   # changes while the app runs
-  live <- .el_themed_dependency(.el_element_vars(el_theme()), live = TRUE)$head
+  live <- .el_theme_vars_dependency(
+    .el_element_vars(el_theme()),
+    live = TRUE
+  )$head
   expect_match(live, "var(--bs-primary, #409eff)", fixed = TRUE)
   expect_match(live, "var(--bs-danger, #f56c6c)", fixed = TRUE)
 })
@@ -56,7 +59,7 @@ test_that("a brand colour sets the variable and its tints, light and dark", {
   )
   expect_match(css, "html.dark {", fixed = TRUE)
   # the page's theme, followed live: the tints are mixed in the browser
-  live <- .el_themed_dependency(
+  live <- .el_theme_vars_dependency(
     .el_element_vars(el_theme(primary = "#7c3aed")),
     live = TRUE
   )$head

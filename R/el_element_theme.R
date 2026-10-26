@@ -142,7 +142,7 @@ NULL
 #' @return An htmlDependency holding the `<style>`, or `NULL` when nothing
 #'   changes.
 #' @keywords internal
-.el_themed_dependency <- function(vars, live = FALSE) {
+.el_theme_vars_dependency <- function(vars, live = FALSE) {
   from_bs <- attr(vars, "from_bs")
   if (!isTRUE(live) && length(from_bs)) {
     # a theme that is not the page's: as Element ships, but for what it
@@ -281,7 +281,7 @@ NULL
   vars <- .el_element_vars(theme)
   htmltools::tagFunction(function() {
     current <- tryCatch(shiny::getCurrentTheme(), error = function(e) NULL)
-    .el_themed_dependency(
+    .el_theme_vars_dependency(
       vars,
       live = !is.null(current) && identical(current, theme)
     )

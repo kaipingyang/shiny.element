@@ -126,7 +126,7 @@ el_row <- function(
         children
       )
     ),
-    .el_plus_dependencies()
+    .el_dependencies()
   )
 }
 
@@ -280,11 +280,11 @@ el_page <- function(
   loading = TRUE
 ) {
   deps <- c(
-    list(.vue_vue_dependency(dev = dev)),
+    list(.vue_core_dependency(dev = dev)),
     element_plus_dependency(offline = offline),
     # the bridge and Element's side of it, which checks for raw el$ tags
     # left outside any component -- a page may hold nothing else
-    .el_vue_dependencies(),
+    .el_dependencies(),
     el_locale_dependency(locale),
     .el_config_dependency(size, z_index),
     # The theme's colours, and any Element variable it sets, on Element's own

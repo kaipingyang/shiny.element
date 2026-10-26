@@ -46,10 +46,13 @@ test_that("el_collapse: the binding finds it by a data attribute", {
 })
 
 test_that("el_collapse: loads the input binding, not a message handler", {
-  deps <- htmltools::findDependencies(el_collapse("c1", items = demo_items))
-  names <- vapply(deps, function(d) d$name, character(1))
-  expect_true("el-collapse-binding" %in% names)
-  expect_false("shiny-vue" %in% names)
+  tag <- el_collapse("c1", items = demo_items)
+  deps <- htmltools::findDependencies(tag)
+  bridge <- Filter(function(d) d$name == "shiny-element", deps)
+  expect_length(bridge, 1)
+  expect_true("el-collapse-binding.js" %in% bridge[[1]]$script)
+  # markup with a binding of its own, not a Vue app over what it holds
+  expect_false(grepl("data-shiny-vue", as.character(tag), fixed = TRUE))
 })
 
 test_that("el_collapse: open panels are marked on all three elements", {
@@ -142,7 +145,7 @@ test_that("el_collapse: nested components keep their own dependencies", {
   ))
   names <- vapply(deps, function(d) d$name, character(1))
   expect_true("shiny-vue" %in% names)
-  expect_true("el-collapse-binding" %in% names)
+  expect_true("shiny-element" %in% names)
 })
 
 test_that("el_collapse: an empty collapse still renders", {

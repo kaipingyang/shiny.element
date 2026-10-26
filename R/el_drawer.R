@@ -190,7 +190,7 @@ el_drawer <- function(
         }
       )
     ),
-    el_overlay_dependency()
+    .el_dependencies()
   )
 }
 

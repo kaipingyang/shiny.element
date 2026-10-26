@@ -51,5 +51,5 @@ el_divider <- function(
     shiny::tags$div(class = div_class, role = "separator", style = style)
   }
   # Element Plus's stylesheet draws the line
-  htmltools::attachDependencies(divider, .el_plus_dependencies())
+  htmltools::attachDependencies(divider, .el_dependencies())
 }

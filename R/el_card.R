@@ -81,6 +81,6 @@ el_card <- function(
       body_div,
       footer_div
     ),
-    .el_plus_dependencies()
+    .el_dependencies()
   )
 }

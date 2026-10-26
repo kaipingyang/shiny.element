@@ -68,6 +68,6 @@
 #'
 #' @return A CSS declaration string.
 #' @keywords internal
-.vue_host_style <- function() {
+.vue_mount_style <- function() {
   "display: contents"
 }
