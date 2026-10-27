@@ -69,14 +69,7 @@ el_descriptions <- function(
 
   own <- list(
     markup = NULL,
-    data = list(
-      dTitle = .vue_or_na(title),
-      dExtra = .vue_or_na(extra),
-      dColumn = .vue_or_na(column),
-      dDirection = .vue_or_na(direction),
-      dBorder = .vue_or_na(border),
-      dSize = .vue_or_na(size)
-    ),
+    data = list(),
     methods = list(),
     watch = list(),
     computed = list(),
@@ -119,19 +112,18 @@ el_descriptions <- function(
     merged$markups[-1]
   )
 
-  attrs <- list(
-    ":title" = .vue_optional_bind("dTitle"),
-    ":extra" = .vue_optional_bind("dExtra"),
-    ":column" = .vue_optional_bind("dColumn"),
-    ":direction" = .vue_optional_bind("dDirection"),
-    ":border" = .vue_optional_bind("dBorder"),
-    ":size" = .vue_optional_bind("dSize")
-  )
+  attrs <- list()
 
   el_widget(
     props = .el_props(
       prefix = "d",
       list(
+        title = title,
+        extra = extra,
+        column = column,
+        direction = direction,
+        border = border,
+        size = size,
         label_width = label_width
       )
     ),

@@ -4,7 +4,7 @@
 \alias{.el_props}
 \title{Optional props, given their data}
 \usage{
-.el_props(values, prefix = NULL, rename = NULL)
+.el_props(values, prefix = NULL, rename = NULL, fields = NULL)
 }
 \arguments{
 \item{values}{A named list, names in snake_case as the R arguments are.}
@@ -13,6 +13,9 @@
 
 \item{rename}{Named character vector: an argument's name, and the prop it
 stands for, where the two differ.}
+
+\item{fields}{\verb{c(<argument> = "<field>")}: a field named otherwise than
+the prop, as an update function already sets it.}
 }
 \value{
 A list of \code{data} (for the Vue data) and \code{entries} (\verb{<prop-kebab> = <field>}, or \code{list(field =, wrap =)}), not yet bound to a tag.

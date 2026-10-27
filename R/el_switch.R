@@ -141,9 +141,6 @@ el_switch <- function(
     ":inactive-value" = "inactiveValue",
     "@change" = "handleChange"
   )
-  switch_attrs[[":width"]] <- .vue_optional_bind("width")
-  switch_attrs[[":name"]] <- .vue_optional_bind("name")
-  switch_attrs[[":validate-event"]] <- .vue_optional_bind("validateEvent")
   switch_tag <- htmltools::tag("el-switch", switch_attrs)
 
   vue_data <- list(
@@ -156,11 +153,11 @@ el_switch <- function(
     activeValue = active_value,
     inactiveValue = inactive_value
   )
-  vue_data$width <- .vue_or_na(width)
-  vue_data$name <- .vue_or_na(name)
-  vue_data$validateEvent <- .vue_or_na(validate_event)
   el_widget(
     props = .el_props(list(
+      width = width,
+      name = name,
+      validate_event = validate_event,
       active_action_icon = .el_icon_name(active_action_icon),
       active_icon = .el_icon_name(active_icon),
       aria_label = aria_label,

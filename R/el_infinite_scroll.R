@@ -82,9 +82,6 @@ el_infinite_scroll <- function(
   attrs <- list(
     "v-infinite-scroll" = "handleLoad",
     ":infinite-scroll-disabled" = "scrollDisabled",
-    ":infinite-scroll-delay" = .vue_optional_bind("scrollDelay"),
-    ":infinite-scroll-distance" = .vue_optional_bind("scrollDistance"),
-    ":infinite-scroll-immediate" = .vue_optional_bind("scrollImmediate"),
     style = paste0("overflow: auto; height: ", shiny::validateCssUnit(height))
   )
 
@@ -92,9 +89,6 @@ el_infinite_scroll <- function(
     markup = NULL,
     data = list(
       scrollDisabled = if (is.null(disabled)) FALSE else disabled,
-      scrollDelay = .vue_or_na(delay),
-      scrollDistance = .vue_or_na(distance),
-      scrollImmediate = .vue_or_na(immediate),
       scrollCount = 0L
     ),
     methods = list(
@@ -111,6 +105,19 @@ el_infinite_scroll <- function(
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
   el_widget(
+    props = .el_props(
+      list(delay = delay, distance = distance, immediate = immediate),
+      fields = c(
+        delay = "scrollDelay",
+        distance = "scrollDistance",
+        immediate = "scrollImmediate"
+      ),
+      rename = c(
+        delay = "infinite-scroll-delay",
+        distance = "infinite-scroll-distance",
+        immediate = "infinite-scroll-immediate"
+      )
+    ),
     id = ns_id,
     markup = htmltools::tag("div", c(attrs, merged$markups[-1])),
     data = merged$data,

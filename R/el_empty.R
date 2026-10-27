@@ -44,11 +44,7 @@ el_empty <- function(
 
   own <- list(
     markup = NULL,
-    data = list(
-      emptyDescription = .vue_or_na(description),
-      emptyImage = .vue_or_na(image),
-      emptyImageSize = .vue_or_na(image_size)
-    ),
+    data = list(),
     methods = list(),
     watch = list(),
     computed = list(),
@@ -58,13 +54,13 @@ el_empty <- function(
   inners <- lapply(list(...), .el_absorb)
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
-  attrs <- list(
-    ":description" = .vue_optional_bind("emptyDescription"),
-    ":image" = .vue_optional_bind("emptyImage"),
-    ":image-size" = .vue_optional_bind("emptyImageSize")
-  )
+  attrs <- list()
 
   el_widget(
+    props = .el_props(
+      list(description = description, image = image, image_size = image_size),
+      prefix = "empty"
+    ),
     id = ns_id,
     markup = htmltools::tag("el-empty", c(attrs, merged$markups[-1])),
     data = merged$data,

@@ -313,26 +313,6 @@ el_select <- function(
     ":collapse-tags" = "collapseTags",
     "@change" = "handleChange"
   )
-  select_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
-  select_attrs[[":size"]] <- .vue_optional_bind("size")
-  select_attrs[[":value-key"]] <- .vue_optional_bind("valueKey")
-  select_attrs[[":name"]] <- .vue_optional_bind("name")
-  select_attrs[[":autocomplete"]] <- .vue_optional_bind("autocomplete")
-  select_attrs[[":automatic-dropdown"]] <- .vue_optional_bind(
-    "automaticDropdown"
-  )
-  select_attrs[[":allow-create"]] <- .vue_optional_bind("allowCreate")
-  select_attrs[[":loading"]] <- .vue_optional_bind("loading")
-  select_attrs[[":loading-text"]] <- .vue_optional_bind("loadingText")
-  select_attrs[[":no-match-text"]] <- .vue_optional_bind("noMatchText")
-  select_attrs[[":no-data-text"]] <- .vue_optional_bind("noDataText")
-  select_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
-  select_attrs[[":reserve-keyword"]] <- .vue_optional_bind("reserveKeyword")
-  select_attrs[[":default-first-option"]] <- .vue_optional_bind(
-    "defaultFirstOption"
-  )
-  select_attrs[[":remote"]] <- .vue_optional_bind("remote")
-  select_attrs[[":filter-method"]] <- .vue_optional_bind("filterMethod")
   # The server answers by default: input$<id>_query, then update_el_select()
   select_attrs[[
     ":remote-method"
@@ -373,25 +353,25 @@ el_select <- function(
     multipleLimit = multiple_limit,
     collapseTags = collapse_tags
   )
-  vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  vue_data$size <- .vue_or_na(size)
-  vue_data$valueKey <- .vue_or_na(value_key)
-  vue_data$name <- .vue_or_na(name)
-  vue_data$autocomplete <- .vue_or_na(autocomplete)
-  vue_data$automaticDropdown <- .vue_or_na(automatic_dropdown)
-  vue_data$allowCreate <- .vue_or_na(allow_create)
-  vue_data$loading <- .vue_or_na(loading)
-  vue_data$loadingText <- .vue_or_na(loading_text)
-  vue_data$noMatchText <- .vue_or_na(no_match_text)
-  vue_data$noDataText <- .vue_or_na(no_data_text)
-  vue_data$popperClass <- .vue_or_na(popper_class)
-  vue_data$reserveKeyword <- .vue_or_na(reserve_keyword)
-  vue_data$defaultFirstOption <- .vue_or_na(default_first_option)
-  vue_data$remote <- .vue_or_na(remote)
-  vue_data$filterMethod <- .vue_or_na(filter_method)
   vue_data$remoteMethod <- .vue_or_na(remote_method)
   el_widget(
     props = .el_props(list(
+      placeholder = placeholder,
+      size = size,
+      value_key = value_key,
+      name = name,
+      autocomplete = autocomplete,
+      automatic_dropdown = automatic_dropdown,
+      allow_create = allow_create,
+      loading = loading,
+      loading_text = loading_text,
+      no_match_text = no_match_text,
+      no_data_text = no_data_text,
+      popper_class = popper_class,
+      reserve_keyword = reserve_keyword,
+      default_first_option = default_first_option,
+      remote = remote,
+      filter_method = filter_method,
       append_to = append_to,
       aria_label = aria_label,
       clear_icon = .el_icon_name(clear_icon),

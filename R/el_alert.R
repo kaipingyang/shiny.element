@@ -67,7 +67,6 @@ el_alert <- function(
     ":effect" = "effect",
     "@close" = "handleClose"
   )
-  alert_attrs[[":description"]] <- .vue_optional_bind("description")
   vue_data <- list(
     title = title,
     type = type,
@@ -77,8 +76,8 @@ el_alert <- function(
     center = center,
     effect = effect
   )
-  vue_data$description <- if (is.null(description)) NA else description
   el_widget(
+    props = .el_props(list(description = description)),
     id = ns_id,
     markup = htmltools::tag("el-alert", alert_attrs),
     data = vue_data,

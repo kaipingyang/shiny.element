@@ -29,7 +29,7 @@
   Element's default. Props now bind as one group per component,
   `v-bind="$optional('<tag>')"`, where unset (`NULL`, `NA`) is the default
   and `JS("null")` a `null`; the pages are smaller too (`el_select()`'s
-  from 5757 characters to 4884).
+  from 5757 characters to 4400).
 
 ## Documentation
 

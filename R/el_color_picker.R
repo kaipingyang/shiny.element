@@ -104,10 +104,6 @@ el_color_picker <- function(
     ":show-alpha" = "showAlpha",
     "@change" = "handleChange"
   )
-  cp_attrs[[":size"]] <- .vue_optional_bind("size")
-  cp_attrs[[":color-format"]] <- .vue_optional_bind("colorFormat")
-  cp_attrs[[":predefine"]] <- .vue_optional_bind("predefine")
-  cp_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -124,13 +120,13 @@ el_color_picker <- function(
     disabled = disabled,
     showAlpha = show_alpha
   )
-  vue_data$size <- .vue_or_na(size)
-  vue_data$colorFormat <- .vue_or_na(color_format)
-  vue_data$predefine <- if (is.null(predefine)) NA else as.list(predefine)
-  vue_data$popperClass <- .vue_or_na(popper_class)
 
   el_widget(
     props = .el_props(list(
+      predefine = predefine,
+      size = size,
+      color_format = color_format,
+      popper_class = popper_class,
       append_to = append_to,
       aria_label = aria_label,
       clearable = clearable,

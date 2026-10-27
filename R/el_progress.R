@@ -103,10 +103,7 @@ el_progress <- function(
     ":show-text" = "showText",
     ":width" = "width"
   )
-  progress_attrs[[":status"]] <- .vue_optional_bind("status")
   progress_attrs[[":color"]] <- "color"
-  progress_attrs[[":stroke-linecap"]] <- .vue_optional_bind("strokeLinecap")
-  progress_attrs[[":format"]] <- .vue_optional_bind("format")
   vue_data <- list(
     percentage = percentage,
     type = type,
@@ -115,15 +112,15 @@ el_progress <- function(
     showText = show_text,
     width = width
   )
-  vue_data$status <- if (is.null(status)) NA else status
   # Element's ElProgress declares color as [String, Array, Function] with a
   # default of "" and calls .length on it, so JSON null throws in render.
   # The empty string is its own default and means the same thing.
   vue_data$color <- if (is.null(color)) "" else color
-  vue_data$strokeLinecap <- .vue_or_na(stroke_linecap)
-  vue_data$format <- .vue_or_na(format)
   el_widget(
     props = .el_props(list(
+      status = status,
+      stroke_linecap = stroke_linecap,
+      format = format,
       duration = duration,
       indeterminate = indeterminate,
       striped = striped,

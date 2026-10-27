@@ -186,22 +186,6 @@ el_input <- function(
   )
 
   # Conditional attributes (only add when not NULL)
-  input_attrs[[":size"]] <- .vue_optional_bind("size")
-  input_attrs[[":maxlength"]] <- .vue_optional_bind("maxlength")
-  input_attrs[[":rows"]] <- .vue_optional_bind("rows")
-  input_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
-  input_attrs[[":label"]] <- .vue_optional_bind("label")
-  input_attrs[[":autocomplete"]] <- .vue_optional_bind("autocomplete")
-  input_attrs[[":autofocus"]] <- .vue_optional_bind("autofocus")
-  input_attrs[[":name"]] <- .vue_optional_bind("name")
-  input_attrs[[":form"]] <- .vue_optional_bind("form")
-  input_attrs[[":minlength"]] <- .vue_optional_bind("minlength")
-  input_attrs[[":max"]] <- .vue_optional_bind("max")
-  input_attrs[[":min"]] <- .vue_optional_bind("min")
-  input_attrs[[":step"]] <- .vue_optional_bind("step")
-  input_attrs[[":resize"]] <- .vue_optional_bind("resize")
-  input_attrs[[":tabindex"]] <- .vue_optional_bind("tabindex")
-  input_attrs[[":validate-event"]] <- .vue_optional_bind("validateEvent")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -226,24 +210,24 @@ el_input <- function(
   )
 
   # Conditional data fields (only add when not NULL)
-  vue_data$size <- if (is.null(size)) NA else size
-  vue_data$maxlength <- .vue_or_na(maxlength)
-  vue_data$rows <- .vue_or_na(rows)
-  vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  vue_data$label <- .vue_or_na(label)
-  vue_data$autocomplete <- .vue_or_na(autocomplete)
-  vue_data$autofocus <- .vue_or_na(autofocus)
-  vue_data$name <- .vue_or_na(name)
-  vue_data$form <- .vue_or_na(form)
-  vue_data$minlength <- .vue_or_na(minlength)
-  vue_data$max <- .vue_or_na(max)
-  vue_data$min <- .vue_or_na(min)
-  vue_data$step <- .vue_or_na(step)
-  vue_data$resize <- .vue_or_na(resize)
-  vue_data$tabindex <- .vue_or_na(tabindex)
-  vue_data$validateEvent <- .vue_or_na(validate_event)
   el_widget(
     props = .el_props(list(
+      size = size,
+      placeholder = placeholder,
+      maxlength = maxlength,
+      rows = rows,
+      label = label,
+      autocomplete = autocomplete,
+      autofocus = autofocus,
+      name = name,
+      form = form,
+      minlength = minlength,
+      max = max,
+      min = min,
+      step = step,
+      resize = resize,
+      tabindex = tabindex,
+      validate_event = validate_event,
       aria_label = aria_label,
       clear_icon = .el_icon_name(clear_icon),
       count_graphemes = count_graphemes,

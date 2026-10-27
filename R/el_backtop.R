@@ -51,12 +51,7 @@ el_backtop <- function(
   }
   ns_id <- .vue_ui_id(id, session)
 
-  attrs <- list(
-    ":target" = .vue_optional_bind("target"),
-    ":visibility-height" = .vue_optional_bind("visibilityHeight"),
-    ":right" = .vue_optional_bind("right"),
-    ":bottom" = .vue_optional_bind("bottom")
-  )
+  attrs <- list()
   events <- .el_event_bindings(
     ns_id,
     "el_backtop",
@@ -66,17 +61,18 @@ el_backtop <- function(
   attrs <- c(attrs, events$attrs)
 
   el_widget(
+    props = .el_props(list(
+      target = target,
+      visibility_height = visibility_height,
+      right = right,
+      bottom = bottom
+    )),
     id = ns_id,
     markup = htmltools::tag(
       "el-backtop",
       c(attrs, if (!is.null(content)) list(content))
     ),
-    data = list(
-      target = .vue_or_na(target),
-      visibilityHeight = .vue_or_na(visibility_height),
-      right = .vue_or_na(right),
-      bottom = .vue_or_na(bottom)
-    ),
+    data = list(),
     methods = events$methods,
     width = width,
     slots = slots

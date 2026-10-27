@@ -677,18 +677,6 @@ el_form <- function(
     ":label-position" = "labelPosition",
     ":inline" = "inline"
   )
-  form_attrs[[":size"]] <- .vue_optional_bind("size")
-  form_attrs[[":disabled"]] <- .vue_optional_bind("disabled")
-  form_attrs[[":show-message"]] <- .vue_optional_bind("showMessage")
-  form_attrs[[":inline-message"]] <- .vue_optional_bind("inlineMessage")
-  form_attrs[[":status-icon"]] <- .vue_optional_bind("statusIcon")
-  form_attrs[[":hide-required-asterisk"]] <- .vue_optional_bind(
-    "hideRequiredAsterisk"
-  )
-  form_attrs[[":label-suffix"]] <- .vue_optional_bind("labelSuffix")
-  form_attrs[[":validate-on-rule-change"]] <- .vue_optional_bind(
-    "validateOnRuleChange"
-  )
 
   # Forwarded to input$<id>_validate as list(prop, valid, message).
   events <- .el_event_bindings(
@@ -786,18 +774,18 @@ el_form <- function(
     submitCount = 0L,
     valid = FALSE
   )
-  vue_data$size <- .vue_or_na(size)
-  vue_data$disabled <- .vue_or_na(disabled)
-  vue_data$showMessage <- .vue_or_na(show_message)
-  vue_data$inlineMessage <- .vue_or_na(inline_message)
-  vue_data$statusIcon <- .vue_or_na(status_icon)
-  vue_data$hideRequiredAsterisk <- .vue_or_na(hide_required_asterisk)
-  vue_data$labelSuffix <- .vue_or_na(label_suffix)
-  vue_data$validateOnRuleChange <- .vue_or_na(validate_on_rule_change)
   js_id <- as.character(jsonlite::toJSON(ns_id, auto_unbox = TRUE))
 
   el_widget(
     props = .el_props(list(
+      size = size,
+      disabled = disabled,
+      show_message = show_message,
+      inline_message = inline_message,
+      status_icon = status_icon,
+      hide_required_asterisk = hide_required_asterisk,
+      label_suffix = label_suffix,
+      validate_on_rule_change = validate_on_rule_change,
       require_asterisk_position = require_asterisk_position,
       scroll_into_view_options = scroll_into_view_options,
       scroll_to_error = scroll_to_error

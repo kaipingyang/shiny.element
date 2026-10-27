@@ -108,14 +108,6 @@ el_image <- function(
   ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":src" = .vue_optional_bind("src"),
-    ":fit" = .vue_optional_bind("fit"),
-    ":alt" = .vue_optional_bind("alt"),
-    ":lazy" = .vue_optional_bind("lazy"),
-    ":scroll-container" = .vue_optional_bind("scrollContainer"),
-    ":preview-src-list" = .vue_optional_bind("previewSrcList"),
-    ":z-index" = .vue_optional_bind("zIndex"),
-    ":initial-index" = .vue_optional_bind("initialIndex"),
     class = class,
     style = style
   )
@@ -129,6 +121,14 @@ el_image <- function(
 
   el_widget(
     props = .el_props(list(
+      preview_src_list = preview_src_list,
+      src = src,
+      fit = fit,
+      alt = alt,
+      lazy = lazy,
+      scroll_container = scroll_container,
+      z_index = z_index,
+      initial_index = initial_index,
       close_on_press_escape = close_on_press_escape,
       crossorigin = crossorigin,
       hide_on_click_modal = hide_on_click_modal,
@@ -144,20 +144,7 @@ el_image <- function(
     )),
     id = ns_id,
     markup = htmltools::tag("el-image", attrs),
-    data = list(
-      src = .vue_or_na(src),
-      fit = .vue_or_na(fit),
-      alt = .vue_or_na(alt),
-      lazy = .vue_or_na(lazy),
-      scrollContainer = .vue_or_na(scroll_container),
-      previewSrcList = if (is.null(preview_src_list)) {
-        NA
-      } else {
-        as.list(preview_src_list)
-      },
-      zIndex = .vue_or_na(z_index),
-      initialIndex = .vue_or_na(initial_index)
-    ),
+    data = list(),
     methods = events$methods,
     width = width,
     slots = slots

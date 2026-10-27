@@ -4,7 +4,14 @@
 \alias{.vue_optional_props}
 \title{Optional props as a group: their fields and the map the bridge reads}
 \usage{
-.vue_optional_props(values, group, prefix = NULL, rename = NULL, wrap = NULL)
+.vue_optional_props(
+  values,
+  group,
+  prefix = NULL,
+  rename = NULL,
+  wrap = NULL,
+  fields = NULL
+)
 }
 \arguments{
 \item{values}{Named list of the props' values, names in snake_case as the
@@ -22,6 +29,10 @@ from the prop it stands for.}
 \item{wrap}{\verb{c(<argument> = "<wrap>")}: the value goes through
 \verb{sv.optionalWraps[<wrap>]} in the browser, a function a component
 library registers.}
+
+\item{fields}{\verb{c(<argument> = "<field>")} for a field named otherwise
+than the prop -- one an update function already sets by that name.
+Taken as it is: no prefix is added.}
 }
 \value{
 \code{list(map =, data =)}: \code{map} for the spec's \code{optional}, one group

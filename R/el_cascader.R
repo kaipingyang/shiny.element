@@ -249,10 +249,6 @@ el_cascader <- function(
   )
   # props carries lazyLoad; without one of the user's, the server loads
   cascader_attrs[[":props"]] <- "elProps"
-  cascader_attrs[[":size"]] <- .vue_optional_bind("size")
-  cascader_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
-  cascader_attrs[[":filter-method"]] <- .vue_optional_bind("filterMethod")
-  cascader_attrs[[":before-filter"]] <- .vue_optional_bind("beforeFilter")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -278,13 +274,13 @@ el_cascader <- function(
     separator = separator,
     debounce = debounce
   )
-  vue_data$size <- .vue_or_na(size)
   vue_data$props <- .vue_or_na(props)
-  vue_data$popperClass <- .vue_or_na(popper_class)
-  vue_data$filterMethod <- .vue_or_na(filter_method)
-  vue_data$beforeFilter <- .vue_or_na(before_filter)
   el_widget(
     props = .el_props(list(
+      size = size,
+      popper_class = popper_class,
+      filter_method = filter_method,
+      before_filter = before_filter,
       clear_icon = .el_icon_name(clear_icon),
       collapse_tags_tooltip = collapse_tags_tooltip,
       effect = effect,

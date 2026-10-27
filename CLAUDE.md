@@ -321,8 +321,9 @@ records: `.claude/plans/shiny-style-components-2026-10-06.md`,
    binds them on the component's tag as one group,
    `v-bind="$optional('<tag>')"`, with an `NA` placeholder per field so
    they fall back to Element's defaults and stay updatable (`JS("null")`
-   is a deliberate `null`). Hand-written `.vue_optional_bind()` ternaries
-   are on their way out (`.claude/plans/optional-props-2026-10-26.md`).
+   is a deliberate `null`). A field named otherwise than its prop, as an
+   update already sets it, is `.el_props(fields =)`; a value R gives as
+   text is converted by a wrap (`$elDate`, `$elRef`).
 3. A stateful component names its value with
    `mounted = .vue_mounted_report(c(<field> = ns_id))`; that field becomes the
    binding's value.

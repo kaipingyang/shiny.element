@@ -155,9 +155,10 @@ test_that("el_menu: default_active and layout options reach the Vue data", {
 
 test_that("el_menu: colours fall back to Element's defaults when unset", {
   html <- render_html(el_menu(id = "nav", items = demo_items))
+  bound <- optional_entries(el_menu(id = "nav", items = demo_items))
   for (f in c("backgroundColor", "textColor", "activeTextColor")) {
     expect_match(html, sprintf('"%s":null', f), fixed = TRUE)
-    expect_match(html, .vue_optional_bind(f), fixed = TRUE)
+    expect_true(f %in% unlist(bound), info = f)
   }
 
   themed <- render_html(el_menu(

@@ -206,25 +206,8 @@ el_tree <- function(
     ":highlight-current" = "highlightCurrent",
     ":default-expanded-keys" = "expandedKeys",
     ":default-checked-keys" = "checkedKeys",
-    ":empty-text" = .vue_optional_bind("emptyText"),
     "@node-click" = "handleNodeClick",
     "@check" = "handleCheck"
-  )
-
-  tree_attrs[[":indent"]] <- .vue_optional_bind("indent")
-
-  tree_attrs[[":lazy"]] <- .vue_optional_bind("lazy")
-
-  tree_attrs[[":draggable"]] <- .vue_optional_bind("draggable")
-
-  tree_attrs[[":auto-expand-parent"]] <- .vue_optional_bind("autoExpandParent")
-
-  tree_attrs[[":check-on-click-node"]] <- .vue_optional_bind("checkOnClickNode")
-
-  tree_attrs[[":current-node-key"]] <- .vue_optional_bind("currentNodeKey")
-
-  tree_attrs[[":render-after-expand"]] <- .vue_optional_bind(
-    "renderAfterExpand"
   )
 
   tree_attrs[[":load"]] <- "load === null ? elLoad : load" # the server, by default
@@ -234,12 +217,6 @@ el_tree <- function(
   tree_attrs[[
     ":filter-node-method"
   ]] <- "filterNodeMethod === null ? elFilterNode : filterNodeMethod"
-
-  tree_attrs[[":render-content"]] <- .vue_optional_bind("renderContent")
-
-  tree_attrs[[":allow-drag"]] <- .vue_optional_bind("allowDrag")
-
-  tree_attrs[[":allow-drop"]] <- .vue_optional_bind("allowDrop")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
 
@@ -283,37 +260,27 @@ el_tree <- function(
     highlightCurrent = highlight_current,
     expandedKeys = as.list(default_expanded_keys),
     checkedKeys = as.list(default_checked_keys),
-    emptyText = if (is.null(empty_text)) NA else empty_text,
     current = "",
     checked = as.list(default_checked_keys)
   )
-
-  vue_data$indent <- .vue_or_na(indent)
-
-  vue_data$lazy <- .vue_or_na(lazy)
-
-  vue_data$draggable <- .vue_or_na(draggable)
-
-  vue_data$autoExpandParent <- .vue_or_na(auto_expand_parent)
-
-  vue_data$checkOnClickNode <- .vue_or_na(check_on_click_node)
-
-  vue_data$currentNodeKey <- .vue_or_na(current_node_key)
-
-  vue_data$renderAfterExpand <- .vue_or_na(render_after_expand)
 
   vue_data$load <- .vue_or_na(load)
 
   vue_data$filterNodeMethod <- .vue_or_na(filter_node_method)
 
-  vue_data$renderContent <- .vue_or_na(render_content)
-
-  vue_data$allowDrag <- .vue_or_na(allow_drag)
-
-  vue_data$allowDrop <- .vue_or_na(allow_drop)
-
   el_widget(
     props = .el_props(list(
+      empty_text = empty_text,
+      indent = indent,
+      lazy = lazy,
+      draggable = draggable,
+      auto_expand_parent = auto_expand_parent,
+      check_on_click_node = check_on_click_node,
+      current_node_key = current_node_key,
+      render_after_expand = render_after_expand,
+      render_content = render_content,
+      allow_drag = allow_drag,
+      allow_drop = allow_drop,
       check_on_click_leaf = check_on_click_leaf,
       icon = .el_icon_name(icon)
     )),

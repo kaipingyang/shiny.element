@@ -108,18 +108,7 @@ el_transfer <- function(
 
   attrs <- list(
     "v-model" = "value",
-    ":data" = "data",
-    ":titles" = .vue_optional_bind("titles"),
-    ":button-texts" = .vue_optional_bind("buttonTexts"),
-    ":filterable" = .vue_optional_bind("filterable"),
-    ":filter-placeholder" = .vue_optional_bind("filterPlaceholder"),
-    ":filter-method" = .vue_optional_bind("filterMethod"),
-    ":target-order" = .vue_optional_bind("targetOrder"),
-    ":format" = .vue_optional_bind("format"),
-    ":props" = .vue_optional_bind("props"),
-    ":left-default-checked" = .vue_optional_bind("leftDefaultChecked"),
-    ":right-default-checked" = .vue_optional_bind("rightDefaultChecked"),
-    ":render-content" = .vue_optional_bind("renderContent")
+    ":data" = "data"
   )
   events <- .el_event_bindings(
     ns_id,
@@ -136,6 +125,17 @@ el_transfer <- function(
 
   el_widget(
     props = .el_props(list(
+      titles = titles,
+      button_texts = button_texts,
+      left_default_checked = left_default_checked,
+      right_default_checked = right_default_checked,
+      filterable = filterable,
+      filter_placeholder = filter_placeholder,
+      filter_method = filter_method,
+      target_order = target_order,
+      format = format,
+      props = props,
+      render_content = render_content,
       item_size = item_size,
       validate_event = validate_event,
       virtual_scroll = virtual_scroll
@@ -152,26 +152,7 @@ el_transfer <- function(
     markup = htmltools::tag("el-transfer", attrs),
     data = list(
       value = if (is.null(value)) list() else as.list(value),
-      data = .el_transfer_data(data),
-      titles = if (is.null(titles)) NA else as.list(titles),
-      buttonTexts = if (is.null(button_texts)) NA else as.list(button_texts),
-      filterable = .vue_or_na(filterable),
-      filterPlaceholder = .vue_or_na(filter_placeholder),
-      filterMethod = .vue_or_na(filter_method),
-      targetOrder = .vue_or_na(target_order),
-      format = .vue_or_na(format),
-      props = .vue_or_na(props),
-      leftDefaultChecked = if (is.null(left_default_checked)) {
-        NA
-      } else {
-        as.list(left_default_checked)
-      },
-      rightDefaultChecked = if (is.null(right_default_checked)) {
-        NA
-      } else {
-        as.list(right_default_checked)
-      },
-      renderContent = .vue_or_na(render_content)
+      data = .el_transfer_data(data)
     ),
     methods = events$methods,
     watch = list(

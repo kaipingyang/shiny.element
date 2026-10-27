@@ -138,18 +138,6 @@ el_pagination <- function(
     "@size-change" = "handleSizeChange"
   )
 
-  pagination_attrs[[":prev-text"]] <- .vue_optional_bind("prevText")
-
-  pagination_attrs[[":next-text"]] <- .vue_optional_bind("nextText")
-
-  pagination_attrs[[":hide-on-single-page"]] <- .vue_optional_bind(
-    "hideOnSinglePage"
-  )
-
-  pagination_attrs[[":page-count"]] <- .vue_optional_bind("pageCount")
-
-  pagination_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
-
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
 
   events <- .el_event_bindings(
@@ -173,18 +161,13 @@ el_pagination <- function(
     pagerCount = pager_count
   )
 
-  vue_data$prevText <- .vue_or_na(prev_text)
-
-  vue_data$nextText <- .vue_or_na(next_text)
-
-  vue_data$hideOnSinglePage <- .vue_or_na(hide_on_single_page)
-
-  vue_data$pageCount <- .vue_or_na(page_count)
-
-  vue_data$popperClass <- .vue_or_na(popper_class)
-
   el_widget(
     props = .el_props(list(
+      prev_text = prev_text,
+      next_text = next_text,
+      hide_on_single_page = hide_on_single_page,
+      page_count = page_count,
+      popper_class = popper_class,
       append_size_to = append_size_to,
       default_current_page = default_current_page,
       default_page_size = default_page_size,

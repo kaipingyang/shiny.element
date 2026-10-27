@@ -72,19 +72,17 @@ el_breadcrumb <- function(
     )
   )
 
-  attrs <- list(
-    ":separator" = .vue_optional_bind("separator")
-  )
+  attrs <- list()
 
   el_widget(
     props = .el_props(list(
+      separator = separator,
       separator_icon = .el_icon_name(separator_icon)
     )),
     id = ns_id,
     markup = htmltools::tag("el-breadcrumb", c(attrs, list(item_tag))),
     data = list(
-      items = unname(items),
-      separator = .vue_or_na(separator)
+      items = unname(items)
     ),
     methods = list(
       handleClick = JS(sprintf(

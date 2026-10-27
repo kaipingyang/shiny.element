@@ -63,28 +63,26 @@ el_link <- function(
   if (!is.null(id)) {
     ns_id <- .vue_ui_id(id, NULL)
     return(el_widget(
+      props = .el_props(list(
+        href = href,
+        type = type,
+        underline = underline,
+        icon = icon
+      )),
       id = ns_id,
       markup = htmltools::tag(
         "el-link",
         list(
-          ":href" = "href === null ? undefined : href",
-          ":type" = .vue_optional_bind("type"),
           ":target" = "target",
-          ":underline" = .vue_optional_bind("underline"),
           ":disabled" = "disabled",
-          ":icon" = "icon === null ? undefined : icon",
           "@click" = "handleClick",
           "{{ text }}"
         )
       ),
       data = list(
         text = label,
-        href = .vue_or_na(href),
-        type = .vue_or_na(type),
         target = target,
-        underline = .vue_or_na(underline),
         disabled = disabled,
-        icon = .vue_or_na(icon),
         count = 0L
       ),
       methods = list(

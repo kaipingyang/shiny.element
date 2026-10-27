@@ -70,10 +70,10 @@ el_tag <- function(
     "@click" = "handleClick",
     "@close" = "handleClose"
   )
-  tag_attrs[[":size"]] <- .vue_optional_bind("size")
-  tag_attrs[[":color"]] <- .vue_optional_bind("color")
   el_widget(
     props = .el_props(list(
+      size = size,
+      color = color,
       round = round
     )),
     id = ns_id,
@@ -82,9 +82,7 @@ el_tag <- function(
       label = label,
       type = type,
       closable = closable,
-      size = size,
       effect = effect,
-      color = color,
       hit = hit,
       disableTransitions = disable_transitions,
       count = 0L

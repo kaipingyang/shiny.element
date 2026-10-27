@@ -114,8 +114,7 @@ test_that("el_button: NULL icon does not break output", {
 
 test_that("el_button: :plain binding present on el-button tag", {
   btn <- el_button("btn1", session = NULL)
-  html <- render_html(btn)
-  expect_match(html, ":plain")
+  expect_true(binds_attr(btn, "plain"))
 })
 
 test_that("el_button: :loading binding present on el-button tag", {

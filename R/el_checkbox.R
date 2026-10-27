@@ -88,22 +88,16 @@ el_checkbox <- function(
     ":label" = "text",
     "@change" = "handleChange"
   )
-  fields <- list(
-    indeterminate = indeterminate,
-    disabled = disabled,
-    border = border,
-    size = size,
-    trueLabel = true_label,
-    falseLabel = false_label,
-    name = name,
-    checked = checked
-  )
-  for (f in names(fields)) {
-    attrs[[paste0(":", .el_kebab_case(f))]] <- .vue_optional_bind(f)
-  }
-
   el_widget(
     props = .el_props(list(
+      indeterminate = indeterminate,
+      disabled = disabled,
+      border = border,
+      size = size,
+      true_label = true_label,
+      false_label = false_label,
+      name = name,
+      checked = checked,
       aria_controls = aria_controls,
       aria_label = aria_label,
       controls = controls,
@@ -114,10 +108,7 @@ el_checkbox <- function(
     )),
     id = ns_id,
     markup = htmltools::tag("el-checkbox", attrs),
-    data = c(
-      list(value = value, text = if (is.null(label)) "" else label),
-      lapply(fields, .vue_or_na)
-    ),
+    data = list(value = value, text = if (is.null(label)) "" else label),
     methods = list(
       handleChange = JS(sprintf(
         "function(v) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', v); }",

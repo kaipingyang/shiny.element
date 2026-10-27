@@ -55,25 +55,23 @@ el_page_header <- function(
   }
   ns_id <- .vue_ui_id(id, session)
 
-  attrs <- list(
-    ":title" = .vue_optional_bind("title"),
-    ":content" = .vue_optional_bind("content")
-  )
   events <- .el_event_bindings(
     ns_id,
     "el_page_header",
     events,
     on = on
   )
-  attrs <- c(attrs, events$attrs)
+  attrs <- events$attrs
 
   el_widget(
     props = .el_props(list(
+      title = title,
+      content = content,
       icon = .el_icon_name(icon)
     )),
     id = ns_id,
     markup = htmltools::tag("el-page-header", attrs),
-    data = list(title = .vue_or_na(title), content = .vue_or_na(content)),
+    data = list(),
     methods = events$methods,
     width = width,
     slots = slots

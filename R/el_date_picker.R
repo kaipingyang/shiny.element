@@ -237,7 +237,6 @@ el_date_picker <- function(
     "v-model" = "value",
     ":type" = "type",
     ":value-format" = "valueFormat",
-    ":format" = .vue_optional_bind("displayFormat"),
     ":clearable" = "clearable",
     ":disabled" = "disabled",
     ":editable" = "editable",
@@ -245,19 +244,6 @@ el_date_picker <- function(
     ":range-separator" = "rangeSeparator",
     "@change" = "handleChange"
   )
-  picker_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
-  picker_attrs[[":start-placeholder"]] <- .vue_optional_bind("startPlaceholder")
-  picker_attrs[[":end-placeholder"]] <- .vue_optional_bind("endPlaceholder")
-  picker_attrs[[":size"]] <- .vue_optional_bind("size")
-  picker_attrs[[":name"]] <- .vue_optional_bind("name")
-  picker_attrs[[":prefix-icon"]] <- .vue_optional_bind("prefixIcon")
-  picker_attrs[[":clear-icon"]] <- .vue_optional_bind("clearIcon")
-  picker_attrs[[":popper-class"]] <- .vue_optional_bind("popperClass")
-  # Dates in Element Plus, text from R: $elDate (el-events.js) converts
-  picker_attrs[[":default-value"]] <- "$elDate(defaultValue)"
-  picker_attrs[[":default-time"]] <- "$elDate(defaultTime)"
-  picker_attrs[[":unlink-panels"]] <- .vue_optional_bind("unlinkPanels")
-  picker_attrs[[":validate-event"]] <- .vue_optional_bind("validateEvent")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -272,50 +258,55 @@ el_date_picker <- function(
     value = init_value,
     type = type,
     valueFormat = value_format,
-    displayFormat = .vue_or_na(format),
     clearable = clearable,
     disabled = disabled,
     editable = editable,
     readonly = readonly,
     rangeSeparator = range_separator
   )
-  vue_data$placeholder <- if (is.null(placeholder)) NA else placeholder
-  vue_data$startPlaceholder <- .vue_or_na(start_placeholder)
-  vue_data$endPlaceholder <- .vue_or_na(end_placeholder)
-  vue_data$size <- .vue_or_na(size)
-  vue_data$name <- .vue_or_na(name)
-  vue_data$prefixIcon <- .vue_or_na(prefix_icon)
-  vue_data$clearIcon <- .vue_or_na(clear_icon)
-  vue_data$popperClass <- .vue_or_na(popper_class)
-  vue_data$defaultValue <- .vue_or_na(default_value)
-  vue_data$defaultTime <- .vue_or_na(default_time)
-  vue_data$unlinkPanels <- .vue_or_na(unlink_panels)
-  vue_data$validateEvent <- .vue_or_na(validate_event)
   el_widget(
-    props = .el_props(list(
-      arrow_control = arrow_control,
-      automatic_dropdown = automatic_dropdown,
-      cell_class_name = cell_class_name,
-      date_format = date_format,
-      disabled_date = disabled_date,
-      disabled_hours = disabled_hours,
-      disabled_minutes = disabled_minutes,
-      disabled_seconds = disabled_seconds,
-      empty_values = empty_values,
-      fallback_placements = fallback_placements,
-      placement = placement,
-      popper_options = popper_options,
-      popper_style = popper_style,
-      shortcuts = shortcuts,
-      show_confirm = show_confirm,
-      show_footer = show_footer,
-      show_now = show_now,
-      show_week_number = show_week_number,
-      single_panel = single_panel,
-      teleported = teleported,
-      time_format = time_format,
-      value_on_clear = value_on_clear
-    )),
+    props = .el_props(
+      list(
+        # Dates in Element Plus, text from R: .el_props() has $elDate
+        # (el-events.js) convert them
+        default_value = default_value,
+        default_time = default_time,
+        format = format,
+        placeholder = placeholder,
+        start_placeholder = start_placeholder,
+        end_placeholder = end_placeholder,
+        size = size,
+        name = name,
+        prefix_icon = prefix_icon,
+        clear_icon = clear_icon,
+        popper_class = popper_class,
+        unlink_panels = unlink_panels,
+        validate_event = validate_event,
+        arrow_control = arrow_control,
+        automatic_dropdown = automatic_dropdown,
+        cell_class_name = cell_class_name,
+        date_format = date_format,
+        disabled_date = disabled_date,
+        disabled_hours = disabled_hours,
+        disabled_minutes = disabled_minutes,
+        disabled_seconds = disabled_seconds,
+        empty_values = empty_values,
+        fallback_placements = fallback_placements,
+        placement = placement,
+        popper_options = popper_options,
+        popper_style = popper_style,
+        shortcuts = shortcuts,
+        show_confirm = show_confirm,
+        show_footer = show_footer,
+        show_now = show_now,
+        show_week_number = show_week_number,
+        single_panel = single_panel,
+        teleported = teleported,
+        time_format = time_format,
+        value_on_clear = value_on_clear
+      ),
+      fields = c(format = "displayFormat")
+    ),
     label = label,
     label_position = label_position,
     label_width = label_width,

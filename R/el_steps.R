@@ -115,7 +115,6 @@ el_steps <- function(
     ":align-center" = "alignCenter",
     ":simple" = "simple"
   )
-  steps_attrs[[":space"]] <- .vue_optional_bind("space")
   # Build Vue data object
   vue_data <- list(
     active = active,
@@ -125,7 +124,6 @@ el_steps <- function(
     alignCenter = align_center,
     simple = simple
   )
-  vue_data$space <- .vue_or_na(space)
   # Create component UI
   # Element Plus's change, as the active step moves
   events <- .el_event_bindings(
@@ -136,6 +134,7 @@ el_steps <- function(
   )
   steps_attrs <- c(steps_attrs, events$attrs)
   el_widget(
+    props = .el_props(list(space = space)),
     id = ns_id,
     markup = htmltools::tag("el-steps", c(steps_attrs, step_tags)),
     data = vue_data,

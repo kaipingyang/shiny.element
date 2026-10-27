@@ -134,18 +134,7 @@ el_popover <- function(
   }
   ns_id <- .vue_ui_id(id, session)
 
-  attrs <- list(
-    ":title" = .vue_optional_bind("popTitle"),
-    ":content" = .vue_optional_bind("popContent"),
-    ":trigger" = .vue_optional_bind("popTrigger"),
-    ":placement" = .vue_optional_bind("popPlacement"),
-    ":width" = .vue_optional_bind("popPopoverWidth"),
-    ":disabled" = .vue_optional_bind("popDisabled"),
-    ":offset" = .vue_optional_bind("popOffset"),
-    ":transition" = .vue_optional_bind("popTransition"),
-    ":popper-class" = .vue_optional_bind("popPopperClass"),
-    ":popper-options" = .vue_optional_bind("popPopperOptions")
-  )
+  attrs <- list()
   events <- .el_event_bindings(
     ns_id,
     "el_popover",
@@ -156,18 +145,7 @@ el_popover <- function(
 
   own <- list(
     markup = NULL,
-    data = list(
-      popTitle = .vue_or_na(title),
-      popContent = .vue_or_na(content),
-      popTrigger = .vue_or_na(trigger),
-      popPlacement = .vue_or_na(placement),
-      popPopoverWidth = .vue_or_na(popover_width),
-      popDisabled = .vue_or_na(disabled),
-      popOffset = .vue_or_na(offset),
-      popTransition = .vue_or_na(transition),
-      popPopperClass = .vue_or_na(popper_class),
-      popPopperOptions = .vue_or_na(popper_options)
-    ),
+    data = list(),
     methods = events$methods,
     watch = list(),
     computed = list(),
@@ -193,6 +171,16 @@ el_popover <- function(
     props = .el_props(
       prefix = "pop",
       list(
+        popover_width = popover_width,
+        title = title,
+        content = content,
+        trigger = trigger,
+        placement = placement,
+        disabled = disabled,
+        offset = offset,
+        transition = transition,
+        popper_class = popper_class,
+        popper_options = popper_options,
         tabindex = tabindex,
         append_to = append_to,
         auto_close = auto_close,
@@ -208,7 +196,9 @@ el_popover <- function(
         virtual_triggering = virtual_triggering,
         visible = visible,
         ...
-      )
+      ),
+      fields = c(popover_width = "popPopoverWidth"),
+      rename = c(popover_width = "width")
     ),
     id = ns_id,
     markup = htmltools::tag("el-popover", c(attrs, children)),

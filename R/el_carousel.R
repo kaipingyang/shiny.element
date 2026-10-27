@@ -115,8 +115,6 @@ el_carousel <- function(
     ":arrow" = "arrow",
     ":loop" = "loop",
     ":direction" = "direction",
-    ":indicator-position" = .vue_optional_bind("indicatorPosition"),
-    ":type" = .vue_optional_bind("carouselType"),
     "@change" = "handleChange"
   )
 
@@ -137,12 +135,6 @@ el_carousel <- function(
     arrow = arrow,
     loop = loop,
     direction = direction,
-    indicatorPosition = if (is.null(indicator_position)) {
-      NA
-    } else {
-      indicator_position
-    },
-    carouselType = if (is.null(type)) NA else type,
     itemNames = as.list(names_vec),
     active = initial_index,
     activeName = if (length(names_vec) > initial_index + 1L) {
@@ -200,10 +192,13 @@ el_carousel <- function(
     props = .el_props(
       prefix = "carousel",
       list(
+        indicator_position = indicator_position,
+        type = type,
         card_scale = card_scale,
         motion_blur = motion_blur,
         pause_on_hover = pause_on_hover
-      )
+      ),
+      fields = c(indicator_position = "indicatorPosition")
     ),
     id = ns_id,
     markup = htmltools::tag(

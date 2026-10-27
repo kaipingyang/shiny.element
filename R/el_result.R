@@ -47,11 +47,7 @@ el_result <- function(
 
   own <- list(
     markup = NULL,
-    data = list(
-      resultIcon = .vue_or_na(icon),
-      resultTitle = .vue_or_na(title),
-      resultSubTitle = .vue_or_na(sub_title)
-    ),
+    data = list(),
     methods = list(),
     watch = list(),
     computed = list(),
@@ -61,11 +57,7 @@ el_result <- function(
   inners <- lapply(list(...), .el_absorb)
   merged <- do.call(.el_absorb_merge, c(list(own), inners))
 
-  attrs <- list(
-    ":icon" = .vue_optional_bind("resultIcon"),
-    ":title" = .vue_optional_bind("resultTitle"),
-    ":sub-title" = .vue_optional_bind("resultSubTitle")
-  )
+  attrs <- list()
   extra <- merged$markups[-1]
   children <- if (length(extra)) {
     list(.vue_slot("extra", extra))
@@ -74,6 +66,10 @@ el_result <- function(
   }
 
   el_widget(
+    props = .el_props(
+      list(icon = icon, title = title, sub_title = sub_title),
+      prefix = "result"
+    ),
     id = ns_id,
     markup = htmltools::tag("el-result", c(attrs, children)),
     data = merged$data,

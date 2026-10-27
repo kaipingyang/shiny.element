@@ -115,8 +115,7 @@ test_that("el_progress: :show-text binding present", {
 
 test_that("el_progress: :status binding present when status is set", {
   pr <- el_progress("pr1", status = "warning", session = NULL)
-  html <- render_html(pr)
-  expect_match(html, ":status")
+  expect_true(binds_attr(pr, "status"))
 })
 
 # ── update_el_progress ────────────────────────────────────────────────────────

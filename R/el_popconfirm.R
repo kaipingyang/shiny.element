@@ -102,14 +102,6 @@ el_popconfirm <- function(
   ns_id <- .vue_ui_id(id, session)
 
   attrs <- list(
-    ":title" = .vue_optional_bind("pcTitle"),
-    ":confirm-button-text" = .vue_optional_bind("pcConfirmButtonText"),
-    ":cancel-button-text" = .vue_optional_bind("pcCancelButtonText"),
-    ":confirm-button-type" = .vue_optional_bind("pcConfirmButtonType"),
-    ":cancel-button-type" = .vue_optional_bind("pcCancelButtonType"),
-    ":icon" = .vue_optional_bind("pcIcon"),
-    ":icon-color" = .vue_optional_bind("pcIconColor"),
-    ":hide-icon" = .vue_optional_bind("pcHideIcon"),
     # Element 2.13 emitted these as onConfirm and onCancel; 2.15 renamed them
     # to confirm and cancel. Bound under the old names they are simply never
     # heard, so the prompt still opens and closes but reports nothing.
@@ -119,16 +111,7 @@ el_popconfirm <- function(
 
   own <- list(
     markup = NULL,
-    data = list(
-      pcTitle = .vue_or_na(title),
-      pcConfirmButtonText = .vue_or_na(confirm_button_text),
-      pcCancelButtonText = .vue_or_na(cancel_button_text),
-      pcConfirmButtonType = .vue_or_na(confirm_button_type),
-      pcCancelButtonType = .vue_or_na(cancel_button_type),
-      pcIcon = .vue_or_na(.el_icon_name(icon)),
-      pcIconColor = .vue_or_na(icon_color),
-      pcHideIcon = .vue_or_na(hide_icon)
-    ),
+    data = list(),
     watch = list(),
     computed = list(),
     mounted = NULL,
@@ -158,6 +141,14 @@ el_popconfirm <- function(
     props = .el_props(
       prefix = "pc",
       list(
+        title = title,
+        confirm_button_text = confirm_button_text,
+        cancel_button_text = cancel_button_text,
+        confirm_button_type = confirm_button_type,
+        cancel_button_type = cancel_button_type,
+        icon = .el_icon_name(icon),
+        icon_color = icon_color,
+        hide_icon = hide_icon,
         effect = effect,
         hide_after = hide_after,
         persistent = persistent,

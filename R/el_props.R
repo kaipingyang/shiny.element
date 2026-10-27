@@ -11,10 +11,12 @@
 #' @param prefix A prefix for the fields' names, or `NULL`.
 #' @param rename Named character vector: an argument's name, and the prop it
 #'   stands for, where the two differ.
+#' @param fields `c(<argument> = "<field>")`: a field named otherwise than
+#'   the prop, as an update function already sets it.
 #' @return A list of `data` (for the Vue data) and `entries` (`<prop-kebab>
 #'   = <field>`, or `list(field =, wrap =)`), not yet bound to a tag.
 #' @keywords internal
-.el_props <- function(values, prefix = NULL, rename = NULL) {
+.el_props <- function(values, prefix = NULL, rename = NULL, fields = NULL) {
   if (!length(values)) {
     return(list(data = list(), entries = list()))
   }
@@ -42,11 +44,18 @@
     virtual_ref = "elRef"
   )
   wrap <- wrap[names(wrap) %in% names(values)]
+  # an argument with a field of its own name (`fields`) keeps it under the
+  # prop's upstream name
+  if (length(fields)) {
+    hit <- names(fields) %in% names(rename)
+    names(fields)[hit] <- gsub("-", "_", rename[names(fields)[hit]])
+  }
   o <- .vue_optional_props(
     .el_prop_values(values),
     "props",
     prefix = prefix,
-    wrap = wrap
+    wrap = wrap,
+    fields = fields
   )
   list(data = o$data, entries = o$map$props)
 }

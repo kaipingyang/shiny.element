@@ -128,11 +128,6 @@ el_input_number <- function(
     ":controls-position" = "controlsPosition",
     "@change" = "handleChange"
   )
-  num_attrs[[":size"]] <- .vue_optional_bind("size")
-  num_attrs[[":precision"]] <- .vue_optional_bind("precision")
-  num_attrs[[":placeholder"]] <- .vue_optional_bind("placeholder")
-  num_attrs[[":label"]] <- .vue_optional_bind("label")
-  num_attrs[[":name"]] <- .vue_optional_bind("name")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -152,13 +147,13 @@ el_input_number <- function(
     controls = controls,
     controlsPosition = controls_position
   )
-  vue_data$size <- .vue_or_na(size)
-  vue_data$precision <- .vue_or_na(precision)
-  vue_data$placeholder <- .vue_or_na(placeholder)
-  vue_data$label <- .vue_or_na(label)
-  vue_data$name <- .vue_or_na(name)
   el_widget(
     props = .el_props(list(
+      size = size,
+      precision = precision,
+      placeholder = placeholder,
+      label = label,
+      name = name,
       align = align,
       aria_label = aria_label,
       disabled_scientific = disabled_scientific,

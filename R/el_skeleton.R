@@ -64,11 +64,7 @@ el_skeleton <- function(
   own <- list(
     markup = NULL,
     data = list(
-      skLoading = loading,
-      skRows = .vue_or_na(rows),
-      skAnimated = .vue_or_na(animated),
-      skCount = .vue_or_na(count),
-      skThrottle = .vue_or_na(throttle)
+      skLoading = loading
     ),
     methods = list(),
     watch = list(),
@@ -81,10 +77,6 @@ el_skeleton <- function(
 
   attrs <- list(
     ":loading" = "skLoading",
-    ":rows" = .vue_optional_bind("skRows"),
-    ":animated" = .vue_optional_bind("skAnimated"),
-    ":count" = .vue_optional_bind("skCount"),
-    ":throttle" = .vue_optional_bind("skThrottle"),
     class = class,
     style = style
   )
@@ -96,6 +88,15 @@ el_skeleton <- function(
   }
 
   el_widget(
+    props = .el_props(
+      list(
+        rows = rows,
+        animated = animated,
+        count = count,
+        throttle = throttle
+      ),
+      prefix = "sk"
+    ),
     id = ns_id,
     markup = htmltools::tag("el-skeleton", c(attrs, children)),
     data = merged$data,

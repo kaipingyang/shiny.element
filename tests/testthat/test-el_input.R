@@ -168,8 +168,7 @@ test_that("el_input: label is declared as null when not supplied", {
 
 test_that("el_input: :size attr present when size set", {
   inp <- el_input("inp1", size = "small", session = NULL)
-  html <- render_html(inp)
-  expect_match(html, ":size")
+  expect_true(binds_attr(inp, "size"))
 })
 
 test_that("el_input: :size and :placeholder are bound even when NULL", {
@@ -179,38 +178,30 @@ test_that("el_input: :size and :placeholder are bound even when NULL", {
     placeholder = NULL,
     session = NULL
   ))
-  expect_match(
-    html,
-    sprintf(':size="%s"', .vue_optional_bind("size")),
-    fixed = TRUE
-  )
-  expect_match(
-    html,
-    sprintf(':placeholder="%s"', .vue_optional_bind("placeholder")),
-    fixed = TRUE
-  )
+  bound <- optional_entries(el_input("i1", session = NULL))
+  expect_equal(bound$size, "size")
+  expect_equal(bound$placeholder, "placeholder")
 })
 
 test_that("el_input: :placeholder attr present when set", {
   inp <- el_input("inp1", placeholder = "Search", session = NULL)
-  html <- render_html(inp)
-  expect_match(html, ":placeholder")
+  expect_true(binds_attr(inp, "placeholder"))
 })
 
 test_that("el_input: :maxlength is bound even when not supplied", {
-  # The binding turns a null into undefined, so Element still applies its own
-  # default while the field stays reactive.
+  # Bound through $optional(): its null is made undefined, so Element still
+  # applies its own default while the field stays reactive.
   inp <- el_input("inp1", maxlength = NULL, session = NULL)
   expect_true(binds_attr(inp, "maxlength"))
-  expect_match(render_html(inp), "maxlength === null \\? undefined")
+  expect_true("maxlength" %in% names(vue_spec_of(inp)$optional$input))
 })
 
 test_that("el_input: :rows is bound even when not supplied", {
-  # The binding turns a null into undefined, so Element still applies its own
-  # default while the field stays reactive.
+  # Bound through $optional(): its null is made undefined, so Element still
+  # applies its own default while the field stays reactive.
   inp <- el_input("inp1", rows = NULL, session = NULL)
   expect_true(binds_attr(inp, "rows"))
-  expect_match(render_html(inp), "rows === null \\? undefined")
+  expect_true("rows" %in% names(vue_spec_of(inp)$optional$input))
 })
 
 # ── 常驻 Vue 属性绑定 ──────────────────────────────────────────────────────────

@@ -192,10 +192,12 @@ test_that("a component as a dropdown's trigger is folded in, not nested", {
 })
 
 test_that("a picker's default value and time become Dates in the browser", {
-  expect_match(
-    html_of(el_date_picker("d", default_value = "2010-10-01")),
-    ':default-value="$elDate(defaultValue)"',
-    fixed = TRUE
+  expect_equal(
+    optional_entries(el_date_picker(
+      "d",
+      default_value = "2010-10-01"
+    ))$`default-value`,
+    list(field = "defaultValue", wrap = "elDate")
   )
   # bound through $optional(), made a Date by $elDate
   expect_equal(

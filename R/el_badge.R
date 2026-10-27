@@ -56,11 +56,8 @@ el_badge <- function(
     own <- list(
       markup = NULL,
       data = list(
-        badgeValue = .vue_or_na(value),
-        badgeMax = .vue_or_na(max),
         badgeIsDot = is_dot,
-        badgeHidden = hidden,
-        badgeType = .vue_or_na(type)
+        badgeHidden = hidden
       ),
       methods = list(),
       watch = list(),
@@ -74,6 +71,9 @@ el_badge <- function(
       props = .el_props(
         prefix = "badge",
         list(
+          value = value,
+          max = max,
+          type = type,
           show_zero = show_zero,
           color = color,
           offset = offset,
@@ -85,11 +85,8 @@ el_badge <- function(
         "el-badge",
         c(
           list(
-            ":value" = .vue_optional_bind("badgeValue"),
-            ":max" = .vue_optional_bind("badgeMax"),
             ":is-dot" = "badgeIsDot",
-            ":hidden" = "badgeHidden",
-            ":type" = .vue_optional_bind("badgeType")
+            ":hidden" = "badgeHidden"
           ),
           list(merged$markups[[2]])
         )

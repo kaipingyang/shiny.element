@@ -15,8 +15,8 @@
 \description{
 A field left out of a Vue instance's \code{data} is not reactive, so an update
 can never set it later. Unset optional props are therefore declared as
-\code{NA}, which serialises to \code{null}, and read back through
-\code{\link[=.vue_optional_bind]{.vue_optional_bind()}}, which turns that \code{null} into \code{undefined} so the
+\code{NA}, which serialises to \code{null}; for the props of an \verb{$optional()} group
+(\code{\link[=.vue_optional_props]{.vue_optional_props()}}) the bridge makes that \code{null} \code{undefined}, so the
 component applies its own default.
 }
 \keyword{internal}

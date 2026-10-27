@@ -159,15 +159,6 @@ el_slider <- function(
   )
   # Element only reads height in vertical mode, but the field has to exist
   # either way for update_el_slider() to be able to set it.
-  slider_attrs[[":height"]] <- .vue_optional_bind("height")
-  slider_attrs[[":marks"]] <- .vue_optional_bind("marks")
-  slider_attrs[[":label"]] <- .vue_optional_bind("label")
-  slider_attrs[[":input-size"]] <- .vue_optional_bind("inputSize")
-  slider_attrs[[":show-input-controls"]] <- .vue_optional_bind(
-    "showInputControls"
-  )
-  slider_attrs[[":tooltip-class"]] <- .vue_optional_bind("tooltipClass")
-  slider_attrs[[":format-tooltip"]] <- .vue_optional_bind("formatTooltip")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -193,22 +184,21 @@ el_slider <- function(
     showTooltip = show_tooltip,
     vertical = vertical
   )
-  vue_data$height <- if (!is.null(height)) {
-    height
-  } else if (vertical) {
-    "200px"
-  } else {
-    NA
-  }
-  vue_data$marks <- .vue_or_na(marks)
-  vue_data$label <- .vue_or_na(label)
-  vue_data$inputSize <- .vue_or_na(input_size)
-  vue_data$showInputControls <- .vue_or_na(show_input_controls)
-  vue_data$tooltipClass <- .vue_or_na(tooltip_class)
-  vue_data$formatTooltip <- .vue_or_na(format_tooltip)
 
   el_widget(
     props = .el_props(list(
+      # a vertical slider needs a height; Element has none of its own
+      height = if (!is.null(height)) {
+        height
+      } else if (vertical) {
+        "200px"
+      },
+      marks = marks,
+      label = label,
+      input_size = input_size,
+      show_input_controls = show_input_controls,
+      tooltip_class = tooltip_class,
+      format_tooltip = format_tooltip,
       aria_label = aria_label,
       format_value_text = format_value_text,
       persistent = persistent,

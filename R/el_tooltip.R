@@ -156,18 +156,7 @@ el_tooltip <- function(
   }
   ns_id <- .vue_ui_id(id, session)
 
-  attrs <- list(
-    ":content" = .vue_optional_bind("tipContent"),
-    ":placement" = .vue_optional_bind("tipPlacement"),
-    ":effect" = .vue_optional_bind("tipEffect"),
-    ":disabled" = .vue_optional_bind("tipDisabled"),
-    ":offset" = .vue_optional_bind("tipOffset"),
-    ":hide-after" = .vue_optional_bind("tipHideAfter"),
-    ":enterable" = .vue_optional_bind("tipEnterable"),
-    ":transition" = .vue_optional_bind("tipTransition"),
-    ":popper-class" = .vue_optional_bind("tipPopperClass"),
-    ":popper-options" = .vue_optional_bind("tipPopperOptions")
-  )
+  attrs <- list()
 
   events <- .el_event_bindings(
     ns_id,
@@ -179,18 +168,7 @@ el_tooltip <- function(
 
   own <- list(
     markup = NULL,
-    data = list(
-      tipContent = .vue_or_na(content),
-      tipPlacement = .vue_or_na(placement),
-      tipEffect = .vue_or_na(effect),
-      tipDisabled = .vue_or_na(disabled),
-      tipOffset = .vue_or_na(offset),
-      tipHideAfter = .vue_or_na(hide_after),
-      tipEnterable = .vue_or_na(enterable),
-      tipTransition = .vue_or_na(transition),
-      tipPopperClass = .vue_or_na(popper_class),
-      tipPopperOptions = .vue_or_na(popper_options)
-    ),
+    data = list(),
     methods = events$methods,
     watch = list(),
     computed = list(),
@@ -203,6 +181,16 @@ el_tooltip <- function(
     props = .el_props(
       prefix = "tip",
       list(
+        content = content,
+        placement = placement,
+        effect = effect,
+        disabled = disabled,
+        offset = offset,
+        hide_after = hide_after,
+        enterable = enterable,
+        transition = transition,
+        popper_class = popper_class,
+        popper_options = popper_options,
         append_to = append_to,
         aria_label = aria_label,
         arrow_offset = arrow_offset,

@@ -148,20 +148,17 @@ el_radio_group <- function(
     ":disabled" = "disabled",
     "@change" = "handleChange"
   )
-  group_attrs[[":size"]] <- .vue_optional_bind("size")
-  group_attrs[[":fill"]] <- .vue_optional_bind("fill")
-  group_attrs[[":text-color"]] <- .vue_optional_bind("textColor")
   # Build Vue data
   vue_data <- list(
     value = if (is.null(selected)) "" else selected,
     options = .vue_choices(choices),
     disabled = disabled
   )
-  vue_data$size <- .vue_or_na(size)
-  vue_data$fill <- .vue_or_na(fill)
-  vue_data$textColor <- .vue_or_na(text_color)
   el_widget(
     props = .el_props(list(
+      size = size,
+      fill = fill,
+      text_color = text_color,
       aria_label = aria_label,
       props = props,
       type = type,

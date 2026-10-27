@@ -140,9 +140,6 @@ el_button <- function(
   # default: Element reads `props.plain ?? config.plain`, so a FALSE bound
   # here would hide the provider's
   btn_attrs <- list(
-    ":type" = .vue_optional_bind("type"),
-    ":plain" = .vue_optional_bind("plain"),
-    ":round" = .vue_optional_bind("round"),
     ":circle" = "circle",
     # a task button is loading from the click until the server is done
     ":loading" = if (isTRUE(task)) "loading || state === 'busy'" else "loading",
@@ -152,12 +149,9 @@ el_button <- function(
     class = class,
     style = style
   )
-  btn_attrs[[":size"]] <- .vue_optional_bind("size")
   # Upstream's `icon` is an Element icon class name. A tag is accepted too, and
   # goes in as content, which is how a fontawesome icon from el_icon() lands
   # here -- but only a class name can be changed later by update_el_button().
-  btn_attrs[[":icon"]] <- .vue_optional_bind("icon")
-  btn_attrs[[":autofocus"]] <- .vue_optional_bind("autofocus")
   # a label of tags -- text and an icon after it, as Element's demos put
   # one -- is markup; text stays a field update_el_button() can change
   markup_label <- inherits(label, c("shiny.tag", "shiny.tag.list", "html"))
@@ -171,6 +165,12 @@ el_button <- function(
 
   el_widget(
     props = .el_props(list(
+      size = size,
+      icon = if (is.character(icon)) icon,
+      autofocus = autofocus,
+      type = type,
+      plain = plain,
+      round = round,
       auto_insert_space = auto_insert_space,
       bg = bg,
       color = color,
@@ -185,20 +185,14 @@ el_button <- function(
     markup = htmltools::tag("el-button", append(btn_attrs, btn_content)),
     data = list(
       label = label,
-      type = .vue_or_na(type),
-      size = size,
-      plain = .vue_or_na(plain),
-      round = .vue_or_na(round),
       circle = circle,
       loading = loading,
       disabled = disabled,
       native_type = native_type,
-      icon = if (is.character(icon)) icon else NA,
       count = 0L,
       # a task button's: "busy" from the click until the server says
       # "ready", as bslib's input_task_button() says it
-      state = "ready",
-      autofocus = .vue_or_na(autofocus)
+      state = "ready"
     ),
     methods = list(
       # The binding reports the count; this send is for when the button is

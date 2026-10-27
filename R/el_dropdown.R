@@ -181,11 +181,6 @@ el_dropdown <- function(
     ":split-button" = "splitButton",
     "@command" = "handleCommand"
   )
-  dd_attrs[[":type"]] <- .vue_optional_bind("type")
-  dd_attrs[[":size"]] <- .vue_optional_bind("size")
-  dd_attrs[[":show-timeout"]] <- .vue_optional_bind("showTimeout")
-  dd_attrs[[":hide-timeout"]] <- .vue_optional_bind("hideTimeout")
-  dd_attrs[[":tabindex"]] <- .vue_optional_bind("tabindex")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
   events <- .el_event_bindings(
@@ -203,11 +198,6 @@ el_dropdown <- function(
     splitButton = split_button,
     count = 0L
   )
-  vue_data$type <- .vue_or_na(type)
-  vue_data$size <- .vue_or_na(size)
-  vue_data$showTimeout <- .vue_or_na(show_timeout)
-  vue_data$hideTimeout <- .vue_or_na(hide_timeout)
-  vue_data$tabindex <- .vue_or_na(tabindex)
   own <- list(
     markup = NULL,
     data = vue_data,
@@ -259,6 +249,11 @@ el_dropdown <- function(
 
   el_widget(
     props = .el_props(list(
+      type = type,
+      size = size,
+      show_timeout = show_timeout,
+      hide_timeout = hide_timeout,
+      tabindex = tabindex,
       append_to = append_to,
       button_props = button_props,
       effect = effect,

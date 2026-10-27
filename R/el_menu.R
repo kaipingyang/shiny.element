@@ -254,21 +254,8 @@ el_menu <- function(
     ":mode" = "mode",
     ":collapse" = "collapse",
     ":unique-opened" = "uniqueOpened",
-    ":background-color" = .vue_optional_bind("backgroundColor"),
-    ":text-color" = .vue_optional_bind("textColor"),
-    ":active-text-color" = .vue_optional_bind("activeTextColor"),
     "@select" = "handleSelect"
   )
-
-  menu_attrs[[":default-openeds"]] <- .vue_optional_bind("defaultOpeneds")
-
-  menu_attrs[[":menu-trigger"]] <- .vue_optional_bind("menuTrigger")
-
-  menu_attrs[[":collapse-transition"]] <- .vue_optional_bind(
-    "collapseTransition"
-  )
-
-  menu_attrs[[":router"]] <- .vue_optional_bind("router")
 
   # Forwarded to input$<id>_<event>; see .el_event_bindings().
 
@@ -290,22 +277,18 @@ el_menu <- function(
     mode = mode,
     collapse = collapse,
     uniqueOpened = unique_opened,
-    backgroundColor = if (is.null(background_color)) NA else background_color,
-    textColor = if (is.null(text_color)) NA else text_color,
-    activeTextColor = if (is.null(active_text_color)) NA else active_text_color,
     path = list()
   )
 
-  vue_data$defaultOpeneds <- .vue_or_na(default_openeds)
-
-  vue_data$menuTrigger <- .vue_or_na(menu_trigger)
-
-  vue_data$collapseTransition <- .vue_or_na(collapse_transition)
-
-  vue_data$router <- .vue_or_na(router)
-
   el_widget(
     props = .el_props(list(
+      background_color = background_color,
+      text_color = text_color,
+      active_text_color = active_text_color,
+      default_openeds = default_openeds,
+      menu_trigger = menu_trigger,
+      collapse_transition = collapse_transition,
+      router = router,
       close_on_click_outside = close_on_click_outside,
       ellipsis = ellipsis,
       ellipsis_icon = .el_icon_name(ellipsis_icon),

@@ -60,13 +60,6 @@ el_avatar <- function(
   ns_id <- .vue_ui_id(id, session)
 
   avatar_attrs <- list(
-    ":src" = .vue_optional_bind("src"),
-    ":icon" = .vue_optional_bind("icon"),
-    ":size" = .vue_optional_bind("size"),
-    ":shape" = .vue_optional_bind("shape"),
-    ":fit" = .vue_optional_bind("fit"),
-    ":src-set" = .vue_optional_bind("srcSet"),
-    ":alt" = .vue_optional_bind("alt"),
     class = class,
     style = style
   )
@@ -79,17 +72,19 @@ el_avatar <- function(
   avatar_attrs <- c(avatar_attrs, events$attrs)
 
   el_widget(
+    props = .el_props(list(
+      src = src,
+      icon = icon,
+      size = size,
+      shape = shape,
+      fit = fit,
+      src_set = src_set,
+      alt = alt
+    )),
     id = ns_id,
     markup = htmltools::tag("el-avatar", c(avatar_attrs, list("{{content}}"))),
     data = list(
-      content = .vue_or_na(content),
-      src = .vue_or_na(src),
-      icon = .vue_or_na(icon),
-      size = .vue_or_na(size),
-      shape = .vue_or_na(shape),
-      fit = .vue_or_na(fit),
-      srcSet = .vue_or_na(src_set),
-      alt = .vue_or_na(alt)
+      content = .vue_or_na(content)
     ),
     methods = events$methods,
     width = width,

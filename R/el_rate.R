@@ -109,23 +109,9 @@ el_rate <- function(
     ":allow-half" = "allowHalf",
     ":show-text" = "showText",
     ":show-score" = "showScore",
-    ":text-color" = .vue_optional_bind("textColor"),
     ":score-template" = "scoreTemplate",
-    ":texts" = .vue_optional_bind("texts"),
     "@change" = "handleChange"
   )
-
-  rate_attrs[[":colors"]] <- .vue_optional_bind("colors")
-
-  rate_attrs[[":void-color"]] <- .vue_optional_bind("voidColor")
-
-  rate_attrs[[":disabled-void-color"]] <- .vue_optional_bind(
-    "disabledVoidColor"
-  )
-
-  rate_attrs[[":low-threshold"]] <- .vue_optional_bind("lowThreshold")
-
-  rate_attrs[[":high-threshold"]] <- .vue_optional_bind("highThreshold")
 
   # Element's rate is 20px tall where a form item's line is 40px, so beside
   # a label the stars would sit above the label's text; padded to the line
@@ -135,6 +121,13 @@ el_rate <- function(
 
   el_widget(
     props = .el_props(list(
+      texts = texts,
+      colors = colors,
+      void_color = void_color,
+      disabled_void_color = disabled_void_color,
+      low_threshold = low_threshold,
+      high_threshold = high_threshold,
+      text_color = text_color,
       aria_label = aria_label,
       clearable = clearable,
       disabled_void_icon = .el_icon_name(disabled_void_icon),
@@ -159,14 +152,7 @@ el_rate <- function(
       allowHalf = allow_half,
       showText = show_text,
       showScore = show_score,
-      textColor = .vue_or_na(text_color),
-      scoreTemplate = score_template,
-      texts = if (is.null(texts)) NA else as.list(texts),
-      colors = .vue_or_na(colors),
-      voidColor = .vue_or_na(void_color),
-      disabledVoidColor = .vue_or_na(disabled_void_color),
-      lowThreshold = .vue_or_na(low_threshold),
-      highThreshold = .vue_or_na(high_threshold)
+      scoreTemplate = score_template
     ),
     methods = list(
       handleChange = JS(sprintf(

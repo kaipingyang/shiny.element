@@ -42,8 +42,7 @@ test_that("el_tag: size is bound whether or not it is supplied", {
   expect_null(vue_data_of(tag1)$size)
 
   tag2 <- el_tag("t2", "T", size = "small")
-  html2 <- render_html(tag2)
-  expect_match(html2, ":size")
+  expect_true(binds_attr(tag2, "size"))
 })
 
 test_that("update_el_tag: sends correct message", {
@@ -98,10 +97,9 @@ test_that("el_alert: description is bound and null when not supplied", {
   # data is not reactive, so the matching update_*() argument would be a
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
   html <- render_html(el_alert("a1", title = "Alert"))
-  expect_match(
-    html,
-    sprintf(':description="%s"', .vue_optional_bind("description")),
-    fixed = TRUE
+  expect_equal(
+    optional_entries(el_alert("a1", title = "Alert"))$description,
+    "description"
   )
   expect_match(html, '"description":null', fixed = TRUE)
 })
@@ -255,8 +253,7 @@ test_that("el_input_number: precision is bound whether or not it is supplied", {
   expect_null(vue_data_of(tag1)$precision)
 
   tag2 <- el_input_number("n2", precision = 2)
-  html2 <- render_html(tag2)
-  expect_match(html2, ":precision")
+  expect_true(binds_attr(tag2, "precision"))
 })
 
 test_that("el_input_number: Inf converted to large number", {

@@ -267,18 +267,19 @@ test_that("el_form: reports model, verdict and a submit counter", {
 })
 
 test_that("el_form: layout options reach the data", {
-  html <- render_html(el_form(
+  form <- el_form(
     id = "f1",
     label_width = "150px",
     label_position = "top",
     inline = TRUE,
     size = "small"
-  ))
+  )
+  html <- render_html(form)
   expect_match(html, '"labelWidth":"150px"')
   expect_match(html, '"labelPosition":"top"')
   expect_match(html, '"inline":true')
   expect_match(html, '"size":"small"')
-  expect_match(html, ':size="size === null \\? undefined : size"')
+  expect_equal(optional_entries(form, "el-form")$size, "size")
 })
 
 test_that("el_form: size is bound even when not supplied", {

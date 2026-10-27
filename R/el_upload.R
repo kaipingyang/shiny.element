@@ -388,27 +388,15 @@ el_upload <- function(
     ":list-type" = "listType",
     ":auto-upload" = "autoUpload",
     ":disabled" = "disabled",
-    ":accept" = .vue_optional_bind("accept"),
-    ":limit" = .vue_optional_bind("limit"),
     # on-success and on-error are props taking a function, not events, so
     # they bind with : rather than @. Written as events they simply never run.
     ":on-success" = "handleSuccess",
     ":on-error" = "handleError"
   )
   upload_attrs[[":drag"]] <- "drag"
-  upload_attrs[[":headers"]] <- .vue_optional_bind("headers")
-  upload_attrs[[":data"]] <- .vue_optional_bind("extraData")
   # Two-way, so the files Element Plus holds -- each with its uid, status,
   # progress -- are the component's field, for el_upload_file() to find
   upload_attrs[["v-model:file-list"]] <- "fileList"
-  upload_attrs[[":with-credentials"]] <- .vue_optional_bind("withCredentials")
-  upload_attrs[[":before-upload"]] <- .vue_optional_bind("beforeUpload")
-  upload_attrs[[":before-remove"]] <- .vue_optional_bind("beforeRemove")
-  upload_attrs[[":on-change"]] <- .vue_optional_bind("onChange")
-  upload_attrs[[":on-progress"]] <- .vue_optional_bind("onProgress")
-  upload_attrs[[":on-preview"]] <- .vue_optional_bind("onPreview")
-  upload_attrs[[":on-remove"]] <- .vue_optional_bind("onRemove")
-  upload_attrs[[":on-exceed"]] <- .vue_optional_bind("onExceed")
   if (via_shiny) {
     upload_attrs[[":http-request"]] <- "shinyUpload"
   }
@@ -469,32 +457,11 @@ el_upload <- function(
     listType = list_type,
     autoUpload = auto_upload,
     disabled = disabled,
-    accept = if (is.null(accept)) NA else accept,
-    limit = if (is.null(limit)) NA else limit,
     succeeded = list(),
     failed = ""
   )
 
-  vue_data$headers <- .vue_or_na(headers)
-  vue_data$extraData <- .vue_or_na(data)
-
   vue_data$fileList <- if (is.null(file_list)) list() else file_list
-
-  vue_data$withCredentials <- .vue_or_na(with_credentials)
-
-  vue_data$beforeUpload <- .vue_or_na(before_upload)
-
-  vue_data$beforeRemove <- .vue_or_na(before_remove)
-
-  vue_data$onChange <- .vue_or_na(on_change)
-
-  vue_data$onProgress <- .vue_or_na(on_progress)
-
-  vue_data$onPreview <- .vue_or_na(on_preview)
-
-  vue_data$onRemove <- .vue_or_na(on_remove)
-
-  vue_data$onExceed <- .vue_or_na(on_exceed)
 
   methods <- list(
     handleSuccess = JS(sprintf(
@@ -526,10 +493,25 @@ el_upload <- function(
   ))
 
   el_widget(
-    props = .el_props(list(
-      crossorigin = crossorigin,
-      directory = directory
-    )),
+    props = .el_props(
+      list(
+        accept = accept,
+        limit = limit,
+        data = data,
+        headers = headers,
+        with_credentials = with_credentials,
+        before_upload = before_upload,
+        before_remove = before_remove,
+        on_change = on_change,
+        on_progress = on_progress,
+        on_preview = on_preview,
+        on_remove = on_remove,
+        on_exceed = on_exceed,
+        crossorigin = crossorigin,
+        directory = directory
+      ),
+      fields = c(data = "extraData")
+    ),
     label = label,
     label_position = label_position,
     label_width = label_width,

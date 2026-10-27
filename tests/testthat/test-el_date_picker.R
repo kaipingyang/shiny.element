@@ -54,7 +54,11 @@ test_that("el_date_picker: a datetime keeps its time, shown as Element shows it"
   html <- render_html(el_date_picker("dp1", type = "datetime"))
   expect_match(html, '"valueFormat"\\s*:\\s*"YYYY-MM-DD HH:mm:ss"')
   expect_match(html, '"displayFormat"\\s*:\\s*null')
-  expect_match(html, "displayFormat === null ? undefined", fixed = TRUE)
+  # bound as Element's `format`, unset falling back to its own
+  expect_equal(
+    optional_entries(el_date_picker("dp1", type = "datetime"))$format,
+    "displayFormat"
+  )
   month <- render_html(el_date_picker("dp1", type = "month"))
   expect_match(month, '"valueFormat"\\s*:\\s*"YYYY-MM-DD"')
   shown <- render_html(el_date_picker("dp1", format = "YYYY/MM/DD"))
@@ -142,11 +146,7 @@ test_that("el_date_picker: placeholder is always bound, null when not supplied",
   # silent no-op. NA serialises to JSON null, which Element treats as unset.
   dp_no <- el_date_picker("dp1", session = NULL)
   dp_yes <- el_date_picker("dp1", placeholder = "Pick date", session = NULL)
-  expect_match(
-    render_html(dp_no),
-    sprintf(':placeholder="%s"', .vue_optional_bind("placeholder")),
-    fixed = TRUE
-  )
+  expect_equal(optional_entries(dp_no)$placeholder, "placeholder")
   expect_match(render_html(dp_no), '"placeholder":null', fixed = TRUE)
   expect_match(render_html(dp_yes), '"placeholder":"Pick date"', fixed = TRUE)
 })
@@ -158,7 +158,7 @@ test_that("el_date_picker: start-placeholder binding added only when supplied", 
     start_placeholder = "Start",
     session = NULL
   )
-  expect_match(render_html(dp_yes), ":start-placeholder")
+  expect_true(binds_attr(dp_yes, "start-placeholder"))
 })
 
 # ── update_el_date_picker ────────────────────────────────────────────────────

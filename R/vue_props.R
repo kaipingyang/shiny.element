@@ -2,8 +2,8 @@
 #'
 #' A field left out of a Vue instance's `data` is not reactive, so an update
 #' can never set it later. Unset optional props are therefore declared as
-#' `NA`, which serialises to `null`, and read back through
-#' [.vue_optional_bind()], which turns that `null` into `undefined` so the
+#' `NA`, which serialises to `null`; for the props of an `$optional()` group
+#' ([.vue_optional_props()]) the bridge makes that `null` `undefined`, so the
 #' component applies its own default.
 #'
 #' @param x A value, or `NULL` when the user did not supply one.
@@ -11,24 +11,6 @@
 #' @keywords internal
 .vue_or_na <- function(x) {
   if (is.null(x)) NA else x
-}
-
-#' Vue binding for a prop that may be unset
-#'
-#' A Vue prop falls back to its default when passed `undefined`, but takes
-#' `null` as a value: a select bound to a null placeholder renders an empty
-#' one instead of its own. R has no way to send `undefined`
-#' through JSON, so an unsupplied field arrives as `null` and the expression
-#' has to map it back.
-#'
-#' A conditional is used rather than `??` because a template expression is
-#' evaluated at runtime, where a polyfill cannot help with syntax.
-#'
-#' @param field Name of the Vue data field.
-#' @return A template expression yielding the field, or `undefined` when unset.
-#' @keywords internal
-.vue_optional_bind <- function(field) {
-  sprintf("%1$s === null ? undefined : %1$s", field)
 }
 
 #' Optional props as a group: their fields and the map the bridge reads
@@ -51,6 +33,9 @@
 #' @param wrap `c(<argument> = "<wrap>")`: the value goes through
 #'   `sv.optionalWraps[<wrap>]` in the browser, a function a component
 #'   library registers.
+#' @param fields `c(<argument> = "<field>")` for a field named otherwise
+#'   than the prop -- one an update function already sets by that name.
+#'   Taken as it is: no prefix is added.
 #' @return `list(map =, data =)`: `map` for the spec's `optional`, one group
 #'   of `<prop-kebab> = <field>` (or `list(field =, wrap =)`); `data` the
 #'   fields, by name.
@@ -60,7 +45,8 @@
   group,
   prefix = NULL,
   rename = NULL,
-  wrap = NULL
+  wrap = NULL,
+  fields = NULL
 ) {
   # read in a template as $optional('<group>'): a plain name
   if (
@@ -81,14 +67,16 @@
   props <- gsub("_", "-", args, fixed = TRUE)
   hit <- args %in% names(rename)
   props[hit] <- rename[args[hit]]
-  fields <- vapply(gsub("-", "_", props, fixed = TRUE), .vue_camel, "")
+  names_of <- vapply(gsub("-", "_", props, fixed = TRUE), .vue_camel, "")
   if (!is.null(prefix)) {
-    fields <- paste0(
+    names_of <- paste0(
       prefix,
-      toupper(substring(fields, 1, 1)),
-      substring(fields, 2)
+      toupper(substring(names_of, 1, 1)),
+      substring(names_of, 2)
     )
   }
+  named <- args %in% names(fields)
+  names_of[named] <- unname(fields[args[named]])
   entries <- Map(
     function(arg, field) {
       if (arg %in% names(wrap)) {
@@ -98,11 +86,11 @@
       }
     },
     args,
-    fields
+    names_of
   )
   map[[group]] <- stats::setNames(unname(entries), props)
   data <- lapply(values, function(v) if (is.null(v)) NA else .vue_rows(v))
-  list(map = map, data = stats::setNames(unname(data), fields))
+  list(map = map, data = stats::setNames(unname(data), names_of))
 }
 
 #' A tag's attributes with a group of optional props bound
