@@ -17,7 +17,8 @@ test_that("a packed locale reaches the page, served or saved", {
       )
       ui <- el_page(
         locale = "uk",
-        el_pagination("p", total = 50, layout = "total, prev, pager, next")
+        el_pagination("p", total = 50, layout = "total, prev, pager, next"),
+        el_date_picker("d", value = "2026-10-27")
       )
       shiny::runApp(
         shiny::shinyApp(ui, function(input, output) {}),
@@ -44,6 +45,20 @@ test_that("a packed locale reaches the page, served or saved", {
   b$Page$navigate(sprintf("http://127.0.0.1:%d", port))
   Sys.sleep(4)
   expect_equal(trimws(js(total)), "\u0412\u0441\u044c\u043e\u0433\u043e 50")
+
+  # Day.js's locale, packed too: a Ukrainian week starts on Monday, as
+  # Element Plus's own labels name the days
+  js("document.querySelector('#d_container input').click()")
+  Sys.sleep(1)
+  heads <- js(paste0(
+    "Array.from(document.querySelectorAll('.el-date-table th'))",
+    ".map(function(e) { return e.textContent.trim(); }).join('|')"
+  ))
+  weeks <- jsonlite::fromJSON(js(
+    "JSON.stringify(ElementPlusLocaleUk.el.datepicker.weeks)"
+  ))
+  expect_equal(strsplit(heads, "|", fixed = TRUE)[[1]][1], weeks$mon)
+  expect_equal(js("ElementPlus.dayjs.locale()"), "uk")
 
   # saved as a file, the locale is copied beside it
   dir <- withr::local_tempdir()

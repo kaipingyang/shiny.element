@@ -32,7 +32,9 @@ bundled in `inst/vue3` and `inst/element-plus`; there is no vueR and no
 htmlwidgets dependency (`JS()` in `R/vue_js.R` marks JavaScript the same way).
 To stay under CRAN's 5 MB: eleven locales are files and the other 56 are in
 `dist/locale/more.tar.gz`, taken out into `tempdir()` when first used
-(`.el_locale_dir()`); Vue's development build is `.Rbuildignore`d, so a
+(`.el_locale_dir()`); Day.js's locales for the same languages, which
+Element's date components read, likewise in `inst/dayjs/locale`
+(`.el_dayjs_locale_dir()`, set with Element's by `el_locale_dependency()`); Vue's development build is `.Rbuildignore`d, so a
 CRAN install loads it from unpkg (`.vue_core_dependency()`); only the
 Getting started and Shiny guides are vignettes, the rest pkgdown articles.
 A page's theme is compiled once per machine, not per R process

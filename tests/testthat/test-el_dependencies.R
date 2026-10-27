@@ -255,17 +255,62 @@ test_that("el_locale_dependency: the built-in locale needs nothing extra", {
 
 test_that("el_locale_dependency: a locale loads its file and hands it over", {
   deps <- el_locale_dependency("zh-CN")
-  expect_length(deps, 2)
+  apply_of <- function(deps) deps[[length(deps)]]
   expect_equal(deps[[1]]$script, "zh-cn.min.js")
   expect_true(file.exists(file.path(deps[[1]]$src$file, "zh-cn.min.js")))
-  # The file defines ElementPlusLocaleZhCn; a second dependency gives it to
+  # The file defines ElementPlusLocaleZhCn; the last dependency gives it to
   # every app as it installs Element Plus
-  expect_match(deps[[2]]$head, "ElementPlusLocaleZhCn", fixed = TRUE)
-  expect_match(deps[[2]]$head, "shinyElementConfig.locale", fixed = TRUE)
+  expect_match(apply_of(deps)$head, "ElementPlusLocaleZhCn", fixed = TRUE)
+  expect_match(apply_of(deps)$head, "shinyElementConfig.locale", fixed = TRUE)
   expect_match(
-    el_locale_dependency("pt-br")[[2]]$head,
+    apply_of(el_locale_dependency("pt-br"))$head,
     "ElementPlusLocalePtBr",
     fixed = TRUE
+  )
+})
+
+test_that("a locale sets Day.js's too, as Element Plus's guide asks", {
+  # Element's date components take the week's first day and the names of
+  # months and days from Day.js, whose locale is loaded and set apart
+  deps <- el_locale_dependency("zh-cn")
+  names <- vapply(deps, `[[`, "", "name")
+  expect_equal(
+    names,
+    c(
+      "element-plus-locale-zh-cn",
+      "dayjs-global",
+      "dayjs-locale-zh-cn",
+      "element-plus-locale-apply-zh-cn"
+    )
+  )
+  # the locale file finds Day.js as a global: Element Plus's own
+  expect_match(deps[[2]]$head, "window.dayjs = ElementPlus.dayjs", fixed = TRUE)
+  expect_true(file.exists(file.path(deps[[3]]$src$file, "zh-cn.js")))
+  expect_match(
+    deps[[4]]$head,
+    "ElementPlus.dayjs.locale('zh-cn')",
+    fixed = TRUE
+  )
+})
+
+test_that("Element's codes map onto Day.js's, or onto none", {
+  expect_equal(.el_dayjs_code("zh-cn"), "zh-cn")
+  expect_equal(.el_dayjs_code("ar-eg"), "ar")
+  expect_equal(.el_dayjs_code("nb-no"), "nb")
+  expect_equal(.el_dayjs_code("zh-mo"), "zh-hk")
+  # Day.js's `ku` is Sorani, Element's `ckb`; Kurmanji has none
+  expect_equal(.el_dayjs_code("ckb"), "ku")
+  expect_null(.el_dayjs_code("ku"))
+  expect_null(.el_dayjs_code("mg"))
+  # every Element locale but those two has a Day.js file, bundled
+  for (code in setdiff(el_locales(), c("en", "ku", "mg"))) {
+    dj <- .el_dayjs_code(code)
+    expect_false(is.null(.el_dayjs_locale_dir(dj)), info = code)
+  }
+  # with none, Element's words still change; dates stay English
+  expect_equal(
+    vapply(el_locale_dependency("mg"), `[[`, "", "name"),
+    c("element-plus-locale-mg", "element-plus-locale-apply-mg")
   )
 })
 
@@ -312,7 +357,7 @@ test_that("a packed locale is taken out the first time it is used", {
     "ElementPlusLocaleUk",
     fixed = TRUE
   )
-  expect_match(deps[[2]]$head, "ElementPlusLocaleUk", fixed = TRUE)
+  expect_match(deps[[length(deps)]]$head, "ElementPlusLocaleUk", fixed = TRUE)
   # a config provider's file comes from the same place
   expect_equal(.el_locale_file("uk")$src$file, out)
   # a locale kept as a file is not

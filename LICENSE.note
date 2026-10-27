@@ -24,3 +24,14 @@ Upstream: https://github.com/vuejs/core
 This file is the unmodified distribution build of Vue 3.5.43, the version
 Element Plus runs on, bundled for the same reason. Its licence text is in
 inst/vue3/LICENSE.
+
+-------------------------------------------------------------------------
+Files: inst/dayjs/**
+Copyright: 2018-present iamkun
+Licence: MIT
+Upstream: https://github.com/iamkun/dayjs
+-------------------------------------------------------------------------
+
+These files are the unmodified locale files of Day.js 1.11.20, the
+version inside Element Plus 2.14.7, bundled so that date components speak
+the page's language. Its licence text is in inst/dayjs/LICENSE.

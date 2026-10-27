@@ -80,6 +80,15 @@ use_element <- function(
 #' Codes are matched without regard to case, so Element UI's `"zh-CN"` is
 #' Element Plus's `"zh-cn"`.
 #'
+#' Dates follow the language too: Element Plus's date and time components
+#' read the week's first day and the names of months and days from Day.js,
+#' whose locale, as Element Plus's guide says, has to be loaded and set
+#' apart from its own. The page's Day.js locale is set with it -- a Chinese
+#' calendar's week starts on Monday -- from Day.js's own files, bundled the
+#' same way. Day.js has a locale for all but Kurmanji (`"ku"`) and Malagasy
+#' (`"mg"`), whose dates stay in English. Day.js has one locale for the
+#' page, so a config provider's own `locale` changes Element's words only.
+#'
 #' @param locale Language to switch to, such as `"fr"`, `"zh-cn"` or
 #'   `"pt-br"`. `NULL` or `"en"` leaves Element Plus's built-in English.
 #' @return A list of htmlDependency objects, or `NULL` for the built-in locale.
@@ -123,29 +132,145 @@ el_locale_dependency <- function(locale = NULL) {
     "ElementPlusLocale",
     paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = "")
   )
-  list(
-    htmltools::htmlDependency(
+  c(
+    list(htmltools::htmlDependency(
       name = paste0("element-plus-locale-", code),
       version = "2.14.7",
       src = dir,
       script = paste0(code, ".min.js"),
       all_files = FALSE
-    ),
+    )),
+    .el_dayjs_locale_dependency(code),
     # Every component is an app of its own, given the locale as it installs
-    # Element Plus; this hands it over. It runs after the locale file.
-    htmltools::htmlDependency(
+    # Element Plus; this hands it over, and sets Day.js's. It runs after the
+    # locale files.
+    list(htmltools::htmlDependency(
       name = paste0("element-plus-locale-apply-", code),
       version = "2.14.7",
       src = root,
       head = sprintf(
         paste0(
           "<script>window.shinyElementConfig = window.shinyElementConfig || {};",
-          "if (window.%1$s) shinyElementConfig.locale = window.%1$s;</script>"
+          "if (window.%1$s) shinyElementConfig.locale = window.%1$s;%2$s</script>"
         ),
-        global
+        global,
+        .el_dayjs_apply(code)
       )
+    ))
+  )
+}
+
+#' Day.js's locale for one of Element Plus's
+#'
+#' Element Plus's codes and Day.js's agree but for a few: Egyptian Arabic,
+#' Central Kurdish (Day.js's `ku` is Sorani), Norwegian, Punjabi, Uzbek and
+#' Macanese Chinese take Day.js's nearest. Kurmanji and Malagasy have none.
+#'
+#' @param code An Element Plus locale code, lower case.
+#' @return Day.js's locale name, or `NULL` for none (dates stay English).
+#' @keywords internal
+.el_dayjs_code <- function(code) {
+  apart <- c(
+    `ar-eg` = "ar",
+    ckb = "ku",
+    `nb-no` = "nb",
+    no = "nb",
+    pa = "pa-in",
+    `uz-uz` = "uz",
+    `zh-mo` = "zh-hk",
+    ku = NA,
+    mg = NA,
+    en = NA
+  )
+  dj <- if (code %in% names(apart)) apart[[code]] else code
+  if (is.na(dj)) NULL else dj
+}
+
+#' Day.js's locale file, and Day.js where the file looks for it
+#'
+#' Day.js comes inside Element Plus's build, as `ElementPlus.dayjs`; a
+#' locale file of Day.js's registers itself with a global `dayjs`, given
+#' here first.
+#'
+#' @param code An Element Plus locale code, lower case.
+#' @return A list of htmlDependency objects; empty when Day.js has none.
+#' @keywords internal
+.el_dayjs_locale_dependency <- function(code) {
+  dj <- .el_dayjs_code(code)
+  if (is.null(dj)) {
+    return(list())
+  }
+  dir <- .el_dayjs_locale_dir(dj)
+  if (is.null(dir)) {
+    return(list())
+  }
+  list(
+    htmltools::htmlDependency(
+      name = "dayjs-global",
+      version = "1.11.20",
+      src = .vue_file("dayjs"),
+      head = paste0(
+        "<script>if (window.ElementPlus && !window.dayjs) ",
+        "window.dayjs = ElementPlus.dayjs;</script>"
+      ),
+      all_files = FALSE
+    ),
+    htmltools::htmlDependency(
+      name = paste0("dayjs-locale-", dj),
+      version = "1.11.20",
+      src = dir,
+      script = paste0(dj, ".js"),
+      all_files = FALSE
     )
   )
+}
+
+#' The script that makes a Day.js locale the page's
+#' @param code An Element Plus locale code, lower case.
+#' @return JavaScript, or `""` when Day.js has no locale for it.
+#' @noRd
+.el_dayjs_apply <- function(code) {
+  dj <- .el_dayjs_code(code)
+  if (is.null(dj)) {
+    return("")
+  }
+  sprintf(
+    "if (window.ElementPlus && ElementPlus.dayjs) ElementPlus.dayjs.locale('%s');",
+    dj
+  )
+}
+
+#' Where a Day.js locale file is
+#'
+#' As [.el_locale_dir()] for Element Plus's: the locales used most are
+#' files, the rest are in one archive, taken out into `tempdir()` the first
+#' time one is used.
+#'
+#' @param dj Day.js's locale name.
+#' @return The directory holding `<dj>.js`, or `NULL`.
+#' @keywords internal
+.el_dayjs_locale_dir <- function(dj) {
+  file <- paste0(dj, ".js")
+  root <- .vue_file("dayjs", "locale")
+  if (file.exists(file.path(root, file))) {
+    return(root)
+  }
+  archive <- file.path(root, "more.tar.gz")
+  packed <- .vue_memo("dayjs_locales_packed", function() {
+    if (file.exists(archive)) {
+      utils::untar(archive, list = TRUE, tar = "internal")
+    } else {
+      character()
+    }
+  })
+  if (!file %in% packed) {
+    return(NULL)
+  }
+  out <- file.path(tempdir(), "shiny.element-dayjs-locale")
+  if (!file.exists(file.path(out, file))) {
+    utils::untar(archive, files = file, exdir = out, tar = "internal")
+  }
+  out
 }
 
 #' Element Plus Dependency

@@ -21,3 +21,11 @@ The development build, dist/vue.global.js, is in the package's sources
 --comments '/^!|@license|vue v/'`; its code, warnings included, otherwise
 unchanged) but not in the package built for CRAN, which loads it from the
 unpkg CDN when asked for it.
+
+inst/dayjs/locale/ contains unmodified copies of Day.js 1.11.20's locale
+files (locale/*.js) for the languages Element Plus has a locale for: Day.js
+itself is part of Element Plus's build, whose date components read their
+locale from it. Ten are files; the other 51 are packed, unmodified, in
+inst/dayjs/locale/more.tar.gz. Day.js is copyright iamkun and released
+under the MIT licence; see inst/dayjs/LICENSE.
+Source: https://github.com/iamkun/dayjs.
