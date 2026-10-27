@@ -463,6 +463,8 @@ reference:
       - vue_app
       - vue_component
       - vue_store
+      - vue_router
+      - update_vue_router
       - vue_output
       - render_vue_data
       - update_vue

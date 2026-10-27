@@ -11,7 +11,7 @@ test_that("every update_*() reaches the namespaced id in a module", {
     getNamespaceExports("shiny.element"),
     value = TRUE
   ))
-  sent_ids <- function(fn) {
+  sent_ids <- function(fn, name) {
     ids <- character()
     # as a module's session: ns() given, input messages namespaced on the way
     session <- list(
@@ -20,15 +20,17 @@ test_that("every update_*() reaches the namespaced id in a module", {
       sendCustomMessage = function(type, msg) ids <<- c(ids, msg$id),
       sendInputMessage = function(id, msg) ids <<- c(ids, ns(id))
     )
+    # an argument without which an update has nothing to do
+    needs <- list(update_vue_router = list(path = "/a"))
     tryCatch(
-      do.call(fn, list(session = session, id = "x")),
+      do.call(fn, c(list(session = session, id = "x"), needs[[name]])),
       error = function(e) NULL
     )
     ids
   }
   checked <- 0
   for (fn in updaters) {
-    ids <- sent_ids(get(fn, envir = asNamespace("shiny.element")))
+    ids <- sent_ids(get(fn, envir = asNamespace("shiny.element")), fn)
     if (!length(ids)) {
       next
     }

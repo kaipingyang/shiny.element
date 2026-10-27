@@ -9,7 +9,8 @@ el_breadcrumb_item(label, to = NULL, replace = NULL)
 \arguments{
 \item{label}{The step's text.}
 
-\item{to}{Where the step links to; the last step usually has none.}
+\item{to}{Where the step links to: a route of the page's \code{\link[=vue_router]{vue_router()}},
+which navigates; the last step usually has none.}
 
 \item{replace}{Navigate without leaving a history record.}
 }

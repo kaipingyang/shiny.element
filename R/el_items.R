@@ -319,7 +319,8 @@ el_step <- function(
 #' Element Plus's `el-breadcrumb-item`, for `el_breadcrumb(items =)`.
 #'
 #' @param label The step's text.
-#' @param to Where the step links to; the last step usually has none.
+#' @param to Where the step links to: a route of the page's [vue_router()],
+#'   which navigates; the last step usually has none.
 #' @param replace Navigate without leaving a history record.
 #' @return A step, for `el_breadcrumb(items =)`.
 #' @family items

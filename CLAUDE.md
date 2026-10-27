@@ -54,7 +54,9 @@ tag 2.14.7, gitignored; see `.upstream/README.md`). Its
 The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no component
 library and is to become the shiny.vue package: `vue_app()`,
 `vue_component()`, `vue_store()`, `vue_output()`/`render_vue()`,
-`update_vue()`, `call_vue()`, `vue_answer()`, and the `.vue_*` helpers.
+`update_vue()`, `call_vue()`, `vue_answer()`, `vue_router()` (vue-router
+5.4.0, `inst/vue-router`: one router per page, in every app, the route
+in the hash and as `input$<id>`), and the `.vue_*` helpers.
 `test-vue-layer.R` fails if any of it names Element; `test-browser-pure-vue.R`
 runs it with no Element Plus on the page. The **Element layer** (`R/el_*.R`,
 `inst/js/el-*.js`) is built on it: `el_widget()` builds through `.vue_host()`

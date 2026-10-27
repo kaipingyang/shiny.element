@@ -155,7 +155,11 @@
 #' @param default_openeds Character vector of sub-menu indexes open at start.
 #' @param menu_trigger How a horizontal sub-menu opens: `"hover"` (default) or `"click"`.
 #' @param collapse_transition Whether to animate collapsing. Default `TRUE`.
-#' @param router Whether to use vue-router mode, taking each index as a path.
+#' @param router Whether to use vue-router mode, taking each index -- or
+#'   an item's `route` -- as a path: a click navigates the page's router,
+#'   [vue_router()], which the page needs, and the active item follows the
+#'   route however it changes (back and forward, [update_vue_router()]), as
+#'   `input$<id>` does.
 #' @param class,style Extra classes and inline style on the menu, as
 #'   Element passes them to its root: Element's examples style theirs by a
 #'   class of their own.
@@ -315,15 +319,35 @@ el_menu <- function(
           "function(index) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s_item_click', index, {priority: 'event'}); }",
           ns_id
         )),
+        # With a router, Element navigates and the route moves the active
+        # item (the watch below); a navigation the router refuses moves
+        # nothing
         handleSelect = JS(sprintf(
           paste0(
             "function(index, indexPath) { var self = this; ",
-            "self.active = index; self.path = indexPath; ",
-            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s', index); ",
-            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s_path', indexPath); }"
+            "self.path = indexPath; ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s_path', indexPath); ",
+            "if (self.router && self.$router) return; ",
+            "self.active = index; ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%1$s', index); }"
           ),
           ns_id
         ))
+      )
+    ),
+    # router = TRUE with the page's vue_router(): the active item is the
+    # route's, however it changed -- a click, back and forward, the server
+    watch = list(
+      "$route.path" = list(
+        handler = JS(sprintf(
+          paste0(
+            "function(p) { if (!this.router || !this.$router || p === undefined) return; ",
+            "this.active = p; ",
+            "window.Shiny && Shiny.setInputValue && Shiny.setInputValue('%s', p); }"
+          ),
+          ns_id
+        )),
+        immediate = TRUE
       )
     ),
     # Nothing active is reported as NULL rather than Element's "", so that an

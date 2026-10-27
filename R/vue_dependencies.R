@@ -133,3 +133,39 @@
     }
   )
 }
+
+#' vue-router, as bundled with the package
+#'
+#' vue-router 5.4.0's global build, `VueRouter`, for [vue_router()]. As with
+#' Vue's, the development build is in the package's sources but not in what
+#' is built for CRAN, which loads it from unpkg when asked for it; it is
+#' versioned one step above the production build, so a page holding both
+#' keeps it.
+#'
+#' @param dev Load the development build.
+#' @return An htmlDependency object.
+#' @keywords internal
+.vue_router_dependency <- function(dev = .vue_dev()) {
+  if (!isTRUE(dev)) {
+    return(htmltools::htmlDependency(
+      name = "vue-router",
+      version = "5.4.0",
+      src = "vue-router",
+      package = "shiny.element",
+      script = "vue-router.global.prod.js",
+      all_files = FALSE
+    ))
+  }
+  local <- .vue_file("vue-router", "vue-router.global.js")
+  htmltools::htmlDependency(
+    name = "vue-router",
+    version = "5.4.0.1",
+    src = if (nzchar(local)) {
+      c(file = dirname(local))
+    } else {
+      c(href = "https://unpkg.com/vue-router@5.4.0/dist/")
+    },
+    script = "vue-router.global.js",
+    all_files = FALSE
+  )
+}

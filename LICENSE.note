@@ -35,3 +35,14 @@ Upstream: https://github.com/iamkun/dayjs
 These files are the unmodified locale files of Day.js 1.11.20, the
 version inside Element Plus 2.14.7, bundled so that date components speak
 the page's language. Its licence text is in inst/dayjs/LICENSE.
+
+-------------------------------------------------------------------------
+Files: inst/vue-router/**
+Copyright: 2019-present Eduardo San Martin Morote
+Licence: MIT
+Upstream: https://github.com/vuejs/router
+-------------------------------------------------------------------------
+
+These files are the unmodified distribution builds of vue-router 5.4.0,
+the router Element Plus's menu and breadcrumb are written for, bundled for
+offline use. Its licence text is in inst/vue-router/LICENSE.

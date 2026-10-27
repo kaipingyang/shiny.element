@@ -98,7 +98,11 @@ Clicking an item reports \verb{input$<id>} (the index selected) and
 
 \item{collapse_transition}{Whether to animate collapsing. Default \code{TRUE}.}
 
-\item{router}{Whether to use vue-router mode, taking each index as a path.}
+\item{router}{Whether to use vue-router mode, taking each index -- or
+an item's \code{route} -- as a path: a click navigates the page's router,
+\code{\link[=vue_router]{vue_router()}}, which the page needs, and the active item follows the
+route however it changes (back and forward, \code{\link[=update_vue_router]{update_vue_router()}}), as
+\verb{input$<id>} does.}
 
 \item{close_on_click_outside}{Optional, whether menu is collapsed when
 clicking outside. Element Plus's \code{close-on-click-outside} (boolean).}

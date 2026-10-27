@@ -29,3 +29,11 @@ locale from it. Ten are files; the other 51 are packed, unmodified, in
 inst/dayjs/locale/more.tar.gz. Day.js is copyright iamkun and released
 under the MIT licence; see inst/dayjs/LICENSE.
 Source: https://github.com/iamkun/dayjs.
+
+inst/vue-router/ contains vue-router 5.4.0, copyright Eduardo San Martin
+Morote and released under the MIT licence; see inst/vue-router/LICENSE.
+Source: https://github.com/vuejs/router. vue-router.global.prod.js is an
+unmodified copy of dist/vue-router.global.prod.js. The development build,
+dist/vue-router.global.js, unmodified, is in the package's sources but not
+in the package built for CRAN, which loads it from the unpkg CDN when asked
+for it.
