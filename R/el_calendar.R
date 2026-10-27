@@ -309,11 +309,13 @@ el_calendar <- function(
     "el-calendar",
     c(
       .el_label_attrs(calendar_attrs, ns_id, label),
-      props$attrs,
       parts$markup[!ours],
       if (!own_cell) list(.el_calendar_cell(our_slots$event))
     )
   )
+  bound <- .el_bind_props(calendar, props)
+  calendar <- bound$tag
+  props <- bound$props
 
   el_widget(
     label = label,
@@ -332,6 +334,8 @@ el_calendar <- function(
       .el_calendar_dialog(our_slots[["event-form"]])
     ),
     data = c(vue_data, parts$data),
+    # bound on the calendar above, not the markup's root
+    props = props,
     dependency = c(list(.el_calendar_dependency()), parts$dependencies),
     methods = c(
       parts$methods,

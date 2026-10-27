@@ -112,7 +112,9 @@ whether beside the component rather than under it. Element's
 \code{show-message} and \code{inline-message}.}
 
 \item{props}{Optional props from \code{.el_props()}: bound on the root tag of
-\code{markup}, with their fields added to \code{data}.}
+\code{markup} as one group, \code{v-bind="$optional('<tag>')"}, with their fields
+added to \code{data}; or already bound on another tag (\code{\link[=.el_bind_props]{.el_bind_props()}}),
+whose groups are kept.}
 
 \item{absorbed}{The components folded into this one, by id: their fields
 as named here and the ref on each, so their updates reach them. Built by

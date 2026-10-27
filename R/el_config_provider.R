@@ -29,8 +29,9 @@
 #' @param empty_values Global empty values of components. Element Plus's
 #'   `empty-values` (array).
 #' @param value_on_clear Global clear return value. Element Plus's
-#'   `value-on-clear` (string / number / boolean / Function). Give it as
-#'   [JS()].
+#'   `value-on-clear` (string / number / boolean / Function, or `null`): a
+#'   value as it is, a function as [JS()], `null` as `JS("null")`. `NULL`
+#'   leaves Element's default.
 #' @param table Table related configuration, see the following table. Element
 #'   Plus's `table` (object). Give it as [JS()].
 #' @param width Component width, as a CSS unit.

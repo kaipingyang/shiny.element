@@ -36,7 +36,8 @@
 #' @param validate_event Whether to trigger form validation. Element Plus's
 #'   `validate-event` (boolean).
 #' @param value_on_clear Value should be set when input box is cleared.
-#'   Element Plus's `value-on-clear` (number / null / 'min' | 'max').
+#'   Element Plus's `value-on-clear` (number / null / 'min' | 'max'); `null`
+#'   as `JS("null")`. `NULL` leaves Element's default.
 #' @param session In `el_input_number()`, deprecated: inside a module, wrap `id` in
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_input_number()`, the Shiny session, the

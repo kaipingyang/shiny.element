@@ -316,8 +316,9 @@ be teleported to where \code{append-to} sets. Element Plus's \code{teleported}
 \code{validate-event} (boolean).}
 
 \item{value_on_clear}{Clear return value, see config-provider. Element
-Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
-as \code{\link[=JS]{JS()}}.}
+Plus's \code{value-on-clear} (string / number / boolean / Function, or \code{null},
+which its documentation names): a value as it is, a function as \code{\link[=JS]{JS()}},
+\code{null} as \code{JS("null")}. \code{NULL} leaves Element's default.}
 
 \item{props}{Which field of an option holds what, when the options are
 records named otherwise: \code{list(value =, label =, disabled =, options =)},

@@ -92,11 +92,8 @@ test_that("a virtualized table takes a data.frame, with a column per variable", 
 test_that("a watermark's own width is not the component's", {
   ui <- el_watermark("x", watermark_width = 200, width = "50%")
   html <- html_of(ui)
-  expect_match(
-    html,
-    ':width="width === null ? undefined : width"',
-    fixed = TRUE
-  )
+  # Element's width prop is bound to the field `width`
+  expect_equal(optional_entries(ui, "el-watermark")$width, "width")
   expect_equal(vue_data_of(ui)$width, 200)
 })
 

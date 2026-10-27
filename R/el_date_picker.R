@@ -75,8 +75,9 @@
 #' @param time_format Optional, format of the time displayed in input's inner
 #'   panel. Element Plus's `time-format` (string).
 #' @param value_on_clear Clear return value, see config-provider. Element
-#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
-#'   as [JS()].
+#'   Plus's `value-on-clear` (string / number / boolean / Function, or `null`,
+#'   which its documentation names): a value as it is, a function as [JS()],
+#'   `null` as `JS("null")`. `NULL` leaves Element's default.
 #' @param session In `el_date_picker()`, deprecated: inside a module, wrap `id` in
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_date_picker()`, the Shiny session, the

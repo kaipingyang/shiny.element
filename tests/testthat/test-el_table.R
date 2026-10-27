@@ -958,7 +958,8 @@ test_that("loading_options become Element's element-loading-* attributes", {
     '"element-loading-background":"rgba(122, 122, 122, 0.8)"',
     fixed = TRUE
   )
-  expect_match(html, 'v-bind="loadingAttrs"', fixed = TRUE)
+  # one v-bind on the table: the optional props, then these
+  expect_match(html, "...(loadingAttrs)}", fixed = TRUE)
   expect_error(
     el_table(data = data.frame(a = 1), loading_options = list(colour = "red")),
     "loading_options"

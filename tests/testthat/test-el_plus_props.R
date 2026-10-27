@@ -42,8 +42,8 @@ test_that("virtual_ref is a selector looked up in the browser", {
     el_popover("p", content = "c", virtual_ref = "#b"),
     el_dropdown("d", items = list(list(command = "a")), virtual_ref = "#b")
   )) {
-    html <- html_of(ui)
-    expect_match(html, ':virtual-ref="$elRef(', fixed = TRUE)
+    # bound through $optional(), the selector looked up by $elRef
+    expect_equal(optional_entries(ui)$`virtual-ref`$wrap, "elRef")
     # virtual triggering turns on with it
     d <- vue_data_of(ui)
     expect_true(isTRUE(d[[grep(
@@ -197,10 +197,13 @@ test_that("a picker's default value and time become Dates in the browser", {
     ':default-value="$elDate(defaultValue)"',
     fixed = TRUE
   )
-  expect_match(
-    html_of(el_time_picker("t", default_value = "12:00:00")),
-    ':default-value="$elDate(',
-    fixed = TRUE
+  # bound through $optional(), made a Date by $elDate
+  expect_equal(
+    optional_entries(el_time_picker(
+      "t",
+      default_value = "12:00:00"
+    ))$`default-value`,
+    list(field = "defaultValue", wrap = "elDate")
   )
 })
 

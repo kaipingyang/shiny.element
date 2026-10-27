@@ -300,8 +300,9 @@ Element Plus's \code{collapse-tags-tooltip} (boolean).}
 Plus's \code{empty-values} (array).}
 
 \item{value_on_clear}{Clear return value, see config-provider. Element
-Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
-as \code{\link[=JS]{JS()}}.}
+Plus's \code{value-on-clear} (string / number / boolean / Function, or \code{null},
+which its documentation names): a value as it is, a function as \code{\link[=JS]{JS()}},
+\code{null} as \code{JS("null")}. \code{NULL} leaves Element's default.}
 
 \item{popper_append_to_body}{Whether to append the popper menu to body. If
 the positioning of the popper is wrong, you can try to set this prop to

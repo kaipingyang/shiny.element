@@ -1,19 +1,22 @@
-#' Optional props, bound and given their data
+#' Optional props, given their data
 #'
-#' Element Plus's props that keep its own default unless given: each is bound
-#' as `:kebab-name` to a field of the same camelCase name, through
-#' [.vue_optional_bind()], and the field holds the value or `NA` (read back
-#' as `undefined`, Element's default).
+#' Element Plus's props that keep its own default unless given: each has a
+#' field of its camelCase name holding the value, `NA` when unset (Element's
+#' default, `undefined` in the browser; `JS("null")` is a deliberate
+#' `null`), and an entry naming that field for the prop. [.el_bind_props()]
+#' binds the entries on their tag as one group, `v-bind="$optional('<group>')"`
+#' ([.vue_optional_props()]); [el_widget()] does it for its root tag.
 #'
 #' @param values A named list, names in snake_case as the R arguments are.
 #' @param prefix A prefix for the fields' names, or `NULL`.
 #' @param rename Named character vector: an argument's name, and the prop it
 #'   stands for, where the two differ.
-#' @return A list of `attrs` (for the tag) and `data` (for the Vue data).
+#' @return A list of `data` (for the Vue data) and `entries` (`<prop-kebab>
+#'   = <field>`, or `list(field =, wrap =)`), not yet bound to a tag.
 #' @keywords internal
 .el_props <- function(values, prefix = NULL, rename = NULL) {
   if (!length(values)) {
-    return(list(attrs = list(), data = list()))
+    return(list(data = list(), entries = list()))
   }
   # An argument named apart from its prop -- a watermark's `width` would
   # be the component's own -- maps to the prop's upstream name
@@ -21,38 +24,59 @@
   hit <- upstream %in% names(rename)
   upstream[hit] <- gsub("-", "_", rename[upstream[hit]])
   names(values) <- upstream
-  camel <- vapply(names(values), .vue_camel, "")
-  # A wrapper that absorbs a trigger keeps its fields apart from the
-  # trigger's own: tipPlacement, not placement
-  if (!is.null(prefix)) {
-    camel <- paste0(
-      prefix,
-      toupper(substring(camel, 1, 1)),
-      substring(camel, 2)
-    )
-  }
-  kebab <- gsub("_", "-", names(values), fixed = TRUE)
-  attrs <- stats::setNames(
-    lapply(camel, .vue_optional_bind),
-    paste0(":", kebab)
-  )
-  # A picker's default value and time are Dates; from R they are text, made
-  # into Dates in the browser by $elDate (el-events.js)
-  for (k in which(names(values) %in% c("default_value", "default_time"))) {
-    attrs[[k]] <- sprintf("$elDate(%s)", camel[[k]])
-  }
-  # A virtual-ref is an element; from R it is a CSS selector, looked up in
-  # the browser by $elRef (el-events.js). Giving one turns on
-  # virtual-triggering, which Element Plus needs to use it.
+  # A virtual-ref is an element; from R it is a CSS selector. Giving one
+  # turns on virtual-triggering, which Element Plus needs to use it.
   vref <- which(names(values) == "virtual_ref")
   if (length(vref)) {
-    attrs[[vref]] <- sprintf("$elRef(%s)", camel[[vref]])
     vtrig <- which(names(values) == "virtual_triggering")
     if (!is.null(values[[vref]]) && length(vtrig) && is.null(values[[vtrig]])) {
       values[vtrig] <- list(TRUE)
     }
   }
-  list(attrs = attrs, data = stats::setNames(.el_prop_values(values), camel))
+  # Values R gives as text, made into what Element takes in the browser
+  # (el-events.js): a picker's default value and time into Dates ($elDate),
+  # a virtual-ref selector into its element ($elRef)
+  wrap <- c(
+    default_value = "elDate",
+    default_time = "elDate",
+    virtual_ref = "elRef"
+  )
+  wrap <- wrap[names(wrap) %in% names(values)]
+  o <- .vue_optional_props(
+    .el_prop_values(values),
+    "props",
+    prefix = prefix,
+    wrap = wrap
+  )
+  list(data = o$data, entries = o$map$props)
+}
+
+#' Bind optional props on their tag, as one group
+#'
+#' The group is named after the tag (`el-select` -> `select`), or the next
+#' free name when a component folded into the same instance has taken it.
+#'
+#' @param tag The Element tag the props belong to.
+#' @param props Output of [.el_props()].
+#' @param taken Group names already used in the instance.
+#' @return `list(tag =, props =)`: the tag with its `v-bind`, and the props
+#'   with `groups` (`<group> = <entries>`) in place of `entries`.
+#' @keywords internal
+.el_bind_props <- function(tag, props, taken = character()) {
+  if (!length(props$entries)) {
+    return(list(tag = tag, props = props))
+  }
+  base <- sub("^el-", "", tag$name)
+  group <- base
+  k <- 1L
+  while (group %in% taken) {
+    k <- k + 1L
+    group <- paste0(base, "_", k)
+  }
+  tag$attribs <- .vue_bind_optional(tag$attribs, group)
+  props$groups <- c(props$groups, stats::setNames(list(props$entries), group))
+  props$entries <- NULL
+  list(tag = tag, props = props)
 }
 
 #' Props' values as the component's fields hold them

@@ -217,26 +217,29 @@ el_table_v2 <- function(
   if (!isTRUE(auto_resize)) {
     return(el_widget(
       id = ns_id,
-      markup = htmltools::tag("el-table-v2", c(attrs, props$attrs)),
-      data = props$data,
+      markup = htmltools::tag("el-table-v2", attrs),
+      data = list(),
+      props = props,
       methods = c(events$methods, methods),
       width = width,
       slots = slots
     ))
   }
   # el-auto-resizer measures its box and hands the table its size through
-  # its slot; the table's own slots go inside, on the table
-  sized <- props$attrs[!names(props$attrs) %in% c(":width", ":height")]
+  # its slot; the table's own slots go inside, on the table. Its width and
+  # height are the resizer's, bound after the optional props, so they win.
   # ref="el": call_el() reaches the table, not the resizer around it
   table <- htmltools::tag(
     "el-table-v2",
     c(
       list(ref = "el"),
       attrs,
-      sized,
       list(":width" = "size.width", ":height" = "size.height")
     )
   )
+  bound <- .el_bind_props(table, props)
+  table <- bound$tag
+  props <- bound$props
   filled <- if (length(slots)) {
     .el_slot_markup(
       slots,
@@ -251,6 +254,7 @@ el_table_v2 <- function(
       list(htmltools::tag("template", list("v-slot:default" = "size", table)))
     ),
     data = c(props$data, filled$data),
+    props = props,
     methods = c(events$methods, methods, filled$methods),
     watch = filled$watch,
     dependency = filled$dependencies,

@@ -117,6 +117,13 @@ ui <- el_page(
     selected = "a",
     clearable = TRUE
   ),
+  el_select(
+    "sel_null",
+    choices = c(A = "a", B = "b"),
+    selected = "a",
+    clearable = TRUE,
+    value_on_clear = JS("null")
+  ),
   el_switch("sw", value = TRUE),
   el_slider("sld", value = 42),
   el_rate("rate", value = 3),
@@ -774,6 +781,7 @@ server <- function(input, output, session) {
       "abs_inp",
       "sel",
       "sel_clear",
+      "sel_null",
       "sw",
       "sld",
       "rate",

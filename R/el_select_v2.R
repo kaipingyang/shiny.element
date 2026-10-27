@@ -120,8 +120,9 @@
 #' @param empty_values Empty values of component, see config-provider. Element
 #'   Plus's `empty-values` (array).
 #' @param value_on_clear Clear return value, see config-provider. Element
-#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
-#'   as [JS()].
+#'   Plus's `value-on-clear` (string / number / boolean / Function, or `null`,
+#'   which its documentation names): a value as it is, a function as [JS()],
+#'   `null` as `JS("null")`. `NULL` leaves Element's default.
 #' @param popper_append_to_body Whether to append the popper menu to body. If
 #'   the positioning of the popper is wrong, you can try to set this prop to
 #'   false. Element Plus's `popper-append-to-body` (boolean).

@@ -23,6 +23,13 @@
   was never sent and `input$<id>` kept the value the user had just cleared.
   Any component's value, store field or `shinyVue.useInput()` that becomes
   `undefined` now reports `NULL`, as an empty selection does.
+* `value_on_clear = JS("null")` makes a cleared select, cascader, picker
+  or input number hold `null`, as Element documents. Every optional prop
+  was bound through `x === null ? undefined : x`, so `null` became
+  Element's default. Props now bind as one group per component,
+  `v-bind="$optional('<tag>')"`, where unset (`NULL`, `NA`) is the default
+  and `JS("null")` a `null`; the pages are smaller too (`el_select()`'s
+  from 5757 characters to 4884).
 
 ## Documentation
 

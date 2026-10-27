@@ -138,8 +138,9 @@ Element Plus's \code{teleported} (boolean).}
 \code{validate-event} (boolean).}
 
 \item{value_on_clear}{Clear return value, see config-provider. Element
-Plus's \code{value-on-clear} (string / number / boolean / Function). Give it
-as \code{\link[=JS]{JS()}}.}
+Plus's \code{value-on-clear} (string / number / boolean / Function, or \code{null},
+which its documentation names): a value as it is, a function as \code{\link[=JS]{JS()}},
+\code{null} as \code{JS("null")}. \code{NULL} leaves Element's default.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

@@ -35,7 +35,43 @@ vue_payload_of <- function(ui) {
 # Does the markup bind this attribute at all, whatever expression it uses?
 binds_attr <- function(ui, attr) {
   html <- paste(as.character(ui), collapse = "")
-  grepl(paste0(":", attr, "=\""), html, fixed = TRUE)
+  grepl(paste0(":", attr, "=\""), html, fixed = TRUE) ||
+    attr %in% names(optional_entries(ui))
+}
+
+# The optional props bound through v-bind="$optional('<group>')" on the
+# component's tags -- on `tag` only, when given -- as prop -> entry (a
+# field's name, or list(field =, wrap =)), from the spec's `optional` map
+optional_entries <- function(ui, tag = NULL) {
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  specs <- regmatches(
+    html,
+    gregexpr(
+      "(?s)(?<=data-shiny-vue-options>).*?(?=</script>)",
+      html,
+      perl = TRUE
+    )
+  )[[1]]
+  optional <- list()
+  for (sp in specs) {
+    optional <- c(
+      optional,
+      jsonlite::fromJSON(sp, simplifyVector = FALSE)$optional
+    )
+  }
+  tags <- regmatches(html, gregexpr("<el-[a-z0-9-]+[^>]*>", html))[[1]]
+  if (!is.null(tag)) {
+    tags <- tags[startsWith(tags, paste0("<", tag, " "))]
+  }
+  groups <- sub(
+    "^\\$optional\\((&#39;|')",
+    "",
+    unlist(regmatches(
+      tags,
+      gregexpr("\\$optional\\((&#39;|')[A-Za-z0-9_-]+", tags, perl = TRUE)
+    ))
+  )
+  do.call(c, unname(optional[unique(groups)]))
 }
 
 # A stand-in session that records the last custom message sent through it

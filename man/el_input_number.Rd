@@ -158,7 +158,8 @@ Element Plus's \code{parser} ((value: string) => string).}
 \code{validate-event} (boolean).}
 
 \item{value_on_clear}{Value should be set when input box is cleared.
-Element Plus's \code{value-on-clear} (number / null / 'min' | 'max').}
+Element Plus's \code{value-on-clear} (number / null / 'min' | 'max'); \code{null}
+as \code{JS("null")}. \code{NULL} leaves Element's default.}
 
 \item{width}{Component width, as a CSS unit -- \code{"200px"}, \code{"50\%"}, or a
 number taken as pixels. Element's own markup carries it, so it behaves

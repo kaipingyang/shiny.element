@@ -31,8 +31,9 @@
 #' @param validate_event Whether to trigger form validation. Element Plus's
 #'   `validate-event` (boolean).
 #' @param value_on_clear Clear return value, see config-provider. Element
-#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
-#'   as [JS()].
+#'   Plus's `value-on-clear` (string / number / boolean / Function, or `null`,
+#'   which its documentation names): a value as it is, a function as [JS()],
+#'   `null` as `JS("null")`. `NULL` leaves Element's default.
 #' @param session In `el_color_picker()`, deprecated: inside a module, wrap `id` in
 #'   `ns()`, as for any Shiny input; a session given here namespaces `id`
 #'   once more, with a warning. In `update_el_color_picker()`, the Shiny session, the

@@ -2,7 +2,7 @@
 % Please edit documentation in R/el_props.R
 \name{.el_props}
 \alias{.el_props}
-\title{Optional props, bound and given their data}
+\title{Optional props, given their data}
 \usage{
 .el_props(values, prefix = NULL, rename = NULL)
 }
@@ -15,12 +15,14 @@
 stands for, where the two differ.}
 }
 \value{
-A list of \code{attrs} (for the tag) and \code{data} (for the Vue data).
+A list of \code{data} (for the Vue data) and \code{entries} (\verb{<prop-kebab> = <field>}, or \code{list(field =, wrap =)}), not yet bound to a tag.
 }
 \description{
-Element Plus's props that keep its own default unless given: each is bound
-as \verb{:kebab-name} to a field of the same camelCase name, through
-\code{\link[=.vue_optional_bind]{.vue_optional_bind()}}, and the field holds the value or \code{NA} (read back
-as \code{undefined}, Element's default).
+Element Plus's props that keep its own default unless given: each has a
+field of its camelCase name holding the value, \code{NA} when unset (Element's
+default, \code{undefined} in the browser; \code{JS("null")} is a deliberate
+\code{null}), and an entry naming that field for the prop. \code{\link[=.el_bind_props]{.el_bind_props()}}
+binds the entries on their tag as one group, \code{v-bind="$optional('<group>')"}
+(\code{\link[=.vue_optional_props]{.vue_optional_props()}}); \code{\link[=el_widget]{el_widget()}} does it for its root tag.
 }
 \keyword{internal}

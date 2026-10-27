@@ -1556,6 +1556,33 @@ test_that("clearing a select reports NULL, as an empty selection does", {
   expect_equal(bdump()[["sel_clear"]], "<NULL>")
 })
 
+test_that("value_on_clear = JS(\"null\") clears to null, unset to Element's undefined", {
+  skip_if_no_browser()
+  # through $optional(): a deliberate null reaches Element, where the
+  # ternary binding it had made every null undefined
+  for (id in c("sel_clear", "sel_null")) {
+    bev(sprintf(
+      "document.querySelector('#%s_container .el-select__wrapper').dispatchEvent(new MouseEvent('mouseenter', {bubbles: true}))",
+      id
+    ))
+    Sys.sleep(0.3)
+    bclick(sprintf("#%s_container .el-select__clear", id), wait = 1)
+  }
+  value_of <- function(id) {
+    bev(sprintf(
+      "(function(){var v = shinyVue.find('#%s').instance.value; return v === undefined ? 'undefined' : JSON.stringify(v)})()",
+      id
+    ))
+  }
+  expect_equal(value_of("sel_null"), "null")
+  expect_equal(value_of("sel_clear"), "undefined")
+  # both are NULL in R
+  Sys.sleep(1)
+  vals <- bdump()
+  expect_equal(vals[["sel_null"]], "<NULL>")
+  expect_equal(vals[["sel_clear"]], "<NULL>")
+})
+
 # ── Shiny modules ─────────────────────────────────────────────────────────────
 
 test_that("components in a module report under the module's namespace", {

@@ -74,7 +74,9 @@
 #'   as named here and the ref on each, so their updates reach them. Built by
 #'   the package's wrappers; leave it `NULL`.
 #' @param props Optional props from `.el_props()`: bound on the root tag of
-#'   `markup`, with their fields added to `data`.
+#'   `markup` as one group, `v-bind="$optional('<tag>')"`, with their fields
+#'   added to `data`; or already bound on another tag ([.el_bind_props()]),
+#'   whose groups are kept.
 #' @param type An input type for [shiny::registerInputHandler()], which
 #'   converts the value on its way into R.
 #' @return A Shiny UI element with its dependencies attached.
@@ -140,13 +142,19 @@ el_widget <- function(
     methods <- c(methods, own$methods)
   }
   # Optional props from .el_props(): bound on the component's own tag, the
-  # root of `markup`, with their fields in the data
-  if (length(props$attrs)) {
-    markup <- do.call(
-      htmltools::tagAppendAttributes,
-      c(list(markup), props$attrs)
-    )
-    data <- c(data, props$data)
+  # root of `markup`, as one group named after it -- not one a component
+  # folded in has taken -- with their fields in the data
+  folded_groups <- unlist(
+    lapply(absorbed, function(e) names(e$optional)),
+    use.names = FALSE
+  )
+  if (length(props$entries)) {
+    bound <- .el_bind_props(markup, props, taken = folded_groups)
+    markup <- bound$tag
+    props <- bound$props
+  }
+  if (length(props$data)) {
+    data <- c(data, props$data[setdiff(names(props$data), names(data))])
   }
   label_position <- match.arg(label_position)
 
@@ -259,9 +267,19 @@ el_widget <- function(
     use = .vue_use("shinyElement.plugin")
   )
   # the components folded into this one, which updates by their ids reach
-  # here (.el_absorb())
+  # here (.el_absorb()); their optional props' groups join this one's
+  optional <- c(
+    props$groups,
+    do.call(c, unname(lapply(absorbed, `[[`, "optional")))
+  )
+  if (length(optional)) {
+    spec$optional <- optional
+  }
   if (length(absorbed)) {
-    spec$absorbed <- absorbed
+    spec$absorbed <- lapply(absorbed, function(e) {
+      e$optional <- NULL
+      e
+    })
   }
   # an id drawn at random (the component was given none): render_vue()
   # does not take a new one for another component
@@ -354,7 +372,8 @@ el_widget <- function(
   attr(host, "el_spec") <- list(
     options = full,
     markup = markup,
-    absorbed = absorbed
+    absorbed = absorbed,
+    optional = props$groups
   )
 
   # Dependencies the markup carried -- an absorbed component's handler, a

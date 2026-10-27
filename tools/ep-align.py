@@ -106,6 +106,7 @@ def doc(p):
     if typ: line += f" ({typ})"
     line += "."
     if "Function" in typ: line += " Give it as [JS()]."
+    if "null" in typ: line += ' `null` as `JS("null")`; `NULL` leaves Element\'s default.'
     if "Component" in typ: line += " An icon's name, such as `\"Search\"`."
     # wrap at 80
     words, out, cur = line.split(" "), [], ""

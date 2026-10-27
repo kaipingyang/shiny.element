@@ -132,3 +132,53 @@ test_that("components folded in at different depths do not clash", {
   expect_match(html, '"b":{"fields":', fixed = TRUE)
   expect_match(html, '"s":{"fields":', fixed = TRUE)
 })
+
+test_that("folded components keep their optional props apart, by group", {
+  ui <- el_button_group(
+    el_button("a", "A", type = "primary"),
+    el_button("b", "B", type = "success")
+  )
+  spec <- vue_spec_of(ui)
+  # the second button's fields took a prefix, and its group with them
+  groups <- names(spec$optional)
+  expect_true(all(c("button-group", "button") %in% groups))
+  second <- setdiff(
+    grep("button$", groups, value = TRUE),
+    c("button", "button-group")
+  )
+  expect_length(second, 1)
+  prefix <- sub("_button$", "", second)
+  expect_true(all(startsWith(
+    unlist(spec$optional[[second]]),
+    paste0(prefix, "_")
+  )))
+  # each button binds its own group
+  html <- paste(as.character(htmltools::renderTags(ui)$html), collapse = "")
+  expect_match(
+    html,
+    '<el-button v-bind="$optional(&#39;button&#39;)"',
+    fixed = TRUE
+  )
+  expect_match(
+    html,
+    sprintf('<el-button v-bind="$optional(&#39;%s&#39;)"', second),
+    fixed = TRUE
+  )
+  # the folded components' entries go to the browser without the groups,
+  # which are in the spec's map
+  expect_false(any(vapply(
+    spec$absorbed,
+    function(e) !is.null(e$optional),
+    TRUE
+  )))
+})
+
+test_that("a component's own group avoids one a folded component took", {
+  b <- .el_bind_props(
+    htmltools::tag("el-tooltip", list()),
+    .el_props(list(placement = "top")),
+    taken = c("tooltip", "tooltip_2")
+  )
+  expect_named(b$props$groups, "tooltip_3")
+  expect_equal(b$tag$attribs$`v-bind`, "$optional('tooltip_3')")
+})

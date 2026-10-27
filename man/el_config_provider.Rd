@@ -72,8 +72,9 @@ all features are default to be set to false. Element Plus's
 \code{empty-values} (array).}
 
 \item{value_on_clear}{Global clear return value. Element Plus's
-\code{value-on-clear} (string / number / boolean / Function). Give it as
-\code{\link[=JS]{JS()}}.}
+\code{value-on-clear} (string / number / boolean / Function, or \code{null}): a
+value as it is, a function as \code{\link[=JS]{JS()}}, \code{null} as \code{JS("null")}. \code{NULL}
+leaves Element's default.}
 
 \item{table}{Table related configuration, see the following table. Element
 Plus's \code{table} (object). Give it as \code{\link[=JS]{JS()}}.}

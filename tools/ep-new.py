@@ -88,6 +88,7 @@ for a in props:
     t = typ(a["type"])
     line = f"#' @param {snake(a['name'])} {clean(a['desc'])}. Element Plus's `{a['name']}`" + (f" ({t})" if t else "") + "."
     if "Function" in a["type"]: line += " Give it as [JS()]."
+    if "null" in a["type"]: line += ' `null` as `JS("null")`; `NULL` leaves Element\'s default.'
     if "Component" in a["type"]: line += " An icon's name, such as `\"Search\"`."
     lines.append(wrap(line))
 if has_value:

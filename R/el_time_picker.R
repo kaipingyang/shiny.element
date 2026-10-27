@@ -29,7 +29,8 @@
 #' @param teleported Whether the panel is moved to `<body>`.
 #' @param tabindex,aria_label Native attributes of the input.
 #' @param empty_values,value_on_clear What counts as empty, and the value a
-#'   cleared picker reports. See Element Plus's config provider.
+#'   cleared picker reports. See Element Plus's config provider; `null` as
+#'   `JS("null")`, while `NULL` leaves Element's default.
 #' @param save_on_blur Whether the time typed is kept when the input loses
 #'   focus.
 #' @param include_end_time,start,end,step,min_time,max_time For

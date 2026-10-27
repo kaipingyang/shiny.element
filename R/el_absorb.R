@@ -162,7 +162,10 @@
   own <- stats::setNames(
     list(c(
       list(fields = as.list(stats::setNames(fields, fields)), ref = ref),
-      if (length(input) == 1L && input %in% fields) list(input = input)
+      if (length(input) == 1L && input %in% fields) list(input = input),
+      # its optional props' groups, which its markup binds: the host's spec
+      # carries them (el_widget())
+      if (length(spec$optional)) list(optional = spec$optional)
     )),
     host$attribs$id
   )
@@ -195,24 +198,35 @@
   names_of <- function(p) {
     unique(c(names(p$data), names(p$methods), names(p$computed)))
   }
+  # the optional props' groups its markup binds, one namespace of their own
+  groups_of <- function(p) {
+    unlist(lapply(p$absorbed, function(e) names(e$optional)), use.names = FALSE)
+  }
   # every name any part holds: a prefix must clash with none of them -- a
   # part folded in twice over already carries `el2_label` from its own merge
   every <- unique(unlist(lapply(parts, names_of)))
   taken <- character(0)
+  taken_groups <- character(0)
   for (i in seq_along(parts)) {
     fields <- names_of(parts[[i]])
-    if (!length(fields)) {
+    groups <- groups_of(parts[[i]])
+    if (!length(fields) && !length(groups)) {
       next
     }
-    if (length(intersect(taken, fields))) {
+    if (
+      length(intersect(taken, fields)) ||
+        length(intersect(taken_groups, groups))
+    ) {
       k <- i
       while (length(intersect(paste0("el", k, "_", fields), c(every, taken)))) {
         k <- k + length(parts)
       }
       parts[[i]] <- .el_prefix_absorbed(parts[[i]], paste0("el", k))
       fields <- names_of(parts[[i]])
+      groups <- groups_of(parts[[i]])
     }
     taken <- c(taken, fields)
+    taken_groups <- c(taken_groups, groups)
   }
   pick <- function(field) {
     out <- list()
@@ -325,11 +339,35 @@
   }
 
   absorbed$markup <- .el_rewrite_markup(absorbed$markup, rename)
+  # the optional props' groups take the prefix too: the markup names them
+  # in a string, $optional('<group>'), which the renaming above leaves
+  groups <- unlist(
+    lapply(absorbed$absorbed, function(e) names(e$optional)),
+    use.names = FALSE
+  )
+  if (length(groups)) {
+    absorbed$markup <- .el_rename_groups(
+      absorbed$markup,
+      stats::setNames(paste0(prefix, "_", groups), groups)
+    )
+  }
   # the folded components' fields, as their ids' updates now find them
   absorbed$absorbed <- lapply(absorbed$absorbed, function(entry) {
     entry$fields <- lapply(entry$fields, function(f) {
       if (f %in% names(rename)) rename[[f]] else f
     })
+    if (length(entry$optional)) {
+      entry$optional <- stats::setNames(
+        lapply(entry$optional, function(group) {
+          lapply(group, function(e) {
+            f <- if (is.list(e)) e$field else e
+            f <- if (f %in% names(rename)) rename[[f]] else f
+            if (is.list(e)) utils::modifyList(e, list(field = f)) else f
+          })
+        }),
+        paste0(prefix, "_", names(entry$optional))
+      )
+    }
     entry
   })
   absorbed$methods <- lapply(absorbed$methods, .el_rewrite_js, rename = rename)
@@ -582,7 +620,8 @@
   }
   el_widget(
     id = ns_id,
-    markup = htmltools::tag(tag, c(attrs, props$attrs, events$attrs, inner)),
+    markup = htmltools::tag(tag, c(attrs, events$attrs, inner)),
+    props = props,
     data = merged$data,
     absorbed = merged$absorbed,
     methods = merged$methods,
@@ -675,3 +714,56 @@
 #' nothing, and Vue warns.
 #' @keywords internal
 .el_no_root <- c("el-config-provider")
+
+
+#' Rename optional props' groups in markup
+#'
+#' A folded component binds its optional props with
+#' `v-bind="$optional('<group>')"`; when its fields take a prefix its groups
+#' do too, and the binding is rewritten to match.
+#'
+#' @param markup A tag, tag list or list of them.
+#' @param rename Named character vector: old group -> new.
+#' @return The markup.
+#' @keywords internal
+.el_rename_groups <- function(markup, rename) {
+  if (inherits(markup, "shiny.tag")) {
+    hit <- which(names(markup$attribs) == "v-bind")
+    for (i in hit) {
+      v <- markup$attribs[[i]]
+      for (g in names(rename)) {
+        v <- gsub(
+          sprintf("$optional('%s')", g),
+          sprintf("$optional('%s')", rename[[g]]),
+          v,
+          fixed = TRUE
+        )
+      }
+      markup$attribs[[i]] <- v
+    }
+    markup$children <- lapply(markup$children, .el_rename_groups, rename)
+    return(markup)
+  }
+  if (is.list(markup) && !inherits(markup, "html")) {
+    cls <- class(markup)
+    out <- lapply(markup, .el_rename_groups, rename)
+    class(out) <- cls
+    return(out)
+  }
+  # markup written as a string, where the quotes may be escaped
+  if (inherits(markup, "html")) {
+    v <- as.character(markup)
+    for (g in names(rename)) {
+      for (q in c("'", "&#39;")) {
+        v <- gsub(
+          paste0("$optional(", q, g, q, ")"),
+          paste0("$optional(", q, rename[[g]], q, ")"),
+          v,
+          fixed = TRUE
+        )
+      }
+    }
+    return(htmltools::HTML(v))
+  }
+  markup
+}

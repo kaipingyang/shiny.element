@@ -80,6 +80,24 @@ slots_of <- function(html) {
 
 attrs_of <- function(html) {
   tags <- regmatches(html, gregexpr("<el-[a-z0-9-]+[^>]*>", html))[[1]]
+  # optional props bound as a group, v-bind="$optional('<group>')": the
+  # props are the group's entries in the spec's `optional` map
+  optional <- list()
+  specs <- regmatches(
+    html,
+    gregexpr(
+      "(?s)(?<=data-shiny-vue-options>).*?(?=</script>)",
+      html,
+      perl = TRUE
+    )
+  )[[1]]
+  for (sp in specs) {
+    j <- tryCatch(
+      jsonlite::fromJSON(sp, simplifyVector = FALSE),
+      error = function(e) NULL
+    )
+    optional <- c(optional, j$optional)
+  }
   per <- list()
   for (t in tags) {
     nm <- sub("^<(el-[a-z0-9-]+).*", "\\1", t)
@@ -87,6 +105,17 @@ attrs_of <- function(html) {
       t,
       gregexpr("(?<=\\s)[:@a-zA-Z][a-zA-Z0-9:@._-]*(?==\")", t, perl = TRUE)
     )[[1]]
+    groups <- sub(
+      "^\\$optional\\((&#39;|')",
+      "",
+      regmatches(
+        t,
+        gregexpr("\\$optional\\((&#39;|')[A-Za-z0-9_-]+", t, perl = TRUE)
+      )[[1]]
+    )
+    for (g in groups) {
+      at <- union(at, paste0(":", names(optional[[g]])))
+    }
     per[[nm]] <- union(per[[nm]], at)
   }
   per

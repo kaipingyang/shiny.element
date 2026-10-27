@@ -67,8 +67,9 @@
 #' @param validate_event Whether to trigger form validation. Element Plus's
 #'   `validate-event` (boolean).
 #' @param value_on_clear Clear return value, see config-provider. Element
-#'   Plus's `value-on-clear` (string / number / boolean / Function). Give it
-#'   as [JS()].
+#'   Plus's `value-on-clear` (string / number / boolean / Function, or `null`,
+#'   which its documentation names): a value as it is, a function as [JS()],
+#'   `null` as `JS("null")`. `NULL` leaves Element's default.
 #' @param virtual_scroll Whether to enable virtual scrolling for large data.
 #'   Element Plus's `virtual-scroll` (boolean).
 #' @param session In `el_cascader()`, deprecated: inside a module, wrap `id` in

@@ -226,7 +226,8 @@ Element UI's \code{selectableRange} did.}
 \item{tabindex, aria_label}{Native attributes of the input.}
 
 \item{empty_values, value_on_clear}{What counts as empty, and the value a
-cleared picker reports. See Element Plus's config provider.}
+cleared picker reports. See Element Plus's config provider; \code{null} as
+\code{JS("null")}, while \code{NULL} leaves Element's default.}
 
 \item{save_on_blur}{Whether the time typed is kept when the input loses
 focus.}

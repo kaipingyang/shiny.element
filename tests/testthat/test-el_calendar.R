@@ -30,7 +30,13 @@ test_that("el_calendar: binds value, and Element Plus's controller type", {
   # Element Plus wants a Date; the value stays a "YYYY-MM-DD" string
   expect_match(html, ':model-value="elDate(value)"', fixed = TRUE)
   expect_match(html, '@update:model-value="elPick"', fixed = TRUE)
-  expect_match(html, ':controller-type="controllerType', fixed = TRUE)
+  expect_equal(
+    optional_entries(el_calendar(
+      id = "c1",
+      controller_type = "select"
+    ))$`controller-type`,
+    "controllerType"
+  )
   expect_match(html, '"controllerType":"select"', fixed = TRUE)
 })
 
@@ -186,8 +192,13 @@ test_that("a calendar with events draws them in its day cells, with the dialog",
   expect_match(html, "plan_' + kind + ':shiny.element.cal_event", fixed = TRUE)
   expect_match(html, "plan_dates:shiny.element.cal_event", fixed = TRUE)
   # a prop on the calendar, not text beside it
-  props <- render_html(el_calendar("c", controller_type = "select"))
-  expect_match(props, '<el-calendar[^>]*:controller-type=', perl = TRUE)
+  expect_named(
+    optional_entries(
+      el_calendar("c", controller_type = "select"),
+      "el-calendar"
+    ),
+    c("controller-type", "formatter")
+  )
   # a day cell of one's own replaces ours
   own <- render_html(el_calendar(
     "c",
