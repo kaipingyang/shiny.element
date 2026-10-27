@@ -16,6 +16,14 @@
     written by yyjsonr instead of jsonlite: 100 components are built in
     0.6 s, from 1.6 s.
 
+## Bug fixes
+
+* Clearing a select now reports `NULL` to the server. Element sets a
+  cleared select to `undefined`, which JSON has no form for, so the update
+  was never sent and `input$<id>` kept the value the user had just cleared.
+  Any component's value, store field or `shinyVue.useInput()` that becomes
+  `undefined` now reports `NULL`, as an empty selection does.
+
 ## Documentation
 
 * A "Performance" article: where a page's starting time goes, what the

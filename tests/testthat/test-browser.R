@@ -1542,6 +1542,20 @@ test_that("a value set from the server is reported back, as update*Input() does"
   expect_equal(vals[["num"]], "9")
 })
 
+test_that("clearing a select reports NULL, as an empty selection does", {
+  skip_if_no_browser()
+  # Element sets a cleared select to undefined, which JSON has no form for:
+  # the update was dropped and input$<id> kept the value the user had just
+  # cleared.
+  expect_equal(bdump()[["sel_clear"]], "a")
+  bev(
+    "document.querySelector('#sel_clear_container .el-select__wrapper').dispatchEvent(new MouseEvent('mouseenter', {bubbles: true}))"
+  )
+  Sys.sleep(0.3)
+  bclick("#sel_clear_container .el-select__clear", wait = 2)
+  expect_equal(bdump()[["sel_clear"]], "<NULL>")
+})
+
 # ── Shiny modules ─────────────────────────────────────────────────────────────
 
 test_that("components in a module report under the module's namespace", {

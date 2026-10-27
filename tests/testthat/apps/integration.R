@@ -111,6 +111,12 @@ ui <- el_page(
   ),
   el_button("abs_go", "Update the folded ones"),
   el_select("sel", choices = c(A = "a", B = "b"), selected = "b"),
+  el_select(
+    "sel_clear",
+    choices = c(A = "a", B = "b"),
+    selected = "a",
+    clearable = TRUE
+  ),
   el_switch("sw", value = TRUE),
   el_slider("sld", value = 42),
   el_rate("rate", value = 3),
@@ -767,6 +773,7 @@ server <- function(input, output, session) {
       "inp",
       "abs_inp",
       "sel",
+      "sel_clear",
       "sw",
       "sld",
       "rate",
