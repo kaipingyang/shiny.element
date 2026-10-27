@@ -330,7 +330,9 @@ whether beside the component rather than under it. Element's
 
 <dt id="arg-props">props<a class="anchor" aria-label="anchor" href="#arg-props"></a></dt>
 <dd><p>Optional props from <code><a href="dot-el_props.html">.el_props()</a></code>: bound on the root tag of
-<code>markup</code>, with their fields added to <code>data</code>.</p></dd>
+<code>markup</code> as one group, <code>v-bind="$optional('&lt;tag&gt;')"</code>, with their fields
+added to <code>data</code>; or already bound on another tag (<code><a href="dot-el_bind_props.html">.el_bind_props()</a></code>),
+whose groups are kept.</p></dd>
 
 
 <dt id="arg-absorbed">absorbed<a class="anchor" aria-label="anchor" href="#arg-absorbed"></a></dt>

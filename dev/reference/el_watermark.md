@@ -141,12 +141,12 @@ invisibly.
 
 ``` r
 el_watermark(content = "Confidential", shiny::tags$div(style = "height: 300px"))
-#> <div id="el_watermark_8bf906bc-d93e-4b30-aac7-b0853ae17595" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_8bf906bc-d93e-4b30-aac7-b0853ae17595_container" style="display: contents">
-#>   <el-watermark :width="width === null ? undefined : width" :height="height === null ? undefined : height" :rotate="rotate === null ? undefined : rotate" :z-index="zIndex === null ? undefined : zIndex" :image="image === null ? undefined : image" :content="content === null ? undefined : content" :font="font === null ? undefined : font" :gap="gap === null ? undefined : gap" :offset="offset === null ? undefined : offset">
+#> <div id="el_watermark_84ad4315-3a18-4566-861d-cfdc04246dbf" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_watermark_84ad4315-3a18-4566-861d-cfdc04246dbf_container" style="display: contents">
+#>   <el-watermark v-bind="$optional(&#39;watermark&#39;)">
 #>     <div style="height: 300px"></div>
 #>   </el-watermark>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"width":null,"height":null,"rotate":null,"zIndex":null,"image":null,"content":"Confidential","font":null,"gap":null,"offset":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"width":null,"height":null,"rotate":null,"zIndex":null,"image":null,"content":"Confidential","font":null,"gap":null,"offset":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"watermark":{"width":"width","height":"height","rotate":"rotate","z-index":"zIndex","image":"image","content":"content","font":"font","gap":"gap","offset":"offset"}},"generated":true,"evals":[]}</script>
 #> </div>
 ```

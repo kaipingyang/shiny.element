@@ -186,8 +186,10 @@ update_el_color_picker(
 - value_on_clear:
 
   Clear return value, see config-provider. Element Plus's
-  `value-on-clear` (string / number / boolean / Function). Give it as
-  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md).
+  `value-on-clear` (string / number / boolean / Function, or `null`,
+  which its documentation names): a value as it is, a function as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md),
+  `null` as `JS("null")`. `NULL` leaves Element's default.
 
 - width:
 
@@ -264,16 +266,16 @@ stays as it is; `NA` returns it to Element's default.
 el_color_picker("cp1", value = "#409EFF")
 #> <div id="cp1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cp1_container" style="display: contents">
-#>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :empty-values="emptyValues === null ? undefined : emptyValues" :persistent="persistent === null ? undefined : persistent" :popper-style="popperStyle === null ? undefined : popperStyle" :tabindex="tabindex === null ? undefined : tabindex" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-color-picker>
+#>   <el-color-picker v-bind="$optional(&#39;color-picker&#39;)" v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass"></el-color-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"clearable":null,"emptyValues":null,"persistent":null,"popperStyle":null,"tabindex":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","disabled":false,"showAlpha":false,"size":null,"colorFormat":null,"predefine":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"clearable":null,"emptyValues":null,"persistent":null,"popperStyle":null,"tabindex":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"color-picker":{"append-to":"appendTo","aria-label":"ariaLabel","clearable":"clearable","empty-values":"emptyValues","persistent":"persistent","popper-style":"popperStyle","tabindex":"tabindex","teleported":"teleported","validate-event":"validateEvent","value-on-clear":"valueOnClear"}},"evals":["options.methods.handleChange"]}</script>
 #> </div>
 el_color_picker("cp2", show_alpha = TRUE, predefine = c("#ff4500", "#ff8c00"))
 #> <div id="cp2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="cp2_container" style="display: contents">
-#>   <el-color-picker v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass" :append-to="appendTo === null ? undefined : appendTo" :aria-label="ariaLabel === null ? undefined : ariaLabel" :clearable="clearable === null ? undefined : clearable" :empty-values="emptyValues === null ? undefined : emptyValues" :persistent="persistent === null ? undefined : persistent" :popper-style="popperStyle === null ? undefined : popperStyle" :tabindex="tabindex === null ? undefined : tabindex" :teleported="teleported === null ? undefined : teleported" :validate-event="validateEvent === null ? undefined : validateEvent" :value-on-clear="valueOnClear === null ? undefined : valueOnClear"></el-color-picker>
+#>   <el-color-picker v-bind="$optional(&#39;color-picker&#39;)" v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" :size="size === null ? undefined : size" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :popper-class="popperClass === null ? undefined : popperClass"></el-color-picker>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null,"appendTo":null,"ariaLabel":null,"clearable":null,"emptyValues":null,"persistent":null,"popperStyle":null,"tabindex":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"size":null,"colorFormat":null,"predefine":["#ff4500","#ff8c00"],"popperClass":null,"appendTo":null,"ariaLabel":null,"clearable":null,"emptyValues":null,"persistent":null,"popperStyle":null,"tabindex":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"color-picker":{"append-to":"appendTo","aria-label":"ariaLabel","clearable":"clearable","empty-values":"emptyValues","persistent":"persistent","popper-style":"popperStyle","tabindex":"tabindex","teleported":"teleported","validate-event":"validateEvent","value-on-clear":"valueOnClear"}},"evals":["options.methods.handleChange"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

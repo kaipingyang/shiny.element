@@ -131,11 +131,11 @@ el_timeline(
 )
 #> <div id="log" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
-#>   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
+#>   <el-timeline v-bind="$optional(&#39;timeline&#39;)" :reverse="reverse">
 #>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"><span v-if="item.contentHtml" v-html="item.content"></span><template v-else>{{ item.content }}</template></el-timeline-item>
 #>   </el-timeline>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Order placed","timestamp":"2026-03-01","type":"primary"},{"content":"Order shipped","timestamp":"2026-03-02","type":"success","size":"large","icon":"el-icon-check"},{"content":"Delivered","timestamp":"2026-03-04","color":"#0bbd87"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"timeline":{"mode":"mode"}},"evals":[]}</script>
 #> </div>
 
 # Newest first, timestamps above each entry
@@ -149,11 +149,11 @@ el_timeline(
 )
 #> <div id="log" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="log_container" style="display: contents">
-#>   <el-timeline :reverse="reverse" :mode="mode === null ? undefined : mode">
+#>   <el-timeline v-bind="$optional(&#39;timeline&#39;)" :reverse="reverse">
 #>     <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"><span v-if="item.contentHtml" v-html="item.content"></span><template v-else>{{ item.content }}</template></el-timeline-item>
 #>   </el-timeline>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Second","timestamp":"10:30","placement":"top"},{"content":"First","timestamp":"09:15","placement":"top"}],"reverse":true,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"timeline":{"mode":"mode"}},"evals":[]}</script>
 #> </div>
 if (interactive()) {
   # Append an entry to a growing log

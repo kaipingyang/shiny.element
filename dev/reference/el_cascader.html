@@ -481,8 +481,9 @@ multiple selection mode. Use <code>parent</code> when you want things tidy. Use
 
 <dt id="arg-value-on-clear">value_on_clear<a class="anchor" aria-label="anchor" href="#arg-value-on-clear"></a></dt>
 <dd><p>Clear return value, see config-provider. Element
-Plus's <code>value-on-clear</code> (string / number / boolean / Function). Give it
-as <code><a href="JS.html">JS()</a></code>.</p></dd>
+Plus's <code>value-on-clear</code> (string / number / boolean / Function, or <code>null</code>,
+which its documentation names): a value as it is, a function as <code><a href="JS.html">JS()</a></code>,
+<code>null</code> as <code>JS("null")</code>. <code>NULL</code> leaves Element's default.</p></dd>
 
 
 <dt id="arg-virtual-scroll">virtual_scroll<a class="anchor" aria-label="anchor" href="#arg-virtual-scroll"></a></dt>

@@ -159,7 +159,8 @@
   // after, stays a deliberate null. A template binds a group with
   // v-bind="$optional('group')", which gives the props whose field is not
   // undefined. An entry may be {field, wrap}: the value goes through
-  // sv.optionalWraps[wrap], which a component library registers.
+  // sv.optionalWraps[wrap], which a component library registers, called
+  // on the component (`this`).
   sv.optionalWraps = sv.optionalWraps || {};
   function optionalEntry(e) { return typeof e === 'string' ? { field: e } : e; }
   function optionalFields(optional) {
@@ -188,7 +189,7 @@
       if (e.wrap) {
         var wrap = sv.optionalWraps[e.wrap];
         if (typeof wrap !== 'function') { warn('$optional: no wrap "' + e.wrap + '"'); continue; }
-        v = wrap(v);
+        v = wrap.call(this, v);
       }
       out[prop] = v;
     }

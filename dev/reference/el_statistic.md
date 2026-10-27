@@ -187,9 +187,9 @@ invisibly.
 el_statistic("users", value = 26048, title = "Active users")
 #> <div id="users" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="users_container" style="display: contents">
-#>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
+#>   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value"></el-statistic>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":26048,"title":"Active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"statistic":{"title":"title","prefix":"prefix","suffix":"suffix","precision":"precision","decimal-separator":"decimalSeparator","group-separator":"groupSeparator","value-style":"valueStyle","formatter":"formatter"}},"evals":[]}</script>
 #> </div>
 el_statistic(
   "revenue",
@@ -200,9 +200,9 @@ el_statistic(
 )
 #> <div id="revenue" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="revenue_container" style="display: contents">
-#>   <el-statistic :value="value" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :precision="precision === null ? undefined : precision" :decimal-separator="decimalSeparator === null ? undefined : decimalSeparator" :group-separator="groupSeparator === null ? undefined : groupSeparator" :value-style="valueStyle === null ? undefined : valueStyle" :formatter="formatter === null ? undefined : formatter"></el-statistic>
+#>   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value"></el-statistic>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1318.5,"title":"Revenue","prefix":"$","suffix":null,"precision":2,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"statistic":{"title":"title","prefix":"prefix","suffix":"suffix","precision":"precision","decimal-separator":"decimalSeparator","group-separator":"groupSeparator","value-style":"valueStyle","formatter":"formatter"}},"evals":[]}</script>
 #> </div>
 
 # A countdown to an hour from now
@@ -214,9 +214,9 @@ el_countdown(
 )
 #> <div id="sale" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="sale_container" style="display: contents">
-#>   <el-countdown :value="value" @finish="svEmitFinish" :title="title === null ? undefined : title" :prefix="prefix === null ? undefined : prefix" :suffix="suffix === null ? undefined : suffix" :format="format === null ? undefined : format" :value-style="valueStyle === null ? undefined : valueStyle"></el-countdown>
+#>   <el-countdown v-bind="$optional(&#39;countdown&#39;)" :value="value" @finish="svEmitFinish"></el-countdown>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1793084132542.9446,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"svEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.svEmitFinish"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":1793087108906.6707,"title":"Sale ends in","prefix":null,"suffix":null,"format":"HH:mm:ss","valueStyle":null},"methods":{"svEmitFinish":"function() { var shape = function() { return true; }; var v = shape.apply(this, arguments); if (v === undefined) return; window.shinyVue.emit('sale', 'finish', [v]); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"countdown":{"title":"title","prefix":"prefix","suffix":"suffix","format":"format","value-style":"valueStyle"}},"evals":["options.methods.svEmitFinish"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

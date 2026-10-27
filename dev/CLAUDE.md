@@ -413,10 +413,15 @@ Design records: `.claude/plans/shiny-style-components-2026-10-06.md`,
     [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md),
     and `update_el_<name>()` sending
     [`.vue_send_update()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send_update.md).
-2.  Optional props bind through
+2.  Optional props go through
+    [`.el_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_props.md)
+    and `el_widget(props =)`, which binds them on the component’s tag as
+    one group, `v-bind="$optional('<tag>')"`, with an `NA` placeholder
+    per field so they fall back to Element’s defaults and stay updatable
+    (`JS("null")` is a deliberate `null`). Hand-written
     [`.vue_optional_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_optional_bind.md)
-    with an `NA` placeholder so they fall back to Element’s defaults and
-    stay updatable.
+    ternaries are on their way out
+    (`.claude/plans/optional-props-2026-10-26.md`).
 3.  A stateful component names its value with
     `mounted = .vue_mounted_report(c(<field> = ns_id))`; that field
     becomes the binding’s value.

@@ -56,10 +56,10 @@ el_breadcrumb(
 )
 #> <div id="bc" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="bc_container" style="display: contents">
-#>   <el-breadcrumb :separator="separator === null ? undefined : separator" :separator-icon="separatorIcon === null ? undefined : separatorIcon">
+#>   <el-breadcrumb v-bind="$optional(&#39;breadcrumb&#39;)" :separator="separator === null ? undefined : separator">
 #>     <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click="handleClick(item)">{{item.label}}</el-breadcrumb-item>
 #>   </el-breadcrumb>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"Home","to":"/"},{"label":"Promotion list"}],"separator":null,"separatorIcon":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('bc', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"Home","to":"/"},{"label":"Promotion list"}],"separator":null,"separatorIcon":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('bc', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"breadcrumb":{"separator-icon":"separatorIcon"}},"evals":["options.methods.handleClick"]}</script>
 #> </div>
 ```

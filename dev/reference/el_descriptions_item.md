@@ -102,11 +102,11 @@ el_descriptions(
 )
 #> <div id="d" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="d_container" style="display: contents">
-#>   <el-descriptions :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize" :label-width="dLabelWidth === null ? undefined : dLabelWidth">
+#>   <el-descriptions v-bind="$optional(&#39;descriptions&#39;)" :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize">
 #>     <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
 #>     <el-descriptions-item label="Address" :span="2">No.1188, Wuzhong Avenue</el-descriptions-item>
 #>   </el-descriptions>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":null,"dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":null,"dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"descriptions":{"label-width":"dLabelWidth"}},"evals":[]}</script>
 #> </div>
 ```

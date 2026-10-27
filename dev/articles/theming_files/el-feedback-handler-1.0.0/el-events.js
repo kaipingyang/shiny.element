@@ -7,6 +7,12 @@
 (function () {
   var se = window.shinyElement = window.shinyElement || {};
   var sv = window.shinyVue = window.shinyVue || {};
+  // Props bound through $optional() whose value R cannot give as it is: a
+  // picker's default value and time (Dates, from text) and a popup's
+  // virtual-ref (an element, from a selector), by the helpers below
+  sv.optionalWraps = sv.optionalWraps || {};
+  sv.optionalWraps.elDate = function (v) { return this.$elDate(v); };
+  sv.optionalWraps.elRef = function (v) { return this.$elRef(v); };
 
   // Every component is an app of its own in Vue 3, so Element Plus -- with
   // the page's config: locale, size, z-index -- and its icons are installed

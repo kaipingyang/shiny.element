@@ -114,6 +114,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_append_children.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_array_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_autocomplete_suggestions.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_bind_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_bridge_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_calendar_events.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_camel.html</loc></url>
@@ -170,6 +171,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_prop_values.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_rename_all.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_rename_groups.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_rename_option_fields.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_rename_ref.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_render_component.html</loc></url>

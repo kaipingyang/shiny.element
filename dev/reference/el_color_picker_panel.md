@@ -198,9 +198,9 @@ returns `NULL` invisibly.
 el_color_picker_panel("brand", value = "#409EFF")
 #> <div id="brand" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="brand_container" style="display: contents">
-#>   <el-color-picker-panel v-model="value" :border="border === null ? undefined : border" :disabled="disabled === null ? undefined : disabled" :show-alpha="showAlpha === null ? undefined : showAlpha" :color-format="colorFormat === null ? undefined : colorFormat" :predefine="predefine === null ? undefined : predefine" :validate-event="validateEvent === null ? undefined : validateEvent" :hue-slider-class="hueSliderClass === null ? undefined : hueSliderClass" :hue-slider-style="hueSliderStyle === null ? undefined : hueSliderStyle"></el-color-picker-panel>
+#>   <el-color-picker-panel v-bind="$optional(&#39;color-picker-panel&#39;)" v-model="value"></el-color-picker-panel>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","border":null,"disabled":null,"showAlpha":false,"colorFormat":null,"predefine":null,"validateEvent":null,"hueSliderClass":null,"hueSliderStyle":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.value"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"#409EFF","border":null,"disabled":null,"showAlpha":false,"colorFormat":null,"predefine":null,"validateEvent":null,"hueSliderClass":null,"hueSliderStyle":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"color-picker-panel":{"border":"border","disabled":"disabled","show-alpha":"showAlpha","color-format":"colorFormat","predefine":"predefine","validate-event":"validateEvent","hue-slider-class":"hueSliderClass","hue-slider-style":"hueSliderStyle"}},"evals":["options.watch.value"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

@@ -321,8 +321,10 @@ update_el_cascader(
 - value_on_clear:
 
   Clear return value, see config-provider. Element Plus's
-  `value-on-clear` (string / number / boolean / Function). Give it as
-  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md).
+  `value-on-clear` (string / number / boolean / Function, or `null`,
+  which its documentation names): a value as it is, a function as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md),
+  `null` as `JS("null")`. `NULL` leaves Element's default.
 
 - virtual_scroll:
 

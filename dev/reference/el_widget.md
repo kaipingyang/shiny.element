@@ -175,7 +175,11 @@ el_widget(
 
   Optional props from
   [`.el_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_props.md):
-  bound on the root tag of `markup`, with their fields added to `data`.
+  bound on the root tag of `markup` as one group,
+  `v-bind="$optional('<tag>')"`, with their fields added to `data`; or
+  already bound on another tag
+  ([`.el_bind_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_bind_props.md)),
+  whose groups are kept.
 
 - absorbed:
 

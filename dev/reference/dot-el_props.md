@@ -1,10 +1,15 @@
-# Optional props, bound and given their data
+# Optional props, given their data
 
-Element Plus's props that keep its own default unless given: each is
-bound as `:kebab-name` to a field of the same camelCase name, through
-[`.vue_optional_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_optional_bind.md),
-and the field holds the value or `NA` (read back as `undefined`,
-Element's default).
+Element Plus's props that keep its own default unless given: each has a
+field of its camelCase name holding the value, `NA` when unset
+(Element's default, `undefined` in the browser; `JS("null")` is a
+deliberate `null`), and an entry naming that field for the prop.
+[`.el_bind_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_bind_props.md)
+binds the entries on their tag as one group,
+`v-bind="$optional('<group>')"`
+([`.vue_optional_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_optional_props.md));
+[`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md)
+does it for its root tag.
 
 ## Usage
 
@@ -29,4 +34,6 @@ Element's default).
 
 ## Value
 
-A list of `attrs` (for the tag) and `data` (for the Vue data).
+A list of `data` (for the Vue data) and `entries`
+(`<prop-kebab> = <field>`, or `list(field =, wrap =)`), not yet bound to
+a tag.
