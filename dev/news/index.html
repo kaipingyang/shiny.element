@@ -168,6 +168,10 @@
 </ul></li>
 </ul></div>
 <div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>Clearing a select now reports <code>NULL</code> to the server. Element sets a cleared select to <code>undefined</code>, which JSON has no form for, so the update was never sent and <code>input$&lt;id&gt;</code> kept the value the user had just cleared. Any component’s value, store field or <code>shinyVue.useInput()</code> that becomes <code>undefined</code> now reports <code>NULL</code>, as an empty selection does.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
 <ul><li>A “Performance” article: where a page’s starting time goes, what the package does about it, <code>persistent = FALSE</code> per component with its measured gain, the lazy and virtual options, and deploying an app’s own theme with its <code>app_cache/sass</code>.</li>
 </ul></div>

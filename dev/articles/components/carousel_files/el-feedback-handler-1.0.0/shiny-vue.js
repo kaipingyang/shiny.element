@@ -62,6 +62,15 @@
     });
     return out;
   }
+  // A component's value as an input reports it. JSON has no undefined --
+  // JSON.stringify leaves nothing for it -- so an input set to undefined
+  // was never sent and kept its old value on the server -- a select that
+  // the component library clears to undefined. It goes as null, NULL in R,
+  // as an empty selection does.
+  function reported(x) {
+    var p = plain(x);
+    return p === undefined ? null : p;
+  }
   sv.plain = plain;
   sv.serialisable = serialisable;
 
@@ -210,7 +219,7 @@
     var inputs = sv.inputs();
     var value = Vue.ref(name in inputs ? inputs[name] : initial);
     var send = function(v) {
-      if (window.Shiny && Shiny.setInputValue) Shiny.setInputValue(name, plain(v), opts || {});
+      if (window.Shiny && Shiny.setInputValue) Shiny.setInputValue(name, reported(v), opts || {});
     };
     // sent on load, as an input is, and on every change
     if (window.Shiny && Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send(value.value);
@@ -402,7 +411,7 @@
     if (!id || !spec.input || !window.Shiny) return;
     var get = getter(spec.input);
     var name = id + (spec.type ? ':' + spec.type : '');
-    var send = function() { Shiny.setInputValue(name, plain(get(vm))); };
+    var send = function() { Shiny.setInputValue(name, reported(get(vm))); };
     // stopped with the instance when Vue unmounts it
     vm.$watch(function() { return get(this); }, send, { deep: true });
     if (Shiny.shinyapp && Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected()) send();
@@ -1100,7 +1109,7 @@
     getValue: function(el) {
       var vm = el._shinyVue, field = el._shinyVueSpec && el._shinyVueSpec.input;
       if (!vm || !field) return null;
-      return plain(getter(field)(vm));
+      return reported(getter(field)(vm));
     },
     setValue: function(el, value) {
       var vm = el._shinyVue, field = el._shinyVueSpec && el._shinyVueSpec.input;

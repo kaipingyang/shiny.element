@@ -92,6 +92,27 @@ reached with `:::`. A helper moved between layers moves with every
 caller in the same commit: no name is left behind for compatibility –
 internal helpers are not an API.
 
+**User code goes in untouched.** The Vue layer is to be a package for
+any Vue code, so its machinery never takes a name from the user’s space:
+the bridge’s helpers are global properties starting with `$`
+(`$setInput`, `$store`, `$inputs`, `$busy`, and `$optional()` once props
+bind through it), and options it adds to a component are namespaced
+(`shinyVue*`). Whatever Vue the user writes – `data`, `computed`,
+`methods`, `watch`, `setup`, lifecycle hooks, `components`,
+`directives`, `provide`, `emits`, plugins through `use`, any other
+option – passes through as written. Where the package and the user give
+the same thing, the two are merged and the user’s wins: an event handler
+([`.vue_merge_handlers()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_merge_handlers.md)),
+one `v-bind` object rather than two, the user’s explicit attributes
+placed after ours (Vue 3: the later wins). Raw `el$` tags,
+[`template()`](https://kaipingyang.github.io/shiny.element/dev/reference/template.md),
+slots and cells are never rewritten. Values keep Vue’s meaning: an R
+`NULL` or `NA` is “unset”, the component’s own default (`undefined` in
+the browser); a deliberate `null` – Element’s own `value-on-clear` takes
+one – is `JS("null")`, reachable once props bind through `$optional()`
+(`.claude/plans/optional-props-2026-10-26.md`). A change that cannot
+keep all of this says which part and why, in its plan, before any code.
+
 **Where a helper lives.** There is no `utils.R` (nor `vue_utils.R`): a
 file named for no job collects whatever fits nowhere else. A helper one
 component uses lives in that component’s file; one several use, in a
@@ -106,6 +127,16 @@ scripts, the package’s files, the per-session memo), `vue_events.R`,
 the Element layer’s `el_props.R` (props bound and updated), `el_icon.R`,
 `el_dates.R` (day.js formats), `el_dependencies.R`, `el_events.R`,
 `el_items.R`.
+
+**Splitting is for what code holds, never for its length.** A file is
+split when it holds several jobs (`utils.R` did); a function when a part
+of it has a job of its own that wants reading or testing apart (the
+table’s column templates). A long function that reads top to bottom –
+arguments checked, attributes, events, data, the widget – stays one:
+most of its length is Element’s props, which no split shortens, and
+pieces with no job of their own only make the reader jump. Before
+splitting, name what the part does that the rest does not; if the answer
+is only “it is long”, leave it.
 
 ### Two kinds of component
 
