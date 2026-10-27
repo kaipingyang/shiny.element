@@ -530,7 +530,8 @@ vue_app <- function(
   store = FALSE,
   outputs = NULL,
   type = NULL,
-  rate = NULL
+  rate = NULL,
+  optional = NULL
 ) {
   if (!is.character(id) || length(id) != 1L || !nzchar(id)) {
     stop("`id` must be a single string.", call. = FALSE)
@@ -591,6 +592,10 @@ vue_app <- function(
     spec$rate <- .vue_rate(rate)
   }
   spec$use <- .vue_use(use)
+  # the optional props' groups, read by $optional() (.vue_optional_props())
+  if (length(optional)) {
+    spec$optional <- optional
+  }
   if (length(outputs)) {
     spec$outputs <- I(outputs)
   }

@@ -270,6 +270,21 @@ test_that("vue_app() works without Element Plus", {
     "inline"
   )
 
+  # optional props through $optional(): a value, a deliberate null, the
+  # child's default for unset; the user's own fields of the same names
+  box <- function() js("document.querySelector('#opt .box').textContent")
+  expect_equal(box(), "small|null|default-note")
+  expect_equal(
+    js("document.querySelector('#opt .mine').textContent"),
+    "user data|user field"
+  )
+  js("Shiny.setInputValue('opt_set', 1)")
+  Sys.sleep(1)
+  expect_equal(box(), "medium|null|set")
+  js("Shiny.setInputValue('opt_value', 1)")
+  Sys.sleep(1)
+  expect_equal(box(), "medium|given|set")
+
   expect_equal(
     js(
       "window.__w.filter(function(w){ return /Vue warn|shiny-vue/.test(w); }).length"

@@ -208,10 +208,56 @@ ui <- fluidPage(
       "{ install: function(app) { app.config.globalProperties.$hi = 'inline'; } }"
     )
   ),
+  # optional props: a child whose props have defaults, bound through
+  # $optional() -- unset is the default, JS("null") a null, and the user's
+  # own fields named optionalProps and optional are theirs
+  .vue_app_spec(
+    "opt",
+    template = paste0(
+      "<div><opt-box v-bind=\"$optional('box')\"></opt-box>",
+      "<i class=\"mine\">{{ optionalProps }}|{{ optional }}</i></div>"
+    ),
+    data = c(
+      .vue_optional_props(
+        list(size = "small", label = JS("null"), note = NULL),
+        "box"
+      )$data,
+      list(optionalProps = "user data", optional = "user field")
+    ),
+    options = list(
+      components = list(
+        opt_box = vue_component(
+          template = paste0(
+            "<span class=\"box\">{{ size }}|",
+            "{{ label === null ? 'null' : label }}|{{ note }}</span>"
+          ),
+          props = list(
+            size = list(default = "medium"),
+            label = list(default = "default-label"),
+            note = list(default = "default-note")
+          )
+        )
+      )
+    ),
+    input = NULL,
+    use = NULL,
+    dependencies = NULL,
+    optional = .vue_optional_props(
+      list(size = NULL, label = NULL, note = NULL),
+      "box"
+    )$map
+  ),
   verbatimTextOutput("vals")
 )
 
 server <- function(input, output, session) {
+  # NA: back to the default; a value; JS("null"): a null
+  observeEvent(input$opt_set, {
+    update_vue(session, "opt", size = NA, note = "set", label = JS("null"))
+  })
+  observeEvent(input$opt_value, {
+    update_vue(session, "opt", label = "given")
+  })
   output$dstats <- render_vue_data({
     if (isTRUE(input$dslow)) {
       Sys.sleep(2)
