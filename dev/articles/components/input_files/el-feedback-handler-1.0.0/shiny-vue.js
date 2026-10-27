@@ -149,6 +149,52 @@
       if (o && typeof o[key] === 'string') o[key] = eval('(' + o[key] + ')');
     });
   }
+  // ── optional props ──────────────────────────────────────────────────────
+  //
+  // A prop the component library defaults when it is not given. Vue applies
+  // a prop's default for undefined only, and JSON has no undefined: unset in
+  // R (NULL, or NA in an update) arrives as null, and for the fields a
+  // component lists as optional (spec.optional, {group: {prop: field}}) it
+  // is made undefined here -- before revive(), so that JS("null"), revived
+  // after, stays a deliberate null. A template binds a group with
+  // v-bind="$optional('group')", which gives the props whose field is not
+  // undefined. An entry may be {field, wrap}: the value goes through
+  // sv.optionalWraps[wrap], which a component library registers.
+  sv.optionalWraps = sv.optionalWraps || {};
+  function optionalEntry(e) { return typeof e === 'string' ? { field: e } : e; }
+  function optionalFields(optional) {
+    var out = {};
+    Object.keys(optional || {}).forEach(function(g) {
+      Object.keys(optional[g]).forEach(function(p) { out[optionalEntry(optional[g][p]).field] = true; });
+    });
+    return out;
+  }
+  // null -> undefined for the optional ones among `data`'s keys; `nameOf`
+  // maps a key to the field it sets, where the two differ (a folded component)
+  function unsetOptional(fields, data, nameOf) {
+    if (!data) return;
+    Object.keys(data).forEach(function(k) {
+      var f = nameOf ? nameOf(k) : k;
+      if (f && fields[f] && data[k] === null) data[k] = undefined;
+    });
+  }
+  function optionalOf(vm) { return optionalFields(vm && vm.$options && vm.$options.shinyVueOptional); }
+  function optionalProps(group) {
+    var map = (this.$options.shinyVueOptional || {})[group], out = {};
+    if (!map) { warn('$optional: no group "' + group + '"'); return out; }
+    for (var prop in map) {
+      var e = optionalEntry(map[prop]), v = this[e.field];
+      if (v === undefined) continue;
+      if (e.wrap) {
+        var wrap = sv.optionalWraps[e.wrap];
+        if (typeof wrap !== 'function') { warn('$optional: no wrap "' + e.wrap + '"'); continue; }
+        v = wrap(v);
+      }
+      out[prop] = v;
+    }
+    return out;
+  }
+
 
   // Stores: state shared by components. Each component is an app of its
   // own, so Vue's provide/inject cannot reach across them; a store is what
@@ -302,8 +348,10 @@
     var opt = host.querySelector(':scope > script[data-shiny-vue-options]');
     if (!tpl || !opt) return null;
     var spec = JSON.parse(opt.textContent);
+    if (spec.optional) unsetOptional(optionalFields(spec.optional), spec.options.data);
     revive(spec, spec.evals);
     var options = spec.options;
+    if (spec.optional) options.shinyVueOptional = spec.optional;
     aliasComponents(options);
     options.template = tpl.textContent;
     // Vue 3: data is a function, and the lifecycle hooks have new names
@@ -347,6 +395,7 @@
     Object.defineProperty(app.config.globalProperties, '$busy', {
       get: function() { return sv.state().busy; }, enumerable: true, configurable: true
     });
+    app.config.globalProperties.$optional = optionalProps;
     // Vue plugins the component asks for (`use`), by their global names --
     // a component library, an i18n plugin: app.use() on each
     // -- a name, or {name, options} for a plugin that takes them
@@ -361,6 +410,11 @@
       else if (window.console) console.warn('[shiny-vue] "' + host.id + '" asks for plugin ' + name + ', which is not on the page');
     });
     sv.mountingHost = null;
+    // the user's plugin wins, as the user's code does; said, since the
+    // component's own optional props then bind through it
+    if (app.config.globalProperties.$optional !== optionalProps && spec.optional) {
+      warn('"' + host.id + '": a plugin replaced $optional; its optional props bind through that one');
+    }
     // The app's root goes into a box of its own: Vue 3 owns its container
     var box = document.createElement('div');
     box.setAttribute('data-shiny-vue-root', '');
@@ -774,6 +828,7 @@
     var vm = mount(found.host);
     if (!vm) return false;
     var fields = found.entry.fields || {};
+    unsetOptional(optionalOf(vm), data, function(k) { return fields[k]; });
     if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
     applyEdits(vm, data, function(f) {
       var n = fields[f];
@@ -827,6 +882,8 @@
     if (!vm) { warn('update: no component with id "' + id + '"'); return; }
     // announced to screen readers, as Shiny's update*Input() does
     if (!host.hasAttribute('aria-live')) host.setAttribute('aria-live', 'polite');
+    // NA in R: back to the component library's default
+    unsetOptional(optionalOf(vm), data);
     // A function in an update -- a new formatter, a form rule's validator --
     // travels as source too
     if (data['.evals']) { revive(data, data['.evals']); delete data['.evals']; }
@@ -1261,6 +1318,7 @@
       var vm = u.host._shinyVue, sentBefore = u.host._svSent || {};
       // compared as sent -- functions still their source text -- then revived
       var asSent = JSON.parse(JSON.stringify(u.spec.data));
+      unsetOptional(optionalOf(vm), u.spec.data);
       revive({ options: { data: u.spec.data } }, u.spec.evals);
       Object.keys(asSent).forEach(function(k) {
         if (JSON.stringify(asSent[k]) === JSON.stringify(sentBefore[k])) return;
@@ -1289,6 +1347,7 @@
     Object.keys(patch.fields || {}).forEach(function(k) {
       var asSent = JSON.parse(patch.fields[k]);
       var field = JSON.parse(patch.fields[k]);
+      if (field.value === null && optionalOf(vm)[k]) field.value = undefined;
       revive(field, field.evals);
       sent[k] = asSent.value;
       if (k in vm.$data) vm[k] = field.value;
