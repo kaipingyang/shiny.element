@@ -177,7 +177,13 @@ an error; enumerated ones are checked as the UI function checks them.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_update_props</span><span class="op">(</span><span class="va">fn</span>, <span class="va">dots</span>, skip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, rename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.el_update_props</span><span class="op">(</span></span>
+<span>  <span class="va">fn</span>,</span>
+<span>  <span class="va">dots</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  rename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -199,6 +205,12 @@ caller left <code>NULL</code>.</p></dd>
 
 <dt id="arg-rename">rename<a class="anchor" aria-label="anchor" href="#arg-rename"></a></dt>
 <dd><p><code>c(&lt;argument&gt; = "&lt;field&gt;")</code> for a field named otherwise.</p></dd>
+
+
+<dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
+<dd><p>A prefix for the fields' names, as the UI function's
+<code>.el_props(prefix =)</code> gave them – a wrapper keeping its fields apart
+from those of the component it folds in – or <code>NULL</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

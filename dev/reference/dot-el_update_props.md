@@ -11,7 +11,13 @@ function checks them.
 ## Usage
 
 ``` r
-.el_update_props(fn, dots, skip = character(), rename = character())
+.el_update_props(
+  fn,
+  dots,
+  skip = character(),
+  rename = character(),
+  prefix = NULL
+)
 ```
 
 ## Arguments
@@ -32,6 +38,12 @@ function checks them.
 - rename:
 
   `c(<argument> = "<field>")` for a field named otherwise.
+
+- prefix:
+
+  A prefix for the fields' names, as the UI function's
+  `.el_props(prefix =)` gave them – a wrapper keeping its fields apart
+  from those of the component it folds in – or `NULL`.
 
 ## Value
 

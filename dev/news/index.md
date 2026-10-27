@@ -39,6 +39,14 @@
   default and `JS("null")` a `null`; the pages are smaller too
   ([`el_select()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_select.md)’s
   from 5757 characters to 4400).
+- `update_el_*()` checks an enumerated argument as the UI function does:
+  `update_el_button(type = "primay")` is an error, as
+  `el_button(type = "primay")` is, where it was sent and silently
+  ignored (`type` and `size` of the alert, avatar, button, date picker,
+  image, input, progress and tag). `update_el_tree_select(data =)` sends
+  a data frame as rows, as
+  [`el_tree_select()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_tree_select.md)
+  does, not as columns.
 
 ### Documentation
 
