@@ -94,9 +94,6 @@ update_el_check_tag <- function(
   if (!is.null(label)) {
     msg$text <- label
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -104,6 +101,7 @@ update_el_check_tag <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           type = type
         )
       )

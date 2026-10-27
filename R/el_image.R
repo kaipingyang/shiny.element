@@ -196,12 +196,6 @@ update_el_image <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(src)) {
-    msg$src <- src
-  }
-  if (!is.null(fit)) {
-    msg$fit <- fit
-  }
   if (!is.null(preview_src_list)) {
     msg$previewSrcList <- as.list(preview_src_list)
   }
@@ -212,6 +206,8 @@ update_el_image <- function(
       Filter(
         Negate(is.null),
         list(
+          src = src,
+          fit = fit,
           alt = alt,
           lazy = lazy,
           scroll_container = scroll_container,

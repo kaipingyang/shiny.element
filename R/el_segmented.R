@@ -154,9 +154,6 @@ update_el_segmented <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -165,6 +162,7 @@ update_el_segmented <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           size = size,
           block = block,
           validate_event = validate_event,

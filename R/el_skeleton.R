@@ -137,18 +137,17 @@ update_el_skeleton <- function(
 ) {
   .vue_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(loading)) {
-    msg$skLoading <- loading
-  }
-  if (!is.null(rows)) {
-    msg$skRows <- rows
-  }
-  if (!is.null(animated)) {
-    msg$skAnimated <- animated
-  }
-  if (!is.null(count)) {
-    msg$skCount <- count
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_skeleton",
+      Filter(
+        Negate(is.null),
+        list(loading = loading, rows = rows, animated = animated, count = count)
+      ),
+      prefix = "sk"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

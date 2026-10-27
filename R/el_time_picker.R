@@ -396,9 +396,6 @@ update_el_time_picker <- function(
   if (!is.null(value)) {
     msg$value <- if (length(value) > 1) as.list(value) else value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -407,6 +404,7 @@ update_el_time_picker <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           is_range = is_range,
           value_format = value_format,
           arrow_control = arrow_control,

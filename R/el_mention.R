@@ -202,9 +202,6 @@ update_el_mention <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -213,6 +210,7 @@ update_el_mention <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           options = if (!is.null(options)) .vue_choices(options),
           props = props,
           prefix = prefix,

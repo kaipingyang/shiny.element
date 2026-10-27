@@ -384,9 +384,6 @@ update_el_menu <- function(
   if (!is.null(default_active)) {
     msg$active <- default_active
   }
-  if (!is.null(collapse)) {
-    msg$collapse <- collapse
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -394,6 +391,7 @@ update_el_menu <- function(
       Filter(
         Negate(is.null),
         list(
+          collapse = collapse,
           mode = mode,
           unique_opened = unique_opened,
           background_color = background_color,

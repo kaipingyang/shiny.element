@@ -335,9 +335,6 @@ update_el_dropdown <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -345,6 +342,7 @@ update_el_dropdown <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           trigger = trigger,
           type = type,
           size = size,

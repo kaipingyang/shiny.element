@@ -279,24 +279,6 @@ update_el_button <- function(
   if (!is.null(label)) {
     msg$label <- label
   }
-  if (!is.null(type)) {
-    msg$type <- type
-  }
-  if (!is.null(size)) {
-    msg$size <- size
-  }
-  if (!is.null(plain)) {
-    msg$plain <- plain
-  }
-  if (!is.null(round)) {
-    msg$round <- round
-  }
-  if (!is.null(loading)) {
-    msg$loading <- loading
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -304,6 +286,12 @@ update_el_button <- function(
       Filter(
         Negate(is.null),
         list(
+          type = type,
+          size = size,
+          plain = plain,
+          round = round,
+          loading = loading,
+          disabled = disabled,
           circle = circle,
           icon = icon,
           autofocus = autofocus,

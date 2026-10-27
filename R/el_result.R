@@ -120,15 +120,17 @@ update_el_result <- function(
 ) {
   .vue_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(icon)) {
-    msg$resultIcon <- icon
-  }
-  if (!is.null(title)) {
-    msg$resultTitle <- title
-  }
-  if (!is.null(sub_title)) {
-    msg$resultSubTitle <- sub_title
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_result",
+      Filter(
+        Negate(is.null),
+        list(icon = icon, title = title, sub_title = sub_title)
+      ),
+      prefix = "result"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

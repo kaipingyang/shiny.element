@@ -179,12 +179,6 @@ update_el_checkbox <- function(
   if (!is.null(label)) {
     msg$text <- label
   }
-  if (!is.null(indeterminate)) {
-    msg$indeterminate <- indeterminate
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -192,6 +186,8 @@ update_el_checkbox <- function(
       Filter(
         Negate(is.null),
         list(
+          indeterminate = indeterminate,
+          disabled = disabled,
           border = border,
           size = size,
           true_label = true_label,

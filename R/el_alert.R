@@ -126,15 +126,6 @@ update_el_alert <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(title)) {
-    msg$title <- title
-  }
-  if (!is.null(type)) {
-    msg$type <- type
-  }
-  if (!is.null(description)) {
-    msg$description <- description
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -142,6 +133,9 @@ update_el_alert <- function(
       Filter(
         Negate(is.null),
         list(
+          title = title,
+          type = type,
+          description = description,
           closable = closable,
           close_text = close_text,
           show_icon = show_icon,

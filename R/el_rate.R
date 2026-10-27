@@ -216,9 +216,6 @@ update_el_rate <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -227,6 +224,7 @@ update_el_rate <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           max = max,
           allow_half = allow_half,
           show_text = show_text,

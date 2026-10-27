@@ -240,9 +240,6 @@ update_el_transfer <- function(
   if (!is.null(titles)) {
     msg$titles <- as.list(titles)
   }
-  if (!is.null(filterable)) {
-    msg$filterable <- filterable
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -251,6 +248,7 @@ update_el_transfer <- function(
       Filter(
         Negate(is.null),
         list(
+          filterable = filterable,
           button_texts = button_texts,
           filter_placeholder = filter_placeholder,
           filter_method = filter_method,

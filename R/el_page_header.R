@@ -106,12 +106,6 @@ update_el_page_header <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(title)) {
-    msg$title <- title
-  }
-  if (!is.null(content)) {
-    msg$content <- content
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -119,6 +113,8 @@ update_el_page_header <- function(
       Filter(
         Negate(is.null),
         list(
+          title = title,
+          content = content,
           icon = icon
         )
       )

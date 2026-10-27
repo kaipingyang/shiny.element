@@ -180,21 +180,23 @@ update_el_badge <- function(
 ) {
   .vue_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(value)) {
-    msg$badgeValue <- value
-  }
-  if (!is.null(max)) {
-    msg$badgeMax <- max
-  }
-  if (!is.null(is_dot)) {
-    msg$badgeIsDot <- is_dot
-  }
-  if (!is.null(hidden)) {
-    msg$badgeHidden <- hidden
-  }
-  if (!is.null(type)) {
-    msg$badgeType <- type
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_badge",
+      Filter(
+        Negate(is.null),
+        list(
+          value = value,
+          max = max,
+          is_dot = is_dot,
+          hidden = hidden,
+          type = type
+        )
+      ),
+      prefix = "badge"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

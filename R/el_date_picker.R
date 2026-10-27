@@ -412,23 +412,8 @@ update_el_date_picker <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
-  if (!is.null(type)) {
-    msg$type <- type
-  }
   if (!is.null(format)) {
     msg$displayFormat <- .el_dayjs_format(format)
-  }
-  if (!is.null(clearable)) {
-    msg$clearable <- clearable
-  }
-  if (!is.null(readonly)) {
-    msg$readonly <- readonly
-  }
-  if (!is.null(placeholder)) {
-    msg$placeholder <- placeholder
   }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
@@ -438,6 +423,11 @@ update_el_date_picker <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
+          type = type,
+          clearable = clearable,
+          readonly = readonly,
+          placeholder = placeholder,
           value_format = value_format,
           start_placeholder = start_placeholder,
           end_placeholder = end_placeholder,

@@ -176,27 +176,6 @@ update_el_progress <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(percentage)) {
-    msg$percentage <- percentage
-  }
-  if (!is.null(type)) {
-    msg$type <- type
-  }
-  if (!is.null(status)) {
-    msg$status <- status
-  }
-  if (!is.null(color)) {
-    msg$color <- color
-  }
-  if (!is.null(stroke_width)) {
-    msg$strokeWidth <- stroke_width
-  }
-  if (!is.null(show_text)) {
-    msg$showText <- show_text
-  }
-  if (!is.null(text_inside)) {
-    msg$textInside <- text_inside
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -204,6 +183,13 @@ update_el_progress <- function(
       Filter(
         Negate(is.null),
         list(
+          percentage = percentage,
+          type = type,
+          status = status,
+          color = color,
+          stroke_width = stroke_width,
+          show_text = show_text,
+          text_inside = text_inside,
           stroke_linecap = stroke_linecap,
           format = format,
           duration = duration,

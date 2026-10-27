@@ -30,6 +30,12 @@
   `v-bind="$optional('<tag>')"`, where unset (`NULL`, `NA`) is the default
   and `JS("null")` a `null`; the pages are smaller too (`el_select()`'s
   from 5757 characters to 4400).
+* `update_el_*()` checks an enumerated argument as the UI function does:
+  `update_el_button(type = "primay")` is an error, as `el_button(type =
+  "primay")` is, where it was sent and silently ignored (`type` and
+  `size` of the alert, avatar, button, date picker, image, input,
+  progress and tag). `update_el_tree_select(data =)` sends a data frame
+  as rows, as `el_tree_select()` does, not as columns.
 
 ## Documentation
 

@@ -329,27 +329,6 @@ update_el_input <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(placeholder)) {
-    msg$placeholder <- placeholder
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
-  if (!is.null(readonly)) {
-    msg$readonly <- readonly
-  }
-  if (!is.null(type)) {
-    msg$type <- type
-  }
-  if (!is.null(size)) {
-    msg$size <- size
-  }
-  if (!is.null(clearable)) {
-    msg$clearable <- clearable
-  }
-  if (!is.null(show_password)) {
-    msg$showPassword <- show_password
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -358,6 +337,13 @@ update_el_input <- function(
       Filter(
         Negate(is.null),
         list(
+          placeholder = placeholder,
+          disabled = disabled,
+          readonly = readonly,
+          type = type,
+          size = size,
+          clearable = clearable,
+          show_password = show_password,
           show_word_limit = show_word_limit,
           maxlength = maxlength,
           rows = rows,

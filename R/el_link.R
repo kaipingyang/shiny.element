@@ -149,24 +149,24 @@ update_el_link <- function(
 ) {
   .vue_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(label)) {
-    msg$text <- label
-  }
-  if (!is.null(href)) {
-    msg$href <- href
-  }
-  if (!is.null(type)) {
-    msg$type <- type
-  }
-  if (!is.null(underline)) {
-    msg$underline <- underline
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
-  if (!is.null(icon)) {
-    msg$icon <- icon
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_link",
+      Filter(
+        Negate(is.null),
+        list(
+          label = label,
+          href = href,
+          type = type,
+          underline = underline,
+          disabled = disabled,
+          icon = icon
+        )
+      ),
+      rename = c(label = "text")
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

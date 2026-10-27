@@ -425,9 +425,6 @@ update_el_select_v2 <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -436,6 +433,7 @@ update_el_select_v2 <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           multiple = multiple,
           value_key = value_key,
           size = size,

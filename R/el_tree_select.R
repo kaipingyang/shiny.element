@@ -230,12 +230,6 @@ update_el_tree_select <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(data)) {
-    msg$data <- data
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -244,6 +238,8 @@ update_el_tree_select <- function(
       Filter(
         Negate(is.null),
         list(
+          data = data,
+          disabled = disabled,
           multiple = multiple,
           show_checkbox = show_checkbox,
           check_strictly = check_strictly,

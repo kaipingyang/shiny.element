@@ -245,9 +245,6 @@ update_el_radio_group <- function(
   if (!is.null(choices)) {
     msg$options <- .vue_choices(choices)
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -256,6 +253,7 @@ update_el_radio_group <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           size = size,
           fill = fill,
           text_color = text_color,

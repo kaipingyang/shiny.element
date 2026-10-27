@@ -197,9 +197,6 @@ update_el_timeline <- function(
   if (!is.null(items)) {
     msg$items <- .el_timeline_items(items)
   }
-  if (!is.null(reverse)) {
-    msg$reverse <- reverse
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -207,6 +204,7 @@ update_el_timeline <- function(
       Filter(
         Negate(is.null),
         list(
+          reverse = reverse,
           mode = mode
         )
       )

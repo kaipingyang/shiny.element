@@ -183,15 +183,6 @@ update_el_statistic <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(title)) {
-    msg$title <- title
-  }
-  if (!is.null(prefix)) {
-    msg$prefix <- prefix
-  }
-  if (!is.null(suffix)) {
-    msg$suffix <- suffix
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -199,6 +190,9 @@ update_el_statistic <- function(
       Filter(
         Negate(is.null),
         list(
+          title = title,
+          prefix = prefix,
+          suffix = suffix,
           precision = precision,
           decimal_separator = decimal_separator,
           group_separator = group_separator,
@@ -238,20 +232,20 @@ update_el_countdown <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(title)) {
-    msg$title <- title
-  }
-  if (!is.null(prefix)) {
-    msg$prefix <- prefix
-  }
-  if (!is.null(suffix)) {
-    msg$suffix <- suffix
-  }
   msg <- c(
     msg,
     .el_update_props(
       "el_countdown",
-      Filter(Negate(is.null), list(format = format, value_style = value_style))
+      Filter(
+        Negate(is.null),
+        list(
+          title = title,
+          prefix = prefix,
+          suffix = suffix,
+          format = format,
+          value_style = value_style
+        )
+      )
     )
   )
   .vue_send_update(session, msg)

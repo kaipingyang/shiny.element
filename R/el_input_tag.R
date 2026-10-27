@@ -238,9 +238,6 @@ update_el_input_tag <- function(
   if (!is.null(value)) {
     msg$value <- as.list(value)
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -249,6 +246,7 @@ update_el_input_tag <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           max = max,
           tag_type = tag_type,
           tag_effect = tag_effect,

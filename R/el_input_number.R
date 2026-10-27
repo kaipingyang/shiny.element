@@ -245,15 +245,6 @@ update_el_input_number <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(min)) {
-    msg$min <- min
-  }
-  if (!is.null(max)) {
-    msg$max <- max
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -262,6 +253,9 @@ update_el_input_number <- function(
       Filter(
         Negate(is.null),
         list(
+          min = min,
+          max = max,
+          disabled = disabled,
           step = step,
           step_strictly = step_strictly,
           precision = precision,

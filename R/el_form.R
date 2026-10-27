@@ -966,12 +966,6 @@ update_el_form <- function(
   if (!is.null(rules)) {
     msg$rules <- lapply(rules, .el_normalize_rules)
   }
-  if (!is.null(label_width)) {
-    msg$labelWidth <- label_width
-  }
-  if (!is.null(label_position)) {
-    msg$labelPosition <- label_position
-  }
   if (!is.null(fields)) {
     msg$.fields <- unname(fields)
   }
@@ -986,6 +980,8 @@ update_el_form <- function(
       Filter(
         Negate(is.null),
         list(
+          label_width = label_width,
+          label_position = label_position,
           inline = inline,
           size = size,
           submit_label = submit_label,

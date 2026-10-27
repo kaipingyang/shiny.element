@@ -246,15 +246,6 @@ update_el_checkbox_group <- function(
   if (!is.null(choices)) {
     msg$options <- .vue_choices(choices)
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
-  if (!is.null(min)) {
-    msg$min <- min
-  }
-  if (!is.null(max)) {
-    msg$max <- max
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -263,6 +254,9 @@ update_el_checkbox_group <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
+          min = min,
+          max = max,
           size = size,
           fill = fill,
           text_color = text_color,

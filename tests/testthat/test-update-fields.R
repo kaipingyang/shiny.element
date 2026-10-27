@@ -469,3 +469,26 @@ test_that("every update takes each UI argument held in the component's data", {
   }
   expect_equal(missing, character())
 })
+
+test_that("an update checks an enumerated argument as the UI function does", {
+  s <- mock_session()
+  expect_error(update_el_button(s, "b", type = "primay"), "type")
+  expect_error(update_el_progress(s, "p", status = "fine"), "status")
+  expect_no_error(update_el_button(s, "b", type = "primary"))
+})
+
+test_that("a wrapper's update names its fields with the UI function's prefix", {
+  # el_tooltip(): its fields carry `tip`, kept apart from a trigger's own
+  expect_equal(
+    .el_update_props("el_tooltip", list(content = "c"), prefix = "tip"),
+    list(tipContent = "c")
+  )
+  expect_equal(
+    .el_update_props(
+      "el_link",
+      list(label = "L", type = "primary"),
+      rename = c(label = "text")
+    ),
+    list(text = "L", type = "primary")
+  )
+})

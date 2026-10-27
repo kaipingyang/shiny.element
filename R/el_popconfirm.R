@@ -203,15 +203,21 @@ update_el_popconfirm <- function(
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The popconfirm's fields carry a prefix, kept apart from its reference's
-  if (!is.null(title)) {
-    msg$pcTitle <- title
-  }
-  if (!is.null(confirm_button_text)) {
-    msg$pcConfirmButtonText <- confirm_button_text
-  }
-  if (!is.null(cancel_button_text)) {
-    msg$pcCancelButtonText <- cancel_button_text
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_popconfirm",
+      Filter(
+        Negate(is.null),
+        list(
+          title = title,
+          confirm_button_text = confirm_button_text,
+          cancel_button_text = cancel_button_text
+        )
+      ),
+      prefix = "pc"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

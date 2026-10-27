@@ -4,7 +4,13 @@
 \alias{.el_update_props}
 \title{Props an update function was given, as the component's fields}
 \usage{
-.el_update_props(fn, dots, skip = character(), rename = character())
+.el_update_props(
+  fn,
+  dots,
+  skip = character(),
+  rename = character(),
+  prefix = NULL
+)
 }
 \arguments{
 \item{fn}{The UI function's name, \code{"el_table"}.}
@@ -15,6 +21,10 @@ caller left \code{NULL}.}
 \item{skip}{Arguments of \code{fn} an update cannot set this way.}
 
 \item{rename}{\verb{c(<argument> = "<field>")} for a field named otherwise.}
+
+\item{prefix}{A prefix for the fields' names, as the UI function's
+\code{.el_props(prefix =)} gave them -- a wrapper keeping its fields apart
+from those of the component it folds in -- or \code{NULL}.}
 }
 \value{
 A named list: field -> value.

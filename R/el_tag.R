@@ -146,12 +146,6 @@ update_el_tag <- function(
   if (!is.null(label)) {
     msg$label <- label
   }
-  if (!is.null(type)) {
-    msg$type <- type
-  }
-  if (!is.null(closable)) {
-    msg$closable <- closable
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -159,6 +153,8 @@ update_el_tag <- function(
       Filter(
         Negate(is.null),
         list(
+          type = type,
+          closable = closable,
           size = size,
           effect = effect,
           color = color,

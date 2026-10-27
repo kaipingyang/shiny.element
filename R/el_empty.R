@@ -102,12 +102,14 @@ update_el_empty <- function(
 ) {
   .vue_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(description)) {
-    msg$emptyDescription <- description
-  }
-  if (!is.null(image)) {
-    msg$emptyImage <- image
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_empty",
+      Filter(Negate(is.null), list(description = description, image = image)),
+      prefix = "empty"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

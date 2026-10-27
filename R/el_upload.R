@@ -577,12 +577,6 @@ update_el_upload <- function(
 ) {
   .vue_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
-  if (!is.null(limit)) {
-    msg$limit <- limit
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -591,6 +585,8 @@ update_el_upload <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
+          limit = limit,
           button_label = button_label,
           drag = drag,
           multiple = multiple,

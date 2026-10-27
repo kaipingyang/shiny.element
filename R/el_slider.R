@@ -290,18 +290,6 @@ update_el_slider <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(min)) {
-    msg$min <- min
-  }
-  if (!is.null(max)) {
-    msg$max <- max
-  }
-  if (!is.null(step)) {
-    msg$step <- step
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -310,6 +298,10 @@ update_el_slider <- function(
       Filter(
         Negate(is.null),
         list(
+          min = min,
+          max = max,
+          step = step,
+          disabled = disabled,
           show_input = show_input,
           show_stops = show_stops,
           show_tooltip = show_tooltip,

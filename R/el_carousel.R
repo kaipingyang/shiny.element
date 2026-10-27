@@ -268,12 +268,6 @@ update_el_carousel <- function(
   if (!is.null(active)) {
     msg$active <- active
   }
-  if (!is.null(autoplay)) {
-    msg$autoplay <- autoplay
-  }
-  if (!is.null(interval)) {
-    msg$interval <- interval
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -281,6 +275,8 @@ update_el_carousel <- function(
       Filter(
         Negate(is.null),
         list(
+          autoplay = autoplay,
+          interval = interval,
           height = height,
           initial_index = initial_index,
           trigger = trigger,

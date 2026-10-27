@@ -153,13 +153,17 @@
 #'   caller left `NULL`.
 #' @param skip Arguments of `fn` an update cannot set this way.
 #' @param rename `c(<argument> = "<field>")` for a field named otherwise.
+#' @param prefix A prefix for the fields' names, as the UI function's
+#'   `.el_props(prefix =)` gave them -- a wrapper keeping its fields apart
+#'   from those of the component it folds in -- or `NULL`.
 #' @return A named list: field -> value.
 #' @keywords internal
 .el_update_props <- function(
   fn,
   dots,
   skip = character(),
-  rename = character()
+  rename = character(),
+  prefix = NULL
 ) {
   if (!length(dots)) {
     return(list())
@@ -188,6 +192,13 @@
   }
   .el_check_choices(fn, list2env(dots[!vapply(dots, is.null, TRUE)]))
   fields <- vapply(nms, .vue_camel, "")
+  if (!is.null(prefix)) {
+    fields <- paste0(
+      prefix,
+      toupper(substring(fields, 1, 1)),
+      substring(fields, 2)
+    )
+  }
   hit <- nms %in% names(rename)
   fields[hit] <- rename[nms[hit]]
   stats::setNames(.el_prop_values(dots), fields)

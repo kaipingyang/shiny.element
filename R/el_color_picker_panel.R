@@ -149,9 +149,6 @@ update_el_color_picker_panel <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -160,6 +157,7 @@ update_el_color_picker_panel <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           border = border,
           show_alpha = show_alpha,
           color_format = color_format,

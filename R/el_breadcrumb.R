@@ -134,9 +134,6 @@ update_el_breadcrumb <- function(
   if (!is.null(items)) {
     msg$items <- unname(items)
   }
-  if (!is.null(separator)) {
-    msg$separator <- separator
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -144,6 +141,7 @@ update_el_breadcrumb <- function(
       Filter(
         Negate(is.null),
         list(
+          separator = separator,
           separator_icon = separator_icon
         )
       )

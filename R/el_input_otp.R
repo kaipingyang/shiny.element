@@ -163,9 +163,6 @@ update_el_input_otp <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -174,6 +171,7 @@ update_el_input_otp <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
           length = length,
           validator = validator,
           inputmode = inputmode,

@@ -252,18 +252,22 @@ update_el_tooltip <- function(
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The tooltip's fields carry a prefix, kept apart from a trigger's own
-  if (!is.null(content)) {
-    msg$tipContent <- content
-  }
-  if (!is.null(disabled)) {
-    msg$tipDisabled <- disabled
-  }
-  if (!is.null(visible)) {
-    msg$tipVisible <- visible
-  }
-  if (!is.null(virtual_ref)) {
-    msg$tipVirtualRef <- virtual_ref
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_tooltip",
+      Filter(
+        Negate(is.null),
+        list(
+          content = content,
+          disabled = disabled,
+          visible = visible,
+          virtual_ref = virtual_ref
+        )
+      ),
+      prefix = "tip"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

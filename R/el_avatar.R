@@ -125,21 +125,6 @@ update_el_avatar <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(content)) {
-    msg$content <- content
-  }
-  if (!is.null(src)) {
-    msg$src <- src
-  }
-  if (!is.null(icon)) {
-    msg$icon <- icon
-  }
-  if (!is.null(size)) {
-    msg$size <- size
-  }
-  if (!is.null(shape)) {
-    msg$shape <- shape
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -147,6 +132,11 @@ update_el_avatar <- function(
       Filter(
         Negate(is.null),
         list(
+          content = content,
+          src = src,
+          icon = icon,
+          size = size,
+          shape = shape,
           fit = fit,
           src_set = src_set,
           alt = alt

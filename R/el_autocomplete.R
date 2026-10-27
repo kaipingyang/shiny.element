@@ -328,12 +328,6 @@ update_el_autocomplete <- function(
   if (!is.null(suggestions)) {
     msg$suggestions <- .el_autocomplete_suggestions(suggestions)
   }
-  if (!is.null(placeholder)) {
-    msg$placeholder <- placeholder
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -342,6 +336,8 @@ update_el_autocomplete <- function(
       Filter(
         Negate(is.null),
         list(
+          placeholder = placeholder,
+          disabled = disabled,
           clearable = clearable,
           value_key = value_key,
           debounce = debounce,

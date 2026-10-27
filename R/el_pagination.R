@@ -247,18 +247,6 @@ update_el_pagination <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(total)) {
-    msg$total <- total
-  }
-  if (!is.null(current_page)) {
-    msg$currentPage <- current_page
-  }
-  if (!is.null(page_size)) {
-    msg$pageSize <- page_size
-  }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -266,6 +254,10 @@ update_el_pagination <- function(
       Filter(
         Negate(is.null),
         list(
+          total = total,
+          current_page = current_page,
+          page_size = page_size,
+          disabled = disabled,
           page_sizes = page_sizes,
           layout = layout,
           background = background,

@@ -154,14 +154,8 @@ update_el_image_viewer <- function(
 ) {
   .vue_check_session(session)
   msg <- list(id = session$ns(id))
-  if (!is.null(visible)) {
-    msg$visible <- visible
-  }
   if (!is.null(url_list)) {
     msg$urlList <- as.list(url_list)
-  }
-  if (!is.null(initial_index)) {
-    msg$initialIndex <- initial_index
   }
   msg <- c(
     msg,
@@ -170,6 +164,8 @@ update_el_image_viewer <- function(
       Filter(
         Negate(is.null),
         list(
+          visible = visible,
+          initial_index = initial_index,
           z_index = z_index,
           infinite = infinite,
           hide_on_click_modal = hide_on_click_modal,

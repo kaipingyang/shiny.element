@@ -197,9 +197,6 @@ update_el_tour <- function(
   if (!is.null(visible)) {
     msg$open <- visible
   }
-  if (!is.null(current)) {
-    msg$current <- current
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -207,6 +204,7 @@ update_el_tour <- function(
       Filter(
         Negate(is.null),
         list(
+          current = current,
           show_arrow = show_arrow,
           placement = placement,
           content_style = content_style,

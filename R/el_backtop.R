@@ -108,15 +108,6 @@ update_el_backtop <- function(
   .vue_check_session(session)
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
-  if (!is.null(visibility_height)) {
-    msg$visibilityHeight <- visibility_height
-  }
-  if (!is.null(right)) {
-    msg$right <- right
-  }
-  if (!is.null(bottom)) {
-    msg$bottom <- bottom
-  }
   msg <- c(
     msg,
     .el_update_props(
@@ -124,6 +115,9 @@ update_el_backtop <- function(
       Filter(
         Negate(is.null),
         list(
+          visibility_height = visibility_height,
+          right = right,
+          bottom = bottom,
           target = target
         )
       )

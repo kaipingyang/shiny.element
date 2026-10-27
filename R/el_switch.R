@@ -245,21 +245,6 @@ update_el_switch <- function(
   if (!is.null(value)) {
     msg$value <- value
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
-  if (!is.null(active_text)) {
-    msg$activeText <- active_text
-  }
-  if (!is.null(inactive_text)) {
-    msg$inactiveText <- inactive_text
-  }
-  if (!is.null(active_color)) {
-    msg$activeColor <- active_color
-  }
-  if (!is.null(inactive_color)) {
-    msg$inactiveColor <- inactive_color
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -268,6 +253,11 @@ update_el_switch <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
+          active_text = active_text,
+          inactive_text = inactive_text,
+          active_color = active_color,
+          inactive_color = inactive_color,
           active_value = active_value,
           inactive_value = inactive_value,
           name = name,

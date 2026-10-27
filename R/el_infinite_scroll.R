@@ -161,15 +161,21 @@ update_el_infinite_scroll <- function(
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The area's fields carry a prefix, kept apart from its content's
-  if (!is.null(disabled)) {
-    msg$scrollDisabled <- disabled
-  }
-  if (!is.null(delay)) {
-    msg$scrollDelay <- delay
-  }
-  if (!is.null(distance)) {
-    msg$scrollDistance <- distance
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_infinite_scroll",
+      Filter(
+        Negate(is.null),
+        list(disabled = disabled, delay = delay, distance = distance)
+      ),
+      rename = c(
+        disabled = "scrollDisabled",
+        delay = "scrollDelay",
+        distance = "scrollDistance"
+      )
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

@@ -231,27 +231,25 @@ update_el_descriptions <- function(
   .vue_check_session(session)
   .el_check_choices("el_descriptions", environment())
   msg <- list(id = session$ns(id))
-  if (!is.null(title)) {
-    msg$dTitle <- title
-  }
-  if (!is.null(extra)) {
-    msg$dExtra <- extra
-  }
-  if (!is.null(column)) {
-    msg$dColumn <- column
-  }
-  if (!is.null(direction)) {
-    msg$dDirection <- direction
-  }
-  if (!is.null(border)) {
-    msg$dBorder <- border
-  }
-  if (!is.null(size)) {
-    msg$dSize <- size
-  }
-  if (!is.null(label_width)) {
-    msg$dLabelWidth <- label_width
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_descriptions",
+      Filter(
+        Negate(is.null),
+        list(
+          title = title,
+          extra = extra,
+          column = column,
+          direction = direction,
+          border = border,
+          size = size,
+          label_width = label_width
+        )
+      ),
+      prefix = "d"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

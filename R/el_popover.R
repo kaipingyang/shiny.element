@@ -242,18 +242,22 @@ update_el_popover <- function(
   ns_id <- session$ns(id)
   msg <- list(id = ns_id)
   # The popover's fields carry a prefix, kept apart from its reference's
-  if (!is.null(title)) {
-    msg$popTitle <- title
-  }
-  if (!is.null(content)) {
-    msg$popContent <- content
-  }
-  if (!is.null(disabled)) {
-    msg$popDisabled <- disabled
-  }
-  if (!is.null(visible)) {
-    msg$popVisible <- visible
-  }
+  msg <- c(
+    msg,
+    .el_update_props(
+      "el_popover",
+      Filter(
+        Negate(is.null),
+        list(
+          title = title,
+          content = content,
+          disabled = disabled,
+          visible = visible
+        )
+      ),
+      prefix = "pop"
+    )
+  )
   .vue_send_update(session, msg)
   invisible(NULL)
 }

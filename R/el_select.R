@@ -544,33 +544,6 @@ update_el_select <- function(
     # New choices answer a remote search, so it is no longer loading
     if (is.null(loading)) msg$loading <- FALSE
   }
-  if (!is.null(disabled)) {
-    msg$disabled <- disabled
-  }
-  if (!is.null(placeholder)) {
-    msg$placeholder <- placeholder
-  }
-  if (!is.null(clearable)) {
-    msg$clearable <- clearable
-  }
-  if (!is.null(filterable)) {
-    msg$filterable <- filterable
-  }
-  if (!is.null(multiple_limit)) {
-    msg$multipleLimit <- multiple_limit
-  }
-  if (!is.null(loading)) {
-    msg$loading <- loading
-  }
-  if (!is.null(loading_text)) {
-    msg$loadingText <- loading_text
-  }
-  if (!is.null(no_match_text)) {
-    msg$noMatchText <- no_match_text
-  }
-  if (!is.null(no_data_text)) {
-    msg$noDataText <- no_data_text
-  }
   msg <- .el_form_item_update(msg, label, error)
   msg <- c(
     msg,
@@ -579,6 +552,15 @@ update_el_select <- function(
       Filter(
         Negate(is.null),
         list(
+          disabled = disabled,
+          placeholder = placeholder,
+          clearable = clearable,
+          filterable = filterable,
+          multiple_limit = multiple_limit,
+          loading = loading,
+          loading_text = loading_text,
+          no_match_text = no_match_text,
+          no_data_text = no_data_text,
           multiple = multiple,
           size = size,
           collapse_tags = collapse_tags,
