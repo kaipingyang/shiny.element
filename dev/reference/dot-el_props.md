@@ -14,7 +14,7 @@ does it for its root tag.
 ## Usage
 
 ``` r
-.el_props(values, prefix = NULL, rename = NULL)
+.el_props(values, prefix = NULL, rename = NULL, fields = NULL)
 ```
 
 ## Arguments
@@ -31,6 +31,11 @@ does it for its root tag.
 
   Named character vector: an argument's name, and the prop it stands
   for, where the two differ.
+
+- fields:
+
+  `c(<argument> = "<field>")`: a field named otherwise than the prop, as
+  an update function already sets it.
 
 ## Value
 

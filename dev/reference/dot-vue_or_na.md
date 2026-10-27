@@ -2,9 +2,10 @@
 
 A field left out of a Vue instance's `data` is not reactive, so an
 update can never set it later. Unset optional props are therefore
-declared as `NA`, which serialises to `null`, and read back through
-[`.vue_optional_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_optional_bind.md),
-which turns that `null` into `undefined` so the component applies its
+declared as `NA`, which serialises to `null`; for the props of an
+`$optional()` group
+([`.vue_optional_props()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_optional_props.md))
+the bridge makes that `null` `undefined`, so the component applies its
 own default.
 
 ## Usage

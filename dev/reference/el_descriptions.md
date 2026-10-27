@@ -138,22 +138,22 @@ el_descriptions(
 )
 #> <div id="user" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="user_container" style="display: contents">
-#>   <el-descriptions v-bind="$optional(&#39;descriptions&#39;)" :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize">
+#>   <el-descriptions v-bind="$optional(&#39;descriptions&#39;)">
 #>     <el-descriptions-item label="Name">Ada Lovelace</el-descriptions-item>
 #>     <el-descriptions-item label="Plan">
-#>       <el-tag v-bind="$optional(&#39;tag&#39;)" :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color" ref="sv_plan" id="plan">{{label}}</el-tag>
+#>       <el-tag v-bind="$optional(&#39;tag&#39;)" :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" ref="sv_plan" id="plan">{{label}}</el-tag>
 #>     </el-descriptions-item>
 #>     <el-descriptions-item label="Address" :span="2">12 St James's Square, London</el-descriptions-item>
 #>   </el-descriptions>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"label":"Pro","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan_close', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"plan:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"descriptions":{"label-width":"dLabelWidth"},"tag":{"round":"round"}},"absorbed":{"plan":{"fields":{"label":"label","type":"type","closable":"closable","size":"size","effect":"effect","color":"color","hit":"hit","disableTransitions":"disableTransitions","count":"count","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_plan"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Pro","type":"success","closable":false,"effect":"light","hit":false,"disableTransitions":false,"count":0,"size":null,"color":null,"round":null,"dTitle":"Account","dExtra":null,"dColumn":null,"dDirection":null,"dBorder":true,"dSize":null,"dLabelWidth":null},"methods":{"handleClick":"function() { this.count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan:shiny.action', this.count); }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('plan_close', 1, {priority: 'event'}); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"plan:shiny.action\", self.count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"descriptions":{"title":"dTitle","extra":"dExtra","column":"dColumn","direction":"dDirection","border":"dBorder","size":"dSize","label-width":"dLabelWidth"},"tag":{"size":"size","color":"color","round":"round"}},"absorbed":{"plan":{"fields":{"label":"label","type":"type","closable":"closable","effect":"effect","hit":"hit","disableTransitions":"disableTransitions","count":"count","size":"size","color":"color","round":"round","handleClick":"handleClick","handleClose":"handleClose"},"ref":"sv_plan"}},"evals":["options.methods.handleClick","options.methods.handleClose","options.mounted"]}</script>
 #> </div>
 
 # The quick form: names are labels
 el_descriptions("car", items = as.list(mtcars[1, 1:6]))
 #> <div id="car" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="car_container" style="display: contents">
-#>   <el-descriptions v-bind="$optional(&#39;descriptions&#39;)" :title="dTitle === null ? undefined : dTitle" :extra="dExtra === null ? undefined : dExtra" :column="dColumn === null ? undefined : dColumn" :direction="dDirection === null ? undefined : dDirection" :border="dBorder === null ? undefined : dBorder" :size="dSize === null ? undefined : dSize">
+#>   <el-descriptions v-bind="$optional(&#39;descriptions&#39;)">
 #>     <el-descriptions-item label="mpg">21</el-descriptions-item>
 #>     <el-descriptions-item label="cyl">6</el-descriptions-item>
 #>     <el-descriptions-item label="disp">160</el-descriptions-item>
@@ -162,7 +162,7 @@ el_descriptions("car", items = as.list(mtcars[1, 1:6]))
 #>     <el-descriptions-item label="wt">2.62</el-descriptions-item>
 #>   </el-descriptions>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":null,"dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"descriptions":{"label-width":"dLabelWidth"}},"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"dTitle":null,"dExtra":null,"dColumn":null,"dDirection":null,"dBorder":null,"dSize":null,"dLabelWidth":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"descriptions":{"title":"dTitle","extra":"dExtra","column":"dColumn","direction":"dDirection","border":"dBorder","size":"dSize","label-width":"dLabelWidth"}},"evals":[]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

@@ -11,7 +11,14 @@ deliberate `null` is `JS("null")`.
 ## Usage
 
 ``` r
-.vue_optional_props(values, group, prefix = NULL, rename = NULL, wrap = NULL)
+.vue_optional_props(
+  values,
+  group,
+  prefix = NULL,
+  rename = NULL,
+  wrap = NULL,
+  fields = NULL
+)
 ```
 
 ## Arguments
@@ -41,6 +48,12 @@ deliberate `null` is `JS("null")`.
   `c(<argument> = "<wrap>")`: the value goes through
   `sv.optionalWraps[<wrap>]` in the browser, a function a component
   library registers.
+
+- fields:
+
+  `c(<argument> = "<field>")` for a field named otherwise than the prop
+  – one an update function already sets by that name. Taken as it is: no
+  prefix is added.
 
 ## Value
 

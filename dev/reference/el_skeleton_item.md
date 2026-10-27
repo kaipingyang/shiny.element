@@ -54,15 +54,15 @@ el_skeleton(
     )
   )
 )
-#> <div id="el_skeleton_3e80ce2d-2512-496e-8127-4a66e75d3581" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_skeleton_3e80ce2d-2512-496e-8127-4a66e75d3581_container" style="display: contents">
-#>   <el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle">
+#> <div id="el_skeleton_0f5ef103-6a28-4a5f-ae64-a93802aee2a3" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_skeleton_0f5ef103-6a28-4a5f-ae64-a93802aee2a3_container" style="display: contents">
+#>   <el-skeleton v-bind="$optional(&#39;skeleton&#39;)" :loading="skLoading">
 #>     <template v-slot:template>
 #>       <el-skeleton-item variant="image" style="width: 240px; height: 240px"></el-skeleton-item>
 #>       <el-skeleton-item variant="p" style="width: 50%"></el-skeleton-item>
 #>     </template>
 #>   </el-skeleton>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":null,"skAnimated":null,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"generated":true,"evals":[]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"skLoading":true,"skRows":null,"skAnimated":null,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"skeleton":{"rows":"skRows","animated":"skAnimated","count":"skCount","throttle":"skThrottle"}},"generated":true,"evals":[]}</script>
 #> </div>
 ```

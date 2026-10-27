@@ -151,16 +151,16 @@ invisibly.
 el_tag("tag1", "Success", type = "success")
 #> <div id="tag1" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="tag1_container" style="display: contents">
-#>   <el-tag v-bind="$optional(&#39;tag&#39;)" :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
+#>   <el-tag v-bind="$optional(&#39;tag&#39;)" :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose">{{label}}</el-tag>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Success","type":"success","closable":false,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag1_close', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"tag":{"round":"round"}},"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Success","type":"success","closable":false,"effect":"light","hit":false,"disableTransitions":false,"count":0,"size":null,"color":null,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag1_close', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"tag":{"size":"size","color":"color","round":"round"}},"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
 el_tag("tag2", "Closable", closable = TRUE)
 #> <div id="tag2" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="tag2_container" style="display: contents">
-#>   <el-tag v-bind="$optional(&#39;tag&#39;)" :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose" :size="size === null ? undefined : size" :color="color === null ? undefined : color">{{label}}</el-tag>
+#>   <el-tag v-bind="$optional(&#39;tag&#39;)" :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose">{{label}}</el-tag>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closable","type":null,"closable":true,"size":null,"effect":"light","color":null,"hit":false,"disableTransitions":false,"count":0,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag2_close', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"tag":{"round":"round"}},"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closable","type":null,"closable":true,"effect":"light","hit":false,"disableTransitions":false,"count":0,"size":null,"color":null,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('tag2_close', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"tag":{"size":"size","color":"color","round":"round"}},"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

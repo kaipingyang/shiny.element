@@ -250,12 +250,12 @@ listed all the slot names for you at the end of this page.</p>
 <div class="el-demo">
   <div id="with-status-st_status" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="with-status-st_status_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <el-steps v-bind="$optional(&#39;steps&#39;)" :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
     <el-step title="Done"></el-step>
     <el-step title="Processing"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":200},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":200},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -278,13 +278,13 @@ listed all the slot names for you at the end of this page.</p>
 <div class="el-demo">
   <div id="centered-st_center" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="centered-st_center_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <el-steps v-bind="$optional(&#39;steps&#39;)" :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
     <el-step title="Step 1" description="Some description"></el-step>
     <el-step title="Step 2" description="Some description"></el-step>
     <el-step title="Step 3" description="Some description"></el-step>
     <el-step title="Step 4" description="Some description"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":2,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":true,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":2,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":true,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -305,12 +305,12 @@ listed all the slot names for you at the end of this page.</p>
 <div class="el-demo">
   <div id="with-description-st_desc" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="with-description-st_desc_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <el-steps v-bind="$optional(&#39;steps&#39;)" :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
     <el-step title="Step 1" description="Some description"></el-step>
     <el-step title="Step 2" description="Some description"></el-step>
     <el-step title="Step 3" description="Some description"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -334,12 +334,12 @@ can customize the icon through a named <code>slot</code>.</p>
 <div class="el-demo">
   <div id="with-icon-st_icon" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="with-icon-st_icon_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <el-steps v-bind="$optional(&#39;steps&#39;)" :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
     <el-step title="Step 1" icon="Edit"></el-step>
     <el-step title="Step 2" icon="Upload"></el-step>
     <el-step title="Step 3" icon="Picture"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -367,12 +367,12 @@ can customize the icon through a named <code>slot</code>.</p>
   <div style="height: 300px">
     <div id="vertical-st_vert" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="vertical-st_vert_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <el-steps v-bind="$optional(&#39;steps&#39;)" :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
     <el-step title="Step 1"></el-step>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"vertical","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"vertical","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"evals":["options.watch.active"]}</script>
 </div>
   </div>
 </div>
@@ -411,22 +411,22 @@ will be ignored.</p>
 <div class="el-demo">
   <div id="simple-st_simple" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="simple-st_simple_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <el-steps v-bind="$optional(&#39;steps&#39;)" :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
     <el-step title="Step 1" icon="Edit"></el-step>
     <el-step title="Step 2" icon="UploadFilled"></el-step>
     <el-step title="Step 3" icon="Picture"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"evals":["options.watch.active"]}</script>
 </div>
   <div style="margin-top: 20px"></div>
   <div id="simple-st_simple2" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="simple-st_simple2_container" style="display: contents">
-  <el-steps :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple" :space="space === null ? undefined : space">
+  <el-steps v-bind="$optional(&#39;steps&#39;)" :active="active" :direction="direction" :process-status="processStatus" :finish-status="finishStatus" :align-center="alignCenter" :simple="simple">
     <el-step title="Step 1"></el-step>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>

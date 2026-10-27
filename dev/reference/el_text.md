@@ -109,15 +109,15 @@ invisibly.
 
 ``` r
 el_text("Primary text", type = "primary")
-#> <div id="el_text_00cea589-bfd7-4cac-ae3d-a8e9808d3aa9" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_00cea589-bfd7-4cac-ae3d-a8e9808d3aa9_container" style="display: contents">
+#> <div id="el_text_8f30d012-5de5-416c-bfdf-8af0a0060379" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_8f30d012-5de5-416c-bfdf-8af0a0060379_container" style="display: contents">
 #>   <el-text v-bind="$optional(&#39;text&#39;)">Primary text</el-text>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"type":"primary","size":null,"truncated":null,"lineClamp":null,"tag":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"text":{"type":"type","size":"size","truncated":"truncated","line-clamp":"lineClamp","tag":"tag"}},"generated":true,"evals":[]}</script>
 #> </div>
 el_text(strrep("A long sentence. ", 20), truncated = TRUE)
-#> <div id="el_text_ae346880-6303-46a3-9ed5-93cff1e37714" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_ae346880-6303-46a3-9ed5-93cff1e37714_container" style="display: contents">
+#> <div id="el_text_7e9cdbc9-fbd2-4660-9766-8f53c02718f1" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_text_7e9cdbc9-fbd2-4660-9766-8f53c02718f1_container" style="display: contents">
 #>   <el-text v-bind="$optional(&#39;text&#39;)">A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. A long sentence. </el-text>
 #> </div></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"type":null,"size":null,"truncated":true,"lineClamp":null,"tag":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"text":{"type":"type","size":"size","truncated":"truncated","line-clamp":"lineClamp","tag":"tag"}},"generated":true,"evals":[]}</script>

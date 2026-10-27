@@ -38,7 +38,7 @@
   `v-bind="$optional('<tag>')"`, where unset (`NULL`, `NA`) is the
   default and `JS("null")` a `null`; the pages are smaller too
   ([`el_select()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_select.md)’s
-  from 5757 characters to 4884).
+  from 5757 characters to 4400).
 
 ### Documentation
 

@@ -128,11 +128,11 @@ a feed stops asking once everything has been sent.
 el_infinite_scroll("feed", shiny::uiOutput("rows"), height = "400px")
 #> <div id="feed" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="feed_container" style="display: contents">
-#>   <div v-infinite-scroll="handleLoad" :infinite-scroll-disabled="scrollDisabled" :infinite-scroll-delay="scrollDelay === null ? undefined : scrollDelay" :infinite-scroll-distance="scrollDistance === null ? undefined : scrollDistance" :infinite-scroll-immediate="scrollImmediate === null ? undefined : scrollImmediate" style="overflow: auto; height: 400px">
+#>   <div v-bind="$optional(&#39;div&#39;)" v-infinite-scroll="handleLoad" :infinite-scroll-disabled="scrollDisabled" style="overflow: auto; height: 400px">
 #>     <shiny-island name="1"></shiny-island>
 #>   </div>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"scrollDisabled":false,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null,"scrollCount":0},"methods":{"handleLoad":"function() { this.scrollCount++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('feed_load', this.scrollCount); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":["options.methods.handleLoad"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"scrollDisabled":false,"scrollCount":0,"scrollDelay":null,"scrollDistance":null,"scrollImmediate":null},"methods":{"handleLoad":"function() { this.scrollCount++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('feed_load', this.scrollCount); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"div":{"infinite-scroll-delay":"scrollDelay","infinite-scroll-distance":"scrollDistance","infinite-scroll-immediate":"scrollImmediate"}},"evals":["options.methods.handleLoad"]}</script>
 #>   <div data-shiny-vue-islands style="display: none">
 #>     <div data-shiny-island-of="1" style="display: contents">
 #>       <div id="rows" class="shiny-html-output"></div>

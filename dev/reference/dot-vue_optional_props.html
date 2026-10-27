@@ -177,7 +177,14 @@ applies the prop's default. A deliberate <code>null</code> is <code>JS("null")</
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.vue_optional_props</span><span class="op">(</span><span class="va">values</span>, <span class="va">group</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, rename <span class="op">=</span> <span class="cn">NULL</span>, wrap <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.vue_optional_props</span><span class="op">(</span></span>
+<span>  <span class="va">values</span>,</span>
+<span>  <span class="va">group</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rename <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  wrap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fields <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -208,6 +215,12 @@ from the prop it stands for.</p></dd>
 <dd><p><code>c(&lt;argument&gt; = "&lt;wrap&gt;")</code>: the value goes through
 <code>sv.optionalWraps[&lt;wrap&gt;]</code> in the browser, a function a component
 library registers.</p></dd>
+
+
+<dt id="arg-fields">fields<a class="anchor" aria-label="anchor" href="#arg-fields"></a></dt>
+<dd><p><code>c(&lt;argument&gt; = "&lt;field&gt;")</code> for a field named otherwise
+than the prop – one an update function already sets by that name.
+Taken as it is: no prefix is added.</p></dd>
 
 </dl></div>
     <div class="section level2">

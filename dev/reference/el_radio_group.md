@@ -229,11 +229,11 @@ el_radio_group(
 )
 #> <div id="size" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="size_container" style="display: contents">
-#>   <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+#>   <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
 #>     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
 #>   </el-radio-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"m","options":[{"value":"s","label":"Small"},{"value":"m","label":"Medium"},{"value":"l","label":"Large"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Button-style radio group
@@ -245,11 +245,11 @@ el_radio_group(
 )
 #> <div id="theme" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="theme_container" style="display: contents">
-#>   <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange" :size="size === null ? undefined : size" :fill="fill === null ? undefined : fill" :text-color="textColor === null ? undefined : textColor">
+#>   <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
 #>     <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
 #>   </el-radio-group>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('theme', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}],"disabled":false,"size":"small","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('theme', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 #> </div>
 
 # Shiny app example

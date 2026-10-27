@@ -135,9 +135,9 @@ el_link("With icon", icon = "el-icon-edit", type = "success")
 el_link("Show more", id = "more", type = "primary")
 #> <div id="more" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><div id="more_container" style="display: contents">
-#>   <el-link :href="href === null ? undefined : href" :type="type === null ? undefined : type" :target="target" :underline="underline === null ? undefined : underline" :disabled="disabled" :icon="icon === null ? undefined : icon" @click="handleClick">{{ text }}</el-link>
+#>   <el-link v-bind="$optional(&#39;link&#39;)" :target="target" :disabled="disabled" @click="handleClick">{{ text }}</el-link>
 #> </div></script>
-#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"text":"Show more","href":null,"type":"primary","target":"_self","underline":null,"disabled":false,"icon":null,"count":0},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"evals":["options.methods.handleClick"]}</script>
+#>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"text":"Show more","target":"_self","disabled":false,"count":0,"href":null,"type":"primary","underline":null,"icon":null},"methods":{"handleClick":"function() { if (this.disabled) return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"link":{"href":"href","type":"type","underline":"underline","icon":"icon"}},"evals":["options.methods.handleClick"]}</script>
 #> </div>
 if (interactive()) {
   # inside a server function

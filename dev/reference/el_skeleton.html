@@ -275,13 +275,13 @@ placeholder for the real content.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">el_skeleton</span><span class="op">(</span><span class="st">"report"</span>, rows <span class="op">=</span> <span class="fl">4</span>, animated <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html" class="external-link">tableOutput</a></span><span class="op">(</span><span class="st">"summary"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="report" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;div id="report_container" style="display: contents"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-skeleton :loading="skLoading" :rows="skRows === null ? undefined : skRows" :animated="skAnimated === null ? undefined : skAnimated" :count="skCount === null ? undefined : skCount" :throttle="skThrottle === null ? undefined : skThrottle"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;el-skeleton v-bind="$optional(&amp;#39;skeleton&amp;#39;)" :loading="skLoading"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;shiny-island name="1"&gt;&lt;/shiny-island&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/el-skeleton&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/script&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"evals":[]}&lt;/script&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"skLoading":true,"skRows":4,"skAnimated":true,"skCount":null,"skThrottle":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"skeleton":{"rows":"skRows","animated":"skAnimated","count":"skCount","throttle":"skThrottle"}},"evals":[]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div data-shiny-vue-islands style="display: none"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;div data-shiny-island-of="1" style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;div id="summary" class="shiny-html-output shiny-table-output"&gt;&lt;/div&gt;</span>
