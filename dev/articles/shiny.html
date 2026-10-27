@@ -1326,6 +1326,42 @@ inputs, reported as one value:</p>
 </div>
 </div>
 <div class="section level2">
+<h2 id="routes-a-menu-that-navigates">Routes: a menu that navigates<a class="anchor" aria-label="anchor" href="#routes-a-menu-that-navigates"></a>
+</h2>
+<p><code><a href="../reference/vue_router.html">vue_router()</a></code> gives the page a router – vue-router, the
+one Element Plus’s components are written for. With it,
+<code>el_menu(router = TRUE)</code> navigates to the item’s index, a
+breadcrumb step’s <code>to</code> is a link, and Vue’s own
+<code>&lt;router-link&gt;</code> and <code>$route</code> work in a
+<code><a href="../reference/vue_app.html">vue_app()</a></code>. The route is in the URL’s hash
+(<code>#/orders</code>), so the browser’s back and forward and a link to
+the page land on it, and it is an input: what each route shows is the
+server’s.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/vue_router.html">vue_router</a></span><span class="op">(</span><span class="st">"route"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
+<span>    <span class="st">"menu"</span>,</span>
+<span>    router <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    mode <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Home"</span>, <span class="st">"/"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/el_menu_item.html">el_menu_item</a></span><span class="op">(</span><span class="st">"Orders"</span>, <span class="st">"/orders"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/conditionalPanel.html" class="external-link">conditionalPanel</a></span><span class="op">(</span><span class="st">"input.route == '/orders'"</span>, <span class="fu"><a href="../reference/el_table_output.html">el_table_output</a></span><span class="op">(</span><span class="st">"orders"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">route</span>, <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"now at "</span>, <span class="va">input</span><span class="op">$</span><span class="va">route</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># the server navigates too</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">new_order</span>, <span class="fu"><a href="../reference/update_vue_router.html">update_vue_router</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"route"</span>, <span class="st">"/orders"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>The menu’s active item follows the route however it changes – a
+click, the browser’s buttons, the server – and <code>input$menu</code>
+with it. A page has one router.</p>
+</div>
+<div class="section level2">
 <h2 id="without-shiny">Without Shiny<a class="anchor" aria-label="anchor" href="#without-shiny"></a>
 </h2>
 <p>The components also work on a page with no Shiny session – an R

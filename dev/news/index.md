@@ -4,12 +4,25 @@
 
 ### New features
 
+- [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
+  gives a page vue-router, installed in every component’s Vue app, with
+  the route as `input$<id>` and
+  [`update_vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue_router.md)
+  for the server. With it, `el_menu(router = TRUE)` and a breadcrumb
+  step’s `to` navigate, as Element Plus documents; they did nothing
+  before, for want of a router. The menu’s active item follows the route
+  – clicks, the browser’s back and forward, the server. The route lives
+  in the URL’s hash, leaving the query string to Shiny’s bookmarks,
+  which restore it.
+
 - `el_page(loading = TRUE)` covers the page with Element’s own loading
   mask until every component has been drawn and Shiny is connected (10
   seconds at most). `loading = FALSE` leaves it out; a page drawn by
   [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) never
   shows one.
+
 - A page starts faster:
+
   - its theme is compiled once per machine rather than in every new R
     process:
     [`el_page()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_page.md)

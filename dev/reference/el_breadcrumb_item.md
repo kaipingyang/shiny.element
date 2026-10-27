@@ -16,7 +16,9 @@ el_breadcrumb_item(label, to = NULL, replace = NULL)
 
 - to:
 
-  Where the step links to; the last step usually has none.
+  Where the step links to: a route of the page's
+  [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md),
+  which navigates; the last step usually has none.
 
 - replace:
 

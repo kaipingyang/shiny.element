@@ -978,6 +978,45 @@ shinyApp(ui, server)
 
 ![The own-input example, running](../shots/shiny-own-input.png)
 
+## Routes: a menu that navigates
+
+[`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
+gives the page a router – vue-router, the one Element Plus’s components
+are written for. With it, `el_menu(router = TRUE)` navigates to the
+item’s index, a breadcrumb step’s `to` is a link, and Vue’s own
+`<router-link>` and `$route` work in a
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md).
+The route is in the URL’s hash (`#/orders`), so the browser’s back and
+forward and a link to the page land on it, and it is an input: what each
+route shows is the server’s.
+
+``` r
+
+ui <- el_page(
+  vue_router("route"),
+  el_menu(
+    "menu",
+    router = TRUE,
+    mode = "horizontal",
+    items = list(
+      el_menu_item("Home", "/"),
+      el_menu_item("Orders", "/orders")
+    )
+  ),
+  conditionalPanel("input.route == '/orders'", el_table_output("orders"))
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$route, message("now at ", input$route))
+  # the server navigates too
+  observeEvent(input$new_order, update_vue_router(session, "route", "/orders"))
+}
+```
+
+The menu’s active item follows the route however it changes – a click,
+the browser’s buttons, the server – and `input$menu` with it. A page has
+one router.
+
 ## Without Shiny
 
 The components also work on a page with no Shiny session – an R Markdown

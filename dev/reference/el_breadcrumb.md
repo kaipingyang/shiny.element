@@ -36,7 +36,9 @@ update_el_breadcrumb(
   The trail, a list of
   [`el_breadcrumb_item()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_breadcrumb_item.md)s
   – or of `list(label =, to =)`. `to` is optional and makes that step a
-  link; the last step is usually plain text.
+  link to a route of the page's
+  [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md),
+  which the page needs; the last step is usually plain text.
 
 - separator:
 

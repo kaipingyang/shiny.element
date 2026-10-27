@@ -33,3 +33,6 @@ Other contributors:
 
 - iamkun (Day.js locales bundled in inst/dayjs, MIT licence)
   \[contributor, copyright holder\]
+
+- Eduardo San Martin Morote (vue-router bundled in inst/vue-router, MIT
+  licence) \[contributor, copyright holder\]

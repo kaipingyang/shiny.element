@@ -501,6 +501,10 @@ the user’s state across renders, shared state, and the server’s way in.
   : A Vue child component, for a template to use
 - [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
   : State shared by Vue components: a store
+- [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
+  : The page's router: vue-router, with the route as a Shiny input
+- [`update_vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue_router.md)
+  : Navigate the page's router from the server
 - [`vue_output()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md)
   [`render_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md)
   : A Vue output that keeps the user's state across renders

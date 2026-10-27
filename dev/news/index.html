@@ -159,9 +159,10 @@
 <h2 class="pkg-version" data-toc-text="development version" id="shinyelement-development-version">shiny.element (development version)<a class="anchor" aria-label="anchor" href="#shinyelement-development-version"></a></h2>
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
-<ul><li>
-<code>el_page(loading = TRUE)</code> covers the page with Element’s own loading mask until every component has been drawn and Shiny is connected (10 seconds at most). <code>loading = FALSE</code> leaves it out; a page drawn by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> never shows one.</li>
-<li>A page starts faster:
+<ul><li><p><code><a href="../reference/vue_router.html">vue_router()</a></code> gives a page vue-router, installed in every component’s Vue app, with the route as <code>input$&lt;id&gt;</code> and <code><a href="../reference/update_vue_router.html">update_vue_router()</a></code> for the server. With it, <code>el_menu(router = TRUE)</code> and a breadcrumb step’s <code>to</code> navigate, as Element Plus documents; they did nothing before, for want of a router. The menu’s active item follows the route – clicks, the browser’s back and forward, the server. The route lives in the URL’s hash, leaving the query string to Shiny’s bookmarks, which restore it.</p></li>
+<li><p><code>el_page(loading = TRUE)</code> covers the page with Element’s own loading mask until every component has been drawn and Shiny is connected (10 seconds at most). <code>loading = FALSE</code> leaves it out; a page drawn by <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code> never shows one.</p></li>
+<li>
+<p>A page starts faster:</p>
 <ul><li>its theme is compiled once per machine rather than in every new R process: <code><a href="../reference/el_page.html">el_page()</a></code> takes it from sass’s cache, where bslib’s own drawing compiled it again each time (1.5-2 s before the first page);</li>
 <li>the default <code><a href="../reference/el_theme.html">el_theme()</a></code> ships compiled, for the bslib and sass on CRAN, so a machine that never drew it does not compile it either;</li>
 <li>a component’s dependencies are made once per session, and its options written by yyjsonr instead of jsonlite: 100 components are built in 0.6 s, from 1.6 s.</li>

@@ -13,6 +13,9 @@
 - **iamkun**. Contributor, copyright holder.  
   Day.js locales bundled in inst/dayjs, MIT licence
 
+- **Eduardo San Martin Morote**. Contributor, copyright holder.  
+  vue-router bundled in inst/vue-router, MIT licence
+
 ## Citation
 
 Source:

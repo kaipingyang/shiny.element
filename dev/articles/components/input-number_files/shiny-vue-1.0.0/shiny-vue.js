@@ -149,6 +149,63 @@
       if (o && typeof o[key] === 'string') o[key] = eval('(' + o[key] + ')');
     });
   }
+  // ── the page's router (vue_router()) ────────────────────────────────────
+  //
+  // One vue-router for the page, in every app (mount() installs it). Any
+  // path is a route -- one catch-all record that renders nothing -- for
+  // what the page shows is the server's, from input$<id>: the route's full
+  // path, reported on load and after every navigation that succeeds. It is
+  // started in an app of its own, so it runs with no component on the page.
+  sv.router = null;
+  sv.routerId = null;
+  sv.createRouter = function(config) {
+    if (sv.router) {
+      warn('vue_router("' + config.id + '"): the page has a router already, "' + sv.routerId + '"');
+      return sv.router;
+    }
+    if (!window.VueRouter) { warn('vue_router(): VueRouter is not on the page'); return null; }
+    var history = config.history === 'memory' ?
+      VueRouter.createMemoryHistory() : VueRouter.createWebHashHistory();
+    var router = VueRouter.createRouter({
+      history: history,
+      routes: [{ path: '/:pathMatch(.*)*', component: { render: function() { return null; } } }]
+    });
+    // before Shiny is connected -- the first navigation, as the page loads
+    // -- the latest route waits for it
+    var latest = null, waiting = false;
+    var connected = function() {
+      return window.Shiny && Shiny.setInputValue && Shiny.shinyapp &&
+        Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected();
+    };
+    var report = function(path) {
+      latest = path;
+      if (connected()) { Shiny.setInputValue(config.id, path); return; }
+      if (waiting || !window.jQuery) return;
+      waiting = true;
+      jQuery(document).one('shiny:connected', function() {
+        waiting = false;
+        if (latest !== null) Shiny.setInputValue(config.id, latest);
+      });
+    };
+    // a refused navigation runs afterEach too, with its failure
+    router.afterEach(function(to, from, failure) { if (!failure) report(to.fullPath); });
+    sv.router = router;
+    sv.routerId = config.id;
+    var start = function() {
+      Vue.createApp({ render: function() { return null; } }).use(router)
+        .mount(document.createElement('div'));
+      // a bookmark's route, when the URL brings none of its own
+      var hash = window.location.hash;
+      if (config.initial && config.history !== 'memory' && (!hash || hash === '#' || hash === '#/')) {
+        router.replace(config.initial);
+      } else if (config.initial && config.history === 'memory') {
+        router.replace(config.initial);
+      }
+    };
+    if (window.Vue) start();
+    return router;
+  };
+
   // ── optional props ──────────────────────────────────────────────────────
   //
   // A prop the component library defaults when it is not given. Vue applies
@@ -397,6 +454,9 @@
       get: function() { return sv.state().busy; }, enumerable: true, configurable: true
     });
     app.config.globalProperties.$optional = optionalProps;
+    // The page's router (vue_router()), in every app: vue-router keeps the
+    // apps it is installed in, each with $router, $route, <router-link>
+    if (sv.router) app.use(sv.router);
     // Vue plugins the component asks for (`use`), by their global names --
     // a component library, an i18n plugin: app.use() on each
     // -- a name, or {name, options} for a plugin that takes them
@@ -1114,6 +1174,11 @@
   if (hasShiny && Shiny.addCustomMessageHandler) {
     Shiny.addCustomMessageHandler('shinyVueUpdate', function(msg) { sv.update(msg.id, msg); });
     Shiny.addCustomMessageHandler('shinyVueCall', sv.call);
+    Shiny.addCustomMessageHandler('shinyVueRouter', function(msg) {
+      if (!sv.router) { warn('update_vue_router(): no vue_router() on the page'); return; }
+      if (msg.id !== sv.routerId) { warn('update_vue_router(): no router "' + msg.id + '"'); return; }
+      sv.router[msg.replace ? 'replace' : 'push'](msg.path);
+    });
   }
   // session$sendInputMessage() reaches only a bound input; a component
   // folded into another has no binding of its own, so its messages -- bslib's
