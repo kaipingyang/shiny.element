@@ -10,6 +10,9 @@
 - **Evan You**. Contributor, copyright holder.  
   Vue library bundled in inst/vue3, MIT licence
 
+- **iamkun**. Contributor, copyright holder.  
+  Day.js locales bundled in inst/dayjs, MIT licence
+
 ## Citation
 
 Source:

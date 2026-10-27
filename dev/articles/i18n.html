@@ -235,9 +235,14 @@ and message settings – for what it holds; see Custom Defaults.</p>
 <h2 id="date-and-time-localization">Date and time localization<a class="anchor" aria-label="anchor" href="#date-and-time-localization"></a>
 </h2>
 <p>The date pickers’ calendars follow the locale: month and day names,
-and the first day of the week. The format of a date shown in the input
-is <code>format</code>, in day.js’s tokens (<code>"YYYY-MM-DD"</code>);
-the value Shiny gets is <code>value_format</code>, unchanged by the
+and the first day of the week – Monday in Chinese, Sunday in Japanese.
+Element Plus reads these from Day.js, whose locale, as Element Plus’s
+guide says, is set apart from its own: <code>el_page(locale =)</code>
+and <code><a href="../reference/use_element.html">use_element()</a></code> load and set both. Day.js has no locale
+for Kurmanji (<code>"ku"</code>) or Malagasy (<code>"mg"</code>), whose
+dates stay in English. The format of a date shown in the input is
+<code>format</code>, in day.js’s tokens (<code>"YYYY-MM-DD"</code>); the
+value Shiny gets is <code>value_format</code>, unchanged by the
 language.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span>locale <span class="op">=</span> <span class="st">"fr"</span>, <span class="fu"><a href="../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"d"</span>, format <span class="op">=</span> <span class="st">"DD MMMM YYYY"</span><span class="op">)</span><span class="op">)</span></span>

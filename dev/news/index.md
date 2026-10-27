@@ -25,6 +25,14 @@
 
 ### Bug fixes
 
+- A locale reaches the dates too. Element Plus’s date and time
+  components take the week’s first day and the names of months and days
+  from Day.js, whose locale, as Element Plus’s guide says, has to be
+  loaded and set apart from Element’s own: `el_page(locale = "zh-cn")`
+  showed a Chinese picker whose week began on Sunday and a
+  `format = "MMMM"` month in English. The locale now sets Day.js’s as
+  well, from Day.js 1.11.20’s files, bundled (Kurmanji and Malagasy have
+  none).
 - Clearing a select now reports `NULL` to the server. Element sets a
   cleared select to `undefined`, which JSON has no form for, so the
   update was never sent and `input$<id>` kept the value the user had

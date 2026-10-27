@@ -38,6 +38,11 @@ MB: eleven locales are files and the other 56 are in
 `dist/locale/more.tar.gz`, taken out into
 [`tempdir()`](https://rdrr.io/r/base/tempfile.html) when first used
 ([`.el_locale_dir()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locale_dir.md));
+Day.js’s locales for the same languages, which Element’s date components
+read, likewise in `inst/dayjs/locale`
+([`.el_dayjs_locale_dir()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_dayjs_locale_dir.md),
+set with Element’s by
+[`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_locale_dependency.md));
 Vue’s development build is `.Rbuildignore`d, so a CRAN install loads it
 from unpkg
 ([`.vue_core_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.md));

@@ -32,6 +32,15 @@ others are packed in one archive and taken out the first time one is
 used in a session. Codes are matched without regard to case, so Element
 UI's `"zh-CN"` is Element Plus's `"zh-cn"`.
 
+Dates follow the language too: Element Plus's date and time components
+read the week's first day and the names of months and days from Day.js,
+whose locale, as Element Plus's guide says, has to be loaded and set
+apart from its own. The page's Day.js locale is set with it – a Chinese
+calendar's week starts on Monday – from Day.js's own files, bundled the
+same way. Day.js has a locale for all but Kurmanji (`"ku"`) and Malagasy
+(`"mg"`), whose dates stay in English. Day.js has one locale for the
+page, so a config provider's own `locale` changes Element's words only.
+
 ## Examples
 
 ``` r

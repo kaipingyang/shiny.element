@@ -30,3 +30,6 @@ Other contributors:
 
 - Evan You (Vue library bundled in inst/vue3, MIT licence)
   \[contributor, copyright holder\]
+
+- iamkun (Day.js locales bundled in inst/dayjs, MIT licence)
+  \[contributor, copyright holder\]
