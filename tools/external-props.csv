@@ -1,0 +1,79 @@
+page,prop,needs,section,how,check
+affix,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+autocomplete,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+autocomplete,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+breadcrumb,replace,vue-router,BreadcrumbItem Attributes,vue_router() on the page; Element calls $router,tests/testthat/test-browser-router.R
+breadcrumb,to,vue-router,BreadcrumbItem Attributes,vue_router() on the page; Element calls $router,tests/testthat/test-browser-router.R
+calendar,model-value / v-model,date,Attributes,"text from R, which Element parses with value-format (Day.js)",tests/testthat/test-browser.R
+calendar,range,date,Attributes,"text from R, which Element parses with value-format (Day.js)",tests/testthat/test-browser.R
+cascader,fallback-placements,popper,Cascader Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+color-picker,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+config-provider,locale,locale,Config Provider Attributes,"el_locale_dependency(): the locale file, read by $elLocale",tests/testthat/test-browser-locale.R
+date-picker,cell-class-name,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+date-picker,default-time,date,Attributes,"text from R, made a Date by the $elDate wrap",tests/testthat/test-browser-external-props.R
+date-picker,default-value,date,Attributes,"text from R, made a Date by the $elDate wrap",tests/testthat/test-browser-external-props.R
+date-picker,disabled-date,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+date-picker,fallback-placements,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+date-picker,model-value / v-model,date,Attributes,"text from R, which Element parses with value-format (Day.js)",tests/testthat/test-browser.R
+date-picker,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+date-picker,shortcuts,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+date-picker-panel,cell-class-name,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+date-picker-panel,date-format,dayjs,Attributes,Day.js's tokens; its plugins are inside Element's build,tests/testthat/test-browser-external-props.R
+date-picker-panel,default-time,date,Attributes,"text from R, made a Date by the $elDate wrap",tests/testthat/test-browser-external-props.R
+date-picker-panel,default-value,date,Attributes,"text from R, made a Date by the $elDate wrap",tests/testthat/test-browser-external-props.R
+date-picker-panel,disabled-date,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+date-picker-panel,model-value / v-model,date,Attributes,"text from R, which Element parses with value-format (Day.js)",tests/testthat/test-browser.R
+date-picker-panel,shortcuts,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+date-picker-panel,time-format,dayjs,Attributes,Day.js's tokens; its plugins are inside Element's build,tests/testthat/test-browser-external-props.R
+datetime-picker,cell-class-name,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+datetime-picker,date-format,dayjs,Attributes,Day.js's tokens; its plugins are inside Element's build,tests/testthat/test-browser-external-props.R
+datetime-picker,default-time,date,Attributes,"text from R, made a Date by the $elDate wrap",tests/testthat/test-browser-external-props.R
+datetime-picker,default-value,date,Attributes,"text from R, made a Date by the $elDate wrap",tests/testthat/test-browser-external-props.R
+datetime-picker,disabled-date,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+datetime-picker,disabled-hours,dayjs,Attributes,"a JS() function, which Element calls with a Dayjs",tools/demos/time-picker.R
+datetime-picker,disabled-minutes,dayjs,Attributes,"a JS() function, which Element calls with a Dayjs",tools/demos/time-picker.R
+datetime-picker,disabled-seconds,dayjs,Attributes,"a JS() function, which Element calls with a Dayjs",tools/demos/time-picker.R
+datetime-picker,fallback-placements,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+datetime-picker,model-value / v-model,date,Attributes,"text from R, which Element parses with value-format (Day.js)",tests/testthat/test-browser.R
+datetime-picker,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+datetime-picker,shortcuts,date,Attributes,"a JS() function, which Element calls with a Date or which returns one",tests/testthat/test-browser-external-props.R
+datetime-picker,time-format,dayjs,Attributes,Day.js's tokens; its plugins are inside Element's build,tests/testthat/test-browser-external-props.R
+datetime-picker,value-format,dayjs,Attributes,Day.js's tokens; its plugins are inside Element's build,tests/testthat/test-browser-external-props.R
+dialog,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+drawer,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+dropdown,append-to,element,Dropdown Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+dropdown,popper-options,popper,Dropdown Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+dropdown,virtual-ref,element,Dropdown Attributes,"a CSS selector, looked up by the $elRef wrap",tests/testthat/test-browser-overlays.R
+form,rules,async-validator,FormItem Attributes,el_rule() and lists of rules; async-validator is inside Element's build,tests/testthat/test-browser.R
+image,scroll-container,element,Image Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+loading,target,element,Options,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+mention,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+menu,route,vue-router,Menu-Item Attributes,vue_router() on the page; Element calls $router,tests/testthat/test-browser-router.R
+menu,router,vue-router,Menu Attributes,vue_router() on the page; Element calls $router,tests/testthat/test-browser-router.R
+message,appendTo,element,Options,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+message-box,appendTo,element,Options,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+notification,appendTo,element,Options,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+popover,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+popover,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+popover,virtual-ref,element,Attributes,"a CSS selector, looked up by the $elRef wrap",tests/testthat/test-browser-overlays.R
+select,append-to,element,Select Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+select,fallback-placements,popper,Select Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+select,popper-options,popper,Select Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+select-v2,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+select-v2,fallback-placements,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+select-v2,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+statistic,value,dayjs,Countdown Attributes,"a number of milliseconds or a POSIXct, from R",tools/demos/statistic.R
+time-picker,default-value,date,Attributes,"text from R, made a Date by the $elDate wrap",tests/testthat/test-browser-external-props.R
+time-picker,disabled-hours,dayjs,Attributes,"a JS() function, which Element calls with a Dayjs",tools/demos/time-picker.R
+time-picker,disabled-minutes,dayjs,Attributes,"a JS() function, which Element calls with a Dayjs",tools/demos/time-picker.R
+time-picker,disabled-seconds,dayjs,Attributes,"a JS() function, which Element calls with a Dayjs",tools/demos/time-picker.R
+time-picker,fallback-placements,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+time-picker,model-value / v-model,date,Attributes,"text from R, which Element parses with value-format (Day.js)",tests/testthat/test-browser.R
+time-picker,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+time-select,format,dayjs,Attributes,Day.js's tokens; its plugins are inside Element's build,tests/testthat/test-browser-external-props.R
+tooltip,append-to,element,Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+tooltip,fallback-placements,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+tooltip,popper-options,popper,Attributes,"a JS() object or a vector, passed as it is; popper is inside Element's build",tools/prop-reach.R
+tooltip,virtual-ref,element,Attributes,"a CSS selector, looked up by the $elRef wrap",tests/testthat/test-browser-overlays.R
+tour,append-to,element,Tour Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R
+tour,target,element,TourStep Attributes,"a CSS selector, which Element looks up itself",tools/prop-reach.R

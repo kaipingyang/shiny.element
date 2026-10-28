@@ -4,12 +4,23 @@
 \alias{vue_router}
 \title{The page's router: vue-router, with the route as a Shiny input}
 \usage{
-vue_router(id, history = c("hash", "memory"))
+vue_router(id, history = c("hash", "memory"), routes = NULL, guard = NULL)
 }
 \arguments{
 \item{id}{The router's id: the route arrives as \verb{input$<id>}.}
 
 \item{history}{\code{"hash"} (the default) or \code{"memory"}.}
+
+\item{routes}{\code{NULL}, or a named list of \code{\link[=vue_component]{vue_component()}}s, by path --
+\code{list("/" = home, "/orders/:id" = order)} -- which a \verb{<router-view>} in
+any \code{\link[=vue_app]{vue_app()}} renders for the route, as vue-router's routes do;
+\verb{$route.params.id} reaches the path's parts. Any other path is still a
+route, rendering nothing.}
+
+\item{guard}{\code{NULL}; \code{"server"}, for every navigation to ask the server
+first (see "Shiny inputs"); or a \code{\link[=JS]{JS()}} function of \verb{(to, from)}, as
+vue-router's \code{beforeEach}: \code{true} lets it through, \code{false} stays, a
+path goes there instead.}
 }
 \value{
 A Shiny UI element: put it anywhere on the page, once.
@@ -32,24 +43,46 @@ navset driven by it.
 \verb{input$<id>} is the route's full path -- \code{"/orders"},
 \code{"/orders?page=2"} -- on load and after every navigation that succeeds,
 whether by a link, the browser's back and forward, a component or
-\code{\link[=update_vue_router]{update_vue_router()}}. A bookmark restores it.
+\code{\link[=update_vue_router]{update_vue_router()}}; \verb{input$<id>_params} its params, \code{list(id = "42")}
+for \verb{/orders/:id} (\code{NULL} when it has none). A bookmark restores the
+route.
+
+With \code{guard = "server"}, \verb{input$<id>_guard} is each navigation's
+question, \code{list(to =, from =, params =, request =)}, and it waits for the
+answer, \verb{vue_answer(session, "<id>", input$<id>_guard, value)}: \code{TRUE}
+lets it through, \code{FALSE} stays where it is, a path goes there instead.
+Unanswered within 30 seconds, it goes through. A guard in the browser is a
+convenience, not security: the server checks what it serves for a route
+as it would without one.
 }
 
 \examples{
 library(shiny)
+home <- vue_component("<h3>Home</h3>")
+order <- vue_component("<h3>Order {{ $route.params.id }}</h3>")
 ui <- fluidPage(
-  vue_router("route"),
+  vue_router(
+    "route",
+    routes = list("/" = home, "/orders/:id" = order),
+    guard = "server"
+  ),
   vue_app(
     "nav",
     htmltools::tags$nav(
       htmltools::tag("router-link", list(to = "/", "Home")),
       " | ",
-      htmltools::tag("router-link", list(to = "/about", "About"))
+      htmltools::tag("router-link", list(to = "/orders/42", "Order 42"))
     )
   ),
-  conditionalPanel("input.route == '/about'", "About this app")
+  vue_app("view", htmltools::tag("router-view", list()))
 )
-server <- function(input, output, session) {}
+server <- function(input, output, session) {
+  # order 13 is not shown
+  observeEvent(input$route_guard, {
+    q <- input$route_guard
+    vue_answer(session, "route", q, !identical(q$params$id, "13"))
+  })
+}
 if (interactive()) {
   shinyApp(ui, server)
 }

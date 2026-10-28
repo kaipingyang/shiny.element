@@ -58,3 +58,34 @@ test_that("a bookmark brings the route back as the router's first", {
     fixed = TRUE
   )
 })
+
+test_that("routes are components by path, revived in the browser", {
+  html <- as.character(vue_router(
+    "r",
+    routes = list(
+      "/" = vue_component("<b>Home</b>"),
+      "/o/:id" = vue_component("<i>{{ n }}</i>", data = list(n = 1))
+    )
+  ))
+  expect_match(html, '"path":"/o/:id"', fixed = TRUE)
+  expect_match(html, '"evals":["routes.1.component.data"]', fixed = TRUE)
+  expect_error(
+    vue_router("r", routes = list(a = vue_component("<b/>"))),
+    "paths"
+  )
+  expect_error(vue_router("r", routes = list("/" = "<b/>")), "vue_component")
+})
+
+test_that("a guard is the server's or a JS() function", {
+  expect_match(
+    as.character(vue_router("r", guard = "server")),
+    '"guard":"server"',
+    fixed = TRUE
+  )
+  expect_match(
+    as.character(vue_router("r", guard = JS("function(to) { return true; }"))),
+    '"evals":["guard"]',
+    fixed = TRUE
+  )
+  expect_error(vue_router("r", guard = TRUE), "guard")
+})

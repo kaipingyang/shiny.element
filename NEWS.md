@@ -31,6 +31,11 @@
   a router. The menu's active item follows the route -- clicks, the
   browser's back and forward, the server. The route lives in the URL's hash,
   leaving the query string to Shiny's bookmarks, which restore it.
+  `routes =` gives paths components of their own, rendered by a
+  `<router-view>`, with the path's params as `input$<id>_params`;
+  `guard = "server"` has every navigation ask the server first
+  (`input$<id>_guard`, answered with `vue_answer()`: go, stay, or go
+  elsewhere), `guard = JS()` a guard in the browser.
 
 * `el_page(loading = TRUE)` covers the page with Element's own loading mask
   until every component has been drawn and Shiny is connected (10 seconds
@@ -75,6 +80,13 @@
   as rows, as `el_tree_select()` does, not as columns.
 
 ## Documentation
+
+* `tools/external-props.csv` lists Element's props that need something
+  outside Element to work -- a router, a locale, Day.js's tokens, a Date or
+  an element from text -- with how the package gives each and the test that
+  shows it working in a browser; `tools/external-props.py` finds them in
+  Element's docs and lists any it does not. `el_menu(router = TRUE)` had
+  arrived and done nothing, unseen by API coverage and prop reach.
 
 * A "Performance" article: where a page's starting time goes, what the
   package does about it, `persistent = FALSE` per component with its

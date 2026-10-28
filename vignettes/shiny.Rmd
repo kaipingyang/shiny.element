@@ -905,6 +905,33 @@ The menu's active item follows the route however it changes -- a click, the
 browser's buttons, the server -- and `input$menu` with it. A page has one
 router.
 
+A route can also have a component of its own, as vue-router's routes do:
+`routes = list("/" = home, "/orders/:id" = order)`, each a
+`vue_component()`, rendered by a `<router-view>` in any `vue_app()`; the
+path's parts are `$route.params` in its template and `input$<id>_params` on
+the server. And `guard = "server"` has every navigation ask first:
+`input$route_guard` is the question, `vue_answer()` the answer -- `TRUE`
+goes, `FALSE` stays, a path goes there instead.
+
+```{r router-guard, eval = FALSE}
+order <- vue_component("<h3>Order {{ $route.params.id }}</h3>")
+ui <- el_page(
+  vue_router("route", routes = list("/orders/:id" = order), guard = "server"),
+  vue_app("view", tag("router-view", list()))
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$route_guard, {
+    q <- input$route_guard
+    # an order the user may not see goes nowhere
+    vue_answer(session, "route", q, may_see(q$params$id))
+  })
+}
+```
+
+A guard in the browser is a convenience, not security: the server still
+checks what it serves for a route.
+
 ## VueUse in a component's setup
 
 `vueuse_dependency()` brings VueUse, the composables Element Plus itself is

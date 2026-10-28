@@ -52,6 +52,13 @@ test_that("vue_router(): components navigate, the server too, input$<id> follows
   # on load: the route reported, the menu on it
   expect_equal(seen(), "route=/ menu=/")
   expect_equal(active(), "Home")
+  view <- function() {
+    js(
+      "(document.querySelector('#view .page') || {textContent: ''}).textContent.trim()"
+    )
+  }
+  # the route's component, in a <router-view>
+  expect_equal(view(), "Home")
 
   # Element's menu, router = TRUE, navigates
   js("document.querySelectorAll('#menu_container .el-menu-item')[1].click()")
@@ -63,6 +70,7 @@ test_that("vue_router(): components navigate, the server too, input$<id> follows
     js("document.querySelector('#own .path').textContent"),
     "/orders"
   )
+  expect_equal(view(), "Orders")
 
   # a breadcrumb step's `to`
   js(
@@ -89,6 +97,35 @@ test_that("vue_router(): components navigate, the server too, input$<id> follows
   Sys.sleep(1.5)
   expect_equal(seen(), "route=/admin menu=/admin")
   expect_equal(active(), "Admin")
+
+  # a route's params, in the component and as input$<id>_params
+  js("shinyVue.router.push('/orders/42')")
+  Sys.sleep(1.5)
+  expect_equal(view(), "Order 42")
+  expect_equal(js("document.getElementById('params').textContent"), "id=42")
+
+  # the server's guard: refused, the route stays; redirected, it goes there
+  js("shinyVue.router.push('/secret')")
+  Sys.sleep(1.5)
+  expect_equal(js("location.hash"), "#/orders/42")
+  js("shinyVue.router.push('/old')")
+  Sys.sleep(1.5)
+  expect_equal(js("location.hash"), "#/orders")
+  expect_equal(seen(), "route=/orders menu=/orders")
+
+  # a menu item's own route, its index aside
+  js("document.querySelectorAll('#menu_container .el-menu-item')[3].click()")
+  Sys.sleep(1.5)
+  expect_equal(js("location.hash"), "#/reports")
+
+  # a breadcrumb step with `replace` leaves no history entry
+  before <- js("history.length")
+  js(
+    "document.querySelectorAll('#crumb_container .el-breadcrumb__inner')[1].click()"
+  )
+  Sys.sleep(1.5)
+  expect_equal(js("location.hash"), "#/orders")
+  expect_equal(js("history.length"), before)
 
   expect_equal(js("window.__w.length"), 0)
 
