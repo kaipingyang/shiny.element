@@ -1382,6 +1382,32 @@ server’s.</p>
 <p>The menu’s active item follows the route however it changes – a
 click, the browser’s buttons, the server – and <code>input$menu</code>
 with it. A page has one router.</p>
+<p>A route can also have a component of its own, as vue-router’s routes
+do: <code>routes = list("/" = home, "/orders/:id" = order)</code>, each
+a <code><a href="../reference/vue_component.html">vue_component()</a></code>, rendered by a
+<code>&lt;router-view&gt;</code> in any <code><a href="../reference/vue_app.html">vue_app()</a></code>; the
+path’s parts are <code>$route.params</code> in its template and
+<code>input$&lt;id&gt;_params</code> on the server. And
+<code>guard = "server"</code> has every navigation ask first:
+<code>input$route_guard</code> is the question,
+<code><a href="../reference/vue_answer.html">vue_answer()</a></code> the answer – <code>TRUE</code> goes,
+<code>FALSE</code> stays, a path goes there instead.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">order</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vue_component.html">vue_component</a></span><span class="op">(</span><span class="st">"&lt;h3&gt;Order {{ $route.params.id }}&lt;/h3&gt;"</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/vue_router.html">vue_router</a></span><span class="op">(</span><span class="st">"route"</span>, routes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/orders/:id"</span> <span class="op">=</span> <span class="va">order</span><span class="op">)</span>, guard <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"view"</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tag</a></span><span class="op">(</span><span class="st">"router-view"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">route_guard</span>, <span class="op">{</span></span>
+<span>    <span class="va">q</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">route_guard</span></span>
+<span>    <span class="co"># an order the user may not see goes nowhere</span></span>
+<span>    <span class="fu"><a href="../reference/vue_answer.html">vue_answer</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"route"</span>, <span class="va">q</span>, <span class="fu">may_see</span><span class="op">(</span><span class="va">q</span><span class="op">$</span><span class="va">params</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>A guard in the browser is a convenience, not security: the server
+still checks what it serves for a route.</p>
 </div>
 <div class="section level2">
 <h2 id="vueuse-in-a-components-setup">VueUse in a component’s setup<a class="anchor" aria-label="anchor" href="#vueuse-in-a-components-setup"></a>
@@ -1393,7 +1419,7 @@ Element Plus itself is built on, as the global <code>VueUse</code>: in a
 <code>useCssVar()</code>, <code>useDebounceFn()</code>,
 <code>useStorage()</code> and the rest work as in any Vue app. Give it
 to the component that uses it; no page loads it otherwise.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>  <span class="st">"total"</span>,</span>
 <span>  <span class="va">el</span><span class="op">$</span><span class="fu">statistic</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total Transactions"</span>, `:value` <span class="op">=</span> <span class="st">"shown"</span><span class="op">)</span>,</span>

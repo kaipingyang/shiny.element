@@ -164,12 +164,18 @@
       return sv.router;
     }
     if (!window.VueRouter) { warn('vue_router(): VueRouter is not on the page'); return null; }
+    revive(config, config.evals);
     var history = config.history === 'memory' ?
       VueRouter.createMemoryHistory() : VueRouter.createWebHashHistory();
-    var router = VueRouter.createRouter({
-      history: history,
-      routes: [{ path: '/:pathMatch(.*)*', component: { render: function() { return null; } } }]
+    // the routes given, each a component a <router-view> renders; then any
+    // other path, rendering nothing
+    var nothing = { render: function() { return null; } };
+    var routes = (config.routes || []).map(function(r) {
+      aliasComponents(r.component);
+      return { path: r.path, component: r.component };
     });
+    routes.push({ path: '/:pathMatch(.*)*', component: nothing });
+    var router = VueRouter.createRouter({ history: history, routes: routes });
     // before Shiny is connected -- the first navigation, as the page loads
     // -- the latest route waits for it
     var latest = null, waiting = false;
@@ -177,18 +183,44 @@
       return window.Shiny && Shiny.setInputValue && Shiny.shinyapp &&
         Shiny.shinyapp.isConnected && Shiny.shinyapp.isConnected();
     };
-    var report = function(path) {
-      latest = path;
-      if (connected()) { Shiny.setInputValue(config.id, path); return; }
+    var params = function(route) {
+      return Object.keys(route.params).length && !route.params.pathMatch ? plain(route.params) : null;
+    };
+    var send = function(route) {
+      Shiny.setInputValue(config.id + '_params', params(route));
+      Shiny.setInputValue(config.id, route.fullPath);
+    };
+    var report = function(route) {
+      latest = route;
+      if (connected()) { send(route); return; }
       if (waiting || !window.jQuery) return;
       waiting = true;
       jQuery(document).one('shiny:connected', function() {
         waiting = false;
-        if (latest !== null) Shiny.setInputValue(config.id, latest);
+        if (latest !== null) send(latest);
       });
     };
+    // A guard: the browser's own (as vue-router's beforeEach), or the
+    // server's -- each navigation asks input$<id>_guard and waits for
+    // vue_answer(): true goes, false stays, a path goes there; no answer
+    // in time goes
+    if (typeof config.guard === 'function') {
+      router.beforeEach(config.guard);
+    } else if (config.guard === 'server') {
+      router.beforeEach(function(to, from) {
+        return sv.ask(config.id + '_guard', {
+          to: to.fullPath,
+          from: from.fullPath,
+          params: params(to)
+        }).then(function(answer) {
+          if (answer === false) return false;
+          if (typeof answer === 'string') return answer;
+          return true;
+        }, function() { return false; });
+      });
+    }
     // a refused navigation runs afterEach too, with its failure
-    router.afterEach(function(to, from, failure) { if (!failure) report(to.fullPath); });
+    router.afterEach(function(to, from, failure) { if (!failure) report(to); });
     sv.router = router;
     sv.routerId = config.id;
     var start = function() {
@@ -196,15 +228,20 @@
         .mount(document.createElement('div'));
       // a bookmark's route, when the URL brings none of its own
       var hash = window.location.hash;
-      if (config.initial && config.history !== 'memory' && (!hash || hash === '#' || hash === '#/')) {
-        router.replace(config.initial);
-      } else if (config.initial && config.history === 'memory') {
+      if (config.initial && (config.history === 'memory' || !hash || hash === '#' || hash === '#/')) {
         router.replace(config.initial);
       }
     };
-    if (window.Vue) start();
+    if (!window.Vue) return router;
+    // asking the server needs it: the first navigation waits for Shiny
+    if (config.guard === 'server' && window.Shiny && Shiny.shinyapp && !connected() && window.jQuery) {
+      jQuery(document).one('shiny:connected', start);
+    } else {
+      start();
+    }
     return router;
   };
+
 
   // ── optional props ──────────────────────────────────────────────────────
   //
@@ -995,6 +1032,12 @@
       (host._svPending = host._svPending || []).push(data);
       return;
     }
+    // an answer to a question asked under an id with no component -- the
+    // router's guard -- settles it all the same
+    if (!vm && data['.resolve'] && typeof sv.hooks['.resolve'] === 'function') {
+      sv.hooks['.resolve'](host || null, data['.resolve'], null);
+      return;
+    }
     if (!vm) { warn('update: no component with id "' + id + '"'); return; }
     // announced to screen readers, as Shiny's update*Input() does
     if (!host.hasAttribute('aria-live')) host.setAttribute('aria-live', 'polite');
@@ -1089,7 +1132,7 @@
   };
   sv.hooks['.resolve'] = function(host, answer) {
     if (!answer || !settle(answer.request, answer.value, answer.failed)) {
-      warn('update: "' + host.id + '" answered request ' + (answer && answer.request) +
+      warn('update: "' + (host ? host.id : 'the router') + '" answered request ' + (answer && answer.request) +
            ', which nothing is waiting for');
     }
   };
