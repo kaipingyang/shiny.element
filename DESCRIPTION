@@ -10,7 +10,9 @@ Authors@R: c(
     person("iamkun", role = c("ctb", "cph"),
            comment = "Day.js locales bundled in inst/dayjs, MIT licence"),
     person("Eduardo San Martin Morote", role = c("ctb", "cph"),
-           comment = "vue-router bundled in inst/vue-router, MIT licence")
+           comment = "vue-router bundled in inst/vue-router, MIT licence"),
+    person("Anthony Fu", role = c("ctb", "cph"),
+           comment = "VueUse bundled in inst/vueuse, MIT licence")
   )
 Description: 'Element Plus' ('Vue' 3) components for 'shiny': forms, tables,
     trees, menus, dialog boxes and the rest, each reporting to the server and

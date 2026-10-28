@@ -245,6 +245,7 @@ export(vue_data_output)
 export(vue_output)
 export(vue_router)
 export(vue_store)
+export(vueuse_dependency)
 importFrom(htmltools,
   HTML,
   as.tags,

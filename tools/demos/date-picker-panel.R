@@ -2,19 +2,38 @@
 el_date_picker_panel("dpp", value = Sys.Date())
 
 ## border
-#' `border = FALSE`: the panel on its own, and inside a card.
-tags$div(
-  tags$div(style = "text-align: center", "No border:"),
-  el_divider(),
+#' `border = FALSE`: the panel on its own, and inside a card. The divider turns horizontal when the
+#' two no longer fit side by side, as upstream's does with VueUse's
+#' `useElementSize()`: the example is a [vue_app()] measuring its own box.
+vue_app(
+  "dpp_border_demo",
   tags$div(
-    style = "display: flex; flex-wrap: wrap; gap: 16px; justify-content: center",
+    ref = "containerRef",
+    tags$div(style = "text-align: center", "No border:"),
+    el$divider(),
     tags$div(
-      style = "padding: 20px",
-      el_date_picker_panel("dpp_border", border = FALSE)
-    ),
-    el_divider(direction = "vertical", style = "height: auto"),
-    el_card(el_date_picker_panel("dpp_border_card", border = FALSE))
-  )
+      style = "display: flex; flex-wrap: wrap; gap: 16px; justify-content: center",
+      tags$div(
+        style = "padding: 20px",
+        el_date_picker_panel("dpp_border", border = FALSE)
+      ),
+      el$divider(
+        style = "height: auto",
+        `:direction` = "isNarrow ? 'horizontal' : 'vertical'"
+      ),
+      el_card(el_date_picker_panel("dpp_border_card", border = FALSE))
+    )
+  ),
+  setup = JS(
+    "function() {",
+    "  var containerRef = Vue.ref(null);",
+    "  var size = VueUse.useElementSize(containerRef);",
+    "  var isNarrow = Vue.computed(function() { return size.width.value < 815; });",
+    "  return { containerRef: containerRef, isNarrow: isNarrow };",
+    "}"
+  ),
+  use = "shinyElement.plugin",
+  dependencies = vueuse_dependency()
 )
 
 ## disabled

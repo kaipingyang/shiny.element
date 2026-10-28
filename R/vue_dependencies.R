@@ -169,3 +169,55 @@
     all_files = FALSE
   )
 }
+
+#' VueUse, for a component's `setup()`
+#'
+#' VueUse 15.0.0 -- the version the bundled component library is built with -- as the global
+#' `VueUse`: its composables (`useTransition`, `useElementSize`,
+#' `useCssVar`, `useDebounceFn`, `useStorage`, ...) in a component's
+#' `setup()`, as `VueUse.useTransition(...)`. Give it to the component that
+#' uses it, `vue_app(dependencies = vueuse_dependency())`, or put it on the
+#' page; it carries Vue, which it needs loaded before it, so either works.
+#' No page loads it unless asked: the two files are 149 KB.
+#'
+#' @return A list of htmlDependency objects: Vue, `@vueuse/shared`,
+#'   `@vueuse/core`.
+#' @examples
+#' # A number counting up to its value
+#' vue_app(
+#'   "count",
+#'   htmltools::tags$b("{{ Math.round(shown) }}"),
+#'   setup = JS(
+#'     "function() {",
+#'     "  var target = Vue.ref(0);",
+#'     "  var shown = VueUse.useTransition(target, { duration: 1500 });",
+#'     "  Vue.onMounted(function() { target.value = 172000; });",
+#'     "  return { shown: shown };",
+#'     "}"
+#'   ),
+#'   dependencies = vueuse_dependency()
+#' )
+#' @export
+vueuse_dependency <- function() {
+  .vue_memo(paste("vueuse_dependency", .vue_dev()), function() {
+    list(
+      .vue_core_dependency(),
+      htmltools::htmlDependency(
+        name = "vueuse-shared",
+        version = "15.0.0",
+        src = "vueuse",
+        package = "shiny.element",
+        script = "shared.iife.min.js",
+        all_files = FALSE
+      ),
+      htmltools::htmlDependency(
+        name = "vueuse-core",
+        version = "15.0.0",
+        src = "vueuse",
+        package = "shiny.element",
+        script = "core.iife.min.js",
+        all_files = FALSE
+      )
+    )
+  })
+}

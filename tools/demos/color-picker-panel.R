@@ -32,20 +32,42 @@ el_color_picker_panel(
 )
 
 ## border
-tagList(
-  tags$div(style = "text-align: center", "No border:"),
-  el_divider(),
+#' `border = FALSE`: the panel on its own, and inside a card. The divider turns horizontal when the
+#' two no longer fit side by side, as upstream's does with VueUse's
+#' `useElementSize()`: the example is a [vue_app()] measuring its own box.
+vue_app(
+  "cpp_border_demo",
   tags$div(
-    style = "display: flex; flex-wrap: wrap; justify-content: center; gap: 16px",
+    ref = "containerRef",
+    tags$div(style = "text-align: center", "No border:"),
+    el$divider(),
     tags$div(
-      style = "padding: 20px",
-      el_color_picker_panel("cpp_border1", value = "#409EFF", border = FALSE)
-    ),
-    el_divider(direction = "vertical", style = "height: auto"),
-    el_card(
-      el_color_picker_panel("cpp_border2", value = "#409EFF", border = FALSE)
+      style = "display: flex; flex-wrap: wrap; gap: 16px; justify-content: center",
+      tags$div(
+        style = "padding: 20px",
+        el_color_picker_panel("cpp_border1", value = "#409EFF", border = FALSE)
+      ),
+      el$divider(
+        style = "height: auto",
+        `:direction` = "isNarrow ? 'horizontal' : 'vertical'"
+      ),
+      el_card(el_color_picker_panel(
+        "cpp_border2",
+        value = "#409EFF",
+        border = FALSE
+      ))
     )
-  )
+  ),
+  setup = JS(
+    "function() {",
+    "  var containerRef = Vue.ref(null);",
+    "  var size = VueUse.useElementSize(containerRef);",
+    "  var isNarrow = Vue.computed(function() { return size.width.value < 815; });",
+    "  return { containerRef: containerRef, isNarrow: isNarrow };",
+    "}"
+  ),
+  use = "shinyElement.plugin",
+  dependencies = vueuse_dependency()
 )
 
 ## disabled

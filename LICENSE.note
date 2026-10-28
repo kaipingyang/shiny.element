@@ -46,3 +46,14 @@ Upstream: https://github.com/vuejs/router
 These files are the unmodified distribution builds of vue-router 5.4.0,
 the router Element Plus's menu and breadcrumb are written for, bundled for
 offline use. Its licence text is in inst/vue-router/LICENSE.
+
+-------------------------------------------------------------------------
+Files: inst/vueuse/**
+Copyright: 2019-present Anthony Fu
+Licence: MIT
+Upstream: https://github.com/vueuse/vueuse
+-------------------------------------------------------------------------
+
+These files are the unmodified browser builds of @vueuse/shared and
+@vueuse/core 15.0.0, the version Element Plus 2.14.7 is built with,
+bundled for offline use. Their licence text is in inst/vueuse/LICENSE.

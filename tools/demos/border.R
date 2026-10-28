@@ -21,28 +21,40 @@ tags$table(
 )
 
 ## radius
-box <- function(name, radius) {
-  el_col(
-    span = 6,
-    tags$div(name),
-    tags$code(sprintf("border-radius: %s", radius)),
-    tags$div(
-      style = sprintf(
-        paste(
-          "height: 40px; margin-top: 10px; border: 1px solid",
-          "var(--el-border-color); border-radius: %s"
+#' Each radius is read from the theme's variable, with VueUse's
+#' `useCssVar()`, as upstream's does.
+vue_app(
+  "radius_demo",
+  el$row(
+    `:gutter` = "12",
+    el$col(
+      `v-for` = "(r, i) in radii",
+      `:key` = "i",
+      `:span` = "6",
+      `:xs` = "{ span: 12 }",
+      tags$div("{{ r.name }}"),
+      tags$code("border-radius: {{ r.type ? r.value : '0px' }}"),
+      tags$div(
+        style = paste(
+          "height: 40px; margin-top: 10px;",
+          "border: 1px solid var(--el-border-color)"
         ),
-        radius
+        `:style` = "{ borderRadius: r.type ? 'var(--el-border-radius-' + r.type + ')' : '' }"
       )
     )
-  )
-}
-el_row(
-  gutter = 12,
-  box("No Radius", "0px"),
-  box("Small Radius", "var(--el-border-radius-small)"),
-  box("Large Radius", "var(--el-border-radius-base)"),
-  box("Round Radius", "var(--el-border-radius-round)")
+  ),
+  setup = JS(
+    "function() {",
+    "  var group = [['No Radius', ''], ['Small Radius', 'small'],",
+    "    ['Large Radius', 'base'], ['Round Radius', 'round']];",
+    "  return { radii: Vue.reactive(group.map(function(g) {",
+    "    return { name: g[0], type: g[1],",
+    "      value: g[1] ? VueUse.useCssVar('--el-border-radius-' + g[1]) : '' };",
+    "  })) };",
+    "}"
+  ),
+  use = "shinyElement.plugin",
+  dependencies = vueuse_dependency()
 )
 
 ## shadow

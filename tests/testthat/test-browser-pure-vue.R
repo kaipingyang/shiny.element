@@ -285,6 +285,12 @@ test_that("vue_app() works without Element Plus", {
   Sys.sleep(1)
   expect_equal(box(), "medium|given|set")
 
+  # VueUse's composables in a component's setup()
+  expect_equal(js("document.querySelector('#vu .vu').textContent"), "5|100")
+  js("document.querySelector('#vu .vu-inc').click()")
+  Sys.sleep(0.3)
+  expect_equal(js("document.querySelector('#vu .vu').textContent"), "6|100")
+
   expect_equal(
     js(
       "window.__w.filter(function(w){ return /Vue warn|shiny-vue/.test(w); }).length"

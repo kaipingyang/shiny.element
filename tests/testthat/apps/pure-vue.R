@@ -247,6 +247,24 @@ ui <- fluidPage(
       "box"
     )$map
   ),
+  # VueUse in setup(): a counter, and a number moving to its target
+  vue_app(
+    "vu",
+    tags$div(
+      tags$button(class = "vu-inc", `@click` = "inc()", "+"),
+      tags$span(class = "vu", "{{ count }}|{{ Math.round(shown) }}")
+    ),
+    setup = JS(
+      "function() {",
+      "  var c = VueUse.useCounter(5);",
+      "  var target = Vue.ref(0);",
+      "  var shown = VueUse.useTransition(target, { duration: 200 });",
+      "  Vue.onMounted(function() { target.value = 100; });",
+      "  return { count: c.count, inc: c.inc, shown: shown };",
+      "}"
+    ),
+    dependencies = vueuse_dependency()
+  ),
   verbatimTextOutput("vals")
 )
 

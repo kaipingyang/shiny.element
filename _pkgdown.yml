@@ -465,6 +465,7 @@ reference:
       - vue_store
       - vue_router
       - update_vue_router
+      - vueuse_dependency
       - vue_output
       - render_vue_data
       - update_vue

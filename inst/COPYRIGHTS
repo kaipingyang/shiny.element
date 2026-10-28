@@ -37,3 +37,9 @@ unmodified copy of dist/vue-router.global.prod.js. The development build,
 dist/vue-router.global.js, unmodified, is in the package's sources but not
 in the package built for CRAN, which loads it from the unpkg CDN when asked
 for it.
+
+inst/vueuse/ contains VueUse 15.0.0, copyright Anthony Fu and released
+under the MIT licence; see inst/vueuse/LICENSE. Source:
+https://github.com/vueuse/vueuse. shared.iife.min.js and core.iife.min.js
+are unmodified copies of @vueuse/shared's and @vueuse/core's
+dist/index.iife.min.js.
