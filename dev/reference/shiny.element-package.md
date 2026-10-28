@@ -34,8 +34,9 @@ Other contributors:
 - iamkun (Day.js locales bundled in inst/dayjs, MIT licence)
   \[contributor, copyright holder\]
 
-- Eduardo San Martin Morote (vue-router bundled in inst/vue-router, MIT
-  licence) \[contributor, copyright holder\]
+- Eduardo San Martin Morote (vue-router and Pinia, bundled in
+  inst/vue-router and inst/pinia, MIT licence) \[contributor, copyright
+  holder\]
 
 - Anthony Fu (VueUse bundled in inst/vueuse, MIT licence) \[contributor,
   copyright holder\]

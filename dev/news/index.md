@@ -2,7 +2,23 @@
 
 ## shiny.element (development version)
 
+### Breaking changes
+
+- `vue_store(data =)` is deprecated, for `state`, Pinia’s name: it still
+  works, with a warning, and goes in the version after.
+
 ### New features
+
+- [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
+  is a Pinia store (Pinia 4.1.0, bundled), defined with Pinia’s own
+  parts: `state`, `getters` and `actions`, or a `setup` function.
+  Templates reach getters and actions as they do the state
+  (`$store.cart.total`, `$store.cart.add(1)`); a component’s `setup()`
+  gets the store with `shinyVue.useStore()`; `input` may name a getter;
+  [`call_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.md)
+  runs an action from the server, its value as `input$<id>_<action>`.
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md),
+  `outputs` and bookmarks work as before.
 
 - [`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
   brings VueUse 15.0.0 – the version Element Plus is built with, which

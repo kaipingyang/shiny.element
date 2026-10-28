@@ -3,9 +3,10 @@
 The Vue layer's `update*Input()`: assigns fields of a component's state
 – its `data`, or what its `setup()` returned, or a
 [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)'s
-– and the component, and every template showing them, follow. As with
-Shiny's updaters, the component's value is reported back to `input$<id>`
-afterwards, and the update is sent with the flush, after the outputs
+state – and the component, and every template showing them, follow. As
+with Shiny's updaters, the component's value is reported back to
+`input$<id>` afterwards, and the update is sent with the flush, after
+the outputs
 ([`flush_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/flush_vue.md)).
 
 ## Usage

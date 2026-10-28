@@ -790,7 +790,7 @@ with the server as its source:
 ``` r
 
 ui <- fluidPage(
-  vue_store("sales", data = list(revenue = 0, growth = 0), outputs = "totals"),
+  vue_store("sales", state = list(revenue = 0, growth = 0), outputs = "totals"),
   vue_app("kpi", tags$b("{{ $store.sales.revenue }}")),
   vue_app("trend", tags$i("{{ $store.sales.growth }} %"))
 )
@@ -819,24 +819,40 @@ changed.
 Each component is a Vue application of its own, so Vue’s `provide`
 cannot reach from one to another.
 [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
-is what Vue’s guide recommends instead, one shared
-[`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html) object, read
-and written by every template as `$store.<id>.<field>` – at once, in the
-browser. Give it `input` and the server sees it too, and
+is what Vue recommends instead, a Pinia store, read and written by every
+template as `$store.<id>.<field>` – at once, in the browser – with
+Pinia’s getters and actions. Give it `input` and the server sees it too;
 [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md)
-sets it:
+sets its state and
+[`call_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.md)
+runs its actions:
 
 ``` r
 
 ui <- fluidPage(
-  vue_store("cart", data = list(count = 0), input = "count"),
-  vue_app("add", tags$button(`@click` = "$store.cart.count++", "Add to cart")),
-  vue_app("badge", tags$b(" {{ $store.cart.count }} in the cart")),
+  vue_store(
+    "cart",
+    state = list(count = 0, price = 3),
+    getters = list(
+      total = JS("function(state) { return state.count * state.price; }")
+    ),
+    actions = list(add = JS("function(n) { this.count += n; }")),
+    input = "total"
+  ),
+  vue_app("add", tags$button(`@click` = "$store.cart.add(1)", "Add to cart")),
+  vue_app(
+    "badge",
+    tags$b(
+      " {{ $store.cart.count }} in the cart, {{ $store.cart.total }} in all"
+    )
+  ),
+  actionButton("two", "Server: add two"),
   verbatimTextOutput("server_sees")
 )
 
 server <- function(input, output, session) {
   output$server_sees <- renderPrint(input$cart)
+  observeEvent(input$two, call_vue(session, "cart", "add", 2))
 }
 
 shinyApp(ui, server)
@@ -845,7 +861,12 @@ shinyApp(ui, server)
 ![The vue-store example, running](../shots/shiny-vue-store.png)
 
 A change in the browser shows everywhere at once; one that goes through
-the server waits for the round trip.
+the server waits for the round trip. A store can be a setup function
+instead, `vue_store("cart", setup = JS("function() { ... }"))`, as
+Pinia’s setup stores are – VueUse’s composables included – and a
+component’s own `setup()` gets the store with
+`shinyVue.useStore("cart")`. `Pinia` is on the page too, for stores of
+one’s own that the server need not see.
 
 ### What a template can read of Shiny
 

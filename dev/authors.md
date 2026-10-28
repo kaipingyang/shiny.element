@@ -14,7 +14,8 @@
   Day.js locales bundled in inst/dayjs, MIT licence
 
 - **Eduardo San Martin Morote**. Contributor, copyright holder.  
-  vue-router bundled in inst/vue-router, MIT licence
+  vue-router and Pinia, bundled in inst/vue-router and inst/pinia, MIT
+  licence
 
 - **Anthony Fu**. Contributor, copyright holder.  
   VueUse bundled in inst/vueuse, MIT licence

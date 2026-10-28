@@ -256,15 +256,50 @@
 
   // Stores: state shared by components. Each component is an app of its
   // own, so Vue's provide/inject cannot reach across them; a store is what
-  // Vue's guide recommends instead -- one reactive() object every component
-  // refers to -- reached in any template as $store.<id>. A store is itself a
-  // host (vue_store()), its data the shared object, so the bridge treats it
-  // as any component: its model is input$<id>, update_vue() sets its fields,
-  // a bookmark restores them.
+  // Vue recommends instead, Pinia's -- reached in any template as
+  // $store.<id>, its getters and actions with it. A store is itself a host
+  // (vue_store()) exposing the store, so the bridge treats it as any
+  // component: its model is input$<id>, update_vue() sets its state,
+  // call_vue() runs its actions, a bookmark restores it.
   var storeRegistry = null;
   sv.stores = function() {
     if (!storeRegistry) storeRegistry = Vue.reactive({});
     return storeRegistry;
+  };
+  // One Pinia for the page; a store defined from a vue_store()'s spec
+  var pinia = null;
+  function piniaOf() {
+    if (!pinia && window.Pinia) pinia = Pinia.createPinia();
+    return pinia;
+  }
+  function defineStore(id, state, def) {
+    if (!window.Pinia) { warn('vue_store("' + id + '"): Pinia is not on the page'); return null; }
+    var p = piniaOf();
+    // a store drawn again starts from its new state, not the old one's
+    if (p.state.value[id]) delete p.state.value[id];
+    var useStore = Pinia.defineStore(id, typeof def.setup === 'function' ? def.setup : {
+      state: function() { return state; },
+      getters: def.getters || {},
+      actions: def.actions || {}
+    });
+    var store = useStore(p);
+    sv.stores()[id] = store;
+    return store;
+  }
+  // What a store's host exposes: its state and getters as refs, its actions
+  function storeFields(store) {
+    var out = {}, refs = Pinia.storeToRefs(store);
+    Object.keys(refs).forEach(function(k) { out[k] = refs[k]; });
+    Object.keys(store).forEach(function(k) {
+      if (typeof store[k] === 'function' && k.charAt(0) !== '$' && k.charAt(0) !== '_') out[k] = store[k];
+    });
+    return out;
+  }
+  // A store in a component's setup(): the Pinia store vue_store() made
+  sv.useStore = function(id) {
+    var st = sv.stores()[id];
+    if (!st) warn('useStore(): no store "' + id + '" on the page');
+    return st || null;
   };
   // Which data outputs Shiny is recalculating, by output id --
   // $recalculating.<id> in templates
@@ -414,8 +449,19 @@
     options.template = tpl.textContent;
     // Vue 3: data is a function, and the lifecycle hooks have new names
     var data = options.data || {};
-    // a store's data is the shared object itself
-    if (spec.store) { data = sv.stores()[host.id] = Vue.reactive(data); host._shinyVueStore = true; }
+    // A store (vue_store()) is a Pinia store, defined here from its spec:
+    // state, getters and actions, or a setup function. Its host's own
+    // instance exposes the store's state and getters (refs) and actions, so
+    // the bridge reaches it as any component -- the binding's value,
+    // update_vue(), call_vue(), outputs.
+    if (spec.store) {
+      var store = defineStore(host.id, data, spec.storeDef || {});
+      if (store) {
+        host._shinyVueStore = store;
+        data = {};
+        options.setup = function() { return storeFields(store); };
+      }
+    }
     options.data = function() { return data; };
     if (options.beforeDestroy) { options.beforeUnmount = options.beforeDestroy; delete options.beforeDestroy; }
     if (options.destroyed) { options.unmounted = options.destroyed; delete options.destroyed; }
@@ -457,6 +503,9 @@
     // The page's router (vue_router()), in every app: vue-router keeps the
     // apps it is installed in, each with $router, $route, <router-link>
     if (sv.router) app.use(sv.router);
+    // The page's Pinia, which vue_store()'s stores are made with, in every
+    // app, so a component's setup() can reach them (shinyVue.useStore())
+    if (window.Pinia) app.use(piniaOf());
     // Vue plugins the component asks for (`use`), by their global names --
     // a component library, an i18n plugin: app.use() on each
     // -- a name, or {name, options} for a plugin that takes them
@@ -733,7 +782,13 @@
     if (host._shinyVueObserver) host._shinyVueObserver.disconnect();
     dropQuestions(host);
     if (host._shinyVueApp) host._shinyVueApp.unmount();
-    if (host._shinyVueStore && storeRegistry) delete storeRegistry[host.id];
+    // a store goes with its host; drawn again, it starts from its state
+    if (host._shinyVueStore) {
+      if (storeRegistry) delete storeRegistry[host.id];
+      if (host._shinyVueStore.$dispose) host._shinyVueStore.$dispose();
+      if (pinia) delete pinia.state.value[host.id];
+      host._shinyVueStore = null;
+    }
     host._shinyVueApp = null;
     host._shinyVue = null;
   }
@@ -1135,6 +1190,9 @@
     }
     if (!vm) { warn('call: no component with id "' + msg.id + '"'); return; }
     target = target || componentOf(vm, msg.component);
+    // a host with no component under it -- a store -- runs its own: a
+    // store's actions are its host's methods
+    if (!target && !msg.component && typeof vm[msg.method] === 'function') target = vm;
     if (!target) { warn('call: no component under "' + msg.id + '"'); return; }
     // An argument that names an object the component holds -- a table's
     // row, an upload's file -- by an index or a name, since the object

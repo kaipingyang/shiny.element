@@ -69,7 +69,10 @@ The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no
 component library and is to become the shiny.vue package:
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md),
 [`vue_component()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.md),
-[`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md),
+[`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
+(a Pinia 4.1.0 store, `inst/pinia`: `state`/`getters`/`actions` or
+`setup`, `$store.<id>` in every template, its host exposing the store so
+updates, calls and outputs reach it),
 [`vue_output()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md)/[`render_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md),
 [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md),
 [`call_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.md),

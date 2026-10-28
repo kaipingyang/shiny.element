@@ -131,10 +131,10 @@ markup, then patches
 
 Shared state
 
-##### `vue_store(id, data, input)`
+##### `vue_store(id, state, getters, actions, input)`
 
-- one [`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html) for
-  every component; reported and updated like a component
+- a Pinia store for every component; reported, updated and called like a
+  component
 
 a host too
 
