@@ -43,3 +43,10 @@ under the MIT licence; see inst/vueuse/LICENSE. Source:
 https://github.com/vueuse/vueuse. shared.iife.min.js and core.iife.min.js
 are unmodified copies of @vueuse/shared's and @vueuse/core's
 dist/index.iife.min.js.
+
+inst/pinia/ contains Pinia 4.1.0, copyright Eduardo San Martin Morote and
+released under the MIT licence; see inst/pinia/LICENSE. Source:
+https://github.com/vuejs/pinia. pinia.iife.prod.js is an unmodified copy of
+dist/pinia.iife.prod.js. The development build, dist/pinia.iife.js,
+unmodified, is in the package's sources but not in the package built for
+CRAN, which loads it from the unpkg CDN when asked for it.

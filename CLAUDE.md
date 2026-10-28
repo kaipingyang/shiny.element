@@ -53,7 +53,10 @@ tag 2.14.7, gitignored; see `.upstream/README.md`). Its
 
 The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no component
 library and is to become the shiny.vue package: `vue_app()`,
-`vue_component()`, `vue_store()`, `vue_output()`/`render_vue()`,
+`vue_component()`, `vue_store()` (a Pinia 4.1.0 store, `inst/pinia`:
+`state`/`getters`/`actions` or `setup`, `$store.<id>` in every template,
+its host exposing the store so updates, calls and outputs reach it),
+`vue_output()`/`render_vue()`,
 `update_vue()`, `call_vue()`, `vue_answer()`, `vue_router()` (vue-router
 5.4.0, `inst/vue-router`: one router per page, in every app, the route
 in the hash and as `input$<id>`), `vueuse_dependency()` (VueUse 15.0.0,

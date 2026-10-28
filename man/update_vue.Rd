@@ -44,7 +44,7 @@ Called for its side effect; returns \code{NULL} invisibly.
 }
 \description{
 The Vue layer's \code{update*Input()}: assigns fields of a component's state
--- its \code{data}, or what its \code{setup()} returned, or a \code{\link[=vue_store]{vue_store()}}'s --
+-- its \code{data}, or what its \code{setup()} returned, or a \code{\link[=vue_store]{vue_store()}}'s state --
 and the component, and every template showing them, follow. As with
 Shiny's updaters, the component's value is reported back to
 \verb{input$<id>} afterwards, and the update is sent with the flush, after

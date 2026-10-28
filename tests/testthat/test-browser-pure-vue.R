@@ -285,6 +285,27 @@ test_that("vue_app() works without Element Plus", {
   Sys.sleep(1)
   expect_equal(box(), "medium|given|set")
 
+  # Pinia: a getter and an action in templates, the store in a setup()
+  expect_equal(js("document.querySelector('#sc .sc').textContent"), "4")
+  expect_equal(js("document.querySelector('#su .su').textContent"), "2")
+  js("document.querySelector('#sc .sc-add').click()")
+  Sys.sleep(0.8)
+  expect_equal(js("document.querySelector('#sc .sc').textContent"), "14")
+  expect_equal(js("document.querySelector('#su .su').textContent"), "7")
+  expect_equal(js("Shiny.shinyapp.$inputValues.cart"), 7)
+  # an action called from the server
+  js("Shiny.setInputValue('call_add', 1)")
+  Sys.sleep(1)
+  expect_equal(js("Shiny.shinyapp.$inputValues.cart"), 17)
+  expect_equal(js("Shiny.shinyapp.$inputValues.cart_add"), 17)
+  # a setup store, its getter as the input
+  expect_equal(js("document.querySelector('#ssv .ssv').textContent"), "1|2")
+  expect_equal(js("Shiny.shinyapp.$inputValues.ss"), 2)
+  js("document.querySelector('#ssv .ss-bump').click()")
+  Sys.sleep(0.8)
+  expect_equal(js("document.querySelector('#ssv .ssv').textContent"), "2|4")
+  expect_equal(js("Shiny.shinyapp.$inputValues.ss"), 4)
+
   # VueUse's composables in a component's setup()
   expect_equal(js("document.querySelector('#vu .vu').textContent"), "5|100")
   js("document.querySelector('#vu .vu-inc').click()")

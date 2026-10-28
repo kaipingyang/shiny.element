@@ -135,7 +135,7 @@ test_that("vue_component() is a child's options, its data a function", {
 })
 
 test_that("vue_store() is a host marked as a store", {
-  spec <- vue_spec_of(vue_store("cart", data = list(n = 0), input = "n"))
+  spec <- vue_spec_of(vue_store("cart", state = list(n = 0), input = "n"))
   expect_true(spec$store)
   expect_equal(spec$input, "n")
 })

@@ -4,36 +4,76 @@
 \alias{vue_store}
 \title{State shared by Vue components: a store}
 \usage{
-vue_store(id, data = list(), input = NULL, outputs = NULL)
+vue_store(
+  id,
+  state = list(),
+  getters = NULL,
+  actions = NULL,
+  setup = NULL,
+  input = NULL,
+  outputs = NULL,
+  data = NULL
+)
 }
 \arguments{
-\item{id}{The store's id: \verb{$store.<id>} in templates.}
+\item{id}{The store's id: \verb{$store.<id>} in templates, Pinia's store id.}
 
-\item{data}{Named list: the initial state.}
+\item{state}{Named list: the initial state.}
 
-\item{input}{Fields reported as \verb{input$<id>}, as for \code{\link[=vue_app]{vue_app()}}.}
+\item{getters}{Named list of \code{\link[=JS]{JS()}} functions of \code{state}, as Pinia's
+getters: values computed from the state, cached.}
 
-\item{outputs}{Outputs the store's data follows, as for \code{\link[=vue_app]{vue_app()}}.}
+\item{actions}{Named list of \code{\link[=JS]{JS()}} functions, as Pinia's actions: \code{this}
+is the store.}
+
+\item{setup}{A \code{\link[=JS]{JS()}} function returning the store's refs, computed and
+functions: Pinia's setup store, instead of \code{state}, \code{getters} and
+\code{actions}.}
+
+\item{input}{Fields reported as \verb{input$<id>}, as for \code{\link[=vue_app]{vue_app()}}: state
+or getters.}
+
+\item{outputs}{Outputs the store's state follows, as for \code{\link[=vue_app]{vue_app()}}.}
+
+\item{data}{Deprecated: \code{state}, under Vue's name for a component's state.}
 }
 \value{
 A tag: a hidden host that holds the store.
 }
 \description{
 Each \code{\link[=vue_app]{vue_app()}} is an application of its own, so Vue's \code{provide} and
-\code{inject} cannot reach from one to another. Vue's guide answers shared
-state with a store, one \code{reactive()} object every component refers to,
-and this is that: every template reads and writes it as
-\verb{$store.<id>.<field>}, at once and in the browser. It is also a component
-of the bridge, so the server reaches it the way it reaches any other:
-\code{input} makes fields \verb{input$<id>}, \code{\link[=update_vue]{update_vue()}} sets them -- and every
-template showing them follows -- and a bookmark restores them.
+\code{inject} cannot reach from one to another. Vue's answer is a store, and
+its store is Pinia's: this is one, defined from R with Pinia's own parts
+-- \code{state}, \code{getters}, \code{actions}, or a \code{setup} function -- and reached in
+every template as \verb{$store.<id>}: \verb{$store.cart.count}, a getter
+\verb{$store.cart.total}, an action \verb{$store.cart.add(1)}, at once and in the
+browser. In a component's \code{setup()}, \code{shinyVue.useStore("<id>")} gives the
+Pinia store itself (\code{Pinia.storeToRefs()} works on it).
 }
 \details{
+It is also a component of the bridge, so the server reaches it the way
+it reaches any other: \code{input} makes fields or getters \verb{input$<id>},
+\code{\link[=update_vue]{update_vue()}} sets its state -- and every template showing it follows
+--, \code{\link[=call_vue]{call_vue()}} runs an action, its value coming back as
+\verb{input$<id>_<action>}, \code{outputs} fill its state from the server, and a
+bookmark restores it.
+
 A store can be anywhere on the page; stores are set up before the
 components that read them.
 }
 \examples{
-vue_store("cart", data = list(count = 0), input = "count")
-vue_app("add", htmltools::tags$button(`@click` = "$store.cart.count++", "Add"))
-vue_app("show", htmltools::tags$span("{{ $store.cart.count }} in the cart"))
+vue_store(
+  "cart",
+  state = list(count = 0, price = 3),
+  getters = list(
+    total = JS("function(state) { return state.count * state.price; }")
+  ),
+  actions = list(add = JS("function(n) { this.count += n; }")),
+  input = "total"
+)
+vue_app("add", htmltools::tags$button(`@click` = "$store.cart.add(1)", "Add"))
+vue_app(
+  "show",
+  htmltools::tags$span("{{ $store.cart.count }} for {{ $store.cart.total }}")
+)
 }

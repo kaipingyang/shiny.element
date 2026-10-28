@@ -531,7 +531,8 @@ vue_app <- function(
   outputs = NULL,
   type = NULL,
   rate = NULL,
-  optional = NULL
+  optional = NULL,
+  store_def = NULL
 ) {
   if (!is.character(id) || length(id) != 1L || !nzchar(id)) {
     stop("`id` must be a single string.", call. = FALSE)
@@ -550,12 +551,15 @@ vue_app <- function(
   outputs <- .vue_outputs_arg(outputs)
   options <- .vue_option_aliases(options)
   spec <- list(options = c(list(data = data), options))
-  in_setup <- !is.null(options$setup)
+  # a setup() -- the component's or a store's -- has fields R cannot list
+  in_setup <- !is.null(options$setup) || !is.null(store_def$setup)
+  # a store's getters are its fields as well, read-only
+  getters <- names(store_def$getters)
   if (length(input)) {
     if (!is.character(input)) {
       stop("`input` must name a field, or several.", call. = FALSE)
     }
-    missing_fields <- setdiff(input, names(data))
+    missing_fields <- setdiff(input, c(names(data), getters))
     if (length(missing_fields) && !in_setup) {
       stop(
         "`input` names ",
@@ -569,7 +573,7 @@ vue_app <- function(
       if (input %in% names(data)) {
         # a bookmark brings the value back into the data
         spec$options$data[input] <- list(.vue_restore(id, data[[input]]))
-      } else {
+      } else if (!input %in% getters) {
         restored <- shiny::restoreInput(id = id, default = NULL)
         if (!is.null(restored)) spec$restored <- restored
       }
@@ -601,6 +605,9 @@ vue_app <- function(
   }
   if (isTRUE(store)) {
     spec$store <- TRUE
+    if (length(store_def)) {
+      spec$storeDef <- store_def
+    }
   }
   dependencies <- .vue_as_dependency_list(dependencies)
   .vue_host(
@@ -696,37 +703,111 @@ vue_component <- function(
 #' State shared by Vue components: a store
 #'
 #' Each [vue_app()] is an application of its own, so Vue's `provide` and
-#' `inject` cannot reach from one to another. Vue's guide answers shared
-#' state with a store, one `reactive()` object every component refers to,
-#' and this is that: every template reads and writes it as
-#' `$store.<id>.<field>`, at once and in the browser. It is also a component
-#' of the bridge, so the server reaches it the way it reaches any other:
-#' `input` makes fields `input$<id>`, [update_vue()] sets them -- and every
-#' template showing them follows -- and a bookmark restores them.
+#' `inject` cannot reach from one to another. Vue's answer is a store, and
+#' its store is Pinia's: this is one, defined from R with Pinia's own parts
+#' -- `state`, `getters`, `actions`, or a `setup` function -- and reached in
+#' every template as `$store.<id>`: `$store.cart.count`, a getter
+#' `$store.cart.total`, an action `$store.cart.add(1)`, at once and in the
+#' browser. In a component's `setup()`, `shinyVue.useStore("<id>")` gives the
+#' Pinia store itself (`Pinia.storeToRefs()` works on it).
+#'
+#' It is also a component of the bridge, so the server reaches it the way
+#' it reaches any other: `input` makes fields or getters `input$<id>`,
+#' [update_vue()] sets its state -- and every template showing it follows
+#' --, [call_vue()] runs an action, its value coming back as
+#' `input$<id>_<action>`, `outputs` fill its state from the server, and a
+#' bookmark restores it.
 #'
 #' A store can be anywhere on the page; stores are set up before the
 #' components that read them.
 #'
-#' @param id The store's id: `$store.<id>` in templates.
-#' @param data Named list: the initial state.
-#' @param input Fields reported as `input$<id>`, as for [vue_app()].
-#' @param outputs Outputs the store's data follows, as for [vue_app()].
+#' @param id The store's id: `$store.<id>` in templates, Pinia's store id.
+#' @param state Named list: the initial state.
+#' @param getters Named list of [JS()] functions of `state`, as Pinia's
+#'   getters: values computed from the state, cached.
+#' @param actions Named list of [JS()] functions, as Pinia's actions: `this`
+#'   is the store.
+#' @param setup A [JS()] function returning the store's refs, computed and
+#'   functions: Pinia's setup store, instead of `state`, `getters` and
+#'   `actions`.
+#' @param input Fields reported as `input$<id>`, as for [vue_app()]: state
+#'   or getters.
+#' @param outputs Outputs the store's state follows, as for [vue_app()].
+#' @param data Deprecated: `state`, under Vue's name for a component's state.
 #' @return A tag: a hidden host that holds the store.
 #' @examples
-#' vue_store("cart", data = list(count = 0), input = "count")
-#' vue_app("add", htmltools::tags$button(`@click` = "$store.cart.count++", "Add"))
-#' vue_app("show", htmltools::tags$span("{{ $store.cart.count }} in the cart"))
+#' vue_store(
+#'   "cart",
+#'   state = list(count = 0, price = 3),
+#'   getters = list(
+#'     total = JS("function(state) { return state.count * state.price; }")
+#'   ),
+#'   actions = list(add = JS("function(n) { this.count += n; }")),
+#'   input = "total"
+#' )
+#' vue_app("add", htmltools::tags$button(`@click` = "$store.cart.add(1)", "Add"))
+#' vue_app(
+#'   "show",
+#'   htmltools::tags$span("{{ $store.cart.count }} for {{ $store.cart.total }}")
+#' )
 #' @export
-vue_store <- function(id, data = list(), input = NULL, outputs = NULL) {
-  .vue_app_spec(
+vue_store <- function(
+  id,
+  state = list(),
+  getters = NULL,
+  actions = NULL,
+  setup = NULL,
+  input = NULL,
+  outputs = NULL,
+  data = NULL
+) {
+  if (!is.null(data)) {
+    warning(
+      "`data` is deprecated in vue_store(): give the store's `state`, as ",
+      "Pinia names it.",
+      call. = FALSE
+    )
+    if (length(state)) {
+      stop("Give `state` or `data`, not both.", call. = FALSE)
+    }
+    state <- data
+  }
+  if (
+    !is.null(setup) && (length(state) || length(getters) || length(actions))
+  ) {
+    stop(
+      "A store is `state`, `getters` and `actions`, or a `setup` function, ",
+      "not both.",
+      call. = FALSE
+    )
+  }
+  for (arg in c("getters", "actions")) {
+    fns <- get(arg)
+    if (
+      length(fns) &&
+        (is.null(names(fns)) ||
+          !all(vapply(fns, inherits, logical(1), "JS_EVAL")))
+    ) {
+      stop("`", arg, "` must be a named list of JS() functions.", call. = FALSE)
+    }
+  }
+  if (!is.null(setup) && !inherits(setup, "JS_EVAL")) {
+    stop("`setup` must be a JS() function.", call. = FALSE)
+  }
+  host <- .vue_app_spec(
     id = id,
     template = htmltools::tags$span(hidden = NA),
-    data = data,
+    data = state,
     options = list(),
     input = input,
     outputs = outputs,
     use = NULL,
-    dependencies = NULL,
-    store = TRUE
+    dependencies = list(.vue_pinia_dependency()),
+    store = TRUE,
+    store_def = Filter(
+      Negate(is.null),
+      list(getters = getters, actions = actions, setup = setup)
+    )
   )
+  host
 }

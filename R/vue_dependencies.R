@@ -221,3 +221,38 @@ vueuse_dependency <- function() {
     )
   })
 }
+
+#' Pinia, as bundled with the package
+#'
+#' Pinia 4.1.0's global build, `Pinia`, which [vue_store()]'s stores are
+#' made with. As with Vue's, the development build is in the package's
+#' sources only, loaded from unpkg on a CRAN install, versioned one step
+#' above the production build.
+#'
+#' @param dev Load the development build.
+#' @return An htmlDependency object.
+#' @keywords internal
+.vue_pinia_dependency <- function(dev = .vue_dev()) {
+  if (!isTRUE(dev)) {
+    return(htmltools::htmlDependency(
+      name = "pinia",
+      version = "4.1.0",
+      src = "pinia",
+      package = "shiny.element",
+      script = "pinia.iife.prod.js",
+      all_files = FALSE
+    ))
+  }
+  local <- .vue_file("pinia", "pinia.iife.js")
+  htmltools::htmlDependency(
+    name = "pinia",
+    version = "4.1.0.1",
+    src = if (nzchar(local)) {
+      c(file = dirname(local))
+    } else {
+      c(href = "https://unpkg.com/pinia@4.1.0/dist/")
+    },
+    script = "pinia.iife.js",
+    all_files = FALSE
+  )
+}

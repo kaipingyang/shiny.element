@@ -20,7 +20,53 @@ ui <- fluidPage(
     "sb",
     tags$span(class = "sb", "{{ $store.cart.count }}|{{ $store.cart.note }}")
   ),
-  vue_store("cart", data = list(count = 0, note = ""), input = "count"),
+  vue_store(
+    "cart",
+    state = list(count = 0, note = ""),
+    getters = list(double = JS("function(state) { return state.count * 2; }")),
+    actions = list(
+      add = JS("function(n) { this.count += n; return this.count; }")
+    ),
+    input = "count"
+  ),
+  # Pinia's getters and actions in a template, the store in a setup()
+  vue_app(
+    "sc",
+    tags$div(
+      tags$span(class = "sc", "{{ $store.cart.double }}"),
+      tags$button(class = "sc-add", `@click` = "$store.cart.add(5)", "+5")
+    )
+  ),
+  vue_app(
+    "su",
+    tags$span(class = "su", "{{ cnt }}"),
+    setup = JS(
+      "function() {",
+      "  var refs = Pinia.storeToRefs(shinyVue.useStore('cart'));",
+      "  return { cnt: refs.count };",
+      "}"
+    )
+  ),
+  # a setup store: its getter reported as input$ss
+  vue_store(
+    "ss",
+    setup = JS(
+      "function() {",
+      "  var n = Vue.ref(1);",
+      "  var twice = Vue.computed(function() { return n.value * 2; });",
+      "  function bump() { n.value++; }",
+      "  return { n: n, twice: twice, bump: bump };",
+      "}"
+    ),
+    input = "twice"
+  ),
+  vue_app(
+    "ssv",
+    tags$div(
+      tags$span(class = "ssv", "{{ $store.ss.n }}|{{ $store.ss.twice }}"),
+      tags$button(class = "ss-bump", `@click` = "$store.ss.bump()", "bump")
+    )
+  ),
   # input is input$<id>; $emit() sends input$<id>_<event>
   vue_app(
     "counter",
@@ -269,6 +315,8 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
+  # a store's action from the server, its value as input$cart_add
+  observeEvent(input$call_add, call_vue(session, "cart", "add", 10))
   # NA: back to the default; a value; JS("null"): a null
   observeEvent(input$opt_set, {
     update_vue(session, "opt", size = NA, note = "set", label = JS("null"))

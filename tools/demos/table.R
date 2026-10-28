@@ -558,7 +558,7 @@ tableData <- data.frame(
 )
 
 ui <- el_page(
-  vue_store("search", data = list(text = ""), input = "text"),
+  vue_store("search", state = list(text = ""), input = "text"),
   el_table_output("searchable")
 )
 
@@ -638,7 +638,7 @@ tableData <- lapply(
 )
 
 ui <- el_page(
-  vue_store("expand", data = list(child = FALSE)),
+  vue_store("expand", state = list(child = FALSE)),
   tags$div(
     style = "display: flex; gap: 8px; align-items: center",
     "switch parent border:",

@@ -30,7 +30,7 @@ Other contributors:
   \item Element Plus team (Element Plus and its icons, bundled in inst/element-plus, MIT licence) [contributor, copyright holder]
   \item Evan You (Vue library bundled in inst/vue3, MIT licence) [contributor, copyright holder]
   \item iamkun (Day.js locales bundled in inst/dayjs, MIT licence) [contributor, copyright holder]
-  \item Eduardo San Martin Morote (vue-router bundled in inst/vue-router, MIT licence) [contributor, copyright holder]
+  \item Eduardo San Martin Morote (vue-router and Pinia, bundled in inst/vue-router and inst/pinia, MIT licence) [contributor, copyright holder]
   \item Anthony Fu (VueUse bundled in inst/vueuse, MIT licence) [contributor, copyright holder]
 }
 

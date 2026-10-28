@@ -10,7 +10,7 @@ Authors@R: c(
     person("iamkun", role = c("ctb", "cph"),
            comment = "Day.js locales bundled in inst/dayjs, MIT licence"),
     person("Eduardo San Martin Morote", role = c("ctb", "cph"),
-           comment = "vue-router bundled in inst/vue-router, MIT licence"),
+           comment = "vue-router and Pinia, bundled in inst/vue-router and inst/pinia, MIT licence"),
     person("Anthony Fu", role = c("ctb", "cph"),
            comment = "VueUse bundled in inst/vueuse, MIT licence")
   )
