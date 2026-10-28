@@ -76,10 +76,13 @@ component library and is to become the shiny.vue package:
 [`vue_answer()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_answer.md),
 [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
 (vue-router 5.4.0, `inst/vue-router`: one router per page, in every app,
-the route in the hash and as `input$<id>`), and the `.vue_*` helpers.
-`test-vue-layer.R` fails if any of it names Element;
-`test-browser-pure-vue.R` runs it with no Element Plus on the page. The
-**Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is built on it:
+the route in the hash and as `input$<id>`),
+[`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
+(VueUse 15.0.0, Element’s own version, `inst/vueuse`, opt-in, for
+`setup()`), and the `.vue_*` helpers. `test-vue-layer.R` fails if any of
+it names Element; `test-browser-pure-vue.R` runs it with no Element Plus
+on the page. The **Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is
+built on it:
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md)
 builds through
 [`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)

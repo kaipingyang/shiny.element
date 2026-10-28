@@ -179,7 +179,7 @@
 <link href="statistic_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
 <link href="statistic_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
 <script src="statistic_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="statistic_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="statistic_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="statistic_files/shiny-element-1.0.0/el-events.js"></script><script src="statistic_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="statistic_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="statistic_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="statistic_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="statistic_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
-<div class="row">
+<script src="statistic_files/vueuse-shared-15.0.0/shared.iife.min.js"></script><script src="statistic_files/vueuse-core-15.0.0/core.iife.min.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Statistic</h1>
@@ -199,6 +199,10 @@
 value, amount, and ranking, you can add elements such as icon and unit
 before and after the number and title. And use <a href="https://vueuse.org/core/useTransition/" class="external-link">vueuse</a> to add animated
 transitions to value.</p>
+<p>The total counts up to its value, with VueUse’s
+<code>useTransition()</code>, as upstream’s does: an
+<code>el$statistic()</code> in a [vue_app()] whose <code>setup()</code>
+moves the number, with [vueuse_dependency()].</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu"><a href="../../reference/el_statistic.html">el_statistic</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Daily active users"</span>, value <span class="op">=</span> <span class="fl">268500</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -216,7 +220,23 @@ transitions to value.</p>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">6</span>, <span class="fu"><a href="../../reference/el_statistic.html">el_statistic</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total Transactions"</span>, value <span class="op">=</span> <span class="fl">172000</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>    <span class="fu"><a href="../../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>      <span class="st">"stat_total"</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">statistic</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total Transactions"</span>, `:value` <span class="op">=</span> <span class="st">"outputValue"</span><span class="op">)</span>,</span>
+<span>      setup <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>        <span class="st">"function() {"</span>,</span>
+<span>        <span class="st">"  var source = Vue.ref(0);"</span>,</span>
+<span>        <span class="st">"  var outputValue = VueUse.useTransition(source, { duration: 1500 });"</span>,</span>
+<span>        <span class="st">"  source.value = 172000;"</span>,</span>
+<span>        <span class="st">"  return { outputValue: outputValue };"</span>,</span>
+<span>        <span class="st">"}"</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      use <span class="op">=</span> <span class="st">"shinyElement.plugin"</span>,</span>
+<span>      dependencies <span class="op">=</span> <span class="fu"><a href="../../reference/vueuse_dependency.html">vueuse_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
 <span>    span <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_statistic.html">el_statistic</a></span><span class="op">(</span></span>
@@ -229,15 +249,15 @@ transitions to value.</p>
 <div class="el-demo">
   <div class="el-row">
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_3e2d1416-968c-49d6-9b28-7dbf108277b8" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_3e2d1416-968c-49d6-9b28-7dbf108277b8_container" style="display: contents">
+      <div id="basic-el_statistic_b7ce5a47-36a1-4e9e-a38b-1212021623c0" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_b7ce5a47-36a1-4e9e-a38b-1212021623c0_container" style="display: contents">
   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":268500,"title":"Daily active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"statistic":{"title":"title","prefix":"prefix","suffix":"suffix","precision":"precision","decimal-separator":"decimalSeparator","group-separator":"groupSeparator","value-style":"valueStyle","formatter":"formatter"}},"generated":true,"evals":[]}</script>
 </div>
     </div>
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_ef157010-18a4-42f9-a14e-c0b88d883549" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_ef157010-18a4-42f9-a14e-c0b88d883549_container" style="display: contents">
+      <div id="basic-el_statistic_992b9ad7-0c16-4c4e-9c54-b2915c625cca" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_992b9ad7-0c16-4c4e-9c54-b2915c625cca_container" style="display: contents">
   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value">
     <template v-slot:title>
       <div style="display: inline-flex; align-items: center">
@@ -251,15 +271,13 @@ transitions to value.</p>
 </div>
     </div>
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_21ab8ffe-c9b9-4393-8e4e-23f63664a54f" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_21ab8ffe-c9b9-4393-8e4e-23f63664a54f_container" style="display: contents">
-  <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value"></el-statistic>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":172000,"title":"Total Transactions","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"statistic":{"title":"title","prefix":"prefix","suffix":"suffix","precision":"precision","decimal-separator":"decimalSeparator","group-separator":"groupSeparator","value-style":"valueStyle","formatter":"formatter"}},"generated":true,"evals":[]}</script>
+      <div id="stat_total" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><el-statistic title="Total Transactions" :value="outputValue"></el-statistic></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[],"setup":"function() {\n  var source = Vue.ref(0);\n  var outputValue = VueUse.useTransition(source, { duration: 1500 });\n  source.value = 172000;\n  return { outputValue: outputValue };\n}"},"use":["shinyElement.plugin"],"evals":["options.setup"]}</script>
 </div>
     </div>
     <div class="el-col el-col-6">
-      <div id="basic-el_statistic_9c86a39e-00c0-45ba-b54f-feb44321eee3" data-shiny-vue style="display: contents">
-        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_9c86a39e-00c0-45ba-b54f-feb44321eee3_container" style="display: contents">
+      <div id="basic-el_statistic_3b48deee-1cbf-4fc9-ade0-b4d759d9a8f9" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="basic-el_statistic_3b48deee-1cbf-4fc9-ade0-b4d759d9a8f9_container" style="display: contents">
   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value">
     <template v-slot:suffix>
       <i class="el-icon" data-el-icon="ChatLineRound" aria-hidden="true" role="img"></i>
@@ -382,8 +400,8 @@ second one’s <code>value</code> again, with
   <div class="el-row" style="margin-left:-8px; margin-right:-8px">
     <div class="el-col el-col-8 is-guttered" style="padding-left:8px; padding-right:8px">
       <div style="height: 100%; padding: 16px; border-radius: 4px; background: var(--el-bg-color-overlay)">
-        <div id="card-el_statistic_1fe5c298-1c48-4eed-b31f-7c214aaa213d" data-shiny-vue style="display: contents">
-          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_1fe5c298-1c48-4eed-b31f-7c214aaa213d_container" style="display: contents">
+        <div id="card-el_statistic_e7dc7852-0db6-4f59-bfd0-05df68408d1c" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_e7dc7852-0db6-4f59-bfd0-05df68408d1c_container" style="display: contents">
   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":98500,"title":"Daily active users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"statistic":{"title":"title","prefix":"prefix","suffix":"suffix","precision":"precision","decimal-separator":"decimalSeparator","group-separator":"groupSeparator","value-style":"valueStyle","formatter":"formatter"}},"generated":true,"evals":[]}</script>
 </div>
@@ -398,8 +416,8 @@ second one’s <code>value</code> again, with
     </div>
     <div class="el-col el-col-8 is-guttered" style="padding-left:8px; padding-right:8px">
       <div style="height: 100%; padding: 16px; border-radius: 4px; background: var(--el-bg-color-overlay)">
-        <div id="card-el_statistic_2b078ff3-23ca-4793-9228-cfdfca62559d" data-shiny-vue style="display: contents">
-          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_2b078ff3-23ca-4793-9228-cfdfca62559d_container" style="display: contents">
+        <div id="card-el_statistic_40c200d5-0028-4bad-b4dd-d3b15c7fd1c7" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_40c200d5-0028-4bad-b4dd-d3b15c7fd1c7_container" style="display: contents">
   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":693700,"title":"Monthly Active Users","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"statistic":{"title":"title","prefix":"prefix","suffix":"suffix","precision":"precision","decimal-separator":"decimalSeparator","group-separator":"groupSeparator","value-style":"valueStyle","formatter":"formatter"}},"generated":true,"evals":[]}</script>
 </div>
@@ -414,8 +432,8 @@ second one’s <code>value</code> again, with
     </div>
     <div class="el-col el-col-8 is-guttered" style="padding-left:8px; padding-right:8px">
       <div style="height: 100%; padding: 16px; border-radius: 4px; background: var(--el-bg-color-overlay)">
-        <div id="card-el_statistic_6233b16f-c747-4e6a-9fcc-9afe7dfa97ff" data-shiny-vue style="display: contents">
-          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_6233b16f-c747-4e6a-9fcc-9afe7dfa97ff_container" style="display: contents">
+        <div id="card-el_statistic_0370ea43-7342-4671-b2f1-e93f74cce9c3" data-shiny-vue style="display: contents">
+          <script type="text/x-template" data-shiny-vue-template><div id="card-el_statistic_0370ea43-7342-4671-b2f1-e93f74cce9c3_container" style="display: contents">
   <el-statistic v-bind="$optional(&#39;statistic&#39;)" :value="value"></el-statistic>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":72000,"title":"New transactions today","prefix":null,"suffix":null,"precision":null,"decimalSeparator":null,"groupSeparator":null,"valueStyle":null,"formatter":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"statistic":{"title":"title","prefix":"prefix","suffix":"suffix","precision":"precision","decimal-separator":"decimalSeparator","group-separator":"groupSeparator","value-style":"valueStyle","formatter":"formatter"}},"generated":true,"evals":[]}</script>
 </div>

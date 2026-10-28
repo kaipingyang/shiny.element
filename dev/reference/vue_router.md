@@ -56,12 +56,15 @@ ui <- fluidPage(
   vue_app(
     "nav",
     htmltools::tags$nav(
-      htmltools::tag("router-link", list(to = "/", "Home")), " | ",
+      htmltools::tag("router-link", list(to = "/", "Home")),
+      " | ",
       htmltools::tag("router-link", list(to = "/about", "About"))
     )
   ),
   conditionalPanel("input.route == '/about'", "About this app")
 )
 server <- function(input, output, session) {}
-if (interactive()) shinyApp(ui, server)
+if (interactive()) {
+  shinyApp(ui, server)
+}
 ```

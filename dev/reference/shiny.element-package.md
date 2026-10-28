@@ -36,3 +36,6 @@ Other contributors:
 
 - Eduardo San Martin Morote (vue-router bundled in inst/vue-router, MIT
   licence) \[contributor, copyright holder\]
+
+- Anthony Fu (VueUse bundled in inst/vueuse, MIT licence) \[contributor,
+  copyright holder\]

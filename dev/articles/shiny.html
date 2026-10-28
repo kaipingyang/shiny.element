@@ -1362,6 +1362,36 @@ click, the browser’s buttons, the server – and <code>input$menu</code>
 with it. A page has one router.</p>
 </div>
 <div class="section level2">
+<h2 id="vueuse-in-a-components-setup">VueUse in a component’s setup<a class="anchor" aria-label="anchor" href="#vueuse-in-a-components-setup"></a>
+</h2>
+<p><code><a href="../reference/vueuse_dependency.html">vueuse_dependency()</a></code> brings VueUse, the composables
+Element Plus itself is built on, as the global <code>VueUse</code>: in a
+<code><a href="../reference/vue_app.html">vue_app()</a></code>’s <code>setup()</code>,
+<code>VueUse.useTransition()</code>, <code>useElementSize()</code>,
+<code>useCssVar()</code>, <code>useDebounceFn()</code>,
+<code>useStorage()</code> and the rest work as in any Vue app. Give it
+to the component that uses it; no page loads it otherwise.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>  <span class="st">"total"</span>,</span>
+<span>  <span class="va">el</span><span class="op">$</span><span class="fu">statistic</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total Transactions"</span>, `:value` <span class="op">=</span> <span class="st">"shown"</span><span class="op">)</span>,</span>
+<span>  setup <span class="op">=</span> <span class="fu"><a href="../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function() {"</span>,</span>
+<span>    <span class="st">"  var target = Vue.ref(0);"</span>,</span>
+<span>    <span class="st">"  var shown = VueUse.useTransition(target, { duration: 1500 });"</span>,</span>
+<span>    <span class="st">"  target.value = 172000;"</span>,</span>
+<span>    <span class="st">"  return { shown: shown };"</span>,</span>
+<span>    <span class="st">"}"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  use <span class="op">=</span> <span class="st">"shinyElement.plugin"</span>, <span class="co"># Element's tags in the template</span></span>
+<span>  dependencies <span class="op">=</span> <span class="fu"><a href="../reference/vueuse_dependency.html">vueuse_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>The component pages use it where Element’s own examples do: the
+statistic’s total counting up, the panels’ dividers turning with the
+width, the typography and border pages reading the theme’s
+variables.</p>
+</div>
+<div class="section level2">
 <h2 id="without-shiny">Without Shiny<a class="anchor" aria-label="anchor" href="#without-shiny"></a>
 </h2>
 <p>The components also work on a page with no Shiny session – an R

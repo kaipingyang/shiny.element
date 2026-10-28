@@ -497,26 +497,41 @@ the user’s state across renders, shared state, and the server’s way in.
 
 - [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
   : A Vue component, as Shiny UI
+
 - [`vue_component()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.md)
   : A Vue child component, for a template to use
+
 - [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
   : State shared by Vue components: a store
+
 - [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
   : The page's router: vue-router, with the route as a Shiny input
+
 - [`update_vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue_router.md)
   : Navigate the page's router from the server
+
+- [`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
+  :
+
+  VueUse, for a component's `setup()`
+
 - [`vue_output()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md)
   [`render_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md)
   : A Vue output that keeps the user's state across renders
+
 - [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/dev/reference/render_vue_data.md)
   [`vue_data_output()`](https://kaipingyang.github.io/shiny.element/dev/reference/render_vue_data.md)
   : Data for a component, from the server
+
 - [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md)
   : Set fields of a Vue component from the server
+
 - [`call_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.md)
   : Call a method of a Vue component from the server
+
 - [`flush_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/flush_vue.md)
   : Send queued updates now
+
 - [`vue_answer()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_answer.md)
   : Answer a Vue component that asked the server
 

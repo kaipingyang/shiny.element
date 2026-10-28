@@ -179,7 +179,7 @@
 <link href="typography_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
 <link href="typography_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
 <script src="typography_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="typography_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="typography_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="typography_files/shiny-element-1.0.0/el-events.js"></script><script src="typography_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="typography_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="typography_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="typography_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="typography_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
-<div class="row">
+<script src="typography_files/vueuse-shared-15.0.0/shared.iife.min.js"></script><script src="typography_files/vueuse-core-15.0.0/core.iife.min.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Typography</h1>
@@ -228,62 +228,61 @@ different platforms.</p>
 <div class="section level2">
 <h2 id="font-convention">Font Convention<a class="anchor" aria-label="anchor" href="#font-convention"></a>
 </h2>
+<p>Each size is read from the theme’s variable as the page has it, with
+VueUse’s <code>useCssVar()</code>, as upstream’s table does: a theme
+that changes one shows its own.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">level</span>, <span class="va">size</span>, <span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">level</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="va">size</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span>style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"font-size: var(%s)"</span>, <span class="va">var</span><span class="op">)</span>, <span class="st">"Build with Element"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span></span>
-<span>  style <span class="op">=</span> <span class="st">"border-spacing: 20px 10px"</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Level"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Font Size"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Supplementary text"</span>, <span class="st">"12px Extra Small"</span>, <span class="st">"--el-font-size-extra-small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body (small)"</span>, <span class="st">"13px Small"</span>, <span class="st">"--el-font-size-small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Body"</span>, <span class="st">"14px Base"</span>, <span class="st">"--el-font-size-base"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Small Title"</span>, <span class="st">"16px Medium"</span>, <span class="st">"--el-font-size-medium"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Title"</span>, <span class="st">"18px Large"</span>, <span class="st">"--el-font-size-large"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/row.html" class="external-link">row</a></span><span class="op">(</span><span class="st">"Main Title"</span>, <span class="st">"20px Extra Large"</span>, <span class="st">"--el-font-size-extra-large"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>  <span class="st">"typo_sizes"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">table</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"border-spacing: 20px 10px"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">tbody</span><span class="op">(</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Level"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Font Size"</span><span class="op">)</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">th</span><span class="op">(</span><span class="st">"Demo"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">tr</span><span class="op">(</span></span>
+<span>        `v-for` <span class="op">=</span> <span class="st">"(s, i) in sizes"</span>,</span>
+<span>        `:key` <span class="op">=</span> <span class="st">"i"</span>,</span>
+<span>        `:style` <span class="op">=</span> <span class="st">"'font-size: var(--el-font-size-' + s.type + ')'"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"{{ s.level }}"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"{{ s.size + ' ' + s.name }}"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">td</span><span class="op">(</span><span class="st">"Build with Element"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  setup <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function() {"</span>,</span>
+<span>    <span class="st">"  var levels = [['Supplementary text', 'extra-small'], ['Body (small)', 'small'],"</span>,</span>
+<span>    <span class="st">"    ['Body', 'base'], ['Small Title', 'medium'], ['Title', 'large'],"</span>,</span>
+<span>    <span class="st">"    ['Main Title', 'extra-large']];"</span>,</span>
+<span>    <span class="st">"  var sizes = levels.map(function(l) {"</span>,</span>
+<span>    <span class="st">"    return {"</span>,</span>
+<span>    <span class="st">"      level: l[0], type: l[1],"</span>,</span>
+<span>    <span class="st">"      name: l[1].split('-').map(function(w) {"</span>,</span>
+<span>    <span class="st">"        return w.charAt(0).toUpperCase() + w.slice(1); }).join(' '),"</span>,</span>
+<span>    <span class="st">"      size: VueUse.useCssVar('--el-font-size-' + l[1])"</span>,</span>
+<span>    <span class="st">"    };"</span>,</span>
+<span>    <span class="st">"  });"</span>,</span>
+<span>    <span class="st">"  return { sizes: Vue.reactive(sizes) };"</span>,</span>
+<span>    <span class="st">"}"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  dependencies <span class="op">=</span> <span class="fu"><a href="../../reference/vueuse_dependency.html">vueuse_dependency</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <table style="border-spacing: 20px 10px" class="table">
-<tr>
-<th>Level</th>
+  <div id="typo_sizes" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><table style="border-spacing: 20px 10px">
+  <tbody>
+    <tr>
+      <th>Level</th>
       <th>Font Size</th>
       <th>Demo</th>
     </tr>
-<tr>
-<td>Supplementary text</td>
-      <td>12px Extra Small</td>
-      <td style="font-size: var(--el-font-size-extra-small)">Build with Element</td>
+    <tr v-for="(s, i) in sizes" :key="i" :style="&#39;font-size: var(--el-font-size-&#39; + s.type + &#39;)&#39;">
+      <td>{{ s.level }}</td>
+      <td>{{ s.size + ' ' + s.name }}</td>
+      <td>Build with Element</td>
     </tr>
-<tr>
-<td>Body (small)</td>
-      <td>13px Small</td>
-      <td style="font-size: var(--el-font-size-small)">Build with Element</td>
-    </tr>
-<tr>
-<td>Body</td>
-      <td>14px Base</td>
-      <td style="font-size: var(--el-font-size-base)">Build with Element</td>
-    </tr>
-<tr>
-<td>Small Title</td>
-      <td>16px Medium</td>
-      <td style="font-size: var(--el-font-size-medium)">Build with Element</td>
-    </tr>
-<tr>
-<td>Title</td>
-      <td>18px Large</td>
-      <td style="font-size: var(--el-font-size-large)">Build with Element</td>
-    </tr>
-<tr>
-<td>Main Title</td>
-      <td>20px Extra Large</td>
-      <td style="font-size: var(--el-font-size-extra-large)">Build with Element</td>
-    </tr>
-</table>
+  </tbody>
+</table></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[],"setup":"function() {\n  var levels = [['Supplementary text', 'extra-small'], ['Body (small)', 'small'],\n    ['Body', 'base'], ['Small Title', 'medium'], ['Title', 'large'],\n    ['Main Title', 'extra-large']];\n  var sizes = levels.map(function(l) {\n    return {\n      level: l[0], type: l[1],\n      name: l[1].split('-').map(function(w) {\n        return w.charAt(0).toUpperCase() + w.slice(1); }).join(' '),\n      size: VueUse.useCssVar('--el-font-size-' + l[1])\n    };\n  });\n  return { sizes: Vue.reactive(sizes) };\n}"},"evals":["options.setup"]}</script>
+</div>
 </div>
 </div>
 <div class="section level2">

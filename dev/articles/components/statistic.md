@@ -10,6 +10,10 @@ and after the number and title. And use
 [vueuse](https://vueuse.org/core/useTransition/) to add animated
 transitions to value.
 
+The total counts up to its value, with VueUse’s `useTransition()`, as
+upstream’s does: an `el$statistic()` in a \[vue_app()\] whose `setup()`
+moves the number, with \[vueuse_dependency()\].
+
 ``` r
 
 el_row(
@@ -28,7 +32,23 @@ el_row(
       )
     )
   ),
-  el_col(span = 6, el_statistic(title = "Total Transactions", value = 172000)),
+  el_col(
+    span = 6,
+    vue_app(
+      "stat_total",
+      el$statistic(title = "Total Transactions", `:value` = "outputValue"),
+      setup = JS(
+        "function() {",
+        "  var source = Vue.ref(0);",
+        "  var outputValue = VueUse.useTransition(source, { duration: 1500 });",
+        "  source.value = 172000;",
+        "  return { outputValue: outputValue };",
+        "}"
+      ),
+      use = "shinyElement.plugin",
+      dependencies = vueuse_dependency()
+    )
+  ),
   el_col(
     span = 6,
     el_statistic(

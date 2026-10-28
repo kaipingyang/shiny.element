@@ -1017,6 +1017,38 @@ The menu’s active item follows the route however it changes – a click,
 the browser’s buttons, the server – and `input$menu` with it. A page has
 one router.
 
+## VueUse in a component’s setup
+
+[`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
+brings VueUse, the composables Element Plus itself is built on, as the
+global `VueUse`: in a
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)’s
+`setup()`, `VueUse.useTransition()`, `useElementSize()`, `useCssVar()`,
+`useDebounceFn()`, `useStorage()` and the rest work as in any Vue app.
+Give it to the component that uses it; no page loads it otherwise.
+
+``` r
+
+vue_app(
+  "total",
+  el$statistic(title = "Total Transactions", `:value` = "shown"),
+  setup = JS(
+    "function() {",
+    "  var target = Vue.ref(0);",
+    "  var shown = VueUse.useTransition(target, { duration: 1500 });",
+    "  target.value = 172000;",
+    "  return { shown: shown };",
+    "}"
+  ),
+  use = "shinyElement.plugin", # Element's tags in the template
+  dependencies = vueuse_dependency()
+)
+```
+
+The component pages use it where Element’s own examples do: the
+statistic’s total counting up, the panels’ dividers turning with the
+width, the typography and border pages reading the theme’s variables.
+
 ## Without Shiny
 
 The components also work on a page with no Shiny session – an R Markdown

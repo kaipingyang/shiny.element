@@ -4,6 +4,15 @@
 
 ### New features
 
+- [`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
+  brings VueUse 15.0.0 – the version Element Plus is built with, which
+  it uses inside but does not expose – as the global `VueUse`, for a
+  component’s `setup()`. The five component examples Element writes with
+  it now do as Element’s do: the statistic’s total counts up
+  (`useTransition`), the date and colour picker panels’ divider turns
+  horizontal when narrow (`useElementSize`), the typography and border
+  pages read the sizes and radii from the theme (`useCssVar`).
+
 - [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
   gives a page vue-router, installed in every component’s Vue app, with
   the route as `input$<id>` and
