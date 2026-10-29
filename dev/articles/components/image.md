@@ -105,7 +105,7 @@ and `slot = viewer-error`.
 The third image’s preview has a picture that fails to load, drawn by its
 `viewer-error` slot; the button opens the same list in an
 [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_image_viewer.md),
-with `update_el_image_viewer(visible = TRUE)`.
+whose `visible` is a store’s field, \[vue_bind()\].
 
 ``` r
 
@@ -123,53 +123,51 @@ viewer_error <- template(
     )
   )
 )
-ui <- el_page(
-  tags$style(
-    ".demo-image__error .el-image { max-width: 300px; max-height: 200px;
-       width: 100%; }
-     .demo-image__error .image-slot { display: flex; justify-content: center;
-       align-items: center; flex-direction: column; font-size: 30px;
-       height: 200px; background: #fff; }
-     .demo-image__error .image-slot .el-icon { font-size: 30px; }
-     .image-viewer-slot { background: var(--el-fill-color-light); }
-     .viewer-error { color: #000; }"
+vue_store("err_preview", state = list(visible = FALSE))
+tags$style(
+  ".demo-image__error .el-image { max-width: 300px; max-height: 200px;
+     width: 100%; }
+   .demo-image__error .image-slot { display: flex; justify-content: center;
+     align-items: center; flex-direction: column; font-size: 30px;
+     height: 200px; background: #fff; }
+   .demo-image__error .image-slot .el-icon { font-size: 30px; }
+   .image-viewer-slot { background: var(--el-fill-color-light); }
+   .viewer-error { color: #000; }"
+)
+tags$div(
+  class = "demo-image__error",
+  style = "display: flex; gap: 8px",
+  el_image(),
+  el_image(
+    slots = list(
+      error = tags$div(
+        class = "image-viewer-slot image-slot",
+        el_icon("Picture")
+      )
+    )
+  ),
+  el_image(
+    src = url,
+    preview_src_list = src_list,
+    show_progress = TRUE,
+    slots = list(`viewer-error` = viewer_error)
   ),
   tags$div(
-    class = "demo-image__error",
-    style = "display: flex; gap: 8px",
-    el_image(),
-    el_image(
-      slots = list(
-        error = tags$div(
-          class = "image-viewer-slot image-slot",
-          el_icon("Picture")
-        )
-      )
-    ),
-    el_image(
-      src = url,
-      preview_src_list = src_list,
-      show_progress = TRUE,
-      slots = list(`viewer-error` = viewer_error)
-    ),
-    tags$div(el_button("err_open", "preview controlled")),
-    el_image_viewer(
-      "err_viewer",
-      url_list = src_list,
-      show_progress = TRUE,
-      slots = list(`viewer-error` = viewer_error)
+    el_button(
+      "err_open",
+      "preview controlled",
+      on = list(click = "$store.err_preview.visible = true")
     )
+  ),
+  el_image_viewer(
+    "err_viewer",
+    visible = vue_bind("$store.err_preview.visible"),
+    url_list = src_list,
+    show_progress = TRUE,
+    slots = list(`viewer-error` = viewer_error)
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$err_open, {
-    update_el_image_viewer(session, "err_viewer", visible = TRUE)
-  })
-}
-shinyApp(ui, server)
 ```
-
-![The load-failed example, running](../../shots/image-load-failed.png)
 
 ## Lazy Load
 

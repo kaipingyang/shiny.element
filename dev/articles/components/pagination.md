@@ -95,35 +95,22 @@ tagList(
 When there is only one page, hide the pagination by setting the
 `hide-on-single-page` attribute.
 
-The switch sets `hide_on_single_page` with
-[`update_el_pagination()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_pagination.md).
+The switch sets `hide_on_single_page`, which follows it in the browser,
+\[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  el_switch("pg_hide_on", value = FALSE),
-  tags$hr(style = "margin: 16px 0"),
-  el_pagination(
-    "pg_hide",
-    hide_on_single_page = FALSE,
-    total = 5,
-    layout = "prev, pager, next"
-  )
+el_switch("pg_hide_on", value = FALSE)
+tags$hr(style = "margin: 16px 0")
+el_pagination(
+  "pg_hide",
+  hide_on_single_page = vue_bind("$inputs.pg_hide_on"),
+  total = 5,
+  layout = "prev, pager, next"
 )
-server <- function(input, output, session) {
-  observeEvent(input$pg_hide_on, ignoreInit = TRUE, {
-    update_el_pagination(
-      session,
-      "pg_hide",
-      hide_on_single_page = input$pg_hide_on
-    )
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The auto-hide-pagination example,
-running](../../shots/pagination-auto-hide-pagination.png)
+------------------------------------------------------------------------
 
 ## More elements
 
@@ -136,90 +123,88 @@ represents a different page size in the `sizes` select options,
 e.g. `[100, 200, 300, 400]` indicates that the select will have four
 options: 100, 200, 300 or 400 items per page.
 
-The controls set every pagination’s `size`, `background` and `disabled`
-with
-[`update_el_pagination()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_pagination.md).
+The controls set every pagination’s `size`, `background` and `disabled`,
+which follow them in the browser, \[vue_bind()\].
 
 ``` r
 
-ids <- c("pg_m1", "pg_m2", "pg_m3", "pg_m4")
 block <- function(title, ...) {
   tags$div(
     class = "demo-pagination-block",
     tags$div(class = "demonstration", title),
-    el_pagination(...)
+    el_pagination(
+      ...,
+      size = vue_bind("$inputs.pg_size"),
+      background = vue_bind("$inputs.pg_background"),
+      disabled = vue_bind("$inputs.pg_disabled")
+    )
   )
 }
-ui <- el_page(
-  tags$style(
-    ".demo-pagination-block + .demo-pagination-block { margin-top: 10px; }
-     .demo-pagination-block .demonstration { margin-bottom: 16px; }"
-  ),
-  tags$div(
-    style = "display: flex; align-items: center; gap: 16px; margin-bottom: 16px",
-    el_radio_group(
-      "pg_size",
-      choices = c("default", "large", "small"),
-      selected = "default",
-      button = TRUE
-    ),
-    tags$div("background: ", el_switch("pg_background", value = FALSE)),
-    tags$div("disabled: ", el_switch("pg_disabled", value = FALSE))
-  ),
-  tags$hr(style = "margin: 16px 0"),
-  block(
-    "Total item count",
-    "pg_m1",
-    current_page = 5,
-    page_size = 100,
-    layout = "total, prev, pager, next",
-    total = 1000
-  ),
-  block(
-    "Change page size",
-    "pg_m2",
-    current_page = 5,
-    page_size = 100,
-    page_sizes = c(100, 200, 300, 400),
-    layout = "sizes, prev, pager, next",
-    total = 1000
-  ),
-  block(
-    "Jump to",
-    "pg_m3",
-    current_page = 5,
-    page_size = 100,
-    layout = "prev, pager, next, jumper",
-    total = 1000
-  ),
-  block(
-    "All combined",
-    "pg_m4",
-    current_page = 4,
-    page_size = 100,
-    page_sizes = c(100, 200, 300, 400),
-    layout = "total, sizes, prev, pager, next, jumper",
-    total = 400
-  )
+tags$style(
+  ".demo-pagination-block + .demo-pagination-block { margin-top: 10px; }
+   .demo-pagination-block .demonstration { margin-bottom: 16px; }"
 )
-server <- function(input, output, session) {
-  observe({
-    for (id in ids) {
-      update_el_pagination(
-        session,
-        id,
-        size = input$pg_size,
-        background = isTRUE(input$pg_background),
-        disabled = isTRUE(input$pg_disabled)
-      )
-    }
-  })
-}
-shinyApp(ui, server)
+tags$div(
+  style = "display: flex; align-items: center; gap: 16px; margin-bottom: 16px",
+  el_radio_group(
+    "pg_size",
+    choices = c("default", "large", "small"),
+    selected = "default",
+    button = TRUE
+  ),
+  tags$div("background: ", el_switch("pg_background", value = FALSE)),
+  tags$div("disabled: ", el_switch("pg_disabled", value = FALSE))
+)
+tags$hr(style = "margin: 16px 0")
+block(
+  "Total item count",
+  "pg_m1",
+  current_page = 5,
+  page_size = 100,
+  layout = "total, prev, pager, next",
+  total = 1000
+)
+block(
+  "Change page size",
+  "pg_m2",
+  current_page = 5,
+  page_size = 100,
+  page_sizes = c(100, 200, 300, 400),
+  layout = "sizes, prev, pager, next",
+  total = 1000
+)
+block(
+  "Jump to",
+  "pg_m3",
+  current_page = 5,
+  page_size = 100,
+  layout = "prev, pager, next, jumper",
+  total = 1000
+)
+block(
+  "All combined",
+  "pg_m4",
+  current_page = 4,
+  page_size = 100,
+  page_sizes = c(100, 200, 300, 400),
+  layout = "total, sizes, prev, pager, next, jumper",
+  total = 400
+)
 ```
 
-![The more-elements example,
-running](../../shots/pagination-more-elements.png)
+background:
+
+disabled:
+
+------------------------------------------------------------------------
+
+Total item count
+
+Change page size
+
+Jump to
+
+All combined
 
 ## API
 

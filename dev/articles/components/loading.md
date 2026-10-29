@@ -116,30 +116,46 @@ When used as a directive, a full screen Loading requires the
 you wish to disable scrolling on body, you can add another modifier
 `lock`. When used as a service, Loading will be full screen by default.
 
-`el_loading(fullscreen = TRUE)` covers the page until
-[`el_loading_close()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_loading_close.md);
-`lock` stops it scrolling meanwhile.
+In the browser, Element’s own service, `$loading()`, in an `on` handler:
+it covers the page until closed, `lock` stopping it scrolling meanwhile.
+From the server it is `el_loading(session, id, fullscreen = TRUE)` and
+[`el_loading_close()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_loading_close.md):
+see In Shiny below.
 
 ``` r
 
-ui <- el_page(
-  el_button("full_directive", "As a directive", type = "primary"),
-  el_button("full_service", "As a service", type = "primary")
+el_button(
+  "full_directive",
+  "As a directive",
+  type = "primary",
+  on = list(
+    click = JS(
+      "function() {
+        var mask = this.$loading({ fullscreen: true, lock: true });
+        setTimeout(function() { mask.close(); }, 2000);
+      }"
+    )
+  )
 )
-server <- function(input, output, session) {
-  cover <- function(...) {
-    el_loading(session, "page", fullscreen = TRUE, lock = TRUE, ...)
-    later::later(function() el_loading_close(session, "page"), 2)
-  }
-  observeEvent(input$full_directive, cover())
-  observeEvent(input$full_service, {
-    cover(text = "Loading", background = "rgba(0, 0, 0, 0.7)")
-  })
-}
-shinyApp(ui, server)
+el_button(
+  "full_service",
+  "As a service",
+  type = "primary",
+  on = list(
+    click = JS(
+      "function() {
+        var mask = this.$loading({
+          fullscreen: true,
+          lock: true,
+          text: 'Loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        setTimeout(function() { mask.close(); }, 2000);
+      }"
+    )
+  )
+)
 ```
-
-![The fullscreen example, running](../../shots/loading-fullscreen.png)
 
 ## Service
 
@@ -175,6 +191,28 @@ You can use it like this:
 >
 > If you globally registered ElLoading component, it will automatically
 > inherit your app context.
+
+## In Shiny
+
+From the server, `el_loading(session, id, ...)` covers the page – or an
+element, `target` – while the server works, and
+`el_loading_close(session, id)` takes it away.
+
+``` r
+
+ui <- el_page(el_button("work", "Run", type = "primary"))
+server <- function(input, output, session) {
+  observeEvent(input$work, {
+    el_loading(session, "page", fullscreen = TRUE, text = "Working")
+    Sys.sleep(2) # the server's work
+    el_loading_close(session, "page")
+  })
+}
+shinyApp(ui, server)
+```
+
+![The shiny-output example,
+running](../../shots/loading-shiny-output.png)
 
 ## API
 

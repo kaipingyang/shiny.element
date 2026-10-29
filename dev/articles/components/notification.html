@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -175,7 +176,10 @@
 
 
 
-
+<script src="notification_files/vue-3.5.43/vue.global.prod.js"></script><link href="notification_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="notification_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="notification_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="notification_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="notification_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="notification_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="notification_files/shiny-element-1.0.0/el-events.js"></script><script src="notification_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="notification_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="notification_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="notification_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="notification_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -200,18 +204,24 @@ automatically closes after 4500ms, but by setting <code>duration</code>
 you can control its duration. Specifically, if set to <code>0</code>, it
 will not close automatically. Note that <code>duration</code> receives a
 <code>Number</code> in milliseconds.</p>
-<p>Notifications are sent from the server,
-<code>el_notification(session, ...)</code>.</p>
+<p>In the browser, Element’s own service, <code>$notify()</code>, in an
+<code>on</code> handler. From the server it is
+<code>el_notification(session, ...)</code>, with the same options in
+snake_case: see In Shiny below.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"show"</span>, <span class="st">"Closes automatically"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">show</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span><span class="va">session</span>, title <span class="op">=</span> <span class="st">"Title"</span>, message <span class="op">=</span> <span class="st">"This is a reminder"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-basic.png" alt="The basic example, running" style="max-width: 100%">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"show"</span>,</span>
+<span>  <span class="st">"Closes automatically"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$notify({ title: 'Title', message: 'This is a reminder' })"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="basic-show" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-show_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Title&#39;, message: &#39;This is a reminder&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Closes automatically","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="with-types">With types<a class="anchor" aria-label="anchor" href="#with-types"></a>
@@ -226,27 +236,48 @@ that can be invoked directly like <code>open3</code> and
 <code>primary</code> has been added in 2.9.11.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"warning"</span>, <span class="st">"info"</span>, <span class="st">"error"</span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"n_"</span>, <span class="va">t</span><span class="op">)</span>, <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">t</span> <span class="kw">in</span> <span class="va">types</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="va">t</span> <span class="op">&lt;-</span> <span class="va">t</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>        <span class="va">input</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"n_"</span>, <span class="va">t</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>          <span class="va">session</span>,</span>
-<span>          title <span class="op">=</span> <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>,</span>
-<span>          type <span class="op">=</span> <span class="va">t</span>,</span>
-<span>          message <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"This is a"</span>, <span class="va">t</span>, <span class="st">"message"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"n_"</span>, <span class="va">t</span><span class="op">)</span>,</span>
+<span>    <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>,</span>
+<span>    plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      click <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>        <span class="st">"$notify({ title: '%s', message: 'This is a %s message', type: '%s' })"</span>,</span>
+<span>        <span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/toTitleCase.html" class="external-link">toTitleCase</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>,</span>
+<span>        <span class="va">t</span>,</span>
+<span>        <span class="va">t</span></span>
 <span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-different-types.png" alt="The different-types example, running" style="max-width: 100%">
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="different-types-n_primary" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="different-types-n_primary_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Primary&#39;, message: &#39;This is a primary message&#39;, type: &#39;primary&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Primary","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="different-types-n_success" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="different-types-n_success_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Success&#39;, message: &#39;This is a success message&#39;, type: &#39;success&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Success","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="different-types-n_warning" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="different-types-n_warning_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Warning&#39;, message: &#39;This is a warning message&#39;, type: &#39;warning&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Warning","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="different-types-n_info" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="different-types-n_info_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Info&#39;, message: &#39;This is a info message&#39;, type: &#39;info&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Info","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="different-types-n_error" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="different-types-n_error_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Error&#39;, message: &#39;This is a error message&#39;, type: &#39;error&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Error","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="custom-position">Custom position<a class="anchor" aria-label="anchor" href="#custom-position"></a>
@@ -258,27 +289,42 @@ slides in. It can be <code>top-right</code>, <code>top-left</code>,
 <code>top-right</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"top-right"</span>, <span class="st">"bottom-right"</span>, <span class="st">"bottom-left"</span>, <span class="st">"top-left"</span><span class="op">)</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pos</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"n_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span>, <span class="va">p</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">p</span> <span class="kw">in</span> <span class="va">pos</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>        <span class="va">input</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"n_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>          <span class="va">session</span>,</span>
-<span>          title <span class="op">=</span> <span class="st">"Custom Position"</span>,</span>
-<span>          position <span class="op">=</span> <span class="va">p</span>,</span>
-<span>          message <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"I'm at the"</span>, <span class="va">p</span>, <span class="st">"corner"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pos</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"n_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"-"</span>, <span class="st">"_"</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">p</span>,</span>
+<span>    plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      click <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
+<span>        <span class="st">"$notify({ title: 'Custom Position', message: \"I'm at the %s corner\", position: '%s' })"</span>,</span>
+<span>        <span class="va">p</span>,</span>
+<span>        <span class="va">p</span></span>
 <span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-positioning.png" alt="The positioning example, running" style="max-width: 100%">
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="positioning-n_top_right" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="positioning-n_top_right_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Custom Position&#39;, message: &quot;I&#39;m at the top-right corner&quot;, position: &#39;top-right&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"top-right","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="positioning-n_bottom_right" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="positioning-n_bottom_right_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Custom Position&#39;, message: &quot;I&#39;m at the bottom-right corner&quot;, position: &#39;bottom-right&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"bottom-right","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="positioning-n_bottom_left" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="positioning-n_bottom_left_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Custom Position&#39;, message: &quot;I&#39;m at the bottom-left corner&quot;, position: &#39;bottom-left&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"bottom-left","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="positioning-n_top_left" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="positioning-n_top_left_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Custom Position&#39;, message: &quot;I&#39;m at the top-left corner&quot;, position: &#39;top-left&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"top-left","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="with-offset">With offset<a class="anchor" aria-label="anchor" href="#with-offset"></a>
@@ -288,20 +334,21 @@ slides in. It can be <code>top-right</code>, <code>top-left</code>,
 offset from the edge of the screen. Note that every Notification
 instance of the same moment should have the same offset.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"show"</span>, <span class="st">"Notification with offset"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">show</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Success"</span>,</span>
-<span>      offset <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>      message <span class="op">=</span> <span class="st">"This is a success message"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"show"</span>,</span>
+<span>  <span class="st">"Notification with offset"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$notify({ title: 'Success', message: 'This is a success message', offset: 100 })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-offsetting.png" alt="The offsetting example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="offsetting-show" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="offsetting-show_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Success&#39;, message: &#39;This is a success message&#39;, offset: 100 }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Notification with offset","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="use-html-string">Use HTML string<a class="anchor" aria-label="anchor" href="#use-html-string"></a>
@@ -310,20 +357,22 @@ instance of the same moment should have the same offset.</p>
 <p>Set <code>dangerouslyUseHTMLString</code> to true and
 <code>message</code> will be treated as an HTML string.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"show"</span>, <span class="st">"Use HTML String"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">show</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"HTML String"</span>,</span>
-<span>      dangerously_use_html_string <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      message <span class="op">=</span> <span class="st">"&lt;strong&gt;This is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"show"</span>,</span>
+<span>  <span class="st">"Use HTML String"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$notify({ title: 'HTML String', dangerouslyUseHTMLString: true, message: '&lt;strong&gt;This is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;' })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-raw-html.png" alt="The raw-html example, running" style="max-width: 100%"><blockquote>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="raw-html-show" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="raw-html-show_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;HTML String&#39;, dangerouslyUseHTMLString: true, message: &#39;&lt;strong&gt;This is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Use HTML String","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
+<blockquote>
 <p><strong>Warning</strong></p>
 <p>Although <code>message</code> property supports HTML strings,
 dynamically rendering arbitrary HTML on your website can be very
@@ -340,47 +389,62 @@ content.</p>
 <p><code>message</code> can be VNode.</p>
 <p>After 2.9.0, <code>message</code> supports a function whose return
 value is a VNode.</p>
-<p>A message can be a VNode, given as <code><a href="../../reference/JS.html">JS()</a></code> code calling
-<code>Vue.h()</code>; one whose props change is a function returning
-it.</p>
+<p>A message can be a VNode, built with <code>Vue.h()</code>; one whose
+props change is a function returning it. A <code><a href="../../reference/JS.html">JS()</a></code> handler,
+which can reach <code>Vue</code>, runs with the button as
+<code>this</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Common VNode"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open1"</span>, <span class="st">"Dynamic props"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Use Vnode"</span>,</span>
-<span>      message <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Vue.h('p', null, [</span></span>
-<span><span class="st">          Vue.h('span', null, 'Message can be '),</span></span>
-<span><span class="st">          Vue.h('i', { style: 'color: teal' }, 'VNode')</span></span>
-<span><span class="st">        ])"</span></span>
-<span>      <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Common VNode"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function() {</span></span>
+<span><span class="st">        this.$notify({</span></span>
+<span><span class="st">          title: 'Use Vnode',</span></span>
+<span><span class="st">          message: Vue.h('p', null, [</span></span>
+<span><span class="st">            Vue.h('span', null, 'Message can be '),</span></span>
+<span><span class="st">            Vue.h('i', { style: 'color: teal' }, 'VNode')</span></span>
+<span><span class="st">          ])</span></span>
+<span><span class="st">        });</span></span>
+<span><span class="st">      }"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open1</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Use Vnode"</span>,</span>
-<span>      message <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>        <span class="st">"(function() {</span></span>
-<span><span class="st">          var checked = Vue.ref(false);</span></span>
-<span><span class="st">          return function() {</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open1"</span>,</span>
+<span>  <span class="st">"Dynamic props"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function() {</span></span>
+<span><span class="st">        var checked = Vue.ref(false);</span></span>
+<span><span class="st">        this.$notify({</span></span>
+<span><span class="st">          title: 'Use Vnode',</span></span>
+<span><span class="st">          message: function() {</span></span>
 <span><span class="st">            return Vue.h(ElementPlus.ElSwitch, {</span></span>
 <span><span class="st">              modelValue: checked.value,</span></span>
 <span><span class="st">              'onUpdate:modelValue': function(v) { checked.value = v; }</span></span>
 <span><span class="st">            });</span></span>
-<span><span class="st">          };</span></span>
-<span><span class="st">        })()"</span></span>
-<span>      <span class="op">)</span></span>
+<span><span class="st">          }</span></span>
+<span><span class="st">        });</span></span>
+<span><span class="st">      }"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-use-vnode.png" alt="The use-vnode example, running" style="max-width: 100%">
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="use-vnode-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="use-vnode-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Common VNode","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('use-vnode-open', String(name), [value === undefined ? true : value]); }; return (function() {\n        this.$notify({\n          title: 'Use Vnode',\n          message: Vue.h('p', null, [\n            Vue.h('span', null, 'Message can be '),\n            Vue.h('i', { style: 'color: teal' }, 'VNode')\n          ])\n        });\n      }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+  <div id="use-vnode-open1" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="use-vnode-open1_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Dynamic props","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('use-vnode-open1', String(name), [value === undefined ? true : value]); }; return (function() {\n        var checked = Vue.ref(false);\n        this.$notify({\n          title: 'Use Vnode',\n          message: function() {\n            return Vue.h(ElementPlus.ElSwitch, {\n              modelValue: checked.value,\n              'onUpdate:modelValue': function(v) { checked.value = v; }\n            });\n          }\n        });\n      }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="with-progress-bar">With progress bar<a class="anchor" aria-label="anchor" href="#with-progress-bar"></a>
@@ -395,21 +459,21 @@ which overrides the <code>type</code>-based status color. When
 <code>pauseOnHover</code> is <code>true</code> (default), hovering over
 the notification will pause both the timer and the progress bar.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"show"</span>, <span class="st">"With progress bar"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">show</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Progress"</span>,</span>
-<span>      progress <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      duration <span class="op">=</span> <span class="fl">5000</span>,</span>
-<span>      message <span class="op">=</span> <span class="st">"Closes when the bar runs out"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"show"</span>,</span>
+<span>  <span class="st">"With progress bar"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$notify({ title: 'Progress', message: 'Closes when the bar runs out', progress: true, duration: 5000 })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-progress-bar.png" alt="The progress-bar example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="progress-bar-show" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="progress-bar-show_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Progress&#39;, message: &#39;Closes when the bar runs out&#39;, progress: true, duration: 5000 }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"With progress bar","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="hide-close-button">Hide close button<a class="anchor" aria-label="anchor" href="#hide-close-button"></a>
@@ -418,21 +482,21 @@ the notification will pause both the timer and the progress bar.</p>
 <p>Set the <code>showClose</code> attribute to <code>false</code> so the
 notification cannot be closed by the user.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"show"</span>, <span class="st">"Hide close button"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">show</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Info"</span>,</span>
-<span>      type <span class="op">=</span> <span class="st">"info"</span>,</span>
-<span>      show_close <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>      message <span class="op">=</span> <span class="st">"This is a message without close button"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"show"</span>,</span>
+<span>  <span class="st">"Hide close button"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$notify({ title: 'Info', message: 'This is a message without close button', type: 'info', showClose: false })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/notification-no-close.png" alt="The no-close example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="no-close-show" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="no-close-show_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $notify({ title: &#39;Info&#39;, message: &#39;This is a message without close button&#39;, type: &#39;info&#39;, showClose: false }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Hide close button","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="global-method">Global method<a class="anchor" aria-label="anchor" href="#global-method"></a>
@@ -465,6 +529,32 @@ of the app.</p>
 <p>If you globally registered ElNotification component, it will
 automatically inherit your app context.</p>
 </blockquote>
+</div>
+<div class="section level2">
+<h2 id="in-shiny">In Shiny<a class="anchor" aria-label="anchor" href="#in-shiny"></a>
+</h2>
+<p>From the server, <code>el_notification(session, ...)</code> tells of
+what the server did, with Element’s options in snake_case. Given an
+<code>id</code>, <code>input$&lt;id&gt;_click</code> and
+<code>input$&lt;id&gt;_close</code> report it clicked and closed, and
+<code><a href="../../reference/el_feedback_close.html">el_notification_close()</a></code> closes it.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"run"</span>, <span class="st">"Run the report"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">run</span>, <span class="op">{</span></span>
+<span>    <span class="co"># ... the server's work ...</span></span>
+<span>    <span class="fu"><a href="../../reference/el_notification.html">el_notification</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Report ready"</span>,</span>
+<span>      message <span class="op">=</span> <span class="st">"12 rows written."</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"success"</span>,</span>
+<span>      id <span class="op">=</span> <span class="st">"done"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">done_click</span>, <span class="fu"><a href="../../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"Opening the report"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/notification-shiny-output.png" alt="The shiny-output example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

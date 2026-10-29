@@ -97,6 +97,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/articles/limitations.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/articles/migration.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/articles/performance.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/articles/responsiveness.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/articles/shiny.element.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/articles/shiny.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/articles/theming.html</loc></url>
@@ -218,8 +219,11 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_upload_js.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_wrap_widget.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_alias.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_array.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_auto_id.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bind_optional.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound_markup.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bridge_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_camel.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_session.html</loc></url>
@@ -230,6 +234,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_event_bindings.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_events_check.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_file.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_flag.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host_dependencies.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_html_string.html</loc></url>
@@ -262,6 +267,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_slot.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_tags_as_html.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_ui_id.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_use.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/el.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/el_affix.html</loc></url>
@@ -405,6 +411,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/use_element.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_answer.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.html</loc></url>

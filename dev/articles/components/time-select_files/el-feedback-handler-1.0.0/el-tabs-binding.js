@@ -363,6 +363,13 @@
     },
 
     subscribe: function(el, callback) {
+      // arguments given vue_bind(): applied as updates; `selected` a
+      // store's field, every change of tab written back to it
+      el._svBound = window.shinyVue && shinyVue.bindElement &&
+        shinyVue.bindElement(el, function(d) { binding.receiveMessage(el, d); },
+                             { field: 'selected', get: function() { return selectedName(el); } });
+      var notify = callback;
+      callback = function(x) { if (el._svBound) el._svBound.changed(); notify(x); };
       // receiveMessage has no callback of its own; it raises this instead.
       $(el).on('elTabsChange.elTabs', function() { callback(false); });
 
@@ -443,6 +450,7 @@
     },
 
     unsubscribe: function(el) {
+      if (el._svBound) { el._svBound.stop(); el._svBound = null; }
       $(el).off('.elTabs');
       $(window).off('resize.elTabs' + el.id);
       if (el._elTabsResize) { el._elTabsResize.disconnect(); el._elTabsResize = null; }

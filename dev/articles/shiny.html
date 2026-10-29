@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -179,7 +180,7 @@
 <link href="shiny_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
 <link href="shiny_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
 <script src="shiny_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="shiny_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="shiny_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="shiny_files/shiny-element-1.0.0/el-events.js"></script><script src="shiny_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="shiny_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="shiny_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="shiny_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="shiny_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
-<style>.el-calendar-cell { height: 100%; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+<script src="shiny_files/pinia-4.1.0/pinia.iife.prod.js"></script><style>.el-calendar-cell { height: 100%; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
 .el-calendar-cell.is-selecting { background-color: var(--el-color-primary-light-9); }
 .el-calendar-cell__events { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
 .el-calendar-cell__events.is-scrolling { overflow-y: auto; }
@@ -361,6 +362,140 @@ the task is done – as bslib’s <code>input_task_button()</code>:</p>
 </div>
 </div>
 <div class="section level2">
+<h2 id="linking-components-in-the-browser">Linking components in the browser<a class="anchor" aria-label="anchor" href="#linking-components-in-the-browser"></a>
+</h2>
+<p>Everything above goes through the server: the browser reports, R
+decides, the page is updated – a round trip for each change, and the R
+process busy with it while every other session in it waits. That is
+right for data and decisions. It is wasted on what only the page needs:
+a dialog opened, a size picked, a tab followed by another component. A
+Vue application keeps such state in the browser, and so can these
+components: an argument given <code><a href="../reference/vue_bind.html">vue_bind()</a></code> follows state on
+the page, with no round trip.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"size"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"default"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>  size <span class="op">=</span> <span class="fu"><a href="../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.size"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"One"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Two"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Three"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="bind-input-size" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="bind-input-size_container" style="display: contents">
+  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
+    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"default","options":[{"value":"large","label":"large"},{"value":"default","label":"default"},{"value":"small","label":"small"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('bind-input-size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  <div id="bind-input-el_space_9e400b67-29b7-48d2-a26e-a8149fc6b7d6" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="bind-input-el_space_9e400b67-29b7-48d2-a26e-a8149fc6b7d6_container" style="display: contents">
+  <el-space v-bind="$optional(&#39;space&#39;)">
+    <div class="el-card is-always-shadow" data-el-shadow-default="true">
+      <div class="el-card__body">One</div>
+    </div>
+    <div class="el-card is-always-shadow" data-el-shadow-default="true">
+      <div class="el-card__body">Two</div>
+    </div>
+    <div class="el-card is-always-shadow" data-el-shadow-default="true">
+      <div class="el-card__body">Three</div>
+    </div>
+  </el-space>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"alignment":null,"direction":null,"spacer":null,"size":null,"wrap":null,"fill":null,"fillRatio":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"space":{"alignment":"alignment","direction":"direction","spacer":"spacer","size":"size","wrap":"wrap","fill":"fill","fill-ratio":"fillRatio"}},"generated":true,"bound":{"size":"$inputs['bind-input-size']"},"evals":[]}</script>
+</div>
+</div>
+<p><code>$inputs.&lt;id&gt;</code> is another component’s value, one
+way. State that several components change belongs to a
+<code><a href="../reference/vue_store.html">vue_store()</a></code>, and binds both ways: the dialog below is
+opened by the button setting the store, and closing it – its cross,
+Escape, the mask, the button in its footer – sets the store back. An
+<code>on</code> handler can be Vue’s inline statement, as
+<code>@click="..."</code> is in a template: it reaches the stores, and
+Element Plus’s services, <code>$message()</code> and the rest:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tips_ui"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Open the dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tips_ui.open = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tips"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tips_ui.open"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is a message"</span><span class="op">)</span>,</span>
+<span>  footer <span class="op">=</span> <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>    <span class="st">"done"</span>,</span>
+<span>    <span class="st">"Done"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>    on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tips_ui.open = false; $message('Done')"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tips_ui" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="bind-store-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="bind-store-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tips_ui.open = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="bind-store-tips" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.tips_ui.open"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
+      <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">
+          <span>This is a message</span>
+        </div>
+        <footer class="el-dialog__footer"><div id="bind-store-done" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="bind-store-done_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tips_ui.open = false; $message(&#39;Done&#39;); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Done","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+        </footer>
+</div>
+    </div>
+  </div>
+</div>
+<p>What can be bound:</p>
+<ul>
+<li>
+<strong>Any of a component’s props and its value.</strong> A
+component’s value – what it reports as <code>input$&lt;id&gt;</code> –
+only to a store, since bound to something read-only its user’s change
+would be lost. A dialog’s, a drawer’s, tabs’ or a collapse’s arguments
+that its <code>update_el_*()</code> can set, its state among them:
+<code>visible</code>, <code>selected</code>, <code>value</code>. An
+argument R reads to draw the component – a label, a class, the choices –
+says so.</li>
+<li>
+<strong>Three kinds of state.</strong>
+<code>$store.&lt;id&gt;.&lt;field&gt;</code>, both ways;
+<code>$inputs.&lt;id&gt;</code>, one way (in a module,
+<code>vue_bind(sprintf("$inputs['%s']", ns("size")))</code>);
+<code>$route.&lt;...&gt;</code>, the route of the page’s
+<code><a href="../reference/vue_router.html">vue_router()</a></code>.</li>
+</ul>
+<p>The server is not left out. With Shiny on the page each component
+reports <code>input$&lt;id&gt;</code> as ever, so the server sees what
+the page did; an update of a bound field sets it, and through it the
+store, so everything bound to the store follows. What stays on the
+server is what must: the data, the computations, and any decision that
+matters – a page can be changed by its user, so the browser’s state is a
+convenience, never a permission. Responsiveness, on the website, says
+more about where a Shiny app waits and what the package does about each
+part.</p>
+</div>
+<div class="section level2">
 <h2 id="which-events-reach-the-server">Which events reach the server<a class="anchor" aria-label="anchor" href="#which-events-reach-the-server"></a>
 </h2>
 <p>A component reports its value, the actions a user takes on purpose –
@@ -375,7 +510,7 @@ snake_case; it arrives as <code>input$&lt;id&gt;_&lt;event&gt;</code>.
 <code><a href="../reference/el_events.html">el_events()</a></code> lists what a component reports, and which it
 reports unasked; its help page lists the same under “Shiny inputs”, and
 a name it does not have is an error that lists them:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_events.html">el_events</a></span><span class="op">(</span><span class="st">"el_tree"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; el_tree() reports, as input$&lt;id&gt;...:</span></span>
 <span><span class="co">#&gt;</span></span>
@@ -398,7 +533,7 @@ a <code><a href="../reference/JS.html">JS()</a></code> function called with <cod
 event’s arguments. <code>report(name, value)</code> sets
 <code>input$&lt;id&gt;_&lt;name&gt;</code>, namespaced in a module as
 the id is, the same rule as every other input:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
 <span>    <span class="st">"q"</span>,</span>
@@ -429,7 +564,7 @@ output that only reads the value sees nothing new the second time.</p>
 <p>Here is the same row clicked twice. The output reading the value
 shows where the last click landed; only the observer knows there were
 two:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_table_output.html">el_table_output</a></span><span class="op">(</span><span class="st">"tbl"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"polled"</span><span class="op">)</span>,</span>
@@ -472,7 +607,7 @@ module too, and for the inputs a component adds to its id –
 <code>input$rows_selection_change</code>. An output is the same:
 <code>el_table_output(ns("rows"))</code> in the UI,
 <code>output$rows</code> in the server.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">orders_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
@@ -533,7 +668,7 @@ every component’s value comes back from a bookmark – including where a
 container is: the open tab, the open panels of a collapse, an open
 dialog or drawer, the menu’s current item, the pager’s page. Nothing
 needs to be set up beyond what Shiny itself asks for.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">request</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../reference/el_select.html">el_select</a></span><span class="op">(</span><span class="st">"city"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Beijing"</span>, <span class="st">"Shanghai"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -606,7 +741,7 @@ differently.</p>
 own CSS classes and drive their state through a Shiny input binding.
 They hold anything, and what is inside keeps working as it would on its
 own.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
 <span>  <span class="st">"panels"</span>,</span>
 <span>  value <span class="op">=</span> <span class="st">"one"</span>,</span>
@@ -663,7 +798,7 @@ own.</p>
 compile their content into their own Vue instance, so a component handed
 to one is folded in rather than nested: the two become a single instance
 carrying both sets of markup, data and methods.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span><span class="st">"hint"</span>, <span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
 <span>             content <span class="op">=</span> <span class="st">"Writes to disk"</span>, placement <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>,</span>
@@ -682,7 +817,7 @@ it through the wrapper’s instance. In the page the id is on the
 component itself, as Element hands it on – a button’s
 <code>&lt;button&gt;</code>, an input’s <code>&lt;input&gt;</code> –
 rather than on a host around it.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
 <span>    <span class="st">"hint"</span>,</span>
@@ -711,7 +846,7 @@ names they have there.</p>
 <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a>
 </h2>
 <p>Every component takes <code>slots</code>, a named list:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_alert.html">el_alert</a></span><span class="op">(</span></span>
 <span>  <span class="st">"problem"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"error"</span>,</span>
@@ -736,7 +871,7 @@ names they have there.</p>
 <p>A scoped slot – one where Element hands the template variables that
 only exist while Vue renders – is written with <code><a href="../reference/template.html">template()</a></code>
 and passed through untouched:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_calendar.html">el_calendar</a></span><span class="op">(</span></span>
 <span>  <span class="st">"cal"</span>,</span>
 <span>  value <span class="op">=</span> <span class="st">"2026-03-15"</span>,</span>
@@ -817,7 +952,7 @@ Vue compiles <code>&lt;el-*&gt;</code> tags only within the component it
 mounts, so a raw tag goes where a component draws its contents: a
 <code><a href="../reference/template.html">template()</a></code>, a slot, a table <code>cell</code>, a wrapper’s
 trigger.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The tooltip's instance compiles the raw button it wraps</span></span>
 <span><span class="fu"><a href="../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
 <span>  <span class="st">"hint"</span>,</span>
@@ -867,7 +1002,7 @@ Shiny needs them: <code>id</code>, where the component goes and what the
 server calls it; <code>input</code>, the field that is
 <code>input$&lt;id&gt;</code>; and <code>dependencies</code>.
 <code>use</code> is Vue’s <code>app.use()</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>    <span class="st">"counter"</span>,</span>
@@ -1060,7 +1195,7 @@ input field</td>
 deep object, can be changed in place, sending only what changes – rows
 inserted, replaced or deleted, by position or by a key field, and values
 set by path:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/update_vue.html">update_vue</a></span><span class="op">(</span></span>
 <span>  <span class="va">session</span>,</span>
 <span>  <span class="st">"todo"</span>,</span>
@@ -1102,7 +1237,7 @@ again when what it reads changes, waits while its component is hidden,
 waits for a promise, and while it runs
 <code>$recalculating.&lt;id&gt;</code> is <code>true</code>, for the
 template to say so.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html" class="external-link">sliderInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Draws"</span>, <span class="fl">10</span>, <span class="fl">1000</span>, <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
@@ -1131,7 +1266,7 @@ outputs, each setting its own fields:
 <p>One output can feed several components, or a <code><a href="../reference/vue_store.html">vue_store()</a></code>
 that every component reads – the shared state Vue’s guide recommends,
 with the server as its source:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"sales"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>revenue <span class="op">=</span> <span class="fl">0</span>, growth <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, outputs <span class="op">=</span> <span class="st">"totals"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"kpi"</span>, <span class="va">tags</span><span class="op">$</span><span class="fu">b</span><span class="op">(</span><span class="st">"{{ $store.sales.revenue }}"</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -1162,7 +1297,7 @@ read and written by every template as
 with Pinia’s getters and actions. Give it <code>input</code> and the
 server sees it too; <code><a href="../reference/update_vue.html">update_vue()</a></code> sets its state and
 <code><a href="../reference/call_vue.html">call_vue()</a></code> runs its actions:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span></span>
 <span>    <span class="st">"cart"</span>,</span>
@@ -1214,7 +1349,7 @@ page too, for stores of one’s own that the server need not see.</p>
 <tbody>
 <tr class="odd">
 <td><code>$inputs.&lt;id&gt;</code></td>
-<td>another input’s value, as the server has it (read-only)</td>
+<td>another input’s value, as its component reports it (read-only)</td>
 </tr>
 <tr class="even">
 <td><code>$recalculating.&lt;id&gt;</code></td>
@@ -1241,7 +1376,7 @@ recalculates</td>
 </table>
 <p>A component written with the Composition API reads the same through
 composables, as shinyreact’s hooks:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>  <span class="st">"summary"</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
@@ -1270,7 +1405,7 @@ the template and rendered beside it, as Shiny renders it; Vue moves it
 in where it stands and back out when it hides it, so its binding and the
 user’s input stay, and an output hidden this way waits, as one in a
 hidden tab does:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>    <span class="st">"panel"</span>,</span>
@@ -1304,7 +1439,7 @@ be wanted in several, and only the first gets it.</p>
 installed and a label in Element’s form-item style – what every
 component in this package is made of. A price range made of two number
 inputs, reported as one value:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>
@@ -1359,7 +1494,7 @@ breadcrumb step’s <code>to</code> is a link, and Vue’s own
 (<code>#/orders</code>), so the browser’s back and forward and a link to
 the page land on it, and it is an input: what each route shows is the
 server’s.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_router.html">vue_router</a></span><span class="op">(</span><span class="st">"route"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
@@ -1392,7 +1527,7 @@ path’s parts are <code>$route.params</code> in its template and
 <code>input$route_guard</code> is the question,
 <code><a href="../reference/vue_answer.html">vue_answer()</a></code> the answer – <code>TRUE</code> goes,
 <code>FALSE</code> stays, a path goes there instead.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">order</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vue_component.html">vue_component</a></span><span class="op">(</span><span class="st">"&lt;h3&gt;Order {{ $route.params.id }}&lt;/h3&gt;"</span><span class="op">)</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_router.html">vue_router</a></span><span class="op">(</span><span class="st">"route"</span>, routes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/orders/:id"</span> <span class="op">=</span> <span class="va">order</span><span class="op">)</span>, guard <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span>,</span>
@@ -1419,7 +1554,7 @@ Element Plus itself is built on, as the global <code>VueUse</code>: in a
 <code>useCssVar()</code>, <code>useDebounceFn()</code>,
 <code>useStorage()</code> and the rest work as in any Vue app. Give it
 to the component that uses it; no page loads it otherwise.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>  <span class="st">"total"</span>,</span>
 <span>  <span class="va">el</span><span class="op">$</span><span class="fu">statistic</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total Transactions"</span>, `:value` <span class="op">=</span> <span class="st">"shown"</span><span class="op">)</span>,</span>
@@ -1445,8 +1580,9 @@ variables.</p>
 <p>The components also work on a page with no Shiny session – an R
 Markdown or Quarto document, a page saved with
 <code><a href="https://rstudio.github.io/htmltools/reference/save_html.html" class="external-link">htmltools::save_html()</a></code>. They render and respond: a select
-opens and picks, tabs switch, a collapse folds, a table’s rows tick.
-What they cannot do there is report: there is no <code>input</code>, and
+opens and picks, tabs switch, a collapse folds, a table’s rows tick, and
+those given <code><a href="../reference/vue_bind.html">vue_bind()</a></code> follow one another. What they cannot
+do there is report: there is no <code>input</code>, and
 <code>update_el_*()</code>, <code><a href="../reference/call_el.html">call_el()</a></code> and the feedback
 functions have no server to come from. Load the scripts once with
 <code><a href="../reference/use_element.html">use_element()</a></code>, as for any page that is not an

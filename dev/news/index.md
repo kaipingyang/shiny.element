@@ -9,6 +9,22 @@
 
 ### New features
 
+- [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md):
+  components follow one another in the browser, with no round trip to
+  the server. Any of a component’s props, its value, and what an update
+  can set of a dialog, drawer, tabs or collapse can be given
+  `vue_bind("<path>")`: a store’s field (`$store.ui.open`, both ways),
+  another component’s value (`$inputs.size`) or the route
+  (`$route.path`). The server still sees every `input$<id>` and may
+  update a bound field. `$inputs` is now filled by the components
+  themselves, at once and with no Shiny on the page. An argument R reads
+  to draw a component – a label, the choices, a class – says it cannot
+  be bound rather than drop the binding. `on =` takes Vue’s inline
+  statements as well as
+  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+  functions: `on = list(click = "$store.ui.open = true")`, as
+  `@click="..."` in a template.
+
 - [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
   is a Pinia store (Pinia 4.1.0, bundled), defined with Pinia’s own
   parts: `state`, `getters` and `actions`, or a `setup` function.

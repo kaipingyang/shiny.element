@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -428,26 +429,32 @@ el-fade-in-linear.</p>
 <code>tooltip</code>. You just need set it to <code>true</code>.</p>
 <p>In fact, Tooltip is an extension based on <a href="https://github.com/element-plus/element-plus/tree/dev/packages/components/popper" class="external-link">ElPopper</a>,
 you can use any attribute that are allowed in ElPopper.</p>
-<p>Turned on and off from the server,
-<code>update_el_tooltip(disabled =)</code>.</p>
+<p>The switch turns the tooltip off: its <code>disabled</code> follows
+the switch in the browser, [vue_bind()].</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"tip_on"</span>, value <span class="op">=</span> <span class="cn">TRUE</span>, active_text <span class="op">=</span> <span class="st">"tooltip on"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
-<span>    <span class="st">"adv"</span>,</span>
-<span>    <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"click the switch to turn me off"</span>,</span>
-<span>    placement <span class="op">=</span> <span class="st">"bottom"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">tip_on</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tooltip.html">update_el_tooltip</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"adv"</span>, disabled <span class="op">=</span> <span class="op">!</span><span class="va">input</span><span class="op">$</span><span class="va">tip_on</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tooltip-advanced-usage.png" alt="The advanced-usage example, running" style="max-width: 100%"><blockquote>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"tip_off"</span>, value <span class="op">=</span> <span class="cn">FALSE</span>, active_text <span class="op">=</span> <span class="st">"tooltip off"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tooltip.html">el_tooltip</a></span><span class="op">(</span></span>
+<span>  <span class="st">"adv"</span>,</span>
+<span>  <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span><span class="st">"Hover me"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"turn the switch on to turn me off"</span>,</span>
+<span>  placement <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>  disabled <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.tip_off"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="advanced-usage-tip_off" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="advanced-usage-tip_off_container" style="display: contents">
+  <el-switch v-bind="$optional(&#39;switch&#39;)" v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :style="{ &#39;--el-switch-on-color&#39;: activeColor || undefined, &#39;--el-switch-off-color&#39;: inactiveColor || undefined, &#39;--el-switch-border-color&#39;: borderColor || undefined }" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"tooltip off","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"switch":{"width":"width","name":"name","validate-event":"validateEvent","active-action-icon":"activeActionIcon","active-icon":"activeIcon","aria-label":"ariaLabel","before-change":"beforeChange","border-color":"borderColor","inactive-action-icon":"inactiveActionIcon","inactive-icon":"inactiveIcon","inline-prompt":"inlinePrompt","loading":"loading","size":"size","tabindex":"tabindex"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+  <div id="advanced-usage-adv" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="advanced-usage-adv_container" style="display: contents">
+  <el-tooltip v-bind="$optional(&#39;tooltip&#39;)">
+    <el-button>Hover me</el-button>
+  </el-tooltip>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tipContent":"turn the switch on to turn me off","tipPlacement":"bottom","tipEffect":null,"tipDisabled":null,"tipOffset":null,"tipHideAfter":null,"tipEnterable":null,"tipTransition":null,"tipPopperClass":null,"tipPopperOptions":null,"tipAppendTo":null,"tipAriaLabel":null,"tipArrowOffset":null,"tipAutoClose":null,"tipFallbackPlacements":null,"tipFocusOnTarget":null,"tipPersistent":null,"tipPopperStyle":null,"tipRawContent":null,"tipShowAfter":null,"tipShowArrow":null,"tipTeleported":null,"tipTrigger":null,"tipTriggerKeys":null,"tipVirtualRef":null,"tipVirtualTriggering":null,"tipVisible":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tooltip":{"content":"tipContent","placement":"tipPlacement","effect":"tipEffect","disabled":"tipDisabled","offset":"tipOffset","hide-after":"tipHideAfter","enterable":"tipEnterable","transition":"tipTransition","popper-class":"tipPopperClass","popper-options":"tipPopperOptions","append-to":"tipAppendTo","aria-label":"tipAriaLabel","arrow-offset":"tipArrowOffset","auto-close":"tipAutoClose","fallback-placements":"tipFallbackPlacements","focus-on-target":"tipFocusOnTarget","persistent":"tipPersistent","popper-style":"tipPopperStyle","raw-content":"tipRawContent","show-after":"tipShowAfter","show-arrow":"tipShowArrow","teleported":"tipTeleported","trigger":"tipTrigger","trigger-keys":"tipTriggerKeys","virtual-ref":{"field":"tipVirtualRef","wrap":"elRef"},"virtual-triggering":"tipVirtualTriggering","visible":"tipVisible"}},"bound":{"tipDisabled":"$inputs['advanced-usage-tip_off']"},"evals":[]}</script>
+</div>
+</div>
+<blockquote>
 <p><strong>Tip</strong></p>
 <p>The <code>router-link</code> component is not supported in tooltip,
 please use <code>vm.$router.push</code>.</p>

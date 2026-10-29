@@ -20,27 +20,23 @@ el_input_tag(
 You can customize the key used to trigger the input tag. The default key
 is Enter.
 
-The segmented control sets the key that makes a tag, with
-`update_el_input_tag(trigger =)`.
+The segmented control sets the key that makes a tag: `trigger` follows
+it in the browser, \[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  tags$div(
-    el_segmented("tags_key", value = "Space", options = c("Enter", "Space"))
-  ),
-  tags$br(),
-  el_input_tag("tags_trigger", trigger = "Space", placeholder = "Please input")
+tags$div(
+  el_segmented("tags_key", value = "Space", options = c("Enter", "Space"))
 )
-server <- function(input, output, session) {
-  observeEvent(input$tags_key, ignoreInit = TRUE, {
-    update_el_input_tag(session, "tags_trigger", trigger = input$tags_key)
-  })
-}
-shinyApp(ui, server)
+tags$br()
+el_input_tag(
+  "tags_trigger",
+  trigger = vue_bind("$inputs.tags_key"),
+  placeholder = "Please input"
+)
 ```
 
-![The trigger example, running](../../shots/input-tag-trigger.png)
+  
 
 ## Maximum Tags
 
@@ -194,58 +190,47 @@ tagList(
 
 You can customize the tag content by `tag` slot.
 
-The segmented controls set the tags’ `tag_type` and `tag_effect`, with
-[`update_el_input_tag()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_input_tag.md);
-the `tag` slot draws each one.
+The segmented controls set the tags’ `tag_type` and `tag_effect`, which
+follow them in the browser, \[vue_bind()\]; the `tag` slot draws each
+one.
 
 ``` r
 
-ui <- el_page(
-  tags$div(
-    style = "display: flex; gap: 20px",
-    el_segmented(
-      "tags_type",
-      value = "primary",
-      options = c("primary", "success", "info", "warning", "danger")
-    ),
-    el_segmented(
-      "tags_effect",
-      value = "plain",
-      options = c("light", "dark", "plain")
-    )
+tags$div(
+  style = "display: flex; gap: 20px",
+  el_segmented(
+    "tags_type",
+    value = "primary",
+    options = c("primary", "success", "info", "warning", "danger")
   ),
-  tags$br(),
-  el_input_tag(
-    "tags_tpl",
-    value = c("tag1", "tag2", "tag3"),
-    tag_type = "primary",
-    tag_effect = "plain",
-    placeholder = "Please input",
-    slots = list(
-      tag = template(
-        slot = "tag",
-        scope = "{ value }",
-        tags$div(
-          style = "display: flex; align-items: center",
-          el_icon("ElementPlus", style = "margin-right: 4px"),
-          tags$span("{{ value }}")
-        )
+  el_segmented(
+    "tags_effect",
+    value = "plain",
+    options = c("light", "dark", "plain")
+  )
+)
+tags$br()
+el_input_tag(
+  "tags_tpl",
+  value = c("tag1", "tag2", "tag3"),
+  tag_type = vue_bind("$inputs.tags_type"),
+  tag_effect = vue_bind("$inputs.tags_effect"),
+  placeholder = "Please input",
+  slots = list(
+    tag = template(
+      slot = "tag",
+      scope = "{ value }",
+      tags$div(
+        style = "display: flex; align-items: center",
+        el_icon("ElementPlus", style = "margin-right: 4px"),
+        tags$span("{{ value }}")
       )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$tags_type, ignoreInit = TRUE, {
-    update_el_input_tag(session, "tags_tpl", tag_type = input$tags_type)
-  })
-  observeEvent(input$tags_effect, ignoreInit = TRUE, {
-    update_el_input_tag(session, "tags_tpl", tag_effect = input$tags_effect)
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The tag example, running](../../shots/input-tag-tag.png)
+  
 
 ## Custom Prefix and Suffix
 

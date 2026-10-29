@@ -49,35 +49,42 @@ The scrollbar is displayed only when the element height exceeds the max
 height.
 
 The buttons add and delete items: the scrollbar appears once they pass
-`max_height`.
+`max_height`. The count is a store’s field, and a
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
+inside draws the items from it, as upstream’s `v-for`.
 
 ``` r
 
-ui <- el_page(
-  tags$style(
-    ".scrollbar-demo-item { display: flex; align-items: center;
-       justify-content: center; height: 50px; margin: 10px; text-align: center;
-       border-radius: 4px; background: var(--el-color-primary-light-9);
-       color: var(--el-color-primary); }"
-  ),
-  el_button("sb_add", "Add Item"),
-  el_button("sb_delete", "Delete Item"),
-  el_scrollbar(max_height = "400px", uiOutput("sb_items"))
+tags$style(
+  ".scrollbar-demo-item { display: flex; align-items: center;
+     justify-content: center; height: 50px; margin: 10px; text-align: center;
+     border-radius: 4px; background: var(--el-color-primary-light-9);
+     color: var(--el-color-primary); }"
 )
-server <- function(input, output, session) {
-  count <- reactiveVal(3)
-  observeEvent(input$sb_add, count(count() + 1))
-  observeEvent(input$sb_delete, count(max(0, count() - 1)))
-  output$sb_items <- renderUI({
-    lapply(seq_len(count()), function(i) {
-      tags$p(class = "scrollbar-demo-item", i)
-    })
-  })
-}
-shinyApp(ui, server)
+vue_store("sb_items", state = list(count = 3))
+el_button("sb_add", "Add Item", on = list(click = "$store.sb_items.count++"))
+el_button(
+  "sb_delete",
+  "Delete Item",
+  on = list(
+    click = "$store.sb_items.count = Math.max(0, $store.sb_items.count - 1)"
+  )
+)
+el_scrollbar(
+  max_height = "400px",
+  vue_app(
+    "sb_list",
+    tags$div(
+      tags$p(
+        class = "scrollbar-demo-item",
+        `v-for` = "i in $store.sb_items.count",
+        `:key` = "i",
+        "{{ i }}"
+      )
+    )
+  )
+)
 ```
-
-![The max-height example, running](../../shots/scrollbar-max-height.png)
 
 ## Manual scroll
 

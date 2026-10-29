@@ -119,38 +119,45 @@ You can use `tab-position` attribute to set the tab’s position.
 You can choose from four directions:
 `tabPosition="left|right|top|bottom"`
 
-The radios move the tabs, with `update_el_tabs(tab_position =)`.
+The radios move the tabs: `tab_position` follows them in the browser,
+\[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  el_radio_group(
-    "position",
-    choices = c("top", "right", "bottom", "left"),
-    value = "top",
-    button = TRUE
-  ),
-  tags$div(style = "height: 16px"),
-  el_tabs(
-    "tabs_pos",
-    tab_position = "top",
-    tabs = list(
-      el_tab_pane("User", "User"),
-      el_tab_pane("Config", "Config"),
-      el_tab_pane("Role", "Role"),
-      el_tab_pane("Task", "Task")
-    )
+el_radio_group(
+  "position",
+  choices = c("top", "right", "bottom", "left"),
+  value = "top",
+  button = TRUE
+)
+tags$div(style = "height: 16px")
+el_tabs(
+  "tabs_pos",
+  tab_position = vue_bind("$inputs.position"),
+  tabs = list(
+    el_tab_pane("User", "User"),
+    el_tab_pane("Config", "Config"),
+    el_tab_pane("Role", "Role"),
+    el_tab_pane("Task", "Task")
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$position, ignoreInit = TRUE, {
-    update_el_tabs(session, "tabs_pos", tab_position = input$position)
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The tab-position example, running](../../shots/tabs-tab-position.png)
+User
+
+Config
+
+Role
+
+Task
+
+User
+
+Config
+
+Role
+
+Task
 
 ## Custom Tab
 

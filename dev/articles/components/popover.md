@@ -50,7 +50,8 @@ control it, you can set `:visible`.
 
 Each button opens its popover as its label says: `contextmenu` on a
 right-click, as the browser’s own menu, not on a left click. The last
-one is opened and closed by the server, `update_el_popover(visible =)`.
+one’s `visible` is a store’s field, \[vue_bind()\], which its button
+turns.
 
 ``` r
 
@@ -66,35 +67,26 @@ pop <- function(id, label, trigger, placement = NULL, ...) {
     ...
   )
 }
-ui <- el_page(
-  tags$style(".el-button + .el-button { margin-left: 8px; }"),
-  pop("p_hover", "Hover to activate", "hover", "top-start"),
-  pop("p_click", "Click to activate", "click", "bottom"),
-  pop("p_focus", "Focus to activate", "focus", "right"),
-  pop("p_contextmenu", "contextmenu to activate", "contextmenu"),
-  el_popover(
-    "p_manual",
-    reference = el_button("p_manual_btn", "Manual to activate"),
-    visible = FALSE,
-    placement = "bottom",
-    title = "Title",
-    popover_width = 200,
-    content = "this is content, this is content, this is content"
-  )
+vue_store("manual", state = list(visible = FALSE))
+tags$style(".el-button + .el-button { margin-left: 8px; }")
+pop("p_hover", "Hover to activate", "hover", "top-start")
+pop("p_click", "Click to activate", "click", "bottom")
+pop("p_focus", "Focus to activate", "focus", "right")
+pop("p_contextmenu", "contextmenu to activate", "contextmenu")
+el_popover(
+  "p_manual",
+  reference = el_button(
+    "p_manual_btn",
+    "Manual to activate",
+    on = list(click = "$store.manual.visible = !$store.manual.visible")
+  ),
+  visible = vue_bind("$store.manual.visible"),
+  placement = "bottom",
+  title = "Title",
+  popover_width = 200,
+  content = "this is content, this is content, this is content"
 )
-server <- function(input, output, session) {
-  observeEvent(input$p_manual_btn, {
-    update_el_popover(
-      session,
-      "p_manual",
-      visible = input$p_manual_btn %% 2 == 1
-    )
-  })
-}
-shinyApp(ui, server)
 ```
-
-![The basic-usage example, running](../../shots/popover-basic-usage.png)
 
 ## Virtual triggering
 
@@ -206,34 +198,41 @@ tags$div(
 Of course, you can nest other operations. It’s more light-weight than
 using a dialog.
 
-Opened and closed from the server with `update_el_popover(visible =)`.
+Its `visible` is a store’s field, \[vue_bind()\]: the buttons set it in
+the browser.
 
 ``` r
 
-ui <- el_page(el_popover(
+vue_store("nested_pop", state = list(visible = FALSE))
+el_popover(
   "confirm",
+  visible = vue_bind("$store.nested_pop.visible"),
   popover_width = 160,
   placement = "top",
-  reference = el_button("delete", "Delete"),
+  reference = el_button(
+    "delete",
+    "Delete",
+    on = list(click = "$store.nested_pop.visible = true")
+  ),
   body = tagList(
     tags$p("Are you sure to delete this?"),
-    el_button("no", "cancel", size = "small", text = TRUE),
-    el_button("yes", "confirm", size = "small", type = "primary")
+    el_button(
+      "no",
+      "cancel",
+      size = "small",
+      text = TRUE,
+      on = list(click = "$store.nested_pop.visible = false")
+    ),
+    el_button(
+      "yes",
+      "confirm",
+      size = "small",
+      type = "primary",
+      on = list(click = "$store.nested_pop.visible = false")
+    )
   )
-))
-server <- function(input, output, session) {
-  observeEvent(input$delete, update_el_popover(id = "confirm", visible = TRUE))
-  observeEvent(
-    c(input$no, input$yes),
-    update_el_popover(id = "confirm", visible = FALSE),
-    ignoreInit = TRUE
-  )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The nested-operation example,
-running](../../shots/popover-nested-operation.png)
 
 ## Directive
 

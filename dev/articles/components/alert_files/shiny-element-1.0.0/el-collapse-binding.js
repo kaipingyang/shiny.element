@@ -113,6 +113,15 @@
     },
 
     subscribe: function(el, callback) {
+      // arguments given vue_bind(): applied as updates; `value` a store's
+      // field, every change written back to it
+      el._svBound = window.shinyVue && shinyVue.bindElement &&
+        shinyVue.bindElement(el, function(d) {
+          if (d.hasOwnProperty('value')) d.value = [].concat(d.value);
+          binding.receiveMessage(el, d);
+        }, { field: 'value', get: function() { return openNames(el); } });
+      var notify = callback;
+      callback = function(x) { if (el._svBound) el._svBound.changed(); notify(x); };
       // receiveMessage changes the DOM but has no callback of its own, so it
       // raises this event for the subscription to pick up. Without it the
       // panels move and input$<id> keeps its old value.
@@ -181,6 +190,7 @@
     },
 
     unsubscribe: function(el) {
+      if (el._svBound) { el._svBound.stop(); el._svBound = null; }
       $(el).off('.elCollapse');
     },
 

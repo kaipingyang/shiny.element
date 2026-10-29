@@ -67,8 +67,8 @@ these size corresponds to `8px`, `12px`, `16px`. The default size is
 You can also using customized size to override it. Refer to the next
 part.
 
-The radios set the inner space’s `size` with
-[`update_el_space()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_space.md).
+The radios set the inner space’s `size`, which follows them in the
+browser, \[vue_bind()\].
 
 ``` r
 
@@ -83,26 +83,21 @@ card <- function(i) {
     lapply(1:4, function(o) tags$div(paste("List item", o)))
   )
 }
-ui <- el_page(
-  tags$div(
-    style = "display: flex; flex-direction: column; align-items: flex-start; gap: 30px",
-    el_radio_group(
-      "sp_size",
-      choices = c(Large = "large", Default = "default", Small = "small"),
-      selected = "default"
-    ),
-    el_space(id = "sp_cards", wrap = TRUE, size = "default", lapply(1:3, card))
+tags$div(
+  style = "display: flex; flex-direction: column; align-items: flex-start; gap: 30px",
+  el_radio_group(
+    "sp_size",
+    choices = c(Large = "large", Default = "default", Small = "small"),
+    selected = "default"
+  ),
+  el_space(
+    id = "sp_cards",
+    wrap = TRUE,
+    size = vue_bind("$inputs.sp_size"),
+    lapply(1:3, card)
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$sp_size, ignoreInit = TRUE, {
-    update_el_space(session, "sp_cards", size = input$sp_size)
-  })
-}
-shinyApp(ui, server)
 ```
-
-![The control-size example, running](../../shots/space-control-size.png)
 
 ## Customized Size
 
@@ -124,20 +119,14 @@ card <- function(i) {
     lapply(1:4, function(o) tags$div(paste("List item", o)))
   )
 }
-ui <- el_page(
-  el_slider("sp_px", value = 20),
-  el_space(id = "sp_px_cards", wrap = TRUE, size = 20, lapply(1:2, card))
+el_slider("sp_px", value = 20)
+el_space(
+  id = "sp_px_cards",
+  wrap = TRUE,
+  size = vue_bind("$inputs.sp_px"),
+  lapply(1:2, card)
 )
-server <- function(input, output, session) {
-  observeEvent(input$sp_px, ignoreInit = TRUE, {
-    update_el_space(session, "sp_px_cards", size = input$sp_px)
-  })
-}
-shinyApp(ui, server)
 ```
-
-![The customized-size example,
-running](../../shots/space-customized-size.png)
 
 > **Tip**
 >
@@ -236,8 +225,7 @@ node will automatically adapt to the width of the container.
 
 Use fill to automatically fill the container with child nodes
 
-The switch sets `fill` with
-[`update_el_space()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_space.md).
+The switch sets `fill`, which follows it in the browser, \[vue_bind()\].
 
 ``` r
 
@@ -251,23 +239,20 @@ card <- function(i) {
     lapply(1:4, function(o) tags$div(paste("List item", o)))
   )
 }
-ui <- el_page(
-  tags$div(
-    style = "margin-bottom: 15px",
-    "fill: ",
-    el_switch("sp_fill_on", value = TRUE)
-  ),
-  el_space(id = "sp_fill", fill = TRUE, wrap = TRUE, lapply(1:3, card))
+tags$div(
+  style = "margin-bottom: 15px",
+  "fill: ",
+  el_switch("sp_fill_on", value = TRUE)
 )
-server <- function(input, output, session) {
-  observeEvent(input$sp_fill_on, ignoreInit = TRUE, {
-    update_el_space(session, "sp_fill", fill = input$sp_fill_on)
-  })
-}
-shinyApp(ui, server)
+el_space(
+  id = "sp_fill",
+  fill = vue_bind("$inputs.sp_fill_on"),
+  wrap = TRUE,
+  lapply(1:3, card)
+)
 ```
 
-![The fill example, running](../../shots/space-fill.png)
+fill:
 
 You can also use the `fillRatio` parameter to customize the filling
 ratio. The default value is `100`, which represents filling based on the
@@ -279,7 +264,8 @@ following example.
 
 Use fillRatio to customize the fill ratio
 
-The radios set `direction`, the slider `fill_ratio`.
+The radios set `direction`, the slider `fill_ratio`, each followed in
+the browser, \[vue_bind()\].
 
 ``` r
 
@@ -293,43 +279,34 @@ card <- function(i) {
     lapply(1:4, function(o) tags$div(paste("List item", o)))
   )
 }
-ui <- el_page(
-  tags$div(
-    style = "margin-bottom: 15px",
-    "direction: ",
-    el_radio_group(
-      "sp_dir",
-      choices = c("horizontal", "vertical"),
-      selected = "horizontal"
-    )
-  ),
-  tags$div(
-    style = "margin-bottom: 15px",
-    "fillRatio:",
-    el_slider("sp_ratio", value = 30)
-  ),
-  el_space(
-    id = "sp_ratio_cards",
-    fill = TRUE,
-    wrap = TRUE,
-    fill_ratio = 30,
-    direction = "horizontal",
-    width = "100%",
-    lapply(1:5, card)
+tags$div(
+  style = "margin-bottom: 15px",
+  "direction: ",
+  el_radio_group(
+    "sp_dir",
+    choices = c("horizontal", "vertical"),
+    selected = "horizontal"
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$sp_dir, ignoreInit = TRUE, {
-    update_el_space(session, "sp_ratio_cards", direction = input$sp_dir)
-  })
-  observeEvent(input$sp_ratio, ignoreInit = TRUE, {
-    update_el_space(session, "sp_ratio_cards", fill_ratio = input$sp_ratio)
-  })
-}
-shinyApp(ui, server)
+tags$div(
+  style = "margin-bottom: 15px",
+  "fillRatio:",
+  el_slider("sp_ratio", value = 30)
+)
+el_space(
+  id = "sp_ratio_cards",
+  fill = TRUE,
+  wrap = TRUE,
+  fill_ratio = vue_bind("$inputs.sp_ratio"),
+  direction = vue_bind("$inputs.sp_dir"),
+  width = "100%",
+  lapply(1:5, card)
+)
 ```
 
-![The fill-ratio example, running](../../shots/space-fill-ratio.png)
+direction:
+
+fillRatio:
 
 ## API
 

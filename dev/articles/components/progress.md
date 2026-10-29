@@ -65,8 +65,8 @@ tags$div(
 You can use `color` attr to set the progress bar color. it accepts color
 string, function, or array.
 
-The buttons step every bar by ten, with
-[`update_el_progress()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_progress.md).
+The buttons step every bar by ten: the bars’ `percentage` is a store’s
+field, \[vue_bind()\], which the buttons change in the browser.
 
 ``` r
 
@@ -78,46 +78,40 @@ colors <- list(
   list(color = "#6f7ad3", percentage = 100)
 )
 ids <- c("prc1", "prc2", "prc3", "prc4")
-ui <- el_page(
-  tags$style(
-    ".demo-progress .el-progress--line { margin-bottom: 15px; max-width: 600px; }"
+vue_store("prc", state = list(p = 20))
+tags$style(
+  ".demo-progress .el-progress--line { margin-bottom: 15px; max-width: 600px; }"
+)
+tags$div(
+  class = "demo-progress",
+  el_progress("prc1", percentage = vue_bind("$store.prc.p"), color = "#409eff"),
+  el_progress(
+    "prc2",
+    percentage = vue_bind("$store.prc.p"),
+    color = JS(
+      "function(p) { return p < 30 ? '#909399' : p < 70 ? '#e6a23c' : '#67c23a'; }"
+    )
   ),
+  el_progress("prc3", percentage = vue_bind("$store.prc.p"), color = colors),
+  el_progress("prc4", percentage = vue_bind("$store.prc.p"), color = colors),
   tags$div(
-    class = "demo-progress",
-    el_progress("prc1", percentage = 20, color = "#409eff"),
-    el_progress(
-      "prc2",
-      percentage = 20,
-      color = JS(
-        "function(p) { return p < 30 ? '#909399' : p < 70 ? '#e6a23c' : '#67c23a'; }"
-      )
-    ),
-    el_progress("prc3", percentage = 20, color = colors),
-    el_progress("prc4", percentage = 20, color = colors),
-    tags$div(
-      el_button_group(
-        el_button("prc_minus", label = NULL, icon = "Minus"),
-        el_button("prc_plus", label = NULL, icon = "Plus")
+    el_button_group(
+      el_button(
+        "prc_minus",
+        label = NULL,
+        icon = "Minus",
+        on = list(click = "$store.prc.p = Math.max(0, $store.prc.p - 10)")
+      ),
+      el_button(
+        "prc_plus",
+        label = NULL,
+        icon = "Plus",
+        on = list(click = "$store.prc.p = Math.min(100, $store.prc.p + 10)")
       )
     )
   )
 )
-server <- function(input, output, session) {
-  percentage <- reactiveVal(20)
-  step <- function(by) {
-    percentage(min(100, max(0, percentage() + by)))
-    for (id in ids) {
-      update_el_progress(session, id, percentage = percentage())
-    }
-  }
-  observeEvent(input$prc_minus, step(-10))
-  observeEvent(input$prc_plus, step(10))
-}
-shinyApp(ui, server)
 ```
-
-![The custom-color example,
-running](../../shots/progress-custom-color.png)
 
 ## Circular progress bar
 
@@ -141,8 +135,9 @@ tags$div(
 You also can specify `type` attribute to `dashboard` to use dashboard
 progress bar.
 
-The buttons step the first dial; the second goes round on its own,
-updated from the server every half second.
+The buttons step the first dial through a store; the second goes round
+on its own, a setup store counting every half second, as upstream’s
+`setInterval()`.
 
 ``` r
 
@@ -153,39 +148,49 @@ colors <- list(
   list(color = "#1989fa", percentage = 80),
   list(color = "#6f7ad3", percentage = 100)
 )
-ui <- el_page(
+vue_store("prd", state = list(p = 10))
+vue_store(
+  "going",
+  setup = JS(
+    "function() {
+      var p = Vue.ref(0);
+      setInterval(function() { p.value = p.value % 100 + 10; }, 500);
+      return { p: p };
+    }"
+  )
+)
+tags$div(
+  class = "demo-progress",
+  el_progress(
+    "prd1",
+    type = "dashboard",
+    percentage = vue_bind("$store.prd.p"),
+    color = colors
+  ),
+  el_progress(
+    "prd2",
+    type = "dashboard",
+    percentage = vue_bind("$store.going.p"),
+    color = colors
+  ),
   tags$div(
-    class = "demo-progress",
-    el_progress("prd1", type = "dashboard", percentage = 10, color = colors),
-    el_progress("prd2", type = "dashboard", percentage = 0, color = colors),
-    tags$div(
-      el_button_group(
-        el_button("prd_minus", label = NULL, icon = "Minus"),
-        el_button("prd_plus", label = NULL, icon = "Plus")
+    el_button_group(
+      el_button(
+        "prd_minus",
+        label = NULL,
+        icon = "Minus",
+        on = list(click = "$store.prd.p = Math.max(0, $store.prd.p - 10)")
+      ),
+      el_button(
+        "prd_plus",
+        label = NULL,
+        icon = "Plus",
+        on = list(click = "$store.prd.p = Math.min(100, $store.prd.p + 10)")
       )
     )
   )
 )
-server <- function(input, output, session) {
-  percentage <- reactiveVal(10)
-  step <- function(by) {
-    percentage(min(100, max(0, percentage() + by)))
-    update_el_progress(session, "prd1", percentage = percentage())
-  }
-  observeEvent(input$prd_minus, step(-10))
-  observeEvent(input$prd_plus, step(10))
-  going <- reactiveVal(0)
-  observe({
-    invalidateLater(500)
-    going(isolate(going()) %% 100 + 10)
-    update_el_progress(session, "prd2", percentage = isolate(going()))
-  })
-}
-shinyApp(ui, server)
 ```
-
-![The dashboard-progress-bar example,
-running](../../shots/progress-dashboard-progress-bar.png)
 
 ## Customized content
 
@@ -249,68 +254,63 @@ Use `striped` attribute to set striped progress. You can use
 the animation duration.
 
 The buttons step the last bar by ten, and its stripes’ `duration` with
-it.
+it: a store’s field and a getter of it, \[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  tags$style(
-    ".demo-progress .el-progress--line { margin-bottom: 15px; max-width: 600px; }"
+vue_store(
+  "prs",
+  state = list(p = 70),
+  getters = list(duration = JS("function(s) { return Math.floor(s.p / 10); }"))
+)
+tags$style(
+  ".demo-progress .el-progress--line { margin-bottom: 15px; max-width: 600px; }"
+)
+tags$div(
+  class = "demo-progress",
+  el_progress("prs1", percentage = 50, stroke_width = 15, striped = TRUE),
+  el_progress(
+    "prs2",
+    percentage = 30,
+    stroke_width = 15,
+    status = "warning",
+    striped = TRUE,
+    striped_flow = TRUE
   ),
-  tags$div(
-    class = "demo-progress",
-    el_progress("prs1", percentage = 50, stroke_width = 15, striped = TRUE),
-    el_progress(
-      "prs2",
-      percentage = 30,
-      stroke_width = 15,
-      status = "warning",
-      striped = TRUE,
-      striped_flow = TRUE
+  el_progress(
+    "prs3",
+    percentage = 100,
+    stroke_width = 15,
+    status = "success",
+    striped = TRUE,
+    striped_flow = TRUE,
+    duration = 10
+  ),
+  el_progress(
+    "prs4",
+    percentage = vue_bind("$store.prs.p"),
+    stroke_width = 15,
+    status = "exception",
+    striped = TRUE,
+    striped_flow = TRUE,
+    duration = vue_bind("$store.prs.duration")
+  ),
+  el_button_group(
+    el_button(
+      "prs_minus",
+      label = NULL,
+      icon = "Minus",
+      on = list(click = "$store.prs.p = Math.max(0, $store.prs.p - 10)")
     ),
-    el_progress(
-      "prs3",
-      percentage = 100,
-      stroke_width = 15,
-      status = "success",
-      striped = TRUE,
-      striped_flow = TRUE,
-      duration = 10
-    ),
-    el_progress(
-      "prs4",
-      percentage = 70,
-      stroke_width = 15,
-      status = "exception",
-      striped = TRUE,
-      striped_flow = TRUE,
-      duration = 7
-    ),
-    el_button_group(
-      el_button("prs_minus", label = NULL, icon = "Minus"),
-      el_button("prs_plus", label = NULL, icon = "Plus")
+    el_button(
+      "prs_plus",
+      label = NULL,
+      icon = "Plus",
+      on = list(click = "$store.prs.p = Math.min(100, $store.prs.p + 10)")
     )
   )
 )
-server <- function(input, output, session) {
-  percentage <- reactiveVal(70)
-  step <- function(by) {
-    percentage(min(100, max(0, percentage() + by)))
-    update_el_progress(
-      session,
-      "prs4",
-      percentage = percentage(),
-      duration = floor(percentage() / 10)
-    )
-  }
-  observeEvent(input$prs_minus, step(-10))
-  observeEvent(input$prs_plus, step(10))
-}
-shinyApp(ui, server)
 ```
-
-![The striped-progress example,
-running](../../shots/progress-striped-progress.png)
 
 ## API
 

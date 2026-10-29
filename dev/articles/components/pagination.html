@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -321,30 +322,30 @@ background color.</p>
 </h2>
 <p>When there is only one page, hide the pagination by setting the
 <code>hide-on-single-page</code> attribute.</p>
-<p>The switch sets <code>hide_on_single_page</code> with
-<code><a href="../../reference/el_pagination.html">update_el_pagination()</a></code>.</p>
+<p>The switch sets <code>hide_on_single_page</code>, which follows it in
+the browser, [vue_bind()].</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"pg_hide_on"</span>, value <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">hr</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 16px 0"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
-<span>    <span class="st">"pg_hide"</span>,</span>
-<span>    hide_on_single_page <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    total <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>    layout <span class="op">=</span> <span class="st">"prev, pager, next"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">pg_hide_on</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_pagination.html">update_el_pagination</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"pg_hide"</span>,</span>
-<span>      hide_on_single_page <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">pg_hide_on</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/pagination-auto-hide-pagination.png" alt="The auto-hide-pagination example, running" style="max-width: 100%">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"pg_hide_on"</span>, value <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">hr</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 16px 0"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>  <span class="st">"pg_hide"</span>,</span>
+<span>  hide_on_single_page <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.pg_hide_on"</span><span class="op">)</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"prev, pager, next"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="auto-hide-pagination-pg_hide_on" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="auto-hide-pagination-pg_hide_on_container" style="display: contents">
+  <el-switch v-bind="$optional(&#39;switch&#39;)" v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :style="{ &#39;--el-switch-on-color&#39;: activeColor || undefined, &#39;--el-switch-off-color&#39;: inactiveColor || undefined, &#39;--el-switch-border-color&#39;: borderColor || undefined }" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"switch":{"width":"width","name":"name","validate-event":"validateEvent","active-action-icon":"activeActionIcon","active-icon":"activeIcon","aria-label":"ariaLabel","before-change":"beforeChange","border-color":"borderColor","inactive-action-icon":"inactiveActionIcon","inactive-icon":"inactiveIcon","inline-prompt":"inlinePrompt","loading":"loading","size":"size","tabindex":"tabindex"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+  <hr style="margin: 16px 0">
+<div id="auto-hide-pagination-pg_hide" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="auto-hide-pagination-pg_hide_container" style="display: contents">
+  <el-pagination v-bind="$optional(&#39;pagination&#39;)" :total="total" v-model:page-size="pageSize" v-model:current-page="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":5,"pageSize":10,"currentPage":1,"pageSizes":[10,20,30,50],"layout":"prev, pager, next","background":false,"small":false,"disabled":false,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null,"appendSizeTo":null,"defaultCurrentPage":null,"defaultPageSize":null,"nextIcon":null,"popperStyle":null,"prevIcon":null,"size":null,"teleported":null},"methods":{"handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('auto-hide-pagination-pg_hide_page_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"auto-hide-pagination-pg_hide_page_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"pagination":{"prev-text":"prevText","next-text":"nextText","hide-on-single-page":"hideOnSinglePage","page-count":"pageCount","popper-class":"popperClass","append-size-to":"appendSizeTo","default-current-page":"defaultCurrentPage","default-page-size":"defaultPageSize","next-icon":"nextIcon","popper-style":"popperStyle","prev-icon":"prevIcon","size":"size","teleported":"teleported"}},"bound":{"hideOnSinglePage":"$inputs['auto-hide-pagination-pg_hide_on']"},"evals":["options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="more-elements">More elements<a class="anchor" aria-label="anchor" href="#more-elements"></a>
@@ -358,84 +359,133 @@ integers, each of which represents a different page size in the
 e.g. <code>[100, 200, 300, 400]</code> indicates that the select will
 have four options: 100, 200, 300 or 400 items per page.</p>
 <p>The controls set every pagination’s <code>size</code>,
-<code>background</code> and <code>disabled</code> with
-<code><a href="../../reference/el_pagination.html">update_el_pagination()</a></code>.</p>
+<code>background</code> and <code>disabled</code>, which follow them in
+the browser, [vue_bind()].</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pg_m1"</span>, <span class="st">"pg_m2"</span>, <span class="st">"pg_m3"</span>, <span class="st">"pg_m4"</span><span class="op">)</span></span>
-<span><span class="va">block</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">title</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">block</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">title</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    class <span class="op">=</span> <span class="st">"demo-pagination-block"</span>,</span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="va">title</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_pagination.html">el_pagination</a></span><span class="op">(</span></span>
+<span>      <span class="va">...</span>,</span>
+<span>      size <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.pg_size"</span><span class="op">)</span>,</span>
+<span>      background <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.pg_background"</span><span class="op">)</span>,</span>
+<span>      disabled <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.pg_disabled"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
-<span>    <span class="st">".demo-pagination-block + .demo-pagination-block { margin-top: 10px; }</span></span>
-<span><span class="st">     .demo-pagination-block .demonstration { margin-bottom: 16px; }"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="st">"display: flex; align-items: center; gap: 16px; margin-bottom: 16px"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
-<span>      <span class="st">"pg_size"</span>,</span>
-<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"default"</span>, <span class="st">"large"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>      selected <span class="op">=</span> <span class="st">"default"</span>,</span>
-<span>      button <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"background: "</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"pg_background"</span>, value <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"disabled: "</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"pg_disabled"</span>, value <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">hr</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 16px 0"</span><span class="op">)</span>,</span>
-<span>  <span class="fu">block</span><span class="op">(</span></span>
-<span>    <span class="st">"Total item count"</span>,</span>
-<span>    <span class="st">"pg_m1"</span>,</span>
-<span>    current_page <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    layout <span class="op">=</span> <span class="st">"total, prev, pager, next"</span>,</span>
-<span>    total <span class="op">=</span> <span class="fl">1000</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">block</span><span class="op">(</span></span>
-<span>    <span class="st">"Change page size"</span>,</span>
-<span>    <span class="st">"pg_m2"</span>,</span>
-<span>    current_page <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>,</span>
-<span>    layout <span class="op">=</span> <span class="st">"sizes, prev, pager, next"</span>,</span>
-<span>    total <span class="op">=</span> <span class="fl">1000</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">block</span><span class="op">(</span></span>
-<span>    <span class="st">"Jump to"</span>,</span>
-<span>    <span class="st">"pg_m3"</span>,</span>
-<span>    current_page <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    layout <span class="op">=</span> <span class="st">"prev, pager, next, jumper"</span>,</span>
-<span>    total <span class="op">=</span> <span class="fl">1000</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">block</span><span class="op">(</span></span>
-<span>    <span class="st">"All combined"</span>,</span>
-<span>    <span class="st">"pg_m4"</span>,</span>
-<span>    current_page <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>    page_size <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>    page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>,</span>
-<span>    layout <span class="op">=</span> <span class="st">"total, sizes, prev, pager, next, jumper"</span>,</span>
-<span>    total <span class="op">=</span> <span class="fl">400</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>  <span class="st">".demo-pagination-block + .demo-pagination-block { margin-top: 10px; }</span></span>
+<span><span class="st">   .demo-pagination-block .demonstration { margin-bottom: 16px; }"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="va">ids</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="../../reference/el_pagination.html">update_el_pagination</a></span><span class="op">(</span></span>
-<span>        <span class="va">session</span>,</span>
-<span>        <span class="va">id</span>,</span>
-<span>        size <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">pg_size</span>,</span>
-<span>        background <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">pg_background</span><span class="op">)</span>,</span>
-<span>        disabled <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">pg_disabled</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/pagination-more-elements.png" alt="The more-elements example, running" style="max-width: 100%">
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; align-items: center; gap: 16px; margin-bottom: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>    <span class="st">"pg_size"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"default"</span>, <span class="st">"large"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>    button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"background: "</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"pg_background"</span>, value <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span><span class="st">"disabled: "</span>, <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span><span class="st">"pg_disabled"</span>, value <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">hr</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin: 16px 0"</span><span class="op">)</span></span>
+<span><span class="fu">block</span><span class="op">(</span></span>
+<span>  <span class="st">"Total item count"</span>,</span>
+<span>  <span class="st">"pg_m1"</span>,</span>
+<span>  current_page <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"total, prev, pager, next"</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">1000</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">block</span><span class="op">(</span></span>
+<span>  <span class="st">"Change page size"</span>,</span>
+<span>  <span class="st">"pg_m2"</span>,</span>
+<span>  current_page <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"sizes, prev, pager, next"</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">1000</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">block</span><span class="op">(</span></span>
+<span>  <span class="st">"Jump to"</span>,</span>
+<span>  <span class="st">"pg_m3"</span>,</span>
+<span>  current_page <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"prev, pager, next, jumper"</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">1000</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">block</span><span class="op">(</span></span>
+<span>  <span class="st">"All combined"</span>,</span>
+<span>  <span class="st">"pg_m4"</span>,</span>
+<span>  current_page <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  page_size <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  page_sizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span><span class="op">)</span>,</span>
+<span>  layout <span class="op">=</span> <span class="st">"total, sizes, prev, pager, next, jumper"</span>,</span>
+<span>  total <span class="op">=</span> <span class="fl">400</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>.demo-pagination-block + .demo-pagination-block { margin-top: 10px; }
+   .demo-pagination-block .demonstration { margin-bottom: 16px; }</style>
+<div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px">
+    <div id="more-elements-pg_size" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="more-elements-pg_size_container" style="display: contents">
+  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
+    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"default","options":[{"value":"default","label":"default"},{"value":"large","label":"large"},{"value":"small","label":"small"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('more-elements-pg_size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+    <div>
+      background: 
+      <div id="more-elements-pg_background" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="more-elements-pg_background_container" style="display: contents">
+  <el-switch v-bind="$optional(&#39;switch&#39;)" v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :style="{ &#39;--el-switch-on-color&#39;: activeColor || undefined, &#39;--el-switch-off-color&#39;: inactiveColor || undefined, &#39;--el-switch-border-color&#39;: borderColor || undefined }" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"switch":{"width":"width","name":"name","validate-event":"validateEvent","active-action-icon":"activeActionIcon","active-icon":"activeIcon","aria-label":"ariaLabel","before-change":"beforeChange","border-color":"borderColor","inactive-action-icon":"inactiveActionIcon","inactive-icon":"inactiveIcon","inline-prompt":"inlinePrompt","loading":"loading","size":"size","tabindex":"tabindex"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+    <div>
+      disabled: 
+      <div id="more-elements-pg_disabled" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="more-elements-pg_disabled_container" style="display: contents">
+  <el-switch v-bind="$optional(&#39;switch&#39;)" v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :style="{ &#39;--el-switch-on-color&#39;: activeColor || undefined, &#39;--el-switch-off-color&#39;: inactiveColor || undefined, &#39;--el-switch-border-color&#39;: borderColor || undefined }" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"disabled":false,"activeText":"","inactiveText":"","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"switch":{"width":"width","name":"name","validate-event":"validateEvent","active-action-icon":"activeActionIcon","active-icon":"activeIcon","aria-label":"ariaLabel","before-change":"beforeChange","border-color":"borderColor","inactive-action-icon":"inactiveActionIcon","inactive-icon":"inactiveIcon","inline-prompt":"inlinePrompt","loading":"loading","size":"size","tabindex":"tabindex"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+  </div>
+  <hr style="margin: 16px 0">
+<div class="demo-pagination-block">
+    <div class="demonstration">Total item count</div>
+    <div id="more-elements-pg_m1" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="more-elements-pg_m1_container" style="display: contents">
+  <el-pagination v-bind="$optional(&#39;pagination&#39;)" :total="total" v-model:page-size="pageSize" v-model:current-page="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":1000,"pageSize":100,"currentPage":5,"pageSizes":[10,20,30,50],"layout":"total, prev, pager, next","background":null,"small":false,"disabled":null,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null,"appendSizeTo":null,"defaultCurrentPage":null,"defaultPageSize":null,"nextIcon":null,"popperStyle":null,"prevIcon":null,"size":null,"teleported":null},"methods":{"handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('more-elements-pg_m1_page_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"more-elements-pg_m1_page_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"pagination":{"prev-text":"prevText","next-text":"nextText","hide-on-single-page":"hideOnSinglePage","page-count":"pageCount","popper-class":"popperClass","append-size-to":"appendSizeTo","default-current-page":"defaultCurrentPage","default-page-size":"defaultPageSize","next-icon":"nextIcon","popper-style":"popperStyle","prev-icon":"prevIcon","size":"size","teleported":"teleported"}},"bound":{"background":"$inputs['more-elements-pg_background']","disabled":"$inputs['more-elements-pg_disabled']","size":"$inputs['more-elements-pg_size']"},"evals":["options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
+</div>
+  </div>
+  <div class="demo-pagination-block">
+    <div class="demonstration">Change page size</div>
+    <div id="more-elements-pg_m2" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="more-elements-pg_m2_container" style="display: contents">
+  <el-pagination v-bind="$optional(&#39;pagination&#39;)" :total="total" v-model:page-size="pageSize" v-model:current-page="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":1000,"pageSize":100,"currentPage":5,"pageSizes":[100,200,300,400],"layout":"sizes, prev, pager, next","background":null,"small":false,"disabled":null,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null,"appendSizeTo":null,"defaultCurrentPage":null,"defaultPageSize":null,"nextIcon":null,"popperStyle":null,"prevIcon":null,"size":null,"teleported":null},"methods":{"handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('more-elements-pg_m2_page_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"more-elements-pg_m2_page_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"pagination":{"prev-text":"prevText","next-text":"nextText","hide-on-single-page":"hideOnSinglePage","page-count":"pageCount","popper-class":"popperClass","append-size-to":"appendSizeTo","default-current-page":"defaultCurrentPage","default-page-size":"defaultPageSize","next-icon":"nextIcon","popper-style":"popperStyle","prev-icon":"prevIcon","size":"size","teleported":"teleported"}},"bound":{"background":"$inputs['more-elements-pg_background']","disabled":"$inputs['more-elements-pg_disabled']","size":"$inputs['more-elements-pg_size']"},"evals":["options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
+</div>
+  </div>
+  <div class="demo-pagination-block">
+    <div class="demonstration">Jump to</div>
+    <div id="more-elements-pg_m3" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="more-elements-pg_m3_container" style="display: contents">
+  <el-pagination v-bind="$optional(&#39;pagination&#39;)" :total="total" v-model:page-size="pageSize" v-model:current-page="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":1000,"pageSize":100,"currentPage":5,"pageSizes":[10,20,30,50],"layout":"prev, pager, next, jumper","background":null,"small":false,"disabled":null,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null,"appendSizeTo":null,"defaultCurrentPage":null,"defaultPageSize":null,"nextIcon":null,"popperStyle":null,"prevIcon":null,"size":null,"teleported":null},"methods":{"handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('more-elements-pg_m3_page_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"more-elements-pg_m3_page_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"pagination":{"prev-text":"prevText","next-text":"nextText","hide-on-single-page":"hideOnSinglePage","page-count":"pageCount","popper-class":"popperClass","append-size-to":"appendSizeTo","default-current-page":"defaultCurrentPage","default-page-size":"defaultPageSize","next-icon":"nextIcon","popper-style":"popperStyle","prev-icon":"prevIcon","size":"size","teleported":"teleported"}},"bound":{"background":"$inputs['more-elements-pg_background']","disabled":"$inputs['more-elements-pg_disabled']","size":"$inputs['more-elements-pg_size']"},"evals":["options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
+</div>
+  </div>
+  <div class="demo-pagination-block">
+    <div class="demonstration">All combined</div>
+    <div id="more-elements-pg_m4" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="more-elements-pg_m4_container" style="display: contents">
+  <el-pagination v-bind="$optional(&#39;pagination&#39;)" :total="total" v-model:page-size="pageSize" v-model:current-page="currentPage" :page-sizes="pageSizes" :layout="layout" :background="background" :small="small" :disabled="disabled" :pager-count="pagerCount" @current-change="handlePageChange" @size-change="handleSizeChange"></el-pagination>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"total":400,"pageSize":100,"currentPage":4,"pageSizes":[100,200,300,400],"layout":"total, sizes, prev, pager, next, jumper","background":null,"small":false,"disabled":null,"pagerCount":7,"prevText":null,"nextText":null,"hideOnSinglePage":null,"pageCount":null,"popperClass":null,"appendSizeTo":null,"defaultCurrentPage":null,"defaultPageSize":null,"nextIcon":null,"popperStyle":null,"prevIcon":null,"size":null,"teleported":null},"methods":{"handlePageChange":"function(page) { }","handleSizeChange":"function(size) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('more-elements-pg_m4_page_size', size); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"more-elements-pg_m4_page_size\", self.pageSize); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"currentPage","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"pagination":{"prev-text":"prevText","next-text":"nextText","hide-on-single-page":"hideOnSinglePage","page-count":"pageCount","popper-class":"popperClass","append-size-to":"appendSizeTo","default-current-page":"defaultCurrentPage","default-page-size":"defaultPageSize","next-icon":"nextIcon","popper-style":"popperStyle","prev-icon":"prevIcon","size":"size","teleported":"teleported"}},"bound":{"background":"$inputs['more-elements-pg_background']","disabled":"$inputs['more-elements-pg_disabled']","size":"$inputs['more-elements-pg_size']"},"evals":["options.methods.handlePageChange","options.methods.handleSizeChange","options.mounted"]}</script>
+</div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

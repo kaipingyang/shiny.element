@@ -96,59 +96,74 @@ of all available formats of Day.js.
 > Pay attention to capitalization
 
 What each picker reports is `input$<id>`: in the format `value_format`
-names, `"x"` a timestamp. `format` is what the box shows.
+names, `"x"` a timestamp. `format` is what the box shows. The value
+under each title is the picker’s value, a store’s field, \[vue_bind()\],
+which a
+[`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
+reads in the browser.
 
 ``` r
 
-block <- function(title, id, ...) {
+vue_store("formats", state = list(fmt1 = NULL, fmt2 = NULL, fmt3 = NULL))
+block <- function(title, id, field, ...) {
   tags$div(
     class = "block",
     tags$span(class = "demonstration", title),
-    tags$div(class = "demonstration", textOutput(paste0(id, "_value"))),
-    el_date_picker(id, type = "datetime", placeholder = "Pick a Date", ...)
-  )
-}
-ui <- el_page(
-  tags$style(
-    ".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }
-     .demo-datetime-picker .block { padding: 30px 0; text-align: center;
-       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
-     .demo-datetime-picker .block:last-child { border-right: none; }
-     .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;
-       color: var(--el-text-color-secondary); font-size: 14px; }"
-  ),
-  tags$div(
-    class = "demo-datetime-picker",
-    block("Default value format", "dtp_fmt1", format = "YYYY/MM/DD HH:mm:ss"),
-    block(
-      "Use value-format",
-      "dtp_fmt2",
-      format = "YYYY/MM/DD hh:mm:ss",
-      value_format = "YYYY-MM-DD h:m:s a"
+    vue_app(
+      paste0(id, "_shown"),
+      tags$div(
+        class = "demonstration",
+        id = paste0(id, "_value"),
+        sprintf("Value: {{ $store.formats.%s ?? '' }}", field)
+      )
     ),
-    block(
-      "Timestamp",
-      "dtp_fmt3",
-      format = "YYYY/MM/DD hh:mm:ss",
-      value_format = "x"
+    el_date_picker(
+      id,
+      type = "datetime",
+      placeholder = "Pick a Date",
+      value = vue_bind(paste0("$store.formats.", field)),
+      ...
     )
   )
-)
-server <- function(input, output, session) {
-  for (id in c("dtp_fmt1", "dtp_fmt2", "dtp_fmt3")) {
-    local({
-      id <- id
-      output[[paste0(id, "_value")]] <- renderText({
-        paste("Value:", format(input[[id]], scientific = FALSE))
-      })
-    })
-  }
 }
-shinyApp(ui, server)
+tags$style(
+  ".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }
+   .demo-datetime-picker .block { padding: 30px 0; text-align: center;
+     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+   .demo-datetime-picker .block:last-child { border-right: none; }
+   .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;
+     color: var(--el-text-color-secondary); font-size: 14px; }"
+)
+tags$div(
+  class = "demo-datetime-picker",
+  block(
+    "Default value format",
+    "dtp_fmt1",
+    "fmt1",
+    format = "YYYY/MM/DD HH:mm:ss"
+  ),
+  block(
+    "Use value-format",
+    "dtp_fmt2",
+    "fmt2",
+    format = "YYYY/MM/DD hh:mm:ss",
+    value_format = "YYYY-MM-DD h:m:s a"
+  ),
+  block(
+    "Timestamp",
+    "dtp_fmt3",
+    "fmt3",
+    format = "YYYY/MM/DD hh:mm:ss",
+    value_format = "x"
+  )
+)
 ```
 
-![The date-and-time-formats example,
-running](../../shots/datetime-picker-date-and-time-formats.png)
+Default value format
+
+Use value-format
+
+Timestamp
 
 ## Date and time formats in dropdown panel
 

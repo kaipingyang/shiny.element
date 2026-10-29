@@ -12,21 +12,19 @@ setting `duration` you can control its duration. Specifically, if set to
 `0`, it will not close automatically. Note that `duration` receives a
 `Number` in milliseconds.
 
-Notifications are sent from the server, `el_notification(session, ...)`.
+In the browser, Element’s own service, `$notify()`, in an `on` handler.
+From the server it is `el_notification(session, ...)`, with the same
+options in snake_case: see In Shiny below.
 
 ``` r
 
-ui <- el_page(el_button("show", "Closes automatically", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_notification(session, title = "Title", message = "This is a reminder")
-  )
-}
-shinyApp(ui, server)
+el_button(
+  "show",
+  "Closes automatically",
+  plain = TRUE,
+  on = list(click = "$notify({ title: 'Title', message: 'This is a reminder' })")
+)
 ```
-
-![The basic example, running](../../shots/notification-basic.png)
 
 ## With types
 
@@ -41,30 +39,22 @@ that can be invoked directly like `open3` and `open4` without passing a
 ``` r
 
 types <- c("primary", "success", "warning", "info", "error")
-ui <- el_page(lapply(types, function(t) {
-  el_button(paste0("n_", t), tools::toTitleCase(t), plain = TRUE)
-}))
-server <- function(input, output, session) {
-  for (t in types) {
-    local({
-      t <- t
-      observeEvent(
-        input[[paste0("n_", t)]],
-        el_notification(
-          session,
-          title = tools::toTitleCase(t),
-          type = t,
-          message = paste("This is a", t, "message")
-        )
+tagList(lapply(types, function(t) {
+  el_button(
+    paste0("n_", t),
+    tools::toTitleCase(t),
+    plain = TRUE,
+    on = list(
+      click = sprintf(
+        "$notify({ title: '%s', message: 'This is a %s message', type: '%s' })",
+        tools::toTitleCase(t),
+        t,
+        t
       )
-    })
-  }
-}
-shinyApp(ui, server)
+    )
+  )
+}))
 ```
-
-![The different-types example,
-running](../../shots/notification-different-types.png)
 
 ## Custom position
 
@@ -77,30 +67,21 @@ Defaults to `top-right`.
 ``` r
 
 pos <- c("top-right", "bottom-right", "bottom-left", "top-left")
-ui <- el_page(lapply(pos, function(p) {
-  el_button(paste0("n_", gsub("-", "_", p)), p, plain = TRUE)
-}))
-server <- function(input, output, session) {
-  for (p in pos) {
-    local({
-      p <- p
-      observeEvent(
-        input[[paste0("n_", gsub("-", "_", p))]],
-        el_notification(
-          session,
-          title = "Custom Position",
-          position = p,
-          message = paste("I'm at the", p, "corner")
-        )
+tagList(lapply(pos, function(p) {
+  el_button(
+    paste0("n_", gsub("-", "_", p)),
+    p,
+    plain = TRUE,
+    on = list(
+      click = sprintf(
+        "$notify({ title: 'Custom Position', message: \"I'm at the %s corner\", position: '%s' })",
+        p,
+        p
       )
-    })
-  }
-}
-shinyApp(ui, server)
+    )
+  )
+}))
 ```
-
-![The positioning example,
-running](../../shots/notification-positioning.png)
 
 ## With offset
 
@@ -112,23 +93,15 @@ moment should have the same offset.
 
 ``` r
 
-ui <- el_page(el_button("show", "Notification with offset", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_notification(
-      session,
-      title = "Success",
-      offset = 100,
-      message = "This is a success message"
-    )
+el_button(
+  "show",
+  "Notification with offset",
+  plain = TRUE,
+  on = list(
+    click = "$notify({ title: 'Success', message: 'This is a success message', offset: 100 })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The offsetting example,
-running](../../shots/notification-offsetting.png)
 
 ## Use HTML string
 
@@ -139,22 +112,15 @@ an HTML string.
 
 ``` r
 
-ui <- el_page(el_button("show", "Use HTML String", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_notification(
-      session,
-      title = "HTML String",
-      dangerously_use_html_string = TRUE,
-      message = "<strong>This is <i>HTML</i> string</strong>"
-    )
+el_button(
+  "show",
+  "Use HTML String",
+  plain = TRUE,
+  on = list(
+    click = "$notify({ title: 'HTML String', dangerouslyUseHTMLString: true, message: '<strong>This is <i>HTML</i> string</strong>' })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The raw-html example, running](../../shots/notification-raw-html.png)
 
 > **Warning**
 >
@@ -173,53 +139,53 @@ shinyApp(ui, server)
 After 2.9.0, `message` supports a function whose return value is a
 VNode.
 
-A message can be a VNode, given as
+A message can be a VNode, built with `Vue.h()`; one whose props change
+is a function returning it. A
 [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
-code calling `Vue.h()`; one whose props change is a function returning
-it.
+handler, which can reach `Vue`, runs with the button as `this`.
 
 ``` r
 
-ui <- el_page(
-  el_button("open", "Common VNode", plain = TRUE),
-  el_button("open1", "Dynamic props", plain = TRUE)
-)
-server <- function(input, output, session) {
-  observeEvent(input$open, {
-    el_notification(
-      session,
-      title = "Use Vnode",
-      message = JS(
-        "Vue.h('p', null, [
-          Vue.h('span', null, 'Message can be '),
-          Vue.h('i', { style: 'color: teal' }, 'VNode')
-        ])"
-      )
+el_button(
+  "open",
+  "Common VNode",
+  plain = TRUE,
+  on = list(
+    click = JS(
+      "function() {
+        this.$notify({
+          title: 'Use Vnode',
+          message: Vue.h('p', null, [
+            Vue.h('span', null, 'Message can be '),
+            Vue.h('i', { style: 'color: teal' }, 'VNode')
+          ])
+        });
+      }"
     )
-  })
-  observeEvent(input$open1, {
-    el_notification(
-      session,
-      title = "Use Vnode",
-      message = JS(
-        "(function() {
-          var checked = Vue.ref(false);
-          return function() {
+  )
+)
+el_button(
+  "open1",
+  "Dynamic props",
+  plain = TRUE,
+  on = list(
+    click = JS(
+      "function() {
+        var checked = Vue.ref(false);
+        this.$notify({
+          title: 'Use Vnode',
+          message: function() {
             return Vue.h(ElementPlus.ElSwitch, {
               modelValue: checked.value,
               'onUpdate:modelValue': function(v) { checked.value = v; }
             });
-          };
-        })()"
-      )
+          }
+        });
+      }"
     )
-  })
-}
-shinyApp(ui, server)
+  )
+)
 ```
-
-![The use-vnode example,
-running](../../shots/notification-use-vnode.png)
 
 ## With progress bar
 
@@ -236,24 +202,15 @@ pause both the timer and the progress bar.
 
 ``` r
 
-ui <- el_page(el_button("show", "With progress bar", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_notification(
-      session,
-      title = "Progress",
-      progress = TRUE,
-      duration = 5000,
-      message = "Closes when the bar runs out"
-    )
+el_button(
+  "show",
+  "With progress bar",
+  plain = TRUE,
+  on = list(
+    click = "$notify({ title: 'Progress', message: 'Closes when the bar runs out', progress: true, duration: 5000 })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The progress-bar example,
-running](../../shots/notification-progress-bar.png)
 
 ## Hide close button
 
@@ -264,23 +221,15 @@ closed by the user.
 
 ``` r
 
-ui <- el_page(el_button("show", "Hide close button", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_notification(
-      session,
-      title = "Info",
-      type = "info",
-      show_close = FALSE,
-      message = "This is a message without close button"
-    )
+el_button(
+  "show",
+  "Hide close button",
+  plain = TRUE,
+  on = list(
+    click = "$notify({ title: 'Info', message: 'This is a message without close button', type: 'info', showClose: false })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The no-close example, running](../../shots/notification-no-close.png)
 
 ## Global method
 
@@ -309,6 +258,37 @@ You can use it like this:
 >
 > If you globally registered ElNotification component, it will
 > automatically inherit your app context.
+
+## In Shiny
+
+From the server, `el_notification(session, ...)` tells of what the
+server did, with Element’s options in snake_case. Given an `id`,
+`input$<id>_click` and `input$<id>_close` report it clicked and closed,
+and
+[`el_notification_close()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_feedback_close.md)
+closes it.
+
+``` r
+
+ui <- el_page(el_button("run", "Run the report", type = "primary"))
+server <- function(input, output, session) {
+  observeEvent(input$run, {
+    # ... the server's work ...
+    el_notification(
+      session,
+      title = "Report ready",
+      message = "12 rows written.",
+      type = "success",
+      id = "done"
+    )
+  })
+  observeEvent(input$done_click, el_message(session, "Opening the report"))
+}
+shinyApp(ui, server)
+```
+
+![The shiny-output example,
+running](../../shots/notification-shiny-output.png)
 
 ## API
 

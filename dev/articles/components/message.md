@@ -15,18 +15,20 @@ table below combined with notification doc to understand it. Element
 Plus has registered a `$message` method for invoking. Message can take a
 string or a VNode as parameter, and it will be shown as the main body.
 
-Messages are sent from the server, `el_message(session, ...)`.
+In the browser, a click shows a message with Element’s own service,
+`$message()`, in an `on` handler – no round trip. From the server it is
+`el_message(session, ...)`, with the same options in snake_case: see In
+Shiny below.
 
 ``` r
 
-ui <- el_page(el_button("show", "Show message", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(input$show, el_message(session, "This is a message."))
-}
-shinyApp(ui, server)
+el_button(
+  "show",
+  "Show message",
+  plain = TRUE,
+  on = list(click = "$message('This is a message.')")
+)
 ```
-
-![The basic example, running](../../shots/message-basic.png)
 
 ## Types
 
@@ -43,29 +45,21 @@ like `open4`. `primary` has been added in 2.9.11.
 ``` r
 
 types <- c("primary", "success", "warning", "info", "error")
-ui <- el_page(lapply(types, function(t) {
-  el_button(paste0("m_", t), tools::toTitleCase(t), plain = TRUE)
-}))
-server <- function(input, output, session) {
-  for (t in types) {
-    local({
-      t <- t
-      observeEvent(
-        input[[paste0("m_", t)]],
-        el_message(
-          session,
-          paste("Congrats, this is a", t, "message."),
-          type = t
-        )
+tagList(lapply(types, function(t) {
+  el_button(
+    paste0("m_", t),
+    tools::toTitleCase(t),
+    plain = TRUE,
+    on = list(
+      click = sprintf(
+        "$message({ message: 'Congrats, this is a %s message.', type: '%s' })",
+        t,
+        t
       )
-    })
-  }
-}
-shinyApp(ui, server)
+    )
+  )
+}))
 ```
-
-![The different-types example,
-running](../../shots/message-different-types.png)
 
 ## Plain
 
@@ -73,22 +67,15 @@ Set `plain` to have a plain background.
 
 ``` r
 
-ui <- el_page(el_button("show", "Success", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_message(
-      session,
-      "Congrats, this is a success message.",
-      type = "success",
-      plain = TRUE
-    )
+el_button(
+  "show",
+  "Success",
+  plain = TRUE,
+  on = list(
+    click = "$message({ message: 'Congrats, this is a success message.', type: 'success', plain: true })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The plain example, running](../../shots/message-plain.png)
 
 ## Closable
 
@@ -101,17 +88,15 @@ it won’t disappear when set to `0`.
 
 ``` r
 
-ui <- el_page(el_button("show", "Message", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_message(session, "This is a message.", show_close = TRUE, duration = 0)
+el_button(
+  "show",
+  "Message",
+  plain = TRUE,
+  on = list(
+    click = "$message({ message: 'This is a message.', showClose: true, duration: 0 })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The closable example, running](../../shots/message-closable.png)
 
 ## Use HTML string
 
@@ -122,21 +107,15 @@ an HTML string.
 
 ``` r
 
-ui <- el_page(el_button("show", "Use HTML String", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_message(
-      session,
-      "<strong>This is <i>HTML</i> string</strong>",
-      dangerously_use_html_string = TRUE
-    )
+el_button(
+  "show",
+  "Use HTML String",
+  plain = TRUE,
+  on = list(
+    click = "$message({ message: '<strong>This is <i>HTML</i> string</strong>', dangerouslyUseHTMLString: true })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The raw-html example, running](../../shots/message-raw-html.png)
 
 > **Warning**
 >
@@ -156,17 +135,15 @@ Set `grouping` to true and the same content of `message` will be merged.
 
 ``` r
 
-ui <- el_page(el_button("show", "Show grouping message", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_message(session, "This is a message", grouping = TRUE, type = "success")
+el_button(
+  "show",
+  "Show grouping message",
+  plain = TRUE,
+  on = list(
+    click = "$message({ message: 'This is a message', grouping: true, type: 'success' })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The grouping example, running](../../shots/message-grouping.png)
 
 ## Placement
 
@@ -175,17 +152,15 @@ the top (default) or other placements of the viewport.
 
 ``` r
 
-ui <- el_page(el_button("show", "Bottom", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$show,
-    el_message(session, "This is a message at the bottom", placement = "bottom")
+el_button(
+  "show",
+  "Bottom",
+  plain = TRUE,
+  on = list(
+    click = "$message({ message: 'This is a message at the bottom', placement: 'bottom' })"
   )
-}
-shinyApp(ui, server)
+)
 ```
-
-![The placement example, running](../../shots/message-placement.png)
 
 ## Global method
 
@@ -212,6 +187,29 @@ You can use it like this:
 >
 > If you globally registered ElMessage component, it will automatically
 > inherit your app context.
+
+## In Shiny
+
+From the server, `el_message(session, ...)` shows a message after the
+server’s work – a save done, a check failed – with Element’s options in
+snake_case. Given an `id`, `input$<id>_close` reports it closed and
+[`el_message_close()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_feedback_close.md)
+closes it.
+
+``` r
+
+ui <- el_page(el_button("save", "Save", type = "primary"))
+server <- function(input, output, session) {
+  observeEvent(input$save, {
+    # ... the server's work ...
+    el_message(session, "Saved.", type = "success", show_close = TRUE)
+  })
+}
+shinyApp(ui, server)
+```
+
+![The shiny-output example,
+running](../../shots/message-shiny-output.png)
 
 ## API
 

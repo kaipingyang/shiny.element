@@ -31,6 +31,7 @@ destroys its Vue instance, and its value is input$&amp;lt;id&amp;gt;."><meta nam
     <li><a class="dropdown-item" href="../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -243,7 +244,10 @@ called with <code>report</code> first, then the event's arguments, <code>this</c
 the component's Vue instance; <code>report(name, value)</code> sets
 <code>input$&lt;id&gt;_&lt;name&gt;</code>, namespaced as the id is:
 <code>on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))</code> reports <code>input$&lt;id&gt;_enter</code>. An
-event the component reports too runs both.</p></dd>
+event the component reports too runs both. A string is Vue's inline
+statement, as <code>@click="..."</code> in a template, for state in the browser:
+<code>on = list(click = "$store.ui.open = true")</code> (see <code><a href="vue_bind.html">vue_bind()</a></code>),
+<code>"$message('Saved')"</code>; <code>$event</code> is the event's first argument.</p></dd>
 
 
 <dt id="arg-dependency">dependency<a class="anchor" aria-label="anchor" href="#arg-dependency"></a></dt>

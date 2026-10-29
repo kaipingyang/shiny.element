@@ -67,6 +67,7 @@ articles:
   articles/components/progress: components/progress.html
   articles/components/radio: components/radio.html
   articles/components/rate: components/rate.html
+  articles/responsiveness: responsiveness.html
   articles/components/result: components/result.html
   articles/components/scrollbar: components/scrollbar.html
   articles/components/segmented: components/segmented.html
@@ -100,7 +101,7 @@ articles:
   articles/components/typography: components/typography.html
   articles/components/upload: components/upload.html
   articles/components/watermark: components/watermark.html
-last_built: 2026-10-28T15:46Z
+last_built: 2026-10-29T05:21Z
 urls:
   reference: https://kaipingyang.github.io/shiny.element/reference
   article: https://kaipingyang.github.io/shiny.element/articles

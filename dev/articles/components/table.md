@@ -877,10 +877,10 @@ row, and you can access the same attributes as when you are using `slot`
 in custom column templates.
 
 Each row opens to its details and a table of its own, the family. The
-switches are the server’s: the parent’s border and
-`preserve_expanded_content` render the table again – patched in place,
-the open rows stay open – the child tables’ border goes through a store
-their template reads, `$store.expand.child`.
+switches act in the browser: the parent’s `border` and
+`preserve_expanded_content` follow them, \[vue_bind()\], and the child
+tables’ border is a store’s field their template reads,
+`$store.expand.child`.
 
 ``` r
 
@@ -914,60 +914,53 @@ tableData <- lapply(
   }
 )
 
-ui <- el_page(
-  vue_store("expand", state = list(child = FALSE)),
-  tags$div(
-    style = "display: flex; gap: 8px; align-items: center",
-    "switch parent border:",
-    el_switch("parent_border"),
-    "switch child border:",
-    el_switch("child_border"),
-    "preserve expanded:",
-    el_switch("preserve")
-  ),
-  el_table_output("expandable")
+vue_store("expand", state = list(child = FALSE))
+tags$div(
+  style = "display: flex; gap: 8px; align-items: center",
+  "switch parent border:",
+  el_switch("parent_border"),
+  "switch child border:",
+  el_switch("child_border", value = vue_bind("$store.expand.child")),
+  "preserve expanded:",
+  el_switch("preserve")
 )
-
-server <- function(input, output, session) {
-  output$expandable <- render_el_table(el_table(
-    data = tableData,
-    border = isTRUE(input$parent_border),
-    preserve_expanded_content = isTRUE(input$preserve),
-    columns = list(
-      el_table_column(
-        type = "expand",
-        cell = tags$div(
-          style = "margin: 16px",
-          tags$p("State: {{ scope.row.state }}"),
-          tags$p("City: {{ scope.row.city }}"),
-          tags$p("Address: {{ scope.row.address }}"),
-          tags$p("Zip: {{ scope.row.zip }}"),
-          tags$h3("Family"),
-          el$table(
-            ":data" = "scope.row.family",
-            ":border" = "$store.expand.child",
-            el$table_column(label = "Name", prop = "name"),
-            el$table_column(label = "State", prop = "state"),
-            el$table_column(label = "City", prop = "city"),
-            el$table_column(label = "Address", prop = "address"),
-            el$table_column(label = "Zip", prop = "zip")
-          )
+el_table(
+  "expandable",
+  border = vue_bind("$inputs.parent_border"),
+  preserve_expanded_content = vue_bind("$inputs.preserve"),
+  data = tableData,
+  columns = list(
+    el_table_column(
+      type = "expand",
+      cell = tags$div(
+        style = "margin: 16px",
+        tags$p("State: {{ scope.row.state }}"),
+        tags$p("City: {{ scope.row.city }}"),
+        tags$p("Address: {{ scope.row.address }}"),
+        tags$p("Zip: {{ scope.row.zip }}"),
+        tags$h3("Family"),
+        el$table(
+          ":data" = "scope.row.family",
+          ":border" = "$store.expand.child",
+          el$table_column(label = "Name", prop = "name"),
+          el$table_column(label = "State", prop = "state"),
+          el$table_column(label = "City", prop = "city"),
+          el$table_column(label = "Address", prop = "address"),
+          el$table_column(label = "Zip", prop = "zip")
         )
-      ),
-      el_table_column("date", "Date"),
-      el_table_column("name", "Name")
-    )
-  ))
-  observeEvent(input$child_border, {
-    update_vue(session, "expand", child = input$child_border)
-  })
-}
-
-shinyApp(ui, server)
+      )
+    ),
+    el_table_column("date", "Date"),
+    el_table_column("name", "Name")
+  )
+)
 ```
 
-![The expandable-row example,
-running](../../shots/table-expandable-row.png)
+switch parent border:
+
+switch child border:
+
+preserve expanded:
 
 ## Tree data and lazy mode
 
@@ -1082,9 +1075,10 @@ child nodes will be associated with the selection state of child nodes,
 that is, when the parent node is selected, all its child nodes will be
 selected.
 
-The radio buttons set `tree_props = list(checkStrictly =)`, rendering
-the table again: ticked strictly, a row ticks on its own, not with its
-children. Rows 1 and 31 cannot be ticked.
+The radio buttons set `tree_props = list(checkStrictly =)`: their value
+is a store’s field, and `tree_props` a getter of it, \[vue_bind()\].
+Ticked strictly, a row ticks on its own, not with its children. Rows 1
+and 31 cannot be ticked.
 
 ``` r
 
@@ -1111,40 +1105,35 @@ tableData <- list(
   row(4, "2016-05-03")
 )
 
-ui <- el_page(
-  el_radio_group(
-    "strict_mode",
-    choices = c("true", "false"),
-    value = "false",
-    button = TRUE
-  ),
-  el_table_output("strict")
+vue_store(
+  "strictness",
+  state = list(on = FALSE),
+  getters = list(props = JS("function(s) { return { checkStrictly: s.on }; }"))
 )
-
-server <- function(input, output, session) {
-  output$strict <- render_el_table(el_table(
-    data = tableData,
-    row_key = "id",
-    default_expand_all = TRUE,
-    tree_props = list(checkStrictly = identical(input$strict_mode, "true")),
-    columns = list(
-      el_table_column(
-        type = "selection",
-        width = 55,
-        selectable = JS("function(row) { return ![1, 31].includes(row.id); }")
-      ),
-      el_table_column("date", "Date"),
-      el_table_column("name", "Name"),
-      el_table_column("address", "Address")
-    )
-  ))
-}
-
-shinyApp(ui, server)
+el_radio_group(
+  "strict_mode",
+  choices = c(true = TRUE, false = FALSE),
+  value = vue_bind("$store.strictness.on"),
+  button = TRUE
+)
+el_table(
+  "strict",
+  data = tableData,
+  row_key = "id",
+  default_expand_all = TRUE,
+  tree_props = vue_bind("$store.strictness.props"),
+  columns = list(
+    el_table_column(
+      type = "selection",
+      width = 55,
+      selectable = JS("function(row) { return ![1, 31].includes(row.id); }")
+    ),
+    el_table_column("date", "Date"),
+    el_table_column("name", "Name"),
+    el_table_column("address", "Address")
+  )
+)
 ```
-
-![The check-strictly example,
-running](../../shots/table-check-strictly.png)
 
 ## Summary row
 
@@ -1320,7 +1309,8 @@ The
 property sets the algorithm used to lay out table cells, rows, and
 columns.
 
-The radio buttons set `table_layout` from the server.
+The radio buttons set `table_layout`, which follows them in the browser,
+\[vue_bind()\].
 
 ``` r
 
@@ -1330,35 +1320,23 @@ tableData <- data.frame(
   address = "No. 189, Grove St, Los Angeles"
 )
 
-ui <- el_page(
-  el_radio_group(
-    "layout",
-    choices = c("fixed", "auto"),
-    value = "fixed",
-    button = TRUE
-  ),
-  el_table_output("layout_table")
+el_radio_group(
+  "layout",
+  choices = c("fixed", "auto"),
+  value = "fixed",
+  button = TRUE
 )
-
-server <- function(input, output, session) {
-  output$layout_table <- render_el_table(el_table(
-    data = tableData,
-    table_layout = "fixed",
-    columns = list(
-      el_table_column("date", "Date"),
-      el_table_column("name", "Name"),
-      el_table_column("address", "Address")
-    )
-  ))
-  observeEvent(input$layout, {
-    update_el_table(session, "layout_table", table_layout = input$layout)
-  })
-}
-
-shinyApp(ui, server)
+el_table(
+  "layout_table",
+  data = tableData,
+  table_layout = vue_bind("$inputs.layout"),
+  columns = list(
+    el_table_column("date", "Date"),
+    el_table_column("name", "Name"),
+    el_table_column("address", "Address")
+  )
+)
 ```
-
-![The table-layout example, running](../../shots/table-table-layout.png)
 
 ## Tooltip formatter
 

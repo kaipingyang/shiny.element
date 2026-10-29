@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -175,7 +176,10 @@
 
 
 
-
+<script src="message-box_files/vue-3.5.43/vue.global.prod.js"></script><link href="message-box_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="message-box_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="message-box_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="message-box_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="message-box_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="message-box_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="message-box_files/shiny-element-1.0.0/el-events.js"></script><script src="message-box_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="message-box_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="message-box_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="message-box_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="message-box_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -209,25 +213,27 @@ is worth mentioning that when the box is closed, it returns a
 <code>Promise</code> object for further processing. If you are not sure
 if your target browsers support <code>Promise</code>, you should import
 a third party polyfill or use callbacks instead like this example.</p>
-<p>The answer is <code>input$&lt;id&gt;</code>: <code>"confirm"</code>,
-<code>"cancel"</code> or <code>"close"</code>.</p>
+<p>In the browser, Element’s own services, <code>$alert()</code>,
+<code>$confirm()</code>, <code>$prompt()</code> and
+<code>$msgbox()</code>, each a promise of the answer. From the server it
+is <code>el_message_box(session, id, ...)</code>, the answer arriving as
+<code>input$&lt;id&gt;</code>: see In Shiny below.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"This is a message"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Title"</span>,</span>
-<span>      box_type <span class="op">=</span> <span class="st">"alert"</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open the Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$alert('This is a message', 'Title', { confirmButtonText: 'OK', callback: (action) =&gt; $message({ type: 'info', message: 'action: ' + action }) })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-alert.png" alt="The alert example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="alert-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="alert-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $alert(&#39;This is a message&#39;, &#39;Title&#39;, { confirmButtonText: &#39;OK&#39;, callback: (action) =&gt; $message({ type: &#39;info&#39;, message: &#39;action: &#39; + action }) }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="confirm">Confirm<a class="anchor" aria-label="anchor" href="#confirm"></a>
@@ -245,27 +251,21 @@ will be handled as the attribute <code>options</code>. Here we use
 <code>Promise</code> to handle further processing. <code>primary</code>
 has been added in 2.9.11.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"proxy will permanently delete the file. Continue?"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
-<span>      type <span class="op">=</span> <span class="st">"warning"</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>,</span>
-<span>      cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open the Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$confirm('proxy will permanently delete the file. Continue?', 'Warning', { confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning' }).then(() =&gt; $message({ type: 'success', message: 'Delete completed' })).catch(() =&gt; $message({ type: 'info', message: 'Delete canceled' }))"</span></span>
 <span>  <span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">answer</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Answer:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">answer</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-confirm.png" alt="The confirm example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="confirm-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="confirm-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $confirm(&#39;proxy will permanently delete the file. Continue?&#39;, &#39;Warning&#39;, { confirmButtonText: &#39;OK&#39;, cancelButtonText: &#39;Cancel&#39;, type: &#39;warning&#39; }).then(() =&gt; $message({ type: &#39;success&#39;, message: &#39;Delete completed&#39; })).catch(() =&gt; $message({ type: &#39;info&#39;, message: &#39;Delete canceled&#39; })); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="prompt">Prompt<a class="anchor" aria-label="anchor" href="#prompt"></a>
@@ -282,76 +282,96 @@ failed, and the string returned will be used as the
 placeholder of the input box with <code>inputPlaceholder</code>
 parameter.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"email"</span>,</span>
-<span>      <span class="st">"Please input your e-mail"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Tip"</span>,</span>
-<span>      box_type <span class="op">=</span> <span class="st">"prompt"</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>,</span>
-<span>      cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span>,</span>
-<span>      input_pattern <span class="op">=</span> <span class="st">"[\\w!#$%&amp;'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?"</span>,</span>
-<span>      input_error_message <span class="op">=</span> <span class="st">"Invalid Email"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function() {</span></span>
+<span><span class="st">        var self = this;</span></span>
+<span><span class="st">        this.$prompt('Please input your e-mail', 'Tip', {</span></span>
+<span><span class="st">          confirmButtonText: 'OK',</span></span>
+<span><span class="st">          cancelButtonText: 'Cancel',</span></span>
+<span><span class="st">          inputPattern: /[\\w!#$%&amp;'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?/,</span></span>
+<span><span class="st">          inputErrorMessage: 'Invalid Email'</span></span>
+<span><span class="st">        }).then(function(r) {</span></span>
+<span><span class="st">          self.$message({ type: 'success', message: 'Your email is:' + r.value });</span></span>
+<span><span class="st">        }).catch(function() {</span></span>
+<span><span class="st">          self.$message({ type: 'info', message: 'Input canceled' });</span></span>
+<span><span class="st">        });</span></span>
+<span><span class="st">      }"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-prompt.png" alt="The prompt example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="prompt-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="prompt-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('prompt-open', String(name), [value === undefined ? true : value]); }; return (function() {\n        var self = this;\n        this.$prompt('Please input your e-mail', 'Tip', {\n          confirmButtonText: 'OK',\n          cancelButtonText: 'Cancel',\n          inputPattern: /[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?/,\n          inputErrorMessage: 'Invalid Email'\n        }).then(function(r) {\n          self.$message({ type: 'success', message: 'Your email is:' + r.value });\n        }).catch(function() {\n          self.$message({ type: 'info', message: 'Input canceled' });\n        });\n      }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="use-vnode">Use VNode<a class="anchor" aria-label="anchor" href="#use-vnode"></a>
 </h2>
 <p><code>message</code> can be VNode.</p>
-<p>A message can be a VNode, built in the browser: give it as
-<code><a href="../../reference/JS.html">JS()</a></code> code calling <code>Vue.h()</code>. One with props that
-change – the switch – is a function returning the VNode, as upstream
-says.</p>
+<p>A message can be a VNode, built with <code>Vue.h()</code>; one with
+props that change – the switch – is a function returning the VNode, as
+upstream says. A <code><a href="../../reference/JS.html">JS()</a></code> handler, which can reach
+<code>Vue</code>, runs with the button as <code>this</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Common VNode"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open1"</span>, <span class="st">"Dynamic props"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"vn"</span>,</span>
-<span>      <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>        <span class="st">"Vue.h('p', null, [</span></span>
-<span><span class="st">          Vue.h('span', null, 'Message can be '),</span></span>
-<span><span class="st">          Vue.h('i', { style: 'color: teal' }, 'VNode')</span></span>
-<span><span class="st">        ])"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Message"</span>,</span>
-<span>      box_type <span class="op">=</span> <span class="st">"alert"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Common VNode"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function() {</span></span>
+<span><span class="st">        this.$msgbox({</span></span>
+<span><span class="st">          title: 'Message',</span></span>
+<span><span class="st">          message: Vue.h('p', null, [</span></span>
+<span><span class="st">            Vue.h('span', null, 'Message can be '),</span></span>
+<span><span class="st">            Vue.h('i', { style: 'color: teal' }, 'VNode')</span></span>
+<span><span class="st">          ])</span></span>
+<span><span class="st">        });</span></span>
+<span><span class="st">      }"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open1</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"vn1"</span>,</span>
-<span>      <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>        <span class="st">"(function() {</span></span>
-<span><span class="st">          var checked = Vue.ref(false);</span></span>
-<span><span class="st">          return function() {</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open1"</span>,</span>
+<span>  <span class="st">"Dynamic props"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function() {</span></span>
+<span><span class="st">        var checked = Vue.ref(false);</span></span>
+<span><span class="st">        this.$msgbox({</span></span>
+<span><span class="st">          title: 'Message',</span></span>
+<span><span class="st">          message: function() {</span></span>
 <span><span class="st">            return Vue.h(ElementPlus.ElSwitch, {</span></span>
 <span><span class="st">              modelValue: checked.value,</span></span>
 <span><span class="st">              'onUpdate:modelValue': function(v) { checked.value = v; }</span></span>
 <span><span class="st">            });</span></span>
-<span><span class="st">          };</span></span>
-<span><span class="st">        })()"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Message"</span>,</span>
-<span>      box_type <span class="op">=</span> <span class="st">"alert"</span></span>
+<span><span class="st">          }</span></span>
+<span><span class="st">        });</span></span>
+<span><span class="st">      }"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-use-vnode.png" alt="The use-vnode example, running" style="max-width: 100%">
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="use-vnode-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="use-vnode-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Common VNode","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('use-vnode-open', String(name), [value === undefined ? true : value]); }; return (function() {\n        this.$msgbox({\n          title: 'Message',\n          message: Vue.h('p', null, [\n            Vue.h('span', null, 'Message can be '),\n            Vue.h('i', { style: 'color: teal' }, 'VNode')\n          ])\n        });\n      }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+  <div id="use-vnode-open1" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="use-vnode-open1_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Dynamic props","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('use-vnode-open1', String(name), [value === undefined ? true : value]); }; return (function() {\n        var checked = Vue.ref(false);\n        this.$msgbox({\n          title: 'Message',\n          message: function() {\n            return Vue.h(ElementPlus.ElSwitch, {\n              modelValue: checked.value,\n              'onUpdate:modelValue': function(v) { checked.value = v; }\n            });\n          }\n        });\n      }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="use-vnode-with-action-handlers">Use VNode With Action Handlers<a class="anchor" aria-label="anchor" href="#use-vnode-with-action-handlers"></a>
@@ -362,42 +382,49 @@ MessageBox actions programmatically and automatically close the
 instance.</p>
 <p>A function message is handed the box’s own actions,
 <code>confirm</code>, <code>cancel</code> and <code>close</code>, for
-buttons of its own. The answer reaches the server as
-<code>input$handled</code>, as for any message box.</p>
+buttons of its own.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"handled"</span>,</span>
-<span>      <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>        <span class="st">"function({ confirm, cancel, close }) {</span></span>
-<span><span class="st">          var button = function(props, text) {</span></span>
-<span><span class="st">            return Vue.h(ElementPlus.ElButton, props, function() { return text; });</span></span>
-<span><span class="st">          };</span></span>
-<span><span class="st">          return Vue.h('div', [</span></span>
-<span><span class="st">            Vue.h('p', { style: 'margin-bottom: 8px' },</span></span>
-<span><span class="st">              'Custom buttons with MessageBox action handlers'),</span></span>
-<span><span class="st">            button({ type: 'primary', onClick: function() { confirm(); } }, 'Resolve'),</span></span>
-<span><span class="st">            button({ type: 'danger', onClick: function() { cancel(); } }, 'Reject'),</span></span>
-<span><span class="st">            button({ onClick: function() { close(); } }, 'Close')</span></span>
-<span><span class="st">          ]);</span></span>
-<span><span class="st">        }"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Message"</span>,</span>
-<span>      show_confirm_button <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>      show_cancel_button <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>      distinguish_cancel_and_close <span class="op">=</span> <span class="cn">TRUE</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function() {</span></span>
+<span><span class="st">        var self = this;</span></span>
+<span><span class="st">        var button = function(props, text) {</span></span>
+<span><span class="st">          return Vue.h(ElementPlus.ElButton, props, function() { return text; });</span></span>
+<span><span class="st">        };</span></span>
+<span><span class="st">        this.$msgbox({</span></span>
+<span><span class="st">          title: 'Message',</span></span>
+<span><span class="st">          showConfirmButton: false,</span></span>
+<span><span class="st">          showCancelButton: false,</span></span>
+<span><span class="st">          distinguishCancelAndClose: true,</span></span>
+<span><span class="st">          message: function(actions) {</span></span>
+<span><span class="st">            return Vue.h('div', [</span></span>
+<span><span class="st">              Vue.h('p', { style: 'margin-bottom: 8px' },</span></span>
+<span><span class="st">                'Custom buttons with MessageBox action handlers'),</span></span>
+<span><span class="st">              button({ type: 'primary', onClick: function() { actions.confirm(); } }, 'Resolve'),</span></span>
+<span><span class="st">              button({ type: 'danger', onClick: function() { actions.cancel(); } }, 'Reject'),</span></span>
+<span><span class="st">              button({ onClick: function() { actions.close(); } }, 'Close')</span></span>
+<span><span class="st">            ]);</span></span>
+<span><span class="st">          }</span></span>
+<span><span class="st">        }).then(function(action) {</span></span>
+<span><span class="st">          self.$message({ type: 'info', message: 'action: ' + action });</span></span>
+<span><span class="st">        }).catch(function(action) {</span></span>
+<span><span class="st">          self.$message({ type: 'info', message: 'action: ' + action });</span></span>
+<span><span class="st">        });</span></span>
+<span><span class="st">      }"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">handled</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Answer:"</span>, <span class="va">input</span><span class="op">$</span><span class="va">handled</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-use-vnode-with-action-handlers.png" alt="The use-vnode-with-action-handlers example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="use-vnode-with-action-handlers-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="use-vnode-with-action-handlers-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('use-vnode-with-action-handlers-open', String(name), [value === undefined ? true : value]); }; return (function() {\n        var self = this;\n        var button = function(props, text) {\n          return Vue.h(ElementPlus.ElButton, props, function() { return text; });\n        };\n        this.$msgbox({\n          title: 'Message',\n          showConfirmButton: false,\n          showCancelButton: false,\n          distinguishCancelAndClose: true,\n          message: function(actions) {\n            return Vue.h('div', [\n              Vue.h('p', { style: 'margin-bottom: 8px' },\n                'Custom buttons with MessageBox action handlers'),\n              button({ type: 'primary', onClick: function() { actions.confirm(); } }, 'Resolve'),\n              button({ type: 'danger', onClick: function() { actions.cancel(); } }, 'Reject'),\n              button({ onClick: function() { actions.close(); } }, 'Close')\n            ]);\n          }\n        }).then(function(action) {\n          self.$message({ type: 'info', message: 'action: ' + action });\n        }).catch(function(action) {\n          self.$message({ type: 'info', message: 'action: ' + action });\n        });\n      }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="customization">Customization<a class="anchor" aria-label="anchor" href="#customization"></a>
@@ -422,25 +449,21 @@ manipulate the instance before it closes, e.g. activating
 <code>done</code> is not called inside <code>beforeClose</code>, the
 instance will not be closed).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"This is a message"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Title"</span>,</span>
-<span>      show_cancel_button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>,</span>
-<span>      cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span>,</span>
-<span>      confirm_button_type <span class="op">=</span> <span class="st">"danger"</span>,</span>
-<span>      button_size <span class="op">=</span> <span class="st">"small"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$confirm('This is a message', 'Title', { showCancelButton: true, confirmButtonText: 'OK', cancelButtonText: 'Cancel', confirmButtonType: 'danger', buttonSize: 'small' })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-customization.png" alt="The customization example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="customization-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customization-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $confirm(&#39;This is a message&#39;, &#39;Title&#39;, { showCancelButton: true, confirmButtonText: &#39;OK&#39;, cancelButtonText: &#39;Cancel&#39;, confirmButtonType: &#39;danger&#39;, buttonSize: &#39;small&#39; }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="use-html-string">Use HTML String<a class="anchor" aria-label="anchor" href="#use-html-string"></a>
@@ -449,22 +472,22 @@ instance will not be closed).</p>
 <p>Set <code>dangerouslyUseHTMLString</code> to true and
 <code>message</code> will be treated as an HTML string.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"&lt;strong&gt;proxy is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"HTML String"</span>,</span>
-<span>      box_type <span class="op">=</span> <span class="st">"alert"</span>,</span>
-<span>      dangerously_use_html_string <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$alert('&lt;strong&gt;proxy is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;', 'HTML String', { dangerouslyUseHTMLString: true })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-use-html.png" alt="The use-html example, running" style="max-width: 100%"><blockquote>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="use-html-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="use-html-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $alert(&#39;&lt;strong&gt;proxy is &lt;i&gt;HTML&lt;/i&gt; string&lt;/strong&gt;&#39;, &#39;HTML String&#39;, { dangerouslyUseHTMLString: true }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
+<blockquote>
 <p><strong>Warning</strong></p>
 <p>Although <code>message</code> property supports HTML strings,
 dynamically rendering arbitrary HTML on your website can be very
@@ -487,23 +510,21 @@ pressing the ESC key) the MessageBox. If
 <code>distinguishCancelAndClose</code> is set to true, the parameters of
 the above two operations are ‘cancel’ and ‘close’ respectively.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"You have unsaved changes, save and proceed?"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Confirm"</span>,</span>
-<span>      distinguish_cancel_and_close <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"Save"</span>,</span>
-<span>      cancel_button_text <span class="op">=</span> <span class="st">"Discard Changes"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$confirm('You have unsaved changes, save and proceed?', 'Confirm', { distinguishCancelAndClose: true, confirmButtonText: 'Save', cancelButtonText: 'Discard Changes' }).then(() =&gt; $message({ type: 'info', message: 'Changes saved. Proceeding to a new route.' })).catch((action) =&gt; $message({ type: 'info', message: action === 'cancel' ? 'Changes discarded. Proceeding to a new route.' : 'Stay in the current route' }))"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-distinguishable-close-cancel.png" alt="The distinguishable-close-cancel example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="distinguishable-close-cancel-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="distinguishable-close-cancel-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $confirm(&#39;You have unsaved changes, save and proceed?&#39;, &#39;Confirm&#39;, { distinguishCancelAndClose: true, confirmButtonText: &#39;Save&#39;, cancelButtonText: &#39;Discard Changes&#39; }).then(() =&gt; $message({ type: &#39;info&#39;, message: &#39;Changes saved. Proceeding to a new route.&#39; })).catch((action) =&gt; $message({ type: &#39;info&#39;, message: action === &#39;cancel&#39; ? &#39;Changes discarded. Proceeding to a new route.&#39; : &#39;Stay in the current route&#39; })); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="centered-content">Centered content<a class="anchor" aria-label="anchor" href="#centered-content"></a>
@@ -512,49 +533,55 @@ the above two operations are ‘cancel’ and ‘close’ respectively.</p>
 <p>Setting <code>center</code> to <code>true</code> will center the
 content.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"proxy will permanently delete the file. Continue?"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
-<span>      type <span class="op">=</span> <span class="st">"warning"</span>,</span>
-<span>      center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>,</span>
-<span>      cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$confirm('proxy will permanently delete the file. Continue?', 'Warning', { confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning', center: true })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-centered-content.png" alt="The centered-content example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="centered-content-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="centered-content-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $confirm(&#39;proxy will permanently delete the file. Continue?&#39;, &#39;Warning&#39;, { confirmButtonText: &#39;OK&#39;, cancelButtonText: &#39;Cancel&#39;, type: &#39;warning&#39;, center: true }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="customized-icon">Customized Icon<a class="anchor" aria-label="anchor" href="#customized-icon"></a>
 </h2>
 <p>The icon can be customized to any Vue component or <a href="https://vuejs.org/guide/extras/render-function.html" class="external-link">render
 function (JSX)</a>.</p>
+<p>An icon component as the box’s icon: in the browser, Element’s icons
+are <code>ElementPlusIconsVue</code>, reached from a <code><a href="../../reference/JS.html">JS()</a></code>
+handler.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"Are you sure to delete this?"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
-<span>      type <span class="op">=</span> <span class="st">"warning"</span>,</span>
-<span>      icon <span class="op">=</span> <span class="st">"Delete"</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>,</span>
-<span>      cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function() {</span></span>
+<span><span class="st">        this.$confirm('Are you sure to delete this?', 'Warning', {</span></span>
+<span><span class="st">          type: 'warning',</span></span>
+<span><span class="st">          icon: Vue.markRaw(ElementPlusIconsVue.Delete),</span></span>
+<span><span class="st">          confirmButtonText: 'OK',</span></span>
+<span><span class="st">          cancelButtonText: 'Cancel'</span></span>
+<span><span class="st">        });</span></span>
+<span><span class="st">      }"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-customized-icon.png" alt="The customized-icon example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="customized-icon-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customized-icon-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('customized-icon-open', String(name), [value === undefined ? true : value]); }; return (function() {\n        this.$confirm('Are you sure to delete this?', 'Warning', {\n          type: 'warning',\n          icon: Vue.markRaw(ElementPlusIconsVue.Delete),\n          confirmButtonText: 'OK',\n          cancelButtonText: 'Cancel'\n        });\n      }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="draggable">Draggable<a class="anchor" aria-label="anchor" href="#draggable"></a>
@@ -564,24 +591,21 @@ function (JSX)</a>.</p>
 drag MessageBox. Set <code>overflow</code> 2.5.4 to <code>true</code>
 can drag overflow the viewport.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Message Box"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">open</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
-<span>      <span class="va">session</span>,</span>
-<span>      <span class="st">"answer"</span>,</span>
-<span>      <span class="st">"proxy will permanently delete the file. Continue?"</span>,</span>
-<span>      title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
-<span>      type <span class="op">=</span> <span class="st">"warning"</span>,</span>
-<span>      draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>,</span>
-<span>      cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Message Box"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$confirm('proxy will permanently delete the file. Continue?', 'Warning', { confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning', draggable: true })"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/message-box-draggable.png" alt="The draggable example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="draggable-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="draggable-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $confirm(&#39;proxy will permanently delete the file. Continue?&#39;, &#39;Warning&#39;, { confirmButtonText: &#39;OK&#39;, cancelButtonText: &#39;Cancel&#39;, type: &#39;warning&#39;, draggable: true }); })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Message Box","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="global-method">Global method<a class="anchor" aria-label="anchor" href="#global-method"></a>
@@ -624,6 +648,36 @@ you to inherit all the properties of the app.</p>
 <code>ElMessageBox.alert</code>, <code>ElMessageBox.confirm</code> and
 <code>ElMessageBox.prompt</code>. The parameters are the same as
 above.</p>
+</div>
+<div class="section level2">
+<h2 id="in-shiny">In Shiny<a class="anchor" aria-label="anchor" href="#in-shiny"></a>
+</h2>
+<p>From the server, <code>el_message_box(session, id, ...)</code> asks
+the user, with Element’s options in snake_case; the answer is
+<code>input$&lt;id&gt;</code>: <code>"confirm"</code>,
+<code>"cancel"</code> or <code>"close"</code>, and for a prompt
+<code>list(action, value)</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"delete"</span>, <span class="st">"Delete the file"</span>, type <span class="op">=</span> <span class="st">"danger"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"answer_seen"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">delete</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_message_box.html">el_message_box</a></span><span class="op">(</span></span>
+<span>      <span class="va">session</span>,</span>
+<span>      <span class="st">"answer"</span>,</span>
+<span>      <span class="st">"proxy will permanently delete the file. Continue?"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"warning"</span>,</span>
+<span>      confirm_button_text <span class="op">=</span> <span class="st">"OK"</span>,</span>
+<span>      cancel_button_text <span class="op">=</span> <span class="st">"Cancel"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">answer_seen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">answer</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/message-box-shiny-output.png" alt="The shiny-output example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

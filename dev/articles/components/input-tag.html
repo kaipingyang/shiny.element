@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -215,23 +216,32 @@
 </h2>
 <p>You can customize the key used to trigger the input tag. The default
 key is Enter.</p>
-<p>The segmented control sets the key that makes a tag, with
-<code>update_el_input_tag(trigger =)</code>.</p>
+<p>The segmented control sets the key that makes a tag:
+<code>trigger</code> follows it in the browser, [vue_bind()].</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_segmented.html">el_segmented</a></span><span class="op">(</span><span class="st">"tags_key"</span>, value <span class="op">=</span> <span class="st">"Space"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Enter"</span>, <span class="st">"Space"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span><span class="st">"tags_trigger"</span>, trigger <span class="op">=</span> <span class="st">"Space"</span>, placeholder <span class="op">=</span> <span class="st">"Please input"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_segmented.html">el_segmented</a></span><span class="op">(</span><span class="st">"tags_key"</span>, value <span class="op">=</span> <span class="st">"Space"</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Enter"</span>, <span class="st">"Space"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tags_key</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_input_tag.html">update_el_input_tag</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tags_trigger"</span>, trigger <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">tags_key</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/input-tag-trigger.png" alt="The trigger example, running" style="max-width: 100%">
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags_trigger"</span>,</span>
+<span>  trigger <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.tags_key"</span><span class="op">)</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div>
+    <div id="trigger-tags_key" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="trigger-tags_key_container" style="display: contents">
+  <el-segmented v-bind="$optional(&#39;segmented&#39;)" v-model="value" @change="handleChange"></el-segmented>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"Space","options":[{"value":"Enter","label":"Enter"},{"value":"Space","label":"Space"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"segmented":{"options":"options","size":"size","block":"block","disabled":"disabled","validate-event":"validateEvent","aria-label":"ariaLabel","direction":"direction","props":"props"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+  <br><div id="trigger-tags_trigger" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="trigger-tags_trigger_container" style="display: contents">
+  <el-input-tag v-bind="$optional(&#39;input-tag&#39;)" v-model="value" @change="handleChange"></el-input-tag>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Please input","autocomplete":null,"ariaLabel":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"input-tag":{"max":"max","tag-type":"tagType","tag-effect":"tagEffect","effect":"effect","trigger":"trigger","draggable":"draggable","delimiter":"delimiter","size":"size","collapse-tags":"collapseTags","collapse-tags-tooltip":"collapseTagsTooltip","save-on-blur":"saveOnBlur","clearable":"clearable","clear-icon":"clearIcon","disabled":"disabled","validate-event":"validateEvent","readonly":"readonly","autofocus":"autofocus","tabindex":"tabindex","max-collapse-tags":"maxCollapseTags","maxlength":"maxlength","minlength":"minlength","placeholder":"placeholder","autocomplete":"autocomplete","aria-label":"ariaLabel"}},"bound":{"trigger":"$inputs['trigger-tags_key']"},"evals":["options.methods.handleChange"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="maximum-tags">Maximum Tags<a class="anchor" aria-label="anchor" href="#maximum-tags"></a>
@@ -443,53 +453,63 @@ addition to the default size, there are two other options:
 </h2>
 <p>You can customize the tag content by <code>tag</code> slot.</p>
 <p>The segmented controls set the tags’ <code>tag_type</code> and
-<code>tag_effect</code>, with <code><a href="../../reference/el_input_tag.html">update_el_input_tag()</a></code>; the
-<code>tag</code> slot draws each one.</p>
+<code>tag_effect</code>, which follow them in the browser, [vue_bind()];
+the <code>tag</code> slot draws each one.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="st">"display: flex; gap: 20px"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_segmented.html">el_segmented</a></span><span class="op">(</span></span>
-<span>      <span class="st">"tags_type"</span>,</span>
-<span>      value <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>      options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_segmented.html">el_segmented</a></span><span class="op">(</span></span>
-<span>      <span class="st">"tags_effect"</span>,</span>
-<span>      value <span class="op">=</span> <span class="st">"plain"</span>,</span>
-<span>      options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"light"</span>, <span class="st">"dark"</span>, <span class="st">"plain"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"display: flex; gap: 20px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_segmented.html">el_segmented</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tags_type"</span>,</span>
+<span>    value <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>    options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"primary"</span>, <span class="st">"success"</span>, <span class="st">"info"</span>, <span class="st">"warning"</span>, <span class="st">"danger"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tags_tpl"</span>,</span>
-<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span><span class="op">)</span>,</span>
-<span>    tag_type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>    tag_effect <span class="op">=</span> <span class="st">"plain"</span>,</span>
-<span>    placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
-<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>        slot <span class="op">=</span> <span class="st">"tag"</span>,</span>
-<span>        scope <span class="op">=</span> <span class="st">"{ value }"</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>          style <span class="op">=</span> <span class="st">"display: flex; align-items: center"</span>,</span>
-<span>          <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"ElementPlus"</span>, style <span class="op">=</span> <span class="st">"margin-right: 4px"</span><span class="op">)</span>,</span>
-<span>          <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ value }}"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../../reference/el_segmented.html">el_segmented</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tags_effect"</span>,</span>
+<span>    value <span class="op">=</span> <span class="st">"plain"</span>,</span>
+<span>    options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"light"</span>, <span class="st">"dark"</span>, <span class="st">"plain"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">br</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_input_tag.html">el_input_tag</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tags_tpl"</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tag1"</span>, <span class="st">"tag2"</span>, <span class="st">"tag3"</span><span class="op">)</span>,</span>
+<span>  tag_type <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.tags_type"</span><span class="op">)</span>,</span>
+<span>  tag_effect <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.tags_effect"</span><span class="op">)</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Please input"</span>,</span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    tag <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      slot <span class="op">=</span> <span class="st">"tag"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ value }"</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        style <span class="op">=</span> <span class="st">"display: flex; align-items: center"</span>,</span>
+<span>        <span class="fu"><a href="../../reference/el_icon.html">el_icon</a></span><span class="op">(</span><span class="st">"ElementPlus"</span>, style <span class="op">=</span> <span class="st">"margin-right: 4px"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ value }}"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tags_type</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_input_tag.html">update_el_input_tag</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tags_tpl"</span>, tag_type <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">tags_type</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tags_effect</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_input_tag.html">update_el_input_tag</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tags_tpl"</span>, tag_effect <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">tags_effect</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/input-tag-tag.png" alt="The tag example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div style="display: flex; gap: 20px">
+    <div id="tag-tags_type" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="tag-tags_type_container" style="display: contents">
+  <el-segmented v-bind="$optional(&#39;segmented&#39;)" v-model="value" @change="handleChange"></el-segmented>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"primary","options":[{"value":"primary","label":"primary"},{"value":"success","label":"success"},{"value":"info","label":"info"},{"value":"warning","label":"warning"},{"value":"danger","label":"danger"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"segmented":{"options":"options","size":"size","block":"block","disabled":"disabled","validate-event":"validateEvent","aria-label":"ariaLabel","direction":"direction","props":"props"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+    <div id="tag-tags_effect" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="tag-tags_effect_container" style="display: contents">
+  <el-segmented v-bind="$optional(&#39;segmented&#39;)" v-model="value" @change="handleChange"></el-segmented>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"plain","options":[{"value":"light","label":"light"},{"value":"dark","label":"dark"},{"value":"plain","label":"plain"}],"size":null,"block":null,"disabled":null,"validateEvent":null,"ariaLabel":null,"direction":null,"props":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"segmented":{"options":"options","size":"size","block":"block","disabled":"disabled","validate-event":"validateEvent","aria-label":"ariaLabel","direction":"direction","props":"props"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+  </div>
+  <br><div id="tag-tags_tpl" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="tag-tags_tpl_container" style="display: contents">
+  <el-input-tag v-bind="$optional(&#39;input-tag&#39;)" v-model="value" @change="handleChange"><template v-slot:tag="{ value }"><div style="display: flex; align-items: center">
+  <i class="el-icon" data-el-icon="ElementPlus" aria-hidden="true" role="img" style="margin-right: 4px"></i>
+  <span>{{ value }}</span>
+</div></template></el-input-tag>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":["tag1","tag2","tag3"],"max":null,"tagType":null,"tagEffect":null,"effect":null,"trigger":null,"draggable":null,"delimiter":null,"size":null,"collapseTags":null,"collapseTagsTooltip":null,"saveOnBlur":null,"clearable":null,"clearIcon":null,"disabled":null,"validateEvent":null,"readonly":null,"autofocus":null,"tabindex":null,"maxCollapseTags":null,"maxlength":null,"minlength":null,"placeholder":"Please input","autocomplete":null,"ariaLabel":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"input-tag":{"max":"max","tag-type":"tagType","tag-effect":"tagEffect","effect":"effect","trigger":"trigger","draggable":"draggable","delimiter":"delimiter","size":"size","collapse-tags":"collapseTags","collapse-tags-tooltip":"collapseTagsTooltip","save-on-blur":"saveOnBlur","clearable":"clearable","clear-icon":"clearIcon","disabled":"disabled","validate-event":"validateEvent","readonly":"readonly","autofocus":"autofocus","tabindex":"tabindex","max-collapse-tags":"maxCollapseTags","maxlength":"maxlength","minlength":"minlength","placeholder":"placeholder","autocomplete":"autocomplete","aria-label":"ariaLabel"}},"bound":{"tagType":"$inputs['tag-tags_type']","tagEffect":"$inputs['tag-tags_effect']"},"evals":["options.methods.handleChange"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="custom-prefix-and-suffix">Custom Prefix and Suffix<a class="anchor" aria-label="anchor" href="#custom-prefix-and-suffix"></a>

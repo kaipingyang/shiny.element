@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -230,36 +231,44 @@ your project, please check to ensure the layout is correct.</p>
 </blockquote>
 <p><code>mode</code> puts the content after the line
 (<code>"start"</code>), before it (<code>"end"</code>), or on alternate
-sides; the radio buttons set it with
-<code><a href="../../reference/el_timeline.html">update_el_timeline()</a></code>.</p>
+sides; it follows the radio buttons in the browser, [vue_bind()].</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tl_mode_pick"</span>,</span>
-<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start"</span>, <span class="st">"alternate"</span>, <span class="st">"alternate-reverse"</span>, <span class="st">"end"</span><span class="op">)</span>,</span>
-<span>    selected <span class="op">=</span> <span class="st">"start"</span>,</span>
-<span>    button <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    style <span class="op">=</span> <span class="st">"margin-top: 16px"</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
-<span>      <span class="st">"tl_mode"</span>,</span>
-<span>      mode <span class="op">=</span> <span class="st">"start"</span>,</span>
-<span>      items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tl_mode_pick"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start"</span>, <span class="st">"alternate"</span>, <span class="st">"alternate-reverse"</span>, <span class="st">"end"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"start"</span>,</span>
+<span>  button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  style <span class="op">=</span> <span class="st">"margin-top: 16px"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tl_mode"</span>,</span>
+<span>    mode <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.tl_mode_pick"</span><span class="op">)</span>,</span>
+<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tl_mode_pick</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../../reference/el_timeline.html">update_el_timeline</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tl_mode"</span>, mode <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">tl_mode_pick</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/timeline-mode.png" alt="The mode example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="mode-tl_mode_pick" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="mode-tl_mode_pick_container" style="display: contents">
+  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
+    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"start","options":[{"value":"start","label":"start"},{"value":"alternate","label":"alternate"},{"value":"alternate-reverse","label":"alternate-reverse"},{"value":"end","label":"end"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('mode-tl_mode_pick', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  <div style="margin-top: 16px">
+    <div id="mode-tl_mode" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="mode-tl_mode_container" style="display: contents">
+  <el-timeline v-bind="$optional(&#39;timeline&#39;)" :reverse="reverse">
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"><span v-if="item.contentHtml" v-html="item.content"></span><template v-else>{{ item.content }}</template></el-timeline-item>
+  </el-timeline>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13"},{"content":"Success","timestamp":"2018-04-11"}],"reverse":false,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"timeline":{"mode":"mode"}},"bound":{"mode":"$inputs['mode-tl_mode_pick']"},"evals":[]}</script>
+</div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="custom-node">Custom node<a class="anchor" aria-label="anchor" href="#custom-node"></a>
@@ -398,34 +407,39 @@ high.</p>
 <h2 id="reverse">Reverse<a class="anchor" aria-label="anchor" href="#reverse"></a>
 </h2>
 <p>Use the reverse property to control the order of the nodes.</p>
-<p><code>reverse</code> shows the entries newest first;
-<code><a href="../../reference/el_timeline.html">update_el_timeline()</a></code> flips it.</p>
+<p><code>reverse</code> shows the entries newest first; it follows the
+radios, whose values are <code>FALSE</code> and <code>TRUE</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
-<span>    <span class="st">"order"</span>,</span>
-<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ascending <span class="op">=</span> <span class="st">"asc"</span>, Descending <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span>,</span>
-<span>    value <span class="op">=</span> <span class="st">"asc"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tl"</span>,</span>
-<span>    items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"order"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ascending <span class="op">=</span> <span class="cn">FALSE</span>, Descending <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">order</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_timeline.html">update_el_timeline</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tl"</span>, reverse <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">order</span> <span class="op">==</span> <span class="st">"desc"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_timeline.html">el_timeline</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tl"</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.order"</span><span class="op">)</span>,</span>
+<span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Event start"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-15"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Approved"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-13"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_timeline_item.html">el_timeline_item</a></span><span class="op">(</span><span class="st">"Success"</span>, timestamp <span class="op">=</span> <span class="st">"2018-04-11"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/timeline-reverse.png" alt="The reverse example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="reverse-order" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="reverse-order_container" style="display: contents">
+  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
+    <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":false,"options":[{"value":false,"label":"Ascending"},{"value":true,"label":"Descending"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('reverse-order', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  <div id="reverse-tl" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="reverse-tl_container" style="display: contents">
+  <el-timeline v-bind="$optional(&#39;timeline&#39;)" :reverse="reverse">
+    <el-timeline-item v-for="(item, index) in items" :key="index" :timestamp="item.timestamp" :type="item.type" :color="item.color" :size="item.size" :icon="item.icon" :placement="item.placement" :center="item.center" :hollow="item.hollow" :hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"><span v-if="item.contentHtml" v-html="item.content"></span><template v-else>{{ item.content }}</template></el-timeline-item>
+  </el-timeline>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"content":"Event start","timestamp":"2018-04-15"},{"content":"Approved","timestamp":"2018-04-13"},{"content":"Success","timestamp":"2018-04-11"}],"reverse":null,"mode":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"timeline":{"mode":"mode"}},"bound":{"reverse":"$inputs['reverse-order']"},"evals":[]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

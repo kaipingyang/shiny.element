@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -175,8 +176,11 @@
 
 
 
-
-<div class="row">
+<script src="tour_files/vue-3.5.43/vue.global.prod.js"></script><link href="tour_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="tour_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="tour_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="tour_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="tour_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="tour_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="tour_files/shiny-element-1.0.0/el-events.js"></script><script src="tour_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="tour_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="tour_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="tour_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="tour_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="tour_files/pinia-4.1.0/pinia.iife.prod.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Tour</h1>
@@ -194,36 +198,70 @@ want to guide users through a product.</p>
 <h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
 <p>The most basic usage</p>
-<p>A step’s <code>target</code> is a CSS selector; the server opens the
-tour with <code><a href="../../reference/el_tour.html">update_el_tour()</a></code>.</p>
+<p>A step’s <code>target</code> is a CSS selector. The tour’s
+<code>visible</code> and <code>current</code> follow a store,
+[vue_bind()]: the button starts it in the browser, and finishing or
+closing it sets the store back. From the server it is
+<code>update_el_tour(visible = TRUE, current = 0)</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tour"</span>,</span>
-<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_more"</span>, <span class="st">"Other Actions"</span>, <span class="st">"Click to see other"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tour_basic"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"begin"</span>,</span>
+<span>  <span class="st">"Begin Tour"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_basic.current = 0; $store.tour_basic.open = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tour"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_basic.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_basic.current"</span><span class="op">)</span>,</span>
+<span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_more"</span>, <span class="st">"Other Actions"</span>, <span class="st">"Click to see other"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tour-basic.png" alt="The basic example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tour_basic" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false,"current":0}},"store":true,"evals":[]}</script>
+</div>
+  <div id="basic-begin" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-begin_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_basic.current = 0; $store.tour_basic.open = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
+  <div id="basic-el_space_fbacd639-6838-46bc-877d-edeaa9d9bf74" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_space_fbacd639-6838-46bc-877d-edeaa9d9bf74_container" style="display: contents">
+  <el-space v-bind="$optional(&#39;space&#39;)">
+    <span id="t_up">
+      <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_basic_up" id="basic-up">{{el2_label}}</el-button>
+    </span>
+    <span id="t_save">
+      <el-button v-bind="$optional(&#39;el3_button&#39;)" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" ref="sv_basic_save" id="basic-save">{{el3_label}}</el-button>
+    </span>
+    <span id="t_more">
+      <el-button v-bind="$optional(&#39;el4_button&#39;)" :circle="el4_circle" :loading="el4_loading" :disabled="el4_disabled" :native-type="el4_native_type" @click="el4_handleClick" ref="sv_basic_more" id="basic-more">{{el4_label}}</el-button>
+    </span>
+  </el-space>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"alignment":null,"direction":null,"spacer":null,"size":null,"wrap":null,"fill":null,"fillRatio":null,"el2_label":"Upload","el2_circle":false,"el2_loading":false,"el2_disabled":false,"el2_native_type":"button","el2_count":0,"el2_state":"ready","el2_size":null,"el2_icon":null,"el2_autofocus":false,"el2_type":null,"el2_plain":null,"el2_round":null,"el2_autoInsertSpace":null,"el2_bg":null,"el2_color":null,"el2_dark":null,"el2_dashed":null,"el2_link":null,"el2_loadingIcon":null,"el2_tag":null,"el2_text":null,"el3_label":"Save","el3_circle":false,"el3_loading":false,"el3_disabled":false,"el3_native_type":"button","el3_count":0,"el3_state":"ready","el3_size":null,"el3_icon":null,"el3_autofocus":false,"el3_type":"primary","el3_plain":null,"el3_round":null,"el3_autoInsertSpace":null,"el3_bg":null,"el3_color":null,"el3_dark":null,"el3_dashed":null,"el3_link":null,"el3_loadingIcon":null,"el3_tag":null,"el3_text":null,"el4_label":"","el4_circle":false,"el4_loading":false,"el4_disabled":false,"el4_native_type":"button","el4_count":0,"el4_state":"ready","el4_size":null,"el4_icon":"MoreFilled","el4_autofocus":false,"el4_type":null,"el4_plain":null,"el4_round":null,"el4_autoInsertSpace":null,"el4_bg":null,"el4_color":null,"el4_dark":null,"el4_dashed":null,"el4_link":null,"el4_loadingIcon":null,"el4_tag":null,"el4_text":null},"methods":{"el2_handleClick":"function() { if (this.el2_disabled || this.el2_loading || this.el2_state === 'busy') return; this.el2_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-up:shiny.action', this.el2_count); }","el3_handleClick":"function() { if (this.el3_disabled || this.el3_loading || this.el3_state === 'busy') return; this.el3_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-save:shiny.action', this.el3_count); }","el4_handleClick":"function() { if (this.el4_disabled || this.el4_loading || this.el4_state === 'busy') return; this.el4_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-more:shiny.action', this.el4_count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-up:shiny.action\", self.el2_count); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-save:shiny.action\", self.el3_count); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"basic-more:shiny.action\", self.el4_count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"space":{"alignment":"alignment","direction":"direction","spacer":"spacer","size":"size","wrap":"wrap","fill":"fill","fill-ratio":"fillRatio"},"el2_button":{"size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","auto-insert-space":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loading-icon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text"},"el3_button":{"size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","auto-insert-space":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loading-icon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text"},"el4_button":{"size":"el4_size","icon":"el4_icon","autofocus":"el4_autofocus","type":"el4_type","plain":"el4_plain","round":"el4_round","auto-insert-space":"el4_autoInsertSpace","bg":"el4_bg","color":"el4_color","dark":"el4_dark","dashed":"el4_dashed","link":"el4_link","loading-icon":"el4_loadingIcon","tag":"el4_tag","text":"el4_text"}},"absorbed":{"basic-up":{"fields":{"label":"el2_label","circle":"el2_circle","loading":"el2_loading","disabled":"el2_disabled","native_type":"el2_native_type","count":"el2_count","state":"el2_state","size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","autoInsertSpace":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loadingIcon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text","handleClick":"el2_handleClick"},"ref":"sv_basic_up"},"basic-save":{"fields":{"label":"el3_label","circle":"el3_circle","loading":"el3_loading","disabled":"el3_disabled","native_type":"el3_native_type","count":"el3_count","state":"el3_state","size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","autoInsertSpace":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loadingIcon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text","handleClick":"el3_handleClick"},"ref":"sv_basic_save"},"basic-more":{"fields":{"label":"el4_label","circle":"el4_circle","loading":"el4_loading","disabled":"el4_disabled","native_type":"el4_native_type","count":"el4_count","state":"el4_state","size":"el4_size","icon":"el4_icon","autofocus":"el4_autofocus","type":"el4_type","plain":"el4_plain","round":"el4_round","autoInsertSpace":"el4_autoInsertSpace","bg":"el4_bg","color":"el4_color","dark":"el4_dark","dashed":"el4_dashed","link":"el4_link","loadingIcon":"el4_loadingIcon","tag":"el4_tag","text":"el4_text","handleClick":"el4_handleClick"},"ref":"sv_basic_more"}},"generated":true,"evals":["options.methods.el2_handleClick","options.methods.el3_handleClick","options.methods.el4_handleClick","options.mounted"]}</script>
+</div>
+  <div id="basic-tour" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-tour_container" style="display: contents">
+  <el-tour v-bind="$optional(&#39;tour&#39;)" v-model="open" v-model:current="current" @close="handleClose" @change="svEmitChange" @finish="svEmitFinish">
+    <el-tour-step :target="&quot;#t_up&quot;" :title="&quot;Upload File&quot;" :description="&quot;Put you files here.&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_more&quot;" :title="&quot;Other Actions&quot;" :description="&quot;Click to see other&quot;"></el-tour-step>
+  </el-tour>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('basic-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('basic-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_basic.open","current":"$store.tour_basic.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="non-modal">Non modal<a class="anchor" aria-label="anchor" href="#non-modal"></a>
@@ -234,35 +272,66 @@ emphasize the guide itself.</p>
 <p><code>mask = FALSE</code> leaves the page undimmed;
 <code>type = "primary"</code> colours the card.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tour"</span>,</span>
-<span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>    mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_more"</span>, <span class="st">"Other Actions"</span>, <span class="st">"Click to see other"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tour_non_modal"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"begin"</span>,</span>
+<span>  <span class="st">"Begin Tour"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_non_modal.current = 0; $store.tour_non_modal.open = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_more"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"more"</span>, <span class="st">""</span>, icon <span class="op">=</span> <span class="st">"MoreFilled"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tour"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_non_modal.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_non_modal.current"</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_more"</span>, <span class="st">"Other Actions"</span>, <span class="st">"Click to see other"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tour-non-modal.png" alt="The non-modal example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tour_non_modal" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false,"current":0}},"store":true,"evals":[]}</script>
+</div>
+  <div id="non-modal-begin" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="non-modal-begin_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_non_modal.current = 0; $store.tour_non_modal.open = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
+  <div id="non-modal-el_space_e8f3f27c-d1f4-4485-ba8b-d12e479896cb" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="non-modal-el_space_e8f3f27c-d1f4-4485-ba8b-d12e479896cb_container" style="display: contents">
+  <el-space v-bind="$optional(&#39;space&#39;)">
+    <span id="t_up">
+      <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_non_modal_up" id="non-modal-up">{{el2_label}}</el-button>
+    </span>
+    <span id="t_save">
+      <el-button v-bind="$optional(&#39;el3_button&#39;)" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" ref="sv_non_modal_save" id="non-modal-save">{{el3_label}}</el-button>
+    </span>
+    <span id="t_more">
+      <el-button v-bind="$optional(&#39;el4_button&#39;)" :circle="el4_circle" :loading="el4_loading" :disabled="el4_disabled" :native-type="el4_native_type" @click="el4_handleClick" ref="sv_non_modal_more" id="non-modal-more">{{el4_label}}</el-button>
+    </span>
+  </el-space>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"alignment":null,"direction":null,"spacer":null,"size":null,"wrap":null,"fill":null,"fillRatio":null,"el2_label":"Upload","el2_circle":false,"el2_loading":false,"el2_disabled":false,"el2_native_type":"button","el2_count":0,"el2_state":"ready","el2_size":null,"el2_icon":null,"el2_autofocus":false,"el2_type":null,"el2_plain":null,"el2_round":null,"el2_autoInsertSpace":null,"el2_bg":null,"el2_color":null,"el2_dark":null,"el2_dashed":null,"el2_link":null,"el2_loadingIcon":null,"el2_tag":null,"el2_text":null,"el3_label":"Save","el3_circle":false,"el3_loading":false,"el3_disabled":false,"el3_native_type":"button","el3_count":0,"el3_state":"ready","el3_size":null,"el3_icon":null,"el3_autofocus":false,"el3_type":"primary","el3_plain":null,"el3_round":null,"el3_autoInsertSpace":null,"el3_bg":null,"el3_color":null,"el3_dark":null,"el3_dashed":null,"el3_link":null,"el3_loadingIcon":null,"el3_tag":null,"el3_text":null,"el4_label":"","el4_circle":false,"el4_loading":false,"el4_disabled":false,"el4_native_type":"button","el4_count":0,"el4_state":"ready","el4_size":null,"el4_icon":"MoreFilled","el4_autofocus":false,"el4_type":null,"el4_plain":null,"el4_round":null,"el4_autoInsertSpace":null,"el4_bg":null,"el4_color":null,"el4_dark":null,"el4_dashed":null,"el4_link":null,"el4_loadingIcon":null,"el4_tag":null,"el4_text":null},"methods":{"el2_handleClick":"function() { if (this.el2_disabled || this.el2_loading || this.el2_state === 'busy') return; this.el2_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('non-modal-up:shiny.action', this.el2_count); }","el3_handleClick":"function() { if (this.el3_disabled || this.el3_loading || this.el3_state === 'busy') return; this.el3_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('non-modal-save:shiny.action', this.el3_count); }","el4_handleClick":"function() { if (this.el4_disabled || this.el4_loading || this.el4_state === 'busy') return; this.el4_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('non-modal-more:shiny.action', this.el4_count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"non-modal-up:shiny.action\", self.el2_count); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"non-modal-save:shiny.action\", self.el3_count); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"non-modal-more:shiny.action\", self.el4_count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"space":{"alignment":"alignment","direction":"direction","spacer":"spacer","size":"size","wrap":"wrap","fill":"fill","fill-ratio":"fillRatio"},"el2_button":{"size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","auto-insert-space":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loading-icon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text"},"el3_button":{"size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","auto-insert-space":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loading-icon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text"},"el4_button":{"size":"el4_size","icon":"el4_icon","autofocus":"el4_autofocus","type":"el4_type","plain":"el4_plain","round":"el4_round","auto-insert-space":"el4_autoInsertSpace","bg":"el4_bg","color":"el4_color","dark":"el4_dark","dashed":"el4_dashed","link":"el4_link","loading-icon":"el4_loadingIcon","tag":"el4_tag","text":"el4_text"}},"absorbed":{"non-modal-up":{"fields":{"label":"el2_label","circle":"el2_circle","loading":"el2_loading","disabled":"el2_disabled","native_type":"el2_native_type","count":"el2_count","state":"el2_state","size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","autoInsertSpace":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loadingIcon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text","handleClick":"el2_handleClick"},"ref":"sv_non_modal_up"},"non-modal-save":{"fields":{"label":"el3_label","circle":"el3_circle","loading":"el3_loading","disabled":"el3_disabled","native_type":"el3_native_type","count":"el3_count","state":"el3_state","size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","autoInsertSpace":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loadingIcon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text","handleClick":"el3_handleClick"},"ref":"sv_non_modal_save"},"non-modal-more":{"fields":{"label":"el4_label","circle":"el4_circle","loading":"el4_loading","disabled":"el4_disabled","native_type":"el4_native_type","count":"el4_count","state":"el4_state","size":"el4_size","icon":"el4_icon","autofocus":"el4_autofocus","type":"el4_type","plain":"el4_plain","round":"el4_round","autoInsertSpace":"el4_autoInsertSpace","bg":"el4_bg","color":"el4_color","dark":"el4_dark","dashed":"el4_dashed","link":"el4_link","loadingIcon":"el4_loadingIcon","tag":"el4_tag","text":"el4_text","handleClick":"el4_handleClick"},"ref":"sv_non_modal_more"}},"generated":true,"evals":["options.methods.el2_handleClick","options.methods.el3_handleClick","options.methods.el4_handleClick","options.mounted"]}</script>
+</div>
+  <div id="non-modal-tour" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="non-modal-tour_container" style="display: contents">
+  <el-tour v-bind="$optional(&#39;tour&#39;)" v-model="open" v-model:current="current" @close="handleClose" @change="svEmitChange" @finish="svEmitFinish">
+    <el-tour-step :target="&quot;#t_up&quot;" :title="&quot;Upload File&quot;" :description="&quot;Put you files here.&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_more&quot;" :title="&quot;Other Actions&quot;" :description="&quot;Click to see other&quot;"></el-tour-step>
+  </el-tour>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":false,"gap":null,"type":"primary","scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('non-modal-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('non-modal-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('non-modal-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_non_modal.open","current":"$store.tour_non_modal.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="placement">Placement<a class="anchor" aria-label="anchor" href="#placement"></a>
@@ -271,35 +340,52 @@ emphasize the guide itself.</p>
 12 placements available. When <code>target</code> is empty the guide
 will show in the center.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_btn"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tour"</span>,</span>
-<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
-<span>        title <span class="op">=</span> <span class="st">"Center"</span>,</span>
-<span>        description <span class="op">=</span> <span class="st">"Displayed in the center of screen."</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
-<span>        <span class="st">"#t_btn"</span>,</span>
-<span>        <span class="st">"Right"</span>,</span>
-<span>        <span class="st">"On the right of target."</span>,</span>
-<span>        placement <span class="op">=</span> <span class="st">"right"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_btn"</span>, <span class="st">"Top"</span>, <span class="st">"On the top of target."</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tour_placement"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_btn"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"begin"</span>,</span>
+<span>  <span class="st">"Begin Tour"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_placement.current = 0; $store.tour_placement.open = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tour"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_placement.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_placement.current"</span><span class="op">)</span>,</span>
+<span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
+<span>      title <span class="op">=</span> <span class="st">"Center"</span>,</span>
+<span>      description <span class="op">=</span> <span class="st">"Displayed in the center of screen."</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
+<span>      <span class="st">"#t_btn"</span>,</span>
+<span>      <span class="st">"Right"</span>,</span>
+<span>      <span class="st">"On the right of target."</span>,</span>
+<span>      placement <span class="op">=</span> <span class="st">"right"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_btn"</span>, <span class="st">"Top"</span>, <span class="st">"On the top of target."</span>, placement <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tour-placement.png" alt="The placement example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tour_placement" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false,"current":0}},"store":true,"evals":[]}</script>
+</div>
+  <span id="t_btn">
+    <div id="placement-begin" data-shiny-vue style="display: contents">
+      <script type="text/x-template" data-shiny-vue-template><div id="placement-begin_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_placement.current = 0; $store.tour_placement.open = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  </span>
+  <div id="placement-tour" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="placement-tour_container" style="display: contents">
+  <el-tour v-bind="$optional(&#39;tour&#39;)" v-model="open" v-model:current="current" @close="handleClose" @change="svEmitChange" @finish="svEmitFinish">
+    <el-tour-step :title="&quot;Center&quot;" :description="&quot;Displayed in the center of screen.&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_btn&quot;" :title="&quot;Right&quot;" :description="&quot;On the right of target.&quot;" :placement="&quot;right&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_btn&quot;" :title="&quot;Top&quot;" :description="&quot;On the top of target.&quot;" :placement="&quot;top&quot;"></el-tour-step>
+  </el-tour>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('placement-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('placement-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placement-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_placement.open","current":"$store.tour_placement.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="custom-mask-style">Custom mask style<a class="anchor" aria-label="anchor" href="#custom-mask-style"></a>
@@ -308,43 +394,70 @@ will show in the center.</p>
 <p><code>mask</code> takes Element Plus’s object: its <code>style</code>
 and <code>color</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tour_mask"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"begin"</span>,</span>
+<span>  <span class="st">"Begin Tour"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_mask.current = 0; $store.tour_mask.open = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tour"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_mask.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_mask.current"</span><span class="op">)</span>,</span>
+<span>  mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #333"</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"rgba(80, 255, 255, .4)"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tour"</span>,</span>
-<span>    mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #333"</span><span class="op">)</span>,</span>
-<span>      color <span class="op">=</span> <span class="st">"rgba(80, 255, 255, .4)"</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
-<span>        <span class="st">"#t_save"</span>,</span>
-<span>        <span class="st">"Save"</span>,</span>
-<span>        <span class="st">"Save your changes"</span>,</span>
-<span>        mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #fff"</span><span class="op">)</span>,</span>
-<span>          color <span class="op">=</span> <span class="st">"rgba(40, 0, 255, .4)"</span></span>
-<span>        <span class="op">)</span></span>
+<span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
+<span>      <span class="st">"#t_save"</span>,</span>
+<span>      <span class="st">"Save"</span>,</span>
+<span>      <span class="st">"Save your changes"</span>,</span>
+<span>      mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #fff"</span><span class="op">)</span>,</span>
+<span>        color <span class="op">=</span> <span class="st">"rgba(40, 0, 255, .4)"</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tour-mask.png" alt="The mask example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tour_mask" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false,"current":0}},"store":true,"evals":[]}</script>
+</div>
+  <div id="mask-begin" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="mask-begin_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_mask.current = 0; $store.tour_mask.open = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
+  <div id="mask-el_space_147cd462-fc07-4e75-90cc-dd141d488c0f" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="mask-el_space_147cd462-fc07-4e75-90cc-dd141d488c0f_container" style="display: contents">
+  <el-space v-bind="$optional(&#39;space&#39;)">
+    <span id="t_up">
+      <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_mask_up" id="mask-up">{{el2_label}}</el-button>
+    </span>
+    <span id="t_save">
+      <el-button v-bind="$optional(&#39;el3_button&#39;)" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" ref="sv_mask_save" id="mask-save">{{el3_label}}</el-button>
+    </span>
+  </el-space>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"alignment":null,"direction":null,"spacer":null,"size":null,"wrap":null,"fill":null,"fillRatio":null,"el2_label":"Upload","el2_circle":false,"el2_loading":false,"el2_disabled":false,"el2_native_type":"button","el2_count":0,"el2_state":"ready","el2_size":null,"el2_icon":null,"el2_autofocus":false,"el2_type":null,"el2_plain":null,"el2_round":null,"el2_autoInsertSpace":null,"el2_bg":null,"el2_color":null,"el2_dark":null,"el2_dashed":null,"el2_link":null,"el2_loadingIcon":null,"el2_tag":null,"el2_text":null,"el3_label":"Save","el3_circle":false,"el3_loading":false,"el3_disabled":false,"el3_native_type":"button","el3_count":0,"el3_state":"ready","el3_size":null,"el3_icon":null,"el3_autofocus":false,"el3_type":"primary","el3_plain":null,"el3_round":null,"el3_autoInsertSpace":null,"el3_bg":null,"el3_color":null,"el3_dark":null,"el3_dashed":null,"el3_link":null,"el3_loadingIcon":null,"el3_tag":null,"el3_text":null},"methods":{"el2_handleClick":"function() { if (this.el2_disabled || this.el2_loading || this.el2_state === 'busy') return; this.el2_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('mask-up:shiny.action', this.el2_count); }","el3_handleClick":"function() { if (this.el3_disabled || this.el3_loading || this.el3_state === 'busy') return; this.el3_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('mask-save:shiny.action', this.el3_count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"mask-up:shiny.action\", self.el2_count); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"mask-save:shiny.action\", self.el3_count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"space":{"alignment":"alignment","direction":"direction","spacer":"spacer","size":"size","wrap":"wrap","fill":"fill","fill-ratio":"fillRatio"},"el2_button":{"size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","auto-insert-space":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loading-icon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text"},"el3_button":{"size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","auto-insert-space":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loading-icon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text"}},"absorbed":{"mask-up":{"fields":{"label":"el2_label","circle":"el2_circle","loading":"el2_loading","disabled":"el2_disabled","native_type":"el2_native_type","count":"el2_count","state":"el2_state","size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","autoInsertSpace":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loadingIcon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text","handleClick":"el2_handleClick"},"ref":"sv_mask_up"},"mask-save":{"fields":{"label":"el3_label","circle":"el3_circle","loading":"el3_loading","disabled":"el3_disabled","native_type":"el3_native_type","count":"el3_count","state":"el3_state","size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","autoInsertSpace":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loadingIcon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text","handleClick":"el3_handleClick"},"ref":"sv_mask_save"}},"generated":true,"evals":["options.methods.el2_handleClick","options.methods.el3_handleClick","options.mounted"]}</script>
+</div>
+  <div id="mask-tour" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="mask-tour_container" style="display: contents">
+  <el-tour v-bind="$optional(&#39;tour&#39;)" v-model="open" v-model:current="current" @close="handleClose" @change="svEmitChange" @finish="svEmitFinish">
+    <el-tour-step :target="&quot;#t_up&quot;" :title="&quot;Upload File&quot;" :description="&quot;Put you files here.&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;" :mask="{&quot;style&quot;:{&quot;boxShadow&quot;:&quot;inset 0 0 15px #fff&quot;},&quot;color&quot;:&quot;rgba(40, 0, 255, .4)&quot;}"></el-tour-step>
+  </el-tour>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":{"style":{"boxShadow":"inset 0 0 15px #333"},"color":"rgba(80, 255, 255, .4)"},"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('mask-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('mask-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('mask-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_mask.open","current":"$store.tour_mask.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="custom-indicator">Custom indicator<a class="anchor" aria-label="anchor" href="#custom-indicator"></a>
@@ -353,38 +466,66 @@ and <code>color</code>.</p>
 <p>The <code>indicators</code> slot draws the step counter; its scope is
 <code>current</code> and <code>total</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tour_indicator"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"begin"</span>,</span>
+<span>  <span class="st">"Begin Tour"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_indicator.current = 0; $store.tour_indicator.open = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_up"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"Upload"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_save"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tour"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_indicator.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_indicator.current"</span><span class="op">)</span>,</span>
+<span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tour"</span>,</span>
-<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      indicators <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ current + 1 }} / {{ total }}"</span><span class="op">)</span>,</span>
-<span>        slot <span class="op">=</span> <span class="st">"indicators"</span>,</span>
-<span>        scope <span class="op">=</span> <span class="st">"{ current, total }"</span></span>
-<span>      <span class="op">)</span></span>
+<span>  slots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    indicators <span class="op">=</span> <span class="fu"><a href="../../reference/template.html">template</a></span><span class="op">(</span></span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ current + 1 }} / {{ total }}"</span><span class="op">)</span>,</span>
+<span>      slot <span class="op">=</span> <span class="st">"indicators"</span>,</span>
+<span>      scope <span class="op">=</span> <span class="st">"{ current, total }"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tour-indicator.png" alt="The indicator example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tour_indicator" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false,"current":0}},"store":true,"evals":[]}</script>
+</div>
+  <div id="indicator-begin" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="indicator-begin_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_indicator.current = 0; $store.tour_indicator.open = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
+  <div id="indicator-el_space_2d820bb3-b360-4953-8736-e443199f7703" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="indicator-el_space_2d820bb3-b360-4953-8736-e443199f7703_container" style="display: contents">
+  <el-space v-bind="$optional(&#39;space&#39;)">
+    <span id="t_up">
+      <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_indicator_up" id="indicator-up">{{el2_label}}</el-button>
+    </span>
+    <span id="t_save">
+      <el-button v-bind="$optional(&#39;el3_button&#39;)" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" ref="sv_indicator_save" id="indicator-save">{{el3_label}}</el-button>
+    </span>
+  </el-space>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"alignment":null,"direction":null,"spacer":null,"size":null,"wrap":null,"fill":null,"fillRatio":null,"el2_label":"Upload","el2_circle":false,"el2_loading":false,"el2_disabled":false,"el2_native_type":"button","el2_count":0,"el2_state":"ready","el2_size":null,"el2_icon":null,"el2_autofocus":false,"el2_type":null,"el2_plain":null,"el2_round":null,"el2_autoInsertSpace":null,"el2_bg":null,"el2_color":null,"el2_dark":null,"el2_dashed":null,"el2_link":null,"el2_loadingIcon":null,"el2_tag":null,"el2_text":null,"el3_label":"Save","el3_circle":false,"el3_loading":false,"el3_disabled":false,"el3_native_type":"button","el3_count":0,"el3_state":"ready","el3_size":null,"el3_icon":null,"el3_autofocus":false,"el3_type":"primary","el3_plain":null,"el3_round":null,"el3_autoInsertSpace":null,"el3_bg":null,"el3_color":null,"el3_dark":null,"el3_dashed":null,"el3_link":null,"el3_loadingIcon":null,"el3_tag":null,"el3_text":null},"methods":{"el2_handleClick":"function() { if (this.el2_disabled || this.el2_loading || this.el2_state === 'busy') return; this.el2_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('indicator-up:shiny.action', this.el2_count); }","el3_handleClick":"function() { if (this.el3_disabled || this.el3_loading || this.el3_state === 'busy') return; this.el3_count++; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('indicator-save:shiny.action', this.el3_count); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"indicator-up:shiny.action\", self.el2_count); window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"indicator-save:shiny.action\", self.el3_count); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"space":{"alignment":"alignment","direction":"direction","spacer":"spacer","size":"size","wrap":"wrap","fill":"fill","fill-ratio":"fillRatio"},"el2_button":{"size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","auto-insert-space":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loading-icon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text"},"el3_button":{"size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","auto-insert-space":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loading-icon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text"}},"absorbed":{"indicator-up":{"fields":{"label":"el2_label","circle":"el2_circle","loading":"el2_loading","disabled":"el2_disabled","native_type":"el2_native_type","count":"el2_count","state":"el2_state","size":"el2_size","icon":"el2_icon","autofocus":"el2_autofocus","type":"el2_type","plain":"el2_plain","round":"el2_round","autoInsertSpace":"el2_autoInsertSpace","bg":"el2_bg","color":"el2_color","dark":"el2_dark","dashed":"el2_dashed","link":"el2_link","loadingIcon":"el2_loadingIcon","tag":"el2_tag","text":"el2_text","handleClick":"el2_handleClick"},"ref":"sv_indicator_up"},"indicator-save":{"fields":{"label":"el3_label","circle":"el3_circle","loading":"el3_loading","disabled":"el3_disabled","native_type":"el3_native_type","count":"el3_count","state":"el3_state","size":"el3_size","icon":"el3_icon","autofocus":"el3_autofocus","type":"el3_type","plain":"el3_plain","round":"el3_round","autoInsertSpace":"el3_autoInsertSpace","bg":"el3_bg","color":"el3_color","dark":"el3_dark","dashed":"el3_dashed","link":"el3_link","loadingIcon":"el3_loadingIcon","tag":"el3_tag","text":"el3_text","handleClick":"el3_handleClick"},"ref":"sv_indicator_save"}},"generated":true,"evals":["options.methods.el2_handleClick","options.methods.el3_handleClick","options.mounted"]}</script>
+</div>
+  <div id="indicator-tour" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="indicator-tour_container" style="display: contents">
+  <el-tour v-bind="$optional(&#39;tour&#39;)" v-model="open" v-model:current="current" @close="handleClose" @change="svEmitChange" @finish="svEmitFinish">
+    <el-tour-step :target="&quot;#t_up&quot;" :title="&quot;Upload File&quot;" :description="&quot;Put you files here.&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;"></el-tour-step>
+    <template v-slot:indicators="{ current, total }"><span>{{ current + 1 }} / {{ total }}</span></template>
+  </el-tour>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('indicator-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('indicator-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('indicator-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_indicator.open","current":"$store.tour_indicator.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="target">Target<a class="anchor" aria-label="anchor" href="#target"></a>
@@ -394,37 +535,54 @@ types are supported since 2.5.2.</p>
 <p>A target may be any selector, and need not exist until the step is
 shown.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"begin"</span>, <span class="st">"Begin Tour"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    id <span class="op">=</span> <span class="st">"first"</span>,</span>
-<span>    style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>,</span>
-<span>    <span class="st">"First"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    class <span class="op">=</span> <span class="st">"second"</span>,</span>
-<span>    style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>,</span>
-<span>    <span class="st">"Second"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tour"</span>,</span>
-<span>    steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#first"</span>, <span class="st">"By id"</span>, <span class="st">"A selector for an id."</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">".second"</span>, <span class="st">"By class"</span>, <span class="st">"A selector for a class."</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tour_target"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"begin"</span>,</span>
+<span>  <span class="st">"Begin Tour"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_target.current = 0; $store.tour_target.open = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">begin</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tour.html">update_el_tour</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tour"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"first"</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>,</span>
+<span>  <span class="st">"First"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  class <span class="op">=</span> <span class="st">"second"</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"display: inline-block; padding: 8px; border: 1px dashed #ccc"</span>,</span>
+<span>  <span class="st">"Second"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tour"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_target.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_target.current"</span><span class="op">)</span>,</span>
+<span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#first"</span>, <span class="st">"By id"</span>, <span class="st">"A selector for an id."</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">".second"</span>, <span class="st">"By class"</span>, <span class="st">"A selector for a class."</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tour-target.png" alt="The target example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="tour_target" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false,"current":0}},"store":true,"evals":[]}</script>
+</div>
+  <div id="target-begin" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="target-begin_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_target.current = 0; $store.tour_target.open = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
+  <div id="first" style="display: inline-block; padding: 8px; border: 1px dashed #ccc">First</div>
+  <div class="second" style="display: inline-block; padding: 8px; border: 1px dashed #ccc">Second</div>
+  <div id="target-tour" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="target-tour_container" style="display: contents">
+  <el-tour v-bind="$optional(&#39;tour&#39;)" v-model="open" v-model:current="current" @close="handleClose" @change="svEmitChange" @finish="svEmitFinish">
+    <el-tour-step :target="&quot;#first&quot;" :title="&quot;By id&quot;" :description="&quot;A selector for an id.&quot;"></el-tour-step>
+    <el-tour-step :target="&quot;.second&quot;" :title="&quot;By class&quot;" :description="&quot;A selector for a class.&quot;"></el-tour-step>
+  </el-tour>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('target-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('target-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('target-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_target.open","current":"$store.tour_target.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

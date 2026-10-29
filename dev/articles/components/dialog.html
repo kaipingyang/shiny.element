@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -175,8 +176,11 @@
 
 
 
-
-<div class="row">
+<script src="dialog_files/vue-3.5.43/vue.global.prod.js"></script><link href="dialog_files/element-plus-2.14.7/theme-chalk/index.css" rel="stylesheet">
+<link href="dialog_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
+<link href="dialog_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
+<script src="dialog_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="dialog_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="dialog_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="dialog_files/shiny-element-1.0.0/el-events.js"></script><script src="dialog_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="dialog_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="dialog_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="dialog_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="dialog_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
+<script src="dialog_files/pinia-4.1.0/pinia.iife.prod.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Dialog</h1>
@@ -200,38 +204,79 @@ latter requires a <code>slot</code> named <code>footer</code>. The
 optional <code>title</code> attribute (empty by default) is for defining
 a title. Finally, this example demonstrates how
 <code>before-close</code> is used.</p>
-<p>A dialog opens from the server,
-<code>update_el_dialog(visible = TRUE)</code>;
-<code>input$&lt;id&gt;</code> is whether it is open.
+<p>The dialog’s <code>visible</code> follows a store’s field,
+[vue_bind()]: the button sets it, and closing the dialog – its cross,
+Escape, the mask, a button in its footer – sets it back, in the browser.
 <code>before_close</code>, a <code><a href="../../reference/JS.html">JS()</a></code> function, may hold the
-close back.</p>
+close back. In an app the server opens it too,
+<code>update_el_dialog(visible = TRUE)</code>, and
+<code>input$&lt;id&gt;</code> is whether it is open.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tips"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is a message"</span><span class="op">)</span>,</span>
-<span>    before_close <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>      <span class="st">"function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"basic"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open the Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.basic.visible = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tips"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.basic.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is a message"</span><span class="op">)</span>,</span>
+<span>  before_close <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>    <span class="st">"function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"cancel"</span>,</span>
+<span>      <span class="st">"Cancel"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.basic.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"confirm"</span>,</span>
+<span>      <span class="st">"Confirm"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.basic.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tips"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">cancel</span>, <span class="va">input</span><span class="op">$</span><span class="va">confirm</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tips"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>    ignoreInit <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-basic-usage.png" alt="The basic-usage example, running" style="max-width: 100%"><blockquote>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="basic" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="basic-usage-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.basic.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="basic-usage-tips" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.basic.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false" data-before-close="function(done) { if (confirm('Are you sure to close this dialog?')) done(); }">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
+      <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">
+          <span>This is a message</span>
+        </div>
+        <footer class="el-dialog__footer"><div id="basic-usage-cancel" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-cancel_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.basic.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+          <div id="basic-usage-confirm" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-confirm_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.basic.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+        </footer>
+</div>
+    </div>
+  </div>
+</div>
+<blockquote>
 <p><strong>Tip</strong></p>
 <p><code>before-close</code> only works when user clicks the close icon
 or the backdrop. If you have buttons that close the Dialog in the
@@ -245,39 +290,102 @@ or the backdrop. If you have buttons that close the Dialog in the
 <p>The content of Dialog can be anything, even a table or a form. This
 example shows how to use Element Plus Table and Form with Dialog.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open a Form nested Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"shipping"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Shipping address"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
-<span>        <span class="st">"name"</span>,</span>
-<span>        label <span class="op">=</span> <span class="st">"Promotion name"</span>,</span>
-<span>        label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>        label_width <span class="op">=</span> <span class="st">"140px"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
-<span>        <span class="st">"zone"</span>,</span>
-<span>        choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone No.1"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone No.2"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
-<span>        placeholder <span class="op">=</span> <span class="st">"Please select a zone"</span>,</span>
-<span>        label <span class="op">=</span> <span class="st">"Zones"</span>,</span>
-<span>        label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>        label_width <span class="op">=</span> <span class="st">"140px"</span></span>
-<span>      <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"form_dialog"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Open a Form nested Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_dialog.visible = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"shipping"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Shipping address"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.form_dialog.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>      <span class="st">"name"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Promotion name"</span>,</span>
+<span>      label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>      label_width <span class="op">=</span> <span class="st">"140px"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_select.html">el_select</a></span><span class="op">(</span></span>
+<span>      <span class="st">"zone"</span>,</span>
+<span>      choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone No.1"</span> <span class="op">=</span> <span class="st">"shanghai"</span>, <span class="st">"Zone No.2"</span> <span class="op">=</span> <span class="st">"beijing"</span><span class="op">)</span>,</span>
+<span>      placeholder <span class="op">=</span> <span class="st">"Please select a zone"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Zones"</span>,</span>
+<span>      label_position <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>      label_width <span class="op">=</span> <span class="st">"140px"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"cancel"</span>,</span>
+<span>      <span class="st">"Cancel"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_dialog.visible = false"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"confirm"</span>,</span>
+<span>      <span class="st">"Confirm"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_dialog.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"shipping"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-customization-content.png" alt="The customization-content example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="form_dialog" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="customization-content-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customization-content-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_dialog.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open a Form nested Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="customization-content-shipping" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.form_dialog.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Shipping address">
+      <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Shipping address</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">
+          <div id="customization-content-name" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="customization-content-name_container" class="el-form-item el-form-item--label-left" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="display: flex; align-items: flex-start; margin-bottom: 15px">
+  <label id="customization-content-name-label" for="customization-content-name-input" class="el-form-item__label" style="float: none; flex: none; padding: 0 12px 0 0; text-align: left; width: 140px;">Promotion name</label>
+  <div class="el-form-item__content" style="margin-left: 0; flex: 1 1 auto; min-width: 0">
+    <el-input v-bind="$optional(&#39;input&#39;)" v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" id="customization-content-name-input"></el-input>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":null,"maxlength":null,"rows":null,"label":"Promotion name","autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"input":{"size":"size","placeholder":"placeholder","maxlength":"maxlength","rows":"rows","label":"label","autocomplete":"autocomplete","autofocus":"autofocus","name":"name","form":"form","minlength":"minlength","max":"max","min":"min","step":"step","resize":"resize","tabindex":"tabindex","validate-event":"validateEvent","aria-label":"ariaLabel","clear-icon":"clearIcon","count-graphemes":"countGraphemes","formatter":"formatter","input-style":"inputStyle","inputmode":"inputmode","parser":"parser","word-limit-position":"wordLimitPosition"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+          <div id="customization-content-zone" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="customization-content-zone_container" class="el-form-item el-form-item--label-left" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="display: flex; align-items: flex-start; margin-bottom: 15px">
+  <label id="customization-content-zone-label" for="customization-content-zone-input" class="el-form-item__label" style="float: none; flex: none; padding: 0 12px 0 0; text-align: left; width: 140px;">Zones</label>
+  <div class="el-form-item__content" style="margin-left: 0; flex: 1 1 auto; min-width: 0">
+    <el-select v-bind="$optional(&#39;select&#39;)" v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="handleChange" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @end-reached="svEmitEndReached" id="customization-content-zone-input">
+      <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
+      <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
+        <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
+      </el-option-group>
+    </el-select>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","options":[{"value":"shanghai","label":"Zone No.1"},{"value":"beijing","label":"Zone No.2"}],"groups":[],"multiple":false,"disabled":false,"clearable":false,"filterable":false,"multipleLimit":0,"collapseTags":false,"remoteMethod":null,"placeholder":"Please select a zone","size":null,"valueKey":null,"name":null,"autocomplete":null,"automaticDropdown":null,"allowCreate":null,"loading":null,"loadingText":null,"noMatchText":null,"noDataText":null,"popperClass":null,"reserveKeyword":null,"defaultFirstOption":null,"remote":null,"filterMethod":null,"appendTo":null,"ariaLabel":null,"clearIcon":null,"collapseTagsTooltip":null,"debounce":null,"effect":null,"emptyValues":null,"fallbackPlacements":null,"fitInputWidth":null,"maxCollapseTags":null,"offset":null,"persistent":null,"placement":null,"popperOptions":null,"popperStyle":null,"remoteShowSuffix":null,"showArrow":null,"suffixIcon":null,"suffixTransition":null,"tabindex":null,"tagEffect":null,"tagType":null,"tagTooltip":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"svEmitEndReached":"function() { window.shinyVue.emit('customization-content-zone', 'end_reached', arguments); }","elRemoteQuery":"function(query) {\n  if (!(window.Shiny && Shiny.setInputValue)) return;\n  var self = this, n = this._elQueryN = (this._elQueryN || 0) + 1;\n  this.loading = true;\n  clearTimeout(this._elQueryTimer);\n  this._elQueryTimer = setTimeout(function() {\n    if (self._elQueryN !== n || !self.loading) return;\n    self.loading = false;\n    console.warn('[shiny.element] no answer to input$customization-content-zone_query within ' + window.shinyVue.askTimeout / 1000 + ' s');\n  }, window.shinyVue.askTimeout);\n  window.Shiny && Shiny.setInputValue && Shiny.setInputValue('customization-content-zone_query', query, {priority: 'event'});\n}","handleChange":"function(value) { }","shinyVueReceive":"function(d) { var multiple = 'multiple' in d ? d.multiple : this.multiple; if ('value' in d && multiple && d.value !== null && !Array.isArray(d.value)) d.value = [d.value]; return d; }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"select":{"placeholder":"placeholder","size":"size","value-key":"valueKey","name":"name","autocomplete":"autocomplete","automatic-dropdown":"automaticDropdown","allow-create":"allowCreate","loading":"loading","loading-text":"loadingText","no-match-text":"noMatchText","no-data-text":"noDataText","popper-class":"popperClass","reserve-keyword":"reserveKeyword","default-first-option":"defaultFirstOption","remote":"remote","filter-method":"filterMethod","append-to":"appendTo","aria-label":"ariaLabel","clear-icon":"clearIcon","collapse-tags-tooltip":"collapseTagsTooltip","debounce":"debounce","effect":"effect","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","fit-input-width":"fitInputWidth","max-collapse-tags":"maxCollapseTags","offset":"offset","persistent":"persistent","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","remote-show-suffix":"remoteShowSuffix","show-arrow":"showArrow","suffix-icon":"suffixIcon","suffix-transition":"suffixTransition","tabindex":"tabindex","tag-effect":"tagEffect","tag-type":"tagType","tag-tooltip":"tagTooltip","teleported":"teleported","validate-event":"validateEvent","value-on-clear":"valueOnClear"}},"evals":["options.methods.svEmitEndReached","options.methods.elRemoteQuery","options.methods.handleChange","options.methods.shinyVueReceive"]}</script>
+</div>
+        </div>
+        <footer class="el-dialog__footer"><div id="customization-content-cancel" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="customization-content-cancel_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_dialog.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+          <div id="customization-content-confirm" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="customization-content-confirm_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_dialog.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+        </footer>
+</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="customized-header">Customized Header<a class="anchor" aria-label="anchor" href="#customized-header"></a>
@@ -289,26 +397,61 @@ the title is displayed. In order to maintain accessibility, use the
 read out as the dialog title.</p>
 <p>The title takes markup: a header of your own.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open Dialog with customized header"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"custom"</span>,</span>
-<span>    show_close <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>      style <span class="op">=</span> <span class="st">"display: flex; justify-content: space-between; align-items: center"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"This is a custom header!"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"close"</span>, <span class="st">"Close"</span>, type <span class="op">=</span> <span class="st">"danger"</span>, icon <span class="op">=</span> <span class="st">"CircleCloseFilled"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"This is dialog content."</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"header_dialog"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Open Dialog with customized header"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.header_dialog.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"custom"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">close</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"custom"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-customization-header.png" alt="The customization-header example, running" style="max-width: 100%">
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"custom"</span>,</span>
+<span>  show_close <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.header_dialog.visible"</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    style <span class="op">=</span> <span class="st">"display: flex; justify-content: space-between; align-items: center"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"This is a custom header!"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"close"</span>,</span>
+<span>      <span class="st">"Close"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"danger"</span>,</span>
+<span>      icon <span class="op">=</span> <span class="st">"CircleCloseFilled"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.header_dialog.visible = false"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"This is dialog content."</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="header_dialog" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="customization-header-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="customization-header-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.header_dialog.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open Dialog with customized header","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="customization-header-custom" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.header_dialog.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true">
+      <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header"><span role="heading" aria-level="2" class="el-dialog__title">
+            <div style="display: flex; justify-content: space-between; align-items: center">
+              <h4>This is a custom header!</h4>
+              <div id="customization-header-close" data-shiny-vue style="display: contents">
+                <script type="text/x-template" data-shiny-vue-template><div id="customization-header-close_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.header_dialog.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Close","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":"CircleCloseFilled","autofocus":false,"type":"danger","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+            </div>
+          </span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn" style="display:none">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">This is dialog content.</div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="nested-dialog">Nested Dialog<a class="anchor" aria-label="anchor" href="#nested-dialog"></a>
@@ -322,31 +465,76 @@ Dialog, set <code>append-to-body</code> of the nested Dialog to true,
 and it will append to body instead of its parent node, so both Dialogs
 can be correctly rendered.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the outer Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"outer"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Outer Dialog"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"800px"</span>,</span>
-<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is the outer Dialog"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>        <span class="st">"inner"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Inner Dialog"</span>,</span>
-<span>        width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>        append_to_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        content <span class="op">=</span> <span class="st">"This is the inner Dialog"</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"inner_open"</span>, <span class="st">"Open the inner Dialog"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"nested"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>outer <span class="op">=</span> <span class="cn">FALSE</span>, inner <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Open the outer Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nested.outer = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"outer"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">inner_open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"inner"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-nested-dialog.png" alt="The nested-dialog example, running" style="max-width: 100%">
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"outer"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Outer Dialog"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"800px"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nested.outer"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is the outer Dialog"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>      <span class="st">"inner"</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Inner Dialog"</span>,</span>
+<span>      width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>      append_to_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nested.inner"</span><span class="op">)</span>,</span>
+<span>      content <span class="op">=</span> <span class="st">"This is the inner Dialog"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  footer <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>    <span class="st">"inner_open"</span>,</span>
+<span>    <span class="st">"Open the inner Dialog"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>    on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nested.inner = true"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="nested" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"outer":false,"inner":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="nested-dialog-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="nested-dialog-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nested.outer = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the outer Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="nested-dialog-outer" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nested.outer"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Outer Dialog">
+      <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 800px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Outer Dialog</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">
+          <span>This is the outer Dialog</span>
+          <div id="nested-dialog-inner" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nested.inner"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-append-to="body" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+            <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Inner Dialog">
+              <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+                <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Inner Dialog</span>
+                  <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+                    <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+                  </button>
+                </header><div class="el-dialog__body">This is the inner Dialog</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="el-dialog__footer"><div id="nested-dialog-inner_open" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="nested-dialog-inner_open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nested.inner = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the inner Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+        </footer>
+</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="centered-content">Centered content<a class="anchor" aria-label="anchor" href="#centered-content"></a>
@@ -358,25 +546,67 @@ Dialog’s header and footer. The body of Dialog can be anything, so
 sometimes it may not look good when centered. You need to write some CSS
 if you wish to center the body as well.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"warn"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"It should be noted that the content will not be aligned in center by default"</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"centered"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open the Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.centered.visible = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"warn"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.centered.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"It should be noted that the content will not be aligned in center by default"</span>,</span>
+<span>  footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"cancel"</span>,</span>
+<span>      <span class="st">"Cancel"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.centered.visible = false"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"confirm"</span>,</span>
+<span>      <span class="st">"Confirm"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.centered.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"warn"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-centered-content.png" alt="The centered-content example, running" style="max-width: 100%"><blockquote>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="centered" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="centered-content-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="centered-content-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.centered.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="centered-content-warn" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.centered.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Warning">
+      <div class="el-dialog el-dialog--center" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Warning</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">It should be noted that the content will not be aligned in center by default</div>
+        <footer class="el-dialog__footer"><div id="centered-content-cancel" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="centered-content-cancel_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.centered.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+          <div id="centered-content-confirm" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="centered-content-confirm_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.centered.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+        </footer>
+</div>
+    </div>
+  </div>
+</div>
+<blockquote>
 <p><strong>Tip</strong></p>
 <p>The content of Dialog is lazily rendered, which means the default
 slot is not rendered onto the DOM until it is firstly opened. Therefore,
@@ -393,25 +623,66 @@ the dialog both horizontally and vertically. The prop <code>top</code>
 will not work at the same time because the dialog is vertically centered
 in a flexbox.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"warn"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    align_center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"Open the dialog from the center from the screen"</span>,</span>
-<span>    footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"cancel"</span>, <span class="st">"Cancel"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"confirm"</span>, <span class="st">"Confirm"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"aligned"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open the Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.aligned.visible = true"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"warn"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  align_center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.aligned.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"Open the dialog from the center from the screen"</span>,</span>
+<span>  footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"cancel"</span>,</span>
+<span>      <span class="st">"Cancel"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.aligned.visible = false"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>      <span class="st">"confirm"</span>,</span>
+<span>      <span class="st">"Confirm"</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.aligned.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"warn"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-align-center.png" alt="The align-center example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="aligned" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="align-center-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="align-center-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.aligned.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="align-center-warn" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.aligned.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Warning" style="display:flex;">
+      <div class="el-dialog is-align-center" tabindex="-1" style="--el-dialog-width: 500px;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Warning</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">Open the dialog from the center from the screen</div>
+        <footer class="el-dialog__footer"><div id="align-center-cancel" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="align-center-cancel_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.aligned.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+          <div id="align-center-confirm" data-shiny-vue style="display: contents">
+            <script type="text/x-template" data-shiny-vue-template><div id="align-center-confirm_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.aligned.visible = false; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+        </footer>
+</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="destroy-on-close">Destroy on Close<a class="anchor" aria-label="anchor" href="#destroy-on-close"></a>
@@ -426,27 +697,56 @@ be <code>overlay</code> <code>header(if any)</code>
 <p>Its content made again each time it opens: inputs inside start
 fresh.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"notice"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Notice"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    destroy_on_close <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
-<span>        <span class="st">"Notice: before dialog gets opened for the first time this node and the one below will not be rendered"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"note"</span>, placeholder <span class="op">=</span> <span class="st">"starts empty each time"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"notice_ui"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.notice_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"notice"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-destroy-on-close.png" alt="The destroy-on-close example, running" style="max-width: 100%">
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"notice"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Notice"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  destroy_on_close <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.notice_ui.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
+<span>      <span class="st">"Notice: before dialog gets opened for the first time this node and the one below will not be rendered"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"note"</span>, placeholder <span class="op">=</span> <span class="st">"starts empty each time"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="notice_ui" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="destroy-on-close-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="destroy-on-close-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.notice_ui.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="destroy-on-close-notice" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.notice_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="true">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Notice">
+      <div class="el-dialog el-dialog--center" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Notice</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">
+          <template data-el-pristine="true"><p>Notice: before dialog gets opened for the first time this node and the one below will not be rendered</p>
+            <div id="destroy-on-close-note" data-shiny-vue style="display: contents">
+              <script type="text/x-template" data-shiny-vue-template><div id="destroy-on-close-note_container" style="display: contents">
+  <el-input v-bind="$optional(&#39;input&#39;)" v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange"></el-input>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":"starts empty each time","maxlength":null,"rows":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"input":{"size":"size","placeholder":"placeholder","maxlength":"maxlength","rows":"rows","label":"label","autocomplete":"autocomplete","autofocus":"autofocus","name":"name","form":"form","minlength":"minlength","max":"max","min":"min","step":"step","resize":"resize","tabindex":"tabindex","validate-event":"validateEvent","aria-label":"ariaLabel","clear-icon":"clearIcon","count-graphemes":"countGraphemes","formatter":"formatter","input-style":"inputStyle","inputmode":"inputmode","parser":"parser","word-limit-position":"wordLimitPosition"}},"evals":["options.methods.handleChange"]}</script>
+</div>
+          </template>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="draggable-dialog">Draggable Dialog<a class="anchor" aria-label="anchor" href="#draggable-dialog"></a>
@@ -456,21 +756,43 @@ fresh.</p>
 <code>overflow</code> 2.5.4 to <code>true</code> can drag overflow the
 viewport.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Click to open Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"drag"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"It's a draggable Dialog"</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"drag_ui"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Click to open Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.drag_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"drag"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-draggable-dialog.png" alt="The draggable-dialog example, running" style="max-width: 100%"><blockquote>
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"drag"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.drag_ui.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"It's a draggable Dialog"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="drag_ui" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="draggable-dialog-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="draggable-dialog-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.drag_ui.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="draggable-dialog-drag" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.drag_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
+      <div class="el-dialog is-draggable" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">It's a draggable Dialog</div>
+      </div>
+    </div>
+  </div>
+</div>
+<blockquote>
 <p><strong>Tip</strong></p>
 <p>When using <code>modal</code> = false, please make sure that
 <code>append-to-body</code> was set to <strong>true</strong>, because
@@ -486,20 +808,42 @@ itself based on the current position in the DOM, instead of
 <p>Set the <code>fullscreen</code> attribute to open fullscreen
 dialog.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the fullscreen Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"full"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
-<span>    fullscreen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"It's a fullscreen Dialog"</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"full_ui"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Open the fullscreen Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.full_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"full"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-fullscreen.png" alt="The fullscreen example, running" style="max-width: 100%"><blockquote>
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"full"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>  fullscreen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.full_ui.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"It's a fullscreen Dialog"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="full_ui" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="fullscreen-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="fullscreen-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.full_ui.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the fullscreen Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="fullscreen-full" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.full_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
+      <div class="el-dialog is-fullscreen" tabindex="-1">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">It's a fullscreen Dialog</div>
+      </div>
+    </div>
+  </div>
+</div>
+<blockquote>
 <p><strong>Tip</strong></p>
 <p>If <code>fullscreen</code> is true, <code>width</code>
 <code>top</code> <code>draggable</code> attributes don’t work.</p>
@@ -515,22 +859,43 @@ is added, which can be penetrable.</p>
 <p>Without a backdrop the page beneath stays in view, and with
 <code>modal_penetrable</code> it can be used too.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the modal-less Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"nomodal"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    modal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    modal_penetrable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"It's a modal-less Dialog"</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"nomodal_ui"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Open the modal-less Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nomodal_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"nomodal"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-modal.png" alt="The modal example, running" style="max-width: 100%">
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"nomodal"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  modal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  modal_penetrable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nomodal_ui.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"It's a modal-less Dialog"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="nomodal_ui" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="modal-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="modal-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nomodal_ui.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the modal-less Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="modal-nomodal" class="el-overlay" style="display:none;background-color:transparent;pointer-events:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nomodal_ui.visible"}' data-modal="false" data-mask-close="false" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog el-modal-dialog is-penetrable" role="dialog" aria-modal="true" aria-label="Tips">
+      <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh; pointer-events:auto;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">It's a modal-less Dialog</div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="custom-animation">Custom Animation<a class="anchor" aria-label="anchor" href="#custom-animation"></a>
@@ -546,22 +911,45 @@ object-based configurations with custom event handlers.</p>
 <p><code>transition</code> names a CSS animation of your own, as Element
 Plus’s does.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">".dialog-bounce-enter-active { animation: dialog-fade-in .5s; }"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open the Dialog"</span>, plain <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
-<span>    <span class="st">"anim"</span>,</span>
-<span>    title <span class="op">=</span> <span class="st">"Custom animation"</span>,</span>
-<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>    transition <span class="op">=</span> <span class="st">"dialog-bounce"</span>,</span>
-<span>    content <span class="op">=</span> <span class="st">"This dialog plays an animation of its own."</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span><span class="st">".dialog-bounce-enter-active { animation: dialog-fade-in .5s; }"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"anim_ui"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"open"</span>,</span>
+<span>  <span class="st">"Open the Dialog"</span>,</span>
+<span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.anim_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">open</span>, <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"anim"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/dialog-custom-animation.png" alt="The custom-animation example, running" style="max-width: 100%"><blockquote>
+<span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>  <span class="st">"anim"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Custom animation"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>  transition <span class="op">=</span> <span class="st">"dialog-bounce"</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.anim_ui.visible"</span><span class="op">)</span>,</span>
+<span>  content <span class="op">=</span> <span class="st">"This dialog plays an animation of its own."</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>.dialog-bounce-enter-active { animation: dialog-fade-in .5s; }</style>
+<div id="anim_ui" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"visible":false}},"store":true,"evals":[]}</script>
+</div>
+  <div id="custom-animation-open" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="custom-animation-open_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.anim_ui.visible = true; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="custom-animation-anim" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.anim_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-transition="dialog-bounce" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+    <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Custom animation">
+      <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
+        <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Custom animation</span>
+          <button type="button" aria-label="Close" class="el-dialog__headerbtn">
+            <i class="el-icon el-dialog__close"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1024 1024"><path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></svg></i>
+          </button>
+        </header><div class="el-dialog__body">This dialog plays an animation of its own.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<blockquote>
 <p><strong>Tip</strong></p>
 <p>Animation classes are dynamically generated based on the transition
 name. For granular control over animation behavior, you may explicitly
@@ -602,6 +990,40 @@ asked for, with <code>events</code>.</p>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <img src="../../shots/dialog-events.png" alt="The events example, running" style="max-width: 100%">
+</div>
+<div class="section level2">
+<h2 id="in-shiny">In Shiny<a class="anchor" aria-label="anchor" href="#in-shiny"></a>
+</h2>
+<p>From the server, <code>update_el_dialog(visible = TRUE)</code> opens
+a dialog after the server’s work – here, once a row is picked to edit –
+and <code>input$&lt;id&gt;</code> is whether it is open, closed by its
+user or by the server.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"edit"</span>, <span class="st">"Edit the record"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
+<span>    <span class="st">"editor"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Edit"</span>,</span>
+<span>    width <span class="op">=</span> <span class="st">"500px"</span>,</span>
+<span>    content <span class="op">=</span> <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"record"</span>, label <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span>,</span>
+<span>    footer <span class="op">=</span> <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"save"</span>, <span class="st">"Save"</span>, type <span class="op">=</span> <span class="st">"primary"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"open_seen"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">edit</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../../reference/el_input.html">update_el_input</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"record"</span>, value <span class="op">=</span> <span class="st">"Tom"</span><span class="op">)</span> <span class="co"># read from the data</span></span>
+<span>    <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">save</span>, <span class="op">{</span></span>
+<span>    <span class="co"># ... saved by the server ...</span></span>
+<span>    <span class="fu"><a href="../../reference/el_dialog.html">update_el_dialog</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"editor"</span>, visible <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../../reference/el_message.html">el_message</a></span><span class="op">(</span><span class="va">session</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Saved"</span>, <span class="va">input</span><span class="op">$</span><span class="va">record</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"success"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">open_seen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">editor</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<img src="../../shots/dialog-shiny-output.png" alt="The shiny-output example, running" style="max-width: 100%">
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

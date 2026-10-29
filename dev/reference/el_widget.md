@@ -79,7 +79,11 @@ el_widget(
   `input$<id>_<name>`, namespaced as the id is:
   `on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))`
   reports `input$<id>_enter`. An event the component reports too runs
-  both.
+  both. A string is Vue's inline statement, as `@click="..."` in a
+  template, for state in the browser:
+  `on = list(click = "$store.ui.open = true")` (see
+  [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md)),
+  `"$message('Saved')"`; `$event` is the event's first argument.
 
 - dependency:
 

@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -179,7 +180,7 @@
 <link href="datetime-picker_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
 <link href="datetime-picker_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
 <script src="datetime-picker_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="datetime-picker_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="datetime-picker_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="datetime-picker_files/shiny-element-1.0.0/el-events.js"></script><script src="datetime-picker_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="datetime-picker_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="datetime-picker_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="datetime-picker_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="datetime-picker_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
-<div class="row">
+<script src="datetime-picker_files/pinia-4.1.0/pinia.iife.prod.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>DateTimePicker</h1>
@@ -312,54 +313,109 @@ of all available formats of Day.js.</p>
 </blockquote>
 <p>What each picker reports is <code>input$&lt;id&gt;</code>: in the
 format <code>value_format</code> names, <code>"x"</code> a timestamp.
-<code>format</code> is what the box shows.</p>
+<code>format</code> is what the box shows. The value under each title is
+the picker’s value, a store’s field, [vue_bind()], which a
+<code><a href="../../reference/vue_app.html">vue_app()</a></code> reads in the browser.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">block</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">title</span>, <span class="va">id</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"formats"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fmt1 <span class="op">=</span> <span class="cn">NULL</span>, fmt2 <span class="op">=</span> <span class="cn">NULL</span>, fmt3 <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">block</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">title</span>, <span class="va">id</span>, <span class="va">field</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    class <span class="op">=</span> <span class="st">"block"</span>,</span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="va">title</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">id</span>, <span class="st">"_value"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="va">id</span>, type <span class="op">=</span> <span class="st">"datetime"</span>, placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>, <span class="va">...</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
-<span>    <span class="st">".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }</span></span>
-<span><span class="st">     .demo-datetime-picker .block { padding: 30px 0; text-align: center;</span></span>
-<span><span class="st">       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }</span></span>
-<span><span class="st">     .demo-datetime-picker .block:last-child { border-right: none; }</span></span>
-<span><span class="st">     .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;</span></span>
-<span><span class="st">       color: var(--el-text-color-secondary); font-size: 14px; }"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    class <span class="op">=</span> <span class="st">"demo-datetime-picker"</span>,</span>
-<span>    <span class="fu">block</span><span class="op">(</span><span class="st">"Default value format"</span>, <span class="st">"dtp_fmt1"</span>, format <span class="op">=</span> <span class="st">"YYYY/MM/DD HH:mm:ss"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">block</span><span class="op">(</span></span>
-<span>      <span class="st">"Use value-format"</span>,</span>
-<span>      <span class="st">"dtp_fmt2"</span>,</span>
-<span>      format <span class="op">=</span> <span class="st">"YYYY/MM/DD hh:mm:ss"</span>,</span>
-<span>      value_format <span class="op">=</span> <span class="st">"YYYY-MM-DD h:m:s a"</span></span>
+<span>    <span class="fu"><a href="../../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">id</span>, <span class="st">"_shown"</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        class <span class="op">=</span> <span class="st">"demonstration"</span>,</span>
+<span>        id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">id</span>, <span class="st">"_value"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Value: {{ $store.formats.%s ?? '' }}"</span>, <span class="va">field</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    <span class="fu">block</span><span class="op">(</span></span>
-<span>      <span class="st">"Timestamp"</span>,</span>
-<span>      <span class="st">"dtp_fmt3"</span>,</span>
-<span>      format <span class="op">=</span> <span class="st">"YYYY/MM/DD hh:mm:ss"</span>,</span>
-<span>      value_format <span class="op">=</span> <span class="st">"x"</span></span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>      <span class="va">id</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"datetime"</span>,</span>
+<span>      placeholder <span class="op">=</span> <span class="st">"Pick a Date"</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"$store.formats."</span>, <span class="va">field</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">...</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dtp_fmt1"</span>, <span class="st">"dtp_fmt2"</span>, <span class="st">"dtp_fmt3"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="va">id</span> <span class="op">&lt;-</span> <span class="va">id</span></span>
-<span>      <span class="va">output</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">id</span>, <span class="st">"_value"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Value:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">input</span><span class="op">[[</span><span class="va">id</span><span class="op">]</span><span class="op">]</span>, scientific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="op">}</span><span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/datetime-picker-date-and-time-formats.png" alt="The date-and-time-formats example, running" style="max-width: 100%">
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>  <span class="st">".demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }</span></span>
+<span><span class="st">   .demo-datetime-picker .block { padding: 30px 0; text-align: center;</span></span>
+<span><span class="st">     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }</span></span>
+<span><span class="st">   .demo-datetime-picker .block:last-child { border-right: none; }</span></span>
+<span><span class="st">   .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;</span></span>
+<span><span class="st">     color: var(--el-text-color-secondary); font-size: 14px; }"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  class <span class="op">=</span> <span class="st">"demo-datetime-picker"</span>,</span>
+<span>  <span class="fu">block</span><span class="op">(</span></span>
+<span>    <span class="st">"Default value format"</span>,</span>
+<span>    <span class="st">"dtp_fmt1"</span>,</span>
+<span>    <span class="st">"fmt1"</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"YYYY/MM/DD HH:mm:ss"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu">block</span><span class="op">(</span></span>
+<span>    <span class="st">"Use value-format"</span>,</span>
+<span>    <span class="st">"dtp_fmt2"</span>,</span>
+<span>    <span class="st">"fmt2"</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"YYYY/MM/DD hh:mm:ss"</span>,</span>
+<span>    value_format <span class="op">=</span> <span class="st">"YYYY-MM-DD h:m:s a"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu">block</span><span class="op">(</span></span>
+<span>    <span class="st">"Timestamp"</span>,</span>
+<span>    <span class="st">"dtp_fmt3"</span>,</span>
+<span>    <span class="st">"fmt3"</span>,</span>
+<span>    format <span class="op">=</span> <span class="st">"YYYY/MM/DD hh:mm:ss"</span>,</span>
+<span>    value_format <span class="op">=</span> <span class="st">"x"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="formats" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"fmt1":null,"fmt2":null,"fmt3":null}},"store":true,"evals":[]}</script>
+</div>
+  <style>.demo-datetime-picker { display: flex; width: 100%; flex-wrap: wrap; }
+   .demo-datetime-picker .block { padding: 30px 0; text-align: center;
+     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+   .demo-datetime-picker .block:last-child { border-right: none; }
+   .demo-datetime-picker .demonstration { display: block; margin-bottom: 20px;
+     color: var(--el-text-color-secondary); font-size: 14px; }</style>
+<div class="demo-datetime-picker">
+    <div class="block">
+      <span class="demonstration">Default value format</span>
+      <div id="dtp_fmt1_shown" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div class="demonstration" id="dtp_fmt1_value">Value: {{ $store.formats.fmt1 ?? '' }}</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"evals":[]}</script>
+</div>
+      <div id="date-and-time-formats-dtp_fmt1" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="date-and-time-formats-dtp_fmt1_container" style="display: contents">
+  <el-date-picker v-bind="$optional(&#39;date-picker&#39;)" v-model="value" :type="type" :value-format="valueFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange"></el-date-picker>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"type":"datetime","valueFormat":"YYYY-MM-DD HH:mm:ss","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","defaultValue":null,"defaultTime":null,"displayFormat":"YYYY/MM/DD HH:mm:ss","placeholder":"Pick a Date","startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"handleChange":"function() {}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker":{"default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"format":"displayFormat","placeholder":"placeholder","start-placeholder":"startPlaceholder","end-placeholder":"endPlaceholder","size":"size","name":"name","prefix-icon":"prefixIcon","clear-icon":"clearIcon","popper-class":"popperClass","unlink-panels":"unlinkPanels","validate-event":"validateEvent","arrow-control":"arrowControl","automatic-dropdown":"automaticDropdown","cell-class-name":"cellClassName","date-format":"dateFormat","disabled-date":"disabledDate","disabled-hours":"disabledHours","disabled-minutes":"disabledMinutes","disabled-seconds":"disabledSeconds","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","shortcuts":"shortcuts","show-confirm":"showConfirm","show-footer":"showFooter","show-now":"showNow","show-week-number":"showWeekNumber","single-panel":"singlePanel","teleported":"teleported","time-format":"timeFormat","value-on-clear":"valueOnClear"}},"bound":{"value":"$store.formats.fmt1"},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+    <div class="block">
+      <span class="demonstration">Use value-format</span>
+      <div id="dtp_fmt2_shown" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div class="demonstration" id="dtp_fmt2_value">Value: {{ $store.formats.fmt2 ?? '' }}</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"evals":[]}</script>
+</div>
+      <div id="date-and-time-formats-dtp_fmt2" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="date-and-time-formats-dtp_fmt2_container" style="display: contents">
+  <el-date-picker v-bind="$optional(&#39;date-picker&#39;)" v-model="value" :type="type" :value-format="valueFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange"></el-date-picker>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"type":"datetime","valueFormat":"YYYY-MM-DD h:m:s a","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","defaultValue":null,"defaultTime":null,"displayFormat":"YYYY/MM/DD hh:mm:ss","placeholder":"Pick a Date","startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"handleChange":"function() {}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker":{"default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"format":"displayFormat","placeholder":"placeholder","start-placeholder":"startPlaceholder","end-placeholder":"endPlaceholder","size":"size","name":"name","prefix-icon":"prefixIcon","clear-icon":"clearIcon","popper-class":"popperClass","unlink-panels":"unlinkPanels","validate-event":"validateEvent","arrow-control":"arrowControl","automatic-dropdown":"automaticDropdown","cell-class-name":"cellClassName","date-format":"dateFormat","disabled-date":"disabledDate","disabled-hours":"disabledHours","disabled-minutes":"disabledMinutes","disabled-seconds":"disabledSeconds","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","shortcuts":"shortcuts","show-confirm":"showConfirm","show-footer":"showFooter","show-now":"showNow","show-week-number":"showWeekNumber","single-panel":"singlePanel","teleported":"teleported","time-format":"timeFormat","value-on-clear":"valueOnClear"}},"bound":{"value":"$store.formats.fmt2"},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+    <div class="block">
+      <span class="demonstration">Timestamp</span>
+      <div id="dtp_fmt3_shown" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div class="demonstration" id="dtp_fmt3_value">Value: {{ $store.formats.fmt3 ?? '' }}</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"evals":[]}</script>
+</div>
+      <div id="date-and-time-formats-dtp_fmt3" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="date-and-time-formats-dtp_fmt3_container" style="display: contents">
+  <el-date-picker v-bind="$optional(&#39;date-picker&#39;)" v-model="value" :type="type" :value-format="valueFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange"></el-date-picker>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"type":"datetime","valueFormat":"x","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","defaultValue":null,"defaultTime":null,"displayFormat":"YYYY/MM/DD hh:mm:ss","placeholder":"Pick a Date","startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"handleChange":"function() {}"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker":{"default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"format":"displayFormat","placeholder":"placeholder","start-placeholder":"startPlaceholder","end-placeholder":"endPlaceholder","size":"size","name":"name","prefix-icon":"prefixIcon","clear-icon":"clearIcon","popper-class":"popperClass","unlink-panels":"unlinkPanels","validate-event":"validateEvent","arrow-control":"arrowControl","automatic-dropdown":"automaticDropdown","cell-class-name":"cellClassName","date-format":"dateFormat","disabled-date":"disabledDate","disabled-hours":"disabledHours","disabled-minutes":"disabledMinutes","disabled-seconds":"disabledSeconds","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","shortcuts":"shortcuts","show-confirm":"showConfirm","show-footer":"showFooter","show-now":"showNow","show-week-number":"showWeekNumber","single-panel":"singlePanel","teleported":"teleported","time-format":"timeFormat","value-on-clear":"valueOnClear"}},"bound":{"value":"$store.formats.fmt3"},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="date-and-time-formats-in-dropdown-panel">Date and time formats in dropdown panel<a class="anchor" aria-label="anchor" href="#date-and-time-formats-in-dropdown-panel"></a>

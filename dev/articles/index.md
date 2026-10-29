@@ -7,6 +7,7 @@
 - [Design](https://kaipingyang.github.io/shiny.element/dev/articles/design.md):
 - [Architecture](https://kaipingyang.github.io/shiny.element/dev/articles/architecture.md):
 - [Performance](https://kaipingyang.github.io/shiny.element/dev/articles/performance.md):
+- [Responsiveness](https://kaipingyang.github.io/shiny.element/dev/articles/responsiveness.md):
 - [Internationalization](https://kaipingyang.github.io/shiny.element/dev/articles/i18n.md):
 - [Migration from Element
   UI](https://kaipingyang.github.io/shiny.element/dev/articles/migration.md):

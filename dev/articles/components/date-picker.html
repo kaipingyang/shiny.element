@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -200,68 +201,95 @@
 can enable quick options via <code>shortcuts</code> property. The
 disabled date is set by <code>disabledDate</code>, which is a
 function.</p>
-<p>The radio buttons resize both pickers with
-<code>update_el_date_picker(size =)</code>.</p>
+<p>The radio buttons resize both pickers: their <code>size</code>
+follows them in the browser, [vue_bind()].</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
-<span>    <span class="st">".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }</span></span>
-<span><span class="st">     .demo-date-picker .block { padding: 1.5rem 0; text-align: center;</span></span>
-<span><span class="st">       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }</span></span>
-<span><span class="st">     .demo-date-picker .block:last-child { border-right: none; }</span></span>
-<span><span class="st">     .demo-date-picker .demonstration { display: block; margin-bottom: 20px;</span></span>
-<span><span class="st">       color: var(--el-text-color-secondary); font-size: 14px; }"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
-<span>    <span class="st">"dp_size"</span>,</span>
-<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>    selected <span class="op">=</span> <span class="st">"default"</span>,</span>
-<span>    button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>  <span class="st">".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }</span></span>
+<span><span class="st">   .demo-date-picker .block { padding: 1.5rem 0; text-align: center;</span></span>
+<span><span class="st">     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }</span></span>
+<span><span class="st">   .demo-date-picker .block:last-child { border-right: none; }</span></span>
+<span><span class="st">   .demo-date-picker .demonstration { display: block; margin-bottom: 20px;</span></span>
+<span><span class="st">     color: var(--el-text-color-secondary); font-size: 14px; }"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dp_size"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  class <span class="op">=</span> <span class="st">"demo-date-picker"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"block"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Default"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dp_default"</span>,</span>
+<span>      size <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.dp_size"</span><span class="op">)</span>,</span>
+<span>      placeholder <span class="op">=</span> <span class="st">"Pick a day"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    class <span class="op">=</span> <span class="st">"demo-date-picker"</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>      class <span class="op">=</span> <span class="st">"block"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Default"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span><span class="st">"dp_default"</span>, placeholder <span class="op">=</span> <span class="st">"Pick a day"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>      class <span class="op">=</span> <span class="st">"block"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Picker with quick options"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
-<span>        <span class="st">"dp_quick"</span>,</span>
-<span>        placeholder <span class="op">=</span> <span class="st">"Pick a day"</span>,</span>
-<span>        shortcuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Today"</span>, value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date()"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            text <span class="op">=</span> <span class="st">"Yesterday"</span>,</span>
-<span>            value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>              <span class="st">"function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); return d; }"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            text <span class="op">=</span> <span class="st">"A week ago"</span>,</span>
-<span>            value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>              <span class="st">"function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24 * 7); return d; }"</span></span>
-<span>            <span class="op">)</span></span>
+<span>    class <span class="op">=</span> <span class="st">"block"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Picker with quick options"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dp_quick"</span>,</span>
+<span>      size <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.dp_size"</span><span class="op">)</span>,</span>
+<span>      placeholder <span class="op">=</span> <span class="st">"Pick a day"</span>,</span>
+<span>      shortcuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Today"</span>, value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"new Date()"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          text <span class="op">=</span> <span class="st">"Yesterday"</span>,</span>
+<span>          value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>            <span class="st">"function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); return d; }"</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
-<span>        disabled_date <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>          <span class="st">"function(time) { return time.getTime() &gt; Date.now(); }"</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          text <span class="op">=</span> <span class="st">"A week ago"</span>,</span>
+<span>          value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>            <span class="st">"function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24 * 7); return d; }"</span></span>
+<span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      disabled_date <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>        <span class="st">"function(time) { return time.getTime() &gt; Date.now(); }"</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dp_size</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dp_default"</span>, <span class="st">"dp_quick"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="../../reference/el_date_picker.html">update_el_date_picker</a></span><span class="op">(</span><span class="va">session</span>, <span class="va">id</span>, size <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">dp_size</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/date-picker-enter-date.png" alt="The enter-date example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>.demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }
+   .demo-date-picker .block { padding: 1.5rem 0; text-align: center;
+     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+   .demo-date-picker .block:last-child { border-right: none; }
+   .demo-date-picker .demonstration { display: block; margin-bottom: 20px;
+     color: var(--el-text-color-secondary); font-size: 14px; }</style>
+<div id="enter-date-dp_size" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="enter-date-dp_size_container" style="display: contents">
+  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
+    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"default","options":[{"value":"large","label":"large"},{"value":"default","label":"default"},{"value":"small","label":"small"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('enter-date-dp_size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  <div class="demo-date-picker">
+    <div class="block">
+      <span class="demonstration">Default</span>
+      <div id="enter-date-dp_default" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="enter-date-dp_default_container" style="display: contents">
+  <el-date-picker v-bind="$optional(&#39;date-picker&#39;)" v-model="value" :type="type" :value-format="valueFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange"></el-date-picker>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"date","valueFormat":"YYYY-MM-DD","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","defaultValue":null,"defaultTime":null,"displayFormat":null,"placeholder":"Pick a day","startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","use":["shinyElement.plugin"],"optional":{"date-picker":{"default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"format":"displayFormat","placeholder":"placeholder","start-placeholder":"startPlaceholder","end-placeholder":"endPlaceholder","size":"size","name":"name","prefix-icon":"prefixIcon","clear-icon":"clearIcon","popper-class":"popperClass","unlink-panels":"unlinkPanels","validate-event":"validateEvent","arrow-control":"arrowControl","automatic-dropdown":"automaticDropdown","cell-class-name":"cellClassName","date-format":"dateFormat","disabled-date":"disabledDate","disabled-hours":"disabledHours","disabled-minutes":"disabledMinutes","disabled-seconds":"disabledSeconds","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","shortcuts":"shortcuts","show-confirm":"showConfirm","show-footer":"showFooter","show-now":"showNow","show-week-number":"showWeekNumber","single-panel":"singlePanel","teleported":"teleported","time-format":"timeFormat","value-on-clear":"valueOnClear"}},"bound":{"size":"$inputs['enter-date-dp_size']"},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+    <div class="block">
+      <span class="demonstration">Picker with quick options</span>
+      <div id="enter-date-dp_quick" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="enter-date-dp_quick_container" style="display: contents">
+  <el-date-picker v-bind="$optional(&#39;date-picker&#39;)" v-model="value" :type="type" :value-format="valueFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange"></el-date-picker>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"date","valueFormat":"YYYY-MM-DD","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"-","defaultValue":null,"defaultTime":null,"displayFormat":null,"placeholder":"Pick a day","startPlaceholder":null,"endPlaceholder":null,"size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":"function(time) { return time.getTime() > Date.now(); }","disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":[{"text":"Today","value":"new Date()"},{"text":"Yesterday","value":"function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); return d; }"},{"text":"A week ago","value":"function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24 * 7); return d; }"}],"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","use":["shinyElement.plugin"],"optional":{"date-picker":{"default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"format":"displayFormat","placeholder":"placeholder","start-placeholder":"startPlaceholder","end-placeholder":"endPlaceholder","size":"size","name":"name","prefix-icon":"prefixIcon","clear-icon":"clearIcon","popper-class":"popperClass","unlink-panels":"unlinkPanels","validate-event":"validateEvent","arrow-control":"arrowControl","automatic-dropdown":"automaticDropdown","cell-class-name":"cellClassName","date-format":"dateFormat","disabled-date":"disabledDate","disabled-hours":"disabledHours","disabled-minutes":"disabledMinutes","disabled-seconds":"disabledSeconds","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","shortcuts":"shortcuts","show-confirm":"showConfirm","show-footer":"showFooter","show-now":"showNow","show-week-number":"showWeekNumber","single-panel":"singlePanel","teleported":"teleported","time-format":"timeFormat","value-on-clear":"valueOnClear"}},"bound":{"size":"$inputs['enter-date-dp_size']"},"evals":["options.data.disabledDate","options.data.shortcuts.0.value","options.data.shortcuts.1.value","options.data.shortcuts.2.value","options.methods.handleChange"]}</script>
+</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="other-measurements">Other measurements<a class="anchor" aria-label="anchor" href="#other-measurements"></a>
@@ -342,80 +370,104 @@ extending the standard date picker component.</p>
 <p>When in range mode, the left and right panels are linked by default.
 If you want the two panels to switch current months independently, you
 can use the <code>unlink-panels</code> attribute.</p>
-<p>The radio buttons resize both pickers with
-<code>update_el_date_picker(size =)</code>.</p>
+<p>The radio buttons resize both pickers: their <code>size</code>
+follows them in the browser, [vue_bind()].</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
-<span>    <span class="st">".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }</span></span>
-<span><span class="st">     .demo-date-picker .block { padding: 1.5rem 0; text-align: center;</span></span>
-<span><span class="st">       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }</span></span>
-<span><span class="st">     .demo-date-picker .block:last-child { border-right: none; }</span></span>
-<span><span class="st">     .demo-date-picker .demonstration { display: block; margin-bottom: 20px;</span></span>
-<span><span class="st">       color: var(--el-text-color-secondary); font-size: 14px; }"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
-<span>    <span class="st">"dp_range_size"</span>,</span>
-<span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>    selected <span class="op">=</span> <span class="st">"default"</span>,</span>
-<span>    button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>  <span class="st">".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }</span></span>
+<span><span class="st">   .demo-date-picker .block { padding: 1.5rem 0; text-align: center;</span></span>
+<span><span class="st">     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }</span></span>
+<span><span class="st">   .demo-date-picker .block:last-child { border-right: none; }</span></span>
+<span><span class="st">   .demo-date-picker .demonstration { display: block; margin-bottom: 20px;</span></span>
+<span><span class="st">     color: var(--el-text-color-secondary); font-size: 14px; }"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
+<span>  <span class="st">"dp_range_size"</span>,</span>
+<span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>  selected <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  button <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>  class <span class="op">=</span> <span class="st">"demo-date-picker"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"block"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Default"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dp_range"</span>,</span>
+<span>      size <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.dp_range_size"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
+<span>      range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
+<span>      start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>,</span>
+<span>      end_placeholder <span class="op">=</span> <span class="st">"End date"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>    class <span class="op">=</span> <span class="st">"demo-date-picker"</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>      class <span class="op">=</span> <span class="st">"block"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"Default"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
-<span>        <span class="st">"dp_range"</span>,</span>
-<span>        type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
-<span>        range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
-<span>        start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>,</span>
-<span>        end_placeholder <span class="op">=</span> <span class="st">"End date"</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>      class <span class="op">=</span> <span class="st">"block"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"With quick options"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
-<span>        <span class="st">"dp_range_quick"</span>,</span>
-<span>        type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
-<span>        unlink_panels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
-<span>        start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>,</span>
-<span>        end_placeholder <span class="op">=</span> <span class="st">"End date"</span>,</span>
-<span>        shortcuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            text <span class="op">=</span> <span class="st">"Last week"</span>,</span>
-<span>            value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>              <span class="st">"function() { var e = new Date(), s = new Date(); s.setTime(s.getTime() - 3600 * 1000 * 24 * 7); return [s, e]; }"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            text <span class="op">=</span> <span class="st">"Last month"</span>,</span>
-<span>            value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>              <span class="st">"function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 1); return [s, e]; }"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            text <span class="op">=</span> <span class="st">"Last 3 months"</span>,</span>
-<span>            value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
-<span>              <span class="st">"function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 3); return [s, e]; }"</span></span>
-<span>            <span class="op">)</span></span>
+<span>    class <span class="op">=</span> <span class="st">"block"</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>class <span class="op">=</span> <span class="st">"demonstration"</span>, <span class="st">"With quick options"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_date_picker.html">el_date_picker</a></span><span class="op">(</span></span>
+<span>      <span class="st">"dp_range_quick"</span>,</span>
+<span>      size <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.dp_range_size"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"daterange"</span>,</span>
+<span>      unlink_panels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      range_separator <span class="op">=</span> <span class="st">"To"</span>,</span>
+<span>      start_placeholder <span class="op">=</span> <span class="st">"Start date"</span>,</span>
+<span>      end_placeholder <span class="op">=</span> <span class="st">"End date"</span>,</span>
+<span>      shortcuts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          text <span class="op">=</span> <span class="st">"Last week"</span>,</span>
+<span>          value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>            <span class="st">"function() { var e = new Date(), s = new Date(); s.setTime(s.getTime() - 3600 * 1000 * 24 * 7); return [s, e]; }"</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          text <span class="op">=</span> <span class="st">"Last month"</span>,</span>
+<span>          value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>            <span class="st">"function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 1); return [s, e]; }"</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          text <span class="op">=</span> <span class="st">"Last 3 months"</span>,</span>
+<span>          value <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>            <span class="st">"function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 3); return [s, e]; }"</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dp_range_size</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="op">{</span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">id</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dp_range"</span>, <span class="st">"dp_range_quick"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="../../reference/el_date_picker.html">update_el_date_picker</a></span><span class="op">(</span><span class="va">session</span>, <span class="va">id</span>, size <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">dp_range_size</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/date-picker-date-range.png" alt="The date-range example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>.demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }
+   .demo-date-picker .block { padding: 1.5rem 0; text-align: center;
+     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+   .demo-date-picker .block:last-child { border-right: none; }
+   .demo-date-picker .demonstration { display: block; margin-bottom: 20px;
+     color: var(--el-text-color-secondary); font-size: 14px; }</style>
+<div id="date-range-dp_range_size" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="date-range-dp_range_size_container" style="display: contents">
+  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
+    <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
+  </el-radio-group>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"default","options":[{"value":"large","label":"large"},{"value":"default","label":"default"},{"value":"small","label":"small"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('date-range-dp_range_size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div>
+  <div class="demo-date-picker">
+    <div class="block">
+      <span class="demonstration">Default</span>
+      <div id="date-range-dp_range" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="date-range-dp_range_container" style="display: contents">
+  <el-date-picker v-bind="$optional(&#39;date-picker&#39;)" v-model="value" :type="type" :value-format="valueFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange"></el-date-picker>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"type":"daterange","valueFormat":"YYYY-MM-DD","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"To","defaultValue":null,"defaultTime":null,"displayFormat":null,"placeholder":null,"startPlaceholder":"Start date","endPlaceholder":"End date","size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"unlinkPanels":null,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":null,"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","use":["shinyElement.plugin"],"optional":{"date-picker":{"default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"format":"displayFormat","placeholder":"placeholder","start-placeholder":"startPlaceholder","end-placeholder":"endPlaceholder","size":"size","name":"name","prefix-icon":"prefixIcon","clear-icon":"clearIcon","popper-class":"popperClass","unlink-panels":"unlinkPanels","validate-event":"validateEvent","arrow-control":"arrowControl","automatic-dropdown":"automaticDropdown","cell-class-name":"cellClassName","date-format":"dateFormat","disabled-date":"disabledDate","disabled-hours":"disabledHours","disabled-minutes":"disabledMinutes","disabled-seconds":"disabledSeconds","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","shortcuts":"shortcuts","show-confirm":"showConfirm","show-footer":"showFooter","show-now":"showNow","show-week-number":"showWeekNumber","single-panel":"singlePanel","teleported":"teleported","time-format":"timeFormat","value-on-clear":"valueOnClear"}},"bound":{"size":"$inputs['date-range-dp_range_size']"},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+    <div class="block">
+      <span class="demonstration">With quick options</span>
+      <div id="date-range-dp_range_quick" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="date-range-dp_range_quick_container" style="display: contents">
+  <el-date-picker v-bind="$optional(&#39;date-picker&#39;)" v-model="value" :type="type" :value-format="valueFormat" :clearable="clearable" :disabled="disabled" :editable="editable" :readonly="readonly" :range-separator="rangeSeparator" @change="handleChange"></el-date-picker>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":[],"type":"daterange","valueFormat":"YYYY-MM-DD","clearable":true,"disabled":false,"editable":true,"readonly":false,"rangeSeparator":"To","defaultValue":null,"defaultTime":null,"displayFormat":null,"placeholder":null,"startPlaceholder":"Start date","endPlaceholder":"End date","size":null,"name":null,"prefixIcon":null,"clearIcon":null,"popperClass":null,"unlinkPanels":true,"validateEvent":null,"arrowControl":null,"automaticDropdown":null,"cellClassName":null,"dateFormat":null,"disabledDate":null,"disabledHours":null,"disabledMinutes":null,"disabledSeconds":null,"emptyValues":null,"fallbackPlacements":null,"placement":null,"popperOptions":null,"popperStyle":null,"shortcuts":[{"text":"Last week","value":"function() { var e = new Date(), s = new Date(); s.setTime(s.getTime() - 3600 * 1000 * 24 * 7); return [s, e]; }"},{"text":"Last month","value":"function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 1); return [s, e]; }"},{"text":"Last 3 months","value":"function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 3); return [s, e]; }"}],"showConfirm":null,"showFooter":null,"showNow":null,"showWeekNumber":null,"singlePanel":null,"teleported":null,"timeFormat":null,"valueOnClear":null},"methods":{"handleChange":"function() {}"}},"input":"value","rate":null,"type":"shiny.element.date","use":["shinyElement.plugin"],"optional":{"date-picker":{"default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"format":"displayFormat","placeholder":"placeholder","start-placeholder":"startPlaceholder","end-placeholder":"endPlaceholder","size":"size","name":"name","prefix-icon":"prefixIcon","clear-icon":"clearIcon","popper-class":"popperClass","unlink-panels":"unlinkPanels","validate-event":"validateEvent","arrow-control":"arrowControl","automatic-dropdown":"automaticDropdown","cell-class-name":"cellClassName","date-format":"dateFormat","disabled-date":"disabledDate","disabled-hours":"disabledHours","disabled-minutes":"disabledMinutes","disabled-seconds":"disabledSeconds","empty-values":"emptyValues","fallback-placements":"fallbackPlacements","placement":"placement","popper-options":"popperOptions","popper-style":"popperStyle","shortcuts":"shortcuts","show-confirm":"showConfirm","show-footer":"showFooter","show-now":"showNow","show-week-number":"showWeekNumber","single-panel":"singlePanel","teleported":"teleported","time-format":"timeFormat","value-on-clear":"valueOnClear"}},"bound":{"size":"$inputs['date-range-dp_range_size']"},"evals":["options.data.shortcuts.0.value","options.data.shortcuts.1.value","options.data.shortcuts.2.value","options.methods.handleChange"]}</script>
+</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="month-range">Month Range<a class="anchor" aria-label="anchor" href="#month-range"></a>

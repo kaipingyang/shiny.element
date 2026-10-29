@@ -82,7 +82,20 @@ updates, calls and outputs reach it),
 the route in the hash and as `input$<id>`),
 [`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
 (VueUse 15.0.0, Element’s own version, `inst/vueuse`, opt-in, for
-`setup()`), and the `.vue_*` helpers. `test-vue-layer.R` fails if any of
+`setup()`),
+[`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md)
+(an argument following `$store`, `$inputs` or `$route` in the browser,
+no round trip:
+[`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
+moves a bound field’s path to the spec’s `bound`, the bridge keeps field
+and path in step; containers bind what their update can set,
+[`.vue_bound_markup()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound_markup.md)
+writing `data-shiny-vue-bind` and their bindings applying it through
+`shinyVue.bindElement()` as updates; an argument R reads to draw with
+says so,
+[`.vue_unbound()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.md),
+and `test-vue-bind.R` fails on any argument of any component that drops
+a binding), and the `.vue_*` helpers. `test-vue-layer.R` fails if any of
 it names Element; `test-browser-pure-vue.R` runs it with no Element Plus
 on the page. The **Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is
 built on it:
@@ -439,7 +452,17 @@ Design records: `.claude/plans/shiny-style-components-2026-10-06.md`,
     becomes the binding’s value.
 4.  Enumerated arguments go in `.el_choices` (`R/el_choices.R`) with
     [`.el_check_choices()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_check_choices.md)
-    first in the function.
+    first in the function; arguments R reads to draw the markup (not
+    fields of the component) in
+    [`.vue_unbound()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.md)
+    after it, so a
+    [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md)
+    given them is an error (`test-vue-bind.R` checks). A field keeps a
+    binding through its conversions:
+    [`.vue_array()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_array.md),
+    [`.vue_flag()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_flag.md)
+    rather than [`as.list()`](https://rdrr.io/r/base/list.html),
+    [`isTRUE()`](https://rdrr.io/r/base/Logic.html).
 5.  `roxygen2::roxygenise(".")`, then tests: unit, the browser fixture,
     and **look at a screenshot** (`tools/article-shots.R`).
 

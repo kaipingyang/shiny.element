@@ -1,9 +1,14 @@
 # Handlers of the user's own, as `on`
 
-Each becomes a method the component's tag listens with: `@<event>`. The
-handler is called with `report` first – `report(name, value)` sets
+A
+[`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+function becomes a method the component's tag listens with: `@<event>`.
+It is called with `report` first – `report(name, value)` sets
 `input$<id>_<name>` – then the event's own arguments, and `this` the Vue
-instance.
+instance. A string is Vue's inline statement, as `@click="..."` takes it
+– `"$store.ui.open = true"`, `$event` the event's first argument –
+written into the template as it is, inside the arrow function the tag's
+handlers are joined in.
 
 ## Usage
 
@@ -21,7 +26,7 @@ instance.
 
   A named list of
   [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
-  functions.
+  functions or strings.
 
 ## Value
 

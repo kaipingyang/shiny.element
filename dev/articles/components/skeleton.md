@@ -78,8 +78,8 @@ end users. with the attribute `loading` we can control whether showing
 the DOM. You can also use slot `default` to structure the real DOM
 element.
 
-The switch turns the placeholder off and on with
-`update_el_skeleton(loading =)`.
+The switch turns the placeholder off and on: `loading` follows it in the
+browser, \[vue_bind()\].
 
 ``` r
 
@@ -125,30 +125,21 @@ switch_ui <- function(id, value) {
     el_switch(id, value = value)
   )
 }
-ui <- el_page(
-  tags$div(
-    style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
-    switch_ui("sk_switch", TRUE),
-    el_skeleton(
-      "sk_load",
-      loading = TRUE,
-      animated = TRUE,
-      style = "width: 240px",
-      card(hamburger, "Delicious hamburger"),
-      slots = list(template = placeholder())
-    )
+tags$div(
+  style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
+  switch_ui("sk_switch", TRUE),
+  el_skeleton(
+    "sk_load",
+    loading = vue_bind("$inputs.sk_switch"),
+    animated = TRUE,
+    style = "width: 240px",
+    card(hamburger, "Delicious hamburger"),
+    slots = list(template = placeholder())
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$sk_switch, ignoreInit = TRUE, {
-    update_el_skeleton(session, "sk_load", loading = input$sk_switch)
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The loading-state example,
-running](../../shots/skeleton-loading-state.png)
+Switch Loading
 
 ## Rendering a list of data
 
@@ -166,7 +157,7 @@ need to render to the browser.
 > experience.
 
 The button shows the placeholders again for two seconds, as a reload
-would.
+would: a store’s action sets `loading`, \[vue_bind()\], and clears it.
 
 ``` r
 
@@ -194,52 +185,56 @@ card <- function(src, name) {
     )
   )
 }
-ui <- el_page(
+vue_store(
+  "reloading",
+  state = list(loading = FALSE),
+  actions = list(
+    reload = JS(
+      "function() {
+        var s = this;
+        s.loading = true;
+        setTimeout(function() { s.loading = false; }, 2000);
+      }"
+    )
+  )
+)
+tags$div(
+  style = "display: flex; flex-direction: column; gap: 8px",
   tags$div(
-    style = "display: flex; flex-direction: column; gap: 8px",
-    tags$div(el_button("sk_reload", "Click me to reload")),
-    el_skeleton(
-      "sk_list",
-      loading = FALSE,
-      animated = TRUE,
-      count = 3,
+    el_button(
+      "sk_reload",
+      "Click me to reload",
+      on = list(click = "$store.reloading.reload()")
+    )
+  ),
+  el_skeleton(
+    "sk_list",
+    loading = vue_bind("$store.reloading.loading"),
+    animated = TRUE,
+    count = 3,
+    style = "display: flex; gap: 8px",
+    tags$div(
       style = "display: flex; gap: 8px",
-      tags$div(
-        style = "display: flex; gap: 8px",
-        unname(Map(card, pictures, names(pictures)))
-      ),
-      slots = list(
-        template = tags$div(
-          style = "flex: 1",
-          el$skeleton_item(variant = "image", style = "height: 240px"),
+      unname(Map(card, pictures, names(pictures)))
+    ),
+    slots = list(
+      template = tags$div(
+        style = "flex: 1",
+        el$skeleton_item(variant = "image", style = "height: 240px"),
+        tags$div(
+          style = "padding: 14px",
+          el$skeleton_item(variant = "h3", style = "width: 50%"),
           tags$div(
-            style = "padding: 14px",
-            el$skeleton_item(variant = "h3", style = "width: 50%"),
-            tags$div(
-              style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
-              el$skeleton_item(variant = "text", style = "margin-right: 16px"),
-              el$skeleton_item(variant = "text", style = "width: 30%")
-            )
+            style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
+            el$skeleton_item(variant = "text", style = "margin-right: 16px"),
+            el$skeleton_item(variant = "text", style = "width: 30%")
           )
         )
       )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$sk_reload, {
-    update_el_skeleton(session, "sk_list", loading = TRUE)
-    later::later(
-      function() update_el_skeleton(session, "sk_list", loading = FALSE),
-      2
-    )
-  })
-}
-shinyApp(ui, server)
 ```
-
-![The rendering-with-data example,
-running](../../shots/skeleton-rendering-with-data.png)
 
 ## Avoiding rendering bouncing.
 
@@ -262,69 +257,56 @@ switch it on and off quickly, and it never appears.
 ``` r
 
 hamburger <- "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-ui <- el_page(
+tags$div(
+  style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
   tags$div(
-    style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
-    tags$div(
-      tags$label(style = "margin-right: 16px", "Switch Loading"),
-      el_switch("sk_throttle_switch", value = FALSE)
+    tags$label(style = "margin-right: 16px", "Switch Loading"),
+    el_switch("sk_throttle_switch", value = FALSE)
+  ),
+  el_skeleton(
+    "sk_throttle",
+    loading = vue_bind("$inputs.sk_throttle_switch"),
+    animated = TRUE,
+    throttle = 500,
+    style = "width: 240px",
+    el_card(
+      body_style = list(padding = "0px", marginBottom = "1px"),
+      tags$img(src = hamburger, style = "width: 100%; display: block"),
+      tags$div(
+        style = "padding: 14px",
+        tags$span("Delicious hamburger"),
+        tags$div(
+          style = "margin-top: 13px; line-height: 12px; display: flex; justify-content: space-between; align-items: center",
+          tags$div(
+            style = "font-size: 12px; color: #999",
+            format(Sys.Date(), "%a %b %d %Y")
+          ),
+          el_button(label = "operation button", text = TRUE)
+        )
+      )
     ),
-    el_skeleton(
-      "sk_throttle",
-      loading = FALSE,
-      animated = TRUE,
-      throttle = 500,
-      style = "width: 240px",
-      el_card(
-        body_style = list(padding = "0px", marginBottom = "1px"),
-        tags$img(src = hamburger, style = "width: 100%; display: block"),
+    slots = list(
+      template = tagList(
+        el$skeleton_item(
+          variant = "image",
+          style = "width: 240px; height: 265px"
+        ),
         tags$div(
           style = "padding: 14px",
-          tags$span("Delicious hamburger"),
+          el$skeleton_item(variant = "h3", style = "width: 50%"),
           tags$div(
-            style = "margin-top: 13px; line-height: 12px; display: flex; justify-content: space-between; align-items: center",
-            tags$div(
-              style = "font-size: 12px; color: #999",
-              format(Sys.Date(), "%a %b %d %Y")
-            ),
-            el_button(label = "operation button", text = TRUE)
-          )
-        )
-      ),
-      slots = list(
-        template = tagList(
-          el$skeleton_item(
-            variant = "image",
-            style = "width: 240px; height: 265px"
-          ),
-          tags$div(
-            style = "padding: 14px",
-            el$skeleton_item(variant = "h3", style = "width: 50%"),
-            tags$div(
-              style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
-              el$skeleton_item(variant = "text", style = "margin-right: 16px"),
-              el$skeleton_item(variant = "text", style = "width: 30%")
-            )
+            style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
+            el$skeleton_item(variant = "text", style = "margin-right: 16px"),
+            el$skeleton_item(variant = "text", style = "width: 30%")
           )
         )
       )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$sk_throttle_switch, ignoreInit = TRUE, {
-    update_el_skeleton(
-      session,
-      "sk_throttle",
-      loading = input$sk_throttle_switch
-    )
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The avoiding-rendering-bouncing example,
-running](../../shots/skeleton-avoiding-rendering-bouncing.png)
+Switch Loading
 
 ## Initial rendering loading
 
@@ -338,65 +320,56 @@ appears only after the leading delay.
 ``` r
 
 hamburger <- "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-ui <- el_page(
+tags$div(
+  style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
   tags$div(
-    style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
-    tags$div(
-      tags$label(style = "margin-right: 16px", "Switch Loading"),
-      el_switch("sk_initial_switch", value = TRUE)
+    tags$label(style = "margin-right: 16px", "Switch Loading"),
+    el_switch("sk_initial_switch", value = TRUE)
+  ),
+  el_skeleton(
+    "sk_initial",
+    loading = vue_bind("$inputs.sk_initial_switch"),
+    animated = TRUE,
+    throttle = list(leading = 500, initVal = TRUE),
+    style = "width: 240px",
+    el_card(
+      body_style = list(padding = "0px", marginBottom = "1px"),
+      tags$img(src = hamburger, style = "width: 100%; display: block"),
+      tags$div(
+        style = "padding: 14px",
+        tags$span("Delicious hamburger"),
+        tags$div(
+          style = "margin-top: 13px; line-height: 12px; display: flex; justify-content: space-between; align-items: center",
+          tags$div(
+            style = "font-size: 12px; color: #999",
+            format(Sys.Date(), "%a %b %d %Y")
+          ),
+          el_button(label = "operation button", text = TRUE)
+        )
+      )
     ),
-    el_skeleton(
-      "sk_initial",
-      loading = TRUE,
-      animated = TRUE,
-      throttle = list(leading = 500, initVal = TRUE),
-      style = "width: 240px",
-      el_card(
-        body_style = list(padding = "0px", marginBottom = "1px"),
-        tags$img(src = hamburger, style = "width: 100%; display: block"),
+    slots = list(
+      template = tagList(
+        el$skeleton_item(
+          variant = "image",
+          style = "width: 240px; height: 265px"
+        ),
         tags$div(
           style = "padding: 14px",
-          tags$span("Delicious hamburger"),
+          el$skeleton_item(variant = "h3", style = "width: 50%"),
           tags$div(
-            style = "margin-top: 13px; line-height: 12px; display: flex; justify-content: space-between; align-items: center",
-            tags$div(
-              style = "font-size: 12px; color: #999",
-              format(Sys.Date(), "%a %b %d %Y")
-            ),
-            el_button(label = "operation button", text = TRUE)
-          )
-        )
-      ),
-      slots = list(
-        template = tagList(
-          el$skeleton_item(
-            variant = "image",
-            style = "width: 240px; height: 265px"
-          ),
-          tags$div(
-            style = "padding: 14px",
-            el$skeleton_item(variant = "h3", style = "width: 50%"),
-            tags$div(
-              style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
-              el$skeleton_item(variant = "text", style = "margin-right: 16px"),
-              el$skeleton_item(variant = "text", style = "width: 30%")
-            )
+            style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
+            el$skeleton_item(variant = "text", style = "margin-right: 16px"),
+            el$skeleton_item(variant = "text", style = "width: 30%")
           )
         )
       )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$sk_initial_switch, ignoreInit = TRUE, {
-    update_el_skeleton(session, "sk_initial", loading = input$sk_initial_switch)
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The initial-rendering-loading example,
-running](../../shots/skeleton-initial-rendering-loading.png)
+Switch Loading
 
 ## Toggle show/hide without rending bouncing
 
@@ -417,65 +390,56 @@ loading ends.
 ``` r
 
 hamburger <- "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-ui <- el_page(
+tags$div(
+  style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
   tags$div(
-    style = "display: flex; flex-direction: column; align-items: flex-start; gap: 8px",
-    tags$div(
-      tags$label(style = "margin-right: 16px", "Switch Loading"),
-      el_switch("sk_lt_switch", value = FALSE)
+    tags$label(style = "margin-right: 16px", "Switch Loading"),
+    el_switch("sk_lt_switch", value = FALSE)
+  ),
+  el_skeleton(
+    "sk_lt",
+    loading = vue_bind("$inputs.sk_lt_switch"),
+    animated = TRUE,
+    throttle = list(leading = 500, trailing = 500, initVal = TRUE),
+    style = "width: 240px",
+    el_card(
+      body_style = list(padding = "0px", marginBottom = "1px"),
+      tags$img(src = hamburger, style = "width: 100%; display: block"),
+      tags$div(
+        style = "padding: 14px",
+        tags$span("Delicious hamburger"),
+        tags$div(
+          style = "margin-top: 13px; line-height: 12px; display: flex; justify-content: space-between; align-items: center",
+          tags$div(
+            style = "font-size: 12px; color: #999",
+            format(Sys.Date(), "%a %b %d %Y")
+          ),
+          el_button(label = "operation button", text = TRUE)
+        )
+      )
     ),
-    el_skeleton(
-      "sk_lt",
-      loading = FALSE,
-      animated = TRUE,
-      throttle = list(leading = 500, trailing = 500, initVal = TRUE),
-      style = "width: 240px",
-      el_card(
-        body_style = list(padding = "0px", marginBottom = "1px"),
-        tags$img(src = hamburger, style = "width: 100%; display: block"),
+    slots = list(
+      template = tagList(
+        el$skeleton_item(
+          variant = "image",
+          style = "width: 240px; height: 265px"
+        ),
         tags$div(
           style = "padding: 14px",
-          tags$span("Delicious hamburger"),
+          el$skeleton_item(variant = "h3", style = "width: 50%"),
           tags$div(
-            style = "margin-top: 13px; line-height: 12px; display: flex; justify-content: space-between; align-items: center",
-            tags$div(
-              style = "font-size: 12px; color: #999",
-              format(Sys.Date(), "%a %b %d %Y")
-            ),
-            el_button(label = "operation button", text = TRUE)
-          )
-        )
-      ),
-      slots = list(
-        template = tagList(
-          el$skeleton_item(
-            variant = "image",
-            style = "width: 240px; height: 265px"
-          ),
-          tags$div(
-            style = "padding: 14px",
-            el$skeleton_item(variant = "h3", style = "width: 50%"),
-            tags$div(
-              style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
-              el$skeleton_item(variant = "text", style = "margin-right: 16px"),
-              el$skeleton_item(variant = "text", style = "width: 30%")
-            )
+            style = "display: flex; align-items: center; justify-items: space-between; margin-top: 16px; height: 16px",
+            el$skeleton_item(variant = "text", style = "margin-right: 16px"),
+            el$skeleton_item(variant = "text", style = "width: 30%")
           )
         )
       )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$sk_lt_switch, ignoreInit = TRUE, {
-    update_el_skeleton(session, "sk_lt", loading = input$sk_lt_switch)
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The leading-trailing-without-bouncing example,
-running](../../shots/skeleton-leading-trailing-without-bouncing.png)
+Switch Loading
 
 ## 
 

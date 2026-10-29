@@ -38,6 +38,7 @@
     <li><a class="dropdown-item" href="../../articles/design.html">Design</a></li>
     <li><a class="dropdown-item" href="../../articles/architecture.html">Architecture</a></li>
     <li><a class="dropdown-item" href="../../articles/performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../../articles/responsiveness.html">Responsiveness</a></li>
     <li><a class="dropdown-item" href="../../articles/shiny.element.html">Installation &amp; Quick Start</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Advanced</h6></li>
@@ -179,7 +180,7 @@
 <link href="watermark_files/element-plus-2.14.7/theme-chalk/dark/css-vars.css" rel="stylesheet">
 <link href="watermark_files/element-plus-2.14.7/theme-chalk/display.css" rel="stylesheet">
 <script src="watermark_files/element-plus-2.14.7/dist/index.full.min.js"></script><script src="watermark_files/element-plus-icons-2.3.2/icons-vue.iife.min.js"></script><script src="watermark_files/shiny-vue-1.0.0/shiny-vue.js"></script><script src="watermark_files/shiny-element-1.0.0/el-events.js"></script><script src="watermark_files/shiny-element-1.0.0/el-collapse-binding.js"></script><script src="watermark_files/shiny-element-1.0.0/el-tabs-binding.js"></script><script src="watermark_files/shiny-element-1.0.0/el-overlay-binding.js"></script><script src="watermark_files/el-feedback-handler-1.0.0/el-feedback-handler.js"></script><link href="watermark_files/el-layout-css-1.0.0/el-layout.css" rel="stylesheet">
-<div class="row">
+<script src="watermark_files/pinia-4.1.0/pinia.iife.prod.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Watermark</h1>
@@ -203,8 +204,8 @@
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="basic-el_watermark_017d8816-0d78-4d42-b9e8-341085ff5c9d" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_watermark_017d8816-0d78-4d42-b9e8-341085ff5c9d_container" style="display: contents">
+  <div id="basic-el_watermark_b3157473-0d79-48a8-9bbc-ee356c5cd4c2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_watermark_b3157473-0d79-48a8-9bbc-ee356c5cd4c2_container" style="display: contents">
   <el-watermark v-bind="$optional(&#39;watermark&#39;)">
     <div style="height: 500px"></div>
   </el-watermark>
@@ -225,8 +226,8 @@ multi-line text watermark content.</p>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="multi-line-el_watermark_60daf677-027a-4692-aca5-6fe9a849051f" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="multi-line-el_watermark_60daf677-027a-4692-aca5-6fe9a849051f_container" style="display: contents">
+  <div id="multi-line-el_watermark_c5d11f3b-1320-4391-b5cc-527692f10b43" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="multi-line-el_watermark_c5d11f3b-1320-4391-b5cc-527692f10b43_container" style="display: contents">
   <el-watermark v-bind="$optional(&#39;watermark&#39;)">
     <div style="height: 500px"></div>
   </el-watermark>
@@ -252,8 +253,8 @@ address.</p>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"height: 500px"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
-  <div id="image-el_watermark_7b397f41-491b-4e13-af56-7c47fa0c91c1" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="image-el_watermark_7b397f41-491b-4e13-af56-7c47fa0c91c1_container" style="display: contents">
+  <div id="image-el_watermark_e6a4357e-f9d5-4e3f-a624-9bebd7a7efc8" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="image-el_watermark_e6a4357e-f9d5-4e3f-a624-9bebd7a7efc8_container" style="display: contents">
   <el-watermark v-bind="$optional(&#39;watermark&#39;)">
     <div style="height: 500px"></div>
   </el-watermark>
@@ -265,43 +266,131 @@ address.</p>
 <h2 id="custom-configuration">Custom configuration<a class="anchor" aria-label="anchor" href="#custom-configuration"></a>
 </h2>
 <p>Preview the watermark effect by configuring custom parameters.</p>
-<p>Its settings from inputs: the server redraws it as they change.</p>
+<p>Its settings from the controls: each control’s value is a store’s
+field, [vue_bind()], and the watermark’s <code>font</code> and
+<code>gap</code> getters built from them, so it changes as they do, in
+the browser.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span>span <span class="op">=</span> <span class="fl">14</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"marked"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
-<span>      span <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"content"</span>, label <span class="op">=</span> <span class="st">"Content"</span>, value <span class="op">=</span> <span class="st">"Element Plus"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span></span>
-<span>        <span class="st">"color"</span>,</span>
-<span>        label <span class="op">=</span> <span class="st">"Color"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"rgba(0, 0, 0, 0.15)"</span>,</span>
-<span>        show_alpha <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"size"</span>, label <span class="op">=</span> <span class="st">"FontSize"</span>, value <span class="op">=</span> <span class="fl">16</span>, min <span class="op">=</span> <span class="fl">8</span>, max <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span><span class="st">"rotate"</span>, label <span class="op">=</span> <span class="st">"Rotate"</span>, value <span class="op">=</span> <span class="op">-</span><span class="fl">22</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">180</span>, max <span class="op">=</span> <span class="fl">180</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"gap"</span>, label <span class="op">=</span> <span class="st">"Gap"</span>, value <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span></span>
+<span>  <span class="st">"wm"</span>,</span>
+<span>  state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    content <span class="op">=</span> <span class="st">"Element Plus"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"rgba(0, 0, 0, 0.15)"</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">16</span>,</span>
+<span>    rotate <span class="op">=</span> <span class="op">-</span><span class="fl">22</span>,</span>
+<span>    gap <span class="op">=</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  getters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    font <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(s) { return { fontSize: s.size, color: s.color }; }"</span><span class="op">)</span>,</span>
+<span>    gaps <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span><span class="st">"function(s) { return [s.gap, s.gap]; }"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">marked</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span></span>
-<span>    content <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">content</span>,</span>
-<span>    rotate <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">rotate</span>,</span>
-<span>    gap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">gap</span> <span class="op"><a href="https://rdrr.io/r/base/Control.html" class="external-link">%||%</a></span> <span class="fl">100</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fontSize <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">size</span>, color <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">color</span><span class="op">)</span>,</span>
-<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
-<span>      style <span class="op">=</span> <span class="st">"padding: 40px 20px; height: 360px"</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Element Plus"</span><span class="op">)</span>,</span>
-<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h2</span><span class="op">(</span><span class="st">"A Vue 3 based component library for designers and developers"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_row.html">el_row</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">14</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_watermark.html">el_watermark</a></span><span class="op">(</span></span>
+<span>      content <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.content"</span><span class="op">)</span>,</span>
+<span>      rotate <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.rotate"</span><span class="op">)</span>,</span>
+<span>      gap <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.gaps"</span><span class="op">)</span>,</span>
+<span>      font <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.font"</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>        style <span class="op">=</span> <span class="st">"padding: 40px 20px; height: 360px"</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Element Plus"</span><span class="op">)</span>,</span>
+<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">h2</span><span class="op">(</span><span class="st">"A Vue 3 based component library for designers and developers"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/watermark-custom.png" alt="The custom example, running" style="max-width: 100%">
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_col.html">el_col</a></span><span class="op">(</span></span>
+<span>    span <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>      <span class="st">"content"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Content"</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.content"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_color_picker.html">el_color_picker</a></span><span class="op">(</span></span>
+<span>      <span class="st">"color"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Color"</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.color"</span><span class="op">)</span>,</span>
+<span>      show_alpha <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span></span>
+<span>      <span class="st">"size"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"FontSize"</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.size"</span><span class="op">)</span>,</span>
+<span>      min <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>      max <span class="op">=</span> <span class="fl">40</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_slider.html">el_slider</a></span><span class="op">(</span></span>
+<span>      <span class="st">"rotate"</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Rotate"</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.rotate"</span><span class="op">)</span>,</span>
+<span>      min <span class="op">=</span> <span class="op">-</span><span class="fl">180</span>,</span>
+<span>      max <span class="op">=</span> <span class="fl">180</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../../reference/el_input_number.html">el_input_number</a></span><span class="op">(</span><span class="st">"gap"</span>, label <span class="op">=</span> <span class="st">"Gap"</span>, value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.wm.gap"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="wm" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"content":"Element Plus","color":"rgba(0, 0, 0, 0.15)","size":16,"rotate":-22,"gap":100}},"store":true,"storeDef":{"getters":{"font":"function(s) { return { fontSize: s.size, color: s.color }; }","gaps":"function(s) { return [s.gap, s.gap]; }"}},"evals":["storeDef.getters.font","storeDef.getters.gaps"]}</script>
+</div>
+  <div class="el-row">
+    <div class="el-col el-col-14">
+      <div id="custom-el_watermark_3bfdb239-360e-4345-8513-f7051044ba0d" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="custom-el_watermark_3bfdb239-360e-4345-8513-f7051044ba0d_container" style="display: contents">
+  <el-watermark v-bind="$optional(&#39;watermark&#39;)">
+    <div style="padding: 40px 20px; height: 360px">
+      <h1>Element Plus</h1>
+      <h2>A Vue 3 based component library for designers and developers</h2>
+    </div>
+  </el-watermark>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"width":null,"height":null,"rotate":null,"zIndex":null,"image":null,"content":null,"font":null,"gap":null,"offset":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"watermark":{"width":"width","height":"height","rotate":"rotate","z-index":"zIndex","image":"image","content":"content","font":"font","gap":"gap","offset":"offset"}},"generated":true,"bound":{"rotate":"$store.wm.rotate","content":"$store.wm.content","font":"$store.wm.font","gap":"$store.wm.gaps"},"evals":[]}</script>
+</div>
+    </div>
+    <div class="el-col el-col-10">
+      <div id="custom-content" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="custom-content_container" class="el-form-item el-form-item--label-top" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="margin-bottom: 15px">
+  <label id="custom-content-label" for="custom-content-input" class="el-form-item__label" style="float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4">Content</label>
+  <div class="el-form-item__content" style="margin-left: 0; line-height: normal">
+    <el-input v-bind="$optional(&#39;input&#39;)" v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" id="custom-content-input"></el-input>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":null,"maxlength":null,"rows":null,"label":"Content","autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"input":{"size":"size","placeholder":"placeholder","maxlength":"maxlength","rows":"rows","label":"label","autocomplete":"autocomplete","autofocus":"autofocus","name":"name","form":"form","minlength":"minlength","max":"max","min":"min","step":"step","resize":"resize","tabindex":"tabindex","validate-event":"validateEvent","aria-label":"ariaLabel","clear-icon":"clearIcon","count-graphemes":"countGraphemes","formatter":"formatter","input-style":"inputStyle","inputmode":"inputmode","parser":"parser","word-limit-position":"wordLimitPosition"}},"bound":{"value":"$store.wm.content"},"evals":["options.methods.handleChange"]}</script>
+</div>
+      <div id="custom-color" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="custom-color_container" class="el-form-item el-form-item--label-top" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="margin-bottom: 15px">
+  <label id="custom-color-label" for="custom-color-input" class="el-form-item__label" style="float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4">Color</label>
+  <div class="el-form-item__content" style="margin-left: 0; line-height: normal">
+    <el-color-picker v-bind="$optional(&#39;color-picker&#39;)" v-model="value" :disabled="disabled" :show-alpha="showAlpha" @change="handleChange" aria-labelledby="custom-color-label"></el-color-picker>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"showAlpha":true,"predefine":null,"size":null,"colorFormat":null,"popperClass":null,"appendTo":null,"ariaLabel":null,"clearable":null,"emptyValues":null,"persistent":null,"popperStyle":null,"tabindex":null,"teleported":null,"validateEvent":null,"valueOnClear":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"color-picker":{"predefine":"predefine","size":"size","color-format":"colorFormat","popper-class":"popperClass","append-to":"appendTo","aria-label":"ariaLabel","clearable":"clearable","empty-values":"emptyValues","persistent":"persistent","popper-style":"popperStyle","tabindex":"tabindex","teleported":"teleported","validate-event":"validateEvent","value-on-clear":"valueOnClear"}},"bound":{"value":"$store.wm.color"},"evals":["options.methods.handleChange"]}</script>
+</div>
+      <div id="custom-size" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="custom-size_container" class="el-form-item el-form-item--label-top" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="margin-bottom: 15px">
+  <label id="custom-size-label" for="custom-size-input" class="el-form-item__label" style="float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4">FontSize</label>
+  <div class="el-form-item__content" style="margin-left: 0; line-height: normal">
+    <el-slider v-bind="$optional(&#39;slider&#39;)" v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" aria-labelledby="custom-size-label"></el-slider>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"min":8,"max":40,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":"FontSize","inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"slider":{"height":"height","marks":"marks","label":"label","input-size":"inputSize","show-input-controls":"showInputControls","tooltip-class":"tooltipClass","format-tooltip":"formatTooltip","aria-label":"ariaLabel","format-value-text":"formatValueText","persistent":"persistent","placement":"placement","range-end-label":"rangeEndLabel","range-start-label":"rangeStartLabel","size":"size","validate-event":"validateEvent"}},"bound":{"value":"$store.wm.size"},"evals":["options.methods.handleChange"]}</script>
+</div>
+      <div id="custom-rotate" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="custom-rotate_container" class="el-form-item el-form-item--label-top" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="margin-bottom: 15px">
+  <label id="custom-rotate-label" for="custom-rotate-input" class="el-form-item__label" style="float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4">Rotate</label>
+  <div class="el-form-item__content" style="margin-left: 0; line-height: normal">
+    <el-slider v-bind="$optional(&#39;slider&#39;)" v-model="value" :min="min" :max="max" :step="step" :range="range" :disabled="disabled" :show-input="showInput" :show-stops="showStops" :show-tooltip="showTooltip" :vertical="vertical" @change="handleChange" aria-labelledby="custom-rotate-label"></el-slider>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"min":-180,"max":180,"step":1,"range":false,"disabled":false,"showInput":false,"showStops":false,"showTooltip":true,"vertical":false,"height":null,"marks":null,"label":"Rotate","inputSize":null,"showInputControls":null,"tooltipClass":null,"formatTooltip":null,"ariaLabel":null,"formatValueText":null,"persistent":null,"placement":null,"rangeEndLabel":null,"rangeStartLabel":null,"size":null,"validateEvent":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"slider":{"height":"height","marks":"marks","label":"label","input-size":"inputSize","show-input-controls":"showInputControls","tooltip-class":"tooltipClass","format-tooltip":"formatTooltip","aria-label":"ariaLabel","format-value-text":"formatValueText","persistent":"persistent","placement":"placement","range-end-label":"rangeEndLabel","range-start-label":"rangeStartLabel","size":"size","validate-event":"validateEvent"}},"bound":{"value":"$store.wm.rotate"},"evals":["options.methods.handleChange"]}</script>
+</div>
+      <div id="custom-gap" data-shiny-vue style="display: contents">
+        <script type="text/x-template" data-shiny-vue-template><div id="custom-gap_container" class="el-form-item el-form-item--label-top" :class="(size || ($ELEMENT &amp;&amp; $ELEMENT.size)) ? &#39;el-form-item--&#39; + (size || ($ELEMENT &amp;&amp; $ELEMENT.size)) : &#39;&#39;" style="margin-bottom: 15px">
+  <label id="custom-gap-label" for="custom-gap-input" class="el-form-item__label" style="float: none; display: block; text-align: left; padding: 0 0 6px; line-height: 1.4">Gap</label>
+  <div class="el-form-item__content" style="margin-left: 0; line-height: normal">
+    <el-input-number v-bind="$optional(&#39;input-number&#39;)" v-model="value" :min="min" :max="max" :step="step" :step-strictly="stepStrictly" :disabled="disabled" :controls="controls" :controls-position="controlsPosition" @change="handleChange" aria-labelledby="custom-gap-label"></el-input-number>
+  </div>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"min":-1e308,"max":1e308,"step":1,"stepStrictly":false,"disabled":false,"controls":true,"controlsPosition":"","size":null,"precision":null,"placeholder":null,"label":"Gap","name":null,"align":null,"ariaLabel":null,"disabledScientific":null,"formatter":null,"inputmode":null,"parser":null,"readonly":null,"tabindex":null,"validateEvent":null,"valueOnClear":null},"methods":{"handleChange":"function(val) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"input-number":{"size":"size","precision":"precision","placeholder":"placeholder","label":"label","name":"name","align":"align","aria-label":"ariaLabel","disabled-scientific":"disabledScientific","formatter":"formatter","inputmode":"inputmode","parser":"parser","readonly":"readonly","tabindex":"tabindex","validate-event":"validateEvent","value-on-clear":"valueOnClear"}},"bound":{"value":"$store.wm.gap"},"evals":["options.methods.handleChange"]}</script>
+</div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>

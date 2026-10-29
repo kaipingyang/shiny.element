@@ -121,30 +121,20 @@ In fact, Tooltip is an extension based on
 [ElPopper](https://github.com/element-plus/element-plus/tree/dev/packages/components/popper),
 you can use any attribute that are allowed in ElPopper.
 
-Turned on and off from the server, `update_el_tooltip(disabled =)`.
+The switch turns the tooltip off: its `disabled` follows the switch in
+the browser, \[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  el_switch("tip_on", value = TRUE, active_text = "tooltip on"),
-  el_tooltip(
-    "adv",
-    el$button("Hover me"),
-    content = "click the switch to turn me off",
-    placement = "bottom"
-  )
+el_switch("tip_off", value = FALSE, active_text = "tooltip off")
+el_tooltip(
+  "adv",
+  el$button("Hover me"),
+  content = "turn the switch on to turn me off",
+  placement = "bottom",
+  disabled = vue_bind("$inputs.tip_off")
 )
-server <- function(input, output, session) {
-  observeEvent(
-    input$tip_on,
-    update_el_tooltip(id = "adv", disabled = !input$tip_on)
-  )
-}
-shinyApp(ui, server)
 ```
-
-![The advanced-usage example,
-running](../../shots/tooltip-advanced-usage.png)
 
 > **Tip**
 >

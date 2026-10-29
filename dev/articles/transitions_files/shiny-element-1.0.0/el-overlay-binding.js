@@ -309,7 +309,15 @@
       },
 
       subscribe: function(el, callback) {
-        $(el).on('elOverlayChange.elOverlay', function() { callback(false); });
+        // arguments given vue_bind(): applied as updates; `visible` a
+        // store's field, the user's close written back to it
+        el._svBound = window.shinyVue && shinyVue.bindElement &&
+          shinyVue.bindElement(el, function(d) { binding.receiveMessage(el, d); },
+                               { field: 'visible', get: function() { return isOpen(el); } });
+        $(el).on('elOverlayChange.elOverlay', function() {
+          if (el._svBound) el._svBound.changed();
+          callback(false);
+        });
 
         $(el).on('click.elOverlay', '.el-dialog__headerbtn, .el-drawer__close-btn',
           function() { requestClose(el); });
@@ -325,6 +333,7 @@
       },
 
       unsubscribe: function(el) {
+        if (el._svBound) { el._svBound.stop(); el._svBound = null; }
         $(el).off('.elOverlay');
         hide(el, false);
       },

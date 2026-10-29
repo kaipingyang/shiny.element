@@ -338,6 +338,117 @@
     if (!st) warn('useStore(): no store "' + id + '" on the page');
     return st || null;
   };
+  // ── state followed in the browser: vue_bind() ──────────────────────────
+  //
+  // A field given vue_bind("<path>") in R follows page state with no round
+  // trip: a store's field ($store.<id>.<field>, both ways), another
+  // component's value ($inputs.<id>) or the route ($route.<...>), one way.
+  // The field stays in the component's data -- its template, $optional,
+  // updates and its input are as they were -- and is kept in step with
+  // the path by two watchers (bindFields()). Containers, which are not Vue
+  // apps, follow a path with sv.bindElement().
+  var PATH_SEGMENT = /\.([A-Za-z_$][\w$]*)|\['((?:[^'\\]|\\.)*)'\]|\["((?:[^"\\]|\\.)*)"\]|\[(\d+)\]/g;
+  function pathOf(path) {
+    var root = String(path).match(/^\$(store|inputs|route)/);
+    if (!root) return null;
+    var keys = [], rest = path.slice(root[0].length), m, at = 0;
+    PATH_SEGMENT.lastIndex = 0;
+    while ((m = PATH_SEGMENT.exec(rest)) && m.index === at) {
+      keys.push(m[1] !== undefined ? m[1] :
+                m[2] !== undefined ? m[2].replace(/\\(.)/g, '$1') :
+                m[3] !== undefined ? m[3].replace(/\\(.)/g, '$1') : Number(m[4]));
+      at = PATH_SEGMENT.lastIndex;
+    }
+    if (at !== rest.length || !keys.length) return null;
+    return { root: root[1], keys: keys, text: path };
+  }
+  function rootOf(name) {
+    if (name === 'store') return sv.stores();
+    if (name === 'inputs') return sv.inputs();
+    return sv.router ? sv.router.currentRoute.value : undefined;
+  }
+  function readPath(p) {
+    var o = rootOf(p.root);
+    for (var i = 0; i < p.keys.length; i++) {
+      if (o === null || o === undefined) return undefined;
+      o = o[p.keys[i]];
+    }
+    return o;
+  }
+  function writePath(p, value) {
+    if (p.root !== 'store') { warn(p.text + ' is read-only'); return; }
+    var o = rootOf(p.root);
+    for (var i = 0; i < p.keys.length - 1; i++) {
+      o = o === null || o === undefined ? undefined : o[p.keys[i]];
+    }
+    if (o === null || typeof o !== 'object') {
+      warn(p.text + ': no such store or field on the page; the change stays with the component');
+      return;
+    }
+    o[p.keys[p.keys.length - 1]] = value;
+  }
+  // a copy, so a field and the state it follows never share an array
+  function copied(v) { return v !== null && typeof v === 'object' ? plain(v) : v; }
+  function same(a, b) {
+    return a === b || JSON.stringify(plain(a)) === JSON.stringify(plain(b));
+  }
+  // An element of a binding of its own -- a component drawn as markup --
+  // following the paths in its `data-shiny-vue-bind`, {"<field>": "<path>"}:
+  // `apply({field: value})` takes each path's value as an update of that
+  // field would, the first at once (none while the path is not on the page
+  // yet). `state` is {field, get} for the element's value: `changed()`,
+  // called when its user has changed it, writes get() back to a store.
+  // Returns null when nothing is bound.
+  sv.bindElement = function(el, apply, state) {
+    var spec = el.getAttribute('data-shiny-vue-bind');
+    if (!spec) return null;
+    var map;
+    try { map = JSON.parse(spec); } catch (e) { warn('vue_bind: "' + spec + '" is not a map of paths'); return null; }
+    var stops = [], statePath = null;
+    Object.keys(map).forEach(function(field) {
+      var p = pathOf(map[field]);
+      if (!p) { warn('vue_bind: "' + map[field] + '" is not a path'); return; }
+      var isState = state && field === state.field;
+      if (isState) statePath = p;
+      stops.push(Vue.watch(function() { return readPath(p); }, function(v) {
+        if (v === undefined || (isState && same(v, state.get()))) return;
+        var d = {};
+        d[field] = copied(v);
+        apply(d);
+      }, { immediate: true, deep: true }));
+    });
+    return {
+      changed: function() {
+        if (!statePath || statePath.root !== 'store') return;
+        var v = state.get();
+        if (!same(v, readPath(statePath))) writePath(statePath, copied(v));
+      },
+      stop: function() { stops.forEach(function(s) { s(); }); }
+    };
+  };
+
+  // Run when an instance is created, before its first render: each bound
+  // field takes the path's value, follows it, and -- for a store -- sets it
+  // when the field changes (the component's user, an update)
+  var bindFields = {
+    created: function() {
+      var bound = this.$options.shinyVueBound, vm = this;
+      if (!bound) return;
+      Object.keys(bound).forEach(function(field) {
+        var p = pathOf(bound[field]);
+        if (!p) { warn('vue_bind: "' + bound[field] + '" is not a path'); return; }
+        vm.$watch(function() { return readPath(p); }, function(v) {
+          if (!same(v, vm[field])) vm[field] = copied(v);
+        }, { immediate: true, deep: true });
+        if (p.root === 'store') {
+          vm.$watch(field, function(v) {
+            if (!same(v, readPath(p))) writePath(p, copied(v));
+          }, { deep: true });
+        }
+      });
+    }
+  };
+
   // Which data outputs Shiny is recalculating, by output id --
   // $recalculating.<id> in templates
   var recalculating = null;
@@ -352,9 +463,11 @@
     if (!errors) errors = Vue.reactive({});
     return errors;
   };
-  // Shiny's input values, by id without a :type -- $inputs.<id>: what a
-  // template can read of the page's other inputs, as the server sees them
-  // (read-only: an input is set through its own component, or $setInput)
+  // The page's input values, by id without a :type -- $inputs.<id>: what a
+  // template can read of the page's other inputs. Each component puts its
+  // value here as it changes (feedInputs()), with or without Shiny on the
+  // page; Shiny's own inputs come from shiny:inputchanged. Read-only: an
+  // input is set through its own component, or $setInput.
   var inputs = null;
   sv.inputs = function() {
     if (!inputs) {
@@ -482,6 +595,7 @@
     revive(spec, spec.evals);
     var options = spec.options;
     if (spec.optional) options.shinyVueOptional = spec.optional;
+    if (spec.bound) options.shinyVueBound = spec.bound;
     aliasComponents(options);
     options.template = tpl.textContent;
     // Vue 3: data is a function, and the lifecycle hooks have new names
@@ -537,6 +651,8 @@
       get: function() { return sv.state().busy; }, enumerable: true, configurable: true
     });
     app.config.globalProperties.$optional = optionalProps;
+    // fields given vue_bind(), kept in step with what they follow
+    if (spec.bound) app.mixin(bindFields);
     // The page's router (vue_router()), in every app: vue-router keeps the
     // apps it is installed in, each with $router, $route, <router-link>
     if (sv.router) app.use(sv.router);
@@ -599,7 +715,26 @@
     placeOutputs(host, vm, spec.outputs);
     boxTrigger(host);
     host._svInitial = initialValues(host, vm);
+    feedInputs(host, vm, spec);
     return vm;
+  }
+
+  // The component's value, and those of the components folded into it, in
+  // $inputs as they change -- before any debounce, and with no Shiny on the
+  // page, so another component's vue_bind("$inputs.<id>") follows at once
+  function feedInputs(host, vm, spec) {
+    var inputs = sv.inputs();
+    var follow = function(name, expr) {
+      var get = getter(expr);
+      vm.$watch(function() { return get(this); }, function(v) {
+        inputs[name] = copied(v);
+      }, { immediate: true, deep: true });
+    };
+    if (spec.input) follow(host.getAttribute('data-shiny-vue-id') || host.id, spec.input);
+    Object.keys(spec.absorbed || {}).forEach(function(id) {
+      var e = spec.absorbed[id];
+      if (e && e.input) follow(id, e.input);
+    });
   }
 
   // A component an output renders (render_el_table()) shares the output's

@@ -17,32 +17,23 @@ el_calendar("cal", value = Sys.Date())
 You can set the type of the controller for Calendar header. When setting
 `select`, you can use `formatter` to customize `label`.
 
-The radio buttons set `controller_type` from the server, with
-[`update_el_calendar()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_calendar.md).
+The radio buttons set `controller_type`, which follows them in the
+browser, \[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  el_radio_group(
-    "controller",
-    choices = c("select", "button"),
-    value = "select",
-    button = TRUE
-  ),
-  el_calendar("cal_ctl", value = Sys.Date(), controller_type = "select")
+el_radio_group(
+  "controller",
+  choices = c("select", "button"),
+  value = "select",
+  button = TRUE
 )
-
-server <- function(input, output, session) {
-  observeEvent(input$controller, {
-    update_el_calendar(session, "cal_ctl", controller_type = input$controller)
-  })
-}
-
-shinyApp(ui, server)
+el_calendar(
+  "cal_ctl",
+  value = Sys.Date(),
+  controller_type = vue_bind("$inputs.controller")
+)
 ```
-
-![The controller-type example,
-running](../../shots/calendar-controller-type.png)
 
 ## Custom Content
 

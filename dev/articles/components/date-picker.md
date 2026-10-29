@@ -10,73 +10,69 @@ The measurement is determined by the `type` attribute. You can enable
 quick options via `shortcuts` property. The disabled date is set by
 `disabledDate`, which is a function.
 
-The radio buttons resize both pickers with
-`update_el_date_picker(size =)`.
+The radio buttons resize both pickers: their `size` follows them in the
+browser, \[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  tags$style(
-    ".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }
-     .demo-date-picker .block { padding: 1.5rem 0; text-align: center;
-       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
-     .demo-date-picker .block:last-child { border-right: none; }
-     .demo-date-picker .demonstration { display: block; margin-bottom: 20px;
-       color: var(--el-text-color-secondary); font-size: 14px; }"
-  ),
-  el_radio_group(
-    "dp_size",
-    choices = c("large", "default", "small"),
-    selected = "default",
-    button = TRUE
+tags$style(
+  ".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }
+   .demo-date-picker .block { padding: 1.5rem 0; text-align: center;
+     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+   .demo-date-picker .block:last-child { border-right: none; }
+   .demo-date-picker .demonstration { display: block; margin-bottom: 20px;
+     color: var(--el-text-color-secondary); font-size: 14px; }"
+)
+el_radio_group(
+  "dp_size",
+  choices = c("large", "default", "small"),
+  selected = "default",
+  button = TRUE
+)
+tags$div(
+  class = "demo-date-picker",
+  tags$div(
+    class = "block",
+    tags$span(class = "demonstration", "Default"),
+    el_date_picker(
+      "dp_default",
+      size = vue_bind("$inputs.dp_size"),
+      placeholder = "Pick a day"
+    )
   ),
   tags$div(
-    class = "demo-date-picker",
-    tags$div(
-      class = "block",
-      tags$span(class = "demonstration", "Default"),
-      el_date_picker("dp_default", placeholder = "Pick a day")
-    ),
-    tags$div(
-      class = "block",
-      tags$span(class = "demonstration", "Picker with quick options"),
-      el_date_picker(
-        "dp_quick",
-        placeholder = "Pick a day",
-        shortcuts = list(
-          list(text = "Today", value = JS("new Date()")),
-          list(
-            text = "Yesterday",
-            value = JS(
-              "function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); return d; }"
-            )
-          ),
-          list(
-            text = "A week ago",
-            value = JS(
-              "function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24 * 7); return d; }"
-            )
+    class = "block",
+    tags$span(class = "demonstration", "Picker with quick options"),
+    el_date_picker(
+      "dp_quick",
+      size = vue_bind("$inputs.dp_size"),
+      placeholder = "Pick a day",
+      shortcuts = list(
+        list(text = "Today", value = JS("new Date()")),
+        list(
+          text = "Yesterday",
+          value = JS(
+            "function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24); return d; }"
           )
         ),
-        disabled_date = JS(
-          "function(time) { return time.getTime() > Date.now(); }"
+        list(
+          text = "A week ago",
+          value = JS(
+            "function() { var d = new Date(); d.setTime(d.getTime() - 3600 * 1000 * 24 * 7); return d; }"
+          )
         )
+      ),
+      disabled_date = JS(
+        "function(time) { return time.getTime() > Date.now(); }"
       )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$dp_size, ignoreInit = TRUE, {
-    for (id in c("dp_default", "dp_quick")) {
-      update_el_date_picker(session, id, size = input$dp_size)
-    }
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The enter-date example,
-running](../../shots/date-picker-enter-date.png)
+Default
+
+Picker with quick options
 
 ## Other measurements
 
@@ -122,85 +118,78 @@ When in range mode, the left and right panels are linked by default. If
 you want the two panels to switch current months independently, you can
 use the `unlink-panels` attribute.
 
-The radio buttons resize both pickers with
-`update_el_date_picker(size =)`.
+The radio buttons resize both pickers: their `size` follows them in the
+browser, \[vue_bind()\].
 
 ``` r
 
-ui <- el_page(
-  tags$style(
-    ".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }
-     .demo-date-picker .block { padding: 1.5rem 0; text-align: center;
-       border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
-     .demo-date-picker .block:last-child { border-right: none; }
-     .demo-date-picker .demonstration { display: block; margin-bottom: 20px;
-       color: var(--el-text-color-secondary); font-size: 14px; }"
-  ),
-  el_radio_group(
-    "dp_range_size",
-    choices = c("large", "default", "small"),
-    selected = "default",
-    button = TRUE
+tags$style(
+  ".demo-date-picker { display: flex; width: 100%; flex-wrap: wrap; }
+   .demo-date-picker .block { padding: 1.5rem 0; text-align: center;
+     border-right: solid 1px var(--el-border-color); flex: 1; min-width: 300px; }
+   .demo-date-picker .block:last-child { border-right: none; }
+   .demo-date-picker .demonstration { display: block; margin-bottom: 20px;
+     color: var(--el-text-color-secondary); font-size: 14px; }"
+)
+el_radio_group(
+  "dp_range_size",
+  choices = c("large", "default", "small"),
+  selected = "default",
+  button = TRUE
+)
+tags$div(
+  class = "demo-date-picker",
+  tags$div(
+    class = "block",
+    tags$span(class = "demonstration", "Default"),
+    el_date_picker(
+      "dp_range",
+      size = vue_bind("$inputs.dp_range_size"),
+      type = "daterange",
+      range_separator = "To",
+      start_placeholder = "Start date",
+      end_placeholder = "End date"
+    )
   ),
   tags$div(
-    class = "demo-date-picker",
-    tags$div(
-      class = "block",
-      tags$span(class = "demonstration", "Default"),
-      el_date_picker(
-        "dp_range",
-        type = "daterange",
-        range_separator = "To",
-        start_placeholder = "Start date",
-        end_placeholder = "End date"
-      )
-    ),
-    tags$div(
-      class = "block",
-      tags$span(class = "demonstration", "With quick options"),
-      el_date_picker(
-        "dp_range_quick",
-        type = "daterange",
-        unlink_panels = TRUE,
-        range_separator = "To",
-        start_placeholder = "Start date",
-        end_placeholder = "End date",
-        shortcuts = list(
-          list(
-            text = "Last week",
-            value = JS(
-              "function() { var e = new Date(), s = new Date(); s.setTime(s.getTime() - 3600 * 1000 * 24 * 7); return [s, e]; }"
-            )
-          ),
-          list(
-            text = "Last month",
-            value = JS(
-              "function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 1); return [s, e]; }"
-            )
-          ),
-          list(
-            text = "Last 3 months",
-            value = JS(
-              "function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 3); return [s, e]; }"
-            )
+    class = "block",
+    tags$span(class = "demonstration", "With quick options"),
+    el_date_picker(
+      "dp_range_quick",
+      size = vue_bind("$inputs.dp_range_size"),
+      type = "daterange",
+      unlink_panels = TRUE,
+      range_separator = "To",
+      start_placeholder = "Start date",
+      end_placeholder = "End date",
+      shortcuts = list(
+        list(
+          text = "Last week",
+          value = JS(
+            "function() { var e = new Date(), s = new Date(); s.setTime(s.getTime() - 3600 * 1000 * 24 * 7); return [s, e]; }"
+          )
+        ),
+        list(
+          text = "Last month",
+          value = JS(
+            "function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 1); return [s, e]; }"
+          )
+        ),
+        list(
+          text = "Last 3 months",
+          value = JS(
+            "function() { var e = new Date(), s = new Date(); s.setMonth(s.getMonth() - 3); return [s, e]; }"
           )
         )
       )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$dp_range_size, ignoreInit = TRUE, {
-    for (id in c("dp_range", "dp_range_quick")) {
-      update_el_date_picker(session, id, size = input$dp_range_size)
-    }
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The date-range example,
-running](../../shots/date-picker-date-range.png)
+Default
+
+With quick options
 
 ## Month Range
 
