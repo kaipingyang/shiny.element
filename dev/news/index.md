@@ -84,6 +84,16 @@
 
 ### Bug fixes
 
+- A
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
+  placed inside an Element component built as a Vue app –
+  [`el_scrollbar()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_scrollbar.md),
+  [`el_splitter_panel()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_splitter_panel.md),
+  a popover’s body and the like – never mounted: it was left in the
+  component’s template, where Vue drops its `<script>`s, and nothing
+  said so. It is now an island of the component, as Shiny’s own inputs
+  and outputs already were (since 0.3.0).
+
 - A locale reaches the dates too. Element Plus’s date and time
   components take the week’s first day and the names of months and days
   from Day.js, whose locale, as Element Plus’s guide says, has to be
@@ -92,12 +102,14 @@
   `format = "MMMM"` month in English. The locale now sets Day.js’s as
   well, from Day.js 1.11.20’s files, bundled (Kurmanji and Malagasy have
   none).
+
 - Clearing a select now reports `NULL` to the server. Element sets a
   cleared select to `undefined`, which JSON has no form for, so the
   update was never sent and `input$<id>` kept the value the user had
   just cleared. Any component’s value, store field or
   `shinyVue.useInput()` that becomes `undefined` now reports `NULL`, as
   an empty selection does.
+
 - `value_on_clear = JS("null")` makes a cleared select, cascader, picker
   or input number hold `null`, as Element documents. Every optional prop
   was bound through `x === null ? undefined : x`, so `null` became
@@ -106,6 +118,7 @@
   default and `JS("null")` a `null`; the pages are smaller too
   ([`el_select()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_select.md)’s
   from 5757 characters to 4400).
+
 - `update_el_*()` checks an enumerated argument as the UI function does:
   `update_el_button(type = "primay")` is an error, as
   `el_button(type = "primay")` is, where it was sent and silently
