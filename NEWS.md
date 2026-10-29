@@ -66,6 +66,12 @@
 
 ## Bug fixes
 
+* A `vue_app()` placed inside an Element component built as a Vue app --
+  `el_scrollbar()`, `el_splitter_panel()`, a popover's body and the like
+  -- never mounted: it was left in the component's template, where Vue
+  drops its `<script>`s, and nothing said so. It is now an island of the
+  component, as Shiny's own inputs and outputs already were (since 0.3.0).
+
 * A locale reaches the dates too. Element Plus's date and time components
   take the week's first day and the names of months and days from Day.js,
   whose locale, as Element Plus's guide says, has to be loaded and set apart
