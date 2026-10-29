@@ -117,6 +117,8 @@ el_pagination <- function(
   session = NULL
 ) {
   .el_check_choices("el_pagination", environment())
+  # R reads these to draw the component
+  .vue_unbound(page_sizes = page_sizes)
   if (is.null(id)) {
     id <- .vue_auto_id("el_pagination")
   }

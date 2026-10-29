@@ -102,6 +102,8 @@ el_image <- function(
   session = NULL
 ) {
   .el_check_choices("el_image", environment())
+  # R reads these to draw the component
+  .vue_unbound(class = class, style = style)
   if (is.null(id)) {
     id <- .vue_auto_id("el_image")
   }

@@ -45,6 +45,8 @@ navbar:
           href: articles/architecture.html
         - text: Performance
           href: articles/performance.html
+        - text: Responsiveness
+          href: articles/responsiveness.html
         - text: Installation & Quick Start
           href: articles/shiny.element.html
         - text: -------
@@ -265,6 +267,7 @@ articles:
       - articles/design
       - articles/architecture
       - articles/performance
+      - articles/responsiveness
       - articles/i18n
       - articles/migration
       - articles/theming
@@ -463,6 +466,7 @@ reference:
       - vue_app
       - vue_component
       - vue_store
+      - vue_bind
       - vue_router
       - update_vue_router
       - vueuse_dependency

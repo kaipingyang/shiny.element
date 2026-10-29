@@ -43,3 +43,17 @@ test_that("vue_app() puts the holder in its host, and a component its own", {
   expect_match(html, '<shiny-island name="1"></shiny-island>', fixed = TRUE)
   expect_match(html, "data-shiny-vue-islands", fixed = TRUE)
 })
+
+test_that("a vue_app() inside an Element component is an island of it", {
+  # not folded, as the package's own components are: left in the
+  # template, Vue would drop its <script>s and it would never mount
+  html <- render_html(el_scrollbar(
+    id = "sb",
+    max_height = "200px",
+    vue_app("inner", htmltools::tags$p("{{ n }}"), data = list(n = 1))
+  ))
+  expect_match(html, "<shiny-island name=", fixed = TRUE)
+  expect_match(html, 'data-shiny-island-of="1"', fixed = TRUE)
+  holder <- sub(".*data-shiny-vue-islands", "", html)
+  expect_match(holder, 'id="inner"', fixed = TRUE)
+})

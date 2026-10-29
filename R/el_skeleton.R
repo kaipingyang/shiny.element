@@ -56,6 +56,8 @@ el_skeleton <- function(
   on = NULL,
   session = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(class = class, style = style)
   if (is.null(id)) {
     id <- .vue_auto_id("el_skeleton")
   }

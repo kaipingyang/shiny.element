@@ -157,13 +157,16 @@
 
 #' Handlers of the user's own, as `on`
 #'
-#' Each becomes a method the component's tag listens with: `@<event>`.
-#' The handler is called with `report` first -- `report(name, value)` sets
-#' `input$<id>_<name>` -- then the event's own arguments, and `this` the
-#' Vue instance.
+#' A [JS()] function becomes a method the component's tag listens with:
+#' `@<event>`. It is called with `report` first -- `report(name, value)`
+#' sets `input$<id>_<name>` -- then the event's own arguments, and `this`
+#' the Vue instance. A string is Vue's inline statement, as `@click="..."`
+#' takes it -- `"$store.ui.open = true"`, `$event` the event's first
+#' argument -- written into the template as it is, inside the arrow
+#' function the tag's handlers are joined in.
 #'
 #' @param ns_id The namespaced id.
-#' @param on A named list of [JS()] functions.
+#' @param on A named list of [JS()] functions or strings.
 #' @return A list with `attrs` and `methods`.
 #' @keywords internal
 .vue_on_bindings <- function(ns_id, on) {
@@ -182,18 +185,31 @@
       call. = FALSE
     )
   }
-  plain <- !vapply(on, inherits, TRUE, "JS_EVAL")
-  if (any(plain)) {
+  fun <- vapply(on, inherits, TRUE, "JS_EVAL")
+  statement <- !fun &
+    vapply(
+      on,
+      function(x) is.character(x) && length(x) == 1L && !is.na(x),
+      TRUE
+    )
+  if (any(!fun & !statement)) {
+    bad <- names(on)[!fun & !statement]
     stop(
-      "`on` takes JS() functions; ",
-      paste(sQuote(names(on)[plain], FALSE), collapse = ", "),
-      if (sum(plain) == 1L) " is" else " are",
-      " not.",
+      "`on` takes JS() functions or Vue's inline statements, as strings; ",
+      paste(sQuote(bad, FALSE), collapse = ", "),
+      if (length(bad) == 1L) " is" else " are",
+      " neither.",
       call. = FALSE
     )
   }
   events <- gsub("_", "-", names(on), fixed = TRUE)
   names(on) <- events
+  # a statement goes in the template, in the arrow function a tag's
+  # handlers are joined in (.vue_join_handlers()), $event its first argument
+  inline <- lapply(on[statement], function(s) {
+    paste0("(...a) => { const $event = a[0]; ", s, "; }")
+  })
+  on <- on[fun]
   method <- sprintf("svOn%d", seq_along(on))
   methods <- stats::setNames(
     lapply(on, function(f) {
@@ -209,10 +225,9 @@
     }),
     method
   )
-  list(
-    attrs = stats::setNames(as.list(method), paste0("@", events)),
-    methods = methods
-  )
+  attrs <- c(as.list(method), inline)
+  names(attrs) <- paste0("@", c(events[fun], events[statement]))
+  list(attrs = attrs[paste0("@", events)], methods = methods)
 }
 
 #' Add `on` handlers to a tag, beside any it already listens with

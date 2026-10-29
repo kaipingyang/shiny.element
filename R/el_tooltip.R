@@ -140,6 +140,8 @@ el_tooltip <- function(
   session = NULL
 ) {
   .el_check_choices("el_tooltip", environment())
+  # R reads these to draw the component
+  .vue_unbound(reference = reference)
   if (!is.null(trigger) && !is.character(trigger)) {
     stop(
       "`trigger` is how the tooltip opens (\"hover\", \"click\", ...); ",

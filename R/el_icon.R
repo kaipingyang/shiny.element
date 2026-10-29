@@ -54,6 +54,16 @@ el_icon <- function(
   ...,
   color = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(
+    name = name,
+    size = size,
+    class = class,
+    title = title,
+    a11y = a11y,
+    lib = lib,
+    color = color
+  )
   if (identical(lib, "element-ui")) {
     lib <- "element-plus"
   }

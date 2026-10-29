@@ -229,6 +229,8 @@ el_cascader <- function(
   session = NULL
 ) {
   .el_check_choices("el_cascader", environment())
+  # R reads these to draw the component
+  .vue_unbound(level_inputs = level_inputs)
   if (is.null(id)) {
     id <- .vue_auto_id("el_cascader")
   }
@@ -264,7 +266,7 @@ el_cascader <- function(
     options = options,
     # always an array, a path of one level too: "c1" alone would arrive as a
     # string
-    value = if (is.null(value)) list() else as.list(value),
+    value = .vue_array(value),
     placeholder = placeholder,
     clearable = clearable,
     filterable = filterable,

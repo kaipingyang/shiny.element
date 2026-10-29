@@ -68,24 +68,59 @@ tagList(
 )
 
 ## fullscreen
-#' `el_loading(fullscreen = TRUE)` covers the page until
-#' `el_loading_close()`; `lock` stops it scrolling meanwhile.
+#' In the browser, Element's own service, `$loading()`, in an `on` handler:
+#' it covers the page until closed, `lock` stopping it scrolling meanwhile.
+#' From the server it is `el_loading(session, id, fullscreen = TRUE)` and
+#' `el_loading_close()`: see In Shiny below.
 #| shot_js = "document.querySelectorAll('button')[1].click()"
 #| shot_wait = 1
 #| shot_sel = ".el-loading-mask"
 #| shot_expect = "document.querySelector('.el-loading-mask.is-fullscreen .el-loading-text').innerText === 'Loading'"
-ui <- el_page(
-  el_button("full_directive", "As a directive", type = "primary"),
-  el_button("full_service", "As a service", type = "primary")
+el_button(
+  "full_directive",
+  "As a directive",
+  type = "primary",
+  on = list(
+    click = JS(
+      "function() {
+        var mask = this.$loading({ fullscreen: true, lock: true });
+        setTimeout(function() { mask.close(); }, 2000);
+      }"
+    )
+  )
 )
+el_button(
+  "full_service",
+  "As a service",
+  type = "primary",
+  on = list(
+    click = JS(
+      "function() {
+        var mask = this.$loading({
+          fullscreen: true,
+          lock: true,
+          text: 'Loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        setTimeout(function() { mask.close(); }, 2000);
+      }"
+    )
+  )
+)
+
+## in-shiny
+#' From the server, `el_loading(session, id, ...)` covers the page -- or
+#' an element, `target` -- while the server works, and
+#' `el_loading_close(session, id)` takes it away.
+#| shot_js = "document.querySelector('#work_container button').click()"
+#| shot_wait = 1
+#| shot_sel = ".el-loading-mask"
+ui <- el_page(el_button("work", "Run", type = "primary"))
 server <- function(input, output, session) {
-  cover <- function(...) {
-    el_loading(session, "page", fullscreen = TRUE, lock = TRUE, ...)
-    later::later(function() el_loading_close(session, "page"), 2)
-  }
-  observeEvent(input$full_directive, cover())
-  observeEvent(input$full_service, {
-    cover(text = "Loading", background = "rgba(0, 0, 0, 0.7)")
+  observeEvent(input$work, {
+    el_loading(session, "page", fullscreen = TRUE, text = "Working")
+    Sys.sleep(2) # the server's work
+    el_loading_close(session, "page")
   })
 }
 shinyApp(ui, server)

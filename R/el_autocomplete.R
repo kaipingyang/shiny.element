@@ -123,6 +123,12 @@ el_autocomplete <- function(
   session = NULL
 ) {
   .el_check_choices("el_autocomplete", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    suggestions = suggestions,
+    remote = remote,
+    fetch_suggestions = fetch_suggestions
+  )
   if (is.null(id)) {
     id <- .vue_auto_id("el_autocomplete")
   }

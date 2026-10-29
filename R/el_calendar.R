@@ -190,6 +190,13 @@ el_calendar <- function(
   workweek = FALSE
 ) {
   .el_check_choices("el_calendar", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    range = range,
+    editable = editable,
+    use_detail_popup = use_detail_popup,
+    workweek = workweek
+  )
   # mistakes are reported here, where the calendar is written
   .el_calendar_events(events)
   .el_calendar_labels(event_labels)

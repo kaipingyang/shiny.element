@@ -29,6 +29,15 @@ el_divider <- function(
   style = NULL
 ) {
   .el_check_choices("el_divider", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    content = content,
+    direction = direction,
+    content_position = content_position,
+    border_style = border_style,
+    class = class,
+    style = style
+  )
   direction <- match.arg(direction, c("horizontal", "vertical"))
   content_position <- match.arg(content_position, c("center", "left", "right"))
 

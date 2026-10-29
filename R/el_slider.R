@@ -133,13 +133,15 @@ el_slider <- function(
   session = NULL
 ) {
   .el_check_choices("el_slider", environment())
+  # R reads these to draw the component
+  .vue_unbound(range = range, vertical = vertical)
   if (is.null(id)) {
     id <- .vue_auto_id("el_slider")
   }
   ns_id <- .vue_ui_id(id, session)
 
   # Normalize value for range mode
-  if (range && length(value) == 1) {
+  if (range && length(value) == 1 && !inherits(value, "vue_bind")) {
     value <- c(value, max)
   }
 
@@ -173,7 +175,13 @@ el_slider <- function(
 
   # Vue data
   vue_data <- list(
-    value = if (range) as.list(value) else value[1],
+    value = if (range) {
+      .vue_array(value)
+    } else if (inherits(value, "vue_bind")) {
+      value
+    } else {
+      value[1]
+    },
     min = min,
     max = max,
     step = step,

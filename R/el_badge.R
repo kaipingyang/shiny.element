@@ -48,6 +48,22 @@ el_badge <- function(
   on = NULL
 ) {
   .el_check_choices("el_badge", environment())
+  # state followed in the browser needs an instance of its own
+  if (
+    is.null(id) &&
+      .vue_has_bind(list(
+        value,
+        max,
+        type,
+        show_zero,
+        color,
+        offset,
+        badge_style,
+        badge_class
+      ))
+  ) {
+    id <- .vue_auto_id("el_badge")
+  }
   if (!is.null(id)) {
     content <- list(...)
     inner <- .el_absorb(

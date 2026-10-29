@@ -20,30 +20,22 @@ el_time_select(
 )
 
 ## time-range
-#' The end's earliest time follows the start: the server redraws it.
-ui <- el_page(
-  el_time_select(
-    "start",
-    start = "08:30",
-    step = "00:15",
-    end = "18:30",
-    placeholder = "Start time",
-    width = "240px"
-  ),
-  uiOutput("end_ui")
+#' The end's earliest time follows the start: its `min_time` is the
+#' start's value, [vue_bind()], in the browser.
+el_time_select(
+  "start",
+  start = "08:30",
+  step = "00:15",
+  end = "18:30",
+  placeholder = "Start time",
+  width = "240px"
 )
-
-server <- function(input, output, session) {
-  output$end_ui <- renderUI(el_time_select(
-    "end",
-    start = "08:30",
-    step = "00:15",
-    end = "18:30",
-    min_time = if (isTruthy(input$start)) input$start,
-    value = isolate(input$end),
-    placeholder = "End time",
-    width = "240px"
-  ))
-}
-
-shinyApp(ui, server)
+el_time_select(
+  "end",
+  start = "08:30",
+  step = "00:15",
+  end = "18:30",
+  min_time = vue_bind("$inputs.start"),
+  placeholder = "End time",
+  width = "240px"
+)

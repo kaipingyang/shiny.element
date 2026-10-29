@@ -89,40 +89,32 @@ tagList(
 )
 
 ## group
-#' The radios turn the second group, with `update_el_button_group(direction
-#' =)`.
+#' The radios turn the second group: its `direction` follows them,
+#' [vue_bind()], in the browser.
 #| shot_js = "Array.from(document.querySelectorAll('#direction .el-radio')).find(function(r){ return r.innerText.trim() === 'Vertical'; }).click()"
 #| shot_expect = "document.querySelector('#dir_group .el-button-group--vertical')"
-ui <- el_page(
-  el_button_group(
-    el_button("prev", "Previous Page", type = "primary", icon = "ArrowLeft"),
-    el_button(
-      "next",
-      tagList("Next Page", el_icon("ArrowRight", class = "el-icon--right")),
-      type = "primary"
-    )
-  ),
-  tags$br(),
-  el_radio_group(
-    "direction",
-    choices = c(Horizontal = "horizontal", Vertical = "vertical"),
-    value = "horizontal"
-  ),
-  tags$br(),
-  el_button_group(
-    id = "dir_group",
-    direction = "horizontal",
-    el_button("g1", NULL, type = "primary", icon = "House"),
-    el_button("g2", NULL, type = "primary", icon = "Operation"),
-    el_button("g3", NULL, type = "primary", icon = "Notification")
+el_button_group(
+  el_button("prev", "Previous Page", type = "primary", icon = "ArrowLeft"),
+  el_button(
+    "next",
+    tagList("Next Page", el_icon("ArrowRight", class = "el-icon--right")),
+    type = "primary"
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$direction, ignoreInit = TRUE, {
-    update_el_button_group(session, "dir_group", direction = input$direction)
-  })
-}
-shinyApp(ui, server)
+tags$br()
+el_radio_group(
+  "direction",
+  choices = c(Horizontal = "horizontal", Vertical = "vertical"),
+  value = "horizontal"
+)
+tags$br()
+el_button_group(
+  id = "dir_group",
+  direction = vue_bind("$inputs.direction"),
+  el_button("g1", NULL, type = "primary", icon = "House"),
+  el_button("g2", NULL, type = "primary", icon = "Operation"),
+  el_button("g3", NULL, type = "primary", icon = "Notification")
+)
 
 ## loading
 tagList(

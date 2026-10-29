@@ -46,6 +46,8 @@ el_backtop <- function(
   on = NULL,
   session = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(content = content)
   if (is.null(id)) {
     id <- .vue_auto_id("el_backtop")
   }

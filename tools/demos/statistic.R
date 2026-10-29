@@ -47,8 +47,8 @@ el_row(
 )
 
 ## countdown
-#' `input$<id>_finish` fires at zero. Reset sets the second one's `value`
-#' again, with `update_el_countdown()`.
+#' `input$<id>_finish` fires at zero. The second one's `value` is a store's
+#' field, [vue_bind()]: Reset sets it again, in the browser.
 #| shot_js = "document.querySelector('#cd_reset button').click()"
 #| shot_expect = "/^4[78]:/.test(document.querySelectorAll('.el-statistic__number')[1].innerText.trim())"
 next_month <- as.POSIXct(
@@ -63,53 +63,54 @@ col <- function(...) {
     ...
   )
 }
-ui <- el_page(
-  el_row(
-    gutter = 16,
-    col(el_countdown(
-      "cd_grab",
-      title = "Start to grab",
-      value = Sys.time() + 60 * 60 * 7
-    )),
-    col(
-      el_countdown(
-        "cd_vip",
-        title = "Remaining VIP time",
-        format = "HH:mm:ss",
-        value = Sys.time() + 60 * 60 * 24 * 2 - 60 * 60
-      ),
-      tags$div(
-        style = "margin-top: 8px",
-        el_button("cd_reset", "Reset", type = "primary")
-      )
-    ),
-    col(
-      el_countdown(
-        "cd_month",
-        format = "DD [days] HH:mm:ss",
-        value = next_month,
-        slots = list(
-          title = tags$div(
-            style = "display: inline-flex; align-items: center",
-            el_icon("Calendar", size = 12, style = "margin-right: 4px"),
-            "Still to go until next month"
-          )
-        )
-      ),
-      tags$div(style = "margin-top: 8px", format(next_month, "%Y-%m-%d"))
-    )
+vue_store(
+  "vip",
+  state = list(
+    until = as.numeric(Sys.time() + 60 * 60 * 24 * 2 - 60 * 60) * 1000
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$cd_reset, {
-    update_el_countdown(
-      session,
+el_row(
+  gutter = 16,
+  col(el_countdown(
+    "cd_grab",
+    title = "Start to grab",
+    value = Sys.time() + 60 * 60 * 7
+  )),
+  col(
+    el_countdown(
       "cd_vip",
-      value = Sys.time() + 60 * 60 * 24 * 2
+      title = "Remaining VIP time",
+      format = "HH:mm:ss",
+      value = vue_bind("$store.vip.until")
+    ),
+    tags$div(
+      style = "margin-top: 8px",
+      el_button(
+        "cd_reset",
+        "Reset",
+        type = "primary",
+        on = list(
+          click = "$store.vip.until = Date.now() + 1000 * 60 * 60 * 24 * 2"
+        )
+      )
     )
-  })
-}
-shinyApp(ui, server)
+  ),
+  col(
+    el_countdown(
+      "cd_month",
+      format = "DD [days] HH:mm:ss",
+      value = next_month,
+      slots = list(
+        title = tags$div(
+          style = "display: inline-flex; align-items: center",
+          el_icon("Calendar", size = 12, style = "margin-right: 4px"),
+          "Still to go until next month"
+        )
+      )
+    ),
+    tags$div(style = "margin-top: 8px", format(next_month, "%Y-%m-%d"))
+  )
+)
 
 ## card
 card <- function(title, value, delta, up) {

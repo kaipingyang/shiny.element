@@ -114,6 +114,8 @@ el_radio_group <- function(
   session = NULL
 ) {
   .el_check_choices("el_radio_group", environment())
+  # R reads these to draw the component
+  .vue_unbound(choices = choices, button = button)
   selected <- .vue_alias(selected, value, "selected", "value")
   choices <- .vue_alias(choices, options, "choices", "options")
   if (is.null(choices)) {

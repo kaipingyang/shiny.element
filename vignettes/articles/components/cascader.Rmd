@@ -495,8 +495,10 @@ Toggle the visibility of the prefix with `showPrefix`.
 :::tip Add `checkOnClickLeaf` to check only the leaf node (last children), enabled by default.
 :::
 
-The switch shows or hides each node's prefix -- its radio or checkbox --
-with `update_el_cascader(props =)`.
+The switch shows or hides each node's prefix -- its radio or checkbox.
+Its value is a store's field, [vue_bind()], and each cascader's `props`
+a getter of the store built from it: Pinia's computed state, as
+upstream's `computed()`.
 
 ```{r check-on-click-node, eval = FALSE, shot = TRUE, shot_js = c("document.querySelector('#show_prefix .el-switch').click()", "document.querySelector('#cas_c1 .el-input__inner').click()"), shot_sel = ".el-cascader__dropdown", shot_expect = c("document.querySelector('.el-cascader__dropdown .el-cascader-node')", "!document.querySelector('.el-cascader__dropdown .el-cascader-node .el-radio')")}
 tree <- list(list(
@@ -515,42 +517,39 @@ tree <- list(list(
     )
   )
 ))
-strict <- function(prefix) {
-  list(showPrefix = prefix, checkStrictly = TRUE, checkOnClickNode = TRUE)
-}
-multiple <- function(prefix) {
-  list(showPrefix = prefix, multiple = TRUE, checkOnClickNode = TRUE)
-}
-ui <- el_page(
-  el_switch(
-    "show_prefix",
-    value = TRUE,
-    active_text = "show prefix",
-    inactive_text = "hide prefix"
-  ),
-  tags$p("checkStrictly | Single mode"),
-  el_cascader(
-    "cas_c1",
-    options = tree,
-    clearable = TRUE,
-    props = strict(TRUE)
-  ),
-  tags$p("Multiple mode"),
-  el_cascader(
-    "cas_c2",
-    options = tree,
-    clearable = TRUE,
-    show_checked_strategy = "parent",
-    props = multiple(TRUE)
+vue_store(
+  "prefix",
+  state = list(show = TRUE),
+  getters = list(
+    strict = JS(
+      "function(s) { return { showPrefix: s.show, checkStrictly: true, checkOnClickNode: true }; }"
+    ),
+    multiple = JS(
+      "function(s) { return { showPrefix: s.show, multiple: true, checkOnClickNode: true }; }"
+    )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$show_prefix, ignoreInit = TRUE, {
-    update_el_cascader(session, "cas_c1", props = strict(input$show_prefix))
-    update_el_cascader(session, "cas_c2", props = multiple(input$show_prefix))
-  })
-}
-shinyApp(ui, server)
+el_switch(
+  "show_prefix",
+  value = vue_bind("$store.prefix.show"),
+  active_text = "show prefix",
+  inactive_text = "hide prefix"
+)
+tags$p("checkStrictly | Single mode")
+el_cascader(
+  "cas_c1",
+  options = tree,
+  clearable = TRUE,
+  props = vue_bind("$store.prefix.strict")
+)
+tags$p("Multiple mode")
+el_cascader(
+  "cas_c2",
+  options = tree,
+  clearable = TRUE,
+  show_checked_strategy = "parent",
+  props = vue_bind("$store.prefix.multiple")
+)
 ```
 
 ## Custom Header & Footer

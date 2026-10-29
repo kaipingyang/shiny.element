@@ -35,6 +35,18 @@ el_card <- function(
   style = NULL
 ) {
   .el_check_choices("el_card", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    header = header,
+    body_style = body_style,
+    shadow = shadow,
+    footer = footer,
+    header_class = header_class,
+    body_class = body_class,
+    footer_class = footer_class,
+    class = class,
+    style = style
+  )
   # left to Element: "always", or a config provider's card setting
   shadow_default <- is.null(shadow)
   card_class <- paste0("el-card is-", shadow %||% "always", "-shadow")

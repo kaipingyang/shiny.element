@@ -267,6 +267,8 @@ el_carousel_item <- function(
   style = NULL,
   class = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(name = name, label = label, style = style, class = class)
   .el_item(
     "el_carousel_item",
     list(
@@ -308,6 +310,13 @@ el_step <- function(
   status = NULL
 ) {
   .el_check_choices("el_step", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    title = title,
+    description = description,
+    icon = icon,
+    status = status
+  )
   .el_item(
     "el_step",
     list(title = title, description = description, icon = icon, status = status)
@@ -431,6 +440,23 @@ el_tour_step <- function(
   close_icon = NULL
 ) {
   .el_check_choices("el_tour_step", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    target = target,
+    title = title,
+    description = description,
+    header = header,
+    show_arrow = show_arrow,
+    placement = placement,
+    content_style = content_style,
+    mask = mask,
+    type = type,
+    next_button_props = next_button_props,
+    prev_button_props = prev_button_props,
+    scroll_into_view_options = scroll_into_view_options,
+    show_close = show_close,
+    close_icon = close_icon
+  )
   .el_item(
     "el_tour_step",
     list(
@@ -768,6 +794,44 @@ el_table_column <- function(
   tooltip_formatter = NULL
 ) {
   .el_check_choices("el_table_column", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    prop = prop,
+    label = label,
+    cell = cell,
+    editable = editable,
+    editor = editor,
+    header = header,
+    header_html = header_html,
+    filter_icon = filter_icon,
+    type = type,
+    index = index,
+    column_key = column_key,
+    width = width,
+    min_width = min_width,
+    fixed = fixed,
+    render_header = render_header,
+    sortable = sortable,
+    sort_method = sort_method,
+    sort_by = sort_by,
+    sort_orders = sort_orders,
+    resizable = resizable,
+    formatter = formatter,
+    show_overflow_tooltip = show_overflow_tooltip,
+    align = align,
+    header_align = header_align,
+    class_name = class_name,
+    label_class_name = label_class_name,
+    selectable = selectable,
+    reserve_selection = reserve_selection,
+    filters = filters,
+    filter_placement = filter_placement,
+    filter_class_name = filter_class_name,
+    filter_multiple = filter_multiple,
+    filter_method = filter_method,
+    filtered_value = filtered_value,
+    tooltip_formatter = tooltip_formatter
+  )
   children <- list(...)
   # A group written el_table_column(label = "Info", el_table_column(...)):
   # R hands the first child column to `prop`, the next to `label`
@@ -922,6 +986,8 @@ el_table_v2_column <- function(
 #' @export
 el_skeleton_item <- function(variant = NULL, ...) {
   .el_check_choices("el_skeleton_item", environment())
+  # R reads these to draw the component
+  .vue_unbound(variant = variant)
   htmltools::tag("el-skeleton-item", c(list(variant = variant), list(...)))
 }
 

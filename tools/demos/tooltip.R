@@ -62,23 +62,16 @@ el_tooltip(
 )
 
 ## advanced-usage
-#' Turned on and off from the server, `update_el_tooltip(disabled =)`.
-ui <- el_page(
-  el_switch("tip_on", value = TRUE, active_text = "tooltip on"),
-  el_tooltip(
-    "adv",
-    el$button("Hover me"),
-    content = "click the switch to turn me off",
-    placement = "bottom"
-  )
+#' The switch turns the tooltip off: its `disabled` follows the switch in
+#' the browser, [vue_bind()].
+el_switch("tip_off", value = FALSE, active_text = "tooltip off")
+el_tooltip(
+  "adv",
+  el$button("Hover me"),
+  content = "turn the switch on to turn me off",
+  placement = "bottom",
+  disabled = vue_bind("$inputs.tip_off")
 )
-server <- function(input, output, session) {
-  observeEvent(
-    input$tip_on,
-    update_el_tooltip(id = "adv", disabled = !input$tip_on)
-  )
-}
-shinyApp(ui, server)
 
 ## html-content
 #| shot_js = "var b = document.querySelector('#shot button'); ['mouseenter','mouseover'].forEach(function(t){ b.dispatchEvent(new MouseEvent(t, {bubbles: true})); });", shot_sel = ".el-popper", shot_wait = 1

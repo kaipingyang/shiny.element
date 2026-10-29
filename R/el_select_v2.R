@@ -217,6 +217,8 @@ el_select_v2 <- function(
   on = NULL
 ) {
   .el_check_choices("el_select_v2", environment())
+  # R reads these to draw the component
+  .vue_unbound(options = options)
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =)
   # Groups -- list(label =, options =) -- are passed as Element Plus takes them

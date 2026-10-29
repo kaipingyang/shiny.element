@@ -92,6 +92,8 @@ el_cascader_panel <- function(
   on = NULL,
   session = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(level_inputs = level_inputs)
   if (is.null(id)) {
     id <- .vue_auto_id("el_cascader_panel")
   }
@@ -129,7 +131,7 @@ el_cascader_panel <- function(
     id = ns_id,
     markup = htmltools::tag("el-cascader-panel", attrs),
     data = list(
-      value = if (is.null(value)) list() else as.list(value),
+      value = .vue_array(value),
       options = unname(options),
       props = .vue_or_na(props)
     ),

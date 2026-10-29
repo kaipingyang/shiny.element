@@ -4,25 +4,19 @@ el_calendar("cal", value = Sys.Date())
 ## controller-type
 #| shot_js = "document.querySelectorAll('#controller_container .el-radio-button')[1].click()"
 #| shot_wait = 2
-#' The radio buttons set `controller_type` from the server, with
-#' `update_el_calendar()`.
-ui <- el_page(
-  el_radio_group(
-    "controller",
-    choices = c("select", "button"),
-    value = "select",
-    button = TRUE
-  ),
-  el_calendar("cal_ctl", value = Sys.Date(), controller_type = "select")
+#' The radio buttons set `controller_type`, which follows them in the
+#' browser, [vue_bind()].
+el_radio_group(
+  "controller",
+  choices = c("select", "button"),
+  value = "select",
+  button = TRUE
 )
-
-server <- function(input, output, session) {
-  observeEvent(input$controller, {
-    update_el_calendar(session, "cal_ctl", controller_type = input$controller)
-  })
-}
-
-shinyApp(ui, server)
+el_calendar(
+  "cal_ctl",
+  value = Sys.Date(),
+  controller_type = vue_bind("$inputs.controller")
+)
 
 ## customize
 tagList(

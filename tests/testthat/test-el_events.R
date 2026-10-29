@@ -135,10 +135,34 @@ test_that("on binds a handler of the user's own, reporting under the id", {
 
   expect_error(el_input("q", on = list(JS("function() {}"))), "named list")
   expect_error(
-    el_input("q", on = list(keyup = "x")),
-    "takes JS() functions",
+    el_input("q", on = list(keyup = 1)),
+    "takes JS() functions or Vue's inline statements",
     fixed = TRUE
   )
+})
+
+test_that("on takes Vue's inline statements, joined with the component's own", {
+  # a button's own click and the statement, run in turn
+  html <- render_html(el_button(
+    "b",
+    "Open",
+    on = list(click = "$store.ui.open = true")
+  ))
+  expect_match(
+    html,
+    "(...a) =&gt; { const $event = a[0]; $store.ui.open = true; }",
+    fixed = TRUE
+  )
+  # a JS() function and a statement on one component
+  html <- render_html(el_input(
+    "q",
+    on = list(
+      focus = "$store.ui.focused = true",
+      "keyup.enter" = JS("function(report, e) { report('enter', 1); }")
+    )
+  ))
+  expect_match(html, "@focus=", fixed = TRUE)
+  expect_match(html, "@keyup.enter=\"svOn1\"")
 })
 
 test_that("on takes an event the component handles itself: both run", {

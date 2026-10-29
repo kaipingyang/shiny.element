@@ -164,61 +164,49 @@ shinyApp(ui, server)
 
 ## validation
 #| shot_js = "document.querySelector('#shot .el-button--primary').click()"
-ui <- el_page(
-  el_form(
-    id = "rules",
-    label_width = "120px",
-    submit_label = "Create",
-    reset_label = "Reset",
-    el_form_field(
-      "name",
-      "input",
-      label = "Activity name",
-      rules = list(
-        el_rule(required = TRUE, message = "Please input Activity name"),
-        el_rule(min = 3, max = 5, message = "Length should be 3 to 5")
-      )
-    ),
-    el_form_field(
-      "region",
-      "select",
-      label = "Activity zone",
-      choices = c("Zone one" = "shanghai", "Zone two" = "beijing"),
-      rules = el_rule(
-        required = TRUE,
-        message = "Please select Activity zone",
-        trigger = "change"
-      )
-    ),
-    el_form_field(
-      "type",
-      "checkbox-group",
-      label = "Activity type",
-      choices = c("Online activities", "Promotion activities"),
-      rules = el_rule(
-        type = "array",
-        required = TRUE,
-        trigger = "change",
-        message = "Please select at least one activity type"
-      )
+el_form(
+  id = "rules",
+  label_width = "120px",
+  submit_label = "Create",
+  reset_label = "Reset",
+  el_form_field(
+    "name",
+    "input",
+    label = "Activity name",
+    rules = list(
+      el_rule(required = TRUE, message = "Please input Activity name"),
+      el_rule(min = 3, max = 5, message = "Length should be 3 to 5")
     )
   ),
-  verbatimTextOutput("verdict")
+  el_form_field(
+    "region",
+    "select",
+    label = "Activity zone",
+    choices = c("Zone one" = "shanghai", "Zone two" = "beijing"),
+    rules = el_rule(
+      required = TRUE,
+      message = "Please select Activity zone",
+      trigger = "change"
+    )
+  ),
+  el_form_field(
+    "type",
+    "checkbox-group",
+    label = "Activity type",
+    choices = c("Online activities", "Promotion activities"),
+    rules = el_rule(
+      type = "array",
+      required = TRUE,
+      trigger = "change",
+      message = "Please select at least one activity type"
+    )
+  )
 )
-
-server <- function(input, output, session) {
-  output$verdict <- renderPrint({
-    req(input$rules_submit)
-    input$rules_valid
-  })
-}
-
-shinyApp(ui, server)
 
 ## custom-validation
 #| shot_js = "var i = document.querySelectorAll('#shot input')[2]; i.value = '17'; i.dispatchEvent(new Event('input')); document.querySelector('#shot .el-button--primary').click();"
 #| shot_wait = 2
-ui <- el_page(el_form(
+el_form(
   id = "account",
   status_icon = TRUE,
   label_width = "120px",
@@ -260,9 +248,7 @@ ui <- el_page(el_form(
       )
     )
   )
-))
-
-shinyApp(ui, function(input, output, session) {})
+)
 
 ## form-items
 #| shot_js = "document.querySelector('#more_container button').click()"
@@ -320,7 +306,7 @@ shinyApp(ui, server)
 ## number-validate
 #| shot_js = "var i = document.querySelector('#shot input'); i.value = 'abc'; i.dispatchEvent(new Event('input')); document.querySelector('#shot .el-button--primary').click();"
 #| shot_wait = 2
-ui <- el_page(el_form(
+el_form(
   id = "aged",
   submit_label = "Submit",
   label_width = "100px",
@@ -338,87 +324,75 @@ ui <- el_page(el_form(
       )
     )
   )
-))
-
-shinyApp(ui, function(input, output, session) {})
+)
 
 ## size-control
-#' The radio buttons set the form's `size` and `label_position` with
-#' `update_el_form()`.
+#' The radio buttons set the form's `size` and `label_position`, which
+#' follow them in the browser, [vue_bind()].
 #| shot_js = c("document.querySelectorAll('#form_size .el-radio-button')[2].click()", "document.querySelectorAll('#form_position .el-radio-button')[2].click()")
 #| shot_expect = c("document.querySelector('#sized .el-form').classList.contains('el-form--small')", "document.querySelector('#sized .el-form').classList.contains('el-form--label-top')", "document.querySelectorAll('#sized .el-checkbox-button').length === 2", "document.querySelectorAll('#sized .el-radio.is-bordered').length === 2")
-ui <- el_page(
-  tags$div(
-    el_radio_group(
-      "form_size",
-      choices = c("large", "default", "small"),
-      selected = "default",
-      button = TRUE
-    ),
-    el_radio_group(
-      "form_position",
-      choices = c(Left = "left", Right = "right", Top = "top"),
-      selected = "right",
-      button = TRUE
-    )
+tags$div(
+  el_radio_group(
+    "form_size",
+    choices = c("large", "default", "small"),
+    selected = "default",
+    button = TRUE
   ),
-  tags$br(),
-  el_form(
-    id = "sized",
-    label_width = "auto",
-    label_position = "right",
-    width = "600px",
-    submit_label = "Create",
-    reset_label = "Cancel",
-    el_form_field("name", "input", label = "Activity name"),
-    el_form_field(
-      "region",
-      "select",
-      label = "Activity zone",
-      choices = c("Zone one" = "shanghai", "Zone two" = "beijing"),
-      placeholder = "please select your zone"
-    ),
-    el_form_item(
-      "Activity time",
-      el_form_field(
-        "date1",
-        "date-picker",
-        placeholder = "Pick a date",
-        style = "width: 100%"
-      ),
-      "-",
-      el_form_field(
-        "date2",
-        "time-picker",
-        placeholder = "Pick a time",
-        style = "width: 100%"
-      )
-    ),
-    el_form_field(
-      "type",
-      "checkbox-group",
-      label = "Activity type",
-      choices = c("Online activities", "Promotion activities"),
-      button = TRUE
-    ),
-    el_form_field(
-      "resource",
-      "radio-group",
-      label = "Resources",
-      choices = c("Sponsor", "Venue"),
-      border = TRUE
-    )
+  el_radio_group(
+    "form_position",
+    choices = c(Left = "left", Right = "right", Top = "top"),
+    selected = "right",
+    button = TRUE
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$form_size, ignoreInit = TRUE, {
-    update_el_form(session, "sized", size = input$form_size)
-  })
-  observeEvent(input$form_position, ignoreInit = TRUE, {
-    update_el_form(session, "sized", label_position = input$form_position)
-  })
-}
-shinyApp(ui, server)
+tags$br()
+el_form(
+  id = "sized",
+  label_width = "auto",
+  label_position = vue_bind("$inputs.form_position"),
+  size = vue_bind("$inputs.form_size"),
+  width = "600px",
+  submit_label = "Create",
+  reset_label = "Cancel",
+  el_form_field("name", "input", label = "Activity name"),
+  el_form_field(
+    "region",
+    "select",
+    label = "Activity zone",
+    choices = c("Zone one" = "shanghai", "Zone two" = "beijing"),
+    placeholder = "please select your zone"
+  ),
+  el_form_item(
+    "Activity time",
+    el_form_field(
+      "date1",
+      "date-picker",
+      placeholder = "Pick a date",
+      style = "width: 100%"
+    ),
+    "-",
+    el_form_field(
+      "date2",
+      "time-picker",
+      placeholder = "Pick a time",
+      style = "width: 100%"
+    )
+  ),
+  el_form_field(
+    "type",
+    "checkbox-group",
+    label = "Activity type",
+    choices = c("Online activities", "Promotion activities"),
+    button = TRUE
+  ),
+  el_form_field(
+    "resource",
+    "radio-group",
+    label = "Resources",
+    choices = c("Sponsor", "Venue"),
+    border = TRUE
+  )
+)
 
 ## accessibility
 #' A field's label is tied to its control, so a screen reader announces it.

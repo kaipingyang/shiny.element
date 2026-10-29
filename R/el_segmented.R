@@ -62,6 +62,8 @@ el_segmented <- function(
   on = NULL
 ) {
   .el_check_choices("el_segmented", environment())
+  # R reads these to draw the component
+  .vue_unbound(options = options)
   # A named vector c(Label = value), as the choice components take, or
   # Element Plus's list(value =, label =)
   if (!is.null(options)) {

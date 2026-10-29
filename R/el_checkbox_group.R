@@ -102,6 +102,8 @@ el_checkbox_group <- function(
   session = NULL
 ) {
   .el_check_choices("el_checkbox_group", environment())
+  # R reads these to draw the component
+  .vue_unbound(choices = choices, button = button)
   selected <- .vue_alias(selected, value, "selected", "value")
   choices <- .vue_alias(choices, options, "choices", "options")
   if (is.null(choices)) {
@@ -145,7 +147,7 @@ el_checkbox_group <- function(
   )
 
   vue_data <- list(
-    value = if (is.null(selected)) list() else as.list(selected),
+    value = .vue_array(selected),
     options = .vue_choices(choices),
     disabled = disabled
   )

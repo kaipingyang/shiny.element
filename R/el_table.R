@@ -736,6 +736,8 @@ el_table <- function(
   on = NULL
 ) {
   .el_check_choices("el_table", environment())
+  # R reads these to draw the component
+  .vue_unbound(rownames = rownames, loading = loading)
   # Mistakes are reported here, where the table is written, not where it
   # is drawn
   args <- .el_table_args(id, data, columns)

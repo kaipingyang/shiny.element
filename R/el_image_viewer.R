@@ -63,6 +63,8 @@ el_image_viewer <- function(
   on = NULL
 ) {
   .el_check_choices("el_image_viewer", environment())
+  # R reads these to draw the component
+  .vue_unbound(url_list = url_list)
   if (is.null(id)) {
     id <- .vue_auto_id("el_image_viewer")
   }

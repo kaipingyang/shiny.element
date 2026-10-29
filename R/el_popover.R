@@ -126,6 +126,8 @@ el_popover <- function(
   session = NULL
 ) {
   .el_check_choices("el_popover", environment())
+  # R reads these to draw the component
+  .vue_unbound(reference = reference, body = body)
   inner_ref <- .el_absorb(reference)
   inner_body <- .el_absorb(body)
 

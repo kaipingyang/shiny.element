@@ -551,7 +551,8 @@
     if (is.null(value) || (length(value) == 1L && is.na(value))) {
       next
     }
-    if (is.numeric(value)) {
+    # state followed in the browser: checked there by Element
+    if (is.numeric(value) || inherits(value, "vue_bind")) {
       next
     }
     if (

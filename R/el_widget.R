@@ -31,7 +31,10 @@
 #'   `input$<id>_<name>`, namespaced as the id is:
 #'   `on = list("keyup.enter" = JS("function(report, e) {
 #'   report('enter', e.target.value); }"))` reports `input$<id>_enter`. An
-#'   event the component reports too runs both.
+#'   event the component reports too runs both. A string is Vue's inline
+#'   statement, as `@click="..."` in a template, for state in the browser:
+#'   `on = list(click = "$store.ui.open = true")` (see [vue_bind()]),
+#'   `"$message('Saved')"`; `$event` is the event's first argument.
 #' @param dependency htmlDependency objects to attach, beside Vue, Element
 #'   Plus and the bridge, which every component carries.
 #' @param head Tags to place before the host, such as a `<style>` block.
@@ -129,6 +132,18 @@ el_widget <- function(
   props = NULL,
   absorbed = NULL
 ) {
+  # the label and the form item around it are drawn in R
+  .vue_unbound(
+    label = label,
+    label_position = label_position,
+    label_width = label_width,
+    label_suffix = label_suffix,
+    required = required,
+    error = error,
+    show_message = show_message,
+    inline_message = inline_message,
+    width = width
+  )
   container_id <- paste0(id, "_container")
   # an event the component handles and also forwards, or hands to `on`:
   # its handlers as one
@@ -330,7 +345,8 @@ el_widget <- function(
   }
   # Shiny's own UI in the markup -- an input, an output, an htmlwidget -- is
   # kept out of Vue's compiling (.vue_islands()); this package's components
-  # are folded in (.el_absorb()) and its containers placed as they are
+  # are folded in (.el_absorb()), its containers placed as they are, and
+  # a host it did not fold -- a vue_app() -- is an island
   taken <- .vue_islands(root, components = FALSE)
   rendered <- htmltools::renderTags(taken$template)
   host <- .vue_host(

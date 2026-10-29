@@ -258,10 +258,10 @@ el_tree <- function(
     expandOnClickNode = expand_on_click_node,
     accordion = accordion,
     highlightCurrent = highlight_current,
-    expandedKeys = as.list(default_expanded_keys),
-    checkedKeys = as.list(default_checked_keys),
+    expandedKeys = .vue_array(default_expanded_keys),
+    checkedKeys = .vue_array(default_checked_keys),
     current = "",
-    checked = as.list(default_checked_keys)
+    checked = .vue_array(default_checked_keys)
   )
 
   vue_data$load <- .vue_or_na(load)

@@ -180,6 +180,21 @@ el_rule <- function(
   validator = NULL,
   transform = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(
+    required = required,
+    min = min,
+    max = max,
+    len = len,
+    pattern = pattern,
+    type = type,
+    message = message,
+    trigger = trigger,
+    enum = enum,
+    whitespace = whitespace,
+    validator = validator,
+    transform = transform
+  )
   if (!is.null(type)) {
     type <- match.arg(
       type,
@@ -292,6 +307,17 @@ el_form_field <- function(
   ...,
   options = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(
+    prop = prop,
+    label = label,
+    value = value,
+    choices = choices,
+    rules = rules,
+    report = report,
+    button = button,
+    options = options
+  )
   # Element's name for the choices: given through `...`, it went to the
   # control as its own `options` prop, records of nothing, and the
   # dropdown opened onto blank entries
@@ -436,6 +462,8 @@ el_form_item <- function(
   required = NULL,
   gutter = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(label = label, required = required, gutter = gutter)
   parts <- list(...)
   text <- vapply(parts, is.character, logical(1))
   if (is.null(spans)) {

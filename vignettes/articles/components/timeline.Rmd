@@ -32,36 +32,28 @@ Use `mode` to control the relative position of timeline and content.
 > After 2.13.1, `el-timeline` explicitly sets padding styles. If you have overridden padding styles of `ul` tag in your project, please check to ensure the layout is correct.
 
 `mode` puts the content after the line (`"start"`), before it (`"end"`),
-or on alternate sides; the radio buttons set it with
-`update_el_timeline()`.
+or on alternate sides; it follows the radio buttons in the browser,
+[vue_bind()].
 
 ```{r mode, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#tl_mode_pick .el-radio-button')[1].click()", shot_expect = "document.querySelector('#tl_mode .el-timeline').classList.contains('is-alternate')"}
-ui <- el_page(
-  el_radio_group(
-    "tl_mode_pick",
-    choices = c("start", "alternate", "alternate-reverse", "end"),
-    selected = "start",
-    button = TRUE
-  ),
-  tags$div(
-    style = "margin-top: 16px",
-    el_timeline(
-      "tl_mode",
-      mode = "start",
-      items = list(
-        el_timeline_item("Event start", timestamp = "2018-04-15"),
-        el_timeline_item("Approved", timestamp = "2018-04-13"),
-        el_timeline_item("Success", timestamp = "2018-04-11")
-      )
+el_radio_group(
+  "tl_mode_pick",
+  choices = c("start", "alternate", "alternate-reverse", "end"),
+  selected = "start",
+  button = TRUE
+)
+tags$div(
+  style = "margin-top: 16px",
+  el_timeline(
+    "tl_mode",
+    mode = vue_bind("$inputs.tl_mode_pick"),
+    items = list(
+      el_timeline_item("Event start", timestamp = "2018-04-15"),
+      el_timeline_item("Approved", timestamp = "2018-04-13"),
+      el_timeline_item("Success", timestamp = "2018-04-11")
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$tl_mode_pick, ignoreInit = TRUE, {
-    update_el_timeline(session, "tl_mode", mode = input$tl_mode_pick)
-  })
-}
-shinyApp(ui, server)
 ```
 
 ## Custom node
@@ -176,33 +168,24 @@ el_timeline(
 
 Use the reverse property to control the order of the nodes.
 
-`reverse` shows the entries newest first; `update_el_timeline()` flips it.
+`reverse` shows the entries newest first; it follows the radios, whose
+values are `FALSE` and `TRUE`.
 
-```{r reverse, eval = FALSE, shot = TRUE}
-ui <- el_page(
-  el_radio_group(
-    "order",
-    choices = c(Ascending = "asc", Descending = "desc"),
-    value = "asc"
-  ),
-  el_timeline(
-    "tl",
-    items = list(
-      el_timeline_item("Event start", timestamp = "2018-04-15"),
-      el_timeline_item("Approved", timestamp = "2018-04-13"),
-      el_timeline_item("Success", timestamp = "2018-04-11")
-    )
+```{r reverse, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#order .el-radio')[1].click()", shot_expect = "document.querySelector('#tl .el-timeline-item__content').textContent.trim() === 'Success'"}
+el_radio_group(
+  "order",
+  choices = c(Ascending = FALSE, Descending = TRUE),
+  value = FALSE
+)
+el_timeline(
+  "tl",
+  reverse = vue_bind("$inputs.order"),
+  items = list(
+    el_timeline_item("Event start", timestamp = "2018-04-15"),
+    el_timeline_item("Approved", timestamp = "2018-04-13"),
+    el_timeline_item("Success", timestamp = "2018-04-11")
   )
 )
-
-server <- function(input, output, session) {
-  observeEvent(
-    input$order,
-    update_el_timeline(id = "tl", reverse = input$order == "desc")
-  )
-}
-
-shinyApp(ui, server)
 ```
 
 ## API

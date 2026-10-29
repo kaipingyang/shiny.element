@@ -82,7 +82,8 @@ dropped. The template must then be one tag.}
 
 \item{on}{Handlers of your own for events of the template's root: a
 named list of \code{\link[=JS]{JS()}} functions, each called with \code{report} and the
-event's arguments; \code{report(name, value)} sets \verb{input$<id>_<name>}.}
+event's arguments -- \code{report(name, value)} sets \verb{input$<id>_<name>} --
+or of Vue's inline statements, as strings (\code{"$store.ui.open = true"}).}
 }
 \value{
 A tag, with its dependencies.

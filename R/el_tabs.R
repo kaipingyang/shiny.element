@@ -86,13 +86,34 @@ el_tabs <- function(
   events = NULL,
   session = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(
+    editable = editable,
+    before_leave = before_leave,
+    add_icon = add_icon
+  )
+  selected <- .vue_alias(selected, value, "selected", "value")
+  # what an update can set may follow state in the browser, the tab
+  # selected a store's field, both ways
+  bind <- .vue_bound_markup(
+    environment(),
+    formals(el_tabs),
+    c(
+      "selected",
+      "type",
+      "tab_position",
+      "closable",
+      "addable",
+      "stretch"
+    ),
+    state = "selected"
+  )
   .el_check_items(tabs, "tabs", c("name", "label"))
   .el_check_choices("el_tabs", environment())
   if (is.null(id)) {
     id <- .vue_auto_id("el_tabs")
   }
   ns_id <- .vue_ui_id(id, session)
-  selected <- .vue_alias(selected, value, "selected", "value")
   selected <- shiny::restoreInput(ns_id, selected)
 
   # Element's editable is closable and addable together
@@ -186,6 +207,7 @@ el_tabs <- function(
       id = ns_id,
       class = root_class,
       `data-el-tabs` = "true",
+      `data-shiny-vue-bind` = bind,
       # in a component's template, kept out of Vue's compiling (.vue_islands())
       `data-shiny-island` = NA,
       # the events it reports: its defaults and those asked for

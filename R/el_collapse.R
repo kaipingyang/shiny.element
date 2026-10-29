@@ -67,6 +67,16 @@ el_collapse <- function(
   before_collapse = NULL,
   session = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(before_collapse = before_collapse)
+  # what an update can set may follow state in the browser, the panels
+  # open a store's field, both ways
+  bind <- .vue_bound_markup(
+    environment(),
+    formals(el_collapse),
+    c("value", "accordion", "expand_icon_position"),
+    state = "value"
+  )
   .el_check_items(items, "items", c("name", "title"))
   .el_check_choices("el_collapse", environment())
   expand_icon_position <- match.arg(expand_icon_position, c("right", "left"))
@@ -152,6 +162,7 @@ el_collapse <- function(
         expand_icon_position
       ),
       `data-el-collapse` = "true",
+      `data-shiny-vue-bind` = bind,
       # in a component's template, kept out of Vue's compiling (.vue_islands())
       `data-shiny-island` = NA,
       `data-accordion` = tolower(as.character(accordion)),

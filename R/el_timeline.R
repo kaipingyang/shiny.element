@@ -74,6 +74,8 @@ el_timeline <- function(
   session = NULL
 ) {
   .el_check_choices("el_timeline", environment())
+  # R reads these to draw the component
+  .vue_unbound(items = items, html = html)
   if (is.null(id)) {
     id <- .vue_auto_id("el_timeline")
   }

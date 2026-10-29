@@ -101,6 +101,45 @@ el_drawer <- function(
   session = NULL
 ) {
   .el_check_choices("el_drawer", environment())
+  # R reads these to draw the component
+  .vue_unbound(
+    content = content,
+    custom_class = custom_class,
+    append_to_body = append_to_body,
+    destroy_on_close = destroy_on_close,
+    before_close = before_close,
+    footer = footer,
+    resizable = resizable,
+    modal_penetrable = modal_penetrable,
+    modal_class = modal_class,
+    header_class = header_class,
+    body_class = body_class,
+    footer_class = footer_class,
+    append_to = append_to,
+    open_delay = open_delay,
+    close_delay = close_delay,
+    z_index = z_index,
+    header_aria_level = header_aria_level
+  )
+  # what an update can set may follow state in the browser, the
+  # drawer's visibility a store's field, both ways
+  bind <- .vue_bound_markup(
+    environment(),
+    formals(el_drawer),
+    c(
+      "visible",
+      "title",
+      "size",
+      "direction",
+      "modal",
+      "with_header",
+      "show_close",
+      "close_on_click_modal",
+      "close_on_press_escape",
+      "lock_scroll"
+    ),
+    state = "visible"
+  )
   if (is.null(id)) {
     id <- .vue_auto_id("el_drawer")
   }
@@ -149,6 +188,7 @@ el_drawer <- function(
       # the events it reports: its defaults and those asked for
       `data-el-events` = .el_events_attr("el_drawer", events),
       `data-visible` = tolower(as.character(visible)),
+      `data-shiny-vue-bind` = bind,
       `data-modal` = tolower(as.character(modal)),
       `data-mask-close` = tolower(as.character(modal && close_on_click_modal)),
       `data-esc-close` = tolower(as.character(close_on_press_escape)),

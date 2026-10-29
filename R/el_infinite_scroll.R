@@ -70,6 +70,8 @@ el_infinite_scroll <- function(
   on = NULL,
   session = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(height = height)
   # Each piece of content is absorbed on its own, so several components
   # may sit in the same scrolling area.
   inners <- lapply(list(...), .el_absorb)

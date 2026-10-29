@@ -151,7 +151,7 @@ el_transfer <- function(
     id = ns_id,
     markup = htmltools::tag("el-transfer", attrs),
     data = list(
-      value = if (is.null(value)) list() else as.list(value),
+      value = .vue_array(value),
       data = .el_transfer_data(data)
     ),
     methods = events$methods,

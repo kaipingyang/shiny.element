@@ -9,15 +9,18 @@
 \arguments{
 \item{ns_id}{The namespaced id.}
 
-\item{on}{A named list of \code{\link[=JS]{JS()}} functions.}
+\item{on}{A named list of \code{\link[=JS]{JS()}} functions or strings.}
 }
 \value{
 A list with \code{attrs} and \code{methods}.
 }
 \description{
-Each becomes a method the component's tag listens with: \verb{@<event>}.
-The handler is called with \code{report} first -- \code{report(name, value)} sets
-\verb{input$<id>_<name>} -- then the event's own arguments, and \code{this} the
-Vue instance.
+A \code{\link[=JS]{JS()}} function becomes a method the component's tag listens with:
+\verb{@<event>}. It is called with \code{report} first -- \code{report(name, value)}
+sets \verb{input$<id>_<name>} -- then the event's own arguments, and \code{this}
+the Vue instance. A string is Vue's inline statement, as \verb{@click="..."}
+takes it -- \code{"$store.ui.open = true"}, \verb{$event} the event's first
+argument -- written into the template as it is, inside the arrow
+function the tag's handlers are joined in.
 }
 \keyword{internal}

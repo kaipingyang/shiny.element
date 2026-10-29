@@ -125,7 +125,7 @@ el_tour <- function(
       append_to = append_to
     )),
     data = list(
-      open = isTRUE(.vue_restore(ns_id, visible)),
+      open = .vue_flag(.vue_restore(ns_id, visible)),
       current = if (is.null(current)) 0L else current
     ),
     methods = c(

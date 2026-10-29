@@ -37,32 +37,28 @@ vue_app(
 )
 
 ## disabled
-#' The switch disables the panel with `update_el_date_picker_panel(disabled
-#' =)`.
+#' The switch disables the panel: its `disabled` follows the switch in the
+#' browser, [vue_bind()].
 #| shot_js = "document.querySelector('#dpp_switch .el-switch').click()"
 #| shot_expect = c("!document.querySelector('#dpp_dis .el-picker-panel.is-disabled')", "document.querySelector('#dpp_dis .el-date-table td.available')")
-ui <- el_page(
-  tags$div(
-    style = "display: flex; flex-direction: column; align-items: center",
-    el_switch(
-      "dpp_switch",
-      value = TRUE,
-      active_text = "Disabled",
-      inactive_text = "Enabled"
-    ),
-    el_date_picker_panel("dpp_dis", disabled = TRUE)
+tags$div(
+  style = "display: flex; flex-direction: column; align-items: center",
+  el_switch(
+    "dpp_switch",
+    value = TRUE,
+    active_text = "Disabled",
+    inactive_text = "Enabled"
+  ),
+  el_date_picker_panel(
+    "dpp_dis",
+    disabled = vue_bind("$inputs.dpp_switch")
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$dpp_switch, {
-    update_el_date_picker_panel(session, "dpp_dis", disabled = input$dpp_switch)
-  })
-}
-shinyApp(ui, server)
 
 ## all-types
-#' The select changes the panel's `type`, and clears its value as it does
-#' (`value = NA`).
+#' The select changes the panel's `type`, which follows it in the browser,
+#' [vue_bind()]; the panel's value is a store's field, which the select's
+#' `on` handler clears as it does.
 #| shot_js = c("document.querySelector('#dpp_all .el-date-table td.available').click()", "window.picked = Shiny.shinyapp.$inputValues.dpp_all", "document.querySelector('#dpp_type .el-select__wrapper').click()", "Array.from(document.querySelectorAll('.el-select-dropdown__item')).find(function(o){ return o.innerText.trim() === 'daterange'; }).click()")
 #| shot_expect = c("window.picked", "document.querySelector('#dpp_all .el-date-range-picker')", "Shiny.shinyapp.$inputValues.dpp_all === null")
 types <- c(
@@ -82,29 +78,26 @@ types <- c(
   "monthrange",
   "yearrange"
 )
-ui <- el_page(
+vue_store("panel_types", state = list(value = NULL))
+tags$div(
+  style = "display: flex; gap: 16px",
   tags$div(
-    style = "display: flex; gap: 16px",
-    tags$div(
-      style = "display: flex; flex-direction: column; flex-basis: 150px; gap: 4px",
-      tags$span("Type:"),
-      el_select("dpp_type", choices = types, selected = "date")
+    style = "display: flex; flex-direction: column; flex-basis: 150px; gap: 4px",
+    tags$span("Type:"),
+    el_select(
+      "dpp_type",
+      choices = types,
+      selected = "date",
+      on = list(change = "$store.panel_types.value = null")
     )
-  ),
-  el_divider(),
-  tags$div(
-    style = "display: flex; justify-content: center",
-    el_date_picker_panel("dpp_all", type = "date")
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$dpp_type, ignoreInit = TRUE, {
-    update_el_date_picker_panel(
-      session,
-      "dpp_all",
-      type = input$dpp_type,
-      value = NA
-    )
-  })
-}
-shinyApp(ui, server)
+el_divider()
+tags$div(
+  style = "display: flex; justify-content: center",
+  el_date_picker_panel(
+    "dpp_all",
+    type = vue_bind("$inputs.dpp_type"),
+    value = vue_bind("$store.panel_types.value")
+  )
+)

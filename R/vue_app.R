@@ -149,10 +149,12 @@
 #' (`data-display-if`), or a tag marked `data-shiny-island`.
 #'
 #' @param template A tag, or a list of them.
-#' @param components Whether components of their own (hosts) and tags marked
-#'   `data-shiny-island` are islands too. A component library that folds
-#'   its components into one another, and places its containers itself,
-#'   leaves them in the template: `FALSE`.
+#' @param components Whether tags marked `data-shiny-island`, and components
+#'   given as specifications, are islands too. A component library that
+#'   folds its components into one another, and places its containers
+#'   itself, leaves them in the template: `FALSE`. A host left in the
+#'   template -- a `vue_app()` the library did not fold -- is an island
+#'   either way, or Vue would drop its template and it would never mount.
 #' @return A list: `template`, with placeholders; `holder`, a tag or `NULL`.
 #' @keywords internal
 .vue_islands <- function(template, components = TRUE) {
@@ -168,7 +170,8 @@
     cls <- paste(unlist(a[names(a) == "class"]), collapse = " ")
     marks <- c(
       "data-display-if",
-      if (components) c("data-shiny-vue", "data-shiny-island")
+      "data-shiny-vue",
+      if (components) "data-shiny-island"
     )
     any(marks %in% names(a)) || grepl(island_class, cls)
   }
@@ -249,6 +252,8 @@
   dependencies = list(),
   islands = NULL
 ) {
+  # fields given vue_bind(): followed in the browser
+  spec <- .vue_bound(spec)
   # The template travels as a script, which the browser does not parse: no
   # flash of raw tags before Vue runs, and camelCase attribute names survive
   template <- gsub("</script", "<\\/script", template, ignore.case = TRUE)
@@ -419,7 +424,8 @@
 #'   dropped. The template must then be one tag.
 #' @param on Handlers of your own for events of the template's root: a
 #'   named list of [JS()] functions, each called with `report` and the
-#'   event's arguments; `report(name, value)` sets `input$<id>_<name>`.
+#'   event's arguments -- `report(name, value)` sets `input$<id>_<name>` --
+#'   or of Vue's inline statements, as strings (`"$store.ui.open = true"`).
 #' @return A tag, with its dependencies.
 #' @seealso [vue_component()], [vue_store()], [update_vue()], [call_vue()],
 #'   [render_vue()].

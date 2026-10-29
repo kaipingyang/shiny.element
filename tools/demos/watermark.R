@@ -24,38 +24,65 @@ el_watermark(
 )
 
 ## custom
-#' Its settings from inputs: the server redraws it as they change.
-ui <- el_page(
-  el_row(
-    el_col(span = 14, uiOutput("marked")),
-    el_col(
-      span = 10,
-      el_input("content", label = "Content", value = "Element Plus"),
-      el_color_picker(
-        "color",
-        label = "Color",
-        value = "rgba(0, 0, 0, 0.15)",
-        show_alpha = TRUE
-      ),
-      el_slider("size", label = "FontSize", value = 16, min = 8, max = 40),
-      el_slider("rotate", label = "Rotate", value = -22, min = -180, max = 180),
-      el_input_number("gap", label = "Gap", value = 100)
-    )
+#' Its settings from the controls: each control's value is a store's
+#' field, [vue_bind()], and the watermark's `font` and `gap` getters built
+#' from them, so it changes as they do, in the browser.
+vue_store(
+  "wm",
+  state = list(
+    content = "Element Plus",
+    color = "rgba(0, 0, 0, 0.15)",
+    size = 16,
+    rotate = -22,
+    gap = 100
+  ),
+  getters = list(
+    font = JS("function(s) { return { fontSize: s.size, color: s.color }; }"),
+    gaps = JS("function(s) { return [s.gap, s.gap]; }")
   )
 )
-
-server <- function(input, output, session) {
-  output$marked <- renderUI(el_watermark(
-    content = input$content,
-    rotate = input$rotate,
-    gap = rep(input$gap %||% 100, 2),
-    font = list(fontSize = input$size, color = input$color),
-    tags$div(
-      style = "padding: 40px 20px; height: 360px",
-      tags$h1("Element Plus"),
-      tags$h2("A Vue 3 based component library for designers and developers")
+el_row(
+  el_col(
+    span = 14,
+    el_watermark(
+      content = vue_bind("$store.wm.content"),
+      rotate = vue_bind("$store.wm.rotate"),
+      gap = vue_bind("$store.wm.gaps"),
+      font = vue_bind("$store.wm.font"),
+      tags$div(
+        style = "padding: 40px 20px; height: 360px",
+        tags$h1("Element Plus"),
+        tags$h2("A Vue 3 based component library for designers and developers")
+      )
     )
-  ))
-}
-
-shinyApp(ui, server)
+  ),
+  el_col(
+    span = 10,
+    el_input(
+      "content",
+      label = "Content",
+      value = vue_bind("$store.wm.content")
+    ),
+    el_color_picker(
+      "color",
+      label = "Color",
+      value = vue_bind("$store.wm.color"),
+      show_alpha = TRUE
+    ),
+    el_slider(
+      "size",
+      label = "FontSize",
+      value = vue_bind("$store.wm.size"),
+      min = 8,
+      max = 40
+    ),
+    el_slider(
+      "rotate",
+      label = "Rotate",
+      value = vue_bind("$store.wm.rotate"),
+      min = -180,
+      max = 180
+    ),
+    el_input_number("gap", label = "Gap", value = vue_bind("$store.wm.gap"))
+  )
+)

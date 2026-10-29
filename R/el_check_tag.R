@@ -41,7 +41,7 @@ el_check_tag <- function(
       )
     ),
     props = .el_props(list(disabled = disabled, type = type)),
-    data = list(value = isTRUE(.vue_restore(ns_id, value)), text = label),
+    data = list(value = .vue_flag(.vue_restore(ns_id, value)), text = label),
     methods = list(
       handleChange = JS(sprintf(
         paste0(

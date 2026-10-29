@@ -49,6 +49,8 @@ el_link <- function(
   on = NULL
 ) {
   .el_check_choices("el_link", environment())
+  # R reads these to draw the component
+  .vue_unbound(underline = underline)
   # Element Plus's boolean form: TRUE is "hover", FALSE "never"
   if (isTRUE(underline)) {
     underline <- "hover"
@@ -60,6 +62,10 @@ el_link <- function(
     underline <- match.arg(underline, c("hover", "always", "never"))
   }
   icon <- .el_icon_name(icon)
+  # state followed in the browser needs an instance of its own
+  if (is.null(id) && .vue_has_bind(list(label, href, type, target, disabled))) {
+    id <- .vue_auto_id("el_link")
+  }
   if (!is.null(id)) {
     ns_id <- .vue_ui_id(id, NULL)
     return(el_widget(

@@ -131,6 +131,8 @@ el_dropdown <- function(
   on = NULL,
   session = NULL
 ) {
+  # R reads these to draw the component
+  .vue_unbound(trigger_label = trigger_label)
   .el_check_items(items, "items", c("command", "label"))
   .el_check_choices("el_dropdown", environment())
   if (is.null(id)) {

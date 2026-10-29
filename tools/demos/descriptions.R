@@ -18,7 +18,8 @@ el_descriptions(
 )
 
 ## sizes
-#' The radios resize both lists with `update_el_descriptions(size =)`.
+#' The radios resize both lists: their `size` follows them in the browser,
+#' [vue_bind()].
 #| shot_js = "document.querySelectorAll('#desc_size .el-radio')[0].click()"
 #| shot_expect = c("document.querySelectorAll('.el-descriptions--large').length === 2", "document.querySelectorAll('.el-descriptions .el-tag').length === 2")
 label <- function(icon, text) {
@@ -43,45 +44,36 @@ items <- function() {
     )
   )
 }
-ui <- el_page(
-  tags$style(
-    ".el-descriptions { margin-top: 20px; }
-     .cell-item { display: flex; align-items: center; }"
-  ),
-  el_radio_group(
-    "desc_size",
-    choices = c(Large = "large", Default = "default", Small = "small"),
-    selected = "default"
-  ),
-  el_descriptions(
-    "desc_border",
-    title = "With border",
-    column = 3,
-    size = "default",
-    border = TRUE,
-    items = items(),
-    slots = list(extra = el_button("desc_op1", "Operation", type = "primary"))
-  ),
-  el_descriptions(
-    "desc_plain",
-    title = "Without border",
-    column = 3,
-    size = "default",
-    items = items(),
-    slots = list(extra = el_button("desc_op2", "Operation", type = "primary"))
-  )
+tags$style(
+  ".el-descriptions { margin-top: 20px; }
+   .cell-item { display: flex; align-items: center; }"
 )
-server <- function(input, output, session) {
-  observeEvent(input$desc_size, ignoreInit = TRUE, {
-    for (id in c("desc_border", "desc_plain")) {
-      update_el_descriptions(session, id, size = input$desc_size)
-    }
-  })
-}
-shinyApp(ui, server)
+el_radio_group(
+  "desc_size",
+  choices = c(Large = "large", Default = "default", Small = "small"),
+  selected = "default"
+)
+el_descriptions(
+  "desc_border",
+  title = "With border",
+  column = 3,
+  size = vue_bind("$inputs.desc_size"),
+  border = TRUE,
+  items = items(),
+  slots = list(extra = el_button("desc_op1", "Operation", type = "primary"))
+)
+el_descriptions(
+  "desc_plain",
+  title = "Without border",
+  column = 3,
+  size = vue_bind("$inputs.desc_size"),
+  items = items(),
+  slots = list(extra = el_button("desc_op2", "Operation", type = "primary"))
+)
 
 ## vertical-list
-#' The radios resize both lists with `update_el_descriptions(size =)`.
+#' The radios resize both lists: their `size` follows them in the browser,
+#' [vue_bind()].
 #| shot_js = "document.querySelectorAll('#desc_v_size .el-radio')[2].click()"
 #| shot_expect = "document.querySelectorAll('.el-descriptions--small').length === 2"
 items <- function() {
@@ -96,41 +88,31 @@ items <- function() {
     )
   )
 }
-ui <- el_page(
-  el_radio_group(
-    "desc_v_size",
-    choices = c(Large = "large", Default = "default", Small = "small"),
-    selected = "default"
-  ),
+el_radio_group(
+  "desc_v_size",
+  choices = c(Large = "large", Default = "default", Small = "small"),
+  selected = "default"
+)
+el_descriptions(
+  "desc_v",
+  title = "Vertical list with border",
+  direction = "vertical",
+  column = 4,
+  size = vue_bind("$inputs.desc_v_size"),
+  border = TRUE,
+  items = items()
+)
+tags$div(
+  style = "margin-top: 28px",
   el_descriptions(
-    "desc_v",
-    title = "Vertical list with border",
+    "desc_v_plain",
+    title = "Vertical list without border",
     direction = "vertical",
     column = 4,
-    size = "default",
-    border = TRUE,
+    size = vue_bind("$inputs.desc_v_size"),
     items = items()
-  ),
-  tags$div(
-    style = "margin-top: 28px",
-    el_descriptions(
-      "desc_v_plain",
-      title = "Vertical list without border",
-      direction = "vertical",
-      column = 4,
-      size = "default",
-      items = items()
-    )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$desc_v_size, ignoreInit = TRUE, {
-    for (id in c("desc_v", "desc_v_plain")) {
-      update_el_descriptions(session, id, size = input$desc_v_size)
-    }
-  })
-}
-shinyApp(ui, server)
 
 ## rowspan
 #| shot_expect = "document.querySelectorAll('.el-descriptions td[rowspan=\"2\"], .el-descriptions th[rowspan=\"2\"]').length >= 2"

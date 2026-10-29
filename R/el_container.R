@@ -92,6 +92,8 @@ el_container <- function(
   session = NULL
 ) {
   .el_check_choices("el_container", environment())
+  # R reads these to draw the component
+  .vue_unbound(direction = direction, style = style, class = class)
   children <- list(...)
 
   vertical <- if (!is.null(direction)) {
@@ -136,6 +138,8 @@ el_container <- function(
 #' el_header("Dashboard")
 #' el_header(height = "80px", el_button("refresh", "Refresh"))
 el_header <- function(..., height = "60px", style = NULL, class = NULL) {
+  # R reads these to draw the component
+  .vue_unbound(height = height, style = style, class = class)
   .el_container_part("el-header", list(...), height, "height", style, class)
 }
 
@@ -152,6 +156,8 @@ el_header <- function(..., height = "60px", style = NULL, class = NULL) {
 #' el_aside("Navigation")
 #' el_aside(width = "200px", el_radio_group("nav", choices = c(Home = "h")))
 el_aside <- function(..., width = "300px", style = NULL, class = NULL) {
+  # R reads these to draw the component
+  .vue_unbound(width = width, style = style, class = class)
   .el_container_part("el-aside", list(...), width, "width", style, class)
 }
 
@@ -166,6 +172,8 @@ el_aside <- function(..., width = "300px", style = NULL, class = NULL) {
 #' el_main("Body content")
 #' el_main(el_table(data = head(iris, 3)))
 el_main <- function(..., style = NULL, class = NULL) {
+  # R reads these to draw the component
+  .vue_unbound(style = style, class = class)
   .el_container_part("el-main", list(...), style = style, extra_class = class)
 }
 
@@ -182,5 +190,7 @@ el_main <- function(..., style = NULL, class = NULL) {
 #' el_footer("(c) 2026")
 #' el_footer(height = "40px", "Compact footer")
 el_footer <- function(..., height = "60px", style = NULL, class = NULL) {
+  # R reads these to draw the component
+  .vue_unbound(height = height, style = style, class = class)
   .el_container_part("el-footer", list(...), height, "height", style, class)
 }

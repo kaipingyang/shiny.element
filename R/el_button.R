@@ -125,6 +125,8 @@ el_button <- function(
   session = NULL
 ) {
   .el_check_choices("el_button", environment())
+  # R reads these to draw the component
+  .vue_unbound(circle = circle, task = task, class = class, style = style)
   if (is.null(id)) {
     id <- .vue_auto_id("el_button")
   }

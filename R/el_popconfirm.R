@@ -94,6 +94,8 @@ el_popconfirm <- function(
   placement = NULL
 ) {
   .el_check_choices("el_popconfirm", environment())
+  # R reads these to draw the component
+  .vue_unbound(reference = reference)
   inner <- .el_absorb(reference)
 
   if (is.null(id)) {

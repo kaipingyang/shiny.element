@@ -18,24 +18,20 @@ Alert interrupts user operation until the user confirms.
 
 Open an alert by calling the `ElMessageBox.alert` method. It simulates the system's `alert`, and cannot be closed by pressing ESC or clicking outside the box. In this example, two parameters `message` and `title` are received. It is worth mentioning that when the box is closed, it returns a `Promise` object for further processing. If you are not sure if your target browsers support `Promise`, you should import a third party polyfill or use callbacks instead like this example.
 
-The answer is `input$<id>`: `"confirm"`, `"cancel"` or `"close"`.
+In the browser, Element's own services, `$alert()`, `$confirm()`,
+`$prompt()` and `$msgbox()`, each a promise of the answer. From the
+server it is `el_message_box(session, id, ...)`, the answer arriving as
+`input$<id>`: see In Shiny below.
 
 ```{r alert, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open the Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "This is a message",
-      title = "Title",
-      box_type = "alert",
-      confirm_button_text = "OK"
-    )
+el_button(
+  "open",
+  "Click to open the Message Box",
+  plain = TRUE,
+  on = list(
+    click = "$alert('This is a message', 'Title', { confirmButtonText: 'OK', callback: (action) => $message({ type: 'info', message: 'action: ' + action }) })"
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Confirm
@@ -45,26 +41,14 @@ Confirm is used to ask users' confirmation.
 Call `ElMessageBox.confirm` method to open a confirm, and it simulates the system's `confirm`. We can also highly customize Message Box by passing a third attribute `options` which is a literal object. The attribute `type` indicates the message type, and it's value can be `primary`, `success`, `error`, `info` and `warning`. Note that the second attribute `title` must be a `string`, and if it is an `object`, it will be handled as the attribute `options`. Here we use `Promise` to handle further processing. `primary` has been added in 2.9.11.
 
 ```{r confirm, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open the Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "proxy will permanently delete the file. Continue?",
-      title = "Warning",
-      type = "warning",
-      confirm_button_text = "OK",
-      cancel_button_text = "Cancel"
-    )
+el_button(
+  "open",
+  "Click to open the Message Box",
+  plain = TRUE,
+  on = list(
+    click = "$confirm('proxy will permanently delete the file. Continue?', 'Warning', { confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning' }).then(() => $message({ type: 'success', message: 'Delete completed' })).catch(() => $message({ type: 'info', message: 'Delete canceled' }))"
   )
-  observeEvent(
-    input$answer,
-    el_message(session, paste("Answer:", input$answer))
-  )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Prompt
@@ -74,75 +58,79 @@ Prompt is used when user input is required.
 Call `ElMessageBox.prompt` method to open a prompt, and it simulates the system's `prompt`. You can use `inputPattern` parameter to specify your own RegExp pattern. Use `inputValidator` to specify validation method, and it should return `Boolean` or `String`. Returning `false` or `String` means the validation has failed, and the string returned will be used as the `inputErrorMessage`. In addition, you can customize the placeholder of the input box with `inputPlaceholder` parameter.
 
 ```{r prompt, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "email",
-      "Please input your e-mail",
-      title = "Tip",
-      box_type = "prompt",
-      confirm_button_text = "OK",
-      cancel_button_text = "Cancel",
-      input_pattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?",
-      input_error_message = "Invalid Email"
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = JS(
+      "function() {
+        var self = this;
+        this.$prompt('Please input your e-mail', 'Tip', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          inputPattern: /[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?/,
+          inputErrorMessage: 'Invalid Email'
+        }).then(function(r) {
+          self.$message({ type: 'success', message: 'Your email is:' + r.value });
+        }).catch(function() {
+          self.$message({ type: 'info', message: 'Input canceled' });
+        });
+      }"
     )
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Use VNode
 
 `message` can be VNode.
 
-A message can be a VNode, built in the browser: give it as `JS()` code
-calling `Vue.h()`. One with props that change -- the switch -- is a
-function returning the VNode, as upstream says.
+A message can be a VNode, built with `Vue.h()`; one with props that
+change -- the switch -- is a function returning the VNode, as upstream
+says. A `JS()` handler, which can reach `Vue`, runs with the button as
+`this`.
 
 ```{r use-vnode, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(
-  el_button("open", "Common VNode", plain = TRUE),
-  el_button("open1", "Dynamic props", plain = TRUE)
-)
-server <- function(input, output, session) {
-  observeEvent(input$open, {
-    el_message_box(
-      session,
-      "vn",
-      JS(
-        "Vue.h('p', null, [
-          Vue.h('span', null, 'Message can be '),
-          Vue.h('i', { style: 'color: teal' }, 'VNode')
-        ])"
-      ),
-      title = "Message",
-      box_type = "alert"
+el_button(
+  "open",
+  "Common VNode",
+  plain = TRUE,
+  on = list(
+    click = JS(
+      "function() {
+        this.$msgbox({
+          title: 'Message',
+          message: Vue.h('p', null, [
+            Vue.h('span', null, 'Message can be '),
+            Vue.h('i', { style: 'color: teal' }, 'VNode')
+          ])
+        });
+      }"
     )
-  })
-  observeEvent(input$open1, {
-    el_message_box(
-      session,
-      "vn1",
-      JS(
-        "(function() {
-          var checked = Vue.ref(false);
-          return function() {
+  )
+)
+el_button(
+  "open1",
+  "Dynamic props",
+  plain = TRUE,
+  on = list(
+    click = JS(
+      "function() {
+        var checked = Vue.ref(false);
+        this.$msgbox({
+          title: 'Message',
+          message: function() {
             return Vue.h(ElementPlus.ElSwitch, {
               modelValue: checked.value,
               'onUpdate:modelValue': function(v) { checked.value = v; }
             });
-          };
-        })()"
-      ),
-      title = "Message",
-      box_type = "alert"
+          }
+        });
+      }"
     )
-  })
-}
-shinyApp(ui, server)
+  )
+)
 ```
 
 ## Use VNode With Action Handlers
@@ -150,42 +138,43 @@ shinyApp(ui, server)
 You can receive `{ confirm, cancel, close }` as parameters in `message`, which allows custom content to trigger the same MessageBox actions programmatically and automatically close the instance.
 
 A function message is handed the box's own actions, `confirm`, `cancel`
-and `close`, for buttons of its own. The answer reaches the server as
-`input$handled`, as for any message box.
+and `close`, for buttons of its own.
 
 ```{r use-vnode-with-action-handlers, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(input$open, {
-    el_message_box(
-      session,
-      "handled",
-      JS(
-        "function({ confirm, cancel, close }) {
-          var button = function(props, text) {
-            return Vue.h(ElementPlus.ElButton, props, function() { return text; });
-          };
-          return Vue.h('div', [
-            Vue.h('p', { style: 'margin-bottom: 8px' },
-              'Custom buttons with MessageBox action handlers'),
-            button({ type: 'primary', onClick: function() { confirm(); } }, 'Resolve'),
-            button({ type: 'danger', onClick: function() { cancel(); } }, 'Reject'),
-            button({ onClick: function() { close(); } }, 'Close')
-          ]);
-        }"
-      ),
-      title = "Message",
-      show_confirm_button = FALSE,
-      show_cancel_button = FALSE,
-      distinguish_cancel_and_close = TRUE
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = JS(
+      "function() {
+        var self = this;
+        var button = function(props, text) {
+          return Vue.h(ElementPlus.ElButton, props, function() { return text; });
+        };
+        this.$msgbox({
+          title: 'Message',
+          showConfirmButton: false,
+          showCancelButton: false,
+          distinguishCancelAndClose: true,
+          message: function(actions) {
+            return Vue.h('div', [
+              Vue.h('p', { style: 'margin-bottom: 8px' },
+                'Custom buttons with MessageBox action handlers'),
+              button({ type: 'primary', onClick: function() { actions.confirm(); } }, 'Resolve'),
+              button({ type: 'danger', onClick: function() { actions.cancel(); } }, 'Reject'),
+              button({ onClick: function() { actions.close(); } }, 'Close')
+            ]);
+          }
+        }).then(function(action) {
+          self.$message({ type: 'info', message: 'action: ' + action });
+        }).catch(function(action) {
+          self.$message({ type: 'info', message: 'action: ' + action });
+        });
+      }"
     )
-  })
-  observeEvent(
-    input$handled,
-    el_message(session, paste("Answer:", input$handled))
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Customization
@@ -195,24 +184,14 @@ Can be customized to show various content.
 The three methods mentioned above are repackagings of the `ElMessageBox` method. This example calls `ElMessageBox` method directly using the `showCancelButton` attribute, which is used to indicate if a cancel button is displayed. Besides we can use `cancelButtonClass` to add a custom style and `cancelButtonText` to customize the button text (the confirm button also has these fields, and a complete list of fields can be found at the end of this documentation). This example also uses the `beforeClose` attribute. It is a method and will be triggered when the MessageBox instance will be closed, and its execution will stop the instance from closing. It has three parameters: `action`, `instance` and `done`. Using it enables you to manipulate the instance before it closes, e.g. activating `loading` for confirm button; you can invoke the `done` method to close the MessageBox instance (if `done` is not called inside `beforeClose`, the instance will not be closed).
 
 ```{r customization, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "This is a message",
-      title = "Title",
-      show_cancel_button = TRUE,
-      confirm_button_text = "OK",
-      cancel_button_text = "Cancel",
-      confirm_button_type = "danger",
-      button_size = "small"
-    )
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = "$confirm('This is a message', 'Title', { showCancelButton: true, confirmButtonText: 'OK', cancelButtonText: 'Cancel', confirmButtonType: 'danger', buttonSize: 'small' })"
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Use HTML String
@@ -222,21 +201,14 @@ shinyApp(ui, server)
 Set `dangerouslyUseHTMLString` to true and `message` will be treated as an HTML string.
 
 ```{r use-html, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "<strong>proxy is <i>HTML</i> string</strong>",
-      title = "HTML String",
-      box_type = "alert",
-      dangerously_use_html_string = TRUE
-    )
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = "$alert('<strong>proxy is <i>HTML</i> string</strong>', 'HTML String', { dangerouslyUseHTMLString: true })"
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 > **Warning**
@@ -250,22 +222,14 @@ In some cases, clicking the cancel button and close button may have different me
 By default, the parameters of Promise's reject callback and `callback` are 'cancel' when the user cancels (clicking the cancel button) and closes (clicking the close button or mask layer, pressing the ESC key) the MessageBox. If `distinguishCancelAndClose` is set to true, the parameters of the above two operations are 'cancel' and 'close' respectively.
 
 ```{r distinguishable-close-cancel, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "You have unsaved changes, save and proceed?",
-      title = "Confirm",
-      distinguish_cancel_and_close = TRUE,
-      confirm_button_text = "Save",
-      cancel_button_text = "Discard Changes"
-    )
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = "$confirm('You have unsaved changes, save and proceed?', 'Confirm', { distinguishCancelAndClose: true, confirmButtonText: 'Save', cancelButtonText: 'Discard Changes' }).then(() => $message({ type: 'info', message: 'Changes saved. Proceeding to a new route.' })).catch((action) => $message({ type: 'info', message: action === 'cancel' ? 'Changes discarded. Proceeding to a new route.' : 'Stay in the current route' }))"
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Centered content
@@ -275,47 +239,41 @@ Content of MessageBox can be centered.
 Setting `center` to `true` will center the content.
 
 ```{r centered-content, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "proxy will permanently delete the file. Continue?",
-      title = "Warning",
-      type = "warning",
-      center = TRUE,
-      confirm_button_text = "OK",
-      cancel_button_text = "Cancel"
-    )
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = "$confirm('proxy will permanently delete the file. Continue?', 'Warning', { confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning', center: true })"
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Customized Icon
 
 The icon can be customized to any Vue component or [render function (JSX)](https://vuejs.org/guide/extras/render-function.html).
 
+An icon component as the box's icon: in the browser, Element's icons
+are `ElementPlusIconsVue`, reached from a `JS()` handler.
+
 ```{r customized-icon, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "Are you sure to delete this?",
-      title = "Warning",
-      type = "warning",
-      icon = "Delete",
-      confirm_button_text = "OK",
-      cancel_button_text = "Cancel"
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = JS(
+      "function() {
+        this.$confirm('Are you sure to delete this?', 'Warning', {
+          type: 'warning',
+          icon: Vue.markRaw(ElementPlusIconsVue.Delete),
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel'
+        });
+      }"
     )
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Draggable
@@ -325,23 +283,14 @@ MessageBox can be draggable.
 Setting `draggable` to `true` allows user to drag MessageBox. Set `overflow` 2.5.4 to `true` can drag overflow the viewport.
 
 ```{r draggable, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#open_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
-ui <- el_page(el_button("open", "Click to open Message Box", plain = TRUE))
-server <- function(input, output, session) {
-  observeEvent(
-    input$open,
-    el_message_box(
-      session,
-      "answer",
-      "proxy will permanently delete the file. Continue?",
-      title = "Warning",
-      type = "warning",
-      draggable = TRUE,
-      confirm_button_text = "OK",
-      cancel_button_text = "Cancel"
-    )
+el_button(
+  "open",
+  "Click to open Message Box",
+  plain = TRUE,
+  on = list(
+    click = "$confirm('proxy will permanently delete the file. Continue?', 'Warning', { confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning', draggable: true })"
   )
-}
-shinyApp(ui, server)
+)
 ```
 
 ## Global method
@@ -362,6 +311,35 @@ Now message box accepts a `context` as second (fourth if you are using message b
 If you prefer importing `MessageBox` on demand:
 
 The corresponding methods are: `ElMessageBox`, `ElMessageBox.alert`, `ElMessageBox.confirm` and `ElMessageBox.prompt`. The parameters are the same as above.
+
+## In Shiny
+
+From the server, `el_message_box(session, id, ...)` asks the user, with
+Element's options in snake_case; the answer is `input$<id>`:
+`"confirm"`, `"cancel"` or `"close"`, and for a prompt
+`list(action, value)`.
+
+```{r shiny-output, eval = FALSE, shot = TRUE, shot_js = "document.querySelector('#delete_container button').click()", shot_sel = ".el-message-box", shot_wait = 1}
+ui <- el_page(
+  el_button("delete", "Delete the file", type = "danger", plain = TRUE),
+  verbatimTextOutput("answer_seen")
+)
+server <- function(input, output, session) {
+  observeEvent(input$delete, {
+    el_message_box(
+      session,
+      "answer",
+      "proxy will permanently delete the file. Continue?",
+      title = "Warning",
+      type = "warning",
+      confirm_button_text = "OK",
+      cancel_button_text = "Cancel"
+    )
+  })
+  output$answer_seen <- renderPrint(input$answer)
+}
+shinyApp(ui, server)
+```
 
 ## API
 
