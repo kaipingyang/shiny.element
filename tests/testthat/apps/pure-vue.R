@@ -340,10 +340,30 @@ ui <- fluidPage(
       )
     )
   ),
+  # Vue's reactivity for the page: ref, reactive, computed, watch
+  vue_ref("rx_count", 1, input = TRUE),
+  vue_reactive("rx_form", list(name = "Ann", seen = 0), input = TRUE),
+  vue_computed("rx_twice", "$vueRef.rx_count * 2", input = TRUE),
+  vue_watch("$vueRef.rx_count", "$vueReactive.rx_form.seen = $value"),
+  vue_app(
+    "rx",
+    tags$div(
+      tags$button(class = "rx-inc", v_on(click = "$vueRef.rx_count++"), "+"),
+      tags$span(
+        class = "rx",
+        "{{ $vueRef.rx_count }}|{{ $vueComputed.rx_twice }}|{{ $vueReactive.rx_form.seen }}"
+      )
+    )
+  ),
   verbatimTextOutput("vals")
 )
 
 server <- function(input, output, session) {
+  # a ref and a reactive's field set from the server
+  observeEvent(input$rx_set, {
+    update_vue(session, "rx_count", value = 10)
+    update_vue(session, "rx_form", name = "Bob")
+  })
   # a store's action from the server, its value as input$cart_add
   observeEvent(input$call_add, call_vue(session, "cart", "add", 10))
   # NA: back to the default; a value; JS("null"): a null

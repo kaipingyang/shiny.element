@@ -73,7 +73,10 @@ applying it through `shinyVue.bindElement()`; an argument R reads to draw
 with says so, `.vue_unbound()`, and `test-vue-directives.R` fails on any
 argument of any component that drops a binding). Template names follow
 the function that made them: `$vueStore` (was `$store`, kept a version),
-later `$vueRef` etc.; plan `.claude/plans/vue-syntax-in-r-2026-10-30.md`.
+`vue_ref()`/`vue_reactive()`/`vue_computed()`/`vue_watch()` (`R/vue_state.R`: hosts with
+no markup whose `state` the bridge makes in `setup()`, read as `$vueRef`
+and the rest, mounted first with the stores), `$find(id)` (a component, as
+`call_el()` finds it); plan `.claude/plans/vue-syntax-in-r-2026-10-30.md`.
 And the `.vue_*` helpers.
 `test-vue-layer.R` fails if any of it names Element; `test-browser-pure-vue.R`
 runs it with no Element Plus on the page. The **Element layer** (`R/el_*.R`,

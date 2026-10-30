@@ -85,6 +85,15 @@ test_that("bound components follow each other on a page with no Shiny", {
     js("(document.querySelector('.el-message') || {}).textContent"),
     "Hi from the page"
   )
+  # $find(): a component's method from another, in the browser
+  js("document.querySelector('#flt button').click()")
+  Sys.sleep(0.4)
+  expect_equal(
+    js(
+      "Array.from(document.querySelectorAll('#tr .el-tree-node')).filter(function(n){ return n.style.display !== 'none'; }).map(function(n){ return n.textContent.trim(); }).join(',')"
+    ),
+    "pear"
+  )
   # an expression: the switch is disabled unless the size is large
   expect_false(js(sprintf(
     "document.querySelector('#big .el-switch').classList.contains('is-disabled')"

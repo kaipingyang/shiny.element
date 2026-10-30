@@ -85,6 +85,15 @@ bind_ui <- function() {
       ),
       selected = v_model("$vueStore.ui.tab")
     ),
+    # a component's method, called in the browser
+    el_tree(
+      "tr",
+      data = list(list(label = "apple"), list(label = "pear")),
+      filter_node_method = JS(
+        "function(v, d) { return !v || d.label.indexOf(v) >= 0; }"
+      )
+    ),
+    el_button("flt", "Filter", on = list(click = "$find('tr').filter('pe')")),
     el_button(
       "msg",
       "Message",

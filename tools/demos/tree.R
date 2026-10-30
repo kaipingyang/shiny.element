@@ -212,8 +212,10 @@ el_tree(
 )
 
 ## checking-tree
-#' `update_el_tree(default_checked_keys =)` sets them; `call_el()` runs Element Plus's
-#' `getCheckedKeys()`, `setCheckedKeys()` and the rest.
+#' The buttons call the tree's `setCheckedKeys()` and `getCheckedKeys()` in
+#' the browser, through `$find(id)`. From the server it is
+#' `update_el_tree(default_checked_keys =)` and `call_el()`; the keys
+#' checked arrive as `input$tree_checked`.
 #| shot_js = "document.querySelector('#set_container button').click()", shot_wait = 2
 nodes <- list(
   list(
@@ -230,35 +232,35 @@ nodes <- list(
     )
   )
 )
-
-ui <- el_page(
-  el_tree(
-    "tree",
-    data = nodes,
-    show_checkbox = TRUE,
-    node_key = "id",
-    default_expand_all = TRUE
-  ),
-  el_button("set", "Check 4 and 6", size = "small"),
-  el_button("get", "Get checked keys", size = "small"),
-  el_button("reset", "Reset", size = "small"),
-  verbatimTextOutput("keys")
+el_tree(
+  "tree",
+  data = nodes,
+  show_checkbox = TRUE,
+  node_key = "id",
+  default_expand_all = TRUE
 )
-
-server <- function(input, output, session) {
-  observeEvent(
-    input$set,
-    update_el_tree(id = "tree", default_checked_keys = c(4, 6))
+el_button(
+  "set",
+  "Check 4 and 6",
+  size = "small",
+  on = list(click = v_on("$find('tree').setCheckedKeys([4, 6])"))
+)
+el_button(
+  "get",
+  "Get checked keys",
+  size = "small",
+  on = list(
+    click = v_on(
+      "$message('Checked: ' + $find('tree').getCheckedKeys().join(', '))"
+    )
   )
-  observeEvent(
-    input$reset,
-    update_el_tree(id = "tree", default_checked_keys = character(0))
-  )
-  observeEvent(input$get, call_el(session, "tree", "getCheckedKeys"))
-  output$keys <- renderPrint(input$tree_checked)
-}
-
-shinyApp(ui, server)
+)
+el_button(
+  "reset",
+  "Reset",
+  size = "small",
+  on = list(click = v_on("$find('tree').setCheckedKeys([])"))
+)
 
 ## customized-node
 #' The first tree draws its nodes with `render_content`, a function given
@@ -422,38 +424,33 @@ tagList(
 )
 
 ## filtering
-#' `filter()` keeps the nodes whose label contains the text; give
-#' `filter_node_method` to decide otherwise.
+#' `filter()` keeps the nodes whose label contains the text, called in the
+#' browser as it changes, through `$find(id)`; give `filter_node_method` to
+#' decide otherwise.
 #| shot_js = "var i = document.querySelector('#q_container input'); i.value = 'two'; i.dispatchEvent(new Event('input'));", shot_wait = 2
-ui <- el_page(
-  el_input("q", placeholder = "Filter keyword", width = "300px"),
-  el_tree(
-    "filtered",
-    node_key = "id",
-    default_expand_all = TRUE,
-    data = list(
-      list(
-        id = 1,
-        label = "Level one 1",
-        children = list(list(id = 4, label = "Level two 1-1"))
-      ),
-      list(
-        id = 2,
-        label = "Level one 2",
-        children = list(list(id = 5, label = "Level three 2-1"))
-      )
+el_input(
+  "q",
+  placeholder = "Filter keyword",
+  width = "300px",
+  on = list(input = v_on("$find('filtered').filter($event)"))
+)
+el_tree(
+  "filtered",
+  node_key = "id",
+  default_expand_all = TRUE,
+  data = list(
+    list(
+      id = 1,
+      label = "Level one 1",
+      children = list(list(id = 4, label = "Level two 1-1"))
+    ),
+    list(
+      id = 2,
+      label = "Level one 2",
+      children = list(list(id = 5, label = "Level three 2-1"))
     )
   )
 )
-
-server <- function(input, output, session) {
-  observeEvent(
-    input$q,
-    call_el(session, "filtered", "filter", list(input$q), result = FALSE)
-  )
-}
-
-shinyApp(ui, server)
 
 ## accordion
 #' Only one node of a level open at a time.

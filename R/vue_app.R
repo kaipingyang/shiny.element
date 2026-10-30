@@ -539,7 +539,8 @@ vue_app <- function(
   type = NULL,
   rate = NULL,
   optional = NULL,
-  store_def = NULL
+  store_def = NULL,
+  state = NULL
 ) {
   if (!is.character(id) || length(id) != 1L || !nzchar(id)) {
     stop("`id` must be a single string.", call. = FALSE)
@@ -559,7 +560,9 @@ vue_app <- function(
   options <- .vue_option_aliases(options)
   spec <- list(options = c(list(data = data), options))
   # a setup() -- the component's or a store's -- has fields R cannot list
-  in_setup <- !is.null(options$setup) || !is.null(store_def$setup)
+  in_setup <- !is.null(options$setup) ||
+    !is.null(store_def$setup) ||
+    !is.null(state)
   # a store's getters are its fields as well, read-only
   getters <- names(store_def$getters)
   if (length(input)) {
@@ -609,6 +612,10 @@ vue_app <- function(
   }
   if (length(outputs)) {
     spec$outputs <- I(outputs)
+  }
+  # page state of Vue's kinds (vue_ref() and the rest): made by the bridge
+  if (!is.null(state)) {
+    spec$state <- state
   }
   if (isTRUE(store)) {
     spec$store <- TRUE

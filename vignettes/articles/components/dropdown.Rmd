@@ -182,9 +182,10 @@ el_dropdown(
 
 You can open or close the dropdown menu by manually use `handleOpen` or `handleClose`
 
-`call_el(session, id, "handleOpen")` opens a dropdown from the server and
-`"handleClose"` closes it; `input$<id>_visible_change` says when one
-opens or closes.
+A dropdown's methods, called in the browser with `$find(id)`: the button
+runs the first list's `handleOpen()`, and the second list's
+`visible-change` opens or closes the first. From the server it is
+`call_el(session, id, "handleOpen")`.
 
 ```{r dropdown-methods, eval = FALSE, shot = TRUE, shot_sel = ".el-dropdown__popper", shot_js = c("document.querySelector('#dd_show button').click()", "window.opened = document.querySelector('#dd_list1 .el-dropdown-link').getAttribute('aria-expanded')", "document.querySelector('#dd_list2 .el-dropdown-link').dispatchEvent(new MouseEvent('contextmenu', {bubbles: true}))"), shot_wait = 1, shot_expect = c("window.opened === 'true'", "document.querySelector('#dd_list2 .el-dropdown-link').getAttribute('aria-expanded') === 'true'", "document.querySelector('#dd_list1 .el-dropdown-link').getAttribute('aria-expanded') === 'false'")}
 items <- list(
@@ -194,43 +195,38 @@ items <- list(
   el_dropdown_item("4", "Action 4", disabled = TRUE),
   el_dropdown_item("5", "Action 5", divided = TRUE)
 )
-ui <- el_page(
-  tags$div(
-    style = "font-size: 14px",
-    tags$p(
-      "open(close) the Dropdown list2 will close(open) the Dropdown List1."
-    )
+tags$div(
+  style = "font-size: 14px",
+  tags$p("open(close) the Dropdown list2 will close(open) the Dropdown List1.")
+)
+tags$div(
+  style = "margin: 15px",
+  el_button(
+    "dd_show",
+    "show",
+    on = list(click = v_on("$find('dd_list1').handleOpen()"))
+  )
+)
+tags$div(
+  style = "display: flex; gap: 30px",
+  el_dropdown(
+    "dd_list1",
+    trigger = "contextmenu",
+    trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List1"),
+    items = items
   ),
-  tags$div(style = "margin: 15px", el_button("dd_show", "show")),
-  tags$div(
-    style = "display: flex; gap: 30px",
-    el_dropdown(
-      "dd_list1",
-      trigger = "contextmenu",
-      trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List1"),
-      items = items
-    ),
-    el_dropdown(
-      "dd_list2",
-      events = "visible_change",
-      trigger = "contextmenu",
-      trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List2"),
-      items = items
+  el_dropdown(
+    "dd_list2",
+    trigger = "contextmenu",
+    trigger_label = tags$span(class = "el-dropdown-link", "Dropdown List2"),
+    items = items,
+    on = list(
+      visible_change = v_on(
+        "$event ? $find('dd_list1').handleClose() : $find('dd_list1').handleOpen()"
+      )
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$dd_show, call_el(session, "dd_list1", "handleOpen"))
-  observeEvent(input$dd_list2_visible_change, {
-    method <- if (isTRUE(input$dd_list2_visible_change)) {
-      "handleClose"
-    } else {
-      "handleOpen"
-    }
-    call_el(session, "dd_list1", method)
-  })
-}
-shinyApp(ui, server)
 ```
 
 ## Sizes

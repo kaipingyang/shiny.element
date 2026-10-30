@@ -1274,10 +1274,11 @@ el_table_v2(
 ## manual-scroll
 #| shot_js = "document.querySelector('#rows_btn_container button').click()"
 #| shot_wait = 2
-#' The buttons call the table's `scrollToTop()` and `scrollToRow()` from the
-#' server. `scrollToRow()` is given the strategy `"start"`: with the default,
-#' Element Plus 2.14.7 also scrolls the table to its last column (see
-#' "Limitations").
+#' The buttons call the table's `scrollToTop()` and `scrollToRow()` in the
+#' browser, through `$find(id)`, with the numbers in the inputs,
+#' `$inputs.<id>`. `scrollToRow()` is given the strategy `"start"`: with
+#' the default, Element Plus 2.14.7 also scrolls the table to its last
+#' column (see "Limitations").
 generate_columns <- function(length = 10, prefix = "column-") {
   lapply(seq_len(length) - 1, function(i) {
     el_table_v2_column(paste0(prefix, i), paste("Column", i), width = 150)
@@ -1297,42 +1298,37 @@ generate_data <- function(columns, length = 200, prefix = "row-") {
 }
 columns <- generate_columns(10)
 data <- generate_data(columns, 200)
-
-ui <- el_page(
-  tags$div(
-    style = "display: flex; gap: 16px; margin-bottom: 16px",
-    el_input("delta", value = "200", label = "Scroll pixels"),
-    el_input("rows", value = "10", label = "Scroll rows")
+tags$div(
+  style = "display: flex; gap: 16px; margin-bottom: 16px",
+  el_input("delta", value = "200", label = "Scroll pixels"),
+  el_input("rows", value = "10", label = "Scroll rows")
+)
+tags$div(
+  style = "margin-bottom: 16px",
+  el_button(
+    "pixels_btn",
+    "Scroll by pixels",
+    on = list(
+      click = v_on("$find('tv_scroll').scrollToTop(Number($inputs.delta))")
+    )
   ),
-  tags$div(
-    style = "margin-bottom: 16px",
-    el_button("pixels_btn", "Scroll by pixels"),
-    el_button("rows_btn", "Scroll by rows")
-  ),
-  tags$div(
-    style = "height: 400px",
-    el_table_v2(
-      "tv_scroll",
-      columns = columns,
-      data = data,
-      fixed = TRUE,
-      auto_resize = TRUE
+  el_button(
+    "rows_btn",
+    "Scroll by rows",
+    on = list(
+      click = v_on(
+        "$find('tv_scroll').scrollToRow(Number($inputs.rows), 'start')"
+      )
     )
   )
 )
-
-server <- function(input, output, session) {
-  observeEvent(input$pixels_btn, {
-    call_el(session, "tv_scroll", "scrollToTop", list(as.numeric(input$delta)))
-  })
-  observeEvent(input$rows_btn, {
-    call_el(
-      session,
-      "tv_scroll",
-      "scrollToRow",
-      list(as.numeric(input$rows), "start")
-    )
-  })
-}
-
-shinyApp(ui, server)
+tags$div(
+  style = "height: 400px",
+  el_table_v2(
+    "tv_scroll",
+    columns = columns,
+    data = data,
+    fixed = TRUE,
+    auto_resize = TRUE
+  )
+)

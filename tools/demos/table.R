@@ -272,49 +272,52 @@ el_table(
 ## single-select
 #| shot_js = "document.querySelector('#second_container button').click()"
 #| shot_wait = 2
-#' The buttons call the table's `setCurrentRow()` from the server; the row
-#' clicked or set arrives as `input$single_current_change`.
+#' The buttons call the table's `setCurrentRow()` in the browser, through
+#' `$find(id)`; the row clicked or set arrives as
+#' `input$single_current_change`. From the server it is `call_el(session,
+#' "single", "setCurrentRow", list(el_table_row(2)))`.
 tableData <- data.frame(
   date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
   name = "Tom",
   address = "No. 189, Grove St, Los Angeles"
 )
-
-ui <- el_page(
-  el_table_output("single"),
-  tags$div(
-    style = "margin-top: 20px",
-    el_button("second", "Select second row"),
-    el_button("clear", "Clear selection")
+el_table(
+  "single",
+  data = tableData,
+  highlight_current_row = TRUE,
+  columns = list(
+    el_table_column(type = "index", width = 50),
+    el_table_column("date", "Date", width = 120),
+    el_table_column("name", "Name", width = 120),
+    el_table_column("address", "Address")
   )
 )
-
-server <- function(input, output, session) {
-  output$single <- render_el_table(el_table(
-    data = tableData,
-    highlight_current_row = TRUE,
-    columns = list(
-      el_table_column(type = "index", width = 50),
-      el_table_column("date", "Date", width = 120),
-      el_table_column("name", "Name", width = 120),
-      el_table_column("address", "Address")
+tags$div(
+  style = "margin-top: 20px",
+  el_button(
+    "second",
+    "Select second row",
+    on = list(
+      click = v_on(
+        "$find('single').setCurrentRow($find('single').$props.data[1])"
+      )
     )
-  ))
-  observeEvent(input$second, {
-    call_el(session, "single", "setCurrentRow", list(el_table_row(2)))
-  })
-  observeEvent(input$clear, call_el(session, "single", "setCurrentRow"))
-}
-
-shinyApp(ui, server)
+  ),
+  el_button(
+    "clear",
+    "Clear selection",
+    on = list(click = v_on("$find('single').setCurrentRow()"))
+  )
+)
 
 ## multi-select
 #| shot_js = "document.querySelector('#toggle_container button').click()"
 #| shot_wait = 2
 #' Rows 1 and 2 cannot be ticked (`selectable`). The first button toggles
-#' rows 2 and 3 whatever `selectable` says, the second only where it allows;
-#' the rows ticked arrive as `input$multi_selection_rows` (their numbers)
-#' and `input$multi_selection_change` (the rows).
+#' rows 2 and 3 whatever `selectable` says, the second only where it allows
+#' -- the table's `toggleRowSelection()`, called in the browser with
+#' `$find(id)`; the rows ticked arrive as `input$multi_selection_rows`
+#' (their numbers) and `input$multi_selection_change` (the rows).
 tableData <- data.frame(
   id = 1:7,
   date = c(
@@ -329,55 +332,45 @@ tableData <- data.frame(
   name = "Tom",
   address = "No. 189, Grove St, Los Angeles"
 )
-
-ui <- el_page(
-  el_table_output("multi"),
-  tags$div(
-    style = "margin-top: 20px",
-    el_button("toggle", "Toggle selection status of second and third rows"),
-    el_button(
-      "toggle_selectable",
-      "Toggle selection status based on selectable"
+toggle <- function(ignore) {
+  v_on(sprintf(
+    "var t = $find('multi'); [1, 2].forEach(function(i) { t.toggleRowSelection(t.$props.data[i], undefined, %s); })",
+    ignore
+  ))
+}
+el_table(
+  "multi",
+  data = tableData,
+  row_key = "id",
+  columns = list(
+    el_table_column(
+      type = "selection",
+      width = 55,
+      selectable = JS("function(row) { return ![1, 2].includes(row.id); }")
     ),
-    el_button("clear", "Clear selection")
+    el_table_column(label = "Date", width = 120, cell = "{{ scope.row.date }}"),
+    el_table_column("name", "Name", width = 120),
+    el_table_column("address", "Address")
   )
 )
-
-server <- function(input, output, session) {
-  output$multi <- render_el_table(el_table(
-    data = tableData,
-    row_key = "id",
-    columns = list(
-      el_table_column(
-        type = "selection",
-        width = 55,
-        selectable = JS("function(row) { return ![1, 2].includes(row.id); }")
-      ),
-      el_table_column(
-        label = "Date",
-        width = 120,
-        cell = "{{ scope.row.date }}"
-      ),
-      el_table_column("name", "Name", width = 120),
-      el_table_column("address", "Address")
-    )
-  ))
-  toggle <- function(ignore_selectable) {
-    for (i in 2:3) {
-      call_el(
-        session,
-        "multi",
-        "toggleRowSelection",
-        list(el_table_row(i), NULL, ignore_selectable)
-      )
-    }
-  }
-  observeEvent(input$toggle, toggle(TRUE))
-  observeEvent(input$toggle_selectable, toggle(FALSE))
-  observeEvent(input$clear, call_el(session, "multi", "clearSelection"))
-}
-
-shinyApp(ui, server)
+tags$div(
+  style = "margin-top: 20px",
+  el_button(
+    "toggle",
+    "Toggle selection status of second and third rows",
+    on = list(click = toggle("true"))
+  ),
+  el_button(
+    "toggle_selectable",
+    "Toggle selection status based on selectable",
+    on = list(click = toggle("false"))
+  ),
+  el_button(
+    "clear",
+    "Clear selection",
+    on = list(click = v_on("$find('multi').clearSelection()"))
+  )
+)
 
 ## sort
 tableData <- data.frame(
@@ -400,75 +393,70 @@ el_table(
 )
 
 ## filter
-#' The buttons call the table's `clearFilter()` from the server: with the
-#' date column's `column_key`, or with nothing for every column.
+#' The buttons call the table's `clearFilter()` in the browser, with
+#' `$find(id)`: with the date column's `column_key`, or with nothing for
+#' every column.
 tableData <- data.frame(
   date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
   name = "Tom",
   address = "No. 189, Grove St, Los Angeles",
   tag = c("Home", "Office", "Home", "Office")
 )
-
-ui <- el_page(
-  el_button("reset_date", "reset date filter"),
-  el_button("reset_all", "reset all filters"),
-  el_table_output("filtered")
+el_button(
+  "reset_date",
+  "reset date filter",
+  on = list(click = v_on("$find('filtered').clearFilter(['date'])"))
 )
-
-server <- function(input, output, session) {
-  output$filtered <- render_el_table(el_table(
-    data = tableData,
-    row_key = "date",
-    columns = list(
-      el_table_column(
-        "date",
-        "Date",
-        sortable = TRUE,
-        width = 180,
-        column_key = "date",
-        filters = lapply(
-          c("2016-05-01", "2016-05-02", "2016-05-03", "2016-05-04"),
-          function(d) list(text = d, value = d)
-        ),
-        filter_method = JS(
-          "function(value, row, column) {",
-          "  return row[column['property']] === value;",
-          "}"
-        )
+el_button(
+  "reset_all",
+  "reset all filters",
+  on = list(click = v_on("$find('filtered').clearFilter()"))
+)
+el_table(
+  "filtered",
+  data = tableData,
+  row_key = "date",
+  columns = list(
+    el_table_column(
+      "date",
+      "Date",
+      sortable = TRUE,
+      width = 180,
+      column_key = "date",
+      filters = lapply(
+        c("2016-05-01", "2016-05-02", "2016-05-03", "2016-05-04"),
+        function(d) list(text = d, value = d)
       ),
-      el_table_column("name", "Name", width = 180),
-      el_table_column(
-        "address",
-        "Address",
-        formatter = JS("function(row, column) { return row.address; }")
+      filter_method = JS(
+        "function(value, row, column) {",
+        "  return row[column['property']] === value;",
+        "}"
+      )
+    ),
+    el_table_column("name", "Name", width = 180),
+    el_table_column(
+      "address",
+      "Address",
+      formatter = JS("function(row, column) { return row.address; }")
+    ),
+    el_table_column(
+      "tag",
+      "Tag",
+      width = 100,
+      filters = list(
+        list(text = "Home", value = "Home"),
+        list(text = "Office", value = "Office")
       ),
-      el_table_column(
-        "tag",
-        "Tag",
-        width = 100,
-        filters = list(
-          list(text = "Home", value = "Home"),
-          list(text = "Office", value = "Office")
-        ),
-        filter_method = JS(
-          "function(value, row) { return row.tag === value; }"
-        ),
-        filter_placement = "bottom-end",
-        cell = el$tag(
-          ":type" = "scope.row.tag === 'Home' ? 'primary' : 'success'",
-          "disable-transitions" = NA,
-          "{{ scope.row.tag }}"
-        )
+      filter_method = JS("function(value, row) { return row.tag === value; }"),
+      filter_placement = "bottom-end",
+      cell = el$tag(
+        ":type" = "scope.row.tag === 'Home' ? 'primary' : 'success'",
+        "disable-transitions" = NA,
+        "{{ scope.row.tag }}"
       )
     )
-  ))
-  observeEvent(input$reset_date, {
-    call_el(session, "filtered", "clearFilter", list(list("date")))
-  })
-  observeEvent(input$reset_all, call_el(session, "filtered", "clearFilter"))
-}
-
-shinyApp(ui, server)
+  )
+)
 
 ## custom-column
 #| shot_js = "document.querySelectorAll('#shot .el-table__body .el-button')[1].click()"

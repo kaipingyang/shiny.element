@@ -312,6 +312,19 @@ test_that("vue_app() works without Element Plus", {
   Sys.sleep(0.3)
   expect_equal(js("document.querySelector('#vu .vu').textContent"), "6|100")
 
+  # vue_ref(), vue_reactive(), vue_computed(), vue_watch()
+  rx <- function() js("document.querySelector('#rx .rx').textContent")
+  expect_equal(rx(), "1|2|0")
+  js("document.querySelector('#rx .rx-inc').click()")
+  Sys.sleep(0.8)
+  expect_equal(rx(), "2|4|2")
+  expect_equal(js("Shiny.shinyapp.$inputValues.rx_count"), 2)
+  expect_equal(js("Shiny.shinyapp.$inputValues.rx_twice"), 4)
+  js("Shiny.setInputValue('rx_set', 1)")
+  Sys.sleep(1)
+  expect_equal(rx(), "10|20|10")
+  expect_equal(js("Shiny.shinyapp.$inputValues.rx_form.name"), "Bob")
+
   # v_*() and vtags$: the template written with R's functions
   dx <- function(sel) js(sprintf("document.querySelector('#dx %s')", sel))
   expect_true(js("!!document.querySelector('#dx .dx-none')"))

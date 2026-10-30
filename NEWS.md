@@ -36,6 +36,18 @@
   the rest). Given unnamed, a directive is its attributes; nothing else in
   a template is touched, and backtick attributes work as before.
 
+* Vue's reactivity for the page, in Shiny's shapes: `vue_ref()` (Vue's
+  `ref()`, Shiny's `reactiveVal()`), `vue_reactive()`, `vue_computed()`
+  and `vue_watch()`, read as `$vueRef.<id>`, `$vueReactive.<id>`,
+  `$vueComputed.<id>` and in `setup()` as `shinyVue.useRef()` and the
+  rest; `input = TRUE` reports one, `update_vue()` sets it.
+
+* `$find(id)` in templates and statements is a component, to call its
+  methods in the browser as `call_el()` does from the server:
+  `on = list(input = v_on("$find('tree').filter($event)"))`. The table,
+  tree, dropdown, scrollbar and image examples that called methods from
+  the server do it in the browser now, live on the site.
+
 * `on =` takes Vue's inline statements as well as `JS()` functions:
   `on = list(click = "$vueStore.ui.open = true")`, as `@click="..."` in a
   template; `v_on(statement, ns =)` is one in a module.

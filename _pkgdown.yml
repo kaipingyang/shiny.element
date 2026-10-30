@@ -470,6 +470,7 @@ reference:
       - v_on
       - directives
       - vtags
+      - vue_reactivity
       - vue_router
       - update_vue_router
       - vueuse_dependency
