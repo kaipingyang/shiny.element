@@ -199,10 +199,12 @@ template go to the holder too.</p>
 
 
 <dt id="arg-components">components<a class="anchor" aria-label="anchor" href="#arg-components"></a></dt>
-<dd><p>Whether components of their own (hosts) and tags marked
-<code>data-shiny-island</code> are islands too. A component library that folds
-its components into one another, and places its containers itself,
-leaves them in the template: <code>FALSE</code>.</p></dd>
+<dd><p>Whether tags marked <code>data-shiny-island</code>, and components
+given as specifications, are islands too. A component library that
+folds its components into one another, and places its containers
+itself, leaves them in the template: <code>FALSE</code>. A host left in the
+template – a <code><a href="vue_app.html">vue_app()</a></code> the library did not fold – is an island
+either way, or Vue would drop its template and it would never mount.</p></dd>
 
 </dl></div>
     <div class="section level2">

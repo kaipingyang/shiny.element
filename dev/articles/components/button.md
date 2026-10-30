@@ -168,7 +168,7 @@ In 2.11.9 you can use the `direction` attribute.
 Use tag `<el-button-group>` to group your buttons.
 
 The radios turn the second group: its `direction` follows them,
-\[vue_bind()\], in the browser.
+\[v_bind()\], in the browser.
 
 ``` r
 
@@ -189,7 +189,7 @@ el_radio_group(
 tags$br()
 el_button_group(
   id = "dir_group",
-  direction = vue_bind("$inputs.direction"),
+  direction = v_bind("$inputs.direction"),
   el_button("g1", NULL, type = "primary", icon = "House"),
   el_button("g2", NULL, type = "primary", icon = "Operation"),
   el_button("g3", NULL, type = "primary", icon = "Notification")

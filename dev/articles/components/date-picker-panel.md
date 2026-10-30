@@ -61,7 +61,7 @@ The `disabled` attribute determines if the date picker is fully
 disabled.
 
 The switch disables the panel: its `disabled` follows the switch in the
-browser, \[vue_bind()\].
+browser, \[v_bind()\].
 
 ``` r
 
@@ -75,7 +75,7 @@ tags$div(
   ),
   el_date_picker_panel(
     "dpp_dis",
-    disabled = vue_bind("$inputs.dpp_switch")
+    disabled = v_bind("$inputs.dpp_switch")
   )
 )
 ```
@@ -85,7 +85,7 @@ tags$div(
 The measurement is determined by the `type` attribute.
 
 The select changes the panel’s `type`, which follows it in the browser,
-\[vue_bind()\]; the panel’s value is a store’s field, which the select’s
+\[v_bind()\]; the panel’s value is a store’s field, which the select’s
 `on` handler clears as it does.
 
 ``` r
@@ -117,7 +117,7 @@ tags$div(
       "dpp_type",
       choices = types,
       selected = "date",
-      on = list(change = "$store.panel_types.value = null")
+      on = list(change = "$vueStore.panel_types.value = null")
     )
   )
 )
@@ -126,8 +126,8 @@ tags$div(
   style = "display: flex; justify-content: center",
   el_date_picker_panel(
     "dpp_all",
-    type = vue_bind("$inputs.dpp_type"),
-    value = vue_bind("$store.panel_types.value")
+    type = v_bind("$inputs.dpp_type"),
+    value = v_model("$vueStore.panel_types.value")
   )
 )
 ```

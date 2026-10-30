@@ -6,10 +6,10 @@ is an application of its own, so Vue's `provide` and `inject` cannot
 reach from one to another. Vue's answer is a store, and its store is
 Pinia's: this is one, defined from R with Pinia's own parts – `state`,
 `getters`, `actions`, or a `setup` function – and reached in every
-template as `$store.<id>`: `$store.cart.count`, a getter
-`$store.cart.total`, an action `$store.cart.add(1)`, at once and in the
-browser. In a component's `setup()`, `shinyVue.useStore("<id>")` gives
-the Pinia store itself (`Pinia.storeToRefs()` works on it).
+template as `$vueStore.<id>`: `$vueStore.cart.count`, a getter
+`$vueStore.cart.total`, an action `$vueStore.cart.add(1)`, at once and
+in the browser. In a component's `setup()`, `shinyVue.useStore("<id>")`
+gives the Pinia store itself (`Pinia.storeToRefs()` works on it).
 
 ## Usage
 
@@ -30,7 +30,7 @@ vue_store(
 
 - id:
 
-  The store's id: `$store.<id>` in templates, Pinia's store id.
+  The store's id: `$vueStore.<id>` in templates, Pinia's store id.
 
 - state:
 
@@ -104,17 +104,17 @@ vue_store(
 #>   <script type="text/x-template" data-shiny-vue-template><span hidden></span></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"count":0,"price":3}},"input":"total","store":true,"storeDef":{"getters":{"total":"function(state) { return state.count * state.price; }"},"actions":{"add":"function(n) { this.count += n; }"}},"evals":["storeDef.getters.total","storeDef.actions.add"]}</script>
 #> </div>
-vue_app("add", htmltools::tags$button(`@click` = "$store.cart.add(1)", "Add"))
+vue_app("add", htmltools::tags$button(`@click` = "$vueStore.cart.add(1)", "Add"))
 #> <div id="add" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><button @click="$store.cart.add(1)">Add</button></script>
+#>   <script type="text/x-template" data-shiny-vue-template><button @click="$vueStore.cart.add(1)">Add</button></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"evals":[]}</script>
 #> </div>
 vue_app(
   "show",
-  htmltools::tags$span("{{ $store.cart.count }} for {{ $store.cart.total }}")
+  htmltools::tags$span("{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}")
 )
 #> <div id="show" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><span>{{ $store.cart.count }} for {{ $store.cart.total }}</span></script>
+#>   <script type="text/x-template" data-shiny-vue-template><span>{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}</span></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"evals":[]}</script>
 #> </div>
 ```

@@ -66,7 +66,7 @@ You can use `color` attr to set the progress bar color. it accepts color
 string, function, or array.
 
 The buttons step every bar by ten: the bars’ `percentage` is a store’s
-field, \[vue_bind()\], which the buttons change in the browser.
+field, \[v_bind()\], which the buttons change in the browser.
 
 ``` r
 
@@ -84,29 +84,35 @@ tags$style(
 )
 tags$div(
   class = "demo-progress",
-  el_progress("prc1", percentage = vue_bind("$store.prc.p"), color = "#409eff"),
+  el_progress(
+    "prc1",
+    percentage = v_bind("$vueStore.prc.p"),
+    color = "#409eff"
+  ),
   el_progress(
     "prc2",
-    percentage = vue_bind("$store.prc.p"),
+    percentage = v_bind("$vueStore.prc.p"),
     color = JS(
       "function(p) { return p < 30 ? '#909399' : p < 70 ? '#e6a23c' : '#67c23a'; }"
     )
   ),
-  el_progress("prc3", percentage = vue_bind("$store.prc.p"), color = colors),
-  el_progress("prc4", percentage = vue_bind("$store.prc.p"), color = colors),
+  el_progress("prc3", percentage = v_bind("$vueStore.prc.p"), color = colors),
+  el_progress("prc4", percentage = v_bind("$vueStore.prc.p"), color = colors),
   tags$div(
     el_button_group(
       el_button(
         "prc_minus",
         label = NULL,
         icon = "Minus",
-        on = list(click = "$store.prc.p = Math.max(0, $store.prc.p - 10)")
+        on = list(click = "$vueStore.prc.p = Math.max(0, $vueStore.prc.p - 10)")
       ),
       el_button(
         "prc_plus",
         label = NULL,
         icon = "Plus",
-        on = list(click = "$store.prc.p = Math.min(100, $store.prc.p + 10)")
+        on = list(
+          click = "$vueStore.prc.p = Math.min(100, $vueStore.prc.p + 10)"
+        )
       )
     )
   )
@@ -164,13 +170,13 @@ tags$div(
   el_progress(
     "prd1",
     type = "dashboard",
-    percentage = vue_bind("$store.prd.p"),
+    percentage = v_bind("$vueStore.prd.p"),
     color = colors
   ),
   el_progress(
     "prd2",
     type = "dashboard",
-    percentage = vue_bind("$store.going.p"),
+    percentage = v_bind("$vueStore.going.p"),
     color = colors
   ),
   tags$div(
@@ -179,13 +185,15 @@ tags$div(
         "prd_minus",
         label = NULL,
         icon = "Minus",
-        on = list(click = "$store.prd.p = Math.max(0, $store.prd.p - 10)")
+        on = list(click = "$vueStore.prd.p = Math.max(0, $vueStore.prd.p - 10)")
       ),
       el_button(
         "prd_plus",
         label = NULL,
         icon = "Plus",
-        on = list(click = "$store.prd.p = Math.min(100, $store.prd.p + 10)")
+        on = list(
+          click = "$vueStore.prd.p = Math.min(100, $vueStore.prd.p + 10)"
+        )
       )
     )
   )
@@ -254,7 +262,7 @@ Use `striped` attribute to set striped progress. You can use
 the animation duration.
 
 The buttons step the last bar by ten, and its stripes’ `duration` with
-it: a store’s field and a getter of it, \[vue_bind()\].
+it: a store’s field and a getter of it, \[v_bind()\].
 
 ``` r
 
@@ -288,25 +296,25 @@ tags$div(
   ),
   el_progress(
     "prs4",
-    percentage = vue_bind("$store.prs.p"),
+    percentage = v_bind("$vueStore.prs.p"),
     stroke_width = 15,
     status = "exception",
     striped = TRUE,
     striped_flow = TRUE,
-    duration = vue_bind("$store.prs.duration")
+    duration = v_bind("$vueStore.prs.duration")
   ),
   el_button_group(
     el_button(
       "prs_minus",
       label = NULL,
       icon = "Minus",
-      on = list(click = "$store.prs.p = Math.max(0, $store.prs.p - 10)")
+      on = list(click = "$vueStore.prs.p = Math.max(0, $vueStore.prs.p - 10)")
     ),
     el_button(
       "prs_plus",
       label = NULL,
       icon = "Plus",
-      on = list(click = "$store.prs.p = Math.min(100, $store.prs.p + 10)")
+      on = list(click = "$vueStore.prs.p = Math.min(100, $vueStore.prs.p + 10)")
     )
   )
 )

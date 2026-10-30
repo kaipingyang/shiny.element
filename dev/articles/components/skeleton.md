@@ -79,7 +79,7 @@ the DOM. You can also use slot `default` to structure the real DOM
 element.
 
 The switch turns the placeholder off and on: `loading` follows it in the
-browser, \[vue_bind()\].
+browser, \[v_bind()\].
 
 ``` r
 
@@ -130,7 +130,7 @@ tags$div(
   switch_ui("sk_switch", TRUE),
   el_skeleton(
     "sk_load",
-    loading = vue_bind("$inputs.sk_switch"),
+    loading = v_bind("$inputs.sk_switch"),
     animated = TRUE,
     style = "width: 240px",
     card(hamburger, "Delicious hamburger"),
@@ -157,7 +157,7 @@ need to render to the browser.
 > experience.
 
 The button shows the placeholders again for two seconds, as a reload
-would: a store’s action sets `loading`, \[vue_bind()\], and clears it.
+would: a store’s action sets `loading`, \[v_bind()\], and clears it.
 
 ``` r
 
@@ -204,12 +204,12 @@ tags$div(
     el_button(
       "sk_reload",
       "Click me to reload",
-      on = list(click = "$store.reloading.reload()")
+      on = list(click = "$vueStore.reloading.reload()")
     )
   ),
   el_skeleton(
     "sk_list",
-    loading = vue_bind("$store.reloading.loading"),
+    loading = v_bind("$vueStore.reloading.loading"),
     animated = TRUE,
     count = 3,
     style = "display: flex; gap: 8px",
@@ -265,7 +265,7 @@ tags$div(
   ),
   el_skeleton(
     "sk_throttle",
-    loading = vue_bind("$inputs.sk_throttle_switch"),
+    loading = v_bind("$inputs.sk_throttle_switch"),
     animated = TRUE,
     throttle = 500,
     style = "width: 240px",
@@ -328,7 +328,7 @@ tags$div(
   ),
   el_skeleton(
     "sk_initial",
-    loading = vue_bind("$inputs.sk_initial_switch"),
+    loading = v_bind("$inputs.sk_initial_switch"),
     animated = TRUE,
     throttle = list(leading = 500, initVal = TRUE),
     style = "width: 240px",
@@ -398,7 +398,7 @@ tags$div(
   ),
   el_skeleton(
     "sk_lt",
-    loading = vue_bind("$inputs.sk_lt_switch"),
+    loading = v_bind("$inputs.sk_lt_switch"),
     animated = TRUE,
     throttle = list(leading = 500, trailing = 500, initVal = TRUE),
     style = "width: 240px",

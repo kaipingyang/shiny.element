@@ -1,8 +1,8 @@
-# The fields of a component's data bound with vue_bind()
+# The fields of a component's data given v_bind() or v_model()
 
-A bound field keeps a placeholder (`NA`) in the data and its path in the
-spec's `bound`, which the bridge follows. Only whole fields are bound; a
-component's value only to a store.
+A bound field keeps a placeholder (`NA`) in the data and its binding in
+the spec's `bound`, which the bridge follows. Only whole fields are
+bound.
 
 ## Usage
 

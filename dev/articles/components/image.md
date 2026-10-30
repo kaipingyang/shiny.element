@@ -105,7 +105,7 @@ and `slot = viewer-error`.
 The third image’s preview has a picture that fails to load, drawn by its
 `viewer-error` slot; the button opens the same list in an
 [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_image_viewer.md),
-whose `visible` is a store’s field, \[vue_bind()\].
+whose `visible` is a store’s field, \[v_model()\].
 
 ``` r
 
@@ -156,12 +156,12 @@ tags$div(
     el_button(
       "err_open",
       "preview controlled",
-      on = list(click = "$store.err_preview.visible = true")
+      on = list(click = "$vueStore.err_preview.visible = true")
     )
   ),
   el_image_viewer(
     "err_viewer",
-    visible = vue_bind("$store.err_preview.visible"),
+    visible = v_model("$vueStore.err_preview.visible"),
     url_list = src_list,
     show_progress = TRUE,
     slots = list(`viewer-error` = viewer_error)

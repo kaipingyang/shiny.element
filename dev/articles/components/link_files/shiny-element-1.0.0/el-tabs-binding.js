@@ -363,8 +363,8 @@
     },
 
     subscribe: function(el, callback) {
-      // arguments given vue_bind(): applied as updates; `selected` a
-      // store's field, every change of tab written back to it
+      // arguments given v_bind() or v_model(): applied as updates; with
+      // v_model(), every change of `selected` written back
       el._svBound = window.shinyVue && shinyVue.bindElement &&
         shinyVue.bindElement(el, function(d) { binding.receiveMessage(el, d); },
                              { field: 'selected', get: function() { return selectedName(el); } });

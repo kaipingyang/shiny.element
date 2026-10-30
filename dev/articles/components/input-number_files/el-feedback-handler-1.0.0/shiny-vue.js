@@ -294,11 +294,11 @@
   // Stores: state shared by components. Each component is an app of its
   // own, so Vue's provide/inject cannot reach across them; a store is what
   // Vue recommends instead, Pinia's -- reached in any template as
-  // $store.<id>, its getters and actions with it. A store is itself a host
+  // $vueStore.<id>, its getters and actions with it. A store is itself a host
   // (vue_store()) exposing the store, so the bridge treats it as any
   // component: its model is input$<id>, update_vue() sets its state,
   // call_vue() runs its actions, a bookmark restores it.
-  var storeRegistry = null;
+  var storeRegistry = null, storeHosts = {};
   sv.stores = function() {
     if (!storeRegistry) storeRegistry = Vue.reactive({});
     return storeRegistry;
@@ -338,79 +338,138 @@
     if (!st) warn('useStore(): no store "' + id + '" on the page');
     return st || null;
   };
-  // ── state followed in the browser: vue_bind() ──────────────────────────
+  // ── the page's state in the browser: v_bind(), v_model(), v_on() ────────
   //
-  // A field given vue_bind("<path>") in R follows page state with no round
-  // trip: a store's field ($store.<id>.<field>, both ways), another
-  // component's value ($inputs.<id>) or the route ($route.<...>), one way.
-  // The field stays in the component's data -- its template, $optional,
-  // updates and its input are as they were -- and is kept in step with
-  // the path by two watchers (bindFields()). Containers, which are not Vue
-  // apps, follow a path with sv.bindElement().
-  var PATH_SEGMENT = /\.([A-Za-z_$][\w$]*)|\['((?:[^'\\]|\\.)*)'\]|\["((?:[^"\\]|\\.)*)"\]|\[(\d+)\]/g;
-  function pathOf(path) {
-    var root = String(path).match(/^\$(store|inputs|route)/);
-    if (!root) return null;
-    var keys = [], rest = path.slice(root[0].length), m, at = 0;
-    PATH_SEGMENT.lastIndex = 0;
-    while ((m = PATH_SEGMENT.exec(rest)) && m.index === at) {
-      keys.push(m[1] !== undefined ? m[1] :
-                m[2] !== undefined ? m[2].replace(/\\(.)/g, '$1') :
-                m[3] !== undefined ? m[3].replace(/\\(.)/g, '$1') : Number(m[4]));
-      at = PATH_SEGMENT.lastIndex;
+  // Each component is a Vue app of its own, and a template compiled in the
+  // browser cannot import: the state components share is what every app
+  // sees -- $vueStore.<id> (vue_store()), $inputs.<id> (the values the
+  // page's components report), $route. An argument given v_bind("<expr>")
+  // in R follows an expression over them; v_model("<path>") follows a
+  // store's field and sets it when the component changes. In a module
+  // (`ns =`) the expression is left as written and the names are scoped --
+  // $inputs.size is the module's input, $vueStore.ui its store -- as
+  // input$size is inside moduleServer(). A bound field stays in the
+  // component's data -- its template, $optional, updates and its input as
+  // they were -- kept in step by two watchers (bindFields); containers,
+  // which are not Vue apps, by sv.bindElement().
+  //
+  // $store was $vueStore's name until 0.3.1: kept a version, said once.
+  var storeRenamed = false;
+  function oldStore() {
+    if (!storeRenamed) {
+      storeRenamed = true;
+      warn('$store is $vueStore now; $store goes in the next version');
     }
-    if (at !== rest.length || !keys.length) return null;
-    return { root: root[1], keys: keys, text: path };
+    return sv.stores();
   }
-  function rootOf(name) {
-    if (name === 'store') return sv.stores();
-    if (name === 'inputs') return sv.inputs();
-    return sv.router ? sv.router.currentRoute.value : undefined;
+  // a registry seen under a prefix: a module's inputs and stores
+  function prefixed(target, prefix) {
+    if (!prefix) return target;
+    return new Proxy(target, {
+      get: function(t, k) { return typeof k === 'string' ? t[prefix + k] : t[k]; },
+      has: function(t, k) { return typeof k === 'string' ? (prefix + k) in t : k in t; }
+    });
   }
-  function readPath(p) {
-    var o = rootOf(p.root);
-    for (var i = 0; i < p.keys.length; i++) {
-      if (o === null || o === undefined) return undefined;
-      o = o[p.keys[i]];
-    }
-    return o;
+  // The names an expression is evaluated with, scoped as the binding says
+  function pageScope(scope) {
+    scope = scope || {};
+    var s = {
+      $vueStore: prefixed(sv.stores(), scope.store),
+      $inputs: prefixed(sv.inputs(), scope.inputs)
+    };
+    // read each time, so a watcher follows the route
+    Object.defineProperty(s, '$route', {
+      get: function() { return sv.router ? sv.router.currentRoute.value : undefined; },
+      enumerable: true
+    });
+    Object.defineProperty(s, '$store', {
+      get: function() { return prefixed(oldStore(), scope.store); },
+      enumerable: true
+    });
+    return s;
   }
-  function writePath(p, value) {
-    if (p.root !== 'store') { warn(p.text + ' is read-only'); return; }
-    var o = rootOf(p.root);
-    for (var i = 0; i < p.keys.length - 1; i++) {
-      o = o === null || o === undefined ? undefined : o[p.keys[i]];
+  // An expression, a path assigned to, or a statement, as a function of
+  // the names it is evaluated with. Function() makes a function that is not
+  // strict, so `with` holds them: the code runs as written.
+  var compiled = {};
+  function compile(kind, code) {
+    var key = kind + '\u0000' + code;
+    if (!compiled.hasOwnProperty(key)) {
+      var body = kind === 'read' ? 'with (__s) { return (' + code + '); }' :
+                 kind === 'write' ? 'with (__s) { ' + code + ' = __v; }' :
+                 'with (__s) { ' + code + '\n}';
+      try { compiled[key] = new Function('__s', '__v', body); }
+      catch (e) { warn('"' + code + '" is not JavaScript: ' + e.message); compiled[key] = null; }
     }
-    if (o === null || typeof o !== 'object') {
-      warn(p.text + ': no such store or field on the page; the change stays with the component');
-      return;
-    }
-    o[p.keys[p.keys.length - 1]] = value;
+    return compiled[key];
+  }
+  // A binding's value: undefined while what it reads is not on the page yet
+  // (a store drawn later); another error is said once
+  var failed = {};
+  function reader(b) {
+    var f = compile('read', b.expr);
+    return function() {
+      if (!f) return undefined;
+      try { return f(pageScope(b.scope)); }
+      catch (e) {
+        if (!(e instanceof TypeError) && !failed[b.expr]) {
+          failed[b.expr] = true;
+          warn('v_bind("' + b.expr + '"): ' + e.message);
+        }
+        return undefined;
+      }
+    };
+  }
+  function writer(b) {
+    var f = compile('write', b.expr);
+    return function(v) {
+      if (!f) return;
+      try { f(pageScope(b.scope), v); }
+      catch (e) { warn('v_model("' + b.expr + '"): ' + e.message + '; the change stays with the component'); }
+    };
   }
   // a copy, so a field and the state it follows never share an array
   function copied(v) { return v !== null && typeof v === 'object' ? plain(v) : v; }
   function same(a, b) {
     return a === b || JSON.stringify(plain(a)) === JSON.stringify(plain(b));
   }
+  // v_on(statement, ns =): an inline statement run with the module's names,
+  // the component's own as a template's, $event the event's first argument
+  sv.run = function(vm, statement, scope, args) {
+    var f = compile('run', statement);
+    if (!f) return undefined;
+    var page = pageScope(scope);
+    var names = new Proxy({}, {
+      has: function(t, k) {
+        return k === '$event' || k in page || (typeof k === 'string' && k in vm);
+      },
+      get: function(t, k) {
+        if (k === '$event') return args && args[0];
+        if (k in page) return page[k];
+        return vm[k];
+      },
+      set: function(t, k, v) { vm[k] = v; return true; }
+    });
+    return f(names);
+  };
   // An element of a binding of its own -- a component drawn as markup --
-  // following the paths in its `data-shiny-vue-bind`, {"<field>": "<path>"}:
-  // `apply({field: value})` takes each path's value as an update of that
-  // field would, the first at once (none while the path is not on the page
-  // yet). `state` is {field, get} for the element's value: `changed()`,
-  // called when its user has changed it, writes get() back to a store.
-  // Returns null when nothing is bound.
+  // following the bindings in its `data-shiny-vue-bind`, {"<field>":
+  // {expr, model, scope}}: `apply({field: value})` takes each value as an
+  // update of that field would, the first at once (none while what it reads
+  // is not on the page yet). `state` is {field, get} for the element's
+  // value: `changed()`, called when its user has changed it, writes get()
+  // back where a v_model() says. Returns null when nothing is bound.
   sv.bindElement = function(el, apply, state) {
     var spec = el.getAttribute('data-shiny-vue-bind');
     if (!spec) return null;
     var map;
-    try { map = JSON.parse(spec); } catch (e) { warn('vue_bind: "' + spec + '" is not a map of paths'); return null; }
-    var stops = [], statePath = null;
+    try { map = JSON.parse(spec); } catch (e) { warn('"' + spec + '" is not a map of bindings'); return null; }
+    var stops = [], model = null;
     Object.keys(map).forEach(function(field) {
-      var p = pathOf(map[field]);
-      if (!p) { warn('vue_bind: "' + map[field] + '" is not a path'); return; }
+      var b = map[field], read = reader(b);
       var isState = state && field === state.field;
-      if (isState) statePath = p;
-      stops.push(Vue.watch(function() { return readPath(p); }, function(v) {
+      if (isState && b.model) model = { read: read, write: writer(b) };
+      stops.push(Vue.watch(read, function(v) {
         if (v === undefined || (isState && same(v, state.get()))) return;
         var d = {};
         d[field] = copied(v);
@@ -419,30 +478,30 @@
     });
     return {
       changed: function() {
-        if (!statePath || statePath.root !== 'store') return;
+        if (!model) return;
         var v = state.get();
-        if (!same(v, readPath(statePath))) writePath(statePath, copied(v));
+        if (!same(v, model.read())) model.write(copied(v));
       },
       stop: function() { stops.forEach(function(s) { s(); }); }
     };
   };
 
   // Run when an instance is created, before its first render: each bound
-  // field takes the path's value, follows it, and -- for a store -- sets it
-  // when the field changes (the component's user, an update)
+  // field takes its binding's value and follows it, and -- for v_model() --
+  // writes the field back when it changes (the component's user, an update)
   var bindFields = {
     created: function() {
       var bound = this.$options.shinyVueBound, vm = this;
       if (!bound) return;
       Object.keys(bound).forEach(function(field) {
-        var p = pathOf(bound[field]);
-        if (!p) { warn('vue_bind: "' + bound[field] + '" is not a path'); return; }
-        vm.$watch(function() { return readPath(p); }, function(v) {
+        var b = bound[field], read = reader(b);
+        vm.$watch(read, function(v) {
           if (!same(v, vm[field])) vm[field] = copied(v);
         }, { immediate: true, deep: true });
-        if (p.root === 'store') {
+        if (b.model) {
+          var write = writer(b);
           vm.$watch(field, function(v) {
-            if (!same(v, readPath(p))) writePath(p, copied(v));
+            if (!same(v, read())) write(copied(v));
           }, { deep: true });
         }
       });
@@ -606,6 +665,14 @@
     // the bridge reaches it as any component -- the binding's value,
     // update_vue(), call_vue(), outputs.
     if (spec.store) {
+      // one store per id: a second on the page replaces the first -- two
+      // instances of a module that did not namespace it
+      var owner = storeHosts[host.id];
+      if (owner && owner !== host && document.contains(owner)) {
+        warn('vue_store("' + host.id + '") is on the page twice: the second replaces the first' +
+             ' (in a module, name it ns("' + host.id + '"))');
+      }
+      storeHosts[host.id] = host;
       var store = defineStore(host.id, data, spec.storeDef || {});
       if (store) {
         host._shinyVueStore = store;
@@ -642,7 +709,16 @@
     // -- its bindings and state kept, its outputs suspended -- when Vue
     // removes it
     app.component('shiny-island', islandComponent(host));
-    app.config.globalProperties.$store = sv.stores();
+    app.config.globalProperties.$vueStore = sv.stores();
+    // $store, as 0.3.1 named it: said once; a plugin that sets its own
+    // $store (Vuex) replaces it
+    Object.defineProperty(app.config.globalProperties, '$store', {
+      get: oldStore,
+      set: function(v) {
+        Object.defineProperty(this, '$store', { value: v, writable: true, configurable: true, enumerable: true });
+      },
+      configurable: true
+    });
     app.config.globalProperties.$recalculating = sv.recalculating();
     app.config.globalProperties.$errors = sv.errors();
     app.config.globalProperties.$inputs = Vue.readonly(sv.inputs());
@@ -651,7 +727,7 @@
       get: function() { return sv.state().busy; }, enumerable: true, configurable: true
     });
     app.config.globalProperties.$optional = optionalProps;
-    // fields given vue_bind(), kept in step with what they follow
+    // fields given v_bind() or v_model(), kept in step with what they follow
     if (spec.bound) app.mixin(bindFields);
     // The page's router (vue_router()), in every app: vue-router keeps the
     // apps it is installed in, each with $router, $route, <router-link>
@@ -721,7 +797,7 @@
 
   // The component's value, and those of the components folded into it, in
   // $inputs as they change -- before any debounce, and with no Shiny on the
-  // page, so another component's vue_bind("$inputs.<id>") follows at once
+  // page, so another component's v_bind("$inputs.<id>") follows at once
   function feedInputs(host, vm, spec) {
     var inputs = sv.inputs();
     var follow = function(name, expr) {

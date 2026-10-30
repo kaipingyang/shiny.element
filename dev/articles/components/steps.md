@@ -15,15 +15,15 @@ the step needs to be fixed which accepts `Number` type. The unit of the
 `finish-status` attribute can change the state of the steps that have
 been completed.
 
-The button moves it on: `active` is a store’s field, \[vue_bind()\],
-which the button’s `on` handler steps in the browser.
+The button moves it on: `active` is a store’s field, \[v_bind()\], which
+the button’s `on` handler steps in the browser.
 
 ``` r
 
 vue_store("stepper", state = list(active = 0))
 el_steps(
   "st_basic",
-  active = vue_bind("$store.stepper.active"),
+  active = v_bind("$vueStore.stepper.active"),
   finish_status = "success",
   width = "600px",
   steps = list(el_step("Step 1"), el_step("Step 2"), el_step("Step 3"))
@@ -33,7 +33,7 @@ el_button(
   "Next step",
   style = "margin-top: 12px",
   on = list(
-    click = "$store.stepper.active = $store.stepper.active > 2 ? 0 : $store.stepper.active + 1"
+    click = "$vueStore.stepper.active = $vueStore.stepper.active > 2 ? 0 : $vueStore.stepper.active + 1"
   )
 )
 ```

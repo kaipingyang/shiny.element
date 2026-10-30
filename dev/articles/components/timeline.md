@@ -32,7 +32,7 @@ Use `mode` to control the relative position of timeline and content.
 
 `mode` puts the content after the line (`"start"`), before it (`"end"`),
 or on alternate sides; it follows the radio buttons in the browser,
-\[vue_bind()\].
+\[v_bind()\].
 
 ``` r
 
@@ -46,7 +46,7 @@ tags$div(
   style = "margin-top: 16px",
   el_timeline(
     "tl_mode",
-    mode = vue_bind("$inputs.tl_mode_pick"),
+    mode = v_bind("$inputs.tl_mode_pick"),
     items = list(
       el_timeline_item("Event start", timestamp = "2018-04-15"),
       el_timeline_item("Approved", timestamp = "2018-04-13"),
@@ -183,7 +183,7 @@ el_radio_group(
 )
 el_timeline(
   "tl",
-  reverse = vue_bind("$inputs.order"),
+  reverse = v_bind("$inputs.order"),
   items = list(
     el_timeline_item("Event start", timestamp = "2018-04-15"),
     el_timeline_item("Approved", timestamp = "2018-04-13"),

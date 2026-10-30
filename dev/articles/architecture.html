@@ -311,7 +311,7 @@ the server.</p>
 <code>&lt;script type="text/x-template"&gt;</code>, options JSON, the islands' holder</li>
         <li>
 <code>Vue.createApp()</code> on its own box; <code>app.use()</code> each plugin</li>
-        <li>globals: <code>$setInput</code> <code>$store</code> <code>$inputs</code>
+        <li>globals: <code>$setInput</code> <code>$vueStore</code> <code>$inputs</code>
           <code>$errors</code> <code>$busy</code> <code>$recalculating</code>;
           <code>&lt;shiny-island&gt;</code> moves Shiny UI in and out</li>
       </ul>
@@ -415,7 +415,7 @@ the server.</p>
 <span>a host too</span><div class="line right"></div>
 </div>
     <div class="arch-box js">
-      <h5><code>$store.&lt;id&gt;</code></h5>
+      <h5><code>$vueStore.&lt;id&gt;</code></h5>
       <ul><li>read and written by every template, at once, in the browser</li></ul>
 </div>
   </div>

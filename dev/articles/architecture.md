@@ -56,7 +56,7 @@ the host's HTML
 
 - `<script type="text/x-template">`, options JSON, the islands' holder
 - `Vue.createApp()` on its own box; `app.use()` each plugin
-- globals: `$setInput` `$store` `$inputs` `$errors` `$busy`
+- globals: `$setInput` `$vueStore` `$inputs` `$errors` `$busy`
   `$recalculating`; `<shiny-island>` moves Shiny UI in and out
 
 It reports
@@ -138,7 +138,7 @@ Shared state
 
 a host too
 
-##### `$store.<id>`
+##### `$vueStore.<id>`
 
 - read and written by every template, at once, in the browser
 

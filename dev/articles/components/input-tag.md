@@ -21,7 +21,7 @@ You can customize the key used to trigger the input tag. The default key
 is Enter.
 
 The segmented control sets the key that makes a tag: `trigger` follows
-it in the browser, \[vue_bind()\].
+it in the browser, \[v_bind()\].
 
 ``` r
 
@@ -31,7 +31,7 @@ tags$div(
 tags$br()
 el_input_tag(
   "tags_trigger",
-  trigger = vue_bind("$inputs.tags_key"),
+  trigger = v_bind("$inputs.tags_key"),
   placeholder = "Please input"
 )
 ```
@@ -191,8 +191,7 @@ tagList(
 You can customize the tag content by `tag` slot.
 
 The segmented controls set the tags’ `tag_type` and `tag_effect`, which
-follow them in the browser, \[vue_bind()\]; the `tag` slot draws each
-one.
+follow them in the browser, \[v_bind()\]; the `tag` slot draws each one.
 
 ``` r
 
@@ -213,8 +212,8 @@ tags$br()
 el_input_tag(
   "tags_tpl",
   value = c("tag1", "tag2", "tag3"),
-  tag_type = vue_bind("$inputs.tags_type"),
-  tag_effect = vue_bind("$inputs.tags_effect"),
+  tag_type = v_bind("$inputs.tags_type"),
+  tag_effect = v_bind("$inputs.tags_effect"),
   placeholder = "Please input",
   slots = list(
     tag = template(

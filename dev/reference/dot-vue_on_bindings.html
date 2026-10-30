@@ -3,15 +3,17 @@
 @&amp;lt;event&amp;gt;. It is called with report first – report(name, value)
 sets input$&amp;lt;id&amp;gt;_&amp;lt;name&amp;gt; – then the event's own arguments, and this
 the Vue instance. A string is Vue's inline statement, as @click=&quot;...&quot;
-takes it – &quot;$store.ui.open = true&quot;, $event the event's first
+takes it – &quot;$vueStore.ui.open = true&quot;, $event the event's first
 argument – written into the template as it is, inside the arrow
-function the tag's handlers are joined in."><meta property="og:description" content="A JS() function becomes a method the component's tag listens with:
+function the tag's handlers are joined in. A v_on() given ns is
+run by the bridge with the module's names (shinyVue.run())."><meta property="og:description" content="A JS() function becomes a method the component's tag listens with:
 @&amp;lt;event&amp;gt;. It is called with report first – report(name, value)
 sets input$&amp;lt;id&amp;gt;_&amp;lt;name&amp;gt; – then the event's own arguments, and this
 the Vue instance. A string is Vue's inline statement, as @click=&quot;...&quot;
-takes it – &quot;$store.ui.open = true&quot;, $event the event's first
+takes it – &quot;$vueStore.ui.open = true&quot;, $event the event's first
 argument – written into the template as it is, inside the arrow
-function the tag's handlers are joined in."><meta name="robots" content="noindex"></head><body>
+function the tag's handlers are joined in. A v_on() given ns is
+run by the bridge with the module's names (shinyVue.run())."><meta name="robots" content="noindex"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -174,9 +176,10 @@ function the tag's handlers are joined in."><meta name="robots" content="noindex
 <code>@&lt;event&gt;</code>. It is called with <code>report</code> first – <code>report(name, value)</code>
 sets <code>input$&lt;id&gt;_&lt;name&gt;</code> – then the event's own arguments, and <code>this</code>
 the Vue instance. A string is Vue's inline statement, as <code>@click="..."</code>
-takes it – <code>"$store.ui.open = true"</code>, <code>$event</code> the event's first
+takes it – <code>"$vueStore.ui.open = true"</code>, <code>$event</code> the event's first
 argument – written into the template as it is, inside the arrow
-function the tag's handlers are joined in.</p>
+function the tag's handlers are joined in. A <code><a href="v_on.html">v_on()</a></code> given <code>ns</code> is
+run by the bridge with the module's names (<code>shinyVue.run()</code>).</p>
     </div>
 
     <div class="section level2">
@@ -193,7 +196,7 @@ function the tag's handlers are joined in.</p>
 
 
 <dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
-<dd><p>A named list of <code><a href="JS.html">JS()</a></code> functions or strings.</p></dd>
+<dd><p>A named list of <code><a href="JS.html">JS()</a></code> functions, strings or <code><a href="v_on.html">v_on()</a></code>s.</p></dd>
 
 </dl></div>
     <div class="section level2">

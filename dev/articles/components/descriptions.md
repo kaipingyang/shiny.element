@@ -28,7 +28,7 @@ el_descriptions(
 ## Sizes
 
 The radios resize both lists: their `size` follows them in the browser,
-\[vue_bind()\].
+\[v_bind()\].
 
 ``` r
 
@@ -67,7 +67,7 @@ el_descriptions(
   "desc_border",
   title = "With border",
   column = 3,
-  size = vue_bind("$inputs.desc_size"),
+  size = v_bind("$inputs.desc_size"),
   border = TRUE,
   items = items(),
   slots = list(extra = el_button("desc_op1", "Operation", type = "primary"))
@@ -76,7 +76,7 @@ el_descriptions(
   "desc_plain",
   title = "Without border",
   column = 3,
-  size = vue_bind("$inputs.desc_size"),
+  size = v_bind("$inputs.desc_size"),
   items = items(),
   slots = list(extra = el_button("desc_op2", "Operation", type = "primary"))
 )
@@ -85,7 +85,7 @@ el_descriptions(
 ## Vertical List
 
 The radios resize both lists: their `size` follows them in the browser,
-\[vue_bind()\].
+\[v_bind()\].
 
 ``` r
 
@@ -111,7 +111,7 @@ el_descriptions(
   title = "Vertical list with border",
   direction = "vertical",
   column = 4,
-  size = vue_bind("$inputs.desc_v_size"),
+  size = v_bind("$inputs.desc_v_size"),
   border = TRUE,
   items = items()
 )
@@ -122,7 +122,7 @@ tags$div(
     title = "Vertical list without border",
     direction = "vertical",
     column = 4,
-    size = vue_bind("$inputs.desc_v_size"),
+    size = v_bind("$inputs.desc_v_size"),
     items = items()
   )
 )

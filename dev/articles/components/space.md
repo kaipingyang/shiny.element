@@ -68,7 +68,7 @@ You can also using customized size to override it. Refer to the next
 part.
 
 The radios set the inner space’s `size`, which follows them in the
-browser, \[vue_bind()\].
+browser, \[v_bind()\].
 
 ``` r
 
@@ -93,7 +93,7 @@ tags$div(
   el_space(
     id = "sp_cards",
     wrap = TRUE,
-    size = vue_bind("$inputs.sp_size"),
+    size = v_bind("$inputs.sp_size"),
     lapply(1:3, card)
   )
 )
@@ -123,7 +123,7 @@ el_slider("sp_px", value = 20)
 el_space(
   id = "sp_px_cards",
   wrap = TRUE,
-  size = vue_bind("$inputs.sp_px"),
+  size = v_bind("$inputs.sp_px"),
   lapply(1:2, card)
 )
 ```
@@ -225,7 +225,7 @@ node will automatically adapt to the width of the container.
 
 Use fill to automatically fill the container with child nodes
 
-The switch sets `fill`, which follows it in the browser, \[vue_bind()\].
+The switch sets `fill`, which follows it in the browser, \[v_bind()\].
 
 ``` r
 
@@ -246,7 +246,7 @@ tags$div(
 )
 el_space(
   id = "sp_fill",
-  fill = vue_bind("$inputs.sp_fill_on"),
+  fill = v_bind("$inputs.sp_fill_on"),
   wrap = TRUE,
   lapply(1:3, card)
 )
@@ -265,7 +265,7 @@ following example.
 Use fillRatio to customize the fill ratio
 
 The radios set `direction`, the slider `fill_ratio`, each followed in
-the browser, \[vue_bind()\].
+the browser, \[v_bind()\].
 
 ``` r
 
@@ -297,8 +297,8 @@ el_space(
   id = "sp_ratio_cards",
   fill = TRUE,
   wrap = TRUE,
-  fill_ratio = vue_bind("$inputs.sp_ratio"),
-  direction = vue_bind("$inputs.sp_dir"),
+  fill_ratio = v_bind("$inputs.sp_ratio"),
+  direction = v_bind("$inputs.sp_dir"),
   width = "100%",
   lapply(1:5, card)
 )

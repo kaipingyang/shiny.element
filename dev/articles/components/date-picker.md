@@ -11,7 +11,7 @@ quick options via `shortcuts` property. The disabled date is set by
 `disabledDate`, which is a function.
 
 The radio buttons resize both pickers: their `size` follows them in the
-browser, \[vue_bind()\].
+browser, \[v_bind()\].
 
 ``` r
 
@@ -36,7 +36,7 @@ tags$div(
     tags$span(class = "demonstration", "Default"),
     el_date_picker(
       "dp_default",
-      size = vue_bind("$inputs.dp_size"),
+      size = v_bind("$inputs.dp_size"),
       placeholder = "Pick a day"
     )
   ),
@@ -45,7 +45,7 @@ tags$div(
     tags$span(class = "demonstration", "Picker with quick options"),
     el_date_picker(
       "dp_quick",
-      size = vue_bind("$inputs.dp_size"),
+      size = v_bind("$inputs.dp_size"),
       placeholder = "Pick a day",
       shortcuts = list(
         list(text = "Today", value = JS("new Date()")),
@@ -119,7 +119,7 @@ you want the two panels to switch current months independently, you can
 use the `unlink-panels` attribute.
 
 The radio buttons resize both pickers: their `size` follows them in the
-browser, \[vue_bind()\].
+browser, \[v_bind()\].
 
 ``` r
 
@@ -144,7 +144,7 @@ tags$div(
     tags$span(class = "demonstration", "Default"),
     el_date_picker(
       "dp_range",
-      size = vue_bind("$inputs.dp_range_size"),
+      size = v_bind("$inputs.dp_range_size"),
       type = "daterange",
       range_separator = "To",
       start_placeholder = "Start date",
@@ -156,7 +156,7 @@ tags$div(
     tags$span(class = "demonstration", "With quick options"),
     el_date_picker(
       "dp_range_quick",
-      size = vue_bind("$inputs.dp_range_size"),
+      size = v_bind("$inputs.dp_range_size"),
       type = "daterange",
       unlink_panels = TRUE,
       range_separator = "To",

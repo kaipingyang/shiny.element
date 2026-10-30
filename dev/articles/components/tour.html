@@ -200,7 +200,7 @@ want to guide users through a product.</p>
 <p>The most basic usage</p>
 <p>A step’s <code>target</code> is a CSS selector. The tour’s
 <code>visible</code> and <code>current</code> follow a store,
-[vue_bind()]: the button starts it in the browser, and finishing or
+[v_model()]: the button starts it in the browser, and finishing or
 closing it sets the store back. From the server it is
 <code>update_el_tour(visible = TRUE, current = 0)</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -209,7 +209,9 @@ closing it sets the store back. From the server it is
 <span>  <span class="st">"begin"</span>,</span>
 <span>  <span class="st">"Begin Tour"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_basic.current = 0; $store.tour_basic.open = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$vueStore.tour_basic.current = 0; $vueStore.tour_basic.open = true"</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
@@ -219,8 +221,8 @@ closing it sets the store back. From the server it is
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tour"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_basic.open"</span><span class="op">)</span>,</span>
-<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_basic.current"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_basic.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_basic.current"</span><span class="op">)</span>,</span>
 <span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span>,</span>
@@ -233,12 +235,12 @@ closing it sets the store back. From the server it is
 </div>
   <div id="basic-begin" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-begin_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_basic.current = 0; $store.tour_basic.open = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.tour_basic.current = 0; $vueStore.tour_basic.open = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
   <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
-  <div id="basic-el_space_aeeac5b2-5ff6-4ee8-88aa-0e4d669f2d4d" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_space_aeeac5b2-5ff6-4ee8-88aa-0e4d669f2d4d_container" style="display: contents">
+  <div id="basic-el_space_3cb2ea4f-d77c-45e0-acd6-52e88e4c5d8f" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="basic-el_space_3cb2ea4f-d77c-45e0-acd6-52e88e4c5d8f_container" style="display: contents">
   <el-space v-bind="$optional(&#39;space&#39;)">
     <span id="t_up">
       <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_basic_up" id="basic-up">{{el2_label}}</el-button>
@@ -259,7 +261,7 @@ closing it sets the store back. From the server it is
     <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;"></el-tour-step>
     <el-tour-step :target="&quot;#t_more&quot;" :title="&quot;Other Actions&quot;" :description="&quot;Click to see other&quot;"></el-tour-step>
   </el-tour>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('basic-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('basic-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_basic.open","current":"$store.tour_basic.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('basic-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('basic-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":{"expr":"$vueStore.tour_basic.open","model":true,"scope":{"inputs":"basic-"}},"current":{"expr":"$vueStore.tour_basic.current","model":true,"scope":{"inputs":"basic-"}}},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
 </div>
 </div>
 </div>
@@ -277,7 +279,9 @@ emphasize the guide itself.</p>
 <span>  <span class="st">"begin"</span>,</span>
 <span>  <span class="st">"Begin Tour"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_non_modal.current = 0; $store.tour_non_modal.open = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$vueStore.tour_non_modal.current = 0; $vueStore.tour_non_modal.open = true"</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
@@ -287,8 +291,8 @@ emphasize the guide itself.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tour"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_non_modal.open"</span><span class="op">)</span>,</span>
-<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_non_modal.current"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_non_modal.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_non_modal.current"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
 <span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -303,12 +307,12 @@ emphasize the guide itself.</p>
 </div>
   <div id="non-modal-begin" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="non-modal-begin_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_non_modal.current = 0; $store.tour_non_modal.open = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.tour_non_modal.current = 0; $vueStore.tour_non_modal.open = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
   <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
-  <div id="non-modal-el_space_86f77b87-6dfc-4fca-8345-27bc40916c1b" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="non-modal-el_space_86f77b87-6dfc-4fca-8345-27bc40916c1b_container" style="display: contents">
+  <div id="non-modal-el_space_5ee54471-4b30-4919-996f-589b262d1004" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="non-modal-el_space_5ee54471-4b30-4919-996f-589b262d1004_container" style="display: contents">
   <el-space v-bind="$optional(&#39;space&#39;)">
     <span id="t_up">
       <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_non_modal_up" id="non-modal-up">{{el2_label}}</el-button>
@@ -329,7 +333,7 @@ emphasize the guide itself.</p>
     <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;"></el-tour-step>
     <el-tour-step :target="&quot;#t_more&quot;" :title="&quot;Other Actions&quot;" :description="&quot;Click to see other&quot;"></el-tour-step>
   </el-tour>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":false,"gap":null,"type":"primary","scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('non-modal-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('non-modal-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('non-modal-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_non_modal.open","current":"$store.tour_non_modal.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":false,"gap":null,"type":"primary","scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('non-modal-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('non-modal-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('non-modal-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":{"expr":"$vueStore.tour_non_modal.open","model":true,"scope":{"inputs":"non-modal-"}},"current":{"expr":"$vueStore.tour_non_modal.current","model":true,"scope":{"inputs":"non-modal-"}}},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
 </div>
 </div>
 </div>
@@ -341,16 +345,21 @@ emphasize the guide itself.</p>
 will show in the center.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"tour_placement"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span>, current <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"t_btn"</span>, <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
-<span>  <span class="st">"begin"</span>,</span>
-<span>  <span class="st">"Begin Tour"</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_placement.current = 0; $store.tour_placement.open = true"</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"t_btn"</span>,</span>
+<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>    <span class="st">"begin"</span>,</span>
+<span>    <span class="st">"Begin Tour"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>    on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      click <span class="op">=</span> <span class="st">"$vueStore.tour_placement.current = 0; $vueStore.tour_placement.open = true"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tour"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_placement.open"</span><span class="op">)</span>,</span>
-<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_placement.current"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_placement.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_placement.current"</span><span class="op">)</span>,</span>
 <span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span></span>
 <span>      title <span class="op">=</span> <span class="st">"Center"</span>,</span>
@@ -372,7 +381,7 @@ will show in the center.</p>
   <span id="t_btn">
     <div id="placement-begin" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="placement-begin_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_placement.current = 0; $store.tour_placement.open = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.tour_placement.current = 0; $vueStore.tour_placement.open = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
   </span>
@@ -383,7 +392,7 @@ will show in the center.</p>
     <el-tour-step :target="&quot;#t_btn&quot;" :title="&quot;Right&quot;" :description="&quot;On the right of target.&quot;" :placement="&quot;right&quot;"></el-tour-step>
     <el-tour-step :target="&quot;#t_btn&quot;" :title="&quot;Top&quot;" :description="&quot;On the top of target.&quot;" :placement="&quot;top&quot;"></el-tour-step>
   </el-tour>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('placement-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('placement-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placement-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_placement.open","current":"$store.tour_placement.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('placement-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('placement-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('placement-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":{"expr":"$vueStore.tour_placement.open","model":true,"scope":{"inputs":"placement-"}},"current":{"expr":"$vueStore.tour_placement.current","model":true,"scope":{"inputs":"placement-"}}},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
 </div>
 </div>
 </div>
@@ -399,7 +408,9 @@ and <code>color</code>.</p>
 <span>  <span class="st">"begin"</span>,</span>
 <span>  <span class="st">"Begin Tour"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_mask.current = 0; $store.tour_mask.open = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$vueStore.tour_mask.current = 0; $vueStore.tour_mask.open = true"</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
@@ -408,8 +419,8 @@ and <code>color</code>.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tour"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_mask.open"</span><span class="op">)</span>,</span>
-<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_mask.current"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_mask.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_mask.current"</span><span class="op">)</span>,</span>
 <span>  mask <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>boxShadow <span class="op">=</span> <span class="st">"inset 0 0 15px #333"</span><span class="op">)</span>,</span>
 <span>    color <span class="op">=</span> <span class="st">"rgba(80, 255, 255, .4)"</span></span>
@@ -433,12 +444,12 @@ and <code>color</code>.</p>
 </div>
   <div id="mask-begin" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="mask-begin_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_mask.current = 0; $store.tour_mask.open = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.tour_mask.current = 0; $vueStore.tour_mask.open = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
   <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
-  <div id="mask-el_space_951875d2-1e1b-4826-a829-2de34839bb86" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="mask-el_space_951875d2-1e1b-4826-a829-2de34839bb86_container" style="display: contents">
+  <div id="mask-el_space_1555e763-35ce-4b64-b61e-f0617101bc61" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="mask-el_space_1555e763-35ce-4b64-b61e-f0617101bc61_container" style="display: contents">
   <el-space v-bind="$optional(&#39;space&#39;)">
     <span id="t_up">
       <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_mask_up" id="mask-up">{{el2_label}}</el-button>
@@ -455,7 +466,7 @@ and <code>color</code>.</p>
     <el-tour-step :target="&quot;#t_up&quot;" :title="&quot;Upload File&quot;" :description="&quot;Put you files here.&quot;"></el-tour-step>
     <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;" :mask="{&quot;style&quot;:{&quot;boxShadow&quot;:&quot;inset 0 0 15px #fff&quot;},&quot;color&quot;:&quot;rgba(40, 0, 255, .4)&quot;}"></el-tour-step>
   </el-tour>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":{"style":{"boxShadow":"inset 0 0 15px #333"},"color":"rgba(80, 255, 255, .4)"},"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('mask-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('mask-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('mask-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_mask.open","current":"$store.tour_mask.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":{"style":{"boxShadow":"inset 0 0 15px #333"},"color":"rgba(80, 255, 255, .4)"},"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('mask-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('mask-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('mask-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":{"expr":"$vueStore.tour_mask.open","model":true,"scope":{"inputs":"mask-"}},"current":{"expr":"$vueStore.tour_mask.current","model":true,"scope":{"inputs":"mask-"}}},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
 </div>
 </div>
 </div>
@@ -471,7 +482,9 @@ and <code>color</code>.</p>
 <span>  <span class="st">"begin"</span>,</span>
 <span>  <span class="st">"Begin Tour"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_indicator.current = 0; $store.tour_indicator.open = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$vueStore.tour_indicator.current = 0; $vueStore.tour_indicator.open = true"</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_space.html">el_space</a></span><span class="op">(</span></span>
@@ -480,8 +493,8 @@ and <code>color</code>.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tour"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_indicator.open"</span><span class="op">)</span>,</span>
-<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_indicator.current"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_indicator.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_indicator.current"</span><span class="op">)</span>,</span>
 <span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_up"</span>, <span class="st">"Upload File"</span>, <span class="st">"Put you files here."</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#t_save"</span>, <span class="st">"Save"</span>, <span class="st">"Save your changes"</span><span class="op">)</span></span>
@@ -500,12 +513,12 @@ and <code>color</code>.</p>
 </div>
   <div id="indicator-begin" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="indicator-begin_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_indicator.current = 0; $store.tour_indicator.open = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.tour_indicator.current = 0; $vueStore.tour_indicator.open = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
   <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
-  <div id="indicator-el_space_dbd92a36-9a15-4876-b78c-00599a9ac994" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="indicator-el_space_dbd92a36-9a15-4876-b78c-00599a9ac994_container" style="display: contents">
+  <div id="indicator-el_space_5444af6f-4050-42d2-a147-ab68937826bc" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="indicator-el_space_5444af6f-4050-42d2-a147-ab68937826bc_container" style="display: contents">
   <el-space v-bind="$optional(&#39;space&#39;)">
     <span id="t_up">
       <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_indicator_up" id="indicator-up">{{el2_label}}</el-button>
@@ -523,7 +536,7 @@ and <code>color</code>.</p>
     <el-tour-step :target="&quot;#t_save&quot;" :title="&quot;Save&quot;" :description="&quot;Save your changes&quot;"></el-tour-step>
     <template v-slot:indicators="{ current, total }"><span>{{ current + 1 }} / {{ total }}</span></template>
   </el-tour>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('indicator-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('indicator-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('indicator-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_indicator.open","current":"$store.tour_indicator.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('indicator-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('indicator-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('indicator-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":{"expr":"$vueStore.tour_indicator.open","model":true,"scope":{"inputs":"indicator-"}},"current":{"expr":"$vueStore.tour_indicator.current","model":true,"scope":{"inputs":"indicator-"}}},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
 </div>
 </div>
 </div>
@@ -540,7 +553,9 @@ shown.</p>
 <span>  <span class="st">"begin"</span>,</span>
 <span>  <span class="st">"Begin Tour"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.tour_target.current = 0; $store.tour_target.open = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$vueStore.tour_target.current = 0; $vueStore.tour_target.open = true"</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_divider.html">el_divider</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
@@ -555,8 +570,8 @@ shown.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_tour.html">el_tour</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tour"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_target.open"</span><span class="op">)</span>,</span>
-<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.tour_target.current"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_target.open"</span><span class="op">)</span>,</span>
+<span>  current <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.tour_target.current"</span><span class="op">)</span>,</span>
 <span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">"#first"</span>, <span class="st">"By id"</span>, <span class="st">"A selector for an id."</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_tour_step.html">el_tour_step</a></span><span class="op">(</span><span class="st">".second"</span>, <span class="st">"By class"</span>, <span class="st">"A selector for a class."</span><span class="op">)</span></span>
@@ -568,7 +583,7 @@ shown.</p>
 </div>
   <div id="target-begin" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="target-begin_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.tour_target.current = 0; $store.tour_target.open = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.tour_target.current = 0; $vueStore.tour_target.open = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Begin Tour","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
   <div class="el-divider el-divider--horizontal" role="separator" style="--el-border-style:solid"></div>
@@ -580,7 +595,7 @@ shown.</p>
     <el-tour-step :target="&quot;#first&quot;" :title="&quot;By id&quot;" :description="&quot;A selector for an id.&quot;"></el-tour-step>
     <el-tour-step :target="&quot;.second&quot;" :title="&quot;By class&quot;" :description="&quot;A selector for a class.&quot;"></el-tour-step>
   </el-tour>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('target-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('target-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('target-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":"$store.tour_target.open","current":"$store.tour_target.current"},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":null,"current":null,"showArrow":null,"placement":null,"contentStyle":null,"mask":null,"gap":null,"type":null,"scrollIntoViewOptions":null,"zIndex":null,"showClose":null,"closeIcon":null,"closeOnPressEscape":null,"targetAreaClickable":null,"appendTo":null},"methods":{"svEmitChange":"function() { window.shinyVue.emit('target-tour', 'change', arguments); }","svEmitFinish":"function() { window.shinyVue.emit('target-tour', 'finish', arguments); }","handleClose":"function(step) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('target-tour_close', step, {priority: 'event'}); }"},"watch":{"open":"function(v) { }"}},"input":"open","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tour":{"show-arrow":"showArrow","placement":"placement","content-style":"contentStyle","mask":"mask","gap":"gap","type":"type","scroll-into-view-options":"scrollIntoViewOptions","z-index":"zIndex","show-close":"showClose","close-icon":"closeIcon","close-on-press-escape":"closeOnPressEscape","target-area-clickable":"targetAreaClickable","append-to":"appendTo"}},"bound":{"open":{"expr":"$vueStore.tour_target.open","model":true,"scope":{"inputs":"target-"}},"current":{"expr":"$vueStore.tour_target.current","model":true,"scope":{"inputs":"target-"}}},"evals":["options.methods.svEmitChange","options.methods.svEmitFinish","options.methods.handleClose","options.watch.open"]}</script>
 </div>
 </div>
 </div>

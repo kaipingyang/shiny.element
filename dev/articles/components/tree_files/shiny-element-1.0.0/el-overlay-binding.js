@@ -309,8 +309,8 @@
       },
 
       subscribe: function(el, callback) {
-        // arguments given vue_bind(): applied as updates; `visible` a
-        // store's field, the user's close written back to it
+        // arguments given v_bind() or v_model(): applied as updates; with
+        // v_model(), the user's close of `visible` written back
         el._svBound = window.shinyVue && shinyVue.bindElement &&
           shinyVue.bindElement(el, function(d) { binding.receiveMessage(el, d); },
                                { field: 'visible', get: function() { return isOpen(el); } });

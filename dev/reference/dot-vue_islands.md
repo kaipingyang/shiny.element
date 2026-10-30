@@ -24,10 +24,13 @@ found loose in the template go to the holder too.
 
 - components:
 
-  Whether components of their own (hosts) and tags marked
-  `data-shiny-island` are islands too. A component library that folds
-  its components into one another, and places its containers itself,
-  leaves them in the template: `FALSE`.
+  Whether tags marked `data-shiny-island`, and components given as
+  specifications, are islands too. A component library that folds its
+  components into one another, and places its containers itself, leaves
+  them in the template: `FALSE`. A host left in the template – a
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
+  the library did not fold – is an island either way, or Vue would drop
+  its template and it would never mount.
 
 ## Value
 

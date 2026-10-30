@@ -7,30 +7,57 @@
 - `vue_store(data =)` is deprecated, for `state`, Pinia’s name: it still
   works, with a warning, and goes in the version after.
 
+- A store is `$vueStore.<id>` in templates, no longer `$store.<id>`: the
+  name follows the function that makes it, as `vue_ref()` and the rest
+  will, and leaves `$store` to Vuex. `$store` still works this version,
+  saying once in the console that it is `$vueStore` now; it goes in the
+  next.
+
 ### New features
 
-- [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md):
-  components follow one another in the browser, with no round trip to
-  the server. Any of a component’s props, its value, and what an update
-  can set of a dialog, drawer, tabs or collapse can be given
-  `vue_bind("<path>")`: a store’s field (`$store.ui.open`, both ways),
-  another component’s value (`$inputs.size`) or the route
-  (`$route.path`). The server still sees every `input$<id>` and may
-  update a bound field. `$inputs` is now filled by the components
-  themselves, at once and with no Shiny on the page. An argument R reads
-  to draw a component – a label, the choices, a class – says it cannot
-  be bound rather than drop the binding. `on =` takes Vue’s inline
-  statements as well as
+- [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  and
+  [`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+  Vue’s two bindings for a component’s arguments: components follow one
+  another in the browser, with no round trip to the server.
+  `v_bind("<expr>")` is one way, any expression over the page’s state –
+  `$vueStore.<id>` (a
+  [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)),
+  `$inputs.<id>` (another component’s value), `$route` – as
+  `:prop="..."`; `v_model("$vueStore.<id>.<field>")` is both ways, as
+  `v-model`. Any of a component’s props, its value, and what an update
+  can set of a dialog, drawer, tabs or collapse can be bound. The server
+  still sees every `input$<id>` and may update a bound field. `$inputs`
+  is now filled by the components themselves, at once and with no Shiny
+  on the page. An argument R reads to draw a component – a label, the
+  choices, a class – says it cannot be bound rather than drop the
+  binding.
+
+- `on =` takes Vue’s inline statements as well as
   [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
-  functions: `on = list(click = "$store.ui.open = true")`, as
-  `@click="..."` in a template.
+  functions: `on = list(click = "$vueStore.ui.open = true")`, as
+  `@click="..."` in a template; `v_on(statement, ns =)` is one in a
+  module.
+
+- Modules:
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+  [`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  and
+  [`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
+  take `ns`, and evaluate their expression as written with the module’s
+  names – `$inputs.size` its input, `$vueStore.ui` its
+  `vue_store(ns("ui"))` – as `input$size` is inside
+  [`moduleServer()`](https://rdrr.io/pkg/shiny/man/moduleServer.html). A
+  store defined twice on a page – a module drawn twice that did not
+  namespace it – says so in the console.
 
 - [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
   is a Pinia store (Pinia 4.1.0, bundled), defined with Pinia’s own
   parts: `state`, `getters` and `actions`, or a `setup` function.
   Templates reach getters and actions as they do the state
-  (`$store.cart.total`, `$store.cart.add(1)`); a component’s `setup()`
-  gets the store with `shinyVue.useStore()`; `input` may name a getter;
+  (`$vueStore.cart.total`, `$vueStore.cart.add(1)`); a component’s
+  `setup()` gets the store with `shinyVue.useStore()`; `input` may name
+  a getter;
   [`call_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.md)
   runs an action from the server, its value as `input$<id>_<action>`.
   [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md),

@@ -97,7 +97,7 @@ of all available formats of Day.js.
 
 What each picker reports is `input$<id>`: in the format `value_format`
 names, `"x"` a timestamp. `format` is what the box shows. The value
-under each title is the picker’s value, a store’s field, \[vue_bind()\],
+under each title is the picker’s value, a store’s field, \[v_model()\],
 which a
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
 reads in the browser.
@@ -114,14 +114,14 @@ block <- function(title, id, field, ...) {
       tags$div(
         class = "demonstration",
         id = paste0(id, "_value"),
-        sprintf("Value: {{ $store.formats.%s ?? '' }}", field)
+        sprintf("Value: {{ $vueStore.formats.%s ?? '' }}", field)
       )
     ),
     el_date_picker(
       id,
       type = "datetime",
       placeholder = "Pick a Date",
-      value = vue_bind(paste0("$store.formats.", field)),
+      value = v_model(paste0("$vueStore.formats.", field)),
       ...
     )
   )

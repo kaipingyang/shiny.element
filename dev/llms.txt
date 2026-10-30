@@ -645,8 +645,16 @@ the user’s state across renders, shared state, and the server’s way in.
 - [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
   : State shared by Vue components: a store
 
-- [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md)
-  : Bind an argument to state in the browser
+- [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  [`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  :
+
+  Vue's `v-bind` and `v-model` for a component's arguments
+
+- [`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
+  :
+
+  Vue's `v-on` for a component's event, in a module
 
 - [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
   : The page's router: vue-router, with the route as a Shiny input

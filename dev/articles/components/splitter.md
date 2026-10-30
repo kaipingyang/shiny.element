@@ -54,7 +54,7 @@ use the `min` property to prevent expanding through dragging after
 collapsing.
 
 The switch makes the panels collapsible or not: each panel’s
-`collapsible` follows it in the browser, \[vue_bind()\] – the inner
+`collapsible` follows it in the browser, \[v_bind()\] – the inner
 splitter’s too.
 
 ``` r
@@ -65,7 +65,7 @@ panel <- function(x) {
     x
   )
 }
-on_off <- vue_bind("$inputs.spl_collapsible")
+on_off <- v_bind("$inputs.spl_collapsible")
 tags$div(
   style = "margin-bottom: 8px",
   el_switch(
@@ -100,8 +100,8 @@ tags$div(
 When either panel disables `resizable`, dragging will be disabled.
 
 The switch lets the middle panel be dragged or not: the switch’s value
-is a store’s field, \[vue_bind()\], which the panel’s `resizable` and
-the text in it, a
+is a store’s field, \[v_model()\], which the panel’s `resizable`
+(\[v_bind()\]) and the text in it, a
 [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md),
 follow in the browser.
 
@@ -118,7 +118,7 @@ tags$div(
   style = "margin-bottom: 8px",
   el_switch(
     "spl_resizable",
-    value = vue_bind("$store.drag.on"),
+    value = v_model("$vueStore.drag.on"),
     active_text = "enable",
     inactive_text = "disable",
     inline_prompt = TRUE
@@ -130,12 +130,12 @@ tags$div(
     el_splitter_panel(panel(1)),
     el_splitter_panel(
       id = "spl_middle",
-      resizable = vue_bind("$store.drag.on"),
+      resizable = v_bind("$vueStore.drag.on"),
       panel(vue_app(
         "spl_drag_text",
         tags$span(
           id = "spl_drag",
-          "drag {{ $store.drag.on ? 'enable' : 'disable' }}"
+          "drag {{ $vueStore.drag.on ? 'enable' : 'disable' }}"
         )
       ))
     ),

@@ -122,7 +122,7 @@ In fact, Tooltip is an extension based on
 you can use any attribute that are allowed in ElPopper.
 
 The switch turns the tooltip off: its `disabled` follows the switch in
-the browser, \[vue_bind()\].
+the browser, \[v_bind()\].
 
 ``` r
 
@@ -132,7 +132,7 @@ el_tooltip(
   el$button("Hover me"),
   content = "turn the switch on to turn me off",
   placement = "bottom",
-  disabled = vue_bind("$inputs.tip_off")
+  disabled = v_bind("$inputs.tip_off")
 )
 ```
 

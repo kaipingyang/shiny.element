@@ -113,8 +113,8 @@
     },
 
     subscribe: function(el, callback) {
-      // arguments given vue_bind(): applied as updates; `value` a store's
-      // field, every change written back to it
+      // arguments given v_bind() or v_model(): applied as updates; with
+      // v_model(), every change of `value` written back
       el._svBound = window.shinyVue && shinyVue.bindElement &&
         shinyVue.bindElement(el, function(d) {
           if (d.hasOwnProperty('value')) d.value = [].concat(d.value);

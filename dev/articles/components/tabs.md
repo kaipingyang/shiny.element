@@ -120,7 +120,7 @@ You can choose from four directions:
 `tabPosition="left|right|top|bottom"`
 
 The radios move the tabs: `tab_position` follows them in the browser,
-\[vue_bind()\].
+\[v_bind()\].
 
 ``` r
 
@@ -133,7 +133,7 @@ el_radio_group(
 tags$div(style = "height: 16px")
 el_tabs(
   "tabs_pos",
-  tab_position = vue_bind("$inputs.position"),
+  tab_position = v_bind("$inputs.position"),
   tabs = list(
     el_tab_pane("User", "User"),
     el_tab_pane("Config", "Config"),

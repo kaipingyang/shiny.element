@@ -1,16 +1,15 @@
-# Arguments of a component drawn as markup, given vue_bind()
+# Arguments of a component drawn as markup, given v_bind() or v_model()
 
 A component drawn as markup with a binding of its own (a dialog, tabs)
-is no Vue app: the binding follows the paths itself, from
-`data-shiny-vue-bind`, `{"<field>": "<path>"}`, applying each value as
-an update of that field would. Each bound argument is drawn with its
-default meanwhile. Its state – its value – can be bound to a store
-alone.
+is no Vue app: the binding follows the expressions itself, from
+`data-shiny-vue-bind`, `{"<field>": {expr, model, scope}}`, applying
+each value as an update of that field would. Each bound argument is
+drawn with its default meanwhile.
 
 ## Usage
 
 ``` r
-.vue_bound_markup(env, defaults, args, state)
+.vue_bound_markup(env, defaults, args)
 ```
 
 ## Arguments
@@ -26,10 +25,6 @@ alone.
 - args:
 
   The arguments an update can set: those that may be bound.
-
-- state:
-
-  The one that is the component's value.
 
 ## Value
 

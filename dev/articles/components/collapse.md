@@ -189,7 +189,7 @@ using the `expand-icon-position` attribute, you can customize icon
 position.
 
 The switch moves each header’s icon: `expand_icon_position` follows it
-in the browser, \[vue_bind()\].
+in the browser, \[v_bind()\].
 
 ``` r
 
@@ -208,7 +208,7 @@ tags$div(
 )
 el_collapse(
   "coll_pos",
-  expand_icon_position = vue_bind("$inputs.position"),
+  expand_icon_position = v_bind("$inputs.position"),
   items = list(
     el_collapse_item(
       "Consistency",
@@ -282,7 +282,7 @@ set the `before-collapse` property, If `false` is returned or a
 
 `before_collapse` returns a promise: the panel turns after a second, or
 stays, as the switch says. The switch’s value is a store’s field,
-\[vue_bind()\], which the function reads when it runs.
+\[v_model()\], which the function reads when it runs.
 
 ``` r
 
@@ -292,7 +292,7 @@ tags$div(
   tags$span(style = "margin-right: 16px", "before collapse return: "),
   el_switch(
     "before",
-    value = vue_bind("$store.collapsing.allow"),
+    value = v_model("$vueStore.collapsing.allow"),
     inactive_text = "false",
     active_text = "true"
   )

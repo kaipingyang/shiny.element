@@ -436,7 +436,7 @@ Still you can fine tune each component’s `size` if you don’t want that
 component to inherit its size from From or FormItem.
 
 The radio buttons set the form’s `size` and `label_position`, which
-follow them in the browser, \[vue_bind()\].
+follow them in the browser, \[v_bind()\].
 
 ``` r
 
@@ -458,8 +458,8 @@ tags$br()
 el_form(
   id = "sized",
   label_width = "auto",
-  label_position = vue_bind("$inputs.form_position"),
-  size = vue_bind("$inputs.form_size"),
+  label_position = v_bind("$inputs.form_position"),
+  size = v_bind("$inputs.form_size"),
   width = "600px",
   submit_label = "Create",
   reset_label = "Cancel",

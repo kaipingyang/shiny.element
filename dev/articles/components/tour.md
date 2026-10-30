@@ -8,7 +8,7 @@ to guide users through a product.
 The most basic usage
 
 A step’s `target` is a CSS selector. The tour’s `visible` and `current`
-follow a store, \[vue_bind()\]: the button starts it in the browser, and
+follow a store, \[v_model()\]: the button starts it in the browser, and
 finishing or closing it sets the store back. From the server it is
 `update_el_tour(visible = TRUE, current = 0)`.
 
@@ -19,7 +19,9 @@ el_button(
   "begin",
   "Begin Tour",
   type = "primary",
-  on = list(click = "$store.tour_basic.current = 0; $store.tour_basic.open = true")
+  on = list(
+    click = "$vueStore.tour_basic.current = 0; $vueStore.tour_basic.open = true"
+  )
 )
 el_divider()
 el_space(
@@ -29,8 +31,8 @@ el_space(
 )
 el_tour(
   "tour",
-  visible = vue_bind("$store.tour_basic.open"),
-  current = vue_bind("$store.tour_basic.current"),
+  visible = v_model("$vueStore.tour_basic.open"),
+  current = v_model("$vueStore.tour_basic.current"),
   steps = list(
     el_tour_step("#t_up", "Upload File", "Put you files here."),
     el_tour_step("#t_save", "Save", "Save your changes"),
@@ -54,7 +56,9 @@ el_button(
   "begin",
   "Begin Tour",
   type = "primary",
-  on = list(click = "$store.tour_non_modal.current = 0; $store.tour_non_modal.open = true")
+  on = list(
+    click = "$vueStore.tour_non_modal.current = 0; $vueStore.tour_non_modal.open = true"
+  )
 )
 el_divider()
 el_space(
@@ -64,8 +68,8 @@ el_space(
 )
 el_tour(
   "tour",
-  visible = vue_bind("$store.tour_non_modal.open"),
-  current = vue_bind("$store.tour_non_modal.current"),
+  visible = v_model("$vueStore.tour_non_modal.open"),
+  current = v_model("$vueStore.tour_non_modal.current"),
   type = "primary",
   mask = FALSE,
   steps = list(
@@ -85,16 +89,21 @@ center.
 ``` r
 
 vue_store("tour_placement", state = list(open = FALSE, current = 0))
-tags$span(id = "t_btn", el_button(
-  "begin",
-  "Begin Tour",
-  type = "primary",
-  on = list(click = "$store.tour_placement.current = 0; $store.tour_placement.open = true")
-))
+tags$span(
+  id = "t_btn",
+  el_button(
+    "begin",
+    "Begin Tour",
+    type = "primary",
+    on = list(
+      click = "$vueStore.tour_placement.current = 0; $vueStore.tour_placement.open = true"
+    )
+  )
+)
 el_tour(
   "tour",
-  visible = vue_bind("$store.tour_placement.open"),
-  current = vue_bind("$store.tour_placement.current"),
+  visible = v_model("$vueStore.tour_placement.open"),
+  current = v_model("$vueStore.tour_placement.current"),
   steps = list(
     el_tour_step(
       title = "Center",
@@ -124,7 +133,9 @@ el_button(
   "begin",
   "Begin Tour",
   type = "primary",
-  on = list(click = "$store.tour_mask.current = 0; $store.tour_mask.open = true")
+  on = list(
+    click = "$vueStore.tour_mask.current = 0; $vueStore.tour_mask.open = true"
+  )
 )
 el_divider()
 el_space(
@@ -133,8 +144,8 @@ el_space(
 )
 el_tour(
   "tour",
-  visible = vue_bind("$store.tour_mask.open"),
-  current = vue_bind("$store.tour_mask.current"),
+  visible = v_model("$vueStore.tour_mask.open"),
+  current = v_model("$vueStore.tour_mask.current"),
   mask = list(
     style = list(boxShadow = "inset 0 0 15px #333"),
     color = "rgba(80, 255, 255, .4)"
@@ -168,7 +179,9 @@ el_button(
   "begin",
   "Begin Tour",
   type = "primary",
-  on = list(click = "$store.tour_indicator.current = 0; $store.tour_indicator.open = true")
+  on = list(
+    click = "$vueStore.tour_indicator.current = 0; $vueStore.tour_indicator.open = true"
+  )
 )
 el_divider()
 el_space(
@@ -177,8 +190,8 @@ el_space(
 )
 el_tour(
   "tour",
-  visible = vue_bind("$store.tour_indicator.open"),
-  current = vue_bind("$store.tour_indicator.current"),
+  visible = v_model("$vueStore.tour_indicator.open"),
+  current = v_model("$vueStore.tour_indicator.current"),
   steps = list(
     el_tour_step("#t_up", "Upload File", "Put you files here."),
     el_tour_step("#t_save", "Save", "Save your changes")
@@ -208,7 +221,9 @@ el_button(
   "begin",
   "Begin Tour",
   type = "primary",
-  on = list(click = "$store.tour_target.current = 0; $store.tour_target.open = true")
+  on = list(
+    click = "$vueStore.tour_target.current = 0; $vueStore.tour_target.open = true"
+  )
 )
 el_divider()
 tags$div(
@@ -223,8 +238,8 @@ tags$div(
 )
 el_tour(
   "tour",
-  visible = vue_bind("$store.tour_target.open"),
-  current = vue_bind("$store.tour_target.current"),
+  visible = v_model("$vueStore.tour_target.open"),
+  current = v_model("$vueStore.tour_target.current"),
   steps = list(
     el_tour_step("#first", "By id", "A selector for an id."),
     el_tour_step(".second", "By class", "A selector for a class.")

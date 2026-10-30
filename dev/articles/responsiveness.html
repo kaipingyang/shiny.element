@@ -259,22 +259,23 @@ for each kind of wait.</p>
 <div class="section level3">
 <h3 id="the-pages-state-stays-in-the-page">1. The page’s state stays in the page<a class="anchor" aria-label="anchor" href="#the-pages-state-stays-in-the-page"></a>
 </h3>
-<p>A component’s argument given <code><a href="../reference/vue_bind.html">vue_bind()</a></code> follows state in
-the browser, with no round trip:</p>
+<p>A component’s argument given
+<code><a href="../reference/v_bind.html">v_bind()</a></code>/<code><a href="../reference/v_bind.html">v_model()</a></code> follows state in the
+browser, with no round trip:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
 <span>  <span class="st">"size"</span>,</span>
 <span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"large"</span>, <span class="st">"default"</span>, <span class="st">"small"</span><span class="op">)</span>,</span>
 <span>  selected <span class="op">=</span> <span class="st">"default"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.size"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"One"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Two"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_space.html">el_space</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.size"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"One"</span><span class="op">)</span>, <span class="fu"><a href="../reference/el_card.html">el_card</a></span><span class="op">(</span><span class="st">"Two"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"ui"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>open <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open"</span>, on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.ui.open = true"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"open"</span>, <span class="st">"Open"</span>, on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.ui.open = true"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tips"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.ui.open"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.ui.open"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"Opened in the browser."</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -285,8 +286,8 @@ the browser, with no round trip:</p>
   </el-radio-group>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"default","options":[{"value":"large","label":"large"},{"value":"default","label":"default"},{"value":"small","label":"small"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('bound-size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
-  <div id="bound-el_space_1e48ed8e-169c-4da4-8b52-74f7e7809b0f" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="bound-el_space_1e48ed8e-169c-4da4-8b52-74f7e7809b0f_container" style="display: contents">
+  <div id="bound-el_space_5f0e8dfc-16a4-41fc-8873-55d022737c87" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="bound-el_space_5f0e8dfc-16a4-41fc-8873-55d022737c87_container" style="display: contents">
   <el-space v-bind="$optional(&#39;space&#39;)">
     <div class="el-card is-always-shadow" data-el-shadow-default="true">
       <div class="el-card__body">One</div>
@@ -295,17 +296,17 @@ the browser, with no round trip:</p>
       <div class="el-card__body">Two</div>
     </div>
   </el-space>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"alignment":null,"direction":null,"spacer":null,"size":null,"wrap":null,"fill":null,"fillRatio":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"space":{"alignment":"alignment","direction":"direction","spacer":"spacer","size":"size","wrap":"wrap","fill":"fill","fill-ratio":"fillRatio"}},"generated":true,"bound":{"size":"$inputs['bound-size']"},"evals":[]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"alignment":null,"direction":null,"spacer":null,"size":null,"wrap":null,"fill":null,"fillRatio":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"space":{"alignment":"alignment","direction":"direction","spacer":"spacer","size":"size","wrap":"wrap","fill":"fill","fill-ratio":"fillRatio"}},"generated":true,"bound":{"size":{"expr":"$inputs.size","scope":{"inputs":"bound-"}}},"evals":[]}</script>
 </div>
   <div id="ui" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"open":false}},"store":true,"evals":[]}</script>
 </div>
   <div id="bound-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="bound-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.ui.open = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.ui.open = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="bound-tips" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.ui.open"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="bound-tips" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.ui.open","model":true,"scope":{"inputs":"bound-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
       <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 50%; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
@@ -341,7 +342,7 @@ click to a dialog on screen:</p>
 <td>1,822 ms</td>
 </tr>
 <tr class="even">
-<td>in the browser, <code><a href="../reference/vue_bind.html">vue_bind()</a></code>
+<td>in the browser, <code><a href="../reference/v_bind.html">v_bind()</a></code>/<code><a href="../reference/v_bind.html">v_model()</a></code>
 </td>
 <td>1.4 ms</td>
 <td>1.2 ms</td>
@@ -451,8 +452,8 @@ busy while it runs, as bslib’s own task button is:</p>
 <td>The page’s own state: open, picked, shown</td>
 <td>the browser</td>
 <td>
-<code><a href="../reference/vue_bind.html">vue_bind()</a></code>, <code><a href="../reference/vue_store.html">vue_store()</a></code>,
-<code>on</code>
+<code><a href="../reference/v_bind.html">v_bind()</a></code>/<code><a href="../reference/v_bind.html">v_model()</a></code>,
+<code><a href="../reference/vue_store.html">vue_store()</a></code>, <code>on</code>
 </td>
 </tr>
 <tr class="even">

@@ -253,7 +253,7 @@ of all available formats of Day.js.</p>
 <p>If start( end ) time is picked at first, then the status of end(
 start ) time’s options will change accordingly.</p>
 <p>The end’s earliest time follows the start: its <code>min_time</code>
-is the start’s value, [vue_bind()], in the browser.</p>
+is the start’s value, [v_bind()], in the browser.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_time_picker.html">el_time_select</a></span><span class="op">(</span></span>
 <span>  <span class="st">"start"</span>,</span>
@@ -268,7 +268,7 @@ is the start’s value, [vue_bind()], in the browser.</p>
 <span>  start <span class="op">=</span> <span class="st">"08:30"</span>,</span>
 <span>  step <span class="op">=</span> <span class="st">"00:15"</span>,</span>
 <span>  end <span class="op">=</span> <span class="st">"18:30"</span>,</span>
-<span>  min_time <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.start"</span><span class="op">)</span>,</span>
+<span>  min_time <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.start"</span><span class="op">)</span>,</span>
 <span>  placeholder <span class="op">=</span> <span class="st">"End time"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"240px"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -281,7 +281,7 @@ is the start’s value, [vue_bind()], in the browser.</p>
   <div id="time-range-end" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="time-range-end_container" style="display: contents">
   <el-time-select v-bind="$optional(&#39;time-select&#39;)" v-model="value" @change="handleChange" style="width: 240px"></el-time-select>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","start":"08:30","end":"18:30","step":"00:15","minTime":null,"maxTime":null,"includeEndTime":null,"format":null,"placeholder":"End time","clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"time-select":{"start":"start","end":"end","step":"step","min-time":"minTime","max-time":"maxTime","include-end-time":"includeEndTime","format":"format","placeholder":"placeholder","clearable":"clearable","disabled":"disabled","editable":"editable","size":"size","effect":"effect","popper-class":"popperClass","popper-style":"popperStyle","prefix-icon":"prefixIcon","clear-icon":"clearIcon","empty-values":"emptyValues","value-on-clear":"valueOnClear"}},"bound":{"minTime":"$inputs['time-range-start']"},"evals":["options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","start":"08:30","end":"18:30","step":"00:15","minTime":null,"maxTime":null,"includeEndTime":null,"format":null,"placeholder":"End time","clearable":null,"disabled":null,"editable":null,"size":null,"effect":null,"popperClass":null,"popperStyle":null,"prefixIcon":null,"clearIcon":null,"emptyValues":null,"valueOnClear":null},"methods":{"handleChange":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"time-select":{"start":"start","end":"end","step":"step","min-time":"minTime","max-time":"maxTime","include-end-time":"includeEndTime","format":"format","placeholder":"placeholder","clearable":"clearable","disabled":"disabled","editable":"editable","size":"size","effect":"effect","popper-class":"popperClass","popper-style":"popperStyle","prefix-icon":"prefixIcon","clear-icon":"clearIcon","empty-values":"emptyValues","value-on-clear":"valueOnClear"}},"bound":{"minTime":{"expr":"$inputs.start","scope":{"inputs":"time-range-"}}},"evals":["options.methods.handleChange"]}</script>
 </div>
 </div>
 </div>

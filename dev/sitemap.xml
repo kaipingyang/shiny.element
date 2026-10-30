@@ -222,6 +222,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_array.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_auto_id.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bind_optional.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_binding.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound_markup.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bridge_dependency.html</loc></url>
@@ -409,9 +410,10 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/update_vue_router.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/use_element.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/v_on.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_answer.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.html</loc></url>
-<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.html</loc></url>

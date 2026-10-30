@@ -205,7 +205,7 @@ optional <code>title</code> attribute (empty by default) is for defining
 a title. Finally, this example demonstrates how
 <code>before-close</code> is used.</p>
 <p>The dialog’s <code>visible</code> follows a store’s field,
-[vue_bind()]: the button sets it, and closing the dialog – its cross,
+[v_model()]: the button sets it, and closing the dialog – its cross,
 Escape, the mask, a button in its footer – sets it back, in the browser.
 <code>before_close</code>, a <code><a href="../../reference/JS.html">JS()</a></code> function, may hold the
 close back. In an app the server opens it too,
@@ -217,13 +217,13 @@ close back. In an app the server opens it too,
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Click to open the Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.basic.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.basic.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"tips"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.basic.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.basic.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is a message"</span><span class="op">)</span>,</span>
 <span>  before_close <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
 <span>    <span class="st">"function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"</span></span>
@@ -232,13 +232,13 @@ close back. In an app the server opens it too,
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"cancel"</span>,</span>
 <span>      <span class="st">"Cancel"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.basic.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.basic.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"confirm"</span>,</span>
 <span>      <span class="st">"Confirm"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.basic.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.basic.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -248,10 +248,10 @@ close back. In an app the server opens it too,
 </div>
   <div id="basic-usage-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.basic.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.basic.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="basic-usage-tips" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.basic.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false" data-before-close="function(done) { if (confirm('Are you sure to close this dialog?')) done(); }">
+  <div id="basic-usage-tips" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.basic.visible","model":true,"scope":{"inputs":"basic-usage-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false" data-before-close="function(done) { if (confirm('Are you sure to close this dialog?')) done(); }">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
       <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
@@ -263,12 +263,12 @@ close back. In an app the server opens it too,
         </div>
         <footer class="el-dialog__footer"><div id="basic-usage-cancel" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-cancel_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.basic.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.basic.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
           <div id="basic-usage-confirm" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-confirm_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.basic.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.basic.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         </footer>
@@ -295,13 +295,13 @@ example shows how to use Element Plus Table and Form with Dialog.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open a Form nested Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_dialog.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.form_dialog.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"shipping"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Shipping address"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.form_dialog.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.form_dialog.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
 <span>      <span class="st">"name"</span>,</span>
@@ -322,13 +322,13 @@ example shows how to use Element Plus Table and Form with Dialog.</p>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"cancel"</span>,</span>
 <span>      <span class="st">"Cancel"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_dialog.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.form_dialog.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"confirm"</span>,</span>
 <span>      <span class="st">"Confirm"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_dialog.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.form_dialog.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -338,10 +338,10 @@ example shows how to use Element Plus Table and Form with Dialog.</p>
 </div>
   <div id="customization-content-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customization-content-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_dialog.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.form_dialog.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open a Form nested Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="customization-content-shipping" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.form_dialog.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="customization-content-shipping" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.form_dialog.visible","model":true,"scope":{"inputs":"customization-content-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Shipping address">
       <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Shipping address</span>
@@ -373,12 +373,12 @@ example shows how to use Element Plus Table and Form with Dialog.</p>
         </div>
         <footer class="el-dialog__footer"><div id="customization-content-cancel" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="customization-content-cancel_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_dialog.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.form_dialog.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
           <div id="customization-content-confirm" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="customization-content-confirm_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_dialog.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.form_dialog.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         </footer>
@@ -402,13 +402,13 @@ read out as the dialog title.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open Dialog with customized header"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.header_dialog.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.header_dialog.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"custom"</span>,</span>
 <span>  show_close <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.header_dialog.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.header_dialog.visible"</span><span class="op">)</span>,</span>
 <span>  title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    style <span class="op">=</span> <span class="st">"display: flex; justify-content: space-between; align-items: center"</span>,</span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"This is a custom header!"</span><span class="op">)</span>,</span>
@@ -417,7 +417,7 @@ read out as the dialog title.</p>
 <span>      <span class="st">"Close"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"danger"</span>,</span>
 <span>      icon <span class="op">=</span> <span class="st">"CircleCloseFilled"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.header_dialog.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.header_dialog.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"This is dialog content."</span></span>
@@ -428,10 +428,10 @@ read out as the dialog title.</p>
 </div>
   <div id="customization-header-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customization-header-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.header_dialog.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.header_dialog.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open Dialog with customized header","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="customization-header-custom" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.header_dialog.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="customization-header-custom" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.header_dialog.visible","model":true,"scope":{"inputs":"customization-header-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true">
       <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header"><span role="heading" aria-level="2" class="el-dialog__title">
@@ -439,7 +439,7 @@ read out as the dialog title.</p>
               <h4>This is a custom header!</h4>
               <div id="customization-header-close" data-shiny-vue style="display: contents">
                 <script type="text/x-template" data-shiny-vue-template><div id="customization-header-close_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.header_dialog.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.header_dialog.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Close","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":"CircleCloseFilled","autofocus":false,"type":"danger","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
             </div>
@@ -470,13 +470,13 @@ can be correctly rendered.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open the outer Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nested.outer = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.nested.outer = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"outer"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Outer Dialog"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"800px"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nested.outer"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.nested.outer"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"This is the outer Dialog"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
@@ -484,7 +484,7 @@ can be correctly rendered.</p>
 <span>      title <span class="op">=</span> <span class="st">"Inner Dialog"</span>,</span>
 <span>      width <span class="op">=</span> <span class="st">"500px"</span>,</span>
 <span>      append_to_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nested.inner"</span><span class="op">)</span>,</span>
+<span>      visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.nested.inner"</span><span class="op">)</span>,</span>
 <span>      content <span class="op">=</span> <span class="st">"This is the inner Dialog"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -492,7 +492,7 @@ can be correctly rendered.</p>
 <span>    <span class="st">"inner_open"</span>,</span>
 <span>    <span class="st">"Open the inner Dialog"</span>,</span>
 <span>    type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>    on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nested.inner = true"</span><span class="op">)</span></span>
+<span>    on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.nested.inner = true"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -501,10 +501,10 @@ can be correctly rendered.</p>
 </div>
   <div id="nested-dialog-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="nested-dialog-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nested.outer = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.nested.outer = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the outer Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="nested-dialog-outer" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nested.outer"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="nested-dialog-outer" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.nested.outer","model":true,"scope":{"inputs":"nested-dialog-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Outer Dialog">
       <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 800px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Outer Dialog</span>
@@ -513,7 +513,7 @@ can be correctly rendered.</p>
           </button>
         </header><div class="el-dialog__body">
           <span>This is the outer Dialog</span>
-          <div id="nested-dialog-inner" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nested.inner"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-append-to="body" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+          <div id="nested-dialog-inner" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.nested.inner","model":true,"scope":{"inputs":"nested-dialog-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-append-to="body" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
             <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Inner Dialog">
               <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
                 <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Inner Dialog</span>
@@ -527,7 +527,7 @@ can be correctly rendered.</p>
         </div>
         <footer class="el-dialog__footer"><div id="nested-dialog-inner_open" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="nested-dialog-inner_open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nested.inner = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.nested.inner = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the inner Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         </footer>
@@ -551,26 +551,26 @@ if you wish to center the body as well.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Click to open the Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.centered.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.centered.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"warn"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.centered.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.centered.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"It should be noted that the content will not be aligned in center by default"</span>,</span>
 <span>  footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"cancel"</span>,</span>
 <span>      <span class="st">"Cancel"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.centered.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.centered.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"confirm"</span>,</span>
 <span>      <span class="st">"Confirm"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.centered.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.centered.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -580,10 +580,10 @@ if you wish to center the body as well.</p>
 </div>
   <div id="centered-content-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="centered-content-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.centered.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.centered.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="centered-content-warn" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.centered.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="centered-content-warn" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.centered.visible","model":true,"scope":{"inputs":"centered-content-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Warning">
       <div class="el-dialog el-dialog--center" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Warning</span>
@@ -593,12 +593,12 @@ if you wish to center the body as well.</p>
         </header><div class="el-dialog__body">It should be noted that the content will not be aligned in center by default</div>
         <footer class="el-dialog__footer"><div id="centered-content-cancel" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="centered-content-cancel_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.centered.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.centered.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
           <div id="centered-content-confirm" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="centered-content-confirm_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.centered.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.centered.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         </footer>
@@ -628,26 +628,26 @@ in a flexbox.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Click to open the Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.aligned.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.aligned.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"warn"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Warning"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
 <span>  align_center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.aligned.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.aligned.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"Open the dialog from the center from the screen"</span>,</span>
 <span>  footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"cancel"</span>,</span>
 <span>      <span class="st">"Cancel"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.aligned.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.aligned.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"confirm"</span>,</span>
 <span>      <span class="st">"Confirm"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.aligned.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.aligned.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -657,10 +657,10 @@ in a flexbox.</p>
 </div>
   <div id="align-center-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="align-center-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.aligned.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.aligned.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="align-center-warn" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.aligned.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="draggable overflow" data-destroy-on-close="false">
+  <div id="align-center-warn" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.aligned.visible","model":true,"scope":{"inputs":"align-center-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Warning" style="display:flex;">
       <div class="el-dialog is-align-center" tabindex="-1" style="--el-dialog-width: 500px;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Warning</span>
@@ -670,12 +670,12 @@ in a flexbox.</p>
         </header><div class="el-dialog__body">Open the dialog from the center from the screen</div>
         <footer class="el-dialog__footer"><div id="align-center-cancel" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="align-center-cancel_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.aligned.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.aligned.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
           <div id="align-center-confirm" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="align-center-confirm_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.aligned.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.aligned.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         </footer>
@@ -702,7 +702,7 @@ fresh.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Click to open Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.notice_ui.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.notice_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"notice"</span>,</span>
@@ -710,7 +710,7 @@ fresh.</p>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
 <span>  destroy_on_close <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  center <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.notice_ui.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.notice_ui.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
 <span>      <span class="st">"Notice: before dialog gets opened for the first time this node and the one below will not be rendered"</span></span>
@@ -724,10 +724,10 @@ fresh.</p>
 </div>
   <div id="destroy-on-close-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="destroy-on-close-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.notice_ui.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.notice_ui.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="destroy-on-close-notice" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.notice_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="true">
+  <div id="destroy-on-close-notice" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.notice_ui.visible","model":true,"scope":{"inputs":"destroy-on-close-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="true">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Notice">
       <div class="el-dialog el-dialog--center" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Notice</span>
@@ -761,14 +761,14 @@ viewport.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Click to open Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.drag_ui.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.drag_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drag"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
 <span>  draggable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.drag_ui.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.drag_ui.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"It's a draggable Dialog"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -777,10 +777,10 @@ viewport.</p>
 </div>
   <div id="draggable-dialog-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="draggable-dialog-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.drag_ui.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.drag_ui.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click to open Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="draggable-dialog-drag" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.drag_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false">
+  <div id="draggable-dialog-drag" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.drag_ui.visible","model":true,"scope":{"inputs":"draggable-dialog-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-draggable="true" data-el-dialog-defaults="alignCenter overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
       <div class="el-dialog is-draggable" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
@@ -813,13 +813,13 @@ dialog.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open the fullscreen Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.full_ui.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.full_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"full"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Tips"</span>,</span>
 <span>  fullscreen <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.full_ui.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.full_ui.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"It's a fullscreen Dialog"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -828,10 +828,10 @@ dialog.</p>
 </div>
   <div id="fullscreen-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="fullscreen-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.full_ui.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.full_ui.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the fullscreen Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="fullscreen-full" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.full_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="fullscreen-full" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.full_ui.visible","model":true,"scope":{"inputs":"fullscreen-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Tips">
       <div class="el-dialog is-fullscreen" tabindex="-1">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
@@ -864,7 +864,7 @@ is added, which can be penetrable.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open the modal-less Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nomodal_ui.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.nomodal_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"nomodal"</span>,</span>
@@ -872,7 +872,7 @@ is added, which can be penetrable.</p>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
 <span>  modal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  modal_penetrable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nomodal_ui.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.nomodal_ui.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"It's a modal-less Dialog"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -881,10 +881,10 @@ is added, which can be penetrable.</p>
 </div>
   <div id="modal-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="modal-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nomodal_ui.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.nomodal_ui.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the modal-less Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="modal-nomodal" class="el-overlay" style="display:none;background-color:transparent;pointer-events:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nomodal_ui.visible"}' data-modal="false" data-mask-close="false" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="modal-nomodal" class="el-overlay" style="display:none;background-color:transparent;pointer-events:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.nomodal_ui.visible","model":true,"scope":{"inputs":"modal-"}}}' data-modal="false" data-mask-close="false" data-esc-close="true" data-lock-scroll="true" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog el-modal-dialog is-penetrable" role="dialog" aria-modal="true" aria-label="Tips">
       <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh; pointer-events:auto;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Tips</span>
@@ -917,14 +917,14 @@ Plus’s does.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open the Dialog"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.anim_ui.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.anim_ui.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_dialog.html">el_dialog</a></span><span class="op">(</span></span>
 <span>  <span class="st">"anim"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Custom animation"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"500px"</span>,</span>
 <span>  transition <span class="op">=</span> <span class="st">"dialog-bounce"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.anim_ui.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.anim_ui.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"This dialog plays an animation of its own."</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -934,10 +934,10 @@ Plus’s does.</p>
 </div>
   <div id="custom-animation-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="custom-animation-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.anim_ui.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.anim_ui.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the Dialog","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="custom-animation-anim" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.anim_ui.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-transition="dialog-bounce" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
+  <div id="custom-animation-anim" class="el-overlay" style="display:none;" data-el-overlay="dialog" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.anim_ui.visible","model":true,"scope":{"inputs":"custom-animation-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-transition="dialog-bounce" data-el-dialog-defaults="alignCenter draggable overflow" data-destroy-on-close="false">
     <div class="el-overlay-dialog" role="dialog" aria-modal="true" aria-label="Custom animation">
       <div class="el-dialog" tabindex="-1" style="--el-dialog-width: 500px; --el-dialog-margin-top: 15vh;">
         <header class="el-dialog__header show-close"><span role="heading" aria-level="2" class="el-dialog__title">Custom animation</span>

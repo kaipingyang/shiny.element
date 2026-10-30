@@ -204,7 +204,7 @@
   <div id="basic-dpp" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-dpp_container" style="display: contents">
   <el-date-picker-panel v-bind="$optional(&#39;date-picker-panel&#39;)" v-model="value"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-29","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"evals":["options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"2026-10-30","border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"evals":["options.watch.value"]}</script>
 </div>
 </div>
 </div>
@@ -290,7 +290,7 @@ is a [vue_app()] measuring its own box.</p>
 <p>The <code>disabled</code> attribute determines if the date picker is
 fully disabled.</p>
 <p>The switch disables the panel: its <code>disabled</code> follows the
-switch in the browser, [vue_bind()].</p>
+switch in the browser, [v_bind()].</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>  style <span class="op">=</span> <span class="st">"display: flex; flex-direction: column; align-items: center"</span>,</span>
@@ -302,7 +302,7 @@ switch in the browser, [vue_bind()].</p>
 <span>  <span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span></span>
 <span>    <span class="st">"dpp_dis"</span>,</span>
-<span>    disabled <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.dpp_switch"</span><span class="op">)</span></span>
+<span>    disabled <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.dpp_switch"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -315,7 +315,7 @@ switch in the browser, [vue_bind()].</p>
     <div id="disabled-dpp_dis" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="disabled-dpp_dis_container" style="display: contents">
   <el-date-picker-panel v-bind="$optional(&#39;date-picker-panel&#39;)" v-model="value"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"bound":{"disabled":"$inputs['disabled-dpp_switch']"},"evals":["options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"bound":{"disabled":{"expr":"$inputs.dpp_switch","scope":{"inputs":"disabled-"}}},"evals":["options.watch.value"]}</script>
 </div>
   </div>
 </div>
@@ -325,8 +325,8 @@ switch in the browser, [vue_bind()].</p>
 </h2>
 <p>The measurement is determined by the <code>type</code> attribute.</p>
 <p>The select changes the panel’s <code>type</code>, which follows it in
-the browser, [vue_bind()]; the panel’s value is a store’s field, which
-the select’s <code>on</code> handler clears as it does.</p>
+the browser, [v_bind()]; the panel’s value is a store’s field, which the
+select’s <code>on</code> handler clears as it does.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"year"</span>,</span>
@@ -355,7 +355,7 @@ the select’s <code>on</code> handler clears as it does.</p>
 <span>      <span class="st">"dpp_type"</span>,</span>
 <span>      choices <span class="op">=</span> <span class="va">types</span>,</span>
 <span>      selected <span class="op">=</span> <span class="st">"date"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>change <span class="op">=</span> <span class="st">"$store.panel_types.value = null"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>change <span class="op">=</span> <span class="st">"$vueStore.panel_types.value = null"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -364,8 +364,8 @@ the select’s <code>on</code> handler clears as it does.</p>
 <span>  style <span class="op">=</span> <span class="st">"display: flex; justify-content: center"</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_date_picker_panel.html">el_date_picker_panel</a></span><span class="op">(</span></span>
 <span>    <span class="st">"dpp_all"</span>,</span>
-<span>    type <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.dpp_type"</span><span class="op">)</span>,</span>
-<span>    value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.panel_types.value"</span><span class="op">)</span></span>
+<span>    type <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.dpp_type"</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.panel_types.value"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -377,7 +377,7 @@ the select’s <code>on</code> handler clears as it does.</p>
       <span>Type:</span>
       <div id="all-types-dpp_type" data-shiny-vue style="display: contents">
         <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_type_container" style="display: contents">
-  <el-select v-bind="$optional(&#39;select&#39;)" v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="(...a) =&gt; { handleChange(...a); ((...a) =&gt; { const $event = a[0]; $store.panel_types.value = null; })(...a); }" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @end-reached="svEmitEndReached">
+  <el-select v-bind="$optional(&#39;select&#39;)" v-model="value" :multiple="multiple" :disabled="disabled" :clearable="clearable" :filterable="filterable" :multiple-limit="multipleLimit" :collapse-tags="collapseTags" @change="(...a) =&gt; { handleChange(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.panel_types.value = null; })(...a); }" :remote-method="remoteMethod === null ? elRemoteQuery : remoteMethod" @end-reached="svEmitEndReached">
     <el-option v-for="opt in options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
     <el-option-group v-for="g in groups" :key="g.label" :label="g.label" :disabled="g.disabled">
       <el-option v-for="opt in g.options" :key="opt.value" :value="opt.value" :label="opt.label" :disabled="opt.disabled"></el-option>
@@ -392,7 +392,7 @@ the select’s <code>on</code> handler clears as it does.</p>
     <div id="all-types-dpp_all" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="all-types-dpp_all_container" style="display: contents">
   <el-date-picker-panel v-bind="$optional(&#39;date-picker-panel&#39;)" v-model="value"></el-date-picker-panel>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"bound":{"value":"$store.panel_types.value","type":"$inputs['all-types-dpp_type']"},"evals":["options.watch.value"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"border":null,"disabled":null,"clearable":null,"editable":null,"type":null,"defaultValue":null,"defaultTime":null,"valueFormat":null,"dateFormat":null,"timeFormat":null,"unlinkPanels":null,"singlePanel":null,"disabledDate":null,"shortcuts":null,"cellClassName":null,"showFooter":null,"showConfirm":null,"showWeekNumber":null},"methods":[],"watch":{"value":"function(v) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"date-picker-panel":{"border":"border","disabled":"disabled","clearable":"clearable","editable":"editable","type":"type","default-value":{"field":"defaultValue","wrap":"elDate"},"default-time":{"field":"defaultTime","wrap":"elDate"},"value-format":"valueFormat","date-format":"dateFormat","time-format":"timeFormat","unlink-panels":"unlinkPanels","single-panel":"singlePanel","disabled-date":"disabledDate","shortcuts":"shortcuts","cell-class-name":"cellClassName","show-footer":"showFooter","show-confirm":"showConfirm","show-week-number":"showWeekNumber"}},"bound":{"value":{"expr":"$vueStore.panel_types.value","model":true,"scope":{"inputs":"all-types-"}},"type":{"expr":"$inputs.dpp_type","scope":{"inputs":"all-types-"}}},"evals":["options.watch.value"]}</script>
 </div>
   </div>
 </div>

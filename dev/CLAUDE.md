@@ -71,8 +71,8 @@ component library and is to become the shiny.vue package:
 [`vue_component()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.md),
 [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md)
 (a Pinia 4.1.0 store, `inst/pinia`: `state`/`getters`/`actions` or
-`setup`, `$store.<id>` in every template, its host exposing the store so
-updates, calls and outputs reach it),
+`setup`, `$vueStore.<id>` in every template, its host exposing the store
+so updates, calls and outputs reach it),
 [`vue_output()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md)/[`render_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_output.md),
 [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md),
 [`call_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.md),
@@ -83,22 +83,26 @@ the route in the hash and as `input$<id>`),
 [`vueuse_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/vueuse_dependency.md)
 (VueUse 15.0.0, Element’s own version, `inst/vueuse`, opt-in, for
 `setup()`),
-[`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md)
-(an argument following `$store`, `$inputs` or `$route` in the browser,
-no round trip:
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)/[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)/[`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
+(`R/vue_directives.R`: Vue’s directives for an R component’s arguments –
+an expression over `$vueStore`, `$inputs`, `$route`, one way or written
+back to a store; `ns =` scopes those names to a module, the expression
+untouched.
 [`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
-moves a bound field’s path to the spec’s `bound`, the bridge keeps field
-and path in step; containers bind what their update can set,
+moves a bound field to the spec’s `bound` (`{expr, model, scope}`), the
+bridge evaluates it with `with` over the page’s names and keeps field
+and state in step; containers bind what their update can set,
 [`.vue_bound_markup()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_bound_markup.md)
 writing `data-shiny-vue-bind` and their bindings applying it through
-`shinyVue.bindElement()` as updates; an argument R reads to draw with
-says so,
+`shinyVue.bindElement()`; an argument R reads to draw with says so,
 [`.vue_unbound()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.md),
-and `test-vue-bind.R` fails on any argument of any component that drops
-a binding), and the `.vue_*` helpers. `test-vue-layer.R` fails if any of
-it names Element; `test-browser-pure-vue.R` runs it with no Element Plus
-on the page. The **Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is
-built on it:
+and `test-vue-directives.R` fails on any argument of any component that
+drops a binding). Template names follow the function that made them:
+`$vueStore` (was `$store`, kept a version), later `$vueRef` etc.; plan
+`.claude/plans/vue-syntax-in-r-2026-10-30.md`. And the `.vue_*` helpers.
+`test-vue-layer.R` fails if any of it names Element;
+`test-browser-pure-vue.R` runs it with no Element Plus on the page. The
+**Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is built on it:
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md)
 builds through
 [`.vue_host()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.md)
@@ -121,13 +125,13 @@ internal helpers are not an API.
 **User code goes in untouched.** The Vue layer is to be a package for
 any Vue code, so its machinery never takes a name from the user’s space:
 the bridge’s helpers are global properties starting with `$`
-(`$setInput`, `$store`, `$inputs`, `$busy`, and `$optional()` once props
-bind through it), and options it adds to a component are namespaced
-(`shinyVue*`). Whatever Vue the user writes – `data`, `computed`,
-`methods`, `watch`, `setup`, lifecycle hooks, `components`,
-`directives`, `provide`, `emits`, plugins through `use`, any other
-option – passes through as written. Where the package and the user give
-the same thing, the two are merged and the user’s wins: an event handler
+(`$setInput`, `$vueStore`, `$inputs`, `$busy`, `$optional()`), and
+options it adds to a component are namespaced (`shinyVue*`). Whatever
+Vue the user writes – `data`, `computed`, `methods`, `watch`, `setup`,
+lifecycle hooks, `components`, `directives`, `provide`, `emits`, plugins
+through `use`, any other option – passes through as written. Where the
+package and the user give the same thing, the two are merged and the
+user’s wins: an event handler
 ([`.vue_merge_handlers()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_merge_handlers.md)),
 one `v-bind` object rather than two, the user’s explicit attributes
 placed after ours (Vue 3: the later wins). Raw `el$` tags,
@@ -456,9 +460,9 @@ Design records: `.claude/plans/shiny-style-components-2026-10-06.md`,
     fields of the component) in
     [`.vue_unbound()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.md)
     after it, so a
-    [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md)
-    given them is an error (`test-vue-bind.R` checks). A field keeps a
-    binding through its conversions:
+    [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+    given them is an error (`test-vue-directives.R` checks). A field
+    keeps a binding through its conversions:
     [`.vue_array()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_array.md),
     [`.vue_flag()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_flag.md)
     rather than [`as.list()`](https://rdrr.io/r/base/list.html),

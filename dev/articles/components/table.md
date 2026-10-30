@@ -806,8 +806,8 @@ You can customize how the header looks by header
 [slots](https://v3.vuejs.org/guide/component-slots.html).
 
 The search box is the column’s `header` template. What is typed lives in
-a store, `$store.search.text`, reported as `input$search`; the table is
-rendered again with the rows that match.
+a store, `$vueStore.search.text`, reported as `input$search`; the table
+is rendered again with the rows that match.
 
 ``` r
 
@@ -835,7 +835,7 @@ server <- function(input, output, session) {
       el_table_column(
         align = "right",
         header = el$input(
-          "v-model" = "$store.search.text",
+          "v-model" = "$vueStore.search.text",
           size = "small",
           placeholder = "Type to search"
         ),
@@ -878,9 +878,9 @@ in custom column templates.
 
 Each row opens to its details and a table of its own, the family. The
 switches act in the browser: the parent’s `border` and
-`preserve_expanded_content` follow them, \[vue_bind()\], and the child
+`preserve_expanded_content` follow them, \[v_bind()\], and the child
 tables’ border is a store’s field their template reads,
-`$store.expand.child`.
+`$vueStore.expand.child`.
 
 ``` r
 
@@ -920,14 +920,14 @@ tags$div(
   "switch parent border:",
   el_switch("parent_border"),
   "switch child border:",
-  el_switch("child_border", value = vue_bind("$store.expand.child")),
+  el_switch("child_border", value = v_model("$vueStore.expand.child")),
   "preserve expanded:",
   el_switch("preserve")
 )
 el_table(
   "expandable",
-  border = vue_bind("$inputs.parent_border"),
-  preserve_expanded_content = vue_bind("$inputs.preserve"),
+  border = v_bind("$inputs.parent_border"),
+  preserve_expanded_content = v_bind("$inputs.preserve"),
   data = tableData,
   columns = list(
     el_table_column(
@@ -941,7 +941,7 @@ el_table(
         tags$h3("Family"),
         el$table(
           ":data" = "scope.row.family",
-          ":border" = "$store.expand.child",
+          ":border" = "$vueStore.expand.child",
           el$table_column(label = "Name", prop = "name"),
           el$table_column(label = "State", prop = "state"),
           el$table_column(label = "City", prop = "city"),
@@ -1076,9 +1076,9 @@ that is, when the parent node is selected, all its child nodes will be
 selected.
 
 The radio buttons set `tree_props = list(checkStrictly =)`: their value
-is a store’s field, and `tree_props` a getter of it, \[vue_bind()\].
-Ticked strictly, a row ticks on its own, not with its children. Rows 1
-and 31 cannot be ticked.
+is a store’s field, \[v_model()\], and `tree_props` a getter of it,
+\[v_bind()\]. Ticked strictly, a row ticks on its own, not with its
+children. Rows 1 and 31 cannot be ticked.
 
 ``` r
 
@@ -1113,7 +1113,7 @@ vue_store(
 el_radio_group(
   "strict_mode",
   choices = c(true = TRUE, false = FALSE),
-  value = vue_bind("$store.strictness.on"),
+  value = v_model("$vueStore.strictness.on"),
   button = TRUE
 )
 el_table(
@@ -1121,7 +1121,7 @@ el_table(
   data = tableData,
   row_key = "id",
   default_expand_all = TRUE,
-  tree_props = vue_bind("$store.strictness.props"),
+  tree_props = v_bind("$vueStore.strictness.props"),
   columns = list(
     el_table_column(
       type = "selection",
@@ -1310,7 +1310,7 @@ property sets the algorithm used to lay out table cells, rows, and
 columns.
 
 The radio buttons set `table_layout`, which follows them in the browser,
-\[vue_bind()\].
+\[v_bind()\].
 
 ``` r
 
@@ -1329,7 +1329,7 @@ el_radio_group(
 el_table(
   "layout_table",
   data = tableData,
-  table_layout = vue_bind("$inputs.layout"),
+  table_layout = v_bind("$inputs.layout"),
   columns = list(
     el_table_column("date", "Date"),
     el_table_column("name", "Name"),

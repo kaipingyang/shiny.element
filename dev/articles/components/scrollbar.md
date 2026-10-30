@@ -62,12 +62,12 @@ tags$style(
      color: var(--el-color-primary); }"
 )
 vue_store("sb_items", state = list(count = 3))
-el_button("sb_add", "Add Item", on = list(click = "$store.sb_items.count++"))
+el_button("sb_add", "Add Item", on = list(click = "$vueStore.sb_items.count++"))
 el_button(
   "sb_delete",
   "Delete Item",
   on = list(
-    click = "$store.sb_items.count = Math.max(0, $store.sb_items.count - 1)"
+    click = "$vueStore.sb_items.count = Math.max(0, $vueStore.sb_items.count - 1)"
   )
 )
 el_scrollbar(
@@ -77,7 +77,7 @@ el_scrollbar(
     tags$div(
       tags$p(
         class = "scrollbar-demo-item",
-        `v-for` = "i in $store.sb_items.count",
+        `v-for` = "i in $vueStore.sb_items.count",
         `:key` = "i",
         "{{ i }}"
       )

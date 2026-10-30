@@ -55,8 +55,8 @@ el_watermark(
 Preview the watermark effect by configuring custom parameters.
 
 Its settings from the controls: each control’s value is a store’s field,
-\[vue_bind()\], and the watermark’s `font` and `gap` getters built from
-them, so it changes as they do, in the browser.
+\[v_model()\], and the watermark’s `font` and `gap` getters built from
+them, \[v_bind()\], so it changes as they do, in the browser.
 
 ``` r
 
@@ -78,10 +78,10 @@ el_row(
   el_col(
     span = 14,
     el_watermark(
-      content = vue_bind("$store.wm.content"),
-      rotate = vue_bind("$store.wm.rotate"),
-      gap = vue_bind("$store.wm.gaps"),
-      font = vue_bind("$store.wm.font"),
+      content = v_bind("$vueStore.wm.content"),
+      rotate = v_bind("$vueStore.wm.rotate"),
+      gap = v_bind("$vueStore.wm.gaps"),
+      font = v_bind("$vueStore.wm.font"),
       tags$div(
         style = "padding: 40px 20px; height: 360px",
         tags$h1("Element Plus"),
@@ -94,29 +94,29 @@ el_row(
     el_input(
       "content",
       label = "Content",
-      value = vue_bind("$store.wm.content")
+      value = v_model("$vueStore.wm.content")
     ),
     el_color_picker(
       "color",
       label = "Color",
-      value = vue_bind("$store.wm.color"),
+      value = v_model("$vueStore.wm.color"),
       show_alpha = TRUE
     ),
     el_slider(
       "size",
       label = "FontSize",
-      value = vue_bind("$store.wm.size"),
+      value = v_model("$vueStore.wm.size"),
       min = 8,
       max = 40
     ),
     el_slider(
       "rotate",
       label = "Rotate",
-      value = vue_bind("$store.wm.rotate"),
+      value = v_model("$vueStore.wm.rotate"),
       min = -180,
       max = 180
     ),
-    el_input_number("gap", label = "Gap", value = vue_bind("$store.wm.gap"))
+    el_input_number("gap", label = "Gap", value = v_model("$vueStore.wm.gap"))
   )
 )
 ```

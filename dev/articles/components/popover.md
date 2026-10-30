@@ -50,7 +50,7 @@ control it, you can set `:visible`.
 
 Each button opens its popover as its label says: `contextmenu` on a
 right-click, as the browser’s own menu, not on a left click. The last
-one’s `visible` is a store’s field, \[vue_bind()\], which its button
+one’s `visible` is a store’s field, \[v_model()\], which its button
 turns.
 
 ``` r
@@ -78,9 +78,9 @@ el_popover(
   reference = el_button(
     "p_manual_btn",
     "Manual to activate",
-    on = list(click = "$store.manual.visible = !$store.manual.visible")
+    on = list(click = "$vueStore.manual.visible = !$vueStore.manual.visible")
   ),
-  visible = vue_bind("$store.manual.visible"),
+  visible = v_model("$vueStore.manual.visible"),
   placement = "bottom",
   title = "Title",
   popover_width = 200,
@@ -198,7 +198,7 @@ tags$div(
 Of course, you can nest other operations. It’s more light-weight than
 using a dialog.
 
-Its `visible` is a store’s field, \[vue_bind()\]: the buttons set it in
+Its `visible` is a store’s field, \[v_model()\]: the buttons set it in
 the browser.
 
 ``` r
@@ -206,13 +206,13 @@ the browser.
 vue_store("nested_pop", state = list(visible = FALSE))
 el_popover(
   "confirm",
-  visible = vue_bind("$store.nested_pop.visible"),
+  visible = v_model("$vueStore.nested_pop.visible"),
   popover_width = 160,
   placement = "top",
   reference = el_button(
     "delete",
     "Delete",
-    on = list(click = "$store.nested_pop.visible = true")
+    on = list(click = "$vueStore.nested_pop.visible = true")
   ),
   body = tagList(
     tags$p("Are you sure to delete this?"),
@@ -221,14 +221,14 @@ el_popover(
       "cancel",
       size = "small",
       text = TRUE,
-      on = list(click = "$store.nested_pop.visible = false")
+      on = list(click = "$vueStore.nested_pop.visible = false")
     ),
     el_button(
       "yes",
       "confirm",
       size = "small",
       type = "primary",
-      on = list(click = "$store.nested_pop.visible = false")
+      on = list(click = "$vueStore.nested_pop.visible = false")
     )
   )
 )

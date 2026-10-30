@@ -207,13 +207,13 @@ fixed which accepts <code>Number</code> type. The unit of the
 responsive. Setting the <code>finish-status</code> attribute can change
 the state of the steps that have been completed.</p>
 <p>The button moves it on: <code>active</code> is a store’s field,
-[vue_bind()], which the button’s <code>on</code> handler steps in the
+[v_bind()], which the button’s <code>on</code> handler steps in the
 browser.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"stepper"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>active <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_steps.html">el_steps</a></span><span class="op">(</span></span>
 <span>  <span class="st">"st_basic"</span>,</span>
-<span>  active <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.stepper.active"</span><span class="op">)</span>,</span>
+<span>  active <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$vueStore.stepper.active"</span><span class="op">)</span>,</span>
 <span>  finish_status <span class="op">=</span> <span class="st">"success"</span>,</span>
 <span>  width <span class="op">=</span> <span class="st">"600px"</span>,</span>
 <span>  steps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 1"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 2"</span><span class="op">)</span>, <span class="fu"><a href="../../reference/el_step.html">el_step</a></span><span class="op">(</span><span class="st">"Step 3"</span><span class="op">)</span><span class="op">)</span></span>
@@ -223,7 +223,7 @@ browser.</p>
 <span>  <span class="st">"Next step"</span>,</span>
 <span>  style <span class="op">=</span> <span class="st">"margin-top: 12px"</span>,</span>
 <span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    click <span class="op">=</span> <span class="st">"$store.stepper.active = $store.stepper.active &gt; 2 ? 0 : $store.stepper.active + 1"</span></span>
+<span>    click <span class="op">=</span> <span class="st">"$vueStore.stepper.active = $vueStore.stepper.active &gt; 2 ? 0 : $vueStore.stepper.active + 1"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -237,11 +237,11 @@ browser.</p>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":null,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"bound":{"active":"$store.stepper.active"},"evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":null,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"bound":{"active":{"expr":"$vueStore.stepper.active","scope":{"inputs":"basic-"}}},"evals":["options.watch.active"]}</script>
 </div>
   <div id="basic-st_next" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-st_next_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.stepper.active = $store.stepper.active &gt; 2 ? 0 : $store.stepper.active + 1; })(...a); }" style="margin-top: 12px">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.stepper.active = $vueStore.stepper.active &gt; 2 ? 0 : $vueStore.stepper.active + 1; })(...a); }" style="margin-top: 12px">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Next step","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>

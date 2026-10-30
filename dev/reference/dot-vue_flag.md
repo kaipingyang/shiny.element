@@ -12,9 +12,7 @@ A value as a field holding `true` or `false`
 
 - x:
 
-  A value, or a
-  [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md),
-  which is kept.
+  A value, or a binding, which is kept.
 
 ## Value
 

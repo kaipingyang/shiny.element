@@ -224,8 +224,8 @@ that default behavior by setting <code>direction</code> and
 the <code>before-close</code> API, check the Attribute section for more
 detail</p>
 <p>The radios set the edge it slides from, the drawers’
-<code>direction</code> following them with [vue_bind()]; each opens from
-a store’s field, and closing the first asks first, through
+<code>direction</code> following them with [v_bind()]; each opens from a
+store’s field, [v_model()], and closing the first asks first, through
 <code>before_close</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span></span>
@@ -246,19 +246,19 @@ a store’s field, and closing the first asks first, through
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"open"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.drawers.first = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.drawers.first = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>  <span class="st">"open2"</span>,</span>
 <span>  <span class="st">"with footer"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.drawers.second = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.drawers.second = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drw"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"I am the title"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.drawers.first"</span><span class="op">)</span>,</span>
-<span>  direction <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.direction"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.drawers.first"</span><span class="op">)</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.direction"</span><span class="op">)</span>,</span>
 <span>  before_close <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
 <span>    <span class="st">"function(done) { if (confirm('Are you sure you want to close this?')) done(); }"</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -267,12 +267,12 @@ a store’s field, and closing the first asks first, through
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drw2"</span>,</span>
 <span>  title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"set title by slot"</span><span class="op">)</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.drawers.second"</span><span class="op">)</span>,</span>
-<span>  direction <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.direction"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.drawers.second"</span><span class="op">)</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.direction"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="fu"><a href="../../reference/el_radio_group.html">el_radio_group</a></span><span class="op">(</span></span>
 <span>    <span class="st">"radio1"</span>,</span>
 <span>    choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Option 1"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>    value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.drawers.choice"</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.drawers.choice"</span><span class="op">)</span>,</span>
 <span>    size <span class="op">=</span> <span class="st">"large"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  footer <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
@@ -280,14 +280,14 @@ a store’s field, and closing the first asks first, through
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"cancel"</span>,</span>
 <span>      <span class="st">"cancel"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.drawers.second = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.drawers.second = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"confirm"</span>,</span>
 <span>      <span class="st">"confirm"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
 <span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        click <span class="op">=</span> <span class="st">"$store.drawers.second = false; $message('You chose ' + $store.drawers.choice)"</span></span>
+<span>        click <span class="op">=</span> <span class="st">"$vueStore.drawers.second = false; $message('You chose ' + $vueStore.drawers.choice)"</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -305,15 +305,15 @@ a store’s field, and closing the first asks first, through
 </div>
   <div id="basic-usage-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.drawers.first = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.drawers.first = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"open","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
   <div id="basic-usage-open2" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-open2_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.drawers.second = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.drawers.second = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"with footer","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="basic-usage-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind="{&quot;visible&quot;:&quot;$store.drawers.first&quot;,&quot;direction&quot;:&quot;$inputs['basic-usage-direction']&quot;}" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false" data-before-close="function(done) { if (confirm('Are you sure you want to close this?')) done(); }">
+  <div id="basic-usage-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.drawers.first","model":true,"scope":{"inputs":"basic-usage-"}},"direction":{"expr":"$inputs.direction","scope":{"inputs":"basic-usage-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false" data-before-close="function(done) { if (confirm('Are you sure you want to close this?')) done(); }">
     <div aria-modal="true" aria-labelledby="basic-usage-drw-title" aria-label="I am the title" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
       <header class="el-drawer__header"><span id="basic-usage-drw-title" role="heading" aria-level="2" class="el-drawer__title">I am the title</span>
         <button aria-label="close I am the title" type="button" class="el-drawer__close-btn">
@@ -324,7 +324,7 @@ a store’s field, and closing the first asks first, through
       </div>
     </div>
   </div>
-  <div id="basic-usage-drw2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind="{&quot;visible&quot;:&quot;$store.drawers.second&quot;,&quot;direction&quot;:&quot;$inputs['basic-usage-direction']&quot;}" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+  <div id="basic-usage-drw2" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.drawers.second","model":true,"scope":{"inputs":"basic-usage-"}},"direction":{"expr":"$inputs.direction","scope":{"inputs":"basic-usage-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
     <div aria-modal="true" aria-labelledby="basic-usage-drw2-title" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
       <header class="el-drawer__header"><span id="basic-usage-drw2-title" role="heading" aria-level="2" class="el-drawer__title">
           <h4>set title by slot</h4>
@@ -338,19 +338,19 @@ a store’s field, and closing the first asks first, through
   <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
     <el-radio :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio>
   </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"options":[{"value":"Option 1","label":"Option 1"},{"value":"Option 2","label":"Option 2"}],"disabled":false,"size":"large","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('basic-usage-radio1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"bound":{"value":"$store.drawers.choice"},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"options":[{"value":"Option 1","label":"Option 1"},{"value":"Option 2","label":"Option 2"}],"disabled":false,"size":"large","fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('basic-usage-radio1', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"bound":{"value":{"expr":"$vueStore.drawers.choice","model":true,"scope":{"inputs":"basic-usage-"}}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
       </div>
       <div class="el-drawer__footer">
         <div style="flex: auto">
           <div id="basic-usage-cancel" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-cancel_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.drawers.second = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.drawers.second = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
           <div id="basic-usage-confirm" data-shiny-vue style="display: contents">
             <script type="text/x-template" data-shiny-vue-template><div id="basic-usage-confirm_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.drawers.second = false; $message(&#39;You chose &#39; + $store.drawers.choice); })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.drawers.second = false; $message(&#39;You chose &#39; + $vueStore.drawers.choice); })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         </div>
@@ -374,13 +374,13 @@ space on screen. If you want to be accessible, make sure to set the
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"open"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.untitled.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.untitled.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drw"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"I am the title"</span>,</span>
 <span>  with_header <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.untitled.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.untitled.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"Hi there!"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
@@ -389,10 +389,10 @@ space on screen. If you want to be accessible, make sure to set the
 </div>
   <div id="no-title-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="no-title-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.untitled.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.untitled.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"open","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="no-title-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.untitled.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+  <div id="no-title-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.untitled.visible","model":true,"scope":{"inputs":"no-title-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
     <div aria-modal="true" aria-label="I am the title" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
       <header class="el-drawer__header" style="display:none"><span id="no-title-drw-title" role="heading" aria-level="2" class="el-drawer__title">I am the title</span>
         <button aria-label="close I am the title" type="button" class="el-drawer__close-btn">
@@ -416,14 +416,14 @@ a multitude of diverse interactions.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open Drawer with nested form"</span>,</span>
 <span>  text <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_drawer.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.form_drawer.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drw"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"I have a nested form inside!"</span>,</span>
 <span>  direction <span class="op">=</span> <span class="st">"ltr"</span>,</span>
 <span>  size <span class="op">=</span> <span class="st">"40%"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.form_drawer.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.form_drawer.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
 <span>      <span class="st">"name"</span>,</span>
@@ -443,13 +443,13 @@ a multitude of diverse interactions.</p>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"cancel"</span>,</span>
 <span>      <span class="st">"Cancel"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_drawer.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.form_drawer.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"submit"</span>,</span>
 <span>      <span class="st">"Submit"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.form_drawer.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.form_drawer.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -459,10 +459,10 @@ a multitude of diverse interactions.</p>
 </div>
   <div id="customization-content-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customization-content-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_drawer.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.form_drawer.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open Drawer with nested form","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":true},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="customization-content-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.form_drawer.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+  <div id="customization-content-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.form_drawer.visible","model":true,"scope":{"inputs":"customization-content-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
     <div aria-modal="true" aria-labelledby="customization-content-drw-title" aria-label="I have a nested form inside!" role="dialog" tabindex="-1" class="el-drawer ltr" style="width: 40%;">
       <header class="el-drawer__header"><span id="customization-content-drw-title" role="heading" aria-level="2" class="el-drawer__title">I have a nested form inside!</span>
         <button aria-label="close I have a nested form inside!" type="button" class="el-drawer__close-btn">
@@ -494,12 +494,12 @@ a multitude of diverse interactions.</p>
       <div class="el-drawer__footer">
         <div id="customization-content-cancel" data-shiny-vue style="display: contents">
           <script type="text/x-template" data-shiny-vue-template><div id="customization-content-cancel_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_drawer.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.form_drawer.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         <div id="customization-content-submit" data-shiny-vue style="display: contents">
           <script type="text/x-template" data-shiny-vue-template><div id="customization-content-submit_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.form_drawer.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.form_drawer.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Submit","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
       </div>
@@ -520,12 +520,12 @@ read out as the drawer title.</p>
 <span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open Drawer with customized header"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.header_drawer.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.header_drawer.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drw"</span>,</span>
 <span>  show_close <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.header_drawer.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.header_drawer.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"This is drawer content."</span>,</span>
 <span>  title <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>    style <span class="op">=</span> <span class="st">"display: flex; justify-content: space-between; align-items: center"</span>,</span>
@@ -535,7 +535,7 @@ read out as the drawer title.</p>
 <span>      <span class="st">"Close"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"danger"</span>,</span>
 <span>      icon <span class="op">=</span> <span class="st">"CircleCloseFilled"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.header_drawer.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.header_drawer.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -545,17 +545,17 @@ read out as the drawer title.</p>
 </div>
   <div id="customization-header-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="customization-header-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.header_drawer.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.header_drawer.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open Drawer with customized header","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="customization-header-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.header_drawer.visible"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+  <div id="customization-header-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.header_drawer.visible","model":true,"scope":{"inputs":"customization-header-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
     <div aria-modal="true" aria-labelledby="customization-header-drw-title" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
       <header class="el-drawer__header"><span id="customization-header-drw-title" role="heading" aria-level="2" class="el-drawer__title">
           <div style="display: flex; justify-content: space-between; align-items: center">
             <h4>This is a custom header!</h4>
             <div id="customization-header-close" data-shiny-vue style="display: contents">
               <script type="text/x-template" data-shiny-vue-template><div id="customization-header-close_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.header_drawer.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.header_drawer.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Close","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":"CircleCloseFilled","autofocus":false,"type":"danger","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
           </div>
@@ -564,7 +564,7 @@ read out as the drawer title.</p>
   &lt;h4&gt;This is a custom header!&lt;/h4&gt;
   &lt;div id=&quot;customization-header-close&quot; data-shiny-vue style=&quot;display: contents&quot;&gt;
     &lt;script type=&quot;text/x-template&quot; data-shiny-vue-template&gt;&lt;div id=&quot;customization-header-close_container&quot; style=&quot;display: contents&quot;&gt;
-  &lt;el-button v-bind=&quot;$optional(&amp;#39;button&amp;#39;)&quot; :circle=&quot;circle&quot; :loading=&quot;loading&quot; :disabled=&quot;disabled&quot; :native-type=&quot;native_type&quot; @click=&quot;(...a) =&amp;gt; { handleClick(...a); ((...a) =&amp;gt; { const $event = a[0]; $store.header_drawer.visible = false; })(...a); }&quot;&gt;{{label}}&lt;/el-button&gt;
+  &lt;el-button v-bind=&quot;$optional(&amp;#39;button&amp;#39;)&quot; :circle=&quot;circle&quot; :loading=&quot;loading&quot; :disabled=&quot;disabled&quot; :native-type=&quot;native_type&quot; @click=&quot;(...a) =&amp;gt; { handleClick(...a); ((...a) =&amp;gt; { const $event = a[0]; $vueStore.header_drawer.visible = false; })(...a); }&quot;&gt;{{label}}&lt;/el-button&gt;
 &lt;/div&gt;&lt;/script&gt;
     &lt;script type=&quot;application/json&quot; data-shiny-vue-options&gt;{&quot;options&quot;:{&quot;data&quot;:{&quot;label&quot;:&quot;Close&quot;,&quot;circle&quot;:false,&quot;loading&quot;:false,&quot;disabled&quot;:false,&quot;native_type&quot;:&quot;button&quot;,&quot;count&quot;:0,&quot;state&quot;:&quot;ready&quot;,&quot;size&quot;:null,&quot;icon&quot;:&quot;CircleCloseFilled&quot;,&quot;autofocus&quot;:false,&quot;type&quot;:&quot;danger&quot;,&quot;plain&quot;:null,&quot;round&quot;:null,&quot;autoInsertSpace&quot;:null,&quot;bg&quot;:null,&quot;color&quot;:null,&quot;dark&quot;:null,&quot;dashed&quot;:null,&quot;link&quot;:null,&quot;loadingIcon&quot;:null,&quot;tag&quot;:null,&quot;text&quot;:null},&quot;methods&quot;:{&quot;handleClick&quot;:&quot;function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }&quot;}},&quot;input&quot;:&quot;count&quot;,&quot;rate&quot;:null,&quot;type&quot;:&quot;shiny.action&quot;,&quot;use&quot;:[&quot;shinyElement.plugin&quot;],&quot;optional&quot;:{&quot;button&quot;:{&quot;size&quot;:&quot;size&quot;,&quot;icon&quot;:&quot;icon&quot;,&quot;autofocus&quot;:&quot;autofocus&quot;,&quot;type&quot;:&quot;type&quot;,&quot;plain&quot;:&quot;plain&quot;,&quot;round&quot;:&quot;round&quot;,&quot;auto-insert-space&quot;:&quot;autoInsertSpace&quot;,&quot;bg&quot;:&quot;bg&quot;,&quot;color&quot;:&quot;color&quot;,&quot;dark&quot;:&quot;dark&quot;,&quot;dashed&quot;:&quot;dashed&quot;,&quot;link&quot;:&quot;link&quot;,&quot;loading-icon&quot;:&quot;loadingIcon&quot;,&quot;tag&quot;:&quot;tag&quot;,&quot;text&quot;:&quot;text&quot;}},&quot;evals&quot;:[&quot;options.methods.handleClick&quot;]}&lt;/script&gt;
   &lt;/div&gt;
@@ -590,12 +590,12 @@ reported as <code>input$&lt;id&gt;_resize</code>.</p>
 <span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>top <span class="op">=</span> <span class="st">"ttb"</span>, right <span class="op">=</span> <span class="st">"rtl"</span>, bottom <span class="op">=</span> <span class="st">"btt"</span>, left <span class="op">=</span> <span class="st">"ltr"</span><span class="op">)</span>,</span>
 <span>  value <span class="op">=</span> <span class="st">"rtl"</span>,</span>
 <span>  button <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>change <span class="op">=</span> <span class="st">"$store.resizing.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>change <span class="op">=</span> <span class="st">"$vueStore.resizing.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drw"</span>,</span>
-<span>  direction <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.direction"</span><span class="op">)</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.resizing.visible"</span><span class="op">)</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.direction"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.resizing.visible"</span><span class="op">)</span>,</span>
 <span>  resizable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  content <span class="op">=</span> <span class="st">"This is drawer content."</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -605,12 +605,12 @@ reported as <code>input$&lt;id&gt;_resize</code>.</p>
 </div>
   <div id="resizable-direction" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="resizable-direction_container" style="display: contents">
-  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="(...a) =&gt; { handleChange(...a); ((...a) =&gt; { const $event = a[0]; $store.resizing.visible = true; })(...a); }">
+  <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="(...a) =&gt; { handleChange(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.resizing.visible = true; })(...a); }">
     <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
   </el-radio-group>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"rtl","options":[{"value":"ttb","label":"top"},{"value":"rtl","label":"right"},{"value":"btt","label":"bottom"},{"value":"ltr","label":"left"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('resizable-direction', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
-  <div id="resizable-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind="{&quot;visible&quot;:&quot;$store.resizing.visible&quot;,&quot;direction&quot;:&quot;$inputs['resizable-direction']&quot;}" data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-resizable="true" data-destroy-on-close="false">
+  <div id="resizable-drw" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.resizing.visible","model":true,"scope":{"inputs":"resizable-"}},"direction":{"expr":"$inputs.direction","scope":{"inputs":"resizable-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-resizable="true" data-destroy-on-close="false">
     <div aria-modal="true" aria-labelledby="resizable-drw-title" aria-label="" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
       <div class="el-drawer__dragger"></div>
       <header class="el-drawer__header"><span id="resizable-drw-title" role="heading" aria-level="2" class="el-drawer__title"></span>
@@ -635,24 +635,24 @@ reported as <code>input$&lt;id&gt;_resize</code>.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"open"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nested_drawers.outer = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.nested_drawers.outer = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"outer"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"I'm outer Drawer"</span>,</span>
 <span>  size <span class="op">=</span> <span class="st">"50%"</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nested_drawers.outer"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.nested_drawers.outer"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"inner_open"</span>,</span>
 <span>      <span class="st">"Click me!"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.nested_drawers.inner = true"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.nested_drawers.inner = true"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>      <span class="st">"inner"</span>,</span>
 <span>      title <span class="op">=</span> <span class="st">"I'm inner Drawer"</span>,</span>
 <span>      append_to_body <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>      visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.nested_drawers.inner"</span><span class="op">)</span>,</span>
+<span>      visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.nested_drawers.inner"</span><span class="op">)</span>,</span>
 <span>      content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"_(:з)∠)_"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -663,10 +663,10 @@ reported as <code>input$&lt;id&gt;_resize</code>.</p>
 </div>
   <div id="nested-drawer-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="nested-drawer-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nested_drawers.outer = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.nested_drawers.outer = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"open","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="nested-drawer-outer" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nested_drawers.outer"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+  <div id="nested-drawer-outer" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.nested_drawers.outer","model":true,"scope":{"inputs":"nested-drawer-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
     <div aria-modal="true" aria-labelledby="nested-drawer-outer-title" aria-label="I'm outer Drawer" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 50%;">
       <header class="el-drawer__header"><span id="nested-drawer-outer-title" role="heading" aria-level="2" class="el-drawer__title">I'm outer Drawer</span>
         <button aria-label="close I'm outer Drawer" type="button" class="el-drawer__close-btn">
@@ -675,10 +675,10 @@ reported as <code>input$&lt;id&gt;_resize</code>.</p>
       </header><div class="el-drawer__body">
         <div id="nested-drawer-inner_open" data-shiny-vue style="display: contents">
           <script type="text/x-template" data-shiny-vue-template><div id="nested-drawer-inner_open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.nested_drawers.inner = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.nested_drawers.inner = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Click me!","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-        <div id="nested-drawer-inner" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.nested_drawers.inner"}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-append-to="body" data-destroy-on-close="false">
+        <div id="nested-drawer-inner" class="el-overlay" style="display:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.nested_drawers.inner","model":true,"scope":{"inputs":"nested-drawer-"}}}' data-modal="true" data-mask-close="true" data-esc-close="true" data-lock-scroll="true" data-append-to="body" data-destroy-on-close="false">
           <div aria-modal="true" aria-labelledby="nested-drawer-inner-title" aria-label="I'm inner Drawer" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%;">
             <header class="el-drawer__header"><span id="nested-drawer-inner-title" role="heading" aria-level="2" class="el-drawer__title">I'm inner Drawer</span>
               <button aria-label="close I'm inner Drawer" type="button" class="el-drawer__close-btn">
@@ -707,25 +707,25 @@ is added, which can be penetrable.</p>
 <span>  <span class="st">"open"</span>,</span>
 <span>  <span class="st">"Open the modal Drawer"</span>,</span>
 <span>  plain <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.modal_drawer.visible = true"</span><span class="op">)</span></span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.modal_drawer.visible = true"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_drawer.html">el_drawer</a></span><span class="op">(</span></span>
 <span>  <span class="st">"drw"</span>,</span>
 <span>  modal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  modal_penetrable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.modal_drawer.visible"</span><span class="op">)</span>,</span>
+<span>  visible <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.modal_drawer.visible"</span><span class="op">)</span>,</span>
 <span>  content <span class="op">=</span> <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"It's a modal Drawer"</span><span class="op">)</span>,</span>
 <span>  footer <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"cancel"</span>,</span>
 <span>      <span class="st">"Cancel"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.modal_drawer.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.modal_drawer.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
 <span>      <span class="st">"confirm"</span>,</span>
 <span>      <span class="st">"Confirm"</span>,</span>
 <span>      type <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$store.modal_drawer.visible = false"</span><span class="op">)</span></span>
+<span>      on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueStore.modal_drawer.visible = false"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -735,10 +735,10 @@ is added, which can be penetrable.</p>
 </div>
   <div id="modal-open" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="modal-open_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.modal_drawer.visible = true; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.modal_drawer.visible = true; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Open the modal Drawer","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":true,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
-  <div id="modal-drw" class="el-overlay" style="display:none;background-color:transparent;pointer-events:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":"$store.modal_drawer.visible"}' data-modal="false" data-mask-close="false" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
+  <div id="modal-drw" class="el-overlay" style="display:none;background-color:transparent;pointer-events:none;" data-el-overlay="drawer" data-shiny-island data-el-events="closed" data-visible="false" data-shiny-vue-bind='{"visible":{"expr":"$vueStore.modal_drawer.visible","model":true,"scope":{"inputs":"modal-"}}}' data-modal="false" data-mask-close="false" data-esc-close="true" data-lock-scroll="true" data-destroy-on-close="false">
     <div aria-modal="true" aria-labelledby="modal-drw-title" aria-label="" role="dialog" tabindex="-1" class="el-drawer rtl" style="width: 30%; pointer-events:auto;">
       <header class="el-drawer__header"><span id="modal-drw-title" role="heading" aria-level="2" class="el-drawer__title"></span>
         <button aria-label="close " type="button" class="el-drawer__close-btn">
@@ -750,12 +750,12 @@ is added, which can be penetrable.</p>
       <div class="el-drawer__footer">
         <div id="modal-cancel" data-shiny-vue style="display: contents">
           <script type="text/x-template" data-shiny-vue-template><div id="modal-cancel_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.modal_drawer.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.modal_drawer.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Cancel","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
         <div id="modal-confirm" data-shiny-vue style="display: contents">
           <script type="text/x-template" data-shiny-vue-template><div id="modal-confirm_container" style="display: contents">
-  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $store.modal_drawer.visible = false; })(...a); }">{{label}}</el-button>
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.modal_drawer.visible = false; })(...a); }">{{label}}</el-button>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Confirm","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":"primary","plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
 </div>
       </div>

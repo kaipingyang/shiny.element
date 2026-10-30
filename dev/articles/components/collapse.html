@@ -476,7 +476,7 @@ of panel item with named slots, which makes adding custom content.</p>
 customize icon position.</p>
 <p>The switch moves each header’s icon:
 <code>expand_icon_position</code> follows it in the browser,
-[vue_bind()].</p>
+[v_bind()].</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
 <span>  style <span class="op">=</span> <span class="st">"display: flex; align-items: center; margin-bottom: 16px"</span>,</span>
@@ -493,7 +493,7 @@ customize icon position.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/el_collapse.html">el_collapse</a></span><span class="op">(</span></span>
 <span>  <span class="st">"coll_pos"</span>,</span>
-<span>  expand_icon_position <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$inputs.position"</span><span class="op">)</span>,</span>
+<span>  expand_icon_position <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$inputs.position"</span><span class="op">)</span>,</span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="../../reference/el_collapse_item.html">el_collapse_item</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Consistency"</span>,</span>
@@ -542,7 +542,7 @@ customize icon position.</p>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"left","disabled":false,"activeText":"right","inactiveText":"left","activeColor":"","inactiveColor":"#88b8fe","activeValue":"right","inactiveValue":"left","width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"switch":{"width":"width","name":"name","validate-event":"validateEvent","active-action-icon":"activeActionIcon","active-icon":"activeIcon","aria-label":"ariaLabel","before-change":"beforeChange","border-color":"borderColor","inactive-action-icon":"inactiveActionIcon","inactive-icon":"inactiveIcon","inline-prompt":"inlinePrompt","loading":"loading","size":"size","tabindex":"tabindex"}},"evals":["options.methods.handleChange"]}</script>
 </div>
   </div>
-  <div id="custom-icon-position-coll_pos" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-shiny-vue-bind="{&quot;expandIconPosition&quot;:&quot;$inputs['custom-icon-position-position']&quot;}" data-shiny-island data-accordion="false">
+  <div id="custom-icon-position-coll_pos" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-shiny-vue-bind='{"expandIconPosition":{"expr":"$inputs.position","scope":{"inputs":"custom-icon-position-"}}}' data-shiny-island data-accordion="false">
     <div class="el-collapse-item" data-el-name="1">
       <div id="custom-icon-position-coll_pos-head-1" role="button" tabindex="0" aria-expanded="false" aria-controls="custom-icon-position-coll_pos-content-1" aria-describedby="custom-icon-position-coll_pos-content-1" class="el-collapse-item__header">
         <span class="el-collapse-item__title">Consistency</span>
@@ -606,7 +606,7 @@ is returned or a <code>Promise</code> is returned and then is rejected,
 will stop collapsing.</p>
 <p><code>before_collapse</code> returns a promise: the panel turns after
 a second, or stays, as the switch says. The switch’s value is a store’s
-field, [vue_bind()], which the function reads when it runs.</p>
+field, [v_model()], which the function reads when it runs.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/vue_store.html">vue_store</a></span><span class="op">(</span><span class="st">"collapsing"</span>, state <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>allow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
@@ -614,7 +614,7 @@ field, [vue_bind()], which the function reads when it runs.</p>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">span</span><span class="op">(</span>style <span class="op">=</span> <span class="st">"margin-right: 16px"</span>, <span class="st">"before collapse return: "</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../../reference/el_switch.html">el_switch</a></span><span class="op">(</span></span>
 <span>    <span class="st">"before"</span>,</span>
-<span>    value <span class="op">=</span> <span class="fu"><a href="../../reference/vue_bind.html">vue_bind</a></span><span class="op">(</span><span class="st">"$store.collapsing.allow"</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"$vueStore.collapsing.allow"</span><span class="op">)</span>,</span>
 <span>    inactive_text <span class="op">=</span> <span class="st">"false"</span>,</span>
 <span>    active_text <span class="op">=</span> <span class="st">"true"</span></span>
 <span>  <span class="op">)</span></span>
@@ -659,7 +659,7 @@ field, [vue_bind()], which the function reads when it runs.</p>
     <div id="prevent-collapsing-before" data-shiny-vue style="display: contents">
       <script type="text/x-template" data-shiny-vue-template><div id="prevent-collapsing-before_container" style="display: contents">
   <el-switch v-bind="$optional(&#39;switch&#39;)" v-model="value" :disabled="disabled" :active-text="activeText" :inactive-text="inactiveText" :style="{ &#39;--el-switch-on-color&#39;: activeColor || undefined, &#39;--el-switch-off-color&#39;: inactiveColor || undefined, &#39;--el-switch-border-color&#39;: borderColor || undefined }" :active-value="activeValue" :inactive-value="inactiveValue" @change="handleChange"></el-switch>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"activeText":"true","inactiveText":"false","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"switch":{"width":"width","name":"name","validate-event":"validateEvent","active-action-icon":"activeActionIcon","active-icon":"activeIcon","aria-label":"ariaLabel","before-change":"beforeChange","border-color":"borderColor","inactive-action-icon":"inactiveActionIcon","inactive-icon":"inactiveIcon","inline-prompt":"inlinePrompt","loading":"loading","size":"size","tabindex":"tabindex"}},"bound":{"value":"$store.collapsing.allow"},"evals":["options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":null,"disabled":false,"activeText":"true","inactiveText":"false","activeColor":"","inactiveColor":"","activeValue":true,"inactiveValue":false,"width":null,"name":null,"validateEvent":null,"activeActionIcon":null,"activeIcon":null,"ariaLabel":null,"beforeChange":null,"borderColor":null,"inactiveActionIcon":null,"inactiveIcon":null,"inlinePrompt":null,"loading":null,"size":null,"tabindex":null},"methods":{"handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"switch":{"width":"width","name":"name","validate-event":"validateEvent","active-action-icon":"activeActionIcon","active-icon":"activeIcon","aria-label":"ariaLabel","before-change":"beforeChange","border-color":"borderColor","inactive-action-icon":"inactiveActionIcon","inactive-icon":"inactiveIcon","inline-prompt":"inlinePrompt","loading":"loading","size":"size","tabindex":"tabindex"}},"bound":{"value":{"expr":"$vueStore.collapsing.allow","model":true,"scope":{"inputs":"prevent-collapsing-"}}},"evals":["options.methods.handleChange"]}</script>
 </div>
   </div>
   <div id="prevent-collapsing-coll_guard" class="el-collapse el-collapse-icon-position-right" data-el-collapse="true" data-shiny-island data-accordion="false" data-before-collapse="function() {

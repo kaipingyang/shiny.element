@@ -137,7 +137,7 @@ vue_app(
   [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
   functions, each called with `report` and the event's arguments –
   `report(name, value)` sets `input$<id>_<name>` – or of Vue's inline
-  statements, as strings (`"$store.ui.open = true"`).
+  statements, as strings (`"$vueStore.ui.open = true"`).
 
 ## Value
 

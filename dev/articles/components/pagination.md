@@ -96,7 +96,7 @@ When there is only one page, hide the pagination by setting the
 `hide-on-single-page` attribute.
 
 The switch sets `hide_on_single_page`, which follows it in the browser,
-\[vue_bind()\].
+\[v_bind()\].
 
 ``` r
 
@@ -104,7 +104,7 @@ el_switch("pg_hide_on", value = FALSE)
 tags$hr(style = "margin: 16px 0")
 el_pagination(
   "pg_hide",
-  hide_on_single_page = vue_bind("$inputs.pg_hide_on"),
+  hide_on_single_page = v_bind("$inputs.pg_hide_on"),
   total = 5,
   layout = "prev, pager, next"
 )
@@ -124,7 +124,7 @@ e.g. `[100, 200, 300, 400]` indicates that the select will have four
 options: 100, 200, 300 or 400 items per page.
 
 The controls set every pagination’s `size`, `background` and `disabled`,
-which follow them in the browser, \[vue_bind()\].
+which follow them in the browser, \[v_bind()\].
 
 ``` r
 
@@ -134,9 +134,9 @@ block <- function(title, ...) {
     tags$div(class = "demonstration", title),
     el_pagination(
       ...,
-      size = vue_bind("$inputs.pg_size"),
-      background = vue_bind("$inputs.pg_background"),
-      disabled = vue_bind("$inputs.pg_disabled")
+      size = v_bind("$inputs.pg_size"),
+      background = v_bind("$inputs.pg_background"),
+      disabled = v_bind("$inputs.pg_disabled")
     )
   )
 }

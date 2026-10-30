@@ -40,7 +40,7 @@ for each kind of wait.
 ### 1. The page’s state stays in the page
 
 A component’s argument given
-[`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md)
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)/[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
 follows state in the browser, with no round trip:
 
 ``` r
@@ -50,14 +50,14 @@ el_radio_group(
   choices = c("large", "default", "small"),
   selected = "default"
 )
-el_space(size = vue_bind("$inputs.size"), el_card("One"), el_card("Two"))
+el_space(size = v_bind("$inputs.size"), el_card("One"), el_card("Two"))
 
 vue_store("ui", state = list(open = FALSE))
-el_button("open", "Open", on = list(click = "$store.ui.open = true"))
+el_button("open", "Open", on = list(click = "$vueStore.ui.open = true"))
 el_dialog(
   "tips",
   title = "Tips",
-  visible = vue_bind("$store.ui.open"),
+  visible = v_model("$vueStore.ui.open"),
   content = "Opened in the browser."
 )
 ```
@@ -83,7 +83,7 @@ click to a dialog on screen:
 | The dialog opened | R idle | R busy for 2 s with another click |
 |----|----|----|
 | by the server, [`update_el_dialog()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_dialog.md) | 64 ms | 1,822 ms |
-| in the browser, [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md) | 1.4 ms | 1.2 ms |
+| in the browser, [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)/[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md) | 1.4 ms | 1.2 ms |
 
 Over a real network the first row adds the network’s round trip; the
 second row does not change. And the busy column is the second kind of
@@ -167,7 +167,7 @@ server <- function(input, output, session) {
 
 | It is | Put it | With |
 |----|----|----|
-| The page’s own state: open, picked, shown | the browser | [`vue_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_bind.md), [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md), `on` |
+| The page’s own state: open, picked, shown | the browser | [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)/[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md), [`vue_store()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_store.md), `on` |
 | A message about what the page did | the browser | `on = list(click = "$message(...)")` |
 | Data, and what is computed from it | the server | outputs, `update_*()` |
 | A decision that matters: who may see what, what is saved | the server | observers; the browser’s state is a convenience, never a permission |
