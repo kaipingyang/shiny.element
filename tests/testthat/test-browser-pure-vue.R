@@ -312,6 +312,26 @@ test_that("vue_app() works without Element Plus", {
   Sys.sleep(0.3)
   expect_equal(js("document.querySelector('#vu .vu').textContent"), "6|100")
 
+  # v_*() and vtags$: the template written with R's functions
+  dx <- function(sel) js(sprintf("document.querySelector('#dx %s')", sel))
+  expect_true(js("!!document.querySelector('#dx .dx-none')"))
+  js(paste0(
+    "var i = document.querySelector('#dx .dx-in'); i.value = '  one  ';",
+    "i.dispatchEvent(new Event('input')); document.querySelector('#dx .dx-add').click();",
+    "i.value = 'two'; i.dispatchEvent(new Event('input')); document.querySelector('#dx .dx-add').click();"
+  ))
+  Sys.sleep(0.6)
+  expect_equal(
+    js(
+      "Array.from(document.querySelectorAll('#dx .dx-item')).map(function(x){ return x.textContent; }).join(',')"
+    ),
+    "one,two"
+  )
+  expect_false(js("!!document.querySelector('#dx .dx-none')"))
+  expect_equal(js("document.querySelector('#dx .dx-some').textContent"), "2")
+  expect_equal(js("document.querySelector('#dx .dx-len').title"), "n=2")
+  expect_equal(js("document.querySelector('#dx .dx-show').style.display"), "")
+
   expect_equal(
     js(
       "window.__w.filter(function(w){ return /Vue warn|shiny-vue/.test(w); }).length"

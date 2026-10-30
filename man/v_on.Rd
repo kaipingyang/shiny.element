@@ -2,28 +2,40 @@
 % Please edit documentation in R/vue_directives.R
 \name{v_on}
 \alias{v_on}
-\title{Vue's \code{v-on} for a component's event, in a module}
+\title{Vue's \code{v-on}: handlers in a template, or in a module}
 \usage{
-v_on(statement, ns = NULL)
+v_on(..., ns = NULL)
 }
 \arguments{
-\item{statement}{Vue's inline statement, a string.}
+\item{...}{In a template, handlers by event: \code{click = "n++"}. As a value
+of \code{on}, one statement, unnamed.}
 
 \item{ns}{In a module, its namespace: the function \code{\link[shiny:NS]{shiny::NS()}} gives,
 \code{session$ns}, or the module's id.}
 }
 \value{
-The handler, to give as a value of \code{on}.
+Attributes for a tag, or a handler for \code{on}.
 }
 \description{
-\code{on = list(click = "$vueStore.ui.open = true")} runs Vue's inline
-statement when the event fires, as \verb{@click="..."} in a template, with
-\verb{$event} the event's first argument. In a module, \code{v_on(statement, ns)}
-runs it with the module's names, as \code{\link[=v_bind]{v_bind()}} evaluates an expression:
-\verb{$vueStore.ui} is \code{vue_store(ns("ui"))}, \verb{$inputs.size} the module's
-input. Outside a module a plain string does the same.
+In a template -- a \code{vue_app()}'s, \verb{el$} tags, a slot, a cell --
+\code{v_on(click = "n++", "keyup.enter" = "send()")} gives the tag its
+handlers, as \verb{@click="n++"} does: Vue's inline statements, \verb{$event} the
+event's first argument, modifiers in the name as Vue writes them.
+}
+\details{
+As a value of a component's \code{on}, \code{v_on("statement", ns = ns)} is a
+statement run with a module's names, as \code{\link[=v_bind]{v_bind()}} evaluates an
+expression: \verb{$vueStore.ui} is \code{vue_store(ns("ui"))}, \verb{$inputs.size} the
+module's input. Outside a module a plain string does the same:
+\code{on = list(click = "$vueStore.ui.open = true")}.
 }
 \examples{
+vue_app(
+  "counter",
+  htmltools::tags$button(v_on(click = "n++"), "Clicked {{ n }} times"),
+  data = list(n = 0)
+)
+
 panel_ui <- function(id) {
   ns <- shiny::NS(id)
   htmltools::tagList(
@@ -36,3 +48,8 @@ panel_ui <- function(id) {
   )
 }
 }
+\seealso{
+Other directives:
+\code{\link{directives}}
+}
+\concept{directives}

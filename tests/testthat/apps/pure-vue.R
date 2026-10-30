@@ -314,6 +314,32 @@ ui <- fluidPage(
     ),
     dependencies = vueuse_dependency()
   ),
+  # the template syntax as R functions: v_*() and vtags$
+  vue_app(
+    "dx",
+    tags$div(
+      tags$input(class = "dx-in", v_model("draft", modifiers = "trim")),
+      tags$button(class = "dx-add", v_on(click = "add()"), "add"),
+      tags$ul(tags$li(
+        class = "dx-item",
+        v_for("t in todos", key = "t"),
+        "{{ t }}"
+      )),
+      tags$p(class = "dx-none", v_if("!todos.length"), "none"),
+      tags$p(class = "dx-some", v_else(), "{{ todos.length }}"),
+      tags$span(class = "dx-len", title = v_bind("'n=' + todos.length")),
+      vtags$transition(
+        name = "fade",
+        tags$b(class = "dx-show", v_show("todos.length > 1"), "many")
+      )
+    ),
+    data = list(draft = "", todos = list()),
+    methods = list(
+      add = JS(
+        "function() { if (this.draft) this.todos.push(this.draft); this.draft = ''; }"
+      )
+    )
+  ),
   verbatimTextOutput("vals")
 )
 

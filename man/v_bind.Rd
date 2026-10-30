@@ -7,7 +7,7 @@
 \usage{
 v_bind(expr, ns = NULL)
 
-v_model(path, ns = NULL)
+v_model(path, arg = NULL, modifiers = NULL, ns = NULL)
 }
 \arguments{
 \item{expr}{A JavaScript expression over \verb{$vueStore}, \verb{$inputs} and

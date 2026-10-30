@@ -22,32 +22,43 @@ render_vue_html <- function(tag) {
   paste(as.character(htmltools::renderTags(tag)$html), collapse = "")
 }
 
-test_that("v_bind() takes an expression, v_model() a store's field", {
+test_that("v_bind() takes an expression, v_model() a path", {
   expect_s3_class(v_bind("$inputs.fold === 'collapse'"), "v_bind")
   expect_s3_class(v_bind("$route.params.id"), "vue_binding")
+  # an R value is a literal
+  expect_equal(unclass(v_bind(1:2))[1], "[1,2]")
+  expect_equal(unclass(v_bind(data.frame(a = 1:2)))[1], '[{"a":1},{"a":2}]')
   for (p in c(
     "$vueStore.ui.open",
     "$vueStore.ui.items[0].done",
-    "$vueStore['mod-ui'].open"
+    "$vueStore['mod-ui'].open",
+    "text"
   )) {
     expect_s3_class(v_model(p), "v_model")
   }
-  # v_model() writes back: a store's field, nothing else
+  # v_model() assigns: a path, nothing else
   for (p in list(
-    "$vueStore.ui",
-    "$inputs.size",
-    "$store.ui.open",
     "$vueStore.ui.open; alert(1)",
     "$vueStore.ui[open]",
+    "a + b",
     c("$vueStore.a.b", "$vueStore.c.d"),
     NA_character_,
     1
   )) {
-    expect_error(v_model(p), "must be a store's field")
+    expect_error(v_model(p), "something a value can be assigned to")
   }
-  for (e in list("", NA_character_, c("a", "b"), 1)) {
+  # on a component's argument, a store's field
+  for (p in c("$vueStore.ui", "$inputs.size", "text")) {
+    expect_error(
+      el_switch("sw", value = v_model(p)),
+      "writes back to a store's field"
+    )
+  }
+  for (e in list("", NA_character_, c("a", "b"))) {
     expect_error(v_bind(e), "one JavaScript expression")
-    expect_error(v_on(e), "one inline statement")
+  }
+  for (e in list("", NA_character_, 1)) {
+    expect_error(v_on(e), "handlers by event")
   }
   expect_output(
     print(v_model("$vueStore.ui.open")),
@@ -327,4 +338,122 @@ test_that("no argument of any component drops a binding", {
     }
   }
   expect_equal(unique(dropped), character())
+})
+
+test_that("directives in a template are the attributes they stand for", {
+  html <- render_vue_html(.vue_directives(htmltools::tags$div(
+    htmltools::tags$li(
+      v_for("item in items", key = "item.id"),
+      "{{ item.name }}"
+    ),
+    htmltools::tags$p(v_if("ok"), "yes"),
+    htmltools::tags$p(v_else_if("maybe"), "perhaps"),
+    htmltools::tags$p(v_else(), "no"),
+    htmltools::tags$p(v_show("seen"), v_once(), v_html("raw")),
+    htmltools::tags$span(v_text("msg"), v_pre(), v_memo("[a]")),
+    htmltools::tags$template(v_slot("footer", scope = "{ row }")),
+    htmltools::tags$input(v_directive(
+      "focus",
+      arg = "x",
+      modifiers = "lazy",
+      value = "on"
+    )),
+    el$space(size = v_bind("size")),
+    el$input(v_model("text", modifiers = "trim")),
+    el$dialog(title = v_model("t")),
+    htmltools::tags$button(v_on(click = "n++", "keyup.enter" = "go()"), "+"),
+    htmltools::tags$div(v_bind("attrs"))
+  )))
+  for (bit in c(
+    '<li v-for="item in items" :key="item.id">',
+    '<p v-if="ok">yes</p>',
+    '<p v-else-if="maybe">',
+    '<p v-else>no</p>',
+    'v-show="seen" v-once v-html="raw"',
+    'v-text="msg" v-pre v-memo="[a]"',
+    '<template v-slot:footer="{ row }">',
+    'v-focus:x.lazy="on"',
+    '<el-space :size="size">',
+    '<el-input v-model.trim="text">',
+    '<el-dialog v-model:title="t">',
+    '@click="n++" @keyup.enter="go()"',
+    '<div v-bind="attrs">'
+  )) {
+    expect_match(html, bit, fixed = TRUE)
+  }
+  # what is not a directive is left as it is
+  html <- render_vue_html(.vue_directives(htmltools::tags$p(
+    `v-if` = "ok",
+    class = "c",
+    "x"
+  )))
+  expect_equal(html, '<p v-if="ok" class="c">x</p>')
+})
+
+test_that("a template's directives reach vue_app(), vue_component() and slots", {
+  html <- render_vue_html(vue_app(
+    "d1",
+    htmltools::tags$p(v_if("ok"), "{{ n }}"),
+    data = list(ok = TRUE, n = 1)
+  ))
+  expect_match(html, 'v-if="ok"', fixed = TRUE)
+  comp <- vue_component(htmltools::tags$li(
+    v_for("x in xs", key = "x"),
+    "{{ x }}"
+  ))
+  expect_match(comp$template, 'v-for="x in xs" :key="x"', fixed = TRUE)
+  html <- render_vue_html(el_tooltip(
+    "tip",
+    el$button(v_on(click = "n++"), "Hover"),
+    content = "Help"
+  ))
+  expect_match(html, "@click", fixed = TRUE)
+})
+
+test_that("a directive outside a template, or a module's names inside one, says so", {
+  expect_error(
+    render_vue_html(htmltools::tags$div(v_if("ok"))),
+    "belongs in a Vue template"
+  )
+  expect_error(
+    vue_app(
+      "d2",
+      htmltools::tags$p(title = v_bind("$vueStore.ui.t", ns = shiny::NS("m"))),
+      data = list()
+    ),
+    "`ns` is for a component's argument"
+  )
+  expect_error(
+    vue_app("d3", htmltools::tags$p(v_on("n++")), data = list()),
+    "give v_on\\(\\) its event"
+  )
+  expect_error(
+    v_on(click = "x", ns = shiny::NS("m")),
+    "`ns` is for a statement"
+  )
+  expect_error(v_directive("bad name"), "names, as Vue writes them")
+  expect_output(print(v_for("x in xs", key = "x")), 'v-for="x in xs" :key="x"')
+})
+
+test_that("vtags are Vue's built-in components", {
+  expect_setequal(
+    names(vtags),
+    c(
+      "transition",
+      "transition_group",
+      "keep_alive",
+      "teleport",
+      "suspense",
+      "component",
+      "slot",
+      "router_view",
+      "router_link"
+    )
+  )
+  expect_equal(
+    render_vue_html(.vue_directives(vtags$keep_alive(vtags$component(
+      is = v_bind("view")
+    )))),
+    '<keep-alive>\n  <component :is="view"></component>\n</keep-alive>'
+  )
 })

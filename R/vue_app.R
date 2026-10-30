@@ -225,7 +225,8 @@
     }
     node
   }
-  template <- walk(template)
+  # v_if(), v_bind() and the rest, as the attributes they stand for
+  template <- walk(.vue_directives(template))
   holder <- if (length(islands) || length(loose)) {
     htmltools::tags$div(
       `data-shiny-vue-islands` = NA,
@@ -299,7 +300,7 @@
   if (is.character(template) && !inherits(template, "html")) {
     return(list(html = paste(template, collapse = "\n"), dependencies = list()))
   }
-  r <- htmltools::renderTags(template)
+  r <- htmltools::renderTags(.vue_directives(template))
   list(html = as.character(r$html), dependencies = r$dependencies)
 }
 

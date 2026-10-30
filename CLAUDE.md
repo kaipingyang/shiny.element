@@ -104,7 +104,11 @@ Where the package and the user give the same thing, the two are merged
 and the user's wins: an event handler (`.vue_merge_handlers()`), one
 `v-bind` object rather than two, the user's explicit attributes placed
 after ours (Vue 3: the later wins). Raw `el$` tags, `template()`, slots
-and cells are never rewritten. Values keep Vue's meaning: an R `NULL`
+and cells are never rewritten -- except values the user made with `v_*()`
+(`R/vue_directives.R`), which `.vue_directives()` turns into the
+attributes they stand for on every template's way out (`.vue_islands()`,
+`.vue_template()`, `.vue_tags_as_html()`, `.el_absorb()`); `vtags$` are
+Vue's built-in components (`R/vue_tags.R`). Values keep Vue's meaning: an R `NULL`
 or `NA` is "unset", the component's own default (`undefined` in the
 browser); a deliberate `null` -- Element's own `value-on-clear` takes one
 -- is `JS("null")`, reachable once props bind through `$optional()`

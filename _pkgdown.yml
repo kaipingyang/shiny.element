@@ -468,6 +468,8 @@ reference:
       - vue_store
       - v_bind
       - v_on
+      - directives
+      - vtags
       - vue_router
       - update_vue_router
       - vueuse_dependency

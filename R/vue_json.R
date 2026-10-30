@@ -95,7 +95,7 @@
 #' @keywords internal
 .vue_tags_as_html <- function(x) {
   if (inherits(x, c("shiny.tag", "shiny.tag.list"))) {
-    return(as.character(htmltools::renderTags(x)$html))
+    return(as.character(htmltools::renderTags(.vue_directives(x))$html))
   }
   if (is.list(x) && !is.data.frame(x) && length(x)) {
     attrs <- attributes(x)

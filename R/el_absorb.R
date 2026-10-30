@@ -21,8 +21,10 @@
 #'   back as `markup` with everything else empty.
 #' @keywords internal
 .el_absorb <- function(ui) {
-  # a component given as its specification (el_table()) is drawn first
-  ui <- .el_resolve(ui)
+  # a component given as its specification (el_table()) is drawn first, and
+  # directives (v_if(), v_bind() ...) are their attributes before fields are
+  # renamed in them
+  ui <- .vue_directives(.el_resolve(ui))
   empty <- list(
     markup = ui,
     data = list(),

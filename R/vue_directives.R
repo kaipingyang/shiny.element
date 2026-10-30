@@ -100,45 +100,93 @@
 #' }
 #' @export
 v_bind <- function(expr, ns = NULL) {
-  if (
-    !is.character(expr) || length(expr) != 1L || is.na(expr) || !nzchar(expr)
-  ) {
+  # an R value, not an expression: its JSON is the expression
+  if (!is.character(expr) || inherits(expr, "json")) {
+    expr <- .vue_literal(expr)
+  }
+  if (length(expr) != 1L || is.na(expr) || !nzchar(expr)) {
     stop("`expr` must be one JavaScript expression, a string.", call. = FALSE)
   }
   .vue_binding(expr, "v_bind", ns)
 }
 
+# An R value written as a JavaScript literal: a data.frame as rows
+.vue_literal <- function(x) {
+  json <- .vue_rows(x)
+  if (!inherits(json, "json")) {
+    json <- jsonlite::toJSON(
+      json,
+      auto_unbox = TRUE,
+      null = "null",
+      na = "null",
+      digits = NA
+    )
+  }
+  as.character(json)
+}
+
+
 #' @rdname v_bind
 #' @export
-v_model <- function(path, ns = NULL) {
+v_model <- function(path, arg = NULL, modifiers = NULL, ns = NULL) {
   if (
     !is.character(path) ||
       length(path) != 1L ||
       is.na(path) ||
-      !grepl(.vue_model_pattern, path, perl = TRUE)
+      !grepl(.vue_path_pattern, path, perl = TRUE)
   ) {
     stop(
-      "`path` must be a store's field: \"$vueStore.<id>.<field>\", going ",
-      "on with .<name>, ['<name>'] or [<index>].",
+      "`path` must be something a value can be assigned to: a name going ",
+      "on with .<name>, ['<name>'] or [<index>] -- \"$vueStore.ui.open\" ",
+      "on a component's argument, \"text\" in a template.",
       call. = FALSE
     )
   }
-  .vue_binding(path, "v_model", ns)
+  for (x in list(arg, modifiers)) {
+    if (
+      !is.null(x) &&
+        (!is.character(x) ||
+          anyNA(x) ||
+          !all(grepl("^[A-Za-z][A-Za-z0-9_-]*$", x)))
+    ) {
+      stop(
+        "`arg` and `modifiers` are names, as Vue writes them.",
+        call. = FALSE
+      )
+    }
+  }
+  structure(
+    .vue_binding(path, "v_model", ns),
+    arg = arg,
+    modifiers = modifiers
+  )
 }
 
-#' Vue's `v-on` for a component's event, in a module
+#' Vue's `v-on`: handlers in a template, or in a module
 #'
-#' `on = list(click = "$vueStore.ui.open = true")` runs Vue's inline
-#' statement when the event fires, as `@click="..."` in a template, with
-#' `$event` the event's first argument. In a module, `v_on(statement, ns)`
-#' runs it with the module's names, as [v_bind()] evaluates an expression:
-#' `$vueStore.ui` is `vue_store(ns("ui"))`, `$inputs.size` the module's
-#' input. Outside a module a plain string does the same.
+#' In a template -- a `vue_app()`'s, `el$` tags, a slot, a cell --
+#' `v_on(click = "n++", "keyup.enter" = "send()")` gives the tag its
+#' handlers, as `@click="n++"` does: Vue's inline statements, `$event` the
+#' event's first argument, modifiers in the name as Vue writes them.
 #'
-#' @param statement Vue's inline statement, a string.
+#' As a value of a component's `on`, `v_on("statement", ns = ns)` is a
+#' statement run with a module's names, as [v_bind()] evaluates an
+#' expression: `$vueStore.ui` is `vue_store(ns("ui"))`, `$inputs.size` the
+#' module's input. Outside a module a plain string does the same:
+#' `on = list(click = "$vueStore.ui.open = true")`.
+#'
+#' @param ... In a template, handlers by event: `click = "n++"`. As a value
+#'   of `on`, one statement, unnamed.
 #' @inheritParams v_bind
-#' @return The handler, to give as a value of `on`.
+#' @return Attributes for a tag, or a handler for `on`.
+#' @family directives
 #' @examples
+#' vue_app(
+#'   "counter",
+#'   htmltools::tags$button(v_on(click = "n++"), "Clicked {{ n }} times"),
+#'   data = list(n = 0)
+#' )
+#'
 #' panel_ui <- function(id) {
 #'   ns <- shiny::NS(id)
 #'   htmltools::tagList(
@@ -151,16 +199,309 @@ v_model <- function(path, ns = NULL) {
 #'   )
 #' }
 #' @export
-v_on <- function(statement, ns = NULL) {
-  if (
-    !is.character(statement) ||
-      length(statement) != 1L ||
-      is.na(statement) ||
-      !nzchar(statement)
-  ) {
-    stop("`statement` must be one inline statement, a string.", call. = FALSE)
+v_on <- function(..., ns = NULL) {
+  args <- list(...)
+  named <- !is.null(names(args)) && all(nzchar(names(args)))
+  ok <- function(x) is.character(x) && length(x) == 1L && !is.na(x) && nzchar(x)
+  if (length(args) == 1L && !named && ok(args[[1]])) {
+    return(.vue_binding(args[[1]], "v_on", ns))
   }
-  .vue_binding(statement, "v_on", ns)
+  if (!length(args) || !named || !all(vapply(args, ok, logical(1)))) {
+    stop(
+      "Give v_on() handlers by event, `v_on(click = \"n++\")`, or one ",
+      "statement for a component's `on`.",
+      call. = FALSE
+    )
+  }
+  if (!is.null(ns)) {
+    stop(
+      "`ns` is for a statement in a component's `on`; in a template, write ",
+      "the names out.",
+      call. = FALSE
+    )
+  }
+  .vue_directive(stats::setNames(args, paste0("@", names(args))))
+}
+
+#' Vue's other directives, for a template
+#'
+#' Attributes for a tag in a Vue template -- a [vue_app()]'s, `el$` and
+#' [vtags] tags, a slot, a table cell -- given as an unnamed argument, as
+#' Vue writes them: `tags$li(v_for("item in items", key = "item.id"),
+#' "{{ item.name }}")` is `<li v-for="item in items" :key="item.id">`. The
+#' expressions are Vue's, evaluated in the component's scope -- its data,
+#' `setup()`, a slot's scope -- and the page's names (`$vueStore`,
+#' `$inputs`, `$route`). Nothing else in the tag is touched; the backtick
+#' attributes they stand for -- `` `v-if` = "ok" `` -- work as well.
+#'
+#' With them, [v_bind()], [v_model()] and [v_on()] work in a template too:
+#' as a named argument's value, `el$space(size = v_bind("size"))` is
+#' `:size="size"`, `el$input(value = v_model("text"))` is
+#' `v-model:value="text"`; unnamed, `v_bind("attrs")` is `v-bind="attrs"`
+#' and `v_model("text")` is `v-model="text"`. An R value given to
+#' [v_bind()] is a literal: `el$select(options = v_bind(df))`.
+#'
+#' Outside a template a directive means nothing, and drawing one says so.
+#'
+#' @param expr A JavaScript expression, a string.
+#' @param key For `v_for()`, the expression of each item's key: `:key`.
+#' @param name For `v_slot()`, the slot's name; for `v_directive()`, the
+#'   directive's, without `v-`.
+#' @param scope For `v_slot()`, the slot's props as a destructuring
+#'   pattern: `"{ row }"`.
+#' @param deps For `v_memo()`, an array expression: `"[item.id]"`.
+#' @param value,arg,modifiers For `v_directive()`, the parts of
+#'   `v-name:arg.modifiers="value"`.
+#' @return Attributes for a tag, as an unnamed argument.
+#' @family directives
+#' @examples
+#' vue_app(
+#'   "todo",
+#'   htmltools::tags$div(
+#'     htmltools::tags$input(v_model("draft"), v_on("keyup.enter" = "add()")),
+#'     htmltools::tags$ul(
+#'       htmltools::tags$li(v_for("t in todos", key = "t"), "{{ t }}")
+#'     ),
+#'     htmltools::tags$p(v_if("!todos.length"), "Nothing yet"),
+#'     htmltools::tags$p(v_else(), "{{ todos.length }} to do")
+#'   ),
+#'   data = list(draft = "", todos = list()),
+#'   methods = list(
+#'     add = JS("function() { this.todos.push(this.draft); this.draft = ''; }")
+#'   )
+#' )
+#' @name directives
+NULL
+
+#' @rdname directives
+#' @export
+v_if <- function(expr) .vue_directive(list(`v-if` = .vue_expr(expr)))
+
+#' @rdname directives
+#' @export
+v_else_if <- function(expr) .vue_directive(list(`v-else-if` = .vue_expr(expr)))
+
+#' @rdname directives
+#' @export
+v_else <- function() .vue_directive(list(`v-else` = NA))
+
+#' @rdname directives
+#' @export
+v_show <- function(expr) .vue_directive(list(`v-show` = .vue_expr(expr)))
+
+#' @rdname directives
+#' @export
+v_for <- function(expr, key = NULL) {
+  .vue_directive(c(
+    list(`v-for` = .vue_expr(expr)),
+    if (!is.null(key)) list(`:key` = .vue_expr(key, "key"))
+  ))
+}
+
+#' @rdname directives
+#' @export
+v_slot <- function(name = "default", scope = NULL) {
+  if (!is.character(name) || length(name) != 1L || !nzchar(name)) {
+    stop("`name` must be a slot's name.", call. = FALSE)
+  }
+  .vue_directive(stats::setNames(
+    list(if (is.null(scope)) NA else .vue_expr(scope, "scope")),
+    paste0("v-slot:", name)
+  ))
+}
+
+#' @rdname directives
+#' @export
+v_html <- function(expr) .vue_directive(list(`v-html` = .vue_expr(expr)))
+
+#' @rdname directives
+#' @export
+v_text <- function(expr) .vue_directive(list(`v-text` = .vue_expr(expr)))
+
+#' @rdname directives
+#' @export
+v_once <- function() .vue_directive(list(`v-once` = NA))
+
+#' @rdname directives
+#' @export
+v_pre <- function() .vue_directive(list(`v-pre` = NA))
+
+#' @rdname directives
+#' @export
+v_memo <- function(deps) {
+  .vue_directive(list(`v-memo` = .vue_expr(deps, "deps")))
+}
+
+#' @rdname directives
+#' @export
+v_directive <- function(name, value = NULL, arg = NULL, modifiers = NULL) {
+  for (x in list(name, arg, modifiers)) {
+    if (
+      !is.null(x) &&
+        (!is.character(x) ||
+          anyNA(x) ||
+          !all(grepl("^[A-Za-z][A-Za-z0-9_-]*$", x)))
+    ) {
+      stop(
+        "`name`, `arg` and `modifiers` are names, as Vue writes them.",
+        call. = FALSE
+      )
+    }
+  }
+  if (length(name) != 1L) {
+    stop("`name` must be one directive's name.", call. = FALSE)
+  }
+  attr_name <- paste0(
+    "v-",
+    name,
+    if (!is.null(arg)) paste0(":", arg),
+    if (length(modifiers)) paste0(".", modifiers, collapse = "")
+  )
+  .vue_directive(stats::setNames(
+    list(if (is.null(value)) NA else .vue_expr(value, "value")),
+    attr_name
+  ))
+}
+
+# A directive: the attributes it puts on its tag
+.vue_directive <- function(attrs) {
+  structure(list(attrs = attrs), class = "vue_directive")
+}
+
+.vue_expr <- function(x, arg = "expr") {
+  if (!is.character(x) || length(x) != 1L || is.na(x) || !nzchar(x)) {
+    stop(
+      "`",
+      arg,
+      "` must be one JavaScript expression, a string.",
+      call. = FALSE
+    )
+  }
+  x
+}
+
+#' @export
+as.tags.vue_directive <- function(x, ...) {
+  stop(
+    "A directive (",
+    names(x$attrs)[1],
+    ") belongs in a Vue template: a vue_app()'s, el$ tags, a slot, a cell.",
+    call. = FALSE
+  )
+}
+
+#' @export
+print.vue_directive <- function(x, ...) {
+  a <- x$attrs
+  cat(
+    "<vue_directive> ",
+    paste0(
+      names(a),
+      ifelse(is.na(a), "", paste0('="', a, '"')),
+      collapse = " "
+    ),
+    "\n",
+    sep = ""
+  )
+  invisible(x)
+}
+
+#' Directives in a template, as the attributes they stand for
+#'
+#' Run on every template before it is drawn (`.vue_islands()`,
+#' `.vue_template()`, `.vue_tags_as_html()`): a [v_bind()], [v_model()] or
+#' [v_on()] as an attribute's value gives the attribute its prefix -- `:`,
+#' `v-model:`, `@` -- and a directive given unnamed becomes its
+#' attributes. Nothing else is touched.
+#'
+#' @param x A tag, a tag list, or anything else (returned as it is).
+#' @return `x`, its directives as attributes.
+#' @keywords internal
+.vue_directives <- function(x) {
+  if (inherits(x, "shiny.tag")) {
+    a <- x$attribs
+    nms <- names(a)
+    if (length(a)) {
+      for (i in seq_along(a)) {
+        v <- a[[i]]
+        if (!inherits(v, "vue_binding")) {
+          next
+        }
+        .vue_in_template(v)
+        nms[i] <- if (inherits(v, "v_model")) {
+          .vue_model_name(v, nms[i])
+        } else if (inherits(v, "v_on")) {
+          paste0("@", nms[i])
+        } else {
+          paste0(":", nms[i])
+        }
+        a[i] <- list(unclass(v)[1])
+      }
+      names(a) <- nms
+    }
+    kids <- x$children
+    extra <- list()
+    keep <- rep(TRUE, length(kids))
+    for (i in seq_along(kids)) {
+      k <- kids[[i]]
+      if (inherits(k, "vue_directive")) {
+        extra <- c(extra, k$attrs)
+        keep[i] <- FALSE
+      } else if (inherits(k, "vue_binding")) {
+        .vue_in_template(k)
+        if (inherits(k, "v_on")) {
+          stop(
+            "In a template, give v_on() its event: `v_on(click = \"...\")`.",
+            call. = FALSE
+          )
+        }
+        extra[[if (inherits(k, "v_model")) .vue_model_name(k) else "v-bind"]] <-
+          unclass(k)[1]
+        keep[i] <- FALSE
+      }
+    }
+    x$attribs <- c(a, extra)
+    x$children <- lapply(kids[keep], .vue_directives)
+    return(x)
+  }
+  if (
+    is.list(x) &&
+      !inherits(x, c("vue_directive", "html_dependency", "json")) &&
+      !is.data.frame(x)
+  ) {
+    kept <- attributes(x)
+    x <- lapply(x, .vue_directives)
+    attributes(x) <- kept
+  }
+  x
+}
+
+# v-model, with its argument (a named attribute's name, or arg =) and its
+# modifiers
+.vue_model_name <- function(x, name = NULL) {
+  arg <- attr(x, "arg") %||% name
+  paste0(
+    "v-model",
+    if (!is.null(arg)) paste0(":", arg),
+    if (length(attr(x, "modifiers"))) {
+      paste0(".", attr(x, "modifiers"), collapse = "")
+    }
+  )
+}
+
+# A module's names belong to a component's argument, not to a template,
+# whose expressions Vue compiles in the component's own scope
+.vue_in_template <- function(x) {
+  if (!is.null(attr(x, "scope")$store)) {
+    stop(
+      "`ns` is for a component's argument; in a template, write the ",
+      "names out: `$vueStore['",
+      sub("-$", "", attr(x, "scope")$store),
+      "-ui']`.",
+      call. = FALSE
+    )
+  }
+  invisible(NULL)
 }
 
 #' @export
@@ -178,12 +519,35 @@ print.vue_binding <- function(x, ...) {
   invisible(x)
 }
 
-# A store's field: $vueStore, then at least two segments (the store, a field)
-.vue_model_pattern <- paste0(
-  "^\\$vueStore",
+# Something assigned to: a name, then .name, ['name'], ["name"] or [index]
+.vue_path_pattern <- paste0(
+  "^[A-Za-z_$][A-Za-z0-9_$]*",
   "(\\.[A-Za-z_$][A-Za-z0-9_$]*|\\['([^'\\\\]|\\\\.)*'\\]|",
-  "\\[\"([^\"\\\\]|\\\\.)*\"\\]|\\[[0-9]+\\]){2,}$"
+  "\\[\"([^\"\\\\]|\\\\.)*\"\\]|\\[[0-9]+\\])*$"
 )
+
+# On a component's argument a v_model() writes back to the page's state,
+# which only a store's field is: $vueStore, its store, a field
+.vue_store_field <- function(x) {
+  if (!inherits(x, "v_model")) {
+    return(invisible(NULL))
+  }
+  ok <- grepl(
+    "^\\$vueStore(\\.[A-Za-z_$][A-Za-z0-9_$]*|\\[[^]]+\\]){2,}",
+    unclass(x)[1],
+    perl = TRUE
+  )
+  if (!ok) {
+    stop(
+      "v_model(\"",
+      unclass(x)[1],
+      "\") on a component's argument writes ",
+      "back to a store's field: \"$vueStore.<id>.<field>\".",
+      call. = FALSE
+    )
+  }
+  invisible(NULL)
+}
 
 #' A binding: an expression, its kind and the names it is evaluated with
 #'
@@ -259,6 +623,7 @@ print.vue_binding <- function(x, ...) {
   if (!any(is_bound)) {
     return(spec)
   }
+  lapply(data[is_bound], .vue_store_field)
   spec$bound <- lapply(data[is_bound], .vue_binding_spec)
   spec$options$data[is_bound] <- list(NA)
   spec
@@ -306,6 +671,7 @@ print.vue_binding <- function(x, ...) {
   if (!any(bound)) {
     return(NULL)
   }
+  lapply(values[bound], .vue_store_field)
   for (a in names(values)[bound]) {
     assign(a, eval(defaults[[a]], env), envir = env)
   }

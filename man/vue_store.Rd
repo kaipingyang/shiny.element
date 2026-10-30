@@ -71,9 +71,14 @@ vue_store(
   actions = list(add = JS("function(n) { this.count += n; }")),
   input = "total"
 )
-vue_app("add", htmltools::tags$button(`@click` = "$vueStore.cart.add(1)", "Add"))
+vue_app(
+  "add",
+  htmltools::tags$button(`@click` = "$vueStore.cart.add(1)", "Add")
+)
 vue_app(
   "show",
-  htmltools::tags$span("{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}")
+  htmltools::tags$span(
+    "{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}"
+  )
 )
 }

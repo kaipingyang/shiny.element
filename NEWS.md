@@ -26,6 +26,16 @@
   argument R reads to draw a component -- a label, the choices, a class --
   says it cannot be bound rather than drop the binding.
 
+* Vue's template syntax as R functions, as htmltools has its tags:
+  `v_if()`, `v_else_if()`, `v_else()`, `v_show()`, `v_for(expr, key =)`,
+  `v_slot()`, `v_html()`, `v_text()`, `v_once()`, `v_pre()`, `v_memo()`,
+  `v_directive()` for one's own, and `v_bind()`, `v_model()`, `v_on()` in a
+  template too (`el$space(size = v_bind("size"))` is `:size="size"`, an R
+  value a literal); `vtags$` for Vue's built-in components
+  (`transition`, `keep_alive`, `teleport`, `component`, `router_view` and
+  the rest). Given unnamed, a directive is its attributes; nothing else in
+  a template is touched, and backtick attributes work as before.
+
 * `on =` takes Vue's inline statements as well as `JS()` functions:
   `on = list(click = "$vueStore.ui.open = true")`, as `@click="..."` in a
   template; `v_on(statement, ns =)` is one in a module.
