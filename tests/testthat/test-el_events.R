@@ -146,18 +146,18 @@ test_that("on takes Vue's inline statements, joined with the component's own", {
   html <- render_html(el_button(
     "b",
     "Open",
-    on = list(click = "$store.ui.open = true")
+    on = list(click = "$vueStore.ui.open = true")
   ))
   expect_match(
     html,
-    "(...a) =&gt; { const $event = a[0]; $store.ui.open = true; }",
+    "(...a) =&gt; { const $event = a[0]; $vueStore.ui.open = true; }",
     fixed = TRUE
   )
   # a JS() function and a statement on one component
   html <- render_html(el_input(
     "q",
     on = list(
-      focus = "$store.ui.focused = true",
+      focus = "$vueStore.ui.focused = true",
       "keyup.enter" = JS("function(report, e) { report('enter', 1); }")
     )
   ))

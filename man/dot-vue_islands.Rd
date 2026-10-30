@@ -9,10 +9,12 @@
 \arguments{
 \item{template}{A tag, or a list of them.}
 
-\item{components}{Whether components of their own (hosts) and tags marked
-\code{data-shiny-island} are islands too. A component library that folds
-its components into one another, and places its containers itself,
-leaves them in the template: \code{FALSE}.}
+\item{components}{Whether tags marked \code{data-shiny-island}, and components
+given as specifications, are islands too. A component library that
+folds its components into one another, and places its containers
+itself, leaves them in the template: \code{FALSE}. A host left in the
+template -- a \code{vue_app()} the library did not fold -- is an island
+either way, or Vue would drop its template and it would never mount.}
 }
 \value{
 A list: \code{template}, with placeholders; \code{holder}, a tag or \code{NULL}.

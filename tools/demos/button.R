@@ -90,7 +90,7 @@ tagList(
 
 ## group
 #' The radios turn the second group: its `direction` follows them,
-#' [vue_bind()], in the browser.
+#' [v_bind()], in the browser.
 #| shot_js = "Array.from(document.querySelectorAll('#direction .el-radio')).find(function(r){ return r.innerText.trim() === 'Vertical'; }).click()"
 #| shot_expect = "document.querySelector('#dir_group .el-button-group--vertical')"
 el_button_group(
@@ -110,7 +110,7 @@ el_radio_group(
 tags$br()
 el_button_group(
   id = "dir_group",
-  direction = vue_bind("$inputs.direction"),
+  direction = v_bind("$inputs.direction"),
   el_button("g1", NULL, type = "primary", icon = "House"),
   el_button("g2", NULL, type = "primary", icon = "Operation"),
   el_button("g3", NULL, type = "primary", icon = "Notification")

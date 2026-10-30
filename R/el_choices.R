@@ -552,7 +552,7 @@
       next
     }
     # state followed in the browser: checked there by Element
-    if (is.numeric(value) || inherits(value, "vue_bind")) {
+    if (is.numeric(value) || inherits(value, "vue_binding")) {
       next
     }
     if (

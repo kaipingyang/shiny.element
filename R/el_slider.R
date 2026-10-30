@@ -141,7 +141,7 @@ el_slider <- function(
   ns_id <- .vue_ui_id(id, session)
 
   # Normalize value for range mode
-  if (range && length(value) == 1 && !inherits(value, "vue_bind")) {
+  if (range && length(value) == 1 && !inherits(value, "vue_binding")) {
     value <- c(value, max)
   }
 
@@ -177,7 +177,7 @@ el_slider <- function(
   vue_data <- list(
     value = if (range) {
       .vue_array(value)
-    } else if (inherits(value, "vue_bind")) {
+    } else if (inherits(value, "vue_binding")) {
       value
     } else {
       value[1]

@@ -121,8 +121,8 @@ el_drawer <- function(
     z_index = z_index,
     header_aria_level = header_aria_level
   )
-  # what an update can set may follow state in the browser, the
-  # drawer's visibility a store's field, both ways
+  # what an update can set may follow the page's state: v_bind(),
+  # v_model() (the binding writes the user's change back)
   bind <- .vue_bound_markup(
     environment(),
     formals(el_drawer),
@@ -137,8 +137,7 @@ el_drawer <- function(
       "close_on_click_modal",
       "close_on_press_escape",
       "lock_scroll"
-    ),
-    state = "visible"
+    )
   )
   if (is.null(id)) {
     id <- .vue_auto_id("el_drawer")

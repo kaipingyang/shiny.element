@@ -252,7 +252,7 @@
   dependencies = list(),
   islands = NULL
 ) {
-  # fields given vue_bind(): followed in the browser
+  # fields given v_bind() or v_model(): followed in the browser
   spec <- .vue_bound(spec)
   # The template travels as a script, which the browser does not parse: no
   # flash of raw tags before Vue runs, and camelCase attribute names survive
@@ -425,7 +425,7 @@
 #' @param on Handlers of your own for events of the template's root: a
 #'   named list of [JS()] functions, each called with `report` and the
 #'   event's arguments -- `report(name, value)` sets `input$<id>_<name>` --
-#'   or of Vue's inline statements, as strings (`"$store.ui.open = true"`).
+#'   or of Vue's inline statements, as strings (`"$vueStore.ui.open = true"`).
 #' @return A tag, with its dependencies.
 #' @seealso [vue_component()], [vue_store()], [update_vue()], [call_vue()],
 #'   [render_vue()].
@@ -712,8 +712,8 @@ vue_component <- function(
 #' `inject` cannot reach from one to another. Vue's answer is a store, and
 #' its store is Pinia's: this is one, defined from R with Pinia's own parts
 #' -- `state`, `getters`, `actions`, or a `setup` function -- and reached in
-#' every template as `$store.<id>`: `$store.cart.count`, a getter
-#' `$store.cart.total`, an action `$store.cart.add(1)`, at once and in the
+#' every template as `$vueStore.<id>`: `$vueStore.cart.count`, a getter
+#' `$vueStore.cart.total`, an action `$vueStore.cart.add(1)`, at once and in the
 #' browser. In a component's `setup()`, `shinyVue.useStore("<id>")` gives the
 #' Pinia store itself (`Pinia.storeToRefs()` works on it).
 #'
@@ -727,7 +727,7 @@ vue_component <- function(
 #' A store can be anywhere on the page; stores are set up before the
 #' components that read them.
 #'
-#' @param id The store's id: `$store.<id>` in templates, Pinia's store id.
+#' @param id The store's id: `$vueStore.<id>` in templates, Pinia's store id.
 #' @param state Named list: the initial state.
 #' @param getters Named list of [JS()] functions of `state`, as Pinia's
 #'   getters: values computed from the state, cached.
@@ -751,10 +751,15 @@ vue_component <- function(
 #'   actions = list(add = JS("function(n) { this.count += n; }")),
 #'   input = "total"
 #' )
-#' vue_app("add", htmltools::tags$button(`@click` = "$store.cart.add(1)", "Add"))
+#' vue_app(
+#'   "add",
+#'   htmltools::tags$button(`@click` = "$vueStore.cart.add(1)", "Add")
+#' )
 #' vue_app(
 #'   "show",
-#'   htmltools::tags$span("{{ $store.cart.count }} for {{ $store.cart.total }}")
+#'   htmltools::tags$span(
+#'     "{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}"
+#'   )
 #' )
 #' @export
 vue_store <- function(

@@ -139,8 +139,8 @@ el_dialog <- function(
     header_aria_level = header_aria_level,
     transition = transition
   )
-  # what an update can set may follow state in the browser, the
-  # dialog's visibility a store's field, both ways
+  # what an update can set may follow the page's state: v_bind(),
+  # v_model() (the binding writes the user's change back)
   bind <- .vue_bound_markup(
     environment(),
     formals(el_dialog),
@@ -159,8 +159,7 @@ el_dialog <- function(
       "draggable",
       "overflow",
       "align_center"
-    ),
-    state = "visible"
+    )
   )
   if (is.null(id)) {
     id <- .vue_auto_id("el_dialog")

@@ -24,8 +24,9 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 
 ## button
-#' The checkboxes and the select are a store's fields, [vue_bind()]; the
-#' provider's `button` settings are a getter of the store built from them,
+#' The checkboxes and the select are a store's fields, [v_model()]; the
+#' provider's `button` settings a getter of the store built from them,
+#' [v_bind()],
 #' which the button inside takes as its defaults -- all in the browser.
 #| shot_js = c("document.querySelector('#cfg_dashed .el-checkbox').click()", "document.querySelector('#cfg_plain .el-checkbox').click()")
 #| shot_expect = c("document.querySelector('#cfg .el-button.is-dashed')", "!document.querySelector('#cfg .el-button.is-plain')")
@@ -45,35 +46,35 @@ tags$div(
   el_checkbox(
     "cfg_space",
     "autoInsertSpace",
-    value = vue_bind("$store.cfg_button.autoInsertSpace")
+    value = v_model("$vueStore.cfg_button.autoInsertSpace")
   ),
   el_checkbox(
     "cfg_plain",
     "plain",
-    value = vue_bind("$store.cfg_button.plain")
+    value = v_model("$vueStore.cfg_button.plain")
   ),
   el_checkbox(
     "cfg_round",
     "round",
-    value = vue_bind("$store.cfg_button.round")
+    value = v_model("$vueStore.cfg_button.round")
   ),
   el_checkbox(
     "cfg_dashed",
     "dashed",
-    value = vue_bind("$store.cfg_button.dashed")
+    value = v_model("$vueStore.cfg_button.dashed")
   ),
-  el_checkbox("cfg_text", "text", value = vue_bind("$store.cfg_button.text")),
+  el_checkbox("cfg_text", "text", value = v_model("$vueStore.cfg_button.text")),
   el_select(
     "cfg_type",
     choices = c("primary", "success", "warning", "danger", "info", "default"),
-    selected = vue_bind("$store.cfg_button.type"),
+    selected = v_model("$vueStore.cfg_button.type"),
     width = "150px"
   )
 )
 el_divider()
 el_config_provider(
   id = "cfg",
-  button = vue_bind("$store.cfg_button.config"),
+  button = v_bind("$vueStore.cfg_button.config"),
   el_button("cfg_btn", "中文")
 )
 
@@ -95,7 +96,7 @@ tags$div(
     el_select(
       "cfg_type",
       choices = c("primary", "success", "warning", "info", "danger", "default"),
-      selected = vue_bind("$store.cfg_links.type")
+      selected = v_model("$vueStore.cfg_links.type")
     )
   ),
   tags$div(
@@ -104,14 +105,14 @@ tags$div(
     el_select(
       "cfg_underline",
       choices = c("always", "never", "hover"),
-      selected = vue_bind("$store.cfg_links.underline")
+      selected = v_model("$vueStore.cfg_links.underline")
     )
   )
 )
 el_divider()
 el_config_provider(
   id = "cfg",
-  link = vue_bind("$store.cfg_links.config"),
+  link = v_bind("$vueStore.cfg_links.config"),
   el_link("Link desu!", id = "cfg_link")
 )
 
@@ -129,12 +130,12 @@ tags$span("Shadow:")
 el_radio_group(
   "cfg_shadow",
   choices = c("always", "hover", "never"),
-  value = vue_bind("$store.cfg_card.shadow")
+  value = v_model("$vueStore.cfg_card.shadow")
 )
 el_divider()
 el_config_provider(
   id = "cfg",
-  card = vue_bind("$store.cfg_card.config"),
+  card = v_bind("$vueStore.cfg_card.config"),
   el_card("Card desu!")
 )
 
@@ -165,21 +166,21 @@ tags$div(
   style = "display: flex; flex-direction: column; gap: 16px",
   el_switch(
     "cfg_align",
-    value = vue_bind("$store.cfg_dialog.alignCenter"),
+    value = v_model("$vueStore.cfg_dialog.alignCenter"),
     active_text = "alignCenter"
   ),
   tags$div(
     style = "display: flex; gap: 16px",
     el_switch(
       "cfg_drag",
-      value = vue_bind("$store.cfg_dialog.draggable"),
+      value = v_model("$vueStore.cfg_dialog.draggable"),
       active_text = "draggable"
     ),
     el_switch(
       "cfg_overflow",
-      value = vue_bind("$store.cfg_dialog.overflow"),
+      value = v_model("$vueStore.cfg_dialog.overflow"),
       active_text = "overflow",
-      disabled = vue_bind("$store.cfg_dialog.fixed")
+      disabled = v_bind("$vueStore.cfg_dialog.fixed")
     )
   ),
   tags$div(
@@ -188,18 +189,18 @@ tags$div(
       "Open Dialog",
       type = "primary",
       size = "small",
-      on = list(click = "$store.cfg_dialog.open = true")
+      on = list(click = "$vueStore.cfg_dialog.open = true")
     )
   )
 )
 el_config_provider(
   id = "cfg",
-  dialog = vue_bind("$store.cfg_dialog.config"),
+  dialog = v_bind("$vueStore.cfg_dialog.config"),
   el_dialog(
     "cfg_dlg",
     title = "Dialog Title",
     destroy_on_close = TRUE,
-    visible = vue_bind("$store.cfg_dialog.open"),
+    visible = v_model("$vueStore.cfg_dialog.open"),
     content = "Dialog Content"
   )
 )
@@ -248,19 +249,19 @@ tags$div(
   el_checkbox(
     "cfg_tip",
     "showOverflowTooltip",
-    value = vue_bind("$store.cfg_table.showOverflowTooltip")
+    value = v_model("$vueStore.cfg_table.showOverflowTooltip")
   ),
   el_select(
     "cfg_effect",
     choices = c(dark = "dark", light = "light"),
-    selected = vue_bind("$store.cfg_table.tooltipEffect"),
+    selected = v_model("$vueStore.cfg_table.tooltipEffect"),
     width = "150px"
   )
 )
 el_divider()
 el_config_provider(
   id = "cfg",
-  table = vue_bind("$store.cfg_table.config"),
+  table = v_bind("$vueStore.cfg_table.config"),
   el_table(
     data = data.frame(
       date = c("2016-05-03", "2016-05-02", "2016-05-04"),

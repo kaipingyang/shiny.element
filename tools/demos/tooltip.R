@@ -63,14 +63,14 @@ el_tooltip(
 
 ## advanced-usage
 #' The switch turns the tooltip off: its `disabled` follows the switch in
-#' the browser, [vue_bind()].
+#' the browser, [v_bind()].
 el_switch("tip_off", value = FALSE, active_text = "tooltip off")
 el_tooltip(
   "adv",
   el$button("Hover me"),
   content = "turn the switch on to turn me off",
   placement = "bottom",
-  disabled = vue_bind("$inputs.tip_off")
+  disabled = v_bind("$inputs.tip_off")
 )
 
 ## html-content

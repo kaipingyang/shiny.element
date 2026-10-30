@@ -89,7 +89,7 @@ Check the list [here](https://day.js.org/docs/en/display/format#list-of-all-avai
 
 What each picker reports is `input$<id>`: in the format `value_format`
 names, `"x"` a timestamp. `format` is what the box shows. The value
-under each title is the picker's value, a store's field, [vue_bind()],
+under each title is the picker's value, a store's field, [v_model()],
 which a `vue_app()` reads in the browser.
 
 ```{r date-and-time-formats, eval = FALSE, shot = TRUE, shot_js = c("document.querySelector('#dtp_fmt3 input').focus()", "var p = Array.from(document.querySelectorAll('.el-picker__popper')).filter(function(x) { return x.offsetParent; })[0]; p.querySelector('.el-date-table td.available').click(); p.querySelector('.el-picker-panel__footer .is-plain').click()"), shot_expect = c("/^Value: \\d{13}$/.test(document.querySelector('#dtp_fmt3_value').innerText)", "/^\\d{4}\\/\\d\\d\\/\\d\\d \\d\\d:\\d\\d:\\d\\d$/.test(document.querySelector('#dtp_fmt3 input').value)")}
@@ -103,14 +103,14 @@ block <- function(title, id, field, ...) {
       tags$div(
         class = "demonstration",
         id = paste0(id, "_value"),
-        sprintf("Value: {{ $store.formats.%s ?? '' }}", field)
+        sprintf("Value: {{ $vueStore.formats.%s ?? '' }}", field)
       )
     ),
     el_date_picker(
       id,
       type = "datetime",
       placeholder = "Pick a Date",
-      value = vue_bind(paste0("$store.formats.", field)),
+      value = v_model(paste0("$vueStore.formats.", field)),
       ...
     )
   )

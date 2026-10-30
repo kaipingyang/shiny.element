@@ -44,7 +44,7 @@ for each kind of wait.
 
 ### 1. The page's state stays in the page
 
-A component's argument given `vue_bind()` follows state in the browser,
+A component's argument given `v_bind()`/`v_model()` follows state in the browser,
 with no round trip:
 
 ```{r bound, eval = FALSE, shot = TRUE, shot_js = c("document.querySelectorAll('#size .el-radio')[0].click()", "document.querySelector('#open button').click()"), shot_sel = ".el-dialog", shot_wait = 1}
@@ -53,14 +53,14 @@ el_radio_group(
   choices = c("large", "default", "small"),
   selected = "default"
 )
-el_space(size = vue_bind("$inputs.size"), el_card("One"), el_card("Two"))
+el_space(size = v_bind("$inputs.size"), el_card("One"), el_card("Two"))
 
 vue_store("ui", state = list(open = FALSE))
-el_button("open", "Open", on = list(click = "$store.ui.open = true"))
+el_button("open", "Open", on = list(click = "$vueStore.ui.open = true"))
 el_dialog(
   "tips",
   title = "Tips",
-  visible = vue_bind("$store.ui.open"),
+  visible = v_model("$vueStore.ui.open"),
   content = "Opened in the browser."
 )
 ```
@@ -79,7 +79,7 @@ click to a dialog on screen:
 | The dialog opened | R idle | R busy for 2 s with another click |
 |---|---|---|
 | by the server, `update_el_dialog()` | 64 ms | 1,822 ms |
-| in the browser, `vue_bind()` | 1.4 ms | 1.2 ms |
+| in the browser, `v_bind()`/`v_model()` | 1.4 ms | 1.2 ms |
 
 Over a real network the first row adds the network's round trip; the
 second row does not change. And the busy column is the second kind of
@@ -148,7 +148,7 @@ server <- function(input, output, session) {
 
 | It is | Put it | With |
 |---|---|---|
-| The page's own state: open, picked, shown | the browser | `vue_bind()`, `vue_store()`, `on` |
+| The page's own state: open, picked, shown | the browser | `v_bind()`/`v_model()`, `vue_store()`, `on` |
 | A message about what the page did | the browser | `on = list(click = "$message(...)")` |
 | Data, and what is computed from it | the server | outputs, `update_*()` |
 | A decision that matters: who may see what, what is saved | the server | observers; the browser's state is a convenience, never a permission |

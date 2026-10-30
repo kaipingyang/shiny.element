@@ -54,22 +54,27 @@ tag 2.14.7, gitignored; see `.upstream/README.md`). Its
 The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no component
 library and is to become the shiny.vue package: `vue_app()`,
 `vue_component()`, `vue_store()` (a Pinia 4.1.0 store, `inst/pinia`:
-`state`/`getters`/`actions` or `setup`, `$store.<id>` in every template,
+`state`/`getters`/`actions` or `setup`, `$vueStore.<id>` in every template,
 its host exposing the store so updates, calls and outputs reach it),
 `vue_output()`/`render_vue()`,
 `update_vue()`, `call_vue()`, `vue_answer()`, `vue_router()` (vue-router
 5.4.0, `inst/vue-router`: one router per page, in every app, the route
 in the hash and as `input$<id>`), `vueuse_dependency()` (VueUse 15.0.0,
 Element's own version, `inst/vueuse`, opt-in, for `setup()`),
-`vue_bind()` (an argument following `$store`, `$inputs` or `$route` in the
-browser, no round trip: `.vue_host()` moves a bound field's path to the
-spec's `bound`, the bridge keeps field and path in step; containers
-bind what their update can set, `.vue_bound_markup()` writing
-`data-shiny-vue-bind` and their bindings applying it through
-`shinyVue.bindElement()` as updates; an argument R
-reads to draw with says so, `.vue_unbound()`, and `test-vue-bind.R` fails
-on any argument of any component that drops a binding), and the
-`.vue_*` helpers.
+`v_bind()`/`v_model()`/`v_on()` (`R/vue_directives.R`: Vue's directives
+for an R component's arguments -- an expression over `$vueStore`,
+`$inputs`, `$route`, one way or written back to a store; `ns =` scopes
+those names to a module, the expression untouched. `.vue_host()` moves a
+bound field to the spec's `bound` (`{expr, model, scope}`), the bridge
+evaluates it with `with` over the page's names and keeps field and state
+in step; containers bind what their update can set,
+`.vue_bound_markup()` writing `data-shiny-vue-bind` and their bindings
+applying it through `shinyVue.bindElement()`; an argument R reads to draw
+with says so, `.vue_unbound()`, and `test-vue-directives.R` fails on any
+argument of any component that drops a binding). Template names follow
+the function that made them: `$vueStore` (was `$store`, kept a version),
+later `$vueRef` etc.; plan `.claude/plans/vue-syntax-in-r-2026-10-30.md`.
+And the `.vue_*` helpers.
 `test-vue-layer.R` fails if any of it names Element; `test-browser-pure-vue.R`
 runs it with no Element Plus on the page. The **Element layer** (`R/el_*.R`,
 `inst/js/el-*.js`) is built on it: `el_widget()` builds through `.vue_host()`
@@ -91,8 +96,7 @@ helpers are not an API.
 **User code goes in untouched.** The Vue layer is to be a package for
 any Vue code, so its machinery never takes a name from the user's space:
 the bridge's helpers are global properties starting with `$` (`$setInput`,
-`$store`, `$inputs`, `$busy`, and `$optional()` once props bind through
-it), and options it adds to a component are namespaced (`shinyVue*`).
+`$vueStore`, `$inputs`, `$busy`, `$optional()`), and options it adds to a component are namespaced (`shinyVue*`).
 Whatever Vue the user writes -- `data`, `computed`, `methods`, `watch`,
 `setup`, lifecycle hooks, `components`, `directives`, `provide`, `emits`,
 plugins through `use`, any other option -- passes through as written.
@@ -347,7 +351,7 @@ records: `.claude/plans/shiny-style-components-2026-10-06.md`,
 4. Enumerated arguments go in `.el_choices` (`R/el_choices.R`) with
    `.el_check_choices()` first in the function; arguments R reads to draw
    the markup (not fields of the component) in `.vue_unbound()` after it,
-   so a `vue_bind()` given them is an error (`test-vue-bind.R` checks).
+   so a `v_bind()` given them is an error (`test-vue-directives.R` checks).
    A field keeps a binding through its conversions: `.vue_array()`,
    `.vue_flag()` rather than `as.list()`, `isTRUE()`.
 5. `roxygen2::roxygenise(".")`, then tests: unit, the browser fixture, and

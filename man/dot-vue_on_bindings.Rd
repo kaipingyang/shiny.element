@@ -9,7 +9,7 @@
 \arguments{
 \item{ns_id}{The namespaced id.}
 
-\item{on}{A named list of \code{\link[=JS]{JS()}} functions or strings.}
+\item{on}{A named list of \code{\link[=JS]{JS()}} functions, strings or \code{\link[=v_on]{v_on()}}s.}
 }
 \value{
 A list with \code{attrs} and \code{methods}.
@@ -19,8 +19,9 @@ A \code{\link[=JS]{JS()}} function becomes a method the component's tag listens 
 \verb{@<event>}. It is called with \code{report} first -- \code{report(name, value)}
 sets \verb{input$<id>_<name>} -- then the event's own arguments, and \code{this}
 the Vue instance. A string is Vue's inline statement, as \verb{@click="..."}
-takes it -- \code{"$store.ui.open = true"}, \verb{$event} the event's first
+takes it -- \code{"$vueStore.ui.open = true"}, \verb{$event} the event's first
 argument -- written into the template as it is, inside the arrow
-function the tag's handlers are joined in.
+function the tag's handlers are joined in. A \code{\link[=v_on]{v_on()}} given \code{ns} is
+run by the bridge with the module's names (\code{shinyVue.run()}).
 }
 \keyword{internal}

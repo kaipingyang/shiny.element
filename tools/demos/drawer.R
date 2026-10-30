@@ -1,6 +1,7 @@
 ## basic-usage
 #' The radios set the edge it slides from, the drawers' `direction`
-#' following them with [vue_bind()]; each opens from a store's field,
+#' following them with [v_bind()]; each opens from a store's field,
+#' [v_model()],
 #' and closing the first asks first, through `before_close`.
 #| shot_js = c("Array.from(document.querySelectorAll('#direction .el-radio')).find(function(r){ return r.innerText.indexOf('top to bottom') >= 0; }).click()", "document.querySelector('#open_container button').click()")
 #| shot_sel = ".el-drawer"
@@ -24,19 +25,19 @@ el_button(
   "open",
   "open",
   type = "primary",
-  on = list(click = "$store.drawers.first = true")
+  on = list(click = "$vueStore.drawers.first = true")
 )
 el_button(
   "open2",
   "with footer",
   type = "primary",
-  on = list(click = "$store.drawers.second = true")
+  on = list(click = "$vueStore.drawers.second = true")
 )
 el_drawer(
   "drw",
   title = "I am the title",
-  visible = vue_bind("$store.drawers.first"),
-  direction = vue_bind("$inputs.direction"),
+  visible = v_model("$vueStore.drawers.first"),
+  direction = v_bind("$inputs.direction"),
   before_close = JS(
     "function(done) { if (confirm('Are you sure you want to close this?')) done(); }"
   ),
@@ -45,12 +46,12 @@ el_drawer(
 el_drawer(
   "drw2",
   title = tags$h4("set title by slot"),
-  visible = vue_bind("$store.drawers.second"),
-  direction = vue_bind("$inputs.direction"),
+  visible = v_model("$vueStore.drawers.second"),
+  direction = v_bind("$inputs.direction"),
   content = el_radio_group(
     "radio1",
     choices = c("Option 1", "Option 2"),
-    value = vue_bind("$store.drawers.choice"),
+    value = v_model("$vueStore.drawers.choice"),
     size = "large"
   ),
   footer = tags$div(
@@ -58,14 +59,14 @@ el_drawer(
     el_button(
       "cancel",
       "cancel",
-      on = list(click = "$store.drawers.second = false")
+      on = list(click = "$vueStore.drawers.second = false")
     ),
     el_button(
       "confirm",
       "confirm",
       type = "primary",
       on = list(
-        click = "$store.drawers.second = false; $message('You chose ' + $store.drawers.choice)"
+        click = "$vueStore.drawers.second = false; $message('You chose ' + $vueStore.drawers.choice)"
       )
     )
   )
@@ -78,13 +79,13 @@ el_button(
   "open",
   "open",
   type = "primary",
-  on = list(click = "$store.untitled.visible = true")
+  on = list(click = "$vueStore.untitled.visible = true")
 )
 el_drawer(
   "drw",
   title = "I am the title",
   with_header = FALSE,
-  visible = vue_bind("$store.untitled.visible"),
+  visible = v_model("$vueStore.untitled.visible"),
   content = tags$span("Hi there!")
 )
 
@@ -95,14 +96,14 @@ el_button(
   "open",
   "Open Drawer with nested form",
   text = TRUE,
-  on = list(click = "$store.form_drawer.visible = true")
+  on = list(click = "$vueStore.form_drawer.visible = true")
 )
 el_drawer(
   "drw",
   title = "I have a nested form inside!",
   direction = "ltr",
   size = "40%",
-  visible = vue_bind("$store.form_drawer.visible"),
+  visible = v_model("$vueStore.form_drawer.visible"),
   content = tagList(
     el_input(
       "name",
@@ -122,13 +123,13 @@ el_drawer(
     el_button(
       "cancel",
       "Cancel",
-      on = list(click = "$store.form_drawer.visible = false")
+      on = list(click = "$vueStore.form_drawer.visible = false")
     ),
     el_button(
       "submit",
       "Submit",
       type = "primary",
-      on = list(click = "$store.form_drawer.visible = false")
+      on = list(click = "$vueStore.form_drawer.visible = false")
     )
   )
 )
@@ -139,12 +140,12 @@ vue_store("header_drawer", state = list(visible = FALSE))
 el_button(
   "open",
   "Open Drawer with customized header",
-  on = list(click = "$store.header_drawer.visible = true")
+  on = list(click = "$vueStore.header_drawer.visible = true")
 )
 el_drawer(
   "drw",
   show_close = FALSE,
-  visible = vue_bind("$store.header_drawer.visible"),
+  visible = v_model("$vueStore.header_drawer.visible"),
   content = "This is drawer content.",
   title = tags$div(
     style = "display: flex; justify-content: space-between; align-items: center",
@@ -154,7 +155,7 @@ el_drawer(
       "Close",
       type = "danger",
       icon = "CircleCloseFilled",
-      on = list(click = "$store.header_drawer.visible = false")
+      on = list(click = "$vueStore.header_drawer.visible = false")
     )
   )
 )
@@ -172,12 +173,12 @@ el_radio_group(
   choices = c(top = "ttb", right = "rtl", bottom = "btt", left = "ltr"),
   value = "rtl",
   button = TRUE,
-  on = list(change = "$store.resizing.visible = true")
+  on = list(change = "$vueStore.resizing.visible = true")
 )
 el_drawer(
   "drw",
-  direction = vue_bind("$inputs.direction"),
-  visible = vue_bind("$store.resizing.visible"),
+  direction = v_bind("$inputs.direction"),
+  visible = v_model("$vueStore.resizing.visible"),
   resizable = TRUE,
   content = "This is drawer content."
 )
@@ -189,24 +190,24 @@ el_button(
   "open",
   "open",
   type = "primary",
-  on = list(click = "$store.nested_drawers.outer = true")
+  on = list(click = "$vueStore.nested_drawers.outer = true")
 )
 el_drawer(
   "outer",
   title = "I'm outer Drawer",
   size = "50%",
-  visible = vue_bind("$store.nested_drawers.outer"),
+  visible = v_model("$vueStore.nested_drawers.outer"),
   content = tagList(
     el_button(
       "inner_open",
       "Click me!",
-      on = list(click = "$store.nested_drawers.inner = true")
+      on = list(click = "$vueStore.nested_drawers.inner = true")
     ),
     el_drawer(
       "inner",
       title = "I'm inner Drawer",
       append_to_body = TRUE,
-      visible = vue_bind("$store.nested_drawers.inner"),
+      visible = v_model("$vueStore.nested_drawers.inner"),
       content = tags$p("_(:з)∠)_")
     )
   )
@@ -219,25 +220,25 @@ el_button(
   "open",
   "Open the modal Drawer",
   plain = TRUE,
-  on = list(click = "$store.modal_drawer.visible = true")
+  on = list(click = "$vueStore.modal_drawer.visible = true")
 )
 el_drawer(
   "drw",
   modal = FALSE,
   modal_penetrable = TRUE,
-  visible = vue_bind("$store.modal_drawer.visible"),
+  visible = v_model("$vueStore.modal_drawer.visible"),
   content = tags$span("It's a modal Drawer"),
   footer = tagList(
     el_button(
       "cancel",
       "Cancel",
-      on = list(click = "$store.modal_drawer.visible = false")
+      on = list(click = "$vueStore.modal_drawer.visible = false")
     ),
     el_button(
       "confirm",
       "Confirm",
       type = "primary",
-      on = list(click = "$store.modal_drawer.visible = false")
+      on = list(click = "$vueStore.modal_drawer.visible = false")
     )
   )
 )

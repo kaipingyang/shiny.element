@@ -4,14 +4,14 @@
 #' A value as a field holding an array
 #'
 #' `NULL` is an empty array and a vector a list, so jsonlite writes an
-#' array for one value too; a [vue_bind()] is kept, for the bridge to
+#' array for one value too; a binding ([v_bind()], [v_model()]) is kept, for the bridge to
 #' follow.
 #'
 #' @param x A vector, `NULL` or a binding.
 #' @return A list, or the binding.
 #' @keywords internal
 .vue_array <- function(x) {
-  if (inherits(x, "vue_bind")) {
+  if (inherits(x, "vue_binding")) {
     return(x)
   }
   if (is.null(x)) list() else as.list(x)
@@ -19,11 +19,11 @@
 
 #' A value as a field holding `true` or `false`
 #'
-#' @param x A value, or a [vue_bind()], which is kept.
+#' @param x A value, or a binding, which is kept.
 #' @return `TRUE`, `FALSE` or the binding.
 #' @keywords internal
 .vue_flag <- function(x) {
-  if (inherits(x, "vue_bind")) x else isTRUE(x)
+  if (inherits(x, "vue_binding")) x else isTRUE(x)
 }
 
 #' A data.frame as rows, as `v-for` walks it and table components take it

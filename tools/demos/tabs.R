@@ -36,7 +36,7 @@ el_tabs(
 
 ## tab-position
 #' The radios move the tabs: `tab_position` follows them in the browser,
-#' [vue_bind()].
+#' [v_bind()].
 #| shot_js = "Array.from(document.querySelectorAll('#position .el-radio-button')).find(function(r){ return r.innerText.trim() === 'left'; }).click()"
 #| shot_expect = c("document.querySelector('#tabs_pos.el-tabs--left .el-tabs__header.is-left.el-tabs__header-vertical')", "document.querySelector('#tabs_pos').firstElementChild.classList.contains('el-tabs__header')")
 el_radio_group(
@@ -48,7 +48,7 @@ el_radio_group(
 tags$div(style = "height: 16px")
 el_tabs(
   "tabs_pos",
-  tab_position = vue_bind("$inputs.position"),
+  tab_position = v_bind("$inputs.position"),
   tabs = list(
     el_tab_pane("User", "User"),
     el_tab_pane("Config", "Config"),

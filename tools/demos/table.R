@@ -549,7 +549,7 @@ shinyApp(ui, server)
 #| shot_js = "var i = document.querySelector('#shot .el-table__header input'); i.value = 'jo'; i.dispatchEvent(new Event('input'))"
 #| shot_wait = 2
 #' The search box is the column's `header` template. What is typed lives in
-#' a store, `$store.search.text`, reported as `input$search`; the table is
+#' a store, `$vueStore.search.text`, reported as `input$search`; the table is
 #' rendered again with the rows that match.
 tableData <- data.frame(
   date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
@@ -575,7 +575,7 @@ server <- function(input, output, session) {
       el_table_column(
         align = "right",
         header = el$input(
-          "v-model" = "$store.search.text",
+          "v-model" = "$vueStore.search.text",
           size = "small",
           placeholder = "Type to search"
         ),
@@ -604,9 +604,9 @@ shinyApp(ui, server)
 #| shot_wait = 2
 #' Each row opens to its details and a table of its own, the family. The
 #' switches act in the browser: the parent's `border` and
-#' `preserve_expanded_content` follow them, [vue_bind()], and the child
+#' `preserve_expanded_content` follow them, [v_bind()], and the child
 #' tables' border is a store's field their template reads,
-#' `$store.expand.child`.
+#' `$vueStore.expand.child`.
 family <- data.frame(
   name = c("Jerry", "Spike", "Tyke"),
   state = "California",
@@ -643,14 +643,14 @@ tags$div(
   "switch parent border:",
   el_switch("parent_border"),
   "switch child border:",
-  el_switch("child_border", value = vue_bind("$store.expand.child")),
+  el_switch("child_border", value = v_model("$vueStore.expand.child")),
   "preserve expanded:",
   el_switch("preserve")
 )
 el_table(
   "expandable",
-  border = vue_bind("$inputs.parent_border"),
-  preserve_expanded_content = vue_bind("$inputs.preserve"),
+  border = v_bind("$inputs.parent_border"),
+  preserve_expanded_content = v_bind("$inputs.preserve"),
   data = tableData,
   columns = list(
     el_table_column(
@@ -664,7 +664,7 @@ el_table(
         tags$h3("Family"),
         el$table(
           ":data" = "scope.row.family",
-          ":border" = "$store.expand.child",
+          ":border" = "$vueStore.expand.child",
           el$table_column(label = "Name", prop = "name"),
           el$table_column(label = "State", prop = "state"),
           el$table_column(label = "City", prop = "city"),
@@ -960,7 +960,8 @@ el_table(
 #| shot_js = "document.querySelectorAll('#strict_mode_container .el-radio-button')[0].click()"
 #| shot_wait = 2
 #' The radio buttons set `tree_props = list(checkStrictly =)`: their value
-#' is a store's field, and `tree_props` a getter of it, [vue_bind()].
+#' is a store's field, [v_model()], and `tree_props` a getter of it,
+#' [v_bind()].
 #' Ticked strictly, a row ticks on its own, not with its children.
 #' Rows 1 and 31 cannot be ticked.
 row <- function(id, date, children = NULL) {
@@ -994,7 +995,7 @@ vue_store(
 el_radio_group(
   "strict_mode",
   choices = c(true = TRUE, false = FALSE),
-  value = vue_bind("$store.strictness.on"),
+  value = v_model("$vueStore.strictness.on"),
   button = TRUE
 )
 el_table(
@@ -1002,7 +1003,7 @@ el_table(
   data = tableData,
   row_key = "id",
   default_expand_all = TRUE,
-  tree_props = vue_bind("$store.strictness.props"),
+  tree_props = v_bind("$vueStore.strictness.props"),
   columns = list(
     el_table_column(
       type = "selection",
@@ -1019,7 +1020,7 @@ el_table(
 #| shot_js = "document.querySelectorAll('#layout_container .el-radio-button')[1].click()"
 #| shot_wait = 2
 #' The radio buttons set `table_layout`, which follows them in the browser,
-#' [vue_bind()].
+#' [v_bind()].
 tableData <- data.frame(
   date = c("2016-05-03", "2016-05-02", "2016-05-04", "2016-05-01"),
   name = "Tom",
@@ -1035,7 +1036,7 @@ el_radio_group(
 el_table(
   "layout_table",
   data = tableData,
-  table_layout = vue_bind("$inputs.layout"),
+  table_layout = v_bind("$inputs.layout"),
   columns = list(
     el_table_column("date", "Date"),
     el_table_column("name", "Name"),

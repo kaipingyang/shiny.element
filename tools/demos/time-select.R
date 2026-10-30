@@ -21,7 +21,7 @@ el_time_select(
 
 ## time-range
 #' The end's earliest time follows the start: its `min_time` is the
-#' start's value, [vue_bind()], in the browser.
+#' start's value, [v_bind()], in the browser.
 el_time_select(
   "start",
   start = "08:30",
@@ -35,7 +35,7 @@ el_time_select(
   start = "08:30",
   step = "00:15",
   end = "18:30",
-  min_time = vue_bind("$inputs.start"),
+  min_time = v_bind("$inputs.start"),
   placeholder = "End time",
   width = "240px"
 )

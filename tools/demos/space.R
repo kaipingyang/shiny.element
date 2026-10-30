@@ -28,7 +28,7 @@ el_space(direction = "vertical", lapply(1:2, card))
 
 ## control-size
 #' The radios set the inner space's `size`, which follows them in the
-#' browser, [vue_bind()].
+#' browser, [v_bind()].
 #| shot_js = "document.querySelectorAll('#sp_size .el-radio')[0].click()"
 #| shot_expect = "document.querySelector('#sp_cards .el-space').style.gap === '16px'"
 card <- function(i) {
@@ -52,7 +52,7 @@ tags$div(
   el_space(
     id = "sp_cards",
     wrap = TRUE,
-    size = vue_bind("$inputs.sp_size"),
+    size = v_bind("$inputs.sp_size"),
     lapply(1:3, card)
   )
 )
@@ -76,7 +76,7 @@ el_slider("sp_px", value = 20)
 el_space(
   id = "sp_px_cards",
   wrap = TRUE,
-  size = vue_bind("$inputs.sp_px"),
+  size = v_bind("$inputs.sp_px"),
   lapply(1:2, card)
 )
 
@@ -126,7 +126,7 @@ tagList(
 )
 
 ## fill
-#' The switch sets `fill`, which follows it in the browser, [vue_bind()].
+#' The switch sets `fill`, which follows it in the browser, [v_bind()].
 #| shot_js = "document.querySelector('#sp_fill_on .el-switch').click()"
 #| shot_expect = "!document.querySelector('#sp_fill .el-space').classList.contains('is-fill') && !document.querySelector('#sp_fill .el-space__item').style.flexGrow"
 card <- function(i) {
@@ -146,14 +146,14 @@ tags$div(
 )
 el_space(
   id = "sp_fill",
-  fill = vue_bind("$inputs.sp_fill_on"),
+  fill = v_bind("$inputs.sp_fill_on"),
   wrap = TRUE,
   lapply(1:3, card)
 )
 
 ## fill-ratio
 #' The radios set `direction`, the slider `fill_ratio`, each followed in
-#' the browser, [vue_bind()].
+#' the browser, [v_bind()].
 #| shot_js = c("Shiny.setInputValue('sp_ratio', 50)", "document.querySelectorAll('#sp_dir .el-radio')[1].click()")
 #| shot_expect = c("document.querySelector('#sp_ratio_cards .el-space').classList.contains('el-space--vertical')", "document.querySelector('#sp_ratio_cards .el-space__item').style.minWidth === '50%'")
 card <- function(i) {
@@ -184,8 +184,8 @@ el_space(
   id = "sp_ratio_cards",
   fill = TRUE,
   wrap = TRUE,
-  fill_ratio = vue_bind("$inputs.sp_ratio"),
-  direction = vue_bind("$inputs.sp_dir"),
+  fill_ratio = v_bind("$inputs.sp_ratio"),
+  direction = v_bind("$inputs.sp_dir"),
   width = "100%",
   lapply(1:5, card)
 )

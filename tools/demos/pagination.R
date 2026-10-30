@@ -50,21 +50,21 @@ tagList(
 
 ## auto-hide-pagination
 #' The switch sets `hide_on_single_page`, which follows it in the browser,
-#' [vue_bind()].
+#' [v_bind()].
 #| shot_js = "document.querySelector('#pg_hide_on .el-switch').click()"
 #| shot_expect = "!document.querySelector('#pg_hide .el-pagination')"
 el_switch("pg_hide_on", value = FALSE)
 tags$hr(style = "margin: 16px 0")
 el_pagination(
   "pg_hide",
-  hide_on_single_page = vue_bind("$inputs.pg_hide_on"),
+  hide_on_single_page = v_bind("$inputs.pg_hide_on"),
   total = 5,
   layout = "prev, pager, next"
 )
 
 ## more-elements
 #' The controls set every pagination's `size`, `background` and
-#' `disabled`, which follow them in the browser, [vue_bind()].
+#' `disabled`, which follow them in the browser, [v_bind()].
 #| shot_js = c("document.querySelectorAll('#pg_size .el-radio-button')[1].click()", "document.querySelector('#pg_background .el-switch').click()")
 #| shot_expect = c("document.querySelectorAll('.el-pagination--large').length === 4", "document.querySelectorAll('.el-pagination.is-background').length === 4")
 block <- function(title, ...) {
@@ -73,9 +73,9 @@ block <- function(title, ...) {
     tags$div(class = "demonstration", title),
     el_pagination(
       ...,
-      size = vue_bind("$inputs.pg_size"),
-      background = vue_bind("$inputs.pg_background"),
-      disabled = vue_bind("$inputs.pg_disabled")
+      size = v_bind("$inputs.pg_size"),
+      background = v_bind("$inputs.pg_background"),
+      disabled = v_bind("$inputs.pg_disabled")
     )
   )
 }

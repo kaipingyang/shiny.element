@@ -1,16 +1,15 @@
-# vue_bind(): components following one another in the browser -- with no
+# v_bind() and v_model(): components following one another in the browser -- with no
 # Shiny on the page, and with a server that reads and changes what they do.
 
 bind_page_js <- function(b) {
   function(x) b$Runtime$evaluate(x, returnByValue = TRUE)$result$value
 }
 
-catch_warnings <- function(js) {
-  js(paste0(
-    "window.__w = []; ['warn', 'error'].forEach(function(k) { var o = console[k]; ",
-    "console[k] = function() { __w.push(Array.from(arguments).join(' ')); o.apply(console, arguments); }; });"
-  ))
-}
+capture_js <- paste0(
+  "window.__w = []; ['warn', 'error'].forEach(function(k) { var o = console[k]; ",
+  "console[k] = function() { __w.push(Array.from(arguments).join(' ')); o.apply(console, arguments); }; });"
+)
+catch_warnings <- function(js) js(capture_js)
 
 gap <- "getComputedStyle(document.querySelector('#sp .el-space')).columnGap"
 checked <- function(id) {
@@ -28,7 +27,7 @@ test_that("bound components follow each other on a page with no Shiny", {
   source(testthat::test_path("apps", "bind.R"), local = TRUE)
   dir <- withr::local_tempdir()
   htmltools::save_html(
-    htmltools::tagList(use_element(dev = TRUE), bind_ui()),
+    htmltools::tagList(use_element(dev = TRUE), bind_ui(), legacy_ui()),
     file.path(dir, "page.html"),
     libdir = "lib"
   )
@@ -36,9 +35,11 @@ test_that("bound components follow each other on a page with no Shiny", {
   b <- chromote::ChromoteSession$new(width = 1000, height = 700)
   on.exit(try(b$close(), silent = TRUE), add = TRUE)
   js <- bind_page_js(b)
+  # from the first script on, so warnings made while mounting count too
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
   b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
   Sys.sleep(3)
-  catch_warnings(js)
   expect_equal(js("typeof Shiny"), "undefined")
   # $inputs filled with no Shiny: the space follows the radio group
   expect_equal(js(gap), "12px")
@@ -84,7 +85,43 @@ test_that("bound components follow each other on a page with no Shiny", {
     js("(document.querySelector('.el-message') || {}).textContent"),
     "Hi from the page"
   )
-  expect_equal(js("__w.length"), 0)
+  # an expression: the switch is disabled unless the size is large
+  expect_false(js(sprintf(
+    "document.querySelector('#big .el-switch').classList.contains('is-disabled')"
+  )))
+  js("document.querySelectorAll('#sz .el-radio')[1].click()")
+  Sys.sleep(0.3)
+  expect_true(js(
+    "document.querySelector('#big .el-switch').classList.contains('is-disabled')"
+  ))
+  # two instances of a module: each its own store, input and handler
+  count <- function(m) {
+    js(sprintf(
+      "document.querySelector('#%s-count [data-shiny-vue-root]').textContent.trim()",
+      m
+    ))
+  }
+  mgap <- function(m) {
+    js(sprintf(
+      "getComputedStyle(document.querySelector('#%s-sp .el-space')).columnGap",
+      m
+    ))
+  }
+  js("document.querySelector('#m1-add button').click()")
+  js("document.querySelectorAll('#m1-size .el-radio')[0].click()")
+  Sys.sleep(0.3)
+  expect_equal(c(count("m1"), count("m2")), c("n=1", "n=0"))
+  expect_equal(c(mgap("m1"), mgap("m2")), c("16px", "12px"))
+  # $store, as 0.3.1 named it, still works, and says so once
+  expect_equal(
+    js(
+      "document.querySelector('#legacy [data-shiny-vue-root]').textContent.trim()"
+    ),
+    "false"
+  )
+  w <- js("__w")
+  expect_length(w, 1)
+  expect_match(w[[1]], "$store is $vueStore now", fixed = TRUE)
 })
 
 test_that("with a server: it reads what the page did and changes it", {
@@ -154,4 +191,29 @@ test_that("with a server: it reads what the page did and changes it", {
   expect_match(js(state), "tab=b")
   expect_match(seen(), "tabs=b")
   expect_equal(js("__w.length"), 0)
+})
+
+test_that("a store named twice on the page says so", {
+  skip_if_no_browser()
+  # what two instances of a module do when it names its store without ns()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store("ui", state = list(n = 1))),
+      shiny::tags$div(vue_store("ui", state = list(n = 2)))
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  w <- unlist(bind_page_js(b)("__w"))
+  expect_length(w, 1)
+  expect_match(w, 'vue_store("ui") is on the page twice', fixed = TRUE)
 })

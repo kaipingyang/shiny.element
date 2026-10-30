@@ -7,7 +7,7 @@ el_input_tag(
 
 ## trigger
 #' The segmented control sets the key that makes a tag: `trigger` follows
-#' it in the browser, [vue_bind()].
+#' it in the browser, [v_bind()].
 #| shot_js = c("Array.from(document.querySelectorAll('#tags_key .el-segmented__item')).find(function(i) { return i.innerText.trim() === 'Enter'; }).click()", "var i = document.querySelector('#tags_trigger input'); i.value = 'one'; i.dispatchEvent(new Event('input')); i.dispatchEvent(new KeyboardEvent('keydown', {key: 'Enter', code: 'Enter', bubbles: true}))")
 #| shot_expect = "document.querySelectorAll('#tags_trigger .el-tag').length === 1"
 tags$div(
@@ -16,7 +16,7 @@ tags$div(
 tags$br()
 el_input_tag(
   "tags_trigger",
-  trigger = vue_bind("$inputs.tags_key"),
+  trigger = v_bind("$inputs.tags_key"),
   placeholder = "Please input"
 )
 
@@ -108,7 +108,7 @@ tagList(
 
 ## tag
 #' The segmented controls set the tags' `tag_type` and `tag_effect`, which
-#' follow them in the browser, [vue_bind()]; the `tag` slot draws each
+#' follow them in the browser, [v_bind()]; the `tag` slot draws each
 #' one.
 #| shot_js = c("Array.from(document.querySelectorAll('#tags_type .el-segmented__item')).find(function(i) { return i.innerText.trim() === 'success'; }).click()", "Array.from(document.querySelectorAll('#tags_effect .el-segmented__item')).find(function(i) { return i.innerText.trim() === 'dark'; }).click()")
 #| shot_expect = c("document.querySelectorAll('#tags_tpl .el-tag--success.el-tag--dark').length === 3", "document.querySelectorAll('#tags_tpl .el-tag [data-el-icon], #tags_tpl .el-tag .el-icon').length >= 3")
@@ -129,8 +129,8 @@ tags$br()
 el_input_tag(
   "tags_tpl",
   value = c("tag1", "tag2", "tag3"),
-  tag_type = vue_bind("$inputs.tags_type"),
-  tag_effect = vue_bind("$inputs.tags_effect"),
+  tag_type = v_bind("$inputs.tags_type"),
+  tag_effect = v_bind("$inputs.tags_effect"),
   placeholder = "Please input",
   slots = list(
     tag = template(

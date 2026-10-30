@@ -57,7 +57,7 @@ the component's Vue instance; \code{report(name, value)} sets
 \code{on = list("keyup.enter" = JS("function(report, e) { report('enter', e.target.value); }"))} reports \verb{input$<id>_enter}. An
 event the component reports too runs both. A string is Vue's inline
 statement, as \verb{@click="..."} in a template, for state in the browser:
-\code{on = list(click = "$store.ui.open = true")} (see \code{\link[=vue_bind]{vue_bind()}}),
+\code{on = list(click = "$vueStore.ui.open = true")} (see \code{\link[=v_model]{v_model()}}),
 \code{"$message('Saved')"}; \verb{$event} is the event's first argument.}
 
 \item{dependency}{htmlDependency objects to attach, beside Vue, Element

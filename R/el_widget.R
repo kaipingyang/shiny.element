@@ -33,7 +33,7 @@
 #'   report('enter', e.target.value); }"))` reports `input$<id>_enter`. An
 #'   event the component reports too runs both. A string is Vue's inline
 #'   statement, as `@click="..."` in a template, for state in the browser:
-#'   `on = list(click = "$store.ui.open = true")` (see [vue_bind()]),
+#'   `on = list(click = "$vueStore.ui.open = true")` (see [v_model()]),
 #'   `"$message('Saved')"`; `$event` is the event's first argument.
 #' @param dependency htmlDependency objects to attach, beside Vue, Element
 #'   Plus and the bridge, which every component carries.

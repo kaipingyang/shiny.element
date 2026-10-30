@@ -328,7 +328,7 @@ el_form(
 
 ## size-control
 #' The radio buttons set the form's `size` and `label_position`, which
-#' follow them in the browser, [vue_bind()].
+#' follow them in the browser, [v_bind()].
 #| shot_js = c("document.querySelectorAll('#form_size .el-radio-button')[2].click()", "document.querySelectorAll('#form_position .el-radio-button')[2].click()")
 #| shot_expect = c("document.querySelector('#sized .el-form').classList.contains('el-form--small')", "document.querySelector('#sized .el-form').classList.contains('el-form--label-top')", "document.querySelectorAll('#sized .el-checkbox-button').length === 2", "document.querySelectorAll('#sized .el-radio.is-bordered').length === 2")
 tags$div(
@@ -349,8 +349,8 @@ tags$br()
 el_form(
   id = "sized",
   label_width = "auto",
-  label_position = vue_bind("$inputs.form_position"),
-  size = vue_bind("$inputs.form_size"),
+  label_position = v_bind("$inputs.form_position"),
+  size = v_bind("$inputs.form_size"),
   width = "600px",
   submit_label = "Create",
   reset_label = "Cancel",

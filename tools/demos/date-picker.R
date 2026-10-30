@@ -1,6 +1,6 @@
 ## enter-date
 #' The radio buttons resize both pickers: their `size` follows them in the
-#' browser, [vue_bind()].
+#' browser, [v_bind()].
 #| shot_js = "document.querySelectorAll('#dp_size .el-radio-button')[0].click()"
 #| shot_expect = "document.querySelectorAll('.demo-date-picker .el-input--large').length === 2"
 tags$style(
@@ -24,7 +24,7 @@ tags$div(
     tags$span(class = "demonstration", "Default"),
     el_date_picker(
       "dp_default",
-      size = vue_bind("$inputs.dp_size"),
+      size = v_bind("$inputs.dp_size"),
       placeholder = "Pick a day"
     )
   ),
@@ -33,7 +33,7 @@ tags$div(
     tags$span(class = "demonstration", "Picker with quick options"),
     el_date_picker(
       "dp_quick",
-      size = vue_bind("$inputs.dp_size"),
+      size = v_bind("$inputs.dp_size"),
       placeholder = "Pick a day",
       shortcuts = list(
         list(text = "Today", value = JS("new Date()")),
@@ -76,7 +76,7 @@ tagList(
 
 ## date-range
 #' The radio buttons resize both pickers: their `size` follows them in the
-#' browser, [vue_bind()].
+#' browser, [v_bind()].
 #| shot_js = c("document.querySelectorAll('#dp_range_size .el-radio-button')[2].click()", "document.querySelectorAll('#dp_range_quick input')[0].focus()")
 #| shot_sel = ".el-picker__popper"
 #| shot_expect = c("document.querySelectorAll('.demo-date-picker .el-range-editor--small').length === 2", "Array.from(document.querySelectorAll('.el-picker__popper')).filter(function(x) { return x.offsetParent; })[0].querySelectorAll('.el-picker-panel__shortcut').length === 3")
@@ -101,7 +101,7 @@ tags$div(
     tags$span(class = "demonstration", "Default"),
     el_date_picker(
       "dp_range",
-      size = vue_bind("$inputs.dp_range_size"),
+      size = v_bind("$inputs.dp_range_size"),
       type = "daterange",
       range_separator = "To",
       start_placeholder = "Start date",
@@ -113,7 +113,7 @@ tags$div(
     tags$span(class = "demonstration", "With quick options"),
     el_date_picker(
       "dp_range_quick",
-      size = vue_bind("$inputs.dp_range_size"),
+      size = v_bind("$inputs.dp_range_size"),
       type = "daterange",
       unlink_panels = TRUE,
       range_separator = "To",

@@ -5,7 +5,7 @@ el_calendar("cal", value = Sys.Date())
 #| shot_js = "document.querySelectorAll('#controller_container .el-radio-button')[1].click()"
 #| shot_wait = 2
 #' The radio buttons set `controller_type`, which follows them in the
-#' browser, [vue_bind()].
+#' browser, [v_bind()].
 el_radio_group(
   "controller",
   choices = c("select", "button"),
@@ -15,7 +15,7 @@ el_radio_group(
 el_calendar(
   "cal_ctl",
   value = Sys.Date(),
-  controller_type = vue_bind("$inputs.controller")
+  controller_type = v_bind("$inputs.controller")
 )
 
 ## customize

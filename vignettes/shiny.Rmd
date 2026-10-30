@@ -143,9 +143,11 @@ the page is updated -- a round trip for each change, and the R process
 busy with it while every other session in it waits. That is right for
 data and decisions. It is wasted on what only the page needs: a dialog
 opened, a size picked, a tab followed by another component. A Vue
-application keeps such state in the browser, and so can these components:
-an argument given `vue_bind()` follows state on the page, with no round
-trip.
+application keeps such state in the browser, and so can these components,
+with Vue's own two bindings: an argument given `v_bind()` follows an
+expression over the page's state, as `:size="..."` in a template, and one
+given `v_model()` follows a store's field both ways, as `v-model` -- with
+no round trip.
 
 ```{r bind-input, eval = FALSE, shot = TRUE}
 el_radio_group(
@@ -154,15 +156,16 @@ el_radio_group(
   selected = "default"
 )
 el_space(
-  size = vue_bind("$inputs.size"),
+  size = v_bind("$inputs.size"),
   el_card("One"),
   el_card("Two"),
   el_card("Three")
 )
 ```
 
-`$inputs.<id>` is another component's value, one way. State that several
-components change belongs to a `vue_store()`, and binds both ways: the
+`$inputs.<id>` is another component's value; the expression can be any,
+`v_bind("$inputs.size === 'large'")`. State that several components
+change belongs to a `vue_store()`, bound both ways with `v_model()`: the
 dialog below is opened by the button setting the store, and closing it --
 its cross, Escape, the mask, the button in its footer -- sets the store
 back. An `on` handler can be Vue's inline statement, as `@click="..."` is
@@ -175,35 +178,40 @@ el_button(
   "open",
   "Open the dialog",
   plain = TRUE,
-  on = list(click = "$store.tips_ui.open = true")
+  on = list(click = "$vueStore.tips_ui.open = true")
 )
 el_dialog(
   "tips",
   title = "Tips",
   width = "500px",
-  visible = vue_bind("$store.tips_ui.open"),
+  visible = v_model("$vueStore.tips_ui.open"),
   content = tags$span("This is a message"),
   footer = el_button(
     "done",
     "Done",
     type = "primary",
-    on = list(click = "$store.tips_ui.open = false; $message('Done')")
+    on = list(click = "$vueStore.tips_ui.open = false; $message('Done')")
   )
 )
 ```
 
-What can be bound:
+What can be bound, and to what:
 
-- **Any of a component's props and its value.** A component's value --
-  what it reports as `input$<id>` -- only to a store, since bound to
-  something read-only its user's change would be lost. A dialog's, a
-  drawer's, tabs' or a collapse's arguments that its `update_el_*()` can
-  set, its state among them: `visible`, `selected`, `value`. An argument
-  R reads to draw the component -- a label, a class, the choices -- says
-  so.
-- **Three kinds of state.** `$store.<id>.<field>`, both ways;
-  `$inputs.<id>`, one way (in a module, `vue_bind(sprintf("$inputs['%s']",
-  ns("size")))`); `$route.<...>`, the route of the page's `vue_router()`.
+- **Any of a component's props and its value**, and what a dialog's, a
+  drawer's, tabs' or a collapse's `update_el_*()` can set. An argument R
+  reads to draw the component -- a label, a class, the choices -- says
+  so. A value given `v_bind()` is controlled: it follows the expression,
+  and its user's change stays the component's until the expression
+  changes; to share that change, `v_model()`.
+- **The page's state.** Each component is a Vue app of its own, so an
+  expression sees the page, not another component's variables:
+  `$vueStore.<id>` (a `vue_store()`), `$inputs.<id>` (the values the
+  components report), `$route` (the page's `vue_router()`).
+- **In a module**, give `ns`: `v_bind("$inputs.size", ns = ns)` reads the
+  module's input, `v_model("$vueStore.ui.open", ns = ns)` the store made
+  with `vue_store(ns("ui"))`, and `v_on("$vueStore.ui.open = true", ns =
+  ns)` is an `on` handler with the same names -- the expression left as
+  written, as `input$size` is the module's inside `moduleServer()`.
 
 The server is not left out. With Shiny on the page each component reports
 `input$<id>` as ever, so the server sees what the page did; an update of a
@@ -764,8 +772,8 @@ as its source:
 ```{r vue-data-store, eval = FALSE}
 ui <- fluidPage(
   vue_store("sales", state = list(revenue = 0, growth = 0), outputs = "totals"),
-  vue_app("kpi", tags$b("{{ $store.sales.revenue }}")),
-  vue_app("trend", tags$i("{{ $store.sales.growth }} %"))
+  vue_app("kpi", tags$b("{{ $vueStore.sales.revenue }}")),
+  vue_app("trend", tags$i("{{ $vueStore.sales.growth }} %"))
 )
 
 server <- function(input, output, session) {
@@ -786,7 +794,7 @@ only what changed.
 
 Each component is a Vue application of its own, so Vue's `provide` cannot
 reach from one to another. `vue_store()` is what Vue recommends instead, a
-Pinia store, read and written by every template as `$store.<id>.<field>` --
+Pinia store, read and written by every template as `$vueStore.<id>.<field>` --
 at once, in the browser -- with Pinia's getters and actions. Give it `input`
 and the server sees it too; `update_vue()` sets its state and `call_vue()`
 runs its actions:
@@ -802,11 +810,14 @@ ui <- fluidPage(
     actions = list(add = JS("function(n) { this.count += n; }")),
     input = "total"
   ),
-  vue_app("add", tags$button(`@click` = "$store.cart.add(1)", "Add to cart")),
+  vue_app(
+    "add",
+    tags$button(`@click` = "$vueStore.cart.add(1)", "Add to cart")
+  ),
   vue_app(
     "badge",
     tags$b(
-      " {{ $store.cart.count }} in the cart, {{ $store.cart.total }} in all"
+      " {{ $vueStore.cart.count }} in the cart, {{ $vueStore.cart.total }} in all"
     )
   ),
   actionButton("two", "Server: add two"),
@@ -1044,7 +1055,7 @@ the typography and border pages reading the theme's variables.
 The components also work on a page with no Shiny session -- an R Markdown
 or Quarto document, a page saved with `htmltools::save_html()`. They render
 and respond: a select opens and picks, tabs switch, a collapse folds, a
-table's rows tick, and those given `vue_bind()` follow one another. What
+table's rows tick, and those given `v_bind()`/`v_model()` follow one another. What
 they cannot do there is report: there is no `input`, and `update_el_*()`,
 `call_el()` and the feedback functions have no server to come from. Load the scripts once with `use_element()`, as for any
 page that is not an `el_page()`. The examples on this website are built

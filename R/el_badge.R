@@ -51,7 +51,7 @@ el_badge <- function(
   # state followed in the browser needs an instance of its own
   if (
     is.null(id) &&
-      .vue_has_bind(list(
+      .vue_has_binding(list(
         value,
         max,
         type,

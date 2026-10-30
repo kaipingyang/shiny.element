@@ -384,8 +384,9 @@ tagList(
 #| shot_sel = ".el-cascader__dropdown"
 #| shot_expect = c("document.querySelector('.el-cascader__dropdown .el-cascader-node')", "!document.querySelector('.el-cascader__dropdown .el-cascader-node .el-radio')")
 #' The switch shows or hides each node's prefix -- its radio or checkbox.
-#' Its value is a store's field, [vue_bind()], and each cascader's `props`
-#' a getter of the store built from it: Pinia's computed state, as
+#' Its value is a store's field, [v_model()], and each cascader's `props`
+#' a getter of the store built from it, [v_bind()]: Pinia's computed
+#' state, as
 #' upstream's `computed()`.
 tree <- list(list(
   value = "guide",
@@ -417,7 +418,7 @@ vue_store(
 )
 el_switch(
   "show_prefix",
-  value = vue_bind("$store.prefix.show"),
+  value = v_model("$vueStore.prefix.show"),
   active_text = "show prefix",
   inactive_text = "hide prefix"
 )
@@ -426,7 +427,7 @@ el_cascader(
   "cas_c1",
   options = tree,
   clearable = TRUE,
-  props = vue_bind("$store.prefix.strict")
+  props = v_bind("$vueStore.prefix.strict")
 )
 tags$p("Multiple mode")
 el_cascader(
@@ -434,7 +435,7 @@ el_cascader(
   options = tree,
   clearable = TRUE,
   show_checked_strategy = "parent",
-  props = vue_bind("$store.prefix.multiple")
+  props = v_bind("$vueStore.prefix.multiple")
 )
 
 ## custom-header-footer

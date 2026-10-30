@@ -466,7 +466,8 @@ reference:
       - vue_app
       - vue_component
       - vue_store
-      - vue_bind
+      - v_bind
+      - v_on
       - vue_router
       - update_vue_router
       - vueuse_dependency

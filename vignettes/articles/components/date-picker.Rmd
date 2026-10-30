@@ -15,7 +15,7 @@ Basic date picker measured by 'day'.
 The measurement is determined by the `type` attribute. You can enable quick options via `shortcuts` property. The disabled date is set by `disabledDate`, which is a function.
 
 The radio buttons resize both pickers: their `size` follows them in the
-browser, [vue_bind()].
+browser, [v_bind()].
 
 ```{r enter-date, eval = FALSE, shot = TRUE, shot_js = "document.querySelectorAll('#dp_size .el-radio-button')[0].click()", shot_expect = "document.querySelectorAll('.demo-date-picker .el-input--large').length === 2"}
 tags$style(
@@ -39,7 +39,7 @@ tags$div(
     tags$span(class = "demonstration", "Default"),
     el_date_picker(
       "dp_default",
-      size = vue_bind("$inputs.dp_size"),
+      size = v_bind("$inputs.dp_size"),
       placeholder = "Pick a day"
     )
   ),
@@ -48,7 +48,7 @@ tags$div(
     tags$span(class = "demonstration", "Picker with quick options"),
     el_date_picker(
       "dp_quick",
-      size = vue_bind("$inputs.dp_size"),
+      size = v_bind("$inputs.dp_size"),
       placeholder = "Pick a day",
       shortcuts = list(
         list(text = "Today", value = JS("new Date()")),
@@ -102,7 +102,7 @@ Picking a date range is supported.
 When in range mode, the left and right panels are linked by default. If you want the two panels to switch current months independently, you can use the `unlink-panels` attribute.
 
 The radio buttons resize both pickers: their `size` follows them in the
-browser, [vue_bind()].
+browser, [v_bind()].
 
 ```{r date-range, eval = FALSE, shot = TRUE, shot_js = c("document.querySelectorAll('#dp_range_size .el-radio-button')[2].click()", "document.querySelectorAll('#dp_range_quick input')[0].focus()"), shot_sel = ".el-picker__popper", shot_expect = c("document.querySelectorAll('.demo-date-picker .el-range-editor--small').length === 2", "Array.from(document.querySelectorAll('.el-picker__popper')).filter(function(x) { return x.offsetParent; })[0].querySelectorAll('.el-picker-panel__shortcut').length === 3")}
 tags$style(
@@ -126,7 +126,7 @@ tags$div(
     tags$span(class = "demonstration", "Default"),
     el_date_picker(
       "dp_range",
-      size = vue_bind("$inputs.dp_range_size"),
+      size = v_bind("$inputs.dp_range_size"),
       type = "daterange",
       range_separator = "To",
       start_placeholder = "Start date",
@@ -138,7 +138,7 @@ tags$div(
     tags$span(class = "demonstration", "With quick options"),
     el_date_picker(
       "dp_range_quick",
-      size = vue_bind("$inputs.dp_range_size"),
+      size = v_bind("$inputs.dp_range_size"),
       type = "daterange",
       unlink_panels = TRUE,
       range_separator = "To",

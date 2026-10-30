@@ -14,11 +14,14 @@ ui <- fluidPage(
   # the store first or last: stores mount before the components reading them
   vue_app(
     "sa",
-    tags$button(class = "sa", `@click` = "$store.cart.count++", "add")
+    tags$button(class = "sa", `@click` = "$vueStore.cart.count++", "add")
   ),
   vue_app(
     "sb",
-    tags$span(class = "sb", "{{ $store.cart.count }}|{{ $store.cart.note }}")
+    tags$span(
+      class = "sb",
+      "{{ $vueStore.cart.count }}|{{ $vueStore.cart.note }}"
+    )
   ),
   vue_store(
     "cart",
@@ -33,8 +36,8 @@ ui <- fluidPage(
   vue_app(
     "sc",
     tags$div(
-      tags$span(class = "sc", "{{ $store.cart.double }}"),
-      tags$button(class = "sc-add", `@click` = "$store.cart.add(5)", "+5")
+      tags$span(class = "sc", "{{ $vueStore.cart.double }}"),
+      tags$button(class = "sc-add", `@click` = "$vueStore.cart.add(5)", "+5")
     )
   ),
   vue_app(
@@ -63,8 +66,8 @@ ui <- fluidPage(
   vue_app(
     "ssv",
     tags$div(
-      tags$span(class = "ssv", "{{ $store.ss.n }}|{{ $store.ss.twice }}"),
-      tags$button(class = "ss-bump", `@click` = "$store.ss.bump()", "bump")
+      tags$span(class = "ssv", "{{ $vueStore.ss.n }}|{{ $vueStore.ss.twice }}"),
+      tags$button(class = "ss-bump", `@click` = "$vueStore.ss.bump()", "bump")
     )
   ),
   # input is input$<id>; $emit() sends input$<id>_<event>

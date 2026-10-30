@@ -69,13 +69,12 @@ el_collapse <- function(
 ) {
   # R reads these to draw the component
   .vue_unbound(before_collapse = before_collapse)
-  # what an update can set may follow state in the browser, the panels
-  # open a store's field, both ways
+  # what an update can set may follow the page's state: v_bind(),
+  # v_model() (the binding writes the user's change back)
   bind <- .vue_bound_markup(
     environment(),
     formals(el_collapse),
-    c("value", "accordion", "expand_icon_position"),
-    state = "value"
+    c("value", "accordion", "expand_icon_position")
   )
   .el_check_items(items, "items", c("name", "title"))
   .el_check_choices("el_collapse", environment())

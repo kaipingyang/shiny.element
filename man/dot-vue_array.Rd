@@ -14,7 +14,7 @@ A list, or the binding.
 }
 \description{
 \code{NULL} is an empty array and a vector a list, so jsonlite writes an
-array for one value too; a \code{\link[=vue_bind]{vue_bind()}} is kept, for the bridge to
+array for one value too; a binding (\code{\link[=v_bind]{v_bind()}}, \code{\link[=v_model]{v_model()}}) is kept, for the bridge to
 follow.
 }
 \keyword{internal}

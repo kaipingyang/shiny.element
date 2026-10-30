@@ -16,7 +16,7 @@ vue_store(
 )
 }
 \arguments{
-\item{id}{The store's id: \verb{$store.<id>} in templates, Pinia's store id.}
+\item{id}{The store's id: \verb{$vueStore.<id>} in templates, Pinia's store id.}
 
 \item{state}{Named list: the initial state.}
 
@@ -45,8 +45,8 @@ Each \code{\link[=vue_app]{vue_app()}} is an application of its own, so Vue's \c
 \code{inject} cannot reach from one to another. Vue's answer is a store, and
 its store is Pinia's: this is one, defined from R with Pinia's own parts
 -- \code{state}, \code{getters}, \code{actions}, or a \code{setup} function -- and reached in
-every template as \verb{$store.<id>}: \verb{$store.cart.count}, a getter
-\verb{$store.cart.total}, an action \verb{$store.cart.add(1)}, at once and in the
+every template as \verb{$vueStore.<id>}: \verb{$vueStore.cart.count}, a getter
+\verb{$vueStore.cart.total}, an action \verb{$vueStore.cart.add(1)}, at once and in the
 browser. In a component's \code{setup()}, \code{shinyVue.useStore("<id>")} gives the
 Pinia store itself (\code{Pinia.storeToRefs()} works on it).
 }
@@ -71,9 +71,9 @@ vue_store(
   actions = list(add = JS("function(n) { this.count += n; }")),
   input = "total"
 )
-vue_app("add", htmltools::tags$button(`@click` = "$store.cart.add(1)", "Add"))
+vue_app("add", htmltools::tags$button(`@click` = "$vueStore.cart.add(1)", "Add"))
 vue_app(
   "show",
-  htmltools::tags$span("{{ $store.cart.count }} for {{ $store.cart.total }}")
+  htmltools::tags$span("{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}")
 )
 }

@@ -101,7 +101,11 @@
 .el_prop_values <- function(values) {
   arrays <- names(values) %in% .el_array_props & vapply(values, is.atomic, TRUE)
   values[arrays] <- lapply(values[arrays], function(v) {
-    if (is.null(v) || inherits(v, c("JS_EVAL", "vue_bind"))) v else as.list(v)
+    if (is.null(v) || inherits(v, c("JS_EVAL", "vue_binding"))) {
+      v
+    } else {
+      as.list(v)
+    }
   })
   lapply(values, function(v) if (is.null(v)) NA else .vue_rows(v))
 }

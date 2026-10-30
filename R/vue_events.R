@@ -161,12 +161,13 @@
 #' `@<event>`. It is called with `report` first -- `report(name, value)`
 #' sets `input$<id>_<name>` -- then the event's own arguments, and `this`
 #' the Vue instance. A string is Vue's inline statement, as `@click="..."`
-#' takes it -- `"$store.ui.open = true"`, `$event` the event's first
+#' takes it -- `"$vueStore.ui.open = true"`, `$event` the event's first
 #' argument -- written into the template as it is, inside the arrow
-#' function the tag's handlers are joined in.
+#' function the tag's handlers are joined in. A [v_on()] given `ns` is
+#' run by the bridge with the module's names (`shinyVue.run()`).
 #'
 #' @param ns_id The namespaced id.
-#' @param on A named list of [JS()] functions or strings.
+#' @param on A named list of [JS()] functions, strings or [v_on()]s.
 #' @return A list with `attrs` and `methods`.
 #' @keywords internal
 .vue_on_bindings <- function(ns_id, on) {
@@ -185,6 +186,23 @@
       call. = FALSE
     )
   }
+  # a statement in a module, v_on(ns =): run by the bridge with the
+  # module's names, as a handler of its own
+  scoped <- vapply(
+    on,
+    function(x) inherits(x, "v_on") && length(attr(x, "scope")) > 0L,
+    TRUE
+  )
+  on[scoped] <- lapply(on[scoped], function(x) {
+    JS(sprintf(
+      paste0(
+        "function(report) { return window.shinyVue.run(this, %s, %s, ",
+        "Array.prototype.slice.call(arguments, 1)); }"
+      ),
+      jsonlite::toJSON(unclass(x)[1], auto_unbox = TRUE),
+      jsonlite::toJSON(attr(x, "scope"), auto_unbox = TRUE)
+    ))
+  })
   fun <- vapply(on, inherits, TRUE, "JS_EVAL")
   statement <- !fun &
     vapply(

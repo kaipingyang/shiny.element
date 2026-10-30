@@ -7,7 +7,7 @@
 .vue_flag(x)
 }
 \arguments{
-\item{x}{A value, or a \code{\link[=vue_bind]{vue_bind()}}, which is kept.}
+\item{x}{A value, or a binding, which is kept.}
 }
 \value{
 \code{TRUE}, \code{FALSE} or the binding.

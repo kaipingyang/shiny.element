@@ -132,7 +132,7 @@ el_row(
 
 ## collapse
 #' The radio buttons fold the menu: their values are `FALSE` and `TRUE`,
-#' and the menu's `collapse` follows them in the browser, [vue_bind()].
+#' and the menu's `collapse` follows them in the browser, [v_bind()].
 #| shot_js = "document.querySelectorAll('#menu_fold .el-radio-button')[0].click()"
 #| shot_wait = 2
 #| shot_expect = "!document.querySelector('#col_menu .el-menu').classList.contains('el-menu--collapse')"
@@ -153,7 +153,7 @@ el_menu(
   "col_menu",
   default_active = "2",
   class = "el-menu-vertical-demo",
-  collapse = vue_bind("$inputs.menu_fold"),
+  collapse = v_bind("$inputs.menu_fold"),
   items = list(
     el_sub_menu(
       "Navigator One",

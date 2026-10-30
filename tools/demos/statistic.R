@@ -48,7 +48,7 @@ el_row(
 
 ## countdown
 #' `input$<id>_finish` fires at zero. The second one's `value` is a store's
-#' field, [vue_bind()]: Reset sets it again, in the browser.
+#' field, [v_model()]: Reset sets it again, in the browser.
 #| shot_js = "document.querySelector('#cd_reset button').click()"
 #| shot_expect = "/^4[78]:/.test(document.querySelectorAll('.el-statistic__number')[1].innerText.trim())"
 next_month <- as.POSIXct(
@@ -81,7 +81,7 @@ el_row(
       "cd_vip",
       title = "Remaining VIP time",
       format = "HH:mm:ss",
-      value = vue_bind("$store.vip.until")
+      value = v_model("$vueStore.vip.until")
     ),
     tags$div(
       style = "margin-top: 8px",
@@ -90,7 +90,7 @@ el_row(
         "Reset",
         type = "primary",
         on = list(
-          click = "$store.vip.until = Date.now() + 1000 * 60 * 60 * 24 * 2"
+          click = "$vueStore.vip.until = Date.now() + 1000 * 60 * 60 * 24 * 2"
         )
       )
     )

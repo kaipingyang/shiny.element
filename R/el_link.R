@@ -63,7 +63,9 @@ el_link <- function(
   }
   icon <- .el_icon_name(icon)
   # state followed in the browser needs an instance of its own
-  if (is.null(id) && .vue_has_bind(list(label, href, type, target, disabled))) {
+  if (
+    is.null(id) && .vue_has_binding(list(label, href, type, target, disabled))
+  ) {
     id <- .vue_auto_id("el_link")
   }
   if (!is.null(id)) {

@@ -1,5 +1,5 @@
 ## basic-usage
-#' The dialog's `visible` follows a store's field, [vue_bind()]: the button
+#' The dialog's `visible` follows a store's field, [v_model()]: the button
 #' sets it, and closing the dialog -- its cross, Escape, the mask, a button
 #' in its footer -- sets it back, in the browser. `before_close`, a `JS()`
 #' function, may hold the close back. In an app the server opens it too,
@@ -11,13 +11,13 @@ el_button(
   "open",
   "Click to open the Dialog",
   plain = TRUE,
-  on = list(click = "$store.basic.visible = true")
+  on = list(click = "$vueStore.basic.visible = true")
 )
 el_dialog(
   "tips",
   title = "Tips",
   width = "500px",
-  visible = vue_bind("$store.basic.visible"),
+  visible = v_model("$vueStore.basic.visible"),
   content = tags$span("This is a message"),
   before_close = JS(
     "function(done) { if (confirm('Are you sure to close this dialog?')) done(); }"
@@ -26,13 +26,13 @@ el_dialog(
     el_button(
       "cancel",
       "Cancel",
-      on = list(click = "$store.basic.visible = false")
+      on = list(click = "$vueStore.basic.visible = false")
     ),
     el_button(
       "confirm",
       "Confirm",
       type = "primary",
-      on = list(click = "$store.basic.visible = false")
+      on = list(click = "$vueStore.basic.visible = false")
     )
   )
 )
@@ -44,13 +44,13 @@ el_button(
   "open",
   "Open a Form nested Dialog",
   plain = TRUE,
-  on = list(click = "$store.form_dialog.visible = true")
+  on = list(click = "$vueStore.form_dialog.visible = true")
 )
 el_dialog(
   "shipping",
   title = "Shipping address",
   width = "500px",
-  visible = vue_bind("$store.form_dialog.visible"),
+  visible = v_model("$vueStore.form_dialog.visible"),
   content = tagList(
     el_input(
       "name",
@@ -71,13 +71,13 @@ el_dialog(
     el_button(
       "cancel",
       "Cancel",
-      on = list(click = "$store.form_dialog.visible = false")
+      on = list(click = "$vueStore.form_dialog.visible = false")
     ),
     el_button(
       "confirm",
       "Confirm",
       type = "primary",
-      on = list(click = "$store.form_dialog.visible = false")
+      on = list(click = "$vueStore.form_dialog.visible = false")
     )
   )
 )
@@ -90,13 +90,13 @@ el_button(
   "open",
   "Open Dialog with customized header",
   plain = TRUE,
-  on = list(click = "$store.header_dialog.visible = true")
+  on = list(click = "$vueStore.header_dialog.visible = true")
 )
 el_dialog(
   "custom",
   show_close = FALSE,
   width = "500px",
-  visible = vue_bind("$store.header_dialog.visible"),
+  visible = v_model("$vueStore.header_dialog.visible"),
   title = tags$div(
     style = "display: flex; justify-content: space-between; align-items: center",
     tags$h4("This is a custom header!"),
@@ -105,7 +105,7 @@ el_dialog(
       "Close",
       type = "danger",
       icon = "CircleCloseFilled",
-      on = list(click = "$store.header_dialog.visible = false")
+      on = list(click = "$vueStore.header_dialog.visible = false")
     )
   ),
   content = "This is dialog content."
@@ -118,13 +118,13 @@ el_button(
   "open",
   "Open the outer Dialog",
   plain = TRUE,
-  on = list(click = "$store.nested.outer = true")
+  on = list(click = "$vueStore.nested.outer = true")
 )
 el_dialog(
   "outer",
   title = "Outer Dialog",
   width = "800px",
-  visible = vue_bind("$store.nested.outer"),
+  visible = v_model("$vueStore.nested.outer"),
   content = tagList(
     tags$span("This is the outer Dialog"),
     el_dialog(
@@ -132,7 +132,7 @@ el_dialog(
       title = "Inner Dialog",
       width = "500px",
       append_to_body = TRUE,
-      visible = vue_bind("$store.nested.inner"),
+      visible = v_model("$vueStore.nested.inner"),
       content = "This is the inner Dialog"
     )
   ),
@@ -140,7 +140,7 @@ el_dialog(
     "inner_open",
     "Open the inner Dialog",
     type = "primary",
-    on = list(click = "$store.nested.inner = true")
+    on = list(click = "$vueStore.nested.inner = true")
   )
 )
 
@@ -151,26 +151,26 @@ el_button(
   "open",
   "Click to open the Dialog",
   plain = TRUE,
-  on = list(click = "$store.centered.visible = true")
+  on = list(click = "$vueStore.centered.visible = true")
 )
 el_dialog(
   "warn",
   title = "Warning",
   width = "500px",
   center = TRUE,
-  visible = vue_bind("$store.centered.visible"),
+  visible = v_model("$vueStore.centered.visible"),
   content = "It should be noted that the content will not be aligned in center by default",
   footer = tagList(
     el_button(
       "cancel",
       "Cancel",
-      on = list(click = "$store.centered.visible = false")
+      on = list(click = "$vueStore.centered.visible = false")
     ),
     el_button(
       "confirm",
       "Confirm",
       type = "primary",
-      on = list(click = "$store.centered.visible = false")
+      on = list(click = "$vueStore.centered.visible = false")
     )
   )
 )
@@ -182,26 +182,26 @@ el_button(
   "open",
   "Click to open the Dialog",
   plain = TRUE,
-  on = list(click = "$store.aligned.visible = true")
+  on = list(click = "$vueStore.aligned.visible = true")
 )
 el_dialog(
   "warn",
   title = "Warning",
   width = "500px",
   align_center = TRUE,
-  visible = vue_bind("$store.aligned.visible"),
+  visible = v_model("$vueStore.aligned.visible"),
   content = "Open the dialog from the center from the screen",
   footer = tagList(
     el_button(
       "cancel",
       "Cancel",
-      on = list(click = "$store.aligned.visible = false")
+      on = list(click = "$vueStore.aligned.visible = false")
     ),
     el_button(
       "confirm",
       "Confirm",
       type = "primary",
-      on = list(click = "$store.aligned.visible = false")
+      on = list(click = "$vueStore.aligned.visible = false")
     )
   )
 )
@@ -214,7 +214,7 @@ el_button(
   "open",
   "Click to open Dialog",
   plain = TRUE,
-  on = list(click = "$store.notice_ui.visible = true")
+  on = list(click = "$vueStore.notice_ui.visible = true")
 )
 el_dialog(
   "notice",
@@ -222,7 +222,7 @@ el_dialog(
   width = "500px",
   destroy_on_close = TRUE,
   center = TRUE,
-  visible = vue_bind("$store.notice_ui.visible"),
+  visible = v_model("$vueStore.notice_ui.visible"),
   content = tagList(
     tags$p(
       "Notice: before dialog gets opened for the first time this node and the one below will not be rendered"
@@ -238,14 +238,14 @@ el_button(
   "open",
   "Click to open Dialog",
   plain = TRUE,
-  on = list(click = "$store.drag_ui.visible = true")
+  on = list(click = "$vueStore.drag_ui.visible = true")
 )
 el_dialog(
   "drag",
   title = "Tips",
   width = "500px",
   draggable = TRUE,
-  visible = vue_bind("$store.drag_ui.visible"),
+  visible = v_model("$vueStore.drag_ui.visible"),
   content = "It's a draggable Dialog"
 )
 
@@ -256,13 +256,13 @@ el_button(
   "open",
   "Open the fullscreen Dialog",
   plain = TRUE,
-  on = list(click = "$store.full_ui.visible = true")
+  on = list(click = "$vueStore.full_ui.visible = true")
 )
 el_dialog(
   "full",
   title = "Tips",
   fullscreen = TRUE,
-  visible = vue_bind("$store.full_ui.visible"),
+  visible = v_model("$vueStore.full_ui.visible"),
   content = "It's a fullscreen Dialog"
 )
 
@@ -275,7 +275,7 @@ el_button(
   "open",
   "Open the modal-less Dialog",
   plain = TRUE,
-  on = list(click = "$store.nomodal_ui.visible = true")
+  on = list(click = "$vueStore.nomodal_ui.visible = true")
 )
 el_dialog(
   "nomodal",
@@ -283,7 +283,7 @@ el_dialog(
   width = "500px",
   modal = FALSE,
   modal_penetrable = TRUE,
-  visible = vue_bind("$store.nomodal_ui.visible"),
+  visible = v_model("$vueStore.nomodal_ui.visible"),
   content = "It's a modal-less Dialog"
 )
 
@@ -296,14 +296,14 @@ el_button(
   "open",
   "Open the Dialog",
   plain = TRUE,
-  on = list(click = "$store.anim_ui.visible = true")
+  on = list(click = "$vueStore.anim_ui.visible = true")
 )
 el_dialog(
   "anim",
   title = "Custom animation",
   width = "500px",
   transition = "dialog-bounce",
-  visible = vue_bind("$store.anim_ui.visible"),
+  visible = v_model("$vueStore.anim_ui.visible"),
   content = "This dialog plays an animation of its own."
 )
 

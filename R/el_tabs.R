@@ -93,8 +93,8 @@ el_tabs <- function(
     add_icon = add_icon
   )
   selected <- .vue_alias(selected, value, "selected", "value")
-  # what an update can set may follow state in the browser, the tab
-  # selected a store's field, both ways
+  # what an update can set may follow the page's state: v_bind(),
+  # v_model() (the binding writes the user's change back)
   bind <- .vue_bound_markup(
     environment(),
     formals(el_tabs),
@@ -105,8 +105,7 @@ el_tabs <- function(
       "closable",
       "addable",
       "stretch"
-    ),
-    state = "selected"
+    )
   )
   .el_check_items(tabs, "tabs", c("name", "label"))
   .el_check_choices("el_tabs", environment())

@@ -96,7 +96,7 @@ el_collapse(
 
 ## custom-icon-position
 #' The switch moves each header's icon: `expand_icon_position` follows it
-#' in the browser, [vue_bind()].
+#' in the browser, [v_bind()].
 #| shot_js = "document.querySelector('#position .el-switch').click()"
 #| shot_expect = "document.querySelector('#coll_pos.el-collapse-icon-position-right')"
 tags$div(
@@ -114,7 +114,7 @@ tags$div(
 )
 el_collapse(
   "coll_pos",
-  expand_icon_position = vue_bind("$inputs.position"),
+  expand_icon_position = v_bind("$inputs.position"),
   items = list(
     el_collapse_item(
       "Consistency",
@@ -158,7 +158,7 @@ el_collapse(
 ## prevent-collapsing
 #' `before_collapse` returns a promise: the panel turns after a second, or
 #' stays, as the switch says. The switch's value is a store's field,
-#' [vue_bind()], which the function reads when it runs.
+#' [v_model()], which the function reads when it runs.
 #| shot_js = c("document.querySelector('#before .el-switch').click()", "document.querySelectorAll('#coll_guard .el-collapse-item__header')[1].click()")
 #| shot_wait = 2
 #| shot_expect = "!document.querySelectorAll('#coll_guard .el-collapse-item')[1].classList.contains('is-active')"
@@ -168,7 +168,7 @@ tags$div(
   tags$span(style = "margin-right: 16px", "before collapse return: "),
   el_switch(
     "before",
-    value = vue_bind("$store.collapsing.allow"),
+    value = v_model("$vueStore.collapsing.allow"),
     inactive_text = "false",
     active_text = "true"
   )
