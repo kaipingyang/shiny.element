@@ -513,7 +513,24 @@ the user’s state across renders, shared state, and the server’s way in.
 - [`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
   :
 
-  Vue's `v-on` for a component's event, in a module
+  Vue's `v-on`: handlers in a template, or in a module
+
+- [`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_else_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_else()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_show()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_for()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_slot()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_html()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_text()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_once()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_pre()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_memo()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  [`v_directive()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  : Vue's other directives, for a template
+
+- [`vtags`](https://kaipingyang.github.io/shiny.element/dev/reference/vtags.md)
+  : Vue's built-in components, as tags
 
 - [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
   : The page's router: vue-router, with the route as a Shiny input

@@ -793,6 +793,60 @@ same:
   documentation, or one dense with quotes and expressions: it stays
   exactly as written.
 
+### Vue’s template syntax as R functions
+
+Vue’s directives have R functions of their own, as htmltools has its
+tags: given unnamed, a directive is the attributes it stands for; given
+as an attribute’s value,
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+[`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+and
+[`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
+give the attribute its prefix. The backtick attributes still work, and a
+template mixes both.
+
+``` r
+
+vue_app(
+  "todo",
+  tags$div(
+    el$input(v_model("draft"), placeholder = "A task"),
+    el$button(v_on(click = "add()"), type = "primary", "Add"),
+    tags$ul(tags$li(v_for("t in todos", key = "t"), "{{ t }}")),
+    tags$p(v_if("!todos.length"), "Nothing yet"),
+    el$tag(
+      v_else(),
+      type = v_bind("todos.length > 2 ? 'danger' : 'success'"),
+      "{{ todos.length }} to do"
+    )
+  ),
+  data = list(draft = "", todos = list()),
+  methods = list(
+    add = JS(
+      "function() { if (this.draft) this.todos.push(this.draft); this.draft = ''; }"
+    )
+  ),
+  use = "shinyElement.plugin"
+)
+```
+
+| Vue | R |
+|----|----|
+| `:title="expr"`, `v-bind="obj"` | `title = v_bind("expr")`, `v_bind("obj")`; an R value is a literal: `options = v_bind(df)` |
+| `v-model.trim="text"`, `v-model:title="t"` | `v_model("text", modifiers = "trim")`, `title = v_model("t")` |
+| `@click="n++"` | `v_on(click = "n++")` |
+| `v-if`, `v-else-if`, `v-else`, `v-show` | [`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_else_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_else()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_show()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md) |
+| `v-for="x in xs" :key="x.id"` | `v_for("x in xs", key = "x.id")` |
+| `v-slot:footer="{ row }"` | `v_slot("footer", scope = "{ row }")`, or `template(slot =, scope =)` |
+| `v-html`, `v-text`, `v-once`, `v-pre`, `v-memo` | [`v_html()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_text()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_once()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_pre()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md), [`v_memo()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md) |
+| `v-focus:arg.mod="value"` | `v_directive("focus", value, arg =, modifiers =)` |
+| `<transition>`, `<keep-alive>`, `<teleport>`, `<component :is>`, `<router-view>` | `vtags$transition()`, `vtags$keep_alive()`, `vtags$teleport()`, `vtags$component(is = v_bind("view"))`, `vtags$router_view()` |
+
+In a template the expressions are the component’s own, as in Vue: its
+data, `setup()`, a slot’s scope. On an R component’s argument
+(`el_space(size = v_bind(...))`) they see the page instead: see “Linking
+components in the browser”.
+
 ### The server’s way in
 
 | Function | Does | Shiny’s own |

@@ -128,8 +128,8 @@ el_space(
   el_button("c", "Three"),
   size = 20
 )
-#> <div id="el_space_8b8867e2-b499-4065-8179-e36eea6a5792" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_space_8b8867e2-b499-4065-8179-e36eea6a5792_container" style="display: contents">
+#> <div id="el_space_492da856-75c9-4fab-be20-bab947e4b423" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_space_492da856-75c9-4fab-be20-bab947e4b423_container" style="display: contents">
 #>   <el-space v-bind="$optional(&#39;space&#39;)">
 #>     <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_a" id="a">{{el2_label}}</el-button>
 #>     <el-button v-bind="$optional(&#39;el3_button&#39;)" :circle="el3_circle" :loading="el3_loading" :disabled="el3_disabled" :native-type="el3_native_type" @click="el3_handleClick" ref="sv_b" id="b">{{el3_label}}</el-button>

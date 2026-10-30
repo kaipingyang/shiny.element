@@ -136,10 +136,19 @@ user’s wins: an event handler
 one `v-bind` object rather than two, the user’s explicit attributes
 placed after ours (Vue 3: the later wins). Raw `el$` tags,
 [`template()`](https://kaipingyang.github.io/shiny.element/dev/reference/template.md),
-slots and cells are never rewritten. Values keep Vue’s meaning: an R
-`NULL` or `NA` is “unset”, the component’s own default (`undefined` in
-the browser); a deliberate `null` – Element’s own `value-on-clear` takes
-one – is `JS("null")`, reachable once props bind through `$optional()`
+slots and cells are never rewritten – except values the user made with
+`v_*()` (`R/vue_directives.R`), which
+[`.vue_directives()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_directives.md)
+turns into the attributes they stand for on every template’s way out
+([`.vue_islands()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_islands.md),
+`.vue_template()`,
+[`.vue_tags_as_html()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_tags_as_html.md),
+[`.el_absorb()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_absorb.md));
+`vtags$` are Vue’s built-in components (`R/vue_tags.R`). Values keep
+Vue’s meaning: an R `NULL` or `NA` is “unset”, the component’s own
+default (`undefined` in the browser); a deliberate `null` – Element’s
+own `value-on-clear` takes one – is `JS("null")`, reachable once props
+bind through `$optional()`
 (`.claude/plans/optional-props-2026-10-26.md`). A change that cannot
 keep all of this says which part and why, in its plan, before any code.
 

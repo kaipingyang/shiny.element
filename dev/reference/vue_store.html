@@ -268,14 +268,19 @@ components that read them.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;span hidden&gt;&lt;/span&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":{"count":0,"price":3}},"input":"total","store":true,"storeDef":{"getters":{"total":"function(state) { return state.count * state.price; }"},"actions":{"add":"function(n) { this.count += n; }"}},"evals":["storeDef.getters.total","storeDef.actions.add"]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-in"><span><span class="fu"><a href="vue_app.html">vue_app</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>`@click` <span class="op">=</span> <span class="st">"$vueStore.cart.add(1)"</span>, <span class="st">"Add"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="vue_app.html">vue_app</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"add"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>`@click` <span class="op">=</span> <span class="st">"$vueStore.cart.add(1)"</span>, <span class="st">"Add"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="add" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;button @click="$vueStore.cart.add(1)"&gt;Add&lt;/button&gt;&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="application/json" data-shiny-vue-options&gt;{"options":{"data":[]},"evals":[]}&lt;/script&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="vue_app.html">vue_app</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"show"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">span</span><span class="op">(</span><span class="st">"{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">span</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="show" data-shiny-vue style="display: contents"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;script type="text/x-template" data-shiny-vue-template&gt;&lt;span&gt;{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}&lt;/span&gt;&lt;/script&gt;</span>

@@ -33,6 +33,30 @@
   choices, a class – says it cannot be bound rather than drop the
   binding.
 
+- Vue’s template syntax as R functions, as htmltools has its tags:
+  [`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_else_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_else()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_show()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  `v_for(expr, key =)`,
+  [`v_slot()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_html()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_text()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_once()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_pre()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_memo()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md),
+  [`v_directive()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  for one’s own, and
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+  [`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+  [`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)
+  in a template too (`el$space(size = v_bind("size"))` is
+  `:size="size"`, an R value a literal); `vtags$` for Vue’s built-in
+  components (`transition`, `keep_alive`, `teleport`, `component`,
+  `router_view` and the rest). Given unnamed, a directive is its
+  attributes; nothing else in a template is touched, and backtick
+  attributes work as before.
+
 - `on =` takes Vue’s inline statements as well as
   [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
   functions: `on = list(click = "$vueStore.ui.open = true")`, as

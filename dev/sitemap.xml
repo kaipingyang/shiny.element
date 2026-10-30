@@ -110,6 +110,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/call_vue.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/df_to_cascader_options.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/df_to_tree_data.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/directives.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_absorb.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_absorb_merge.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_append_children.html</loc></url>
@@ -231,6 +232,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_dev.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_directives.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_edit.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_event_bindings.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_events_check.html</loc></url>
@@ -412,6 +414,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/use_element.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/v_on.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vtags.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_answer.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/vue_component.html</loc></url>

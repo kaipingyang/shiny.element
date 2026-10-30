@@ -104,14 +104,19 @@ vue_store(
 #>   <script type="text/x-template" data-shiny-vue-template><span hidden></span></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":{"count":0,"price":3}},"input":"total","store":true,"storeDef":{"getters":{"total":"function(state) { return state.count * state.price; }"},"actions":{"add":"function(n) { this.count += n; }"}},"evals":["storeDef.getters.total","storeDef.actions.add"]}</script>
 #> </div>
-vue_app("add", htmltools::tags$button(`@click` = "$vueStore.cart.add(1)", "Add"))
+vue_app(
+  "add",
+  htmltools::tags$button(`@click` = "$vueStore.cart.add(1)", "Add")
+)
 #> <div id="add" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><button @click="$vueStore.cart.add(1)">Add</button></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"evals":[]}</script>
 #> </div>
 vue_app(
   "show",
-  htmltools::tags$span("{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}")
+  htmltools::tags$span(
+    "{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}"
+  )
 )
 #> <div id="show" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><span>{{ $vueStore.cart.count }} for {{ $vueStore.cart.total }}</span></script>
