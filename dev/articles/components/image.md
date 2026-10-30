@@ -252,10 +252,12 @@ tags$div(
 
 ## Manually Open Preview
 
-The first button opens the image’s preview from the server with
-`call_el(session, "pic", "showPreview")`; the second opens an
+The first button opens the image’s preview in the browser, calling its
+`showPreview()` through `$find(id)`; the second opens an
 [`el_image_viewer()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_image_viewer.md),
-the viewer alone, with `update_el_image_viewer(visible = TRUE)`.
+the viewer alone, whose `visible` is a store’s field, \[v_model()\].
+From the server they are `call_el(session, "pic", "showPreview")` and
+`update_el_image_viewer(visible = TRUE)`.
 
 ``` r
 
@@ -272,43 +274,41 @@ src_list <- paste0(
     "2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg"
   )
 )
-ui <- el_page(
+vue_store("viewer_ui", state = list(visible = FALSE))
+tags$div(
+  style = "display: flex; gap: 48px",
   tags$div(
-    style = "display: flex; gap: 48px",
-    tags$div(
-      style = "display: grid; gap: 12px",
-      el_button("pic_open", "openPreview with showPreview method"),
-      el_image(
-        "pic",
-        src = url,
-        show_progress = TRUE,
-        preview_src_list = src_list,
-        fit = "cover",
-        style = "width: 100px; height: 100px"
-      )
+    style = "display: grid; gap: 12px",
+    el_button(
+      "pic_open",
+      "openPreview with showPreview method",
+      on = list(click = v_on("$find('pic').showPreview()"))
     ),
-    tags$div(
-      el_button("viewer_open", "preview controlled"),
-      el_image_viewer(
-        "viewer",
-        url_list = src_list,
-        show_progress = TRUE,
-        initial_index = 4
-      )
+    el_image(
+      "pic",
+      src = url,
+      show_progress = TRUE,
+      preview_src_list = src_list,
+      fit = "cover",
+      style = "width: 100px; height: 100px"
+    )
+  ),
+  tags$div(
+    el_button(
+      "viewer_open",
+      "preview controlled",
+      on = list(click = "$vueStore.viewer_ui.visible = true")
+    ),
+    el_image_viewer(
+      "viewer",
+      url_list = src_list,
+      show_progress = TRUE,
+      initial_index = 4,
+      visible = v_model("$vueStore.viewer_ui.visible")
     )
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$pic_open, call_el(session, "pic", "showPreview"))
-  observeEvent(input$viewer_open, {
-    update_el_image_viewer(session, "viewer", visible = TRUE)
-  })
-}
-shinyApp(ui, server)
 ```
-
-![The manually-preview example,
-running](../../shots/image-manually-preview.png)
 
 ## Custom Toolbar
 

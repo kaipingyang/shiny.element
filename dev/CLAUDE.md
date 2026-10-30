@@ -98,9 +98,14 @@ writing `data-shiny-vue-bind` and their bindings applying it through
 [`.vue_unbound()`](https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_unbound.md),
 and `test-vue-directives.R` fails on any argument of any component that
 drops a binding). Template names follow the function that made them:
-`$vueStore` (was `$store`, kept a version), later `$vueRef` etc.; plan
-`.claude/plans/vue-syntax-in-r-2026-10-30.md`. And the `.vue_*` helpers.
-`test-vue-layer.R` fails if any of it names Element;
+`$vueStore` (was `$store`, kept a version),
+[`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_reactive()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)/[`vue_watch()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+(`R/vue_state.R`: hosts with no markup whose `state` the bridge makes in
+`setup()`, read as `$vueRef` and the rest, mounted first with the
+stores), `$find(id)` (a component, as
+[`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md)
+finds it); plan `.claude/plans/vue-syntax-in-r-2026-10-30.md`. And the
+`.vue_*` helpers. `test-vue-layer.R` fails if any of it names Element;
 `test-browser-pure-vue.R` runs it with no Element Plus on the page. The
 **Element layer** (`R/el_*.R`, `inst/js/el-*.js`) is built on it:
 [`el_widget()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_widget.md)

@@ -482,10 +482,12 @@ tree.</p>
 <p>This example shows how to get and set checked nodes. They both can be
 done in two approaches: node and key. If you are taking the key
 approach, <code>node-key</code> is required.</p>
-<p><code>update_el_tree(default_checked_keys =)</code> sets them;
-<code><a href="../../reference/call_el.html">call_el()</a></code> runs Element Plus’s
-<code>getCheckedKeys()</code>, <code>setCheckedKeys()</code> and the
-rest.</p>
+<p>The buttons call the tree’s <code>setCheckedKeys()</code> and
+<code>getCheckedKeys()</code> in the browser, through
+<code>$find(id)</code>. From the server it is
+<code>update_el_tree(default_checked_keys =)</code> and
+<code><a href="../../reference/call_el.html">call_el()</a></code>; the keys checked arrive as
+<code>input$tree_checked</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -502,36 +504,57 @@ rest.</p>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tree"</span>,</span>
-<span>    data <span class="op">=</span> <span class="va">nodes</span>,</span>
-<span>    show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>    default_expand_all <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"set"</span>, <span class="st">"Check 4 and 6"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"get"</span>, <span class="st">"Get checked keys"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"reset"</span>, <span class="st">"Reset"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"keys"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
+<span>  <span class="st">"tree"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">nodes</span>,</span>
+<span>  show_checkbox <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  default_expand_all <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">set</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tree.html">update_el_tree</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tree"</span>, default_checked_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"set"</span>,</span>
+<span>  <span class="st">"Check 4 and 6"</span>,</span>
+<span>  size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="fu"><a href="../../reference/v_on.html">v_on</a></span><span class="op">(</span><span class="st">"$find('tree').setCheckedKeys([4, 6])"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"get"</span>,</span>
+<span>  <span class="st">"Get checked keys"</span>,</span>
+<span>  size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    click <span class="op">=</span> <span class="fu"><a href="../../reference/v_on.html">v_on</a></span><span class="op">(</span></span>
+<span>      <span class="st">"$message('Checked: ' + $find('tree').getCheckedKeys().join(', '))"</span></span>
+<span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">reset</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tree.html">update_el_tree</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"tree"</span>, default_checked_keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">get</span>, <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"tree"</span>, <span class="st">"getCheckedKeys"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">keys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderPrint</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">tree_checked</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tree-checking-tree.png" alt="The checking-tree example, running" style="max-width: 100%">
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span></span>
+<span>  <span class="st">"reset"</span>,</span>
+<span>  <span class="st">"Reset"</span>,</span>
+<span>  size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="fu"><a href="../../reference/v_on.html">v_on</a></span><span class="op">(</span><span class="st">"$find('tree').setCheckedKeys([])"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="checking-tree-tree" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="checking-tree-tree_container" style="display: contents">
+  <el-tree v-bind="$optional(&#39;tree&#39;)" ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" @node-click="handleNodeClick" @check="handleCheck" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" @check-change="svEmitCheckChange"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level two 2-1"},{"id":6,"label":"Level two 2-2"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":true,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"current":"","checked":[],"load":null,"filterNodeMethod":null,"emptyText":null,"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"svEmitCheckChange":"function() { var self = this; (function() {}).apply(this, arguments); Promise.resolve().then(function() { if (!self.$refs.tree) return; self.checked = self.$refs.tree.getCheckedKeys(); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('checking-tree-tree_checked', self.checked); }); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('checking-tree-tree_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('checking-tree-tree_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"checking-tree-tree_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tree":{"empty-text":"emptyText","indent":"indent","lazy":"lazy","draggable":"draggable","auto-expand-parent":"autoExpandParent","check-on-click-node":"checkOnClickNode","current-node-key":"currentNodeKey","render-after-expand":"renderAfterExpand","render-content":"renderContent","allow-drag":"allowDrag","allow-drop":"allowDrop","check-on-click-leaf":"checkOnClickLeaf","icon":"icon"}},"evals":["options.methods.svEmitCheckChange","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+</div>
+  <div id="checking-tree-set" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="checking-tree-set_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Check 4 and 6","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":"small","icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('checking-tree-set', String(name), [value === undefined ? true : value]); }; return (function(report) { return window.shinyVue.run(this, \"$find('tree').setCheckedKeys([4, 6])\", {\"inputs\":\"checking-tree-\"}, Array.prototype.slice.call(arguments, 1)); }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+  <div id="checking-tree-get" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="checking-tree-get_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Get checked keys","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":"small","icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('checking-tree-get', String(name), [value === undefined ? true : value]); }; return (function(report) { return window.shinyVue.run(this, \"$message('Checked: ' + $find('tree').getCheckedKeys().join(', '))\", {\"inputs\":\"checking-tree-\"}, Array.prototype.slice.call(arguments, 1)); }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+  <div id="checking-tree-reset" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="checking-tree-reset_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); svOn1(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Reset","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":"small","icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }","svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('checking-tree-reset', String(name), [value === undefined ? true : value]); }; return (function(report) { return window.shinyVue.run(this, \"$find('tree').setCheckedKeys([])\", {\"inputs\":\"checking-tree-\"}, Array.prototype.slice.call(arguments, 1)); }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick","options.methods.svOn1"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="custom-node-content">Custom node content<a class="anchor" aria-label="anchor" href="#custom-node-content"></a>
@@ -735,39 +758,45 @@ own: a field, or a <code><a href="../../reference/JS.html">JS()</a></code> funct
 tree nodes. Its parameter is the filtering keyword. Note that for it to
 work, <code>filter-node-method</code> is required, and its value is the
 filtering method.</p>
-<p><code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code> keeps the nodes whose label contains the text;
+<p><code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code> keeps the nodes whose label contains the text,
+called in the browser as it changes, through <code>$find(id)</code>;
 give <code>filter_node_method</code> to decide otherwise.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span><span class="st">"q"</span>, placeholder <span class="op">=</span> <span class="st">"Filter keyword"</span>, width <span class="op">=</span> <span class="st">"300px"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
-<span>    <span class="st">"filtered"</span>,</span>
-<span>    node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>    default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        id <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>        label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
-<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        id <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>        label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
-<span>        children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Level three 2-1"</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"q"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Filter keyword"</span>,</span>
+<span>  width <span class="op">=</span> <span class="st">"300px"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>input <span class="op">=</span> <span class="fu"><a href="../../reference/v_on.html">v_on</a></span><span class="op">(</span><span class="st">"$find('filtered').filter($event)"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
+<span>  <span class="st">"filtered"</span>,</span>
+<span>  node_key <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  default_expand_all <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Level one 1"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">4</span>, label <span class="op">=</span> <span class="st">"Level two 1-1"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      label <span class="op">=</span> <span class="st">"Level one 2"</span>,</span>
+<span>      children <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">5</span>, label <span class="op">=</span> <span class="st">"Level three 2-1"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">q</span>,</span>
-<span>    <span class="fu"><a href="../../reference/call_el.html">call_el</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"filtered"</span>, <span class="st">"filter"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">q</span><span class="op">)</span>, result <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tree-filtering.png" alt="The filtering example, running" style="max-width: 100%">
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="filtering-q" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="filtering-q_container" style="display: contents">
+  <el-input v-bind="$optional(&#39;input&#39;)" v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" @input="svOn1" style="width: 300px"></el-input>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":"Filter keyword","maxlength":null,"rows":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('filtering-q', String(name), [value === undefined ? true : value]); }; return (function(report) { return window.shinyVue.run(this, \"$find('filtered').filter($event)\", {\"inputs\":\"filtering-\"}, Array.prototype.slice.call(arguments, 1)); }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"input":{"size":"size","placeholder":"placeholder","maxlength":"maxlength","rows":"rows","label":"label","autocomplete":"autocomplete","autofocus":"autofocus","name":"name","form":"form","minlength":"minlength","max":"max","min":"min","step":"step","resize":"resize","tabindex":"tabindex","validate-event":"validateEvent","aria-label":"ariaLabel","clear-icon":"clearIcon","count-graphemes":"countGraphemes","formatter":"formatter","input-style":"inputStyle","inputmode":"inputmode","parser":"parser","word-limit-position":"wordLimitPosition"}},"evals":["options.methods.svOn1","options.methods.handleChange"]}</script>
+</div>
+  <div id="filtering-filtered" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="filtering-filtered_container" style="display: contents">
+  <el-tree v-bind="$optional(&#39;tree&#39;)" ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" @node-click="handleNodeClick" @check="handleCheck" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" @check-change="svEmitCheckChange"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"id":1,"label":"Level one 1","children":[{"id":4,"label":"Level two 1-1"}]},{"id":2,"label":"Level one 2","children":[{"id":5,"label":"Level three 2-1"}]}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":true,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"current":"","checked":[],"load":null,"filterNodeMethod":null,"emptyText":null,"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"svEmitCheckChange":"function() { var self = this; (function() {}).apply(this, arguments); Promise.resolve().then(function() { if (!self.$refs.tree) return; self.checked = self.$refs.tree.getCheckedKeys(); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('filtering-filtered_checked', self.checked); }); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('filtering-filtered_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('filtering-filtered_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"filtering-filtered_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tree":{"empty-text":"emptyText","indent":"indent","lazy":"lazy","draggable":"draggable","auto-expand-parent":"autoExpandParent","check-on-click-node":"checkOnClickNode","current-node-key":"currentNodeKey","render-after-expand":"renderAfterExpand","render-content":"renderContent","allow-drag":"allowDrag","allow-drop":"allowDrop","check-on-click-leaf":"checkOnClickLeaf","icon":"icon"}},"evals":["options.methods.svEmitCheckChange","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="accordion">Accordion<a class="anchor" aria-label="anchor" href="#accordion"></a>

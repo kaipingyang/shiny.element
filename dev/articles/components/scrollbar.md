@@ -91,52 +91,38 @@ el_scrollbar(
 Use `setScrollTop` and `setScrollLeft` methods can control scrollbar
 manually.
 
-The slider scrolls the area from the server,
-`call_el(session, "sb", "setScrollTop", list(px))`, and follows it back:
-`input$sb_scroll` says where it is. Twenty items of 60px and a margin
-make 1210px, 830px more than the 380px shown.
+The slider scrolls the area, calling its `setScrollTop()` in the browser
+through `$find(id)`, and follows it back: the area’s `scroll` sets a
+store the slider’s value is bound to, \[v_model()\]. Twenty items of
+60px and a margin make 1210px, 830px more than the 380px shown.
 
 ``` r
 
-ui <- el_page(
-  tags$style(
-    ".scrollbar-demo-item { display: flex; align-items: center;
-       justify-content: center; height: 50px; margin: 10px; text-align: center;
-       border-radius: 4px; background: var(--el-color-primary-light-9);
-       color: var(--el-color-primary); }
-     .el-slider { margin-top: 20px; }"
-  ),
-  el_scrollbar(
-    id = "sb",
-    height = "400px",
-    events = "scroll",
-    always = TRUE,
-    tags$div(lapply(1:20, function(i) tags$p(class = "scrollbar-demo-item", i)))
-  ),
-  el_slider(
-    "sb_slider",
-    value = 0,
-    max = 830,
-    format_tooltip = JS("function(value) { return value + ' px'; }")
-  )
+tags$style(
+  ".scrollbar-demo-item { display: flex; align-items: center;
+     justify-content: center; height: 50px; margin: 10px; text-align: center;
+     border-radius: 4px; background: var(--el-color-primary-light-9);
+     color: var(--el-color-primary); }
+   .el-slider { margin-top: 20px; }"
 )
-server <- function(input, output, session) {
-  observeEvent(input$sb_slider, ignoreInit = TRUE, {
-    call_el(session, "sb", "setScrollTop", list(input$sb_slider))
-  })
-  observeEvent(input$sb_scroll, {
-    update_el_slider(
-      session,
-      "sb_slider",
-      value = round(input$sb_scroll$scrollTop)
-    )
-  })
-}
-shinyApp(ui, server)
+vue_store("sb_pos", state = list(top = 0))
+el_scrollbar(
+  id = "sb",
+  height = "400px",
+  always = TRUE,
+  on = list(
+    scroll = v_on("$vueStore.sb_pos.top = Math.round($event.scrollTop)")
+  ),
+  tags$div(lapply(1:20, function(i) tags$p(class = "scrollbar-demo-item", i)))
+)
+el_slider(
+  "sb_slider",
+  value = v_model("$vueStore.sb_pos.top"),
+  max = 830,
+  format_tooltip = JS("function(value) { return value + ' px'; }"),
+  on = list(input = v_on("$find('sb').setScrollTop($event)"))
+)
 ```
-
-![The manual-scroll example,
-running](../../shots/scrollbar-manual-scroll.png)
 
 ## Infinite scroll
 

@@ -395,8 +395,8 @@ components, with Vue’s own two bindings: an argument given
   </el-radio-group>
 </div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"default","options":[{"value":"large","label":"large"},{"value":"default","label":"default"},{"value":"small","label":"small"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('bind-input-size', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
-  <div id="bind-input-el_space_2d8bde85-da3c-40cd-844e-1138219fc5d5" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><div id="bind-input-el_space_2d8bde85-da3c-40cd-844e-1138219fc5d5_container" style="display: contents">
+  <div id="bind-input-el_space_446c805d-199b-4441-a7d1-a60f623c01d2" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="bind-input-el_space_446c805d-199b-4441-a7d1-a60f623c01d2_container" style="display: contents">
   <el-space v-bind="$optional(&#39;space&#39;)">
     <div class="el-card is-always-shadow" data-el-shadow-default="true">
       <div class="el-card__body">One</div>
@@ -1481,6 +1481,138 @@ component’s own <code>setup()</code> gets the store with
 page too, for stores of one’s own that the server need not see.</p>
 </div>
 <div class="section level3">
+<h3 id="vues-reactivity-for-the-page">Vue’s reactivity for the page<a class="anchor" aria-label="anchor" href="#vues-reactivity-for-the-page"></a>
+</h3>
+<p>For state smaller than a store, Vue’s own functions, in the shapes
+Shiny’s server has on the other side – each read in templates, in
+<code><a href="../reference/v_bind.html">v_bind()</a></code> expressions and <code>on</code> statements by a
+name after the function:</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th>Shiny (server)</th>
+<th>Vue</th>
+<th>Here (browser)</th>
+<th>Read as</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">reactiveVal()</a></code></td>
+<td><code>ref()</code></td>
+<td><code>vue_ref(id, value)</code></td>
+<td><code>$vueRef.&lt;id&gt;</code></td>
+</tr>
+<tr class="even">
+<td><code><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">reactiveValues()</a></code></td>
+<td><code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive()</a></code></td>
+<td><code>vue_reactive(id, list())</code></td>
+<td><code>$vueReactive.&lt;id&gt;.&lt;field&gt;</code></td>
+</tr>
+<tr class="odd">
+<td><code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive()</a></code></td>
+<td><code>computed()</code></td>
+<td><code>vue_computed(id, expr)</code></td>
+<td><code>$vueComputed.&lt;id&gt;</code></td>
+</tr>
+<tr class="even">
+<td><code><a href="https://rdrr.io/pkg/shiny/man/observe.html" class="external-link">observe()</a></code></td>
+<td><code>watch()</code></td>
+<td><code>vue_watch(source, handler)</code></td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_reactivity.html">vue_ref</a></span><span class="op">(</span><span class="st">"count"</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/vue_reactivity.html">vue_computed</a></span><span class="op">(</span><span class="st">"big"</span>, <span class="st">"$vueRef.count &gt;= 3"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/vue_reactivity.html">vue_watch</a></span><span class="op">(</span></span>
+<span>  <span class="st">"$vueComputed.big"</span>,</span>
+<span>  <span class="st">"if ($value) $message('Three or more')"</span>,</span>
+<span>  use <span class="op">=</span> <span class="st">"shinyElement.plugin"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"plus"</span>, <span class="st">"+1"</span>, on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"$vueRef.count++"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_tag.html">el_tag</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"shown"</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"$vueComputed.big ? 'danger' : 'info'"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_progress.html">el_progress</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"bar"</span>,</span>
+<span>  percentage <span class="op">=</span> <span class="fu"><a href="../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"Math.min(100, $vueRef.count * 20)"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="count" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":0}},"state":{"kind":"ref"},"evals":[]}</script>
+</div>
+  <div id="big" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"state":{"kind":"computed","expr":{"expr":"$vueRef.count >= 3","scope":{"inputs":"vue-reactivity-"}}},"evals":[]}</script>
+</div>
+  <div id="vue_watch_2dac7000-6f93-4d52-932c-a7748918e38d" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"use":["shinyElement.plugin"],"state":{"kind":"watch","source":{"expr":"$vueComputed.big","scope":{"inputs":"vue-reactivity-"}},"handler":"if ($value) $message('Three or more')","statement":true,"immediate":false,"deep":false},"evals":[]}</script>
+</div>
+  <div id="vue-reactivity-plus" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="vue-reactivity-plus_container" style="display: contents">
+  <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueRef.count++; })(...a); }">{{label}}</el-button>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"+1","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"evals":["options.methods.handleClick"]}</script>
+</div>
+  <div id="vue-reactivity-shown" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="vue-reactivity-shown_container" style="display: contents">
+  <el-tag v-bind="$optional(&#39;tag&#39;)" :type="type" :closable="closable" :effect="effect" :hit="hit" :disable-transitions="disableTransitions" @click="handleClick" @close="handleClose">{{label}}</el-tag>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"count","type":null,"closable":false,"effect":"light","hit":false,"disableTransitions":false,"count":0,"size":null,"color":null,"round":null},"methods":{"handleClick":"function() { this.count++; }","handleClose":"function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('vue-reactivity-shown_close', 1, {priority: 'event'}); }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"tag":{"size":"size","color":"color","round":"round"}},"bound":{"type":{"expr":"$vueComputed.big ? 'danger' : 'info'","scope":{"inputs":"vue-reactivity-"}}},"evals":["options.methods.handleClick","options.methods.handleClose"]}</script>
+</div>
+  <div id="vue-reactivity-bar" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="vue-reactivity-bar_container" style="display: contents">
+  <el-progress v-bind="$optional(&#39;progress&#39;)" :percentage="percentage" :type="type" :stroke-width="strokeWidth" :text-inside="textInside" :show-text="showText" :width="width" :color="color"></el-progress>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"percentage":null,"type":"line","strokeWidth":6,"textInside":false,"showText":true,"width":126,"color":"","status":null,"strokeLinecap":null,"format":null,"duration":null,"indeterminate":null,"striped":null,"stripedFlow":null}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"progress":{"status":"status","stroke-linecap":"strokeLinecap","format":"format","duration":"duration","indeterminate":"indeterminate","striped":"striped","striped-flow":"stripedFlow"}},"bound":{"percentage":{"expr":"Math.min(100, $vueRef.count * 20)","scope":{"inputs":"vue-reactivity-"}}},"evals":[]}</script>
+</div>
+</div>
+<p>The server reaches each as any component: <code>input = TRUE</code>
+reports it as <code>input$&lt;id&gt;</code>,
+<code>update_vue(session, id, value = )</code> sets a ref. A component’s
+<code>setup()</code> gets the same with
+<code>shinyVue.useRef(id)</code>, <code>useReactive(id)</code> and
+<code>useComputed(id)</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="a-components-methods-in-the-browser">A component’s methods, in the browser<a class="anchor" aria-label="anchor" href="#a-components-methods-in-the-browser"></a>
+</h3>
+<p><code><a href="../reference/call_el.html">call_el()</a></code> runs a component’s method from the server. In
+the browser, <code>$find(id)</code> is the component itself – Vue’s
+<code>$refs</code>, for components that are apps of their own – so an
+<code>on</code> handler can run another’s method:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/el_input.html">el_input</a></span><span class="op">(</span></span>
+<span>  <span class="st">"q"</span>,</span>
+<span>  placeholder <span class="op">=</span> <span class="st">"Filter"</span>,</span>
+<span>  on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>input <span class="op">=</span> <span class="fu"><a href="../reference/v_on.html">v_on</a></span><span class="op">(</span><span class="st">"$find('fruit').filter($event)"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/el_tree.html">el_tree</a></span><span class="op">(</span></span>
+<span>  <span class="st">"fruit"</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"apple"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"pear"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"peach"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <div id="find-q" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="find-q_container" style="display: contents">
+  <el-input v-bind="$optional(&#39;input&#39;)" v-model="value" :type="type" :disabled="disabled" :readonly="readonly" :clearable="clearable" :show-password="showPassword" :show-word-limit="showWordLimit" :autosize="autosize" :prefix-icon="prefixIcon" :suffix-icon="suffixIcon" @change="handleChange" @input="svOn1"></el-input>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"","type":"text","disabled":false,"readonly":false,"clearable":false,"showPassword":false,"showWordLimit":false,"autosize":false,"prefixIcon":null,"suffixIcon":null,"size":null,"placeholder":"Filter","maxlength":null,"rows":null,"label":null,"autocomplete":null,"autofocus":null,"name":null,"form":null,"minlength":null,"max":null,"min":null,"step":null,"resize":null,"tabindex":null,"validateEvent":null,"ariaLabel":null,"clearIcon":null,"countGraphemes":null,"formatter":null,"inputStyle":null,"inputmode":null,"parser":null,"wordLimitPosition":null},"methods":{"svOn1":"function() { var report = function(name, value) { window.shinyVue.emit('find-q', String(name), [value === undefined ? true : value]); }; return (function(report) { return window.shinyVue.run(this, \"$find('fruit').filter($event)\", {\"inputs\":\"find-\"}, Array.prototype.slice.call(arguments, 1)); }).apply(this, [report].concat(Array.prototype.slice.call(arguments))); }","handleChange":"function(value) { }"}},"input":"value","rate":{"policy":"debounce","delay":250},"type":null,"use":["shinyElement.plugin"],"optional":{"input":{"size":"size","placeholder":"placeholder","maxlength":"maxlength","rows":"rows","label":"label","autocomplete":"autocomplete","autofocus":"autofocus","name":"name","form":"form","minlength":"minlength","max":"max","min":"min","step":"step","resize":"resize","tabindex":"tabindex","validate-event":"validateEvent","aria-label":"ariaLabel","clear-icon":"clearIcon","count-graphemes":"countGraphemes","formatter":"formatter","input-style":"inputStyle","inputmode":"inputmode","parser":"parser","word-limit-position":"wordLimitPosition"}},"evals":["options.methods.svOn1","options.methods.handleChange"]}</script>
+</div>
+  <div id="find-fruit" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div id="find-fruit_container" style="display: contents">
+  <el-tree v-bind="$optional(&#39;tree&#39;)" ref="tree" :data="treeData" :props="treeProps" :node-key="nodeKey" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" :default-expand-all="defaultExpandAll" :expand-on-click-node="expandOnClickNode" :accordion="accordion" :highlight-current="highlightCurrent" :default-expanded-keys="expandedKeys" :default-checked-keys="checkedKeys" @node-click="handleNodeClick" @check="handleCheck" :load="load === null ? elLoad : load" :filter-node-method="filterNodeMethod === null ? elFilterNode : filterNodeMethod" @check-change="svEmitCheckChange"></el-tree>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"treeData":[{"label":"apple"},{"label":"pear"},{"label":"peach"}],"treeProps":{"label":"label","children":"children","disabled":"disabled","isLeaf":"isLeaf"},"nodeKey":"id","showCheckbox":false,"checkStrictly":false,"defaultExpandAll":false,"expandOnClickNode":true,"accordion":false,"highlightCurrent":false,"expandedKeys":[],"checkedKeys":[],"current":"","checked":[],"load":null,"filterNodeMethod":null,"emptyText":null,"indent":null,"lazy":null,"draggable":null,"autoExpandParent":null,"checkOnClickNode":null,"currentNodeKey":null,"renderAfterExpand":null,"renderContent":null,"allowDrag":null,"allowDrop":null,"checkOnClickLeaf":null,"icon":null},"methods":{"svEmitCheckChange":"function() { var self = this; (function() {}).apply(this, arguments); Promise.resolve().then(function() { if (!self.$refs.tree) return; self.checked = self.$refs.tree.getCheckedKeys(); window.Shiny && Shiny.setInputValue && Shiny.setInputValue('find-fruit_checked', self.checked); }); }","elLoad":"function(node, resolve, reject) {\n  var key = node.level && this.nodeKey ? node.data[this.nodeKey] : null;\n  window.shinyVue.ask('find-fruit_load', {level: node.level, key: key,\n      data: node.level ? node.data : null}, this)\n    .then(function(children) { resolve(children || []); },\n          function() { if (reject) reject(); else resolve([]); });\n}","elFilterNode":"function(value, data) { if (!value) return true; var label = data[(this.treeProps && this.treeProps.label) || 'label']; return String(label === undefined ? '' : label).toLowerCase().indexOf(String(value).toLowerCase()) !== -1; }","shinyVueReceive":"function(d) { if ('checkedKeys' in d) { var keys = d.checkedKeys || []; if (this.$refs.tree) this.$refs.tree.setCheckedKeys(keys); this.checked = keys; delete d.checkedKeys; } return d; }","handleNodeClick":"function(data) { this.current = data[this.nodeKey]; }","handleCheck":"function(node, info) { this.checked = info.checkedKeys; window.Shiny && Shiny.setInputValue && Shiny.setInputValue('find-fruit_checked', this.checked); }"},"mounted":"function() { var self = this; var send = function() { window.Shiny && Shiny.setInputValue && Shiny.setInputValue(\"find-fruit_checked\", self.checked); }; if (window.Shiny && Shiny.shinyapp && typeof Shiny.shinyapp.isConnected === 'function' && Shiny.shinyapp.isConnected()) { send(); } else if (window.jQuery) { jQuery(document).one('shiny:connected', send); } var prev = self._svReport; self._svReport = function() { if (prev) prev(); self.$nextTick(send); }; }"},"input":"current","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"tree":{"empty-text":"emptyText","indent":"indent","lazy":"lazy","draggable":"draggable","auto-expand-parent":"autoExpandParent","check-on-click-node":"checkOnClickNode","current-node-key":"currentNodeKey","render-after-expand":"renderAfterExpand","render-content":"renderContent","allow-drag":"allowDrag","allow-drop":"allowDrop","check-on-click-leaf":"checkOnClickLeaf","icon":"icon"}},"evals":["options.methods.svEmitCheckChange","options.methods.elLoad","options.methods.elFilterNode","options.methods.shinyVueReceive","options.methods.handleNodeClick","options.methods.handleCheck","options.mounted"]}</script>
+</div>
+</div>
+</div>
+<div class="section level3">
 <h3 id="what-a-template-can-read-of-shiny">What a template can read of Shiny<a class="anchor" aria-label="anchor" href="#what-a-template-can-read-of-shiny"></a>
 </h3>
 <table class="table">
@@ -1496,6 +1628,18 @@ page too, for stores of one’s own that the server need not see.</p>
 <tr class="odd">
 <td><code>$inputs.&lt;id&gt;</code></td>
 <td>another input’s value, as its component reports it (read-only)</td>
+</tr>
+<tr class="even">
+<td>
+<code>$vueStore.&lt;id&gt;</code>, <code>$vueRef.&lt;id&gt;</code>,
+<code>$vueReactive.&lt;id&gt;</code>,
+<code>$vueComputed.&lt;id&gt;</code>
+</td>
+<td>the page’s state, made in R</td>
+</tr>
+<tr class="odd">
+<td><code>$find(id)</code></td>
+<td>a component, to call its methods</td>
 </tr>
 <tr class="even">
 <td><code>$recalculating.&lt;id&gt;</code></td>
@@ -1522,7 +1666,7 @@ recalculates</td>
 </table>
 <p>A component written with the Composition API reads the same through
 composables, as shinyreact’s hooks:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>  <span class="st">"summary"</span>,</span>
 <span>  <span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span></span>
@@ -1551,7 +1695,7 @@ the template and rendered beside it, as Shiny renders it; Vue moves it
 in where it stands and back out when it hides it, so its binding and the
 user’s input stay, and an output hidden this way waits, as one in a
 hidden tab does:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>    <span class="st">"panel"</span>,</span>
@@ -1585,7 +1729,7 @@ be wanted in several, and only the first gets it.</p>
 installed and a label in Element’s form-item style – what every
 component in this package is made of. A price range made of two number
 inputs, reported as one value:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">price_range_input</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">value</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, <span class="va">min</span> <span class="op">=</span> <span class="fl">0</span>, <span class="va">max</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/el_widget.html">el_widget</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="va">id</span>,</span>
@@ -1640,7 +1784,7 @@ breadcrumb step’s <code>to</code> is a link, and Vue’s own
 (<code>#/orders</code>), so the browser’s back and forward and a link to
 the page land on it, and it is an input: what each route shows is the
 server’s.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_router.html">vue_router</a></span><span class="op">(</span><span class="st">"route"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/el_menu.html">el_menu</a></span><span class="op">(</span></span>
@@ -1673,7 +1817,7 @@ path’s parts are <code>$route.params</code> in its template and
 <code>input$route_guard</code> is the question,
 <code><a href="../reference/vue_answer.html">vue_answer()</a></code> the answer – <code>TRUE</code> goes,
 <code>FALSE</code> stays, a path goes there instead.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">order</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vue_component.html">vue_component</a></span><span class="op">(</span><span class="st">"&lt;h3&gt;Order {{ $route.params.id }}&lt;/h3&gt;"</span><span class="op">)</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/vue_router.html">vue_router</a></span><span class="op">(</span><span class="st">"route"</span>, routes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/orders/:id"</span> <span class="op">=</span> <span class="va">order</span><span class="op">)</span>, guard <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span>,</span>
@@ -1700,7 +1844,7 @@ Element Plus itself is built on, as the global <code>VueUse</code>: in a
 <code>useCssVar()</code>, <code>useDebounceFn()</code>,
 <code>useStorage()</code> and the rest work as in any Vue app. Give it
 to the component that uses it; no page loads it otherwise.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
 <span>  <span class="st">"total"</span>,</span>
 <span>  <span class="va">el</span><span class="op">$</span><span class="fu">statistic</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Total Transactions"</span>, `:value` <span class="op">=</span> <span class="st">"shown"</span><span class="op">)</span>,</span>

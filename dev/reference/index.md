@@ -532,6 +532,16 @@ the user’s state across renders, shared state, and the server’s way in.
 - [`vtags`](https://kaipingyang.github.io/shiny.element/dev/reference/vtags.md)
   : Vue's built-in components, as tags
 
+- [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  [`vue_reactive()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  [`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  [`vue_watch()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  :
+
+  Vue's reactivity for the page: `ref()`,
+  [`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html),
+  `computed()`, `watch()`
+
 - [`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md)
   : The page's router: vue-router, with the route as a Shiny input
 

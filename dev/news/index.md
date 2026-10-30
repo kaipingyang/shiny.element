@@ -8,10 +8,11 @@
   works, with a warning, and goes in the version after.
 
 - A store is `$vueStore.<id>` in templates, no longer `$store.<id>`: the
-  name follows the function that makes it, as `vue_ref()` and the rest
-  will, and leaves `$store` to Vuex. `$store` still works this version,
-  saying once in the console that it is `$vueStore` now; it goes in the
-  next.
+  name follows the function that makes it, as
+  [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  and the rest will, and leaves `$store` to Vuex. `$store` still works
+  this version, saying once in the console that it is `$vueStore` now;
+  it goes in the next.
 
 ### New features
 
@@ -56,6 +57,28 @@
   `router_view` and the rest). Given unnamed, a directive is its
   attributes; nothing else in a template is touched, and backtick
   attributes work as before.
+
+- Vue’s reactivity for the page, in Shiny’s shapes:
+  [`vue_ref()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  (Vue’s `ref()`, Shiny’s
+  [`reactiveVal()`](https://rdrr.io/pkg/shiny/man/reactiveVal.html)),
+  [`vue_reactive()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md),
+  [`vue_computed()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md)
+  and
+  [`vue_watch()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_reactivity.md),
+  read as `$vueRef.<id>`, `$vueReactive.<id>`, `$vueComputed.<id>` and
+  in `setup()` as `shinyVue.useRef()` and the rest; `input = TRUE`
+  reports one,
+  [`update_vue()`](https://kaipingyang.github.io/shiny.element/dev/reference/update_vue.md)
+  sets it.
+
+- `$find(id)` in templates and statements is a component, to call its
+  methods in the browser as
+  [`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md)
+  does from the server:
+  `on = list(input = v_on("$find('tree').filter($event)"))`. The table,
+  tree, dropdown, scrollbar and image examples that called methods from
+  the server do it in the browser now, live on the site.
 
 - `on =` takes Vue’s inline statements as well as
   [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)

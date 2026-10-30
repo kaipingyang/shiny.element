@@ -338,6 +338,51 @@
     if (!st) warn('useStore(): no store "' + id + '" on the page');
     return st || null;
   };
+
+  // Vue's ref(), reactive() and computed() for the page (vue_ref(),
+  // vue_reactive(), vue_computed()): each kept by its id in a registry every
+  // app reads as $vueRef, $vueReactive, $vueComputed -- the name follows
+  // the R function -- where a reactive registry unwraps the refs, so
+  // $vueRef.count reads and sets the value. `raw` keeps the refs themselves
+  // for setup()'s shinyVue.useRef().
+  var states = {}, rawStates = {}, stateHosts = {};
+  function stateRegistry(kind) {
+    if (!states[kind]) { states[kind] = Vue.reactive({}); rawStates[kind] = {}; }
+    return states[kind];
+  }
+  sv.vueRefs = function() { return stateRegistry('ref'); };
+  sv.vueReactives = function() { return stateRegistry('reactive'); };
+  sv.vueComputeds = function() { return stateRegistry('computed'); };
+  function useState(kind, fn) {
+    return function(id) {
+      stateRegistry(kind);
+      var v = rawStates[kind][id];
+      if (!v) warn(fn + '(): no ' + kind + ' "' + id + '" on the page');
+      return v || null;
+    };
+  }
+  sv.useRef = useState('ref', 'useRef');
+  sv.useReactive = useState('reactive', 'useReactive');
+  sv.useComputed = useState('computed', 'useComputed');
+
+  // The component behind an id, in the browser, as call_el() reaches it
+  // from the server: $find('tree').filter(q). Vue's $refs finds a child in
+  // one app; each component here is an app of its own.
+  sv.findComponent = function(id) {
+    var host = byId(String(id));
+    if (host && !host.hasAttribute('data-shiny-vue') && host._svMethods) return host._svMethods;
+    var vm = host && host.hasAttribute('data-shiny-vue') ? mount(host) : null;
+    if (!vm) {
+      var found = absorbedBy(String(id));
+      vm = found ? mount(found.host) : null;
+      if (vm && found.entry.ref) {
+        var t = vm.$refs[found.entry.ref];
+        return Array.isArray(t) ? t[0] : t;
+      }
+    }
+    if (!vm) { warn('$find: no component "' + id + '" on the page'); return null; }
+    return componentOf(vm) || vm;
+  };
   // ── the page's state in the browser: v_bind(), v_model(), v_on() ────────
   //
   // Each component is a Vue app of its own, and a template compiled in the
@@ -375,7 +420,11 @@
     scope = scope || {};
     var s = {
       $vueStore: prefixed(sv.stores(), scope.store),
-      $inputs: prefixed(sv.inputs(), scope.inputs)
+      $vueRef: prefixed(sv.vueRefs(), scope.store),
+      $vueReactive: prefixed(sv.vueReactives(), scope.store),
+      $vueComputed: prefixed(sv.vueComputeds(), scope.store),
+      $inputs: prefixed(sv.inputs(), scope.inputs),
+      $find: function(id) { return sv.findComponent((scope.inputs || '') + id); }
     };
     // read each time, so a watcher follows the route
     Object.defineProperty(s, '$route', {
@@ -644,6 +693,64 @@
     };
   }
 
+  function makeState(host, data, st, options) {
+    var kind = st.kind, id = host.id;
+    if (kind !== 'watch') {
+      var key = kind + '\u0000' + id, owner = stateHosts[key];
+      if (owner && owner !== host && document.contains(owner)) {
+        warn('vue_' + kind + '("' + id + '") is on the page twice: the second replaces the first' +
+             ' (in a module, name it ns("' + id + '"))');
+      }
+      stateHosts[key] = host;
+    }
+    host._shinyVueState = kind;
+    options.setup = function() {
+      if (kind === 'ref') {
+        var r = Vue.ref(data.value === undefined ? null : data.value);
+        stateRegistry('ref')[id] = r;
+        rawStates.ref[id] = r;
+        return { value: r };
+      }
+      if (kind === 'reactive') {
+        var o = Vue.reactive(Object.assign({}, data));
+        stateRegistry('reactive')[id] = o;
+        rawStates.reactive[id] = o;
+        return Object.assign({ shinyVueValue: o }, Vue.toRefs(o));
+      }
+      if (kind === 'computed') {
+        var c = Vue.computed(reader(st.expr));
+        stateRegistry('computed')[id] = c;
+        rawStates.computed[id] = c;
+        return { value: c };
+      }
+      // watch: a statement with $value and $oldValue, or a function of the
+      // two; the statement also reaches what a template does ($message ...)
+      var source = reader(st.source);
+      var run = st.statement ? compile('run', st.handler) : null;
+      var self = Vue.getCurrentInstance().proxy;
+      Vue.watch(source, function(v, old) {
+        try {
+          if (run) {
+            var page = pageScope(st.source.scope);
+            run(new Proxy(page, {
+              has: function(t, k) {
+                return k === '$value' || k === '$oldValue' || k in t ||
+                  (typeof k === 'string' && k in self);
+              },
+              get: function(t, k) {
+                return k === '$value' ? v : k === '$oldValue' ? old : k in t ? t[k] : self[k];
+              }
+            }));
+          } else if (typeof st.handler === 'function') {
+            st.handler(v, old);
+          }
+        } catch (e) { warn('vue_watch(): ' + e.message); }
+      }, { immediate: !!st.immediate, deep: !!st.deep });
+      return {};
+    };
+    return {};
+  }
+
   function mount(host) {
     if (host._shinyVue) return host._shinyVue;
     var tpl = host.querySelector(':scope > script[data-shiny-vue-template]');
@@ -680,6 +787,11 @@
         options.setup = function() { return storeFields(store); };
       }
     }
+    // page state of Vue's kinds (vue_ref() and the rest): made in the host's
+    // setup(), so it lives and goes with the host, and exposed by its id
+    if (spec.state) {
+      data = makeState(host, data, spec.state, options);
+    }
     options.data = function() { return data; };
     if (options.beforeDestroy) { options.beforeUnmount = options.beforeDestroy; delete options.beforeDestroy; }
     if (options.destroyed) { options.unmounted = options.destroyed; delete options.destroyed; }
@@ -710,6 +822,10 @@
     // removes it
     app.component('shiny-island', islandComponent(host));
     app.config.globalProperties.$vueStore = sv.stores();
+    app.config.globalProperties.$vueRef = sv.vueRefs();
+    app.config.globalProperties.$vueReactive = sv.vueReactives();
+    app.config.globalProperties.$vueComputed = sv.vueComputeds();
+    app.config.globalProperties.$find = sv.findComponent;
     // $store, as 0.3.1 named it: said once; a plugin that sets its own
     // $store (Vuex) replaces it
     Object.defineProperty(app.config.globalProperties, '$store', {
@@ -989,9 +1105,10 @@
     host._shinyVueObserver = obs;
   }
 
+  // a store, a ref, a reactive, a computed, a watch: state the page reads
   function isStore(host) {
     var opt = host.querySelector(':scope > script[data-shiny-vue-options]');
-    return !!opt && /"store":\s*true/.test(opt.textContent);
+    return !!opt && /"store":\s*true|"state":\s*\{/.test(opt.textContent);
   }
   function mountAll(scope) {
     scope = scope || document;
@@ -1036,6 +1153,13 @@
       if (host._shinyVueStore.$dispose) host._shinyVueStore.$dispose();
       if (pinia) delete pinia.state.value[host.id];
       host._shinyVueStore = null;
+    }
+    // so does a ref, a reactive or a computed
+    var kind = host._shinyVueState;
+    if (kind && kind !== 'watch' && states[kind] && stateHosts[kind + '\u0000' + host.id] === host) {
+      delete states[kind][host.id];
+      delete rawStates[kind][host.id];
+      delete stateHosts[kind + '\u0000' + host.id];
     }
     host._shinyVueApp = null;
     host._shinyVue = null;

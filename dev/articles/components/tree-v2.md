@@ -270,9 +270,11 @@ Invoke the `filter` method of the Tree instance to filter tree nodes.
 Its parameter is the filtering keyword. Note that for it to work,
 `filter-method` is required, and its value is the filtering method.
 
-[`filter()`](https://rdrr.io/r/stats/filter.html), run with
-[`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md),
-keeps the nodes `filter_method` passes.
+[`filter()`](https://rdrr.io/r/stats/filter.html), called in the browser
+as the text changes – the input’s `on` handler finds the tree with
+`$find(id)` – keeps the nodes `filter_method` passes. From the server it
+is
+[`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md).
 
 ``` r
 
@@ -286,30 +288,21 @@ make_nodes <- function(depth, prefix = "") {
     node
   })
 }
-
-ui <- el_page(
-  el_input("q", placeholder = "Please enter keyword", width = "240px"),
-  el_tree_v2(
-    "tv2_filter",
-    data = make_nodes(3),
-    height = 208,
-    filter_method = JS(
-      "function(query, node) { return node.label.includes(query); }"
-    )
+el_input(
+  "q",
+  placeholder = "Please enter keyword",
+  width = "240px",
+  on = list(input = v_on("$find('tv2_filter').filter($event)"))
+)
+el_tree_v2(
+  "tv2_filter",
+  data = make_nodes(3),
+  height = 208,
+  filter_method = JS(
+    "function(query, node) { return node.label.includes(query); }"
   )
 )
-
-server <- function(input, output, session) {
-  observeEvent(
-    input$q,
-    call_el(session, "tv2_filter", "filter", list(input$q), result = FALSE)
-  )
-}
-
-shinyApp(ui, server)
 ```
-
-![The filter example, running](../../shots/tree-v2-filter.png)
 
 ## API
 

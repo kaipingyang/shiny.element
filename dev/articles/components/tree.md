@@ -293,9 +293,11 @@ This example shows how to get and set checked nodes. They both can be
 done in two approaches: node and key. If you are taking the key
 approach, `node-key` is required.
 
-`update_el_tree(default_checked_keys =)` sets them;
-[`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md)
-runs Element Plus’s `getCheckedKeys()`, `setCheckedKeys()` and the rest.
+The buttons call the tree’s `setCheckedKeys()` and `getCheckedKeys()` in
+the browser, through `$find(id)`. From the server it is
+`update_el_tree(default_checked_keys =)` and
+[`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md);
+the keys checked arrive as `input$tree_checked`.
 
 ``` r
 
@@ -314,39 +316,36 @@ nodes <- list(
     )
   )
 )
-
-ui <- el_page(
-  el_tree(
-    "tree",
-    data = nodes,
-    show_checkbox = TRUE,
-    node_key = "id",
-    default_expand_all = TRUE
-  ),
-  el_button("set", "Check 4 and 6", size = "small"),
-  el_button("get", "Get checked keys", size = "small"),
-  el_button("reset", "Reset", size = "small"),
-  verbatimTextOutput("keys")
+el_tree(
+  "tree",
+  data = nodes,
+  show_checkbox = TRUE,
+  node_key = "id",
+  default_expand_all = TRUE
 )
-
-server <- function(input, output, session) {
-  observeEvent(
-    input$set,
-    update_el_tree(id = "tree", default_checked_keys = c(4, 6))
+el_button(
+  "set",
+  "Check 4 and 6",
+  size = "small",
+  on = list(click = v_on("$find('tree').setCheckedKeys([4, 6])"))
+)
+el_button(
+  "get",
+  "Get checked keys",
+  size = "small",
+  on = list(
+    click = v_on(
+      "$message('Checked: ' + $find('tree').getCheckedKeys().join(', '))"
+    )
   )
-  observeEvent(
-    input$reset,
-    update_el_tree(id = "tree", default_checked_keys = character(0))
-  )
-  observeEvent(input$get, call_el(session, "tree", "getCheckedKeys"))
-  output$keys <- renderPrint(input$tree_checked)
-}
-
-shinyApp(ui, server)
+)
+el_button(
+  "reset",
+  "Reset",
+  size = "small",
+  on = list(click = v_on("$find('tree').setCheckedKeys([])"))
+)
 ```
-
-![The checking-tree example,
-running](../../shots/tree-checking-tree.png)
 
 ## Custom node content
 
@@ -548,42 +547,35 @@ Its parameter is the filtering keyword. Note that for it to work,
 `filter-node-method` is required, and its value is the filtering method.
 
 [`filter()`](https://rdrr.io/r/stats/filter.html) keeps the nodes whose
-label contains the text; give `filter_node_method` to decide otherwise.
+label contains the text, called in the browser as it changes, through
+`$find(id)`; give `filter_node_method` to decide otherwise.
 
 ``` r
 
-ui <- el_page(
-  el_input("q", placeholder = "Filter keyword", width = "300px"),
-  el_tree(
-    "filtered",
-    node_key = "id",
-    default_expand_all = TRUE,
-    data = list(
-      list(
-        id = 1,
-        label = "Level one 1",
-        children = list(list(id = 4, label = "Level two 1-1"))
-      ),
-      list(
-        id = 2,
-        label = "Level one 2",
-        children = list(list(id = 5, label = "Level three 2-1"))
-      )
+el_input(
+  "q",
+  placeholder = "Filter keyword",
+  width = "300px",
+  on = list(input = v_on("$find('filtered').filter($event)"))
+)
+el_tree(
+  "filtered",
+  node_key = "id",
+  default_expand_all = TRUE,
+  data = list(
+    list(
+      id = 1,
+      label = "Level one 1",
+      children = list(list(id = 4, label = "Level two 1-1"))
+    ),
+    list(
+      id = 2,
+      label = "Level one 2",
+      children = list(list(id = 5, label = "Level three 2-1"))
     )
   )
 )
-
-server <- function(input, output, session) {
-  observeEvent(
-    input$q,
-    call_el(session, "filtered", "filter", list(input$q), result = FALSE)
-  )
-}
-
-shinyApp(ui, server)
 ```
-
-![The filtering example, running](../../shots/tree-filtering.png)
 
 ## Accordion
 

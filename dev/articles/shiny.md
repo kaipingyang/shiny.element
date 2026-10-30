@@ -1031,11 +1031,77 @@ component’s own `setup()` gets the store with
 `shinyVue.useStore("cart")`. `Pinia` is on the page too, for stores of
 one’s own that the server need not see.
 
+### Vue’s reactivity for the page
+
+For state smaller than a store, Vue’s own functions, in the shapes
+Shiny’s server has on the other side – each read in templates, in
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+expressions and `on` statements by a name after the function:
+
+| Shiny (server) | Vue | Here (browser) | Read as |
+|----|----|----|----|
+| [`reactiveVal()`](https://rdrr.io/pkg/shiny/man/reactiveVal.html) | `ref()` | `vue_ref(id, value)` | `$vueRef.<id>` |
+| [`reactiveValues()`](https://rdrr.io/pkg/shiny/man/reactiveValues.html) | [`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html) | `vue_reactive(id, list())` | `$vueReactive.<id>.<field>` |
+| [`reactive()`](https://rdrr.io/pkg/shiny/man/reactive.html) | `computed()` | `vue_computed(id, expr)` | `$vueComputed.<id>` |
+| [`observe()`](https://rdrr.io/pkg/shiny/man/observe.html) | `watch()` | `vue_watch(source, handler)` | – |
+
+``` r
+
+vue_ref("count", 0)
+vue_computed("big", "$vueRef.count >= 3")
+vue_watch(
+  "$vueComputed.big",
+  "if ($value) $message('Three or more')",
+  use = "shinyElement.plugin"
+)
+el_button("plus", "+1", on = list(click = "$vueRef.count++"))
+el_tag(
+  id = "shown",
+  label = "count",
+  type = v_bind("$vueComputed.big ? 'danger' : 'info'")
+)
+el_progress(
+  id = "bar",
+  percentage = v_bind("Math.min(100, $vueRef.count * 20)")
+)
+```
+
+The server reaches each as any component: `input = TRUE` reports it as
+`input$<id>`, `update_vue(session, id, value = )` sets a ref. A
+component’s `setup()` gets the same with `shinyVue.useRef(id)`,
+`useReactive(id)` and `useComputed(id)`.
+
+### A component’s methods, in the browser
+
+[`call_el()`](https://kaipingyang.github.io/shiny.element/dev/reference/call_el.md)
+runs a component’s method from the server. In the browser, `$find(id)`
+is the component itself – Vue’s `$refs`, for components that are apps of
+their own – so an `on` handler can run another’s method:
+
+``` r
+
+el_input(
+  "q",
+  placeholder = "Filter",
+  on = list(input = v_on("$find('fruit').filter($event)"))
+)
+el_tree(
+  "fruit",
+  data = list(
+    list(label = "apple"),
+    list(label = "pear"),
+    list(label = "peach")
+  )
+)
+```
+
 ### What a template can read of Shiny
 
 | In a template | Is |
 |----|----|
 | `$inputs.<id>` | another input’s value, as its component reports it (read-only) |
+| `$vueStore.<id>`, `$vueRef.<id>`, `$vueReactive.<id>`, `$vueComputed.<id>` | the page’s state, made in R |
+| `$find(id)` | a component, to call its methods |
 | `$recalculating.<id>` | `true` while a [`render_vue_data()`](https://kaipingyang.github.io/shiny.element/dev/reference/render_vue_data.md) output recalculates |
 | `$errors.<id>` | its error, `{message, type}`, until it renders again |
 | `$busy` | `true` while the server works |
