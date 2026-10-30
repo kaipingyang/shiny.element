@@ -140,7 +140,7 @@ htmltools::tagList(
 #>   <script type="text/x-template" data-shiny-vue-template><span hidden></span></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"state":{"kind":"computed","expr":{"expr":"$vueRef.count * 2"}},"evals":[]}</script>
 #> </div>
-#> <div id="vue_watch_9ca8955a-782e-4974-a50e-5ced4c423a09" data-shiny-vue style="display: contents">
+#> <div id="vue_watch_541a41b9-f5f4-442e-8810-4f29d7801f0c" data-shiny-vue style="display: contents">
 #>   <script type="text/x-template" data-shiny-vue-template><span hidden></span></script>
 #>   <script type="application/json" data-shiny-vue-options>{"options":{"data":[]},"state":{"kind":"watch","source":{"expr":"$vueRef.count"},"handler":"console.log('count is', $value)","statement":true,"immediate":false,"deep":false},"evals":[]}</script>
 #> </div>
