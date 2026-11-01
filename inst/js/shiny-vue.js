@@ -453,20 +453,34 @@
     return compiled[key];
   }
   // A binding's value: undefined while what it reads is not on the page yet
-  // (a store drawn later); another error is said once
+  // (a store drawn later), and one line in the console when it cannot be
+  // read at all -- a store the page does not have, a router it does not have,
+  // a misspelt path. Said once per expression, not once per tick: the value
+  // stays unset either way, and what is wrong is named.
   var failed = {};
+  function unreadable(b) {
+    var m = /^\s*\$vueStore(?:\.([A-Za-z_$][\w$]*)|\[\s*(['"])(.*?)\2\s*\])/.exec(b.expr);
+    if (m) {
+      var id = ((b.scope && b.scope.store) || '') + (m[1] || m[3]);
+      return id in sv.stores() ? null : 'no store "' + id + '" on the page';
+    }
+    if (!sv.router && /\$route\b/.test(b.expr)) {
+      return 'the page has no vue_router()';
+    }
+    return null;
+  }
+  function said(b, e, fn, hint) {
+    var key = fn + '\u0000' + b.expr + '\u0000' + JSON.stringify(b.scope || {});
+    if (failed[key]) return;
+    failed[key] = true;
+    warn(fn + '("' + b.expr + '"): ' + (unreadable(b) || e.message) + (hint || ''));
+  }
   function reader(b) {
     var f = compile('read', b.expr);
     return function() {
       if (!f) return undefined;
       try { return f(pageScope(b.scope)); }
-      catch (e) {
-        if (!(e instanceof TypeError) && !failed[b.expr]) {
-          failed[b.expr] = true;
-          warn('v_bind("' + b.expr + '"): ' + e.message);
-        }
-        return undefined;
-      }
+      catch (e) { said(b, e, 'v_bind'); return undefined; }
     };
   }
   function writer(b) {
@@ -474,7 +488,9 @@
     return function(v) {
       if (!f) return;
       try { f(pageScope(b.scope), v); }
-      catch (e) { warn('v_model("' + b.expr + '"): ' + e.message + '; the change stays with the component'); }
+      catch (e) {
+        said(b, e, 'v_model', '; the change stays with the component');
+      }
     };
   }
   // a copy, so a field and the state it follows never share an array

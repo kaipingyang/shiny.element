@@ -226,3 +226,65 @@ test_that("a store named twice on the page says so", {
   expect_length(w, 1)
   expect_match(w, 'vue_store("ui") is on the page twice', fixed = TRUE)
 })
+
+test_that("a binding the page cannot read says so once", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store("ui", state = list(open = FALSE))),
+      # a store the page does not have
+      shiny::tags$div(vue_app(
+        "bad_store",
+        shiny::tags$span(class = "out", "{{ String(open) }}"),
+        data = list(open = v_bind("$vueStore.uis.open"))
+      )),
+      # a path that runs through nothing
+      shiny::tags$div(vue_app(
+        "bad_path",
+        shiny::tags$span(class = "out", "{{ String(open) }}"),
+        data = list(open = v_bind("$vueStore.ui.absent.thing"))
+      )),
+      # $route, on a page with no router
+      shiny::tags$div(vue_app(
+        "no_router",
+        shiny::tags$span(class = "out", "{{ String(id) }}"),
+        data = list(id = v_bind("$route.params.id"))
+      )),
+      # and one that reads
+      shiny::tags$div(vue_app(
+        "good",
+        shiny::tags$span(class = "out", "{{ String(open) }}"),
+        data = list(open = v_bind("$vueStore.ui.open"))
+      ))
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  out <- function(id) {
+    js(sprintf("document.querySelector('#%s .out').textContent", id))
+  }
+  expect_equal(out("good"), "false")
+  expect_equal(out("bad_store"), "undefined")
+  expect_equal(out("bad_path"), "undefined")
+  expect_equal(out("no_router"), "undefined")
+  w <- unlist(js("__w"))
+  expect_length(w, 3)
+  expect_match(w[1], 'no store "uis" on the page', fixed = TRUE)
+  expect_match(w[2], 'v_bind("$vueStore.ui.absent.thing")', fixed = TRUE)
+  expect_match(w[3], "the page has no vue_router()", fixed = TRUE)
+  # said once: a change of the store the good one follows does not repeat it
+  js("shinyVue.useStore('ui').open = true")
+  Sys.sleep(0.4)
+  expect_equal(out("good"), "true")
+  expect_length(unlist(js("__w")), 3)
+})

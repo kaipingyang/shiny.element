@@ -39,6 +39,12 @@
 #' argument R reads to draw the component -- a label, the choices, a class
 #' -- says it cannot be bound.
 #'
+#' A binding the page cannot read -- a store it does not have, `$route`
+#' with no [vue_router()], a path that runs through nothing -- leaves its
+#' field unset and says so once in the browser's console, naming what is
+#' missing. A field a store simply does not have reads as `undefined`, as
+#' JavaScript does: that one is not said.
+#'
 #' @section Modules: Give `ns`, the module's [shiny::NS()] or its id, and
 #'   the expression is left as written while its names are the module's:
 #'   `$inputs.size` is `input$size` of the module, `$vueStore.ui` the store
