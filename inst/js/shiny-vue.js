@@ -223,6 +223,18 @@
     router.afterEach(function(to, from, failure) { if (!failure) report(to); });
     sv.router = router;
     sv.routerId = config.id;
+    // A component mounted before the router cannot be given it: Vue installs
+    // a plugin at mount, not after. Said, rather than leaving $route out of
+    // that component with nothing to explain it
+    var mounted = 0;
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-shiny-vue]'),
+      function(h) { if (h._shinyVueApp) mounted++; }
+    );
+    if (mounted) {
+      warn('vue_router("' + config.id + '"): ' + mounted + ' component' +
+        (mounted === 1 ? '' : 's') + ' mounted before it will not see $route');
+    }
     var start = function() {
       Vue.createApp({ render: function() { return null; } }).use(router)
         .mount(document.createElement('div'));

@@ -110,6 +110,11 @@
   nothing, which reads as the component's own doing. It now says so once in
   the console, naming the store or the router that is missing.
 
+* A `vue_router()` that reaches the page after components have mounted --
+  drawn later than them, inserted on a click -- says so: Vue installs a
+  plugin at mount, so those components never see `$route`, and the router
+  was silent about it.
+
 * `v_bind()` given a function -- a tree's `render_content` -- set it: the
   bridge compared the function with the unset field as JSON, where both
   are nothing, and kept the field unset.
