@@ -255,6 +255,15 @@
 ) {
   # fields given v_bind() or v_model(): followed in the browser
   spec <- .vue_bound(spec)
+  # made under a page's id prefix (an article's examples): the template's
+  # $find('id') finds the components made with it
+  prefix <- getOption(
+    "shiny.vue.id_prefix",
+    getOption("shiny.element.id_prefix")
+  )
+  if (!is.null(prefix)) {
+    spec$prefix <- prefix
+  }
   # The template travels as a script, which the browser does not parse: no
   # flash of raw tags before Vue runs, and camelCase attribute names survive
   template <- gsub("</script", "<\\/script", template, ignore.case = TRUE)

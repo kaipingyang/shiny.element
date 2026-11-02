@@ -457,3 +457,18 @@ test_that("vtags are Vue's built-in components", {
     '<keep-alive>\n  <component :is="view"></component>\n</keep-alive>'
   )
 })
+
+test_that("a slot's template() takes directives", {
+  html <- as.character(template(
+    scope = "{ data }",
+    htmltools::tags$button(v_on(click = "go(data.id)"), "Go")
+  ))
+  expect_match(html, '<button @click="go(data.id)">Go</button>', fixed = TRUE)
+})
+
+test_that("a host made under the articles' prefix carries it, for $find", {
+  withr::local_options(shiny.vue.id_prefix = "ex-")
+  expect_equal(spec_of(vue_app("c", htmltools::tags$span()))[[1]]$prefix, "ex-")
+  withr::local_options(shiny.vue.id_prefix = NULL)
+  expect_null(spec_of(vue_app("c", htmltools::tags$span()))[[1]]$prefix)
+})

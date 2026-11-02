@@ -47,6 +47,11 @@ template <- function(..., slot = NULL, scope = NULL) {
   }
   attr_str <- if (length(attrs) > 0) paste(attrs, collapse = " ") else ""
   htmltools::HTML(
-    sprintf('<template %s>%s</template>', attr_str, paste0(..., collapse = ""))
+    sprintf(
+      '<template %s>%s</template>',
+      attr_str,
+      # v_on(), v_if() and the rest, as the attributes they stand for
+      do.call(paste0, c(lapply(list(...), .vue_directives), collapse = ""))
+    )
   )
 }

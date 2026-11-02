@@ -104,6 +104,17 @@
 
 ## Bug fixes
 
+* `v_bind()` given a function -- a tree's `render_content` -- set it: the
+  bridge compared the function with the unset field as JSON, where both
+  are nothing, and kept the field unset.
+
+* `template()` takes `v_on()`, `v_if()` and the other directives, as a
+  slot is a template.
+
+* In the articles, a template's `$find(id)` finds a component by the id
+  its example gave it, as `v_on()`'s does: the tree's "Custom node
+  content" example is live, no longer a screenshot of an app.
+
 * A `vue_app()` placed inside an Element component built as a Vue app --
   `el_scrollbar()`, `el_splitter_panel()`, a popover's body and the like
   -- never mounted: it was left in the component's template, where Vue
