@@ -158,6 +158,23 @@
 
 ### Bug fixes
 
+- [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  given a function – a tree’s `render_content` – set it: the bridge
+  compared the function with the unset field as JSON, where both are
+  nothing, and kept the field unset.
+
+- [`template()`](https://kaipingyang.github.io/shiny.element/dev/reference/template.md)
+  takes
+  [`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md),
+  [`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+  and the other directives, as a slot is a template.
+
+- In the articles, a template’s `$find(id)` finds a component by the id
+  its example gave it, as
+  [`v_on()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_on.md)’s
+  does: the tree’s “Custom node content” example is live, no longer a
+  screenshot of an app.
+
 - A
   [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
   placed inside an Element component built as a Vue app –

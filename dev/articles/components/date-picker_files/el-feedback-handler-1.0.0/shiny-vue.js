@@ -480,7 +480,11 @@
   // a copy, so a field and the state it follows never share an array
   function copied(v) { return v !== null && typeof v === 'object' ? plain(v) : v; }
   function same(a, b) {
-    return a === b || JSON.stringify(plain(a)) === JSON.stringify(plain(b));
+    if (a === b) return true;
+    // a function (a render function, a validator) is itself: JSON makes
+    // every function, and undefined, the same nothing
+    if (typeof a === 'function' || typeof b === 'function') return false;
+    return JSON.stringify(plain(a)) === JSON.stringify(plain(b));
   }
   // v_on(statement, ns =): an inline statement run with the module's names,
   // the component's own as a template's, $event the event's first argument
@@ -825,7 +829,11 @@
     app.config.globalProperties.$vueRef = sv.vueRefs();
     app.config.globalProperties.$vueReactive = sv.vueReactives();
     app.config.globalProperties.$vueComputed = sv.vueComputeds();
-    app.config.globalProperties.$find = sv.findComponent;
+    // a component made under a page's id prefix finds its neighbours by the
+    // ids they were given, as v_on()'s $find does
+    app.config.globalProperties.$find = spec.prefix ? function(id) {
+      return byId(spec.prefix + id) || absorbedBy(spec.prefix + id) ? sv.findComponent(spec.prefix + id) : sv.findComponent(id);
+    } : sv.findComponent;
     // $store, as 0.3.1 named it: said once; a plugin that sets its own
     // $store (Vuex) replaces it
     Object.defineProperty(app.config.globalProperties, '$store', {

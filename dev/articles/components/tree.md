@@ -365,8 +365,13 @@ configured.
 
 The first tree draws its nodes with `render_content`, a function given
 `h`; the second with the default slot, scoped with `node` and `data`.
-Their buttons ask the server, which appends or removes the node in both
-trees with `call_el(session, id, "append" | "remove", ...)`.
+Their buttons append or remove the node in both trees, in the browser: a
+store keeps the next id, and `$find(id)` reaches each tree’s
+[`append()`](https://rdrr.io/r/base/append.html) and
+[`remove()`](https://rdrr.io/r/base/rm.html). The render function is
+made by
+[`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+so it sees `$find` and `$vueStore` as a template does.
 
 ``` r
 
@@ -399,76 +404,82 @@ tree <- function(id, ...) {
     ...
   )
 }
-ui <- el_page(
-  tags$style(
-    ".custom-tree-node { flex: 1; display: flex; align-items: center;
-       justify-content: space-between; font-size: 14px; padding-right: 8px; }"
-  ),
-  tags$p("Using render-content"),
-  tree(
-    "cus_render",
-    render_content = JS(
-      "function(h, ctx) {",
-      "  var send = function(what) { Shiny.setInputValue('cus_' + what, ctx.data.id, {priority: 'event'}); };",
-      "  return h('div', { class: 'custom-tree-node' }, [",
-      "    h('span', null, ctx.node.label),",
-      "    h('div', null, [",
-      "      h(ElementPlus.ElButton, { type: 'primary', link: true, onClick: function() { send('append'); } }, { default: function() { return 'Append'; } }),",
-      "      h(ElementPlus.ElButton, { type: 'danger', link: true, style: 'margin-left: 4px', onClick: function() { send('remove'); } }, { default: function() { return 'Delete'; } })",
-      "    ])",
-      "  ]);",
+vue_store(
+  "tree_ops",
+  state = list(next_id = 1000),
+  actions = list(
+    append = JS(
+      "function(trees, parent) {",
+      "  var child = { id: this.next_id++, label: 'testtest', children: [] };",
+      "  trees.forEach(function(t) { t.append(child, parent); });",
       "}"
+    ),
+    remove = JS(
+      "function(trees, key) { trees.forEach(function(t) { t.remove(key); }); }"
     )
-  ),
-  tags$p("Using scoped slot"),
-  tree(
-    "cus_slot",
-    slots = list(
-      default = template(
-        scope = "{ node, data }",
+  )
+)
+# both trees, and what their buttons do with a node's data
+trees <- "[$find('cus_render'), $find('cus_slot')]"
+append <- sprintf("$vueStore.tree_ops.append(%s, data.id)", trees)
+remove <- sprintf("$vueStore.tree_ops.remove(%s, data.id)", trees)
+tags$style(
+  ".custom-tree-node { flex: 1; display: flex; align-items: center;
+     justify-content: space-between; font-size: 14px; padding-right: 8px; }"
+)
+tags$p("Using render-content")
+tree(
+  "cus_render",
+  render_content = v_bind(sprintf(
+    paste(
+      "(h, { node, data }) => h('div', { class: 'custom-tree-node' }, [",
+      "  h('span', null, node.label),",
+      "  h('div', null, [",
+      "    h(ElementPlus.ElButton, { type: 'primary', link: true, onClick: () => %s },",
+      "      { default: () => 'Append' }),",
+      "    h(ElementPlus.ElButton, { type: 'danger', link: true, style: 'margin-left: 4px',",
+      "      onClick: () => %s }, { default: () => 'Delete' })",
+      "  ])",
+      "])",
+      sep = "\n"
+    ),
+    append,
+    remove
+  ))
+)
+tags$p("Using scoped slot")
+tree(
+  "cus_slot",
+  slots = list(
+    default = template(
+      scope = "{ node, data }",
+      tags$div(
+        class = "custom-tree-node",
+        tags$span("{{ node.label }}"),
         tags$div(
-          class = "custom-tree-node",
-          tags$span("{{ node.label }}"),
-          tags$div(
-            el$button(
-              type = "primary",
-              link = NA,
-              `@click` = "$setInput('cus_append', data.id)",
-              "Append"
-            ),
-            el$button(
-              style = "margin-left: 4px",
-              type = "danger",
-              link = NA,
-              `@click` = "$setInput('cus_remove', data.id)",
-              "Delete"
-            )
+          el$button(
+            type = "primary",
+            link = NA,
+            v_on(click = append),
+            "Append"
+          ),
+          el$button(
+            style = "margin-left: 4px",
+            type = "danger",
+            link = NA,
+            v_on(click = remove),
+            "Delete"
           )
         )
       )
     )
   )
 )
-server <- function(input, output, session) {
-  next_id <- 1000
-  observeEvent(input$cus_append, {
-    child <- list(id = next_id, label = "testtest", children = list())
-    next_id <<- next_id + 1
-    for (id in c("cus_render", "cus_slot")) {
-      call_el(session, id, "append", list(child, input$cus_append))
-    }
-  })
-  observeEvent(input$cus_remove, {
-    for (id in c("cus_render", "cus_slot")) {
-      call_el(session, id, "remove", list(input$cus_remove))
-    }
-  })
-}
-shinyApp(ui, server)
 ```
 
-![The customized-node example,
-running](../../shots/tree-customized-node.png)
+Using render-content
+
+Using scoped slot
 
 ## Custom node class
 
