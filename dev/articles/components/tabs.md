@@ -203,37 +203,70 @@ Task
 
 Only card type Tabs support addable & closeable.
 
-`editable = TRUE` adds the close buttons and the new-tab button; the
-tabs close themselves, and a new one is the server’s to make, with
-[`insert_el_tab()`](https://kaipingyang.github.io/shiny.element/dev/reference/insert_el_tab.md).
+Tabs added and closed in the browser, as upstream’s: `el$tabs()` in a
+\[vue_app()\], its panes a
+[`v_for()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+over the app’s list and `edit` its handler. An
+[`el_tabs()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_tabs.md)
+is markup with no Vue of its own to follow a list; from the server it
+takes a tab with \[insert_el_tab()\].
 
 ``` r
 
-ui <- el_page(el_tabs(
-  "docs",
-  type = "card",
-  editable = TRUE,
-  tabs = list(
-    el_tab_pane("Tab 1", "Tab 1 content", name = "1"),
-    el_tab_pane("Tab 2", "Tab 2 content", name = "2")
-  )
-))
-
-server <- function(input, output, session) {
-  n <- 2
-  observeEvent(input$docs_tab_add, {
-    n <<- n + 1
-    insert_el_tab(
-      id = "docs",
-      tab = el_tab_pane("New Tab", "New Tab content", name = as.character(n))
+tags$style(
+  ".demo-tabs > .el-tabs__content { padding: 32px; color: #6b778c;
+     font-size: 32px; font-weight: 600; }"
+)
+vue_app(
+  "docs_tabs",
+  el$tabs(
+    v_model("editableTabsValue"),
+    type = "card",
+    editable = NA,
+    class = "demo-tabs",
+    v_on(edit = "handleTabsEdit"),
+    el$tab_pane(
+      v_for("item in editableTabs", key = "item.name"),
+      label = v_bind("item.title"),
+      name = v_bind("item.name"),
+      "{{ item.content }}"
     )
-  })
-}
-
-shinyApp(ui, server)
+  ),
+  data = list(
+    tabIndex = 2,
+    editableTabsValue = "2",
+    editableTabs = list(
+      list(title = "Tab 1", name = "1", content = "Tab 1 content"),
+      list(title = "Tab 2", name = "2", content = "Tab 2 content")
+    )
+  ),
+  methods = list(
+    handleTabsEdit = JS(
+      "function(targetName, action) {",
+      "  if (action === 'add') {",
+      "  var newTabName = String(++this.tabIndex);",
+      "  this.editableTabs.push({ title: 'New Tab', name: newTabName, content: 'New Tab content' });",
+      "  this.editableTabsValue = newTabName;",
+      "  } else if (action === 'remove') {",
+      "  var tabs = this.editableTabs;",
+      "  var activeName = this.editableTabsValue;",
+      "  if (activeName === targetName) {",
+      "    tabs.forEach(function(tab, index) {",
+      "      if (tab.name === targetName) {",
+      "        var nextTab = tabs[index + 1] || tabs[index - 1];",
+      "        if (nextTab) activeName = nextTab.name;",
+      "      }",
+      "    });",
+      "  }",
+      "  this.editableTabsValue = activeName;",
+      "  this.editableTabs = tabs.filter(function(tab) { return tab.name !== targetName; });",
+      "  }",
+      "}"
+    )
+  ),
+  use = "shinyElement.plugin"
+)
 ```
-
-![The dynamic-tabs example, running](../../shots/tabs-dynamic-tabs.png)
 
 ## Customized add button icon
 
@@ -261,37 +294,76 @@ Tab 2 content
 
 ## Customized trigger button of new tab
 
+A button of its own adds a tab, and `tab-remove` closes one – as
+upstream’s, in a \[vue_app()\].
+
 ``` r
 
-ui <- el_page(
-  el_button("add", "add tab", size = "small"),
-  el_tabs(
-    "docs",
-    type = "card",
-    closable = TRUE,
-    tabs = list(
-      el_tab_pane("Tab 1", "Tab 1 content", name = "1"),
-      el_tab_pane("Tab 2", "Tab 2 content", name = "2")
-    )
-  )
+tags$style(
+  ".demo-tabs > .el-tabs__content { padding: 32px; color: #6b778c;
+     font-size: 32px; font-weight: 600; }"
 )
-
-server <- function(input, output, session) {
-  n <- 2
-  observeEvent(input$add, {
-    n <<- n + 1
-    insert_el_tab(
-      id = "docs",
-      tab = el_tab_pane("New Tab", "New Tab content", name = as.character(n))
+vue_app(
+  "trigger_tabs",
+  tags$div(
+    tags$div(
+      style = "margin-bottom: 20px",
+      el$button(
+        size = "small",
+        v_on(click = "addTab(editableTabsValue)"),
+        "add tab"
+      )
+    ),
+    el$tabs(
+      v_model("editableTabsValue"),
+      type = "card",
+      class = "demo-tabs",
+      closable = NA,
+      v_on("tab-remove" = "removeTab"),
+      el$tab_pane(
+        v_for("item in editableTabs", key = "item.name"),
+        label = v_bind("item.title"),
+        name = v_bind("item.name"),
+        "{{ item.content }}"
+      )
     )
-  })
-}
-
-shinyApp(ui, server)
+  ),
+  data = list(
+    tabIndex = 2,
+    editableTabsValue = "2",
+    editableTabs = list(
+      list(title = "Tab 1", name = "1", content = "Tab 1 content"),
+      list(title = "Tab 2", name = "2", content = "Tab 2 content")
+    )
+  ),
+  methods = list(
+    addTab = JS(
+      "function(targetName) {",
+      "  var newTabName = String(++this.tabIndex);",
+      "  this.editableTabs.push({ title: 'New Tab', name: newTabName, content: 'New Tab content' });",
+      "  this.editableTabsValue = newTabName;",
+      "}"
+    ),
+    removeTab = JS(
+      "function(targetName) {",
+      "  var tabs = this.editableTabs;",
+      "  var activeName = this.editableTabsValue;",
+      "  if (activeName === targetName) {",
+      "    tabs.forEach(function(tab, index) {",
+      "      if (tab.name === targetName) {",
+      "        var nextTab = tabs[index + 1] || tabs[index - 1];",
+      "        if (nextTab) activeName = nextTab.name;",
+      "      }",
+      "    });",
+      "  }",
+      "  this.editableTabsValue = activeName;",
+      "  this.editableTabs = tabs.filter(function(tab) { return tab.name !== targetName; });",
+      "}"
+    )
+  ),
+  use = "shinyElement.plugin"
+)
 ```
-
-![The customized-trigger example,
-running](../../shots/tabs-customized-trigger.png)
 
 ## Default value
 

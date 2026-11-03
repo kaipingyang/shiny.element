@@ -83,7 +83,9 @@ update_el_pagination(
 
 - page_sizes:
 
-  Vector of page-size options. Default `c(10, 20, 30, 50)`.
+  Vector of page-size options. Default `c(10, 20, 30, 50)`. Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of Element's `number[]`.
 
 - layout:
 

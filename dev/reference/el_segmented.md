@@ -58,7 +58,10 @@ update_el_segmented(
 - options:
 
   The options: a named vector `c(Label = value)`, a vector, or a list of
-  `list(value =, label =, disabled =)`, as Element Plus takes them.
+  `list(value =, label =, disabled =)`, as Element Plus takes them. Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of an expression giving Element's options, as its `options` prop takes
+  them: followed in the browser, given as it is.
 
 - size:
 

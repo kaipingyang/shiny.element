@@ -100,6 +100,12 @@ update_el_infinite_scroll(
 
 A Shiny UI element.
 
+## Details
+
+In `on`, `load` is the area's own handler – Element's infinite scroll is
+a directive and emits nothing – as upstream's
+`v-infinite-scroll="load"`: `on = list(load = "count += 2")`.
+
 ## Shiny inputs
 
 |                   |          |                                               |

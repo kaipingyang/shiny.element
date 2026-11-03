@@ -28,7 +28,8 @@ vue_app(
   use = NULL,
   dependencies = NULL,
   events = NULL,
-  on = NULL
+  on = NULL,
+  ns = NULL
 )
 ```
 
@@ -138,6 +139,16 @@ vue_app(
   functions, each called with `report` and the event's arguments –
   `report(name, value)` sets `input$<id>_<name>` – or of Vue's inline
   statements, as strings (`"$vueStore.ui.open = true"`).
+
+- ns:
+
+  In a module, its
+  [`shiny::NS()`](https://rdrr.io/pkg/shiny/man/NS.html) or its id, as
+  [`shiny::conditionalPanel()`](https://rdrr.io/pkg/shiny/man/conditionalPanel.html)
+  takes it: the template's `$inputs.size` is the module's `input$size`,
+  `$vueStore.ui` its `vue_store(ns("ui"))`, `$find("tree")` its
+  `ns("tree")` – and nothing outside the module, as Shiny narrows
+  `input`. The `id` is given as `ns("id")`, as ever.
 
 ## Value
 

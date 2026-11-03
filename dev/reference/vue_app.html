@@ -196,7 +196,8 @@ Vue's <code>app.use()</code>.</p>
 <span>  use <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dependencies <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  events <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  on <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  on <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ns <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -293,6 +294,14 @@ dropped. The template must then be one tag.</p></dd>
 named list of <code><a href="JS.html">JS()</a></code> functions, each called with <code>report</code> and the
 event's arguments – <code>report(name, value)</code> sets <code>input$&lt;id&gt;_&lt;name&gt;</code> –
 or of Vue's inline statements, as strings (<code>"$vueStore.ui.open = true"</code>).</p></dd>
+
+
+<dt id="arg-ns">ns<a class="anchor" aria-label="anchor" href="#arg-ns"></a></dt>
+<dd><p>In a module, its <code><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">shiny::NS()</a></code> or its id, as
+<code><a href="https://rdrr.io/pkg/shiny/man/conditionalPanel.html" class="external-link">shiny::conditionalPanel()</a></code> takes it: the template's <code>$inputs.size</code> is
+the module's <code>input$size</code>, <code>$vueStore.ui</code> its <code>vue_store(ns("ui"))</code>,
+<code>$find("tree")</code> its <code>ns("tree")</code> – and nothing outside the module, as
+Shiny narrows <code>input</code>. The <code>id</code> is given as <code>ns("id")</code>, as ever.</p></dd>
 
 </dl></div>
     <div class="section level2">

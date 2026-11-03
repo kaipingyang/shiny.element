@@ -348,7 +348,7 @@ the browser, [v_bind()].</p>
   <el-radio-group v-bind="$optional(&#39;radio-group&#39;)" v-model="value" :disabled="disabled" @change="handleChange">
     <el-radio-button :label="opt.value" v-for="opt in options" :key="opt.value" :disabled="opt.disabled" :border="opt.border" :name="opt.name" @change="handleItemChange(opt, $event)">{{opt.label}}</el-radio-button>
   </el-radio-group>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"top","options":[{"value":"top","label":"top"},{"value":"right","label":"right"},{"value":"bottom","label":"bottom"},{"value":"left","label":"left"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('tab-position-position', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"prefix":"tab-position-","evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"value":"top","options":[{"value":"top","label":"top"},{"value":"right","label":"right"},{"value":"bottom","label":"bottom"},{"value":"left","label":"left"}],"disabled":false,"size":null,"fill":null,"textColor":null,"ariaLabel":null,"props":null,"type":null,"validateEvent":null},"methods":{"handleItemChange":"function(opt, checked) { window.shinyVue.emit('tab-position-position', 'item_change', [{value: opt.value, label: opt.label, checked: checked}]); }","handleChange":"function(value) { }"}},"input":"value","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"radio-group":{"size":"size","fill":"fill","text-color":"textColor","aria-label":"ariaLabel","props":"props","type":"type","validate-event":"validateEvent"}},"scope":{"inputs":"tab-position-"},"evals":["options.methods.handleItemChange","options.methods.handleChange"]}</script>
 </div>
   <div style="height: 16px"></div>
   <div id="tab-position-tabs_pos" class="el-tabs el-tabs--top" data-el-tabs="true" data-shiny-vue-bind='{"tabPosition":{"expr":"$inputs.position","scope":{"inputs":"tab-position-"}}}' data-shiny-island data-el-events="tab_remove tab_add" data-position="top" data-carded="false" data-closable="false">
@@ -424,33 +424,75 @@ the browser, [v_bind()].</p>
 <h2 id="add-close-tab">Add &amp; close tab<a class="anchor" aria-label="anchor" href="#add-close-tab"></a>
 </h2>
 <p>Only card type Tabs support addable &amp; closeable.</p>
-<p><code>editable = TRUE</code> adds the close buttons and the new-tab
-button; the tabs close themselves, and a new one is the server’s to
-make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a></code>.</p>
+<p>Tabs added and closed in the browser, as upstream’s:
+<code>el$tabs()</code> in a [vue_app()], its panes a
+<code><a href="../../reference/directives.html">v_for()</a></code> over the app’s list and <code>edit</code> its
+handler. An <code><a href="../../reference/el_tabs.html">el_tabs()</a></code> is markup with no Vue of its own to
+follow a list; from the server it takes a tab with
+[insert_el_tab()].</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span><span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
-<span>  <span class="st">"docs"</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"card"</span>,</span>
-<span>  editable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Tab 1"</span>, <span class="st">"Tab 1 content"</span>, name <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Tab 2"</span>, <span class="st">"Tab 2 content"</span>, name <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">docs_tab_add</span>, <span class="op">{</span></span>
-<span>    <span class="va">n</span> <span class="op">&lt;&lt;-</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>    <span class="fu"><a href="../../reference/insert_el_tab.html">insert_el_tab</a></span><span class="op">(</span></span>
-<span>      id <span class="op">=</span> <span class="st">"docs"</span>,</span>
-<span>      tab <span class="op">=</span> <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"New Tab"</span>, <span class="st">"New Tab content"</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>  <span class="st">".demo-tabs &gt; .el-tabs__content { padding: 32px; color: #6b778c;</span></span>
+<span><span class="st">     font-size: 32px; font-weight: 600; }"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>  <span class="st">"docs_tabs"</span>,</span>
+<span>  <span class="va">el</span><span class="op">$</span><span class="fu">tabs</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"editableTabsValue"</span><span class="op">)</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>    editable <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    class <span class="op">=</span> <span class="st">"demo-tabs"</span>,</span>
+<span>    <span class="fu"><a href="../../reference/v_on.html">v_on</a></span><span class="op">(</span>edit <span class="op">=</span> <span class="st">"handleTabsEdit"</span><span class="op">)</span>,</span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">tab_pane</span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/directives.html">v_for</a></span><span class="op">(</span><span class="st">"item in editableTabs"</span>, key <span class="op">=</span> <span class="st">"item.name"</span><span class="op">)</span>,</span>
+<span>      label <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"item.title"</span><span class="op">)</span>,</span>
+<span>      name <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"item.name"</span><span class="op">)</span>,</span>
+<span>      <span class="st">"{{ item.content }}"</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tabs-dynamic-tabs.png" alt="The dynamic-tabs example, running" style="max-width: 100%">
+<span>  <span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    tabIndex <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    editableTabsValue <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    editableTabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tab 1"</span>, name <span class="op">=</span> <span class="st">"1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tab 2"</span>, name <span class="op">=</span> <span class="st">"2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  methods <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    handleTabsEdit <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function(targetName, action) {"</span>,</span>
+<span>      <span class="st">"  if (action === 'add') {"</span>,</span>
+<span>      <span class="st">"  var newTabName = String(++this.tabIndex);"</span>,</span>
+<span>      <span class="st">"  this.editableTabs.push({ title: 'New Tab', name: newTabName, content: 'New Tab content' });"</span>,</span>
+<span>      <span class="st">"  this.editableTabsValue = newTabName;"</span>,</span>
+<span>      <span class="st">"  } else if (action === 'remove') {"</span>,</span>
+<span>      <span class="st">"  var tabs = this.editableTabs;"</span>,</span>
+<span>      <span class="st">"  var activeName = this.editableTabsValue;"</span>,</span>
+<span>      <span class="st">"  if (activeName === targetName) {"</span>,</span>
+<span>      <span class="st">"    tabs.forEach(function(tab, index) {"</span>,</span>
+<span>      <span class="st">"      if (tab.name === targetName) {"</span>,</span>
+<span>      <span class="st">"        var nextTab = tabs[index + 1] || tabs[index - 1];"</span>,</span>
+<span>      <span class="st">"        if (nextTab) activeName = nextTab.name;"</span>,</span>
+<span>      <span class="st">"      }"</span>,</span>
+<span>      <span class="st">"    });"</span>,</span>
+<span>      <span class="st">"  }"</span>,</span>
+<span>      <span class="st">"  this.editableTabsValue = activeName;"</span>,</span>
+<span>      <span class="st">"  this.editableTabs = tabs.filter(function(tab) { return tab.name !== targetName; });"</span>,</span>
+<span>      <span class="st">"  }"</span>,</span>
+<span>      <span class="st">"}"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  use <span class="op">=</span> <span class="st">"shinyElement.plugin"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>.demo-tabs &gt; .el-tabs__content { padding: 32px; color: #6b778c;
+     font-size: 32px; font-weight: 600; }</style>
+<div id="docs_tabs" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><el-tabs type="card" editable class="demo-tabs" v-model="editableTabsValue" @edit="handleTabsEdit">
+  <el-tab-pane :label="item.title" :name="item.name" v-for="item in editableTabs" :key="item.name">{{ item.content }}</el-tab-pane>
+</el-tabs></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tabIndex":2,"editableTabsValue":"2","editableTabs":[{"title":"Tab 1","name":"1","content":"Tab 1 content"},{"title":"Tab 2","name":"2","content":"Tab 2 content"}]},"methods":{"handleTabsEdit":"function(targetName, action) {\n  if (action === 'add') {\n  var newTabName = String(++this.tabIndex);\n  this.editableTabs.push({ title: 'New Tab', name: newTabName, content: 'New Tab content' });\n  this.editableTabsValue = newTabName;\n  } else if (action === 'remove') {\n  var tabs = this.editableTabs;\n  var activeName = this.editableTabsValue;\n  if (activeName === targetName) {\n    tabs.forEach(function(tab, index) {\n      if (tab.name === targetName) {\n        var nextTab = tabs[index + 1] || tabs[index - 1];\n        if (nextTab) activeName = nextTab.name;\n      }\n    });\n  }\n  this.editableTabsValue = activeName;\n  this.editableTabs = tabs.filter(function(tab) { return tab.name !== targetName; });\n  }\n}"}},"scope":{"inputs":"dynamic-tabs-"},"use":["shinyElement.plugin"],"evals":["options.methods.handleTabsEdit"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="customized-add-button-icon">Customized add button icon<a class="anchor" aria-label="anchor" href="#customized-add-button-icon"></a>
@@ -497,33 +539,87 @@ make, with <code><a href="../../reference/insert_el_tab.html">insert_el_tab()</a
 <div class="section level2">
 <h2 id="customized-trigger-button-of-new-tab">Customized trigger button of new tab<a class="anchor" aria-label="anchor" href="#customized-trigger-button-of-new-tab"></a>
 </h2>
+<p>A button of its own adds a tab, and <code>tab-remove</code> closes
+one – as upstream’s, in a [vue_app()].</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/el_page.html">el_page</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/el_button.html">el_button</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="st">"add tab"</span>, size <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../../reference/el_tabs.html">el_tabs</a></span><span class="op">(</span></span>
-<span>    <span class="st">"docs"</span>,</span>
-<span>    type <span class="op">=</span> <span class="st">"card"</span>,</span>
-<span>    closable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    tabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Tab 1"</span>, <span class="st">"Tab 1 content"</span>, name <span class="op">=</span> <span class="st">"1"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"Tab 2"</span>, <span class="st">"Tab 2 content"</span>, name <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">tags</span><span class="op">$</span><span class="fu">style</span><span class="op">(</span></span>
+<span>  <span class="st">".demo-tabs &gt; .el-tabs__content { padding: 32px; color: #6b778c;</span></span>
+<span><span class="st">     font-size: 32px; font-weight: 600; }"</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add</span>, <span class="op">{</span></span>
-<span>    <span class="va">n</span> <span class="op">&lt;&lt;-</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>    <span class="fu"><a href="../../reference/insert_el_tab.html">insert_el_tab</a></span><span class="op">(</span></span>
-<span>      id <span class="op">=</span> <span class="st">"docs"</span>,</span>
-<span>      tab <span class="op">=</span> <span class="fu"><a href="../../reference/el_tab_pane.html">el_tab_pane</a></span><span class="op">(</span><span class="st">"New Tab"</span>, <span class="st">"New Tab content"</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/vue_app.html">vue_app</a></span><span class="op">(</span></span>
+<span>  <span class="st">"trigger_tabs"</span>,</span>
+<span>  <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
+<span>      style <span class="op">=</span> <span class="st">"margin-bottom: 20px"</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
+<span>        size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>        <span class="fu"><a href="../../reference/v_on.html">v_on</a></span><span class="op">(</span>click <span class="op">=</span> <span class="st">"addTab(editableTabsValue)"</span><span class="op">)</span>,</span>
+<span>        <span class="st">"add tab"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">el</span><span class="op">$</span><span class="fu">tabs</span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../../reference/v_bind.html">v_model</a></span><span class="op">(</span><span class="st">"editableTabsValue"</span><span class="op">)</span>,</span>
+<span>      type <span class="op">=</span> <span class="st">"card"</span>,</span>
+<span>      class <span class="op">=</span> <span class="st">"demo-tabs"</span>,</span>
+<span>      closable <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>      <span class="fu"><a href="../../reference/v_on.html">v_on</a></span><span class="op">(</span><span class="st">"tab-remove"</span> <span class="op">=</span> <span class="st">"removeTab"</span><span class="op">)</span>,</span>
+<span>      <span class="va">el</span><span class="op">$</span><span class="fu">tab_pane</span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../../reference/directives.html">v_for</a></span><span class="op">(</span><span class="st">"item in editableTabs"</span>, key <span class="op">=</span> <span class="st">"item.name"</span><span class="op">)</span>,</span>
+<span>        label <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"item.title"</span><span class="op">)</span>,</span>
+<span>        name <span class="op">=</span> <span class="fu"><a href="../../reference/v_bind.html">v_bind</a></span><span class="op">(</span><span class="st">"item.name"</span><span class="op">)</span>,</span>
+<span>        <span class="st">"{{ item.content }}"</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<img src="../../shots/tabs-customized-trigger.png" alt="The customized-trigger example, running" style="max-width: 100%">
+<span>  <span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    tabIndex <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    editableTabsValue <span class="op">=</span> <span class="st">"2"</span>,</span>
+<span>    editableTabs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tab 1"</span>, name <span class="op">=</span> <span class="st">"1"</span>, content <span class="op">=</span> <span class="st">"Tab 1 content"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tab 2"</span>, name <span class="op">=</span> <span class="st">"2"</span>, content <span class="op">=</span> <span class="st">"Tab 2 content"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  methods <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    addTab <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function(targetName) {"</span>,</span>
+<span>      <span class="st">"  var newTabName = String(++this.tabIndex);"</span>,</span>
+<span>      <span class="st">"  this.editableTabs.push({ title: 'New Tab', name: newTabName, content: 'New Tab content' });"</span>,</span>
+<span>      <span class="st">"  this.editableTabsValue = newTabName;"</span>,</span>
+<span>      <span class="st">"}"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    removeTab <span class="op">=</span> <span class="fu"><a href="../../reference/JS.html">JS</a></span><span class="op">(</span></span>
+<span>      <span class="st">"function(targetName) {"</span>,</span>
+<span>      <span class="st">"  var tabs = this.editableTabs;"</span>,</span>
+<span>      <span class="st">"  var activeName = this.editableTabsValue;"</span>,</span>
+<span>      <span class="st">"  if (activeName === targetName) {"</span>,</span>
+<span>      <span class="st">"    tabs.forEach(function(tab, index) {"</span>,</span>
+<span>      <span class="st">"      if (tab.name === targetName) {"</span>,</span>
+<span>      <span class="st">"        var nextTab = tabs[index + 1] || tabs[index - 1];"</span>,</span>
+<span>      <span class="st">"        if (nextTab) activeName = nextTab.name;"</span>,</span>
+<span>      <span class="st">"      }"</span>,</span>
+<span>      <span class="st">"    });"</span>,</span>
+<span>      <span class="st">"  }"</span>,</span>
+<span>      <span class="st">"  this.editableTabsValue = activeName;"</span>,</span>
+<span>      <span class="st">"  this.editableTabs = tabs.filter(function(tab) { return tab.name !== targetName; });"</span>,</span>
+<span>      <span class="st">"}"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  use <span class="op">=</span> <span class="st">"shinyElement.plugin"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="el-demo">
+  <style>.demo-tabs &gt; .el-tabs__content { padding: 32px; color: #6b778c;
+     font-size: 32px; font-weight: 600; }</style>
+<div id="trigger_tabs" data-shiny-vue style="display: contents">
+    <script type="text/x-template" data-shiny-vue-template><div>
+  <div style="margin-bottom: 20px">
+    <el-button size="small" @click="addTab(editableTabsValue)">add tab</el-button>
+  </div>
+  <el-tabs type="card" class="demo-tabs" closable v-model="editableTabsValue" @tab-remove="removeTab">
+    <el-tab-pane :label="item.title" :name="item.name" v-for="item in editableTabs" :key="item.name">{{ item.content }}</el-tab-pane>
+  </el-tabs>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"tabIndex":2,"editableTabsValue":"2","editableTabs":[{"title":"Tab 1","name":"1","content":"Tab 1 content"},{"title":"Tab 2","name":"2","content":"Tab 2 content"}]},"methods":{"addTab":"function(targetName) {\n  var newTabName = String(++this.tabIndex);\n  this.editableTabs.push({ title: 'New Tab', name: newTabName, content: 'New Tab content' });\n  this.editableTabsValue = newTabName;\n}","removeTab":"function(targetName) {\n  var tabs = this.editableTabs;\n  var activeName = this.editableTabsValue;\n  if (activeName === targetName) {\n    tabs.forEach(function(tab, index) {\n      if (tab.name === targetName) {\n        var nextTab = tabs[index + 1] || tabs[index - 1];\n        if (nextTab) activeName = nextTab.name;\n      }\n    });\n  }\n  this.editableTabsValue = activeName;\n  this.editableTabs = tabs.filter(function(tab) { return tab.name !== targetName; });\n}"}},"scope":{"inputs":"customized-trigger-"},"use":["shinyElement.plugin"],"evals":["options.methods.addTab","options.methods.removeTab"]}</script>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="default-value">Default value<a class="anchor" aria-label="anchor" href="#default-value"></a>

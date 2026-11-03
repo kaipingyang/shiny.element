@@ -89,8 +89,10 @@
   // itself with the page's config (locale, size, z-index, from el_page()),
   // and what this package adds to it -- the icons by name, $ELEMENT, $elRef,
   // $elDate. A component that does not ask for it does not get it.
+  // a locale's code, or -- a v_bind(), as upstream's :locale -- its object
   function localeOf(code) {
     if (!code) return undefined;
+    if (typeof code === 'object') return code;
     var name = 'ElementPlusLocale' + String(code).toLowerCase().split('-').map(function (p) {
       return p.charAt(0).toUpperCase() + p.slice(1);
     }).join('');

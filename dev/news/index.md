@@ -16,6 +16,39 @@
 
 ### New features
 
+- `vue_app(ns =)`: in a module, the template’s `$inputs`, `$vueStore`
+  (and `$vueRef` and the rest) and `$find()` are the module’s, as
+  Shiny’s `conditionalPanel(ns =)` narrows `input` – strictly, a name
+  outside the module not reached. Template directives take no `ns`: the
+  component owning the template does.
+
+- Data arguments R converts follow
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  too, in Element’s own form, as DT’s
+  [`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md)
+  beside its R values:
+  [`el_select()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_select.md),
+  [`el_radio_group()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_radio_group.md),
+  [`el_checkbox_group()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_checkbox_group.md)
+  `choices`;
+  [`el_mention()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_mention.md),
+  [`el_segmented()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_segmented.md),
+  [`el_select_v2()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_select_v2.md)
+  `options`; `el_autocomplete(suggestions =)`,
+  `el_pagination(page_sizes =)`, `el_image_viewer(url_list =)`,
+  `el_timeline(items =)`. An R value is converted as before; a binding’s
+  `[{ value, label }]` reaches Element as it is. Vue’s development build
+  says when a bound list is not records. A table’s `columns` too, as
+  el-table-column’s props (`[{ prop, label, width }]`), drawn with
+  Element’s cells.
+
+- `el_config_provider(locale =)` follows a
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of a locale object, as upstream’s `computed(() => zhCn or en)`:
+  `"$vueStore.ui.zh ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"`. The
+  files of the locales the expression names come with it. It took the
+  expression for a locale’s name.
+
 - [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
   and
   [`v_model()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
@@ -158,6 +191,29 @@
 
 ### Bug fixes
 
+- `el_infinite_scroll(on = list(load = ...))` is called: Element’s
+  infinite scroll is a directive and emits no `load`, so the handler
+  waited on an event that never came. It is the directive’s handler now,
+  after the one reporting `input$<id>_load`, as upstream’s
+  `v-infinite-scroll="load"`.
+
+- An `on` handler written as a function expression or a method path –
+  `"(pattern, prefix) => ..."`, `"$vueStore.cart.add"` – is called with
+  all the event’s arguments, as Vue’s compiler does with
+  `@search="..."`; it was run as a statement, and so never called. The
+  test is Vue’s own (`isMemberExpression`, `fnExpRE`), in R for `on` and
+  in the bridge for `v_on(ns =)`.
+
+- A
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  value reaches the component as it is, as upstream’s `:prop="value"`:
+  the bridge copied it as it copies what Shiny is sent, which dropped
+  functions (a column’s formatter), turned a `Date` into
+  [`{}`](https://rdrr.io/r/base/Paren.html) and a component (an icon)
+  into nothing. The server’s in-place changes to a bound field
+  (`update_vue(insert =, set =)`, the table’s row edits) change that
+  component’s own copy, never the state it follows.
+
 - A
   [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
   or
@@ -244,6 +300,16 @@
   does, not as columns.
 
 ### Documentation
+
+- Thirty more of the site’s examples run in the page, as upstream’s do,
+  instead of being pictures of an app: mention’s remote options,
+  infinite scroll, dynamic tabs and tags, a form’s items and alignment,
+  the config provider’s language, lazy trees and tree selects, a table’s
+  search and rows, table-v2’s sorting, sticky rows and filter, and
+  upload’s (posting to upstream’s mock service). Where upstream draws a
+  list of items with `v-for` – tabs, form items, tags – the example is a
+  [`vue_app()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_app.md)
+  with `el$` tags, as upstream’s template.
 
 - `tools/external-props.csv` lists Element’s props that need something
   outside Element to work – a router, a locale, Day.js’s tokens, a Date

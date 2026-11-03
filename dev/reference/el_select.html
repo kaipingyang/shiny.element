@@ -315,7 +315,9 @@ Element Plus select props.</p>
 of options) for option groups. Unnamed vectors are allowed;
 the element is used as both value and label. <code>choices</code> is Shiny's name
 for it, <code>options</code> Element's; give either. Empty by default, for a
-select whose options arrive later (<code>remote = TRUE</code>).</p></dd>
+select whose options arrive later (<code>remote = TRUE</code>).
+Or <code><a href="v_bind.html">v_bind()</a></code> of an expression giving Element's records, <code>[{ value, label, disabled }]</code>: followed in the browser, given as it is (option groups come
+from R).</p></dd>
 
 
 <dt id="arg-selected-value">selected, value<a class="anchor" aria-label="anchor" href="#arg-selected-value"></a></dt>

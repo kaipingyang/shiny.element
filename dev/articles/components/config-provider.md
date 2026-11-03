@@ -11,40 +11,41 @@ switching feature.
 
 Use two attributes to provide i18n related config
 
-The button switches the language of what is inside the provider, with
-`update_el_config_provider(locale =)`: the table’s empty text, the
-pagination’s words. The page’s own language is `el_page(locale =)`.
+The button switches the language of what is inside the provider: its
+`locale` follows a store, as upstream’s `computed(() => zhCn or en)` –
+Element’s locale objects, whose files come with the provider. The page’s
+own language is `el_page(locale =)`; from the server,
+`update_el_config_provider(locale =)`.
 
 ``` r
 
-ui <- el_page(
-  el_button("toggle", "Switch Language"),
-  tags$br(),
-  el_config_provider(
-    id = "cfg",
-    locale = "zh-cn",
-    el_table(data = data.frame(date = character(), name = character())),
-    el_pagination("cfg_pg", total = 100, layout = "total, prev, pager, next")
+vue_store("cfg_lang", state = list(language = "zh-cn"))
+el_button(
+  "toggle",
+  "Switch Language",
+  on = list(
+    click = "$vueStore.cfg_lang.language = $vueStore.cfg_lang.language === 'zh-cn' ? 'en' : 'zh-cn'"
   )
 )
-server <- function(input, output, session) {
-  language <- reactiveVal("zh-cn")
-  observeEvent(input$toggle, {
-    language(if (language() == "zh-cn") "en" else "zh-cn")
-    update_el_config_provider(session, "cfg", locale = language())
-  })
-}
-shinyApp(ui, server)
+tags$br()
+el_config_provider(
+  id = "cfg",
+  locale = v_bind(
+    "$vueStore.cfg_lang.language === 'zh-cn' ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"
+  ),
+  el_table(data = data.frame(date = character(), name = character())),
+  el_pagination("cfg_pg", total = 100, layout = "total, prev, pager, next")
+)
 ```
 
-![The usage example, running](../../shots/config-provider-usage.png)
+  
 
 ## Button Configurations
 
 The checkboxes and the select are a store’s fields, \[v_model()\]; the
-provider’s `button` settings a getter of the store built from them,
-\[v_bind()\], which the button inside takes as its defaults – all in the
-browser.
+provider’s `button` settings the store’s state, \[v_bind()\] – the
+reactive object upstream gives, which the button inside takes as its
+defaults – all in the browser.
 
 ``` r
 
@@ -57,8 +58,7 @@ vue_store(
     round = TRUE,
     text = FALSE,
     dashed = FALSE
-  ),
-  getters = list(config = JS("function(s) { return Object.assign({}, s); }"))
+  )
 )
 tags$div(
   el_checkbox(
@@ -92,22 +92,21 @@ tags$div(
 el_divider()
 el_config_provider(
   id = "cfg",
-  button = v_bind("$vueStore.cfg_button.config"),
+  button = v_bind("$vueStore.cfg_button.$state"),
   el_button("cfg_btn", "中文")
 )
 ```
 
 ## Link Configurations
 
-The selects set the provider’s `link` settings through a store’s getter,
-which the link inside takes as its defaults.
+The selects set the provider’s `link` settings, a store’s state, which
+the link inside takes as its defaults.
 
 ``` r
 
 vue_store(
   "cfg_links",
-  state = list(type = "success", underline = "always"),
-  getters = list(config = JS("function(s) { return Object.assign({}, s); }"))
+  state = list(type = "success", underline = "always")
 )
 tags$div(
   style = "display: flex; gap: 16px",
@@ -133,7 +132,7 @@ tags$div(
 el_divider()
 el_config_provider(
   id = "cfg",
-  link = v_bind("$vueStore.cfg_links.config"),
+  link = v_bind("$vueStore.cfg_links.$state"),
   el_link("Link desu!", id = "cfg_link")
 )
 ```
@@ -296,16 +295,15 @@ el_config_provider(
 
 ## Table Configurations
 
-The checkbox and the select set the provider’s `table` settings through
-a store’s getter: a column that sets no `show_overflow_tooltip` of its
-own takes them.
+The checkbox and the select set the provider’s `table` settings, a
+store’s state: a column that sets no `show_overflow_tooltip` of its own
+takes them.
 
 ``` r
 
 vue_store(
   "cfg_table",
-  state = list(showOverflowTooltip = TRUE, tooltipEffect = "dark"),
-  getters = list(config = JS("function(s) { return Object.assign({}, s); }"))
+  state = list(showOverflowTooltip = TRUE, tooltipEffect = "dark")
 )
 tags$div(
   el_checkbox(
@@ -323,7 +321,7 @@ tags$div(
 el_divider()
 el_config_provider(
   id = "cfg",
-  table = v_bind("$vueStore.cfg_table.config"),
+  table = v_bind("$vueStore.cfg_table.$state"),
   el_table(
     data = data.frame(
       date = c("2016-05-03", "2016-05-02", "2016-05-04"),

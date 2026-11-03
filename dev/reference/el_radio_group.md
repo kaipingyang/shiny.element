@@ -70,7 +70,10 @@ update_el_radio_group(
   – which can be `disabled` – or of `list(value = ..., label = ...)`.
   Unnamed vectors are allowed; the element is used as both value and
   label. `choices` is Shiny's name for it, `options` Element's; give
-  either.
+  either. Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of an expression giving Element's records, `[{ value, label }]`:
+  followed in the browser, given to Element as it is.
 
 - selected, value:
 

@@ -150,7 +150,10 @@ update_el_select_v2(
 - options:
 
   The options: a named vector `c(Label = value)`, a vector, or a list of
-  `list(value =, label =, disabled =)`, as Element Plus takes them.
+  `list(value =, label =, disabled =)`, as Element Plus takes them. Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of an expression giving Element's records, `[{ value, label }]`:
+  followed in the browser, given to Element as it is.
 
 - multiple:
 

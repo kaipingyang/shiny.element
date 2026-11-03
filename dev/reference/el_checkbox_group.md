@@ -73,7 +73,10 @@ update_el_checkbox_group(
   of
   [`el_option()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_option.md)s
   – which can be `disabled` – or of `list(value = ..., label = ...)`.
-  `choices` is Shiny's name for it, `options` Element's; give either.
+  `choices` is Shiny's name for it, `options` Element's; give either. Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of an expression giving Element's records, `[{ value, label }]`:
+  followed in the browser, given to Element as it is.
 
 - selected, value:
 

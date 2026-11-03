@@ -428,9 +428,9 @@ very easily achieved by using the `fixed-data` attribute.
 You can dynamically set the sticky row based on scroll events, as shown
 in this example.
 
-The first row stays at the top while the rest scroll. As the table
-scrolls, the server hears `input$tv_sticky_scroll` and pins the next
-fifth row with `update_el_table_v2(fixed_data =)`.
+The first row stays at the top while the rest scroll; as the table
+scrolls, `fixed_data` follows the next fifth row, a store’s getter, as
+upstream’s `computed()`.
 
 ``` r
 
@@ -454,45 +454,40 @@ generate_data <- function(columns, length = 200, prefix = "row-") {
 columns <- generate_columns(10)
 data <- generate_data(columns, 200)
 
-ui <- el_page(
-  tags$style(
-    ".el-el-table-v2__fixed-header-row {
+tags$style(
+  ".el-el-table-v2__fixed-header-row {
   background-color: var(--el-color-primary-light-5);
   font-weight: bold;
 }"
-  ),
-  el_table_v2(
-    "tv_sticky",
-    events = "scroll",
-    columns = columns,
-    data = data[-1, ],
-    fixed_data = data[1, ],
-    row_class = JS(
-      "function({ rowIndex }) {",
-      "  if (rowIndex < 0 || (rowIndex + 1) % 5 === 0) return 'sticky-row';",
-      "}"
+)
+vue_store(
+  "tv_sticky_state",
+  state = list(rows = data, stickyIndex = 0),
+  getters = list(
+    fixedData = JS(
+      "function(state) { return state.rows.slice(state.stickyIndex, state.stickyIndex + 1); }"
     ),
-    table_v2_width = 700,
-    height = 400,
-    fixed = TRUE
+    tableData = JS("function(state) { return state.rows.slice(1); }")
   )
 )
-
-server <- function(input, output, session) {
-  sticky <- reactiveVal(0)
-  observeEvent(input$tv_sticky_scroll, {
-    sticky(floor(input$tv_sticky_scroll$scrollTop / 250) * 5)
-  })
-  observeEvent(sticky(), ignoreInit = TRUE, {
-    update_el_table_v2(id = "tv_sticky", fixed_data = data[sticky() + 1, ])
-  })
-}
-
-shinyApp(ui, server)
+el_table_v2(
+  "tv_sticky",
+  columns = columns,
+  data = v_bind("$vueStore.tv_sticky_state.tableData"),
+  fixed_data = v_bind("$vueStore.tv_sticky_state.fixedData"),
+  row_class = JS(
+    "function({ rowIndex }) {",
+    "  if (rowIndex < 0 || (rowIndex + 1) % 5 === 0) return 'sticky-row';",
+    "}"
+  ),
+  table_v2_width = 700,
+  height = 400,
+  fixed = TRUE,
+  on = list(
+    scroll = "({ scrollTop }) => $vueStore.tv_sticky_state.stickyIndex = Math.floor(scrollTop / 250) * 5"
+  )
+)
 ```
-
-![The sticky-rows example,
-running](../../shots/table-v2-sticky-rows.png)
 
 ## Table with fixed columns
 
@@ -502,10 +497,8 @@ you can achieve this by adding special attributes to the table.
 You can set the column’s attribute `fixed` to `true` (representing
 `FixedDir.LEFT`) or `FixedDir.LEFT` or `FixedDir.RIGHT`
 
-Sorting is the server’s: a click on a sortable header arrives as
-`input$tv_fixed_column_sort`, and the server sends the rows back
-reversed and the new sort with
-[`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_table_v2.md).
+Columns fixed left and right; a click on a sortable header reverses the
+rows and sets the new sort, a store’s action, as upstream’s.
 
 ``` r
 
@@ -535,36 +528,30 @@ for (i in 1:3) {
   columns[[i]]$sortable <- TRUE
 }
 
-ui <- el_page(
-  el_table_v2(
-    "tv_fixed",
-    columns = columns,
-    data = data,
-    sort_by = list(key = "column-0", order = "asc"),
-    table_v2_width = 700,
-    height = 400,
-    fixed = TRUE
+vue_store(
+  "tv_fixed_state",
+  state = list(rows = data, sortBy = list(key = "column-0", order = "asc")),
+  actions = list(
+    onSort = JS(
+      "function(sortBy) {",
+      "  ",
+      "  this.rows.reverse();",
+      "  this.sortBy = sortBy;",
+      "}"
+    )
   )
 )
-
-server <- function(input, output, session) {
-  rows <- reactiveVal(data)
-  observeEvent(input$tv_fixed_column_sort, {
-    rows(rows()[rev(seq_len(nrow(rows()))), ])
-    sort <- input$tv_fixed_column_sort
-    update_el_table_v2(
-      id = "tv_fixed",
-      data = rows(),
-      sort_by = list(key = sort$key, order = sort$order)
-    )
-  })
-}
-
-shinyApp(ui, server)
+el_table_v2(
+  "tv_fixed",
+  columns = columns,
+  data = v_bind("$vueStore.tv_fixed_state.rows"),
+  sort_by = v_bind("$vueStore.tv_fixed_state.sortBy"),
+  table_v2_width = 700,
+  height = 400,
+  fixed = TRUE,
+  on = list(column_sort = "$vueStore.tv_fixed_state.onSort")
+)
 ```
-
-![The fixed-columns example,
-running](../../shots/table-v2-fixed-columns.png)
 
 ## Grouping header
 
@@ -670,10 +657,10 @@ el_table_v2(
 Virtualized Table provides custom header renderers for creating
 customized headers. We can then utilize these to render filters.
 
-The `header-cell` slot puts a filter in the first column’s header. The
-filtering is the server’s: Confirm sends the choice as
-`input$tv_filter_on`, and the server answers with
-`update_el_table_v2(data =)`.
+The `header-cell` slot puts a filter in the first column’s header:
+Confirm and Reset call a store’s action, which gives the table fewer
+rows or all of them, as upstream’s. With a server, `$setInput()` would
+report the choice and `update_el_table_v2(data =)` answer it.
 
 ``` r
 
@@ -700,10 +687,19 @@ cols <- grid_columns(width = 100)
 for (j in 1:2) {
   cols[[j]]$fixed <- "left"
 }
-ui <- el_page(
+vue_store(
+  "tv_filter_state",
+  state = list(all = grid(), filtered = grid(rows = 100), rows = grid()),
+  actions = list(
+    onFilter = JS(
+      "function(on) { this.rows = on ? this.filtered : this.all; }"
+    )
+  )
+)
+ui <- tagList(
   el_table_v2(
     "tv_filter",
-    data = grid(),
+    data = v_bind("$vueStore.tv_filter_state.rows"),
     columns = cols,
     table_v2_width = 700,
     height = 400,
@@ -721,9 +717,9 @@ ui <- el_page(
           "<el-checkbox v-model=\"column.filterOn\">Filter Text</el-checkbox>",
           "<div class=\"el-table-v2__demo-filter\">",
           "<el-button text @click=\"$refs.filterPop.hide(); ",
-          "$setInput('tv_filter_on', !!column.filterOn)\">Confirm</el-button>",
+          "$vueStore.tv_filter_state.onFilter(!!column.filterOn)\">Confirm</el-button>",
           "<el-button text @click=\"column.filterOn = false; ",
-          "$refs.filterPop.hide(); $setInput('tv_filter_on', false)\">",
+          "$refs.filterPop.hide(); $vueStore.tv_filter_state.onFilter(false)\">",
           "Reset</el-button></div></el-popover></div>",
           "<div v-else class=\"el-table-v2__header-cell-text\">",
           "{{ column.title }}</div>"
@@ -750,24 +746,18 @@ ui <- el_page(
     }"
   )
 )
-server <- function(input, output, session) {
-  observeEvent(input$tv_filter_on, {
-    rows <- if (input$tv_filter_on) 100 else 200
-    update_el_table_v2(id = "tv_filter", data = grid(rows = rows))
-  })
-}
-shinyApp(ui, server)
+ui
 ```
-
-![The filter example, running](../../shots/table-v2-filter.png)
 
 ## Sortable
 
 You can sort the table with sort state.
 
-Sorting is the server’s: `input$tv_sort_column_sort` says which column
-and which way, and the server sends the rows back reversed with the new
-`sort_by`.
+A click on a sortable header calls `column-sort`’s handler, here a
+store’s action reversing the rows and setting the new `sort_by` – in the
+browser, as upstream’s. The server hears it as `input$<id>_column_sort`,
+and can sort with
+[`update_el_table_v2()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_table_v2.md).
 
 ``` r
 
@@ -792,35 +782,30 @@ columns <- generate_columns(10)
 data <- generate_data(columns, 200)
 columns[[1]]$sortable <- TRUE
 
-ui <- el_page(
-  el_table_v2(
-    "tv_sort",
-    columns = columns,
-    data = data,
-    sort_by = list(key = "column-0", order = "asc"),
-    table_v2_width = 700,
-    height = 400,
-    fixed = TRUE
+vue_store(
+  "tv_sort_state",
+  state = list(rows = data, sortBy = list(key = "column-0", order = "asc")),
+  actions = list(
+    onSort = JS(
+      "function(sortBy) {",
+      "  console.log(sortBy);",
+      "  this.rows.reverse();",
+      "  this.sortBy = sortBy;",
+      "}"
+    )
   )
 )
-
-server <- function(input, output, session) {
-  rows <- reactiveVal(data)
-  observeEvent(input$tv_sort_column_sort, {
-    rows(rows()[rev(seq_len(nrow(rows()))), ])
-    sort <- input$tv_sort_column_sort
-    update_el_table_v2(
-      id = "tv_sort",
-      data = rows(),
-      sort_by = list(key = sort$key, order = sort$order)
-    )
-  })
-}
-
-shinyApp(ui, server)
+el_table_v2(
+  "tv_sort",
+  columns = columns,
+  data = v_bind("$vueStore.tv_sort_state.rows"),
+  sort_by = v_bind("$vueStore.tv_sort_state.sortBy"),
+  table_v2_width = 700,
+  height = 400,
+  fixed = TRUE,
+  on = list(column_sort = "$vueStore.tv_sort_state.onSort")
+)
 ```
-
-![The sort example, running](../../shots/table-v2-sort.png)
 
 ## Controlled Sort
 
@@ -830,8 +815,8 @@ your users, as it becomes unclear which column is currently being
 sorted.
 
 Two columns sorted at once: `sort_state` holds each column’s order. A
-click sets that column’s order on the server, which sends the state back
-with `update_el_table_v2(sort_state =)`.
+click sets that column’s order in a store, which the table follows, as
+upstream’s; from the server, `update_el_table_v2(sort_state =)`.
 
 ``` r
 
@@ -857,34 +842,32 @@ data <- generate_data(columns, 200)
 columns[[1]]$sortable <- TRUE
 columns[[2]]$sortable <- TRUE
 
-ui <- el_page(
-  el_table_v2(
-    "tv_csort",
-    columns = columns,
-    data = data,
-    sort_state = list(`column-0` = "desc", `column-1` = "asc"),
-    table_v2_width = 700,
-    height = 400,
-    fixed = TRUE
+vue_store(
+  "tv_csort_state",
+  state = list(
+    rows = data,
+    sortState = list(`column-0` = "desc", `column-1` = "asc")
+  ),
+  actions = list(
+    onSort = JS(
+      "function(sortBy) {",
+      "  this.sortState[sortBy.key] = sortBy.order;",
+      "  this.rows.reverse();",
+      "}"
+    )
   )
 )
-
-server <- function(input, output, session) {
-  state <- list(`column-0` = "desc", `column-1` = "asc")
-  rows <- data
-  observeEvent(input$tv_csort_column_sort, {
-    sort <- input$tv_csort_column_sort
-    state[[sort$key]] <<- sort$order
-    rows <<- rows[rev(seq_len(nrow(rows))), ]
-    update_el_table_v2(id = "tv_csort", data = rows, sort_state = state)
-  })
-}
-
-shinyApp(ui, server)
+el_table_v2(
+  "tv_csort",
+  columns = columns,
+  data = v_bind("$vueStore.tv_csort_state.rows"),
+  sort_state = v_bind("$vueStore.tv_csort_state.sortState"),
+  table_v2_width = 700,
+  height = 400,
+  fixed = TRUE,
+  on = list(column_sort = "$vueStore.tv_csort_state.onSort")
+)
 ```
-
-![The controlled-sort example,
-running](../../shots/table-v2-controlled-sort.png)
 
 ## Cross hovering
 
@@ -1246,9 +1229,9 @@ rendering experience.
 > As a result, if you’re trying to display a large amount of data, the
 > UI **might be** bouncing.
 
-`estimated_row_height` lets each row take the height of its content.
-Sorting is the server’s: it sorts the rows and sends them back with the
-new `sort_by`.
+`estimated_row_height` lets each row take the height of its content. A
+click on a sortable header sorts the rows, a store’s action, as
+upstream’s.
 
 ``` r
 
@@ -1304,36 +1287,31 @@ columns <- list(
   )
 )
 
-ui <- el_page(
-  el_table_v2(
-    "tv_dyn",
-    columns = columns,
-    data = data,
-    sort_by = list(key = "name", order = "asc"),
-    estimated_row_height = 40,
-    table_v2_width = 700,
-    height = 400,
-    fixed = TRUE
+vue_store(
+  "tv_dyn_state",
+  state = list(rows = data, sortBy = list(key = "name", order = "asc")),
+  actions = list(
+    onSort = JS(
+      "function(sortBy) {",
+      "  var order = sortBy.order === 'asc' ? 1 : -1;",
+      "  this.rows.sort(function(a, b) { return a[sortBy.key] > b[sortBy.key] ? order : -order; });",
+      "  this.sortBy = sortBy;",
+      "}"
+    )
   )
 )
-
-server <- function(input, output, session) {
-  observeEvent(input$tv_dyn_column_sort, {
-    sort <- input$tv_dyn_column_sort
-    rows <- data[order(data[[sort$key]], decreasing = sort$order == "desc"), ]
-    update_el_table_v2(
-      id = "tv_dyn",
-      data = rows,
-      sort_by = list(key = sort$key, order = sort$order)
-    )
-  })
-}
-
-shinyApp(ui, server)
+el_table_v2(
+  "tv_dyn",
+  columns = columns,
+  data = v_bind("$vueStore.tv_dyn_state.rows"),
+  sort_by = v_bind("$vueStore.tv_dyn_state.sortBy"),
+  estimated_row_height = 40,
+  table_v2_width = 700,
+  height = 400,
+  fixed = TRUE,
+  on = list(column_sort = "$vueStore.tv_dyn_state.onSort")
+)
 ```
-
-![The dynamic-height example,
-running](../../shots/table-v2-dynamic-height.png)
 
 ## Detail view
 

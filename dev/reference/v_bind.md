@@ -73,8 +73,26 @@ reports `input$<id>` as ever, so the server sees what the page did.
 
 What can be bound: any of a component's props and its value, and what a
 dialog's, drawer's, tabs' or collapse's `update_*()` can set. An
-argument R reads to draw the component – a label, the choices, a class –
-says it cannot be bound.
+argument R reads to draw the component – a label, a class, whether
+options are buttons – says it cannot be bound.
+
+A bound value reaches the component as it is, as upstream's
+`:prop="value"`: functions, `Date`s and components (an icon) included.
+Data R converts – a select's `choices`, a mention's `options` – has two
+rules, as DT's
+[`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md):
+an R value is given in R's terms (a named vector) and converted; a
+`v_bind()` gives the library's own form, `[{ value, label }]`, as its
+docs write it, and is not converted. Vue's development build (the page's
+`dev = TRUE`) says when a bound list is not records.
+
+A binding the page cannot read – a store it does not have, `$route` with
+no
+[`vue_router()`](https://kaipingyang.github.io/shiny.element/dev/reference/vue_router.md),
+a path that runs through nothing – leaves its field unset and says so
+once in the browser's console, naming what is missing. A field a store
+simply does not have reads as `undefined`, as JavaScript does: that one
+is not said.
 
 ## Modules
 

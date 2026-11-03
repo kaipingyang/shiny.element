@@ -228,7 +228,7 @@ browser.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="el-demo">
   <div id="stepper" data-shiny-vue style="display: contents">
-    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0}},"store":true,"prefix":"basic-","evals":[]}</script>
+    <script type="text/x-template" data-shiny-vue-template><span hidden></span></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0}},"scope":{"inputs":"basic-"},"store":true,"evals":[]}</script>
 </div>
   <div id="basic-st_basic" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-st_basic_container" style="display: contents">
@@ -237,12 +237,12 @@ browser.</p>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":null,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"bound":{"active":{"expr":"$vueStore.stepper.active","scope":{"inputs":"basic-"}}},"prefix":"basic-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":null,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"bound":{"active":{"expr":"$vueStore.stepper.active","scope":{"inputs":"basic-"}}},"scope":{"inputs":"basic-"},"evals":["options.watch.active"]}</script>
 </div>
   <div id="basic-st_next" data-shiny-vue style="display: contents">
     <script type="text/x-template" data-shiny-vue-template><div id="basic-st_next_container" style="display: contents">
   <el-button v-bind="$optional(&#39;button&#39;)" :circle="circle" :loading="loading" :disabled="disabled" :native-type="native_type" @click="(...a) =&gt; { handleClick(...a); ((...a) =&gt; { const $event = a[0]; $vueStore.stepper.active = $vueStore.stepper.active &gt; 2 ? 0 : $vueStore.stepper.active + 1; })(...a); }" style="margin-top: 12px">{{label}}</el-button>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Next step","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"prefix":"basic-","evals":["options.methods.handleClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"label":"Next step","circle":false,"loading":false,"disabled":false,"native_type":"button","count":0,"state":"ready","size":null,"icon":null,"autofocus":false,"type":null,"plain":null,"round":null,"autoInsertSpace":null,"bg":null,"color":null,"dark":null,"dashed":null,"link":null,"loadingIcon":null,"tag":null,"text":null},"methods":{"handleClick":"function() { if (this.disabled || this.loading || this.state === 'busy') return; this.count++; }"}},"input":"count","rate":null,"type":"shiny.action","use":["shinyElement.plugin"],"optional":{"button":{"size":"size","icon":"icon","autofocus":"autofocus","type":"type","plain":"plain","round":"round","auto-insert-space":"autoInsertSpace","bg":"bg","color":"color","dark":"dark","dashed":"dashed","link":"link","loading-icon":"loadingIcon","tag":"tag","text":"text"}},"scope":{"inputs":"basic-"},"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
 </div>
@@ -273,7 +273,7 @@ listed all the slot names for you at the end of this page.</p>
     <el-step title="Processing"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":200},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"prefix":"with-status-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":false,"space":200},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"scope":{"inputs":"with-status-"},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -302,7 +302,7 @@ listed all the slot names for you at the end of this page.</p>
     <el-step title="Step 3" description="Some description"></el-step>
     <el-step title="Step 4" description="Some description"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":2,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":true,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"prefix":"centered-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":2,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":true,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"scope":{"inputs":"centered-"},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -328,7 +328,7 @@ listed all the slot names for you at the end of this page.</p>
     <el-step title="Step 2" description="Some description"></el-step>
     <el-step title="Step 3" description="Some description"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"prefix":"with-description-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"scope":{"inputs":"with-description-"},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -357,7 +357,7 @@ can customize the icon through a named <code>slot</code>.</p>
     <el-step title="Step 2" icon="Upload"></el-step>
     <el-step title="Step 3" icon="Picture"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"prefix":"with-icon-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"scope":{"inputs":"with-icon-"},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>
@@ -390,7 +390,7 @@ can customize the icon through a named <code>slot</code>.</p>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"vertical","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"prefix":"vertical-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":1,"direction":"vertical","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":false,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"scope":{"inputs":"vertical-"},"evals":["options.watch.active"]}</script>
 </div>
   </div>
 </div>
@@ -434,7 +434,7 @@ will be ignored.</p>
     <el-step title="Step 2" icon="UploadFilled"></el-step>
     <el-step title="Step 3" icon="Picture"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"prefix":"simple-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"finish","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"scope":{"inputs":"simple-"},"evals":["options.watch.active"]}</script>
 </div>
   <div style="margin-top: 20px"></div>
   <div id="simple-st_simple2" data-shiny-vue style="display: contents">
@@ -444,7 +444,7 @@ will be ignored.</p>
     <el-step title="Step 2"></el-step>
     <el-step title="Step 3"></el-step>
   </el-steps>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"prefix":"simple-","evals":["options.watch.active"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"active":0,"direction":"horizontal","processStatus":"process","finishStatus":"success","alignCenter":false,"simple":true,"space":null},"methods":[],"watch":{"active":"function(newVal) { }"}},"input":"active","rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"steps":{"space":"space"}},"scope":{"inputs":"simple-"},"evals":["options.watch.active"]}</script>
 </div>
 </div>
 </div>

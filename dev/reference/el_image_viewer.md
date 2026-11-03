@@ -53,7 +53,9 @@ update_el_image_viewer(
 
 - url_list:
 
-  Preview link list. Element Plus's `url-list` (`string[]`).
+  Preview link list. Element Plus's `url-list` (`string[]`). Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of an expression giving it, followed in the browser.
 
 - visible:
 

@@ -218,7 +218,7 @@ and it determines the separator. Its default value is ‘/’.</p>
   <el-breadcrumb v-bind="$optional(&#39;breadcrumb&#39;)">
     <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click="handleClick(item)">{{item.label}}</el-breadcrumb-item>
   </el-breadcrumb>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage","to":"/"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":"/","separatorIcon":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-crumbs', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"breadcrumb":{"separator":"separator","separator-icon":"separatorIcon"}},"prefix":"basic-","evals":["options.methods.handleClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage","to":"/"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":"/","separatorIcon":null},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('basic-crumbs', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"breadcrumb":{"separator":"separator","separator-icon":"separatorIcon"}},"scope":{"inputs":"basic-"},"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
 </div>
@@ -244,7 +244,7 @@ separator，it will cover <code>separator</code></p>
   <el-breadcrumb v-bind="$optional(&#39;breadcrumb&#39;)">
     <el-breadcrumb-item v-for="(item, index) in items" :key="index" :to="item.to" :replace="item.replace" @click="handleClick(item)">{{item.label}}</el-breadcrumb-item>
   </el-breadcrumb>
-</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage","to":"/"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":null,"separatorIcon":"ArrowRight"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-crumbs_icon', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"breadcrumb":{"separator":"separator","separator-icon":"separatorIcon"}},"prefix":"icon-","evals":["options.methods.handleClick"]}</script>
+</div></script><script type="application/json" data-shiny-vue-options>{"options":{"data":{"items":[{"label":"homepage","to":"/"},{"label":"promotion management"},{"label":"promotion list"},{"label":"promotion detail"}],"separator":null,"separatorIcon":"ArrowRight"},"methods":{"handleClick":"function(item) { window.Shiny && Shiny.setInputValue && Shiny.setInputValue('icon-crumbs_icon', item.label, {priority: 'event'}); }"}},"input":null,"rate":null,"type":null,"use":["shinyElement.plugin"],"optional":{"breadcrumb":{"separator":"separator","separator-icon":"separatorIcon"}},"scope":{"inputs":"icon-"},"evals":["options.methods.handleClick"]}</script>
 </div>
 </div>
 </div>

@@ -63,6 +63,23 @@ clone of tag 2.14.7, gitignored; see `.upstream/README.md`). Its
 `docs/en-US/component/*.md` and `docs/examples/` are what the site
 replicates.
 
+### The iron rule: as upstream, wherever it can be
+
+Where Vue or Element Plus has a way, the package takes it: the same
+names, the same values, the same behaviour, the same example. A value
+the user gives in Vue’s terms
+([`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md),
+[`JS()`](https://kaipingyang.github.io/shiny.element/dev/reference/JS.md),
+a template) reaches Element as it is – not copied, converted, filtered
+or renamed on its way; only what R itself gives is converted, from R’s
+terms to Element’s. A departure needs a reason upstream cannot meet
+(each component is an app of its own, Shiny’s round trip, CRAN’s
+limits), says so in its plan, and goes no further than that reason:
+protect our own writes, not the user’s values (copy-on-write in the
+bridge, not a copy of every bound value). Before choosing between
+designs, look at how upstream does it (`.upstream/`, Vue’s sources) and
+at how mature Shiny packages do it; the closer to upstream wins.
+
 ### Two layers
 
 The **Vue layer** (`R/vue_*.R`, `inst/js/shiny-vue.js`) knows no

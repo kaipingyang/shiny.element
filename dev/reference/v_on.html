@@ -200,6 +200,10 @@ statement run with a module's names, as <code><a href="v_bind.html">v_bind()</a>
 expression: <code>$vueStore.ui</code> is <code>vue_store(ns("ui"))</code>, <code>$inputs.size</code> the
 module's input. Outside a module a plain string does the same:
 <code>on = list(click = "$vueStore.ui.open = true")</code>.</p>
+<p>As in Vue, a method path (<code>"save"</code>, <code>"$vueStore.cart.add"</code>) or a
+function expression (<code>"(pattern, prefix) =&gt; ..."</code>) is a handler, called
+with all the event's arguments; anything else is a statement, with
+<code>$event</code>. Vue's compiler tells them apart, and so do these, by its rule.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

@@ -96,7 +96,9 @@ update_el_autocomplete(
 
   Suggestions to offer, as a character vector or a list of
   `list(value =, ...)`. Filtered in the browser on what has been typed.
-  For suggestions that come from the server, use `remote = TRUE`.
+  For suggestions that come from the server, use `remote = TRUE`. Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of Element's records, `[{ value }]`, followed in the browser.
 
 - remote:
 

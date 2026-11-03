@@ -154,7 +154,11 @@ update_el_select(
   (or a named list of options) for option groups. Unnamed vectors are
   allowed; the element is used as both value and label. `choices` is
   Shiny's name for it, `options` Element's; give either. Empty by
-  default, for a select whose options arrive later (`remote = TRUE`).
+  default, for a select whose options arrive later (`remote = TRUE`). Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of an expression giving Element's records,
+  `[{ value, label, disabled }]`: followed in the browser, given as it
+  is (option groups come from R).
 
 - selected, value:
 

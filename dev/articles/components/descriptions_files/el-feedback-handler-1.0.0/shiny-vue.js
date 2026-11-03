@@ -546,8 +546,29 @@
       }
     };
   }
-  // a copy, so a field and the state it follows never share an array
+  // a copy, as Shiny is sent a value: what $inputs keeps of a component's
+  // value. A binding's value is never copied -- it reaches the component as
+  // it is, as upstream's :prop="value" (functions, Dates, components kept)
   function copied(v) { return v !== null && typeof v === 'object' ? plain(v) : v; }
+  // A bound field the bridge itself is about to change in place -- a
+  // server's .edit or .set -- is first made the component's own (a shallow
+  // copy), so the change reaches this component and not the state it
+  // follows; a v_model() then writes it back, as the user's change would
+  function ownField(vm, name) {
+    var bound = vm.$options && vm.$options.shinyVueBound;
+    if (!bound || !bound[name]) return vm[name];
+    var v = vm[name];
+    if (Array.isArray(v)) vm[name] = v.slice();
+    else if (v !== null && typeof v === 'object') vm[name] = Object.assign({}, v);
+    return vm[name];
+  }
+  // the same, one level down: a container inside it made its own
+  function ownChild(o, k) {
+    var v = o[k];
+    if (Array.isArray(v)) o[k] = v.slice();
+    else if (v !== null && typeof v === 'object' && Object.getPrototypeOf(v) === Object.prototype) o[k] = Object.assign({}, v);
+    return o[k];
+  }
   function same(a, b) {
     if (a === b) return true;
     // a function (a render function, a validator) is itself: JSON makes
@@ -555,10 +576,49 @@
     if (typeof a === 'function' || typeof b === 'function') return false;
     return JSON.stringify(plain(a)) === JSON.stringify(plain(b));
   }
-  // v_on(statement, ns =): an inline statement run with the module's names,
-  // the component's own as a template's, $event the event's first argument
+  // What Vue's compiler takes for a handler rather than a statement (its
+  // isMemberExpression and fnExpRE, compiler-core): a method path, `save`
+  // or `$vueStore.cart.add`, or a function expression, `(a, b) => ...` --
+  // called with all the event's arguments
+  var MEMBER_FIRST = /[A-Za-z_$\xA0-\uFFFF]/, MEMBER_REST = /[\.\?\w$\xA0-\uFFFF]/,
+      MEMBER_WS = /\s+[.[]\s*|\s*[.[]\s+/g;
+  var FN_EXP = /^\s*(?:async\s*)?(?:\([^)]*?\)|[\w$_]+)\s*(?::[^=]+)?=>|^\s*(?:async\s+)?function(?:\s+[\w$]+)?\s*\(/;
+  function isMemberExpression(src) {
+    var t = src.trim().replace(MEMBER_WS, function(m) { return m.trim(); });
+    var state = 0, stack = [], brackets = 0, parens = 0, quote = null;
+    for (var i = 0; i < t.length; i++) {
+      var c = t.charAt(i);
+      switch (state) {
+        case 0:
+          if (c === '[') { stack.push(state); state = 1; brackets++; }
+          else if (c === '(') { stack.push(state); state = 2; parens++; }
+          else if (!(i === 0 ? MEMBER_FIRST : MEMBER_REST).test(c)) return false;
+          break;
+        case 1:
+          if (c === "'" || c === '"' || c === '`') { stack.push(state); state = 3; quote = c; }
+          else if (c === '[') brackets++;
+          else if (c === ']' && !--brackets) state = stack.pop();
+          break;
+        case 2:
+          if (c === "'" || c === '"' || c === '`') { stack.push(state); state = 3; quote = c; }
+          else if (c === '(') parens++;
+          else if (c === ')') {
+            if (i === t.length - 1) return false;
+            if (!--parens) state = stack.pop();
+          }
+          break;
+        case 3:
+          if (c === quote) { state = stack.pop(); quote = null; }
+      }
+    }
+    return !brackets && !parens;
+  }
+  // v_on(statement, ns =), run with the module's names and the component's
+  // own, as a template's: a handler (above) is called with the event's
+  // arguments; a statement runs with $event, the first
   sv.run = function(vm, statement, scope, args) {
-    var f = compile('run', statement);
+    var handler = isMemberExpression(statement) || FN_EXP.test(statement);
+    var f = compile(handler ? 'read' : 'run', statement);
     if (!f) return undefined;
     var page = pageScope(scope);
     var names = new Proxy({}, {
@@ -572,7 +632,9 @@
       },
       set: function(t, k, v) { vm[k] = v; return true; }
     });
-    return f(names);
+    if (!handler) return f(names);
+    var fn = f(names);
+    return typeof fn === 'function' ? fn.apply(null, args || []) : undefined;
   };
   // An element of a binding of its own -- a component drawn as markup --
   // following the bindings in its `data-shiny-vue-bind`, {"<field>":
@@ -594,7 +656,7 @@
       stops.push(Vue.watch(read, function(v) {
         if (v === undefined || (isState && same(v, state.get()))) return;
         var d = {};
-        d[field] = copied(v);
+        d[field] = v;
         apply(d);
       }, { immediate: true, deep: true }));
     });
@@ -602,7 +664,7 @@
       changed: function() {
         if (!model) return;
         var v = state.get();
-        if (!same(v, model.read())) model.write(copied(v));
+        if (!same(v, model.read())) model.write(v);
       },
       stop: function() { stops.forEach(function(s) { s(); }); }
     };
@@ -611,6 +673,25 @@
   // Run when an instance is created, before its first render: each bound
   // field takes its binding's value and follows it, and -- for v_model() --
   // writes the field back when it changes (the component's user, an update)
+  // Vue's development build on the page (its `dev = TRUE`): where Vue
+  // checks props, the bridge checks a bound value's form too
+  var devBuild = null;
+  function isDevBuild() {
+    if (devBuild === null) devBuild = !!document.querySelector('script[src*="vue.global.js"]');
+    return devBuild;
+  }
+  // A binding R marked as giving records -- a library's [{ value, label }] --
+  // said once when it gives something else; the value is written all the
+  // same, as Vue writes a prop it warns about
+  var shapeSaid = {};
+  function checkShape(b, field, v) {
+    if (b.shape !== 'records' || !Array.isArray(v) || !isDevBuild()) return;
+    var bad = v.filter(function(o) { return o === null || typeof o !== 'object'; })[0];
+    if (bad === undefined || shapeSaid[b.expr]) return;
+    shapeSaid[b.expr] = true;
+    warn('v_bind("' + b.expr + '") gives ' + field + ' ' + JSON.stringify(bad) +
+      ' among its items; the component takes records, [{ value, label }]');
+  }
   var bindFields = {
     created: function() {
       var bound = this.$options.shinyVueBound, vm = this;
@@ -618,12 +699,13 @@
       Object.keys(bound).forEach(function(field) {
         var b = bound[field], read = reader(b);
         vm.$watch(read, function(v) {
-          if (!same(v, vm[field])) vm[field] = copied(v);
+          checkShape(b, field, v);
+          if (!same(v, vm[field])) vm[field] = v;
         }, { immediate: true, deep: true });
         if (b.model) {
           var write = writer(b);
           vm.$watch(field, function(v) {
-            if (!same(v, read())) write(copied(v));
+            if (!same(v, read())) write(v);
           }, { deep: true });
         }
       });
@@ -894,19 +976,22 @@
     // -- its bindings and state kept, its outputs suspended -- when Vue
     // removes it
     app.component('shiny-island', islandComponent(host));
-    app.config.globalProperties.$vueStore = sv.stores();
-    app.config.globalProperties.$vueRef = sv.vueRefs();
-    app.config.globalProperties.$vueReactive = sv.vueReactives();
-    app.config.globalProperties.$vueComputed = sv.vueComputeds();
-    // a component made under a page's id prefix finds its neighbours by the
-    // ids they were given, as v_on()'s $find does
-    app.config.globalProperties.$find = spec.prefix ? function(id) {
-      return byId(spec.prefix + id) || absorbedBy(spec.prefix + id) ? sv.findComponent(spec.prefix + id) : sv.findComponent(id);
-    } : sv.findComponent;
+    // The page's names, as the template sees them: narrowed to a module's
+    // when its component was given one (vue_app(ns =)), as Shiny's
+    // conditionalPanel(ns =) narrows `input` -- and to the prefix an
+    // article gives its examples' ids. Strictly: a name outside it is not
+    // reached, as input.x outside a module's conditionalPanel is not.
+    var sc = spec.scope || {};
+    var gp = app.config.globalProperties;
+    gp.$vueStore = prefixed(sv.stores(), sc.store);
+    gp.$vueRef = prefixed(sv.vueRefs(), sc.store);
+    gp.$vueReactive = prefixed(sv.vueReactives(), sc.store);
+    gp.$vueComputed = prefixed(sv.vueComputeds(), sc.store);
+    gp.$find = sc.inputs ? function(id) { return sv.findComponent(sc.inputs + id); } : sv.findComponent;
     // $store, as 0.3.1 named it: said once; a plugin that sets its own
     // $store (Vuex) replaces it
-    Object.defineProperty(app.config.globalProperties, '$store', {
-      get: oldStore,
+    Object.defineProperty(gp, '$store', {
+      get: function() { return prefixed(oldStore(), sc.store); },
       set: function(v) {
         Object.defineProperty(this, '$store', { value: v, writable: true, configurable: true, enumerable: true });
       },
@@ -914,7 +999,7 @@
     });
     app.config.globalProperties.$recalculating = sv.recalculating();
     app.config.globalProperties.$errors = sv.errors();
-    app.config.globalProperties.$inputs = Vue.readonly(sv.inputs());
+    gp.$inputs = prefixed(Vue.readonly(sv.inputs()), sc.inputs);
     // a getter, so a template reading $busy follows it
     Object.defineProperty(app.config.globalProperties, '$busy', {
       get: function() { return sv.state().busy; }, enumerable: true, configurable: true
@@ -1335,7 +1420,7 @@
     var e = data['.edit'];
     if (e) {
       delete data['.edit'];
-      var name = nameOf(e.field), list = name ? vm[name] : null;
+      var name = nameOf(e.field), list = name ? ownField(vm, name) : null;
       if (!Array.isArray(list)) {
         warn('update: "' + e.field + '" is not a list of "' + id + '"; the edit was ignored');
       } else {
@@ -1374,9 +1459,10 @@
         var parts = [].concat(st.path), first = nameOf(parts[0]);
         if (!first) { warn('update: "' + parts[0] + '" is not a field of "' + id + '"; the update was ignored'); return; }
         parts[0] = first;
+        var bound = vm.$options && vm.$options.shinyVueBound && vm.$options.shinyVueBound[first];
         var o = vm;
         for (var i = 0; i < parts.length - 1; i++) {
-          o = o[parts[i]];
+          o = !bound ? o[parts[i]] : i === 0 ? ownField(vm, parts[0]) : ownChild(o, parts[i]);
           if (o === null || typeof o !== 'object') {
             warn('update: "' + st.path.join('.') + '" of "' + id + '" does not exist; the update was ignored');
             return;

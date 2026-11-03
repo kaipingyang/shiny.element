@@ -162,6 +162,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_loading_attrs.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locale_dir.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locale_file.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locale_global.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_locales_packed.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_menu_item_props.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-el_menu_nodes.html</loc></url>
@@ -231,6 +232,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_check_session.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_choices.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_core_dependency.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_data_arg.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_dev.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_directives.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_edit.html</loc></url>
@@ -241,6 +243,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_host_dependencies.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_html_string.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_is_handler.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_islands.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_join_handlers.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_jquery_dependency.html</loc></url>
@@ -263,6 +266,7 @@
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_restore.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_router_dependency.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_rows.html</loc></url>
+<url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_scope.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send_queued.html</loc></url>
 <url><loc>https://kaipingyang.github.io/shiny.element/dev/reference/dot-vue_send_update.html</loc></url>

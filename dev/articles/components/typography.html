@@ -282,7 +282,7 @@ that changes one shows its own.</p>
       <td>Build with Element</td>
     </tr>
   </tbody>
-</table></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[],"setup":"function() {\n  var levels = [['Supplementary text', 'extra-small'], ['Body (small)', 'small'],\n    ['Body', 'base'], ['Small Title', 'medium'], ['Title', 'large'],\n    ['Main Title', 'extra-large']];\n  var sizes = levels.map(function(l) {\n    return {\n      level: l[0], type: l[1],\n      name: l[1].split('-').map(function(w) {\n        return w.charAt(0).toUpperCase() + w.slice(1); }).join(' '),\n      size: VueUse.useCssVar('--el-font-size-' + l[1])\n    };\n  });\n  return { sizes: Vue.reactive(sizes) };\n}"},"prefix":"convention-","evals":["options.setup"]}</script>
+</table></script><script type="application/json" data-shiny-vue-options>{"options":{"data":[],"setup":"function() {\n  var levels = [['Supplementary text', 'extra-small'], ['Body (small)', 'small'],\n    ['Body', 'base'], ['Small Title', 'medium'], ['Title', 'large'],\n    ['Main Title', 'extra-large']];\n  var sizes = levels.map(function(l) {\n    return {\n      level: l[0], type: l[1],\n      name: l[1].split('-').map(function(w) {\n        return w.charAt(0).toUpperCase() + w.slice(1); }).join(' '),\n      size: VueUse.useCssVar('--el-font-size-' + l[1])\n    };\n  });\n  return { sizes: Vue.reactive(sizes) };\n}"},"scope":{"inputs":"convention-"},"evals":["options.setup"]}</script>
 </div>
 </div>
 </div>

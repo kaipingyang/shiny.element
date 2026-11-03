@@ -231,8 +231,19 @@ component reports <code>input$&lt;id&gt;</code> as ever, so the server sees what
 page did.</p>
 <p>What can be bound: any of a component's props and its value, and what a
 dialog's, drawer's, tabs' or collapse's <code>update_*()</code> can set. An
-argument R reads to draw the component – a label, the choices, a class
-– says it cannot be bound.</p>
+argument R reads to draw the component – a label, a class, whether
+options are buttons – says it cannot be bound.</p>
+<p>A bound value reaches the component as it is, as upstream's
+<code>:prop="value"</code>: functions, <code>Date</code>s and components (an icon) included.
+Data R converts – a select's <code>choices</code>, a mention's <code>options</code> – has two
+rules, as DT's <code><a href="JS.html">JS()</a></code>: an R value is given in R's terms (a named vector)
+and converted; a <code>v_bind()</code> gives the library's own form, <code>[{ value, label }]</code>, as its docs write it, and is not converted. Vue's development build
+(the page's <code>dev = TRUE</code>) says when a bound list is not records.</p>
+<p>A binding the page cannot read – a store it does not have, <code>$route</code>
+with no <code><a href="vue_router.html">vue_router()</a></code>, a path that runs through nothing – leaves its
+field unset and says so once in the browser's console, naming what is
+missing. A field a store simply does not have reads as <code>undefined</code>, as
+JavaScript does: that one is not said.</p>
     </div>
     <div class="section level2">
     <h2 id="modules">Modules<a class="anchor" aria-label="anchor" href="#modules"></a></h2>

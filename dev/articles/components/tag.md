@@ -40,50 +40,71 @@ tagList(lapply(types, function(t) {
 
 You can use the `close` event to add and remove tag dynamically.
 
-Tags the user adds and removes: the list lives on the server and is
-drawn with [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html).
+Tags the user adds and removes, as upstream’s: `el$tag()` in a
+\[vue_app()\], a
+[`v_for()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+over its list, the input shown in the button’s place with
+[`v_if()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md)
+and
+[`v_else()`](https://kaipingyang.github.io/shiny.element/dev/reference/directives.md).
 
 ``` r
 
-ui <- el_page(
-  uiOutput("tags"),
-  el_input("newtag", placeholder = "New tag", width = "140px"),
-  el_button("add", "+ New Tag", size = "small")
-)
-
-server <- function(input, output, session) {
-  tags_now <- reactiveVal(character(0))
-  counter <- 0
-  # Each tag gets an id of its own, and one observer for its close button
-  add_tag <- function(label) {
-    counter <<- counter + 1
-    id <- paste0("tag", counter)
-    tags_now(c(isolate(tags_now()), stats::setNames(label, id)))
-    observeEvent(
-      input[[paste0(id, "_close")]],
-      once = TRUE,
-      tags_now(tags_now()[names(tags_now()) != id])
+vue_app(
+  "tags_edit",
+  tags$div(
+    class = "flex gap-2",
+    style = "display: flex; gap: 8px",
+    el$tag(
+      v_for("tag in dynamicTags", key = "tag"),
+      closable = NA,
+      `:disable-transitions` = "false",
+      v_on(close = "handleClose(tag)"),
+      "{{ tag }}"
+    ),
+    el$input(
+      v_if("inputVisible"),
+      ref = "InputRef",
+      v_model("inputValue"),
+      style = "width: 80px",
+      size = "small",
+      v_on("keyup.enter" = "handleInputConfirm", blur = "handleInputConfirm")
+    ),
+    el$button(
+      v_else(),
+      class = "button-new-tag",
+      size = "small",
+      v_on(click = "showInput"),
+      "+ New Tag"
     )
-  }
-  for (t in c("Tag 1", "Tag 2", "Tag 3")) {
-    add_tag(t)
-  }
-  output$tags <- renderUI(tagList(Map(
-    function(id, label) el_tag(id, label, closable = TRUE),
-    names(tags_now()),
-    tags_now()
-  )))
-  observeEvent(input$add, {
-    req(nzchar(input$newtag))
-    add_tag(input$newtag)
-    update_el_input(id = "newtag", value = "")
-  })
-}
-
-shinyApp(ui, server)
+  ),
+  data = list(
+    inputValue = "",
+    dynamicTags = list("Tag 1", "Tag 2", "Tag 3"),
+    inputVisible = FALSE
+  ),
+  methods = list(
+    handleClose = JS(
+      "function(tag) { this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1); }"
+    ),
+    showInput = JS(
+      "function() {",
+      "  var self = this;",
+      "  this.inputVisible = true;",
+      "  this.$nextTick(function() { self.$refs.InputRef.input.focus(); });",
+      "}"
+    ),
+    handleInputConfirm = JS(
+      "function() {",
+      "  if (this.inputValue) this.dynamicTags.push(this.inputValue);",
+      "  this.inputVisible = false;",
+      "  this.inputValue = '';",
+      "}"
+    )
+  ),
+  use = "shinyElement.plugin"
+)
 ```
-
-![The editable example, running](../../shots/tag-editable.png)
 
 ## Sizes
 

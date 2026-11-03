@@ -61,7 +61,11 @@ update_el_config_provider(
   The language of the components inside it, as
   [`el_locale_dependency()`](https://kaipingyang.github.io/shiny.element/dev/reference/el_locale_dependency.md)
   names one (`"zh-cn"`), where `el_page(locale =)` sets the page's.
-  Element Plus's `locale`.
+  Element Plus's `locale`. Or
+  [`v_bind()`](https://kaipingyang.github.io/shiny.element/dev/reference/v_bind.md)
+  of a locale object, as upstream's `:locale`:
+  `"$vueStore.ui.zh ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"`; the
+  files of the locales it names come with it.
 
 - size:
 
@@ -158,8 +162,8 @@ el_config_provider(
   el_button("a", "OK"),
   el_input("b")
 )
-#> <div id="el_config_provider_27d2b705-32e0-4a72-8996-337104c47c9e" data-shiny-vue style="display: contents">
-#>   <script type="text/x-template" data-shiny-vue-template><div id="el_config_provider_27d2b705-32e0-4a72-8996-337104c47c9e_container" style="display: contents">
+#> <div id="el_config_provider_ff2b532e-88b2-46b3-8786-4a7dde0540d6" data-shiny-vue style="display: contents">
+#>   <script type="text/x-template" data-shiny-vue-template><div id="el_config_provider_ff2b532e-88b2-46b3-8786-4a7dde0540d6_container" style="display: contents">
 #>   <el-config-provider v-bind="$optional(&#39;config-provider&#39;)" :locale="$elLocale(locale)">
 #>     <div class="el-provider-scope" style="display: contents" :data-card-shadow="card &amp;&amp; card.shadow ? card.shadow : &#39;&#39;" :data-dialog="dialog ? JSON.stringify(dialog) : &#39;&#39;" :data-config="JSON.stringify({&#39;locale&#39;: locale, &#39;size&#39;: size, &#39;button&#39;: button, &#39;link&#39;: link, &#39;card&#39;: card, &#39;dialog&#39;: dialog, &#39;message&#39;: message, &#39;table&#39;: table, &#39;emptyValues&#39;: emptyValues, &#39;valueOnClear&#39;: valueOnClear, &#39;experimentalFeatures&#39;: experimentalFeatures})">
 #>       <el-button v-bind="$optional(&#39;el2_button&#39;)" :circle="el2_circle" :loading="el2_loading" :disabled="el2_disabled" :native-type="el2_native_type" @click="el2_handleClick" ref="sv_a" id="a">{{el2_label}}</el-button>

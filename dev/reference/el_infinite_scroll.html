@@ -261,6 +261,12 @@ current one by default, as for <code><a href="https://rdrr.io/pkg/shiny/man/upda
     <p>A Shiny UI element.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>In <code>on</code>, <code>load</code> is the area's own handler – Element's infinite
+scroll is a directive and emits nothing – as upstream's
+<code>v-infinite-scroll="load"</code>: <code>on = list(load = "count += 2")</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="shiny-inputs">Shiny inputs<a class="anchor" aria-label="anchor" href="#shiny-inputs"></a></h2>
 
 <table class="table table"><tr><td>Input</td><td>Reported</td><td>Value</td></tr><tr><td><code>input$&lt;id&gt;_load</code></td><td>unasked</td><td>rises by one each time more content is wanted</td></tr></table><p>The same list as <code>el_events("el_infinite_scroll")</code>, which says how an event's arguments travel.</p>

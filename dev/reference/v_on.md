@@ -39,6 +39,11 @@ evaluates an expression: `$vueStore.ui` is `vue_store(ns("ui"))`,
 `$inputs.size` the module's input. Outside a module a plain string does
 the same: `on = list(click = "$vueStore.ui.open = true")`.
 
+As in Vue, a method path (`"save"`, `"$vueStore.cart.add"`) or a
+function expression (`"(pattern, prefix) => ..."`) is a handler, called
+with all the event's arguments; anything else is a statement, with
+`$event`. Vue's compiler tells them apart, and so do these, by its rule.
+
 ## See also
 
 Other directives:
