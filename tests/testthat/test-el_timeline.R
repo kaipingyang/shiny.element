@@ -79,7 +79,8 @@ test_that("el_timeline: entries render through one v-for so they stay replaceabl
 test_that("el_timeline: the timestamp is hidden when asked, or when there is none", {
   expect_match(
     render_html(el_timeline(id = "log")),
-    ':hide-timestamp="item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp"',
+    # hideTimestamp, as a binding's records name it, or hide_timestamp
+    ':hide-timestamp="(item.hideTimestamp ?? item.hide_timestamp) ?? !item.timestamp"',
     fixed = TRUE
   )
 })

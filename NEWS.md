@@ -13,6 +13,21 @@
 
 ## New features
 
+* Data arguments R converts follow `v_bind()` too, in Element's own form,
+  as DT's `JS()` beside its R values: `el_select()`, `el_radio_group()`,
+  `el_checkbox_group()` `choices`; `el_mention()`, `el_segmented()`,
+  `el_select_v2()` `options`; `el_autocomplete(suggestions =)`,
+  `el_pagination(page_sizes =)`, `el_image_viewer(url_list =)`,
+  `el_timeline(items =)`. An R value is converted as before; a binding's
+  `[{ value, label }]` reaches Element as it is. Vue's development build
+  says when a bound list is not records.
+
+* `el_config_provider(locale =)` follows a `v_bind()` of a locale object,
+  as upstream's `computed(() => zhCn or en)`:
+  `"$vueStore.ui.zh ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"`. The
+  files of the locales the expression names come with it. It took the
+  expression for a locale's name.
+
 * `v_bind()` and `v_model()`, Vue's two bindings for a component's
   arguments: components follow one another in the browser, with no round
   trip to the server. `v_bind("<expr>")` is one way, any expression over

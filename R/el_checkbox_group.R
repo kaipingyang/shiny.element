@@ -8,6 +8,8 @@
 #'   (`c(Label = value)`) or a list of [el_option()]s -- which can be
 #'   `disabled` -- or of `list(value = ..., label = ...)`.
 #'   `choices` is Shiny's name for it, `options` Element's; give either.
+#'   Or [v_bind()] of an expression giving Element's records, `[{ value, label
+#'   }]`: followed in the browser, given to Element as it is.
 #' @param selected,value Character vector of initially checked values; none
 #'   by default. `selected` is Shiny's name, `value` Element's (its
 #'   `v-model`); give either.
@@ -103,12 +105,15 @@ el_checkbox_group <- function(
 ) {
   .el_check_choices("el_checkbox_group", environment())
   # R reads these to draw the component
-  .vue_unbound(choices = choices, button = button)
+  .vue_unbound(button = button)
   selected <- .vue_alias(selected, value, "selected", "value")
   choices <- .vue_alias(choices, options, "choices", "options")
   if (is.null(choices)) {
     stop("`choices` (or `options`) is required.", call. = FALSE)
   }
+  # A named vector c(Label = value), or Element's records; a v_bind() is
+  # Element's form, followed in the browser
+  choices <- .vue_data_arg(choices, .vue_choices, "choices", "records")
   if (is.null(id)) {
     id <- .vue_auto_id("el_checkbox_group")
   }
@@ -148,7 +153,7 @@ el_checkbox_group <- function(
 
   vue_data <- list(
     value = .vue_array(selected),
-    options = .vue_choices(choices),
+    options = choices,
     disabled = disabled
   )
   el_widget(

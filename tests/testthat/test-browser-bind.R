@@ -451,3 +451,53 @@ test_that("an on handler given as a function gets every argument of the event", 
   expect_equal(js("shinyVue.useStore('m-seen').b"), 2)
   expect_length(unlist(js("__w")), 0)
 })
+
+test_that("data arguments and a provider's locale follow v_bind(), as upstream's :options and :locale", {
+  skip_if_no_browser()
+  dir <- withr::local_tempdir()
+  htmltools::save_html(
+    htmltools::tagList(
+      use_element(dev = TRUE),
+      shiny::tags$div(vue_store(
+        "d",
+        state = list(
+          opts = list(list(value = "a", label = "A")),
+          zh = FALSE
+        )
+      )),
+      el_radio_group("r", choices = v_bind("$vueStore.d.opts")),
+      el_config_provider(
+        id = "cp",
+        locale = v_bind(
+          "$vueStore.d.zh ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"
+        ),
+        el_pagination("pg", total = 100, layout = "jumper")
+      ),
+      # not Element's form: said once in the development build
+      el_radio_group("bad", choices = v_bind("['x', 'y']"))
+    ),
+    file.path(dir, "page.html"),
+    libdir = "lib"
+  )
+  use_browser_args()
+  b <- chromote::ChromoteSession$new()
+  on.exit(try(b$close(), silent = TRUE), add = TRUE)
+  js <- bind_page_js(b)
+  b$Page$enable()
+  b$Page$addScriptToEvaluateOnNewDocument(source = capture_js)
+  b$Page$navigate(paste0("file://", file.path(dir, "page.html")))
+  Sys.sleep(3)
+  labels <- "Array.from(document.querySelectorAll('#r .el-radio')).map(function(r){ return r.textContent.trim(); }).join(',')"
+  expect_equal(js(labels), "A")
+  js("shinyVue.useStore('d').opts.push({value: 'b', label: 'B'})")
+  Sys.sleep(0.3)
+  expect_equal(js(labels), "A,B")
+  jumper <- "document.querySelector('#cp .el-pagination__jump').textContent"
+  expect_match(js(jumper), "Go to")
+  js("shinyVue.useStore('d').zh = true")
+  Sys.sleep(0.3)
+  expect_match(js(jumper), "前往")
+  w <- unlist(js("__w"))
+  expect_length(w, 1)
+  expect_match(w, "the component takes records", fixed = TRUE)
+})

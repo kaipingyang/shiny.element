@@ -7,6 +7,8 @@
 #'   `input$<id>`.
 #' @param options The options: a named vector `c(Label = value)`, a vector,
 #'   or a list of `list(value =, label =, disabled =)`, as Element Plus takes them.
+#'   Or [v_bind()] of an expression giving Element's records, `[{ value, label
+#'   }]`: followed in the browser, given to Element as it is.
 #' @param multiple Is multiple. Element Plus's `multiple` (boolean).
 #' @param disabled Is disabled. Element Plus's `disabled` (boolean).
 #' @param value_key Unique identity key name for value, required when value is
@@ -217,16 +219,19 @@ el_select_v2 <- function(
   on = NULL
 ) {
   .el_check_choices("el_select_v2", environment())
-  # R reads these to draw the component
-  .vue_unbound(options = options)
   # A named vector c(Label = value), as the choice components take, or
-  # Element Plus's list(value =, label =)
-  # Groups -- list(label =, options =) -- are passed as Element Plus takes them
-  grouped <- is.list(options) &&
-    any(vapply(options, function(o) is.list(o) && !is.null(o$options), TRUE))
-  if (!is.null(options) && !grouped) {
-    options <- .vue_choices(options)
-  }
+  # Element Plus's list(value =, label =); groups -- list(label =, options =)
+  # -- and a v_bind() are passed as Element Plus takes them
+  options <- .vue_data_arg(
+    options,
+    function(x) {
+      grouped <- is.list(x) &&
+        any(vapply(x, function(o) is.list(o) && !is.null(o$options), TRUE))
+      if (is.null(x) || grouped) x else .vue_choices(x)
+    },
+    "options",
+    "records"
+  )
   if (is.null(id)) {
     id <- .vue_auto_id("el_select_v2")
   }

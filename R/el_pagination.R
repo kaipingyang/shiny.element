@@ -8,6 +8,7 @@
 #' @param page_size Items per page. Default `10`.
 #' @param current_page Current page number (1-based). Default `1`.
 #' @param page_sizes Vector of page-size options. Default `c(10, 20, 30, 50)`.
+#'   Or [v_bind()] of Element's `number[]`.
 #' @param layout Comma-separated list of layout elements.
 #'   Default `"total, sizes, prev, pager, next, jumper"`.
 #' @param background Whether to use background colour on page buttons. Default `FALSE`.
@@ -118,7 +119,6 @@ el_pagination <- function(
 ) {
   .el_check_choices("el_pagination", environment())
   # R reads these to draw the component
-  .vue_unbound(page_sizes = page_sizes)
   if (is.null(id)) {
     id <- .vue_auto_id("el_pagination")
   }
@@ -155,7 +155,7 @@ el_pagination <- function(
     total = total,
     pageSize = page_size,
     currentPage = current_page,
-    pageSizes = as.list(page_sizes),
+    pageSizes = .vue_data_arg(page_sizes, as.list, "page_sizes"),
     layout = layout,
     background = background,
     small = small,

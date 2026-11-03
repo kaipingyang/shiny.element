@@ -8,6 +8,8 @@
 #'   `input$<id>`.
 #' @param options The options: a named vector `c(Label = value)`, a vector,
 #'   or a list of `list(value =, label =, disabled =)`, as Element Plus takes them.
+#'   Or [v_bind()] of an expression giving Element's records, `[{ value, label
+#'   }]`: followed in the browser, given to Element as it is.
 #' @param props Configuration options. Element Plus's `props`
 #'   (MentionOptionProps).
 #' @param prefix Prefix character to trigger mentions. The string length must
@@ -88,13 +90,14 @@ el_mention <- function(
   on = NULL
 ) {
   .el_check_choices("el_mention", environment())
-  # R reads these to draw the component
-  .vue_unbound(options = options)
   # A named vector c(Label = value), as the choice components take, or
-  # Element Plus's list(value =, label =)
-  if (!is.null(options)) {
-    options <- .vue_choices(options)
-  }
+  # Element Plus's list(value =, label =); a v_bind() is Element's form
+  options <- .vue_data_arg(
+    options,
+    function(x) if (is.null(x)) x else .vue_choices(x),
+    "options",
+    "records"
+  )
   if (is.null(id)) {
     id <- .vue_auto_id("el_mention")
   }

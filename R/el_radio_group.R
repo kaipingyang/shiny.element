@@ -15,6 +15,8 @@
 #'   Unnamed vectors are allowed; the element is used as both value and
 #'   label. `choices` is Shiny's name for it, `options` Element's; give
 #'   either.
+#'   Or [v_bind()] of an expression giving Element's records, `[{ value, label
+#'   }]`: followed in the browser, given to Element as it is.
 #' @param selected,value Initially selected value; nothing by default.
 #'   `selected` is Shiny's name, `value` Element's (its `v-model`); give
 #'   either.
@@ -115,12 +117,15 @@ el_radio_group <- function(
 ) {
   .el_check_choices("el_radio_group", environment())
   # R reads these to draw the component
-  .vue_unbound(choices = choices, button = button)
+  .vue_unbound(button = button)
   selected <- .vue_alias(selected, value, "selected", "value")
   choices <- .vue_alias(choices, options, "choices", "options")
   if (is.null(choices)) {
     stop("`choices` (or `options`) is required.", call. = FALSE)
   }
+  # A named vector c(Label = value), or Element's records; a v_bind() is
+  # Element's form, followed in the browser
+  choices <- .vue_data_arg(choices, .vue_choices, "choices", "records")
   if (is.null(id)) {
     id <- .vue_auto_id("el_radio_group")
   }
@@ -153,7 +158,7 @@ el_radio_group <- function(
   # Build Vue data
   vue_data <- list(
     value = if (is.null(selected)) "" else selected,
-    options = .vue_choices(choices),
+    options = choices,
     disabled = disabled
   )
   el_widget(

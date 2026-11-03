@@ -36,8 +36,16 @@
 #'
 #' What can be bound: any of a component's props and its value, and what a
 #' dialog's, drawer's, tabs' or collapse's `update_*()` can set. An
-#' argument R reads to draw the component -- a label, the choices, a class
-#' -- says it cannot be bound.
+#' argument R reads to draw the component -- a label, a class, whether
+#' options are buttons -- says it cannot be bound.
+#'
+#' A bound value reaches the component as it is, as upstream's
+#' `:prop="value"`: functions, `Date`s and components (an icon) included.
+#' Data R converts -- a select's `choices`, a mention's `options` -- has two
+#' rules, as DT's `JS()`: an R value is given in R's terms (a named vector)
+#' and converted; a `v_bind()` gives Element's own form, `[{ value, label
+#' }]`, as its docs write it, and is not converted. Vue's development build
+#' (`el_page(dev = TRUE)`) says when a bound list is not records.
 #'
 #' A binding the page cannot read -- a store it does not have, `$route`
 #' with no [vue_router()], a path that runs through nothing -- leaves its
@@ -598,7 +606,8 @@ print.vue_binding <- function(x, ...) {
     list(
       expr = unclass(x)[1],
       model = if (inherits(x, "v_model")) TRUE,
-      scope = attr(x, "scope")
+      scope = attr(x, "scope"),
+      shape = attr(x, "shape")
     )
   )
 }

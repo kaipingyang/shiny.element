@@ -61,7 +61,8 @@ update_el_radio_group(
 \code{disabled} -- or of \code{list(value = ..., label = ...)}.
 Unnamed vectors are allowed; the element is used as both value and
 label. \code{choices} is Shiny's name for it, \code{options} Element's; give
-either.}
+either.
+Or \code{\link[=v_bind]{v_bind()}} of an expression giving Element's records, \verb{[\{ value, label \}]}: followed in the browser, given to Element as it is.}
 
 \item{selected, value}{Initially selected value; nothing by default.
 \code{selected} is Shiny's name, \code{value} Element's (its \code{v-model}); give

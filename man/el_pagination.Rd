@@ -70,7 +70,8 @@ update_el_pagination(
 
 \item{current_page}{Current page number (1-based). Default \code{1}.}
 
-\item{page_sizes}{Vector of page-size options. Default \code{c(10, 20, 30, 50)}.}
+\item{page_sizes}{Vector of page-size options. Default \code{c(10, 20, 30, 50)}.
+Or \code{\link[=v_bind]{v_bind()}} of Element's \code{number[]}.}
 
 \item{layout}{Comma-separated list of layout elements.
 Default \code{"total, sizes, prev, pager, next, jumper"}.}

@@ -16,6 +16,8 @@
 #'   `icon` (an icon's name), `placement` (`"bottom"` or `"top"`, where the
 #'   timestamp goes), `center` (centre the dot against the content) and
 #'   `hollow` (draw the dot hollow).
+#'   Or [v_bind()] of records with the entries' fields (`hideTimestamp` for
+#'   `hide_timestamp`), followed in the browser.
 #' @param reverse Show the entries newest first.
 #' @param html Render each entry's `content` as HTML rather than text --
 #'   a string of markup, or tags. Only use it with content you control: it
@@ -75,7 +77,11 @@ el_timeline <- function(
 ) {
   .el_check_choices("el_timeline", environment())
   # R reads these to draw the component
-  .vue_unbound(items = items, html = html)
+  .vue_unbound(html = html)
+  # entries from R, or a v_bind() of records with the fields the template
+  # reads: content, timestamp, type, color, size, icon, placement, center,
+  # hollow, hideTimestamp
+  items <- .vue_data_arg(items, .el_timeline_items, "items", "records")
   if (is.null(id)) {
     id <- .vue_auto_id("el_timeline")
   }
@@ -106,13 +112,13 @@ el_timeline <- function(
       ":placement" = "item.placement",
       ":center" = "item.center",
       ":hollow" = "item.hollow",
-      ":hide-timestamp" = "item.hide_timestamp != null ? item.hide_timestamp : !item.timestamp",
+      ":hide-timestamp" = "(item.hideTimestamp ?? item.hide_timestamp) ?? !item.timestamp",
       body
     )
   )
 
   vue_data <- list(
-    items = .el_timeline_items(items),
+    items = items,
     reverse = reverse
   )
 

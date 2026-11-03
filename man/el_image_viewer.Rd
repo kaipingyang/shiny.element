@@ -47,7 +47,8 @@ update_el_image_viewer(
 \arguments{
 \item{id}{Component ID. Auto-generated if \code{NULL}.}
 
-\item{url_list}{Preview link list. Element Plus's \code{url-list} (\code{string[]}).}
+\item{url_list}{Preview link list. Element Plus's \code{url-list} (\code{string[]}).
+Or \code{\link[=v_bind]{v_bind()}} of an expression giving it, followed in the browser.}
 
 \item{visible}{Whether it starts open. Open and close it later with
 \code{\link[=update_el_image_viewer]{update_el_image_viewer()}}.}

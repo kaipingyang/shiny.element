@@ -11,6 +11,9 @@
 #' @param locale The language of the components inside it, as
 #'   [el_locale_dependency()] names one (`"zh-cn"`), where `el_page(locale =)`
 #'   sets the page's. Element Plus's `locale`.
+#'   Or [v_bind()] of a locale object, as upstream's `:locale`:
+#'   `"$vueStore.ui.zh ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"`; the
+#'   files of the locales it names come with it.
 #' @param card Card related configuration: `list(shadow = "hover")`, for the
 #'   cards inside it that set no shadow of their own. Element Plus's `card`.
 #' @param size Global component size. Element Plus's `size` ('large' |
@@ -101,13 +104,30 @@ el_config_provider <- function(
       children
     )
   }
+  if (inherits(locale, "v_model")) {
+    stop(
+      "`locale` is read by the provider, never set by it: give it v_bind().",
+      call. = FALSE
+    )
+  }
+  bound_locale <- inherits(locale, "vue_binding")
   widget <- .el_wrap_widget(
     "el-config-provider",
     ns_id,
     list(...),
     wrap = scope,
     attrs = list(":locale" = "$elLocale(locale)"),
-    data = list(locale = if (is.null(locale)) NA else tolower(locale)),
+    # a code, or a v_bind() of a locale object as upstream's
+    # computed(() => zhCn or en) gives it: ElementPlusLocaleZhCn
+    data = list(
+      locale = if (is.null(locale)) {
+        NA
+      } else if (bound_locale) {
+        locale
+      } else {
+        tolower(locale)
+      }
+    ),
     props = .el_props(list(
       card = card,
       size = size,
@@ -124,13 +144,28 @@ el_config_provider <- function(
     width = width,
     slots = slots
   )
-  # the locale's file, and English's, to go back to with an update
-  if (is.null(locale)) {
+  # the locale's file, and English's, to go back to with an update; for a
+  # binding, the files of the locales its expression names, as a bundler
+  # follows upstream's imports
+  codes <- if (bound_locale) {
+    known <- el_locales()
+    used <- vapply(
+      .el_locale_global(known),
+      function(g) {
+        grepl(paste0("\\b", g, "\\b"), unclass(locale)[1], perl = TRUE)
+      },
+      TRUE
+    )
+    unique(c(known[used], "en"))
+  } else if (!is.null(locale)) {
+    unique(c(tolower(locale), "en"))
+  }
+  if (!length(codes)) {
     return(widget)
   }
   htmltools::attachDependencies(
     widget,
-    lapply(unique(c(tolower(locale), "en")), .el_locale_file),
+    lapply(codes, .el_locale_file),
     append = TRUE
   )
 }

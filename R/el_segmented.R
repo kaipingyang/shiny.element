@@ -7,6 +7,8 @@
 #'   `input$<id>`.
 #' @param options The options: a named vector `c(Label = value)`, a vector,
 #'   or a list of `list(value =, label =, disabled =)`, as Element Plus takes them.
+#'   Or [v_bind()] of an expression giving Element's options, as its `options`
+#'   prop takes them: followed in the browser, given as it is.
 #' @param size Size of component. Element Plus's `size` ('' | 'large' |
 #'   'default' | 'small').
 #' @param block Fit width of parent content. Element Plus's `block` (boolean).
@@ -62,13 +64,13 @@ el_segmented <- function(
   on = NULL
 ) {
   .el_check_choices("el_segmented", environment())
-  # R reads these to draw the component
-  .vue_unbound(options = options)
   # A named vector c(Label = value), as the choice components take, or
-  # Element Plus's list(value =, label =)
-  if (!is.null(options)) {
-    options <- .vue_choices(options)
-  }
+  # Element Plus's list(value =, label =); a v_bind() is Element's form
+  options <- .vue_data_arg(
+    options,
+    function(x) if (is.null(x)) x else .vue_choices(x),
+    "options"
+  )
   if (is.null(id)) {
     id <- .vue_auto_id("el_segmented")
   }

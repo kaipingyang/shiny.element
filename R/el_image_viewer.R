@@ -6,6 +6,7 @@
 #' @param visible Whether it starts open. Open and close it later with
 #'   [update_el_image_viewer()].
 #' @param url_list Preview link list. Element Plus's `url-list` (`string[]`).
+#'   Or [v_bind()] of an expression giving it, followed in the browser.
 #' @param z_index Preview backdrop z-index. Element Plus's `z-index` (number /
 #'   string).
 #' @param initial_index The initial preview image index, less than or equal to
@@ -63,8 +64,12 @@ el_image_viewer <- function(
   on = NULL
 ) {
   .el_check_choices("el_image_viewer", environment())
-  # R reads these to draw the component
-  .vue_unbound(url_list = url_list)
+  # a vector of links, or a v_bind() of Element's string[]
+  url_list <- .vue_data_arg(
+    url_list,
+    function(x) if (is.null(x)) x else as.list(x),
+    "url_list"
+  )
   if (is.null(id)) {
     id <- .vue_auto_id("el_image_viewer")
   }
@@ -78,9 +83,6 @@ el_image_viewer <- function(
   # Element Plus's viewer is open while it is mounted: v-if stands for its
   # visibility, and closing it unmounts it and reports
   attrs <- c(list("v-if" = "visible", "@close" = "handleClose"), events$attrs)
-  if (!is.null(url_list)) {
-    url_list <- as.list(url_list)
-  }
   el_widget(
     id = ns_id,
     markup = htmltools::tag("el-image-viewer", attrs),

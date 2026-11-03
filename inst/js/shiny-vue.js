@@ -673,6 +673,25 @@
   // Run when an instance is created, before its first render: each bound
   // field takes its binding's value and follows it, and -- for v_model() --
   // writes the field back when it changes (the component's user, an update)
+  // Vue's development build on the page (el_page(dev = TRUE)): where Vue
+  // checks props, the bridge checks a bound value's form too
+  var devBuild = null;
+  function isDevBuild() {
+    if (devBuild === null) devBuild = !!document.querySelector('script[src*="vue.global.js"]');
+    return devBuild;
+  }
+  // A binding R marked as giving records -- Element's [{ value, label }] --
+  // said once when it gives something else; the value is written all the
+  // same, as Vue writes a prop it warns about
+  var shapeSaid = {};
+  function checkShape(b, field, v) {
+    if (b.shape !== 'records' || !Array.isArray(v) || !isDevBuild()) return;
+    var bad = v.filter(function(o) { return o === null || typeof o !== 'object'; })[0];
+    if (bad === undefined || shapeSaid[b.expr]) return;
+    shapeSaid[b.expr] = true;
+    warn('v_bind("' + b.expr + '") gives ' + field + ' ' + JSON.stringify(bad) +
+      ' among its items; the component takes records, [{ value, label }]');
+  }
   var bindFields = {
     created: function() {
       var bound = this.$options.shinyVueBound, vm = this;
@@ -680,6 +699,7 @@
       Object.keys(bound).forEach(function(field) {
         var b = bound[field], read = reader(b);
         vm.$watch(read, function(v) {
+          checkShape(b, field, v);
           if (!same(v, vm[field])) vm[field] = v;
         }, { immediate: true, deep: true });
         if (b.model) {

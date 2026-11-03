@@ -88,7 +88,8 @@ update_el_autocomplete(
 
 \item{suggestions}{Suggestions to offer, as a character vector or a list of
 \code{list(value =, ...)}. Filtered in the browser on what has been typed.
-For suggestions that come from the server, use \code{remote = TRUE}.}
+For suggestions that come from the server, use \code{remote = TRUE}.
+Or \code{\link[=v_bind]{v_bind()}} of Element's records, \verb{[\{ value \}]}, followed in the browser.}
 
 \item{remote}{Ask the server for suggestions as the user types, as
 Element's \code{fetch-suggestions} asks a function: the text arrives as

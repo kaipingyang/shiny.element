@@ -47,7 +47,10 @@ into this one's Vue instance, as \code{\link[=el_button_group]{el_button_group()
 
 \item{locale}{The language of the components inside it, as
 \code{\link[=el_locale_dependency]{el_locale_dependency()}} names one (\code{"zh-cn"}), where \code{el_page(locale =)}
-sets the page's. Element Plus's \code{locale}.}
+sets the page's. Element Plus's \code{locale}.
+Or \code{\link[=v_bind]{v_bind()}} of a locale object, as upstream's \verb{:locale}:
+\code{"$vueStore.ui.zh ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"}; the
+files of the locales it names come with it.}
 
 \item{size}{Global component size. Element Plus's \code{size} ('large' |
 'default' | 'small').}

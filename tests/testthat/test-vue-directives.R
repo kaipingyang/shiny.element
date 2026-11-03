@@ -502,3 +502,79 @@ test_that("a handler is told from a statement as Vue's compiler does", {
   )
   expect_equal(on$attrs[["@click"]], "(...a) => { const $event = a[0]; n++; }")
 })
+
+test_that("a data argument takes an R value converted, or a v_bind() as it is", {
+  spec <- function(x) spec_of(x)[[1]]
+  b <- v_bind("$vueStore.s.opts")
+  # R's terms, converted
+  expect_equal(
+    spec(el_mention("m", options = c("a", "b")))$options$data$options,
+    list(list(value = "a", label = "a"), list(value = "b", label = "b"))
+  )
+  # Element's, followed in the browser, marked as records for the check
+  for (x in list(
+    el_mention("m", options = b),
+    el_select_v2("s2", options = b),
+    el_autocomplete("ac", suggestions = b)
+  )) {
+    s <- spec(x)
+    f <- names(s$bound)
+    expect_length(f, 1)
+    expect_equal(s$bound[[f]]$expr, "$vueStore.s.opts")
+    expect_equal(s$bound[[f]]$shape, "records")
+  }
+  for (x in list(
+    el_select("s", choices = b),
+    el_radio_group("r", choices = b),
+    el_checkbox_group("c", choices = b)
+  )) {
+    expect_equal(spec(x)$bound$options$expr, "$vueStore.s.opts")
+  }
+  expect_equal(spec(el_select("s", choices = b))$options$data$groups, list())
+  expect_equal(
+    spec(el_segmented("sg", options = b))$bound$options$expr,
+    "$vueStore.s.opts"
+  )
+  expect_null(spec(el_segmented("sg", options = b))$bound$options$shape)
+  expect_equal(
+    spec(el_pagination(
+      "p",
+      total = 100,
+      page_sizes = v_bind("[10, 50]")
+    ))$bound$pageSizes$expr,
+    "[10, 50]"
+  )
+  expect_equal(
+    spec(el_timeline("t", items = v_bind("$vueStore.s.log")))$bound$items$expr,
+    "$vueStore.s.log"
+  )
+  # read, never set
+  expect_error(
+    el_mention("m", options = v_model("$vueStore.s.opts")),
+    "'options' is read by the component"
+  )
+})
+
+test_that("a config provider's locale follows a v_bind() of a locale object", {
+  p <- el_config_provider(
+    id = "cp",
+    locale = v_bind(
+      "$vueStore.s.zh ? ElementPlusLocaleZhCn : ElementPlusLocaleEn"
+    ),
+    el_button("b", "x")
+  )
+  # the files of the locales it names, as a bundler follows imports
+  deps <- vapply(htmltools::findDependencies(p), function(d) d$name, "")
+  expect_true(all(
+    c("element-plus-locale-zh-cn", "element-plus-locale-en") %in% deps
+  ))
+  expect_match(
+    paste(as.character(p), collapse = ""),
+    "ElementPlusLocaleZhCn",
+    fixed = TRUE
+  )
+  expect_error(
+    el_config_provider(id = "cp", locale = v_model("$vueStore.s.l")),
+    "never set by it"
+  )
+})

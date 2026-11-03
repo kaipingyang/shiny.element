@@ -144,7 +144,9 @@ update_el_select(
 of options) for option groups. Unnamed vectors are allowed;
 the element is used as both value and label. \code{choices} is Shiny's name
 for it, \code{options} Element's; give either. Empty by default, for a
-select whose options arrive later (\code{remote = TRUE}).}
+select whose options arrive later (\code{remote = TRUE}).
+Or \code{\link[=v_bind]{v_bind()}} of an expression giving Element's records, \verb{[\{ value, label, disabled \}]}: followed in the browser, given as it is (option groups come
+from R).}
 
 \item{selected, value}{Initially selected value(s); a character vector for
 multiple selection. \code{selected} is Shiny's name, \code{value} Element's

@@ -35,7 +35,9 @@ optionally \code{timestamp}, \code{type} (\code{"primary"}, \code{"success"}, \c
 \code{hide_timestamp},
 \code{icon} (an icon's name), \code{placement} (\code{"bottom"} or \code{"top"}, where the
 timestamp goes), \code{center} (centre the dot against the content) and
-\code{hollow} (draw the dot hollow).}
+\code{hollow} (draw the dot hollow).
+Or \code{\link[=v_bind]{v_bind()}} of records with the entries' fields (\code{hideTimestamp} for
+\code{hide_timestamp}), followed in the browser.}
 
 \item{reverse}{Show the entries newest first.}
 

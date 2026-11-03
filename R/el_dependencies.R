@@ -126,12 +126,7 @@ el_locale_dependency <- function(locale = NULL) {
       call. = FALSE
     )
   }
-  # The file defines ElementPlusLocale<Code>: "pt-br" is ElementPlusLocalePtBr
-  parts <- strsplit(code, "-", fixed = TRUE)[[1]]
-  global <- paste0(
-    "ElementPlusLocale",
-    paste0(toupper(substring(parts, 1, 1)), substring(parts, 2), collapse = "")
-  )
+  global <- .el_locale_global(code)
   c(
     list(htmltools::htmlDependency(
       name = paste0("element-plus-locale-", code),
@@ -552,4 +547,29 @@ el_locales <- function() {
       list(.el_bridge_dependency())
     )
   })
+}
+
+#' The object a locale's file defines
+#'
+#' Element Plus's UMD locale files define `ElementPlusLocale<Code>`:
+#' `"pt-br"` is `ElementPlusLocalePtBr`.
+#'
+#' @param code Locale codes, `"zh-cn"`.
+#' @return The globals' names.
+#' @keywords internal
+.el_locale_global <- function(code) {
+  vapply(
+    strsplit(tolower(code), "-", fixed = TRUE),
+    function(parts) {
+      paste0(
+        "ElementPlusLocale",
+        paste0(
+          toupper(substring(parts, 1, 1)),
+          substring(parts, 2),
+          collapse = ""
+        )
+      )
+    },
+    ""
+  )
 }

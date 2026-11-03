@@ -14,6 +14,9 @@
 #'   the element is used as both value and label. `choices` is Shiny's name
 #'   for it, `options` Element's; give either. Empty by default, for a
 #'   select whose options arrive later (`remote = TRUE`).
+#'   Or [v_bind()] of an expression giving Element's records, `[{ value, label,
+#'   disabled }]`: followed in the browser, given as it is (option groups come
+#'   from R).
 #' @param selected,value Initially selected value(s); a character vector for
 #'   multiple selection. `selected` is Shiny's name, `value` Element's
 #'   (its `v-model`); give either.
@@ -257,7 +260,6 @@ el_select <- function(
   .el_check_choices("el_select", environment())
   # R reads these to draw the component
   .vue_unbound(
-    choices = choices,
     multiple = multiple,
     option_template = option_template,
     props = props
@@ -265,11 +267,15 @@ el_select <- function(
   selected <- .vue_alias(selected, value, "selected", "value")
   choices <- .vue_alias(choices, options, "choices", "options")
   # Options are drawn here, not by Element Plus from an `options` prop, so
-  # `props` renames their fields here
-  choices <- .el_rename_option_fields(choices, props)
-  if (is.null(choices)) {
-    choices <- list()
-  }
+  # `props` renames their fields here. A v_bind() gives Element's records,
+  # { value, label, disabled }, as they are; option groups come from R.
+  choices <- .vue_data_arg(
+    choices,
+    function(x) .el_rename_option_fields(x %||% list(), props),
+    "choices",
+    "records"
+  )
+  bound_choices <- inherits(choices, "vue_binding")
   if (is.null(id)) {
     id <- .vue_auto_id("el_select")
   }
@@ -351,8 +357,12 @@ el_select <- function(
     } else {
       selected
     },
-    options = .el_select_choices(choices)$options,
-    groups = .el_select_choices(choices)$groups,
+    options = if (bound_choices) {
+      choices
+    } else {
+      .el_select_choices(choices)$options
+    },
+    groups = if (bound_choices) list() else .el_select_choices(choices)$groups,
     multiple = multiple,
     disabled = disabled,
     clearable = clearable,

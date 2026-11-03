@@ -51,7 +51,9 @@ update_el_segmented(
 \verb{input$<id>}.}
 
 \item{options}{The options: a named vector \code{c(Label = value)}, a vector,
-or a list of \code{list(value =, label =, disabled =)}, as Element Plus takes them.}
+or a list of \code{list(value =, label =, disabled =)}, as Element Plus takes them.
+Or \code{\link[=v_bind]{v_bind()}} of an expression giving Element's options, as its \code{options}
+prop takes them: followed in the browser, given as it is.}
 
 \item{size}{Size of component. Element Plus's \code{size} ('' | 'large' |
 'default' | 'small').}

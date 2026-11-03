@@ -73,7 +73,8 @@ update_el_mention(
 \verb{input$<id>}.}
 
 \item{options}{The options: a named vector \code{c(Label = value)}, a vector,
-or a list of \code{list(value =, label =, disabled =)}, as Element Plus takes them.}
+or a list of \code{list(value =, label =, disabled =)}, as Element Plus takes them.
+Or \code{\link[=v_bind]{v_bind()}} of an expression giving Element's records, \verb{[\{ value, label \}]}: followed in the browser, given to Element as it is.}
 
 \item{props}{Configuration options. Element Plus's \code{props}
 (MentionOptionProps).}

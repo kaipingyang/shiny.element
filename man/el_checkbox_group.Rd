@@ -65,7 +65,8 @@ update_el_checkbox_group(
 \item{choices, options}{The choices: a named character vector
 (\code{c(Label = value)}) or a list of \code{\link[=el_option]{el_option()}}s -- which can be
 \code{disabled} -- or of \code{list(value = ..., label = ...)}.
-\code{choices} is Shiny's name for it, \code{options} Element's; give either.}
+\code{choices} is Shiny's name for it, \code{options} Element's; give either.
+Or \code{\link[=v_bind]{v_bind()}} of an expression giving Element's records, \verb{[\{ value, label \}]}: followed in the browser, given to Element as it is.}
 
 \item{selected, value}{Character vector of initially checked values; none
 by default. \code{selected} is Shiny's name, \code{value} Element's (its

@@ -7,6 +7,7 @@
 #' @param suggestions Suggestions to offer, as a character vector or a list of
 #'   `list(value =, ...)`. Filtered in the browser on what has been typed.
 #'   For suggestions that come from the server, use `remote = TRUE`.
+#'   Or [v_bind()] of Element's records, `[{ value }]`, followed in the browser.
 #' @param remote Ask the server for suggestions as the user types, as
 #'   Element's `fetch-suggestions` asks a function: the text arrives as
 #'   `input$<id>_query`, and [update_el_autocomplete()] with `suggestions`
@@ -125,7 +126,6 @@ el_autocomplete <- function(
   .el_check_choices("el_autocomplete", environment())
   # R reads these to draw the component
   .vue_unbound(
-    suggestions = suggestions,
     remote = remote,
     fetch_suggestions = fetch_suggestions
   )
@@ -229,7 +229,13 @@ el_autocomplete <- function(
     markup = htmltools::tag("el-autocomplete", attrs),
     data = list(
       value = value,
-      suggestions = .el_autocomplete_suggestions(suggestions)
+      # a vector, records, or a v_bind() of Element's records { value }
+      suggestions = .vue_data_arg(
+        suggestions,
+        .el_autocomplete_suggestions,
+        "suggestions",
+        "records"
+      )
     ),
     methods = c(events$methods, list(fetchSuggestions = fetcher)),
     watch = list(
